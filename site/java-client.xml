@@ -66,7 +66,7 @@ limitations under the License.
     <p>
       The snippet below can be copied and pasted into your build
       if you're using Maven:
-      <pre class="sourcecode">
+      <pre class="sourcecode xml">
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
@@ -75,7 +75,7 @@ limitations under the License.
     </p>
     <p>
       Alternatively, if you're using Gradle:
-      <pre class="sourcecode">
+      <pre class="sourcecode groovy">
 dependencies {
   compile 'com.rabbitmq:amqp-client:&version-java-client;'
 }

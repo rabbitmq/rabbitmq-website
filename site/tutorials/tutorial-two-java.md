@@ -75,67 +75,71 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `NewTask.java`:
 
-    :::java
-    String message = getMessage(argv);
+<pre class="sourcecode java">
+String message = getMessage(argv);
 
-    channel.basicPublish("", "hello", null, message.getBytes());
-    System.out.println(" [x] Sent '" + message + "'");
-
+channel.basicPublish("", "hello", null, message.getBytes());
+System.out.println(" [x] Sent '" + message + "'");
+</pre>
 
 Some help to get the message from the command line argument:
 
-    :::java
-    private static String getMessage(String[] strings){
-        if (strings.length < 1)
-            return "Hello World!";
-        return joinStrings(strings, " ");
-    }  
+<pre class="sourcecode java">
+private static String getMessage(String[] strings){
+    if (strings.length &lt; 1)
+        return "Hello World!";
+    return joinStrings(strings, " ");
+}  
 
-    private static String joinStrings(String[] strings, String delimiter) {
-        int length = strings.length;
-        if (length == 0) return "";
-        StringBuilder words = new StringBuilder(strings[0]);
-        for (int i = 1; i < length; i++) {
-            words.append(delimiter).append(strings[i]);
-        }
-        return words.toString();
+private static String joinStrings(String[] strings, String delimiter) {
+    int length = strings.length;
+    if (length == 0) return "";
+    StringBuilder words = new StringBuilder(strings[0]);
+    for (int i = 1; i &lt; length; i++) {
+        words.append(delimiter).append(strings[i]);
     }
+    return words.toString();
+}
+</pre>
 
 Our old _Recv.java_ program also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will handle
 delivered messages and perform the task, so let's call it `Worker.java`:
 
-    :::java
-    final Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
+<pre class="sourcecode java">
+final Consumer consumer = new DefaultConsumer(channel) {
+  @Override
+  public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+    String message = new String(body, "UTF-8");
 
-        System.out.println(" [x] Received '" + message + "'");
-        try {
-          doWork(message);
-        } finally {
-          System.out.println(" [x] Done");
-        }
-      }
-    };
-    boolean autoAck = true; // acknowledgment is covered below
-    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+    System.out.println(" [x] Received '" + message + "'");
+    try {
+      doWork(message);
+    } finally {
+      System.out.println(" [x] Done");
+    }
+  }
+};
+boolean autoAck = true; // acknowledgment is covered below
+channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+</pre>
 
 Our fake task to simulate execution time:
 
-    :::java
-    private static void doWork(String task) throws InterruptedException {
-        for (char ch: task.toCharArray()) {
-            if (ch == '.') Thread.sleep(1000);
-        }
-    }    
+<pre class="sourcecode java">
+private static void doWork(String task) throws InterruptedException {
+    for (char ch: task.toCharArray()) {
+        if (ch == '.') Thread.sleep(1000);
+    }
+}    
+</pre>
 
 Compile them as in tutorial one (with the jar files in the working directory
 and the environment variable `CP`):
 
-    :::bash
-    $ javac -cp $CP NewTask.java Worker.java
+<pre class="sourcecode bash">
+javac -cp $CP NewTask.java Worker.java
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -150,47 +154,51 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the worker
 program. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ java -cp $CP Worker
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+java -cp $CP Worker
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ java -cp $CP Worker
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+java -cp $CP Worker
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ java -cp $CP NewTask
-    First message.
-    shell3$ java -cp $CP NewTask
-    Second message..
-    shell3$ java -cp $CP NewTask
-    Third message...
-    shell3$ java -cp $CP NewTask
-    Fourth message....
-    shell3$ java -cp $CP NewTask
-    Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+java -cp $CP NewTask
+# => First message.
+java -cp $CP NewTask
+# => Second message..
+java -cp $CP NewTask
+# => Third message...
+java -cp $CP NewTask
+# => Fourth message....
+java -cp $CP NewTask
+# => Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ java -cp $CP Worker
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+java -cp $CP Worker
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ java -cp $CP Worker
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+java -cp $CP Worker
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -233,25 +241,26 @@ examples we explicitly turned them off via the `autoAck=true`
 flag. It's time to set this flag to `false` and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::java
-    channel.basicQos(1); // accept only one unack-ed message at a time (see below)
+<pre class="sourcecode java">
+channel.basicQos(1); // accept only one unack-ed message at a time (see below)
 
-    final Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
+final Consumer consumer = new DefaultConsumer(channel) {
+  @Override
+  public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+    String message = new String(body, "UTF-8");
 
-        System.out.println(" [x] Received '" + message + "'");
-        try {
-          doWork(message);
-        } finally {
-          System.out.println(" [x] Done");
-          channel.basicAck(envelope.getDeliveryTag(), false);
-        }
-      }
-    };
-    boolean autoAck = false;
-    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+    System.out.println(" [x] Received '" + message + "'");
+    try {
+      doWork(message);
+    } finally {
+      System.out.println(" [x] Done");
+      channel.basicAck(envelope.getDeliveryTag(), false);
+    }
+  }
+};
+boolean autoAck = false;
+channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -268,12 +277,14 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
-
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 Message durability
 ------------------
@@ -289,9 +300,10 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::java
-    boolean durable = true;
-    channel.queueDeclare("hello", durable, false, false, null);
+<pre class="sourcecode java">
+boolean durable = true;
+channel.queueDeclare("hello", durable, false, false, null);
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -300,9 +312,10 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::java
-    boolean durable = true;
-    channel.queueDeclare("task_queue", durable, false, false, null);
+<pre class="sourcecode java">
+boolean durable = true;
+channel.queueDeclare("task_queue", durable, false, false, null);
+</pre>
 
 This `queueDeclare` change needs to be applied to both the producer
 and consumer code.
@@ -312,12 +325,13 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by setting `MessageProperties` (which implements `BasicProperties`)
 to the value `PERSISTENT_TEXT_PLAIN`.
 
-    :::java
-    import com.rabbitmq.client.MessageProperties;
+<pre class="sourcecode java">
+import com.rabbitmq.client.MessageProperties;
 
-    channel.basicPublish("", "task_queue",
-                MessageProperties.PERSISTENT_TEXT_PLAIN,
-                message.getBytes());
+channel.basicPublish("", "task_queue",
+            MessageProperties.PERSISTENT_TEXT_PLAIN,
+            message.getBytes());
+</pre>
 
 > #### Note on message persistence
 >
@@ -377,9 +391,10 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::java
-    int prefetchCount = 1;
-    channel.basicQos(prefetchCount);
+<pre class="sourcecode java">
+int prefetchCount = 1;
+channel.basicQos(prefetchCount);
+</pre>
 
 > #### Note about queue size
 >
@@ -391,94 +406,95 @@ Putting it all together
 
 Final code of our `NewTask.java` class:
 
-    :::java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.MessageProperties;
+<pre class="sourcecode java">
+import java.io.IOException;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
 
-    public class NewTask {
+public class NewTask {
 
-      private static final String TASK_QUEUE_NAME = "task_queue";
+  private static final String TASK_QUEUE_NAME = "task_queue";
 
-      public static void main(String[] argv)
-                          throws java.io.IOException {
+  public static void main(String[] argv)
+                      throws java.io.IOException {
 
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
 
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+    channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
 
-        String message = getMessage(argv);
+    String message = getMessage(argv);
 
-        channel.basicPublish( "", TASK_QUEUE_NAME,
-                MessageProperties.PERSISTENT_TEXT_PLAIN,
-                message.getBytes());
-        System.out.println(" [x] Sent '" + message + "'");
+    channel.basicPublish( "", TASK_QUEUE_NAME,
+            MessageProperties.PERSISTENT_TEXT_PLAIN,
+            message.getBytes());
+    System.out.println(" [x] Sent '" + message + "'");
 
-        channel.close();
-        connection.close();
-      }      
-      //...
-    }
+    channel.close();
+    connection.close();
+  }      
+  //...
+}
+</pre>
 
 [(NewTask.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/NewTask.java)
 
 And our `Worker.java`:
 
-    :::java
-    import com.rabbitmq.client.*;
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
 
-    import java.io.IOException;
+import java.io.IOException;
 
-    public class Worker {
-      private static final String TASK_QUEUE_NAME = "task_queue";
+public class Worker {
+  private static final String TASK_QUEUE_NAME = "task_queue";
 
-      public static void main(String[] argv) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        final Connection connection = factory.newConnection();
-        final Channel channel = connection.createChannel();
+  public static void main(String[] argv) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    final Connection connection = factory.newConnection();
+    final Channel channel = connection.createChannel();
 
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
-        channel.basicQos(1);
+    channel.basicQos(1);
 
-        final Consumer consumer = new DefaultConsumer(channel) {
-          @Override
-          public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-            String message = new String(body, "UTF-8");
+    final Consumer consumer = new DefaultConsumer(channel) {
+      @Override
+      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+        String message = new String(body, "UTF-8");
 
-            System.out.println(" [x] Received '" + message + "'");
-            try {
-              doWork(message);
-            } finally {
-              System.out.println(" [x] Done");
-              channel.basicAck(envelope.getDeliveryTag(), false);
-            }
-          }
-        };
-        boolean autoAck = false;
-        channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+        System.out.println(" [x] Received '" + message + "'");
+        try {
+          doWork(message);
+        } finally {
+          System.out.println(" [x] Done");
+          channel.basicAck(envelope.getDeliveryTag(), false);
+        }
       }
+    };
+    boolean autoAck = false;
+    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+  }
 
-      private static void doWork(String task) {
-        for (char ch : task.toCharArray()) {
-          if (ch == '.') {
-            try {
-              Thread.sleep(1000);
-            } catch (InterruptedException _ignored) {
-              Thread.currentThread().interrupt();
-            }
-          }
+  private static void doWork(String task) {
+    for (char ch : task.toCharArray()) {
+      if (ch == '.') {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException _ignored) {
+          Thread.currentThread().interrupt();
         }
       }
     }
-
+  }
+}
+</pre>
 
 [(Worker.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Worker.java)
 

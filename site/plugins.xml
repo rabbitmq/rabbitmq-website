@@ -38,11 +38,11 @@ limitations under the License.
           the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
           tool:
         </p>
-        <pre class="example">rabbitmq-plugins enable <i>plugin-name</i></pre>
+        <pre class="sourcecode bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
         <p>And to disable plugins again, use:</p>
-        <pre class="example">rabbitmq-plugins disable <i>plugin-name</i></pre>
+        <pre class="sourcecode bash">rabbitmq-plugins disable <i>plugin-name</i></pre>
         <p>You can see a list of which plugins are enabled with:</p>
-        <pre class="example">rabbitmq-plugins list</pre>
+        <pre class="sourcecode bash">rabbitmq-plugins list</pre>
         <p>
           The <code>rabbitmq-plugins</code> comand will enable or
           disable plugins by updating the plugin configuration

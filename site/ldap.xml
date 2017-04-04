@@ -43,7 +43,7 @@ limitations under the License.
         enable it, use
         <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
-      <pre class="example">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
+      <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
       <p>
         You will then need to set the value of the <code>auth_backends</code>
         configuration item for the <code>rabbit</code> application to include
@@ -58,13 +58,13 @@ limitations under the License.
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database:
       </p>
-      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
+      <pre class="sourcecode erlang">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
       <p>
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
-      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
+      <pre class="sourcecode erlang">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
 
       <p>
         The example below will check LDAP first. If the user is found in LDAP then the
@@ -75,7 +75,7 @@ limitations under the License.
         attempt is made using only the internal database.
       </p>
 
-      <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
+      <pre class="sourcecode erlang">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                                                      rabbit_auth_backend_internal]}]}</pre>
     </doc:section>
 
@@ -155,8 +155,8 @@ limitations under the License.
           </p>
           <p>
             If you want to do the lookup before binding, you must
-            set <code>dn_lookup_bind</code> to a tuple <code>{UserDN,
-            Password}</code>. The LDAP plugin will then bind with
+            set <code>dn_lookup_bind</code> to a tuple
+            <code>{UserDN, Password}</code>. The LDAP plugin will then bind with
             these credentials first to do the lookup, then bind with
             the user's DN and password to do the login.
           </p>
@@ -322,8 +322,8 @@ limitations under the License.
       </p>
 
       <p>
-        The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>
+        The default values for these queries are
+        <code>{constant, true}</code>, <code>{constant, true}</code>
         and <code>[{administrator, {constant, false}}]</code>
         respectively, granting all users access to all objects in all
         vhosts, but not making them administrators.
@@ -394,7 +394,7 @@ limitations under the License.
           or denying access.
         </p>
         <p>Example:</p>
-        <pre class="example">{tag_queries, [{administrator, {constant, false}},
+        <pre class="sourcecode erlang">{tag_queries, [{administrator, {constant, false}},
                {management,    {constant, true}}]}</pre>
         <p>
           This grants all users the ability to use the management
@@ -410,7 +410,7 @@ limitations under the License.
           there exists an object with the resulting DN.
         </p>
         <p>Example:</p>
-        <pre class="example">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="sourcecode erlang">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to all virtual hosts which exist as
           organisational units
@@ -430,7 +430,7 @@ limitations under the License.
           attribute, or any named attribute.
         </p>
         <p>Example:</p>
-        <pre class="example">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="sourcecode erlang">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to virtual hosts when the user is listed
           as a <code>member</code> attribute of an appropriately named
@@ -469,7 +469,7 @@ limitations under the License.
           about.
         </p>
         <p>Example:</p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
             {group_lookup_base, "ou=groups,dc=example,dc=com"},
             {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}]</pre>
         <p>
@@ -503,7 +503,7 @@ limitations under the License.
         <p>
           Example:
         </p>
-<pre class="example">{resource_access_query,
+<pre class="sourcecode erlang">{resource_access_query,
  {for, [{resource, exchange, {for, [{permission, configure,
                                      {in_group, "cn=wheel,dc=example,dc=com"}
                                     },
@@ -535,7 +535,7 @@ limitations under the License.
           configuration file, as above.
         </p>
         <p>Example:</p>
-        <pre class="example">{resource_access_query,
+        <pre class="sourcecode erlang">{resource_access_query,
  {'or',
   [{'and',
     [{equals, "${name}", "test1"},
@@ -565,7 +565,7 @@ limitations under the License.
           an attribute value, etc.
         </p>
         <p>Example:</p>
-        <pre class="example">{resource_access_query,
+        <pre class="sourcecode erlang">{resource_access_query,
  {for, [{permission, configure, {equals, {attribute, "${user_dn}", "description"},
                                          {string, "can-declare-${resource}s"}
                                 }
@@ -593,7 +593,7 @@ limitations under the License.
           types below) in turn.
         </p>
         <p>Example:</p>
-        <pre class="example">{resource_access_query, {match, {string, "${name}"},
+        <pre class="sourcecode erlang">{resource_access_query, {match, {string, "${name}"},
                                 {string, "^${username}-"}}
 }</pre>
         <p>
@@ -609,8 +609,8 @@ limitations under the License.
           Just substitutes arguments into a string. As this returns a string
           rather than a boolean it should be used within a <code>match</code>
           or <code>equals</code> query. See above for example. As a shorthand
-          you can use a plain string instead of <code>{string,
-          Pattern}</code>.
+          you can use a plain string instead of
+          <code>{string, Pattern}</code>.
 
         </p>
       </doc:subsection>
@@ -637,7 +637,7 @@ limitations under the License.
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
-<pre class="example">[
+<pre class="sourcecode erlang">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,
    [ {servers,               ["my-ldap-server"]},

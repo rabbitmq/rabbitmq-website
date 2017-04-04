@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -38,8 +38,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::javascript
-    ch.bindQueue(q.queue, ex, '');
+<pre class="sourcecode javascript">
+ch.bindQueue(q.queue, ex, '');
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -48,8 +49,9 @@ exchange.
 Bindings can take an extra binding key parameter (the empty string in the code above).
 This is how we could create a binding with a key:
 
-    :::javascript
-    ch.bindQueue(queue_name, exchange_name, 'black');
+<pre class="sourcecode javascript">
+ch.bindQueue(queue_name, exchange_name, 'black');
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -179,18 +181,20 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::javascript
-    var ex = 'direct_logs';
+<pre class="sourcecode javascript">
+var ex = 'direct_logs';
 
-    ch.assertExchange(ex, 'direct', {durable: false});
+ch.assertExchange(ex, 'direct', {durable: false});
+</pre>
 
 And we're ready to send a message:
 
-    :::javascript
-    var ex = 'direct_logs';
+<pre class="sourcecode javascript">
+var ex = 'direct_logs';
 
-    ch.assertExchange(ex, 'direct', {durable: false});
-    ch.publish(ex, severity, new Buffer(msg));
+ch.assertExchange(ex, 'direct', {durable: false});
+ch.publish(ex, severity, new Buffer(msg));
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -203,10 +207,11 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
-    :::javascript
-    args.forEach(function(severity) {
-      ch.bindQueue(q.queue, ex, severity);
-    });
+<pre class="sourcecode javascript">
+args.forEach(function(severity) {
+  ch.bindQueue(q.queue, ex, severity);
+});
+</pre>
 
 Putting it all together
 -----------------------
@@ -255,79 +260,83 @@ Putting it all together
 
 The code for `emit_log_direct.js` script:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var ex = 'direct_logs';
-        var args = process.argv.slice(2);
-        var msg = args.slice(1).join(' ') || 'Hello World!';
-        var severity = (args.length > 0) ? args[0] : 'info';
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var ex = 'direct_logs';
+    var args = process.argv.slice(2);
+    var msg = args.slice(1).join(' ') || 'Hello World!';
+    var severity = (args.length > 0) ? args[0] : 'info';
 
-        ch.assertExchange(ex, 'direct', {durable: false});
-        ch.publish(ex, severity, new Buffer(msg));
-        console.log(" [x] Sent %s: '%s'", severity, msg);
-      });
+    ch.assertExchange(ex, 'direct', {durable: false});
+    ch.publish(ex, severity, new Buffer(msg));
+    console.log(" [x] Sent %s: '%s'", severity, msg);
+  });
 
-      setTimeout(function() { conn.close(); process.exit(0) }, 500);
-    });
+  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+});
+</pre>
 
 The code for `receive_logs_direct.js`:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    var args = process.argv.slice(2);
+var args = process.argv.slice(2);
 
-    if (args.length == 0) {
-      console.log("Usage: receive_logs_direct.js [info] [warning] [error]");
-      process.exit(1);
-    }
+if (args.length == 0) {
+  console.log("Usage: receive_logs_direct.js [info] [warning] [error]");
+  process.exit(1);
+}
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var ex = 'direct_logs';
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var ex = 'direct_logs';
 
-        ch.assertExchange(ex, 'direct', {durable: false});
+    ch.assertExchange(ex, 'direct', {durable: false});
 
-        ch.assertQueue('', {exclusive: true}, function(err, q) {
-          console.log(' [*] Waiting for logs. To exit press CTRL+C');
+    ch.assertQueue('', {exclusive: true}, function(err, q) {
+      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
-          args.forEach(function(severity) {
-            ch.bindQueue(q.queue, ex, severity);
-          });
-
-          ch.consume(q.queue, function(msg) {
-            console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-          }, {noAck: true});
-        });
+      args.forEach(function(severity) {
+        ch.bindQueue(q.queue, ex, severity);
       });
-    });
 
+      ch.consume(q.queue, function(msg) {
+        console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+      }, {noAck: true});
+    });
+  });
+});
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ ./receive_logs_direct.js warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+./receive_logs_direct.js warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ ./receive_logs_direct.js info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+./receive_logs_direct.js info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ ./emit_log_direct.js error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
+<pre class="sourcecode bash">
+./emit_log_direct.js error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 
 (Full source code for [(emit_log_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log_direct.js)
@@ -335,4 +344,3 @@ and [(receive_logs_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutor
 
 Move on to [tutorial 5](tutorial-five-javascript.html) to find out how to listen
 for messages based on a pattern.
-

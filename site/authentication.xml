@@ -88,8 +88,8 @@ limitations under the License.
           the <code>rabbit</code> application determines which of the
           installed mechanisms are offered to connecting clients. This
           variable should be a list of atoms corresponding to
-          mechanism names, for example <code>['PLAIN',
-          'AMQPLAIN']</code> by default. The server-side list is not
+          mechanism names, for example
+          <code>['PLAIN', 'AMQPLAIN']</code> by default. The server-side list is not
           considered to be in any particular order. See the
           <a href="configure.html#configuration-file">configuration file</a>
           documentation.

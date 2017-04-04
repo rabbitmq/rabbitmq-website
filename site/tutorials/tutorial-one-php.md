@@ -49,18 +49,20 @@ on behalf of the consumer.
 >
 > Add a composer.json file to your project:
 >
->     :::javascript
->     {
->         "require": {
->             "php-amqplib/php-amqplib": ">=2.6.1"
->         }
+> <pre class="sourcecode javascript">
+> {
+>     "require": {
+>         "php-amqplib/php-amqplib": ">=2.6.1"
 >     }
+> }
+> </pre>
 >
 >Provided you have [Composer](https://getcomposer.org/doc/00-intro.md) installed and functional,
 >you can run the following:
 >
->     :::bash
->     $ composer.phar install
+> <pre class="sourcecode bash">
+> composer.phar install
+> </pre>
 >
 >There's also a [Composer installer for Windows](https://github.com/composer/windows-setup).
 
@@ -73,24 +75,26 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.php` and our message receiver
-`receive.php`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message publisher (sender) `send.php` and our message receiver
+`receive.php`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
 In
 [`send.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php),
 we need to include the library and `use` the necessary classes:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+<pre class="sourcecode php">
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+</pre>
 
 then we can create a connection to the server:
 
-    :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+<pre class="sourcecode php">
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -104,13 +108,14 @@ things done resides.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::php
-    $channel->queue_declare('hello', false, false, false, false);
+<pre class="sourcecode php">
+$channel->queue_declare('hello', false, false, false, false);
 
-    $msg = new AMQPMessage('Hello World!');
-    $channel->basic_publish($msg, '', 'hello');
+$msg = new AMQPMessage('Hello World!');
+$channel->basic_publish($msg, '', 'hello');
 
-    echo " [x] Sent 'Hello World!'\n";
+echo " [x] Sent 'Hello World!'\n";
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -118,9 +123,10 @@ whatever you like there.
 
 Lastly, we close the channel and the connection;
 
-    :::php
-    $channel->close();
-    $connection->close();
+<pre class="sourcecode php">
+$channel->close();
+$connection->close();
+</pre>
 
 [Here's the whole send.php
 class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
@@ -130,7 +136,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -139,8 +145,8 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our publisher.  Our receiver is pushed messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -150,24 +156,26 @@ keep it running to listen for messages and print them out.
 The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)) has almost the same
 `include` and `use`s as `send`:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+<pre class="sourcecode php">
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+</pre>
 
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+<pre class="sourcecode php">
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('hello', false, false, false, false);
 
-    echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -175,17 +183,17 @@ queue. We will define a [PHP callable](http://www.php.net/manual/en/language.typ
 that will receive the messages sent by the server. Keep in mind
 that messages are sent asynchronously from the server to the clients.
 
-    :::php
+<pre class="sourcecode php">
+$callback = function($msg) {
+  echo " [x] Received ", $msg->body, "\n";
+};
 
-    $callback = function($msg) {
-      echo " [x] Received ", $msg->body, "\n";
-    };
+$channel->basic_consume('hello', '', false, true, false, false, $callback);
 
-    $channel->basic_consume('hello', '', false, true, false, false, $callback);
-
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+while(count($channel->callbacks)) {
+    $channel->wait();
+}
+</pre>
 
 Our code will block while our `$channel` has callbacks. Whenever we receive a
 message our `$callback` function will be passed the received message.
@@ -194,22 +202,35 @@ message our `$callback` function will be passed the received message.
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
+Now we can run both scripts. In a terminal, run the consumer (receiver):
 
-    :::bash
-    $ php send.php
+<pre class="sourcecode bash">
+php receive.php
+</pre>
 
-then, run the receiver:
+then, run the publisher (sender):
 
-    :::bash
-    $ php receive.php
+<pre class="sourcecode bash">
+php send.php
+</pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
 
-If you want to check on the queue, try using `rabbitmqctl list_queues`.
+The consumer will print the message it gets from the sender via
+RabbitMQ. The receiver will keep running, waiting for messages (Use
+Ctrl-C to stop it), so try running the sender from another terminal.
 
-Hello World!
+> #### Listing queues
+>
+> You may wish to see what queues RabbitMQ has and how many
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
+>
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues
+> </pre>
+>
+> On Windows, omit the sudo:
+> <pre class="sourcecode powershell">
+> rabbitmqctl.bat list_queues
+> </pre>
 
 Time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.

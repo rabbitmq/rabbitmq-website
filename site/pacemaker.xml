@@ -113,10 +113,10 @@ limitations under the License.
         libraries, even though the configure script passes. Under
         Debian Sid, we have had to install the following extra
         packages, though obviously your mileage will vary with
-        different distributions: <code>autoconf libtool pkg-config
+        different distributions:
+        <code>autoconf libtool pkg-config
         libglib2.0-dev libxml2 libxml2-dev uuid-dev uuid-runtime
-        libnss3-dev groff libxslt1.1 libxslt1-dev libesmtp5
-        libesmtp-dev libssl-dev ssmping xsltproc</code>. Be aware that
+        libnss3-dev groff libxslt1.1 libxslt1-dev libesmtp5 libesmtp-dev libssl-dev ssmping xsltproc</code>. Be aware that
         we have found that if the build does fail, merely installing
         the necessary libraries was not enough to make the build then
         pass - we have had to go back and re-run the autotools and
@@ -338,8 +338,8 @@ Online: [ ha-node-2 ha-node-1 ]
         <code>ha-node-1</code> and its slave as
         <code>ha-node-2</code>. The output of <code>mount</code>
         should show that <code>/media/drbd1</code> is mounted only on
-        <code>ha-node-1</code>, and a <code>ps ax | grep
-        [r]abbit</code> should show that RabbitMQ is running only on
+        <code>ha-node-1</code>, and a
+        <code>ps ax | grep [r]abbit</code> should show that RabbitMQ is running only on
         <code>ha-node-1</code>.</p>
 
         <p>If you stop <code>ha-node-1</code> (turn it off, or just
@@ -349,9 +349,9 @@ Online: [ ha-node-2 ha-node-1 ]
         that these survive the transition to the other node. It's a
         good idea to play with stopping and starting the nodes at this
         point to build confidence that it really is doing the right
-        thing. Status commands (<code>rabbitmqctl -n rabbit@localhost
-        status</code> and <code>rabbitmqctl -n rabbit@localhost
-        cluster_status</code>) will allow you to see the status of
+        thing. Status commands (
+        <code>rabbitmqctl -n rabbit@localhost status</code> and
+        <code>rabbitmqctl -n rabbit@localhost cluster_status</code>) will allow you to see the status of
         RabbitMQ server from whichever node it is currently running
         on.</p>
 
@@ -372,8 +372,8 @@ Online: [ ha-node-2 ha-node-1 ]
         upgrading its source. Unless the upgrade is changing the
         database schema or the format of the persisted data, you
         should be able to upgrade RabbitMQ on the passive node, then
-        migrate RabbitMQ to the passive node (<code>crm resource
-        migrate bunny</code>) and upgrade what was the active
+        migrate RabbitMQ to the passive node (
+        <code>crm resource migrate bunny</code>) and upgrade what was the active
         node.</p>
       </doc:section>
 
@@ -563,7 +563,7 @@ ha-node-3:~#
           <code>/usr/lib/ocf/resource.d/rabbitmq/set_rabbitmq_policy.sh.example</code>
           to enforce required modes to queues runtime.
         </p>
-        <p class="warning">                                                                                                                                                               
+        <p class="warning">
           A disposable cluster does not guarantee data persistence for some failure modes!
           It may end up wiping the mnesia database, which is all data, of all of the
           cluster nodes. Make sure to make
@@ -646,7 +646,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
       </doc:section>
       <doc:section name="params">
   <doc:heading>Pacemaker resource agent actions flow charts</doc:heading>
-        
+
         <p>
           The OCF resource agent clustering logic is based on a Pacemaker actions.
           These are monitor, start, stop, promote, demote and corresponding
@@ -743,14 +743,14 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           <code>ocf:rabbitmq:rabbitmq-server-ha</code> script. Note, that the parameters
           can be as well listed with either the <code>pcs</code> tool:
         </p>
-        <pre class="sourcecode">
+        <pre class="sourcecode bash">
 $ <i>pcs resource describe ocf:rabbitmq:rabbitmq-server-ha</i>
         </pre>
         <p>
           or by the direct execution of the resource agent:
         </p>
         <pre class="sourcecode">
-$i <i>OCF_ROOT=/usr/lib/ocf /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha meta-data</i> 
+$i <i>OCF_ROOT=/usr/lib/ocf /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha meta-data</i>
         </pre>
         <p>We only briefly describe some of them here. A few, that help to
           configure persistence and backup/restore existing definitions, was

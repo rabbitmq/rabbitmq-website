@@ -84,7 +84,7 @@ limitations under the License.
           RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
           at the top together with other broker boot log entries, for example:
 
-           <pre class="example">
+           <pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
@@ -92,7 +92,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
           In case log file cannot be found or read by RabbitMQ, log entry
           will say so:
 
-           <pre class="example">
+           <pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
@@ -121,7 +121,7 @@ config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
             <p>
               Use the standard environment variable names
               (but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">
+              <pre class="sourcecode bash">
 #example rabbitmq-env.conf file entries
 #Rename the node
 NODENAME=bunny@myhost
@@ -429,7 +429,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           An minimalistic example configuration file follows:
         </p>
         <p>
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
   [
     {rabbit, [{tcp_listeners, [5673]}]}
   ].
@@ -531,8 +531,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               List of ports on which to listen for AMQP connections
               (without SSL). Can contain integers (meaning "listen on
-              all interfaces") or tuples such as <code>{"127.0.0.1",
-              5672}</code> to listen on one or more interfaces.
+              all interfaces") or tuples such as
+              <code>{"127.0.0.1", 5672}</code> to listen on one or more interfaces.
 
               <p>Default: <code>[5672]</code></p>
             </td>
@@ -743,9 +743,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               <a href="access-control.html">Permissions</a>
               to assign to the default user when creating it.
-              <p>Default: <code>
-                  [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;]
-              </code></p>
+              <p>Default:
+              <code>
+                  [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;] </code></p>
             </td>
           </tr>
           <tr>
@@ -832,16 +832,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 List of <a href="/access-control.html">authentication / authorisation backends</a> to
                 use. This list can contain names of modules (in which
                 case the same module is used for both authentication
-                and authorisation), or 2-tuples like <code>{ModN,
-                ModZ}</code> in which case <code>ModN</code> is used
+                and authorisation), or 2-tuples like
+                <code>{ModN, ModZ}</code> in which case <code>ModN</code> is used
                 for authentication and <code>ModZ</code> is used for
                 authorisation.
               </p>
               <p>
                 In the 2-tuple case, ModZ can be replaced by a list,
                 <b>all</b> the elements of which must confirm each
-                authorisation query, e.g. <code>{ModN, [ModZ1,
-                ModZ2]}</code>. This allows authorisation plugins to
+                authorisation query, e.g.
+                <code>{ModN, [ModZ1, ModZ2]}</code>. This allows authorisation plugins to
                 mix-in and provide additional security constraints.
               </p>
               <p>
@@ -888,10 +888,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               change this.
 
               <p>Default:
-                <pre>[{backlog,       128},
-         {nodelay,       true},
-         {linger,        {true,0}},
-         {exit_on_close, false}]</pre>
+                <pre class="sourcecode erlang">
+[{backlog,       128},
+ {nodelay,       true},
+ {linger,        {true,0}},
+ {exit_on_close, false}]
+                </pre>
               </p>
             </td>
           </tr>
@@ -1084,7 +1086,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             tuple: <code>{encrypted, ...}</code>.
             Here is an example of a configuration file with an encrypted password
             for the default user:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       {default_user, &lt;&lt;"guest"&gt;&gt;},
@@ -1105,7 +1107,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             The passphrase doesn't have to be hardcoded in the configuration file,
             it can be in a separate file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1121,17 +1123,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             Use <code>rabbitmqctl</code> and the <code>encode</code>
             command to encrypt values:
-            <pre class="example">
-$ rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
-$ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
+rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
             </pre>
             Add the <code>--decode</code> option if you want to decrypt values:
-            <pre class="example">
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
             </pre>
           </p>
@@ -1148,7 +1150,7 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
           </p>
           <p>
             You can change these defaults in the configuration file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1161,8 +1163,8 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
     ]}
 ].          </pre>
             On the command line:
-            <pre class="example">
-$ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+            <pre class="sourcecode bash">
+rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
             </pre>
 

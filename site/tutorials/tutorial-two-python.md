@@ -75,30 +75,31 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.py`:
 
-    :::python
-    import sys
+<pre class="sourcecode python">
+import sys
 
-    message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='',
-                          routing_key='task_queue',
-                          body=message,
-                          properties=pika.BasicProperties(
-                             delivery_mode = 2, # make message persistent
-                          ))
-    print(" [x] Sent %r" % message)
+message = ' '.join(sys.argv[1:]) or "Hello World!"
+channel.basic_publish(exchange='',
+                      routing_key='task_queue',
+                      body=message,
+                      properties=pika.BasicProperties(
+                         delivery_mode = 2, # make message persistent
+                      ))
+print(" [x] Sent %r" % message)
+</pre>
 
 Our old _receive.py_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.py`:
 
-    :::python
-    import time
+<pre class="sourcecode python">
+import time
 
-    def callback(ch, method, properties, body):
-        print(" [x] Received %r" % body)
-        time.sleep(body.count(b'.'))
-        print(" [x] Done")
-
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+    time.sleep(body.count(b'.'))
+    print(" [x] Done")
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -113,42 +114,52 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.py`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ python worker.py
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 <div></div>
 
-    :::bash
-    shell2$ python worker.py
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ python new_task.py First message.
-    shell3$ python new_task.py Second message..
-    shell3$ python new_task.py Third message...
-    shell3$ python new_task.py Fourth message....
-    shell3$ python new_task.py Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+python new_task.py First message.
+python new_task.py Second message..
+python new_task.py Third message...
+python new_task.py Fourth message....
+python new_task.py Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ python worker.py
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+# shell 1
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
 <div></div>
 
-    :::bash
-    shell2$ python worker.py
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+# shell 2
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -191,15 +202,16 @@ examples we explicitly turned them off via the `no_ack=True`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::python
-    def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
-        time.sleep( body.count('.') )
-        print " [x] Done"
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+<pre class="sourcecode python">
+def callback(ch, method, properties, body):
+    print " [x] Received %r" % (body,)
+    time.sleep( body.count('.') )
+    print " [x] Done"
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
-    channel.basic_consume(callback,
-                          queue='hello')
+channel.basic_consume(callback,
+                      queue='hello')
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -216,11 +228,15 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
+
 
 
 Message durability
@@ -238,8 +254,9 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::python
-    channel.queue_declare(queue='hello', durable=True)
+<pre class="sourcecode python">
+channel.queue_declare(queue='hello', durable=True)
+</pre>
 
 Although this command is correct by itself, it won't work in our
 setup. That's because we've already defined a queue called `hello`
@@ -248,8 +265,9 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::python
-    channel.queue_declare(queue='task_queue', durable=True)
+<pre class="sourcecode python">
+channel.queue_declare(queue='task_queue', durable=True)
+</pre>
 
 This `queue_declare` change needs to be applied to both the producer
 and consumer code.
@@ -258,13 +276,14 @@ At that point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `delivery_mode` property with a value `2`.
 
-    :::python
-    channel.basic_publish(exchange='',
-                          routing_key="task_queue",
-                          body=message,
-                          properties=pika.BasicProperties(
-                             delivery_mode = 2, # make message persistent
-                          ))
+<pre class="sourcecode python">
+channel.basic_publish(exchange='',
+                      routing_key="task_queue",
+                      body=message,
+                      properties=pika.BasicProperties(
+                         delivery_mode = 2, # make message persistent
+                      ))
+</pre>
 
 > #### Note on message persistence
 >
@@ -324,65 +343,68 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::python
-    channel.basic_qos(prefetch_count=1)
+<pre class="sourcecode python">
+channel.basic_qos(prefetch_count=1)
+</pre>
 
 > #### Note about queue size
 >
 > If all the workers are busy, your queue can fill up. You will want to keep an
-> eye on that, and maybe add more workers, or have some other strategy.
+> eye on that, and maybe add more workers, or use [message TTL](/ttl.html).
 
 Putting it all together
 -----------------------
 
 Final code of our `new_task.py` script:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import sys
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
 
-    channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='task_queue', durable=True)
 
-    message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='',
-                          routing_key='task_queue',
-                          body=message,
-                          properties=pika.BasicProperties(
-                             delivery_mode = 2, # make message persistent
-                          ))
-    print(" [x] Sent %r" % message)
-    connection.close()
+message = ' '.join(sys.argv[1:]) or "Hello World!"
+channel.basic_publish(exchange='',
+                      routing_key='task_queue',
+                      body=message,
+                      properties=pika.BasicProperties(
+                         delivery_mode = 2, # make message persistent
+                      ))
+print(" [x] Sent %r" % message)
+connection.close()
+</pre>
 
 [(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
 
 And our worker:
 
-    #!/usr/bin/env python
-    import pika
-    import time
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import time
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
 
-    channel.queue_declare(queue='task_queue', durable=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.queue_declare(queue='task_queue', durable=True)
+print(' [*] Waiting for messages. To exit press CTRL+C')
 
-    def callback(ch, method, properties, body):
-        print(" [x] Received %r" % body)
-        time.sleep(body.count(b'.'))
-        print(" [x] Done")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+    time.sleep(body.count(b'.'))
+    print(" [x] Done")
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
-    channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(callback,
-                          queue='task_queue')
+channel.basic_qos(prefetch_count=1)
+channel.basic_consume(callback,
+                      queue='task_queue')
 
-    channel.start_consuming()
+channel.start_consuming()
+</pre>
 
 [(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 

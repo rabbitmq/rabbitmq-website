@@ -89,3 +89,24 @@ registerOnLoadHandler(function() {
         decorate_links();
     }catch(err){};
 });
+
+
+function onDOMReady(callback) {
+    if(document.readyState === "interactive" || document.readyState === "complete") {
+        callback();
+    }
+    else {
+        document.addEventListener("DOMContentLoaded", callback);
+    };
+};
+
+
+/* Mobile menu */
+function showHide() {
+    var mobileMenu = document.getElementById('mainNav');
+    if (mobileMenu.style.display === 'block') {
+        mobileMenu.style.display = 'none';
+    } else {
+        mobileMenu.style.display = 'block';
+    }
+};

@@ -47,9 +47,9 @@ on behalf of the consumer.
 >
 > First, install amqp.node using [npm](https://www.npmjs.com):
 >
->     :::bash
->     $ npm install amqplib
->
+> <pre class="sourcecode bash">
+> npm install amqplib
+> </pre>
 
 Now we have amqp.node installed, we can write some
 code.
@@ -60,46 +60,50 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.js` and our message receiver
-`receive.js`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message publisher (sender) `send.js` and our message consumer (receiver)
+`receive.js`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
 In
 [`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js),
 we need to require the library first:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
+</pre>
 
 then connect to RabbitMQ server
 
-    :::javascript
-    amqp.connect('amqp://localhost', function(err, conn) {});
+<pre class="sourcecode javascript">
+amqp.connect('amqp://localhost', function(err, conn) {});
+</pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    :::javascript
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {});
-    });
+<pre class="sourcecode javascript">
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {});
+});
+</pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::javascript
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var q = 'hello';
+<pre class="sourcecode javascript">
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'hello';
 
-        ch.assertQueue(q, {durable: false});
-        // Note: on Node 6 Buffer.from(msg) should be used
-        ch.sendToQueue(q, new Buffer('Hello World!'));
-        console.log(" [x] Sent 'Hello World!'");
-      });
-    });
+    ch.assertQueue(q, {durable: false});
+    // Note: on Node 6 Buffer.from(msg) should be used
+    ch.sendToQueue(q, new Buffer('Hello World!'));
+    console.log(" [x] Sent 'Hello World!'");
+  });
+});
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -107,8 +111,9 @@ whatever you like there.
 
 Lastly, we close the connection and exit;
 
-    :::javascript
-    setTimeout(function() { conn.close(); process.exit(0) }, 500);
+<pre class="sourcecode javascript">
+setTimeout(function() { conn.close(); process.exit(0) }, 500);
+</pre>
 
 [Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js).
 
@@ -117,7 +122,7 @@ Lastly, we close the connection and exit;
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -126,8 +131,8 @@ Lastly, we close the connection and exit;
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our publisher.  Our consumer is pushed messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -136,28 +141,28 @@ keep it running to listen for messages and print them out.
 
 The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js)) has the same require as `send`:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
+</pre>
 
-
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `sendToQueue` publishes to.
 
-    :::javascript
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var q = 'hello';
-    
-        ch.assertQueue(q, {durable: false});
-      });
-    });
+<pre class="sourcecode javascript">
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'hello';
 
+    ch.assertQueue(q, {durable: false});
+  });
+});
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -165,33 +170,46 @@ queue. Since it will push us messages asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `Channel.consume` does.
 
-    :::javascript
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
-    ch.consume(q, function(msg) {
-      console.log(" [x] Received %s", msg.content.toString());
-    }, {noAck: true});
+<pre class="sourcecode javascript">
+console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
+ch.consume(q, function(msg) {
+  console.log(" [x] Received %s", msg.content.toString());
+}, {noAck: true});
+</pre>
 
 [Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js).
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, from the rabbitmq-tutorials/javascript-nodejs/src/ folder, run the sender:
+Now we can run both scripts. In a terminal, from the rabbitmq-tutorials/javascript-nodejs/src/ folder, run the publisher:
 
-    :::bash
-    $ ./send.js
+<pre class="sourcecode bash">
+./send.js
+</pre>
 
-then, run the receiver:
+then, run the consumer:
 
-    :::bash
-    $ ./receive.js
+<pre class="sourcecode bash">
+./receive.js
+</pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+The consumer will print the message it gets from the publisher via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the publisher from another terminal.
 
-If you want to check on the queue, try using `rabbitmqctl list_queues`.
-
-Hello World!
+> #### Listing queues
+>
+> You may wish to see what queues RabbitMQ has and how many
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
+>
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues
+> </pre>
+>
+> On Windows, omit the sudo:
+> <pre class="sourcecode powershell">
+> rabbitmqctl.bat list_queues
+> </pre>
 
 Time to move on to [part 2](tutorial-two-javascript.html) and build a simple _work queue_.
 

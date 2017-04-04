@@ -66,20 +66,26 @@ and start adding code.
 
 First, we import the client framework as a module:
 
-    @import RMQClient;
+<pre class="sourcecode objectivec">
+@import RMQClient;
+</pre>
 
 Now we call some send and receive methods from `viewDidLoad`:
 
-    - (void)viewDidLoad {
-        [super viewDidLoad];
-        [self send];
-        [self receive];
+<pre class="sourcecode objectivec">
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self send];
+    [self receive];
+</pre>
 
 The send method begins with a connection to the RabbitMQ broker:
 
-    - (void)send {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)send {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -90,26 +96,34 @@ If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address using the `initWithUri:delegate:`
 convenience initializer:
 
-    RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://myrabbitserver.com:1234"
-                                                    delegate:[RMQConnectionDelegateLogger new]];
+<pre class="sourcecode objectivec">
+RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://myrabbitserver.com:1234"
+                                                delegate:[RMQConnectionDelegateLogger new]];
+</pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    id<RMQChannel> ch = [conn createChannel];
+<pre class="sourcecode objectivec">
+id&lt;RMQChannel&gt; ch = [conn createChannel];
+</pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    RMQQueue *q = [ch queue:@"hello"];
-    [ch.defaultExchange publish:[@"Hello World!" dataUsingEncoding:NSUTF8StringEncoding] routingKey:q.name];
+<pre class="sourcecode objectivec">
+RMQQueue *q = [ch queue:@"hello"];
+[ch.defaultExchange publish:[@"Hello World!" dataUsingEncoding:NSUTF8StringEncoding] routingKey:q.name];
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already.
 
 Lastly, we close the connection:
 
-    [conn close];
+<pre class="sourcecode objectivec">
+[conn close];
+</pre>
 
 [Here's the whole controller (including receive)][controller].
 
@@ -118,7 +132,7 @@ Lastly, we close the connection:
 > If this is your first time using RabbitMQ and you get errors logged at this
 > point then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -139,14 +153,16 @@ Setting up is the same as `send`; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    - (void)receive {
-        NSLog(@"Attempting to connect to local RabbitMQ broker");
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)receive {
+    NSLog(@"Attempting to connect to local RabbitMQ broker");
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
 
-        RMQQueue *q = [ch queue:@"hello"];
+    RMQQueue *q = [ch queue:@"hello"];
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -157,10 +173,12 @@ queue. Since it will push messages to us asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `RMQQueue subscribe:` does.
 
-    NSLog(@"Waiting for messages.");
-    [q subscribe:^(RMQMessage * _Nonnull message) {
-        NSLog(@"Received %@", [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
-    }];
+<pre class="sourcecode objectivec">
+NSLog(@"Waiting for messages.");
+[q subscribe:^(RMQMessage * _Nonnull message) {
+    NSLog(@"Received %@", [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
+}];
+</pre>
 
 [Here's the whole controller again (including send)][controller].
 

@@ -140,59 +140,73 @@ The code is almost the same as in the
 
 The code for `emitLogTopic`:
 
-    - (void)emitLogTopic:(NSString *)msg routingKey:(NSString *)routingKey {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)emitLogTopic:(NSString *)msg routingKey:(NSString *)routingKey {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
-        RMQExchange *x    = [ch topic:@"topic_logs"];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    RMQExchange *x    = [ch topic:@"topic_logs"];
 
-        [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:routingKey];
-        NSLog(@"Sent '%@'", msg);
+    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:routingKey];
+    NSLog(@"Sent '%@'", msg);
 
-        [conn close];
-    }
+    [conn close];
+}
+</pre>
 
 The code for `receiveLogsTopic`:
 
-    - (void)receiveLogsTopic:(NSArray *)routingKeys {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)receiveLogsTopic:(NSArray *)routingKeys {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
-        RMQExchange *x    = [ch topic:@"topic_logs"];
-        RMQQueue *q       = [ch queue:@"" options:RMQQueueDeclareExclusive];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    RMQExchange *x    = [ch topic:@"topic_logs"];
+    RMQQueue *q       = [ch queue:@"" options:RMQQueueDeclareExclusive];
 
-        for (NSString *routingKey in routingKeys) {
-            [q bind:x routingKey:routingKey];
-        }
-
-        NSLog(@"Waiting for logs.");
-
-        [q subscribe:^(RMQMessage * _Nonnull message) {
-            NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
-        }];
+    for (NSString *routingKey in routingKeys) {
+        [q bind:x routingKey:routingKey];
     }
+
+    NSLog(@"Waiting for logs.");
+
+    [q subscribe:^(RMQMessage * _Nonnull message) {
+        NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
+    }];
+}
+</pre>
 
 To receive all the logs:
 
-    [self receiveLogsTopic:@[@"#"]];
+<pre class="sourcecode objectivec">
+[self receiveLogsTopic:@[@"#"]];
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    [self receiveLogsTopic:@[@"kern.*"]];
+<pre class="sourcecode objectivec">
+[self receiveLogsTopic:@[@"kern.*"]];
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    [self receiveLogsTopic:@[@"*.critical"]];
+<pre class="sourcecode objectivec">
+[self receiveLogsTopic:@[@"*.critical"]];
+</pre>
 
 You can create multiple bindings:
 
-    [self receiveLogsTopic:@[@"kern.*", @"*.critical"]];
+<pre class="sourcecode objectivec">
+[self receiveLogsTopic:@[@"kern.*", @"*.critical"]];
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    [self emitLogTopic:@"A critical kernel error" routingKey:@"kern.critical"];
+<pre class="sourcecode objectivec">
+[self emitLogTopic:@"A critical kernel error" routingKey:@"kern.critical"];
+</pre>
 
 Have fun playing with these methods. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play

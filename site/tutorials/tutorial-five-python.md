@@ -156,88 +156,93 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import sys
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
 
-    channel.exchange_declare(exchange='topic_logs',
-                             type='topic')
+channel.exchange_declare(exchange='topic_logs',
+                         type='topic')
 
-    routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
-    message = ' '.join(sys.argv[2:]) or 'Hello World!'
-    channel.basic_publish(exchange='topic_logs',
-                          routing_key=routing_key,
-                          body=message)
-    print(" [x] Sent %r:%r" % (routing_key, message))
-    connection.close()
+routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
+message = ' '.join(sys.argv[2:]) or 'Hello World!'
+channel.basic_publish(exchange='topic_logs',
+                      routing_key=routing_key,
+                      body=message)
+print(" [x] Sent %r:%r" % (routing_key, message))
+connection.close()
+</pre>
 
 The code for `receive_logs_topic.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import sys
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
 
-    channel.exchange_declare(exchange='topic_logs',
-                             type='topic')
+channel.exchange_declare(exchange='topic_logs',
+                         type='topic')
 
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.method.queue
+result = channel.queue_declare(exclusive=True)
+queue_name = result.method.queue
 
-    binding_keys = sys.argv[1:]
-    if not binding_keys:
-        sys.stderr.write("Usage: %s [binding_key]...\n" % sys.argv[0])
-        sys.exit(1)
+binding_keys = sys.argv[1:]
+if not binding_keys:
+    sys.stderr.write("Usage: %s [binding_key]...\n" % sys.argv[0])
+    sys.exit(1)
 
-    for binding_key in binding_keys:
-        channel.queue_bind(exchange='topic_logs',
-                           queue=queue_name,
-                           routing_key=binding_key)
+for binding_key in binding_keys:
+    channel.queue_bind(exchange='topic_logs',
+                       queue=queue_name,
+                       routing_key=binding_key)
 
-    print(' [*] Waiting for logs. To exit press CTRL+C')
+print(' [*] Waiting for logs. To exit press CTRL+C')
 
-    def callback(ch, method, properties, body):
-        print(" [x] %r:%r" % (method.routing_key, body))
+def callback(ch, method, properties, body):
+    print(" [x] %r:%r" % (method.routing_key, body))
 
-    channel.basic_consume(callback,
-                          queue=queue_name,
-                          no_ack=True)
+channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
 
-    channel.start_consuming()
+channel.start_consuming()
+</pre>
 
 To receive all the logs run:
 
-    :::bash
-    python receive_logs_topic.py "#"
+<pre class="sourcecode bash">
+python receive_logs_topic.py "#"
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    :::bash
-    python receive_logs_topic.py "kern.*"
+<pre class="sourcecode bash">
+python receive_logs_topic.py "kern.*"
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    :::bash
-    python receive_logs_topic.py "*.critical"
+<pre class="sourcecode bash">
+python receive_logs_topic.py "*.critical"
+</pre>
 
 You can create multiple bindings:
 
-    :::bash
-    python receive_logs_topic.py "kern.*" "*.critical"
-
+<pre class="sourcecode bash">
+python receive_logs_topic.py "kern.*" "*.critical"
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    :::bash
-    python emit_log_topic.py "kern.critical" "A critical kernel error"
-
+<pre class="sourcecode bash">
+python emit_log_topic.py "kern.critical" "A critical kernel error"
+</pre>
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play

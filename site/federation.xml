@@ -124,13 +124,13 @@ limitations under the License.
         enable it, use
         <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
-      <pre class="example">rabbitmq-plugins enable rabbitmq_federation</pre>
+      <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
         When using the management plugin, you will also want to
         enable <code>rabbitmq_federation_management</code>:
       </p>
-      <pre class="example">rabbitmq-plugins enable rabbitmq_federation_management</pre>
+      <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_federation_management</pre>
 
       <p>
         When using a federation in a cluster, all the nodes of the
@@ -220,8 +220,8 @@ limitations under the License.
         <tr>
           <th>Web UI</th>
           <td>
-            Navigate to <code>Admin</code> > <code>Federation Upstreams</code> > <code>Add a new
-            upstream</code>. Enter "my-upstream" next to Name,
+            Navigate to <code>Admin</code> > <code>Federation Upstreams</code> >
+            <code>Add a new upstream</code>. Enter "my-upstream" next to Name,
             "amqp://server-name" next to URI, and 36000000 next to
             Expiry. Click Add upstream.
           </td>
@@ -279,11 +279,11 @@ limitations under the License.
           check that the policy has applied to the exchanges by
           checking the exchanges list in management or with:
         </p>
-        <pre class="code">rabbitmqctl list_exchanges name policy | grep federate-me</pre>
+        <pre class="sourcecode bash">rabbitmqctl list_exchanges name policy | grep federate-me</pre>
         <p>
           And you can check that federation links for each exchange have come up with Admin > Federation Status > Running Links or with:
         </p>
-        <pre class="code">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
+        <pre class="sourcecode bash">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
         <p>
           In general there will be one federation link for each
           upstream that is applied to an exchange. So for example with

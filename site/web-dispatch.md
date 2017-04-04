@@ -42,18 +42,20 @@ The `listener` configuration item can contain the following keys:
 Use `ip` to specify an interface for Cowboy to bind to (giving an IP
 address as a string or tuple). For example:
 
-    [{rabbitmq_management,
-      [{listener, [{port, 15672},
-                   {ip, "127.0.0.1"}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port, 15672},
+               {ip, "127.0.0.1"}
+              ]}
+  ]}
+].
+</pre>
 
-## SSL
+## TLS
 
 Set `ssl` to `true` to turn on SSL for a listener. Use `ssl_opts` to
-specify SSL options. These are the standard Erlang SSL options - [see
-the main page on SSL for more information](ssl.html).
+specify SSL options. These are the standard TLS listener options, [see
+the TLS guide for more information](/ssl.html).
 
 For convenience, if you do not specify `ssl_opts` then
 rabbitmq-web-dispatch will use the same options as the main RabbitMQ
@@ -63,15 +65,17 @@ verification, specify `ssl_opts` explicitly.
 
 For example:
 
-    [{rabbitmq_management,
-      [{listener, [{port,     15672},
-                   {ssl,      true},
-                   {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
-                               {certfile,   "/path/to/cert.pem"},
-                               {keyfile,    "/path/to/key.pem"}]}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,     15672},
+               {ssl,      true},
+               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                           {certfile,   "/path/to/cert.pem"},
+                           {keyfile,    "/path/to/key.pem"}]}
+              ]}
+  ]}
+].
+</pre>
 
 ## Compressed responses
 
@@ -81,9 +85,11 @@ can specify those in the listener options under `cowboy_opts`.
 
 To compress responses, set the proper `cowboy_opts` option:
 
-    [{rabbitmq_management,
-      [{listener, [{port,        15672},
-                   {cowboy_opts, [{compress, true}]}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,        15672},
+               {cowboy_opts, [{compress, true}]}
+              ]}
+  ]}
+].
+</pre>

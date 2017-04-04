@@ -96,7 +96,7 @@ limitations under the License.
           <code>[]</code>. A complete <code>rabbitmq.config</code>
           which does this would look like:
         </p>
-        <pre class="sourcecode">
+        <pre class="sourcecode erlang">
 [{rabbit, [{loopback_users, []}]}].</pre>
       </doc:section>
 
@@ -274,7 +274,7 @@ limitations under the License.
             only (and is the default):
           </p>
             
-<pre class="example">
+<pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_internal]}
           ]
@@ -286,7 +286,7 @@ limitations under the License.
             for both authentication and authorisation. Internal database will not be consulted:
           </p>
             
-<pre class="example">
+<pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap]}
           ]
@@ -297,7 +297,7 @@ limitations under the License.
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
-      <pre class="example">
+      <pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
           ]
@@ -309,7 +309,7 @@ limitations under the License.
         href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP backend</a>
         instead:
       </p>
-      <pre class="example">
+      <pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
           ]
@@ -329,7 +329,7 @@ limitations under the License.
             IP range backend</a> for authorisation:
           </p>
             
-<pre class="example">
+<pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
           ]
@@ -341,7 +341,7 @@ limitations under the License.
         The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
         for authentication and but internal backend for authorisation:
       </p>
-<pre class="example">
+<pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
           ]}].
@@ -357,7 +357,7 @@ limitations under the License.
         a second attempt is made using only the internal database:
       </p>
 
-<pre class="example">
+<pre class="sourcecode erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                              rabbit_auth_backend_internal]

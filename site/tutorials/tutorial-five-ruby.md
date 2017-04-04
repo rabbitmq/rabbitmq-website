@@ -156,88 +156,91 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.rb`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch       = conn.create_channel
-    x        = ch.topic("topic_logs")
-    severity = ARGV.shift || "anonymous.info"
-    msg      = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+ch       = conn.create_channel
+x        = ch.topic("topic_logs")
+severity = ARGV.shift || "anonymous.info"
+msg      = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
 
-    x.publish(msg, :routing_key => severity)
-    puts " [x] Sent #{severity}:#{msg}"
+x.publish(msg, :routing_key => severity)
+puts " [x] Sent #{severity}:#{msg}"
 
-    conn.close
-
+conn.close
+</pre>
 
 
 The code for `receive_logs_topic.rb`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    if ARGV.empty?
-      abort "Usage: #{$0} [binding key]"
-    end
+if ARGV.empty?
+  abort "Usage: #{$0} [binding key]"
+end
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch  = conn.create_channel
-    x   = ch.topic("topic_logs")
-    q   = ch.queue("", :exclusive => true)
+ch  = conn.create_channel
+x   = ch.topic("topic_logs")
+q   = ch.queue("", :exclusive => true)
 
-    ARGV.each do |severity|
-      q.bind(x, :routing_key => severity)
-    end
+ARGV.each do |severity|
+  q.bind(x, :routing_key => severity)
+end
 
-    puts " [*] Waiting for logs. To exit press CTRL+C"
+puts " [*] Waiting for logs. To exit press CTRL+C"
 
-    begin
-      q.subscribe(:block => true) do |delivery_info, properties, body|
-        puts " [x] #{delivery_info.routing_key}:#{body}"
-      end
-    rescue Interrupt => _
-      ch.close
-      conn.close
-    end
-
+begin
+  q.subscribe(:block => true) do |delivery_info, properties, body|
+    puts " [x] #{delivery_info.routing_key}:#{body}"
+  end
+rescue Interrupt => _
+  ch.close
+  conn.close
+end
+</pre>
 
 To receive all the logs:
 
-    :::bash
-    $ ruby -rubygems receive_logs_topic.rb "#"
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_topic.rb "#"
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    :::bash
-    $ ruby -rubygems receive_logs_topic.rb "kern.*"
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_topic.rb "kern.*"
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    :::bash
-    $ ruby -rubygems receive_logs_topic.rb "*.critical"
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_topic.rb "*.critical"
+</pre>
 
 You can create multiple bindings:
 
-    :::bash
-    $ ruby -rubygems receive_logs_topic.rb "kern.*" "*.critical"
-
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_topic.rb "kern.*" "*.critical"
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    :::bash
-    $ ruby -rubygems emit_log_topic.rb "kern.critical" "A critical kernel error"
-
+<pre class="sourcecode bash">
+ruby -rubygems emit_log_topic.rb "kern.critical" "A critical kernel error"
+</pre>
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play

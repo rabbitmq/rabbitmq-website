@@ -81,7 +81,7 @@ limitations under the License.
           TCP listeners configure both interface and port. The following example
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -97,7 +97,7 @@ limitations under the License.
           The following example demonstrates how to configure RabbitMQ
           to listen on localhost only for both IPv4 and IPv6:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"127.0.0.1", 5672},
@@ -111,7 +111,7 @@ limitations under the License.
           when a port is specified and RabbitMQ is configured to
           listen on all IPv6 addresses but IPv4 is not disabled
           explicitly, IPv4 address will be included, so
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"::",       5672}]}
@@ -121,7 +121,7 @@ limitations under the License.
 
 is equivalent to
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"0.0.0.0", 5672},
@@ -137,7 +137,7 @@ is equivalent to
         <p>
           In this example RabbitMQ will listen on an IPv4 interface only:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -157,7 +157,7 @@ is equivalent to
         <p>
           In this example RabbitMQ will listen on an IPv6 interface only:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"fe80::2acf:e9ff:fe17:f97b", 5672}]}
@@ -217,7 +217,7 @@ is equivalent to
       <p>
         The example below uses a range with a single port but a value different from default:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {kernel, [
     {inet_dist_listen_min, 33672},
@@ -278,7 +278,7 @@ is equivalent to
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -295,7 +295,7 @@ is equivalent to
 
           The same example for MQTT and STOMP connections:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -335,7 +335,7 @@ is equivalent to
           overriding the flag using the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
           variable:
 
-<pre class="code">
+<pre class="sourcecode bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 </pre>
 
@@ -411,7 +411,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -428,7 +428,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 
           The same example for MQTT and STOMP connections:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -479,7 +479,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 
           The following example demonstrates that:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {kernel, [
     {inet_default_connect_options, [{nodelay, true}]},
@@ -518,7 +518,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -633,7 +633,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           To configure a kernel parameter interactively, use <code>sysctl -w</code> (requires superuser
           privileges), for example:
 
-<pre class="code">
+<pre class="sourcecode bash">
 sysctl -w fs.file-max 200000
 </pre>
 
@@ -714,7 +714,7 @@ sysctl -w fs.file-max 200000
 
         <p>
           Below is the default TCP socket option configuration used by RabbitMQ:
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [{backlog,       128},
@@ -766,7 +766,7 @@ sysctl -w fs.file-max 200000
         that considers TCP connections dead or unreachable after 120
         seconds (4 attempts every 15 seconds after connection idle for 60 seconds):
 
-<pre class="code">
+<pre class="sourcecode sysctl">
 net.ipv4.tcp_keepalive_time=60
 net.ipv4.tcp_keepalive_intvl=15
 net.ipv4.tcp_keepalive_probes=4
@@ -787,7 +787,7 @@ net.ipv4.tcp_keepalive_probes=4
         it may be necessary to increase the timeout. This can be done via
         the <code>rabbit.handshake_timeout</code> (in milliseconds):
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     %% 20 seconds
@@ -809,7 +809,7 @@ net.ipv4.tcp_keepalive_probes=4
           handshake timeout. This can be done via
           the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     %% 10 seconds

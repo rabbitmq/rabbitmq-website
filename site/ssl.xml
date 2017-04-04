@@ -183,13 +183,13 @@ limitations under the License.
             certificates (and a few bugs too), so we will be specifying slightly
             more stringent key usage constraints than is normally necessary.
           </p>
-<pre class="sourcecode">
-# mkdir testca
-# cd testca
-# mkdir certs private
-# chmod 700 private
-# echo 01 &gt; serial
-# touch index.txt
+<pre class="sourcecode bash">
+mkdir testca
+cd testca
+mkdir certs private
+chmod 700 private
+echo 01 &gt; serial
+touch index.txt
 </pre>
           <p>
             Now place the following in <code>openssl.cnf</code> within the <code>testca</code>
@@ -258,10 +258,10 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
             directory:
           </p>
 
-<pre class="sourcecode">
-# openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
+<pre class="sourcecode bash">
+openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
     -out cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
-# openssl x509 -in cacert.pem -out cacert.cer -outform DER
+openssl x509 -in cacert.pem -out cacert.cer -outform DER
 </pre>
 
           <p>
@@ -292,39 +292,39 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
             similar. The only difference is the <i>keyUsage</i> field that is added
             when signing the certificate. First the server:
           </p>
-<pre class="sourcecode">
-# cd ..
-# ls
+<pre class="sourcecode bash">
+cd ..
+ls
 testca
-# mkdir server
-# cd server
-# openssl genrsa -out key.pem 2048
-# openssl req -new -key key.pem -out req.pem -outform PEM \
+# => mkdir server
+cd server
+openssl genrsa -out key.pem 2048
+openssl req -new -key key.pem -out req.pem -outform PEM \
     -subj /CN=$(hostname)/O=server/ -nodes
-# cd ../testca
-# openssl ca -config openssl.cnf -in ../server/req.pem -out \
+cd ../testca
+openssl ca -config openssl.cnf -in ../server/req.pem -out \
     ../server/cert.pem -notext -batch -extensions server_ca_extensions
-# cd ../server
-# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
+cd ../server
+openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
     -passout pass:MySecretPassword
 </pre>
 
           <p>
           And now the client:
-<pre class="sourcecode">
-# cd ..
-# ls
-server testca
-# mkdir client
-# cd client
-# openssl genrsa -out key.pem 2048
-# openssl req -new -key key.pem -out req.pem -outform PEM \
+<pre class="sourcecode bash">
+cd ..
+ls
+# => server testca
+mkdir client
+cd client
+openssl genrsa -out key.pem 2048
+openssl req -new -key key.pem -out req.pem -outform PEM \
     -subj /CN=$(hostname)/O=client/ -nodes
-# cd ../testca
-# openssl ca -config openssl.cnf -in ../client/req.pem -out \
+cd ../testca
+openssl ca -config openssl.cnf -in ../client/req.pem -out \
     ../client/cert.pem -notext -batch -extensions client_ca_extensions
-# cd ../client
-# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
+cd ../client
+openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
     -passout pass:MySecretPassword
 </pre>
           </p>
@@ -333,16 +333,16 @@ server testca
             It is possible to use longer (and thus more secure but also slower to generate)
             keys by providing a different value to <code>openssl genrsa</code>, e.g.:
 
-<pre class="sourcecode">
-# openssl genrsa -out key.pem 4096
+<pre class="sourcecode bash">
+openssl genrsa -out key.pem 4096
 </pre>
           </p>
           <p>
             Another option would be to generate a key using <a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/">Elliptic Curve Cryptography</a>. Instead of <code>openssl genrsa</code> use
             <code>openssl ecparam</code> like so:
 
-<pre class="sourcecode">
-# openssl ecparam -out key.pem -genkey -name prime256v1
+<pre class="sourcecode bash">
+openssl ecparam -out key.pem -genkey -name prime256v1
 </pre>
 
             <code>prime256v1</code> in the example above is an elliptic curve name.
@@ -365,15 +365,15 @@ server testca
 
           <ul class="plain">
             <li>
-              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
+              <pre class="sourcecode bash"><i>-rabbit ssl_listeners</i></pre>
               <p>
                 This is a list of ports to listen on for SSL
                 connections. To listen on a single network interface,
-                add something like <code>{"127.0.0.1",
-                5671}</code> to the list.
+                add something like
+                <code>{"127.0.0.1", 5671}</code> to the list.
               </p>
             </li>
-            <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
+            <li><pre class="sourcecode bash"><i>-rabbit ssl_options</i></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
             of ssl_options is available via the <code>new_ssl</code> man page:
             i.e. <code>erl -man new_ssl</code>, but the most important are <code>cacertfile</code>, <code>certfile</code> and <code>keyfile</code>.</p></li>
           </ul>
@@ -386,7 +386,7 @@ server testca
             on this hostname:
           </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
      {ssl_listeners, [5671]},
@@ -404,9 +404,9 @@ server testca
             configuration file are interpreted as escape sequences -
             so for example to specify the
             path <code>c:\cacert.pem</code> for the CA certificate you
-            would need to enter <code>{cacertfile,
-            "c:\\cacert.pem"}</code> or <code>{cacertfile,
-            "c:/cacert.pem"}</code>.
+            would need to enter
+            <code>{cacertfile, "c:\\cacert.pem"}</code> or
+            <code>{cacertfile, "c:/cacert.pem"}</code>.
           </p>
 
           <p>When a web browser connects to an HTTPS web server, the server
@@ -430,8 +430,8 @@ server testca
           state that if the client does send us a certificate, we must
           be able to establish a chain of trust to it. Note that these
           values can change across versions of ssl shipped with
-          Erlang/OTP, so check your man page <code>erl -man
-          new_ssl</code> to ensure you have the proper values.</p>
+          Erlang/OTP, so check your man page
+          <code>erl -man new_ssl</code> to ensure you have the proper values.</p>
 
           <p>Note that if <code>{verify, verify_none}</code> is used,
           no certificate exchange takes place from the client to the
@@ -441,7 +441,8 @@ server testca
 
           <p>After starting the broker, you should then see the
           following in the <code>rabbit.log</code>:</p>
-          <pre>=INFO REPORT==== 9-Aug-2010::15:10:55 ===
+          <pre class="sourcecode">
+=INFO REPORT==== 9-Aug-2010::15:10:55 ===
 started TCP Listener on 0.0.0.0:5672
 
 =INFO REPORT==== 9-Aug-2010::15:10:55 ===
@@ -458,9 +459,10 @@ started SSL Listener on 0.0.0.0:5671</pre>
           them. Therefore, we can simply append these certificates to one
           another and provide the path to this new file as the <code>cacerts</code>
           argument to RabbitMQ:</p>
-<pre class="sourcecode">
-# cat testca/cacert.pem &gt;&gt; all_cacerts.pem
-# cat otherca/cacert.pem &gt;&gt; all_cacerts.pem</pre>
+<pre class="sourcecode bash">
+cat testca/cacert.pem &gt;&gt; all_cacerts.pem
+cat otherca/cacert.pem &gt;&gt; all_cacerts.pem
+</pre>
 
           <p>and so forth.</p>
         </doc:subsection>
@@ -469,7 +471,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <doc:heading>Providing Certificate Password</doc:heading>
           <p>
             It is possible to provide a password for private key using the <code>password</code> option:
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 [
  {rabbit, [
            {ssl_listeners, [5671]},
@@ -505,10 +507,10 @@ started SSL Listener on 0.0.0.0:5671</pre>
         </doc:subsection>
 
         <doc:subsection name="disabling-tls-versions">
-          <doc:heading>Disabling SSL/TLS Versions via Configuration</doc:heading>
+          <doc:heading>Disabling TLS Versions via Configuration</doc:heading>
           <p>
-            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option:
-<pre class="sourcecode">
+            To limit enabled TLS (SSL protocol versions, use the <code>versions</code> option:
+<pre class="sourcecode erlang">
 %% Disable SSLv3.0 support, leaves TLSv1.0 enabled.
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]},
@@ -523,7 +525,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
 ].
 </pre>
 
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 %% Disable SSLv3.0 and TLSv1.0 support.
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
@@ -540,12 +542,12 @@ started SSL Listener on 0.0.0.0:5671</pre>
 
          to verify, use <code>openssl s_client</code>:
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 # connect using SSLv3
 openssl s_client -connect 127.0.0.1:5671 -ssl3
 </pre>
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 # connect using TLSv1.0 through v1.2
 openssl s_client -connect 127.0.0.1:5671 -tls1
 </pre>
@@ -568,13 +570,12 @@ SSL-Session:
             the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
             or a <code>SSLContext</code>:
 
-            <pre class="sourcecode">
-ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
-factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+            <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setHost(&quot;localhost&quot;);
 factory.setPort(5671);
 
-factory.useSslProtocol("TLSv1.2");
-            </pre>
+factory.useSslProtocol("TLSv1.2");</pre>
           </p>
 
           <p>
@@ -631,7 +632,7 @@ factory.useSslProtocol("TLSv1.2");
             The below examples demonstrates how the <code>ciphers</code> TLS option is used.
           </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 %% List allowed ciphers
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
@@ -651,7 +652,7 @@ factory.useSslProtocol("TLSv1.2");
           <p>
             To list all cipher suites supported by installed Erlang runtime, use
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'ssl:cipher_suites().'
 </pre>
 
@@ -661,7 +662,7 @@ rabbitmqctl eval 'ssl:cipher_suites().'
 
           <p>The same suites can be listed in the OpenSSL format:</p>
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'ssl:cipher_suites(openssl).'
 </pre>
         </doc:subsection>
@@ -707,40 +708,40 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
             <p>Our first example will show a simple client, connecting to a RabbitMQ
             server over SSL <em class="">without</em> validating the server certificate, and
             without presenting any client certificate.</p>
-<pre class="sourcecode">
-<B><FONT COLOR="#A020F0">import</FONT></B> java.io.*;
-<B><FONT COLOR="#A020F0">import</FONT></B> java.security.*;
+<pre class="sourcecode java">
+import java.io.*;
+import java.security.*;
 
 
-<B><FONT COLOR="#A020F0">import</FONT></B> com.rabbitmq.client.*;
+import com.rabbitmq.client.*;
 
-<B><FONT COLOR="#A020F0">public</FONT></B> <B><FONT COLOR="#A020F0">class</FONT></B> Example1
+public class Example1
 {
-    <B><FONT COLOR="#A020F0">public</FONT></B> <B><FONT COLOR="#A020F0">static</FONT></B> <B><FONT COLOR="#A020F0">void</FONT></B> main(String[] args) <B><FONT COLOR="#A020F0">throws</FONT></B> Exception
+    public static void main(String[] args) throws Exception
     {
 
-        ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
-        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(&quot;localhost&quot;);
         factory.setPort(5671);
 
         factory.useSslProtocol();
-        <I><FONT COLOR="#B22222">// Tells the library to setup the default Key and Trust managers for you</FONT></I>
-        <I><FONT COLOR="#B22222">// which do not do any form of remote server trust verification</FONT></I>
+        // Tells the library to setup the default Key and Trust managers for you
+        // which do not do any form of remote server trust verification
 
         Connection conn = factory.newConnection();
         Channel channel = conn.createChannel();
 
-        <I><FONT COLOR="#B22222">//non-durable, exclusive, auto-delete queue
-</FONT></I>        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
-        channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
+        //non-durable, exclusive, auto-delete queue
+        channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
+        channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
 
-        GetResponse chResponse = channel.basicGet(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>);
-        <B><FONT COLOR="#A020F0">if</FONT></B>(chResponse == <B><FONT COLOR="#A020F0">null</FONT></B>) {
-            System.out.println(<B><FONT COLOR="#BC8F8F">&quot;No message retrieved&quot;</FONT></B>);
-        } <B><FONT COLOR="#A020F0">else</FONT></B> {
-            <B><FONT COLOR="#A020F0">byte</FONT></B>[] body = chResponse.getBody();
-            System.out.println(<B><FONT COLOR="#BC8F8F">&quot;Recieved: &quot;</FONT></B> + <B><FONT COLOR="#A020F0">new</FONT></B> String(body));
+        GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
+        if(chResponse == null) {
+            System.out.println(&quot;No message retrieved&quot;);
+        } else {
+            byte[] body = chResponse.getBody();
+            System.out.println(&quot;Recieved: &quot; + new String(body));
         }
 
 
@@ -761,8 +762,8 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
             <p>First, we set-up our Key Store. We'll assume that we have the
             certificate for the server we want to connect to, so we now need to
             add it to our Key Store which we will use for the Trust Manager.</p>
-<pre class="sourcecode">
-# keytool -import -alias server1 -file /path/to/server/cert.pem -keystore /path/to/rabbitstore</pre>
+<pre class="sourcecode bash">
+keytool -import -alias server1 -file /path/to/server/cert.pem -keystore /path/to/rabbitstore</pre>
 
             <p>The above command will import <code>cert.pem</code> into the <code>rabbitstore</code> and will internally refer to it as <code>server1</code>. The
             alias argument is used when you have many certificates or keys, as
@@ -775,54 +776,54 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
             already shown above.</p>
             <p>Our next example will be a modification of the previous one, to now
             use our Key Store with our Key Manager and Trust Manager</p>
-  <pre class="sourcecode">
-  <B><FONT COLOR="#A020F0">import</FONT></B> java.io.*;
-  <B><FONT COLOR="#A020F0">import</FONT></B> java.security.*;
-  <B><FONT COLOR="#A020F0">import</FONT></B> javax.net.ssl.*;
+<pre class="sourcecode java">
+  import java.io.*;
+  import java.security.*;
+  import javax.net.ssl.*;
 
-  <B><FONT COLOR="#A020F0">import</FONT></B> com.rabbitmq.client.*;
+  import com.rabbitmq.client.*;
 
 
-  <B><FONT COLOR="#A020F0">public</FONT></B> <B><FONT COLOR="#A020F0">class</FONT></B> Example2
+  public class Example2
   {
-      <B><FONT COLOR="#A020F0">public</FONT></B> <B><FONT COLOR="#A020F0">static</FONT></B> <B><FONT COLOR="#A020F0">void</FONT></B> main(String[] args) <B><FONT COLOR="#A020F0">throws</FONT></B> Exception
+      public static void main(String[] args) throws Exception
       {
 
-        <B><FONT COLOR="#A020F0">char</FONT></B>[] keyPassphrase = <B><FONT COLOR="#BC8F8F">&quot;MySecretPassword&quot;</FONT></B>.toCharArray();
-        KeyStore ks = KeyStore.getInstance(<B><FONT COLOR="#BC8F8F">&quot;PKCS12&quot;</FONT></B>);
-        ks.load(<B><FONT COLOR="#A020F0">new</FONT></B> FileInputStream(<B><FONT COLOR="#BC8F8F">&quot;/path/to/client/keycert.p12&quot;</FONT></B>), keyPassphrase);
+        char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
+        KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
+        ks.load(new FileInputStream(&quot;/path/to/client/keycert.p12&quot;), keyPassphrase);
 
-        KeyManagerFactory kmf = KeyManagerFactory.getInstance(<B><FONT COLOR="#BC8F8F">&quot;SunX509&quot;</FONT></B>);
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
         kmf.init(ks, passphrase);
 
-        <B><FONT COLOR="#A020F0">char</FONT></B>[] trustPassphrase = <B><FONT COLOR="#BC8F8F">&quot;rabbitstore&quot;</FONT></B>.toCharArray();
-        KeyStore tks = KeyStore.getInstance(<B><FONT COLOR="#BC8F8F">&quot;JKS&quot;</FONT></B>);
-        tks.load(<B><FONT COLOR="#A020F0">new</FONT></B> FileInputStream(<B><FONT COLOR="#BC8F8F">&quot;/path/to/trustStore&quot;</FONT></B>), trustPassphrase);
+        char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
+        KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
+        tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
 
-        TrustManagerFactory tmf = TrustManagerFactory.getInstance(<B><FONT COLOR="#BC8F8F">&quot;SunX509&quot;</FONT></B>);
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
         tmf.init(tks);
 
-        SSLContext c = SSLContext.getInstance(<B><FONT COLOR="#BC8F8F">&quot;TLSv1.1&quot;</FONT></B>);
-        c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <B><FONT COLOR="#A020F0">null</FONT></B>);
+        SSLContext c = SSLContext.getInstance(&quot;TLSv1.1&quot;);
+        c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
-        ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
-        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(&quot;localhost&quot;);
         factory.setPort(5671);
         factory.useSslProtocol(c);
 
         Connection conn = factory.newConnection();
         Channel channel = conn.createChannel();
 
-        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
-        channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
+        channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
+        channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
 
-        GetResponse chResponse = channel.basicGet(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>);
-        <B><FONT COLOR="#A020F0">if</FONT></B>(chResponse == <B><FONT COLOR="#A020F0">null</FONT></B>) {
-            System.out.println(<B><FONT COLOR="#BC8F8F">&quot;No message retrieved&quot;</FONT></B>);
-        } <B><FONT COLOR="#A020F0">else</FONT></B> {
-            <B><FONT COLOR="#A020F0">byte</FONT></B>[] body = chResponse.getBody();
-            System.out.println(<B><FONT COLOR="#BC8F8F">&quot;Recieved: &quot;</FONT></B> + <B><FONT COLOR="#A020F0">new</FONT></B> String(body));
+        GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
+        if(chResponse == null) {
+            System.out.println(&quot;No message retrieved&quot;);
+        } else {
+            byte[] body = chResponse.getBody();
+            System.out.println(&quot;Recieved: &quot; + new String(body));
         }
 
 
@@ -839,7 +840,7 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
 
       </doc:section>
       <doc:section name="configuring-dotnet">
-        <doc:heading>Configuring the .Net client</doc:heading>
+        <doc:heading>Configuring the .NET client</doc:heading>
           <p>For a server certificate to be understood on the .Net platform, they
           can be in a number of formats including <i>DER</i> and <i>PKCS #12</i>, but
           of course, not <i>PEM</i>. For the <i>DER</i> format, .Net expects them to
@@ -847,8 +848,8 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
           creating the test <i>Certificate Authority</i>, we converted the
           certificate from <i>PEM</i> to <i>DER</i> format using:</p>
 
-<pre class="sourcecode">
-# openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -outform DER
+<pre class="sourcecode bash">
+openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -outform DER
 </pre>
           <p>PEM is a base64 encoding of this DER format, enclosed within
           delimiters. This encoding is usually done to make it easier to
@@ -895,13 +896,11 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
           check that the certificate <i>presented by the RabbitMQ server</i> is
           acceptable to Mono.  Note that you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using an appropriate OpenSSL command:</p>
 
-<pre class="sourcecode">
-# openssl x509 -in /path/to/server/cert.pem -out /path/to/server/cert.cer -outform DER
-# mono certcheck.exe /path/to/server/cert.
-Checking if certificate is SSLv3... Ok
-Checking for KeyUsageExtension (2.5.29.15)... Ok
-Checking if KeyEncipherment flag is set... Ok
-This certificate CAN be used by Mono for Server validation
+<pre class="sourcecode bash">
+openssl x509 -in /path/to/server/cert.pem -out /path/to/server/cert.cer -outform DER
+mono certcheck.exe /path/to/server/cert.
+# ...
+# => This certificate CAN be used by Mono for Server validation
 </pre>
         </doc:subsection>
 
@@ -943,7 +942,7 @@ This certificate CAN be used by Mono for Server validation
         </doc:subsection>
 
         <doc:subsection name="trust-dotNET">
-          <doc:heading>Trust .Net</doc:heading>
+          <doc:heading>.NET Trust Store</doc:heading>
             <p>On the .NET platform, remote certificates are managed by putting them
             into any of a number of Stores. All management of these stores is done
             with the 'certmgr' tool which is available on both Microsoft's
@@ -984,17 +983,17 @@ This certificate CAN be used by Mono for Server validation
           <p>To add a certificate to the users Root (Windows) / Trust
           (Mono) store we run:</p>
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 (Windows) > certmgr -add -all \path\to\cacert.cer -s Root
 (Mono)    $ certmgr -add -c Trust /path/to/cacert.cer</pre>
 
           <p>To add a certificate to the machine certificate store instead we
           run</p>
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 (Windows) > certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 (Mono)    $ certmgr -add -c -m Trust /path/to/cacert.cer</pre>
           <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 (Windows) > certmgr -all -s Root
 (Mono)    $ certmgr -list -c Trust
 
@@ -1012,7 +1011,7 @@ Self-signed X.509 v3 Certificate
           <p>As we can see, there is one Self-signed X.509 v3 Certificate in the
           trust store. The Unique Hash uniquely identifies this certificate in
           this store. To delete this certificate, use the unique hash:</p>
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 (Windows) > certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
 (Mono)    $ certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
@@ -1063,7 +1062,7 @@ Certificate removed from store.</pre>
             to worry about manually cleaning up after ourselves
           </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode csharp">
 using System;
 using System.IO;
 using System.Text;
@@ -1125,7 +1124,8 @@ namespace RabbitMQ.Client.Examples {
 
           The following example demonstrates how to configure certificate validation depth for
           RabbitMQ server:
-<pre class="sourcecode">[
+<pre class="sourcecode erlang">
+[
   {rabbit, [
      {ssl_listeners, [5671]},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
@@ -1213,7 +1213,7 @@ namespace RabbitMQ.Client.Examples {
 
         <doc:subsection name="code">
           <doc:heading>Code</doc:heading>
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 Params = #amqp_params_network { port = 5671,
                                 ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
                                                {certfile, &quot;/path/to/client/cert.pem&quot;},

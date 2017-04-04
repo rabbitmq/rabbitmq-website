@@ -193,7 +193,7 @@ limitations under the License.
         <dt>Start the Broker as an Application</dt>
         <dd>
           <p>
-            Run the command <pre class="sourcecode">rabbitmq-server -detached</pre>
+            Run the command <pre class="sourcecode bash">rabbitmq-server -detached</pre>
             Alternatively, you can double-click the
             <code>rabbitmq-server.bat</code> file in Windows Explorer.
           </p>
@@ -254,7 +254,7 @@ limitations under the License.
         <dd>
           <p>
             Install the service by running
-            <pre class="sourcecode">rabbitmq-service install</pre>
+            <pre class="sourcecode bash">rabbitmq-service install</pre>
           </p>
           <p>
             A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
@@ -279,7 +279,7 @@ limitations under the License.
         <dd>
           <p>
             To start the broker, execute
-            <pre class="sourcecode">rabbitmq-service start</pre>
+            <pre class="sourcecode bash">rabbitmq-service start</pre>
           </p>
           <p>
             If the output from this command is

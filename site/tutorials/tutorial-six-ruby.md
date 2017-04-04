@@ -41,10 +41,11 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-    :::ruby
-    client   = FibonacciClient.new(ch, "rpc_queue")
-    response = client.call(30)
-    puts " [.] Got #{response}"
+<pre class="sourcecode ruby">
+client   = FibonacciClient.new(ch, "rpc_queue")
+response = client.call(30)
+puts " [.] Got #{response}"
+</pre>
 
 > #### A note on RPC
 >
@@ -75,18 +76,18 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-    :::ruby
-    q = ch.queue("", :exclusive => true)
-    x = ch.default_exchange
+<pre class="sourcecode ruby">
+q = ch.queue("", :exclusive => true)
+x = ch.default_exchange
 
-    x.publish(message, :routing_key => "rpc_queue", :reply_to => q.name)
+x.publish(message, :routing_key => "rpc_queue", :reply_to => q.name)
 
-    # ... then code to read a response message from the callback_queue ...
-
+# ... then code to read a response message from the callback_queue ...
+</pre>
 
 > #### Message properties
 >
-> The AMQP protocol predefines a set of 14 properties that go with
+> The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
@@ -204,16 +205,16 @@ Putting it all together
 
 The Fibonacci task:
 
-    :::ruby
-    def self.fib(n)
-      case n
-      when 0 then 0
-      when 1 then 1
-      else
-        fib(n - 1) + fib(n - 2)
-      end
-    end
-
+<pre class="sourcecode ruby">
+def self.fib(n)
+  case n
+  when 0 then 0
+  when 1 then 1
+  else
+    fib(n - 1) + fib(n - 2)
+  end
+end
+</pre>
 
 We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
@@ -222,55 +223,53 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_server.rb) looks like this:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch   = conn.create_channel
+ch   = conn.create_channel
 
-    class FibonacciServer
+class FibonacciServer
+  def initialize(ch)
+    @ch = ch
+  end
 
-      def initialize(ch)
-        @ch = ch
-      end
+  def start(queue_name)
+    @q = @ch.queue(queue_name)
+    @x = @ch.default_exchange
 
-      def start(queue_name)
-        @q = @ch.queue(queue_name)
-        @x = @ch.default_exchange
+    @q.subscribe(:block => true) do |delivery_info, properties, payload|
+      n = payload.to_i
+      r = self.class.fib(n)
 
-        @q.subscribe(:block => true) do |delivery_info, properties, payload|
-          n = payload.to_i
-          r = self.class.fib(n)
-
-          @x.publish(r.to_s, :routing_key => properties.reply_to, :correlation_id => properties.correlation_id)
-        end
-      end
-
-
-      def self.fib(n)
-        case n
-        when 0 then 0
-        when 1 then 1
-        else
-          fib(n - 1) + fib(n - 2)
-        end
-      end
+      @x.publish(r.to_s, :routing_key => properties.reply_to, :correlation_id => properties.correlation_id)
     end
+  end
 
-    begin
-      server = FibonacciServer.new(ch)
-      " [x] Awaiting RPC requests"
-      server.start("rpc_queue")
-    rescue Interrupt => _
-      ch.close
-      conn.close
+  def self.fib(n)
+    case n
+    when 0 then 0
+    when 1 then 1
+    else
+      fib(n - 1) + fib(n - 2)
     end
+  end
+end
 
+begin
+  server = FibonacciServer.new(ch)
+  " [x] Awaiting RPC requests"
+  server.start("rpc_queue")
+rescue Interrupt => _
+  ch.close
+  conn.close
+end
+</pre>
 
 
 
@@ -287,74 +286,71 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_client.rb):
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
-    
-    require "bunny"
-    require "thread"
-    
-    conn = Bunny.new(:automatically_recover => false)
-    conn.start
-    
-    ch   = conn.create_channel
-    
-    
-    class FibonacciClient
-      attr_reader :reply_queue
-      attr_accessor :response, :call_id
-      attr_reader :lock, :condition
-    
-      def initialize(ch, server_queue)
-        @ch             = ch
-        @x              = ch.default_exchange
-    
-        @server_queue   = server_queue
-        @reply_queue    = ch.queue("", :exclusive => true)
-    
-    
-        @lock      = Mutex.new
-        @condition = ConditionVariable.new
-        that       = self
-    
-        @reply_queue.subscribe do |delivery_info, properties, payload|
-          if properties[:correlation_id] == that.call_id
-            that.response = payload.to_i
-            that.lock.synchronize{that.condition.signal}
-          end
-        end
-      end
-    
-      def call(n)
-        self.call_id = self.generate_uuid
-    
-        @x.publish(n.to_s,
-          :routing_key    => @server_queue,
-          :correlation_id => call_id,
-          :reply_to       => @reply_queue.name)
-    
-        lock.synchronize{condition.wait(lock)}
-        response
-      end
-    
-      protected
-    
-      def generate_uuid
-        # very naive but good enough for code
-        # examples
-        "#{rand}#{rand}#{rand}"
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require "bunny"
+require "thread"
+
+conn = Bunny.new(:automatically_recover => false)
+conn.start
+
+ch   = conn.create_channel
+
+class FibonacciClient
+  attr_reader :reply_queue
+  attr_accessor :response, :call_id
+  attr_reader :lock, :condition
+
+  def initialize(ch, server_queue)
+    @ch             = ch
+    @x              = ch.default_exchange
+
+    @server_queue   = server_queue
+    @reply_queue    = ch.queue("", :exclusive => true)
+
+    @lock      = Mutex.new
+    @condition = ConditionVariable.new
+    that       = self
+
+    @reply_queue.subscribe do |delivery_info, properties, payload|
+      if properties[:correlation_id] == that.call_id
+        that.response = payload.to_i
+        that.lock.synchronize{that.condition.signal}
       end
     end
-    
-    
-    client   = FibonacciClient.new(ch, "rpc_queue")
-    puts " [x] Requesting fib(30)"
-    response = client.call(30)
-    puts " [.] Got #{response}"
-    
-    ch.close
-    conn.close
+  end
 
+  def call(n)
+    self.call_id = self.generate_uuid
+
+    @x.publish(n.to_s,
+      :routing_key    => @server_queue,
+      :correlation_id => call_id,
+      :reply_to       => @reply_queue.name)
+
+    lock.synchronize{condition.wait(lock)}
+    response
+  end
+
+  protected
+
+  def generate_uuid
+    # very naive but good enough for code
+    # examples
+    "#{rand}#{rand}#{rand}"
+  end
+end
+
+client   = FibonacciClient.new(ch, "rpc_queue")
+puts " [x] Requesting fib(30)"
+response = client.call(30)
+puts " [.] Got #{response}"
+
+ch.close
+conn.close
+</pre>
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
@@ -363,15 +359,17 @@ Now is a good time to take a look at our full example source code (which include
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ ruby -rubygems rpc_server.rb
-     [x] Awaiting RPC requests
+<pre class="sourcecode bash">
+ruby -rubygems rpc_server.rb
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ ruby -rubygems rpc_client.rb
-     [x] Requesting fib(30)
+<pre class="sourcecode bash">
+ruby -rubygems rpc_client.rb
+# => [x] Requesting fib(30)
+</pre>
 
 The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -394,6 +392,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
-

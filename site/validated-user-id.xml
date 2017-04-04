@@ -36,7 +36,7 @@ limitations under the License.
     <p>
       For example (in Java):
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 AMQP.BasicProperties properties = new AMQP.BasicProperties();
 properties.setUserId("guest");
 channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>

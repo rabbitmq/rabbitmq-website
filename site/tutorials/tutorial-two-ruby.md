@@ -75,31 +75,39 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.rb`:
 
-    :::ruby
-    msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+<pre class="sourcecode ruby">
+msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
 
-    q.publish(msg, :persistent => true)
-    puts " [x] Sent #{msg}"
+q.publish(msg, :persistent => true)
+puts " [x] Sent #{msg}"
+</pre>
 
 Our old _receive.rb_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.rb`:
 
-    :::ruby
-    q.subscribe(:block => true) do |delivery_info, properties, body|
-      puts " [x] Received #{body}"
-      # imitate some work
-      sleep body.count(".").to_i
-      puts " [x] Done"
-    end
+<pre class="sourcecode ruby">
+q.subscribe(:block => true) do |delivery_info, properties, body|
+  puts " [x] Received #{body}"
+  # imitate some work
+  sleep body.count(".").to_i
+  puts " [x] Done"
+end
+</pre>
 
 Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-    :::bash
-    shell1$ ruby -rubygems worker.rb
-    shell2$ ruby -rubygems new_task.rb
+<pre class="sourcecode bash">
+# shell 1
+ruby -rubygems worker.rb
+</pre>
+
+<pre class="sourcecode bash">
+# shell 2
+ruby -rubygems new_task.rb
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -114,42 +122,48 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.rb`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ ruby -rubygems worker.rb
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+ruby -rubygems worker.rb
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ ruby -rubygems worker.rb
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+ruby -rubygems worker.rb
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ ruby -rubygems new_task.rb First message.
-    shell3$ ruby -rubygems new_task.rb Second message..
-    shell3$ ruby -rubygems new_task.rb Third message...
-    shell3$ ruby -rubygems new_task.rb Fourth message....
-    shell3$ ruby -rubygems new_task.rb Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+ruby -rubygems new_task.rb First message.
+ruby -rubygems new_task.rb Second message..
+ruby -rubygems new_task.rb Third message...
+ruby -rubygems new_task.rb Fourth message....
+ruby -rubygems new_task.rb Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ ruby -rubygems worker.rb
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+# shell 1
+ruby -rubygems worker.rb
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ ruby -rubygems worker.rb
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+# shell 2
+ruby -rubygems worker.rb
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -191,15 +205,15 @@ Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::ruby
-    q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
-      puts " [x] Received '#{body}'"
-      # imitate some work
-      sleep body.count(".").to_i
-      puts " [x] Done"
-      ch.ack(delivery_info.delivery_tag)
-    end
-
+<pre class="sourcecode ruby">
+q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
+  puts " [x] Received '#{body}'"
+  # imitate some work
+  sleep body.count(".").to_i
+  puts " [x] Done"
+  ch.ack(delivery_info.delivery_tag)
+end
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -216,11 +230,14 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 
 Message durability
@@ -237,8 +254,9 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::ruby
-    ch.queue("hello", :durable => true)
+<pre class="sourcecode ruby">
+ch.queue("hello", :durable => true)
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -247,8 +265,9 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::ruby
-    ch.queue("task_queue", :durable => true)
+<pre class="sourcecode ruby">
+ch.queue("task_queue", :durable => true)
+</pre>
 
 This `:durable` option change needs to be applied to both the producer
 and consumer code.
@@ -257,8 +276,9 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `:persistent` option `Bunny::Exchange#publish` takes.
 
-    :::ruby
-    x.publish(msg, :persistent => true)
+<pre class="sourcecode ruby">
+x.publish(msg, :persistent => true)
+</pre>
 
 > #### Note on message persistence
 >
@@ -318,9 +338,10 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::ruby
-    n = 1;
-    ch.prefetch(n);
+<pre class="sourcecode ruby">
+n = 1;
+ch.prefetch(n);
+</pre>
 
 > #### Note about queue size
 >
@@ -332,58 +353,58 @@ Putting it all together
 
 Final code of our `new_task.rb` class:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch   = conn.create_channel
-    q    = ch.queue("task_queue", :durable => true)
+ch   = conn.create_channel
+q    = ch.queue("task_queue", :durable => true)
 
-    msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
 
-    q.publish(msg, :persistent => true)
-    puts " [x] Sent #{msg}"
+q.publish(msg, :persistent => true)
+puts " [x] Sent #{msg}"
 
-    sleep 1.0
-    conn.close
-
+sleep 1.0
+conn.close
+</pre>
 
 [(new_task.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/new_task.rb)
 
 And our `worker.rb`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch   = conn.create_channel
-    q    = ch.queue("task_queue", :durable => true)
+ch   = conn.create_channel
+q    = ch.queue("task_queue", :durable => true)
 
-    ch.prefetch(1)
-    puts " [*] Waiting for messages. To exit press CTRL+C"
+ch.prefetch(1)
+puts " [*] Waiting for messages. To exit press CTRL+C"
 
-    begin
-      q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
-        puts " [x] Received '#{body}'"
-        # imitate some work
-        sleep body.count(".").to_i
-        puts " [x] Done"
-        ch.ack(delivery_info.delivery_tag)
-      end
-    rescue Interrupt => _
-      conn.close
-    end
-
+begin
+  q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
+    puts " [x] Received '#{body}'"
+    # imitate some work
+    sleep body.count(".").to_i
+    puts " [x] Done"
+    ch.ack(delivery_info.delivery_tag)
+  end
+rescue Interrupt => _
+  conn.close
+end
+</pre>
 
 [(worker.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/worker.rb)
 
@@ -396,4 +417,3 @@ For more information on `Bunny::Channel` methods and message properties, you can
 
 Now we can move on to [tutorial 3](tutorial-three-ruby.html) and learn how
 to deliver the same message to many consumers.
-

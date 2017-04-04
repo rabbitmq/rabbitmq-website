@@ -81,7 +81,7 @@ limitations under the License.
         creating a connection:
       </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode java">
 ConnectionFactory cf = new ConnectionFactory();
 
 // set the heartbeat timeout to 60 seconds
@@ -103,7 +103,7 @@ cf.setRequestedHeartbeat(60);
         creating a connection:
       </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode csharp">
 var cf = new ConnectionFactory();
 
 // set the heartbeat timeout to 60 seconds

@@ -38,8 +38,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::ruby
-    q.bind(exchange_name)
+<pre class="sourcecode ruby">
+q.bind(exchange_name)
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -49,8 +50,9 @@ Bindings can take an extra `:routing_key` parameter. To avoid the
 confusion with a `Bunny::Exchange#publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::ruby
-    q.bind(exchange_name, :routing_key => "black");
+<pre class="sourcecode ruby">
+q.bind(exchange_name, :routing_key => "black");
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -180,14 +182,16 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::ruby
-    ch.direct("logs");
+<pre class="sourcecode ruby">
+ch.direct("logs");
+</pre>
 
 And we're ready to send a message:
 
-    :::ruby
-    x = ch.direct("logs")
-    x.publish(msg, :routing_key => severity)
+<pre class="sourcecode ruby">
+x = ch.direct("logs")
+x.publish(msg, :routing_key => severity)
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -201,11 +205,12 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-    :::ruby
-    q = ch.queue("")
-    ARGV.each do |severity|
-      q.bind("logs", :routing_key => severity)
-    end
+<pre class="sourcecode ruby">
+q = ch.queue("")
+ARGV.each do |severity|
+  q.bind("logs", :routing_key => severity)
+end
+</pre>
 
 Putting it all together
 -----------------------
@@ -254,80 +259,82 @@ Putting it all together
 
 The code for `emit_log_direct.rb` script:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch       = conn.create_channel
-    x        = ch.direct("direct_logs")
-    severity = ARGV.shift || "info"
-    msg      = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+ch       = conn.create_channel
+x        = ch.direct("direct_logs")
+severity = ARGV.shift || "info"
+msg      = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
 
-    x.publish(msg, :routing_key => severity)
-    puts " [x] Sent '#{msg}'"
+x.publish(msg, :routing_key => severity)
+puts " [x] Sent '#{msg}'"
 
-    conn.close
-
+conn.close
+</pre>
 
 The code for `receive_logs_direct.rb`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
 
-    if ARGV.empty?
-      abort "Usage: #{$0} [info] [warning] [error]"
-    end
+if ARGV.empty?
+  abort "Usage: #{$0} [info] [warning] [error]"
+end
 
-    conn = Bunny.new
-    conn.start
+conn = Bunny.new
+conn.start
 
-    ch  = conn.create_channel
-    x   = ch.direct("direct_logs")
-    q   = ch.queue("", :exclusive => true)
+ch  = conn.create_channel
+x   = ch.direct("direct_logs")
+q   = ch.queue("", :exclusive => true)
 
-    ARGV.each do |severity|
-      q.bind(x, :routing_key => severity)
-    end
+ARGV.each do |severity|
+  q.bind(x, :routing_key => severity)
+end
 
-    puts " [*] Waiting for logs. To exit press CTRL+C"
+puts " [*] Waiting for logs. To exit press CTRL+C"
 
-    begin
-      q.subscribe(:block => true) do |delivery_info, properties, body|
-        puts " [x] #{delivery_info.routing_key}:#{body}"
-      end
-    rescue Interrupt => _
-      ch.close
-      conn.close
-    end
-
+begin
+  q.subscribe(:block => true) do |delivery_info, properties, body|
+    puts " [x] #{delivery_info.routing_key}:#{body}"
+  end
+rescue Interrupt => _
+  ch.close
+  conn.close
+end
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ ruby -rubygems receive_logs_direct.rb warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_direct.rb warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ ruby -rubygems receive_logs_direct.rb info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+ruby -rubygems receive_logs_direct.rb info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ ruby -rubygems emit_log_direct.rb error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+ruby -rubygems emit_log_direct.rb error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [(emit_log_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log_direct.rb)
 and [(receive_logs_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive_logs_direct.rb))

@@ -38,10 +38,11 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::csharp
-    channel.QueueBind(queue: queueName,
-                      exchange: "logs",
-                      routingKey: "");
+<pre class="sourcecode csharp">
+channel.QueueBind(queue: queueName,
+                  exchange: "logs",
+                  routingKey: "");
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -51,10 +52,11 @@ Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with a `BasicPublish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::csharp
-    channel.QueueBind(queue: queueName,
-                      exchange: "direct_logs",
-                      routingKey: "black");
+<pre class="sourcecode csharp">
+channel.QueueBind(queue: queueName,
+                  exchange: "direct_logs",
+                  routingKey: "black");
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -184,17 +186,19 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::csharp
-    channel.ExchangeDeclare(exchange: "direct_logs", type: "direct");
+<pre class="sourcecode csharp">
+channel.ExchangeDeclare(exchange: "direct_logs", type: "direct");
+</pre>
 
 And we're ready to send a message:
 
-    :::csharp
-    var body = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish(exchange: "direct_logs",
-                         routingKey: severity,
-                         basicProperties: null,
-                         body: body);
+<pre class="sourcecode csharp">
+var body = Encoding.UTF8.GetBytes(message);
+channel.BasicPublish(exchange: "direct_logs",
+                     routingKey: severity,
+                     basicProperties: null,
+                     body: body);
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -208,16 +212,16 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-    :::csharp
-    var queueName = channel.QueueDeclare().QueueName;
+<pre class="sourcecode csharp">
+var queueName = channel.QueueDeclare().QueueName;
 
-    foreach(var severity in args)
-    {
-        channel.QueueBind(queue: queueName,
-                          exchange: "direct_logs",
-                          routingKey: severity);
-    }
-
+foreach(var severity in args)
+{
+    channel.QueueBind(queue: queueName,
+                      exchange: "direct_logs",
+                      routingKey: severity);
+}
+</pre>
 
 Putting it all together
 -----------------------
@@ -266,122 +270,127 @@ Putting it all together
 
 The code for `EmitLogDirect.cs` class:
 
-    :::csharp
-    using System;
-    using System.Linq;
-    using RabbitMQ.Client;
-    using System.Text;
-    
-    class EmitLogDirect
+<pre class="sourcecode csharp">
+using System;
+using System.Linq;
+using RabbitMQ.Client;
+using System.Text;
+
+class EmitLogDirect
+{
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using(var connection = factory.CreateConnection())
+        using(var channel = connection.CreateModel())
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
+            channel.ExchangeDeclare(exchange: "direct_logs",
+                                    type: "direct");
+
+            var severity = (args.Length > 0) ? args[0] : "info";
+            var message = (args.Length > 1)
+                          ? string.Join(" ", args.Skip( 1 ).ToArray())
+                          : "Hello World!";
+            var body = Encoding.UTF8.GetBytes(message);
+            channel.BasicPublish(exchange: "direct_logs",
+                                 routingKey: severity,
+                                 basicProperties: null,
+                                 body: body);
+            Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
+        }
+
+        Console.WriteLine(" Press [enter] to exit.");
+        Console.ReadLine();
+    }
+}
+</pre>
+
+The code for `ReceiveLogsDirect.cs`:
+
+<pre class="sourcecode csharp">
+using System;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+
+class ReceiveLogsDirect
+{
+    public static void Main(string[] args)
+    {
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using(var connection = factory.CreateConnection())
+        using(var channel = connection.CreateModel())
+        {
+            channel.ExchangeDeclare(exchange: "direct_logs",
+                                    type: "direct");
+            var queueName = channel.QueueDeclare().QueueName;
+
+            if(args.Length &lt; 1)
             {
-                channel.ExchangeDeclare(exchange: "direct_logs",
-                                        type: "direct");
-    
-                var severity = (args.Length > 0) ? args[0] : "info";
-                var message = (args.Length > 1)
-                              ? string.Join(" ", args.Skip( 1 ).ToArray())
-                              : "Hello World!";
-                var body = Encoding.UTF8.GetBytes(message);
-                channel.BasicPublish(exchange: "direct_logs",
-                                     routingKey: severity,
-                                     basicProperties: null,
-                                     body: body);
-                Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
+                Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
+                                        Environment.GetCommandLineArgs()[0]);
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
+                Environment.ExitCode = 1;
+                return;
             }
-    
+
+            foreach(var severity in args)
+            {
+                channel.QueueBind(queue: queueName,
+                                  exchange: "direct_logs",
+                                  routingKey: severity);
+            }
+
+            Console.WriteLine(" [*] Waiting for messages.");
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (model, ea) =>
+            {
+                var body = ea.Body;
+                var message = Encoding.UTF8.GetString(body);
+                var routingKey = ea.RoutingKey;
+                Console.WriteLine(" [x] Received '{0}':'{1}'",
+                                  routingKey, message);
+            };
+            channel.BasicConsume(queue: queueName,
+                                 noAck: true,
+                                 consumer: consumer);
+
             Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
         }
     }
+}
+</pre>
 
-
-The code for `ReceiveLogsDirect.cs`:
-
-    :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-    
-    class ReceiveLogsDirect
-    {
-        public static void Main(string[] args)
-        {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
-            {
-                channel.ExchangeDeclare(exchange: "direct_logs",
-                                        type: "direct");
-                var queueName = channel.QueueDeclare().QueueName;
-    
-                if(args.Length < 1)
-                {
-                    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
-                                            Environment.GetCommandLineArgs()[0]);
-                    Console.WriteLine(" Press [enter] to exit.");
-                    Console.ReadLine();
-                    Environment.ExitCode = 1;
-                    return;
-                }
-    
-                foreach(var severity in args)
-                {
-                    channel.QueueBind(queue: queueName,
-                                      exchange: "direct_logs",
-                                      routingKey: severity);
-                }
-    
-                Console.WriteLine(" [*] Waiting for messages.");
-    
-                var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (model, ea) =>
-                {
-                    var body = ea.Body;
-                    var message = Encoding.UTF8.GetString(body);
-                    var routingKey = ea.RoutingKey;
-                    Console.WriteLine(" [x] Received '{0}':'{1}'",
-                                      routingKey, message);
-                };
-                channel.BasicConsume(queue: queueName,
-                                     noAck: true,
-                                     consumer: consumer);
-    
-                Console.WriteLine(" Press [enter] to exit.");
-                Console.ReadLine();
-            }
-        }
-    }
-
-
-Compile as usual (see [tutorial one](tutorial-one-dotnet.html) for
-compilation advice).
+Create projects as usual (see [tutorial one](tutorial-one-dotnet.html) for
+advice).
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ ReceiveLogsDirect.exe warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+cd ReceiveLogsDirect
+dotnet run warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ ReceiveLogsDirect.exe info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+cd ReceiveLogsDirect
+dotnet run info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ EmitLogDirect.exe error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+cd EmitLogDirect
+dotnet run error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [(EmitLogDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogDirect/EmitLogDirect.cs)
 and [(ReceiveLogsDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs))

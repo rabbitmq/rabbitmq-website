@@ -22,7 +22,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    [q bind:exchange];
+<pre class="sourcecode objectivec">
+[q bind:exchange];
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -32,7 +34,9 @@ Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with an `RMQExchange publish:` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    [q bind:exchange routingKey:@"black"];
+<pre class="sourcecode objectivec">
+[q bind:exchange routingKey:@"black"];
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -162,12 +166,16 @@ first.
 
 As always, we need to create an exchange first:
 
-    [ch direct:@"logs"];
+<pre class="sourcecode objectivec">
+[ch direct:@"logs"];
+</pre>
 
 And we're ready to send a message:
 
-    RMQExchange *x = [ch direct:@"logs"];
-    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
+<pre class="sourcecode objectivec">
+RMQExchange *x = [ch direct:@"logs"];
+[x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -180,19 +188,18 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
+<pre class="sourcecode objectivec">
+RMQQueue *q = [ch queue:@"" options:RMQQueueDeclareExclusive];
 
-    RMQQueue *q = [ch queue:@"" options:RMQQueueDeclareExclusive];
-
-    NSArray *severities = @[@"error", @"warning", @"info"];
-    for (NSString *severity in severities) {
-        [q bind:x routingKey:severity];
-    }
+NSArray *severities = @[@"error", @"warning", @"info"];
+for (NSString *severity in severities) {
+    [q bind:x routingKey:severity];
+}
+</pre>
 
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -236,44 +243,50 @@ Putting it all together
 
 The code for the `emitLogDirect` method:
 
-    - (void)emitLogDirect:(NSString *)msg severity:(NSString *)severity {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)emitLogDirect:(NSString *)msg severity:(NSString *)severity {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
-        RMQExchange *x    = [ch direct:@"direct_logs"];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    RMQExchange *x    = [ch direct:@"direct_logs"];
 
-        [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
-        NSLog(@"Sent '%@'", msg);
+    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
+    NSLog(@"Sent '%@'", msg);
 
-        [conn close];
-    }
+    [conn close];
+}
+</pre>
 
 The code for `receiveLogsDirect`:
 
-    - (void)receiveLogsDirect {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)receiveLogsDirect {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
-        RMQExchange *x    = [ch direct:@"direct_logs"];
-        RMQQueue *q       = [ch queue:@"" options:RMQQueueDeclareExclusive];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
+    RMQExchange *x    = [ch direct:@"direct_logs"];
+    RMQQueue *q       = [ch queue:@"" options:RMQQueueDeclareExclusive];
 
-        NSArray *severities = @[@"error", @"warning", @"info"];
-        for (NSString *severity in severities) {
-            [q bind:x routingKey:severity];
-        }
-
-        NSLog(@"Waiting for logs.");
-
-        [q subscribe:^(RMQMessage * _Nonnull message) {
-            NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
-        }];
+    NSArray *severities = @[@"error", @"warning", @"info"];
+    for (NSString *severity in severities) {
+        [q bind:x routingKey:severity];
     }
+
+    NSLog(@"Waiting for logs.");
+
+    [q subscribe:^(RMQMessage * _Nonnull message) {
+        NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
+    }];
+}
+</pre>
 
 To emit an `error` log message just call:
 
-    [self emitLogDirect:@"Hi there!" severity:@"error"];
+<pre class="sourcecode objectivec">
+[self emitLogDirect:@"Hi there!" severity:@"error"];
+</pre>
 
 ([source code][source])
 

@@ -37,8 +37,9 @@ limitations under the License.
 	  </li>
 
 	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
-$ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
+	  <pre class="sourcecode bash">
+git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
+git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 	  </li>
 	</ul>
 
@@ -94,9 +95,9 @@ $ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 		the same directory. Change to
 		the <code>rabbitmq-java-client</code> directory and launch
 		the build:
-		<pre class="sourcecode">
-$ cd rabbitmq-java-client
-$ mvn clean package -Ddeps.dir=../ -DskipTests</pre>
+		<pre class="sourcecode bash">
+cd rabbitmq-java-client
+mvn clean package -Ddeps.dir=../ -DskipTests</pre>
 		The generated JAR file will be in <code>target</code>.
       </p>
 
