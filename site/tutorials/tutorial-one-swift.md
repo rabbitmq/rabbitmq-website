@@ -66,23 +66,29 @@ and start adding code.
 
 First, we import the client framework as a module:
 
-    import RMQClient
+<pre class="sourcecode swift">
+import RMQClient
+</pre>
 
 Now we call some send and receive methods from `viewDidLoad`:
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.send()
-        self.receive()
-    }
+<pre class="sourcecode swift">
+override func viewDidLoad() {
+    super.viewDidLoad()
+    self.send()
+    self.receive()
+}
+</pre>
 
 The send method begins with a connection to the RabbitMQ broker:
 
-    func send() {
-        print("Attempting to connect to local RabbitMQ broker")
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-    }
+<pre class="sourcecode swift">
+func send() {
+    print("Attempting to connect to local RabbitMQ broker")
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+}
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -93,26 +99,34 @@ If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address using the `initWithUri(delegate:)`
 convenience initializer:
 
-    let conn = RMQConnection(uri: "amqp://myrabbitserver.com:1234",
-                             delegate: RMQConnectionDelegateLogger())
+<pre class="sourcecode swift">
+let conn = RMQConnection(uri: "amqp://myrabbitserver.com:1234",
+                         delegate: RMQConnectionDelegateLogger())
+</pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    let ch = conn.createChannel()
+<pre class="sourcecode swift">
+let ch = conn.createChannel()
+</pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    let q = ch.queue("hello")
-    ch.defaultExchange().publish("Hello World!".data(using: .utf8), routingKey: q.name)
+<pre class="sourcecode swift">
+let q = ch.queue("hello")
+ch.defaultExchange().publish("Hello World!".data(using: .utf8), routingKey: q.name)
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already.
 
 Lastly, we close the connection:
 
-    conn.close()
+<pre class="sourcecode swift">
+conn.close()
+</pre>
 
 [Here's the whole controller (including receive)][controller].
 
@@ -142,13 +156,15 @@ Setting up is the same as `send`; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    func receive() {
-        print("Attempting to connect to local RabbitMQ broker")
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-        let ch = conn.createChannel()
-        let q = ch.queue("hello")
-    }
+<pre class="sourcecode swift">
+func receive() {
+    print("Attempting to connect to local RabbitMQ broker")
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+    let ch = conn.createChannel()
+    let q = ch.queue("hello")
+}
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -159,10 +175,12 @@ queue. Since it will push messages to us asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `RMQQueue subscribe()` does.
 
-    print("Waiting for messages.")
-    q.subscribe({(_ message: RMQMessage) -> Void in
-        print("Received \(String(data: message.body, encoding: .utf8))")
-    })
+<pre class="sourcecode swift">
+print("Waiting for messages.")
+q.subscribe({(_ message: RMQMessage) -> Void in
+    print("Received \(String(data: message.body, encoding: .utf8))")
+})
+</pre>
 
 [Here's the whole controller again (including send)][controller].
 

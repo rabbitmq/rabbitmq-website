@@ -140,53 +140,67 @@ The code is almost the same as in the
 
 The code for `emitLogTopic`:
 
-    func emitLogTopic(_ msg: String, routingKey: String) {
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-        let ch = conn.createChannel()
-        let x = ch.topic("topic_logs")
-        x.publish(msg.data(using: .utf8), routingKey: routingKey)
-        print("Sent '\(msg)'")
-        conn.close()
-    }
+<pre class="sourcecode swift">
+func emitLogTopic(_ msg: String, routingKey: String) {
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+    let ch = conn.createChannel()
+    let x = ch.topic("topic_logs")
+    x.publish(msg.data(using: .utf8), routingKey: routingKey)
+    print("Sent '\(msg)'")
+    conn.close()
+}
+</pre>
 
 The code for `receiveLogsTopic`:
 
-    func receiveLogsTopic(_ routingKeys: [Any]) {
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-        let ch = conn.createChannel()
-        let x = ch.topic("topic_logs")
-        let q = ch.queue("", options: .exclusive)
-        for routingKey: String in routingKeys {
-            q.bind(x, routingKey: routingKey)
-        }
-        print("Waiting for logs.")
-        q.subscribe({(_ message: RMQMessage) -> Void in
-            print("\(message.routingKey):\(String(data: message.body,
-                                                  encoding: .utf8))")
-        })
+<pre class="sourcecode swift">
+func receiveLogsTopic(_ routingKeys: [Any]) {
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+    let ch = conn.createChannel()
+    let x = ch.topic("topic_logs")
+    let q = ch.queue("", options: .exclusive)
+    for routingKey: String in routingKeys {
+        q.bind(x, routingKey: routingKey)
     }
+    print("Waiting for logs.")
+    q.subscribe({(_ message: RMQMessage) -> Void in
+        print("\(message.routingKey):\(String(data: message.body,
+                                              encoding: .utf8))")
+    })
+}
+</pre>
 
 To receive all the logs:
 
-    self.receiveLogsTopic(["#"])
+<pre class="sourcecode swift">
+self.receiveLogsTopic(["#"])
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    self.receiveLogsTopic(["kern.*"])
+<pre class="sourcecode swift">
+self.receiveLogsTopic(["kern.*"])
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    self.receiveLogsTopic(["*.critical"])
+<pre class="sourcecode swift">
+self.receiveLogsTopic(["*.critical"])
+</pre>
 
 You can create multiple bindings:
 
-    self.receiveLogsTopic(["kern.*", "*.critical"])
+<pre class="sourcecode swift">
+self.receiveLogsTopic(["kern.*", "*.critical"])
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    self.emitLogTopic("A critical kernel error", routingKey: "kern.critical")
+<pre class="sourcecode swift">
+self.emitLogTopic("A critical kernel error", routingKey: "kern.critical")
+</pre>
 
 Have fun playing with these methods. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
