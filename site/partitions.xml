@@ -52,7 +52,7 @@ limitations under the License.
       determine that a partition has occurred. This will be written to
       the RabbitMQ log in a form like:
     </p>
-    <pre>=ERROR REPORT==== 15-Oct-2012::18:02:30 ===
+    <pre class="sourcecode">=ERROR REPORT==== 15-Oct-2012::18:02:30 ===
 Mnesia(rabbit@smacmullen): ** ERROR ** mnesia_event got
     {inconsistent_database, running_partitioned_network, hare@smacmullen}</pre>
     <p>
@@ -65,7 +65,7 @@ Mnesia(rabbit@smacmullen): ** ERROR ** mnesia_event got
       <code>rabbitmqctl cluster_status</code> will normally show an
       empty list for <code>partitions</code>:
     </p>
-    <pre># rabbitmqctl cluster_status
+    <pre class="sourcecode"># rabbitmqctl cluster_status
 Cluster status of node rabbit@smacmullen ...
 [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
  {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
@@ -75,7 +75,7 @@ Cluster status of node rabbit@smacmullen ...
       However, if a network partition has occurred then information
       about partitions will appear there:
     </p>
-    <pre># rabbitmqctl cluster_status
+    <pre class="sourcecode"># rabbitmqctl cluster_status
 Cluster status of node rabbit@smacmullen ...
 [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
  {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
