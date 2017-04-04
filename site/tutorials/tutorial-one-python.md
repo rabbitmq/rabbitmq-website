@@ -96,14 +96,14 @@ machine we'd simply specify its name or IP address here.
 
 Next, before sending we need to make sure the recipient queue
 exists. If we send a message to non-existing location, RabbitMQ will
-just trash the message. Let's create a queue to which the message will
-be delivered, let's name it _hello_:
+just drop the message. Let's create a _hello_ queue to which the message will
+be delivered:
 
 <pre class="sourcecode python">
 channel.queue_declare(queue='hello')
 </pre>
 
-At that point we're ready to send a message. Our first message will
+At this point we're ready to send a message. Our first message will
 just contain a string _Hello World!_ and we want to send it to our
 _hello_ queue.
 
