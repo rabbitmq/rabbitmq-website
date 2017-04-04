@@ -155,8 +155,8 @@ limitations under the License.
           </p>
           <p>
             If you want to do the lookup before binding, you must
-            set <code>dn_lookup_bind</code> to a tuple <code>{UserDN,
-            Password}</code>. The LDAP plugin will then bind with
+            set <code>dn_lookup_bind</code> to a tuple
+            <code>{UserDN, Password}</code>. The LDAP plugin will then bind with
             these credentials first to do the lookup, then bind with
             the user's DN and password to do the login.
           </p>
@@ -322,8 +322,8 @@ limitations under the License.
       </p>
 
       <p>
-        The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>
+        The default values for these queries are
+        <code>{constant, true}</code>, <code>{constant, true}</code>
         and <code>[{administrator, {constant, false}}]</code>
         respectively, granting all users access to all objects in all
         vhosts, but not making them administrators.
@@ -609,8 +609,8 @@ limitations under the License.
           Just substitutes arguments into a string. As this returns a string
           rather than a boolean it should be used within a <code>match</code>
           or <code>equals</code> query. See above for example. As a shorthand
-          you can use a plain string instead of <code>{string,
-          Pattern}</code>.
+          you can use a plain string instead of
+          <code>{string, Pattern}</code>.
 
         </p>
       </doc:subsection>

@@ -369,8 +369,8 @@ openssl ecparam -out key.pem -genkey -name prime256v1
               <p>
                 This is a list of ports to listen on for SSL
                 connections. To listen on a single network interface,
-                add something like <code>{"127.0.0.1",
-                5671}</code> to the list.
+                add something like
+                <code>{"127.0.0.1", 5671}</code> to the list.
               </p>
             </li>
             <li><pre class="sourcecode bash"><i>-rabbit ssl_options</i></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
@@ -404,9 +404,9 @@ openssl ecparam -out key.pem -genkey -name prime256v1
             configuration file are interpreted as escape sequences -
             so for example to specify the
             path <code>c:\cacert.pem</code> for the CA certificate you
-            would need to enter <code>{cacertfile,
-            "c:\\cacert.pem"}</code> or <code>{cacertfile,
-            "c:/cacert.pem"}</code>.
+            would need to enter
+            <code>{cacertfile, "c:\\cacert.pem"}</code> or
+            <code>{cacertfile, "c:/cacert.pem"}</code>.
           </p>
 
           <p>When a web browser connects to an HTTPS web server, the server
@@ -430,8 +430,8 @@ openssl ecparam -out key.pem -genkey -name prime256v1
           state that if the client does send us a certificate, we must
           be able to establish a chain of trust to it. Note that these
           values can change across versions of ssl shipped with
-          Erlang/OTP, so check your man page <code>erl -man
-          new_ssl</code> to ensure you have the proper values.</p>
+          Erlang/OTP, so check your man page
+          <code>erl -man new_ssl</code> to ensure you have the proper values.</p>
 
           <p>Note that if <code>{verify, verify_none}</code> is used,
           no certificate exchange takes place from the client to the

@@ -641,8 +641,8 @@ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listene
           <doc:heading>Creating RAM nodes</doc:heading>
           <p>
             We can declare a node as a RAM node when it first joins
-            the cluster. We do this with <code>rabbitmqctl
-            join_cluster</code> as before, but passing the
+            the cluster. We do this with
+            <code>rabbitmqctl join_cluster</code> as before, but passing the
             <code>--ram</code> flag:
           </p>
           <pre class="sourcecode bash">

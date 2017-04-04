@@ -355,8 +355,8 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
 
             More sophisticated consumers will need to implement further
             methods. In particular, <code>HandleModelShutdown</code> traps
-            channel/connection closure. Consumers can also implement <code>
-            HandleBasicCancelOk</code> to be notified of cancellations.
+            channel/connection closure. Consumers can also implement
+            <code> HandleBasicCancelOk</code> to be notified of cancellations.
 
             The <code>ConsumerTag</code> property of <code>DefaultBasicConsumer</code> can be
             used to retrieve the server-generated consumer tag, in cases where
@@ -419,8 +419,8 @@ explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> docu
             <doc:heading>Consumer Callbacks and Ordering</doc:heading>
             <p>
               As of version <code>3.5.0</code> application callback handlers <strong>can</strong> invoke blocking
-              operations (such as <code>IModel.QueueDeclare</code> or <code>
-              IModel.BasicCancel</code>). <code>IBasicConsumer</code> callbacks are invoked concurrently.
+              operations (such as <code>IModel.QueueDeclare</code> or
+              <code> IModel.BasicCancel</code>). <code>IBasicConsumer</code> callbacks are invoked concurrently.
               However, per-channel operation order is preserved. In other word, if messages A and B were delivered
               in this order on the same channel, they will be processed in this order. If messages A and B
               were delivered on different channels, they can be processed in any order (or in parallel).
@@ -458,8 +458,8 @@ cf.TaskScheduler = new CustomTaskScheduler();
 
               If more than one thread needs to access a particular <code>IModel</code>
               instances, the application should enforce mutual exclusion itself. One
-              way of achieving this is for all users of an <code>IModel</code> to <code>
-              lock</code> the instance itself:
+              way of achieving this is for all users of an <code>IModel</code> to
+              <code> lock</code> the instance itself:
 
 <pre class="sourcecode csharp">
 IModel ch = RetrieveSomeSharedIModelInstance();
@@ -479,8 +479,8 @@ lock (ch) {
 
                 <li>
                   <code>NotSupportedException</code>s being thrown from a method in class
-                  <code>RpcContinuationQueue</code> complaining about <code>"Pipelining of
-                  requests forbidden"</code> (which occurs in situations where more than
+                  <code>RpcContinuationQueue</code> complaining about
+                  <code>"Pipelining of requests forbidden"</code> (which occurs in situations where more than
                   one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run
                   simultaneously).
                 </li>
@@ -497,8 +497,8 @@ lock (ch) {
             set, but cannot be delivered, the broker will return it to the sending
             client (via a <code>basic.return</code> AMQP 0-9-1 command).
 
-            To be notified of such returns, clients can subscribe to the <code>
-            IModel.BasicReturn</code> event. If there are no listeners attached to the
+            To be notified of such returns, clients can subscribe to the
+            <code> IModel.BasicReturn</code> event. If there are no listeners attached to the
             event, then returned messages will be silently dropped.
 
 <pre class="sourcecode csharp">
@@ -769,8 +769,8 @@ factory.TopologyRecoveryEnabled  = false;
             </p>
 
             <p>
-            Since published messages are returned to clients via <code>
-            basic.return</code> method, and <code>basic.return</code> is an asynchronous
+            Since published messages are returned to clients via
+            <code> basic.return</code> method, and <code>basic.return</code> is an asynchronous
             negative-acknowledgement event, the <em>absence</em> of a <code>basic.return</code>
             for a particular message cannot be taken as a
             confirmation of delivery: the use of delivery flags only provides a
@@ -848,8 +848,8 @@ factory.TopologyRecoveryEnabled  = false;
 
             AMQP can operate in one of two modes, when receiving messages from the
             server: auto-acknowledgement mode (when the <code>noAck</code> flag has been
-            set on <code>BasicGet</code>, <code>BasicConsume</code>, or the <code>
-            Subscription</code> constructor), or manual-acknowledgement mode. Choosing
+            set on <code>BasicGet</code>, <code>BasicConsume</code>, or the
+            <code> Subscription</code> constructor), or manual-acknowledgement mode. Choosing
             the right acknowledgement mode is important for your application:
 
             <ul>
@@ -893,14 +893,14 @@ factory.TopologyRecoveryEnabled  = false;
 
             The class <code>RabbitMQ.Client.MessagePatterns.SimpleRpcServer</code>
             implements synchronous RPC-style request handling as well as
-            asynchronous message handling. Users should subclass <code>
-            SimpleRpcServer</code>, overriding one or more of the methods with names
+            asynchronous message handling. Users should subclass
+            <code> SimpleRpcServer</code>, overriding one or more of the methods with names
             beginning with "<code>Handle</code>".
 
             <code>SimpleRpcServer</code> instances have a request-dispatching loop,
             <code>MainLoop</code>, which interprets a request as an RPC-style request
-            needing a reply if the <code>ReplyTo</code> field of the request's <code>
-            IBasicProperties</code> is non-null and non-empty. Requests with absent or
+            needing a reply if the <code>ReplyTo</code> field of the request's
+            <code> IBasicProperties</code> is non-null and non-empty. Requests with absent or
             empty <code>ReplyTo</code> fields are treated as one-way.
 
             When an RPC-style request has been processed, the reply is sent to the
@@ -1037,13 +1037,13 @@ foreach (BasicDeliverEventArgs e in sub) {
           declared.
 
           <code>Subscription.Ack()</code> should be called for each received event,
-          whether or not auto-acknowledgement mode is used, because <code>
-          Subscription</code> internally knows whether an actual network message for
+          whether or not auto-acknowledgement mode is used, because
+          <code> Subscription</code> internally knows whether an actual network message for
           acknowledgement is required, and will take care of it for you in an
           efficient way so long as <code>Ack()</code> is always called in your code.
 
-          For full details, please see the code documentation for the <code>
-          Subscription</code> class.
+          For full details, please see the code documentation for the
+          <code> Subscription</code> class.
 
           <h3>Retrieving events with a custom consumer</h3>
 
@@ -1092,8 +1092,8 @@ ch.QueueBind("MyApplicationQueue", "prices",
             For more information, see the section on reliable message transfer
             below.
             Note also that class <code>Subscription</code> takes care of acknowledgement
-            and the various acknowledgement modes for you, so long as <code>
-            Subscription.Ack()</code> is called for each received message.
+            and the various acknowledgement modes for you, so long as
+            <code> Subscription.Ack()</code> is called for each received message.
             </p>
         </doc:subsection>
 

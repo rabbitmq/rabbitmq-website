@@ -513,10 +513,10 @@ channel.setReturnListener(new ReturnListener() {
         </p>
         <ul>
           <li>
-        <code>addShutdownListener(ShutdownListener
-        listener)</code> and
-        <code>removeShutdownListener(ShutdownListener
-        listener)</code>, to manage any listeners, which will
+
+        <code>addShutdownListener(ShutdownListener listener)</code> and
+
+        <code>removeShutdownListener(ShutdownListener listener)</code>, to manage any listeners, which will
         be fired when the object transitions to
         <code>closed</code> state. Note that, adding a
         ShutdownListener to an object that is already closed
@@ -532,8 +532,8 @@ channel.setReturnListener(new ReturnListener() {
         object is in an open state
           </li>
           <li>
-        <code>close(int closeCode, String
-        closeMessage)</code>, to explicitly notify the object
+
+        <code>close(int closeCode, String closeMessage)</code>, to explicitly notify the object
         to shut down
           </li>
         </ul>

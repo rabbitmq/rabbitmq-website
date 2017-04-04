@@ -144,8 +144,8 @@ limitations under the License.
               and a node containing a mirror goes down, then a new
               mirror will be created on another node. Use of
               <code>exactly</code> mode with <a
-              href="#cluster-shutdown"><code>"ha-promote-on-shutdown":
-              "always"</code></a> can be dangerous since queues can
+              href="#cluster-shutdown">
+              <code>"ha-promote-on-shutdown": "always"</code></a> can be dangerous since queues can
               migrate across a cluster and become unsynced as it is
               brought down.
             </td>
@@ -230,8 +230,8 @@ limitations under the License.
           For example, if a queue is on <code>[A B]</code>
           (with <code>A</code> the master), and you give it
           a <code>nodes</code> policy telling it to be on
-          <code>[C D]</code>, it will initially end up on <code>[A C
-          D]</code>. As soon as the queue synchronises on its new
+          <code>[C D]</code>, it will initially end up on
+          <code>[A C D]</code>. As soon as the queue synchronises on its new
           mirrors <code>[C D]</code>, the master on <code>A</code>
           will shut down.
         </p>
@@ -700,8 +700,8 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           </p>
 
           <p>
-            However, when you invoke <code>rabbitmqctl
-            forget_cluster_node</code>, RabbitMQ will attempt to find
+            However, when you invoke
+            <code>rabbitmqctl forget_cluster_node</code>, RabbitMQ will attempt to find
             a currently stopped mirror for each queue which has its
             master on the node we are forgetting, and "promote" that
             mirror to be the new master when it starts up again. If

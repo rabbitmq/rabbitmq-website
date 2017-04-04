@@ -31,8 +31,8 @@ limitations under the License.
     <p>
       The RabbitMQ server detects the total amount of
       RAM installed in the computer on startup and when
-      <code>rabbitmqctl
-      set_vm_memory_high_watermark <em>fraction</em></code> is
+
+      <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
       executed. By default, when the RabbitMQ server uses above 40%
       of the installed RAM, it raises a memory alarm and blocks all
       connections that are publishing messages. Once the memory alarm has cleared (e.g. due
@@ -106,10 +106,10 @@ Memory limit set to 2048MB.</pre>
 
       <p>
         The threshold can be changed while the broker is running
-        using the <code>rabbitmqctl set_vm_memory_high_watermark
-        <em>fraction</em></code> command or
-	<code>rabbitmqctl set_vm_memory_high_watermark absolute
-        <em>memory_limit</em></code> command.
+        using the
+        <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> command or
+
+        <code>rabbitmqctl set_vm_memory_high_watermark absolute <em>memory_limit</em></code> command.
         Memory units can also be used in this command.
         This command will take effect
         until the broker shuts down. The corresponding configuration
@@ -125,8 +125,8 @@ Memory limit set to 2048MB.</pre>
         A value of <code>0</code> makes the memory alarm go off
         immediately and thus disables all publishing (this may be
         useful if you wish to disable publishing globally);
-        use <code>rabbitmqctl set_vm_memory_high_watermark
-        0</code>.
+        use
+        <code>rabbitmqctl set_vm_memory_high_watermark 0</code>.
       </p>
     </doc:section>
 
