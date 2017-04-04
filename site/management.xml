@@ -256,27 +256,33 @@ limitations under the License.
           RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
-        <doc:subsection name="load-definitions">
-          <doc:heading>Load definitions at startup</doc:heading>
+        <doc:subsection name="http-logging">
+          <doc:heading>HTTP request logging</doc:heading>
           <p>
-            The management plugin lets you export a JSON file
-            containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts, permissions and
-            parameters). In some scenarios it may be useful to ensure
-            the existence of these objects at every startup.
+            To create simple access logs of requests to the HTTP API,
+            set the value of the <code>http_log_dir</code> variable in
+            the <code>rabbitmq_management</code> application to the name
+            of a directory in which logs can be created and restart
+            RabbitMQ. Note that only requests to the API
+            at <code>/api</code> are logged, not requests to the static
+            files which make up the browser-based GUI.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
           </p>
           <p>
-            To do this, set the <code>load_definitions</code> variable
-            to the path of a previously exported JSON file containing
-            the definitions you want.
-          </p>
-          <p>
-            Note that the definitions in the file will overwrite
-            anything already in the broker; using this option will not
-            delete anything that is already there. However, if you
-            start from a completely reset broker, use of this
-            option <b>will</b> prevent the usual default user /
-            virtual host / permissions from being created.
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="fine-stats">
@@ -307,33 +313,27 @@ limitations under the License.
             <code>none</code>.
           </p>
         </doc:subsection>
-        <doc:subsection name="statistics-interval">
-          <doc:heading>Statistics interval</doc:heading>
+        <doc:subsection name="load-definitions">
+          <doc:heading>Load definitions at startup</doc:heading>
           <p>
-            By default the server will emit statistics events every
-            5000ms. The message rate values shown in the management
-            plugin are calculated over this period. You may therefore
-            want to increase this value in order to sample rates over
-            a longer period, or to reduce the statistics load on a
-            server with a very large number of queues or channels.
+            The management plugin lets you export a JSON file
+            containing definitions of all broker objects (queues,
+            exchanges, bindings, users, virtual hosts, permissions and
+            parameters). In some scenarios it may be useful to ensure
+            the existence of these objects at every startup.
           </p>
           <p>
-            In order to do so, set the value of
-            the <code>collect_statistics_interval</code> variable for
-            the <code>rabbit</code> application to the desired
-            interval in milliseconds and restart RabbitMQ.
+            To do this, set the <code>load_definitions</code> variable
+            to the path of a previously exported JSON file containing
+            the definitions you want.
           </p>
-        </doc:subsection>
-        <doc:subsection name="http-logging">
-          <doc:heading>HTTP request logging</doc:heading>
           <p>
-            To create simple access logs of requests to the HTTP API,
-            set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbitmq_management</code> application to the name
-            of a directory in which logs can be created and restart
-            RabbitMQ. Note that only requests to the API
-            at <code>/api</code> are logged, not requests to the static
-            files which make up the browser-based GUI.
+            Note that the definitions in the file will overwrite
+            anything already in the broker; using this option will not
+            delete anything that is already there. However, if you
+            start from a completely reset broker, use of this
+            option <strong>will</strong> prevent the usual default user /
+            virtual host / permissions from being created.
           </p>
         </doc:subsection>
         <doc:subsection name="max-backlog">
@@ -356,11 +356,20 @@ limitations under the License.
             10000ms and explicitly sets some other relevant parameters
             to their default values, would look like this:
           </p>
-          <pre class="example">[
-  {rabbit,                    [ {tcp_listeners,               [5672]},
-                                {collect_statistics_interval, 10000} ] },
-  {rabbitmq_management,       [ {http_log_dir,  "/tmp/rabbit-mgmt"},
-                                {rates_mode,    basic}] }
+          <pre class="example">
+listeners.tcp.default = 5672
+collect_statistics_interval = 10000
+management.http_log_dir = /tmp/rabbit-mgmt
+management.rates_mode = basic</pre>
+
+          Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+          <pre class="example">
+[
+  {rabbit,                    [{tcp_listeners,               [5672]},
+                               {collect_statistics_interval, 10000} ]},
+  {rabbitmq_management,       [{http_log_dir,  "/tmp/rabbit-mgmt"},
+                               {rates_mode,    basic}] }
 ].</pre>
         </doc:subsection>
         <doc:subsection name="web-dispatch-config">
@@ -372,9 +381,16 @@ limitations under the License.
             <code>listener</code> configuration item; for example to
             change the port:
           </p>
-          <pre class="example">[
+          <pre class="example">
   ...
-  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+management.listener.port = 12345
+  ...</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+        <pre class="example">[
+  ...
+{rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
 ].</pre>
 
@@ -382,6 +398,17 @@ limitations under the License.
             or to make the management plugin use HTTPS:
           </p>
           <pre class="example">
+...
+management.listener.port = 15671
+management.listener.ssl = true
+management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
+management.listener.ssl_opts.certfile = /path/to/cert.pem
+management.listener.ssl_opts.keyfile = /path/to/key.pem
+...</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+        <pre class="example">
 [{rabbitmq_management,
   [{listener, [{port,     15671},
                {ssl,      true},
@@ -398,25 +425,40 @@ limitations under the License.
         </doc:subsection>
 
         <doc:subsection name="sample-retention">
-          <doc:heading>Sample retention policies</doc:heading>
+          <doc:heading>Sample Retention Policies</doc:heading>
           <p>
             The management plugin will retain samples of some data
             such as message rates and queue lengths. You can
             configure how long such data is retained.
           </p>
+          <pre class="example">
+...
+management.sample_retention_policies.global.minute  = 5
+management.sample_retention_policies.global.hour    = 60
+management.sample_retention_policies.global.day = 1200
+
+management.sample_retention_policies.basic.minute = 5
+management.sample_retention_policies.basic.hour   = 60
+
+management.sample_retention_policies.detailed.10 = 5
+...</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
         <pre class="example">
 [
   ...
   {rabbitmq_management,
     [{sample_retention_policies,
       %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
-      [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
+      [{global,   [{605, 5}, {3660, 60}, {86400, 1200}]},
        {basic,    [{605, 5}, {3600, 60}]},
        {detailed, [{10, 5}]}]
     }]
   },
   ...
 ].</pre>
+
           <p>
             There are three policies:
             <ul>
@@ -497,7 +539,7 @@ limitations under the License.
       </doc:section>
 
       <doc:section name="proxy">
-        <doc:heading>Proxy setup</doc:heading>
+        <doc:heading>(Reverse HTTP) Proxy Setup</doc:heading>
         <p>
           It is possible to make the web UI available via any proxy that
           conforms with RFC 1738. The following sample Apache configuration

@@ -354,28 +354,38 @@ server testca
       <doc:section name="enabling-ssl">
         <doc:heading>Enabling TLS Support in RabbitMQ</doc:heading>
 
-          <p>To enable the SSL/TLS support in RabbitMQ, we need to provide to
-          RabbitMQ the location of the <i>root</i> certificate, the server's
-          certificate file, and the server's key. We also need to tell it to
-          listen on a socket that is going to be used for SSL connections, and
-          we need to tell it whether it should ask for clients to present
-          certificates, and if the client does present a certificate, whether we
-          should accept the certificate if we can't establish a chain of trust
-          to it. These settings are all controlled by two arguments to RabbitMQ:</p>
+          <p>To enable the SSL/TLS support in RabbitMQ, we need to
+          provide to RabbitMQ the location of the <i>root</i>
+          certificate, the server's certificate file, and the server's
+          key. We also need to tell it to listen on a socket that is
+          going to be used for TLS connections, and we need to tell it
+          whether it should ask for clients to present certificates,
+          and if the client does present a certificate, whether we
+          should accept the certificate if we can't establish a chain
+          of trust to it. These settings are controlled by
+          severalconfiguration keys:</p>
 
           <ul class="plain">
             <li>
-              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
-              <p>
-                This is a list of ports to listen on for SSL
-                connections. To listen on a single network interface,
-                add something like <code>{"127.0.0.1",
-                5671}</code> to the list.
-              </p>
+              <code>listeners.ssl</code>: this is a list of ports to listen on for TLS
+              connections. RabbitMQ can listen on a single interface or multiple ones.
             </li>
-            <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
-            of ssl_options is available via the <code>new_ssl</code> man page:
-            i.e. <code>erl -man new_ssl</code>, but the most important are <code>cacertfile</code>, <code>certfile</code> and <code>keyfile</code>.</p></li>
+            <li>
+              <code>ssl_options.cacertfile</code>: Certificate Authority (CA) certificate file path
+            </li>
+            <li>
+              <code>ssl_options.certfile</code>: server certificate file path
+            </li>
+            <li>
+              <code>ssl_options.keyfile</code>: server private key file path
+            </li>
+            <li>
+              <code>ssl_options.verify</code>: controls peer verification mode
+            </li>
+            <li>
+              <code>ssl_options.fail_if_no_peer_cert</code>: when set to true, TLS connection
+              will be rejected if client fails to provide a certificate
+            </li>
           </ul>
 
           <p>
@@ -385,6 +395,18 @@ server testca
             will start one ssl_listener on port 5671 on all interfaces
             on this hostname:
           </p>
+
+<pre class="sourcecode">
+listeners.ssl.default = 5671
+
+ssl_options.cacertfile = /path/to/testca/cacert.pem
+ssl_options.certfile = /path/to/server/cert.pem
+ssl_options.keyfile = /path/to/server/key.pem
+ssl_options.verify = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Below is the same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 [
@@ -404,36 +426,33 @@ server testca
             configuration file are interpreted as escape sequences -
             so for example to specify the
             path <code>c:\cacert.pem</code> for the CA certificate you
-            would need to enter <code>{cacertfile,
-            "c:\\cacert.pem"}</code> or <code>{cacertfile,
-            "c:/cacert.pem"}</code>.
+            would need to use <code>"c:\\cacert.pem"</code> or <code>
+            "c:/cacert.pem"</code>.
           </p>
 
-          <p>When a web browser connects to an HTTPS web server, the server
-          presents its public certificate, the web browser attempts to establish
-          a chain of trust between the root certificates the browser is aware of
-          and the server's certificate, and all being well, an encrypted
-          communication channel is established. Although not used normally by
-          web browsers and web servers, SSL allows the server to ask the client
-          to present a certificate. In this way the server can verify that the
-          client is who they say they are.</p>
+          <p>When a web browser connects to an HTTPS web server, the
+          server presents its public certificate, the web browser
+          attempts to establish a chain of trust between the root
+          certificates the browser is aware of and the server's
+          certificate, and all being well, an encrypted communication
+          channel is established. Although not used normally by web
+          browsers and web servers, TLS allows the server to ask the
+          client to present a certificate. In this way the server can
+          verify that the client is who they say they are.</p>
+
           <p>This policy of whether or not the server asks for a
           certificate from the client, and whether or not they demand
-          that they are able to trust the certificate, is what
-          the <code>verify</code>
-          and <code>fail_if_no_peer_cert</code> arguments
-          control. Through
-          the <code>{fail_if_no_peer_cert,false}</code>
-          option, we state that we're prepared to accept clients which
-          don't have a certificate to send us, but through
-          the <code>{verify,verify_peer}</code> option, we
-          state that if the client does send us a certificate, we must
-          be able to establish a chain of trust to it. Note that these
-          values can change across versions of ssl shipped with
-          Erlang/OTP, so check your man page <code>erl -man
-          new_ssl</code> to ensure you have the proper values.</p>
+          that they are able to trust the certificate, is what the
+          <code>verify</code> and <code>fail_if_no_peer_cert</code>
+          arguments control. By setting
+          the <code>fail_if_no_peer_cert</code> option to <code>false</code>, we state
+          that we're prepared to accept clients which don't have a
+          certificate to send us, but through the
+          <code>verify</code> option set to <code>verify_peer</code>, we state that if
+          the client does send us a certificate, we must be able to
+          establish a chain of trust to it.</p>
 
-          <p>Note that if <code>{verify, verify_none}</code> is used,
+          <p>Note that if the <code>verify_none</code> mode is used,
           no certificate exchange takes place from the client to the
           server and <code>rabbitmqctl list_connections</code> will
           output empty strings for the peer certificate info
@@ -466,9 +485,19 @@ started SSL Listener on 0.0.0.0:5671</pre>
         </doc:subsection>
 
         <doc:subsection name="disabling-tls-versions">
-          <doc:heading>Providing Certificate Password</doc:heading>
+          <doc:heading>Providing Private Key Password</doc:heading>
           <p>
             It is possible to provide a password for private key using the <code>password</code> option:
+<pre class="sourcecode">
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.password   = t0p$3kRe7
+</pre>
+
+The same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="sourcecode">
 [
  {rabbit, [
@@ -507,7 +536,30 @@ started SSL Listener on 0.0.0.0:5671</pre>
         <doc:subsection name="disabling-tls-versions">
           <doc:heading>Disabling SSL/TLS Versions via Configuration</doc:heading>
           <p>
-            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option:
+            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option.
+          </p>
+
+Using the <a href="/configure.html#config-file">standard config</a>:
+
+<pre class="sourcecode">
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+ssl_options.versions.2 = tlsv1.1
+ssl_options.versions.3 = tlsv1
+</pre>
+
+Using the <a href="/configure.html#advanced-config-file">advanced config</a>:
+
+<pre classic="sourcecode">
+%% advanced config here is only used to configure TLS versions
+[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
+</pre>
+
+Using <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="sourcecode">
 %% Disable SSLv3.0 support, leaves TLSv1.0 enabled.
 [
@@ -523,6 +575,28 @@ started SSL Listener on 0.0.0.0:5671</pre>
 ].
 </pre>
 
+
+The examples below disable SSLv3.0 and TLSv1.0 support.
+
+Using the <a href="/configure.html#config-file">standard config</a>:
+
+<pre class="sourcecode">
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+ssl_options.versions.2 = tlsv1.1
+</pre>
+
+Using the <a href="/configure.html#advanced-config-file">advanced config</a>:
+
+<pre classic="sourcecode">
+[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]}].
+</pre>
+
+Using <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="sourcecode">
 %% Disable SSLv3.0 and TLSv1.0 support.
 [
@@ -537,8 +611,14 @@ started SSL Listener on 0.0.0.0:5671</pre>
           ]}
 ].
 </pre>
+        </doc:subsection>
 
-         to verify, use <code>openssl s_client</code>:
+
+
+        <doc:subsection name="verifying-tls-versions">
+          <doc:heading>Verifying Enabled TLS Versions</doc:heading>
+
+          To verify provided TLS versions, use <code>openssl s_client</code>:
 
 <pre class="sourcecode">
 # connect using SSLv3
@@ -556,7 +636,6 @@ openssl s_client -connect 127.0.0.1:5671 -tls1
 SSL-Session:
   Protocol  : TLSv1
 </pre>
-          </p>
         </doc:subsection>
 
         <doc:subsection name="configuring-tls-settings-in-java-client">
@@ -631,6 +710,9 @@ factory.useSslProtocol("TLSv1.2");
             The below examples demonstrates how the <code>ciphers</code> TLS option is used.
           </p>
 
+Cipher suites can only be configured using the <a href="/configure.html#advanced-config-file">advanced config</a>
+file or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="sourcecode">
 %% List allowed ciphers
 [
@@ -656,7 +738,7 @@ rabbitmqctl eval 'ssl:cipher_suites().'
 </pre>
 
             the output uses Erlang terms and thus can be copied into
-            RabbitMQ's config file.
+            RabbitMQ's <a href="/configure.html">classic or advanced config file</a>.
           </p>
 
           <p>The same suites can be listed in the OpenSSL format:</p>
@@ -1112,36 +1194,6 @@ namespace RabbitMQ.Client.Examples {
 
       </doc:section>
 
-      <doc:section name="certificate-chains">
-        <doc:heading>Certificate Chains and Verification Depth</doc:heading>
-        <p>
-          When using a client certificate signed by an intermediate CA, it may be necessary
-          to configure RabbitMQ server to use a higher verification depth.
-
-          The depth is the maximum number of non-self-issued intermediate certificates that
-          may follow the peer certificate in a valid certification path.
-          So if depth is 0 the peer (e.g. client) certificate must be signed by the trusted CA directly,
-          if 1 the path can be "peer, CA, trusted CA", if it is 2 "peer, CA, CA, trusted CA", and so on.
-
-          The following example demonstrates how to configure certificate validation depth for
-          RabbitMQ server:
-<pre class="sourcecode">[
-  {rabbit, [
-     {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
-                    {certfile,"/path/to/server/cert.pem"},
-                    {keyfile,"/path/to/server/key.pem"},
-                    {depth, 2},
-                    {verify,verify_peer},
-                    {fail_if_no_peer_cert,false}]}
-   ]}
-].
-</pre>
-        </p>
-        <p>When using RabbitMQ plugins such as federation or shovel with TLS, it may be necessary
-        to configure verification depth for the Erlang client, as explained below.</p>
-      </doc:section>
-
       <doc:section name="old-erlang">
         <doc:heading>Versions of Erlang prior to R16B01</doc:heading>
         <p>
@@ -1170,8 +1222,21 @@ namespace RabbitMQ.Client.Examples {
           management, STOMP, etc).
         </p>
         <p>The following example demonstrates this:</p>
+
+<pre class="sourcecode">
+listeners.ssl.1 = 5671
+ssl_allow_poodle_attack = true
+ssl_options.cacertfile  = /path/to/testca/cacert.pem
+ssl_options.certfile    = /path/to/server/cert.pem
+ssl_options.keyfile     = /path/to/server/key.pem
+ssl_options.verify      = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="sourcecode">[
-  {rabbit, [
+{rabbit, [
      {ssl_listeners, [5671]},
      {ssl_allow_poodle_attack, true},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
@@ -1182,6 +1247,48 @@ namespace RabbitMQ.Client.Examples {
    ]}
 ].
 </pre>
+      </doc:section>
+
+      <doc:section name="certificate-chains">
+        <doc:heading>Certificate Chains and Verification Depth</doc:heading>
+        <p>
+          When using a client certificate signed by an intermediate CA, it may be necessary
+          to configure RabbitMQ server to use a higher verification depth.
+
+          The depth is the maximum number of non-self-issued intermediate certificates that
+          may follow the peer certificate in a valid certification path.
+          So if depth is 0 the peer (e.g. client) certificate must be signed by the trusted CA directly,
+          if 1 the path can be "peer, CA, trusted CA", if it is 2 "peer, CA, CA, trusted CA", and so on.
+
+          The following example demonstrates how to configure certificate validation depth for
+          RabbitMQ server:
+<pre class="sourcecode">
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/testca/cacert.pem
+ssl_options.certfile   = /path/to/server/cert.pem
+ssl_options.keyfile    = /path/to/server/key.pem
+ssl_options.depth      = 2
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode">[
+ {rabbit, [
+     {ssl_listeners, [5671]},
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {depth, 2},
+                    {verify,verify_peer},
+                    {fail_if_no_peer_cert,false}]}
+   ]}
+].
+</pre>
+        </p>
+        <p>When using RabbitMQ plugins such as federation or shovel with TLS, it may be necessary
+        to configure verification depth for the Erlang client, as explained below.</p>
       </doc:section>
 
       <doc:section name="configure-erlang">

@@ -80,7 +80,7 @@ limitations under the License.
           By default, the <code>guest</code> user is prohibited from
           connecting to the broker remotely; it can only connect over
           a loopback interface (i.e. <code>localhost</code>). This
-          applies both to AMQP and to any other protocols enabled via
+          applies both to AMQP 0-9-1 and to any other protocols enabled via
           plugins. Any other users you create will not (by default) be
           restricted in this way.
         </p>
@@ -92,10 +92,16 @@ limitations under the License.
         <p>
           If you wish to allow the <code>guest</code> user to connect
           from a remote host, you should set the
-          <code>loopback_users</code> configuration item to
-          <code>[]</code>. A complete <code>rabbitmq.config</code>
+          <code>loopback_users</code> configuration to
+          <code>none</code>. A complete <a href="/configure.html">RabbitMQ config file</a>
           which does this would look like:
         </p>
+        <pre class="sourcecode">
+loopback_users = none
+</pre>
+
+        Or, in the <a href="/configure.html#erlang-term-config-file">classic config file format</a> (<code>rabbitmq.config</code>):
+
         <pre class="sourcecode">
 [{rabbit, [{loopback_users, []}]}].</pre>
       </doc:section>
@@ -229,6 +235,63 @@ limitations under the License.
         </p>
       </doc:section>
 
+      <doc:section name="topic-authorisation">
+        <doc:heading>Topic Authorisation</doc:heading>
+        <p>
+          As of version 3.7.0, RabbitMQ supports topic authorisation for topic exchanges. The routing key of a message
+          published to a topic exchange is taken into account when
+          publishing authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
+          the routing key is matched against a regular expression to decide whether the message can be
+          routed downstream or not).
+          Topic authorisation targets protocols like STOMP and MQTT, which are structured
+          around topics and use topic exchanges under the hood.
+        </p>
+        <p>
+          Topic authorisation is an additional layer on top of
+          existing checks for publishers. Publishing a
+          message to a topic-typed exchange will go through both the
+          <code>basic.publish</code> and the routing key checks.
+          The latter is never called if the former refuses access.
+        </p>
+        <p>
+          Topic authorisation can also be enforced for topic consumers.
+          Note that it works different for different protocols. The concept
+          of topic authorisation only really makes sense for the topic-oriented protocols such as MQTT
+          and STOMP. In AMQP 0-9-1, for example, consumers consume from queues
+          and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
+          binding routing keys between an AMQP 0-9-1 topic exchange and
+          a queue/exchange are checked against the topic permissions configured, if any.
+          For more information about how RabbitMQ handles authorization for topics, please see
+          the <a href="stomp.html">STOMP</a> and <a href="mqtt.html">MQTT</a>
+          documentation guides.
+        </p>
+        <p>
+          When default authorisation backend is used, publishing to a
+          topic exchange or consuming from a topic is always authorised
+          if no topic permissions
+          are defined (which is the case on a fresh RabbitMQ
+          installation). With this authorisation backend, topic
+          authorisation as optional: you don't need to whitelist any
+          exchanges. To use topic authorisation therefore you need to opt in
+          and define topic permissions for one or more exchanges.  For details please see the <a
+          href="man/rabbitmqctl.1.man.html#Access%20control">Access
+          Control section</a> of the <a
+          href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man
+          page</a>.
+        </p>
+        <p>
+          If a different authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>) is used, please refer
+          to the documentation of those backends.
+        </p>
+        <p>
+          If a custom authorisation backend is used, topic
+          authorisation is enforced by implementing the
+          <code>check_topic_access</code> callback of the
+          <code>rabbit_authz_backend</code> behavior.
+        </p>
+      </doc:section>
 
       <doc:section name="backends">
         <doc:heading>Alternative Authentication and Authorisation Backends</doc:heading>
@@ -254,14 +317,14 @@ limitations under the License.
           IP range one</a>, only provide an authorisation backend. Authentication
           is supposed to be handled by the internal database, LDAP, etc.
         </p>
-        
+
         <doc:subsection name="combined-backends">
           <doc:heading>Combining Backends</doc:heading>
 
           <p>
             It is possible to use multiple backends for
             <code>authn</code> or <code>authz</code> using the
-            <code>rabbit.auth_backends</code> configuration key. When
+            <code>auth_backends</code> configuration key. When
             several authentication backends are used then the first
             positive result returned by a backend in the chain is
             considered to be final. This should not be confused with
@@ -273,7 +336,20 @@ limitations under the License.
             The following example configures RabbitMQ to use the internal backend
             only (and is the default):
           </p>
-            
+
+<pre class="example">
+# rabbitmq.conf
+#
+# 1 here is a backend name. It can be anything.
+# Since we only really care about backend
+# ordering, we use numbers throughout this guide.
+#
+# "internal" is an alias for rabbit_auth_backend_internal
+auth_backends.1 = internal
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_internal]}
@@ -282,10 +358,31 @@ limitations under the License.
 </pre>
 
           <p>
+            The example above uses an alias, <code>internal</code> for <code>rabbit_auth_backend_internal</code>.
+            The following aliases are available:
+
+            <ul>
+              <li><code>internal</code> for <code>rabbit_auth_backend_internal</code></li>
+              <li><code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the <a href="/ldap.html">LDAP plugin</a>)</li>
+              <li><code>http</code> for <code>rabbit_auth_backend_http</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP auth backend plugin</a>)</li>
+              <li><code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP 0-9-1 auth backend plugin</a>)</li>
+              <li><code>dummy</code> for <code>rabbit_auth_backend_dummy</code></li>
+            </ul>
+
+            When using third party plugins, providing a full module name is necessary.
+          </p>
+
+          <p>
             The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
             for both authentication and authorisation. Internal database will not be consulted:
           </p>
-            
+
+<pre class="example">
+auth_backends.1 = ldap
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap]}
@@ -297,18 +394,43 @@ limitations under the License.
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
+
+<pre class="example">
+auth_backends.1 = ldap
+auth_backends.2 = internal
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
       <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
           ]
 }].
       </pre>
-      
+
       <p>
         Same as above but will fall back to the <a
         href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP backend</a>
         instead:
       </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1 = ldap
+# uses module name instead of a short alias, "http"
+auth_backends.2 = rabbit_auth_backend_http
+
+# See HTTP backend docs for details
+auth_http.user_path = http://my-authenticator-app/auth/user
+auth_http.vhost_path = http://my-authenticator-app/auth/vhost
+auth_http.resource_path = http://my-authenticator-app/auth/resource
+auth_http.topic_path = http://my-authenticator-app/auth/topic
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
       <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
@@ -318,9 +440,9 @@ limitations under the License.
  {rabbitmq_auth_backend_http,
    [{user_path,     "http://my-authenticator-app/auth/user"},
     {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-    {resource_path, "http://my-authenticator-app/auth/resource"}]}].
-</pre>      
-
+    {resource_path, "http://my-authenticator-app/auth/resource"},
+    {topic_path,    "http://my-authenticator-app/auth/topic"}]}].
+</pre>
 
           <p>
             The following example configures RabbitMQ to use internal
@@ -328,7 +450,17 @@ limitations under the License.
             href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
             IP range backend</a> for authorisation:
           </p>
-            
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = internal
+# uses module name because this backend is from a 3rd party
+auth_backends.1.authz = rabbit_auth_backend_ip_range
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
@@ -341,6 +473,16 @@ limitations under the License.
         The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
         for authentication and but internal backend for authorisation:
       </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
@@ -358,17 +500,24 @@ limitations under the License.
       </p>
 
 <pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+auth_backends.2       = internal
+</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
-                             rabbit_auth_backend_internal]
+                             rabbit_auth_backend_internal]}
           ]
  }].
-</pre>      
-        </doc:subsection>
-
-        <doc:subsection name="">
-          <doc:heading></doc:heading>
+</pre>
         </doc:subsection>
       </doc:section>
+
   </body>
 </html>

@@ -62,3 +62,43 @@ hosts. MQTT connections use a single RabbitMQ host by default. There
 are MQTT-specific convention and features that make it possible for
 clients to connect to a specific vhosts without any client library
 modifications. See the [MQTT guide](/mqtt.html) for details.
+
+
+## Limits
+
+In some cases it is desirable to limit the maximum allowed number of queues
+or concurrent client connections in a vhost. As of RabbitMQ 3.7.0,
+this is possible via **per-vhost limits**.
+
+These limits can be configured using `rabbitmqctl` or [HTTP API](/management.html).
+
+### Configuring Limits Using rabbitmqctl
+
+`rabbitmqctl set_vhost_limits` is the command used to define vhost limits.
+It requires a vhost parameter and a JSON document of limit definitions.
+
+### Configuring Max Connection Limit
+
+To limit the total number of concurrent client connections in vhost
+`vhost_name`, use the following limit definition:
+
+    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 256}'
+
+To disable client connections to a vhost, set the limit to a zero:
+
+    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 0}'
+
+To lift the limit, set it to a negative value:
+
+    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": -1}'
+
+### Configuring Max Number of Queues
+
+To limit the total number of queues in vhost
+`vhost_name`, use the following limit definition:
+
+    rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": 1024}'
+
+To lift the limit, set it to a negative value:
+
+    rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": -1}'

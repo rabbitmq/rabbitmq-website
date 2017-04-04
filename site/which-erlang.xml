@@ -22,6 +22,7 @@ limitations under the License.
     <title>Erlang Versions Required and Supported by RabbitMQ</title>
   </head>
   <body>
+
     <doc:section name="requirements-and-recommendations">
       <doc:heading>Minimum Required Version</doc:heading>
 
@@ -125,6 +126,14 @@ limitations under the License.
     <doc:section name="old-timers">
       <doc:heading>Older Erlang Versions</doc:heading>
 
+      <doc:subsection name="r16b03">
+        <doc:heading>Last Version to Support R16B03</doc:heading>
+
+        <p>
+          If you absolutely must use an older version of Erlang, RabbitMQ
+          3.6.x is the newest version compatible with R16B03.
+        </p>
+      </doc:subsection>
       <doc:subsection name="r13b03">
         <doc:heading>Last Version to Support R13B03</doc:heading>
 

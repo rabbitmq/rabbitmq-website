@@ -245,7 +245,7 @@ The code for our RPC server [rpc_server.go](https://github.com/rabbitmq/rabbitmq
             q, err := ch.QueueDeclare(
                     "rpc_queue", // name
                     false,       // durable
-                    false,       // delete when usused
+                    false,       // delete when unused
                     false,       // exclusive
                     false,       // no-wait
                     nil,         // arguments

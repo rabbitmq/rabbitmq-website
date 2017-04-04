@@ -123,6 +123,11 @@ to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
+    web_mqtt.port = 12345
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+
     [
       {rabbitmq_web_mqtt, [{port, 12345}]}
     ].
@@ -147,6 +152,15 @@ The plugin supports WebSockets with TLS (WSS) connections. That requires
 Erlang/OTP 17.5 or a later version.
 
 TLS (SSL) configuration parameters are provided in the `ssl_config` section:
+
+    web_mqtt.ssl.port = 12345
+    web_mqtt.ssl.backlog    = 1024
+    web_mqtt.ssl.certfile   = path/to/certs/client/cert.pem
+    web_mqtt.ssl.keyfile    = path/to/certs/client/key.pem
+    web_mqtt.ssl.cacertfile = path/to/certs/testca/cacert.pem
+    web_mqtt.ssl.password   = changeme
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_mqtt,

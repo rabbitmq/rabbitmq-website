@@ -139,11 +139,15 @@ all interfaces on port 15674 and have a default user login/passcode of
 We highly recommend creating a separate user production systems.
 
 To change this, edit your
-[Configuration file](/configure.html#configuration-file),
+[Advanced configuration file](/configure.html#configuration-file),
 to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_stomp` application.
 
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
+
+    web_stomp.port = 12345
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -161,6 +165,15 @@ The plugin supports WebSockets with TLS (WSS) connections. That requires
 Erlang/OTP 17.5 or a later version.
 
 TLS (SSL) configuration parameters are provided in the `ssl_config` section:
+
+    web_stomp.ssl.port = 12345
+    web_stomp.ssl.backlog    = 1024
+    web_stomp.ssl.certfile   = path/to/certs/client/cert.pem
+    web_stomp.ssl.keyfile    = path/to/certs/client/key.pem
+    web_stomp.ssl.cacertfile = path/to/certs/testca/cacert.pem
+    web_stomp.ssl.password   = changeme
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -186,6 +199,10 @@ encoded as UTF-8. This cannot be changed for the SockJS endpoint,
 however you can switch the WebSocket endpoint to binary if needed.
 The `ws_frame` option serves this purpose:
 
+    web_stomp.ws_frame = binary
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_web_stomp, [{ws_frame, binary}]}
     ].
@@ -196,6 +213,10 @@ options](https://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server
 w.r.t. WebSocket connection handling. You can specify those in the Web
 STOMP plugin configuration, in the `cowboy_opts` section:
+
+    web_stomp.cowboy_opts.max_keepalive = 10
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -208,10 +229,16 @@ SockJS-erlang repository for a detailed [list of options](https://github.com/rab
 you can use. For example, to use a different SockJS client
 version, you can use the following configuration:
 
+    web_stomp.sockjs_opts.url = https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_web_stomp,
           [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
     ].
+
+## Basic HTTP Authentication
 
 The `use_http_auth` option extends the authentication by
 allowing clients to send the login and passcode in the
@@ -219,6 +246,9 @@ HTTP Authorization header (using HTTP Basic Auth). If
 present, these credentials will be used. Otherwise, the
 default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.
+
+This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-file)
+or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -230,3 +260,4 @@ in the CONNECT frame, if any, are ignored.
 RabbitMQ Web STOMP is fully compatible with the
 [RabbitMQ STOMP](/stomp.html) plugin, with the exception of STOMP
 heartbeats. STOMP heartbeats won't work with SockJS (WebSocket emulation).
+

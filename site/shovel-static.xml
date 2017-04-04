@@ -29,10 +29,10 @@ limitations under the License.
   <body show-in-this-page="true">
     <doc:section name="configuration">
       <p>
-        The configuration for the Shovel plugin in the
-        <a href="configure.html#configuration-file">broker configuration
-        file</a> is an Erlang term (as usual) and consists of a single
-        <code>shovels</code> clause:
+        The configuration for the Shovel plugin must be defined in the in the
+        <a href="configure.html#advanced-config-file">advanced configuration
+        file</a> or using the <a href="configure.html#erlang-term-config-file">classic config format</a>.
+        It is an Erlang term and consists of a single <code>shovels</code> clause:
       </p>
 <pre class="example">
   {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [ <em>...</em> ]}, <em>...</em> ]} ]}
@@ -368,6 +368,26 @@ limitations under the License.
             If <code>add_forward_headers</code> is set to true, an
             <code>x-shovelled</code> header is added or appended to
             the message before it is re-published.
+          </p>
+          <p>
+            The default is not to add such a header.
+          </p>
+        </dd>
+
+        <dt><strong>add_timestamp_header</strong></dt>
+        <dd>
+          <p>
+            This clause is optional. It takes the form:
+          </p>
+<pre class="example">
+  {add_timestamp_header, <em>boolean</em>}
+</pre>
+          <p>
+            If <code>add_timestamp_header</code> is set to true, an
+            <code>x-shovelled-timestamp</code> header is added to
+            the message before it is re-published. 
+            This header value is timestamp (in seconds since epoch) when
+            message had been shovelled.
           </p>
           <p>
             The default is not to add such a header.

@@ -53,12 +53,21 @@ to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
+    stomp.listeners.tcp.1 = 12345
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
     ].
 
 while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
+
+    stomp.listeners.tcp.1 = 127.0.0.1:61613
+    stomp.listeners.tcp.2 = ::1:61613
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
@@ -67,9 +76,21 @@ both IPv4 and IPv6) would look like:
 
 ## TLS/SSL Support
 
-To use SSL for STOMP connections, [SSL must be configured](/ssl.html) in the broker. To enable
-STOMP SSL connections, add a listener configuration to the
-`ssl_listeners` variable for the `rabbitmq_stomp` application. For example:
+To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
+STOMP TLS connections, add a TLS listener for STOMP. The plugin will use core RabbitMQ server
+certificates and key (just like AMQP 0-9-1):
+
+
+    ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
+    ssl_options.certfile   = /path/to/tls/server/cert.pem
+    ssl_options.keyfile    = /path/to/tls/server/key.pem
+    ssl_options.verify     =  verify_peer
+    ssl_options.fail_if_no_peer_cert = true
+
+    stomp.listeners.tcp.1 = 61613
+    stomp.listeners.ssl.1 = 61614
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbit,          [
                         {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
@@ -93,6 +114,11 @@ and `passcode` headers if a default is configured.
 To configure a default login and passcode, add a `default_user`
 section to the `rabbitmq_stomp` application configuration. For example:
 
+    stomp.default_user = guest
+    stomp.default_pass = guest
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
                                         {passcode, "guest"}]}]}
@@ -101,7 +127,7 @@ section to the `rabbitmq_stomp` application configuration. For example:
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
-### <a id="cta.ssl"/>Authentication with SSL client certificates
+### <a id="cta.ssl"/>Authentication with TLS/x509 client certificates
 
 The STOMP adapter can authenticate SSL-based connections by extracting
 a name from the client's SSL certificate, without using a password.
@@ -113,6 +139,10 @@ force all SSL clients to have a verifiable client certificate.
 To switch this feature on, set `ssl_cert_login` to `true` for the
 `rabbitmq_stomp` application. For example:
 
+    stomp.ssl_cert_login = true
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_stomp, [{ssl_cert_login, true}]}
     ].
@@ -122,6 +152,10 @@ the certificate's subject's Distinguished Name, similar to that
 produced by OpenSSL's "-nameopt RFC2253" option.
 
 To use the Common Name instead, add:
+
+    ssl_cert_login_from = common_name
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     {rabbit, [{ssl_cert_login_from, common_name}]}
 
@@ -143,6 +177,13 @@ the default user or the user supplied in the SSL certificate.
 To enable implicit connect, set `implicit_connect` to `true` for the
 `rabbit_stomp` application. For example:
 
+
+    stomp.default_user = guest
+    stomp.default_pass = guest
+    stomp.implicit_connect = true
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_stomp, [{default_user,     [{login, "guest"},
                                             {passcode, "guest"}]},
@@ -153,6 +194,22 @@ Implicit connect is *not* enabled by default.
 
 **Note:** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
+
+## <a id="proxy-protocol"/> Proxy Protocol
+
+The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+This feature is disabled by default, to enable it for STOMP clients:
+
+    stomp.proxy_protocol = true
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+    [
+      {rabbitmq_stomp, [{proxy_protocol, true}]}
+    ].  
+
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
+about the proxy protocol.
 
 ### <a id="cta.tta"/>Testing the Adapter
 
@@ -492,6 +549,11 @@ connection). The RabbitMQ adapter allows this to be optional.
 When omitted, the default virtual host (`/`) is presumed.
 To configure a different default virtual host, add a `default_vhost`
 section to the `rabbitmq_stomp` application configuration, e.g.
+
+
+    stomp.default_vhost = /
+
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{default_vhost, <<"/">>}]}

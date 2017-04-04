@@ -92,6 +92,7 @@ limitations under the License.
          <x:related url="/heartbeats.html" text="Heartbeats"/>
        </x:page>
        <x:page url="/clustering.html" text="Clustering">
+         <x:page url="/autoclustering.html" text="Cluster Formation"/>
          <x:page url="/partitions.html" text="Network Partitions">
            <x:related url="/heartbeats.html" text="Heartbeats"/>
          </x:page>

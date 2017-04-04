@@ -218,6 +218,12 @@ limitations under the License.
           shovelled messages indicating where they have been shovelled
           from and to. Default is false.
         </dd>
+        <dt><code>add-timestamp-header</code></dt>
+        <dd>
+          Whether to add <code>x-shovelled-timestamp</code> headers to the
+          shovelled messages  containing timestamp (in seconds since epoch)
+          when message had been shovelled. Default is false.
+        </dd>
         <dt><code>ack-mode</code></dt>
         <dd>
           <p>

@@ -58,12 +58,21 @@ limitations under the License.
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database:
       </p>
+      <pre class="example">auth_backends.1 = ldap</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
       <p>
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
+      <pre class="example">auth_backends.1 = ldap
+auth_backends.2 = internal</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
 
       <p>
@@ -74,6 +83,12 @@ limitations under the License.
         need a password there). If the user is not found in LDAP then a second
         attempt is made using only the internal database.
       </p>
+
+      <pre class="example">auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+auth_backends.2 = internal</pre>
+
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                                                      rabbit_auth_backend_internal]}]}</pre>
@@ -98,6 +113,8 @@ limitations under the License.
         with that, there is no need to read the documentation on authorisation.
       </p>
       <p>
+        Listed options can be defined using <a href="/configure.html">sysctl config format</a> in
+        <code>rabbitmq.conf</code>
         The options not directly related to authorisation are:
       </p>
 
@@ -106,6 +123,13 @@ limitations under the License.
         <dd>
           List of LDAP servers to attempt to bind to, in order. You almost
           certainly want to change this. Default: <code>["ldap"]</code>
+          Example of configuration using the sysctl config format:
+          <pre class="example">
+auth_ldap.servers.1 = some_server
+auth_ldap.servers.2 = some_other_server
+          </pre>
+          Using the classic config format:
+          <pre class="example">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
@@ -163,8 +187,9 @@ limitations under the License.
           <p>
             For example, if I set
           </p>
-          <pre>{dn_lookup_attribute,   "userPrincipalName"},
-{dn_lookup_base,        "DC=gopivotal,DC=com"}</pre>
+          <pre class="example">
+auth_ldap.dn_lookup_attribute = userPrincipalName
+auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
           <p>
             I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
             local Active Directory server return my real DN.
@@ -176,7 +201,7 @@ limitations under the License.
             searches for the DN.
           </p>
           <p>
-            Default: <code>'none'</code>, <code>'none'</code> and <code>'as_user'</code>
+            Default: <code>none</code>, <code>none</code> and <code>as_user</code>
           </p>
         </dd>
         <dt><code>group_lookup_base</code></dt>
@@ -206,15 +231,22 @@ limitations under the License.
           <p>
             This option must either be one of the
             atoms <code>as_user</code> (to bind as the authenticated
-            user) or <code>anon</code> (to bind anonymously), or a
-            tuple <code>{UserDN, Password}</code> (to bind with a
-            specified username and password).
+            user) or <code>anon</code> (to bind anonymously), or be presented by two
+            options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
+            to bind with a specified username and password.
+            For example:
+            <pre class="example">
+auth_ldap.other_bind.user_dn = username
+auth_ldap.other_bind.password = password</pre>
+
+            Using the classic config format:
+            <pre class="example">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
           </p>
           <p>
             Note that it is not possible to use the
             default <code>as_user</code> configuration when users connect
             without passwords. You must set <code>other_bind</code>
-            to <code>anon</code>, or <code>{UserDN, Password}</code> for users
+            to <code>anon</code>, or with user_dn and password for users
             to log in without passwords.
           </p>
           <p>
@@ -290,7 +322,7 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="authorisation">
-      <doc:heading>Configuring authorisation</doc:heading>
+      <doc:heading>Configuring Authorisation</doc:heading>
       <p>
         Since LDAP has a view of the world which is rather different
         from that of RabbitMQ, we need to be able to configure the
@@ -303,8 +335,15 @@ limitations under the License.
       <ul>
         <li><code>vhost_access_query</code></li>
         <li><code>resource_access_query</code></li>
+        <li><code>topic_access_query</code></li>
         <li><code>tag_queries</code></li>
       </ul>
+
+      <p>
+        Queries are complex erlang terms, so they can be defined only using the
+        <a href="/configure.html#erlang-term-config-file">classic config format</a>. When using the sysctl
+        format, <config>additional.config</config> can be used for query definitions
+      </p>
 
       <p>
         Note that in order for a user to be able to access a virtual
@@ -323,7 +362,7 @@ limitations under the License.
 
       <p>
         The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>
+        true}</code>, <code>{constant, true}</code>, <code>{constant, true}</code>
         and <code>[{administrator, {constant, false}}]</code>
         respectively, granting all users access to all objects in all
         vhosts, but not making them administrators.
@@ -363,11 +402,29 @@ limitations under the License.
         <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
       </ul>
 
+      <p><code>topic_access_query</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+        <li><code>${resource}</code> - always "topic" in this case</li>
+        <li><code>${name}</code> - the name of the resource</li>
+        <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming, queue and
+          exchange-to-exchange binding for topic exchanges)
+        </li>
+        <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
+          or routing key of the topic exchange to queue/exchange binding ("read" permission)
+        </li>
+      </ul>
+
       <p>
         The terms configure, write and read for resource access have the
         same meanings that they do for the built-in RabbitMQ permissions
-        system, see http://www.rabbitmq.com/access-control.html
+        system, see http://www.rabbitmq.com/access-control.html. See
+        also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
+        for <code>topic_access_query</code>.
       </p>
+
 
       <p><code>tag_queries</code> allows</p>
       <ul>
@@ -384,7 +441,7 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="query-reference">
-      <doc:heading>Authorisation query reference</doc:heading>
+      <doc:heading>Authorisation Query Reference</doc:heading>
 
       <doc:subsection>
         <doc:heading>Constant Query</doc:heading>
@@ -629,14 +686,59 @@ limitations under the License.
     <doc:section name="example">
       <doc:heading>Example configuration</doc:heading>
       <p>
-        Bringing it all together, here's a sample configuration. This
+        Bringing it all together, here's a sample configuration. It uses both the <a href="/configure.html#config-file">standard config</a> and
+        <a href="/configure.html#advanced-config-file">advanced config</a> files together. This
         makes all users able to access the management plugin, but
         makes none of them administrators. Access to virtual hosts is
         controlled by membership of a group per virtual host. Only
         members of <code>admin</code> can declare, delete or
         bind exchanges and queues, but all users can publish to
-        exchanges and declare from queues.
+        exchanges and declare from queues. Publishing to topic-typed
+        exchanges is restricted to messages with a routing key
+        beginning with "a" and consuming from topics isn't restricted
+        (topic authorisation).
       </p>
+      The <a href="/configure.html#config-file">standard config</a>
+      (rabbitmq.conf) is used to configure authentication backends and
+      several LDAP plugin parameters:
+
+<pre class="example">
+auth_backends.1 = ldap
+
+auth_ldap.servers.1  = my-ldap-server
+auth_ldap.user_dn_pattern = cn=${username},ou=People,dc=example,dc=com
+auth_ldap.use_ssl    = false
+auth_ldap.port       = 389
+auth_ldap.log        = false
+</pre>
+    <a href="/configure.html#advanced-config-file">Advanced config</a> is used to define LDAP queries:
+<pre class="example">
+[{rabbitmq_auth_backend_ldap,[
+    {vhost_access_query,    {in_group,
+                              "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
+     {resource_access_query,
+      {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
+             {permission, write,
+              {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, exchange, {constant, true}}]}},
+             {permission, read,
+              {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, queue,    {constant, true}}]}}
+            ]
+      }},
+     {topic_access_query,
+      {for, [{permission, write, {match, {string, "${routing_key}"}, {string, "^a"}}},
+             {permission, read,  {constant, true}}
+            ]
+      }},
+     {tag_queries,           [{administrator, {constant, false}},
+                              {management,    {constant, true}}]}
+]}].
+</pre>
+
+    Alternatively, you can use the <a href="/configure.html#erlang-term-config-file">classic config format</a>
+    to configure everything in a single file:
+
 <pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,
@@ -657,6 +759,11 @@ limitations under the License.
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
+     {topic_access_query,
+      {for, [{permission, write, {match, {string, "${routing_key}"}, {string, "^a"}}},
+             {permission, read,  {constant, true}}
+            ]
+     }},
      {tag_queries,           [{administrator, {constant, false}},
                               {management,    {constant, true}}]}
    ]

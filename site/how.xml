@@ -511,7 +511,7 @@ limitations under the License.
       A beginners guide to RabbitMQ explaining how to set up a cluster of RabbitMQ brokers and enable plugins.
     </li>
     <li>
-      <a href="http://blog.agoragames.com/2010/07/28/grabbing-the-rabbit-by-the-horns/">HOWTO: Take control of cluster management</a><br />
+      <a href="http://www.agoragames.com/blog/2010/07/28/grabbing-the-rabbit-by-the-horns/">HOWTO: Take control of cluster management</a><br />
       Describes how to configure <em>rabbitmq.conf</em> to pass environment variables to the Erlang runtime with the goal of
       simplifying the management of RabbitMQ clusters. Note that the name of the environment configuration file has changed
       to <em>rabbitmq-env.conf</em> since writing.
