@@ -642,7 +642,7 @@ ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0e
 
 div#left-content { float: left; max-width: 730px; }
 
-div#right-nav { float: right; max-width: 215px; margin-top: 20px; }
+div#right-nav { float: right; max-width: 230px; margin-top: 20px; }
 div#right-nav div { margin: 0 0 20px 5px; padding: 20px; background: #f9fafb; border-radius: 3px; -moz-border-radius: 3px; }
 div#right-nav h4 { margin: 0; }
 div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
