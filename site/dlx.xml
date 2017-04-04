@@ -230,9 +230,10 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             expiring again in any queues it is routed to.</li>
         </ul>
 
-        In case <code>x-death</code> already contains an entry with
+        New entries are prepended to the beginning of the <code>x-death</code>
+        array. In case <code>x-death</code> already contains an entry with
         the same queue and dead lettering reason, its count field will be
-        incremented.
+        incremented and it will be moved to the beginning of the array.
       </p>
       <p>
         The <code>reason</code> is a name describing why the
