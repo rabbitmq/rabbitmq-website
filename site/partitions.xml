@@ -65,23 +65,27 @@ Mnesia(rabbit@smacmullen): ** ERROR ** mnesia_event got
       <code>rabbitmqctl cluster_status</code> will normally show an
       empty list for <code>partitions</code>:
     </p>
-    <pre class="sourcecode"># rabbitmqctl cluster_status
-Cluster status of node rabbit@smacmullen ...
-[{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
- {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
- {partitions,[]}]
-...done.</pre>
+    <pre class="sourcecode bash">
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@smacmullen ...
+# => [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
+# =>  {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
+# =>  {partitions,[]}]
+# => ...done.
+    </pre>
     <p>
       However, if a network partition has occurred then information
       about partitions will appear there:
     </p>
-    <pre class="sourcecode"># rabbitmqctl cluster_status
-Cluster status of node rabbit@smacmullen ...
-[{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
- {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
- {partitions,[{rabbit@smacmullen,[hare@smacmullen]},
-              {hare@smacmullen,[rabbit@smacmullen]}]}]
-...done.</pre>
+    <pre class="sourcecode bash">
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@smacmullen ...
+# => [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
+# =>  {running_nodes,[rabbit@smacmullen,hare@smacmullen]},
+# =>  {partitions,[{rabbit@smacmullen,[hare@smacmullen]},
+# =>               {hare@smacmullen,[rabbit@smacmullen]}]}]
+# => ...done.
+    </pre>
     <p>
       The management plugin API will return partition
       information for each node under <code>partitions</code>
