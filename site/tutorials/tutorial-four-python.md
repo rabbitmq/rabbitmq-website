@@ -271,8 +271,7 @@ The code for `emit_log_direct.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',
@@ -294,8 +293,7 @@ The code for `receive_logs_direct.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',

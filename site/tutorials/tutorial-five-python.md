@@ -161,8 +161,7 @@ The code for `emit_log_topic.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs',
@@ -184,8 +183,7 @@ The code for `receive_logs_topic.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs',

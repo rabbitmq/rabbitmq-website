@@ -362,8 +362,7 @@ Final code of our `new_task.py` script:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
@@ -388,8 +387,7 @@ And our worker:
 import pika
 import time
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
