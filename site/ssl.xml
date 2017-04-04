@@ -575,8 +575,7 @@ ConnectionFactory factory = new ConnectionFactory();
 factory.setHost(&quot;localhost&quot;);
 factory.setPort(5671);
 
-factory.useSslProtocol("TLSv1.2");
-            </pre>
+factory.useSslProtocol("TLSv1.2");</pre>
           </p>
 
           <p>
