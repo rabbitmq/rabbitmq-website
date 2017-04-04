@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -65,89 +65,113 @@ On Debian-derived
 systems, copy the file to `/etc/bash_completion.d` to make it
 available system-wide:
 
-    sudo sh -c 'rabbitmqadmin --bash-completion > /etc/bash_completion.d/rabbitmqadmin'
+<pre class="sourcecode bash">
+sudo sh -c 'rabbitmqadmin --bash-completion > /etc/bash_completion.d/rabbitmqadmin'
+</pre>
 
 ## Examples
 
 ### Get a list of exchanges
 
-    $ rabbitmqadmin -V test list exchanges
-    +-------------+---------+-------+---------+-------------+
-    |    name     | durable | vhost |  type   | auto_delete |
-    +-------------+---------+-------+---------+-------------+
-    |             | True    | test  | direct  | False       |
-    | amq.direct  | True    | test  | direct  | False       |
-    | amq.fanout  | True    | test  | fanout  | False       |
-    | amq.headers | True    | test  | headers | False       |
-    | amq.match   | True    | test  | headers | False       |
-    | amq.topic   | True    | test  | topic   | False       |
-    +-------------+---------+-------+---------+-------------+
+<pre class="sourcecode bash">
+rabbitmqadmin -V test list exchanges
+# => +-------------+---------+-------+---------+-------------+
+# => |    name     | durable | vhost |  type   | auto_delete |
+# => +-------------+---------+-------+---------+-------------+
+# => |             | True    | test  | direct  | False       |
+# => | amq.direct  | True    | test  | direct  | False       |
+# => | amq.fanout  | True    | test  | fanout  | False       |
+# => | amq.headers | True    | test  | headers | False       |
+# => | amq.match   | True    | test  | headers | False       |
+# => | amq.topic   | True    | test  | topic   | False       |
+# => +-------------+---------+-------+---------+-------------+
+</pre>
 
 ### Get a list of queues, with some columns specified
 
-    $ rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
-    +-------+----------------------------------+-------------------+----------+------------------------------------+
-    | vhost |               name               |       node        | messages | message_stats.publish_details.rate |
-    +-------+----------------------------------+-------------------+----------+------------------------------------+
-    | /     | amq.gen-UELtxwb8OGJ9XHlHJq0Jug== | rabbit@smacmullen | 0        | 100.985821591                      |
-    | /     | test                             | rabbit@misstiny   | 5052     | 100.985821591                      |
-    +-------+----------------------------------+-------------------+----------+------------------------------------+
+<pre class="sourcecode bash">
+rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
+# => +-------+----------------------------------+-------------------+----------+------------------------------------+
+# => | vhost |               name               |       node        | messages | message_stats.publish_details.rate |
+# => +-------+----------------------------------+-------------------+----------+------------------------------------+
+# => | /     | amq.gen-UELtxwb8OGJ9XHlHJq0Jug== | rabbit@smacmullen | 0        | 100.985821591                      |
+# => | /     | test                             | rabbit@misstiny   | 5052     | 100.985821591                      |
+# => +-------+----------------------------------+-------------------+----------+------------------------------------+
+</pre>
 
 ### Get a list of queues, with all the detail we can take
 
-    $ rabbitmqadmin -f long -d 3 list queues
+<pre class="sourcecode bash">
+rabbitmqadmin -f long -d 3 list queues
+# =>     --------------------------------------------------------------------------------
+# => 
+# =>                                            vhost: /
+# =>                                             name: amq.gen-UELtxwb8OGJ9XHlHJq0Jug==
+# =>                                      auto_delete: False
+# =>         backing_queue_status.avg_ack_egress_rate: 100.944672225
+# =>        backing_queue_status.avg_ack_ingress_rate: 100.944672225
+# => ...
+</pre>
 
-    --------------------------------------------------------------------------------
-
-                                           vhost: /
-                                            name: amq.gen-UELtxwb8OGJ9XHlHJq0Jug==
-                                     auto_delete: False
-        backing_queue_status.avg_ack_egress_rate: 100.944672225
-       backing_queue_status.avg_ack_ingress_rate: 100.944672225
-*and so on, and on...*
 
 ### Connect to another host as another user
 
-    $ rabbitmqadmin -H myserver -u simon -p simon list vhosts
-    +------+
-    | name |
-    +------+
-    | /    |
-    +------+
+<pre class="sourcecode bash">
+rabbitmqadmin -H myserver -u simon -p simon list vhosts
+# => +------+
+# => | name |
+# => +------+
+# => | /    |
+# => +------+
+</pre>
 
 ### Declare an exchange
 
-    $ rabbitmqadmin declare exchange name=my-new-exchange type=fanout
-    exchange declared
+<pre class="sourcecode bash">
+rabbitmqadmin declare exchange name=my-new-exchange type=fanout
+# => exchange declared
+</pre>
 
 ### Declare a queue, with optional parameters
 
-    $ rabbitmqadmin declare queue name=my-new-queue durable=false
-    queue declared
+<pre class="sourcecode bash">
+rabbitmqadmin declare queue name=my-new-queue durable=false
+# => queue declared
+</pre>
 
 ### Publish a message
 
-    $ rabbitmqadmin publish exchange=amq.default routing_key=test payload="hello, world"
-    Message published
+<pre class="sourcecode bash">
+rabbitmqadmin publish exchange=amq.default routing_key=test payload="hello, world"
+# => Message published
+</pre>
 
 ### And get it back
 
-    $ rabbitmqadmin get queue=test requeue=false
-    +-------------+----------+---------------+--------------+------------------+-------------+
-    | routing_key | exchange | message_count |   payload    | payload_encoding | redelivered |
-    +-------------+----------+---------------+--------------+------------------+-------------+
-    | test        |          | 0             | hello, world | string           | False       |
-    +-------------+----------+---------------+--------------+------------------+-------------+
+<pre class="sourcecode bash">
+rabbitmqadmin get queue=test requeue=false
+# => +-------------+----------+---------------+--------------+------------------+-------------+
+# => | routing_key | exchange | message_count |   payload    | payload_encoding | redelivered |
+# => +-------------+----------+---------------+--------------+------------------+-------------+
+# => | test        |          | 0             | hello, world | string           | False       |
+# => +-------------+----------+---------------+--------------+------------------+-------------+
+</pre>
 
 ### Export configuration
 
-    $ rabbitmqadmin export rabbit.config
-    Exported configuration for localhost to "rabbit.config"
+<pre class="sourcecode bash">
+rabbitmqadmin export rabbit.definitions.json
+# => Exported configuration for localhost to "rabbit.config"
+</pre>
 
 ### Import configuration, quietly
 
-    $ rabbitmqadmin -q import rabbit.config
+<pre class="sourcecode bash">
+rabbitmqadmin -q import rabbit.definitions.json
+</pre>
 
 ### Close all connections
 
-    $ rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
+<pre class="sourcecode bash">
+rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
+</pre>
