@@ -75,7 +75,7 @@ limitations under the License.
           distribution. To enable it, use <a
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
-        <pre class="example">rabbitmq-plugins enable rabbitmq_management</pre>
+        <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_management</pre>
         <ul>
           <li>
             The Web UI is located at:
@@ -356,7 +356,7 @@ limitations under the License.
             10000ms and explicitly sets some other relevant parameters
             to their default values, would look like this:
           </p>
-          <pre class="example">[
+          <pre class="sourcecode erlang">[
   {rabbit,                    [ {tcp_listeners,               [5672]},
                                 {collect_statistics_interval, 10000} ] },
   {rabbitmq_management,       [ {http_log_dir,  "/tmp/rabbit-mgmt"},
@@ -372,7 +372,7 @@ limitations under the License.
             <code>listener</code> configuration item; for example to
             change the port:
           </p>
-          <pre class="example">[
+          <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
@@ -381,7 +381,7 @@ limitations under the License.
           <p>
             or to make the management plugin use HTTPS:
           </p>
-          <pre class="example">
+          <pre class="sourcecode erlang">
 [{rabbitmq_management,
   [{listener, [{port,     15671},
                {ssl,      true},
@@ -404,7 +404,7 @@ limitations under the License.
             such as message rates and queue lengths. You can
             configure how long such data is retained.
           </p>
-        <pre class="example">
+        <pre class="sourcecode erlang">
 [
   ...
   {rabbitmq_management,
@@ -441,7 +441,7 @@ limitations under the License.
           websites hosted on different origins. Allowed origins
           must be explicitly white-listed in configuration.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]}]},
@@ -452,7 +452,7 @@ limitations under the License.
           It is however not recommended if the API is reachable
           from the outside world.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["*"]}]},
@@ -464,7 +464,7 @@ limitations under the License.
           by default. You can modify this value in the configuration.
           It is defined in seconds.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
@@ -503,7 +503,7 @@ limitations under the License.
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
           conformance. It assumes a management web UI on the default port of 15672:
-          <pre class="example">
+          <pre class="sourcecode apache">
 AllowEncodedSlashes On
 ProxyPass        /api http://localhost:15672/api nocanon
 ProxyPass        /    http://localhost:15672/
@@ -530,36 +530,36 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
           3.6.2. To restart the database with versions earlier than 3.6.2, use
 
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
 
 Starting with RabbitMQ 3.6.2 and up to 3.6.5, use
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
                   rabbit_mgmt_sup_sup:start_child().'
 </pre>
           These commands must be executed on the node hosting the database.
 
 Starting with RabbitMQ 3.6.7, the database can be reset per node using
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
 
 To reset entire management database on all nodes
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 </pre>
 
 There is also HTTP API endpoints to reset a database
 For entire database
-<pre class="example">
-  DELETE /api/reset
+<pre class="sourcecode">
+DELETE /api/reset
 </pre>
 
 For a single node
-<pre class="example">
-  DELETE /api/reset/:node
+<pre class="sourcecode">
+DELETE /api/reset/:node
 </pre>
 
         </p>
@@ -569,7 +569,7 @@ For a single node
         <doc:heading>Memory Management</doc:heading>
         <div>
           The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl status
 </pre>
           or a GET request to /api/nodes/<i>name</i> via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
@@ -604,7 +604,7 @@ rabbitmqctl status
           The statistics interval can also be changed at runtime. Doing so will have no
           effect on existing connections, channels or queues. Only new stats
           emitting entities are affected.
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
 </pre>
           </p>

@@ -159,8 +159,8 @@ limitations under the License.
         distribution. To enable it, use
         <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
-<pre class="example">
-  rabbitmq-plugins enable rabbitmq_shovel
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_shovel
 </pre>
       <p>
         You may also wish to enable the
@@ -297,7 +297,7 @@ limitations under the License.
           plugin app. Issue the following <code>rabbitmqctl</code>
           command:
         </p>
-<pre class="example">
+<pre class="sourcecode bash">
   $ rabbitmqctl eval 'rabbit_shovel_status:status().'
 </pre>
         <p>
@@ -343,15 +343,15 @@ limitations under the License.
           <li>
             The shovel is starting up, connecting and creating
             resources:
-<pre class="example">
-  'starting'
+<pre class="sourcecode erlang">
+'starting'
 </pre>
           </li>
           <li>
             The shovel is running normally:
-<pre class="example">
-  { 'running', [{'src_uri', <em>Source</em>},
-                {'dest_uri', <em>Destination</em>}]}:
+<pre class="sourcecode erlang">
+{ 'running', [{'src_uri', <em>Source</em>},
+              {'dest_uri', <em>Destination</em>}]}:
 </pre>
             <p>
               where <code><em>Source</em></code> and
@@ -361,8 +361,8 @@ limitations under the License.
           </li>
           <li>
             The shovel has terminated:
-<pre class="example">
-  {'terminated', <em>Reason</em>}
+<pre class="sourcecode erlang">
+{'terminated', <em>Reason</em>}
 </pre>
               <p>
                 where <code><em>Reason</em></code> is an Erlang term that

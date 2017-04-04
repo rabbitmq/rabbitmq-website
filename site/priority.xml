@@ -37,10 +37,12 @@ limitations under the License.
       using the Java client:
     </p>
 
-    <pre class="code">    Channel ch = ...;
-    Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-    args.put("x-max-priority", 10);
-    ch.queueDeclare("my-priority-queue", true, false, false, args);</pre>
+    <pre class="sourcecode java">
+Channel ch = ...;
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-max-priority", 10);
+ch.queueDeclare("my-priority-queue", true, false, false, args);
+</pre>
 
     <p>
       You can then publish prioritised messages using the

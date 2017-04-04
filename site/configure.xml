@@ -84,7 +84,7 @@ limitations under the License.
           RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
           at the top together with other broker boot log entries, for example:
 
-           <pre class="example">
+           <pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
@@ -92,7 +92,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
           In case log file cannot be found or read by RabbitMQ, log entry
           will say so:
 
-           <pre class="example">
+           <pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
@@ -888,10 +888,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               change this.
 
               <p>Default:
-                <pre>[{backlog,       128},
-         {nodelay,       true},
-         {linger,        {true,0}},
-         {exit_on_close, false}]</pre>
+                <pre class="sourcecode erlang">
+[{backlog,       128},
+ {nodelay,       true},
+ {linger,        {true,0}},
+ {exit_on_close, false}]
+                </pre>
               </p>
             </td>
           </tr>
@@ -1084,7 +1086,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             tuple: <code>{encrypted, ...}</code>.
             Here is an example of a configuration file with an encrypted password
             for the default user:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       {default_user, &lt;&lt;"guest"&gt;&gt;},
@@ -1105,7 +1107,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             The passphrase doesn't have to be hardcoded in the configuration file,
             it can be in a separate file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1121,17 +1123,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             Use <code>rabbitmqctl</code> and the <code>encode</code>
             command to encrypt values:
-            <pre class="example">
-$ rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
-$ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
+rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
             </pre>
             Add the <code>--decode</code> option if you want to decrypt values:
-            <pre class="example">
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
             </pre>
           </p>
@@ -1148,7 +1150,7 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
           </p>
           <p>
             You can change these defaults in the configuration file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1161,8 +1163,8 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
     ]}
 ].          </pre>
             On the command line:
-            <pre class="example">
-$ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+            <pre class="sourcecode bash">
+rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
             </pre>
 
