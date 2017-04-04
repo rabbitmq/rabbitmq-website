@@ -85,7 +85,7 @@ node rabbit@cordelia down: net_tick_timeout
         60 to 120 seconds:
       </p>
       <p>
-<pre>    [
+<pre class="sourcecode hljs erlang">    [
         {rabbit, [{tcp_listeners, [5672]}]},
         {kernel, [{net_ticktime,  120}]}
     ].</pre>
