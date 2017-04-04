@@ -9,7 +9,7 @@ Hello World!
 ------------
 ### (using the pika 0.10.0 Python client)
 
-In this part of the tutorial we'll write two small programs in Elixir; a
+In this part of the tutorial we'll write two small programs in Python; a
 producer (sender) that sends a single message, and a consumer (receiver) that receives
 messages and prints them out. It's a "Hello World" of messaging.
 
