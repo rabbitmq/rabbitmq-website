@@ -55,7 +55,7 @@ limitations under the License.
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode erlang">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
 [{ssl_app,"5.3.6"},
  {supported,['tlsv1.2','tlsv1.1',tlsv1]},
  {available,['tlsv1.2','tlsv1.1',tlsv1]}]
@@ -120,7 +120,9 @@ openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.p
          If the certificates and keys have been correctly created, an SSL connection establishment
          sequence will appear and the terminals will be linked. Input from either terminal will appear
          on the other. If the trust chain could be established, the second terminal will display
-         this confirmation: <pre>Verify return code: 0 (ok)</pre>
+         this confirmation:
+         <pre class="sourcecode ini">
+Verify return code: 0 (ok)</pre>
        </p>
        <p>
          If you receive an error, confirm that the certificates and keys were
@@ -134,7 +136,8 @@ openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.p
          This step checks that the broker is listening on the expected AMQPS port.
          When you start the broker with a valid SSL configuration file, the broker
          will report the SSL listening address in the logfile. You should see an entry
-         similar to this:<pre>=INFO REPORT==== 8-Aug-2011::11:51:47 ===
+         similar to this:<pre class="sourcecode ini">
+=INFO REPORT==== 8-Aug-2011::11:51:47 ===
 started SSL Listener on 0.0.0.0:5671</pre>
          If you included an "ssl_listeners" configuration directive and you don't see
          this message, it is possible that your configuration file was not read by
@@ -158,7 +161,8 @@ openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.p
   -CAfile testca/cacert.pem</pre>
          The output should appear similar to the case where port 8443 was used. The broker logfile
          should contain a new entry when the connection is established:
-         <pre>=INFO REPORT==== 8-Aug-2011::11:55:13 ===
+         <pre class="sourcecode ini">
+=INFO REPORT==== 8-Aug-2011::11:55:13 ===
 accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        </p>
        <p>
