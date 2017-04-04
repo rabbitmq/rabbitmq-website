@@ -111,7 +111,7 @@ limitations under the License.
                 <img src="img/monitor.svg" height="62" width="71" alt="Developer Experience" title="Developer Experience" />
                 <h2>Developer Experience</h2>
                 <p>
-                  Deploy with BOSH, Chef, Docker and Puppet. Develop cross-language messaging with favorite programming languages such as: Java, .NET, PHP, Python, Node.js, Ruby, Go, <a href='/devtools.html'>and many others</a>.
+                  Deploy with BOSH, Chef, Docker and Puppet. Develop cross-language messaging with favorite programming languages such as: Java, .NET, PHP, Python, JavaScript, Ruby, Go, <a href='/devtools.html'>and many others</a>.
                 </p>
               </div>
             </div>
