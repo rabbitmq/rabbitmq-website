@@ -157,14 +157,14 @@ rabbitmqadmin get queue=test requeue=false
 # => +-------------+----------+---------------+--------------+------------------+-------------+
 </pre>
 
-### Export configuration
+### Export Configuration (Definitions)
 
 <pre class="sourcecode bash">
 rabbitmqadmin export rabbit.definitions.json
 # => Exported configuration for localhost to "rabbit.config"
 </pre>
 
-### Import configuration, quietly
+### Import Configuration (Definitions), quietly
 
 <pre class="sourcecode bash">
 rabbitmqadmin -q import rabbit.definitions.json
