@@ -70,10 +70,25 @@ in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
-We will slightly modify the _Send.cs_ code from our previous example,
+We will slightly modify the _Send_ program from our previous example,
 to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
-`NewTask.cs`:
+`NewTask`:
+
+Like [tutorial one](tutorial-one-dotnet.html) we need to generate two projects.
+
+<pre class="sourcecode powershell">
+dotnet new console --name NewTask
+mv NewTask/Program.cs NewTask/NewTask.cs
+dotnet new console --name Worker
+mv Worker/Program.cs Worker/Worker.cs
+cd NewTask
+dotnet add package RabbitMQ.Client
+dotnet restore
+cd ../Worker
+dotnet add package RabbitMQ.Client
+dotnet restore
+</pre>
 
 <pre class="sourcecode csharp">
 var message = GetMessage(args);
@@ -99,7 +114,8 @@ private static string GetMessage(string[] args)
 
 Our old _Receive.cs_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will
-handle messages delivered by RabbitMQ and perform the task, so let's call it `Worker.cs`:
+handle messages delivered by RabbitMQ and perform the task, so let's copy it to
+the `Worker` project and modify:
 
 <pre class="sourcecode csharp">
 var consumer = new EventingBasicConsumer(channel);
@@ -124,13 +140,6 @@ int dots = message.Split('.').Length - 1;
 Thread.Sleep(dots * 1000);
 </pre>
 
-Compile them as in tutorial one (with the client assembly in the working directory):
-
-<pre class="sourcecode bash">
-csc /r:"RabbitMQ.Client.dll" NewTask.cs
-csc /r:"RabbitMQ.Client.dll" Worker.cs
-</pre>
-
 Round-robin dispatching
 -----------------------
 
@@ -138,21 +147,23 @@ One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
-First, let's try to run two `Worker.cs` scripts at the same time. They
+First, let's try to run two `Worker` instances at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the `Worker.cs`
-script. These consoles will be our two consumers - C1 and C2.
+You need three consoles open. Two will run the `Worker` program.
+These consoles will be our two consumers - C1 and C2.
 
 <pre class="sourcecode bash">
 # shell 1
-Worker.exe
+cd Worker
+dotnet run
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
 <pre class="sourcecode bash">
 # shell 2
-Worker.exe
+cd Worker
+dotnet run
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
@@ -161,18 +172,18 @@ the consumers you can publish a few messages:
 
 <pre class="sourcecode bash">
 # shell 3
-NewTask.exe First message.
-NewTask.exe Second message..
-NewTask.exe Third message...
-NewTask.exe Fourth message....
-NewTask.exe Fifth message.....
+cd NewTask
+dotnet run "First message."
+dotnet run "Second message.."
+dotnet run "Third message..."
+dotnet run "Fourth message...."
+dotnet run "Fifth message....."
 </pre>
 
 Let's see what is delivered to our workers:
 
 <pre class="sourcecode bash">
 # shell 1
-Worker.exe
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'First message.'
 # => [x] Received 'Third message...'
@@ -181,7 +192,6 @@ Worker.exe
 
 <pre class="sourcecode bash">
 # shell 2
-Worker.exe
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'Second message..'
 # => [x] Received 'Fourth message....'

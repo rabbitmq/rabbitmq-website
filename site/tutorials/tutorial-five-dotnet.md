@@ -252,13 +252,15 @@ Run the following examples:
 To receive all the logs:
 
 <pre class="sourcecode bash">
-ReceiveLogsTopic.exe "#"
+cd ReceiveLogsTopic
+dotnet run "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
 <pre class="sourcecode bash">
-ReceiveLogsTopic.exe "kern.*"
+cd ReceiveLogsTopic
+dotnet run "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
@@ -270,13 +272,15 @@ ReceiveLogsTopic.exe "*.critical"
 You can create multiple bindings:
 
 <pre class="sourcecode bash">
-ReceiveLogsTopic.exe "kern.*" "*.critical"
+cd ReceiveLogsTopic
+dotnet run "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
 <pre class="sourcecode bash">
-EmitLogTopic.exe "kern.critical" "A critical kernel error"
+cd EmitLogTopic
+dotnet run "kern.critical" "A critical kernel error"
 </pre>
 
 Have fun playing with these programs. Note that the code doesn't make

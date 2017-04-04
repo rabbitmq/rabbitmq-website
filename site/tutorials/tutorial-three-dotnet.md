@@ -358,30 +358,28 @@ class ReceiveLogs
 
 [(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogs/ReceiveLogs.cs)
 
-
-Compile as before and we're done.
-
-<pre class="sourcecode bash">
-csc /r:"RabbitMQ.Client.dll" EmitLogs.cs
-csc /r:"RabbitMQ.Client.dll" ReceiveLogs.cs
-</pre>
+Follow the setup instructions from [tutorial one](tutorial-one-dotnet.html) to
+generate the `EmitLogs` and `ReceiveLogs` projects.
 
 If you want to save logs to a file, just open a console and type:
 
 <pre class="sourcecode bash">
-ReceiveLogs.exe > logs_from_rabbit.log
+cd ReceiveLogs
+dotnet run > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
 <pre class="sourcecode bash">
-ReceiveLogs.exe
+cd ReceiveLogs
+dotnet run
 </pre>
 
 And of course, to emit logs type:
 
 <pre class="sourcecode bash">
-EmitLog.exe
+cd EmitLog
+dotnet run
 </pre>
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually

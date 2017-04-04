@@ -425,24 +425,21 @@ Now is a good time to take a look at our full example source code (which include
 [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient/RPCClient.cs) and [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer/RPCServer.cs).
 
 
-Compile as usual (see [tutorial one](tutorial-one-dotnet.html)):
-
-<pre class="sourcecode bash">
-csc /r:"RabbitMQ.Client.dll" RPCClient.cs
-csc /r:"RabbitMQ.Client.dll" RPCServer.cs
-</pre>
+Set up as usual (see [tutorial one](tutorial-one-dotnet.html)):
 
 Our RPC service is now ready. We can start the server:
 
 <pre class="sourcecode bash">
-RPCServer.exe
+cd RPCServer
+dotnet run
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
 <pre class="sourcecode bash">
-RPCClient.exe
+cd RPCClient
+dotnet run
 # => [x] Requesting fib(30)
 </pre>
 

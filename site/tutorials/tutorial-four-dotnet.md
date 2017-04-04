@@ -364,28 +364,31 @@ class ReceiveLogsDirect
 }
 </pre>
 
-Compile as usual (see [tutorial one](tutorial-one-dotnet.html) for
-compilation advice).
+Create projects as usual (see [tutorial one](tutorial-one-dotnet.html) for
+advice).
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
 <pre class="sourcecode bash">
-ReceiveLogsDirect.exe warning error > logs_from_rabbit.log
+cd ReceiveLogsDirect
+dotnet run warning error > logs_from_rabbit.log
 </pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
 <pre class="sourcecode bash">
-ReceiveLogsDirect.exe info warning error
+cd ReceiveLogsDirect
+dotnet run info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
 </pre>
 
 And, for example, to emit an `error` log message just type:
 
 <pre class="sourcecode bash">
-EmitLogDirect.exe error "Run. Run. Or it will explode."
+cd EmitLogDirect
+dotnet run error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 

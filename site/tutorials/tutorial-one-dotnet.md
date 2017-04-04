@@ -46,17 +46,52 @@ on behalf of the consumer.
 > languages](http://rabbitmq.com/devtools.html). We'll
 > use the .NET client provided by RabbitMQ.
 >
-> Download the [client library
-> package](http://www.rabbitmq.com/dotnet.html), and check its
-> signature as described. Extract it and copy "RabbitMQ.Client.dll" to your working folder.
+> The client supports [.NET Core](https://www.microsoft.com/net/core) as
+> well as .NET Framework 4.5.1+. This tutorial will use .NET Core so you will ensure
+> you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
 >
-> You also need to ensure your system can find the C# compiler `csc.exe`,
-> you may need to add `;C:\Windows\Microsoft.NET\Framework\v4.0.30319` (change .NET version
-> to fit your installation) to your Path.
+> You can also use the .NET Framework to complete this tutorial however the
+> setup steps will be different.
 >
+> The client is distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client)
+> but can also be [downloaded as an archive](http://www.rabbitmq.com/dotnet.html).
+>
+> This tutorial assumes you are using powershell on windows. On OSX/Linux nearly
+> any shell will work.
 
-Now we have the .NET client binary, we can write some
-code.
+### Setup
+
+First lets verify that you have .NET Core toolchain in `PATH`:
+
+<pre class="sourcecode powershell">
+dotnet --help
+</pre>
+
+should produce a help message.
+
+Now let's generate two projects, one for the publisher and one for the consumer:
+
+<pre class="sourcecode powershell">
+dotnet new console --name Send
+mv Send/Program.cs Send/Send.cs
+dotnet new console --name Receive
+mv Receive/Program.cs Receive/Receive.cs
+</pre>
+
+This will create two new directories named `Send` and `Receive`.
+
+Then we add the client dependency.
+
+<pre class="sourcecode ps">
+cd Send
+dotnet add package RabbitMQ.Client
+dotnet restore
+cd ../Receive
+dotnet add package RabbitMQ.Client
+dotnet restore
+</pre>
+
+Now we have the .NET project set up we can write some code.
 
 ### Sending
 
@@ -275,26 +310,22 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive
 
 ### Putting It All Together
 
-You can compile both of these by referencing the RabbitMQ .NET client
-assembly. We're using the command line (`cmd.exe` and `csc`) to
-compile and run the code. Alternatively you could use Visual Studio.
+Open two terminals.
 
-<pre class="sourcecode bash">
-csc /r:"RabbitMQ.Client.dll" Send.cs
-csc /r:"RabbitMQ.Client.dll" Receive.cs
+Run the consumer:
+
+<pre class="sourcecode powershell">
+cd Receive
+dotnet run
 </pre>
 
-Then run the executable
+Then run the producer:
 
-<pre class="sourcecode bash">
-Send.exe
+<pre class="sourcecode powershell">
+cd Send
+dotnet run
 </pre>
 
-then, run the consumer:
-
-<pre class="sourcecode bash">
-Receive.exe
-</pre>
 
 The consumer will print the message it gets from the publisher via
 RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
