@@ -219,7 +219,7 @@ limitations under the License.
         An example in Java that publishes a large number of
         messages to a channel in confirm mode and waits for the
         acknowledgements can be found <a
-        href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-java-client/master/src/test/java/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+        href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-perf-test/master/src/main/java/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
       </p>
 
       <doc:subsection name="server-sent-nacks">

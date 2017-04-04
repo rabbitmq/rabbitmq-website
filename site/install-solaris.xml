@@ -38,7 +38,7 @@ limitations under the License.
           the <code>/usr/xpg4/bin/sh</code> shell. This can
           be accomplished by replacing the first line of each script
           (which normally reads <code>#!/bin/sh</code>) with
-          <code>#!/bin/xpg4/bin/sh</code>.
+          <code>#!/usr/xpg4/bin/sh</code>.
         </li>
         <li>
           The RabbitMQ shell scripts assume the existence of the

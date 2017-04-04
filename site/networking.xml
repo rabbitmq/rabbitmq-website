@@ -649,7 +649,7 @@ sysctl -w fs.file-max 200000
           TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 
           <ul>
-            <li><a href="http://www.psc.edu/index.php/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
+            <li><a href="https://psc.edu/index.php/services/networking/68-research/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
             <li><a href="https://fasterdata.es.net/network-tuning/">Network Tuning Guide</a></li>
           </ul>
         </p>
@@ -763,9 +763,8 @@ sysctl -w fs.file-max 200000
         not.
 
         Below is an example sysctl configuration for TCP keepalives
-        that considers TCP connections dead or unreachable after 60
-        seconds (4 attempts every 15 seconds) and sends keepalive
-        packets every 60 seconds:
+        that considers TCP connections dead or unreachable after 120
+        seconds (4 attempts every 15 seconds after connection idle for 60 seconds):
 
 <pre class="sourcecode sysctl">
 net.ipv4.tcp_keepalive_time=60
