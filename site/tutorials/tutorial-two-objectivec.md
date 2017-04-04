@@ -59,45 +59,51 @@ to allow an arbitrary string to be sent as a method parameter. This
 method will schedule tasks to our work queue, so let's rename it to `newTask`.
 The implementation remains the same apart from the new parameter:
 
-    - (void)newTask:(NSString *)msg {
-        NSLog(@"Attempting to connect to local RabbitMQ broker");
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)newTask:(NSString *)msg {
+    NSLog(@"Attempting to connect to local RabbitMQ broker");
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
 
-        RMQQueue *q = [ch queue:@"hello"];
+    RMQQueue *q = [ch queue:@"hello"];
 
-        NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
-        [ch.defaultExchange publish:msgData routingKey:q.name];
-        NSLog(@"Sent %@", msg);
+    NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
+    [ch.defaultExchange publish:msgData routingKey:q.name];
+    NSLog(@"Sent %@", msg);
 
-        [conn close];
-    }
+    [conn close];
+}
+</pre>
 
 Our old _receive_ method requires some bigger changes: it needs to
 fake a second of work for every dot in the message body. It will help us
 understand what's going on if each worker has a name, and each will need to pop
 messages from the queue and perform the task, so let's call it `workerNamed:`:
 
-    [q subscribe:^(RMQMessage * _Nonnull message) {
-        NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
-        NSLog(@"%@: Received %@", name, messageText);
-        // imitate some work
-        unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
-        NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
-        sleep(sleepTime);
-    }];
+<pre class="sourcecode objectivec">
+[q subscribe:^(RMQMessage * _Nonnull message) {
+    NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+    NSLog(@"%@: Received %@", name, messageText);
+    // imitate some work
+    unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
+    NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
+    sleep(sleepTime);
+}];
+</pre>
 
 Note that our fake task simulates execution time.
 
 Run them from `viewDidLoad` as in tutorial one:
 
-    - (void)viewDidLoad {
-        [super viewDidLoad];
-        [self newTask:@"Hello World..."];
-        [self workerNamed:@"Flopsy"];
-    }
+<pre class="sourcecode objectivec">
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self newTask:@"Hello World..."];
+    [self workerNamed:@"Flopsy"];
+}
+</pre>
 
 The log output should indicate that Flopsy is sleeping for three seconds.
 
@@ -113,36 +119,40 @@ will both get messages from the queue, but how exactly? Let's see.
 
 Change viewDidLoad to send more messages and start two workers:
 
-    - (void)viewDidLoad {
-        [super viewDidLoad];
-        [self workerNamed:@"Jack"];
-        [self workerNamed:@"Jill"];
-        [self newTask:@"Hello World..."];
-        [self newTask:@"Just one this time."];
-        [self newTask:@"Five....."];
-        [self newTask:@"None"];
-        [self newTask:@"Two..dots"];
-    }
+<pre class="sourcecode objectivec">
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self workerNamed:@"Jack"];
+    [self workerNamed:@"Jill"];
+    [self newTask:@"Hello World..."];
+    [self newTask:@"Just one this time."];
+    [self newTask:@"Five....."];
+    [self newTask:@"None"];
+    [self newTask:@"Two..dots"];
+}
+</pre>
 
 Let's see what is delivered to our workers:
 
-    Jack: Waiting for messages
-    Jill: Waiting for messages
-    Sent Hello World...
-    Jack: Received Hello World...
-    Jack: Sleeping for 3 seconds
-    Sent Just one this time.
-    Jill: Received Just one this time.
-    Jill: Sleeping for 1 seconds
-    Sent Five.....
-    Sent None
-    Sent Two..dots
-    Jill: Received Five.....
-    Jill: Sleeping for 5 seconds
-    Jack: Received None
-    Jack: Sleeping for 0 seconds
-    Jack: Received Two..dots
-    Jack: Sleeping for 2 seconds
+<pre class="sourcecode bash">
+# => Jack: Waiting for messages
+# => Jill: Waiting for messages
+# => Sent Hello World...
+# => Jack: Received Hello World...
+# => Jack: Sleeping for 3 seconds
+# => Sent Just one this time.
+# => Jill: Received Just one this time.
+# => Jill: Sleeping for 1 seconds
+# => Sent Five.....
+# => Sent None
+# => Sent Two..dots
+# => Jill: Received Five.....
+# => Jill: Sleeping for 5 seconds
+# => Jack: Received None
+# => Jack: Sleeping for 0 seconds
+# => Jack: Received Two..dots
+# => Jack: Sleeping for 2 seconds
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -185,17 +195,19 @@ AMQ protocol (the `AMQBasicConsumeNoAck` option is automatically sent by
 explicitly setting `AMQBasicConsumeNoOptions` and sending a proper
 acknowledgment from the worker once we're done with a task.
 
-    RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
-    [q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
-        NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
-        NSLog(@"%@: Received %@", name, messageText);
-        // imitate some work
-        unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
-        NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
-        sleep(sleepTime);
+<pre class="sourcecode objectivec">
+RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
+[q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
+    NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+    NSLog(@"%@: Received %@", name, messageText);
+    // imitate some work
+    unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
+    NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
+    sleep(sleepTime);
 
-        [ch ack:message.deliveryTag];
-    }];
+    [ch ack:message.deliveryTag];
+}];
+</pre>
 
 Using this code we can be sure that even if a worker dies using while it was
 processing a message, nothing will be lost. Soon after the worker dies all
@@ -212,11 +224,14 @@ unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 
 Message durability
@@ -233,7 +248,9 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    RMQQueue *q = [ch queue:@"hello" options:AMQQueueDeclareDurable];
+<pre class="sourcecode objectivec">
+RMQQueue *q = [ch queue:@"hello" options:AMQQueueDeclareDurable];
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -242,7 +259,9 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    RMQQueue *q = [ch queue:@"task_queue" options:AMQQueueDeclareDurable];
+<pre class="sourcecode objectivec">
+RMQQueue *q = [ch queue:@"task_queue" options:AMQQueueDeclareDurable];
+</pre>
 
 This `options:AMQQueueDeclareDurable` change needs to be applied to both the
 producer and consumer code.
@@ -251,7 +270,9 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option.
 
-    [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
+<pre class="sourcecode objectivec">
+[ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
+</pre>
 
 > #### Note on message persistence
 >
@@ -311,7 +332,9 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    [ch basicQos:@1 global:NO];
+<pre class="sourcecode objectivec">
+[ch basicQos:@1 global:NO];
+</pre>
 
 > #### Note about queue size
 >
@@ -323,46 +346,50 @@ Putting it all together
 
 Final code of our `newTask:` method:
 
-    - (void)newTask:(NSString *)msg {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)newTask:(NSString *)msg {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
 
-        RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
 
-        NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
-        [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
-        NSLog(@"Sent %@", msg);
+    NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
+    [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
+    NSLog(@"Sent %@", msg);
 
-        [conn close];
-    }
+    [conn close];
+}
+</pre>
 
 And our `workerNamed:`:
 
-    - (void)workerNamed:(NSString *)name {
-        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-        [conn start];
+<pre class="sourcecode objectivec">
+- (void)workerNamed:(NSString *)name {
+    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+    [conn start];
 
-        id<RMQChannel> ch = [conn createChannel];
+    id&lt;RMQChannel&gt; ch = [conn createChannel];
 
-        RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
+    RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
 
-        [ch basicQos:@1 global:NO];
-        NSLog(@"%@: Waiting for messages", name);
+    [ch basicQos:@1 global:NO];
+    NSLog(@"%@: Waiting for messages", name);
 
-        RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
-        [q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
-            NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
-            NSLog(@"%@: Received %@", name, messageText);
-            // imitate some work
-            unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
-            NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
-            sleep(sleepTime);
+    RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
+    [q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
+        NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+        NSLog(@"%@: Received %@", name, messageText);
+        // imitate some work
+        unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
+        NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
+        sleep(sleepTime);
 
-            [ch ack:message.deliveryTag];
-        }];
-    }
+        [ch ack:message.deliveryTag];
+    }];
+}
+</pre>
 
 [(source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial2/tutorial2/ViewController.m)
 
