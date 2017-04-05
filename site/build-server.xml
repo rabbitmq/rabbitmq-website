@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2017 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -39,7 +39,7 @@ git clone https://github.com/rabbitmq/rabbitmq-server.git
         </p>
 
         <p>
-          Then, use <code>make</code> to pull down dependencies and build the server:
+          Then, use GNU Make to pull down dependencies and build the server:
 	<pre class="sourcecode bash">
 cd rabbitmq-server
 make</pre>
@@ -81,7 +81,7 @@ make</pre>
 	      but this location can be overridden by setting the
 	      Makefile variable <code>TEST_TMPDIR</code>:
 	      <p>
-		<code>make run TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
+		<code>make run-broker TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
 	      </p>
 	    </dd>
 
@@ -92,108 +92,33 @@ make</pre>
 
 	    <dt>distclean</dt>
 	    <dd>
-	      Removes all build products.
+	      Removes all build products, including fetched dependencies.
 	    </dd>
 
 	    <dt>tests</dt>
 	    <dd>
 	      Runs a set of tests.
 	    </dd>
-
-	    <dt>source-dist</dt>
-	    <dd>
-	      Constructs a source-code distribution archive in
-	      <code>./PACKAGES</code>.
-	    </dd>
 	  </dl>
 	</p>
       </doc:section>
 
-
-
       <doc:section name="building-packages">
-	<doc:heading>Building Server Packages</doc:heading>
+	<doc:heading>Building server packages</doc:heading>
 
 	<p>
           In practice, building RabbitMQ server from source is of limited use
           unless an easy to deploy package (e.g. a Debian one) can be produced.
 	</p>
-
-              <doc:subsection name="building-generic-unix-package">
-	        <doc:heading>Building a Generic UNIX Package</doc:heading>
-
-                <p>
-                  To build a generic UNIX package, use the <code>package-generic-unix</code> target
-                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
-                  signing:
-
-	          <pre class="sourcecode bash">
-# replace x, y, z, and build with your own values, e.g.
-# 3.7.0.801
-make package-generic-unix VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
-                  </pre>
-
-                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
-                </p>
-              </doc:subsection>
-
-              <doc:subsection name="building-debian-package">
-	        <doc:heading>Building a Debian Package</doc:heading>
-
-                <p>
-                  Producing a Debian package requires a number of build time dependencies. On a recent Debian-based
-                  system (e.g. Ubuntu 15.10), they can be installed with
-
-                  <pre class="sourcecode bash">
-sudo apt-get install -y debhelper erlang-dev erlang-src python-simplejson \
-                        xmlto xsltproc erlang-nox zip rsync
-                  </pre>
-                </p>
-
-                <p>
-                  To build a generic UNIX package, use the <code>package-deb</code> target
-                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
-                  signing:
-
-	          <pre class="sourcecode bash">
-# replace x, y, z, and build with your own values, e.g.
-# 3.7.0.801
-make package-deb VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
-                  </pre>
-
-                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
-                </p>
-              </doc:subsection>
-
-              <doc:subsection name="building-windows-package">
-	        <doc:heading>Building a Windows Package</doc:heading>
-
-                <p>
-                  Producing a Windows package requires a Debian-based
-                  machine and number of build time dependencies. On a
-                  recent Debian-based system (e.g. Ubuntu 15.10), they
-                  can be installed with
-
-                  <pre class="sourcecode bash">
-sudo apt-get install -y tofrodos nsis elinks
-                  </pre>
-                </p>
-
-
-                <p>
-                  To build a Windows package, use the <code>package-windows</code> target
-                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
-                  signing:
-
-	          <pre class="sourcecode bash">
-# replace x, y, z, and build with your own values, e.g.
-# 3.7.0.801
-make package-windows VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
-                  </pre>
-
-                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
-                </p>
-              </doc:subsection>
+	<p>
+	  Everything related to packaging
+	  the RabbitMQ server is in the
+	  <a href="https://github.com/rabbitmq/rabbitmq-server-release">rabbitmq-server-release</a>
+	  repository. Furthermore, this repository has the list of plugins
+	  shipped with the broker. Please refer to the
+	  <a href="https://github.com/rabbitmq/rabbitmq-server-release/blob/master/README.md">README.md</a>
+	  for instructions to create the source archive or any binary packages.
+	</p>
       </doc:section>
   </body>
 </html>
