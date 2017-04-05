@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -36,7 +36,9 @@ WebSocket emulation via SockJS.
 
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
-    rabbitmq-plugins enable rabbitmq_web_mqtt
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_web_mqtt
+</pre>
 
 ## <a id="usage">Usage</a>
 
@@ -48,49 +50,59 @@ It is included as part of [RabbitMQ Web MQTT example plugin](https://github.com/
 By default the Web MQTT plugin exposes a WebSocket endpoint on port
 15675. The WebSocket endpoint is available on the `/ws` path:
 
-    http://127.0.0.1:15675/ws
+<pre class="sourcecode">
+http://127.0.0.1:15675/ws
+</pre>
 
 In order to establish connection from the browser using WebSocket
 you may use code like:
 
-    <script src="mqttws31.js"></script>
-    <script>
+<pre class="sourcecode html">
+&lt;!-- include the client library --&gt;
+&lt;script src="mqttws31.js"&gt;&lt;/script&gt;
+</pre>
 
-        var wsbroker = location.hostname;  // mqtt websocket enabled broker
-        var wsport = 15675; // port for above
-        var client = new Paho.MQTT.Client(wsbroker, wsport, "/ws",
-            "myclientid_" + parseInt(Math.random() * 100, 10));
-        client.onConnectionLost = function (responseObject) {
-            debug("CONNECTION LOST - " + responseObject.errorMessage);
-        };
-        client.onMessageArrived = function (message) {
-            debug("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
-            print_first(message.payloadString);
-        };
+<pre class="sourcecode javascript">
+&lt;script&gt;
+
+    var wsbroker = location.hostname;  // mqtt websocket enabled broker
+    var wsport = 15675; // port for above
+    var client = new Paho.MQTT.Client(wsbroker, wsport, "/ws",
+        "myclientid_" + parseInt(Math.random() * 100, 10));
+    client.onConnectionLost = function (responseObject) {
+        debug("CONNECTION LOST - " + responseObject.errorMessage);
+    };
+    client.onMessageArrived = function (message) {
+        debug("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
+        print_first(message.payloadString);
+    };
+...
+</pre>
 
 Once you have the `client` object you can follow API's exposed by
 [Paho JavaScript library](https://eclipse.org/paho/clients/js/). The next step is usually to establish a MQTT
 connection with the broker:
 
-        [...]
+<pre class="sourcecode javascript">
+[...]
 
-        var options = {
-            timeout: 3,
-            onSuccess: function () {
-                debug("CONNECTION SUCCESS");
-                client.subscribe('/topic/test', {qos: 1});
-            },
-            onFailure: function (message) {
-                debug("CONNECTION FAILURE - " + message.errorMessage);
-            }
-        };
-        if (location.protocol == "https:") {
-            options.useSSL = true;
-        }
-        debug("CONNECT TO " + wsbroker + ":" + wsport);
-        client.connect(options);
-        [...]
-
+var options = {
+    timeout: 3,
+    onSuccess: function () {
+        debug("CONNECTION SUCCESS");
+        client.subscribe('/topic/test', {qos: 1});
+    },
+    onFailure: function (message) {
+        debug("CONNECTION FAILURE - " + message.errorMessage);
+    }
+};
+if (location.protocol == "https:") {
+    options.useSSL = true;
+}
+debug("CONNECT TO " + wsbroker + ":" + wsport);
+client.connect(options);
+[...]
+</pre>
 
 ## <a id="examples">Web MQTT Examples</a>
 
@@ -99,7 +111,9 @@ A few simple Web MQTT examples are provided as a
 plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
-    rabbitmq-plugins enable rabbitmq_web_mqtt_examples
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_web_mqtt_examples
+</pre>
 
 The examples will be available under
 [http://127.0.0.1:15670/](http://127.0.0.1:15670/) url. You will see two examples:
@@ -123,16 +137,20 @@ to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
-    [
-      {rabbitmq_web_mqtt, [{port, 12345}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt, [{port, 12345}]}
+].
+</pre>
 
 This is a shorthand for the following:
 
-    [
-      {rabbitmq_web_mqtt,
-          [{tcp_config, [{port, 12345}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt,
+      [{tcp_config, [{port, 12345}]}]}
+].
+</pre>
 
 You can use the `tcp_config` section to specify any TCP option you need.
 When both a `port` and a `tcp_config` sections exist, the plugin will
@@ -148,16 +166,18 @@ Erlang/OTP 17.5 or a later version.
 
 TLS (SSL) configuration parameters are provided in the `ssl_config` section:
 
-    [
-      {rabbitmq_web_mqtt,
-          [{ssl_config, [{port,       15671},
-                         {backlog,    1024},
-                         {certfile,   "path/to/certs/client/cert.pem"},
-                         {keyfile,    "path/to/certs/client/key.pem"},
-                         {cacertfile, "path/to/certs/testca/cacert.pem"},
-                         %% needed when private key has a passphrase
-                         {password,   "changeme"}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt,
+      [{ssl_config, [{port,       15671},
+                     {backlog,    1024},
+                     {certfile,   "path/to/certs/client/cert.pem"},
+                     {keyfile,    "path/to/certs/client/key.pem"},
+                     {cacertfile, "path/to/certs/testca/cacert.pem"},
+                     %% needed when private key has a passphrase
+                     {password,   "changeme"}]}]}
+].
+</pre>
 
 Note that port, certfile, keyfile and password are all mandatory. See the [Cowboy documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
@@ -173,7 +193,9 @@ that can be used to customize the behavior of the server
 w.r.t. WebSocket connection handling. You can specify those in the Web
 MQTT plugin configuration, in the `cowboy_opts` section:
 
-    [
-      {rabbitmq_web_mqtt,
-          [{cowboy_opts, [{max_keepalive, 10}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt,
+      [{cowboy_opts, [{max_keepalive, 10}]}]}
+].
+</pre>
