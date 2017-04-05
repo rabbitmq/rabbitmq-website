@@ -27,7 +27,7 @@ which is the same idea for a different protocol, [MQTT](/mqtt.html).
 More context is available in
 [the introductory blog post](http://www.rabbitmq.com/blog/2012/05/14/introducing-rabbitmq-web-stomp/).
 
-## <a id="rationale">How It Works</a>
+## How It Works
 
 RabbitMQ Web STOMP plugin is rather simple. It takes the STOMP protocol,
 as provided by [RabbitMQ STOMP plugin](/stomp.html) and exposes it using
@@ -39,7 +39,7 @@ browsers that don't have native WebSocket support, as well as in new
 browsers that are behind WebSocket-unfriendly proxies.
 
 
-## <a id="iws">Enabling the Plugin</a>
+## Enabling the Plugin
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
@@ -49,7 +49,7 @@ To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 rabbitmq-plugins enable rabbitmq_web_stomp
 </pre>
 
-## <a id="usage">Usage</a>
+## Usage
 
 In order to use STOMP in a Web browser context, a JavaScript STOMP
 library is required. We've tested a
@@ -133,7 +133,7 @@ client.connect('guest', 'guest', on_connect, on_error, '/');
 [...]
 </pre>
 
-## <a id="examples">Web STOMP Examples</a>
+## Web STOMP Examples
 
 A few simple Web STOMP examples are provided as a
 [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
@@ -152,7 +152,7 @@ The examples will be available under
 
 We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/tree/master/priv).
 
-## <a id="config">Configuration</a>
+## Configuration
 
 When no configuration is specified the Web STOMP plugin will listen on
 all interfaces on port 15674 and have a default user login/passcode of
@@ -204,7 +204,7 @@ for details about accepted parameters.
 
 A separate guide on [TLS Troubleshooting](/troubleshooting-ssl.html) is also available.
 
-## <a id="encoding">WebSocket Options and Content Encoding</a>
+## WebSocket Options and Content Encoding
 
 By default, the Web STOMP plugin will expect to handle messages
 encoded as UTF-8. This cannot be changed for the SockJS endpoint,
@@ -258,7 +258,7 @@ in the CONNECT frame, if any, are ignored.
 ].
 </pre>
 
-## <a id="missing"/>Missing features
+## Missing features
 
 RabbitMQ Web STOMP is fully compatible with the
 [RabbitMQ STOMP](/stomp.html) plugin, with the exception of STOMP

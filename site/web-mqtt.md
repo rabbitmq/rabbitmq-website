@@ -22,7 +22,7 @@ The Web MQTT plugin is a simple bridge exposing the
 The main intention of Web MQTT is to make it possible to use RabbitMQ
 from web browsers. It was heavily inspired by the [Web STOMP plugin](/web-stomp.html).
 
-## <a id="rationale">How It Works</a>
+## How It Works
 
 RabbitMQ Web MQTT plugin is rather simple. It takes the MQTT protocol,
 as provided by [RabbitMQ MQTT plugin](/mqtt.html) and exposes it using
@@ -30,7 +30,7 @@ WebSockets. Note that unlike Web STOMP, this plugin does not provide
 WebSocket emulation via SockJS.
 
 
-## <a id="iwm">Installation and Enabling the Plugin</a>
+## Installation and Enabling the Plugin
 
 `rabbitmq_web_mqtt` plugin ships with RabbitMQ as of 3.6.7.
 
@@ -40,7 +40,7 @@ To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 rabbitmq-plugins enable rabbitmq_web_mqtt
 </pre>
 
-## <a id="usage">Usage</a>
+## Usage
 
 In order to use MQTT in a Web browser context, a JavaScript MQTT
 library is required. We've tested it against
@@ -104,7 +104,7 @@ client.connect(options);
 [...]
 </pre>
 
-## <a id="examples">Web MQTT Examples</a>
+## Web MQTT Examples
 
 A few simple Web MQTT examples are provided as a
 [RabbitMQ Web MQTT examples](https://github.com/rabbitmq/rabbitmq-web-mqtt-examples)
@@ -123,7 +123,7 @@ The examples will be available under
 
 We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-mqtt-examples/tree/master/priv).
 
-## <a id="config">Configuration</a>
+## Configuration
 
 When no configuration is specified the Web MQTT plugin will listen on
 all interfaces on port 15674 and have a default user login and password of
@@ -184,7 +184,7 @@ for details about accepted parameters.
 
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
 
-## <a id="encoding">WebSocket Options</a>
+## WebSocket Options
 
 The Web MQTT plugin uses the Cowboy web server under the hood.  Cowboy
 provides [a number of
