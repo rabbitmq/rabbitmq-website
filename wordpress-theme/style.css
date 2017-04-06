@@ -2,83 +2,20 @@
 Theme Name: RabbitMQ.
 Theme URI: http://wordpress.org/
 Description: RabbitMQ.
-Version: 1.6
+Version: 2.0
 Author: Simon MacMullen
 */
 
-
-#content {
-  max-width: 75%;
-  display: inline-block;
-  vertical-align: top;
+#left-content ol, #left-content ul {
+  margin: 5px 0px 0px 10px;
+  padding: 0px 0px 0px 0px;
 }
 
-#content .entry p {
-    clear: none;
+#left-content ol > li, #left-content ul > li {
+  margin: 0px 0px 0px 10px;
+  padding: 0px 0px 0px 0px;
 }
 
-#content .entry img.alignleft {
-    float: left;
-    padding: 0 10px 10px 0;
-}
-
-#content .entry img.alignright {
-    float: right;
-    padding: 0 0 10px 10px;
-}
-
-#content .entry img.aligncenter {
-    display: block; margin: 10px auto;
-}
-
-#sidebar {
-  border-left: 1px solid #E4E4E4;
-  display: inline-block;
-  vertical-align: top;
-}
-
-#sidebar input#s {
-  width: 150px;
-  border: 1px solid #E4E4E4;
-}
-
-#sidebar input#searchsubmit {
-  border: 1px solid #E4E4E4;
-  background: #E4E4E4;
-  float: right;
-}
-
-#sidebar ul li {
-  background: none;
-}
-
-.post {
-  padding-right: 30px;
-}
-
-@media(max-width: 982px) {
-  #content {
-    max-width: 50%;
-  }
-  #sidebar {
-    padding-left: 30px;
-    margin-top: 50px;
-  }
-}
-
-@media(max-width: 660px) {
-  #content {
-    max-width: 100%;
-  }
-  .post {
-    padding-right: 0;
-  }
-  #sidebar {
-    padding-left: 0;
-    border-left: none;
-    margin-top: 50px;
-  }
-  #sidebar li {
-    padding-left: 0;
-  }
+#left-content ul > li {
+  list-style-type: disc !important;
 }

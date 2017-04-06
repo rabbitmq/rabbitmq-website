@@ -2,10 +2,14 @@
 
 <?php get_sidebar(); ?>
 
-	<div id="content" class="narrowcolumn">
+<div id="left-content">
+  <h1>Page not found - 404 Error</h1>
 
-		<h2 class="center">Error 404 - Not Found</h2>
+  <p>The page you were looking for has not been found, please
+  <a href="https://www.rabbitmq.com/contact.html">contact us</a>
+  if you can't find what you're looking for using the links above.</p>
 
-	</div>
+  <p>Thanks</p>
+</div>
 
 <?php get_footer(); ?>

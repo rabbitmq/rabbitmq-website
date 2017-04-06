@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-	<div id="content" class="widecolumn">
+	<div id="left-content">
 
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 

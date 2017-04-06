@@ -8,8 +8,11 @@
 <meta xmlns="http://www.w3.org/1999/xhtml" name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"></meta>
 <meta xmlns="http://www.w3.org/1999/xhtml" name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"></meta>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no' id='viewport' name='viewport'/>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet"/>
+
 <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"></link>
 <link xmlns="http://www.w3.org/1999/xhtml" rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"></link>
+
 <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
@@ -30,7 +33,7 @@ try{
 
 <body>
   <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
-   <div class='container'>
+    <div class='container'>
       <div class="rabbit-logo">
         <a href="/"><img src="/img/RabbitMQ-logo.svg" alt="RabbitMQ"/></a>
       </div>
@@ -47,7 +50,5 @@ try{
         </ul>
       </div>
     </div>
-    <div class="nav-separator"/>
+    <div class="nav-separator"></div>
     <div id='innerContainer' class='container'>
-      <div class="document">
-

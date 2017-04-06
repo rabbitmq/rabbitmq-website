@@ -1,4 +1,4 @@
-    </div></div>
+    </div>
     <div class="clear"></div>
     <div class="pageFooter">
       <div class='container'>

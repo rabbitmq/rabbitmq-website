@@ -6,7 +6,7 @@ Template Name: Archives
 
 <?php get_header(); ?>
 
-<div id="content" class="widecolumn">
+<div id="left-content">
 
 <?php include (TEMPLATEPATH . '/searchform.php'); ?>
 
