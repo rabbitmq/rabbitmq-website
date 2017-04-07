@@ -430,7 +430,8 @@ limitations under the License.
             then at a 1 minute resolution for 1 hour and 1 minute, then at a 10 minute
             resolution for about 8 hours. It retains basic data at a 5 second
             resolution for 1 minute and 5 seconds, then at a 1 minute resolution for
-            1 hour, and detailed data only for 10 seconds.
+            1 hour, and detailed data only for 10 seconds. All three policies are mandatory, and must contain
+            at least one retention pair <code>{MaxAgeInSeconds, SampleEveryNSeconds}</code>.
           </p>
         </doc:subsection>
 
