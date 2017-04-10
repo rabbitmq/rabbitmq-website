@@ -50,13 +50,9 @@ limitations under the License.
           <a href="https://github.com/rabbitmq/rabbitmq-autocluster">rabbitmq-autocluster</a>: forms
           clusters using round-robin DNS (e.g. <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">with Route 53</a>), <a href="https://www.consul.io/">Consul</a> or <a href="https://github.com/coreos/etcd">etcd</a>.
         </li>
-        <li>
-          <a href="http://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq-clusterer</a>, a declarative clustering
-          plugin (requires RabbitMQ 3.5.4 or later).
-        </li>
       </ul>
 
-      <a href="https://github.com/jjasghar/rabbitmq">RabbitMQ Chef cookbook</a> and <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">RabbitMQ Puppet module</a> can help with automating cluster provisioning.
+      <a href="https://github.com/rabbitmq/chef-cookbook">RabbitMQ Chef cookbook</a> and <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">RabbitMQ Puppet module</a> can help with automating cluster provisioning.
     </p>
   </doc:subsection>
 
