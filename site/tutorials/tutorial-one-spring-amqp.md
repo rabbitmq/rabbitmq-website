@@ -199,6 +199,7 @@ public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
         ctx.close();
     }
 }
+</pre>
 
 ### Sending
 <div class="diagram">
