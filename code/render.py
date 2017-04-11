@@ -69,7 +69,7 @@ def preprocess_markdown(fpath):
     # Unfortunately we can't stop markdown escaping entities. Unescape them.
     processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
 
-    tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*.md$', fpath)
+    tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*(-[a-z]*)?.md$', fpath)
     if tutorial is not None:
         tutorial_head = """<div id="left-content" class="tutorial">"""
         tutorial_foot = """</div><div id="right-nav" class="{0}">
