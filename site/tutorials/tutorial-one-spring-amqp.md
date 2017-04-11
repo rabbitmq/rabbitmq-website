@@ -22,7 +22,6 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-intro.xml.inc"/>
 
 ## "Hello World"
-
 ### (using the spring-amqp client)
 
 In this part of the tutorial we'll write two programs using the spring-amqp
