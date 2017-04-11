@@ -36,8 +36,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> 
-      (C)" height="60" />
+  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The Spring AMQP Framework
@@ -46,13 +45,14 @@ on behalf of the consumer.
 > is an open, general-purpose protocol for messaging. There are a number
 > of clients for RabbitMQ in
 > [many different languages](http://rabbitmq.com/devtools.html).
-> Spring AMQP leverages Spring Boot for configuration and dependency
-> management. Spring supports maven or gradle but for this tutorial we'll
-> select maven with Spring Boot 1.5.2.
-> Open the [Spring Initializr](http://start.spring.io) and provide:
-> the group id (e.g. org.springframework.amqp.tutorials)
-> the artifact id (e.g. rabbitmq-amqp-tutorials)
-> Search for the amqp dependency and select the AMQP dependency.
+
+Spring AMQP leverages Spring Boot for configuration and dependency
+management. Spring supports maven or gradle but for this tutorial we'll
+select maven with Spring Boot 1.5.2.
+Open the [Spring Initializr](http://start.spring.io) and provide:
+the group id (e.g. org.springframework.amqp.tutorials)
+the artifact id (e.g. rabbitmq-amqp-tutorials)
+Search for the amqp dependency and select the AMQP dependency.
 
 <div class="diagram">
     <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]" 
@@ -106,7 +106,7 @@ public class Tut1Config {
 
     @Bean
     public Queue hello() {
-        return new Queue("tut.hello");
+        return new Queue("hello");
     }
 
     @Profile("receiver")
@@ -126,7 +126,7 @@ public class Tut1Config {
 Note that we've defined the 1st tutorial profile as either tut1
 or hello-world. We use the @Configuration to let Spring know that
 this is a Java Configuration and in it we create the definition
-for our Queue ("tut.hello") and define our Sender and Receiver
+for our Queue ("hello") and define our Sender and Receiver
 beans.
 
 We will run all of our tutorials through the Boot Application
@@ -199,8 +199,10 @@ public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
         ctx.close();
     }
 }
+</pre>
 
 ### Sending
+
 <div class="diagram">
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
@@ -270,7 +272,7 @@ package org.springframework.amqp.tutorials.tut1;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-@RabbitListener(queues = "tut.hello")
+@RabbitListener(queues = "hello")
 public class Tut1Receiver {
 
     @RabbitHandler

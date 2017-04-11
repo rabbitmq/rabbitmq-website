@@ -6,3 +6,5 @@
 /site/news.atom
 target/
 site/img/.DS_Store
+.idea/
+
