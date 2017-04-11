@@ -202,6 +202,7 @@ public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
 </pre>
 
 ### Sending
+
 <div class="diagram">
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
