@@ -287,15 +287,22 @@ The app uses Spring Profiles to control what tutorial it's running, and whether 
 Sender or Receiver.  Choose which tutorial to run by using the profile.
 For example:
 
+<pre class="sourcecode">
 - {tut1|hello-world},{sender|receiver}
+</pre>
 
 After building with maven, run the app however you like to run boot apps.
 
 For example:
 
 <pre class="sourcecode bash">
-`Send` java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sender
-`Recv` java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
+# publisher
+java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sender
+</pre>
+
+<pre class="sourcecode bash">
+# consumer
+java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
 </pre>
 
 > #### Listing queues
