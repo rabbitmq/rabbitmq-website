@@ -7,4 +7,5 @@
 target/
 site/img/.DS_Store
 .idea/
+.idea
 
