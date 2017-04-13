@@ -17,11 +17,12 @@ limitations under the License.
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
 ## Publish/Subscribe
-### (using the Java Client)
+
+### (using the spring-amqp client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-two-java.html) we created a work
+In the [previous tutorial](tutorial-two-spring-amqp.html) we created a work
 queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different -- we'll deliver a message to multiple
@@ -87,11 +88,14 @@ _exchange type_.
 </div>
 
 There are a few exchange types available: `direct`, `topic`, `headers`
-and `fanout`. We'll focus on the last one -- the fanout. Let's create
-an exchange of this type, and call it `logs`:
+and `fanout`. We'll focus on the last one -- the fanout. Let's configure
+a bean to describe an exchange of this type, and call it `tut.fanout`:
 
 <pre class="sourcecode java">
-channel.exchangeDeclare("logs", "fanout");
+	@Bean
+	public FanoutExchange fanout() {
+		return new FanoutExchange("tut.fanout");
+	}
 </pre>
 
 The fanout exchange is very simple. As you can probably guess from the

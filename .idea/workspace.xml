@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="258edf20-088a-4d29-bb0b-43e7f25818d7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/tutorials/tutorial-three-spring-amqp.md" afterPath="$PROJECT_DIR$/site/tutorials/tutorial-three-spring-amqp.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/tutorials/tutorial-two-spring-amqp.md" afterPath="$PROJECT_DIR$/site/tutorials/tutorial-two-spring-amqp.md" />
     </list>
     <ignored path="rabbitmq-website.iws" />
@@ -29,7 +30,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
               <first_editor relative-caret-position="405">
-                <caret line="273" column="26" selection-start-line="273" selection-start-column="26" selection-end-line="273" selection-end-column="26" />
+                <caret line="279" column="5" selection-start-line="279" selection-start-column="5" selection-end-line="279" selection-end-column="5" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -37,12 +38,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tutorial-two-spring-amqp.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tutorial-two-spring-amqp.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/site/tutorials/tutorial-two-spring-amqp.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="703">
-                <caret line="228" column="20" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="20" />
+              <first_editor relative-caret-position="1009">
+                <caret line="458" column="0" selection-start-line="458" selection-start-column="0" selection-end-line="458" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tutorial-three-spring-amqp.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/site/tutorials/tutorial-three-spring-amqp.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="-170">
+                <caret line="96" column="10" selection-start-line="96" selection-start-column="10" selection-end-line="96" selection-end-column="10" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -132,6 +146,7 @@
         <option value="$PROJECT_DIR$/site/tutorials/tutorials-menu.xml.inc" />
         <option value="$PROJECT_DIR$/site/tutorials/tutorial-one-spring-amqp.md" />
         <option value="$PROJECT_DIR$/site/tutorials/tutorial-two-spring-amqp.md" />
+        <option value="$PROJECT_DIR$/site/tutorials/tutorial-three-spring-amqp.md" />
       </list>
     </option>
   </component>
@@ -872,12 +887,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1491940562025</updated>
-      <workItem from="1491940573578" duration="16379000" />
+      <workItem from="1491940573578" duration="19704000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16379000" />
+    <option name="totallyTimeSpent" value="19704000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1354" height="1413" extended-state="0" />
@@ -959,7 +974,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="405">
-            <caret line="273" column="26" selection-start-line="273" selection-start-column="26" selection-end-line="273" selection-end-column="26" />
+            <caret line="279" column="5" selection-start-line="279" selection-start-column="5" selection-end-line="279" selection-end-column="5" />
             <folding />
           </first_editor>
           <second_editor />
@@ -980,8 +995,19 @@
     <entry file="file://$PROJECT_DIR$/site/tutorials/tutorial-two-spring-amqp.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="703">
-            <caret line="228" column="20" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="20" />
+          <first_editor relative-caret-position="1009">
+            <caret line="458" column="0" selection-start-line="458" selection-start-column="0" selection-end-line="458" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/tutorials/tutorial-three-spring-amqp.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="-170">
+            <caret line="96" column="10" selection-start-line="96" selection-start-column="10" selection-end-line="96" selection-end-column="10" />
             <folding />
           </first_editor>
           <second_editor />
