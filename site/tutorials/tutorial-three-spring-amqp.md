@@ -22,21 +22,20 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-two-spring-amqp.html) we created a work
-queue. The assumption behind a work queue is that each task is
-delivered to exactly one worker. In this part we'll do something
-completely different -- we'll deliver a message to multiple
-consumers. This pattern is known as "publish/subscribe".
+In the [first tutorial](tutorial-one-spring-amqp.html) we showed how
+to use start.spring.io to leverage Spring Initializr to create a project
+with the RabbitMQ starter dependency for create spring-amqp 
+applications.
 
-To illustrate the pattern, we're going to build a simple logging
-system. It will consist of two programs -- the first will emit log
-messages and the second will receive and print them.
+In the [previous tutorial](tutorial-two-spring-amqp.html) we created
+a new package (tut2) to place our config, sender and receiver and
+created a work queue with two consumers. The assumption behind a work 
+queue is that each task is delivered to exactly one worker. 
 
-In our logging system every running copy of the receiver program will
-get the messages. That way we'll be able to run one receiver and
-direct the logs to disk; and at the same time we'll be able to run
-another receiver and see the logs on the screen.
-
+In this part we'll implement the fanout pattern to deliver
+a message to multiple consumers. This pattern is known as "publish/subscribe"
+and is implementing by configuring a number of beans in our Tut3Config file.
+ 
 Essentially, published log messages are going to be broadcast to all
 the receivers.
 
@@ -92,16 +91,70 @@ and `fanout`. We'll focus on the last one -- the fanout. Let's configure
 a bean to describe an exchange of this type, and call it `tut.fanout`:
 
 <pre class="sourcecode java">
+import org.springframework.amqp.core.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+
+@Profile({"tut3", "pub-sub", "publish-subscribe"})
+@Configuration
+public class Tut3Config {
+
 	@Bean
 	public FanoutExchange fanout() {
 		return new FanoutExchange("tut.fanout");
 	}
+
+	@Profile("receiver")
+	private static class ReceiverConfig {
+
+		@Bean
+		public Queue autoDeleteQueue1() {
+			return new AnonymousQueue();
+		}
+
+		@Bean
+		public Queue autoDeleteQueue2() {
+			return new AnonymousQueue();
+		}
+
+		@Bean
+		public Binding binding1(FanoutExchange fanout,
+		    Queue autoDeleteQueue1) {
+			return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
+		}
+
+		@Bean
+		public Binding binding2(FanoutExchange fanout,
+		    Queue autoDeleteQueue2) {
+			return BindingBuilder.bind(autoDeleteQueue2).to(fanout);
+		}
+
+		@Bean
+		public Tut3Receiver receiver() {
+			return new Tut3Receiver();
+		}
+	}
+
+	@Profile("sender")
+	@Bean
+	public Tut3Sender sender() {
+		return new Tut3Sender();
+	}
+}
 </pre>
 
+We ollow the same approach as in the previous two tutorials.  We create three
+profiles, the tutorial ("tut3", "pub-sub", or "publish-subscribe"). They are
+all synonyms for running the fanout profile tutorial. Next we configure 
+the FanoutExchange as a bean. Within the "receiver" (Tut3Receiver) file we 
+define" four beans; 1) two autoDeleteQueues or AnonymousQueues and 
+two bindings to bind those queues to the exchange.
+ 
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
 queues it knows. And that's exactly what we need for our logger.
-
 
 > #### Listing exchanges
 >
@@ -115,7 +168,6 @@ queues it knows. And that's exactly what we need for our logger.
 > exchange. These are created by default, but it is unlikely you'll need to
 > use them at the moment.
 
-
 > #### Nameless exchange
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
@@ -125,7 +177,7 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 > <pre class="sourcecode java">
-> channel.basicPublish("", "hello", null, message.getBytes());
+> template.convertAndSend(queue.getName(), message);
 > </pre>
 >
 > The first parameter is the the name of the exchange.
@@ -135,20 +187,28 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
 <pre class="sourcecode java">
-channel.basicPublish( "logs", "", null, message.getBytes());
+@Autowired
+private RabbitTemplate template;
+
+@Autowired
+private FanoutExchange fanout;   // configured in Tut3Config above
+
+template.convertAndSend(fanout.getName(), "", message);
 </pre>
+
+From now on the `fanout` exchange will append messages to our queue.
 
 Temporary queues
 ----------------
 
 As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+specified name (remember `hello`). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
 
-But that's not the case for our logger. We want to hear about all
-log messages, not just a subset of them. We're
+But that's not the case for our fanout example. We want to hear about
+all messages, not just a subset of them. We're
 also interested only in currently flowing messages not in the old
 ones. To solve that we need two things.
 
@@ -157,18 +217,24 @@ To do this we could create a queue with a random name, or,
 even better - let the server choose a random queue name for us.
 
 Secondly, once we disconnect the consumer the queue should be
-automatically deleted.
-
-In the Java client, when we supply no parameters to `queueDeclare()`
-we create a non-durable, exclusive, autodelete queue with a generated name:
+automatically deleted. To do this with the spring-amqp client, 
+we defined _AnonymousQueue_s. and created non-durable, exclusive, 
+autodelete queue with a generated name:
 
 <pre class="sourcecode java">
-String queueName = channel.queueDeclare().getQueue();
+@Bean
+public Queue autoDeleteQueue1() {
+	return new AnonymousQueue();
+}
+
+@Bean
+public Queue autoDeleteQueue2() {
+	return new AnonymousQueue();
+}
 </pre>
 
-At that point `queueName` contains a random queue name. For example
+At this point our queue names contain a random queue names. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
-
 
 Bindings
 --------
@@ -197,13 +263,16 @@ Bindings
 
 We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
-between exchange and a queue is called a _binding_.
+between exchange and a queue is called a _binding_. In the above
+Tut3Config you can see that we have two bindings, one for each
+AnonymousQueue. 
 
 <pre class="sourcecode java">
-channel.queueBind(queueName, "logs", "");
+@Bean
+public Binding binding1(FanoutExchange fanout, Queue autoDeleteQueue1) {
+	return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
+}
 </pre>
-
-From now on the `logs` exchange will append messages to our queue.
 
 > #### Listing bindings
 >
@@ -211,7 +280,6 @@ From now on the `logs` exchange will append messages to our queue.
 > <pre class="sourcecode bash">
 > rabbitmqctl list_bindings
 > </pre>
-
 
 Putting it all together
 -----------------------
@@ -249,114 +317,112 @@ Putting it all together
   </div>
 </div>
 
-The producer program, which emits log messages, doesn't look much
+The producer program, which emits messages, doesn't look much
 different from the previous tutorial. The most important change is that
-we now want to publish messages to our `logs` exchange instead of the
+we now want to publish messages to our `fanout` exchange instead of the
 nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
-`EmitLog.java` program:
+`tut3.Sender.java` program:
 
 <pre class="sourcecode java">
-import java.io.IOException;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+public class Tut3Sender {
 
-public class EmitLog {
+	@Autowired
+	private RabbitTemplate template;
 
-    private static final String EXCHANGE_NAME = "logs";
+	@Autowired
+	private FanoutExchange fanout;
 
-    public static void main(String[] argv)
-                  throws java.io.IOException {
+	int dots = 0;
 
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+	int count = 0;
 
-        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-
-        String message = getMessage(argv);
-
-        channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
-        System.out.println(" [x] Sent '" + message + "'");
-
-        channel.close();
-        connection.close();
-    }
-    //...
+	@Scheduled(fixedDelay = 1000, initialDelay = 500)
+	public void send() {
+		StringBuilder builder = new StringBuilder("Hello");
+		if (dots++ == 3) {
+			dots = 1;
+		}
+		for (int i = 0; i &lt; dots; i++) {
+			builder.append('.');
+		}
+		builder.append(Integer.toString(++count));
+		String message = builder.toString();
+		template.convertAndSend(fanout.getName(), "", message);
+		System.out.println(" [x] Sent '" + message + "'");
+	}
 }
 </pre>
 
-[(EmitLog.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
+[Tut3Sender.java source](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
 
-As you see, after establishing the connection we declared the
-exchange. This step is necessary as publishing to a non-existing
+As you see, we leverage the beans from the Tut3Config file and
+autowire in the RabbitTemplate along with our configured
+FanoutExchange  This step is necessary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
 but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
-The code for `ReceiveLogs.java`:
+The code for `Tut3Receiver.java`:
 
 <pre class="sourcecode java">
-import com.rabbitmq.client.*;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.util.StopWatch;
 
-import java.io.IOException;
+public class Tut3Receiver {
 
-public class ReceiveLogs {
-  private static final String EXCHANGE_NAME = "logs";
+	@RabbitListener(queues = "#{autoDeleteQueue1.name}")
+	public void receive1(String in) throws InterruptedException {
+		receive(in, 1);
+	}
 
-  public static void main(String[] argv) throws Exception {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("localhost");
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
+	@RabbitListener(queues = "#{autoDeleteQueue2.name}")
+	public void receive2(String in) throws InterruptedException {
+		receive(in, 2);
+	}
 
-    channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-    String queueName = channel.queueDeclare().getQueue();
-    channel.queueBind(queueName, EXCHANGE_NAME, "");
+	public void receive(String in, int receiver) throws InterruptedException {
+		StopWatch watch = new StopWatch();
+		watch.start();
+		System.out.println("instance " + receiver + " [x] Received '" + in + "'");
+		doWork(in);
+		watch.stop();
+		System.out.println("instance " + receiver + " [x] Done in " 
+		    + watch.getTotalTimeSeconds() + "s");
+	}
 
-    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+	private void doWork(String in) throws InterruptedException {
+		for (char ch : in.toCharArray()) {
+			if (ch == '.') {
+				Thread.sleep(1000);
+			}
+		}
+	}
 
-    Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope,
-                                 AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
-        System.out.println(" [x] Received '" + message + "'");
-      }
-    };
-    channel.basicConsume(queueName, true, consumer);
-  }
 }
 </pre>
 
-[(ReceiveLogs.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
+[Tut3Receiver.java source](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
 
 
-Compile as before and we're done.
+Compile as before and we're ready to execute the fanout sender and receiver.
 
 <pre class="sourcecode bash">
-javac -cp $CP EmitLog.java ReceiveLogs.java
+mvn clean package
 </pre>
 
-If you want to save logs to a file, just open a console and type:
+And of course, to execute the tutorial do the following:
 
 <pre class="sourcecode bash">
-java -cp $CP ReceiveLogs > logs_from_rabbit.log
-</pre>
-
-If you wish to see the logs on your screen, spawn a new terminal and run:
-
-<pre class="sourcecode bash">
-java -cp $CP ReceiveLogs
-</pre>
-
-And of course, to emit logs type:
-
-<pre class="sourcecode bash">
-java -cp $CP EmitLog
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,receiver 
+    --tutorial.client.duration=6000
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,sender 
+    --tutorial.client.duration=60000
 </pre>
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
@@ -377,4 +443,3 @@ that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-java.html)
-
