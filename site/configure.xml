@@ -529,10 +529,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <code>tcp_listeners</code>
             </td>
             <td>
-              List of ports on which to listen for AMQP connections
-              (without SSL). Can contain integers (meaning "listen on
-              all interfaces") or tuples such as
-              <code>{"127.0.0.1", 5672}</code> to listen on one or more interfaces.
+              Ports or hostname/pair on which to listen for AMQP connections
+              (without TLS). See the <a href="/networking.html">Networking guide</a> for more
+              details and examples.
 
               <p>Default: <code>[5672]</code></p>
             </td>
