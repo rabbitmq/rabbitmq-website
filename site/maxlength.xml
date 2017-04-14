@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -43,8 +43,8 @@ limitations under the License.
       In all cases the number of <i>ready</i> messages is used;
       unacknowledged messages do not count towards the limit. The
       fields <code>messages_ready</code> and
-      <code>message_bytes_ready</code> from <code>rabbitmqctl
-      list_queues</code> and the management API show the values that
+      <code>message_bytes_ready</code> from
+      <code>rabbitmqctl list_queues</code> and the management API show the values that
       would be limited.
     </p>
 
@@ -72,7 +72,7 @@ limitations under the License.
       This example in Java declares a queue with a maximum length
       of 10 messages:
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>

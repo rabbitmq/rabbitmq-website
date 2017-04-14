@@ -238,8 +238,8 @@ limitations under the License.
           </p>
           <p>
             As an administrator, start and stop the
-            server as usual using <code>/sbin/service rabbitmq-server
-            <i>stop/start/etc</i></code>.
+            server as usual using
+            <code>/sbin/service rabbitmq-server <i>stop/start/etc</i></code>.
           </p>
           <p>
             <em>Note: </em>The server is set up to run as system user

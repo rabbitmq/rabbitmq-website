@@ -138,7 +138,7 @@ limitations under the License.
       precedence).
     </p>
 
-    <pre class="example">
+    <pre class="sourcecode erlang">
 %% Configures the maximum number of non-self-issued intermediate certificates
 %% that may follow the peer certificate in a valid certification path.
 %%

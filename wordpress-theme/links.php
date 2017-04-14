@@ -6,7 +6,7 @@ Template Name: Links
 
 <?php get_header(); ?>
 
-<div id="content" class="widecolumn">
+<div id="left-content">
 
 <h2>Links:</h2>
 <ul>

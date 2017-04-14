@@ -81,13 +81,13 @@ limitations under the License.
           TCP listeners configure both interface and port. The following example
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 Or using classic config format:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -103,14 +103,14 @@ Or using classic config format:
           The following example demonstrates how to configure RabbitMQ
           to listen on localhost only for both IPv4 and IPv6:
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = 127.0.0.1:5672
 listeners.tcp.2 = ::1:5672
 </pre>
 
 Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"127.0.0.1", 5672},
@@ -125,20 +125,20 @@ Or, in the <a href="/configure.html#erlang-term-config-file">classic config form
           listen on all IPv6 addresses but IPv4 is not disabled
           explicitly, IPv4 address will be included, so
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = :::5672
 </pre>
 
 is equivalent to
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = 0.0.0.0:5672
 listeners.tcp.2 = :::5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"::",       5672}]}
@@ -148,7 +148,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
 is equivalent to
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"0.0.0.0", 5672},
@@ -164,13 +164,13 @@ is equivalent to
         <p>
           In this example RabbitMQ will listen on an IPv4 interface only:
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -190,13 +190,13 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         <p>
           In this example RabbitMQ will listen on an IPv6 interface only:
 
-<pre class="code">
+<pre class="sourcecode ini">
 listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"fe80::2acf:e9ff:fe17:f97b", 5672}]}
@@ -295,7 +295,7 @@ proxy_protocol = true
       <p>
         The example below uses a range with a single port but a value different from default:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {kernel, [
     {inet_dist_listen_min, 33672},
@@ -356,7 +356,7 @@ proxy_protocol = true
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
 
-<pre class="code">
+<pre class="sourcecode ini">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
@@ -367,7 +367,7 @@ tcp_listen_options.recbuf = 196608
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -384,7 +384,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
           The same example for MQTT and STOMP connections:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -424,7 +424,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           overriding the flag using the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
           variable:
 
-<pre class="code">
+<pre class="sourcecode bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 </pre>
 
@@ -500,7 +500,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
-<pre class="code">
+<pre class="sourcecode ini">
 tcp_lsiten_options.backlog = 128
 tcp_lsiten_options.nodelay = true
 tcp_listen_options.linger.on      = true
@@ -511,7 +511,7 @@ tcp_lsiten_options.recbuf  = 32768
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -528,7 +528,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
           The same example for MQTT and STOMP connections:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -581,14 +581,14 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
 In <code>rabbitmq.conf</code>
 
-<pre class="code">
-    tcp_listen_options.backlog = 4096
-    tcp_listen_options.nodelay = true
+<pre class="sourcecode ini">
+tcp_listen_options.backlog = 4096
+tcp_listen_options.nodelay = true
 </pre>
 
 together with the following bits in the <a href="/configure.html#advanced-config-file">advanced config file</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {kernel, [
     {inet_default_connect_options, [{nodelay, true}]},
@@ -599,7 +599,7 @@ together with the following bits in the <a href="/configure.html#advanced-config
 When using the <a href="/configure.html#erlang-term-config-file">classic config format</a>,
 everything is configured in a single file:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {kernel, [
     {inet_default_connect_options, [{nodelay, true}]},
@@ -638,14 +638,14 @@ everything is configured in a single file:
           This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
 
-<pre class="code">
+<pre class="sourcecode ini">
 tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -760,7 +760,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           To configure a kernel parameter interactively, use <code>sysctl -w</code> (requires superuser
           privileges), for example:
 
-<pre class="code">
+<pre class="sourcecode bash">
 sysctl -w fs.file-max 200000
 </pre>
 
@@ -880,7 +880,7 @@ sysctl -w fs.file-max 200000
         that considers TCP connections dead or unreachable after 120
         seconds (4 attempts every 15 seconds after connection idle for 60 seconds):
 
-<pre class="code">
+<pre class="sourcecode sysctl">
 net.ipv4.tcp_keepalive_time=60
 net.ipv4.tcp_keepalive_intvl=15
 net.ipv4.tcp_keepalive_probes=4
@@ -906,7 +906,7 @@ net.ipv4.tcp_keepalive_probes=4
 
 Using the classic config format:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     %% 20 seconds
@@ -928,13 +928,13 @@ Using the classic config format:
           handshake timeout. This can be done via
           the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
 
-<pre class="code">
-    ssl_handshake_timeout = 10000
+<pre class="sourcecode ini">
+ssl_handshake_timeout = 10000
 </pre>
 
 Using the classic config format:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     %% 10 seconds

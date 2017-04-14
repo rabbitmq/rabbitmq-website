@@ -72,7 +72,7 @@ limitations under the License.
           Possibly the easiest way to use this package is via <a href="http://brew.sh/">Homebrew</a>. It
           will automatically install the OpenSSL formula mentioned above:
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 brew install rabbitmq
 </pre>
         </p>

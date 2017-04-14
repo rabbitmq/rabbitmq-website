@@ -71,7 +71,7 @@ limitations under the License.
         to <code>"source"</code> with routing key <code>"routingKey"</code>.
       </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode java">
 Channel ch = conn.createChannel();
 ch.exchangeBind("destination", "source", "routingKey");
 </pre>
@@ -85,8 +85,8 @@ ch.exchangeBind("destination", "source", "routingKey");
         to <code>"source"</code> with routing key <code>"routingKey"</code>.
       </p>
 
-<pre class="sourcecode">
-var ch = conn.CreateChannel();
+<pre class="sourcecode csharp">
+var ch = conn.CreateModel();
 ch.ExchangeBind("destination", "source", "routingKey");
 </pre>
     </doc:section>

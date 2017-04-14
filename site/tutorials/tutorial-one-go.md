@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-intro.xml.inc"/>
 
 ## "Hello World"
-### (using Go RabbitMQ client)
+### (using the Go RabbitMQ client)
 
 In this part of the tutorial we'll write two small programs in Go; a
 producer that sends a single message, and a consumer that receives
@@ -48,9 +48,9 @@ on behalf of the consumer.
 >
 > First, install amqp using `go get`:
 >
->     :::bash
->     $ go get github.com/streadway/amqp
->
+> <pre class="sourcecode go">
+> go get github.com/streadway/amqp
+> </pre>
 
 Now we have amqp installed, we can write some
 code.
@@ -61,78 +61,82 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.go` and our message receiver
-`receive.go`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message publisher (sender) `send.go` and our message consumer (receiver)
+`receive.go`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
 In
 [`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go),
 we need to import the library first:
 
-    :::go
-    package main
+<pre class="sourcecode go">
+package main
 
-    import (
-      "fmt"
-      "log"
+import (
+  "fmt"
+  "log"
 
-      "github.com/streadway/amqp"
-    )
+  "github.com/streadway/amqp"
+)
+</pre>
 
 We also need an helper function to check the return value for each 
 amqp call:
 
-    :::go
-    func failOnError(err error, msg string) {
-      if err != nil {
-        log.Fatalf("%s: %s", msg, err)
-        panic(fmt.Sprintf("%s: %s", msg, err))
-      }
-    }
-
+<pre class="sourcecode go">
+func failOnError(err error, msg string) {
+  if err != nil {
+    log.Fatalf("%s: %s", msg, err)
+    panic(fmt.Sprintf("%s: %s", msg, err))
+  }
+}
+</pre>
 
 then connect to RabbitMQ server
 
-    :::go
-    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-    failOnError(err, "Failed to connect to RabbitMQ")
-    defer conn.Close()
+<pre class="sourcecode go">
+conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+failOnError(err, "Failed to connect to RabbitMQ")
+defer conn.Close()
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us.
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    :::go
-    ch, err := conn.Channel()
-    failOnError(err, "Failed to open a channel")
-    defer ch.Close()
+<pre class="sourcecode go">
+ch, err := conn.Channel()
+failOnError(err, "Failed to open a channel")
+defer ch.Close()
+</pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::go
-    q, err := ch.QueueDeclare(
-      "hello", // name
-      false,   // durable
-      false,   // delete when unused
-      false,   // exclusive
-      false,   // no-wait
-      nil,     // arguments
-    )
-    failOnError(err, "Failed to declare a queue")
+<pre class="sourcecode go">
+q, err := ch.QueueDeclare(
+  "hello", // name
+  false,   // durable
+  false,   // delete when unused
+  false,   // exclusive
+  false,   // no-wait
+  nil,     // arguments
+)
+failOnError(err, "Failed to declare a queue")
 
-    body := "hello"
-    err = ch.Publish(
-      "",     // exchange
-      q.Name, // routing key
-      false,  // mandatory
-      false,  // immediate
-      amqp.Publishing {
-        ContentType: "text/plain",
-        Body:        []byte(body),
-      })
-    failOnError(err, "Failed to publish a message")
+body := "hello"
+err = ch.Publish(
+  "",     // exchange
+  q.Name, // routing key
+  false,  // mandatory
+  false,  // immediate
+  amqp.Publishing {
+    ContentType: "text/plain",
+    Body:        []byte(body),
+  })
+failOnError(err, "Failed to publish a message")
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -145,7 +149,7 @@ whatever you like there.
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -154,8 +158,8 @@ whatever you like there.
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our publisher.  Our consumer is pushed messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -164,94 +168,99 @@ keep it running to listen for messages and print them out.
 
 The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go)) has the same import and helper function as `send`:
 
-    :::go
-    package main
+<pre class="sourcecode go">
+package main
 
-    import (
-      "fmt"
-      "log"
+import (
+  "fmt"
+  "log"
 
-      "github.com/streadway/amqp"
-    )
- 
-    func failOnError(err error, msg string) {
-      if err != nil {
-        log.Fatalf("%s: %s", msg, err)
-        panic(fmt.Sprintf("%s: %s", msg, err))
-      }
-    }
+  "github.com/streadway/amqp"
+)
 
-Setting up is the same as the sender; we open a connection and a
+func failOnError(err error, msg string) {
+  if err != nil {
+    log.Fatalf("%s: %s", msg, err)
+    panic(fmt.Sprintf("%s: %s", msg, err))
+  }
+}
+</pre>
+
+Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::go
-    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-    failOnError(err, "Failed to connect to RabbitMQ")
-    defer conn.Close()
+<pre class="sourcecode go">
+conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+failOnError(err, "Failed to connect to RabbitMQ")
+defer conn.Close()
 
-    ch, err := conn.Channel()
-    failOnError(err, "Failed to open a channel")
-    defer ch.Close()
+ch, err := conn.Channel()
+failOnError(err, "Failed to open a channel")
+defer ch.Close()
 
-    q, err := ch.QueueDeclare(
-      "hello", // name
-      false,   // durable
-      false,   // delete when usused
-      false,   // exclusive
-      false,   // no-wait
-      nil,     // arguments
-    )
-    failOnError(err, "Failed to declare a queue")
+q, err := ch.QueueDeclare(
+  "hello", // name
+  false,   // durable
+  false,   // delete when usused
+  false,   // exclusive
+  false,   // no-wait
+  nil,     // arguments
+)
+failOnError(err, "Failed to declare a queue")
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we will read 
 the messages from a channel (returned by `amqp::Consume`) in a goroutine.
 
-    :::go
-    msgs, err := ch.Consume(
-      q.Name, // queue
-      "",     // consumer
-      true,   // auto-ack
-      false,  // exclusive
-      false,  // no-local
-      false,  // no-wait
-      nil,    // args
-    )
-    failOnError(err, "Failed to register a consumer")
+<pre class="sourcecode go">
+msgs, err := ch.Consume(
+  q.Name, // queue
+  "",     // consumer
+  true,   // auto-ack
+  false,  // exclusive
+  false,  // no-local
+  false,  // no-wait
+  nil,    // args
+)
+failOnError(err, "Failed to register a consumer")
 
-    forever := make(chan bool)
+forever := make(chan bool)
 
-    go func() {
-      for d := range msgs {
-        log.Printf("Received a message: %s", d.Body)
-      }
-    }()
+go func() {
+  for d := range msgs {
+    log.Printf("Received a message: %s", d.Body)
+  }
+}()
 
-    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-    <-forever
+log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+&lt;-forever
+</pre>
 
 [Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go).
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
+Now we can run both scripts. In a terminal, run the publisher:
 
-    :::bash
-    $ go run send.go
+<pre class="sourcecode bash">
+go run send.go
+</pre>
 
-then, run the receiver:
+then, run the consumer:
 
-    :::bash
-    $ go run receive.go
+<pre class="sourcecode bash">
+go run receive.go
+</pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+The consumer will print the message it gets from the publisher via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the publisher from another terminal.
 
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 

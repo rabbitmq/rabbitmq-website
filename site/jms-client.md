@@ -35,10 +35,10 @@ To fully leverage JMS with RabbitMQ, you need the following components:
 
  * the [JMS client library](https://github.com/rabbitmq/rabbitmq-jms-client) and its dependent libraries.
  * [RabbitMQ JMS topic selector plugin](https://github.com/rabbitmq/rabbitmq-jms-topic-exchange) that is included
-   with RabbitMQ starting with version 3.6.3. To support message selectors for JMS 
-   topics, the RabbitMQ Topic Selector plugin must be installed on the 
-   RabbitMQ server. Message selectors allow a JMS application to filter 
-   messages using an expression based on SQL syntax. Message selectors 
+   with RabbitMQ starting with version 3.6.3. To support message selectors for JMS
+   topics, the RabbitMQ Topic Selector plugin must be installed on the
+   RabbitMQ server. Message selectors allow a JMS application to filter
+   messages using an expression based on SQL syntax. Message selectors
    for Queues are not currently supported.
 
 ## JMS and AMQP 0-9-1
@@ -65,10 +65,10 @@ written in any programming language and running on any operating
 system to participate in the messaging system with no need to bridge
 incompatible vendor implementations.
 
-Because JMS Client for RabbitMQ is implemented using the RabbitMQ Java 
+Because JMS Client for RabbitMQ is implemented using the RabbitMQ Java
 client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 
-You can download the JMS 1.1 specification and API documentation from 
+You can download the JMS 1.1 specification and API documentation from
 the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
 
 ## Limitations
@@ -77,62 +77,64 @@ Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 
  * The JMS Client does not support server sessions.
  * XA transaction support interfaces are not implemented.
- * Topic selectors are supported with the RabbitMQ JMS topic selector 
+ * Topic selectors are supported with the RabbitMQ JMS topic selector
  plugin. Queue selectors are not yet implemented.
- * SSL and socket options for RabbitMQ connections are supported, but 
+ * SSL and socket options for RabbitMQ connections are supported, but
  only using the (default) SSL connection protocols that the RabbitMQ client provides.
- * The JMS `NoLocal` subscription feature, which prevents delivery of 
- messages published from a subscriber’s own connection, is not supported 
- with RabbitMQ. You can call a method that includes the `NoLocal` 
+ * The JMS `NoLocal` subscription feature, which prevents delivery of
+ messages published from a subscriber’s own connection, is not supported
+ with RabbitMQ. You can call a method that includes the `NoLocal`
  argument, but it is ignored.
 
-See [the JMS API compliance documentation](jms-client-compliance.html) for a 
+See [the JMS API compliance documentation](jms-client-compliance.html) for a
 detailed list of supported JMS APIs.
 
 ## Installing and Configuring
 
 ### Enabling the Topic Selector Plug-in
 
-The topic selector plugin is included with RabbitMQ. Like any RabbitMQ 
+The topic selector plugin is included with RabbitMQ. Like any RabbitMQ
 plugin, you need to enable the plugin in order to use it.
 
 Enable the plugin using the `rabbitmq-plugins` command:
 
-    :::bash
-    $ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
+<pre class="sourcecode bash">
+$ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
+</pre>
 
 You don't need to restart the broker to activate the plugin.
 
 ### Enabling the JMS client in a Java container
 
-To enable the JMS Client in a Java container (e.g. Java EE application 
-server, web container), you must install the JMS client JAR files and 
-its dependencies in the container and then define JMS resources in 
-the container’s naming system so that JMS clients can look them up. 
-The methods for accomplishing these tasks are container-specific, please 
+To enable the JMS Client in a Java container (e.g. Java EE application
+server, web container), you must install the JMS client JAR files and
+its dependencies in the container and then define JMS resources in
+the container’s naming system so that JMS clients can look them up.
+The methods for accomplishing these tasks are container-specific, please
 refer to the vendors’ documentation.
 
-For standalone applications, you need to add the JMS client JAR files 
-and its dependencies to the application classpath. The JMS resources 
-can be defined programmatically or through a dependency injection 
+For standalone applications, you need to add the JMS client JAR files
+and its dependencies to the application classpath. The JMS resources
+can be defined programmatically or through a dependency injection
 framework like Spring.
 
 ### Defining the JMS Connection Factory
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
-    :::xml
-    <Resource   name="jms/ConnectionFactory"
+<pre class="sourcecode xml">
+    &lt;Resource   name="jms/ConnectionFactory"
                 type="javax.jms.ConnectionFactory"
              factory="com.rabbitmq.jms.admin.RMQObjectFactory"
             username="guest"
             password="guest"
          virtualHost="/"
-                host="localhost"/>
+                host="localhost"/&gt;
+</pre>
 
 Here is the equivalent Spring bean example (Java configuration):
 
-    :::java
+<pre class="sourcecode java">
     @Bean
     public ConnectionFactory jmsConnectionFactory() {
       RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
@@ -142,16 +144,18 @@ Here is the equivalent Spring bean example (Java configuration):
       connectionFactory.setHost("localhost");
       return connectionFactory;
     }
+</pre>
 
 And here is the Spring XML configuration:
 
-    :::xml
-    <bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" >
-      <property name="username" value="guest" />
-      <property name="password" value="guest" />
-      <property name="virtualHost" value="/" />
-      <property name="host" value="localhost" />
-    </bean>
+<pre class="sourcecode xml">
+    &lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
+      &lt;property name="username" value="guest" /&gt;
+      &lt;property name="password" value="guest" /&gt;
+      &lt;property name="virtualHost" value="/" /&gt;
+      &lt;property name="host" value="localhost" /&gt;
+    &lt;/bean&gt;
+</pre>
 
 The following table lists all of the attributes/properties that are available.
 
@@ -177,16 +181,16 @@ A JMS destination can be defined so that a JMS application can send
 `Message`s to a predefined RabbitMQ 'destination' (exchange/routing key)
 using the JMS API in the normal way. The messages are written
 "in the clear," which means that any AMQP 0-9-1 client can read them without
-having to understand the internal format of Java JMS messages. 
+having to understand the internal format of Java JMS messages.
 Only `BytesMessage`s and `TextMessage`s can be written in this way.
 
 Similarly, a JMS destination can be defined that reads messages from a
 predefined RabbitMQ queue. A JMS application can then read these
-messages using the JMS API. RabbitMQ JMS Client packs them up into 
-JMS Messages automatically. Messages read in this way are, by default, 
+messages using the JMS API. RabbitMQ JMS Client packs them up into
+JMS Messages automatically. Messages read in this way are, by default,
 `BytesMessage`s, but individual messages can be marked `TextMessage`
-(by adding an AMQP message property called "JMSType" whose value is 
-"TextMessage"), which will interpret the byte-array payload as a UTF8 
+(by adding an AMQP message property called "JMSType" whose value is
+"TextMessage"), which will interpret the byte-array payload as a UTF8
 encoded String and return them as `TextMessage`s.
 
 A single 'amqp' destination can be defined for both reading and writing.
@@ -194,14 +198,14 @@ A single 'amqp' destination can be defined for both reading and writing.
 When messages are sent to an 'amqp' Destination, JMS message properties
 are mapped onto AMQP 0-9-1 headers and properties as appropriate.
 For example, the `JMSPriority` property converts to the `priority` property
-for the AMQP 0-9-1 message. (It is also set as a header with the name 
+for the AMQP 0-9-1 message. (It is also set as a header with the name
 "JMSPriority".) User-defined properties are set as named message header
 values, provided they are `boolean`, numeric or `String` types.
 
-When reading from an 'amqp' Destination, values are mapped back to 
+When reading from an 'amqp' Destination, values are mapped back to
 JMS message properties, except that any explicit JMS property set as
 a message header overrides the natural AMQP 0-9-1 header value, unless
-this would misrepresent the message. For example, 
+this would misrepresent the message. For example,
 `JMSDeliveryMode` cannot be overridden in this way.
 
 ### JMS 'amqp' `RMQDestination` Constructor
@@ -210,10 +214,11 @@ The `com.rabbitmq.jms.admin` package contains the `RMQDestination` class,
 which implements `Destination` in the JMS interface. This is extended
 with a new constructor:
 
-    :::java
-    public RMQDestination(String destinationName, String amqpExchangeName, 
+<pre class="sourcecode java">
+    public RMQDestination(String destinationName, String amqpExchangeName,
                           String amqpRoutingKey, String amqpQueueName);
-                          
+</pre>
+
 This constructor creates a destination for JMS for RabbitMQ mapped
 onto an AMQP 0-9-1 resource. The parameters are the following:
 
@@ -222,40 +227,41 @@ onto an AMQP 0-9-1 resource. The parameters are the following:
  * `amqpRoutingKey` - the routing key for the mapped resource
  * `amqpQueueName` - the queue name of the mapped resource (to listen
  messages from)
- 
+
 Applications that declare destinations in this way can use them directly,
-or store them in a JNDI provider for JMS applications to retrieve. 
+or store them in a JNDI provider for JMS applications to retrieve.
 Such destinations are non-temporary, queue destinations.
 
 ### JMS AMQP 0-9-1 Destination Definitions
 
 The `RMQDestination` object has the following new instance fields:
 
- * `amqp` – *boolean*, indicates if this is an AMQP 0-9-1 destination 
+ * `amqp` – *boolean*, indicates if this is an AMQP 0-9-1 destination
  (if **true**); the default is **false**.
- * `amqpExchangeName` – *String*, the RabbitMQ exchange name to use when 
- sending messages to this destination, if `amqp` is **true**; the default 
+ * `amqpExchangeName` – *String*, the RabbitMQ exchange name to use when
+ sending messages to this destination, if `amqp` is **true**; the default
  is **null**.
  * `amqpRoutingKey` – *String*, the AMQP 0-9-1 routing key to use when sending
  messages to this destination, if `amqp` is **true**; the default is **null**.
- * `amqpQueueName` – *String*, the RabbitMQ queue name to use when reading 
+ * `amqpQueueName` – *String*, the RabbitMQ queue name to use when reading
  messages from this destination, if `amqp` is **true**; the default is **null**.
- 
+
 There are getters and setters for these fields, which means that a JNDI
  `<Resource/>` definition or an XML Spring bean definition can use them, for example:
- 
-    :::xml
-    <Resource   name="jms/Queue"
+
+<pre class="sourcecode xml">
+    &lt;Resource  name="jms/Queue"
                type="javax.jms.Queue"
             factory="com.rabbitmq.jms.admin.RMQObjectFactory"
     destinationName="myQueue"
                amqp="true"
       amqpQueueName="rabbitQueueName"
-    />
-    
+    /&gt;
+</pre>
+
 This is the equivalent Spring bean example (Java configuration):
 
-    :::java
+<pre class="sourcecode java">
     @Bean
     public Destination jmsDestination() {
         RMQDestination jmsDestination = new RMQDestination();
@@ -264,16 +270,18 @@ This is the equivalent Spring bean example (Java configuration):
         jmsDestination.setAmqpQueueName("rabbitQueueName");
         return jmsDestination;
     }
- 
+</pre>
+
 And here is the Spring XML configuration:
 
-    :::xml
-    <bean id="jmsDestination" class="com.rabbitmq.jms.admin.RMQDestination" >
-     <property name="destinationName" value="myQueue" />
-     <property name="amqp"            value="true" />
-     <property name="amqpQueueName"   value="rabbitQueueName" />
-    </bean>
-    
+<pre class="sourcecode xml">
+    &lt;bean id="jmsDestination" class="com.rabbitmq.jms.admin.RMQDestination" &gt;
+     &lt;property name="destinationName" value="myQueue" /&gt;
+     &lt;property name="amqp"            value="true" /&gt;
+     &lt;property name="amqpQueueName"   value="rabbitQueueName" /&gt;
+    &lt;/bean&gt;
+</pre>
+
 Following is a *complete* list of the attributes/properties that are
 available:
 
@@ -291,7 +299,7 @@ available:
 ## Configuring Logging for the JMS Client
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
-SLF4J delegates to a logging framework, such as Apache log4j or 
+SLF4J delegates to a logging framework, such as Apache log4j or
 Logback. If no other logging framework is
 enabled, SLF4J defaults to a built-in, no-op, logger.
 See the [SLF4J](http://www.slf4j.org/docs.html) documentation for a
@@ -299,7 +307,7 @@ list of the logging frameworks SLF4J supports.
 
 The target logging framework is configured at deployment time by adding
 an SLF4J binding for the framework to the classpath.
-For example, the log4j SLF4J binding is in the 
+For example, the log4j SLF4J binding is in the
 `slf4j-log4j12-{version}.jar` file, which is a part of the SLF4J
 distribution. To direct JMS client messages to log4j, for example,
 add the following JARs to the classpath:
@@ -307,7 +315,7 @@ add the following JARs to the classpath:
  * slf4j-api-1.7.21.jar
  * slf4j-log4j12-1.7.21.jar
  * log4j-1.2.17.jar
- 
+
 The SLF4J API is backwards compatible, so you can use use any version of
 SLF4J. Version 1.7.5 or higher is recommended. The SLF4J API and
 bindings, however, must be from the same SLF4J version.
@@ -334,8 +342,8 @@ The JMS API includes objects and methods to browse an existing queue
 destination, reading its messages *without* removing them from the
 queue. Topic destinations cannot be browsed in this manner.
 
-A `QueueBrowser` can be created from a (queue) `Destination`, 
-with or without a selector expression. The browser has a `getEnumeration()` 
+A `QueueBrowser` can be created from a (queue) `Destination`,
+with or without a selector expression. The browser has a `getEnumeration()`
 method, which returns a Java `Enumeration` of `Message`s copied from
 the queue.
 
@@ -356,7 +364,7 @@ The message copies may now be read using the `Enumeration` interface
 The selector expression and the destination queue of the `QueueBrowser`
 may not be adjusted after the `QueueBrowser` is created.
 
-An `Enumeration` cannot be "reset", but the `getEnumeration()` method 
+An `Enumeration` cannot be "reset", but the `getEnumeration()` method
 may be re-issued, taking a *new* snapshot from the queue each time.
 
 The contents of an `Enumeration` survive session and/or connection
@@ -366,11 +374,11 @@ created it has closed. `QueueBrowser.close()` has no effect.
 #### Which messages are included
 
 Messages that arrive, expire, are re-queued, or are removed after
-the `getEnumeration()` call have no effect on the contents of the 
-`Enumeration` it produced. If the messages in the queue change 
-*while the* `Enumeration` *is being built*, they may or may not be 
+the `getEnumeration()` call have no effect on the contents of the
+`Enumeration` it produced. If the messages in the queue change
+*while the* `Enumeration` *is being built*, they may or may not be
 included. In particular, if messages from the queue are simultaneously
-read by another client (or session), they may or may not appear in 
+read by another client (or session), they may or may not appear in
 the `Enumeration`.
 
 Message copies do not "expire" from an `Enumeration`.
@@ -466,12 +474,12 @@ interpreted except that the `JMSReplyTo` header and objects
 (as property values or the body of an `ObjectMessage`) that
 cannot be deserialized are ignored.
 
-The implementation extracts the properties and body from the `Message` 
+The implementation extracts the properties and body from the `Message`
 instance using interface methods and recreates it as a message of
 the right (`RMQMessage`) type (`BytesMessage`, `MapMessage`, `ObjectMessage`,
 `TextMessage`, or `StreamMessage`) before sending it. This means
 that there is some performance loss due to the copying; but in the
-normal case, when the message is an instance of 
+normal case, when the message is an instance of
 `com.rabbitmq.jms.client.RMQMessage`, no copying is done.
 
 

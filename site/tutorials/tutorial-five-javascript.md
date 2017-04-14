@@ -156,86 +156,91 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.js`:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var ex = 'topic_logs';
-        var args = process.argv.slice(2);
-        var key = (args.length > 0) ? args[0] : 'anonymous.info';
-        var msg = args.slice(1).join(' ') || 'Hello World!';
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var ex = 'topic_logs';
+    var args = process.argv.slice(2);
+    var key = (args.length > 0) ? args[0] : 'anonymous.info';
+    var msg = args.slice(1).join(' ') || 'Hello World!';
 
-        ch.assertExchange(ex, 'topic', {durable: false});
-        ch.publish(ex, key, new Buffer(msg));
-        console.log(" [x] Sent %s:'%s'", key, msg);
-      });
+    ch.assertExchange(ex, 'topic', {durable: false});
+    ch.publish(ex, key, new Buffer(msg));
+    console.log(" [x] Sent %s:'%s'", key, msg);
+  });
 
-      setTimeout(function() { conn.close(); process.exit(0) }, 500);
-    });
+  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+});
+</pre>
 
 The code for `receive_logs_topic.js`:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    var args = process.argv.slice(2);
+var args = process.argv.slice(2);
 
-    if (args.length == 0) {
-      console.log("Usage: receive_logs_topic.js <facility>.<severity>");
-      process.exit(1);
-    }
+if (args.length == 0) {
+  console.log("Usage: receive_logs_topic.js &lt;facility&gt;.&lt;severity&gt;");
+  process.exit(1);
+}
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var ex = 'topic_logs';
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var ex = 'topic_logs';
 
-        ch.assertExchange(ex, 'topic', {durable: false});
+    ch.assertExchange(ex, 'topic', {durable: false});
 
-        ch.assertQueue('', {exclusive: true}, function(err, q) {
-          console.log(' [*] Waiting for logs. To exit press CTRL+C');
+    ch.assertQueue('', {exclusive: true}, function(err, q) {
+      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
-          args.forEach(function(key) {
-            ch.bindQueue(q.queue, ex, key);
-          });
-
-          ch.consume(q.queue, function(msg) {
-            console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-          }, {noAck: true});
-        });
+      args.forEach(function(key) {
+        ch.bindQueue(q.queue, ex, key);
       });
+
+      ch.consume(q.queue, function(msg) {
+        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
+      }, {noAck: true});
     });
+  });
+});
+</pre>
 
 To receive all the logs:
 
-    :::bash
-    $ ./receive_logs_topic.js "#"
+<pre class="sourcecode bash">
+./receive_logs_topic.js "#"
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    :::bash
-    $ ./receive_logs_topic.js "kern.*"
+<pre class="sourcecode bash">
+./receive_logs_topic.js "kern.*"
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    :::bash
-    $ ./receive_logs_topic.js "*.critical"
+<pre class="sourcecode bash">
+./receive_logs_topic.js "*.critical"
+</pre>
 
 You can create multiple bindings:
 
-    :::bash
-    $ ./receive_logs_topic.js "kern.*" "*.critical"
-
+<pre class="sourcecode bash">
+./receive_logs_topic.js "kern.*" "*.critical"
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    :::bash
-    $ ./emit_log_topic.js "kern.critical" "A critical kernel error"
-
+<pre class="sourcecode bash">
+./emit_log_topic.js "kern.critical" "A critical kernel error"
+</pre>
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play

@@ -75,7 +75,7 @@ limitations under the License.
           distribution. To enable it, use <a
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
-        <pre class="example">rabbitmq-plugins enable rabbitmq_management</pre>
+        <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_management</pre>
         <ul>
           <li>
             The Web UI is located at:
@@ -356,7 +356,7 @@ limitations under the License.
             10000ms and explicitly sets some other relevant parameters
             to their default values, would look like this:
           </p>
-          <pre class="example">
+<pre class="sourcecode ini">
 listeners.tcp.default = 5672
 collect_statistics_interval = 10000
 management.http_log_dir = /tmp/rabbit-mgmt
@@ -364,12 +364,12 @@ management.rates_mode = basic</pre>
 
           Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-          <pre class="example">
+<pre class="sourcecode erlang">
 [
   {rabbit,                    [{tcp_listeners,               [5672]},
                                {collect_statistics_interval, 10000} ]},
   {rabbitmq_management,       [{http_log_dir,  "/tmp/rabbit-mgmt"},
-                               {rates_mode,    basic}] }
+                               {rates_mode,    basic} ]}
 ].</pre>
         </doc:subsection>
         <doc:subsection name="web-dispatch-config">
@@ -381,34 +381,33 @@ management.rates_mode = basic</pre>
             <code>listener</code> configuration item; for example to
             change the port:
           </p>
-          <pre class="example">
-  ...
+<pre class="sourcecode ini">
 management.listener.port = 12345
-  ...</pre>
+</pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-        <pre class="example">[
-  ...
-{rabbitmq_management, [{listener, [{port, 12345}]}]},
-  ...
-].</pre>
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+].
+</pre>
 
           <p>
             or to make the management plugin use HTTPS:
           </p>
-          <pre class="example">
-...
+
+<pre class="sourcecode ini">
 management.listener.port = 15671
 management.listener.ssl = true
 management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
 management.listener.ssl_opts.certfile = /path/to/cert.pem
 management.listener.ssl_opts.keyfile = /path/to/key.pem
-...</pre>
+</pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-        <pre class="example">
+<pre class="sourcecode erlang">
 [{rabbitmq_management,
   [{listener, [{port,     15671},
                {ssl,      true},
@@ -431,8 +430,7 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
             such as message rates and queue lengths. You can
             configure how long such data is retained.
           </p>
-          <pre class="example">
-...
+<pre class="sourcecode ini">
 management.sample_retention_policies.global.minute  = 5
 management.sample_retention_policies.global.hour    = 60
 management.sample_retention_policies.global.day = 1200
@@ -441,13 +439,12 @@ management.sample_retention_policies.basic.minute = 5
 management.sample_retention_policies.basic.hour   = 60
 
 management.sample_retention_policies.detailed.10 = 5
-...</pre>
+</pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-        <pre class="example">
+<pre class="sourcecode erlang">
 [
-  ...
   {rabbitmq_management,
     [{sample_retention_policies,
       %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
@@ -456,8 +453,8 @@ management.sample_retention_policies.detailed.10 = 5
        {detailed, [{10, 5}]}]
     }]
   },
-  ...
-].</pre>
+].
+</pre>
 
           <p>
             There are three policies:
@@ -472,7 +469,8 @@ management.sample_retention_policies.detailed.10 = 5
             then at a 1 minute resolution for 1 hour and 1 minute, then at a 10 minute
             resolution for about 8 hours. It retains basic data at a 5 second
             resolution for 1 minute and 5 seconds, then at a 1 minute resolution for
-            1 hour, and detailed data only for 10 seconds.
+            1 hour, and detailed data only for 10 seconds. All three policies are mandatory, and must contain
+            at least one retention pair <code>{MaxAgeInSeconds, SampleEveryNSeconds}</code>.
           </p>
         </doc:subsection>
 
@@ -483,7 +481,7 @@ management.sample_retention_policies.detailed.10 = 5
           websites hosted on different origins. Allowed origins
           must be explicitly white-listed in configuration.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]}]},
@@ -494,7 +492,7 @@ management.sample_retention_policies.detailed.10 = 5
           It is however not recommended if the API is reachable
           from the outside world.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["*"]}]},
@@ -506,7 +504,7 @@ management.sample_retention_policies.detailed.10 = 5
           by default. You can modify this value in the configuration.
           It is defined in seconds.
         </p>
-        <pre class="example">[
+        <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
@@ -545,7 +543,7 @@ management.sample_retention_policies.detailed.10 = 5
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
           conformance. It assumes a management web UI on the default port of 15672:
-          <pre class="example">
+          <pre class="sourcecode apache">
 AllowEncodedSlashes On
 ProxyPass        /api http://localhost:15672/api nocanon
 ProxyPass        /    http://localhost:15672/
@@ -572,36 +570,36 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
           3.6.2. To restart the database with versions earlier than 3.6.2, use
 
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
 
 Starting with RabbitMQ 3.6.2 and up to 3.6.5, use
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
                   rabbit_mgmt_sup_sup:start_child().'
 </pre>
           These commands must be executed on the node hosting the database.
 
 Starting with RabbitMQ 3.6.7, the database can be reset per node using
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
 
 To reset entire management database on all nodes
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 </pre>
 
 There is also HTTP API endpoints to reset a database
 For entire database
-<pre class="example">
-  DELETE /api/reset
+<pre class="sourcecode">
+DELETE /api/reset
 </pre>
 
 For a single node
-<pre class="example">
-  DELETE /api/reset/:node
+<pre class="sourcecode">
+DELETE /api/reset/:node
 </pre>
 
         </p>
@@ -611,7 +609,7 @@ For a single node
         <doc:heading>Memory Management</doc:heading>
         <div>
           The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl status
 </pre>
           or a GET request to /api/nodes/<i>name</i> via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
@@ -646,7 +644,7 @@ rabbitmqctl status
           The statistics interval can also be changed at runtime. Doing so will have no
           effect on existing connections, channels or queues. Only new stats
           emitting entities are affected.
-<pre class="example">
+<pre class="sourcecode bash">
 rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
 </pre>
           </p>

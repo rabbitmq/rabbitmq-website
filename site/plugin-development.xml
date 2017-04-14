@@ -112,7 +112,7 @@ limitations under the License.
         <p>
           To test your plugin while you're working on it, you can start
           a broker with your plugin enabled:
-          <pre class="sourcecode">$ make run-broker</pre>
+          <pre class="sourcecode bash">$ make run-broker</pre>
         </p>
       </doc:section>
 
@@ -311,25 +311,25 @@ limitations under the License.
         <ul>
           <li>
             Run make to build your application:
-            <pre class="sourcecode">$ make</pre>
+            <pre class="sourcecode bash">make</pre>
           </li>
           <li>
             Start up your Rabbit broker:
-            <pre class="sourcecode">$ make run-broker</pre>
+            <pre class="sourcecode bash">make run-broker</pre>
           </li>
           <li>
             To ensure that your new plugin is up and running, run the following command:
-            <pre class="sourcecode">./deps/rabbit/scripts/rabbitmqctl status</pre>
+            <pre class="sourcecode bash">./deps/rabbit/scripts/rabbitmqctl status</pre>
             If your plugin has loaded successfully, you should see an entry in the returned list that looks
-            like: <pre class="sourcecode">{rabbitmq_metronome,"Embedded Rabbit Metronome",[]}</pre>
+            like: <pre class="sourcecode erlang">{rabbitmq_metronome,"Embedded Rabbit Metronome",[]}</pre>
           </li>
           <li>
             You can run the automated tests by issuing:
-            <pre class="sourcecode">$ make tests</pre>
+            <pre class="sourcecode bash">make tests</pre>
           </li>
           <li>
             Finally, you can produce a <code>.ez</code> file, suitable for distribution with:
-            <pre class="sourcecode">$ make dist</pre>
+            <pre class="sourcecode bash">make dist</pre>
             The file appears in the <tt>plugins</tt> subdirectory.
           </li>
         </ul>

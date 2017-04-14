@@ -32,7 +32,7 @@ limitations under the License.
 
       <ul>
         <li><a href="previous.html">Documentation for previous release series</a></li>
-        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branches)</li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branch)</li>
       </ul>
     </x:modal>
 
@@ -48,6 +48,14 @@ limitations under the License.
         See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
+
+      <div class="landing-box">
+        <h2>Installation</h2>
+        <p>
+          See the <a href="download.html">Downloads and Installation</a> page
+          for information on the most recent release and how to install it.
+        </p>
+      </div>
 
       <div class="landing-box">
         <h2>Get Started</h2>

@@ -44,18 +44,18 @@ limitations under the License.
         files <code>server_certificate.pem</code> and
         <code>server_key.pem</code> we can do the following:</p>
 
-<pre class="sourcecode">
-$ cat server_certificate.pem server_key.pem &gt; rabbit.pem
+<pre class="sourcecode bash">
+cat server_certificate.pem server_key.pem &gt; rabbit.pem
 </pre>
 
         <p>Then we have to tell Erlang where to find the
         <code>ssl</code> library during startup. We can create a variable like
         this:</p>
 
-<pre class="sourcecode">
-$ echo `erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
+<pre class="sourcecode bash">
+echo `erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
 "/path/to/erl/lib/ssl-5.3.5/ebin"
-$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 </pre>
 
         <p>There first we find where Erlang has the ssl library, and then the
@@ -71,8 +71,8 @@ $ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
         created). Finally we set secure renegotiation to
         <code>true</code>. Here's the whole command:</p>
 
-<pre class="sourcecode">
-$ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
+<pre class="sourcecode bash">
+export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 -proto_dist inet_tls \
 -ssl_dist_opt server_certfile /path/to/rabbit.pem \
 -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
@@ -104,11 +104,11 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
         inside the folder where you installed the standalone release, the
         commands will look like these:</p>
 
-<pre class="sourcecode">
-$ echo erts-6.1/bin/erl -boot releases/3.4.3/start_clean \
+<pre class="sourcecode bash">
+echo erts-6.1/bin/erl -boot releases/3.4.3/start_clean \
 -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell
 "/path/to/erl/lib/ssl-5.3.5/ebin"
-$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 </pre>
 
         <p>The difference is that we need to specify the path to the

@@ -291,8 +291,29 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+      <doc:subsection name="publisher-confirms-ordering">
+        <doc:heading>Ordering Considerations for Publisher Confirms</doc:heading>
+
+        <p>
+          In most cases, RabbitMQ will acknowledge messages to
+          publishers in the same order they were published (this
+          applies for messages published on a single
+          channel). However, publisher acknowledgements are emitted
+          asynchronously and can confirm a single message or a group
+          of messages. The exact moment when a confirm is emitted
+          depends on the delivery mode of a message (persistent
+          vs. transient) and the properties of the queue(s) the
+          message was routed to (see above). Which is to say that
+          different messages can be considered ready for
+          acknowledgement at different times. This means that
+          acknowledgements can arrive in a different order compared to
+          their respective messages. Applications should not depend on
+          the order of acknowledgements when possible.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="publisher-confirms-and-guaranteed-delivery">
-        <doc:heading>Confirms and Guaranteed Delivery</doc:heading>
+        <doc:heading>Publisher Confirms and Guaranteed Delivery</doc:heading>
 
         <p>
           The broker loses persistent messages if it crashes before

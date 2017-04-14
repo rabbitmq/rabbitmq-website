@@ -155,100 +155,106 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.php`:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
+$channel->exchange_declare('topic_logs', 'topic', false, false, false);
 
-    $channel->exchange_declare('topic_logs', 'topic', false, false, false);
+$routing_key = isset($argv[1]) &amp;&amp; !empty($argv[1]) ? $argv[1] : 'anonymous.info';
+$data = implode(' ', array_slice($argv, 2));
+if(empty($data)) $data = "Hello World!";
 
-    $routing_key = isset($argv[1]) && !empty($argv[1]) ? $argv[1] : 'anonymous.info';
-    $data = implode(' ', array_slice($argv, 2));
-    if(empty($data)) $data = "Hello World!";
+$msg = new AMQPMessage($data);
 
-    $msg = new AMQPMessage($data);
+$channel->basic_publish($msg, 'topic_logs', $routing_key);
 
-    $channel->basic_publish($msg, 'topic_logs', $routing_key);
+echo " [x] Sent ",$routing_key,':',$data," \n";
 
-    echo " [x] Sent ",$routing_key,':',$data," \n";
+$channel->close();
+$connection->close();
 
-    $channel->close();
-    $connection->close();
-
-    ?>
+?&gt;
+</pre>
 
 The code for `receive_logs_topic.php`:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->exchange_declare('topic_logs', 'topic', false, false, false);
+$channel->exchange_declare('topic_logs', 'topic', false, false, false);
 
-    list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
+list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
-    $binding_keys = array_slice($argv, 1);
-    if( empty($binding_keys )) {
-    	file_put_contents('php://stderr', "Usage: $argv[0] [binding_key]\n");
-    	exit(1);
-    }
+$binding_keys = array_slice($argv, 1);
+if( empty($binding_keys )) {
+	file_put_contents('php://stderr', "Usage: $argv[0] [binding_key]\n");
+	exit(1);
+}
 
-    foreach($binding_keys as $binding_key) {
-    	$channel->queue_bind($queue_name, 'topic_logs', $binding_key);
-    }
+foreach($binding_keys as $binding_key) {
+	$channel->queue_bind($queue_name, 'topic_logs', $binding_key);
+}
 
-    echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
+echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
 
-    $callback = function($msg){
-      echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
-    };
+$callback = function($msg){
+  echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
+};
 
-    $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
+$channel->basic_consume($queue_name, '', false, true, false, false, $callback);
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+while(count($channel->callbacks)) {
+    $channel->wait();
+}
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
+?&gt;
+</pre>
 
 To receive all the logs:
 
-    :::bash
-    $ php receive_logs_topic.php "#"
+<pre class="sourcecode bash">
+php receive_logs_topic.php "#"
+</pre>
 
 To receive all logs from the facility "`kern`":
 
-    :::bash
-    $ php receive_logs_topic.php "kern.*"
+<pre class="sourcecode bash">
+php receive_logs_topic.php "kern.*"
+</pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-    :::bash
-    $ php receive_logs_topic.php "*.critical"
+<pre class="sourcecode bash">
+php receive_logs_topic.php "*.critical"
+</pre>
 
 You can create multiple bindings:
 
-    :::bash
-    $ php receive_logs_topic.php "kern.*" "*.critical"
+<pre class="sourcecode bash">
+php receive_logs_topic.php "kern.*" "*.critical"
+</pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    :::bash
-    $ php emit_log_topic.php "kern.critical" "A critical kernel error"
+<pre class="sourcecode bash">
+php emit_log_topic.php "kern.critical" "A critical kernel error"
+</pre>
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play

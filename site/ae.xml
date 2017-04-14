@@ -65,7 +65,7 @@ limitations under the License.
     <p>
       For example:
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("alternate-exchange", "my-ae");
 channel.exchangeDeclare("my-direct", "direct", false, false, args);

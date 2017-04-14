@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using Go RabbitMQ client)
+### (using the Go RabbitMQ client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -38,13 +38,14 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::go
-    err = ch.QueueBind(
-      q.Name, // queue name
-      "",     // routing key
-      "logs", // exchange
-      false,
-      nil)
+<pre class="sourcecode go">
+err = ch.QueueBind(
+  q.Name, // queue name
+  "",     // routing key
+  "logs", // exchange
+  false,
+  nil)
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -54,13 +55,14 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `Channel.Publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::go
-    err = ch.QueueBind(
-      q.Name,    // queue name
-      "black",   // routing key
-      "logs",    // exchange
-      false,
-      nil)
+<pre class="sourcecode go">
+err = ch.QueueBind(
+  q.Name,    // queue name
+  "black",   // routing key
+  "logs",    // exchange
+  false,
+  nil)
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -190,41 +192,43 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::go
-    err = ch.ExchangeDeclare(
-      "logs_direct", // name
-      "direct",      // type
-      true,          // durable
-      false,         // auto-deleted
-      false,         // internal
-      false,         // no-wait
-      nil,           // arguments
-    )
+<pre class="sourcecode go">
+err = ch.ExchangeDeclare(
+  "logs_direct", // name
+  "direct",      // type
+  true,          // durable
+  false,         // auto-deleted
+  false,         // internal
+  false,         // no-wait
+  nil,           // arguments
+)
+</pre>
 
 And we're ready to send a message:
 
-    :::go
-    err = ch.ExchangeDeclare(
-      "logs_direct", // name
-      "direct",      // type
-      true,          // durable
-      false,         // auto-deleted
-      false,         // internal
-      false,         // no-wait
-      nil,           // arguments
-    )
-    failOnError(err, "Failed to declare an exchange")
+<pre class="sourcecode go">
+err = ch.ExchangeDeclare(
+  "logs_direct", // name
+  "direct",      // type
+  true,          // durable
+  false,         // auto-deleted
+  false,         // internal
+  false,         // no-wait
+  nil,           // arguments
+)
+failOnError(err, "Failed to declare an exchange")
 
-    body := bodyFrom(os.Args)
-    err = ch.Publish(
-      "logs_direct",         // exchange
-      severityFrom(os.Args), // routing key
-      false, // mandatory
-      false, // immediate
-      amqp.Publishing{
-        ContentType: "text/plain",
-        Body:        []byte(body),
-      })
+body := bodyFrom(os.Args)
+err = ch.Publish(
+  "logs_direct",         // exchange
+  severityFrom(os.Args), // routing key
+  false, // mandatory
+  false, // immediate
+  amqp.Publishing{
+    ContentType: "text/plain",
+    Body:        []byte(body),
+})
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -237,38 +241,36 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
+<pre class="sourcecode go">
+q, err := ch.QueueDeclare(
+  "",    // name
+  false, // durable
+  false, // delete when usused
+  true,  // exclusive
+  false, // no-wait
+  nil,   // arguments
+)
+failOnError(err, "Failed to declare a queue")
 
-    :::go
-    q, err := ch.QueueDeclare(
-      "",    // name
-      false, // durable
-      false, // delete when usused
-      true,  // exclusive
-      false, // no-wait
-      nil,   // arguments
-    )
-    failOnError(err, "Failed to declare a queue")
-
-    if len(os.Args) < 2 {
-      log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
-      os.Exit(0)
-    }
-    for _, s := range os.Args[1:] {
-      log.Printf("Binding queue %s to exchange %s with routing key %s",
-         q.Name, "logs_direct", s)
-      err = ch.QueueBind(
-        q.Name,        // queue name
-        s,             // routing key
-        "logs_direct", // exchange
-        false,
-        nil)
-      failOnError(err, "Failed to bind a queue")
-    }
+if len(os.Args) &lt; 2 {
+  log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
+  os.Exit(0)
+}
+for _, s := range os.Args[1:] {
+  log.Printf("Binding queue %s to exchange %s with routing key %s",
+     q.Name, "logs_direct", s)
+  err = ch.QueueBind(
+    q.Name,        // queue name
+    s,             // routing key
+    "logs_direct", // exchange
+    false,
+    nil)
+  failOnError(err, "Failed to bind a queue")
+}
+</pre>
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -312,190 +314,192 @@ Putting it all together
 
 The code for `emit_log_direct.go` script:
 
-    :::go
-    package main
-    
-    import (
-            "fmt"
-            "log"
-            "os"
-            "strings"
-    
-            "github.com/streadway/amqp"
-    )
-    
-    func failOnError(err error, msg string) {
-            if err != nil {
-                    log.Fatalf("%s: %s", msg, err)
-                    panic(fmt.Sprintf("%s: %s", msg, err))
-            }
-    }
-    
-    func main() {
-            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-            failOnError(err, "Failed to connect to RabbitMQ")
-            defer conn.Close()
-    
-            ch, err := conn.Channel()
-            failOnError(err, "Failed to open a channel")
-            defer ch.Close()
-    
-            err = ch.ExchangeDeclare(
-                    "logs_direct", // name
-                    "direct",      // type
-                    true,          // durable
-                    false,         // auto-deleted
-                    false,         // internal
-                    false,         // no-wait
-                    nil,           // arguments
-            )
-            failOnError(err, "Failed to declare an exchange")
-    
-            body := bodyFrom(os.Args)
-            err = ch.Publish(
-                    "logs_direct",         // exchange
-                    severityFrom(os.Args), // routing key
-                    false, // mandatory
-                    false, // immediate
-                    amqp.Publishing{
-                            ContentType: "text/plain",
-                            Body:        []byte(body),
-                    })
-            failOnError(err, "Failed to publish a message")
-    
-            log.Printf(" [x] Sent %s", body)
-    }
-    
-    func bodyFrom(args []string) string {
-            var s string
-            if (len(args) < 3) || os.Args[2] == "" {
-                    s = "hello"
-            } else {
-                    s = strings.Join(args[2:], " ")
-            }
-            return s
-    }
-    
-    func severityFrom(args []string) string {
-            var s string
-            if (len(args) < 2) || os.Args[1] == "" {
-                    s = "info"
-            } else {
-                    s = os.Args[1]
-            }
-            return s
-    }
+<pre class="sourcecode go">
+package main
 
+import (
+        "fmt"
+        "log"
+        "os"
+        "strings"
+
+        "github.com/streadway/amqp"
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf("%s: %s", msg, err)
+                panic(fmt.Sprintf("%s: %s", msg, err))
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+        failOnError(err, "Failed to connect to RabbitMQ")
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, "Failed to open a channel")
+        defer ch.Close()
+
+        err = ch.ExchangeDeclare(
+                "logs_direct", // name
+                "direct",      // type
+                true,          // durable
+                false,         // auto-deleted
+                false,         // internal
+                false,         // no-wait
+                nil,           // arguments
+        )
+        failOnError(err, "Failed to declare an exchange")
+
+        body := bodyFrom(os.Args)
+        err = ch.Publish(
+                "logs_direct",         // exchange
+                severityFrom(os.Args), // routing key
+                false, // mandatory
+                false, // immediate
+                amqp.Publishing{
+                        ContentType: "text/plain",
+                        Body:        []byte(body),
+                })
+        failOnError(err, "Failed to publish a message")
+
+        log.Printf(" [x] Sent %s", body)
+}
+
+func bodyFrom(args []string) string {
+        var s string
+        if (len(args) &lt; 3) || os.Args[2] == "" {
+                s = "hello"
+        } else {
+                s = strings.Join(args[2:], " ")
+        }
+        return s
+}
+
+func severityFrom(args []string) string {
+        var s string
+        if (len(args) &lt; 2) || os.Args[1] == "" {
+                s = "info"
+        } else {
+                s = os.Args[1]
+        }
+        return s
+}
+</pre>
 
 The code for `receive_logs_direct.go`:
 
-    :::go
-    package main
-    
-    import (
-            "fmt"
-            "log"
-            "os"
-    
-            "github.com/streadway/amqp"
-    )
-    
-    func failOnError(err error, msg string) {
-            if err != nil {
-                    log.Fatalf("%s: %s", msg, err)
-                    panic(fmt.Sprintf("%s: %s", msg, err))
-            }
-    }
-    
-    func main() {
-            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-            failOnError(err, "Failed to connect to RabbitMQ")
-            defer conn.Close()
-    
-            ch, err := conn.Channel()
-            failOnError(err, "Failed to open a channel")
-            defer ch.Close()
-    
-            err = ch.ExchangeDeclare(
-                    "logs_direct", // name
-                    "direct",      // type
-                    true,          // durable
-                    false,         // auto-deleted
-                    false,         // internal
-                    false,         // no-wait
-                    nil,           // arguments
-            )
-            failOnError(err, "Failed to declare an exchange")
-    
-            q, err := ch.QueueDeclare(
-                    "",    // name
-                    false, // durable
-                    false, // delete when usused
-                    true,  // exclusive
-                    false, // no-wait
-                    nil,   // arguments
-            )
-            failOnError(err, "Failed to declare a queue")
-    
-            if len(os.Args) < 2 {
-                    log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
-                    os.Exit(0)
-            }
-            for _, s := range os.Args[1:] {
-                    log.Printf("Binding queue %s to exchange %s with routing key %s",
-                            q.Name, "logs_direct", s)
-                    err = ch.QueueBind(
-                            q.Name,        // queue name
-                            s,             // routing key
-                            "logs_direct", // exchange
-                            false,
-                            nil)
-                    failOnError(err, "Failed to bind a queue")
-            }
-    
-            msgs, err := ch.Consume(
-                    q.Name, // queue
-                    "",     // consumer
-                    true,   // auto ack
-                    false,  // exclusive
-                    false,  // no local
-                    false,  // no wait
-                    nil,    // args
-            )
-            failOnError(err, "Failed to register a consumer")
-    
-            forever := make(chan bool)
-    
-            go func() {
-                    for d := range msgs {
-                            log.Printf(" [x] %s", d.Body)
-                    }
-            }()
-    
-            log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
-            <-forever
-    }
+<pre class="sourcecode go">
+package main
 
+import (
+        "fmt"
+        "log"
+        "os"
+
+        "github.com/streadway/amqp"
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf("%s: %s", msg, err)
+                panic(fmt.Sprintf("%s: %s", msg, err))
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+        failOnError(err, "Failed to connect to RabbitMQ")
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, "Failed to open a channel")
+        defer ch.Close()
+
+        err = ch.ExchangeDeclare(
+                "logs_direct", // name
+                "direct",      // type
+                true,          // durable
+                false,         // auto-deleted
+                false,         // internal
+                false,         // no-wait
+                nil,           // arguments
+        )
+        failOnError(err, "Failed to declare an exchange")
+
+        q, err := ch.QueueDeclare(
+                "",    // name
+                false, // durable
+                false, // delete when usused
+                true,  // exclusive
+                false, // no-wait
+                nil,   // arguments
+        )
+        failOnError(err, "Failed to declare a queue")
+
+        if len(os.Args) &lt; 2 {
+                log.Printf("Usage: %s [info] [warning] [error]", os.Args[0])
+                os.Exit(0)
+        }
+        for _, s := range os.Args[1:] {
+                log.Printf("Binding queue %s to exchange %s with routing key %s",
+                        q.Name, "logs_direct", s)
+                err = ch.QueueBind(
+                        q.Name,        // queue name
+                        s,             // routing key
+                        "logs_direct", // exchange
+                        false,
+                        nil)
+                failOnError(err, "Failed to bind a queue")
+        }
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                "",     // consumer
+                true,   // auto ack
+                false,  // exclusive
+                false,  // no local
+                false,  // no wait
+                nil,    // args
+        )
+        failOnError(err, "Failed to register a consumer")
+
+        forever := make(chan bool)
+
+        go func() {
+                for d := range msgs {
+                        log.Printf(" [x] %s", d.Body)
+                }
+        }()
+
+        log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
+        &lt;forever
+}
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ go run receive_logs_direct.go warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+go run receive_logs_direct.go warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ go run receive_logs_direct.go info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+go run receive_logs_direct.go info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ go run emit_log_direct.go error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+go run emit_log_direct.go error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [(emit_log_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log_direct.go)
 and [(receive_logs_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs_direct.go))

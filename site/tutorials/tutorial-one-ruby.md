@@ -25,7 +25,7 @@ limitations under the License.
 ### (using the Bunny Ruby Client)
 
 In this part of the tutorial we'll write two small programs in Ruby; a
-producer that sends a single message, and a consumer that receives
+producer (sender) that sends a single message, and a consumer (receiver) that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [Bunny](http://rubybunny.info) API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
@@ -47,9 +47,9 @@ on behalf of the consumer.
 >
 > First, install Bunny using [Rubygems](http://rubygems.org):
 >
->     :::bash
->     $ gem install bunny --version ">= 2.5.1"
->
+> <pre class="sourcecode bash">
+> gem install bunny --version ">= 2.6.4"
+> </pre>
 
 Now we have Bunny installed, we can write some
 code.
@@ -60,25 +60,27 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.rb` and our message receiver
-`receive.rb`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message producer `send.rb` and our message consumer
+`receive.rb`.  The producer will connect to RabbitMQ, send a single message,
 then exit.
 
 In
 [`send.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb),
 we need to require the library first:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
+</pre>
 
 then connect to RabbitMQ server
 
-    :::ruby
-    conn = Bunny.new
-    conn.start
+<pre class="sourcecode ruby">
+conn = Bunny.new
+conn.start
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -88,23 +90,26 @@ If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address using the `:hostname`
 option:
 
-    :::ruby
-    conn = Bunny.new(:hostname => "rabbit.local")
-    conn.start
+<pre class="sourcecode ruby">
+conn = Bunny.new(:hostname => "rabbit.local")
+conn.start
+</pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    :::ruby
-    ch   = conn.create_channel
+<pre class="sourcecode ruby">
+ch   = conn.create_channel
+</pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::ruby
-    q    = ch.queue("hello")
-    ch.default_exchange.publish("Hello World!", :routing_key => q.name)
-    puts " [x] Sent 'Hello World!'"
+<pre class="sourcecode ruby">
+q    = ch.queue("hello")
+ch.default_exchange.publish("Hello World!", :routing_key => q.name)
+puts " [x] Sent 'Hello World!'"
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -112,8 +117,9 @@ whatever you like there.
 
 Lastly, we close the connection;
 
-    :::ruby
-    conn.close
+<pre class="sourcecode ruby">
+conn.close
+</pre>
 
 [Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb).
 
@@ -122,7 +128,7 @@ Lastly, we close the connection;
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -131,8 +137,8 @@ Lastly, we close the connection;
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our producer. Our consumer is pushed messages from
+RabbitMQ, so unlike the producer which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -141,27 +147,27 @@ keep it running to listen for messages and print them out.
 
 The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb)) has the same require as `send`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+<pre class="sourcecode ruby">
+#!/usr/bin/env ruby
+# encoding: utf-8
 
-    require "bunny"
+require "bunny"
+</pre>
 
-
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the producer; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::ruby
-    conn = Bunny.new
-    conn.start
+<pre class="sourcecode ruby">
+conn = Bunny.new
+conn.start
 
-    ch   = conn.create_channel
-    q    = ch.queue("hello")
-
+ch   = conn.create_channel
+q    = ch.queue("hello")
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the producer, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -169,14 +175,15 @@ queue. Since it will push us messages asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `Bunny::Queue#subscribe` does.
 
-    :::ruby
-    puts " [*] Waiting for messages in #{q.name}. To exit press CTRL+C"
-    q.subscribe(:block => true) do |delivery_info, properties, body|
-      puts " [x] Received #{body}"
+<pre class="sourcecode ruby">
+puts " [*] Waiting for messages in #{q.name}. To exit press CTRL+C"
+q.subscribe(:block => true) do |delivery_info, properties, body|
+  puts " [x] Received #{body}"
 
-      # cancel the consumer to exit
-      delivery_info.consumer.cancel
-    end
+  # cancel the consumer to exit
+  delivery_info.consumer.cancel
+end
+</pre>
 
 `Bunny::Queue#subscribe` is used with the `:block` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
@@ -185,23 +192,35 @@ block the calling thread (we don't want the script to finish running immediately
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
+Now we can run both scripts. In a terminal, run the consumer (receiver):
 
-    :::bash
-    $ ruby -rubygems send.rb
+<pre class="sourcecode bash">
+ruby -rubygems receive.rb
+</pre>
 
-then, run the receiver:
+then, run the publisher (sender):
 
-    :::bash
-    $ ruby -rubygems receive.rb
+<pre class="sourcecode bash">
+ruby -rubygems send.rb
+</pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+The consumer will print the message it gets from the producer via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the producer from another terminal.
 
-If you want to check on the queue, try using `rabbitmqctl list_queues`.
-
-Hello World!
+> #### Listing queues
+>
+> You may wish to see what queues RabbitMQ has and how many
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
+>
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues
+> </pre>
+>
+> On Windows, omit the sudo:
+> <pre class="sourcecode powershell">
+> rabbitmqctl.bat list_queues
+> </pre>
 
 Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
 

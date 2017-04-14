@@ -46,16 +46,16 @@ limitations under the License.
 	  href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">gpg key</a>. You can do that
 	  using <a href="https://sks-keyservers.net/overview-of-pools.php">SKS Keyservers Pool</a>:
 	</p>
-	<pre class="sourcecode">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
+	<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
 	<p>
 	  or you can download the key from our website directly:
 	</p>
-	<pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+	<pre class="sourcecode bash">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc</pre>
     <p>
       For Debian repos:
     </p>
-    <pre class="sourcecode">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
+    <pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">
@@ -64,14 +64,14 @@ gpg --import rabbitmq-release-signing-key.asc</pre>
 	  Now you should be able to check signatures for our packages.
 	  The appropriate command for checking a detached signature is
 	</p>
-	<pre class="sourcecode">gpg --verify <i>filename</i>.asc <i>filename</i></pre>
+	<pre class="sourcecode bash">gpg --verify <i>filename</i>.asc <i>filename</i></pre>
 	<p>
 	  Here's an example session, after having retrieved a RabbitMQ
 	  source archive and its associated detached signature from
 	  the download area:
 	</p>
-	<pre class="sourcecode">
-$ gpg --verify rabbitmq-server_3.6.2-1_all.deb.asc rabbitmq-server_3.6.2-1_all.deb
+	<pre class="sourcecode bash">
+gpg --verify rabbitmq-server_3.6.2-1_all.deb.asc rabbitmq-server_3.6.2-1_all.deb
 gpg: Signature made Thu 12 May 2016 11:18:49 AM BST
 gpg:                using RSA key 0xEDF4AE3B59B046FA
 gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA

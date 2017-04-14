@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using Go RabbitMQ client)
+### (using the Go RabbitMQ client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -43,33 +43,33 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-    :::go
-    q, err := ch.QueueDeclare(
-      "",    // name
-      false, // durable
-      false, // delete when usused
-      true,  // exclusive
-      false, // noWait
-      nil,   // arguments
-    )
+<pre class="sourcecode go">
+q, err := ch.QueueDeclare(
+  "",    // name
+  false, // durable
+  false, // delete when usused
+  true,  // exclusive
+  false, // noWait
+  nil,   // arguments
+)
 
-    err = ch.Publish(
-      "",          // exchange
-      "rpc_queue", // routing key
-      false,       // mandatory
-      false,       // immediate
-      amqp.Publishing{
-        ContentType:   "text/plain",
-        CorrelationId: corrId,
-        ReplyTo:       q.Name,
-        Body:          []byte(strconv.Itoa(n)),
-      })
-
+err = ch.Publish(
+  "",          // exchange
+  "rpc_queue", // routing key
+  false,       // mandatory
+  false,       // immediate
+  amqp.Publishing{
+    ContentType:   "text/plain",
+    CorrelationId: corrId,
+    ReplyTo:       q.Name,
+    Body:          []byte(strconv.Itoa(n)),
+})
+</pre>
 
 
 > #### Message properties
 >
-> The AMQP protocol predefines a set of 14 properties that go with
+> The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
@@ -187,118 +187,119 @@ Putting it all together
 
 The Fibonacci function:
 
-    :::go
-    func fib(n int) int {
-            if n == 0 {
-                    return 0
-            } else if n == 1 {
-                    return 1
-            } else {
-                    return fib(n-1) + fib(n-2)
-            }
-    }
+<pre class="sourcecode go">
+func fib(n int) int {
+        if n == 0 {
+                return 0
+        } else if n == 1 {
+                return 1
+        } else {
+                return fib(n-1) + fib(n-2)
+        }
+}
+</pre>
 
 We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-
 The code for our RPC server [rpc_server.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go) looks like this:
 
-    :::go
-    package main
-    
-    import (
-            "fmt"
-            "log"
-            "strconv"
-    
-            "github.com/streadway/amqp"
-    )
-    
-    func failOnError(err error, msg string) {
-            if err != nil {
-                    log.Fatalf("%s: %s", msg, err)
-                    panic(fmt.Sprintf("%s: %s", msg, err))
-            }
-    }
-    
-    func fib(n int) int {
-            if n == 0 {
-                    return 0
-            } else if n == 1 {
-                    return 1
-            } else {
-                    return fib(n-1) + fib(n-2)
-            }
-    }
-    
-    func main() {
-            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-            failOnError(err, "Failed to connect to RabbitMQ")
-            defer conn.Close()
-    
-            ch, err := conn.Channel()
-            failOnError(err, "Failed to open a channel")
-            defer ch.Close()
-    
-            q, err := ch.QueueDeclare(
-                    "rpc_queue", // name
-                    false,       // durable
-                    false,       // delete when unused
-                    false,       // exclusive
-                    false,       // no-wait
-                    nil,         // arguments
-            )
-            failOnError(err, "Failed to declare a queue")
-    
-            err = ch.Qos(
-                    1,     // prefetch count
-                    0,     // prefetch size
-                    false, // global
-            )
-            failOnError(err, "Failed to set QoS")
-    
-            msgs, err := ch.Consume(
-                    q.Name, // queue
-                    "",     // consumer
-                    false,  // auto-ack
-                    false,  // exclusive
-                    false,  // no-local
-                    false,  // no-wait
-                    nil,    // args
-            )
-            failOnError(err, "Failed to register a consumer")
-    
-            forever := make(chan bool)
-    
-            go func() {
-                    for d := range msgs {
-                            n, err := strconv.Atoi(string(d.Body))
-                            failOnError(err, "Failed to convert body to integer")
-    
-                            log.Printf(" [.] fib(%d)", n)
-                            response := fib(n)
-    
-                            err = ch.Publish(
-                                    "",        // exchange
-                                    d.ReplyTo, // routing key
-                                    false,     // mandatory
-                                    false,     // immediate
-                                    amqp.Publishing{
-                                            ContentType:   "text/plain",
-                                            CorrelationId: d.CorrelationId,
-                                            Body:          []byte(strconv.Itoa(response)),
-                                    })
-                            failOnError(err, "Failed to publish a message")
-    
-                            d.Ack(false)
-                    }
-            }()
-    
-            log.Printf(" [*] Awaiting RPC requests")
-            <-forever
-    }
+<pre class="sourcecode go">
+package main
+
+import (
+        "fmt"
+        "log"
+        "strconv"
+
+        "github.com/streadway/amqp"
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf("%s: %s", msg, err)
+                panic(fmt.Sprintf("%s: %s", msg, err))
+        }
+}
+
+func fib(n int) int {
+        if n == 0 {
+                return 0
+        } else if n == 1 {
+                return 1
+        } else {
+                return fib(n-1) + fib(n-2)
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+        failOnError(err, "Failed to connect to RabbitMQ")
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, "Failed to open a channel")
+        defer ch.Close()
+
+        q, err := ch.QueueDeclare(
+                "rpc_queue", // name
+                false,       // durable
+                false,       // delete when usused
+                false,       // exclusive
+                false,       // no-wait
+                nil,         // arguments
+        )
+        failOnError(err, "Failed to declare a queue")
+
+        err = ch.Qos(
+                1,     // prefetch count
+                0,     // prefetch size
+                false, // global
+        )
+        failOnError(err, "Failed to set QoS")
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                "",     // consumer
+                false,  // auto-ack
+                false,  // exclusive
+                false,  // no-local
+                false,  // no-wait
+                nil,    // args
+        )
+        failOnError(err, "Failed to register a consumer")
+
+        forever := make(chan bool)
+
+        go func() {
+                for d := range msgs {
+                        n, err := strconv.Atoi(string(d.Body))
+                        failOnError(err, "Failed to convert body to integer")
+
+                        log.Printf(" [.] fib(%d)", n)
+                        response := fib(n)
+
+                        err = ch.Publish(
+                                "",        // exchange
+                                d.ReplyTo, // routing key
+                                false,     // mandatory
+                                false,     // immediate
+                                amqp.Publishing{
+                                        ContentType:   "text/plain",
+                                        CorrelationId: d.CorrelationId,
+                                        Body:          []byte(strconv.Itoa(response)),
+                                })
+                        failOnError(err, "Failed to publish a message")
+
+                        d.Ack(false)
+                }
+        }()
+
+        log.Printf(" [*] Awaiting RPC requests")
+        &lt;forever
+}
+</pre>
 
 The server code is rather straightforward:
 
@@ -313,119 +314,120 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go):
 
-    :::go
-    package main
-    
-    import (
-            "fmt"
-            "log"
-            "math/rand"
-            "os"
-            "strconv"
-            "strings"
-            "time"
-    
-            "github.com/streadway/amqp"
-    )
-    
-    func failOnError(err error, msg string) {
-            if err != nil {
-                    log.Fatalf("%s: %s", msg, err)
-                    panic(fmt.Sprintf("%s: %s", msg, err))
-            }
-    }
-    
-    func randomString(l int) string {
-            bytes := make([]byte, l)
-            for i := 0; i < l; i++ {
-                    bytes[i] = byte(randInt(65, 90))
-            }
-            return string(bytes)
-    }
-    
-    func randInt(min int, max int) int {
-            return min + rand.Intn(max-min)
-    }
-    
-    func fibonacciRPC(n int) (res int, err error) {
-            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-            failOnError(err, "Failed to connect to RabbitMQ")
-            defer conn.Close()
-    
-            ch, err := conn.Channel()
-            failOnError(err, "Failed to open a channel")
-            defer ch.Close()
-    
-            q, err := ch.QueueDeclare(
-                    "",    // name
-                    false, // durable
-                    false, // delete when usused
-                    true,  // exclusive
-                    false, // noWait
-                    nil,   // arguments
-            )
-            failOnError(err, "Failed to declare a queue")
-    
-            msgs, err := ch.Consume(
-                    q.Name, // queue
-                    "",     // consumer
-                    true,   // auto-ack
-                    false,  // exclusive
-                    false,  // no-local
-                    false,  // no-wait
-                    nil,    // args
-            )
-            failOnError(err, "Failed to register a consumer")
-    
-            corrId := randomString(32)
-    
-            err = ch.Publish(
-                    "",          // exchange
-                    "rpc_queue", // routing key
-                    false,       // mandatory
-                    false,       // immediate
-                    amqp.Publishing{
-                            ContentType:   "text/plain",
-                            CorrelationId: corrId,
-                            ReplyTo:       q.Name,
-                            Body:          []byte(strconv.Itoa(n)),
-                    })
-            failOnError(err, "Failed to publish a message")
-    
-            for d := range msgs {
-                    if corrId == d.CorrelationId {
-                            res, err = strconv.Atoi(string(d.Body))
-                            failOnError(err, "Failed to convert body to integer")
-                            break
-                    }
-            }
-    
-            return
-    }
-    
-    func main() {
-            rand.Seed(time.Now().UTC().UnixNano())
-    
-            n := bodyFrom(os.Args)
-    
-            log.Printf(" [x] Requesting fib(%d)", n)
-            res, err := fibonacciRPC(n)
-            failOnError(err, "Failed to handle RPC request")
-    
-            log.Printf(" [.] Got %d", res)
-    }
-    
-    func bodyFrom(args []string) int {
-            var s string
-            if (len(args) < 2) || os.Args[1] == "" {
-                    s = "30"
-            } else {
-                    s = strings.Join(args[1:], " ")
-            }
-            n, err := strconv.Atoi(s)
-            failOnError(err, "Failed to convert arg to integer")
-            return n
-    }
+<pre class="sourcecode go">
+package main
+
+import (
+        "fmt"
+        "log"
+        "math/rand"
+        "os"
+        "strconv"
+        "strings"
+        "time"
+
+        "github.com/streadway/amqp"
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf("%s: %s", msg, err)
+                panic(fmt.Sprintf("%s: %s", msg, err))
+        }
+}
+
+func randomString(l int) string {
+        bytes := make([]byte, l)
+        for i := 0; i &lt; l; i++ {
+                bytes[i] = byte(randInt(65, 90))
+        }
+        return string(bytes)
+}
+
+func randInt(min int, max int) int {
+        return min + rand.Intn(max-min)
+}
+
+func fibonacciRPC(n int) (res int, err error) {
+        conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+        failOnError(err, "Failed to connect to RabbitMQ")
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, "Failed to open a channel")
+        defer ch.Close()
+
+        q, err := ch.QueueDeclare(
+                "",    // name
+                false, // durable
+                false, // delete when usused
+                true,  // exclusive
+                false, // noWait
+                nil,   // arguments
+        )
+        failOnError(err, "Failed to declare a queue")
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                "",     // consumer
+                true,   // auto-ack
+                false,  // exclusive
+                false,  // no-local
+                false,  // no-wait
+                nil,    // args
+        )
+        failOnError(err, "Failed to register a consumer")
+
+        corrId := randomString(32)
+
+        err = ch.Publish(
+                "",          // exchange
+                "rpc_queue", // routing key
+                false,       // mandatory
+                false,       // immediate
+                amqp.Publishing{
+                        ContentType:   "text/plain",
+                        CorrelationId: corrId,
+                        ReplyTo:       q.Name,
+                        Body:          []byte(strconv.Itoa(n)),
+                })
+        failOnError(err, "Failed to publish a message")
+
+        for d := range msgs {
+                if corrId == d.CorrelationId {
+                        res, err = strconv.Atoi(string(d.Body))
+                        failOnError(err, "Failed to convert body to integer")
+                        break
+                }
+        }
+
+        return
+}
+
+func main() {
+        rand.Seed(time.Now().UTC().UnixNano())
+
+        n := bodyFrom(os.Args)
+
+        log.Printf(" [x] Requesting fib(%d)", n)
+        res, err := fibonacciRPC(n)
+        failOnError(err, "Failed to handle RPC request")
+
+        log.Printf(" [.] Got %d", res)
+}
+
+func bodyFrom(args []string) int {
+        var s string
+        if (len(args) &lt; 2) || os.Args[1] == "" {
+                s = "30"
+        } else {
+                s = strings.Join(args[1:], " ")
+        }
+        n, err := strconv.Atoi(s)
+        failOnError(err, "Failed to convert arg to integer")
+        return n
+}
+</pre>
 
 Now is a good time to take a look at our full example source code for
 [rpc_client.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go) and [rpc_server.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go).
@@ -433,15 +435,17 @@ Now is a good time to take a look at our full example source code for
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ go run rpc_server.go
-     [x] Awaiting RPC requests
+<pre class="sourcecode bash">
+go run rpc_server.go
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ go run rpc_client.go 30
-     [x] Requesting fib(30)
+<pre class="sourcecode bash">
+go run rpc_client.go 30
+# => [x] Requesting fib(30)
+</pre>
 
 The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -462,6 +466,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
-

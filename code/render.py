@@ -71,12 +71,11 @@ def preprocess_markdown(fpath):
 
     tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*.md$', fpath)
     if tutorial is not None:
-        tutorial_head = """<div id="sidebar" class="{0}">
+        tutorial_head = """<div id="left-content" class="tutorial">"""
+        tutorial_foot = """</div><div id="right-nav" class="{0}">
    <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">""".format(tutorial.group(1))
-        processed = tutorial_head + processed + '</div>'
+</div>""".format(tutorial.group(1))
+        processed = tutorial_head + processed + tutorial_foot
     utf8_parser = etree.XMLParser(encoding='utf-8')
     s = (pre + head + processed + post).encode("utf-8")
     return etree.fromstring(s, parser = utf8_parser).getroottree()
@@ -123,6 +122,7 @@ def render_page(page_name, site_mode, version = None):
     match = re.match('/(.*?)(\.html)?$', page_name)
     if match:
         page_name = match.group(1)
+        page_id = match.group(1)
     else:
         raise Error404
 
@@ -135,7 +135,8 @@ def render_page(page_name, site_mode, version = None):
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
     xslt_doc = parse(os.path.join(SITE_DIR, xslt_file_name))
     params = {'page-name': "'/%s.html'" % page_name,
-              'site-mode': "'%s'" % site_mode}
+              'site-mode': "'%s'" % site_mode,
+              'page-id': "'%s'" % page_id}
     transform = etree.XSLT(xslt_doc)
     xhtml_doc = transform(xml_doc, **params)
     if version:

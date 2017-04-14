@@ -220,7 +220,7 @@ limitations under the License.
             </ul>
           </doc:section>
           <doc:section name="node-dev">
-            <doc:heading>Node.js</doc:heading>
+            <doc:heading>JavaScript</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/squaremo/amqp.node">amqp.node</a>

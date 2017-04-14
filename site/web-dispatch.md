@@ -42,17 +42,21 @@ The `listener` configuration item can contain the following keys:
 Use `ip` to specify an interface for Cowboy to bind to (giving an IP
 address as a string or tuple). For example:
 
-    management.listener.port = 15672
-    management.listener.ip   = 127.0.0.1
-    
+<pre class="sourcecode ini">
+management.listener.port = 15672
+management.listener.ip   = 127.0.0.1
+</pre>
+
 Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    [{rabbitmq_management,
-      [{listener, [{port, 15672},
-                   {ip, "127.0.0.1"}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port, 15672},
+               {ip, "127.0.0.1"}
+              ]}
+  ]}
+].
+</pre>
 
 ## TLS/SSL
 
@@ -68,24 +72,28 @@ verification, specify `ssl_opts` explicitly.
 
 For example:
 
-    management.listener.port = 15672
-    management.listener.ssl  = true
+<pre class="sourcecode ini">
+management.listener.port = 15672
+management.listener.ssl  = true
 
-    management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
-    management.listener.ssl_opts.certfile   = /path/to/cert.pem
-    management.listener.ssl_opts.keyfile    = /path/to/key.pem
+management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
+management.listener.ssl_opts.certfile   = /path/to/cert.pem
+management.listener.ssl_opts.keyfile    = /path/to/key.pem
+</pre>
 
 The same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    [{rabbitmq_management,
-      [{listener, [{port,     15672},
-                   {ssl,      true},
-                   {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
-                               {certfile,   "/path/to/cert.pem"},
-                               {keyfile,    "/path/to/key.pem"}]}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,     15672},
+               {ssl,      true},
+               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                           {certfile,   "/path/to/cert.pem"},
+                           {keyfile,    "/path/to/key.pem"}]}
+              ]}
+  ]}
+].
+</pre>
 
 ## Compressed responses
 
@@ -95,9 +103,11 @@ can specify those in the listener options under `cowboy_opts`.
 
 To compress responses, set the proper `cowboy_opts` option:
 
-    [{rabbitmq_management,
-      [{listener, [{port,        15672},
-                   {cowboy_opts, [{compress, true}]}
-                  ]}
-      ]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,        15672},
+               {cowboy_opts, [{compress, true}]}
+              ]}
+  ]}
+].
+</pre>

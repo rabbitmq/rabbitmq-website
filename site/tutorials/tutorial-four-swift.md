@@ -22,7 +22,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    q.bind(exchange)
+<pre class="sourcecode swift">
+q.bind(exchange)
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -32,7 +34,9 @@ Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with an `RMQExchange publish:` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    q.bind(exchange, routingKey: "black")
+<pre class="sourcecode swift">
+q.bind(exchange, routingKey: "black")
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -162,12 +166,16 @@ first.
 
 As always, we need to create an exchange first:
 
-    ch.direct("logs")
+<pre class="sourcecode swift">
+ch.direct("logs")
+</pre>
 
 And we're ready to send a message:
 
-    let x = ch.direct("logs")
-    x.publish(msg.data(using: .utf8), routingKey: severity)
+<pre class="sourcecode swift">
+let x = ch.direct("logs")
+x.publish(msg.data(using: .utf8), routingKey: severity)
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -180,12 +188,13 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
-
-    let q = ch.queue("", options: .exclusive)
-    let severities = ["error", "warning", "info"]
-    for severity: String in severities {
-        q.bind(x, routingKey: severity)
-    }
+<pre class="sourcecode swift">
+let q = ch.queue("", options: .exclusive)
+let severities = ["error", "warning", "info"]
+for severity: String in severities {
+    q.bind(x, routingKey: severity)
+}
+</pre>
 
 Putting it all together
 -----------------------
@@ -232,38 +241,44 @@ Putting it all together
 
 The code for the `emitLogDirect` method:
 
-    func emitLogDirect(_ msg: String, severity: String) {
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-        let ch = conn.createChannel()
-        let x = ch.direct("direct_logs")
-        x.publish(msg.data(using: .utf8), routingKey: severity)
-        print("Sent '\(msg)'")
-        conn.close()
-    }
+<pre class="sourcecode swift">
+func emitLogDirect(_ msg: String, severity: String) {
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+    let ch = conn.createChannel()
+    let x = ch.direct("direct_logs")
+    x.publish(msg.data(using: .utf8), routingKey: severity)
+    print("Sent '\(msg)'")
+    conn.close()
+}
+</pre>
 
 The code for `receiveLogsDirect`:
 
-    func receiveLogsDirect() {
-        let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
-        conn.start()
-        let ch = conn.createChannel()
-        let x = ch.direct("direct_logs")
-        let q = ch.queue("", options: .exclusive)
-        let severities = ["error", "warning", "info"]
-        for severity: String in severities {
-            q.bind(x, routingKey: severity)
-        }
-        print("Waiting for logs.")
-        q.subscribe({(_ message: RMQMessage) -> Void in
-            print("\(message.routingKey):\(String(data: message.body,
-                                           encoding: .utf8))")
-        })
+<pre class="sourcecode swift">
+func receiveLogsDirect() {
+    let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
+    conn.start()
+    let ch = conn.createChannel()
+    let x = ch.direct("direct_logs")
+    let q = ch.queue("", options: .exclusive)
+    let severities = ["error", "warning", "info"]
+    for severity: String in severities {
+        q.bind(x, routingKey: severity)
     }
+    print("Waiting for logs.")
+    q.subscribe({(_ message: RMQMessage) -> Void in
+        print("\(message.routingKey):\(String(data: message.body,
+                                       encoding: .utf8))")
+    })
+}
+</pre>
 
 To emit an `error` log message just call:
 
-    self.emitLogDirect("Hi there!", severity: "error")
+<pre class="sourcecode swift">
+self.emitLogDirect("Hi there!", severity: "error")
+</pre>
 
 ([source code][source])
 

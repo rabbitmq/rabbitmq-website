@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -58,8 +58,8 @@ limitations under the License.
         <p>
           We use the technique of <i>branch per issue</i> when
           developing RabbitMQ code, where each feature or bug fix is
-          developed on a branch of its own (using <code>git checkout
-            -b</code>) and merged into the <code>master</code> or
+          developed on a branch of its own (using
+            <code>git checkout -b</code>) and merged into the <code>master</code> or
           <code>stable</code> branches only when it passes QA. Branches
           follow the pattern <code><i>repository-name</i>-<i>NN</i></code>,
           where <i>repository-name</i> is the name of the GitHub project
@@ -144,8 +144,8 @@ rabbitmq_v3_4_4
           are using are on the same tag as each other. Continuing with
           our example of server version 3.4.4, you could make sure
           your checkout of <code>rabbitmq-stomp</code> was at the
-          <code>rabbitmq_v3_4_4</code> tag by using <code>git
-          checkout</code>:
+          <code>rabbitmq_v3_4_4</code> tag by using
+          <code>git checkout</code>:
         </p>
         <pre>git checkout rabbitmq_v3_4_4</pre>
         <p>

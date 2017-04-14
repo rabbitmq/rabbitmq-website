@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using the amqp 0.1.4 Elixir library)
+### (using the amqp Elixir library)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -41,9 +41,10 @@ To illustrate how an RPC service could be used we're going to
 create a simple client module. It's going to contain a function named `call`
 which sends an RPC request and blocks until the answer is received:
 
-    :::elixir
-    result = FibonacciRpcClient.call(4)
-    IO.puts("fib(4) is #{result}")
+<pre class="sourcecode elixir">
+result = FibonacciRpcClient.call(4)
+IO.puts("fib(4) is #{result}")
+</pre>
 
 > #### A note on RPC
 >
@@ -73,22 +74,23 @@ message and a server replies with a response message. In order to
 receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
-    :::elixir
-    {:ok, %{queue: callback_queue}} = AMQP.Queue.declare(channel,
-                                                         "",
-                                                         exclusive: true)
+<pre class="sourcecode elixir">
+{:ok, %{queue: callback_queue}} = AMQP.Queue.declare(channel,
+                                                     "",
+                                                     exclusive: true)
 
-    AMQP.Basic.publish(channel,
-                       "",
-                       "rpc_queue",
-                       request,
-                       reply_to: callback_queue)
-    # ... and some code to read a response message from the callback_queue ...
+AMQP.Basic.publish(channel,
+                   "",
+                   "rpc_queue",
+                   request,
+                   reply_to: callback_queue)
+# ... and some code to read a response message from the callback_queue ...
+</pre>
 
 
 > #### Message properties
 >
-> The AMQP protocol predefines a set of 14 properties that go with
+> The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
@@ -208,41 +210,41 @@ Putting it all together
 
 The code for `rpc_server.exs`:
 
-    #!elixir
-    defmodule FibServer do
-      def fib(0), do: 0
-      def fib(1), do: 1
-      def fib(n) when n > 1, do: fib(n-1) + fib(n-2)
+<pre class="sourcecode elixir">
+defmodule FibServer do
+  def fib(0), do: 0
+  def fib(1), do: 1
+  def fib(n) when n > 1, do: fib(n-1) + fib(n-2)
 
-      def wait_for_messages(channel) do
-        receive do
-          {:basic_deliver, payload, meta} ->
-            {n, _} = Integer.parse(payload)
-            IO.puts " [.] fib(#{n})"
-            response = fib(n)
+  def wait_for_messages(channel) do
+    receive do
+      {:basic_deliver, payload, meta} ->
+        {n, _} = Integer.parse(payload)
+        IO.puts " [.] fib(#{n})"
+        response = fib(n)
 
-            AMQP.Basic.publish(channel,
-                               "",
-                               meta.reply_to,
-                               "#{response}",
-                               correlation_id: meta.correlation_id)
-            AMQP.Basic.ack(channel, meta.delivery_tag)
+        AMQP.Basic.publish(channel,
+                           "",
+                           meta.reply_to,
+                           "#{response}",
+                           correlation_id: meta.correlation_id)
+        AMQP.Basic.ack(channel, meta.delivery_tag)
 
-            wait_for_messages(channel)
-        end
-      end
+        wait_for_messages(channel)
     end
+  end
+end
 
-    {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open(connection)
+{:ok, connection} = AMQP.Connection.open
+{:ok, channel} = AMQP.Channel.open(connection)
 
-    AMQP.Queue.declare(channel, "rpc_queue")
-    AMQP.Basic.qos(channel, prefetch_count: 1)
-    AMQP.Basic.consume(channel, "rpc_queue")
-    IO.puts " [x] Awaiting RPC requests"
+AMQP.Queue.declare(channel, "rpc_queue")
+AMQP.Basic.qos(channel, prefetch_count: 1)
+AMQP.Basic.consume(channel, "rpc_queue")
+IO.puts " [x] Awaiting RPC requests"
 
-    FibServer.wait_for_messages(channel)
-
+FibServer.wait_for_messages(channel)
+</pre>
 
 The server code is rather straightforward:
 
@@ -261,55 +263,55 @@ The server code is rather straightforward:
 
 The code for `rpc_client.exs`:
 
-    #!elixir
-    defmodule FibonacciRpcClient do
-      def wait_for_messages(_channel, correlation_id) do
-        receive do
-          {:basic_deliver, payload, %{correlation_id: ^correlation_id}} ->
-            {n, _} = Integer.parse(payload)
-            n
-        end
-      end
-      def call(n) do
-        {:ok, connection} = AMQP.Connection.open
-        {:ok, channel} = AMQP.Channel.open(connection)
-
-        {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel,
-                                                         "",
-                                                         exclusive: true)
-        AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
-        correlation_id =
-          :erlang.unique_integer
-          |> :erlang.integer_to_binary
-          |> Base.encode64
-
-        request = to_string(n)
-        AMQP.Basic.publish(channel,
-                           "",
-                           "rpc_queue",
-                           request,
-                           reply_to: queue_name,
-                           correlation_id: correlation_id)
-
-        FibonacciRpcClient.wait_for_messages(channel, correlation_id)
-      end
+<pre class="sourcecode elixir">
+defmodule FibonacciRpcClient do
+  def wait_for_messages(_channel, correlation_id) do
+    receive do
+      {:basic_deliver, payload, %{correlation_id: ^correlation_id}} ->
+        {n, _} = Integer.parse(payload)
+        n
     end
+  end
+  def call(n) do
+    {:ok, connection} = AMQP.Connection.open
+    {:ok, channel} = AMQP.Channel.open(connection)
 
-    num =
-      case System.argv do
-        []    -> 30
-        param ->
-          {x, _} =
-            param
-            |> Enum.join(" ")
-            |> Integer.parse
-          x
-      end
+    {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel,
+                                                     "",
+                                                     exclusive: true)
+    AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
+    correlation_id =
+      :erlang.unique_integer
+      |> :erlang.integer_to_binary
+      |> Base.encode64
 
-    IO.puts " [x] Requesting fib(#{num})"
-    response = FibonacciRpcClient.call(num)
-    IO.puts " [.] Got #{response}"
+    request = to_string(n)
+    AMQP.Basic.publish(channel,
+                       "",
+                       "rpc_queue",
+                       request,
+                       reply_to: queue_name,
+                       correlation_id: correlation_id)
 
+    FibonacciRpcClient.wait_for_messages(channel, correlation_id)
+  end
+end
+
+num =
+  case System.argv do
+    []    -> 30
+    param ->
+      {x, _} =
+        param
+        |> Enum.join(" ")
+        |> Integer.parse
+      x
+  end
+
+IO.puts " [x] Requesting fib(#{num})"
+response = FibonacciRpcClient.call(num)
+IO.puts " [.] Got #{response}"
+</pre>
 
 
 The client code is slightly more involved:
@@ -334,15 +336,17 @@ The client code is slightly more involved:
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ mix run rpc_server.exs
-     [x] Awaiting RPC requests
+<pre class="sourcecode bash">
+mix run rpc_server.exs
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ mix run rpc_client.exs
-     [x] Requesting fib(30)
+<pre class="sourcecode bash">
+mix run rpc_client.exs
+# => [x] Requesting fib(30)
+</pre>
 
 The presented design is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -365,7 +369,7 @@ complex (but important) problems, like:
    (eg checking bounds) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
 
 (Full source code for [rpc_client.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_client.exs) and [rpc_server.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_server.exs))

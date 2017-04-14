@@ -85,9 +85,11 @@ node rabbit@cordelia down: net_tick_timeout
         60 to 120 seconds:
       </p>
       <p>
-<pre>    [
-        {kernel, [{net_ticktime,  120}]}
-    ].</pre>
+<pre class="sourcecode erlang">
+[
+  {kernel, [{net_ticktime,  120}]}
+].
+</pre>
       </p>
     </doc:section>
     <doc:section name="http-api">

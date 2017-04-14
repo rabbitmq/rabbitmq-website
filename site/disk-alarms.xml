@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -87,25 +87,43 @@ Disabling disk free space monitoring</pre>
         required to be free on the database partition (see the description of
         <a href="/relocate.html">file locations</a> for the default database location).
         This configuration file sets the disk free space limit to 1GB:
-        <pre class="sourcecode">disk_free_limit.absolute = 1000000000</pre>
+
+<pre class="sourcecode init">
+disk_free_limit.absolute = 1000000000
+</pre>
+
         Or you can use memory units (KB, MB GB etc.) like this:
-        <pre class="sourcecode">disk_free_limit.absolute = 1GB</pre>
+
+<pre class="sourcecode">
+disk_free_limit.absolute = 1GB
+</pre>
+
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
+
+<pre class="sourcecode erlang">
+[{rabbit, [{disk_free_limit, 1000000000}]}].
+</pre>
       </p>
       <p>
         It is also possible to set a free space limit relative to the RAM in the machine.
         This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
-        <pre class="sourcecode">disk_free_limit.relative = 1.0</pre>
+
+<pre class="sourcecode init">
+disk_free_limit.relative = 1.0
+</pre>
+        
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
+
+<pre class="sourcecode erlang">
+[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].
+</pre>
       </p>
       <p>
         The limit can be changed while the broker is running
-        using the <code>rabbitmqctl set_disk_free_limit <em>disk_limit</em></code> command 
-        or <code>rabbitmqctl set_disk_free_limit mem_relative
-        <em>fraction</em></code> command. This command will take effect
+        using the <code>rabbitmqctl set_disk_free_limit <em>disk_limit</em></code> command
+        or
+        <code>rabbitmqctl set_disk_free_limit mem_relative <em>fraction</em></code> command. This command will take effect
         until the broker shuts down. The corresponding configuration
         setting should also be changed when the effects should survive
         a broker restart.

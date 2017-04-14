@@ -38,8 +38,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::php
-    $channel->queue_bind($queue_name, 'logs');
+<pre class="sourcecode php">
+$channel->queue_bind($queue_name, 'logs');
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -49,9 +50,10 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `$channel::basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::php
-    $binding_key = 'black';
-    $channel->queue_bind($queue_name, $exchange_name, $binding_key);
+<pre class="sourcecode php">
+$binding_key = 'black';
+$channel->queue_bind($queue_name, $exchange_name, $binding_key);
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -181,14 +183,16 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::php
-    $channel->exchange_declare('direct_logs', 'direct', false, false, false);
+<pre class="sourcecode php">
+$channel->exchange_declare('direct_logs', 'direct', false, false, false);
+</pre>
 
 And we're ready to send a message:
 
-    :::php
-    $channel->exchange_declare('direct_logs', 'direct', false, false, false);
-    $channel->basic_publish($msg, 'direct_logs', $severity);
+<pre class="sourcecode php">
+$channel->exchange_declare('direct_logs', 'direct', false, false, false);
+$channel->basic_publish($msg, 'direct_logs', $severity);
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -200,15 +204,14 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
-    :::php
-    foreach($severities as $severity) {
-        $channel->queue_bind($queue_name, 'direct_logs', $severity);
-    }
+<pre class="sourcecode php">
+foreach($severities as $severity) {
+    $channel->queue_bind($queue_name, 'direct_logs', $severity);
+}
+</pre>
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -252,95 +255,100 @@ Putting it all together
 
 The code for `emit_log_direct.php` class:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->exchange_declare('direct_logs', 'direct', false, false, false);
+$channel->exchange_declare('direct_logs', 'direct', false, false, false);
 
-    $severity = isset($argv[1]) && !empty($argv[1]) ? $argv[1] : 'info';
+$severity = isset($argv[1]) &amp;&amp; !empty($argv[1]) ? $argv[1] : 'info';
 
-    $data = implode(' ', array_slice($argv, 2));
-    if(empty($data)) $data = "Hello World!";
+$data = implode(' ', array_slice($argv, 2));
+if(empty($data)) $data = "Hello World!";
 
-    $msg = new AMQPMessage($data);
+$msg = new AMQPMessage($data);
 
-    $channel->basic_publish($msg, 'direct_logs', $severity);
+$channel->basic_publish($msg, 'direct_logs', $severity);
 
-    echo " [x] Sent ",$severity,':',$data," \n";
+echo " [x] Sent ",$severity,':',$data," \n";
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
+?&gt;
+</pre>
+
 
 The code for `receive_logs_direct.php`:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->exchange_declare('direct_logs', 'direct', false, false, false);
+$channel->exchange_declare('direct_logs', 'direct', false, false, false);
 
-    list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
+list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
-    $severities = array_slice($argv, 1);
-    if(empty($severities )) {
-    	file_put_contents('php://stderr', "Usage: $argv[0] [info] [warning] [error]\n");
-    	exit(1);
-    }
+$severities = array_slice($argv, 1);
+if(empty($severities )) {
+	file_put_contents('php://stderr', "Usage: $argv[0] [info] [warning] [error]\n");
+	exit(1);
+}
 
-    foreach($severities as $severity) {
-        $channel->queue_bind($queue_name, 'direct_logs', $severity);
-    }
+foreach($severities as $severity) {
+    $channel->queue_bind($queue_name, 'direct_logs', $severity);
+}
 
-    echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
+echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
 
-    $callback = function($msg){
-      echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
-    };
+$callback = function($msg){
+  echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
+};
 
-    $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
+$channel->basic_consume($queue_name, '', false, true, false, false, $callback);
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+while(count($channel->callbacks)) {
+    $channel->wait();
+}
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
+?&gt;
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ php receive_logs_direct.php warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+php receive_logs_direct.php warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ php receive_logs_direct.php info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+php receive_logs_direct.php info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ php emit_log_direct.php error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+php emit_log_direct.php error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [(emit_log_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log_direct.php)
 and [(receive_logs_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs_direct.php))

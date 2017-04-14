@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using the amqp 0.1.4 Elixir library)
+### (using the amqp Elixir library)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -38,9 +38,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::elixir
-    AMQP.Queue.bind(channel, queue_name, exchange_name)
-
+<pre class="sourcecode elixir">
+AMQP.Queue.bind(channel, queue_name, exchange_name)
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -50,8 +50,9 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::elixir
-    AMQP.Queue.bind(channel, queue_name, exchange_name, routing_key: "black")
+<pre class="sourcecode elixir">
+AMQP.Queue.bind(channel, queue_name, exchange_name, routing_key: "black")
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -181,13 +182,15 @@ first.
 
 Like always we need to create an exchange first:
 
-    :::elixir
-    AMQP.Exchange.declare(channel, "direct_logs", :direct)
+<pre class="sourcecode elixir">
+AMQP.Exchange.declare(channel, "direct_logs", :direct)
+</pre>
 
 And we're ready to send a message:
 
-    :::elixir
-    AMQP.Basic.publish(channel, "direct_logs", severity, message)
+<pre class="sourcecode elixir">
+AMQP.Basic.publish(channel, "direct_logs", severity, message)
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -200,21 +203,18 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
+<pre class="sourcecode elixir">
+{:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 
-    :::elixir
-    {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
-
-    for {severity, true} <- severities do
-      binding_key = severity |> to_string
-      AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
-    end
-
+for {severity, true} &lt;- severities do
+  binding_key = severity |> to_string
+  AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
+end
+</pre>
 
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -257,97 +257,98 @@ Putting it all together
 
 The code for `emit_log_direct.exs`:
 
-    :::elixir
-    {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open(connection)
+<pre class="sourcecode elixir">
+{:ok, connection} = AMQP.Connection.open
+{:ok, channel} = AMQP.Channel.open(connection)
 
-    {severities, raw_message, _} = 
-      System.argv
-      |> OptionParser.parse(strict: [info:    :boolean,
-                                     warning: :boolean, 
-                                     error:   :boolean])
-      |> case do
-        {[], msg, _} -> {[info: true], msg, []}
-        other -> other
-      end
+{severities, raw_message, _} = 
+  System.argv
+  |> OptionParser.parse(strict: [info:    :boolean,
+                                 warning: :boolean, 
+                                 error:   :boolean])
+  |> case do
+    {[], msg, _} -> {[info: true], msg, []}
+    other -> other
+  end
 
-    message = 
-      case raw_message do
-        []    -> "Hello World!"
-        words -> Enum.join(words, " ")
-      end
+message = 
+  case raw_message do
+    []    -> "Hello World!"
+    words -> Enum.join(words, " ")
+  end
 
-    AMQP.Exchange.declare(channel, "direct_logs", :direct)
+AMQP.Exchange.declare(channel, "direct_logs", :direct)
 
-    for {severity, true} <- severities do
-      severity = severity |> to_string
-      AMQP.Basic.publish(channel, "direct_logs", severity, message)
-      IO.puts " [x] Sent '[#{severity}] #{message}'"
-    end
+for {severity, true} &lt;- severities do
+  severity = severity |> to_string
+  AMQP.Basic.publish(channel, "direct_logs", severity, message)
+  IO.puts " [x] Sent '[#{severity}] #{message}'"
+end
 
-    AMQP.Connection.close(connection)
-
+AMQP.Connection.close(connection)
+</pre>
 
 
 The code for `receive_logs_direct.exs`:
 
-    :::elixir
-    defmodule ReceiveLogsDirect do
-      def wait_for_messages(channel) do
-        receive do
-          {:basic_deliver, payload, meta} ->
-            IO.puts " [x] Received [#{meta.routing_key}] #{payload}"
-            
-            wait_for_messages(channel)
-        end
-      end
+<pre class="sourcecode elixir">
+defmodule ReceiveLogsDirect do
+  def wait_for_messages(channel) do
+    receive do
+      {:basic_deliver, payload, meta} ->
+        IO.puts " [x] Received [#{meta.routing_key}] #{payload}"
+        
+        wait_for_messages(channel)
     end
-      
-    {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open(connection)
+  end
+end
+  
+{:ok, connection} = AMQP.Connection.open
+{:ok, channel} = AMQP.Channel.open(connection)
 
-    {severities, _, _} = 
-      System.argv
-      |> OptionParser.parse(strict: [info:    :boolean,
-                                     warning: :boolean,
-                                     error:   :boolean])
+{severities, _, _} = 
+  System.argv
+  |> OptionParser.parse(strict: [info:    :boolean,
+                                 warning: :boolean,
+                                 error:   :boolean])
 
-    AMQP.Exchange.declare(channel, "direct_logs", :direct)
+AMQP.Exchange.declare(channel, "direct_logs", :direct)
 
-    {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
+{:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 
-    for {severity, true} <- severities do
-      binding_key = severity |> to_string
-      AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
-    end
+for {severity, true} &lt;- severities do
+  binding_key = severity |> to_string
+  AMQP.Queue.bind(channel, queue_name, "direct_logs", routing_key: binding_key)
+end
 
-    AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
+AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
 
-    IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
+IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
-
-    ReceiveLogsDirect.wait_for_messages(channel)
-
+ReceiveLogsDirect.wait_for_messages(channel)
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ mix run receive_logs_direct.exs --warning --error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+# => mix run receive_logs_direct.exs --warning --error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ mix run receive_logs_direct.exs --info --warning --error
-     [*] Waiting for logs. To exit press CTRL+C, CTRL+C
+<pre class="sourcecode bash">
+mix run receive_logs_direct.exs --info --warning --error
+# => [*] Waiting for logs. To exit press CTRL+C, CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ mix run emit_log_direct.exs --error "Run. Run. Or it will explode."
-     [x] Sent '[error] Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+mix run emit_log_direct.exs --error "Run. Run. Or it will explode."
+# => [x] Sent '[error] Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [emit_log_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log_direct.exs) and [receive_logs_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs_direct.exs))
 

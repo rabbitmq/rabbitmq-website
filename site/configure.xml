@@ -86,7 +86,7 @@ limitations under the License.
           RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
           at the top, along with the other broker boot log entries. For example:
 
-           <pre class="example">
+<pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /etc/rabbitmq/advanced.config
@@ -96,7 +96,7 @@ config file(s) : /etc/rabbitmq/advanced.config
           If the log file cannot be found or read by RabbitMQ, the log entry
           will say so:
 
-           <pre class="example">
+<pre class="sourcecode ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
@@ -116,24 +116,27 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         <doc:subsection name="customise-general-unix-environment">
         <doc:heading>Unix (general)</doc:heading>
           <p>
-              On Unix-based systems (including Linux and MacOSX) you can create/edit
-              <code><span class="path">rabbitmq-env.conf</span></code>
-              to define environment variables.
-              Its <a href="#config-location">location</a> is configurable
-              using the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> environment variable.
-            </p>
-            <p>
-							Use the standard environment variable names, but without the <code>RABBITMQ_</code>
-							prefix. For example, the <code>RABBITMQ_CONFIG_FILE</code> parameter appears
-							below as <code>CONFIG_FILE</code>:
-              <pre class="sourcecode">
+            On Unix-based systems (including Linux and MacOSX) you can create/edit
+            <code><span class="path">rabbitmq-env.conf</span></code>
+            to define environment variables.
+            Its <a href="#config-location">location</a> is configurable
+            using the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> environment variable.
+          </p>
+          <p>
+	    Use the standard environment variable names, but without the <code>RABBITMQ_</code>
+	    prefix. For example, the <code>RABBITMQ_CONFIG_FILE</code> parameter appears
+	    below as <code>CONFIG_FILE</code>:
+
+<pre class="sourcecode bash">
 #example rabbitmq-env.conf file entries
 #Rename the node
 NODENAME=bunny@myhost
 #Config file location and new filename bunnies.config
-CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
-							More info on using <code>rabbitmq-env.conf</code> can be found <a href="man/rabbitmq-env.conf.5.man.html">here</a>.
-            </p>
+CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
+</pre>
+
+            More info on using <code>rabbitmq-env.conf</code> can be found <a href="man/rabbitmq-env.conf.5.man.html">here</a>.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="customise-windows-environment">
@@ -545,8 +548,14 @@ and
           A minimalistic example configuration file follows:
         </p>
         <p>
-          <pre class="sourcecode">
+<pre class="sourcecode ini">
 listeners.tcp.default = 5673
+</pre>
+
+<pre class="sourcecode erlang">
+[
+  {rabbit, [{tcp_listeners, [5673]}]}
+].
 </pre>
         </p>
         <p>
@@ -909,7 +918,8 @@ disk_free_limit.absolute = 2GB
               <a href="access-control.html">Permissions</a>
               to assign to the default user when creating it.
               <p>Default:
-<pre>
+
+<pre class="sourcecode ini">
 default_permissions.configure = .*
 default_permissions.read = .*
 default_permissions.write = .*
@@ -999,8 +1009,8 @@ cluster_nodes.disc.2 = rabbit@hostname2
             <td><code>auth_backends</code></td>
             <td>
               <p>
-                List of <a href="/access-control.html">authentication / authorisation backends</a> to
-                use.
+                List of <a href="/access-control.html">authentication and authorisation backends</a> to
+                use. See the <a href="/access-control.html">access control guide</a> for details and examples.
               </p>
               <p>
                 Other databases
@@ -1038,12 +1048,13 @@ cluster_nodes.disc.2 = rabbit@hostname2
               change this.
 
               <p>Default:
-                <pre>
-    tcp_listen_options.backlog = 128
-    tcp_listen_options.nodelay = true
-    tcp_listen_options.linger.on = true
-    tcp_listen_options.linger.timeout = 0
-    tcp_listen_options.exit_on_close = false
+
+                <pre class="sourcecode ini">
+tcp_listen_options.backlog = 128
+tcp_listen_options.nodelay = true
+tcp_listen_options.linger.on = true
+tcp_listen_options.linger.timeout = 0
+tcp_listen_options.exit_on_close = false
                 </pre>
               </p>
             </td>
@@ -1297,7 +1308,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
             tuple: <code>{encrypted, ...}</code>.
             Here is an example of a configuration file with an encrypted password
             for the default user:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       {default_user, &lt;&lt;"guest"&gt;&gt;},
@@ -1318,7 +1329,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
           <p>
             The passphrase doesn't have to be hardcoded in the configuration file,
             it can be in a separate file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1334,17 +1345,17 @@ cluster_nodes.disc.2 = rabbit@hostname2
           <p>
             Use <code>rabbitmqctl</code> and the <code>encode</code>
             command to encrypt values:
-            <pre class="example">
-$ rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
-$ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
+rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
             </pre>
             Add the <code>--decode</code> option if you want to decrypt values:
-            <pre class="example">
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+            <pre class="sourcecode bash">
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
-$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
             </pre>
           </p>
@@ -1361,7 +1372,7 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
           </p>
           <p>
             You can change these defaults in the configuration file:
-            <pre class="example">
+            <pre class="sourcecode erlang">
 [
   {rabbit, [
       ...
@@ -1374,8 +1385,8 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
     ]}
 ].          </pre>
             On the command line:
-            <pre class="example">
-$ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+            <pre class="sourcecode bash">
+rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
             </pre>
 
