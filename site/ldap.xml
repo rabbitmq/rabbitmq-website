@@ -131,12 +131,12 @@ auth_backends.2 = internal
           List of LDAP servers to attempt to bind to, in order. You almost
           certainly want to change this. Default: <code>["ldap"]</code>
           Example of configuration using the sysctl config format:
-          <pre class="example">
+          <pre class="sourcecode ini">
 auth_ldap.servers.1 = some_server
 auth_ldap.servers.2 = some_other_server
           </pre>
           Using the classic config format:
-          <pre class="example">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
+          <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
@@ -194,7 +194,7 @@ auth_ldap.servers.2 = some_other_server
           <p>
             For example, if I set
           </p>
-          <pre class="example">
+          <pre class="sourcecode ini">
 auth_ldap.dn_lookup_attribute = userPrincipalName
 auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
           <p>
@@ -242,12 +242,12 @@ auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
             options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
             to bind with a specified username and password.
             For example:
-            <pre class="example">
+            <pre class="sourcecode ini">
 auth_ldap.other_bind.user_dn = username
 auth_ldap.other_bind.password = password</pre>
 
             Using the classic config format:
-            <pre class="example">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
+            <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
           </p>
           <p>
             Note that it is not possible to use the
@@ -533,9 +533,12 @@ auth_ldap.other_bind.password = password</pre>
           about.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">[
-            {group_lookup_base, "ou=groups,dc=example,dc=com"},
-            {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}]</pre>
+<pre class="sourcecode erlang">
+[
+  {group_lookup_base, "ou=groups,dc=example,dc=com"},
+  {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}
+]
+</pre>
         <p>
           This grants access to virtual hosts when the user a member in group
           hierarchy defined by the <code>member</code> attribute values and located
@@ -567,14 +570,16 @@ auth_ldap.other_bind.password = password</pre>
         <p>
           Example:
         </p>
-<pre class="sourcecode erlang">{resource_access_query,
+<pre class="sourcecode erlang">
+{resource_access_query,
  {for, [{resource, exchange, {for, [{permission, configure,
                                      {in_group, "cn=wheel,dc=example,dc=com"}
                                     },
                                     {permission, write, {constant, true}},
                                     {permission, read,  {constant, true}}
                                    ]}},
-        {resource, queue,    {constant, true}}]}}</pre>
+                                   {resource, queue,    {constant, true}}]}}
+</pre>
 
         <p>
           This allows members of the <code>wheel</code> group to declare and

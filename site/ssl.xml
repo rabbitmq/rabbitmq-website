@@ -426,8 +426,7 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
             configuration file are interpreted as escape sequences -
             so for example to specify the
             path <code>c:\cacert.pem</code> for the CA certificate you
-            would need to use <code>"c:\\cacert.pem"</code> or <code>
-            "c:/cacert.pem"</code>.
+            would need to use <code>"c:\\cacert.pem"</code> or <code>"c:/cacert.pem"</code>.
           </p>
 
           <p>When a web browser connects to an HTTPS web server, the

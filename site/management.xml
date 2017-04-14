@@ -358,9 +358,12 @@ limitations under the License.
           </p>
 <pre class="sourcecode ini">
 listeners.tcp.default = 5672
+  
 collect_statistics_interval = 10000
+
 management.http_log_dir = /tmp/rabbit-mgmt
-management.rates_mode = basic</pre>
+management.rates_mode = basic
+</pre>
 
           Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
@@ -430,6 +433,7 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
             such as message rates and queue lengths. You can
             configure how long such data is retained.
           </p>
+
 <pre class="sourcecode ini">
 management.sample_retention_policies.global.minute  = 5
 management.sample_retention_policies.global.hour    = 60
@@ -481,22 +485,20 @@ management.sample_retention_policies.detailed.10 = 5
           websites hosted on different origins. Allowed origins
           must be explicitly white-listed in configuration.
         </p>
-        <pre class="sourcecode erlang">[
-  ...
+<pre class="sourcecode erlang">
+[
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]}]},
-  ...
 ].</pre>
         <p>
           It is possible to allow any origin to use the API.
           It is however not recommended if the API is reachable
           from the outside world.
         </p>
-        <pre class="sourcecode erlang">[
-  ...
+<pre class="sourcecode erlang">
+[
   {rabbitmq_management,
     [{cors_allow_origins, ["*"]}]},
-  ...
 ].</pre>
         <p>
           The CORS pre-flight requests are cached by the browser.
@@ -504,12 +506,11 @@ management.sample_retention_policies.detailed.10 = 5
           by default. You can modify this value in the configuration.
           It is defined in seconds.
         </p>
-        <pre class="sourcecode erlang">[
-  ...
+<pre class="sourcecode erlang">
+[
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
      {cors_max_age, 3600}]},
-  ...
 ].</pre>
       </doc:subsection>
 

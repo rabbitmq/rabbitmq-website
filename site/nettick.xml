@@ -46,9 +46,10 @@ limitations under the License.
         the reason, like:
       </p>
 
-      <pre class="sourcecode">=INFO REPORT==== 23-Sep-2014::16:21:22 ===
+<pre class="sourcecode">
+=INFO REPORT==== 23-Sep-2014::16:21:22 ===
 node rabbit@cordelia down: net_tick_timeout
-      </pre>
+</pre>
 
       <p>
         In this case the <code>net_tick_timeout</code> tells us that

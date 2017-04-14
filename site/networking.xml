@@ -222,13 +222,13 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         security reasons, this feature is disabled by default and needs to be enabled
         for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and AMQP 1.0 clients:
 
-<pre class="code">
+<pre class="sourcecode ini">
 proxy_protocol = true
 </pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="code">
+<pre class="sourcecode erlang">
 [
   {rabbit, [
     {proxy_protocol, true}
