@@ -17,29 +17,34 @@ limitations under the License.
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using the Java client)
+
+### (using the spring-amqp)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-java.html) we built a
-simple logging system. We were able to broadcast log messages to many
+In the [previous tutorial](tutorial-three-spring-amqp.html) we built a
+simple fanout exchange. We were able to broadcast messages to many
 receivers.
 
 In this tutorial we're going to add a feature to it - we're going to
 make it possible to subscribe only to a subset of the messages. For
-example, we will be able to direct only critical error messages to the
-log file (to save disk space), while still being able to print all of
-the log messages on the console.
+example, we will be able to direct only  messages to the
+certain colors of interest ("orange", "black", "green"), while still being 
+able to print all of the messages on the console.
 
 
 Bindings
 --------
 
 In previous examples we were already creating bindings. You may recall
-code like:
+code like this in our Tut3Config file:
 
 <pre class="sourcecode java">
-channel.queueBind(queueName, EXCHANGE_NAME, "");
+@Bean
+public Binding binding1(FanoutExchange fanout, 
+    Queue autoDeleteQueue1) {
+    return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
+}
 </pre>
 
 A binding is a relationship between an exchange and a queue. This can
@@ -47,11 +52,16 @@ be simply read as: the queue is interested in messages from this
 exchange.
 
 Bindings can take an extra `routingKey` parameter. To avoid the
-confusion with a `basic_publish` parameter we're going to call it a
+confusion with a `basic_publish` parameter (or convertAndSend() 
+in spring-amqp parlancer, we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
 <pre class="sourcecode java">
-channel.queueBind(queueName, EXCHANGE_NAME, "black");
+@Bean
+public Binding binding1a(DirectExchange direct, 
+    Queue autoDeleteQueue1) {
+    return BindingBuilder.bind(autoDeleteQueue1).to(direct).with("orange");
+}
 </pre>
 
 The meaning of a binding key depends on the exchange type. The
@@ -63,7 +73,7 @@ Direct exchange
 
 Our logging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
-based on their severity. For example we may want a program which
+based on their color type. For example we may want a program which
 writes log messages to the disk to only receive critical errors, and
 not waste disk space on warning or info log messages.
 
@@ -171,16 +181,16 @@ queues. A message with routing key `black` will be delivered to both
 `Q1` and `Q2`.
 
 
-Emitting logs
+Publishing messages
 -------------
 
-We'll use this model for our logging system. Instead of `fanout` we'll
-send messages to a `direct` exchange. We will supply the log severity as
+We'll use this model for our routing system. Instead of `fanout` we'll
+send messages to a `direct` exchange. We will supply the color as
 a `routing key`. That way the receiving program will be able to select
-the severity it wants to receive. Let's focus on emitting logs
-first.
+the color it wants to receive (or subscribe to). Let's focus on sending
+messages first.
 
-As always, we need to create an exchange first:
+As always, we do some spring boot configuration in Tut4Config:
 
 <pre class="sourcecode java">
 channel.exchangeDeclare(EXCHANGE_NAME, "direct");
@@ -189,26 +199,33 @@ channel.exchangeDeclare(EXCHANGE_NAME, "direct");
 And we're ready to send a message:
 
 <pre class="sourcecode java">
-channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+@Bean
+public FanoutExchange fanout() {
+    return new FanoutExchange("tut.fanout");
+}
 </pre>
 
-To simplify things we will assume that 'severity' can be one of
-'info', 'warning', 'error'.
+Colors as in the diagram can be one of 'orange', 'black', or 'green'.
 
 
 Subscribing
 -----------
 
 Receiving messages will work just like in the previous tutorial, with
-one exception - we're going to create a new binding for each severity
-we're interested in.
+one exception - we're going to create a new binding for each color
+we're interested in. This also goes into the Tut4Config
 
 <pre class="sourcecode java">
-String queueName = channel.queueDeclare().getQueue();
-
-for(String severity : argv){
-  channel.queueBind(queueName, EXCHANGE_NAME, severity);
+	@Bean
+	public DirectExchange direct() {
+		return new DirectExchange("tut.direct");
+	}
+...
+@Bean
+public Binding binding1a(DirectExchange direct, Queue autoDeleteQueue1) {
+    return BindingBuilder.bind(autoDeleteQueue1).to(direct).with("orange");
 }
+
 </pre>
 
 
@@ -255,114 +272,187 @@ Putting it all together
 </div>
 
 
-The code for `EmitLogDirect.java` class:
+As in the previous tutorials, create a new package for this tutorial called
+"tut4" and create the Tut4Config class. The code for `Tut4Config.java` class:
 
 <pre class="sourcecode java">
-import com.rabbitmq.client.*;
+import org.springframework.amqp.core.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-import java.io.IOException;
+@Profile({"tut4","routing"})
+@Configuration
+public class Tut4Config {
 
-public class EmitLogDirect {
+	@Bean
+	public DirectExchange direct() {
+		return new DirectExchange("tut.direct");
+	}
 
-    private static final String EXCHANGE_NAME = "direct_logs";
+	@Profile("receiver")
+	private static class ReceiverConfig {
 
-    public static void main(String[] argv)
-                  throws java.io.IOException {
+		@Bean
+		public Queue autoDeleteQueue1() {
+			return new AnonymousQueue();
+		}
 
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+		@Bean
+		public Queue autoDeleteQueue2() {
+			return new AnonymousQueue();
+		}
 
-        channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+		@Bean
+		public Binding binding1a(DirectExchange direct, 
+		    Queue autoDeleteQueue1) {
+			return BindingBuilder.bind(autoDeleteQueue1)
+			    .to(direct)
+			    .with("orange");
+		}
 
-        String severity = getSeverity(argv);
-        String message = getMessage(argv);
+		@Bean
+		public Binding binding1b(DirectExchange direct, 
+		    Queue autoDeleteQueue1) {
+			return BindingBuilder.bind(autoDeleteQueue1)
+			    .to(direct)
+			    .with("black");
+		}
 
-        channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
-        System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
+		@Bean
+		public Binding binding2a(DirectExchange direct,
+		    Queue autoDeleteQueue2) {
+			return BindingBuilder.bind(autoDeleteQueue2)
+			    .to(direct)
+			    .with("green");
+		}
 
-        channel.close();
-        connection.close();
-    }
-    //..
+		@Bean
+		public Binding binding2b(DirectExchange direct, 
+		    Queue autoDeleteQueue2) {
+			return BindingBuilder.bind(autoDeleteQueue2)
+			    .to(direct)
+			    .with("black");
+		}
+
+		@Bean
+		public Tut4Receiver receiver() {
+	 	 	return new Tut4Receiver();
+		}
+	}
+
+	@Profile("sender")
+	@Bean
+	public Tut4Sender sender() {
+		return new Tut4Sender();
+	}
 }
 </pre>
 
-The code for `ReceiveLogsDirect.java`:
+The code for our Tut4Sender class is:
 
 <pre class="sourcecode java">
-import com.rabbitmq.client.*;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
-import java.io.IOException;
+public class Tut4Sender {
 
-public class ReceiveLogsDirect {
+	@Autowired
+	private RabbitTemplate template;
 
-  private static final String EXCHANGE_NAME = "direct_logs";
+	@Autowired
+	private DirectExchange direct;
 
-  public static void main(String[] argv) throws Exception {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("localhost");
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
+	private int index;
 
-    channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-    String queueName = channel.queueDeclare().getQueue();
+	private int count;
 
-    if (argv.length &lt; 1){
-      System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
-      System.exit(1);
-    }
+	private final String[] keys = {"orange", "black", "green"};
 
-    for(String severity : argv){
-      channel.queueBind(queueName, EXCHANGE_NAME, severity);
-    }
-    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-
-    Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope,
-                                 AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
-        System.out.println(" [x] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
-      }
-    };
-    channel.basicConsume(queueName, true, consumer);
-  }
+	@Scheduled(fixedDelay = 1000, initialDelay = 500)
+	public void send() {
+		StringBuilder builder = new StringBuilder("Hello to ");
+		if (++this.index == 3) {
+			this.index = 0;
+		}
+		String key = keys[this.index];
+		builder.append(key).append(' ');
+		builder.append(Integer.toString(++this.count));
+		String message = builder.toString();
+		template.convertAndSend(direct.getName(), key, message);
+		System.out.println(" [x] Sent '" + message + "'");
+	}
 }
 </pre>
 
-Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
-For convenience we'll use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
+The code for `TutrReceiver.java`:
 
-<pre class="sourcecode bash">
-javac -cp $CP ReceiveLogsDirect.java EmitLogDirect.java
+<pre class="sourcecode java">
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.util.StopWatch;
+
+public class Tut4Receiver {
+
+	@RabbitListener(queues = "#{autoDeleteQueue1.name}")
+	public void receive1(String in) throws InterruptedException {
+		receive(in, 1);
+	}
+
+	@RabbitListener(queues = "#{autoDeleteQueue2.name}")
+	public void receive2(String in) throws InterruptedException {
+		receive(in, 2);
+	}
+
+	public void receive(String in, int receiver) throws InterruptedException {
+		StopWatch watch = new StopWatch();
+		watch.start();
+		System.out.println("instance " + receiver + " [x] Received '" + in + "'");
+		doWork(in);
+		watch.stop();
+		System.out.println("instance " + receiver + " [x] Done in " + 
+		    watch.getTotalTimeSeconds() + "s");
+	}
+
+	private void doWork(String in) throws InterruptedException {
+		for (char ch : in.toCharArray()) {
+			if (ch == '.') {
+				Thread.sleep(1000);
+			}
+		}
+	}
+
+}
 </pre>
 
-If you want to save only 'warning' and 'error' (and not 'info') log
-messages to a file, just open a console and type:
+Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html) 
+for maven compilation and executing the options from the jar.
 
 <pre class="sourcecode bash">
-java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
+mvn clean package
 </pre>
 
-If you'd like to see all the log messages on your screen, open a new
-terminal and do:
+In one terminal window you can run:
 
 <pre class="sourcecode bash">
-java -cp $CP ReceiveLogsDirect info warning error
-# => [*] Waiting for logs. To exit press CTRL+C
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
+    --spring.profiles.active=routing,receiver 
+    --tutorial.client.duration=60000
 </pre>
 
-And, for example, to emit an `error` log message just type:
+and in the other temrinal window run the sender
 
 <pre class="sourcecode bash">
-java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
-# => [x] Sent 'error':'Run. Run. Or it will explode.'
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
+    --spring.profiles.active=routing,sender 
+    --tutorial.client.duration=60000
 </pre>
 
-(Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
-and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
 
-Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
+(Full source code for [(Tut4Receiver.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
+and [(Tut4Sender.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java)).
+The configuration is in [(Tut4Sender.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java). 
+
+Move on to [tutorial 5](tutorial-five-spring-amqp.html) to find out how to listen
 for messages based on a pattern.
