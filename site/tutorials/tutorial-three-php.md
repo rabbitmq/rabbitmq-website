@@ -125,7 +125,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Here we use the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
-> The routing key is the second argument to `basic_publish`
+> The routing key is the third argument to `basic_publish`
 
 Now, we can publish to our named exchange instead:
 
