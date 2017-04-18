@@ -117,7 +117,8 @@ limitations under the License.
       script <code>rabbitmq-user-data.sh</code> that automates
       RabbitMQ installation on Ubuntu:
     </p>
-    <pre class="sourcecode">#!/bin/sh
+    <pre class="sourcecode bash">
+#!/bin/sh
 cat &lt;&lt;EOF &gt; /etc/apt/sources.list.d/rabbitmq.list
 deb http://www.rabbitmq.com/debian/ testing main
 EOF
@@ -135,7 +136,7 @@ apt-get -qy install rabbitmq-server</pre>
       using the <code>user-data-file</code> command line option for
       the <code>ec2-run-instances</code> command. For example:
 
-      <pre class="sourcecode">$ ec2-run-instances ami-XXX \
+      <pre class="sourcecode bash">ec2-run-instances ami-XXX \
     --key ${EC2_KEYPAIR} \
     --instance-type m1.large \
     --region eu-west-1 \
@@ -151,7 +152,7 @@ apt-get -qy install rabbitmq-server</pre>
   </doc:subsection>
 
   <doc:subsection name="ebs">
-    <doc:heading>Persistent data on EBS device</doc:heading>
+    <doc:heading>Persistent Data on EBS Devices</doc:heading>
     <p>
       RabbitMQ writes data to the following directories on Ubuntu:
       <ul>
@@ -164,21 +165,28 @@ apt-get -qy install rabbitmq-server</pre>
 	  <code>/var/log/rabbitmq/</code> to store logs
 	</li>
       </ul>
+
+      See the <a href="/relocate.html">File and Directory Locations</a> for details.
     </p>
 
     <p>
-      If you want to use EBS block device to store RabbitMQ data, just
+      If you choose to use EBS block device to store RabbitMQ node data directory, just
       link these directories to your EBS device. Stop RabbitMQ
       before making any changes to the data directory:
       <pre class="sourcecode">$ /etc/init.d/rabbitmq-server stop</pre>
     </p>
     <p>
-      EBS volumes have <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">IOPS limits</a>,
-      which can impact RabbitMQ operation. If an EBS volume hits the limit,
-      the RabbitMQ message store garbage-collection can lag behind writes to disk.
-      Disk space will be taken by old message files, which will cause disk
-      limit alarms and slow down producers.
-      Please make sure the limit is high enough and set up an IOPS monitoring.
+      Note that EBS volumes have an <a
+      href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">IOPS
+      limits</a>, which can impact thoughput and RabbitMQ message
+      store operations. If an EBS volume hits the limit, disk writes
+      will worsen. It is also possible that the RabbitMQ message store
+      compaction (garbage collection of on-disk data) can fall behind
+      disk writes, which means the disk will be filled up quicker than
+      disk space can be reclaimed after messages were consumed and
+      acknowledged. This will eventually lead to <a href="/alarms.html">resource
+      alarms</a> and publisher throttling. Please make sure the limit
+      is high enough and set up I/O operation rate monitoring.
     </p>
   </doc:subsection>
 </doc:section>
