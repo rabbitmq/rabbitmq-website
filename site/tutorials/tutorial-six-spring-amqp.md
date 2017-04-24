@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -17,12 +17,12 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using the Java client)
+### (using the spring-amqp client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](tutorial-two-java.html) we learned how to
+In the [second tutorial](tutorial-two-spring-amqp.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -38,13 +38,15 @@ service that returns Fibonacci numbers.
 ### Client interface
 
 To illustrate how an RPC service could be used we're going to
-create a simple client class. It's going to expose a method named `call`
-which sends an RPC request and blocks until the answer is received:
+change the names of our profiles from "Sender" and "Receiver
+to "Client" and "Server". When we call the server we will get
+back the fibonacci of the argument we call with. 
 
-    :::java
-    FibonacciRpcClient fibonacciRpc = new FibonacciRpcClient();   
-    String result = fibonacciRpc.call("4");
-    System.out.println( "fib(4) is " + result);
+<pre class="sourcecode java">
+Integer response = (Integer) template.convertSendAndReceive
+    (exchange.getName(), "rpc", start++);
+System.out.println(" [.] Got '" + response + "'");
+</pre>
 
 > #### A note on RPC
 >
@@ -72,65 +74,51 @@ which sends an RPC request and blocks until the answer is received:
 In general doing RPC over RabbitMQ is easy. A client sends a request
 message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
-request. We can use the default queue (which is exclusive in the Java client).
-Let's try it:
-
-    :::java
-    callbackQueueName = channel.queueDeclare().getQueue();
-    
-    BasicProperties props = new BasicProperties
-                                .Builder()
-                                .replyTo(callbackQueueName)
-                                .build();
-
-    channel.basicPublish("", "rpc_queue", props, message.getBytes());
-
-    // ... then code to read a response message from the callback_queue ...
-
+request. Spring-amqp's RabbitTemplate handles the callback queue for
+us when we use the above 'convertSendAndReceive()' method.  There is
+no need to do any other setup when using the RabbitTemplate. For
+a thorough explanation please see [Request/Reply Message]
+(http://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
 
 > #### Message properties
 >
-> The AMQP protocol predefines a set of 14 properties that go with
+> The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
 > * `deliveryMode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
->    from [the second tutorial](tutorial-two-java.html).
+>    from [the second tutorial](tutorial-two-spring-amqp.html).
 > * `contentType`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
 > * `replyTo`: Commonly used to name a callback queue.
 > * `correlationId`: Useful to correlate RPC responses with requests.
 
-We need this new import:
-
-    :::java
-    import com.rabbitmq.client.AMQP.BasicProperties;
-
 ### Correlation Id
 
-In the method presented above we suggest creating a callback queue for
-every RPC request. That's pretty inefficient, but fortunately there is
-a better way - let's create a single callback queue per client.
+Spring-amqp allows you to focus on the message style you're working
+with and hide the details of message plumbing required to support
+the style.  For example, typically the native client would 
+create a callback queue for every RPC request. That's pretty
+inefficient so an alternative is to create a single callback
+queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
-`correlationId` property is used. We're going to set it to a unique
-value for every request. Later, when we receive a message in the
-callback queue we'll look at this property, and based on that we'll be
-able to match a response with a request. If we see an unknown
-`correlationId` value, we may safely discard the message - it
-doesn't belong to our requests.
+`correlationId` property is used. Spring-amqp automatically sets
+a unique value for every request. In addition it handles the details
+of matching the response with the correct correlationID. 
 
-You may ask, why should we ignore unknown messages in the callback
-queue, rather than failing with an error? It's due to a possibility of
+One reason that spring-amqp makes rpc style easier is that sometimes
+you may want to ignore unknown messages in the callback
+queue, rather than failing with an error. It's due to a possibility of
 a race condition on the server side. Although unlikely, it is possible
 that the RPC server will die just after sending us the answer, but
 before sending an acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
-That's why on the client we must handle the duplicate responses
-gracefully, and the RPC should ideally be idempotent.
+That's why the spring-amqp client we must handles the duplicate 
+responses gracefully, and the RPC should ideally be idempotent.
 
 ### Summary
 
@@ -194,231 +182,194 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * When the Client starts up, it creates an anonymous exclusive
-    callback queue.
-  * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to the callback queue and `correlationId`,
-    which is set to a unique value for every request.
-  * The request is sent to an `rpc_queue` queue.
+  * The Tut6Config will setup a new DirectExchange and a client
+  * The client will leverage the convertSendAndReceive passing the exchange
+    name, the routingKey, and the message/ 
+  * The request is sent to an `rpc_queue` ("tut.rpc")queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `replyTo` field.
   * The client waits for data on the callback queue. When a message
     appears, it checks the `correlationId` property. If it matches
     the value from the request it returns the response to the
-    application.
+    application. Again, this is done automagically via the RabbitTemplate.
 
 Putting it all together
 -----------------------
 
-The Fibonacci task:
+The Fibonacci task is a @RabbitListener and is defined as:
 
-    :::java        
-    private static int fib(int n) {
-        if (n == 0) return 0;
-        if (n == 1) return 1;
-        return fib(n-1) + fib(n-2);
-    }
-
+<pre class="sourcecode java">
+public int fib(int n) {
+    return n == 0 ? 0 : n == 1 ? 1 : (fib(n - 1) + fib(n - 2));
+}
+</pre>
 
 We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-  
-The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java) looks like this:
+The code for our Tut6Config [Tut6Config]
+(https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/Tut6Config.java)
+looks like this: 
 
+<pre class="sourcecode java">
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-    #!java
-    import com.rabbitmq.client.*;
+@Profile({"tut6","rpc"})
+@Configuration
+public class Tut6Config {
 
-    import java.io.IOException;
-    import java.util.concurrent.TimeoutException;
+	@Profile("client")
+	private static class ClientConfig {
 
-    public class RPCServer {
+		@Bean
+		public DirectExchange exchange() {
+			return new DirectExchange("tut.rpc");
+		}
 
-        private static final String RPC_QUEUE_NAME = "rpc_queue";
+		@Bean
+		public Tut6Client client() {
+	 	 	return new Tut6Client();
+		}
 
-        public static void main(String[] argv) {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+	}
 
-            Connection connection = null;
-            try {
-                connection      = factory.newConnection();
-                Channel channel = connection.createChannel();
+	@Profile("server")
+	private static class ServerConfig {
 
-                channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+		@Bean
+		public Queue queue() {
+			return new Queue("tut.rpc.requests");
+		}
 
-                channel.basicQos(1);
+		@Bean
+		public DirectExchange exchange() {
+			return new DirectExchange("tut.rpc");
+		}
 
-                System.out.println(" [x] Awaiting RPC requests");
+		@Bean
+		public Binding binding(DirectExchange exchange, 
+		    Queue queue) {
+			return BindingBuilder.bind(queue)
+			    .to(exchange)
+			    .with("rpc");
+		}
 
-                Consumer consumer = new DefaultConsumer(channel) {
-                    @Override
-                    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                        AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                                .Builder()
-                                .correlationId(properties.getCorrelationId())
-                                .build();
+		@Bean
+		public Tut6Server server() {
+			return new Tut6Server();
+		}
 
-                        String response = "";
+	}
+}
+</pre>
 
-                        try {
-                            String message = new String(body,"UTF-8");
-                            int n = Integer.parseInt(message);
-
-                            System.out.println(" [.] fib(" + message + ")");
-                            response += fib(n);
-                        }
-                        catch (RuntimeException e){
-                            System.out.println(" [.] " + e.toString());
-                        }
-                        finally {
-                            channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
-
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                        }
-                    }
-                };
-
-                channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
-
-                //...
-            }
-        }
-    }
-
+It setups up our profiles as "tut6" or "rpc". It also setups a "client" profile
+with two beans; 1) the DirectExchange we are using and 2) the Tut6Client itself.
+We also configure the "server" profile with three beans, the "tut.rpc.requests"
+queue, the DirextExchange, which matches the client's exchange, and the binding 
+from the queue to the exchange with the "rpc" routing-key. 
 
 The server code is rather straightforward:
 
-  * As usual we start by establishing the connection, channel and declaring
-    the queue.
-  * We might want to run more than one server process. In order
-    to spread the load equally over multiple servers we need to set the
-    `prefetchCount` setting in channel.basicQos.
-  * We use `basicConsume` to access the queue, where we provide a callback in the
-    form of an object (`DefaultConsumer`) that will do the work and send the response back.
+  * As usual we start annotating our receiver method with a @RabbitListener
+    and defining the queue its listening on. 
+  * Our fibanacci method calls fib() with the payload parameter and returns 
+    the result
+  
+The code for our RPC client [Tut6Server.java]
+(https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/Tut6Server.java):
 
+<pre class="sourcecode java">
+package org.springframework.amqp.tutorials.tut6;
 
-The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java):
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-    #!java
-    import com.rabbitmq.client.*;
+public class Tut6Server {
 
-    import java.io.IOException;
-    import java.util.UUID;
-    import java.util.concurrent.ArrayBlockingQueue;
-    import java.util.concurrent.BlockingQueue;
-    import java.util.concurrent.TimeoutException;
+	@RabbitListener(queues = "tut.rpc.requests")
+	// @SendTo("tut.rpc.replies") used when the 
+	// client doesn't set replyTo.
+	public int fibonacci(int n) {
+		System.out.println(" [x] Received request for " + n);
+		int result = fib(n);
+		System.out.println(" [.] Returned " + result);
+		return result;
+	}
 
-    public class RPCClient {
+	public int fib(int n) {
+		return n == 0 ? 0 : n == 1 ? 1 : (fib(n - 1) + fib(n - 2));
+	}
 
-        private Connection connection;
-        private Channel channel;
-        private String requestQueueName = "rpc_queue";
-        private String replyQueueName;
-
-        public RPCClient() throws IOException, TimeoutException {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-
-            connection = factory.newConnection();
-            channel = connection.createChannel();
-
-            replyQueueName = channel.queueDeclare().getQueue();
-        }
-
-        public String call(String message) throws IOException, InterruptedException {
-            String corrId = UUID.randomUUID().toString();
-
-            AMQP.BasicProperties props = new AMQP.BasicProperties
-                    .Builder()
-                    .correlationId(corrId)
-                    .replyTo(replyQueueName)
-                    .build();
-
-            channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
-
-            final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
-
-            channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
-                @Override
-                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    if (properties.getCorrelationId().equals(corrId)) {
-                        response.offer(new String(body, "UTF-8"));
-                    }
-                }
-            });
-
-            return response.take();
-        }
-
-        public void close() throws IOException {
-            connection.close();
-        }
-
-        //...
-    }
+}
+</pre>
 
 
 
-The client code is slightly more involved:
+The client code is as easy as the server:
 
-  * We establish a connection and channel and declare an
-    exclusive 'callback' queue for replies.
-  * We subscribe to the 'callback' queue, so that
-    we can receive RPC responses.
-  * Our `call` method makes the actual RPC request.
-  * Here, we first generate a unique `correlationId`
-    number and save it - our implementation of `handleDelivery`
-    in `DefaultConsumer` will use this value to catch the appropriate response.
-  * Next, we publish the request message, with two properties:
-    `replyTo` and `correlationId`.
-  * At this point we can sit back and wait until the proper
-    response arrives.
-  * Since our consumer delivery handling is happening in a separate thread,
-    we're going to need something to suspend `main` thread before response arrives.
-    Usage of `BlockingQueue` is one of possible solutions. Here we are creating `ArrayBlockingQueue`
-    with capacity set to 1 as we need to wait for only one response.
-  * The `handleDelivery` method is doing a very simple job,
-    for every consumed response message it checks if the `correlationId`
-    is the one we're looking for. If so, it puts the response to `BlockingQueue`.
-  * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
-  * Finally we return the response back to the user.
+  * We autowire the RabbitTemplate and the DirectExchange bean
+    as defined in the Tut6Config.
+  * We invoke template.convertSendAndReceive with the parameters
+    exchange name, routing key and message.
+  * We print the result
 
 Making the Client request:
 
-    :::java
-    RPCClient fibonacciRpc = new RPCClient();
+<pre class="sourcecode java">
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
-    System.out.println(" [x] Requesting fib(30)");
-    String response = fibonacciRpc.call("30");
-    System.out.println(" [.] Got '" + response + "'");
+public class Tut6Client {
 
-    fibonacciRpc.close();
+	@Autowired
+	private RabbitTemplate template;
 
+	@Autowired
+	private DirectExchange exchange;
 
-Now is a good time to take a look at our full example source code (which includes basic exception handling) for
-[RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
+	int start = 0;
 
+	@Scheduled(fixedDelay = 1000, initialDelay = 500)
+	public void send() {
+		System.out.println(" [x] Requesting fib(" + start + ")");
+		Integer response = (Integer) template.convertSendAndReceive
+		    (exchange.getName(), "rpc", start++);
+		System.out.println(" [.] Got '" + response + "'");
+	}
+}
+</pre>
 
-Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
+Using the project setup as defined in  (see [tutorial one](tutorial-one-spring-amqp.html)):
 
-    :::bash
-    $ javac -cp $CP RPCClient.java RPCServer.java
-  
-Our RPC service is now ready. We can start the server:
+<pre class="sourcecode bash">
+mvn clean package
+</pre>
 
-    :::bash
-    $ java -cp $CP RPCServer
-     [x] Awaiting RPC requests
+We can start the server with:
+
+<pre class="sourcecode bash">
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
+    --spring.profiles.active=rpc,server 
+    --tutorial.client.duration=6000
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ java -cp $CP RPCClient
-     [x] Requesting fib(30)
+<pre class="sourcecode bash">
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
+    --spring.profiles.active=rpc,sender 
+    --tutorial.client.duration=60000
+</pre>
 
 The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -426,9 +377,9 @@ service, but it has some important advantages:
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `RPCServer` in a new console.
  * On the client side, the RPC requires sending and
-   receiving only one message. No synchronous calls like `queueDeclare`
-   are required. As a result the RPC client needs only one network
-   round trip for a single RPC request.
+   receiving only one message with one method. No synchronous calls
+   like `queueDeclare` are required. As a result the RPC client needs 
+   only one network round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
 complex (but important) problems, like:
@@ -441,6 +392,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
-

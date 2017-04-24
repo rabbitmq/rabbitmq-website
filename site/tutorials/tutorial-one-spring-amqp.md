@@ -22,8 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-intro.xml.inc"/>
 
 ## "Hello World"
-
-### (using the spring-amqp Client)
+### (using the spring-amqp client)
 
 In this part of the tutorial we'll write two programs using the spring-amqp
 library; a producer that sends a single message, and a consumer that receives
@@ -45,16 +44,18 @@ on behalf of the consumer.
 > is an open, general-purpose protocol for messaging. There are a number
 > of clients for RabbitMQ in
 > [many different languages](http://rabbitmq.com/devtools.html).
-> Spring AMQP leverages Spring Boot for configuration and dependency
-> management. Spring supports maven or gradle but for this tutorial we'll
-> select maven with Spring Boot 1.5.2.
-> Open the [Spring Initializr](http://start.spring.io) and provide:
-> the group id (e.g. org.springframework.amqp.tutorials)
-> the artifact id (e.g. rabbitmq-amqp-tutorials)
-> Search for the amqp dependency and select the AMQP dependency.
+
+Spring AMQP leverages Spring Boot for configuration and dependency
+management. Spring supports maven or gradle but for this tutorial we'll
+select maven with Spring Boot 1.5.2.
+Open the [Spring Initializr](http://start.spring.io) and provide:
+the group id (e.g. org.springframework.amqp.tutorials)
+the artifact id (e.g. rabbitmq-amqp-tutorials)
+Search for the amqp dependency and select the AMQP dependency.
 
 <div class="diagram">
-    <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]" height="100" />
+    <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]" 
+        height="100" />
 </div>
 
 Generate the project and unzip the generated project
@@ -72,57 +73,59 @@ an application.properties file in the generated project with nothing in it.
 Rename application.properties to application.yml file with the following
 properties:
 
-    :::yml
-    spring:
-      profiles:
-        active: usage_message
+<pre class="sourcecode java">
+spring:
+  profiles:
+    active: usage_message
 
-    logging:
-      level:
-        org: ERROR
+logging:
+  level:
+    org: ERROR
 
-    tutorial:
-      client:
-        duration: 10000
+tutorial:
+  client:
+    duration: 10000
+</pre>
 
 Create a new directory (package) where we can put the tutorial code (tut1).
 We'll now create a JavaConfig file (Tut1Config.java) to describe our beans
 in the following manner:
 
-    :::java
-    package org.springframework.amqp.tutorials.tut1;
+<pre class="sourcecode java">
+package org.springframework.amqp.tutorials.tut1;
 
-    import org.springframework.amqp.core.Queue;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.context.annotation.Configuration;
-    import org.springframework.context.annotation.Profile;
+import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-    @Profile({"tut1","hello-world"})
-    @Configuration
-    public class Tut1Config {
+@Profile({"tut1","hello-world"})
+@Configuration
+public class Tut1Config {
 
-        @Bean
-        public Queue hello() {
-            return new Queue("tut.hello");
-        }
-
-        @Profile("receiver")
-        @Bean
-        public Tut1Receiver receiver() {
-            return new Tut1Receiver();
-        }
-
-        @Profile("sender")
-        @Bean
-        public Tut1Sender sender() {
-            return new Tut1Sender();
-        }
+    @Bean
+    public Queue hello() {
+        return new Queue("hello");
     }
+
+    @Profile("receiver")
+    @Bean
+    public Tut1Receiver receiver() {
+        return new Tut1Receiver();
+    }
+
+    @Profile("sender")
+    @Bean
+    public Tut1Sender sender() {
+        return new Tut1Sender();
+    }
+}
+</pre>
 
 Note that we've defined the 1st tutorial profile as either tut1
 or hello-world. We use the @Configuration to let Spring know that
 this is a Java Configuration and in it we create the definition
-for our Queue ("tut.hello") and define our Sender and Receiver
+for our Queue ("hello") and define our Sender and Receiver
 beans.
 
 We will run all of our tutorials through the Boot Application
@@ -130,97 +133,109 @@ now by simply passing in which profile we are using. To enable
 this we will modify the generated  RabbitAmqpTutorialsApplication.java
 with the following:
 
-    :::java
-    import org.springframework.boot.CommandLineRunner;
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.context.annotation.Profile;
-    import org.springframework.scheduling.annotation.EnableScheduling;
+<pre class="sourcecode java">
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-    @SpringBootApplication
-    @EnableScheduling
-    public class RabbitAmqpTutorialsApplication {
+@SpringBootApplication
+@EnableScheduling
+public class RabbitAmqpTutorialsApplication {
 
-        @Profile("usage_message")
-        @Bean
-        public CommandLineRunner usage() {
-            return new CommandLineRunner() {
+    @Profile("usage_message")
+    @Bean
+    public CommandLineRunner usage() {
+        return new CommandLineRunner() {
 
-                @Override
-                public void run(String... arg0) throws Exception {
-                    System.out.println("This app uses Spring Profiles to control its behavior.\n");
-                    System.out.println("Sample usage: java -jar rabbit-tutorials.jar --spring.profiles.active=tut1,sender");
-                }
-            };
-        }
-
-        @Profile("!usage_message")
-        @Bean
-        public CommandLineRunner tutorial() {
-            return new RabbitAmqpTutorialsRunner();
-        }
-
-        public static void main(String[] args) throws Exception {
-            SpringApplication.run(RabbitAmqpTutorialsApplication.class, args);
-        }
+            @Override
+            public void run(String... arg0) throws Exception {
+                System.out.println("This app uses Spring Profiles to 
+                    control its behavior.\n");
+                System.out.println("Sample usage: java -jar 
+                    rabbit-tutorials.jar 
+                    --spring.profiles.active=hello-world,sender");
+            }
+        };
     }
+
+    @Profile("!usage_message")
+    @Bean
+    public CommandLineRunner tutorial() {
+        return new RabbitAmqpTutorialsRunner();
+    }
+
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(RabbitAmqpTutorialsApplication.class, args);
+    }
+}
+</pre>
 
 and add the RabbitAmqpTutorialsRunner.java code as follows:
 
-    :::java
-    package org.springframework.amqp.tutorials;
+<pre class="sourcecode java">
+package org.springframework.amqp.tutorials;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.boot.CommandLineRunner;
-    import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ConfigurableApplicationContext;
 
-    public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
+public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
 
-        @Value("${tutorial.client.duration:0}")
-        private int duration;
+    @Value("${tutorial.client.duration:0}")
+    private int duration;
 
-        @Autowired
-        private ConfigurableApplicationContext ctx;
+    @Autowired
+    private ConfigurableApplicationContext ctx;
 
-        @Override
-        public void run(String... arg0) throws Exception {
-            System.out.println("Ready ... running for " + duration + "ms");
-            Thread.sleep(duration);
-            ctx.close();
-        }
+    @Override
+    public void run(String... arg0) throws Exception {
+        System.out.println("Ready ... running for " + duration + "ms");
+        Thread.sleep(duration);
+        ctx.close();
     }
+}
+</pre>
+
+### Sending
+
+<div class="diagram">
+  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+</div>
 
 Now there is very little code that needs to go into the
 sender and receiver classes.  Let's call them Tut1Receiver
 and Tut1Sender. The Sender leverages our config and the RabbitTemplate
 to send the message.
 
-    :::java
-    // Sender
-    package org.springframework.amqp.tutorials.tut1;
+<pre class="sourcecode java">
+// Sender
+package org.springframework.amqp.tutorials.tut1;
 
-    import org.springframework.amqp.core.Queue;
-    import org.springframework.amqp.rabbit.core.RabbitTemplate;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
-    public class Tut1Sender {
+public class Tut1Sender {
 
-        @Autowired
-        private RabbitTemplate template;
+    @Autowired
+    private RabbitTemplate template;
 
-        @Autowired
-        private Queue queue;
+    @Autowired
+    private Queue queue;
 
-        @Scheduled(fixedDelay = 1000, initialDelay = 500)
-        public void send() {
-            String message = "Hello World!";
-            this.template.convertAndSend(queue.getName(), message);
-            System.out.println(" [x] Sent '" + message + "'");
-        }
+    @Scheduled(fixedDelay = 1000, initialDelay = 500)
+    public void send() {
+        String message = "Hello World!";
+        this.template.convertAndSend(queue.getName(), message);
+        System.out.println(" [x] Sent '" + message + "'");
     }
+}
+</pre>
 
 You'll notice that spring-amqp removes the boiler plate code
 leaving you with only the logic of the messaging to be concerned
@@ -232,43 +247,77 @@ All that is left is to create a message and invoke the template's
 convertAndSend method passing in the queue name from the bean
 we defined and the message we just created.
 
+> #### Sending doesn't work!
+>
+> If this is your first time using RabbitMQ and you don't see the "Sent"
+> message then you may be left scratching your head wondering what could
+> be wrong. Maybe the broker was started without enough free disk space
+> (by default it needs at least 200 MB free) and is therefore refusing to
+> accept messages. Check the broker logfile to confirm and reduce the
+> limit if necessary. The [configuration file documentation](<a>
+> href="http://www.rabbitmq.com/configure.html#config-items"</a>) will
+> show you how to set <code>disk_free_limit</code>.
+
+### Receiving
+
 The receiver is equally simple. We annotate our Receiver
 class with @RabbitListener and pass in the name of the queue.
 We then annotate our ```receive``` method with @RabbitHandler
 passing in the payload that has been pushed to the queue.
 
-    :::java
-    package org.springframework.amqp.tutorials.tut1;
+<pre class="sourcecode java">
+package org.springframework.amqp.tutorials.tut1;
 
-    import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-    import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-    @RabbitListener(queues = "tut.hello")
-    public class Tut1Receiver {
+@RabbitListener(queues = "hello")
+public class Tut1Receiver {
 
-        @RabbitHandler
-        public void receive(String in) {
-            System.out.println(" [x] Received '" + in + "'");
-        }
+    @RabbitHandler
+    public void receive(String in) {
+        System.out.println(" [x] Received '" + in + "'");
     }
+}
+</pre>
 
-##Usage
-
-<div class="diagram">
-  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
-</div>
+### Putting it all together
 
 The app uses Spring Profiles to control what tutorial it's running, and whether it's a
 Sender or Receiver.  Choose which tutorial to run by using the profile.
 For example:
 
+<pre class="sourcecode">
 - {tut1|hello-world},{sender|receiver}
+</pre>
 
 After building with maven, run the app however you like to run boot apps.
 
 For example:
 
-`Send` java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sender
-`Recv` java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
+<pre class="sourcecode bash">
+# publisher
+java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sender
+</pre>
 
-Time to move on to [part 2](tutorial-two-spring-amqp.html) and build a simple _work queue_.
+<pre class="sourcecode bash">
+# consumer
+java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
+</pre>
+
+> #### Listing queues
+>
+> You may wish to see what queues RabbitMQ has and how many
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
+>
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues
+> </pre>
+>
+> On Windows, omit the sudo:
+> <pre class="sourcecode powershell">
+> rabbitmqctl.bat list_queues
+> </pre>
+
+Time to move on to [part 2](tutorial-two-spring-amqp.html) and 
+build a simple _work queue_.
