@@ -2,9 +2,7 @@
 .*.sw?
 *~
 *.pyc
-*.DS_Store
 /site/man/*.xml
 /site/news.atom
 target/
-.iml
-.idea/
+site/img/.DS_Store
