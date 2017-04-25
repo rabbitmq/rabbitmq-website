@@ -34,7 +34,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-one-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-one-objectivec.html">Objective-C</a></li>
       <li><a href="/tutorials/tutorial-one-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-one-Spring-Amqp.html">Spring-Amqp</a></li>
+      <li><a href="/tutorials/tutorial-one-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
 
@@ -55,7 +55,7 @@ limitations under the License.
         <li><a href="/tutorials/tutorial-two-elixir.html">Elixir</a></li>
         <li><a href="/tutorials/tutorial-two-objectivec.html">Objective-C</a></li>
         <li><a href="/tutorials/tutorial-two-swift.html">Swift</a></li>
-        <li><a href="/tutorials/tutorial-two-Spring-Amqp.html">Spring-Amqp</a></li>
+        <li><a href="/tutorials/tutorial-two-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
 
@@ -76,7 +76,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-three-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-three-objectivec.html">Objective-C</a></li>
       <li><a href="/tutorials/tutorial-three-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-three-Spring-Amqp.html">Spring-Amqp</a></li>
+      <li><a href="/tutorials/tutorial-three-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
   </tr>
@@ -99,7 +99,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-four-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-four-objectivec.html">Objective-C</a></li>
       <li><a href="/tutorials/tutorial-four-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-four-Spring-Amqp.html">Spring-Amqp</a></li>
+      <li><a href="/tutorials/tutorial-four-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
 
@@ -120,7 +120,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-five-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
       <li><a href="/tutorials/tutorial-five-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-five-Spring-Amqp.html">Spring-Amqp</a></li>
+      <li><a href="/tutorials/tutorial-five-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
 
@@ -139,7 +139,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-six-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-six-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>
-      <li><a href="/tutorials/tutorial-six-Spring-Amqp.html">Spring-Amqp</a></li>
+      <li><a href="/tutorials/tutorial-six-spring-amqp.html">Spring AMQP</a></li>
     </ul>
   </td>
   </tr>
