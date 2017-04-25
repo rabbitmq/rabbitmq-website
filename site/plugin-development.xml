@@ -112,7 +112,7 @@ limitations under the License.
         <p>
           To test your plugin while you're working on it, you can start
           a broker with your plugin enabled:
-          <pre class="sourcecode bash">$ make run-broker</pre>
+          <pre class="sourcecode bash">make run-broker</pre>
         </p>
       </doc:section>
 
