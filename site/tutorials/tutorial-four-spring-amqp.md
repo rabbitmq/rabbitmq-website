@@ -51,16 +51,18 @@ A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
 exchange.
 
-Bindings can take an extra `routingKey` parameter. To avoid the
-confusion with a `basic_publish` parameter (or convertAndSend() 
-in spring-amqp parlancer, we're going to call it a
-`binding key`. This is how we could create a binding with a key:
+Bindings can take an extra `routingKey` parameter. Spring-amqp uses
+a fluent API to make this relationship very clear. We pass in
+the exchange and queue into the BindingBuilder and simply bind
+the queue "to" the exchange "with a routing key" as follows:
 
 <pre class="sourcecode java">
 @Bean
 public Binding binding1a(DirectExchange direct, 
     Queue autoDeleteQueue1) {
-    return BindingBuilder.bind(autoDeleteQueue1).to(direct).with("orange");
+    return BindingBuilder.bind(autoDeleteQueue1)
+        .to(direct)
+        .with("orange");
 }
 </pre>
 
@@ -71,9 +73,9 @@ value.
 Direct exchange
 ---------------
 
-Our logging system from the previous tutorial broadcasts all messages
+Our messaging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
-based on their color type. For example we may want a program which
+based on their color type. For example, we may want a program which
 writes log messages to the disk to only receive critical errors, and
 not waste disk space on warning or info log messages.
 
@@ -193,19 +195,14 @@ messages first.
 As always, we do some spring boot configuration in Tut4Config:
 
 <pre class="sourcecode java">
-channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-</pre>
-
-And we're ready to send a message:
-
-<pre class="sourcecode java">
 @Bean
 public FanoutExchange fanout() {
     return new FanoutExchange("tut.fanout");
 }
 </pre>
 
-Colors as in the diagram can be one of 'orange', 'black', or 'green'.
+And we're ready to send a message. Colors, as in the diagram, can be one
+of 'orange', 'black', or 'green'.
 
 
 Subscribing
@@ -216,16 +213,18 @@ one exception - we're going to create a new binding for each color
 we're interested in. This also goes into the Tut4Config
 
 <pre class="sourcecode java">
-	@Bean
-	public DirectExchange direct() {
-		return new DirectExchange("tut.direct");
-	}
+@Bean
+public DirectExchange direct() {
+    return new DirectExchange("tut.direct");
+}
 ...
 @Bean
-public Binding binding1a(DirectExchange direct, Queue autoDeleteQueue1) {
-    return BindingBuilder.bind(autoDeleteQueue1).to(direct).with("orange");
+public Binding binding1a(DirectExchange direct, 
+    Queue autoDeleteQueue1) {
+    return BindingBuilder.bind(autoDeleteQueue1)
+        .to(direct)
+        .with("orange");
 }
-
 </pre>
 
 
@@ -349,7 +348,7 @@ public class Tut4Config {
 }
 </pre>
 
-The code for our Tut4Sender class is:
+The code for our sender class is:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.DirectExchange;
@@ -387,7 +386,7 @@ public class Tut4Sender {
 }
 </pre>
 
-The code for `TutrReceiver.java`:
+The code for `Tut4Receiver.java` is:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -426,6 +425,7 @@ public class Tut4Receiver {
 }
 </pre>
 
+
 Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html) 
 for maven compilation and executing the options from the jar.
 
@@ -450,9 +450,10 @@ java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar
 </pre>
 
 
-(Full source code for [(Tut4Receiver.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
-and [(Tut4Sender.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java)).
-The configuration is in [(Tut4Sender.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java). 
+Full source code for [Tut4Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Receiver.java)
+and [Tut4Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Sender.java).
+The configuration is in [Tut4Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Config.java)
+. 
 
 Move on to [tutorial 5](tutorial-five-spring-amqp.html) to find out how to listen
 for messages based on a pattern.

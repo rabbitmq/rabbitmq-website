@@ -22,7 +22,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-java.html) we improved our
+In the [previous tutorial](tutorial-four-spring-amqp.html) we improved our
 messaging flexibility. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the message based on the routing key.
@@ -149,9 +149,9 @@ queue.
 Putting it all together
 -----------------------
 
-We're going to use a `topic` exchange in our logging system. We'll
-start off with a working assumption that the routing keys of logs will
-have two words: "`<facility>.<severity>`".
+We're going to use a `topic` exchange in our messaging system. We'll
+start off with a working assumption that the routing keys will take
+advantage of both wildcards and a hash tag. 
 
 The code is almost the same as in the
 [previous tutorial](tutorial-four-spring-amqp.html).
@@ -254,7 +254,8 @@ public class Tut5Receiver {
 		receive(in, 2);
 	}
 
-	public void receive(String in, int receiver) throws InterruptedException {
+	public void receive(String in, int receiver) throws 
+	    InterruptedException {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		System.out.println("instance " + receiver + " [x] Received '" 
@@ -317,7 +318,10 @@ public class Tut5Sender {
 }
 </pre>
 
-Compile and run the examples, including the classpath as in [Tutorial 1](tutorial-one-spring-amqp.html).
+Compile and run the examples as described
+in [Tutorial 1](tutorial-one-spring-amqp.html). Or if you have been
+following along through the tutorials you only need to do the 
+following:
 
 To build the project:
 
@@ -375,9 +379,9 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-(Full source code for [Tut5Config.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
-and [Tut5Receiver.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
-and [Tut5Sender.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
+(Full source code for [Tut5Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Receiver.java)
+and [Tut5Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Sender.java).
+The configuration is in [Tut5Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Config.java). )
 
 Next, find out how to do a round trip message as a remote procedure call 
 in [tutorial 6](tutorial-six-spring-amqp.html)

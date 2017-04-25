@@ -36,8 +36,7 @@ In this part we'll implement the fanout pattern to deliver
 a message to multiple consumers. This pattern is known as "publish/subscribe"
 and is implementing by configuring a number of beans in our Tut3Config file.
  
-Essentially, published log messages are going to be broadcast to all
-the receivers.
+Essentially, published messages are going to be broadcast to all the receivers.
 
 Exchanges
 ---------
@@ -154,7 +153,8 @@ two bindings to bind those queues to the exchange.
  
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
-queues it knows. And that's exactly what we need for our logger.
+queues it knows. And that's exactly what we need for fanning out our
+messages.
 
 > #### Listing exchanges
 >
@@ -177,12 +177,13 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 > <pre class="sourcecode java">
-> template.convertAndSend(queue.getName(), message);
+>    template.convertAndSend(fanout.getName(), "", message);
 > </pre>
 >
-> The first parameter is the the name of the exchange.
-> The empty string denotes the default or _nameless_ exchange: messages are
-> routed to the queue with the name specified by `routingKey`, if it exists.
+> The first parameter is the the name of the exchange that was autowired into
+> the sender. The empty string denotes the default or _nameless_ exchange: 
+> messages are routed to the queue with the name specified by `routingKey`,
+if it exists.
 
 Now, we can publish to our named exchange instead:
 
@@ -218,8 +219,8 @@ even better - let the server choose a random queue name for us.
 
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted. To do this with the spring-amqp client, 
-we defined _AnonymousQueue_s. and created non-durable, exclusive, 
-autodelete queue with a generated name:
+we defined and _AnonymousQueue_, which creates a non-durable, 
+exclusive, autodelete queue with a generated name:
 
 <pre class="sourcecode java">
 @Bean
@@ -269,7 +270,8 @@ AnonymousQueue.
 
 <pre class="sourcecode java">
 @Bean
-public Binding binding1(FanoutExchange fanout, Queue autoDeleteQueue1) {
+public Binding binding1(FanoutExchange fanout, 
+        Queue autoDeleteQueue1) {
 	return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
 }
 </pre>
@@ -358,7 +360,7 @@ public class Tut3Sender {
 }
 </pre>
 
-[Tut3Sender.java source](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
+[Tut3Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Receiver.java)
 
 As you see, we leverage the beans from the Tut3Config file and
 autowire in the RabbitTemplate along with our configured
@@ -407,7 +409,7 @@ public class Tut3Receiver {
 }
 </pre>
 
-[Tut3Receiver.java source](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
+[Tut3Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Receiver.java)
 
 
 Compile as before and we're ready to execute the fanout sender and receiver.
@@ -420,7 +422,7 @@ And of course, to execute the tutorial do the following:
 
 <pre class="sourcecode bash">
 java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,receiver 
-    --tutorial.client.duration=6000
+    --tutorial.client.duration=60000
 java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,sender 
     --tutorial.client.duration=60000
 </pre>
@@ -431,10 +433,8 @@ programs running you should see something like:
 
 <pre class="sourcecode bash">
 sudo rabbitmqctl list_bindings
-# => Listing bindings ...
-# => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
-# => logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
-# => ...done.
+tut.fanout	exchange	8b289c9c-a1eb-4a3a-b6a9-163c4fdcb6c2	queue		[]
+tut.fanout	exchange	d7e7d193-65b1-4128-a532-466a5256fd31	queue		[]
 </pre>
 
 The interpretation of the result is straightforward: data from
@@ -442,4 +442,4 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
-[tutorial 4](tutorial-four-java.html)
+[tutorial 4](tutorial-four-spring-amqp.html)

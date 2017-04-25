@@ -73,7 +73,7 @@ will take three seconds.
 Please see the setup in [first tutorial](tutorial-one-spring-amqp.html)
 if you have not setup the project. We will follow the same pattern
 as in the first tutorial: 1) create a package (tut2) and create
-a Tut2Config, Tut2Receiver, and Tut2Sender. Start by create a new
+a Tut2Config, Tut2Receiver, and Tut2Sender. Start by creating a new
 package (tut2) where we'll place our three classes.  In the configuration
 class we setup two profiles, the label for the tutorial ("tut2") and
 the name of the pattern ("work-queues").  We leverage spring to expose

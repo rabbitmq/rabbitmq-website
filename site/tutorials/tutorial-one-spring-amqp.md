@@ -68,7 +68,7 @@ favorite editor.
 Spring Boot offers numerous features but we will only highlight a few here.
 First, Spring Boot applications have the option of providing their properties
 through either an application.properties or application.yml file (there are
-many more options as well but that will get us going). You'll find
+many more options as well but this will get us going). You'll find
 an application.properties file in the generated project with nothing in it.
 Rename application.properties to application.yml file with the following
 properties:
@@ -87,7 +87,7 @@ tutorial:
     duration: 10000
 </pre>
 
-Create a new directory (package) where we can put the tutorial code (tut1).
+Create a new directory (package - tut1) where we can put the tutorial code.
 We'll now create a JavaConfig file (Tut1Config.java) to describe our beans
 in the following manner:
 
@@ -122,14 +122,14 @@ public class Tut1Config {
 }
 </pre>
 
-Note that we've defined the 1st tutorial profile as either tut1
-or hello-world. We use the @Configuration to let Spring know that
-this is a Java Configuration and in it we create the definition
-for our Queue ("hello") and define our Sender and Receiver
-beans.
+Note that we've defined the 1st tutorial profile as either tut1,
+the package name, or hello-world. We use the @Configuration to
+let Spring know that this is a Java Configuration and in it we
+create the definition for our Queue ("hello") and define our
+Sender and Receiver beans.
 
 We will run all of our tutorials through the Boot Application
-now by simply passing in which profile we are using. To enable
+now by simply passing in which profiles we are using. To enable
 this we will modify the generated  RabbitAmqpTutorialsApplication.java
 with the following:
 
@@ -240,7 +240,7 @@ public class Tut1Sender {
 You'll notice that spring-amqp removes the boiler plate code
 leaving you with only the logic of the messaging to be concerned
 about.  We autowire in the queue that was configured in our
-bean definition in the Tut1Config class and like many connection
+bean definition in the Tut1Config class and like many spring connection
 abstractions, we wrap the boilerplate rabbitmq client classes with
 a RabbitTemplate that can be autowired into the sender.
 All that is left is to create a message and invoke the template's
@@ -289,9 +289,17 @@ For example:
 
 <pre class="sourcecode">
 - {tut1|hello-world},{sender|receiver}
+- {tut2|work-queues},{sender|receiver}
+- {tut3|pub-sub|publish-subscribe},{sender|receiver}
+- {tut4|routing},{sender|receiver}
+- {tut5|topics},{sender|receiver}
+- {tut6|rpc},{client|server}
 </pre>
 
-After building with maven, run the app however you like to run boot apps.
+We'll come back to this list as we progress through the other five
+tutorials. After building with maven, run the app however you like
+to run boot apps (e.g. from the ide, or command line). We'll show
+how to run from the command line.
 
 For example:
 

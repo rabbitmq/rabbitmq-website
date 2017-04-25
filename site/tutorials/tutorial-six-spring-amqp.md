@@ -77,8 +77,7 @@ receive a response we need to send a 'callback' queue address with the
 request. Spring-amqp's RabbitTemplate handles the callback queue for
 us when we use the above 'convertSendAndReceive()' method.  There is
 no need to do any other setup when using the RabbitTemplate. For
-a thorough explanation please see [Request/Reply Message]
-(http://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
+a thorough explanation please see [Request/Reply Message](http://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
 
 > #### Message properties
 >
@@ -99,7 +98,7 @@ a thorough explanation please see [Request/Reply Message]
 
 Spring-amqp allows you to focus on the message style you're working
 with and hide the details of message plumbing required to support
-the style.  For example, typically the native client would 
+this style.  For example, typically the native client would 
 create a callback queue for every RPC request. That's pretty
 inefficient so an alternative is to create a single callback
 queue per client.
@@ -117,8 +116,8 @@ a race condition on the server side. Although unlikely, it is possible
 that the RPC server will die just after sending us the answer, but
 before sending an acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
-That's why the spring-amqp client we must handles the duplicate 
-responses gracefully, and the RPC should ideally be idempotent.
+The spring-amqp client handles the duplicate responses gracefully,
+and the RPC should ideally be idempotent.
 
 ### Summary
 
@@ -184,10 +183,10 @@ Our RPC will work like this:
 
   * The Tut6Config will setup a new DirectExchange and a client
   * The client will leverage the convertSendAndReceive passing the exchange
-    name, the routingKey, and the message/ 
-  * The request is sent to an `rpc_queue` ("tut.rpc")queue.
+    name, the routingKey, and the message. 
+  * The request is sent to an `rpc_queue` ("tut.rpc") queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
-    When a request appears, it does the job and sends a message with the
+    When a request appears, it performs the task and sends a message with the
     result back to the Client, using the queue from the `replyTo` field.
   * The client waits for data on the callback queue. When a message
     appears, it checks the `correlationId` property. If it matches
@@ -209,8 +208,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our Tut6Config [Tut6Config]
-(https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/Tut6Config.java)
+The code for our Tut6Config [Tut6Config](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
 looks like this: 
 
 <pre class="sourcecode java">
@@ -284,8 +282,7 @@ The server code is rather straightforward:
   * Our fibanacci method calls fib() with the payload parameter and returns 
     the result
   
-The code for our RPC client [Tut6Server.java]
-(https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/Tut6Server.java):
+The code for our RPC client [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
 
 <pre class="sourcecode java">
 package org.springframework.amqp.tutorials.tut6;
@@ -313,7 +310,8 @@ public class Tut6Server {
 
 
 
-The client code is as easy as the server:
+The client code [Tut6Client](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Client.java)
+is as easy as the server:
 
   * We autowire the RabbitTemplate and the DirectExchange bean
     as defined in the Tut6Config.
@@ -321,7 +319,7 @@ The client code is as easy as the server:
     exchange name, routing key and message.
   * We print the result
 
-Making the Client request:
+Making the Client request is simply:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.DirectExchange;
@@ -349,7 +347,9 @@ public class Tut6Client {
 }
 </pre>
 
-Using the project setup as defined in  (see [tutorial one](tutorial-one-spring-amqp.html)):
+Using the project setup as defined in (see [tutorial one](tutorial-one-spring-amqp.html))
+with start.spring.io and SpringInitialzr the preparing the runtime is the same as the
+other tutorials:
 
 <pre class="sourcecode bash">
 mvn clean package
@@ -394,3 +394,6 @@ complex (but important) problems, like:
 >
 >If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
+
+There is one other nice feature of RabbitMQ.  It is featured as a supported
+tile on Pivotal Cloud Foundry (PCF) as a service. 
