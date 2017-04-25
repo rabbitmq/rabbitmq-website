@@ -227,7 +227,7 @@ java -jar target/rabbitmq-amqp-tutorials-0.0.1-SNAPSHOT.jar --spring.profiles.ac
 
 The output of the sender should look something like:
 
-<pre class="sourcecode bash"> 
+<pre class="sourcecode bash">
 Ready ... running for 10000ms
  [x] Sent 'Hello.1'
  [x] Sent 'Hello..2'
@@ -278,7 +278,7 @@ or the listener throws an `AmqpRejectAndDontRequeueException`. This
 is typically the bahavior you want from your listener. In this mode
 there is no need to worry about a forgotten acknowledgement.  After
 processing the message the listener calls:
- 
+
 <pre class="sourcecode java">
 channel.basicAck()
 </pre>
@@ -307,16 +307,29 @@ channel.basicAck()
 ### Message durability
 
 With spring-amqp there are reasonable default values in the MessageProperties
-that account for message durability.  In particular you can check the table 
+that account for message durability.  In particular you can check the table
 for [common properties](http://docs.spring.io/spring-amqp/reference/htmlsingle/#_common_properties)
 You'll see two relevant to our discussion here on durability:
 
-<pre class="sourcecode java">
-Property | default | description
-durable  | true    | When declareExchange is true the durable flag is set to this value.
-deliveryMode | PERSISTENT | PERSISTENT or NON_PERSISTENT to determine whether or not 
-                            RabbitMQ should persist the messages.
-</pre>
+<table>
+  <thead>
+    <td>Property</td>
+    <td>default</td>
+    <td>Description</td>
+  </thead>
+
+  <tr>
+    <td>durable</td>
+    <td>true</td>
+    <td>When declareExchange is true the durable flag is set to this value</td>
+  </tr>
+
+  <tr>
+    <td>deliveryMode</td>
+    <td>PERSISTENT</td>
+    <td>PERSISTENT or NON_PERSISTENT to determine whether or not RabbitMQ should persist the messages</td>
+  </tr>
+</table>
 
 > #### Note on message persistence
 >
@@ -330,7 +343,7 @@ deliveryMode | PERSISTENT | PERSISTENT or NON_PERSISTENT to determine whether or
 > [publisher confirms](https://www.rabbitmq.com/confirms.html).
 
 ### Fair dispatch vs Round-robin dispatching
-                     
+
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
 messages. This way of distributing messages is called round-robin.
@@ -349,7 +362,7 @@ to the n-th consumer.
 However, "Fair dispatch" is the default configuration for spring-amqp. The
 SimpleMessageListenerContainer defines the value for
 DEFAULT_PREFETCH_COUNT to be 1.  If the DEFAULT_PREFECTH_COUNT were
-set to 0 the behavior would be round robin messaging as described above.  
+set to 0 the behavior would be round robin messaging as described above.
 
 <div class="diagram">
   <img src="/img/tutorials/prefetch-count.png" height="110" />
@@ -378,7 +391,7 @@ set to 0 the behavior would be round robin messaging as described above.
 
 However, with the prefetchCount set to 1 by default,
 this tells RabbitMQ not to give more than one message to a worker
-at a time. Or, in other words, don't dispatcha new message to a 
+at a time. Or, in other words, don't dispatcha new message to a
 worker until it has processed and acknowledged the previous one.
 Instead, it will dispatch it to the next worker that is not still busy.
 
@@ -389,8 +402,8 @@ Instead, it will dispatch it to the next worker that is not still busy.
 
 
 By using spring-amqp you get reasonable values configured for
-message acknowledgments and fair dispatching. The default durability 
-for queues and persistence for messages provided by spring-amqp 
+message acknowledgments and fair dispatching. The default durability
+for queues and persistence for messages provided by spring-amqp
 allow let the messages to survive even if RabbitMQ is restarted.
 
 For more information on `Channel` methods and `MessageProperties`,
