@@ -366,9 +366,10 @@ java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar
 To request a fibonacci number run the client:
 
 <pre class="sourcecode bash">
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar
+    --spring.profiles.active=rpc,server
 java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=rpc,sender 
-    --tutorial.client.duration=60000
+    --spring.profiles.active=rpc,client    
 </pre>
 
 The design presented here is not the only possible implementation of a RPC
