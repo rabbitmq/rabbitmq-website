@@ -121,12 +121,12 @@ limitations under the License.
        <x:page url="/event-exchange.html" text="Internal Event Exchange"/>
        <x:page url="/firehose.html" text="Firehose (Message Tracing)"/>
        <x:page url="/manpages.html" text="Manual Pages">
-         <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
-         <x:page url="/man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
-         <x:page url="/man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
-         <x:page url="/man/rabbitmq-service.man.html" text="rabbitmq-service"/>
-         <x:page url="/man/rabbitmq-echopid.man.html" text="rabbitmq-echopid"/>
-         <x:page url="/man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf">
+         <x:page url="/rabbitmqctl.8.html" text="rabbitmqctl"/>
+         <x:page url="/rabbitmq-plugins.8.html" text="rabbitmq-plugins"/>
+         <x:page url="/rabbitmq-server.8.html" text="rabbitmq-server"/>
+         <x:page url="/rabbitmq-service.8.html" text="rabbitmq-service"/>
+         <x:page url="/rabbitmq-echopid.8.html" text="rabbitmq-echopid"/>
+         <x:page url="/rabbitmq-env.conf.5.html" text="rabbitmq-env.conf">
            <x:related url="/configure.html"/>
          </x:page>
        </x:page>

@@ -209,9 +209,13 @@ ol.roman>li {
 }
 
 p {
-	clear:left;
-	}
-	
+    clear:left;
+}
+
+.Pp, dt.It-tag {
+    margin-top: 16px;
+}
+
 .logos {
 	text-align: center;
 	margin-top: 3ex;
@@ -367,7 +371,7 @@ pre span.code, pre.code, pre.example, pre.ec2_sourcecode, .docSection div.cmdsyn
 	border: 1px solid #ddd;
 }
 
-pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path {
+pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path, i.Pa {
     color: #333;
     font-family: "Courier New", Courier, monospace;
     font-size: small;
@@ -387,13 +391,20 @@ pre span.code {
   white-space: pre;
   display: block;
 }
-	
-span.envvar {
+
+/* Used in manpages. */
+.D1 span.code {
+    color: inherit;
+    white-space: nowrap;
+}
+
+span.envvar, span.Ev {
   color: black;
   /*white-space: nowrap;*/
 }
-span.path {
-	/*white-space: nowrap;*/
+span.path, i.Pa {
+    font-style: normal;
+    /*white-space: nowrap;*/
 }
 
 .sourcecode i {
@@ -435,7 +446,20 @@ th, td {
 	font-size: .9em;
 }
 
-div.auto-index table, div.auto-index th, div.auto-index td { border: none; }
+div.auto-index table,
+div.auto-index th,
+div.auto-index td,
+table.Nm,
+table.Nm th,
+table.Nm td {
+    border: none;
+}
+
+table.Nm,
+table.Nm th,
+table.Nm td {
+    padding: 0px;
+}
 
 tr {
 	vertical-align: top;
