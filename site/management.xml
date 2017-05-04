@@ -323,9 +323,21 @@ limitations under the License.
             the existence of these objects at every startup.
           </p>
           <p>
-            To do this, set the <code>load_definitions</code> variable
+            To do this, set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
+            in the classic config format) config key
             to the path of a previously exported JSON file containing
-            the definitions you want.
+            the definitions you want:
+
+<pre class="sourcecode ini">
+management.load_definitions = /path/to/definitions/file.json
+</pre>
+
+            Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          <pre class="sourcecode erlang">[
+{rabbitmq_management, [
+  {load_definitions, "/path/to/definitions/file.json"}
+  ]}
+].</pre>
           </p>
           <p>
             Note that the definitions in the file will overwrite
@@ -358,7 +370,7 @@ limitations under the License.
           </p>
 <pre class="sourcecode ini">
 listeners.tcp.default = 5672
-  
+
 collect_statistics_interval = 10000
 
 management.http_log_dir = /tmp/rabbit-mgmt

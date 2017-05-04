@@ -63,9 +63,9 @@ digraph G {
 > def application do
 >   [applications: [:logger, :amqp]]
 > end
-> defp deps do
+> defp deps() do
 >   [
->     {:amqp, "~> 0.1.4"},
+>     {:amqp, "~> 0.2.1"},
 >   ]
 > end
 > </pre>

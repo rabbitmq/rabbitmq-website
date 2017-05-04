@@ -166,6 +166,11 @@ limitations under the License.
           condition arises and there can temporarily be more than
           prefetch count unacknowledged messages on a channel.
         </p>
+
+        <p>
+          The QoS setting can be configured for a channel or a consumer.
+          See <a href="/consumer-prefetch.html">Consumer Prefetch</a> for details.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="consumer-acks-double-acking">
