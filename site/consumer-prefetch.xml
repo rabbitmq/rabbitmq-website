@@ -29,8 +29,8 @@ limitations under the License.
     </p>
 
     <p>
-      AMQP specifies the <code>basic.qos</code> method to allow you to
-      limit the number of unacknowledged messages on a channel (or
+      AMQP 0-9-1 specifies the <code>basic.qos</code> method to allow you to
+      <a href="/confirms.html">limit the number of unacknowledged messages</a> on a channel (or
       connection) when consuming (aka "prefetch count"). Unfortunately
       the channel is not the ideal scope for this - since a single
       channel may consume from multiple queues, the channel and the
