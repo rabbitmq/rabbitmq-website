@@ -266,9 +266,15 @@ limitations under the License.
             the existence of these objects at every startup.
           </p>
           <p>
-            To do this, set the <code>load_definitions</code> variable
+            To do this, set the <code>rabbitmq_management.load_definitions</code> config key
             to the path of a previously exported JSON file containing
-            the definitions you want.
+            the definitions you want:
+
+          <pre class="sourcecode erlang">[
+{rabbitmq_management, [
+  {load_definitions, "/path/to/definitions/file.json"}
+  ]}
+].</pre>
           </p>
           <p>
             Note that the definitions in the file will overwrite
