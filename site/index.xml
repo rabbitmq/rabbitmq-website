@@ -223,6 +223,7 @@ limitations under the License.
               <h1>Community</h1>
               <br/>
               <a class='btn orangebtn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank">Mailing List</a>
+              <a class='btn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank">Slack Channel</a>
               <br/><br/>
               <p>Meet your fellow Rabbits to share stories, advice, and get help.</p>
               <h2>Issues &amp; Bug Reports</h2>
