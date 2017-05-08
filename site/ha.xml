@@ -779,13 +779,18 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
                 exact replica of the master over time, once consumers have
                 drained messages that only exist on the master. If the master
                 queue fails before all unsychronised messages are drained,
-                those messages will be lost.
+                those messages will be lost. You can fully synchronise a queue
+                manually, refer to <a
+                  href="#unsynchronised-mirrors">unsynchronised mirrors</a>
+                section for details.
               </li>
               <li>
                 <code>ha-sync-mode: automatic</code> - a queue will
                 automatically synchronise when a new mirror joins. It is worth
-                reiterating that queue synchronisation is a blocking
-                operation.
+                reiterating that queue synchronisation is a blocking operation.
+                If queues are small, or you have a fast network between
+                RabbitMQ nodes and the <code>ha-sync-batch-size</code> was
+                optimised, this is a good choice.
               </li>
             </ul>
           </p>
