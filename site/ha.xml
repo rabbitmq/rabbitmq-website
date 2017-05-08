@@ -437,81 +437,79 @@ limitations under the License.
           <a href="nettick.html">here</a>.
         </p>
         <p>
-          If the master fails, then one of the mirrors must be
-          promoted. At this point, the following happens:
-          <ol>
-            <li>A mirror is promoted to become the new master. The
-            mirror chosen for promotion is the eldest mirror. As such,
-            it has the best chance of being synchronised with the
-            master. However, note that should there be no mirror that
-            is <a href="#unsynchronised-mirrors">synchronised</a> with
-            the master, messages that only the master held will be
-            lost.</li>
-
-            <li>The mirror considers all previous consumers to have
-            been abruptly disconnected. As such, it requeues all
-            messages that have been delivered to clients but are
-            pending acknowledgement. This can include messages for
-            which a client has issued acknowledgements: either the
-            acknowledgement was lost on the wire before reaching the
-            master, or it was lost during broadcast from the master to
-            the mirrors. In either case, the new master has no choice
-            but to requeue all messages it thinks have not been
-            acknowledged.</li>
-
-            <li>Clients that have requested it are cancelled (see <a
-            href="#cancellation">below</a>).</li>
-
-            <li><i>As a result of the requeuing, clients that
-            re-consume from the queue <b>must</b> be aware that they
-            are likely to subsequently receive messages that they have
-            seen previously.</i></li>
+          If the master fails, then one of the mirrors will be promoted to
+          master as follows:
+          <ol class="plain">
+            <li>
+              The longest running mirror is promoted to master, the assumption
+              being that it is most likely to be fully synchronised with the
+              master. If there is no mirror that is <a
+                href="#unsynchronised-mirrors">synchronised</a> with the
+              master, messages that only existed on master will be lost.
+            </li>
+            <li>
+              The mirror considers all previous consumers to have been abruptly
+              disconnected. It requeues all messages that have been delivered
+              to clients but are pending acknowledgement. This can include
+              messages for which a client has issued acknowledgements. The
+              acknowledgement was either lost on the wire before reaching the
+              master, or it was lost during broadcast from the master to the
+              mirrors. In either case, the new master has no choice but to
+              requeue all messages that it has not seen acknowledgements for.
+            </li>
+            <li>
+              Clients that have requested to be notified when a queue fails
+              over <a href="#cancellation">will be cancelled</a>.
+            </li>
+            <li>
+              As a result of the requeuing, clients that re-consume from the
+              queue <b>must</b> be aware that they are likely to subsequently
+              receive messages that they have already received.
+            </li>
+            <li>
+              As the chosen mirror becomes the master, no messages that are
+              published to the mirrored queue during this time will be lost.
+              Messages published to a mirrored queue are always published
+              directly to the master and all mirrors. Should the master fail,
+              the messages continue to be sent to the mirrors and will be added
+              to the queue once the promotion of a mirror to the master
+              completes.
+            </li>
+            <li>
+              Messages published by clients using <a
+                href="confirms.html">publisher confirms</a> will still be
+              confirmed correctly even if the master (or any mirrors) fail
+              between the message being published and a confirmation received
+              by the publisher. From the point of view of the publisher,
+              publishing to a mirrored queue is no different from publishing to
+              any other type of queue.
+            </li>
           </ol>
         </p>
         <p>
-          As the chosen mirror becomes the master, no messages that are
-          published to the mirrored queue during this time will be
-          lost: messages published to a mirrored queue are always
-          published directly to the master and all mirrors. Thus should
-          the master fail, the messages continue to be sent to the
-          mirrors and will be added to the queue once the promotion of
-          a mirror to the master completes.
-        </p>
-        <p>
-          Similarly, messages published by clients using <a
-          href="confirms.html">publisher confirms</a> will
-          still be confirmed correctly even if the master (or any
-          mirrors) fail between the message being published and the
-          message being able to be confirmed to the publisher. Thus
-          from the point of view of the publisher, publishing to a
-          mirrored queue is no different from publishing to any other
-          sort of queue.
-        </p>
-        <p>
           If you are consuming from a mirrored queue with
-          <i>noAck=true</i> (i.e. the client is not sending message
-          acknowledgements) then messages can be lost. This is no
-          different from the norm of course: the broker considers a
-          message <i>acknowledged</i> as soon as it has been sent to a
-          <i>noAck=true</i> consumer, and should the client disconnect
-          abruptly, the message may never be received. In the case of
-          a mirrored queue, should the master die, messages that are
-          in-flight on their way to <i>noAck=true</i> consumers may
-          never be received by those clients, and will not be requeued
-          by the new master. Because of the possibility that the
-          consuming client is connected to a node that survives, the
-          <a href="#cancellation">Consumer
-          Cancellation Notification</a> is useful in identifying when
-          such events may have occurred. Of course, in practise, if
-          you care about not losing messages then you are advised to
-          consume with <i>noAck=false</i>.
+          <code>noAck=true</code> (i.e. the client is not sending message
+          acknowledgements), then messages can be lost. This is no different
+          from the norm of course: the broker considers a message
+          <em>acknowledged</em> as soon as it has been sent to a
+          <code>noAck=true</code> consumer. Should the client disconnect
+          abruptly, the message may never be received. In the case of a
+          mirrored queue, should the master die, messages that are in-flight on
+          their way to <code>noAck=true</code> consumers may never be received
+          by those clients, and will not be requeued by the new master. Because
+          of the possibility that the consuming client is connected to a node
+          that survives, the <a href="#cancellation">consumer cancellation
+            notification</a> is useful to identify when such events may have
+          occurred. Of course, in practise, if you care about not losing
+          messages, then you are advised to consume with
+          <code>noAck=false</code>.
         </p>
         <doc:subsection name="confirms-transactions">
           <doc:heading>Publisher Confirms and Transactions</doc:heading>
           <p>
             Mirrored queues support both <a
-            href="confirms.html">Publisher Confirms</a> and
-            <a href="specification.html#tx">Transactions</a>. The
+            href="confirms.html">publisher confirms</a> and
+            <a href="specification.html#tx">transactions</a>. The
             semantics chosen are that in the case of both confirms and
             transactions, the action spans all mirrors of the
             queue. So in the case of a transaction, a
@@ -605,7 +603,7 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           queue.
         </p>
         <p>
-          Thus a newly added mirror provides no additional form of
+          A newly added mirror provides no additional form of
           redundancy or availability of the queue's contents that
           existed before the mirror was added, unless the queue has
           been explicitly synchronised. Since the queue becomes
@@ -726,64 +724,72 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         <doc:subsection name="batch-sync">
           <doc:heading>Batch Synchronization</doc:heading>
 
-          <h3 id="sync-since-3-6-0">The Goal of Batch Synchronization</h3>
+          <p>
+            Queues will synchronise <code>1</code> message at a
+            time by default. Since RabbitMQ 3.6.0, masters can be configured to
+            synchronise messages in batches via <code>ha-sync-batch-size</code>.
+            By synchronising messages in batches, the synchronisation process
+            can be sped up considerably.
+          </p>
 
-          <p>RabbitMQ 3.6.0 introduced a new paramter for mirrored queues:
-          <code>ha-sync-batch-size</code>. By synchronising messages in
-          batches, the synchronisation process can be sped up
-          considerably.</p>
-
-          <h3 id="sync-batch-size">Choosing the Right Synchronisation Batch Size</h3>
           <p>
             To choose the right value for
-            <code>ha-sync-batch-size</code> you need to consider: a)
-            your queue average message size. This value will be a
-            multipier for the batch size which you must take into
-            account according to your particular network bandwidth; b)
-            setting a batch size that is too high can result in the
-            nodes in your cluster missing <a href="nettick.html">tick
-            messages.</a> from other nodes.
+            <code>ha-sync-batch-size</code> you need to consider:
+            <ul class="plain">
+              <li>
+                average message size
+              </li>
+              <li>
+                network throughput between RabbitMQ nodes
+              </li>
+              <li>
+                net_ticktime value
+              </li>
+            </ul>
           </p>
           <p>
-            If for example you set <code>ha-sync-batch-size</code> to
-            <code>50000</code> messages per batch, and each message in
-            the queue weights 1kb, then each synchronisation message
-            between nodes will be of 50 megabytes. You need to make sure
-            that your network links between queue mirrors can accomodate
-            to this kind traffic. As mentioned above, if the network
-            takes longer than <a href="nettick.html">net_ticktime</a> to
-            send one batch of messages, then nodes in the cluster could
-            think they are in the presence of a network
-            partition. <em>Note that these are example values.</em>.
+            For example, if you set <code>ha-sync-batch-size</code> to
+            <code>50000</code> messages, and each message in the
+            queue is 1KB, then each synchronisation message between nodes
+            will be ~49MB. You need to make sure that your network
+            between queue mirrors can accomodate this kind of traffic. If the
+            network takes longer than <a href="nettick.html">net_ticktime</a>
+            to send one batch of messages, then nodes in the cluster could
+            think they are in the presence of a network partition.
           </p>
 
-          <h3 id="eager-synchronisation">Configuring Eager (Explicit) Synchronisation</h3>
+          <h3 id="eager-synchronisation">Configuring Synchronisation</h3>
 
           <p>
-            Explicit synchronisation can be triggered in two ways:
-            manually or automatically. If a queue is set to
-            automatically synchronise it will synchronise whenever a
-            new mirror joins - blocking all other operations until it has done
-            so.
-          </p>
-
-          <p>
-            Queues can be set to automatically synchronise by setting
-            the <code>ha-sync-mode</code> policy key
-            to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
-            to <code>manual</code>. If it is not set then <code>manual</code> is
-            assumed.
+            Let's start with the most important aspect of queue
+            synchronisation: <em>while a queue is being synchronised, all other
+              queue operations will be blocked</em>. Depending on multiple
+            factors, a queue might be blocked by synchronisation for many
+            minutes or hours, and in extreme cases even days.
           </p>
 
           <p>
-            By default queues will synchronise one message at a time but
-            since RabbitMQ 3.6.0 we can tell masters to synchronise
-            messages in batches. To do so, set the
-            <code>ha-sync-batch-size</code> policy key to an integer
-            value that fits your <a href="#sync-batch-size">particular
-            workload</a>. If <code>ha-sync-batch-size</code> is not
-            specified, then a value of <code>1</code> is assumed.
+            Queue synchronisation can be configured as follows:
+
+            <ul class="plain">
+              <li>
+                <code>ha-sync-mode: manual</code> - this is the default mode.
+                A new queue mirror will not receive existing messages, it will
+                only receive new messages. The new queue mirror will become an
+                exact replica of the master over time, once consumers have
+                drained messages that only exist on the master. If the master
+                queue fails before all unsychronised messages are drained,
+                those messages will be lost.
+              </li>
+              <li>
+                <code>ha-sync-mode: automatic</code> - a queue will
+                automatically synchronise when a new mirror joins. It is worth
+                reiterating that queue synchronisation is a blocking
+                operation.
+              </li>
+            </ul>
           </p>
+
         </doc:subsection>
       </doc:section>
   </body>
