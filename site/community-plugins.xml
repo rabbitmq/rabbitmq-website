@@ -263,8 +263,8 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_clusterer">
-            Provides an alternative means for creating and maintaining
-            clusters of Rabbits.
+            Provides an alternative way of cluster formation. This plugin is deprecated.
+
             <ul>
               <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_clusterer/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
