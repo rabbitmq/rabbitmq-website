@@ -983,10 +983,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>mnesia_table_loading_timeout</code></td>
+            <td><code>mnesia_table_loading_retry_limit</code></td>
             <td>
-              Timeout used when waiting for Mnesia tables in a cluster to
+              Number of times to retry while waiting for Mnesia tables in a cluster to
               become available.
+              <p>Default: <code>10</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>mnesia_table_loading_retry_timeout</code></td>
+            <td>
+              Time to wait per retry for Mnesia tables in a cluster to become
+              available.
               <p>Default: <code>30000</code></p>
             </td>
           </tr>
