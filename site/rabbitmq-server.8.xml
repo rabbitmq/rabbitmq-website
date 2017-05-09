@@ -19,33 +19,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Manual Pages</title>
+    <title>rabbitmq-server(8)</title>
   </head>
   <body>
-      <p class="intro">
-        This page lists the available manual pages taken from the latest server release.
-      </p>
-
-      <doc:section name="section5">
-        <doc:heading>Section 5 - File formats</doc:heading>
-        <ul>
-          <li><a href="rabbitmq-env.conf.5.html">rabbitmq-env.conf</a></li>
-        </ul>
-      </doc:section>
-
-      <doc:section name="section8">
-        <doc:heading>Section 8 - System Management Commands</doc:heading>
-        <ul>
-          <li><a href="rabbitmqctl.8.html">rabbitmqctl</a></li>
-          <li><a href="rabbitmq-plugins.8.html">rabbitmq-plugins</a></li>
-          <li><a href="rabbitmq-server.8.html">rabbitmq-server</a></li>
-          <li><a href="rabbitmq-service.8.html">rabbitmq-service</a></li>
-          <li><a href="rabbitmq-echopid.8.html">rabbitmq-echopid</a></li>
-        </ul>
-      </doc:section>
+    <doc:section name="manpage">
+      <xi:include href="man/rabbitmq-server.8.html"/>
+    </doc:section>
   </body>
 </html>
