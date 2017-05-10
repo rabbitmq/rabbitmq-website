@@ -150,23 +150,24 @@ limitations under the License.
           <ul>
             <li>At least 2 GB</li>
             <li>
-              50% of the configured RAM limit when
-              the limit is between 1 and 8 GB of RAM
+              100% of the total amount of RAM available when
+              it is between 1 and 8 GB of RAM
             </li>
             <li>
-              40% of the configured RAM limit when
-              the limit is between 8 and 32 GB of RAM
+              90% of the total amount of RAM available when
+              it is between 8 and 32 GB
             </li>
             <li>
-              30% of the configured RAM limit when
-              the limit is above 32 GB of RAM
+              80% of the total amount of RAM available when
+              it is greater than 32 GB
             </li>
           </ul>
 
           The <code>rabbit.disk_free_limit</code> configuration setting
           can be set to <code>{mem_relative, N}</code> to make it calculated
-          as a percentage of the RAM limit. For example, use <code>{mem_relative, 0.5}</code>
-          for 50%, <code>{mem_relative, 0.25}</code> for 25%, and so on.
+          as a percentage of the total amount of RAM as reported by the OS.
+          For example, use <code>{mem_relative, 1.0}</code>
+          for 100%, <code>{mem_relative, 1.25}</code> for 125%, and so on.
         </p>
       </doc:subsection>
 

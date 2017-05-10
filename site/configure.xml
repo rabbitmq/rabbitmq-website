@@ -1230,12 +1230,27 @@ tcp_listen_options.exit_on_close = false
             </td>
           </tr>
           <tr>
-            <td><code>trace_vhosts</code></td>
             <td>
               Used internally by
               the <a href="firehose.html">tracer</a>. You shouldn't
               change this.
               <p>Default: <code>[]</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>mnesia_table_loading_retry_limit</code></td>
+            <td>
+              Number of times to retry while waiting for Mnesia tables in a cluster to
+              become available.
+              <p>Default: <code>10</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>mnesia_table_loading_retry_timeout</code></td>
+            <td>
+              Time to wait per retry for Mnesia tables in a cluster to become
+              available.
+              <p>Default: <code>30000</code></p>
             </td>
           </tr>
           <tr>
