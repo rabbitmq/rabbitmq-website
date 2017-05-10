@@ -458,8 +458,8 @@ limitations under the License.
               requeue all messages that it has not seen acknowledgements for.
             </li>
             <li>
-              Clients that have requested to be notified when a queue fails
-              over <a href="#cancellation">will be cancelled</a>.
+              Consumers that have requested to be notified when a queue fails
+              over <a href="#cancellation">will be notified of cancellation</a>.
             </li>
             <li>
               As a result of the requeuing, clients that re-consume from the
