@@ -468,9 +468,10 @@ limitations under the License.
             </li>
             <li>
               As the chosen mirror becomes the master, no messages that are
-              published to the mirrored queue during this time will be lost.
-              Messages published to a mirrored queue are always published
-              directly to the master and all mirrors. Should the master fail,
+              published to the mirrored queue during this time will be lost
+              (barring subsequent failures on the promoted node).
+              Messages published to a node that hosts queue mirror are routed
+              to the queue master and then replicated to all mirrors. Should the master fail,
               the messages continue to be sent to the mirrors and will be added
               to the queue once the promotion of a mirror to the master
               completes.
@@ -478,11 +479,11 @@ limitations under the License.
             <li>
               Messages published by clients using <a
                 href="confirms.html">publisher confirms</a> will still be
-              confirmed correctly even if the master (or any mirrors) fail
+              confirmed even if the master (or any mirrors) fail
               between the message being published and a confirmation received
               by the publisher. From the point of view of the publisher,
               publishing to a mirrored queue is no different from publishing to
-              any other type of queue.
+              a non-mirrored one.
             </li>
           </ol>
         </p>
