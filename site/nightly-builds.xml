@@ -24,19 +24,27 @@ limitations under the License.
   </head>
   <body>
       <p class="intro">
-          We now produce nightly builds for the RabbitMQ broker
-          and official client libraries. These builds are available
-          so that users can try out the latest features and bug fixes
-          as soon as they become available.
+          We now produce nightly builds for the RabbitMQ broker. These builds
+          are available so that users can try out the latest features and bug
+          fixes as soon as they become available.
       </p>
       <doc:section name="stability-and-safety">
-	  <p>
-          Nightly builds are based on the 'master' branch of our GitHub
-          repositories. This represents the <i>bleeding edge</i> and therefore
+      <p>
+          Nightly builds are based on both 'master' and 'stable' branches of
+          our GitHub repositories. Both builds have been verified to be
+          installable on several different operating systems.
+      </p>
+      <p>
+          Master represents the <i>bleeding edge</i> and therefore
           should not be considered complete or completely stable. It is quite
           possible that existing features, APIs and/or configuration data
           formats have been changed in ways that are not backwards compatible
           or even removed altogether.
+      </p>
+      <p>
+          Stable nightlies include unscrutinised recent commits on top of the
+          latest 'stable' release, and should not be considered release
+          quality.
       </p>
       <p>
           In addition to the changes described above, it is also possible that
@@ -52,46 +60,40 @@ limitations under the License.
       </doc:section>
       <doc:section name="packaging-repositories">
         <p>
-          We publish a debian repository containing the nighty build artefacts,
+          We publish debian repositories containing the nighty build artefacts,
           so that you can install them using the relevant package manager for
-          your system. You should be aware that this repository will be
-          overwritten each night, so you can <i>only</i> use the latest version
-          when installing in this manner.
+          your system.
       </p>
       <p>
           As with our published live releases, we continue to digitally
           sign the nightly build artefacts using
           <a href="http://www.gnupg.org/">GnuPG</a> and
-          <a href="https://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc">
-              our nightly builds public signing key</a>.
+          <a href="https://www.rabbitmq.com/rabbitmq-signing-key-public.asc">
+              our regular public signing key</a> (we no longer have a separate
+              key for nightlies).
       </p>
       <p>
         You can find documentation about any new features available in
         our nightly builds
-        at <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+        at <a href="//next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
       </p>
 
     </doc:section>
     <doc:section name="downloads">
     <div class="landing-box">
       <h2>Downloading and installing RabbitMQ nightly builds</h2>
-      <h3>RabbitMQ Server</h3>
+      <h3>RabbitMQ Server (master)</h3>
       <ul>
         <li>
-          <a href="/nightlies/rabbitmq-server/">Download</a> |
-          <a href="/debian-snapshot">Debian Repository</a> |
+          <a href="https://bintray.com/rabbitmq/rabbitmq-server-nightlies-master/_latestVersion#files">Download</a>
+          | <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-nightlies-master">Debian Repository</a>
         </li>
       </ul>
-      <h3>Official Clients</h3>
+      <h3>RabbitMQ Server (stable)</h3>
       <ul>
-        <li id="rabbitmq-java-client">
-          <a href="/nightlies/rabbitmq-java-client">Java Client</a>
-        </li>
-        <li id="rabbitmq-dotnet-client">
-            <a href="https://ci.appveyor.com/nuget/rabbitmq-dotnet-client-ci">.NET/C# Client (AppVeyor NuGet feed)</a>
-        </li>
-        <li id="rabbitmq-erlang-client">
-          <a href="/nightlies/rabbitmq-erlang-client">Erlang Client</a>
+        <li>
+          <a href="https://bintray.com/rabbitmq/rabbitmq-server-nightlies-stable/_latestVersion#files">Download</a>
+          | <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-nightlies-stable">Debian Repository</a>
         </li>
       </ul>
     </div>
