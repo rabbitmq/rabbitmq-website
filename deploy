@@ -1,20 +1,60 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -e
 
-remote_host=$1
-mode=$2
-version=$3
+REMOTE_HOST="$1"
+DEFAULT_REMOTE_HOST="www.rabbitmq.com"
 
-if [ x"$remote_host" = x -o x"$mode" = x -o \( x"${version}" = x -a x"$mode" = xprevious \) ] ; then
-    echo 'Usage: deploy <host to deploy to> [www|next|previous vA_B_C]'
-    exit 1
-fi
+VERSION="$2"
+DEFAULT_VERSION=www
+VALID_VERSIONS=( previous www next )
 
-tmp_dir=/tmp/to_deploy_${mode}
+GIT_SHA="$3"
 
-set -x
+main() {
+  debug
+  set_remote_host
+  set_version
+  deploy
+}
 
-ssh $remote_host mkdir -p $tmp_dir
-rsync -qcrz --delete --perms --chmod=a+rwX --exclude=site/man code conf site wordpress-theme $remote_host:$tmp_dir
-ssh -t $remote_host sudo "$tmp_dir/code/deploy-remote ${mode} ${version}"
+debug() {
+  [ -z "$DEBUG" ] || set -x
+}
+
+set_remote_host() {
+  if [ -z "$REMOTE_HOST" ]
+  then
+    echo
+    read -rp "Which user & host do you want to deploy to? (press enter for $DEFAULT_REMOTE_HOST): " remote_host
+    REMOTE_HOST="${remote_host:=$DEFAULT_REMOTE_HOST}"
+  fi
+}
+
+set_version() {
+  if [ -z "$VERSION" ]
+  then
+    echo
+    read -rp "Which website version is this? (press enter for $DEFAULT_VERSION or choose one of: ${VALID_VERSIONS[*]}): " version
+    VERSION="${version:=$DEFAULT_VERSION}"
+  fi
+}
+
+deploy() {
+  TMP_DIR=/tmp/to_deploy_${VERSION}
+
+  show_commands_as_they_run
+
+  # shellcheck disable=SC2029
+  ssh "$REMOTE_HOST" mkdir -p "$TMP_DIR"
+  rsync -qcrz --delete --perms --chmod=a+rwX --exclude=site/man code conf site wordpress-theme "$REMOTE_HOST":"$TMP_DIR"
+  # shellcheck disable=SC2029
+  ssh -t "$REMOTE_HOST" sudo "$TMP_DIR/code/deploy-remote $VERSION $GIT_SHA"
+}
+
+show_commands_as_they_run() {
+  echo
+  set -x
+}
+
+main
