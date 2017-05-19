@@ -100,7 +100,7 @@ limitations under the License.
       <doc:subsection name="resource-limits-ram">
         <doc:heading>Memory</doc:heading>
         <p>
-          By default, RabbitMQ will reject any new messages when it detects
+          By default, RabbitMQ will not accept any new messages when it detects
           that it's using more than 40% of the available system memory
           (<code>vm_memory_high_watermark, 0.4</code>). This is a safe default
           and care should be taken when modifying this value, even if the host
