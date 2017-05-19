@@ -79,19 +79,13 @@ limitations under the License.
       <ul>
         <li>
           <a href="/nightlies/rabbitmq-server/">Download</a> |
-          <a href="/debian-snapshot">Debian Repository</a> |
+          <a href="/debian-snapshot">Debian Repository</a>
         </li>
       </ul>
       <h3>Official Clients</h3>
       <ul>
-        <li id="rabbitmq-java-client">
-          <a href="/nightlies/rabbitmq-java-client">Java Client</a>
-        </li>
         <li id="rabbitmq-dotnet-client">
             <a href="https://ci.appveyor.com/nuget/rabbitmq-dotnet-client-ci">.NET/C# Client (AppVeyor NuGet feed)</a>
-        </li>
-        <li id="rabbitmq-erlang-client">
-          <a href="/nightlies/rabbitmq-erlang-client">Erlang Client</a>
         </li>
       </ul>
     </div>
