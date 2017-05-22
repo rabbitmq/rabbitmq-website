@@ -136,38 +136,47 @@ limitations under the License.
       </doc:subsection>
 
       <doc:subsection name="resource-limits-disk-space">
-        <doc:heading>Free Disk Space</doc:heading>
+        <doc:heading>Disk Space</doc:heading>
         <p>
-          Some free disk space should be available to avoid <a href="/disk-alarms.html">disk space alarms</a>.
-          By default RabbitMQ requires 50 MiB of free disk space at all times. This improves developer
-          experience on many popular Linux distributions which may place the <code>/var</code> directory
-          on a small partition. However, this is not a value recommended for production environments,
-          since they may have significantly higher RAM limits.
-
-          Below are some basic guidelines for determining how much free disk space
-          is recommended:
-
-          <ul>
-            <li>At least 2 GB</li>
+          The current 50MB <code>disk_free_limit</code> default is great for
+          development and getting started guides, but it's a poor choice for
+          production deployments. As a result, insufficient disk space is the
+          main reason for RabbitMQ crashes. Why are we still keeping the 50MB
+          default? It ensures that RabbitMQ works out of the box for everyone.
+          As for production deployments, we recommend the following:
+        </p>
+        <p>
+          <ul class="plain">
             <li>
-              100% of the total amount of RAM available when
-              it is between 1 and 8 GB of RAM
+              <code>{disk_free_limit, {mem_relative, 1.0}}</code> - this is the
+              minimum recommended value and it translates to the amount of
+              system memory available. For example, on a host dedicated to
+              RabbitMQ with 4GB of system memory, if available disk space drops
+              below 4GB, all publishers will be blocked and no new messages
+              will be accepted. Queues will need to be drained, normally by
+              consumers, before publishing will be allowed to resume.
             </li>
             <li>
-              90% of the total amount of RAM available when
-              it is between 8 and 32 GB
+              <code>{disk_free_limit, {mem_relative, 1.5}}</code> - is a
+              safer production value. On a RabbitMQ node with 4GB of system
+              memory, if available disk space drops below 6GB, all new messages
+              will be blocked until the disk alarm clears. If RabbitMQ needs to
+              flush to disk 4GB worth of data, as can sometimes be the case during
+              shutdown, there will be sufficient disk space available for RabbitMQ
+              to start again. In this specific example, RabbitMQ will start and
+              immediately block all publishers since 2GB is well under the required
+              6GB.
             </li>
             <li>
-              80% of the total amount of RAM available when
-              it is greater than 32 GB
+              <code>{disk_free_limit, {mem_relative, 2.0}}</code> - is the
+              safest production value, we cannot think of any reason to use
+              anything higher. If you want full confidence in RabbitMQ having
+              all the disk space that it needs, at all times, this is the value
+              to use.
             </li>
           </ul>
-
-          The <code>rabbit.disk_free_limit</code> configuration setting
-          can be set to <code>{mem_relative, N}</code> to make it calculated
-          as a percentage of the total amount of RAM as reported by the OS.
-          For example, use <code>{mem_relative, 1.0}</code>
-          for 100%, <code>{mem_relative, 1.25}</code> for 125%, and so on.
+        </p>
+        <p>
         </p>
       </doc:subsection>
 
