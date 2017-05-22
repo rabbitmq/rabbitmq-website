@@ -221,7 +221,7 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
 
       <p>
         For guidelines on recommended RAM watermark settings,
-        see <a href="/production-checklist.html">Production Checklist</a>.
+        see <a href="/production-checklist.html#resource-limits-ram">Production Checklist</a>.
       </p>
     </doc:section>
   </body>
