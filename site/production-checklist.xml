@@ -101,10 +101,10 @@ limitations under the License.
         <doc:heading>Memory</doc:heading>
         <p>
           By default, RabbitMQ will not accept any new messages when it detects
-          that it's using more than 40% of the available system memory:
+          that it's using more than 40% of the available memory (as reported by the OS):
           <code>{vm_memory_high_watermark, 0.4}</code>. This is a safe default
-          and care should be taken when modifying this value, even when the host
-          is a dedicated RabbitMQ node.
+          and care should be taken when modifying this value, even when the
+          host is a dedicated RabbitMQ node.
         </p>
         <p>
           The OS and file system use system memory to speed up operations for
@@ -118,17 +118,17 @@ limitations under the License.
 
           <ul class="plain">
             <li>
-              RabbitMQ nodes should have at least
-              <strong>128MB</strong> of system memory (memory not used
-              by RabbitMQ) available at all times.
+              Nodes hosting RabbitMQ should have at least <strong>128MB</strong> of
+              memory available at all times.
             </li>
             <li>
-              The recommended <code>vm_memory_high_watermark</code> range is <code>0.40 to 0.66</code>
+              The recommended <code>vm_memory_high_watermark</code> range is
+              <code>0.40 to 0.66</code>
             </li>
             <li>
               Values above <code>0.7</code> are not recommended. The OS and
-              file system must be left with at least 30% of all available system
-              memory, otherwise performance may degrade severely.
+              file system must be left with at least 30% of the memory,
+              otherwise performance may degrade severely due to paging.
             </li>
           </ul>
         </p>
