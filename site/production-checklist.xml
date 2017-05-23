@@ -127,10 +127,13 @@ limitations under the License.
             <li>
               Values above <code>0.7</code> are not recommended. The OS and
               file system must be left with at least 30% of all available system
-              memory, otherwise performance will degrade severely.
+              memory, otherwise performance may degrade severely.
             </li>
           </ul>
-
+        </p>
+        <p>
+          As with every tuning, benchmarking and measuring are required to find
+          the best setting for your environment and workload.
         </p>
         <p>
            <a href="/memory.html">Learn more about RabbitMQ &amp; system memory</a>
