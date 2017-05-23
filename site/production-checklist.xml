@@ -100,38 +100,44 @@ limitations under the License.
       <doc:subsection name="resource-limits-ram">
         <doc:heading>Memory</doc:heading>
         <p>
-          By default, RabbitMQ will use up to 40% of available RAM. For nodes
-          that are dedicated to run RabbitMQ, it is often reasonable to raise
-          the limit. However, care should be taken as the OS and file system caches
-          need RAM to operate as well. Failing to do so will have a severe throughput drop due
-          to OS swapping, or even result in the RabbitMQ process terminated by the OS.
+          By default, RabbitMQ will not accept any new messages when it detects
+          that it's using more than 40% of the available system memory:
+          <code>{vm_memory_high_watermark, 0.4}</code>. This is a safe default
+          and care should be taken when modifying this value, even when the host
+          is a dedicated RabbitMQ node.
         </p>
         <p>
-          Below are some basic guidelines for determining what <a href="/memory.html">RAM limit</a>
-          is recommended:
+          The OS and file system use system memory to speed up operations for
+          all system processes. Failing to leave enough free system memory for
+          this purpose will have an adverse effect on system performance due to
+          OS swapping, and can even result in RabbitMQ process termination.
+        </p>
+        <p>
+          A few recommendations when adjusting the default
+          <code>vm_memory_high_watermark</code>:
 
-          <ul>
-            <li>At least 128 MB</li>
+          <ul class="plain">
             <li>
-              65% of the configured RAM limit when
-              the limit is up to 4 GB of RAM
+              RabbitMQ nodes should have at least
+              <strong>128MB</strong> of system memory (memory not used
+              by RabbitMQ) available at all times.
             </li>
             <li>
-              70% of the configured RAM limit when
-              the limit is between 4 and 8 GB of RAM
+              The recommended <code>vm_memory_high_watermark</code> range is <code>0.40 to 0.66</code>
             </li>
             <li>
-              75% of the configured RAM limit when
-              the limit is between 8 and 16 GB of RAM
-            </li>
-            <li>
-              80% of the configured RAM limit when
-              the limit is above 16 GB of RAM
+              Values above <code>0.7</code> are not recommended. The OS and
+              file system must be left with at least 30% of all available system
+              memory, otherwise performance may degrade severely.
             </li>
           </ul>
-
-          Values higher than 0.85 can be dangerous
-          and are not recommended.
+        </p>
+        <p>
+          As with every tuning, benchmarking and measuring are required to find
+          the best setting for your environment and workload.
+        </p>
+        <p>
+           <a href="/memory.html">Learn more about RabbitMQ &amp; system memory</a>
         </p>
       </doc:subsection>
 
