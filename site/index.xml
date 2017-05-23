@@ -202,6 +202,8 @@ limitations under the License.
               <p>
                 The following companies provide free, virtual, or instructor-led support and/or cloud hosting of open source RabbitMQ: <a href="https://network.pivotal.io/" target="_blank">Pivotal Software</a>,
                 <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>,
+                <a href="https://compose.com/rabbitmq" target="_blank">Compose</a>,
+                <a href="https://www.rabbitmqhosting.com" target="_blank">RabbitmqHosting</a>,
               <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>. RabbitMQ can also be deployed in <a href="/ec2.html">AWS</a>
               and <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.rabbitmq?tab=Overview" target="_blank">Microsoft Azure</a>.</p>
               <img src="img/testing-phone.svg" height="109" width="94" />
