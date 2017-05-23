@@ -118,11 +118,12 @@ limitations under the License.
 
           <ul class="plain">
             <li>
-              RabbitMQ should have at least <strong>128MB</strong> of system memory available at
-              all times
+              RabbitMQ nodes should have at least
+              <strong>128MB</strong> of system memory (memory not used
+              by RabbitMQ) available at all times.
             </li>
             <li>
-              The safest <code>vm_memory_high_watermark</code> range is <code>0.40 - 0.66</code>
+              The recommended <code>vm_memory_high_watermark</code> range is <code>0.40 to 0.66</code>
             </li>
             <li>
               Values above <code>0.7</code> are not recommended. The OS and
