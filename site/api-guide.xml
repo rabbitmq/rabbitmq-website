@@ -1236,5 +1236,34 @@ Map mapCall(Object[] keyValuePairs)</pre>
     </p>
       </doc:section>
 
+    <doc:section name="tls">
+    <doc:heading>TLS support</doc:heading>
+
+        <p>
+            It's possible to encrypt the communication between the client and the broker
+            using TLS. Client and server authentication is also supported.
+            Here is the simplest way to use encryption with the Java client:
+        </p>
+
+        <pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setHost("localhost");
+factory.setPort(5671);
+
+factory.useSslProtocol();
+        </pre>
+
+        <p>
+            Note the client doesn't enforce any server authentication in the previous
+            sample, as a default, trust-everything <code>TrustManager</code> is used.
+            This is convenient for local development, but prone to man-in-the-middle attacks,
+            hence not recommended in production.
+            If you want more information about TLS support in RabbitMQ, read
+            the <a href="ssl.html">TLS guide</a>. If you only want to configure
+            the Java client (especially the trust part),
+            read <a href="ssl.html#trust-levels">the appropriate section</a> of the TLS guide.
+        </p>
+    </doc:section>
+
   </body>
 </html>
