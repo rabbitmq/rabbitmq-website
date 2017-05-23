@@ -138,12 +138,20 @@ limitations under the License.
       <doc:subsection name="resource-limits-disk-space">
         <doc:heading>Disk Space</doc:heading>
         <p>
-          The current 50MB <code>disk_free_limit</code> default is great for
-          development and getting started guides, but it's a poor choice for
-          production deployments. As a result, insufficient disk space is the
-          main reason for RabbitMQ crashes. Why are we still keeping the 50MB
-          default? It ensures that RabbitMQ works out of the box for everyone.
-          As for production deployments, we recommend the following:
+          The current 50MB <code>disk_free_limit</code> default works very well for
+          development and <a href="/getstarted.html">tutorials</a>.
+          Production deployments require a much greater safety margin.
+          Insufficient disk space will lead to node failures and may result in data loss
+          as all disk writes will fail.
+        </p>
+        <p>
+          Why is the default 50MB then? Development
+          environments sometimes use really small partitions to host
+          <code>/var/lib</code>, for example, which means nodes go
+          into resource alarm state right after booting. The very low
+          default ensures that RabbitMQ works out of the box for
+          everyone. As for production deployments, we recommend the
+          following:
         </p>
         <p>
           <ul class="plain">
