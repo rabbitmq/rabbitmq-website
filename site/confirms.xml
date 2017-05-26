@@ -94,7 +94,7 @@ limitations under the License.
           <ul>
             <li><code>basic.ack</code> is used for positive acknowledgements</li>
             <li><code>basic.nack</code> is used for negative acknowledgements (note: this is a <a href="/extensions.html">RabbitMQ extension to AMQP 0-9-1</a>)</li>
-            <li><code>basic.reject</code> is used for negative acknowledgements but has one limitations compared to <code>basic.nack</code></li>
+            <li><code>basic.reject</code> is used for negative acknowledgements but has one limitation compared to <code>basic.nack</code></li>
           </ul>
         </p>
 
