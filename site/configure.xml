@@ -332,7 +332,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <td>
                 <ul>
                   <li><b>Unix*:</b>
-                    <span class="sourcecode">"+K true +A30 +P 1048576 -kernel inet_default_connect_options [{nodelay,true}]"</span>
+                    <code>+P 1048576 +t 5000000 +stbt db +zdbbl 32000</code>
                   </li>
                   <li><b>Windows:</b> None</li>
                 </ul>
@@ -357,6 +357,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 Additional parameters for the <code>erl</code> command used when
                 invoking the RabbitMQ Server. The value of this variable
                 is <em>appended</em> the default list of arguments (<b>RABBITMQ_SERVER_ERL_ARGS</b>).
+                This is the environment variable to use if <code>+K true</code> needs to be overwritten.
               </td>
             </tr>
 
