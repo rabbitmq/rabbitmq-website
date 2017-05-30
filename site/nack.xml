@@ -61,6 +61,7 @@ limitations under the License.
       <pre class="sourcecode java">
 GetResponse gr = channel.basicGet("some.queue", false);
 channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
+    </p>
     <p>
       This example rejects two messages with a single call to
       the broker (the second argument on
