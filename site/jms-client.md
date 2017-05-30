@@ -132,6 +132,22 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
                 host="localhost"/&gt;
 </pre>
 
+To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client 1.7.0):
+
+<pre class="sourcecode xml">
+&lt;object-factory name=&quot;java:global/jms/ConnectionFactory&quot;
+                   module=&quot;org.jboss.genericjms.provider&quot;
+                   class=&quot;com.rabbitmq.jms.admin.RMQObjectFactory&quot;&gt;
+     &lt;environment&gt;
+         &lt;property name=&quot;className&quot; value=&quot;javax.jms.ConnectionFactory&quot;/&gt;
+         &lt;property name=&quot;username&quot; value=&quot;guest&quot;/&gt;
+         &lt;property name=&quot;password&quot; value=&quot;guest&quot;/&gt;
+         &lt;property name=&quot;virtualHost&quot; value=&quot;/&quot;/&gt;
+         &lt;property name=&quot;host&quot; value=&quot;localhost&quot;/&gt;
+     &lt;/environment&gt;
+&lt;/object-factory&gt;
+</pre>
+
 Here is the equivalent Spring bean example (Java configuration):
 
 <pre class="sourcecode java">
@@ -247,7 +263,8 @@ The `RMQDestination` object has the following new instance fields:
  messages from this destination, if `amqp` is **true**; the default is **null**.
 
 There are getters and setters for these fields, which means that a JNDI
- `<Resource/>` definition or an XML Spring bean definition can use them, for example:
+ `<Resource/>` definition or an XML Spring bean definition can use them, for example
+ JNDI with Tomcat:
 
 <pre class="sourcecode xml">
     &lt;Resource  name="jms/Queue"
@@ -257,6 +274,23 @@ There are getters and setters for these fields, which means that a JNDI
                amqp="true"
       amqpQueueName="rabbitQueueName"
     /&gt;
+</pre>
+
+This is the equivalent with WildFly (as of JMS Client 1.7.0):
+
+<pre class="sourcecode xml">
+&lt;bindings&gt;
+    &lt;object-factory name="java:global/jms/Queue"
+                    module="foo.bar"
+                    class="com.rabbitmq.jms.admin.RMQObjectFactory"&gt;
+        &lt;environment&gt;
+            &lt;property name="className" value="javax.jms.Queue"/&gt;
+            &lt;property name="destinationName" value="myQueue"/&gt;
+            &lt;property name="amqp" value="true"/&gt;
+            &lt;property name="amqpQueueName" value="rabbitQueueName"/&gt;
+        &lt;/environment&gt;
+    &lt;/object-factory&gt;
+&lt;/bindings&gt;
 </pre>
 
 This is the equivalent Spring bean example (Java configuration):
