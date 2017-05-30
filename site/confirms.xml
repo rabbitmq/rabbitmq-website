@@ -93,7 +93,7 @@ limitations under the License.
 
           <ul>
             <li><code>basic.ack</code> is used for positive acknowledgements</li>
-            <li><code>basic.nack</code> is used for negative acknowledgements (note: this is a <a href="/extensions.html">RabbitMQ extension to AMQP 0-9-1</a>)</li>
+            <li><code>basic.nack</code> is used for negative acknowledgements (note: this is a <a href="/nack.html">RabbitMQ extension to AMQP 0-9-1</a>)</li>
             <li><code>basic.reject</code> is used for negative acknowledgements but has one limitations compared to <code>basic.nack</code></li>
           </ul>
         </p>
@@ -253,6 +253,14 @@ limitations under the License.
         <p>
           <code>basic.nack</code> will only be delivered if an internal
           error occurs in the Erlang process responsible for a queue.
+        </p>
+
+        <p>
+          When a message is requeued, it will be placed to its original
+          position in its queue, if possible. If not (due to concurrent
+          deliveries and acknowledgements from other consumers when
+          multiple consumers share a queue), the message will be requeued
+          to a position closer to queue head.
         </p>
         </doc:subsection>
 

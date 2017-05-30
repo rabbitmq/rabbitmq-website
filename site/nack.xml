@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -25,7 +25,11 @@ limitations under the License.
   </head>
   <body>
     <p>
-      The AMQP specification defines the <code>basic.reject</code>
+      Consumers in AMQP 0-9-1 can choose to use <a href="/confirms.html">manual acknowledgements</a>
+      of deliveries.
+    </p>
+    <p>
+      The <a href="/specification.html">AMQP 0-9-1 specification</a> defines the <code>basic.reject</code>
       method that allows clients to reject individual, delivered
       messages, instructing the broker to either discard them or
       requeue them. Unfortunately, <code>basic.reject</code>
@@ -53,18 +57,27 @@ limitations under the License.
 
     <p>
       This example rejects a single message, asking the broker to requeue it:
-    </p>
-    <pre class="sourcecode java">
+
+      <pre class="sourcecode java">
 GetResponse gr = channel.basicGet("some.queue", false);
 channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
     <p>
       This example rejects two messages with a single call to
       the broker (the second argument on
       <code>basicNack</code> is the <code>multiple</code> flag):
-    </p>
+
     <pre class="sourcecode java">
 GetResponse gr1 = channel.basicGet("some.queue", false);
 GetResponse gr2 = channel.basicGet("some.queue", false);
 channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);</pre>
+    </p>
+
+    <p>
+      When a message is requeued, it will be placed to its original
+      position in its queue, if possible. If not (due to concurrent
+      deliveries and acknowledgements from other consumers when
+      multiple consumers share a queue), the message will be requeued
+      to a position closer to queue head.
+    </p>
   </body>
 </html>
