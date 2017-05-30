@@ -386,8 +386,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <tr>
               <td>HOSTNAME</td>
               <td><ul>
-                  <li><b>Unix, Linux:</b> `env&#xA0;hostname`</li>
-                  <li><b>MacOSX:</b> `env&#xA0;hostname&#xA0;-s`</li>
+                  <li><b>Unix, Linux:</b> <code>env hostname</code></li>
+                  <li><b>MacOSX:</b> <code>env hostname -s</code></li>
                 </ul>
               </td>
               <td>The name of the current machine</td>
