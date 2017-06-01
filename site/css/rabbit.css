@@ -486,6 +486,10 @@ td.desc, th.desc {
   padding: 25px 0;
 }
 
+.pageFooter .container {
+	overflow: auto;
+}
+
 .pageFooter .rabbit-logo {
 	margin-top: 0;
 }
@@ -515,6 +519,17 @@ td.desc, th.desc {
 
 .pageFooter #copyright a {
 	text-decoration: underline;
+}
+
+#s1p-promo {
+	cursor:pointer;
+	float: right;
+}
+
+#s1p-promo img {
+	width: 100%;
+	max-width: 614px;
+	padding: 20px 0 0;
 }
 
 ol.feed {
@@ -887,12 +902,13 @@ body#index #getstarted .fifty .container {
 	.pageFooter .rabbit-logo {
 		margin: 0;
 		float: none;
-		display: inline-block;
 	}
 	.pageFooter #copyright {
-		display: inline-block;
-    float: right;
-    margin: 0;
+    margin: 20px 0 0;
+    float: left;
+	}
+	#s1p-promo {
+		float: left;
 	}
 }
 
@@ -1021,11 +1037,6 @@ body#index #getstarted .fifty .container {
 	}
 	#community .orangebtn {
 		margin-bottom: 10px;
-	}
-	.pageFooter #copyright {
-    display: block;
-    float: none;
-    margin: 20px 0 0;
 	}
 }
 
