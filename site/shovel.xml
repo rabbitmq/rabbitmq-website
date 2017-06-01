@@ -216,6 +216,24 @@ rabbitmq-plugins enable rabbitmq_shovel
 
     </doc:section>
 
+
+    <doc:section name="authn-authz-for-shovels">
+      <doc:heading>Authentication and Authorization for Shovels</doc:heading>
+
+      <p>
+        The Shovel plugin uses <a href="/erlang-client.html">Erlang client</a> under the hood
+        to open connections to its source and/or destination. Just like any other
+        client library connection, a Shovel connection must <a href="/access-control.html">successfully authenticate</a>
+        with RabbitMQ server and be <a href="/access-control.html">authorized to access</a>
+        the vhost it is trying to connect to.
+      </p>
+      <p>
+        Authentication and authorization failures of Shovel connections will be
+        visible in the logs of the node that opens them.
+      </p>
+    </doc:section>
+
+
     <doc:section name="clustering">
       <doc:heading>Shovels between clusters</doc:heading>
       <p>

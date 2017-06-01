@@ -229,6 +229,12 @@ limitations under the License.
         </p>
 
         <p>
+          The API is intended to be used for monitoring and alerting purposes. It provides
+          access to detailed information about the state of nodes, connections, channels, queues,
+          consumers, and so on.
+        </p>
+
+        <p>
           HTTP API can be used on any node that has the <code>rabbitmq-management</code> plugin
           enabled. It then will be able to provide metrics on any (or all) cluster node.
           When monitoring a cluster of nodes, there is no need to contact each node via HTTP API
@@ -239,6 +245,13 @@ limitations under the License.
         <p>
           For HTTP API clients in several languages,
           see <a href="/devtools.html">Developer Tools</a>.
+        </p>
+
+        <p>
+          Some API endpoints return a lot of information. The volume can be reduced
+          by filtering what columns are returned by `HTTP GET` requests. See
+          <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
+          latest HTTP API documentation</a> for details.
         </p>
 
         <p>

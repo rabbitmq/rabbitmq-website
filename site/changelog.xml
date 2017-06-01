@@ -75,6 +75,7 @@ limitations under the License.
               <a href="https://github.com/rabbitmq/rabbitmq-management/issues/236">Distributed management plugin</a>,
               including minor breaking HTTP API changes.
             </li>
+            <li>This upgrade requires a cluster-wide restart.</li>
             <li>Bug fixes</li>
             <li>Usability improvements</li>
           </ul>

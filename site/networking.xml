@@ -466,12 +466,22 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
       </doc:subsection>
 
       <doc:subsection name="tuning-for-large-number-of-connections-open-file-handles-limit">
-        <doc:heading>Open File Handles Limit</doc:heading>
+        <doc:heading>Open File Handle Limit</doc:heading>
         <p>
           Most operating systems limit the number of file handles that
-          can be opened at the same time. <a href="http://docs.basho.com/riak/latest/ops/tuning/linux/">How
-          the limit is configured</a> varies from OS to OS.
+          can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM) reaches
+          the limit, it won't be able to open any new files or accept any more
+          TCP connections.
+        </p>
 
+        <p>
+          <a href="http://docs.basho.com/riak/latest/ops/tuning/linux/">How the limit is configured</a> varies from OS to OS.
+          If you run RabbitMQ on Linux, see Controlling System Limits on Linux
+          in our <a href="/install-debian.html#kernel-resource-limits">Debian</a> and <a href="/install-rpm.html#kernel-resource-limits">RPM</a>
+          installation guides.
+        </p>
+
+        <p>
           When optimising for the number of concurrent connections,
           making sure your system has enough file descriptors to
           support not only client connections but also files the node

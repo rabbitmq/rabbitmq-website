@@ -254,6 +254,14 @@ limitations under the License.
           <code>basic.nack</code> will only be delivered if an internal
           error occurs in the Erlang process responsible for a queue.
         </p>
+
+        <p>
+          When a message is requeued, it will be placed to its original
+          position in its queue, if possible. If not (due to concurrent
+          deliveries and acknowledgements from other consumers when
+          multiple consumers share a queue), the message will be requeued
+          to a position closer to queue head.
+        </p>
         </doc:subsection>
 
       <doc:subsection name="when-publishes-are-confirmed">
