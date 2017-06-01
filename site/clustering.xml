@@ -501,6 +501,8 @@ Starting node rabbit@rabbit2 ...done.</pre>
                   versions from the 3.0.x series</li>
               <li>3.6.6 and later cannot
                   be mixed with earlier versions from the 3.6.x series</li>
+              <li>3.6.7 and later cannot
+                  be mixed with earlier versions from the 3.6.x series</li>
             </ul>
           </p>
           <p>
