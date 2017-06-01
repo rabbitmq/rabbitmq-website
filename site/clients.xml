@@ -27,41 +27,43 @@ limitations under the License.
   </head>
   <body>
     <div class="landing-box">
-      <h2>Java Client</h2>
+      <h2>Java</h2>
       <ul>
         <li>
-          <a href="api-guide.html">Java Client Guide</a>
+          API Guide
         </li>
         <li>
-          <a href="&dir-current-javadoc;">Javadoc API reference</a>
+          Javadoc API Reference
         </li>
         <li>
-          <a href="jms-client.html">JMS client</a>
+          JMS Guide
         </li>
         <li>
-          <a href="java-tools.html">Command line tools</a>
+          <a href="/java-tools.html">Command line tools</a>
         </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>.NET Client</h2>
+      <h2>.NET/C#</h2>
       <ul>
         <li>
-          <a href="dotnet-api-guide.html">.NET Client Guide</a>
+          Guide
         </li>
           <li>
-            <a href="&dir-current-dotnet-apidoc;/index.html">API reference</a>
+            API Reference
         </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>Erlang Client</h2>
+      <h2>Erlang</h2>
       <ul>
-        <li><a href="&dir-current-edoc;">Erlang edoc</a></li>
         <li>
-          <a href="erlang-client-user-guide.html">Erlang Client API Guide</a>
+          Guide
+        </li>
+        <li>
+          API Reference
         </li>
       </ul>
     </div>
