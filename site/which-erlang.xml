@@ -36,7 +36,7 @@ limitations under the License.
 
         <p>
           As a rule of thumb, stable (GA) version of <a
-          href="http://www.erlang.org/download.html">Erlang/OTP
+          href="https://packages.erlang-solutions.com/erlang/">Erlang/OTP
           19.3.x</a> are recommended for running RabbitMQ.
         </p>
 
