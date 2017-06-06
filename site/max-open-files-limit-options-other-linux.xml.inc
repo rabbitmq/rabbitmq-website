@@ -20,6 +20,7 @@ limitations under the License.
              xmlns:xi="http://www.w3.org/2003/XInclude"
              name="linux-max-open-files-limit-options-other-linux">
 
+  <h3>With systemd (Recent Linux Distributions)</h3>
   <p>
     On distributions that use systemd, the OS limits are controlled via
     a configuration file at <code>/etc/systemd/system/rabbitmq-server.service.d/limits.conf</code>,
@@ -31,6 +32,7 @@ LimitNOFILE=300000
 </pre>
   </p>  
 
+  <h3>Without systemd (Older Linux Distributions)</h3>
   <p>
     The most straightforward way to adjust the per-user limit for
     RabbitMQ on distributions that do not use systemd is to edit the <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a>

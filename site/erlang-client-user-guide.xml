@@ -22,7 +22,7 @@ limitations under the License.
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>Erlang AMQP Client library</title>
+    <title>Erlang RabbitMQ Client library</title>
   </head>
 <body show-in-this-page="true">
  <p class="intro">
@@ -31,7 +31,7 @@ limitations under the License.
 
  <doc:section name="introduction">
    <p>
-     This guide covers an Erlang client for RabbitMQ (AMQP 0-9-1).
+     This guide covers an Erlang client for RabbitMQ (<a href="/tutorials/amqp-concepts.html">AMQP 0-9-1</a>).
    </p>
    <p>
      This user guide assumes that the reader is familiar with <a
@@ -42,13 +42,16 @@ limitations under the License.
    <p>
      The basic usage of the client follows these broad steps:
      <ol>
+       <li>Make sure the <code>amqp_client</code> Erlang application is running</li>
        <li>Establish a connection to a broker</li>
        <li>Create a new channel within the open connection</li>
-       <li>Execute AMQP commands with a channel such as sending and
-       receiving messages, creating exchanges and queue or defining
-       routing rules between exchanges and queues</li>
-       <li>When no longer required, close the channel and the
-       connection</li>
+       <li>
+         Execute <a href="/amqp-0-9-1-quickref.html">AMQP 0-9-1 commands</a> with a channel such as
+         declaring exchanges and queues, defining
+         bindings between them, publishing messages,
+         registering consumers (subscribing).
+       </li>
+       <li>When no longer required, close the channel and the connection</li>
      </ol>
    </p>
    <p>
@@ -58,6 +61,18 @@ limitations under the License.
 
  </doc:section>
 
+  <doc:section name="amqp-client-app">
+    <doc:heading>The amqp_client Application</doc:heading>
+
+    <p>
+      To begin using the client it's necessary to first start
+      its Erlang application, <code>amqp_client</code>:
+    </p>
+    <pre class="sourcecode erlang">
+application:ensure_started(amqp_client).
+    </pre>
+  </doc:section>
+ 
 <!-- ..................................................................... -->
 
 <doc:section name="model">

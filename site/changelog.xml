@@ -30,6 +30,18 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.10</td>
+        <td class="centre">25 May 2017</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_10">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.9</td>
         <td class="centre">29 March 2017</td>
         <td>
@@ -63,6 +75,7 @@ limitations under the License.
               <a href="https://github.com/rabbitmq/rabbitmq-management/issues/236">Distributed management plugin</a>,
               including minor breaking HTTP API changes.
             </li>
+            <li>This upgrade requires a cluster-wide restart.</li>
             <li>Bug fixes</li>
             <li>Usability improvements</li>
           </ul>
