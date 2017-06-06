@@ -295,19 +295,50 @@ limitations under the License.
         <dt><code>src-uri</code></dt>
         <dd>
           <p>
-            The AMQP URI(s) for the source. Mandatory.
+            The AMQP URI for the source. Mandatory. AMQP 1.0 URIs implement
+            as subset of what is described in the <a href="uri-spec.html">AMQP URI reference</a>.
+            Direct connections are not supported for AMQP 1.0 endpoints and there
+            is no vhost concept.
+            The set of query parameters it supports are different from AMQP 0.9.1
+            URI(s):
           </p>
+          <dl>
+            <dt><code>idle_time_out</code></dt>
+            <dd>heartbeat interval</dd>
+            <dt><code>hostname</code></dt>
+            <dd>
+              The name of the target host. Certain vendors (such as Azure ServiceBus)
+              require this to be set even if it is the same as the host segment
+              in the uri.
+            </dd>
+            <dt><code>sasl</code></dt>
+            <dd>
+              <code>anon</code>, <code>none</code> or <code>plain</code>
+              Defaults to: <code>none</code>. When using <code>plain</code> the
+              user and password segments of the URI need to be set.
+            </dd>
+            <dt>
+              <code>cacertfile, certfile, keyfile</code>
+            </dt>
+            <dd>
+              Paths to files to use in order to present a client-side SSL certificate to the server.
+              Only of use for the  amqps scheme.
+            </dd>
+            <dt>
+              <code>verify, fail_if_no_peer_cert</code>
+            </dt>
+            <dd>
+              Use to configure verification of the server's SSL certificate.
+              See the <a href="ssl.html">SSL guide</a> for details of SSL in RabbitMQ in general.
+              Only of use for the amqps scheme.
+            </dd>
+          </dl>
         </dd>
 
         <dt><code>src-address</code></dt>
         <dd>
           <p>
-            The queue from which to consume. Either this
-            or <code>src-exchange</code> (but not both) must be set. Mandatory.
-          </p>
-          <p>
-            If the source queue does not exist on the source broker, it will
-            be declared as a durable queue with no arguments.
+            The AMQP 1.0 link address. Mandatory.
           </p>
         </dd>
 
@@ -341,8 +372,8 @@ limitations under the License.
         <dt><code>dest-uri</code></dt>
         <dd>
           <p>
-            The AMQP URI(s) for the
-            destination. Mandatory. See <code>src-uri</code> above. Mandatory.
+            The AMQP URI for the destination. Mandatory.
+            See AMQP 1.0 <code>src-uri</code> above. Mandatory.
           </p>
         </dd>
 
