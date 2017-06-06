@@ -24,26 +24,29 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Shovel plugin</title>
+    <title>Shovel Plugin</title>
   </head>
   <body show-in-this-page="true">
     <p>
       Sometimes it is necessary to reliably and
-      continually move messages from a queue (a <em>source</em>) in one
-      broker to an exchange in another broker (a
-      <em>destination</em>). The <em>Shovel plugin</em> allows you to
+      continually move messages from a source (e.g. a <em>queue</em>) in one
+      broker to a destination in another broker (e.g. an <em>exchange</em>).
+      The <em>Shovel plugin</em> allows you to
       configure a number of <em>shovel</em>s, which do just that and
       start automatically when the broker starts.
     </p>
     <p>
-      The source queue and destination exchanges can be on the same
-      broker (typically in different vhosts) or distinct brokers.
+      The source and destination can be on the same
+      broker (typically in different vhosts) or distinct brokers. Since 3.7
+      they can even use different protocols (AMQP 0.9.1 or AMQP 1.0).
     </p>
     <p>
       A shovel behaves like a well-written client application, which
       connects to its source and destination, reads and writes messages,
-      and copes with connection failures. In fact, Shovels use
-      <a href="https://www.rabbitmq.com/erlang-client-user-guide.html">RabbitMQ Erlang client</a> under the hood.
+      and copes with connection failures. In fact, Shovels use the
+      <a href="https://www.rabbitmq.com/erlang-client-user-guide.html">Erlang AMQP 0-9-1</a>
+      and <a href="https://github.com/rabbitmq/rabbitmq-amqp1.0-client">Erlang AMQP 1.0</a>
+      clients under the hood.
     </p>
 
     <p>
@@ -61,11 +64,14 @@ limitations under the License.
           <li>
             they may run on different versions of RabbitMQ and Erlang.
           </li>
+          <li>
+            they may be different broker products.
+          </li>
         </ul>
       </dd>
       <dt><strong>WAN-friendly</strong></dt>
       <dd>
-        The Shovel plugin uses AMQP 0-9-1 to communicate between brokers, and
+        The Shovel plugin uses client connections to communicate between brokers, and
         is designed to tolerate intermittent connectivity without
         message loss.
       </dd>
@@ -74,7 +80,15 @@ limitations under the License.
         When a shovel connects (either to the source or the
         destination) it can be configured to perform any number of
         explicit methods. For example, the source queue need not exist
-        initially, and can be <em>declared</em> on connect.
+        initially, and can be <em>declared</em> on connect (AMQP 0.9.1 only).
+      </dd>
+      <dt><strong>Supports multiple protocols</strong></dt>
+      <dd>
+        Starting with RabbitMQ 3.7.0 the shovel has support for multiple
+        protocols. Currently implemented are AMQP 0.9.1 and AMQP 1.0.
+        This means it is possible to shovel, e.g. from and AMQP 1.0
+        broker source to a RabbitMQ destination and vice versa.
+        Further protocols may be implemented in the future.
       </dd>
     </dl>
 
@@ -103,7 +117,7 @@ limitations under the License.
           <li>
             <strong><em>re-publishes</em></strong> each message to the
             destination broker (using, by default, the original exchange
-            name and routing_key).
+            name and routing_key when applicable).
           </li>
         </ul>
       </p>
@@ -116,8 +130,9 @@ limitations under the License.
         <dd>
           <p>
             After connection to a source or a destination broker a
-            series of configured AMQP <em>declarations</em> can be
-            issued. Queues, exchanges and bindings can be declared.
+            series of configured <em>declarations</em> can be
+            issued. For example, on an AMQP 0-9-1 endpoint, queues,
+            exchanges and bindings can be declared.
           </p>
         </dd>
         <dd>
@@ -137,9 +152,9 @@ limitations under the License.
         <dt><strong><em>consumes</em></strong></dt>
         <dd>
           <p>
-            The shovel's consumer can acknowledge messages
+            The Shovel's consumer can <a href="/confirms.html">acknowledge</a> messages
             automatically on receipt, after (re-)publication, or after
-            confirmation of its publication.
+            <a href="/confirms.html">confirmation of its publication</a> from the destination server.
           </p>
         </dd>
         <dt><strong><em>re-publishes</em></strong></dt>
@@ -191,7 +206,7 @@ rabbitmq-plugins enable rabbitmq_shovel
           Defined in the broker <a href="configure.html">configuration file</a>.
         </td>
         <td>
-          Defined in the broker's <a href="parameters.html">parameters</a>.
+          Defined using the broker's <a href="parameters.html">runtime parameters</a>.
         </td>
       </tr>
       <tr>
@@ -214,6 +229,22 @@ rabbitmq-plugins enable rabbitmq_shovel
       </tr>
     </table>
 
+    <p>
+      Note that when using AMQP 1.0 the "nodes" may still need to be created
+      outside of the shovel as the protocol does not include topology
+      creation.
+    </p>
+
+    <doc:subsection name="configuration-format-differences">
+      <doc:heading>Configuration Format Differences</doc:heading>
+      <p>
+        Versions prior to 3.7.0 use a slightly different configuration format.
+        See: <a href="shovel-static-legacy.html">static shovels (legacy)</a> and
+        <a href="shovel-dynamic-legacy.html">dynamic shovels (legacy)</a> for
+        details. Static shovel created by the old format will still work
+        in 3.7.0+ but it is recommended to upgrade at earliest convenience.
+      </p>
+    </doc:subsection>
     </doc:section>
 
 
@@ -221,8 +252,9 @@ rabbitmq-plugins enable rabbitmq_shovel
       <doc:heading>Authentication and Authorization for Shovels</doc:heading>
 
       <p>
-        The Shovel plugin uses <a href="/erlang-client.html">Erlang client</a> under the hood
-        to open connections to its source and/or destination. Just like any other
+        The plugin uses <a href="https://www.rabbitmq.com/erlang-client-user-guide.html">Erlang AMQP 0-9-1</a>
+        and <a href="https://github.com/rabbitmq/rabbitmq-amqp1.0-client">Erlang AMQP 1.0</a>
+        clients under the hood to open connections to its source and/or destination. Just like any other
         client library connection, a Shovel connection must <a href="/access-control.html">successfully authenticate</a>
         with RabbitMQ server and be <a href="/access-control.html">authorized to access</a>
         the vhost it is trying to connect to.
@@ -235,7 +267,7 @@ rabbitmq-plugins enable rabbitmq_shovel
 
 
     <doc:section name="clustering">
-      <doc:heading>Shovels between clusters</doc:heading>
+      <doc:heading>Shovels Between Clusters</doc:heading>
       <p>
         It's normally desirable to ensure that shovels are resilient
         to failure of any node in the source or destination clusters,
@@ -268,9 +300,9 @@ rabbitmq-plugins enable rabbitmq_shovel
       <doc:heading>Securing Shovel Connections with TLS</doc:heading>
       <p>
         Shovel connections can be secured with TLS. Because Shovel uses
-        a RabbitMQ client under the hood, it is necessary to both configure
-        source broker to <a href="/ssl.html">listen for TLS connections</a>
-        and Shovel/Erlang client to use TLS.
+        client libraries under the hood, it is necessary to both configure
+        the source broker to <a href="/ssl.html">listen for TLS connections</a>
+        and the Shovel/Erlang client to use TLS.
       </p>
       <p>
         To configure Shovel to use TLS, one needs to
@@ -309,14 +341,14 @@ rabbitmq-plugins enable rabbitmq_shovel
       </doc:subsection>
 
       <doc:subsection name="direct-status">
-        <doc:heading>Direct query</doc:heading>
+        <doc:heading>CLI tools</doc:heading>
         <p>
           Shovel status can be obtained by direct query of the Shovel
           plugin app. Issue the following <code>rabbitmqctl</code>
           command:
         </p>
 <pre class="sourcecode bash">
-  $ rabbitmqctl eval 'rabbit_shovel_status:status().'
+rabbitmqctl eval 'rabbit_shovel_status:status().'
 </pre>
         <p>
           This calls the <code>status</code> method in a module of the
@@ -324,11 +356,13 @@ rabbitmq-plugins enable rabbitmq_shovel
           Erlang list, with one element for each configured shovel.
         </p>
         <p>
-          Each element of the list is a tuple with four fields:
-          <code>{<em><strong>Name</strong></em>,
-          <em><strong>Type</strong></em>,
-          <em><strong>Status</strong></em>,
-          <em><strong>Timestamp</strong></em>}</code>.
+          Each element of the list is a map with several fields fields:
+          <code>
+            {<em><strong>Name</strong></em>,
+             <em><strong>Type</strong></em>,
+             <em><strong>Status</strong></em>,
+             <em><strong>Timestamp</strong></em>}
+          </code>
         </p>
         <sl>
           <li>
@@ -368,13 +402,16 @@ rabbitmq-plugins enable rabbitmq_shovel
           <li>
             The shovel is running normally:
 <pre class="sourcecode erlang">
-{ 'running', [{'src_uri', <em>Source</em>},
+{ 'running', [{'src_protocol', <em>Protocol</em>},
+              {'src_uri', <em>Source</em>},
+              {'dest_protocol', <em>Protocol</em>},
               {'dest_uri', <em>Destination</em>}]}:
 </pre>
             <p>
               where <code><em>Source</em></code> and
               <code><em>Destination</em></code> terms give the
-              respective connection parameters.
+              respective connection parameters and <code><em>Protocol</em></code>
+              is either <code>amqp091</code> or <code>amqp10</code>
             </p>
           </li>
           <li>

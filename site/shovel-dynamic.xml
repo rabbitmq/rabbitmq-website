@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -31,11 +31,11 @@ limitations under the License.
       <p>
         Information about dynamic shovels is stored in the RabbitMQ database,
         along with users, permissions, queues, etc. Every shovel is defined by
-        a corresponding named <a href="parameters.html">parameter</a>.
+        a corresponding named <a href="parameters.html">runtime parameter</a>.
       </p>
       <p>
         Parameters can be defined using <code>rabbitmqctl</code>, through the
-        management HTTP API, or (with
+        <a href="/management.html">management HTTP API</a>, or (with
         the <code>rabbitmq_shovel_management</code> plugin installed) through
         the management plugin's web UI.
       </p>
@@ -53,21 +53,23 @@ limitations under the License.
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_parameter shovel my-shovel \<br/>'{"src-uri": "amqp://", "src-queue": "my-queue", \<br/>"dest-uri": "amqp://remote-server", "dest-queue": "another-queue"}'</code>
+            <code>rabbitmqctl set_parameter shovel my-shovel \<br/>'{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "my-queue", \<br/>"dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", \<br/>"dest-queue": "another-queue"}'</code>
           </td>
         </tr>
         <tr>
           <th>rabbitmqctl (Windows)</th>
           <td>
-            <code>rabbitmqctl set_parameter shovel my-shovel ^<br/>"{""src-uri"":""amqp://"", ""src-queue"": ""my-queue"", ^<br/>""dest-uri"": ""amqp://remote-server"", ""dest-queue"": ""another-queue""}"</code>
+            <code>rabbitmqctl set_parameter shovel my-shovel ^<br/>"{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://"", ""src-queue"": ""my-queue"", ^<br/>""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote-server"", ^<br/>""dest-queue"": ""another-queue""}"</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
             PUT <code>/api/parameters/shovel/%2f/my-shovel</code><br/>
-            <pre>{"value":{"src-uri":  "amqp://",              "src-queue":  "my-queue",
-          "dest-uri": "amqp://remote-server", "dest-queue": "another-queue"}}</pre>
+            <pre>{"value":{"src-protocol": "amqp091", "src-uri":  "amqp://",
+          "src-queue":  "my-queue",
+          "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server",
+          "dest-queue": "another-queue"}}</pre>
           </td>
         </tr>
         <tr>
@@ -86,7 +88,53 @@ limitations under the License.
     <doc:section name="configuration">
       <doc:heading>Configuration reference</doc:heading>
 
-      <h4>Source</h4>
+      <h4>Shovel</h4>
+
+      <dl>
+        <dt><code>reconnect-delay</code></dt>
+        <dd>
+            The duration (in seconds) to wait before reconnecting to the
+            brokers after being disconnected at either end. Default is 1.
+        </dd>
+        <dt><code>ack-mode</code></dt>
+        <dd>
+          <p>
+            Determines how the shovel should acknowledge messages. If set
+            to <code>on-confirm</code> (the default), messages are
+            acknowledged to the source broker after they have been confirmed
+            by the destination. This handles network errors and broker
+            failures without losing messages, and is the slowest option.
+          </p>
+          <p>
+            If set to <code>on-publish</code>, messages are acknowledged to
+            the source broker after they have been published at the
+            destination. This handles network errors without losing messages,
+            but may lose messages in the event of broker failures.
+          </p>
+          <p>
+            If set to <code>no-ack</code>, message acknowledgements are not
+            used. This is the fastest option, but may lose messages in the
+            event of network or broker failures.
+          </p>
+        </dd>
+        <dt><code>src-protocol</code></dt>
+        <dd>
+          <p>
+          The protocol to use for the source. Either <code>amqp091</code> or
+          <code>amqp10</code>. If omitted it will default to <code>amqp091</code>.
+          See protocol specific properties below.
+          </p>
+        </dd>
+        <dt><code>dest-protocol</code></dt>
+        <dd>
+          <p>
+          The protocol to use for the destination. Either <code>amqp091</code> or
+          <code>amqp10</code>. If omitted it will default to <code>amqp091</code>.
+          See protocol specific properties below.
+          </p>
+        </dd>
+      </dl>
+      <h4>AMQP 0.9.1 Source</h4>
 
       <dl>
         <dt><code>src-uri</code></dt>
@@ -109,6 +157,12 @@ limitations under the License.
             great idea to use multiple URIs that do <b>not</b> point to the
             same cluster.
           </p>
+        </dd>
+
+        <dt><code>src-prefetch-count</code></dt>
+        <dd>
+          The maximum number of unacknowledged messages copied over a shovel at
+          any one time. Default is <code>1000</code>.
         </dd>
 
         <dt><code>src-queue</code></dt>
@@ -146,9 +200,33 @@ limitations under the License.
             Routing key when using <code>src-exchange</code>
           </p>
         </dd>
+
+        <dt><code>src-delete-after</code></dt>
+        <dd>
+          <p>
+            Determines when (if ever) the shovel should delete
+            itself. This can be useful if the shovel is being treated
+            as more of a move operation - i.e. being used to move
+            messages from one queue to another on an ad hoc basis.
+          </p>
+          <p>
+            The default is <code>never</code>, meaning the
+            shovel should never delete itself.
+          </p>
+          <p>
+            If set to <code>queue-length</code> then the shovel will
+            measure the length of the source queue when starting up,
+            and delete itself after it has transfered that many
+            messages.
+          </p>
+          <p>
+            If set to an integer, then the shovel will transfer that
+            number of messages before deleting itself.
+          </p>
+        </dd>
       </dl>
 
-      <h4>Destination</h4>
+      <h4>AMQP 0.9.1 Destination</h4>
 
       <dl>
         <dt><code>dest-uri</code></dt>
@@ -192,60 +270,85 @@ limitations under the License.
             set, the original message's routing key will be used.
           </p>
         </dd>
-      </dl>
-
-      <h4>Shovel</h4>
-
-      <dl>
-        <dt><code>prefetch-count</code></dt>
-        <dd>
-          The maximum number of unacknowledged messages copied over a shovel at
-          any one time. Default is <code>1000</code>.
-        </dd>
-        <dt><code>reconnect-delay</code></dt>
-        <dd>
-            The duration (in seconds) to wait before reconnecting to the
-            brokers after being disconnected at either end. Default is 1.
-        </dd>
-        <dt><code>publish-properties</code></dt>
+        <dt><code>dest-publish-properties</code></dt>
         <dd>
            Properties to overwrite when shovelling messages. Setting
            headers this way is not currently supported. Default is {}.
         </dd>
-        <dt><code>add-forward-headers</code></dt>
+        <dt><code>dest-add-forward-headers</code></dt>
         <dd>
           Whether to add <code>x-shovelled</code> headers to the
           shovelled messages indicating where they have been shovelled
           from and to. Default is false.
         </dd>
-        <dt><code>add-timestamp-header</code></dt>
+        <dt><code>dest-add-timestamp-header</code></dt>
         <dd>
           Whether to add <code>x-shovelled-timestamp</code> headers to the
           shovelled messages  containing timestamp (in seconds since epoch)
           when message had been shovelled. Default is false.
         </dd>
-        <dt><code>ack-mode</code></dt>
+      </dl>
+
+      <h4>AMQP 1.0 Source</h4>
+
+      <dl>
+        <dt><code>src-uri</code></dt>
         <dd>
           <p>
-            Determines how the shovel should acknowledge messages. If set
-            to <code>on-confirm</code> (the default), messages are
-            acknowledged to the source broker after they have been confirmed
-            by the destination. This handles network errors and broker
-            failures without losing messages, and is the slowest option.
+            The AMQP URI for the source. Mandatory. AMQP 1.0 URIs implement
+            as subset of what is described in the <a href="uri-spec.html">AMQP URI reference</a>.
+            Direct connections are not supported for AMQP 1.0 endpoints and there
+            is no vhost concept.
+            The set of query parameters it supports are different from AMQP 0.9.1
+            URI(s):
           </p>
+          <dl>
+            <dt><code>idle_time_out</code></dt>
+            <dd>heartbeat interval</dd>
+            <dt><code>hostname</code></dt>
+            <dd>
+              The name of the target host. Certain vendors (such as Azure ServiceBus)
+              require this to be set even if it is the same as the host segment
+              in the uri.
+            </dd>
+            <dt><code>sasl</code></dt>
+            <dd>
+              <code>anon</code>, <code>none</code> or <code>plain</code>
+              Defaults to: <code>none</code>. When using <code>plain</code> the
+              user and password segments of the URI need to be set.
+            </dd>
+            <dt>
+              <code>cacertfile, certfile, keyfile</code>
+            </dt>
+            <dd>
+              Paths to files to use in order to present a client-side SSL certificate to the server.
+              Only of use for the  amqps scheme.
+            </dd>
+            <dt>
+              <code>verify, fail_if_no_peer_cert</code>
+            </dt>
+            <dd>
+              Use to configure verification of the server's SSL certificate.
+              See the <a href="ssl.html">SSL guide</a> for details of SSL in RabbitMQ in general.
+              Only of use for the amqps scheme.
+            </dd>
+          </dl>
+        </dd>
+
+        <dt><code>src-address</code></dt>
+        <dd>
           <p>
-            If set to <code>on-publish</code>, messages are acknowledged to
-            the source broker after they have been published at the
-            destination. This handles network errors without losing messages,
-            but may lose messages in the event of broker failures.
-          </p>
-          <p>
-            If set to <code>no-ack</code>, message acknowledgements are not
-            used. This is the fastest option, but may lose messages in the
-            event of network or broker failures.
+            The AMQP 1.0 link address. Mandatory.
           </p>
         </dd>
-        <dt><code>delete-after</code></dt>
+
+        <dt><code>src-prefetch-count</code></dt>
+        <dd>
+          The maximum number of unacknowledged messages copied over a shovel at
+          any one time. Default is <code>1000</code>.
+        </dd>
+
+        <dt><code>src-delete-after</code></dt>
         <dd>
           <p>
             Determines when (if ever) the shovel should delete
@@ -258,18 +361,55 @@ limitations under the License.
             shovel should never delete itself.
           </p>
           <p>
-            If set to <code>queue-length</code> then the shovel will
-            measure the length of the source queue when starting up,
-            and delete itself after it has transfered that many
-            messages.
-          </p>
-          <p>
             If set to an integer, then the shovel will transfer that
             number of messages before deleting itself.
           </p>
         </dd>
       </dl>
+      <h4>AMQP 1.0 Destination</h4>
 
+      <dl>
+        <dt><code>dest-uri</code></dt>
+        <dd>
+          <p>
+            The AMQP URI for the destination. Mandatory.
+            See AMQP 1.0 <code>src-uri</code> above. Mandatory.
+          </p>
+        </dd>
+
+        <dt><code>dest-address</code></dt>
+        <dd>
+          <p>
+            The AMQP 1.0 link address. Mandatory.
+          </p>
+        </dd>
+
+        <dt><code>dest-properties</code></dt>
+        <dd>
+           Properties to overwrite when shovelling messages.
+           See AMQP 1.0 spec §3.2.4 for details of all possible
+           properties.
+        </dd>
+
+        <dt><code>dest-application-properties</code></dt>
+        <dd>
+           Application properties to set when shovelling messages.
+        </dd>
+
+        <dt><code>dest-add-forward-headers</code></dt>
+        <dd>
+          Whether to add <code>x-shovelled</code> application properties to the
+          shovelled messages indicating where they have been shovelled
+          from and to. Default is false.
+        </dd>
+
+        <dt><code>dest-add-timestamp-header</code></dt>
+        <dd>
+          Whether to set the <code>creation_time</code> header to the
+          ontaining timestamp (in milliseconds since epoch)
+          when message had been shovelled. Default is false.
+        </dd>
+      </dl>
     </doc:section>
 
   </body>
