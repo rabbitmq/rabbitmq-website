@@ -31,11 +31,11 @@ limitations under the License.
       <p>
         Information about dynamic shovels is stored in the RabbitMQ database,
         along with users, permissions, queues, etc. Every shovel is defined by
-        a corresponding named <a href="parameters.html">parameter</a>.
+        a corresponding named <a href="parameters.html">runtime parameter</a>.
       </p>
       <p>
         Parameters can be defined using <code>rabbitmqctl</code>, through the
-        management HTTP API, or (with
+        <a href="/management.html">management HTTP API</a>, or (with
         the <code>rabbitmq_shovel_management</code> plugin installed) through
         the management plugin's web UI.
       </p>
