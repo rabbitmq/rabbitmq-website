@@ -355,7 +355,7 @@ a consumer, which will run continuously waiting for deliveries:
 
 <pre class="sourcecode bash">
 mix run receive.exs
-# => [*] Waiting for messages. To exist press CTRL+C, CTRL+C
+# => [*] Waiting for messages. To exit press CTRL+C, CTRL+C
 # ...
 # => [x] Received Hello World!
 </pre>
