@@ -358,9 +358,10 @@ import com.rabbitmq.client.DefaultConsumer;</pre>
         <code>Consumer</code>s, individual subscriptions are
         always referred to by their consumer tags, which can be
         either client- or server-generated as explained in <a
-        href="http://www.amqp.org/">the AMQP specification
-        document</a>. Distinct <code>Consumer</code>s
+        href="/specification.html">the AMQP 0-9-1 specification
+        document</a>. Distinct <code>Consumer</code> instances
         on the same <code>Channel</code> must have distinct consumer tags.
+        Reusing consumer tags will cause confusion and is not recommended.
       </p>
 
       <p>
