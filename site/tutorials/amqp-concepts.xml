@@ -315,7 +315,7 @@ limitations under the License.
               <li>Name</li>
               <li>Durable (the queue will survive a broker restart)</li>
               <li>Exclusive (used by only one connection and the queue will be deleted when that connection closes)</li>
-              <li>Auto-delete (queue is deleted when last consumer unsubscribes)</li>
+              <li>Auto-delete (queue that has had at least one consumer is deleted when last consumer unsubscribes)</li>
               <li>Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)</li>
             </ul>
 
