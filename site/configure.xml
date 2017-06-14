@@ -594,6 +594,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>vm_memory_use_process_rss</code></td>
+            <td>
+              Use OS instead of Erlang memory reporting for total memory usage.
+              <p>Default: <code>true</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>vm_memory_high_watermark_paging_ratio</code></td>
             <td>
               Fraction of the high watermark limit at which queues
