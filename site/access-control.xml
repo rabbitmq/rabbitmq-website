@@ -282,9 +282,10 @@ loopback_users = none
           page</a>. Note the default authorisation backend supports variable expansion
           in the permission regular expression.
           Three variables are supported: <code>username</code>, <code>vhost</code>,
-          and <code>client_id</code> (only when using MQTT). For example, the permission
-          <code>^{username}-.*</code> would be expanded to <code>^tonyg-.*</code>
-          if <code>tonyg</code> was the connected user.
+          and <code>client_id</code>. Note that <code>client_id</code> is
+          expanded only when using MQTT. For example, if <code>tonyg</code> is the
+          connected user, the permission <code>^{username}-.*</code> is expanded to
+          <code>^tonyg-.*</code>
         </p>
         <p>
           If a different authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
