@@ -243,6 +243,50 @@ using the [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) plugin and
 individual queue pages in the management UI.
 
 
+
+## Consumers and Acknowledgements
+
+Messages can be consumed by registering a consumer (subscription),
+which means RabbitMQ will push messages to the client, or fetched
+individually for protocols that support this (e.g. the <code>basic.get</code> AMQP 0-9-1 method),
+similarly to HTTP GET.
+
+Delivered messages can be [acknowledged by consumer](/confirms.html) explicitly
+or automatically as soon as a delivery is written to connection socket.
+
+Automatic acknowledgement mode generally will provide higher throughput
+rate and uses less network bandwidth. However, it offers the least number
+of guarantees when it comes to [failures](/reliability.html). As a rule of
+thumb, consider using manual acknowledgement mode first.
+
+### Prefetch and Consumer Overload
+
+Automatic acknowledgement mode can also overwhelm
+consumers which cannot process messages as quickly as they are delivered.
+This can result in permanetly growing memory usage and/or
+OS swapping for the consumer process.
+
+Manual acknowledgement mode provides a way to [set a limit on the number
+of outstanding (unconfirmed) deliveries](/confirms.html): channel QoS (prefetch).
+
+Consumers using higher (several thousands or more) prefetch levels can experience
+the same overload problem as consumers using automatic acknowledgements.
+
+High number of unacknowledged messages will lead to higher memory usage by
+the broker.
+
+
+### Message States
+
+Enqueued messages therefore can be in one of two states:
+
+ * Ready for delivery
+ * Delivered by not yet [acknowledged by consumer](/confirms.html)
+
+Message breakdown by state can be found in the management UI.
+
+
+
 ## Determining Queue Length
 
 It is possible to determine queue length in a number of ways:
@@ -253,3 +297,4 @@ It is possible to determine queue length in a number of ways:
  * Using [RabbitMQ HTTP API](/management.html).
  * Using the [rabbitmqctl](/man/rabbitmqctl.1.man.html) <code>list_queues</code> command.
 
+Queue length is defined as the number of messages ready for delivery.
