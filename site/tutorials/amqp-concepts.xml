@@ -305,7 +305,7 @@ limitations under the License.
            <doc:section name="queues">
           <doc:heading>Queues</doc:heading>
             <p>
-              Queues in the AMQP model are very similar to queues in
+              Queues in the AMQP 0-9-1 model are very similar to queues in
               other message- and task-queueing systems: they store
               messages that are consumed by applications. Queues share
               some properties with exchanges, but also have some additional
@@ -333,12 +333,10 @@ limitations under the License.
              <p>
               Applications may pick queue names or ask the broker to generate
               a name for them.  Queue names may be up to 255 bytes of UTF-8
-              characters.  To ask an AMQP broker to generate a unique queue
-              name for you, pass an empty string as the queue name argument:
-              The same generated name may be obtained by subsequent methods
-              in the same channel by using the empty string where a queue
-              name is expected. This works because the channel remembers the
-              last server-generated queue name.
+              characters. An AMQP 0-9-1 broker can generate a unique queue
+              name on behalf of an app. To use this feature, pass an empty
+              string as the queue name argument. The generated name will be returned
+              to the client with queue declaration response.
              </p>
              <p>
               Queue names starting with "amq." are reserved for internal
