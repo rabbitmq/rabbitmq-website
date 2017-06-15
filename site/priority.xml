@@ -94,6 +94,12 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
       published with the maximum priority.
     </p>
 
+    <h2>Resource Usage Considerations</h2>
+    <p>
+      If priority queues are desired, we recommend using between 1 and 10.
+      Currently using more priorities will consume more resources (Erlang processes).
+    </p>
+    
     <h2>Interaction with consumers</h2>
 
     <p>
