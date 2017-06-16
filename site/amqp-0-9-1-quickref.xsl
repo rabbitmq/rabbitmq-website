@@ -48,8 +48,11 @@ limitations under the License.
         specification downloads can be found on the <a href="protocol.html">protocol page</a>.
       </p>
       <p>
+        A brief <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 overview</a> is also available.
+      </p>
+      <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides
-        for the RabbitMQ <a href="java-client.html">Java</a> and <a href="dotnet.html">.NET</a> clients. Full
+        for the RabbitMQ <a href="api-guide.html">Java</a> and <a href="dotnet-api-guide.html">.NET</a> clients. Full
         details of each method and its parameters are available in our <a href="amqp-0-9-1-reference.html">complete
         AMQP 0-9-1 reference</a>.
       </p>
@@ -344,7 +347,7 @@ limitations under the License.
       <x:field override="internal" name="internal" domain="bit"/>
       <x:doc>
         <p>
-          RabbitMQ implements an extension to the AMQP specification that allows for unroutable messages
+          RabbitMQ implements an extension to the AMQP 0-9-1 specification that allows for unroutable messages
           to be delivered to an <em>Alternate Exchange</em> (AE). The AE feature helps to detect when clients
           are publishing messages that cannot be routed and can provide "or else" routing semantics where
           some messages are handled specifically and the remainder are processed by a generic handler.
@@ -370,7 +373,7 @@ limitations under the License.
     <x:decorate target="method" name="queue.declare">
       <x:doc>
         <p>
-          RabbitMQ implements extensions to the AMQP specification that permits the creator of
+          RabbitMQ implements extensions to the AMQP 0-9-1 specification that permits the creator of
           a queue to control various aspects of its behaviour.
         </p>
         <h5>Per-Queue Message TTL</h5>

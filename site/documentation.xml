@@ -120,7 +120,7 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="access-control.html">Authentication and Authorization Backends</a>:
+                <a href="access-control.html">Authentication and Authorization Backends</a>
               </li>
               <li>
                 <a href="authentication.html">Authentication Mechanisms</a>
@@ -133,6 +133,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="ldap.html">LDAP</a>
+              </li>
+              <li>
+                <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/stable">x509 Certificate-based</a> Authentication
               </li>
               <li>
                 <a href="/validated-user-id.html">Validated User ID</a>
@@ -258,6 +261,9 @@ limitations under the License.
             Queue, Routing, and Consumer Features:
 
             <ul>
+              <li>
+                <a href="queues.html">Queue Prioerties and Feature Overview</a>
+              </li>
               <li>
                 <a href="ttl.html">Queue and Message TTL</a>
               </li>

@@ -356,11 +356,20 @@ import com.rabbitmq.client.DefaultConsumer;</pre>
       <p>
         When calling the API methods relating to
         <code>Consumer</code>s, individual subscriptions are
-        always referred to by their consumer tags, which can be
-        either client- or server-generated as explained in <a
-        href="http://www.amqp.org/">the AMQP specification
-        document</a>. Distinct <code>Consumer</code>s
-        on the same <code>Channel</code> must have distinct consumer tags.
+        always referred to by their consumer tags. A consumer tag is a consumer
+        identifier which can be either client- or server-generated. To let
+        RabbitMQ generate a node-wide unique tag, use a <code>Channel#basicConsume</code> override
+        that doesn't take a consumer tag argument or pass an empty string
+        for consumer tag and use the value returned by <code>Channel#basicConsume</code>.
+        Consumer tags are used to cancel consumers.
+      </p>
+
+      <p>
+        Distinct <code>Consumer</code> instances must have distinct
+        consumer tags. Duplicate consumer tags on a connection is
+        strongly discouraged and can lead to issues with automatic
+        connection recovery and confusing monitoring data when
+        consumers are monitored.
       </p>
 
       <p>
