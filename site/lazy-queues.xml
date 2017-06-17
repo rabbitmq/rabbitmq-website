@@ -172,10 +172,10 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       <h3>Disk Utilization</h3>
       <p>
         As stated above, lazy queues will send every message to disk
-        right as they enter the queue. This will increase I/O opts,
-        but keep in mind that this is the same behaviour as when
-        persistent messages are delivered to queues. Note that even if
-        you publish <em>transient</em> messages, they will still be
+        right as they enter the queue. This will increase disk I/O utilisation,
+        compared to a "regular" durable queue that has
+        persistent messages routed to it. Note that even
+        <em>transient</em> messages will still be
         sent to disk when using <code>lazy</code> queues. With
         <code>default</code> queues <em>transient</em> messages are
         only sent to disk if paging requires it.
