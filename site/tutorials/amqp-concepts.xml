@@ -100,8 +100,8 @@ limitations under the License.
              <doc:subsection namne="programmable-protocol">
              <doc:heading>AMQP is a Programmable Protocol</doc:heading>
                 <p>
-                  AMQP 0-9-1 is a programmable protocol in the sense that AMQP
-                  entities and routing schemes are defined by applications
+                  AMQP 0-9-1 is a programmable protocol in the sense that AMQP 0-9-1
+                  entities and routing schemes are primarily defined by applications
                   themselves, not a broker administrator. Accordingly,
                   provision is made for protocol operations that declare
                   queues and exchanges, define bindings between them,
@@ -114,9 +114,9 @@ limitations under the License.
                   often indicate a misconfiguration.
                 </p>
                 <p>
-                  Applications declare the AMQP entities that they need,
+                  Applications declare the AMQP 0-9-1 entities that they need,
                   define necessary routing schemes and may choose to delete
-                  AMQP entities when they are no longer used.
+                  AMQP 0-9-1 entities when they are no longer used.
                 </p>
              </doc:subsection>
             </doc:section>
@@ -144,8 +144,8 @@ limitations under the License.
             <ul class="plain">
               <li>Name</li>
               <li>Durability (exchanges survive broker restart)</li>
-              <li>Auto-delete (exchange is deleted when all queues have finished using it)</li>
-              <li>Arguments (these are broker-dependent)</li>
+              <li>Auto-delete (exchange is deleted when last queue is unbound from it)</li>
+              <li>Arguments (optional, used by plugins and broker-specific features)</li>
             </ul>
             <p>
               Exchanges can be durable or transient. Durable
@@ -165,7 +165,7 @@ limitations under the License.
                </p>
                <p>
                  For example, when you declare a queue with the name of
-                 "search-indexing-online", the AMQP broker will bind it
+                 "search-indexing-online", the AMQP 0-9-1 broker will bind it
                  to the default exchange using "search-indexing-online" as
                  the routing key. Therefore, a message published to the default
                  exchange with the routing key "search-indexing-online"
@@ -305,7 +305,7 @@ limitations under the License.
            <doc:section name="queues">
           <doc:heading>Queues</doc:heading>
             <p>
-              Queues in the AMQP model are very similar to queues in
+              Queues in the AMQP 0-9-1 model are very similar to queues in
               other message- and task-queueing systems: they store
               messages that are consumed by applications. Queues share
               some properties with exchanges, but also have some additional
@@ -315,8 +315,8 @@ limitations under the License.
               <li>Name</li>
               <li>Durable (the queue will survive a broker restart)</li>
               <li>Exclusive (used by only one connection and the queue will be deleted when that connection closes)</li>
-              <li>Auto-delete (queue is deleted when last consumer unsubscribes)</li>
-              <li>Arguments (some brokers use it to implement additional features like message TTL)</li>
+              <li>Auto-delete (queue that has had at least one consumer is deleted when last consumer unsubscribes)</li>
+              <li>Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)</li>
             </ul>
 
              <p>
@@ -333,12 +333,10 @@ limitations under the License.
              <p>
               Applications may pick queue names or ask the broker to generate
               a name for them.  Queue names may be up to 255 bytes of UTF-8
-              characters.  To ask an AMQP broker to generate a unique queue
-              name for you, pass an empty string as the queue name argument:
-              The same generated name may be obtained by subsequent methods
-              in the same channel by using the empty string where a queue
-              name is expected. This works because the channel remembers the
-              last server-generated queue name.
+              characters. An AMQP 0-9-1 broker can generate a unique queue
+              name on behalf of an app. To use this feature, pass an empty
+              string as the queue name argument. The generated name will be returned
+              to the client with queue declaration response.
              </p>
              <p>
               Queue names starting with "amq." are reserved for internal

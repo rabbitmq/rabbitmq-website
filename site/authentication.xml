@@ -48,9 +48,9 @@ limitations under the License.
       </doc:section>
 
       <doc:section name="built-in">
-        <doc:heading>Built-in mechanisms</doc:heading>
+        <doc:heading>Built-in Mechanisms</doc:heading>
         <p>
-          The three built-in mechanisms are:
+          The built-in mechanisms are:
         </p>
         <dl>
           <dt>
@@ -69,6 +69,17 @@ limitations under the License.
             specification. This is enabled by default in the RabbitMQ
             server, and is the default for QPid's Python client.
           </dd>
+
+          <dt>
+            <code>EXTERNAL</code>
+          </dt>
+          <dd>
+            Authentication happens using an out-of-band mechanism
+            such as <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/stable">x509 certificate peer verification</a>,
+            client IP address range, or similar.
+            Such mechanisms are usually provided by RabbitMQ plugins.
+          </dd>
+
           <dt>
             <code>RABBIT-CR-DEMO</code>
           </dt>

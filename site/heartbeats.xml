@@ -188,5 +188,28 @@ cf.RequestedHeartbeat = 60;
         reasonable values. See the <a href="/networking.html">Networking guide</a> for details.
       </p>
     </doc:section>
+
+
+    <doc:section name="tcp-keepalives">
+      <doc:heading>Heartbeats and TCP Keepalives</doc:heading>
+      <p>
+        Certain networking tools (HAproxy, AWS ELB) and equipment
+        (hardware load balancers) which may terminate "idle" TCP
+        connections when there's no activity on them for a certain
+        period of time. Most of the time it is not desirable.
+      </p>
+      <p>
+        When heartbeats are enabled on a connection, it results in
+        periodic light network traffic. Therefore heartbeats have a side effect
+        of guarding client connections that can go idle for periods of
+        time against premature closure by proxies and load balancers.
+      </p>
+      <p>
+        Heartbeat timeouts from 10 to 30 seconds will produce periodic
+        network traffic often enough (roughly every 5 to 15 seconds))
+        to satisfy defaults of most proxy tools and load balancers.
+        Also see the section on low timeouts and false positives above.
+      </p>
+    </doc:section>
   </body>
 </html>
