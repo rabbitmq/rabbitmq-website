@@ -279,11 +279,14 @@ loopback_users = none
           href="man/rabbitmqctl.1.man.html#Access%20control">Access
           Control section</a> of the <a
           href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man
-          page</a>. Note the default authorisation backend supports variable expansion
-          in the permission regular expression.
+          page</a>.
+        </p>
+        <p>
+          Internal (default) authorisation backend supports variable expansion
+          in permission patterns.
           Three variables are supported: <code>username</code>, <code>vhost</code>,
-          and <code>client_id</code>. Note that <code>client_id</code> is
-          expanded only when using MQTT. For example, if <code>tonyg</code> is the
+          and <code>client_id</code>. Note that <code>client_id</code> only
+          applies to MQTT. For example, if <code>tonyg</code> is the
           connected user, the permission <code>^{username}-.*</code> is expanded to
           <code>^tonyg-.*</code>
         </p>
