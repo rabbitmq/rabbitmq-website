@@ -72,7 +72,7 @@ limitations under the License.
         </tr>
         <tr>
           <td>
-              <a href="#configuration-file"Configuration File(s)</a>
+              <a href="#config-file">Configuration File(s)</a>
           </td>
           <td>
               defines server and plugin settings for
