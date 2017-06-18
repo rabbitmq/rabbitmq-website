@@ -63,7 +63,7 @@ limitations under the License.
         </thead>
         <tr>
           <td>
-              <a href="#define-environment-variables">environment variables</a>
+              <a href="#define-environment-variables">Environment Variables</a>
           </td>
           <td>
               define node name, file and directory locations, runtime flags (taken from the shell, or
@@ -72,7 +72,7 @@ limitations under the License.
         </tr>
         <tr>
           <td>
-              <a href="#configuration-file">a configuration file</a>
+              <a href="#configuration-file">Configuration File</a>
           </td>
           <td>
               defines server and plugin settings for
@@ -90,7 +90,7 @@ limitations under the License.
         </tr>
         <tr>
           <td>
-              <a href="parameters.html">runtime parameters and policies</a>
+              <a href="parameters.html">Runtime Parameters and Policies</a>
           </td>
           <td>
               defines cluster-wide settings which can change at run time
