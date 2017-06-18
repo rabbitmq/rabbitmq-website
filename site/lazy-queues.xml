@@ -172,10 +172,10 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       <h3>Disk Utilization</h3>
       <p>
         As stated above, lazy queues will send every message to disk
-        right as they enter the queue. This will increase I/O opts,
-        but keep in mind that this is the same behaviour as when
-        persistent messages are delivered to queues. Note that even if
-        you publish <em>transient</em> messages, they will still be
+        right as they enter the queue. This will increase disk I/O utilisation,
+        compared to a "regular" durable queue that has
+        persistent messages routed to it. Note that even
+        <em>transient</em> messages will still be
         sent to disk when using <code>lazy</code> queues. With
         <code>default</code> queues <em>transient</em> messages are
         only sent to disk if paging requires it.
@@ -185,16 +185,16 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       <p>
         <code>lazy</code> queues use much less memory than
         <code>default</code> queues. While it's hard to give numbers
-        that make sense for every use case, here's what we found: we
-        tried publishing 10 million messages into a queue, with no
+        that make sense for every use case, here's a ballpark comparison:
+        publishing 10 million messages routed to a queue without any
         consumers online. The message body size was 1000
-        bytes. <code>default</code> queues required 1.2GB of RAM,
+        bytes. <code>default</code> queue mode required 1.2GB of RAM,
         while <code>lazy</code> queues only used 1.5MB of RAM.
       </p>
 
       <p>
         For a <code>default</code> queue, it took 801 seconds to send
-        10MM messages, with an average sending rate of 12469 msg/s. To
+        10 million messages, with an average sending rate of 12469 msg/s. To
         publish the same amount of messages into a <code>lazy</code>
         queue, the time required was 421 seconds, with an average
         sending rate of 23653 msg/s. The difference can be explained

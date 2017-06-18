@@ -29,37 +29,79 @@ limitations under the License.
       <doc:section name="introduction">
         <doc:heading>Overview</doc:heading>
       <p>
-      RabbitMQ comes with default built-in settings which will probably be
-			sufficient for running your RabbitMQ server effectively. If your server
-			runs fine, then you probably don't need any further configuration.
+        RabbitMQ comes with default built-in settings. Those can be entirely
+        sufficient in some environment (e.g. development and QA). If it runs fine,
+        then you possibly don't need any configuration at all.
+        For all other cases, as well as <a href="/production-checklist.html">production deployment tuning</a>,
+        there is a way to configure many things in the broker as well as plugins.
       </p>
       <p>
-          RabbitMQ provides three general ways to customise the server:
-      <dl>
-          <dt>
-              <a href="#define-environment-variables">Environment Variables</a>
-          </dt>
-          <dd>
-              define ports, file locations and names (taken from the shell, or
-	      set in <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
-          </dd>
-					<br/>
-					<dt>
-              <a href="#configuration-file">Configuration File(s)</a>
-          </dt>
-          <dd>
-							defines server component and plugin settings for settings for permissions,
-							limits and clusters
-          </dd>
-					<br/>
-          <dt>
-              <a href="parameters.html">Runtime Parameters and Policies</a>
-          </dt>
-          <dd>
-              defines cluster-wide settings that can be changed at run time
-          </dd>
-      </dl>
+        This guide covers a number of topics related to configuration:
 
+        <ul>
+          <li>The ways in which various settings of the server and plugins are configured</li>
+          <li>Configuration file(s)</li>
+          <li>Environment variables</li>
+          <li>Most commonly configured core server settings</li>
+          <li>Troubleshooting: how to verify config file location and effective configuration</li>
+        </ul>
+
+        Since configuration affects many areas of the system, including plugins, individual <a href="/documentation.html">documentation guides</a>
+        dive deeper into what can be configured.
+      </p>
+      </doc:section>
+
+      <doc:section name="means-of-configuration">
+        <doc:heading>Means of Configuration</doc:heading>
+
+      <p>
+          RabbitMQ provides three general ways to customise the server:
+      <table>
+        <thead>
+          <td>Mechanism</td>
+          <td>Description</td>
+        </thead>
+        <tr>
+          <td>
+              <a href="#define-environment-variables">Environment Variables</a>
+          </td>
+          <td>
+              define node name, file and directory locations, runtime flags (taken from the shell, or
+              set in the environment configuration file, <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <a href="#configuration-file"Configuration File(s)</a>
+          </td>
+          <td>
+              defines server and plugin settings for
+
+              <ul>
+                <li><a href="/networking.html">TCP listeners and other networking-related settings</a></li>
+                <li><a href="/ssl.html">TLS</a></li>
+                <li><a href="/alarms.html">resource constraints (alarms)</a></li>
+                <li><a href="/access-control.html">authentication and authorization backends</a></li>
+                <li><a href="/persistence-conf.html">message store settings</a></li>
+              </ul>
+
+              and so on.
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <a href="parameters.html">Runtime Parameters and Policies</a>
+          </td>
+          <td>
+              defines cluster-wide settings which can change at run time
+              as well as settings that are convenient to configure for groups of queues (exchanges, etc)
+              such as including optional queue arguments.
+          </td>
+        </tr>
+      </table>
+      </p>
+
+      <p>
       Most settings are configured using the first two methods. This guide,
       therefore, focuses on them.
       </p>
@@ -75,12 +117,13 @@ limitations under the License.
         </p>
 
         <p>
-          To verify the effective RabbitMQ config file location, see the section below.
+          When in doubt about RabbitMQ config file location for your OS and installation method,
+          consult the log file and/or management UI as explained in the following sections.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="verify-configuration">
-        <doc:heading>How to Find the Config File</doc:heading>
+      <doc:subsection name="verify-configuration-config-file-location">
+        <doc:heading>Verify Configuration: How to Find Config File Location</doc:heading>
         <p>
           The active configuration file can be verified by inspecting the
           RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
@@ -101,6 +144,27 @@ node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         </p>
+
+        <p>
+          Alternatively config file location can be found in the <a href="/management.html">management UI</a>,
+          together with other details about nodes.
+        </p>
+        <p>
+          When troubleshooting configuration settings, it is very useful to veirfy that the config file
+          path is correct, exists and can be loaded (e.g. the file is readable) before checking effective
+          node configuration.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="verify-configuration-effective-configuration">
+        <doc:heading>Verify Configuration: How to Check Effective Configuration</doc:heading>
+        <p>
+          It is possible to print effective configuration (user provided values merged into defaults) using
+          the <a href="/man/rabbitmqctl.1.man.html">rabbitmqctl environment</a> command.
+        </p>
+        <p>
+          Checking effective configuration
+        </p>
       </doc:subsection>
       </doc:section>
 
@@ -109,8 +173,8 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
 
         <p>
           Certain server parameters can be configured using environment variables:
-          node name, RabbitMQ configuration file location, AMQP 0-9-1 and inter-node communication ports,
-          and so on.
+          node name, RabbitMQ configuration file location, inter-node communication ports,
+          Erlang VM flags, and so on.
         </p>
 
         <doc:subsection name="customise-general-unix-environment">
