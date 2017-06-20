@@ -36,13 +36,9 @@ limitations under the License.
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
 	  .deb for Debian-based Linux (from GitHub)
         </r:download>
-        <r:download absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-deb/download_file?file_path=rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+        <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-deb/download_file?file_path=rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
 	  .deb for Debian-based Linux (from Bintray)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
-		    downloadpath="&dir-server;">
-	  .deb for Debian-based Linux (from rabbitmq.com)
         </r:download>
       </r:downloads>
     </doc:section>
