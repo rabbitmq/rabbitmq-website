@@ -33,24 +33,26 @@ limitations under the License.
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for openSUSE Linux (from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from GitHub)
         </r:download>
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
+	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from GitHub)
+        </r:download>
+
+
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
+	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
         </r:download>
       </r:downloads>
     </doc:section>
