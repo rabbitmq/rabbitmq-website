@@ -33,24 +33,26 @@ limitations under the License.
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		    downloadpath="&dir-server;">
-	  RPM for openSUSE Linux (from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from GitHub)
         </r:download>
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
+	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from GitHub)
+        </r:download>
+
+
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
+		    absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
+	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
         </r:download>
       </r:downloads>
     </doc:section>
@@ -152,6 +154,9 @@ limitations under the License.
           <li>
             Follow the instructions under "Installation using repository"
             at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
+            Note that Erlang Solutions tend to provide cutting edge Erlang versions that may or may not
+            be <a href="/which-erlang.html">supported by RabbitMQ</a>. Version locking (see below) is recommended
+            when Erlang installed using this option.
           </li>
         </ol>
       </doc:subsection>
@@ -161,7 +166,7 @@ limitations under the License.
 
         <ol class="plain">
           <li>
-            Download and install the appropriate <code>esl-erlang</code> RPM
+            Download and install the <a href="/which-erlang.html">appropriate</a> <code>esl-erlang</code> RPM
             from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
           </li>
           <li>
@@ -178,6 +183,16 @@ limitations under the License.
             </p>
           </li>
         </ol>
+      </doc:subsection>
+
+      <doc:subsection name="rpm-version-locking">
+        <doc:heading>Package Version Locking in Yum</doc:heading>
+
+        <p>
+          <a href="https://access.redhat.com/solutions/98873">yum version locking</a> plugin is recommended
+          to prevent unwanted Erlang upgrades. This is highly recommended when Erlang is installed
+          via the Erlang Solutions repository.
+        </p>
       </doc:subsection>
     </doc:section>
 
@@ -219,37 +234,31 @@ limitations under the License.
     <doc:section name="run-rabbitmq">
       <doc:heading>Run RabbitMQ Server</doc:heading>
 
-      <dl class="instructions">
-        <dt>Customise RabbitMQ Environment Variables</dt>
-        <dd>
-          <p>
-            The server should start using defaults. You can
-            <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-            Also see how to <a href="configure.html#configuration-file">configure components</a>.
-          </p>
-        </dd>
-        <dt>Start the Server</dt>
-        <dd>
-          <p>
-            The server is not started as a daemon by default when the
-            RabbitMQ server package is installed. To start the daemon by default
-            when the system boots, as an administrator run
-            <code>chkconfig rabbitmq-server on</code>.
-          </p>
-          <p>
-            As an administrator, start and stop the
-            server as usual using
-            <code>/sbin/service rabbitmq-server <i>stop/start/etc</i></code>.
-          </p>
-          <p>
-            <em>Note: </em>The server is set up to run as system user
-            <code>rabbitmq</code>.
-            If you change the location of the Mnesia database or the logs,
-            you must ensure the files are owned by this user
-            (and also update the environment variables).
-          </p>
-        </dd>
-      </dl>
+      <h3>Customise RabbitMQ Environment Variables</h3>
+      <p>
+        The server should start using defaults. You can
+        <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+        Also see how to <a href="configure.html#configuration-file">configure components</a>.
+      </p>
+      <h3>Start the Server</h3>
+      <p>
+        The server is not started as a daemon by default when the
+        RabbitMQ server package is installed. To start the daemon by default
+        when the system boots, as an administrator run
+        <code>chkconfig rabbitmq-server on</code>.
+      </p>
+      <p>
+        As an administrator, start and stop the
+        server as usual using
+        <code>/sbin/service rabbitmq-server <i>stop/start/etc</i></code>.
+      </p>
+      <p>
+        <em>Note: </em>The server is set up to run as system user
+        <code>rabbitmq</code>.
+        If you change the location of the Mnesia database or the logs,
+        you must ensure the files are owned by this user
+        (and also update the environment variables).
+      </p>
     </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc"/>

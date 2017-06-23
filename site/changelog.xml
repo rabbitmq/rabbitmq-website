@@ -46,7 +46,7 @@ limitations under the License.
         <td class="centre">29 March 2017</td>
         <td>
           <ul>
-            <li>Security vulnerability fixes: CVE-2017-4965, CVE-2017-4966, CVE-2017-4967</li>
+            <li>Security vulnerability fixes: <a href="https://pivotal.io/security/cve-2017-4965">CVE-2017-4965</a>, <a href="https://pivotal.io/security/cve-2017-4966">CVE-2017-4966</a>, CVE-2017-4967</li>
             <li>Bug fixes</li>
           </ul>
         </td>

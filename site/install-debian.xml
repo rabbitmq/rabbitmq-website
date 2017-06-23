@@ -32,13 +32,13 @@ limitations under the License.
     <doc:section name="debian-packages">
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
-        <r:download downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
-		    downloadpath="&dir-server;">
-	  .deb for Debian-based Linux (from rabbitmq.com)
-        </r:download>
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from github.com)
+	  .deb for Debian-based Linux (from GitHub)
+        </r:download>
+        <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-deb/download_file?file_path=rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+                    downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
+	  .deb for Debian-based Linux (from Bintray)
         </r:download>
       </r:downloads>
     </doc:section>
@@ -68,7 +68,7 @@ limitations under the License.
        <p>
          Below is a list of supported Debian-based distributions as of RabbitMQ 3.6.3:
          <ul>
-           <li>Ubuntu 14.04 through 16.10</li>
+           <li>Ubuntu 14.04 through 17.04</li>
            <li>Debian Jessie</li>
            <li>Debian Wheezy (<a href="https://backports.debian.org/Instructions/">Wheezy backports repository</a> is required)</li>
          </ul>
@@ -86,7 +86,7 @@ limitations under the License.
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
          standard Debian and Ubuntu also can be quite
          outdated. Consider installing a newer version, such as
-         19.x.
+         19.3.
        </p>
 
        <table>
@@ -97,6 +97,14 @@ limitations under the License.
            </tr>
          </thead>
          <tbody>
+           <tr>
+             <td>20.x</td>
+             <td>
+               <strong><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">NOT SUPPORTED</a></strong> and will lead to
+               <strong>DATA LOSS</strong> when upgraded to from an earlier Erlang/OTP release,
+               avoid unless this document is updated to suggest otherwise.
+             </td>
+           </tr>
            <tr>
              <td>19.x</td>
              <td>
@@ -125,6 +133,37 @@ limitations under the License.
            </tr>
          </tbody>
        </table>
+
+       <doc:subsection name="apt-pinning">
+         <doc:heading>Erlang Version Pinning</doc:heading>
+
+         <p>
+           <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to avoid undesired Erlang upgrades.
+
+           The following preference file example will pin <code>esl-erlang</code> package to to <code>19.3.6</code> and <code>erlang-*</code> packages to <code>19.3</code>
+           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for those packages is 1):
+
+<pre class="sourcecode ini">
+# /etc/apt/preferences.d/erlang
+Package: erlang*
+Pin: version 1:19.3-1
+Pin-Priority: 1000
+
+Package: esl-erlang
+Pin: version 1:19.3.6
+Pin-Priority: 1000
+</pre>
+
+           The above example should be placed into a file under <code>/etc/apt/preferences.d/</code>, e.g. <code>/etc/apt/preferences.d/erlang</code>.
+         </p>
+         <p>
+           Effective package pinning policy can be verified with
+
+<pre class="sourcecode">
+sudo apt-cache policy
+</pre>
+         </p>
+       </doc:subsection>
    </doc:section>
 
    <doc:section name="deb-package-dependencies">
@@ -155,9 +194,10 @@ limitations under the License.
        RabbitMQ hosts our own apt repository. We also have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
      </p>
 
-     <h3>Using rabbitmq.com APT Repository</h3>
-     <ol>
-       <li>
+     <doc:subsection name="apt-repos">
+       <doc:heading>Using rabbitmq.com APT Repository</doc:heading>
+
+       <p>
          Execute the following command to add the APT repository to your <code>/etc/apt/sources.list.d</code>:
          <pre class="sourcecode bash">echo 'deb http://www.rabbitmq.com/debian/ testing main' |
      sudo tee /etc/apt/sources.list.d/rabbitmq.list</pre>
@@ -167,8 +207,8 @@ limitations under the License.
          Debian stable, testing or unstable, as well as with
          Ubuntu. We describe the release as "testing" to emphasise
          that we release somewhat frequently.)
-       </li>
-       <li>
+       </p>
+       <p>
          (optional) To avoid warnings about unsigned packages, add
          our <a href="rabbitmq-release-signing-key.asc">public
            key</a> to your trusted key list using
@@ -176,32 +216,34 @@ limitations under the License.
          <pre class="sourcecode bash">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
      sudo apt-key add -</pre>
          <p>Our public signing key is also <a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">available from Bintray</a>.</p>
-       </li>
-       <li>
+       </p>
+       <p>
          Run the following command to update the package list:
          <pre class="sourcecode bash">sudo apt-get update</pre>
-       </li>
-       <li>
+       </p>
+       <p>
          Install <code>rabbitmq-server</code> package:
          <pre class="sourcecode bash">sudo apt-get install rabbitmq-server</pre>
-       </li>
-     </ol>
+       </p>
+     </doc:subsection>
 
+     <doc:subsection name="apt-repos">
+       <doc:heading>Using PackageCloud APT Repository</doc:heading>
 
-     <h3>Using PackageCloud APT Repository</h3>
-     <p>
-       PackageCloud installs packages via HTTPS and signs them using their GPG key.
-       There are multiple ways to install:
+       <p>
+         PackageCloud installs packages via HTTPS and signs them using their GPG key.
+         There are multiple ways to install:
 
-       <ul>
-         <li>Provided installation scripts</li>
-         <li>Using PackageCloud Chef cookbook</li>
-         <li>Using PackageCloud Puppet module</li>
-         <li>Manually</li>
-       </ul>
+         <ul>
+           <li>Provided installation scripts</li>
+           <li>Using PackageCloud Chef cookbook</li>
+           <li>Using PackageCloud Puppet module</li>
+           <li>Manually</li>
+         </ul>
 
-       See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
-     </p>
+         See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
+       </p>
+     </doc:subsection>
    </doc:section>
 
 
@@ -252,36 +294,31 @@ sudo apt-get install rabbitmq-server
 
    <doc:section name="running-debian">
      <doc:heading>Run RabbitMQ Server</doc:heading>
-     <dl class="instructions">
-       <dt>Customise RabbitMQ Environment Variables</dt>
-       <dd>
-         <p>
-           The server should start using defaults.
-           You can
-           <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-           Also see how to <a href="configure.html#configuration-file">configure components</a>.
-         </p>
-       </dd>
-       <dt>Start the Server</dt>
-       <dd>
-         <p>
-           The server is started as a daemon by default when the
-           RabbitMQ server package is installed.
-         </p>
-         <p>
-           As an administrator, start and stop the
-           server as usual for Debian using
-           <code>invoke-rc.d rabbitmq-server <i>stop/start/etc</i></code>.
-         </p>
-         <p>
-           <em>Note: </em>The server is set up to run as system user
-           <code>rabbitmq</code>.
-           If you change the location of the Mnesia database or the logs,
-           you must ensure the files are owned by this user
-           (and also update the environment variables).
-         </p>
-       </dd>
-     </dl>
+     <h3>Customise RabbitMQ Environment Variables</h3>
+     <p>
+       The server should start using defaults.
+       You can
+       <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+       Also see how to <a href="configure.html#configuration-file">configure components</a>.
+     </p>
+
+     <h3>Start the Server</h3>
+     <p>
+       The server is started as a daemon by default when the
+       RabbitMQ server package is installed.
+     </p>
+     <p>
+       As an administrator, start and stop the
+       server as usual for Debian using
+       <code>service rabbitmq-server start</code>.
+     </p>
+     <p>
+       <em>Note: </em>The server is set up to run as system user
+       <code>rabbitmq</code>.
+       If you change the location of the node database or the logs,
+       you must ensure the files are owned by this user
+       (and also update the environment variables).
+     </p>
    </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc"/>

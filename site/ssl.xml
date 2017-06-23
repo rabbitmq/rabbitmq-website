@@ -42,6 +42,7 @@ limitations under the License.
             <li>TLS configuration in Java and .NET clients</li>
             <li>TLS version and cipher suite configuration</li>
             <li>Certificate chain validation depth</li>
+            <li>Tools that can be used to evaluate a TLS setup</li>
           </ul>
 
           and more. It is not, however, a primer on TLS, encryption, <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure">Public Key Infrastructure</a>
@@ -704,7 +705,7 @@ factory.useSslProtocol("TLSv1.2");</pre>
           <doc:heading>Configuring Cipher Suites</doc:heading>
 
           <p>
-            It is possible to configure what cipher suites will be used by RabbitMQ. Note that now all
+            It is possible to configure what cipher suites will be used by RabbitMQ. Note that not all
             suites will be available on all systems. For example, to use elliptic curve ciphers,
             please run the most recent Erlang release available.
 
@@ -724,8 +725,39 @@ file or the <a href="/configure.html#erlang-term-config-file">classic config for
                           {certfile,  "/path/to/server_certificate.pem"},
                           {keyfile,   "/path/to/server_key.pem"},
                           {versions, ['tlsv1.2', 'tlsv1.1']},
-                          {ciphers,  [{ecdhe_ecdsa,aes_128_cbc,sha256},
-                                      {ecdhe_ecdsa,aes_256_cbc,sha}]}
+                          %% This list is just an example!
+                          %% Not all cipher suites are available on all machines.
+                          %% Cipher suite order is important: preferred suites
+                          %% should be listed first.
+                          %% Different suites have different security and CPU load characteristics.
+                          {ciphers,  [
+                                      {ecdhe_ecdsa,aes_256_gcm,null,sha384},
+                                      {ecdhe_rsa,aes_256_gcm,null,sha384},
+                                      {ecdhe_ecdsa,aes_256_cbc,sha384,sha384},
+                                      {ecdhe_rsa,aes_256_cbc,sha384,sha384},
+                                      {ecdh_ecdsa,aes_256_gcm,null,sha384},
+                                      {ecdh_rsa,aes_256_gcm,null,sha384},
+                                      {ecdh_ecdsa,aes_256_cbc,sha384,sha384},
+                                      {ecdh_rsa,aes_256_cbc,sha384,sha384},
+                                      {dhe_rsa,aes_256_gcm,null,sha384},
+                                      {dhe_dss,aes_256_gcm,null,sha384},
+                                      {dhe_rsa,aes_256_cbc,sha256},
+                                      {dhe_dss,aes_256_cbc,sha256},
+                                      {rsa,aes_256_gcm,null,sha384},
+                                      {rsa,aes_256_cbc,sha256},
+                                      {ecdhe_ecdsa,aes_128_gcm,null,sha256},
+                                      {ecdhe_rsa,aes_128_gcm,null,sha256},
+                                      {ecdhe_ecdsa,aes_128_cbc,sha256,sha256},
+                                      {ecdhe_rsa,aes_128_cbc,sha256,sha256},
+                                      {ecdh_ecdsa,aes_128_gcm,null,sha256},
+                                      {ecdh_rsa,aes_128_gcm,null,sha256},
+                                      {ecdh_ecdsa,aes_128_cbc,sha256,sha256},
+                                      {ecdh_rsa,aes_128_cbc,sha256,sha256},
+                                      {dhe_rsa,aes_128_gcm,null,sha256},
+                                      {dhe_dss,aes_128_gcm,null,sha256},
+                                      {dhe_rsa,aes_128_cbc,sha256},
+                                      {ecdh_rsa,aes_128_gcm,null,sha256}
+                                     ]}
                          ]}
           ]}
 ].
@@ -746,6 +778,61 @@ rabbitmqctl eval 'ssl:cipher_suites().'
 
 <pre class="sourcecode bash">
 rabbitmqctl eval 'ssl:cipher_suites(openssl).'
+</pre>
+
+          <p>
+            When overriding cipher suites, it is highly recommended
+            that server-preferred cipher suite ordering is enforced
+            (see the following section).
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="cipher-suite-order">
+          <doc:heading>Cipher Suite Order</doc:heading>
+
+          <p>
+            During TLS connection negotiation, the server and the client negotiate
+            what cipher suite will be used. It is possible to force server's TLS
+            implementation to dictate its preference (cipher suite order) to avoid
+            malicious clients that intentionally negotiate weak cipher suites in
+            preparation for running an attack on them.
+            To do so, configure <code>honor_cipher_order</code>
+            and <code>honor_ecc_order</code> to <code>true</code>:
+          </p>
+
+<pre class="sourcecode ini">
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+ssl_options.versions.2 = tlsv1.1
+
+ssl_options.honor_cipher_order = true
+ssl_options.honor_ecc_order    = true
+</pre>
+
+Or, in the classic config format:
+          
+<pre class="sourcecode erlang">
+%% Enforce server-provided cipher suite order (preference)
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
+ {rabbit, [
+           {ssl_listeners, [5671]},
+           {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
+                          {certfile,   "/path/to/server_certificate.pem"},
+                          {keyfile,    "/path/to/server_key.pem"},
+                          {versions,   ['tlsv1.2', 'tlsv1.1']},
+
+                          %% ...
+
+
+                          {honor_cipher_order,   true},
+                          {honor_ecc_order,      true},
+                         ]}
+          ]}
+].
 </pre>
         </doc:subsection>
       </doc:section>
@@ -1224,59 +1311,94 @@ namespace RabbitMQ.Client.Examples {
         to configure verification depth for the Erlang client, as explained below.</p>
       </doc:section>
 
-      <doc:section name="old-erlang">
-        <doc:heading>Versions of Erlang prior to R16B01</doc:heading>
-        <p>
-          It is possible to use SSL with older versions of
-          Erlang. These older versions may work with some certificates
-          while having difficulties with others.
-        </p>
-        <p>
-          However, they also contain bug OTP-10905 which makes it
-          impossible to disable any protocol version. In particular,
-          since it is impossible to disable SSLv3, systems using SSL
-          with older Erlang cannot be made safe from the <a
-          href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE
-          attack</a> (PDF link).
-        </p>
-        <p>
-          RabbitMQ 3.4.0 disables SSL listeners automatically if older
-          Erlang versions are detected. If this is not what you want,
-          you can set the <code>ssl_allow_poodle_attack</code>
-          <code>rabbit</code> config item to <code>true</code>.
-        </p>
-        <p>
-          <code>ssl_allow_poodle_attack</code> is a global setting;
-          setting it in the <code>rabbit</code> application will
-          control the behaviour of all SSL listeners (AMQP,
-          management, STOMP, etc).
-        </p>
-        <p>The following example demonstrates this:</p>
+      <doc:section name="tls-evaluation-tools">
+        <doc:heading>Evaluating TLS Setups</doc:heading>
+          <p>
+            Because TLS has many configurable parameters
+            and some of them have suboptimal defaults for historical
+            reasons, TLS setup evaluation is a recommended practice.
+            Multiple tools exist that perform various tests on TLS-enabled
+            server endpoints, for example, testing whether it is prone
+            to known attacks such as POODLE, BEAST, and others.
+          </p>
 
-<pre class="sourcecode">
-listeners.ssl.1 = 5671
-ssl_allow_poodle_attack = true
-ssl_options.cacertfile  = /path/to/testca/cacert.pem
-ssl_options.certfile    = /path/to/server/cert.pem
-ssl_options.keyfile     = /path/to/server/key.pem
-ssl_options.verify      = verify_peer
-ssl_options.fail_if_no_peer_cert = false
-</pre>
+        <doc:subsection name="testssl-sh">
+          <doc:heading>testssl.sh</doc:heading>
+          <p>
+            <a href="https://testssl.sh/">testssl.sh</a> is a mature and extensive TLS endpoint testing
+            tool that can be used with protocol endpoints that do not serve HTTP.
+            Note that the tool performs many tests (for instance, on some machines it runs
+            over 350 cipher suite tests alone) and passing every single one may or may not
+            make sense for every environment. For example, many production deployments
+            do not use CRLs (Certificate Revocation Lists); most development environments
+            use self-signed certificates and don't have to worry about
+            the most optimal set of cipher suites enabled; and so on.
+          </p>
+          <p>
+            The following example configuration (in the classic config format) passes key testssl tests on Erlang 19.3 or later
+            versions:
 
-Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode">[
-{rabbit, [
-     {ssl_listeners, [5671]},
-     {ssl_allow_poodle_attack, true},
-     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
-                    {certfile,"/path/to/server/cert.pem"},
-                    {keyfile,"/path/to/server/key.pem"},
-                    {verify,verify_peer},
-                    {fail_if_no_peer_cert,false}]}
-   ]}
+            <pre class="sourcecode erlang">
+[
+ {ssl,    [
+           {versions,           ['tlsv1.2']},
+           {secure_renegotiate, true}
+          ]},
+ {rabbit, [
+           {ssl_listeners, [5671]},
+           {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
+                          {certfile,   "/path/to/server_certificate.pem"},
+                          {keyfile,    "/path/to/server_key.pem"},
+                          {versions, ['tlsv1.2']},
+                          {ciphers,  [
+                                      {ecdhe_ecdsa,aes_256_gcm,null,sha384},
+                                      {ecdhe_rsa,aes_256_gcm,null,sha384},
+                                      {ecdh_ecdsa,aes_256_gcm,null,sha384},
+                                      {ecdh_rsa,aes_256_gcm,null,sha384},
+                                      {dhe_rsa,aes_256_gcm,null,sha384},
+                                      {rsa,aes_256_gcm,null,sha384},
+                                      {ecdhe_ecdsa,aes_128_gcm,null,sha256},
+                                      {ecdhe_rsa,aes_128_gcm,null,sha256},
+                                      {ecdh_ecdsa,aes_128_gcm,null,sha256},
+                                      {ecdh_rsa,aes_128_gcm,null,sha256},
+                                      {dhe_rsa,aes_128_gcm,null,sha256},
+                                      {ecdh_rsa,aes_128_gcm,null,sha256}
+                                     ]},
+                          {honor_cipher_order,   true},
+                          {honor_ecc_order,      true},
+                          {secure_renegotiate,   true},
+                          {verify,               verify_peer},
+                          {fail_if_no_peer_cert, false}]}
+          ]}
 ].
-</pre>
+            </pre>
+
+            For example, this setup is reported as not vulnerable to
+            a set of known high profile vulnerabilities:
+
+            <pre class="sourcecode ini">
+ Testing vulnerabilities
+
+ Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
+ CCS (CVE-2014-0224)                       not vulnerable (OK)
+ Ticketbleed (CVE-2016-9244), experiment.  --   (applicable only for HTTPS)
+ Secure Renegotiation (CVE-2009-3555)      not vulnerable (OK)
+ Secure Client-Initiated Renegotiation     not vulnerable (OK)
+ CRIME, TLS (CVE-2012-4929)                not vulnerable (OK) (not using HTTP anyway)
+ POODLE, SSL (CVE-2014-3566)               not vulnerable (OK)
+ TLS_FALLBACK_SCSV (RFC 7507)              No fallback possible, TLS 1.2 is the only protocol (OK)
+ SWEET32 (CVE-2016-2183, CVE-2016-6329)    not vulnerable (OK)
+ FREAK (CVE-2015-0204)                     not vulnerable (OK)
+ DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this port (OK)
+                                           make sure you don't use this certificate elsewhere with SSLv2 enabled services
+                                           https://censys.io/ipv4?q=D6D88C603E0212109EC14429DCBB4A6B73286F8B7F5C956FE53D1A94A34D88FB could help you to find out
+ LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected
+ BEAST (CVE-2011-3389)                     no SSL3 or TLS1 (OK)
+ LUCKY13 (CVE-2013-0169)                   not vulnerable (OK)
+ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
+            </pre>
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="certificate-chains">
@@ -1323,13 +1445,13 @@ Using the <a href="/configure.html#erlang-term-config-file">classic config forma
 
       <doc:section name="configure-erlang">
         <doc:heading>Configuring the Erlang client</doc:heading>
-          <p>Enabling SSL in the RabbitMQ Erlang client is rather
-          straight-forward. In the <code>#amqp_params_network</code> record, we just need to
+          <p>Enabling TLS in the RabbitMQ Erlang client is rather
+          straightforward. In the <code>#amqp_params_network</code> record, we just need to
           supply values in the <code>ssl_options</code> field. These, you will recognise
           from the options we specified to RabbitMQ.</p>
 
         <doc:subsection name="erlang-ssl">
-          <doc:heading>Erlang SSL Options</doc:heading>
+          <doc:heading>Erlang TLS Options</doc:heading>
             <p>The three important options which must be supplied are:</p>
             <ul class="plain">
               <li> The <code>cacertfile</code> option specifies the certificates of the root
@@ -1348,7 +1470,7 @@ Using the <a href="/configure.html#erlang-term-config-file">classic config forma
             (see above).</p>
         </doc:subsection>
 
-        <doc:subsection name="code">
+        <doc:subsection name="erlang-code-example">
           <doc:heading>Code</doc:heading>
 <pre class="sourcecode erlang">
 Params = #amqp_params_network { port = 5671,
