@@ -207,12 +207,12 @@ limitations under the License.
       </ul>
     </div>
     <div class="landing-box">
-      <h2>Nightly Builds</h2>
+      <h2>Snapshots</h2>
       <p>
-          We make nightly builds of the RabbitMQ broker and official clients
+          We make snapshots of the RabbitMQ broker
           available to users who wish to experiment with the latest and
           greatest features and bugfixes. For more details, head over to
-          the <a href="nightly-builds.html">nightly builds page</a>.
+          the <a href="snapshots.html">snapshots page</a>.
       </p>
     </div>
     </x:modal>
@@ -226,11 +226,11 @@ limitations under the License.
       </p>
     </div>
     <div class="landing-box">
-      <h2>Nightly builds</h2>
+      <h2>Snapshots</h2>
       <p>
         If you are brave, you can
-        install <a href="http://www.rabbitmq.com/nightly-builds.html">the
-          nightly builds</a>.
+        install <a href="http://www.rabbitmq.com/snapshots.html">the
+          snapshots</a>.
       </p>
     </div>
     </x:modal>
