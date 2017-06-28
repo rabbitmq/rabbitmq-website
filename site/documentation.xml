@@ -32,13 +32,13 @@ limitations under the License.
 
       <ul>
         <li><a href="previous.html">Documentation for previous release series</a></li>
-        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branch)</li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the snapshots</a> (master branch)</li>
       </ul>
     </x:modal>
 
     <x:modal mode="next">
       <p class="intro">
-        This page summarises the available RabbitMQ documentation for the current nightly builds.
+        This page summarises the available RabbitMQ documentation for the current snapshots of the 'master' branch.
         See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
@@ -91,6 +91,7 @@ limitations under the License.
               <li><a href="/signatures.html">Package Signatures</a></li>
               <li><a href="/which-erlang.html">Supported Erlang/OTP Versions</a></li>
               <li><a href="/changelog.html">Change log</a></li>
+              <li><a href="/snapshots.html">Snapshot (Nightly) Builds</a></li>
             </ul>
           </li>
           <li>

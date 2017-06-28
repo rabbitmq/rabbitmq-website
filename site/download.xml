@@ -111,7 +111,8 @@ limitations under the License.
       <h3>Older Versions</h3>
       <ul>
         <li>
-          <a href="/releases/rabbitmq-server/">Download</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases">3.5.0 or later</a> |
+          <a href="https://bintray.com/rabbitmq/archive">Older than 3.5.0</a> |
           <a href="changelog.html">Changelog</a>
         </li>
       </ul>
@@ -207,12 +208,12 @@ limitations under the License.
       </ul>
     </div>
     <div class="landing-box">
-      <h2>Nightly Builds</h2>
+      <h2>Snapshot (Nightly) Builds</h2>
       <p>
-          We make nightly builds of the RabbitMQ broker and official clients
+          Snapshot releases of the RabbitMQ broker
           available to users who wish to experiment with the latest and
           greatest features and bugfixes. For more details, head over to
-          the <a href="nightly-builds.html">nightly builds page</a>.
+          the <a href="snapshots.html">snapshots page</a>.
       </p>
     </div>
     </x:modal>
@@ -226,11 +227,10 @@ limitations under the License.
       </p>
     </div>
     <div class="landing-box">
-      <h2>Nightly builds</h2>
+      <h2>Snapshots</h2>
       <p>
-        If you are brave, you can
-        install <a href="http://www.rabbitmq.com/nightly-builds.html">the
-          nightly builds</a>.
+        If you feel so inclined, you can
+        try <a href="http://www.rabbitmq.com/snapshots.html">snapshot builds</a>.
       </p>
     </div>
     </x:modal>
@@ -246,8 +246,9 @@ limitations under the License.
     <div class="landing-box">
       <h2>Previous releases</h2>
       <p>
-        If you wish to download old releases of RabbitMQ, you can go
-        to <a href="http://www.rabbitmq.com/releases/">the archive</a>.
+        If you wish to download older releases of RabbitMQ, you can go
+        to <a href="https://bintray.com/rabbitmq/archive">the release archive</a>.
+        Starting with 3.5.0, all releases are <a href="https://github.com/rabbitmq/rabbitmq-server/releases">published to GitHub</a>.
       </p>
     </div>
     </x:modal>
