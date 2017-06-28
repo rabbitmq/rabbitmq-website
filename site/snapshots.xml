@@ -20,26 +20,26 @@ limitations under the License.
   xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
   xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Snapshots of the RabbitMQ server</title>
+    <title>Snapshots Releases</title>
   </head>
   <body>
     <p class="intro">
-      We publish all snapshots of the RabbitMQ server that went
-      successfully through our CI. These builds are available so
-      that users can try out the latest features and bug fixes as
-      soon as they become available.
+      RabbitMQ server builds that successfully went through our CI
+      pipeline are published. These builds are available so that users
+      can try out the latest features and bug fixes as soon as they
+      become available.
     </p>
 
     <doc:section name="stability-and-safety">
-      <h2>Stability and safety</h2>
+      <doc:heading>Stability and Suitability of Snapshot Builds</doc:heading>
       <p>
-        Snapshots are produced from all supported branches and from
-        the 'master' branch which will become the next major release.
+        Snapshot builds are produced from all supported release series branches and from
+        the 'master' branch which will become the next feature release.
       </p>
       <p>
         In the case of the 'master' branch, this represents the
         <i>bleeding edge</i> and therefore should not be considered
-        complete or completely stable. It is quite possible that
+        complete (finished) or stable. It is quite possible that
         existing features, APIs and/or configuration data formats have
         been changed in ways that are not backwards compatible or even
         removed altogether.
@@ -49,25 +49,30 @@ limitations under the License.
         incompatible changes have been made to the way persistent storage
         is handled. Such changes may mean that after installing a snapshot,
         your RabbitMQ installation <i>cannot be rolled back to a
-          previous (stable) version</i>. To avoid conflicting with an existing
+          previous (stable) version</i>. To avoid conflicting with the existing
         installation, you should either remove it first, or configure the
         snapshot installation to use an alternative location for its
         persistent storage and (potentially) other configuration elements
         using the <a href="relocate.html">provided instructions</a>.
+      </p>
+      <p>
+        Snapshot releases therefore are suitable for development and some QA
+        environments but not intended to be used in production.
       </p>
     </doc:section>
 
     <doc:section name="documentation">
       <h2>Documentation of the 'master' branch</h2>
       <p>
-        You can find documentation about any new features available in
-        our snapshots of the 'master' branch
-        at <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+        Documentation for master branch of the broker is continuously published to
+        <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+        Note that master documentation can lag behind code changes, sometimes
+        intentionally so.
       </p>
     </doc:section>
 
     <doc:section name="downloads">
-      <h2>Downloading and installing RabbitMQ server snapshots</h2>
+      <doc:heading>Downloads and Installation</doc:heading>
       <p>
         As with our published live releases, we continue to digitally
         sign the snapshot artefacts using
@@ -75,7 +80,7 @@ limitations under the License.
         <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">
           our release public signing key</a>.
       </p>
-      <h3>Direct download</h3>
+      <h3>Direct Downloads</h3>
       <p>
         All snapshot artefacts, indexed by their version, are available
         in the <em>all-dev</em> repository on Bintray:
@@ -141,6 +146,27 @@ repo_gpgcheck=0
 enabled=1
 EOF
 yum install rabbitmq-server</pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="feedback">
+      <doc:heading>Providing Feedback</doc:heading>
+
+      <p>
+        Team RabbitMQ appreciates community feedback on snapshot builds.
+        Please post it to the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>
+        and specify what build was used plus as much context as possible:
+
+        <ul>
+          <li>Server log file(s)</li>
+          <li>A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations</li>          
+          <li><code>rabbitmqctl environment</code> output</li>          
+          <li><code>rabbitmqctl status</code> output</li>
+          <li>OS and distribution version</li>
+          <li>Erlang version used</li>
+        </ul>
+
+        and so on. Thank you!
       </p>
     </doc:section>
   </body>
