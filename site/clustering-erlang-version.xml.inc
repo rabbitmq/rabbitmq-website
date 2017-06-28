@@ -18,5 +18,10 @@ limitations under the License.
 <doc:section name="erlang"
   xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <doc:heading>Erlang Versions Across the Cluster</doc:heading>
-  All nodes in a cluster must run the same <a href="/which-erlang.html">version of Erlang</a>.
+  <p>
+  All nodes in a cluster must run the same minor <a href="/which-erlang.html">version of Erlang</a>: <code>19.3.4</code>
+  and <code>19.3.6</code> can be mixed but <code>19.0.1</code> and <code>19.3.6</code> (or <code>17.5</code> and <code>19.3.6</code>) cannot.
+  Compatibility between individual Erlang/OTP patch versions
+  can vary between releases but that's generally rare.
+  </p>
 </doc:section>
