@@ -35,7 +35,7 @@ limitations under the License.
       <ul class="compact">
         <li>Linux</li>
         <li>Windows, NT through 10</li>
-        <li>Windows Server 2003/2008/2012</li>
+        <li>Windows Server 2003 through 2016</li>
         <li>Mac OS X</li>
         <li>Solaris</li>
         <li>FreeBSD</li>
@@ -45,44 +45,48 @@ limitations under the License.
     </p>
 
     <p id="rabbit-supported">
-      The open source release of RabbitMQ is most commonly deployed on the
+      The open source release of RabbitMQ is most commonly used and deployed on the
       following platforms:
       <ul class="compact">
         <li>Ubuntu and Debian-based Linux distributions</li>
         <li>Fedora, CentOS and RPM-based Linux distributions</li>
-        <li>openSUSE and derived distributions (including SLES and SLERT)</li>
+        <li>Windows Server</li>
         <li>Mac OS X</li>
-        <li>Windows XP and later</li>
+        <li>openSUSE and derived distributions (including SLES and SLERT)</li>
       </ul>
     </p>
 
     <h3 id="windows">Windows</h3>
     <p>
-      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7, Windows 8,
-      Windows 10, Server 2008 and Server 2012). It should be possible to run on Windows NT and
-      Windows 2000 as well although this has not been tested.
+      RabbitMQ will run on any Windows version that <a href="/which-erlang.html">supported Erlang/OTP</a>
+      releases can run on, both desktop and server editions. This includes
+      Windows 7 through 10, Server 2008 through 2016.
     </p>
     <p>
-      The 64 bit Windows Erlang VM is available as of R15. Running the most recent
+      Windows XP, Vista, and Server 2003 may require using an older
+      version of Erlang/OTP and RabbitMQ. Please consult <a href="http://previous.rabbitmq.com/">documentation archive</a>.
+    </p>
+    <p>
+      The 64 bit Windows Erlang VM is available as of R15. Running a recent
       64 bit version of Erlang is recommended. See <a href="/which-erlang.html">Erlang version compatibility page</a>.
     </p>
 
-    <h3 id="unix">Generic UNIX</h3>
+    <h3 id="unix">Other Flavours of UNIX</h3>
     <p>
       While not officially supported, Erlang and hence RabbitMQ can run on most
-      systems with a POSIX layer including Solaris, FreeBSD, NetBSD, OpenBSD
+      systems with a POSIX layer including FreeBSD, Solaris, NetBSD, OpenBSD
       and many more.
     </p>
 
     <h3>Virtualized Platforms</h3>
     <p>
-      RabbitMQ can run on physical or virtual hardware. This also allows
-      unsupported platforms that are able to emulate a supported platform to
-      run RabbitMQ.
+      RabbitMQ can run on physical or virtual hardware, including many
+      IaaS providers. This also allows unsupported platforms that are
+      able to emulate a supported platform to run RabbitMQ.
     </p>
     <p>
-       See the <a href="ec2.html">EC2 guide</a> for details on
-      running on RabbitMQ on Amazon EC2.
+       A number of companies offer RabbitMQ-as-a-service in multiple clouds. Please see  <a href="/download.html">Installation Guide</a>
+       to learn more.
     </p>
 
     <h2 id="commercial">Commercially Supported Platforms</h2>
@@ -100,7 +104,7 @@ limitations under the License.
       </ul>
 
       If your platform is on this list or you need assistance then
-      please <a href="contact.html">contact us</a>.
+      please <a href="contact.html">contact Pivotal</a>.
     </p>
   </body>
 </html>

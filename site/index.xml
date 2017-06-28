@@ -257,8 +257,7 @@ limitations under the License.
         This website, <b>next.rabbitmq.com</b>, exists to document the
         features that will be available in the <b>next</b> feature
         release of RabbitMQ, and that are available in
-        the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
-        builds</a>.
+        the <a href="http://www.rabbitmq.com/snapshots.html">snapshots</a>.
       </p>
       <ul id="large-bullets">
         <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>

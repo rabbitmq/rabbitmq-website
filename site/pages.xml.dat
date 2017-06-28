@@ -70,7 +70,7 @@ limitations under the License.
        <x:related url="/erlang-client-user-guide.html"/>
      </x:page>
      <x:page url="/community-plugins.html" text="Community Plugins" gap-after="true"/>
-     <x:page url="/nightly-builds.html" text="Nightly Builds" />
+     <x:page url="/snapshots.html" text="Snapshots" />
      <x:related url="/troubleshooting.html" text="Troubleshooting"/>
    </x:modal>
    </x:page>
