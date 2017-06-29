@@ -59,10 +59,12 @@ limitations under the License.
         <td>RABBITMQ_MNESIA_BASE</td>
         <td>
           This base directory contains sub-directories for the RabbitMQ
-          server's Mnesia database files, one for each node,
+          server's node database, message store and cluster state files, one for each node,
           unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
-          (In addition to Mnesia files this location also contains message
-           storage and index files as well as schema and cluster details.)
+          It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read, write and create files and subdirectories in this directory
+          at any time.
         </td>
       </tr>
       <tr>
@@ -105,7 +107,7 @@ limitations under the License.
         <td>RABBITMQ_PLUGINS_DIR</td>
         <td>
           The <a href="plugins.html#installing-plugins">directory</a> in
-          which the <a href="plugins.html">plugins</a> are found.
+          which the <a href="plugins.html">plugins</a> are found and loaded from.
         </td>
       </tr>
 
@@ -113,14 +115,19 @@ limitations under the License.
         <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
         <td>
           Working directory used to expand enabled plugins when starting
-          the server.
+          the server. It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read and create files and subdirectories in this directory.
         </td>
       </tr>
 
       <tr>
         <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
         <td>
-          This file records explicitly enabled plugins.
+          This file records explicitly enabled plugins. When a plugin
+          is enabled or disabled, this file will be recreated. It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read, write and create this file at any time.
         </td>
       </tr>
 
