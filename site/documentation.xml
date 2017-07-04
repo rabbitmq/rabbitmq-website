@@ -263,7 +263,7 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="queues.html">Queue Prioerties and Feature Overview</a>
+                <a href="queues.html">Queue Properties and Feature Overview</a>
               </li>
               <li>
                 <a href="ttl.html">Queue and Message TTL</a>
