@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -33,16 +33,60 @@ limitations under the License.
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-&version-server;.exe"
-		    downloadpath="&dir-server;">
-	  Installer for Windows systems (from rabbitmq.com)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;.exe"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">
-	  Installer for Windows systems (from github.com)
-        </r:download>        
+	  Installer for Windows systems (from GitHub)
+        </r:download>
+        <r:download signature="no" downloadfile="rabbitmq-server-&version-server;.exe"
+		    absolute="yes" url="https://bintray.com/rabbitmq/windows/download_file?file_path=rabbitmq-server-&version-server;.exe">
+	  Installer for Windows systems (from Bintray)
+        </r:download>
       </r:downloads>
+
       <doc:subsection name="install-windows">
-        <doc:heading>Uninstall previous version</doc:heading>
+        <doc:heading>Install the Server</doc:heading>
+        <p>
+          Firstly, download and run
+          the <a href="http://www.erlang.org/download.html">Erlang for Windows</a> installer.
+          See <a href="/which-erlang.html">Erlang version compatibility table</a>.
+        </p>
+        <p>
+          Then just run the installer, <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
+          It will set RabbitMQ up and running as a service, with a
+          default configuration.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="run-windows">
+        <doc:heading>Run RabbitMQ Service</doc:heading>
+          <h3>Customise RabbitMQ Environment Variables</h3>
+          <p>
+            The service will run fine using its default
+            settings. You may want to
+            <a href="configure.html#customise-windows-environment">customise
+            the RabbitMQ environment</a> or
+            edit <a href="configure.html#configuration-file">configuration</a>.
+          </p>
+          <h3>Run RabbitMQ</h3>
+          <p>
+            The RabbitMQ service starts automatically. You can
+            stop/reinstall/start the RabbitMQ service from the Start
+            Menu.
+          </p>
+          <h3>Manage the Service</h3>
+          <p>
+            You can find links to RabbitMQ directories in the Start Menu.
+          </p>
+          <p>
+            There is also a link to a command prompt window that
+            will start in the sbin dir, in the Start Menu. This is
+            the most convenient way to run
+            the <a href="manpages.html">various command line
+            tools</a>.
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="upgrading-erlang">
+        <doc:heading>Upgrading Erlang VM</doc:heading>
         <p>
           If you have an existing installation and are planning to upgrade
           the Erlang VM from a 32bit to a 64bit version then you must uninstall
@@ -50,55 +94,6 @@ limitations under the License.
           or remove a service that was installed with an Erlang VM of a different
           architecture.
         </p>
-        <doc:heading>Install the Server</doc:heading>
-        <p>
-          Firstly, download and run
-          the <a href="http://www.erlang.org/download.html">Erlang
-            Windows Binary File</a>. It takes around 5 minutes.
-        </p>
-        <p>
-          Then just run the installer,
-          <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
-          It takes around 2 minutes, and will set RabbitMQ up and
-          running as a service, with a default
-          configuration.
-        </p>
-      </doc:subsection>
-      <doc:subsection name="run-windows">
-        <doc:heading>Run RabbitMQ Service</doc:heading>
-        <dl class="instructions">
-          <dt>Customise RabbitMQ Environment Variables</dt>
-          <dd>
-            <p>
-              The service will run fine using its default
-              settings. You may want to
-              <a href="configure.html#customise-windows-environment">customise
-              the RabbitMQ environment</a> or
-              edit <a href="configure.html#configuration-file">configuration</a>.
-            </p>
-          </dd>
-          <dt>Run RabbitMQ</dt>
-          <dd>
-            <p>
-              The RabbitMQ service starts automatically. You can
-              stop/reinstall/start the RabbitMQ service from the Start
-              Menu.
-            </p>
-          </dd>
-          <dt>Manage the Service</dt>
-          <dd>
-            <p>
-              You can find links to RabbitMQ directories in the Start Menu.
-            </p>
-            <p>
-              There is also a link to a command prompt window that
-              will start in the sbin dir, in the Start Menu. This is
-              the most convenient way to run
-              the <a href="manpages.html">various command line
-                tools</a>.
-            </p>
-          </dd>
-        </dl>
       </doc:subsection>
     </doc:section>
 
