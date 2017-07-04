@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -24,14 +24,55 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>File Locations</title>
+    <title>File and Directory Locations</title>
   </head>
   <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+
+      <p>
+        Every RabbitMQ node uses a number of files and directories
+        to load configuration; store data, metadata, log files, and so on.
+        Their location can be changed.
+      </p>
+
+      <p>
+        This guide covers:
+
+        <ul>
+          <li>How to customise location of various directories and files used RabbitMQ nodes</li>
+          <li>Default locations for various operating systems</li>
+          <li>Other topics related to file and directory locations</li>
+        </ul>
+      </p>
+    </doc:section>
+
+    <doc:section name="permissions">
+      <doc:heading>File System Permissions</doc:heading>
+
+      <p>
+        When changing file or directory locations, it is important to
+        make sure that they have sufficient permissions for RabbitMQ
+        node OS process to read and write from. It's best to assume
+        that most directories and files used by RabbitMQ require read,
+        write, and file creation permissions.  <a
+        href="/install-debian.html">Debian</a>, <a
+        href="/install-rpm.html">RPM</a> and <a href="/install-windows.html">Windows installer</a> scripts
+        will set up file system permissions suitable for most
+        environments, however, when strict default permissions are
+        used system-wide, it may be necessary to run additional
+        configuration steps after installation to make sure RabbitMQ node
+        file and directories have sufficient permissions
+      </p>
+    </doc:section>
+
     <doc:section name="locations">
+    <doc:heading>Specifying Locations</doc:heading>
+
     <p>
       You can set the following environment variables to specify where
-      RabbitMQ should locate certain things. Most people will not need
-      to do this.
+      RabbitMQ should locate certain things. In most environments default
+      values should work just fine.
     </p>
     <table>
       <th>Name</th><th>Description</th>
@@ -59,10 +100,12 @@ limitations under the License.
         <td>RABBITMQ_MNESIA_BASE</td>
         <td>
           This base directory contains sub-directories for the RabbitMQ
-          server's Mnesia database files, one for each node,
+          server's node database, message store and cluster state files, one for each node,
           unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
-          (In addition to Mnesia files this location also contains message
-           storage and index files as well as schema and cluster details.)
+          It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read, write and create files and subdirectories in this directory
+          at any time.
         </td>
       </tr>
       <tr>
@@ -105,14 +148,27 @@ limitations under the License.
         <td>RABBITMQ_PLUGINS_DIR</td>
         <td>
           The <a href="plugins.html#installing-plugins">directory</a> in
-          which the <a href="plugins.html">plugins</a> are found.
+          which the <a href="plugins.html">plugins</a> are found and loaded from.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+        <td>
+          Working directory used to expand enabled plugins when starting
+          the server. It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read and create files and subdirectories in this directory.
         </td>
       </tr>
 
       <tr>
         <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
         <td>
-          This file records explicitly enabled plugins.
+          This file records explicitly enabled plugins. When a plugin
+          is enabled or disabled, this file will be recreated. It is
+          important that effective RabbitMQ user has sufficient permissions
+          to read, write and create this file at any time.
         </td>
       </tr>
 
