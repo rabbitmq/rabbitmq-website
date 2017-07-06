@@ -25,8 +25,9 @@ limitations under the License.
   <body>
     <doc:section name="background-info">
       <p class="intro">
-        This page explains the Erlang <code>net_ticktime</code> configuration
-        setting. See the <a href="http://erlang.org/doc/man/kernel_app.html">Erlang kernel
+        This guide covers a mechanism used by RabbitMQ nodes and CLI tools (well, Erlang nodes)
+        to determine peer [un]availability, known as <code>"net ticks"</code> or
+        <code>kernel.net_ticktime</code>. See the <a href="http://erlang.org/doc/man/kernel_app.html">Erlang kernel
         documentation</a> for more details.
       </p>
     </doc:section>
