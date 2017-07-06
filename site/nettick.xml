@@ -36,10 +36,19 @@ limitations under the License.
         Each pair of nodes in a cluster are connected by the transport layer.
         Periodic tick messages are exchanged between all pairs of nodes to
         maintain the connections and to detect disconnections.
-        Network interruptions could otherwise go undetected for a period
-        that depends on the transport.
+        Network interruptions could otherwise go undetected for a fairly long
+        period of time (depending on the transport and OS kernel settings e.g. for TCP).
+        Fundamentally this is the same problem that <a href="/heartbeats.html">heartbeats</a>
+        seek to address in messaging protocols, just between different peers:
+        RabbitMQ cluster nodes and CLI tools.
       </p>
 
+      <p>
+        Nodes and connected CLI tools periodically send each other small data frames.
+        If no data was received from a peer in a given period of time,
+        that peer is considered to be unavilable ("down").
+      </p>
+      
       <p>
         When one RabbitMQ node determines that another node has gone
         down it will log a message giving the other node's name and
