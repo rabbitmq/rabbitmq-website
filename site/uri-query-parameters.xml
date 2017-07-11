@@ -52,12 +52,12 @@ limitations under the License.
       Example:
     </p>
 
-    <pre>amqp://myhost?heartbeat=10&amp;connection_timeout=10</pre>
+    <pre>amqp://myhost?heartbeat=10&amp;connection_timeout=10000</pre>
 
     <p>
       This specifies a (non-encrypted) network connection to the host
       <code>myhost</code>. The heartbeat interval is set to 5 seconds,
-      and the maximum frame size to 8192 bytes. Other parameters are
+      and connection timeout is set to 10 seconds (10,000 milliseconds). Other parameters are
       set to their default values.
     </p>
 
@@ -118,7 +118,7 @@ limitations under the License.
       <tr>
         <td><code>connection_timeout</code></td>
         <td>
-          Time in seconds (an integer) to wait while establishing a TCP connection
+          Time in milliseconds (an integer) to wait while establishing a TCP connection
           to the server before giving up.
         </td>
       </tr>
