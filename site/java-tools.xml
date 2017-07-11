@@ -73,9 +73,9 @@ limitations under the License.
           connect to, a number of publishers to use (say, 1) and a
           number of consumers to use (say, 2). Note that RabbitMQ Java
           client can achieve high rates for publishing (up to 80 to 90K
-          messages/second), given enough bandwidth and some safety
-          measures (publisher confirms) enabled, so overprovisioning
-          publishers is rarely necessary for a basic test.
+          messages per second per connection), given enough bandwidth and when some safety
+          measures (publisher confirms) are disabled, so overprovisioning
+          publishers is rarely necessary (unless that's a specific objective of the test).
 
           The following command runs PerfTest with a single publisher
           without publisher confirms, two consumers (each receiving a
