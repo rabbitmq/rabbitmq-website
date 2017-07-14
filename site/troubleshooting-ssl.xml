@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -30,8 +30,8 @@ limitations under the License.
     <doc:section name="intro">
       <doc:heading>Introduction</doc:heading>
        <doc:subsection>
-       <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
-         The strategy is to test the required components with an alternative SSL
+       <p class="intro">This page collects some tips to aid the diagnosis of TLS-related issues and errors (TLS alerts).
+         The strategy is to test the required components with an alternative TLS
          implementation in a process of elimination to identify the fault.
        </p>
        <p>
@@ -46,12 +46,25 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="troubleshooting">
+
+      <doc:subsection name="verify-config">
+        <doc:heading>Check Effective Node Configuration</doc:heading>
+        <p>
+          Setting up a RabbitMQ node with TLS involves modifying
+          configuration. Before performing any other TLS
+          troubleshooting steps it is important to verify config file
+          location and effective configuration (whether the node has
+          loaded it successfully). See <a href="">Configuration guide</a>
+          for details.
+        </p>
+      </doc:subsection>
+
        <doc:subsection name="erlang-support">
-       <doc:heading>Check SSL support in Erlang</doc:heading>
+       <doc:heading>Check TLS Support in Erlang</doc:heading>
        <p>
-         The first requirement for establishing SSL connections to the broker
-         is SSL support in the broker. Confirm that the Erlang VM has support
-         for SSL by running the
+         Another key requirement for establishing TLS connections to the broker
+         is TLS support in the broker. Confirm that the Erlang VM has support
+         for TLS by running the
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode erlang">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
@@ -63,17 +76,17 @@ limitations under the License.
        </p>
        <p>
          If you receive an error instead, confirm that Erlang was built
-         with OpenSSL. On Debian-based systems you may need to install the
+         with OpenSSL. On <a href="/install-debian.html">Debian-based systems</a> you may need to install the
          <code>erlang-ssl</code> package.
        </p>
        </doc:subsection>
 
        <doc:subsection name="keys-and-certs">
-       <doc:heading>Check keys and certificates with OpenSSL</doc:heading>
+       <doc:heading>Check Keys and Certificates with OpenSSL</doc:heading>
        <p>
          We will now verify the certificates and keys specified in the
          <a href="configure.html#configuration-file"> configuration
-         file</a> against an alternative SSL implementation. This
+         file</a> against an alternative TLS implementation. This
          example uses OpenSSL <a
          href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
          and <a
@@ -117,7 +130,7 @@ openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
          <pre class="sourcecode bash">
 openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
-         If the certificates and keys have been correctly created, an SSL connection establishment
+         If the certificates and keys have been correctly created, an TLS connection establishment
          sequence will appear and the terminals will be linked. Input from either terminal will appear
          on the other. If the trust chain could be established, the second terminal will display
          this confirmation:
@@ -126,36 +139,39 @@ Verify return code: 0 (ok)</pre>
        </p>
        <p>
          If you receive an error, confirm that the certificates and keys were
-         generated correctly.
+         generated correctly and that a matching certificate/key pair is used.
+         For environments where self-signed certificates are appropriate,
+         we recommend using <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a> for generation.
        </p>
        </doc:subsection>
 
        <doc:subsection name="broker-listens">
-       <doc:heading>Check broker is listening</doc:heading>
+       <doc:heading>Check TLS Listeners (Ports)</doc:heading>
        <p>
-         This step checks that the broker is listening on the expected AMQPS port.
-         When you start the broker with a valid SSL configuration file, the broker
-         will report the SSL listening address in the logfile. You should see an entry
+         This step checks that the broker is listening on the <a href="/networking.html">expected port(s)</a>, such as
+         5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on..
+         When you start the broker with a valid TLS configuration file, the broker
+         will report the TLS listening address in the logfile. You should see an entry
          similar to this:<pre class="sourcecode ini">
 =INFO REPORT==== 8-Aug-2011::11:51:47 ===
 started SSL Listener on 0.0.0.0:5671</pre>
          If you included an "ssl_listeners" configuration directive and you don't see
          this message, it is possible that your configuration file was not read by
-         the broker. Confirm that the configuration file quoted in the broker log
-         contains SSL configuration options. See the
-         <a href="/configure.html#introduction">configuration page</a> for details.
+         the broker or the node was not restarted after config file changes.
+         See the <a href="/configure.html#introduction">configuration page</a> for details
+         on config file verification.
        </p>
        </doc:subsection>
 
        <doc:subsection name="broker-listens-ssl">
-       <doc:heading>Attempt SSL connection to broker</doc:heading>
+       <doc:heading>Attempt TLS Connection to Broker</doc:heading>
        <p>
-         Once you have a RabbitMQ broker listening on an SSL port you can again use
-         the OpenSSL s_client to verify SSL connection establishment, this time against the broker.
+         Once you have a RabbitMQ broker listening on an TLS port you can again use
+         the OpenSSL s_client to verify TLS connection establishment, this time against the broker.
          This check establishes whether the broker is likely to be configured correctly,
          without needing to configure an AMQPS client.
          The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
-         SSL connections on localhost port 5671:
+         TLS connections on localhost port 5671:
          <pre class="sourcecode bash">
 openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
@@ -166,32 +182,32 @@ openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.p
 accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        </p>
        <p>
-         It should now be possible to present the broker with an AMQP connection
-         establishment sequence over the SSL connection. If you present the broker
+         It should now be possible to present the broker with an AMQP 0-9-1 connection
+         header sequence over the TLS connection. If you present the broker
          with eight random bytes, the broker will respond with the string "AMQP"
          followed by an encoded version number. If you recognise the "AMQP" string,
-         you can be confident that you are connected to an AMQP broker.
+         you can be confident that you are connected to a TLS-enabled node on the correct port.
        </p>
       </doc:subsection>
 
       <doc:subsection name="validate-with-stunnel">
        <doc:heading>Validate client connections with stunnel</doc:heading>
        <p>
-         The final check is to validate AMQPS clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
-         to provide SSL capability. In this configuration AMQPS clients will make a secure connection to stunnel,
-         which will pass the decrypted data through to the AMQP port of the broker. This provides some confidence
-         that the client SSL configuration is correct independently of the broker SSL configuration.
+         The final check is to validate TLS-enabled clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
+         to provide TLS capability. In this configuration clients will make a secure connection to stunnel,
+         which will pass the decrypted data through to a "regular" port of the broker (say, 5672 for AMQP 0-9-1 and AMQP 1.0).
+         This provides some confidence that the client TLS configuration is correct independently of the broker TLS configuration.
        </p>
        <p>
          stunnel will run in daemon mode on the same host as the broker. In the discussion that follows it is
          assumed that stunnel will only be used temporarily. It is of course possible to use stunnel to
-         provide SSL capability more permanently, but the lack of integration with the broker
-         means that management reporting features and authentication plugins that use SSL
+         provide TLS capability more permanently, but the lack of integration with the broker
+         means that management reporting features and authentication plugins that use TLS
          information will not be able to do so.
        </p>
        <p>
-         In this example, stunnel will connect to the unencrypted AMQP port of the broker (5672) and accept
-         AMQPS connections from SSL-capable clients on port 5679:
+         In this example, stunnel will connect to the unencrypted port of the broker (5672) and accept
+         TLS connections from TLS-capable clients on port 5679:
          <pre  class="sourcecode">cat client/key.pem client/cert.pem > client/key-cert.pem
 stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
          stunnel requires a certificate and corresponding key. The generated client certificate
@@ -199,16 +215,16 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
          stunnel requires that the key not be password-protected.
        </p>
        <p>
-         SSL-capable clients should now be able to connect to port 5679 and any SSL errors will appear
+         TLS-capable clients should now be able to connect to port 5679 and any TLS errors will appear
          on the console where stunnel was started.
        </p>
       </doc:subsection>
 
       <doc:subsection>
-       <doc:heading>Connect client and broker</doc:heading>
+       <doc:heading>Connect Client and Broker</doc:heading>
        <p>
-         If none of the previous steps produced errors then you can confidently connect the tested AMQPS
-         client to the AMQPS port of the broker, making sure to stop any running OpenSSL or stunnel
+         If none of the previous steps produced errors then you can confidently connect the tested TLS-enabled
+         client to the TLS-enabled port of the broker, making sure to stop any running OpenSSL or stunnel
          sessions first.
        </p>
       </doc:subsection>
@@ -223,7 +239,7 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
           may follow the peer certificate in a valid certification path.
         </p>
         <p>Refer to the <a href="./ssl.html">TLS/SSL guide</a> to learn how to configure verification depth.</p>
-      </doc:subsection>      
+      </doc:subsection>
     </doc:section>
 
 
