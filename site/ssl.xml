@@ -1044,12 +1044,12 @@ mono certcheck.exe /path/to/server/cert.
             </p>
 
             <p>
-              In .NET client, <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
+              On the .NET platform, <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
               controls TLS verification behavior.
             </p>
 
             <p>
-              <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.CertificateValidatioNCallback">SslOptions.CertificateValidationCallback</a>
+              In RabbitMQ .NET client, <code>RabbitMQ.Client.SslOption.CertificateValidatioNCallback</code>
               can be used to provide a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
               delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
               the application.
@@ -1060,12 +1060,12 @@ mono certcheck.exe /path/to/server/cert.
               valid.
 
               The <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
-              flag in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>
+              flag in <code>RabbitMQ.Client.SslOption.AcceptablePolicyErrors</code>
               can be used to disable peer verification (not recommended in production environments!).
             </p>
 
             <p>
-              <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.CertificateSelectionCallback">SslOption.CertificateSelectionCallback</a>
+              <code>RabbitMQ.Client.SslOption.CertificateSelectionCallback</code>
               can be used to provide
               a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.localcertificateselectioncallback(v=vs.110).aspx">LocalCertificateSelectionCallback</a>
               that will select the local certificate used for peer verification.
