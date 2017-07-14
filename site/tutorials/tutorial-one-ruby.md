@@ -176,12 +176,15 @@ callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `Bunny::Queue#subscribe` does.
 
 <pre class="sourcecode ruby">
-puts " [*] Waiting for messages in #{q.name}. To exit press CTRL+C"
-q.subscribe(:block => true) do |delivery_info, properties, body|
-  puts " [x] Received #{body}"
+begin
+  puts " [*] Waiting for messages. To exit press CTRL+C"
+  q.subscribe(:block => true) do |delivery_info, properties, body|
+    puts " [x] Received #{body}"
+  end
+rescue Interrupt => _
+  conn.close
 
-  # cancel the consumer to exit
-  delivery_info.consumer.cancel
+  exit(0)
 end
 </pre>
 

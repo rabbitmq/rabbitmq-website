@@ -486,6 +486,52 @@ cat otherca/cacert.pem &gt;&gt; all_cacerts.pem
           <p>and so forth.</p>
         </doc:subsection>
 
+        <doc:subsection name="peer-verification">
+          <doc:heading>TLS Peer Verification: Who Do You Say You Are?</doc:heading>
+            <p>
+              TLS offers peer verification (validation), a way for client and server to
+              verify each other's identity based on peer's certificate information.
+              When peer verification is enabled, typically the <em class="">hostname</em> of the server
+              you're connecting to needs to match the <em class="">CN (Common Name)</em> field on
+              the server's certificate, otherwise the certificate will be
+              rejected. However, peer verification doesn't have to be limited to just CN
+              and hostname matching in general.
+            </p>
+            <p>
+              This is why the commands at the start of this guide specify
+              <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
+              hostname. If you're generating certificates on one machine, and using
+              them on the other then be sure to swap out the <code>$(hostname)</code>
+              section, and replace it with the correct hostname for your server.
+            </p>
+            <p>
+              On the server end, peer verification is primarily controlled using two <code>rabbit.ssl_options</code>
+              options: <code>verify</code> and <code>fail_if_no_peer_cert</code>. For example, the following
+              config will perform peer verification and reject clients that do not provide
+              a certificate:
+
+<pre class="sourcecode erlang">
+[
+  {rabbit, [
+     {ssl_listeners, [5671]},
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {verify, verify_peer},
+                    {fail_if_no_peer_cert, true}]}
+   ]}
+].
+</pre>
+            </p>
+            <p>
+              How exactly peer verification is configured in client libraries varies from library to library.
+            </p>
+            <p>
+              Peer verification is highly recommended in production environments. With careful consideration,
+              disabling it can make sense in certain environments (e.g. development).
+            </p>
+        </doc:subsection>
+
         <doc:subsection name="disabling-tls-versions">
           <doc:heading>Providing Private Key Password</doc:heading>
           <p>
@@ -1074,36 +1120,48 @@ mono certcheck.exe /path/to/server/cert.
         </doc:subsection>
 
 
-        <doc:subsection name="who">
-          <doc:heading>TLS Peer verification: Who do you say you are?</doc:heading>
-            <p>On the .NET platform, by default the <em class="">hostname</em> of the server
-            you're connecting to needs to match the <em class="">CN (Common Name)</em> field on
-            the server's certificate, otherwise the certificate will be
-            rejected. This is why the commands at the start of this guide specify
-
-            <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
-            hostname. If you're generating certificates on one machine, and using
-            them on the other then be sure to swap out the <code>$(hostname)</code>
-            section, and replace it with the correct hostname for your server.</p>
-            <p>To suppress the match check, an application can set
-            the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
-            flag in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>.
+        <doc:subsection name="tls-verification-in-dotnet">
+          <doc:heading>TLS Peer Verification in .NET</doc:heading>
+            <p>
+              TLS offers peer verification (validation), a way for client and server to
+              verify each other's identity based on peer's certificate information.
+              When peer verification is enabled, typically the <em class="">hostname</em> of the server
+              you're connecting to needs to match the <em class="">CN (Common Name)</em> field on
+              the server's certificate, otherwise the certificate will be
+              rejected. However, peer verification doesn't have to be limited to just CN
+              and hostname matching in general.
+            </p>
+            <p>
+              This is why the commands at the start of this guide specify
+              <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
+              hostname. If you're generating certificates on one machine, and using
+              them on the other then be sure to swap out the <code>$(hostname)</code>
+              section, and replace it with the correct hostname for your server.
             </p>
 
             <p>
-            <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.CertificateValidatioNCallback">SslOptions.CertificateValidationCallback</a>
-            can be used to provide a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
-            delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
-            the application.
-
-            If this is not specified, the default callback will be
-            used in conjunction with the AcceptablePolicyErrors
-            property to determine if the remote server certificate is
-            valid.
+              On the .NET platform, <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
+              controls TLS verification behavior.
             </p>
 
             <p>
-              <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.CertificateSelectionCallback">SslOption.CertificateSelectionCallback</a>
+              In RabbitMQ .NET client, <code>RabbitMQ.Client.SslOption.CertificateValidatioNCallback</code>
+              can be used to provide a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificateValidationCallback</a>
+              delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
+              the application.
+
+              If this is not specified, the default callback will be
+              used in conjunction with the AcceptablePolicyErrors
+              property to determine if the remote server certificate is
+              valid.
+
+              The <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
+              flag in <code>RabbitMQ.Client.SslOption.AcceptablePolicyErrors</code>
+              can be used to disable peer verification (not recommended in production environments!).
+            </p>
+
+            <p>
+              <code>RabbitMQ.Client.SslOption.CertificateSelectionCallback</code>
               can be used to provide
               a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.localcertificateselectioncallback(v=vs.110).aspx">LocalCertificateSelectionCallback</a>
               that will select the local certificate used for peer verification.
