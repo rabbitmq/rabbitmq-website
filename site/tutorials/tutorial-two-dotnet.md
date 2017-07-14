@@ -506,7 +506,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `IModel` methods and `IBasicProperties`, you can browse the
-[RabbitMQ .NET client API reference online](http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.2.2/rabbitmq-dotnet-client-3.2.2-client-htmldoc/html/index.html).
+[RabbitMQ .NET client API reference online](http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.6.10/rabbitmq-dotnet-client-3.6.10-client-htmldoc/html/index.html).
 
 Now we can move on to [tutorial 3](tutorial-three-dotnet.html) and learn how
 to deliver the same message to many consumers.

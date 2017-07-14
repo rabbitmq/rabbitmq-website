@@ -229,6 +229,23 @@ is equivalent to
 ].
 </pre>
       </p>
+      <p>
+        To verify what port is used by a node for inter-node and CLI tool communication,
+        run
+
+<pre class="sourcecode bash">
+epmd -names
+</pre>
+
+        on that node's host.
+
+        It will output that looks like this:
+
+<pre class="sourcecode ini">
+epmd: up and running on port 4369 with data:
+name rabbit at port 25672
+</pre>
+      </p>
     </doc:section>
 
     <doc:section name="tls-support">
