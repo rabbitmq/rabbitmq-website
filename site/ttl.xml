@@ -32,6 +32,9 @@ limitations under the License.
       Message TTL can be enforced for a single queue, a group of
       queues or applied for individual messages.
     </p>
+    <p>
+      TTL settings also can be enforced by <a href="/parameters.html#operator-policies">operator policies</a>.
+    </p>
     <doc:section name="per-queue-message-ttl">
       <doc:heading>Per-Queue Message TTL in Queues</doc:heading>
       <p>
