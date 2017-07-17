@@ -43,6 +43,10 @@ limitations under the License.
         </p>
 
         <p>
+          Queue length settings also can be enforced by <a href="/parameters.html#operator-policies">operator policies</a>.
+        </p>
+
+        <p>
           In all cases the number of <i>ready</i> messages is used;
           unacknowledged messages do not count towards the limit. The
           fields <code>messages_ready</code> and
