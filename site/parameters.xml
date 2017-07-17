@@ -249,7 +249,7 @@ limitations under the License.
         <tr>
           <th>rabbitmqctl (Windows)</th>
           <td>
-            <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
+            <pre>rabbitmqctl.bat set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
           </td>
         </tr>
         <tr>
@@ -390,7 +390,115 @@ limitations under the License.
             and the <code>"ha-mode"</code> definitions applied to them.
           </p>
       </doc:subsection>
-      
+    </doc:section>
+
+    <doc:section name="operator-policies">
+      <doc:heading>Operator Policies</doc:heading>
+
+      <doc:subsection name="why-operator-policies-exist">
+        <doc:heading>Difference From Regular Policies</doc:heading>
+
+        <p>
+          Sometimes it is necessary for the operator to enforce certain policies.
+          For example, it may be desirable to force <a href="/ttl.html">queue TTL</a> but
+          still let other users manage policies. Operator policies allow for that.
+        </p>
+        <p>
+          Operator policies are much like regular ones but their
+          definitions are used differently. They are merged with
+          regular policy definitions before the result is applied to
+          matching queues.
+        </p>
+        <p>
+          Because operator policies can unexpectedly change queue
+          attributes and, in turn, application assumptions and
+          semantics, they are limited only to a few arguments:
+
+          <ul>
+            <li><code>expires</code></li>
+            <li><code>message-ttl</code></li>
+            <li><code>max-length</code></li>
+            <li><code>max-length-bytes</code></li>
+          </ul>
+
+          The arguments above are all numeric. Thie reason for that is explained
+          in the following section.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Conflict Resolution with Regular Policies</doc:heading>
+        <p>
+          An operator policy and a regular one can contain the same
+          keys in their definitions. When it happens, the smaller
+          value is chosen as effective. For example, if a matching
+          operator policy definition sets <code>max-length</code> to
+          50 and a matching regular policy definition uses the value of 100,
+          the value of 50 will be used. If, however, regular policy's value
+          was 20, it would be used. Operator policies, therefore, don't
+          just overwrite regular policy values. They enforce limits but
+          try to not override user-provided policies where possible.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection>
+        <doc:heading>Defining Operator Policies</doc:heading>
+
+        <p>
+          Operator policies defined in a way very similar to regular (user) policies.
+          When <code>rabbitmqctl</code> is used, the command name is <code>set_operator_policy</code>
+          instead of <code>set_policy</code>. In the HTTP API, <code>/api/policies/</code> in request path
+          becomes <code>/api/operator-policies/</code>:
+        </p>
+
+        <table>
+            <tr>
+                <th>rabbitmqctl</th>
+                <td>
+                    <pre>rabbitmqctl set_operator_policy transient-queue-ttl "^amq\." '{"expires":1800000}' --priority 1 --apply-to queues</pre>
+                </td>
+            </tr>
+            <tr>
+                <th>rabbitmqctl (Windows)</th>
+                <td>
+                  <pre>rabbitmqctl.bat set_operator_policy transient-queue-ttl "^amq\." "{""expires"": 1800000}" --priority 1 --apply-to queues</pre>
+                </td>
+            </tr>
+            <tr>
+                <th>HTTP API</th>
+                <td>
+                    <pre>PUT /api/operator-policies/%2f/transient-queue-ttl
+                        {"pattern": "^amq\.",
+                         "definition": {"expires": 1800000},
+                         "priority": 1,
+                         "apply-to": "queues"}</pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Web UI</th>
+                <td>
+                    <ul>
+                        <li>
+                            Navigate to Admin > Policies > Add / update an operator
+                            policy.
+                        </li>
+                        <li>
+                            Enter "transient-queue-ttl" next to Name, "^amq\." next to
+                            Pattern, and select "Queues" next to Apply to.
+                        </li>
+                        <li>
+                            Enter "expires" = 1800000 in the first line next to
+                            Policy.
+                        </li>
+                        <li>
+                            Click Add policy.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
