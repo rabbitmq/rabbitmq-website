@@ -118,7 +118,7 @@ limitations under the License.
           by RabbitMQ as a protocol extension.
         </p>
         <p>
-          When the <code>multiple</code> field is set to <code></code>, RabbitMQ will acknowledge
+          When the <code>multiple</code> field is set to <code>true</code>, RabbitMQ will acknowledge
           all outstanding delivery tags up to and including the tag specified in the
           acknowledgement. Like everything else related to acknowledgements, this is scoped per channel.
           For example, given that there are delivery tags 5, 6, 7, and 8 unacknowledged on channel <code>Ch</code>,
