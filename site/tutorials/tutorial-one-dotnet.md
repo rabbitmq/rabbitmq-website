@@ -54,7 +54,7 @@ on behalf of the consumer.
 > You can also use the .NET Framework to complete this tutorial however the
 > setup steps will be different.
 >
-> The client is distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
+> RabbitMQ .NET client 5.0 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
 >
 > This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
 > any shell will work.
