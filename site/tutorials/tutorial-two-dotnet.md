@@ -133,7 +133,7 @@ consumer.Received += (model, ea) =>
 
     Console.WriteLine(" [x] Done");
 };
-channel.BasicConsume(queue: "task_queue", noAck: true, consumer: consumer);
+channel.BasicConsume(queue: "task_queue", autoAck: true, consumer: consumer);
 </pre>
 
 Our fake task to simulate execution time:
@@ -237,7 +237,7 @@ the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
 Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off by setting the `noAck` ("no manual acks")
+examples we explicitly turned them off by setting the `autoAck` ("automatic acknowledgement mode")
 parameter to `true`. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
@@ -256,7 +256,7 @@ consumer.Received += (model, ea) =>
 
     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
-channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+channel.BasicConsume(queue: "task_queue", autoAck: false, consumer: consumer);
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
@@ -492,7 +492,7 @@ class Worker
                 channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
             channel.BasicConsume(queue: "task_queue",
-                                 noAck: false,
+                                 autoAck: false,
                                  consumer: consumer);
 
             Console.WriteLine(" Press [enter] to exit.");

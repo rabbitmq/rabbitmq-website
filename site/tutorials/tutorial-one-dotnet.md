@@ -27,7 +27,7 @@ limitations under the License.
 In this part of the tutorial we'll write two programs in C#; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the .NET API, concentrating on this very simple thing just to get
+the .NET client API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -47,16 +47,16 @@ on behalf of the consumer.
 > use the .NET client provided by RabbitMQ.
 >
 > The client supports [.NET Core](https://www.microsoft.com/net/core) as
-> well as .NET Framework 4.5.1+. This tutorial will use .NET Core so you will ensure
+> well as .NET Framework 4.5.1+. This tutorial will use RabbitMQ .NET client 5.0 and
+> .NET Core so you will ensure
 > you have it [installed](https://www.microsoft.com/net/core) and in your PATH.
 >
 > You can also use the .NET Framework to complete this tutorial however the
 > setup steps will be different.
 >
-> The client is distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client)
-> but can also be [downloaded as an archive](http://www.rabbitmq.com/dotnet.html).
+> RabbitMQ .NET client 5.0 and later versions are distributed via [nuget](https://www.nuget.org/packages/RabbitMQ.Client).
 >
-> This tutorial assumes you are using powershell on windows. On OSX/Linux nearly
+> This tutorial assumes you are using powershell on Windows. On MacOS and Linux nearly
 > any shell will work.
 
 ### Setup
@@ -295,7 +295,7 @@ class Receive
                 Console.WriteLine(" [x] Received {0}", message);
             };
             channel.BasicConsume(queue: "hello",
-                                 noAck: true,
+                                 autoAck: true,
                                  consumer: consumer);
 
             Console.WriteLine(" Press [enter] to exit.");
