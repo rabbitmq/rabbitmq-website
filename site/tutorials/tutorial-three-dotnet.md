@@ -346,7 +346,7 @@ class ReceiveLogs
                 Console.WriteLine(" [x] {0}", message);
             };
             channel.BasicConsume(queue: queueName,
-                                 noAck: true,
+                                 autoAck: true,
                                  consumer: consumer);
 
             Console.WriteLine(" Press [enter] to exit.");
