@@ -65,8 +65,11 @@ In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex
 tasks. We don't have a real-world task, like images to be resized or
 pdf files to be rendered, so let's fake it by just pretending we're
-busy - by using the `Thread.sleep()` function. We'll take the number of dots
-in the string as its complexity; every dot will account for one second
+busy - by using the `Thread.Sleep()` function (you will need to add
+ `using System.Threading;` near the top of the file to get access to
+the threading APIs).
+We'll take the number of dots in the string as its complexity; every
+dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
