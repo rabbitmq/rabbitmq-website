@@ -106,6 +106,9 @@ limitations under the License.
                 <a href="parameters.html">Policies and Runtime Parameters</a>
               </li>
               <li>
+                <a href="vhosts.html">Per Virtual Host Limits</a>
+              </li>
+              <li>
                 <a href="heartbeats.html">Client Connection Heartbeats</a>
               </li>
               <li>
@@ -178,6 +181,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
+              </li>
+              <li>
+                <a href="vhosts.html">Per Virtual Host Limits</a>
               </li>
               <li>
                 <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
