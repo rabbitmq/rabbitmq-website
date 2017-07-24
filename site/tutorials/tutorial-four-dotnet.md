@@ -354,7 +354,7 @@ class ReceiveLogsDirect
                                   routingKey, message);
             };
             channel.BasicConsume(queue: queueName,
-                                 noAck: true,
+                                 autoAck: true,
                                  consumer: consumer);
 
             Console.WriteLine(" Press [enter] to exit.");
