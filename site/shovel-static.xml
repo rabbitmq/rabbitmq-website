@@ -612,7 +612,7 @@ limitations under the License.
                                               [{arguments,
                                                  [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
                                            {'queue.bind',
-                                              [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
+                                              [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
                                                 {queue,    &lt;&lt;&gt;&gt;}
                                               ]}
                                             ]},
@@ -733,7 +733,7 @@ limitations under the License.
                                               [{arguments,
                                                  [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
                                            {'queue.bind',
-                                              [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
+                                              [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
                                                 {queue,    &lt;&lt;&gt;&gt;}
                                               ]}
                                             ]},
