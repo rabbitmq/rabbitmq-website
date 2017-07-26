@@ -28,8 +28,8 @@ limitations under the License.
 
       <p>
         The minimum version of <a href="http://www.erlang.org">Erlang</a>
-        required to run the RabbitMQ server 3.6.x is <strong>R16B03</strong>.
-        The most recent Erlang/OTP release series supported by 3.6.x is <strong>19.3.x</strong>.
+        required to run the RabbitMQ server 3.7.x is <strong>19.2.0</strong>.
+        The most recent Erlang/OTP release series supported by 3.7.x is <strong>20.0.x</strong>.
       </p>
 
       <doc:subsection name="debian">
@@ -45,6 +45,11 @@ limitations under the License.
         <th>RabbitMQ Release Series</th>
         <th>Supported Erlang/OTP Series</th>
         <th>Notes</th>
+        <tr>
+          <td>3.7.x</td>
+          <td>19.2.0 through 20.0.x</td>
+          <td>19.3.6 or later version is recommended; earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</td>
+        </tr>
         <tr>
           <td>3.6.x</td>
           <td>R16B03 through 19.3.x</td>
@@ -97,22 +102,16 @@ limitations under the License.
         <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
         <tr>
           <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
-          <td>R16B03</td>
+          <td>19.2</td>
           <td></td>
         </tr>
         <tr>
           <td>use <a href="ssl.html">TLS</a> reliably</td>
-          <td>17.0</td>
+          <td>19.2</td>
           <td>
             Covers most common signature algorithms and can honor
-            server ciphers order. 19.2 or later version are
-            recommended.
+            server ciphers order.
           </td>
-        </tr>
-        <tr>
-          <td>use <a href="http://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq_delayed_message_exchange</a></td>
-          <td>18.0</td>
-          <td></td>
         </tr>
       </table>
     </doc:section>
@@ -159,7 +158,7 @@ limitations under the License.
 
         <p>
           If you absolutely must use an older version of Erlang, RabbitMQ
-          3.6.x is the newest version compatible with R16B03.
+          3.6.x is the newest release series compatible with R16B03.
         </p>
       </doc:subsection>
       <doc:subsection name="r13b03">

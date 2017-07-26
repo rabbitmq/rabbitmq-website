@@ -49,7 +49,7 @@ limitations under the License.
        <code>rabbitmq-server</code> is included in standard Debian
        and Ubuntu repositories. However, the versions included are
        often quite old. You will probably get better results
-       installing the .deb from the apt repository on rabbitmq.com or <a href="">Package Cloud</a>. Check the <a
+       installing the .deb from the apt repository on rabbitmq.com or <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>. Check the <a
        href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
        package</a> and <a
        href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
@@ -66,11 +66,11 @@ limitations under the License.
        <doc:heading>Supported Distributions</doc:heading>
 
        <p>
-         Below is a list of supported Debian-based distributions as of RabbitMQ 3.6.3:
+         Below is a list of supported Debian-based distributions as of RabbitMQ 3.7.0:
          <ul>
            <li>Ubuntu 14.04 through 17.04</li>
+           <li>Debian Stretch</li>           
            <li>Debian Jessie</li>
-           <li>Debian Wheezy (<a href="https://backports.debian.org/Instructions/">Wheezy backports repository</a> is required)</li>
          </ul>
 
          The package may work on other Debian-based distributions
@@ -86,7 +86,7 @@ limitations under the License.
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
          standard Debian and Ubuntu also can be quite
          outdated. Consider installing a newer version, such as
-         19.3.
+         19.3.6.
        </p>
 
        <table>
@@ -100,35 +100,20 @@ limitations under the License.
            <tr>
              <td>20.x</td>
              <td>
-               <strong><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">NOT SUPPORTED</a></strong> and will lead to
-               <strong>DATA LOSS</strong> when upgraded to from an earlier Erlang/OTP release,
-               avoid unless this document is updated to suggest otherwise.
+               <strong><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">Supported as of 3.6.11</a></strong>. With earlier
+               RabbitMQ releases, upgrading existing installations to OTP 20 can lead to
+               <strong>DATA LOSS</strong>.
+
+               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>, Ubuntu Zesty (17.04)
              </td>
            </tr>
            <tr>
-             <td>19.x</td>
+             <td>19.2 and later</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
                <a href="https://packages.debian.org/search?suite=stretch&amp;searchon=names&amp;keywords=erlang">Debian Stretch</a>,
                <a href="https://packages.debian.org/search?suite=jessie-backports&amp;searchon=names&amp;keywords=erlang">Debian Jessie backports</a>,
                Ubuntu Zesty (17.04)
-             </td>
-           </tr>
-
-           <tr>
-             <td>18.x</td>
-             <td>
-               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
-               Ubuntu Yakkety (16.10), Ubuntu Xenial (16.04)
-             </td>
-           </tr>
-
-           <tr>
-             <td>17.x</td>
-             <td>
-               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
-               <a href="https://packages.debian.org/search?suite=jessie&amp;searchon=names&amp;keywords=erlang">Debian Jessie</a>,
-               <a href="https://packages.debian.org/search?suite=wheezy-backports&amp;searchon=names&amp;keywords=erlang">Debian Wheezy backports</a>
              </td>
            </tr>
          </tbody>
