@@ -28,8 +28,13 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero" class='center'>
         <div class='container'>
-          <h1>10 years of <br />RabbitMQ Messaging</h1>
-          <!-- <h2>Check out our original <a href=''>announcement.</a></h2> -->
+          <div id='hero-anniversary'>
+            <h1>10 years of <br />RabbitMQ Messaging</h1>
+          </div>
+          <div id='hero-management-plugin'>
+            <img src="img/tools.svg" height="77" width="88" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
+            <h1>Learn about the new RabbitMQ management plugin!</h1>
+          </div>
         </div>
       </div>
       <div id='intro'>

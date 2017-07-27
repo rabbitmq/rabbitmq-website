@@ -695,6 +695,37 @@ body#index #getstarted,
 	padding: 60px 20px 80px;
 }
 
+	#hero #hero-management-plugin {
+		display: none;
+	}
+
+	/* Homepage hero: management plugin */
+/*	#hero .container {
+		background: none !important;
+		max-width: 700px;
+    text-align: left;
+	}
+
+	#hero #hero-anniversary {
+		display: none;
+	}
+
+	#hero #hero-management-plugin {
+		display: block;
+		padding: 47px 0 20px;
+	}
+
+	#hero #hero-management-plugin img {
+		float: left;
+    margin: 5px 55px 0 0;
+	}
+
+	#hero #hero-management-plugin h1 {
+		margin: 0;
+		max-width: 100% !important;
+	}*/
+
+
 	/* Uberflip embed styles */
 	.hubs-embedded {
 	  overflow: inherit !important;
@@ -937,6 +968,24 @@ body#index #getstarted .fifty .container {
 	}
 }
 
+@media(max-width: 1014px) {
+	div#innerContainer {
+		display: table;
+	}
+	div#left-content {
+		display: table-footer-group;
+		float: none;
+	}
+	div#right-nav {
+		float: none;
+		max-width: 100%;
+		margin-top: 0;
+	}
+	div#right-nav li {
+		display: inline-block;
+	}
+}
+
 @media(max-width: 982px) {
 	#mainNav li a {
     padding-right: 10px;
@@ -1024,6 +1073,13 @@ body#index #getstarted .fifty .container {
 	#hero .container {
 		background: url(../img/hero-tablet.svg) no-repeat center center;
 		background-size: 100%;
+	}
+	#hero #hero-management-plugin {
+		padding: 0;
+	}
+	#hero #hero-management-plugin img {
+		float: none;
+    margin: 0 0 20px;
 	}
 	.twothirds {
 		max-width: 56%;
@@ -1130,3 +1186,8 @@ body#index #getstarted .fifty .container {
 	}
 }
 
+@media(max-width: 480px) {
+	div#right-nav li {
+		display: block;
+	}
+}
