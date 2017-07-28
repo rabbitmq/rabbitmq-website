@@ -32,8 +32,16 @@ limitations under the License.
             <h1>10 years of <br />RabbitMQ Messaging</h1>
           </div>
           <div id='hero-management-plugin'>
-            <img src="img/tools.svg" height="77" width="88" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
-            <h1>Learn about the new RabbitMQ management plugin!</h1>
+            <div class='container'>
+              <img src="img/tools.svg" height="77" width="88" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
+              <h1>Learn about the new RabbitMQ management plugin!</h1>
+            </div>
+          </div>
+          <div id='hero-37-release'>
+            <div class='container'>
+              <h1>Announcing <a href=''>RabbitMQ 3.7</a></h1>
+              <h2>More automation and operator friendly than ever before.</h2>
+            </div>
           </div>
         </div>
       </div>
