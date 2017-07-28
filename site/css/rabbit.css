@@ -31,6 +31,8 @@ body, table {
 	letter-spacing: 0.01em;
 	font-weight: 400;
 	background: white;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -377,6 +379,8 @@ pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path {
 
 pre.sourcecode {
     font-size: medium;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 span.code {
@@ -688,10 +692,138 @@ body#index #getstarted,
 }
 
 #hero .container {
+	padding: 0;
+}
+
+#hero #hero-anniversary {
 	background: url(../img/hero.svg) no-repeat center center;
 	background-size: cover;
 	padding: 60px 20px 80px;
 }
+
+	#hero #hero-management-plugin,
+	#hero #hero-37-release {
+		display: none;
+	}
+
+	/* Homepage hero: management plugin */
+/*	#hero #hero-management-plugin .container {
+		max-width: 700px;
+    text-align: left;
+    padding: 60px 20px 80px;
+	}
+
+	#hero #hero-anniversary,
+	#hero #hero-37-release {
+		display: none;
+	}
+
+	#hero #hero-management-plugin {
+		display: block;
+		padding: 47px 0 20px;
+	}
+
+	#hero #hero-management-plugin img {
+		float: left;
+    margin: 5px 55px 0 0;
+	}
+
+	#hero #hero-management-plugin h1 {
+		margin: 0;
+		max-width: 100% !important;
+	}*/
+
+
+	/* Homepage hero: 3.7 release */
+/*	#hero {
+		background: none;
+	}
+	#hero #hero-37-release {
+		display: block;
+		background: url(../img/hero-37-release-desktop.svg) no-repeat bottom center;
+		background-size: contain;
+		padding: 60px 20px 80px;
+	}
+
+	#hero #hero-management-plugin,
+	#hero #hero-anniversary {
+		display: none;
+	}
+
+	#hero #hero-37-release .container {
+		padding: 18px 0;
+	}
+
+	#hero #hero-37-release h2 {
+		max-width: 300px;
+		margin: 0 auto;
+	}*/
+
+
+	/* Uberflip embed styles */
+	.hubs-embedded {
+	  overflow: inherit !important;
+	  font-family: 'Raleway', sans-serif !important;
+	}
+	.hubs-embedded a {
+		color: #FF6600 !important;
+		text-decoration: underline !important;
+	}
+	.hubs-embedded .tile {
+		width: 201px !important;
+	}
+	.hubs-embedded  .share-single,
+	.hubs-embedded  #collection-items .tile.single .img,
+	.hubs-embedded .friendly-timestamp .timeago,
+	.hubs-embedded  .tile.single .icon {
+		display: none !important;
+	}
+	.hubs-embedded .tile.single .description h3.h3like {
+		font-weight: 400 !important;
+	}
+	.hubs-embedded  div.tile.single>a.view, 
+	.hubs-embedded li.tile.single>a.view {
+		padding-left: 20px !important;
+		background-image: none !important;
+	}
+	.hubs-embedded #collection-items .tile.single .description .friendly-timestamp {
+		margin: 20px 0 0 20px !important;
+	}
+	.hubs-embedded #collection-items .tile {
+		margin: 0 20px 20px 0 !important;
+	}
+	.hubs-embedded #collection-items .tile:first-child {
+		margin-left: 0 !important;
+	}
+	.hubs-embedded #collection-items .tile:nth-child(3) {
+		margin-right: 0 !important;
+	}
+	.hubs-embedded  #collection-items {
+		width: 99.8% !important;
+	}
+	.hubs-embedded  .tile.single>a.view {
+	  background-color: white;
+	  color: $newsmint;
+	  font-weight: 400;
+	  z-index: 0;
+	}
+	.hubs-embedded  .tile.single>a.view:after {
+	  background: transparent url(../img/icon-arrow-orange.svg) left top no-repeat !important;
+	  top: 15px !important;
+	  width: 20px; 
+	  height: 10px;
+	}
+	.hubs-embedded  .tile.single {
+	  height: 200px !important;
+	}
+	.hubs-embedded  .tile.single  .description {
+	  top: 0;
+	}
+	.hubs-embedded  .tile.single  .description  h4.avatar {
+	  height: 100px !important;
+	  overflow: hidden;
+	}
+
 
 .column {
 	display: inline-block;
@@ -737,7 +869,7 @@ body#index #getstarted,
 }
 
 #intro {
-	padding: 80px 0;
+	padding: 80px 0 30px;
 }
 
 #intro h1 {
@@ -746,15 +878,21 @@ body#index #getstarted,
 }
 
 #intro p {
-	max-width: 580px;
+	max-width: 630px;
+	margin: 25px 0;
+}
+
+#intro .twothirds {
+	max-width: 68%;
 }
 
 #intro .twothirds .inner {
-	padding-right: 50px;
+	padding-right: 20px;
 }
 
 #intro .onethird {
 	border-left: 2px solid #ededed;
+	max-width: 31%;
 }
 
 #intro .onethird .container {
@@ -853,11 +991,43 @@ body#index #getstarted .fifty .container {
 	float: right;
 }
 
+/* Responsive */
+
+@media(max-width: 1031px) {
+	.hubs-embedded #collection-items .tile:first-child,
+	.hubs-embedded #collection-items .tile:nth-child(2),
+	.hubs-embedded #collection-items .tile:nth-child(3) {
+		 margin-left: 0 !important;
+		 margin-right: 10px !important;
+	}
+}
+
+@media(max-width: 1014px) {
+	div#innerContainer {
+		display: table;
+	}
+	div#left-content {
+		display: table-footer-group;
+		float: none;
+	}
+	div#right-nav {
+		float: none;
+		max-width: 100%;
+		margin-top: 0;
+	}
+	div#right-nav li {
+		display: inline-block;
+	}
+}
 
 @media(max-width: 982px) {
 	#mainNav li a {
     padding-right: 10px;
     padding-left: 10px;
+	}
+	#hero #hero-37-release h1 {
+		max-width: 320px;
+    margin: 0 auto 0.5em;
 	}
 	#features .feature {
 		max-width: 49%;
@@ -938,9 +1108,16 @@ body#index #getstarted .fifty .container {
     padding-left: 20px;
     display: block;
 	}
-	#hero .container {
+	#hero #hero-anniversary {
 		background: url(../img/hero-tablet.svg) no-repeat center center;
 		background-size: 100%;
+	}
+	#hero #hero-management-plugin {
+		padding: 0;
+	}
+	#hero #hero-management-plugin img {
+		float: none;
+    margin: 0 0 20px;
 	}
 	.twothirds {
 		max-width: 56%;
@@ -954,6 +1131,27 @@ body#index #getstarted .fifty .container {
 	#intro h2,
 	#support h2 {
 		font-size: 24px;
+	}
+	#intro .twothirds,
+	#intro .onethird,
+	#intro .onethird .container {
+		max-width: 100%;
+	}	
+	#intro .twothirds .inner {
+    padding-right: 0;
+	}
+	#intro {
+	  padding: 30px 0;
+	}
+	#intro .onethird {
+    border-left: none;
+    border-top: 2px solid #ededed;
+    padding-top: 30px;
+    margin-top: 20px;
+	}
+	#intro .onethird .container {
+    float: none;
+    padding: 0;
 	}
 }
 
@@ -978,23 +1176,9 @@ body#index #getstarted .fifty .container {
 	#features .feature,
 	.twothirds,
 	.onethird,
-	#intro .onethird .container,
 	#community .onethird .container {
 		max-width: 100%;
 	}
-	#intro {
-	  padding: 30px 0;
-	}
-	#intro .twothirds .inner {
-    padding-right: 0;
-	}
-	#intro .onethird {
-    border-left: none;
-    border-top: 2px solid #ededed;
-    padding-top: 30px;
-    margin-top: 20px;
-	}
-	#intro .onethird .container,
 	#community .onethird .container {
     float: none;
     padding: 0;
@@ -1040,3 +1224,12 @@ body#index #getstarted .fifty .container {
 	}
 }
 
+@media(max-width: 480px) {
+		#hero #hero-37-release {
+		background: url(../img/hero-37-release-phone.svg) no-repeat bottom center;
+		padding: 10px 0 150px;
+	}
+	div#right-nav li {
+		display: block;
+	}
+}
