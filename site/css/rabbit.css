@@ -379,6 +379,7 @@ pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path {
 
 pre.sourcecode {
     font-size: medium;
+    white-space: pre-wrap;
 }
 
 span.code {
