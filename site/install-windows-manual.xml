@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -33,11 +33,15 @@ limitations under the License.
       <p>
         If you should ever need to install RabbitMQ manually, this is how to do it:
       </p>
-      <h3>Download the Server</h3>
+      <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
-        <r:download downloadfile="rabbitmq-server-windows-&version-server;.zip"
-		    downloadpath="&dir-server;">
-	  Packaged for Windows systems (zip)
+        <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip"
+                    downloadfile="rabbitmq-server-windows-&version-server;.zip">
+	  Binary build for Windows systems (from GitHub)
+        </r:download>
+        <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/windows/download_file?file_path=rabbitmq-server-windows-&version-server;.zip"
+                    downloadfile="rabbitmq-server-windows-&version-server;.zip">
+	  Binary build for Windows systems (from Bintray)
         </r:download>
       </r:downloads>
 
@@ -181,7 +185,7 @@ limitations under the License.
 
       <dl class="instructions">
         <dt>Customise RabbitMQ Server Environment Variables</dt>
-        <dd>                
+        <dd>
           Environment variable defaults are set within the
           <code>rabbitmq-server.bat</code> file.
           You may need to <a
@@ -243,7 +247,7 @@ limitations under the License.
           </p>
           <p>
             The <code>rabbitmq-service.bat</code> script
-            recognises many of the same 
+            recognises many of the same
             <a href="configure.html#customise-windows-environment">environment variables</a>
             as <code>rabbitmq-server.bat</code>, as well as a few additional
             service environment variables.
