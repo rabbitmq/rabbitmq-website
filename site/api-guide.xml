@@ -507,14 +507,14 @@ if (response == null) {
       </p>
       <p>
         To be notified of such returns, clients can implement the <code>ReturnListener</code>
-        interface and call <code>Channel.setReturnListener</code>.
+        interface and call <code>Channel.addReturnListener</code>.
         If the client has not configured a return listener for a particular channel,
         then the associated returned messages will be silently dropped.
       </p>
 
 <pre class="sourcecode java">
-channel.setReturnListener(new ReturnListener() {
-    public void handleBasicReturn(int replyCode,
+channel.addReturnListener(new ReturnListener() {
+    public void handleReturn(int replyCode,
                                   String replyText,
                                   String exchange,
                                   String routingKey,
