@@ -196,7 +196,7 @@ exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 When the code above finishes running, the channel and the connection
-will be disposed.
+will be disposed. That's it for our publisher.
 
 [Here's the whole Send.cs
 class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs).
@@ -215,9 +215,9 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Se
 
 ### Receiving
 
-That's it for our publisher. Our consumer is pushed messages from
-RabbitMQ, so unlike the publisher which publishes a single message, we'll
-keep it running to listen for messages and print them out.
+As for the consumer, it is pushed messages from
+RabbitMQ. So unlike the publisher which publishes a single message, we'll
+keep the consumer running continuously to listen for messages and print them out.
 
 <div class="diagram">
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
@@ -258,7 +258,7 @@ class Receive
 }
 </pre>
 
-Note that we declare the queue here, as well. Because we might start
+Note that we declare the queue here as well. Because we might start
 the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
