@@ -385,7 +385,7 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to defeat that we can use the `basicQos` method with the
+In order to change this behavior we can use the `basicQos` method with the
 `prefetchCount` = `1` setting. This tells RabbitMQ not to give more than
 one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
