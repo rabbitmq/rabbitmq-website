@@ -38,7 +38,7 @@ limitations under the License.
         </r:download>
         <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/binaries/download_file?file_path=rabbitmq-server-generic-unix-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.xz">
-	  Generic Unix release systems (tar.xz, from Bintray)
+	  Generic Unix release (tar.xz, from Bintray)
         </r:download>
       </r:downloads>
 
@@ -47,12 +47,12 @@ limitations under the License.
       <doc:subsection name="install-generic-unix">
         <doc:heading>Install the Server</doc:heading>
         <p>
-          Install a recent version of Erlang.
+          Install a <a href="/which-erlang.html">supported version of Erlang</a>.
         </p>
         <p>
           Download
           <code>rabbitmq-server-generic-unix-&version-server;.tar.xz</code>
-          from the link above.
+          from one of the links above.
         </p>
         <xi:include href="download-tarball.xml.inc"/>
       </doc:subsection>
