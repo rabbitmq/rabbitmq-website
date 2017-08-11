@@ -89,9 +89,12 @@ limitations under the License.
             A RabbitMQ cluster can formed in a number of ways:
 
             <ul>
-              <li>Declaratively by <a href="/autoclustering.html">listing cluster nodes</a> in <a href="/configure.html">config file</a></li>
-              <li>Declaratively using <a href="/autoclustering.html">DNS-based discovery</a></li>
-              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
+              <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
+              <li>Declaratively using DNS-based discovery</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based discovery</a> (via a plugin)</li>
               <li>Manually with <code>rabbitmqctl</code></li>
             </ul>
           </p>
