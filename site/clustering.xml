@@ -91,7 +91,7 @@ limitations under the License.
             <ul>
               <li>Manually with <code>rabbitmqctl</code> (e.g. in development environments)</li>
               <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
-              <li>Declaratively with <a href="https://github.com/aweber/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
+              <li>Declaratively with <a href="https://github.com/rabbitmq/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
             </ul>
           </p>
 
