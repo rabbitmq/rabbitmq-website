@@ -45,9 +45,10 @@ limitations under the License.
       <doc:subsection name="install-windows">
         <doc:heading>Install the Server</doc:heading>
         <p>
-          Firstly, download and run
-          the <a href="http://www.erlang.org/download.html">Erlang for Windows</a> installer.
-          See <a href="/which-erlang.html">Erlang version compatibility table</a>.
+          First you need to install a <a href="/which-erlang.html">supported version of Erlang</a> for Windows.
+          Download and run
+          the <a href="http://www.erlang.org/download.html">Erlang for Windows</a> installer. 64-bit versions
+          are highly recommended.
         </p>
         <p>
           Then just run the installer, <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
