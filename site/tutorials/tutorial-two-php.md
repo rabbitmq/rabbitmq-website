@@ -78,11 +78,9 @@ program will schedule tasks to our work queue, so let's name it
 <pre class="sourcecode php">
 $data = implode(' ', array_slice($argv, 1));
 if(empty($data)) $data = "Hello World!";
-$msg = new AMQPMessage($data,
-                        array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-                      );
+$msg = new AMQPMessage($data);
 
-$channel->basic_publish($msg, '', 'task_queue');
+$channel->basic_publish($msg, '', 'hello');
 
 echo " [x] Sent ", $data, "\n";
 </pre>
@@ -98,8 +96,7 @@ $callback = function($msg){
   echo " [x] Done", "\n";
 };
 
-$channel->basic_qos(null, 1, null);
-$channel->basic_consume('task_queue', '', false, true, false, false, $callback);
+$channel->basic_consume('hello', '', false, true, false, false, $callback);
 </pre>
 
 Note that our fake task simulates execution time.
