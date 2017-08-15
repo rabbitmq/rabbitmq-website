@@ -308,7 +308,7 @@ limitations under the License.
             </ul>
           </doc:section>
           <doc:section name="devops-tools">
-            <doc:heading>Provisioning (Chef, Puppet, Docker, etc) and Operations</doc:heading>
+            <doc:heading>Provisioning (Chef, Puppet, Docker, etc)</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/jjasghar/rabbitmq">Chef RabbitMQ Cookbook</a>
@@ -319,8 +319,19 @@ limitations under the License.
               <li>
                 <a href="https://registry.hub.docker.com/_/rabbitmq/">RabbitMQ Docker image</a>
               </li>
+            </ul>
+          </doc:section>
+          <doc:section name="monitoring-tools">
+            <doc:heading>Monitoring</doc:heading>
+            <ul class="plain">
               <li>
-                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension from the New York Times
+                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension
+              </li>
+              <li>
+                <a href="https://docs.datadoghq.com/integrations/rabbitmq/">RabbitMQ Datadog</a> integration
+              </li>
+              <li>
+                <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">RabbitMQ Prometheus Exporter</a>
               </li>
             </ul>
           </doc:section>
