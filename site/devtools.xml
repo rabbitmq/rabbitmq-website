@@ -61,10 +61,10 @@ limitations under the License.
                 <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a>
               </li>
               <li>
-                <a href="http://docs.spring.io/spring-xd/docs/1.0.3.RELEASE/reference/html/#rabbit">RabbitMQ support in Spring XD</a>
+                <a href="http://cloud.spring.io/spring-cloud-dataflow/">Spring Cloud Data Flow</a>
               </li>
               <li>
-                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">RabbitMQ support in Spring Integration</a>
+                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">Spring Integration</a>
               </li>
 
             </ul>
