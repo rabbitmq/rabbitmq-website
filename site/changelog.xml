@@ -34,6 +34,7 @@ limitations under the License.
         <td class="centre">16 August 2017</td>
         <td>
           <ul>
+            <li><a href="https://groups.google.com/d/msg/rabbitmq-users/_imbAavBYjY/S0LkV7b8CAAJ">Erlang 20 compatibility</a></li>
             <li>Bug fixes</li>
             <li>Usability improvements</li>
           </ul>

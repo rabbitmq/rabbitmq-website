@@ -28,7 +28,7 @@ limitations under the License.
       <p>
         The minimum version of <a href="http://www.erlang.org">Erlang</a>
         required to run the RabbitMQ server 3.6.x is <strong>R16B03</strong>.
-        The most recent Erlang/OTP release series supported by 3.6.x is <strong>19.3.x</strong>.
+        The most recent Erlang/OTP release series supported by RabbitMQ (as of 3.6.11) is <strong>20.x</strong>.
       </p>
 
       <doc:subsection name="debian">
@@ -44,6 +44,11 @@ limitations under the License.
         <th>RabbitMQ Release Series</th>
         <th>Supported Erlang/OTP Series</th>
         <th>Notes</th>
+        <tr>
+          <td>3.6.x starting with 3.6.11</td>
+          <td>R16B03 through 20.x</td>
+          <td>Erlang/OTP 20 is supported <a href="https://groups.google.com/d/msg/rabbitmq-users/_imbAavBYjY/S0LkV7b8CAAJ">starting with 3.6.11</a>; see below if you use TLS.</td>
+        </tr>
         <tr>
           <td>3.6.x</td>
           <td>R16B03 through 19.3.x</td>
