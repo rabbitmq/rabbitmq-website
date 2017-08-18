@@ -255,7 +255,7 @@ limitations under the License.
               <small>
                 Note that <span class="path">/usr/lib/rabbitmq/plugins</span>
                 is used only when RabbitMQ is <a href="installing-plugins.html">installed</a>
-                into a standard location.
+                into the standard (default) location.
               </small>
             </p>
           </td>
