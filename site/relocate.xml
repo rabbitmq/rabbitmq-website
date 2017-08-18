@@ -147,7 +147,7 @@ limitations under the License.
       <tr>
         <td>RABBITMQ_PLUGINS_DIR</td>
         <td>
-          The <a href="plugins.html#installing-plugins">directory</a> in
+          The <a href="installing-plugins.html">directory</a> in
           which the <a href="plugins.html">plugins</a> are found and loaded from.
         </td>
       </tr>
