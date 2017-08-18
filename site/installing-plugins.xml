@@ -31,9 +31,9 @@ limitations under the License.
       <doc:section name="installing-plugins">
       <p>
         Any plugins that do not ship with the server will need to be
-        installed as .ez archives by copying them to the plugins
-        directory. Once they have been copied to the correct
-        directory, they will show up in
+        installed as .ez archives by copying them to one of the plugins
+        directories specified by <span class="envvar">$RABBITMQ_PLUGINS_DIR</span>.
+        Once they have been copied to the correct directory, they will show up in
         <code>rabbitmq-plugins list</code> and can be enabled with
         <code>rabbitmq-plugins enable <i>plugin-name</i></code>.
       </p>
@@ -47,7 +47,14 @@ limitations under the License.
         <tr>
           <th>Debian/RPM packages</th>
           <td>
-            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
+            <code>/usr/lib/rabbitmq/plugins</code> and <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
+            <p>
+              <code>/usr/lib/rabbitmq/plugins</code> is an additional
+              directory where nothing is installed by the RabbitMQ
+              package itself. But it is a fixed non-changing path
+              where external plugins can be installed from Debian/RPM
+              packages or can be put there by a provisioning tool.
+            </p>
           </td>
         </tr>
         <tr>

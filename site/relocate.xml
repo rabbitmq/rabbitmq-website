@@ -147,8 +147,13 @@ limitations under the License.
       <tr>
         <td>RABBITMQ_PLUGINS_DIR</td>
         <td>
-          The <a href="plugins.html#installing-plugins">directory</a> in
-          which the <a href="plugins.html">plugins</a> are found and loaded from.
+          The list of directories where <a
+          href="plugins.html">plugins</a> are found and loaded
+          from. This is <code>PATH</code>-like variable, where
+          different paths are separated by an OS-specific separator
+          (<code>:</code> for Unix, <code>;</code> for Windows).
+          Plugins can be <a href="installing-plugins.html">installed</a> to any of the
+          directories listed here.
         </td>
       </tr>
 
@@ -245,7 +250,14 @@ limitations under the License.
         <tr>
           <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
-            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
+            <span class="path">/usr/lib/rabbitmq/plugins:<span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
+            <p>
+              <small>
+                Note that <span class="path">/usr/lib/rabbitmq/plugins</span>
+                is used only when RabbitMQ is <a href="installing-plugins.html">installed</a>
+                into a standard location.
+              </small>
+            </p>
           </td>
         </tr>
 
