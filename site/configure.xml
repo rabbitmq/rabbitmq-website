@@ -660,6 +660,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>vm_memory_calculation_strategy</code></td>
+            <td>
+              Strategy for memory usage reporting. Can be one of the following:
+              <ul class="plain">
+                <li><code>rss</code> - use operating system RSS memory reporting</li>
+                <li><code>erlang</code> - use Erlang memory reporting</li>
+              </ul>
+              <p>Default: <code>rss</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>vm_memory_high_watermark_paging_ratio</code></td>
             <td>
               Fraction of the high watermark limit at which queues
@@ -1191,11 +1202,11 @@ rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
             </pre>
-            Add the <code>--decode</code> option if you want to decrypt values:
+            Add the <code>decode</code> command if you want to decrypt values:
             <pre class="sourcecode bash">
-rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
-rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
             </pre>
           </p>
