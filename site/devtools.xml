@@ -61,10 +61,10 @@ limitations under the License.
                 <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a>
               </li>
               <li>
-                <a href="http://docs.spring.io/spring-xd/docs/1.0.3.RELEASE/reference/html/#rabbit">RabbitMQ support in Spring XD</a>
+                <a href="http://cloud.spring.io/spring-cloud-dataflow/">Spring Cloud Data Flow</a>
               </li>
               <li>
-                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">RabbitMQ support in Spring Integration</a>
+                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">Spring Integration</a>
               </li>
 
             </ul>
@@ -80,13 +80,13 @@ limitations under the License.
                 <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
               </li>
               <li>
-                <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
-              </li>
-              <li>
-                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
+                <a href="http://particular.net/nservicebus">NServiceBus</a>, the most popular open-source service bus for .NET.
               </li>
               <li>
                 <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
+              </li>
+              <li>
+                <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
               </li>
               <li>
                 <a href="https://github.com/mariuszwojcik/RabbitMQTools">RabbitMQTools</a>, PowerShell module containing cmdlets to manage RabbitMQ
@@ -308,7 +308,7 @@ limitations under the License.
             </ul>
           </doc:section>
           <doc:section name="devops-tools">
-            <doc:heading>Provisioning (Chef, Puppet, Docker, etc) and Operations</doc:heading>
+            <doc:heading>Provisioning (Chef, Puppet, Docker, etc)</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/jjasghar/rabbitmq">Chef RabbitMQ Cookbook</a>
@@ -319,8 +319,19 @@ limitations under the License.
               <li>
                 <a href="https://registry.hub.docker.com/_/rabbitmq/">RabbitMQ Docker image</a>
               </li>
+            </ul>
+          </doc:section>
+          <doc:section name="monitoring-tools">
+            <doc:heading>Monitoring</doc:heading>
+            <ul class="plain">
               <li>
-                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension from the New York Times
+                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension
+              </li>
+              <li>
+                <a href="https://docs.datadoghq.com/integrations/rabbitmq/">RabbitMQ Datadog</a> integration
+              </li>
+              <li>
+                <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">RabbitMQ Prometheus Exporter</a>
               </li>
             </ul>
           </doc:section>

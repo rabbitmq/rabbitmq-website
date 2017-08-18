@@ -30,6 +30,19 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.11</td>
+        <td class="centre">16 August 2017</td>
+        <td>
+          <ul>
+            <li><a href="https://groups.google.com/d/msg/rabbitmq-users/_imbAavBYjY/S0LkV7b8CAAJ">Erlang 20 compatibility</a></li>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_11">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.10</td>
         <td class="centre">25 May 2017</td>
         <td>
