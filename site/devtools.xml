@@ -83,7 +83,7 @@ limitations under the License.
                 <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
               </li>
               <li>
-                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
+                <a href="http://particular.net/nservicebus">NServiceBus</a>, the most popular open-source service bus for .NET.
               </li>
               <li>
                 <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
