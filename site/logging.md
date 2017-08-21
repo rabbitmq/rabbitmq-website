@@ -12,12 +12,11 @@ As of 3.7.0 RabbitMQ uses the [lager](https://github.com/erlang-lager/lager) log
 to print logs. The library supports logging to a file, console or a Syslog endpoint
 and provides a fair amount of flexibility when it comes to configuration.
 
+## Log File Location
+
 Prior to 3.7.0 there were two log files: for regular messages and unhandled
 exceptions. As of 3.7.0 a single log file is used for all messages
 by default.
-
-
-## Log File Location
 
 Default log file location is covered
 in the [File and Directory Location](/relocate.html) guide.
