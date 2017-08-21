@@ -364,6 +364,16 @@ RabbitMQ logging subsystem is built on top of [Lager](https://github.com/erlang-
 library with several advanced features. Some of them are accessible via
 the [log handler and sink abstractions](https://github.com/erlang-lager/lager#configuration).
 
+A sink is an "endpoint" where log entries are written by connections, queues and so on.
+A handler is stateful entity that consumes log entries and processes them, e.g.
+writes them to a file, sends them to a Syslog endpoint or discards them.
+
+By default RabbitMQ creates one file backend handler and one sink per log category (see above).
+Changing RabbitMQ log configuration parameters changes log handler used under the hood.
+The number of sinks used by RabbitMQ is largely fixed, although 3rd party plugins can
+use custom sinks and with a certain amount of configuration it may be possible e.g.
+to log those messages separately from the rest.
+
 When RabbitMQ is started with default logging settings, a Lager handler is configured
 under the hood and it looks like this:
 
@@ -410,10 +420,6 @@ under the hood and it looks like this:
                      {size,0}]}]}]}]}
 ]}].
 </pre>
-
-Changing RabbitMQ log configuration parameters changes log handler used under the hood.
-
-By default RabbitMQ creates one file backend handler and one sink per log category.
 
 Most sinks use `lager_forwarder_backend`. This backend will redirect all messages
 with matching level to default lager sink (`lager_event`). Upgrade messages use
@@ -476,7 +482,7 @@ In the above example, a new `lager_console_backend` handler is added to the `han
 Because `upgrade` category defines a separate file by default, all default handlers
 are copied to the sink handlers and the `file` setting is modified.
 
-Please note that if you set `log.<category>.file` configuration, all log messages
+If a target log file is configured for a category via a `log.<category>.file` config entry, all log messages
 in that category will be written to **this file only** as well as non-file backends.
 
 If having upgrade logs in the default log file is desired, or log files are configured in
@@ -492,7 +498,7 @@ or
 [{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].
 </pre>
 
-in the classic config format.
+in the [classic configuration format](/configure.html#config-file-formats).
 
 You can add any additional handlers to default lager configuration or to sinks by
 setting `handlers` to `extra_sinks` in the `lager` application config.
@@ -511,8 +517,9 @@ by setting `level` to `none` for handlers and categories.
 
 ### Custom Handler Examples
 
-If you want to create an additional log file for errors only, you can create an
-additional handler with the `error` level.
+To create an additional log file for errors only, create an
+additional handler with the `error` level. This has to be done using the
+[advanced config file](/configure.html):
 
 <pre class="sourcecode erlang">
 [{lager, [
@@ -531,7 +538,7 @@ additional handler with the `error` level.
 }].
 </pre>
 
-If you want to use a custom lager backend and disable RabbitMQ default handlers:
+To use a custom lager backend and disable RabbitMQ default handlers:
 
 <pre class="sourcecode erlang">
 [{lager,
@@ -547,7 +554,7 @@ If you want to use a custom lager backend and disable RabbitMQ default handlers:
 ].
 </pre>
 
-If you want to direct connection logs to console instead of default output:
+To log direct Erlang AMQP 0-9-1 client messages to console instead of default output:
 
 <pre class="sourcecode erlang">
 [{lager,
