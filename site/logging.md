@@ -13,7 +13,7 @@ to print logs. The library supports logging to a file, console or a Syslog endpo
 and provides a fair amount of flexibility when it comes to configuration.
 
 Prior to 3.7.0 there were two log files: for regular messages and unhandled
-exceptions. As of 3.7.0 a single log file used for all messages
+exceptions. As of 3.7.0 a single log file is used for all messages
 by default.
 
 
@@ -39,13 +39,14 @@ See the [Configuration guide](/configure.html) for details.
 
 ### Log Outputs
 
-Deafult RabbitMQ logging configuration will use a log file. Standard output and
+Default RabbitMQ logging configuration will use a log file. Standard output and
 Syslog endpoint are two other supported options.
 
 Multiple outputs can be used at the same time. Log entries will be copied to all of them.
 
 Outputs can have different log levels, for example the console output can be
-configured to log only error messages, while the file output will log debug messages.
+configured to log only error messages, while the file output will log debug and higher
+severity level messages.
 
 
 ### Logging to a File
