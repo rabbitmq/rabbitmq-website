@@ -4,12 +4,14 @@
 
 This guide describes various aspects of logging in RabbitMQ:
 
+ * Log file location
+ * Log levels
+ * Log categories 
  * Supported log outputs
- * How to configure log levels, log rotation, etc
- * and so on
+ * Advanced configuration topics (custom log handlers, sinks, etc)
 
-As of 3.7.0 RabbitMQ uses the [lager](https://github.com/erlang-lager/lager) logging library
-to print logs. The library supports logging to a file, console or a Syslog endpoint
+As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
+under the hood. The library supports logging to a file, console or a Syslog endpoint
 and provides a fair amount of flexibility when it comes to configuration.
 
 ## Log File Location
@@ -22,44 +24,48 @@ Default log file location is covered
 in the [File and Directory Location](/relocate.html) guide.
 
 You can modify the default location either by using a configuration file, or
-by setting the `RABBITMQ_LOGS` environment variable.
+by setting the `RABBITMQ_LOGS` environment variable. Effective log
+file path can be discovered using [RabbitMQ management UI](/management.html) or
+CLI commands such as `rabbitmqctl environment`.
 
-`RABBITMQ_LOGS` variable can be a filename or `-` to log all messages to
-standard output.
+`RABBITMQ_LOGS` variable value can be either a file path or `-`, which means
+all log messages should be printed to standard output.
 
 The environment variable takes precedence over the configuration file.
+When in doubt, consider overriding log file location via the config file.
 
 
 ## Configuration
 
-RabbitMQ configures its logging subsystem on node start.
-See the [Configuration guide](/configure.html) for details.
+RabbitMQ initializes its logging subsystem on node start.
+See the [Configuration guide](/configure.html) for a general overview
+of how RabbitMQ nodes are configured.
 
 
 ### Log Outputs
 
-Default RabbitMQ logging configuration will use a log file. Standard output and
+Default RabbitMQ logging configuration will direct log messages to a log file. Standard output and
 Syslog endpoint are two other supported options.
 
 Multiple outputs can be used at the same time. Log entries will be copied to all of them.
 
-Outputs can have different log levels, for example the console output can be
-configured to log only error messages, while the file output will log debug and higher
-severity level messages.
+Different outputs can have different log levels, for example, the
+console output can be configured to log all messages including debug
+information while the file output will log only error and higher
+severity messages.
 
 
 ### Logging to a File
 
 
- * `log.file`: log file name or `false` to disable the file output. Default value is taken from [environment variable](relocate.html)
- * `log.file.level`: log level for the file output. Default level is `info`
+ * `log.file`: log file path or `false` to disable the file output. Default value is taken from [environment variable](relocate.html)
+ * `log.file.level`: log level for the file output. Default level is `info`.
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
 
-See [Lager configuration reference](https://github.com/erlang-lager/lager) for acceptable values.
-File rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
-log rotation via `logrotate` after package installation.
+See the rest of this guide as well as [Lager configuration reference](https://github.com/erlang-lager/lager) for a
+list of acceptable log levels and other values.
 
-Or, using the [classic configuration format](/configure.html):
+It is possible to configure file logging using the [classic configuration format](/configure.html):
 
 <pre class="sourcecode erlang">
 [{rabbit, [
@@ -74,15 +80,18 @@ Or, using the [classic configuration format](/configure.html):
     ]}].
 </pre>
 
+Log file rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
+log rotation via `logrotate` after package installation.
+
 
 ### Logging to Console (Standard Output)
 
-The following settings are available for console (standard output) configuration:
+Here are the main settings that control console (standard output) logging:
 
  * `log.console` (boolean): set to `true` to enable console output. Default is `false`
  * `log.console.level`: log level for the console output. Default level is `info`.
 
-In the [classic config format](/configure.html#config-file-formats):
+It is possible to configure console logging using the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [
@@ -94,6 +103,13 @@ In the [classic config format](/configure.html#config-file-formats):
     ]}].
 </pre>
 
+If you enable console output, the file output will still be enabled by
+default. To disable the file output, set `log.file` to `false`.
+
+Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
+even in `log.file` is configured.
+
+
 ### Logging to Syslog
 
 The following settings are available for Syslog configuration:
@@ -103,7 +119,7 @@ The following settings are available for Syslog configuration:
  * `log.syslog.identity`: syslog identity string. Default is `"rabbitmq"`
  * `log.syslog.facility`: syslog facility. Default is `daemon`
 
-Or, using the [classic configuration format](/configure.html):
+It is possible to configure Syslog logging using the [classic configuration format](/configure.html):
 
 <pre class="sourcecode erlang">
 [{rabbit, [
@@ -117,11 +133,8 @@ Or, using the [classic configuration format](/configure.html):
     ]}].
 </pre>
 
-If you enable console or syslog output, the file output will still be enabled by
+If you enable Syslog output, the file output will still be enabled by
 default. To disable the file output, set `log.file` to `false`.
-
-Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
-even in `log.file` is configured.
 
 
 ## <a id="log-message-categories" /> Log Message Categories
