@@ -61,10 +61,10 @@ log rotation via `logrotate` after package installation.
 
 Or, using the [classic configuration format](/configure.html):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit, [
         {log, [
-            {file, [{file, "<filename>"}, %% log.file
+            {file, [{file, "/path/to/log/file.log"}, %% log.file
                     {level, info},        %% log.file.info
                     {date, ""},           %% log.file.rotation.date
                     {size, 0},            %% log.file.rotation.size
@@ -72,7 +72,7 @@ Or, using the [classic configuration format](/configure.html):
                     ]}
         ]}
     ]}].
-```
+</pre>
 
 
 ### Logging to Console (Standard Output)
@@ -82,9 +82,9 @@ The following settings are available for console (standard output) configuration
  * `log.console` (boolean): set to `true` to enable console output. Default is `false`
  * `log.console.level`: log level for the console output. Default level is `info`.
 
-In the legacy configuration format:
+In the [classic config format](./configure.html#config-file-formats):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit, [
         {log, [
             {console, [{enabled, true}, %% log.console
@@ -92,7 +92,7 @@ In the legacy configuration format:
             ]}
         ]}
     ]}].
-```
+</pre>
 
 ### Logging to Syslog
 
@@ -105,7 +105,7 @@ The following settings are available for Syslog configuration:
 
 Or, using the [classic configuration format](/configure.html):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit, [
         {log, [
             {syslog, [{enabled, true},        %% log.syslog
@@ -115,7 +115,7 @@ Or, using the [classic configuration format](/configure.html):
             ]}
         ]}
     ]}].
-```
+</pre>
 
 If you enable console or syslog output, the file output will still be enabled by
 default. To disable the file output, set `log.file` to `false`.
@@ -147,13 +147,13 @@ using `log.<category>.level` and `log.<category>.file` configuration variables.
 
 For example, the following will enable debug logging for connection events:
 
-```
+<pre class="sourcecode ini">
 log.connection.level = debug
-```
+</pre>
 
 Or, using the [classic configuration format](/configure.html):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit,
     [{log,
         [{categories,
@@ -163,17 +163,17 @@ Or, using the [classic configuration format](/configure.html):
         }]
     }]
 }].
-```
+</pre>
 
 To redirect all federation logs to the `rabbit_federation.log` file, use:
 
-```
+<pre class="sourcecode ini">
 log.federation.file = rabbit_federation.log
-```
+</pre>
 
 Using the [classic configuration format](/configure.html):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit,
     [{log,
         [{categories,
@@ -183,18 +183,18 @@ Using the [classic configuration format](/configure.html):
         }]
     }]
 }]
-```
+</pre>
 
 To disable a log type, you can use the `none` log level. For example, to disable
 upgrade logs:
 
-```
+<pre class="sourcecode ini">
 log.upgrade.level = none
-```
+</pre>
 
 Using the [classic configuration format](/configure.html):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit,
     [{log,
         [{categories,
@@ -204,44 +204,51 @@ Using the [classic configuration format](/configure.html):
         }]
     }]
 }].
-```
+</pre>
 
 ### Log Levels
 
 Log levels is another way to filter and tune logging. Each log level has a severity associated with it.
-More critical messages have lower severity number, while `debug` has the highest number. This
-makes levels comparable
+More critical messages have lower severity number, while `debug` has the highest number.
 
-The following log levels are supported by RabbitMQ with numerical
-severities as associated with them:
+The following log levels are used by RabbitMQ:
 
 | Log level  | Severity |
 |------------|----------|
 | `debug`    | 128      |
 | `info`     | 64       |
-| `notice`   | 32       |
 | `warning`  | 16       |
 | `error`    | 8        |
 | `critical` | 4        |
-| `alert`    | 2        |
-| `emergency`| 1        |
 | `none`     | 0        |
 
-The `none` level means that no messages will be logged.
+By default all categories and inputs use the `info` log level:
+
+<pre class="sourcecode ini">
+log.default.level = info
+</pre>
 
 When a message is logged, if the level number is higher than the category level,
 the message will be dropped and not sent to outputs.
 
-It works the same way for outputs. If a message level number is higher than the
-output level - the message will not be logged.
+To only log errors or higher severity messages, use
 
-For example if you don't have any output to handle `debug` messages, even if you set
-a category level to `debug`, the debug messages will not be logged.
+<pre class="sourcecode ini">
+log.default.level = error
+</pre>
 
-At the same time if you set an output log level to `debug`, debug messages will
-not be logged unless the category level is set to `debug`.
+The `none` level means that no messages will be logged.
 
-By default all categories and inputs use the `info` log level.
+Levels can be configured separately for each output. If a message
+level number is higher than the output level, the message will not be
+logged.
+
+For example if no outputs are configured to log
+`debug` messages, even if you set a category level to `debug`, the
+debug messages will not be logged.
+
+Similarly, if log level is set to `debug`, debug messages will
+not be logged unless message category level is also set to `debug`.
 
 
 ### Enabling Debug Logging
@@ -251,33 +258,33 @@ configured.
 
 For example to log connection debug messages to a file:
 
-```
+<pre class="sourcecode ini">
 log.file.level = debug
 log.connection.level = debug
-```
+</pre>
 
-In the legacy config format:
+In the [classic config format](./configure.html#config-file-formats):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit, [{log, [
     {file, [{level, debug}]},
     {categories, [
         {connection, [{level, debug}]}]}
     ]}]
 }].
-```
+</pre>
 
 To print default log message to standard out:
 
-```
+<pre class="sourcecode ini">
 log.console.enabled = true
 log.console.level = debug
 log.default.level = debug
-```
+</pre>
 
-In the legacy config format:
+In the [classic config format](./configure.html#config-file-formats):
 
-```
+<pre class="sourcecode erlang">
 [{rabbit, [{log, [
     {console, [{enabled, true},
                {level, debug}]},
@@ -285,11 +292,11 @@ In the legacy config format:
         {default, [{level, debug}]}]}
     ]}]
 }].
-```
+</pre>
 
-To enable all debug messages:
+To enable debug logging for all categories:
 
-```
+<pre class="sourcecode ini">
 log.file.level = debug
 
 log.connection.level = debug
@@ -299,12 +306,11 @@ log.mirroring.level = debug
 log.federation.level = debug
 log.upgrade.level = debug
 log.default.level = debug
+</pre>
 
-```
+In the [classic config format](./configure.html#config-file-formats):
 
-In the legacy config format:
-
-```
+<pre class="sourcecode erlang">
 [{rabbit, [{log, [
     {file, [{level, debug}]},
     {categories, [
@@ -317,7 +323,7 @@ In the legacy config format:
         {default, [{level, debug}]}]}
     ]}]
 }].
-```
+</pre>
 
 
 ## Upgrading From pre-3.7 Versions
@@ -347,18 +353,20 @@ because it's not clear which should take precedence.
 
 ## Advanced Configuration
 
-### Lager Handlers
+This section describes the nitty gritty details of the logging
+subsystem. Most RabbitMQ installations won't require deep knowledge of
+this topic or any of the advanced configuration explained here.
 
-The lager library, which is used by RabbitMQ for logging, provides a powerful
-mechanism to configure log outputs. [More about lager](https://github.com/erlang-lager/lager)
+### Lager Handlers and Sinks
 
-RabbitMQ startup process generates lager log handlers from RabbitMQ log
-configuration.
+RabbitMQ logging subsystem is built on top of [Lager](https://github.com/erlang-lager/lager), a powerful logging
+library with several advanced features. Some of them are accessible via
+the [log handler and sink abstractions](https://github.com/erlang-lager/lager#configuration).
 
-A default lager handler configuration for RabbitMQ node `rabbit@localhost`
-looks like this:
+When RabbitMQ is started with default logging settings, a Lager handler is configured
+under the hood and it looks like this:
 
-```
+<pre class="sourcecode erlang">
 [{lager, [
     {handlers,
        [{lager_file_backend,
@@ -400,29 +408,26 @@ looks like this:
                      {level,info},
                      {size,0}]}]}]}]}
 ]}].
-```
+</pre>
 
-By deafult RabbitMQ creates one file backend handler and a sink per log category.
+Changing RabbitMQ log configuration parameters changes log handler used under the hood.
 
-Unlike `lager:log` messages, default `rabbit_log:log` messages will go
-into `rabbit_log_lager_event` sink.
+By default RabbitMQ creates one file backend handler and one sink per log category.
 
 Most sinks use `lager_forwarder_backend`. This backend will redirect all messages
-with matching level to default lager sink (`lager_event`).
+with matching level to default lager sink (`lager_event`). Upgrade messages use
+a separate sink with its own log file.
 
-Upgrade sink has it's own log file.
+For instance, if console logging is enabled with
 
-RabbitMQ log configuration parameters change the handlers configured in lager.
-The config generation is performed by the `rabbit_lager` module.
-
-For example if you set up console logs using
-```
+<pre class="sourcecode ini">
 log.console = true
 log.console.level = warning
-```
+</pre>
 
-The generated handlers configuration will look like:
-```
+then generated handlers configuration will look something like this:
+
+<pre class="sourcecode erlang">
 [{lager,
     [{handlers,
         [{lager_console_backend,
@@ -463,20 +468,30 @@ The generated handlers configuration will look like:
          }]
     }]
 }].
-```
+</pre>
 
-So a new `lager_console_backend` handler is added to `handlers` and
+In the above example, a new `lager_console_backend` handler is added to the `handlers` and
 `upgrade_lager_event` sink handlers.
 Because `upgrade` category defines a separate file by default, all default handlers
 are copied to the sink handlers and the `file` setting is modified.
 
-Please note that if you set `log.<category>.file` configuration, all the category
-logs will be written to **this file only** or non-file backends.
-If you want to have upgrade logs in the default log file or log files configured in
-`handlers`, you should disable category-specific file. You can do that by setting
-`log.upgrade.file = false`,
-or `[{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].`
-in the legacy format.
+Please note that if you set `log.<category>.file` configuration, all log messages
+in that category will be written to **this file only** as well as non-file backends.
+
+If having upgrade logs in the default log file is desired, or log files are configured in
+`handlers`, category-specific files should be disabled. This is done with
+
+<pre class="sourcecode ini">
+log.upgrade.file = false
+</pre>
+
+or
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].
+</pre>
+
+in the classic config format.
 
 You can add any additional handlers to default lager configuration or to sinks by
 setting `handlers` to `extra_sinks` in the `lager` application config.
@@ -492,12 +507,13 @@ category will be logged in the configured handlers and redirected to default sin
 You can disable RabbitMQ handlers or sinks using RabbitMQ configuration. For example
 by setting `level` to `none` for handlers and categories.
 
+
 ### Custom Handler Examples
 
 If you want to create an additional log file for errors only, you can create an
 additional handler with the `error` level.
 
-```
+<pre class="sourcecode erlang">
 [{lager, [
     {handlers, [
         {lager_file_backend,
@@ -512,11 +528,11 @@ additional handler with the `error` level.
              {size,0}]}
     ]}]
 }].
-```
+</pre>
 
 If you want to use a custom lager backend and disable RabbitMQ default handlers:
 
-```
+<pre class="sourcecode erlang">
 [{lager,
     [{handlers,
         [{lager_custom_backend,
@@ -528,11 +544,11 @@ If you want to use a custom lager backend and disable RabbitMQ default handlers:
         [{file, [{file, false}]}] %% Disable RabbitMQ file handler
     }]}
 ].
-```
+</pre>
 
 If you want to direct connection logs to console instead of default output:
 
-```
+<pre class="sourcecode erlang">
 [{lager,
     [{extra_sinks,
         [{rabbit_log_connection_lager_event,
@@ -545,4 +561,4 @@ If you want to direct connection logs to console instead of default output:
             [{connection, [{level, none}]}]}] %% Block connection category forwarder
     }]}
 ].
-```
+</pre>
