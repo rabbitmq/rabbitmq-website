@@ -1,48 +1,65 @@
-# Rabbitmq logging.
+# Logging
 
-RabbitMQ is using the [lager](https://github.com/erlang-lager/lager) logging library
-to print logs. The library can print logs to files, console or syslog service
-based on log level or types of log messages.
+## Introduction
 
-RabbitMQ configures lager logging on application startup using
-[configuration files and environment variables](http://www.rabbitmq.com/configure.html)
+This guide describes various aspects of logging in RabbitMQ:
 
-The default log file locations are described on the
-[file directory locations page](http://www.rabbitmq.com/relocate.html).
+ * Supported log outputs
+ * How to configure log levels, log rotation, etc
+ * and so on
+
+As of 3.7.0 RabbitMQ uses the [lager](https://github.com/erlang-lager/lager) logging library
+to print logs. The library supports logging to a file, console or a Syslog endpoint
+and provides a fair amount of flexibility when it comes to configuration.
+
+Prior to 3.7.0 there were two log files: for regular messages and unhandled
+exceptions. As of 3.7.0 a single log file used for all messages
+by default.
+
+
+## Log File Location
+
+Default log file location is covered
+in the [File and Directory Location](http://www.rabbitmq.com/relocate.html) guide.
 
 You can modify the default location either by using a configuration file, or
 by setting the `RABBITMQ_LOGS` environment variable.
 
-`RABBITMQ_LOGS` variable can be a filename or `-` to log all messages to the
+`RABBITMQ_LOGS` variable can be a filename or `-` to log all messages to
 standard output.
 
-The environment variable takes precedence over the configuration file setting.
+The environment variable takes precedence over the configuration file.
 
-## Log outputs.
 
-RabbitMQ supports logging to a file, to the standard output or to the syslog service.
+## Configuration
 
-Multiple outputs can be used at the same time. Log messages will appear in all of them.
+RabbitMQ configures its logging subsystem on node start.
+See the [Configuration guide](http://www.rabbitmq.com/configure.html) for details.
+
+
+### Log Outputs
+
+Deafult RabbitMQ logging configuration will use a log file. Standard output and
+Syslog endpoint are two other supported options.
+
+Multiple outputs can be used at the same time. Log entries will be copied to all of them.
 
 Outputs can have different log levels, for example the console output can be
 configured to log only error messages, while the file output will log debug messages.
 
-Messages are filtered by level in both categories and outputs, please see
-[log levels](#log-levels) for more information about how log levels work.
 
-To configure outputs, you can use RabbitMQ configuration file options:
+### Logging to a File
 
-For the file output:
 
-- `log.file`: log file name or `false` to disable the file output. Default value is taken from [environment variable](http://www.rabbitmq.com/relocate.html)
-- `log.file.level`: log level for the file output. Default level is `info`
-- `log.file.rotation.date`,
-`log.file.rotation.size`,
-`log.file.rotation.count` - log file rotation settings.
-See [lager configuration](https://github.com/erlang-lager/lager) for possible values.
-File rotation via lager is disabled by default.
+ * `log.file`: log file name or `false` to disable the file output. Default value is taken from [environment variable](http://www.rabbitmq.com/relocate.html)
+ * `log.file.level`: log level for the file output. Default level is `info`
+ * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
 
-Or you can use the legacy configuration format:
+See [Lager configuration reference](https://github.com/erlang-lager/lager) for acceptable values.
+File rotation via Lager is disabled by default. [Debian](./install-debian.html) and [RPM packages](./install-rpm.html) will set up
+log rotation via `logrotate` after package installation.
+
+Or, using the [classic configuration format](/configure.html):
 
 ```
 [{rabbit, [
@@ -57,10 +74,13 @@ Or you can use the legacy configuration format:
     ]}].
 ```
 
-For the console output:
 
-- `log.console`: (boolean) set to `true` to enable console output. Default is `false`
-- `log.console.level`: log level for the console output. Default level is `info`
+### Logging to Console (Standard Output)
+
+The following settings are available for console (standard output) configuration:
+
+ * `log.console` (boolean): set to `true` to enable console output. Default is `false`
+ * `log.console.level`: log level for the console output. Default level is `info`.
 
 In the legacy configuration format:
 
@@ -74,14 +94,16 @@ In the legacy configuration format:
     ]}].
 ```
 
-For the syslog output:
+### Logging to Syslog
 
-- `log.syslog`: (boolean) set to `true` to enable syslog output. Default is `false`
-- `log.syslog.level`: the log level for the syslog output. Default level is `info`
-- `log.syslog.identity`: syslog identity string. Default is `"rabbitmq"`
-- `log.syslog.facility`: syslog facility. Default is `daemon`
+The following settings are available for Syslog configuration:
 
-In the legacy configuration format:
+ * `log.syslog`: (boolean) set to `true` to enable syslog output. Default is `false`
+ * `log.syslog.level`: the log level for the syslog output. Default level is `info`
+ * `log.syslog.identity`: syslog identity string. Default is `"rabbitmq"`
+ * `log.syslog.facility`: syslog facility. Default is `daemon`
+
+Or, using the [classic configuration format](/configure.html):
 
 ```
 [{rabbit, [
@@ -101,33 +123,35 @@ default. To disable the file output, set `log.file` to `false`.
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
 
-## Log message categories
+
+## Log Message Categories
 
 RabbitMQ has several categories of messages, which can be logged with different
 levels or to different files.
 
-The categories replace pre-3.7 `log_levels` configuration.
+The categories replace the `rabbit.log_levels` configuration setting in versions
+earlier than 3.7.0.
 
-These categories are:
+The categories are:
 
-- `connection` - connection logs (for AMQP, MQTT and STOMP). Mostly opening/closing connections.
-- `channel` - channel logs. Errors and warnings on AMQP channels.
-- `queue` - queue logs. Mostly debug messages
-- `mirroring` - queue mirroring logs. Queue mirrors status changes: starting/stopping/synchronizing.
-- `federation` - federation plugin logs.
-- `upgrade` - verbose upgrade logs. Some upgrade logs can be too big to pollute the default log file.
-- `default` - all other logs. You cannot override a filename for this category.
+ * `connection`: connection lifecycle events for AMQP 0-9-1, AMQP 1.0, MQTT and STOMP.
+ * `channel`: channel logs. Mostly errors and warnings on AMQP 0-9-1 channels.
+ * `queue`: queue logs. Mostly debug messages.
+ * `mirroring`: queue mirroring logs. Queue mirrors status changes: starting/stopping/synchronizing.
+ * `federation`: federation plugin logs.
+ * `upgrade`: verbose upgrade logs. These can be excessive.
+ * `default`: all other log entries. You cannot override file location for this category.
 
-You can configure a different log level or file location for each message category
+It is possible to configure a different log level or file location for each message category
 using `log.<category>.level` and `log.<category>.file` configuration variables.
 
-For example to enable debug logs for connections:
+For example, the following will enable debug logging for connection events:
 
 ```
 log.connection.level = debug
 ```
 
-In legacy config format:
+Or, using the [classic configuration format](/configure.html):
 
 ```
 [{rabbit,
@@ -141,13 +165,13 @@ In legacy config format:
 }].
 ```
 
-To redirect all federation logs to the `rabbit_federation.log` file:
+To redirect all federation logs to the `rabbit_federation.log` file, use:
 
 ```
 log.federation.file = rabbit_federation.log
 ```
 
-In legacy config format:
+Using the [classic configuration format](/configure.html):
 
 ```
 [{rabbit,
@@ -161,12 +185,14 @@ In legacy config format:
 }]
 ```
 
-To disable a log type, you can use the `none` log level. For example to disable
+To disable a log type, you can use the `none` log level. For example, to disable
 upgrade logs:
 
 ```
 log.upgrade.level = none
 ```
+
+Using the [classic configuration format](/configure.html):
 
 ```
 [{rabbit,
@@ -180,25 +206,28 @@ log.upgrade.level = none
 }].
 ```
 
-## Log levels
+### Log Levels
 
-Log levels have severity associated with them. Most critical messages have lower
-severity number, while `debug` have highest number, so levels can be compared.
+Log levels is another way to filter and tune logging. Each log level has a severity associated with it.
+More critical messages have lower severity number, while `debug` has the highest number. This
+makes levels comparable
 
-Following log levels are supported by RabbitMQ logging with numerical
-severities as used in lager:
+The following log levels are supported by RabbitMQ with numerical
+severities as associated with them:
 
-- `debug`     - 128
-- `info`      - 64
-- `notice`    - 32
-- `warning`   - 16
-- `error`     - 8
-- `critical`  - 4
-- `alert`     - 2
-- `emergency` - 1
-- `none`      - 0
+| Log level  | Severity |
+|------------|----------|
+| `debug`    | 128      |
+| `info`     | 64       |
+| `notice`   | 32       |
+| `warning`  | 16       |
+| `error`    | 8        |
+| `critical` | 4        |
+| `alert`    | 2        |
+| `emergency`| 1        |
+| `none`     | 0        |
 
-The `none` level means that no messages should be logged.
+The `none` level means that no messages will be logged.
 
 When a message is logged, if the level number is higher than the category level,
 the message will be dropped and not sent to outputs.
@@ -215,7 +244,7 @@ not be logged unless the category level is set to `debug`.
 By default all categories and inputs use the `info` log level.
 
 
-### How to enable debug messages.
+### Enabling Debug Logging
 
 To enable debug messages, you should have a debug output and a debug category
 configured.
@@ -291,33 +320,34 @@ In the legacy config format:
 ```
 
 
-# Upgrading from pre-3.7
+## Upgrading From pre-3.7 Versions
 
-RabbitMQ versions prior to 3.7 were using different approach to logging.
+RabbitMQ versions prior to 3.7.0 had a different logging subsystem.
 
-In the old installations you can see two log files in the logging directory:
-`<nodename>.log` and `<nodename>_sasl.log` (`<nodename>` is `rabbit` by default).
+Older installations use two log files:
+`<nodename>.log` and `<nodename>_sasl.log` (`<nodename>` is `rabbit@{hostname}` by default).
 
 Where `<nodename>.log` contains RabbitMQ logs, while `<nodename>_sasl.log` contains
-OTP specific logs, mostly errors.
+runtime logs, mostly unhandled exceptions.
 
-Since version 3.7 these two files were merged and all errors now can be found in
+Starting with 3.7.0 these two files were merged and all errors now can be found in
 the `<nodename>.log` file. So `RABBITMQ_SASL_LOGS` environment variable is not used
 anymore.
 
-Log levels in pre-3.7 versions were configured using `log_levels` environment
+Log levels in pre-3.7.0 versions were configured using `log_levels` environment
 variable. Since 3.7 it's been replaced with [categories](#log-message-categories),
 which are more descriptive and powerful.
 
 If you have `log_levels` in your `rabbitmq.config` file, you should update it to
 use categories. You would probably wish to switch to the new config format.
 
-`log_levels` will work in 3.7 **only** in no `categories` defined,
+`rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined
 because it's not clear which should take precedence.
 
-# Advanced
 
-## Lager handlers
+## Advanced Configuration
+
+### Lager Handlers
 
 The lager library, which is used by RabbitMQ for logging, provides a powerful
 mechanism to configure log outputs. [More about lager](https://github.com/erlang-lager/lager)
@@ -462,7 +492,7 @@ category will be logged in the configured handlers and redirected to default sin
 You can disable RabbitMQ handlers or sinks using RabbitMQ configuration. For example
 by setting `level` to `none` for handlers and categories.
 
-### Examples using custom handlers:
+### Custom Handler Examples
 
 If you want to create an additional log file for errors only, you can create an
 additional handler with the `error` level.
