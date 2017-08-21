@@ -20,7 +20,7 @@ by default.
 ## Log File Location
 
 Default log file location is covered
-in the [File and Directory Location](http://www.rabbitmq.com/relocate.html) guide.
+in the [File and Directory Location](/relocate.html) guide.
 
 You can modify the default location either by using a configuration file, or
 by setting the `RABBITMQ_LOGS` environment variable.
@@ -34,7 +34,7 @@ The environment variable takes precedence over the configuration file.
 ## Configuration
 
 RabbitMQ configures its logging subsystem on node start.
-See the [Configuration guide](http://www.rabbitmq.com/configure.html) for details.
+See the [Configuration guide](/configure.html) for details.
 
 
 ### Log Outputs
@@ -51,12 +51,12 @@ configured to log only error messages, while the file output will log debug mess
 ### Logging to a File
 
 
- * `log.file`: log file name or `false` to disable the file output. Default value is taken from [environment variable](http://www.rabbitmq.com/relocate.html)
+ * `log.file`: log file name or `false` to disable the file output. Default value is taken from [environment variable](relocate.html)
  * `log.file.level`: log level for the file output. Default level is `info`
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
 
 See [Lager configuration reference](https://github.com/erlang-lager/lager) for acceptable values.
-File rotation via Lager is disabled by default. [Debian](./install-debian.html) and [RPM packages](./install-rpm.html) will set up
+File rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
 log rotation via `logrotate` after package installation.
 
 Or, using the [classic configuration format](/configure.html):
@@ -82,7 +82,7 @@ The following settings are available for console (standard output) configuration
  * `log.console` (boolean): set to `true` to enable console output. Default is `false`
  * `log.console.level`: log level for the console output. Default level is `info`.
 
-In the [classic config format](./configure.html#config-file-formats):
+In the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [
@@ -124,7 +124,7 @@ Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
 
 
-## Log Message Categories
+## <a id="log-message-categories" /> Log Message Categories
 
 RabbitMQ has several categories of messages, which can be logged with different
 levels or to different files.
@@ -263,7 +263,7 @@ log.file.level = debug
 log.connection.level = debug
 </pre>
 
-In the [classic config format](./configure.html#config-file-formats):
+In the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
@@ -282,7 +282,7 @@ log.console.level = debug
 log.default.level = debug
 </pre>
 
-In the [classic config format](./configure.html#config-file-formats):
+In the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
@@ -308,7 +308,7 @@ log.upgrade.level = debug
 log.default.level = debug
 </pre>
 
-In the [classic config format](./configure.html#config-file-formats):
+In the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
