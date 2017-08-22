@@ -103,6 +103,9 @@ limitations under the License.
                 <a href="relocate.html">File and Directory Locations</a>
               </li>
               <li>
+                <a href="logging.html">Logging</a>
+              </li>
+              <li>
                 <a href="parameters.html">Policies and Runtime Parameters</a>
               </li>
               <li>
