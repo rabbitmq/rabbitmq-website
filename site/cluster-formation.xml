@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (c) 2007-2016 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+    xmlns:x="http://www.rabbitmq.com/2011/extensions"
+    xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Cluster Formation and Peer Discovery</title>
+  </head>
+  <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+
+      <p>
+        This guide covers various automation-oriented cluster
+        formation and peer discovery features. For a general overview
+        of RabbitMQ clustering, please refer to the <a href="">Clustering guide</a>.
+      </p>
+
+      <p>
+        A RabbitMQ cluster can formed in a number of ways:
+
+        <ul>
+          <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
+          <li>Declaratively using DNS-based discovery</li>
+          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
+          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes discovery</a> (via a plugin)</li>
+          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based discovery</a> (via a plugin)</li>
+          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based discovery</a> (via a plugin)</li>
+          <li>
+            Manually with <code>rabbitmqctl</code>, which is out of scope for this
+            guide and covered in the <a href="">Clustering one</a>.
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        When a node starts and detects it doesn't have a previously
+        initialised database, it will check if there's a peer
+        discovery mechanism configured. If that's the case, it will
+        then perform the discovery and attempt to contact each
+        discovered peer in order. Finally, it will attempt to join the
+        cluster of the first reachable peer.
+      </p>
+
+      <p>
+        If peer discovery isn't configured, or it fails, or no peers are reachable,
+        a node that wasn't a cluster member in the past
+        will initialise from scratch and proceed as a standalone node.
+      </p>
+
+      <p>
+        If a node previously was a cluster member, it will try to contact
+        its "last seen" peer for a period of time. In this case, no peer discovery
+        is performed.
+      </p>
+    </doc:section>
+
+    <doc:section name="peer-discovery">
+      <doc:heading>Peer Discovery</doc:heading>
+
+      <p>
+        To form a cluster, new ("blank") nodes need to be able to discover their
+        peers. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
+        Several implementations are available:
+
+        <ul>
+          <li>Config file-based (a.k.a. the "classic config" backend)</li>
+          <li>Pre-configured DNS</li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes</a> (via a plugin)</li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul</a> (via a plugin)</li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd</a> (via a plugin)</li>
+        </ul>
+      </p>
+      <p>
+        The discovery mechanism to use is specified in the <a
+        href="/configure.html">config file</a>, as are
+        mechanism-specific settings, for example, discovery service
+        hostnames, credentials, and so on.
+        <code>cluster_formation.peer_discovery_backend</code> is the key
+        that controls what discovery module (implementation) is used:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+</pre>
+
+        The module has to implement the <a
+        href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
+        behaviour. Plugins therefore can introduce their own discovery
+        mechanisms.
+      </p>
+    </doc:section>
+
+    <xi:include href="erlang-cookie.xml.inc"/>
+
+    <doc:section name="peer-discovery-classic-config">
+      <doc:heading>Config File Peer Discovery Backend</doc:heading>
+
+      <p>
+        The most basic way for a node to discover its cluster peers is to read a list
+        of nodes from the config file.
+      </p>
+      <p>
+        This is done using the <code>cluster_formation.classic_config.nodes</code> config setting.
+
+        <pre class="sourcecode">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+
+cluster_formation.classic_config.nodes.1 = rabbit@hostname1.eng.example.local
+cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
+</pre>
+      </p>
+      <p>
+        The following example demonstrates the same configuration in
+        the <a href="/configure.html#config-file-formats">classic config format</a>. The 2nd member of the
+        <code>rabbit.cluster_nodes</code> tuple is the node type to
+        use for the current node. In the vast majority of cases all
+        nodes should be <code>disc</code> nodes.
+
+        <pre class="sourcecode erlang">
+[
+ {rabbit, [
+           {cluster_nodes, {['rabbit@hostname1.eng.example.local',
+                             'rabbit@hostname2.eng.example.local'], disc}}
+          ]}
+].
+</pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="peer-discovery-dns">
+      <doc:heading>DNS Peer Discovery Backend</doc:heading>
+
+      <p>
+        Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
+        It relies on a pre-configured hostname ("seed hostname") with DNS A records and reverse DNS lookups
+        to perform peer discovery. More specifically, this mechanism will perform the following steps:
+
+        <ul>
+          <li>Query DNS A records of the seed hostname.</li>
+          <li>For each returned DNS record's IP address, perform a reverse DNS lookup.</li>
+          <li>
+            Append current node's prefix (e.g. <code>rabbit</code> in <code>rabbit@hostname1.example.local</code>)
+            to each hostname and return the result.
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        For example, let's consider a seed hostname of
+        <code>discovery.eng.example.local</code>.  It has 2 DNS A
+        records that return two IP addresses:
+        <code>192.168.100.1</code> and
+        <code>192.168.100.2</code>. Reverse DNS lookups for those IP
+        addresses return <code>node1.eng.example.local</code> and
+        <code>node2.eng.example.local</code>, respectively. Current node's name is not
+        set and defaults to <code>rabbit@$(hostname)</code>.
+        The final list of nodes discovered will contain two nodes: <code>node2.eng.example.local</code>
+        and <code>node2.eng.example.local</code>.
+      </p>
+
+      <p>
+        The seed hostname is set using the <code>cluster_formation.dns.hostname</code> config setting:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_dns
+
+cluster_formation.dns.hostname = discovery.eng.example.local
+</pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="peer-discovery-aws">
+      <doc:heading>Peer Discovery on AWS (EC2)</doc:heading>
+
+      <p>
+        An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2)-specific</a> discovery mechanism
+        is available via a plugin. It provides two ways for a node to discover its peers:
+
+        <ul>
+          <li>Using EC2 instance tags</li>
+          <li>Using AWS autoscaling group membership</li>
+        </ul>
+
+        Both methods rely on AWS-specific APIs and features and thus cannot work in
+        other IaaS environments. Once a list of cluster member instances is retrieved,
+        final node names are computed using instance hostnames or IP addresses.
+      </p>
+
+      <doc:subsection name="peer-discovery-aws-credentials">
+        <doc:heading>Configuration and Credentials</doc:heading>
+
+        <p>
+          Before a node can perform any operations on AWS, it needs to have a set of
+          AWS account credentials configured. This can be done in a couple of of ways:
+
+          <ol>
+            <li>Via <a href="/configure.html">config file</a></li>
+            <li>Using environment variables</li>
+            <li></li>
+          </ol>
+
+          <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">EC2 Instance Metadata service</a> for the region will also be consulted.
+        </p>
+
+        <p>
+          The following example snippet configures RabbitMQ to use the AWS peer discovery
+          backend and provides information about AWS region as well as a set of credentials:
+
+          <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+
+cluster_formation.aws.region = us-east-1
+cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
+</pre>
+
+          If region is left unconfigured, <code>us-east-1</code> will be used by default.
+          Sensitive values in configuration file can optionally <a href="/configure.html">be encrypted</a>.
+        </p>
+
+        <p>
+          If an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM role is assigned to EC2 instances</a> running RabbitMQ nodes,
+          a policy has to be used to allow said instances use EC2 Instance Metadata Service.
+          Below is an example of such policy:
+
+          <pre class="sourcecode json">
+{
+"Version": "2012-10-17",
+"Statement": [
+              {
+              "Effect": "Allow",
+              "Action": [
+                         "autoscaling:DescribeAutoScalingInstances",
+                         "ec2:DescribeInstances"
+                         ],
+              "Resource": [
+                           "*"
+                           ]
+              }
+              ]
+}
+</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="peer-discovery-aws-autoscaling-group-membership">
+        <doc:heading>Using Autoscaling Group Membership</doc:heading>
+
+        <p>
+          When autoscaling-based peer discovery is used, current node's EC2 instance autoscaling
+          group members will be listed and used to produce the list of discovered peers.
+        </p>
+
+        <p>
+          To use autoscaling group membership, set the <code>cluster_formation.aws.use_autoscaling_group</code> key
+          to <code>true</code>:
+
+          <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+
+cluster_formation.aws.region = us-east-1
+cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
+
+cluster_formation.aws.use_autoscaling_group = true
+</pre>
+
+
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="peer-discovery-aws-tags">
+        <doc:heading>Using EC2 Instance Tags</doc:heading>
+
+        <p>
+          When tags-based peer discovery is used, the plugin will list EC2 instances
+          using EC2 API and filter them by configured instance tags. Resulting instance set
+          will be used to produce the list of discovered peers.
+        </p>
+
+        <p>
+          Tags are configured using the <code>cluster_formation.aws.instance_tags</code> key. The example
+          below uses three tags: <code>region</code>, <code>service</code>, and <code>environment</code>.
+
+          <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+
+cluster_formation.aws.region = us-east-1
+cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
+
+cluster_formation.aws.instance_tags.region = us-east-1
+cluster_formation.aws.instance_tags.service = rabbitmq
+cluster_formation.aws.instance_tags.environment = staging
+</pre>
+
+
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="peer-discovery-aws-other-settings">
+        <doc:heading>Using Private EC2 Instance IPs</doc:heading>
+
+        <p>
+          By default peer discovery will use private DNS hostnames to compute node names.
+          It is possible to opt into using private IPs instead by setting
+          the <code>cluster_formation.aws.aws_use_private_ip</code> key to <code>true</code>:
+
+          <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+
+cluster_formation.aws.region = us-east-1
+cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
+
+cluster_formation.aws.use_autoscaling_group = true
+cluster_formation.aws.use_private_ip = true
+</pre>
+        </p>
+      </doc:subsection>      
+    </doc:section>
+
+    <doc:section name="peer-discovery-k8s">
+      <doc:heading>Peer Discovery on Kubernetes</doc:heading>
+
+      <p>TBD
+      </p>
+    </doc:section>
+
+    <doc:section name="peer-discovery-consul">
+      <doc:heading>Peer Discovery Using Consul</doc:heading>
+
+      <p>TBD
+      </p>
+    </doc:section>
+
+    <doc:section name="peer-discovery-etcd">
+      <doc:heading>Peer Discovery Using etcd</doc:heading>
+
+      <p>TBD
+      </p>
+    </doc:section>
+
+    <doc:section name="rejoining">
+      <doc:heading>Peer Rejoining Timeout</doc:heading>
+
+      <p>
+        If a node previously was a cluster member, when it boots it will try to contact
+        its "last seen" peer for a period of time.
+
+        Default values are <code>10</code> and <code>30 seconds</code>,
+        respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
+        time to start it is recommended that the number of retries is increased.
+      </p>
+    </doc:section>
+  </body>
+</html>
