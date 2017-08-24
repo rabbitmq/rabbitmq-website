@@ -15,7 +15,7 @@ Branch        | Description
 live          | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](http://www.rabbitmq.com/).
 stable        | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when the release occurs.
 master        | Changes to the website that will correspond to the next release of RabbitMQ. This gets merged into live when the release occurs. Normally this should represent whatever's deployed to [next.rabbitmq.com](http://next.rabbitmq.com/).
-stage         | The staging version of the website. Only relevant while a release is being prepared, it acts to snapshot master in case changes are made to that during the release process.
+
 
 ## Development environment
 
