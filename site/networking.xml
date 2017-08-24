@@ -770,7 +770,7 @@ sysctl -w fs.file-max 200000
 
       <p>
         <a href="/heartbeats.html">Heartbeats</a> are used to detect peer or connection failure
-        between clients and RabbitMQ nodes. <a href="/net_ticktime.html">net_ticktime</a> serves
+        between clients and RabbitMQ nodes. <a href="/nettick.html">net_ticktime</a> serves
         the same purpose but for cluster node communication. Values lower than 5 (seconds)
         may result in false positive and are not recommended.
       </p>

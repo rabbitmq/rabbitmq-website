@@ -71,32 +71,19 @@ limitations under the License.
           at how it had been done historically and what is the recommended way today.
         </p>
         <p>
-          In addition to mandatory properties
-          (e.g. <code>durable</code> or <code>exclusive</code>),
-          queues in RabbitMQ have optional parameters (arguments),
-          sometimes referred to as <code>x-arguments</code>. Those are
-          provided by clients when they declare queues and control
-          various optional queue features, such as mirroring or <a
-          href="/ttl.html">TTL</a>. The x-arguments can be used to
-          configure mirroring parameters but there's a better way.
-        </p>
-        <p>
-          A more flexible, unobtrisuve, and manageable way of configuring x-arguments
-          is via <a href="/parameters.html#policies">policies</a>. A policy matches
+          Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
           one or more queues by name (using a regular expression pattern) and
-          appends its definition (a map of optional arguments) to the x-arguments of the matching
-          queues. In other words, it is possible to configure x-arguments for multiple queues
-          at once with a policy, and update them all at once by updating policy definition.
-          This is the most common and recommended way of configuring mirroring in modern
-          RabbitMQ versions. Please see <a href="/parameters.html#policies">documentation on policies</a>
-          for more information.
+          contains a definition (a map of optional arguments) that are added to the total set of
+          properties of the matching queues.
+          Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
+          for more information on policies.
         </p>
       </doc:section>
 
       <doc:section name="mirroring-arguments">
         <doc:heading>Queue Arguments that Control Mirroring</doc:heading>
         <p>
-          As we've covered above, queues typically have mirroring enabled
+          As we've covered above, queues have mirroring enabled
           via <a href="parameters.html#policies">policy</a>. Policies
           can change at any time; it is valid to create a non-mirrored
           queue, and then make it mirrored at some later point (and
@@ -111,7 +98,7 @@ limitations under the License.
           queue</a>.
         </p>
         <p>
-          To cause queues to become mirrored, you should create a
+          To cause queues to become mirrored, you need to create a
           policy which matches them and sets policy
           keys <code>ha-mode</code> and
           (optionally) <code>ha-params</code>. The following table
