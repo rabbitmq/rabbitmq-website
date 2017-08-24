@@ -148,7 +148,7 @@ limitations under the License.
               the queue mirror will be automatically promoted to master. In
               conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
 
-              If there are less than <i>count</i> nodes in the cluster, the
+              If there are fewer than <i>count</i> nodes in the cluster, the
               queue is mirrored to all nodes. If there are more than
               <i>count</i> nodes in the cluster, and a node containing a mirror
               goes down, then a new mirror will be created on another node. Use
