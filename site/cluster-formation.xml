@@ -356,7 +356,8 @@ cluster_formation.aws.use_private_ip = true
     <doc:section name="peer-discovery-consul">
       <doc:heading>Peer Discovery Using Consul</doc:heading>
 
-      <p>TBD
+      <p>
+        TBD
       </p>
     </doc:section>
 
@@ -365,7 +366,7 @@ cluster_formation.aws.use_private_ip = true
 
       <p>
         An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based</a> discovery mechanism
-        is available via a plugin. <a href="">etcd</a> v3 and v2 are supported.
+        is available via a plugin. <a href="https://coreos.com/etcd">etcd</a> v3 and v2 are supported.
       </p>
 
       <p>
