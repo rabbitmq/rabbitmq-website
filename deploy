@@ -3,18 +3,17 @@
 set -e
 
 REMOTE_HOST="$1"
-DEFAULT_REMOTE_HOST="www.rabbitmq.com"
+VERSION="${2:-www}"
 
-VERSION="$2"
-DEFAULT_VERSION=www
-VALID_VERSIONS=( previous www next )
-
-GIT_SHA="$3"
+ENVIRONMENTS=(
+  Production:www.rabbitmq.com
+  Staging:rabbit-web-stage.haas-40.pez.pivotal.io
+)
 
 main() {
   debug
-  set_remote_host
-  set_version
+  select_environment
+  ensure_deploying_live_to_production
   deploy
 }
 
@@ -22,22 +21,35 @@ debug() {
   [ -z "$DEBUG" ] || set -x
 }
 
-set_remote_host() {
+select_environment() {
   if [ -z "$REMOTE_HOST" ]
   then
-    echo
-    read -rp "Which user & host do you want to deploy to? (press enter for $DEFAULT_REMOTE_HOST): " remote_host
-    REMOTE_HOST="${remote_host:=$DEFAULT_REMOTE_HOST}"
+    echo "Which environment do you want to deploy to?"
+    select environment in "${ENVIRONMENTS[@]}"
+    do
+      ENVIRONMENT="$environment"
+      export ENVIRONMENT
+      REMOTE_HOST="${environment#*:}"
+      break
+    done
   fi
 }
 
-set_version() {
-  if [ -z "$VERSION" ]
+ensure_deploying_live_to_production() {
+  if [[ "$ENVIRONMENT" =~ Production ]] && [[ "$(current_git_branch)" != "live" ]]
   then
+    read -rp "Are you sure you want to deploy '$(current_git_branch)' to $ENVIRONMENT ? (y|n) " -n 1
     echo
-    read -rp "Which website version is this? (press enter for $DEFAULT_VERSION or choose one of: ${VALID_VERSIONS[*]}): " version
-    VERSION="${version:=$DEFAULT_VERSION}"
+    if ! [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      echo "Good answer, only 'live' should be deployed to production"
+      exit 1
+    fi
   fi
+}
+
+current_git_branch() {
+  git rev-parse --abbrev-ref HEAD
 }
 
 deploy() {
@@ -49,7 +61,7 @@ deploy() {
   ssh "$REMOTE_HOST" mkdir -p "$TMP_DIR"
   rsync -qcrz --delete --perms --chmod=a+rwX --exclude=site/man code conf site wordpress-theme "$REMOTE_HOST":"$TMP_DIR"
   # shellcheck disable=SC2029
-  ssh -t "$REMOTE_HOST" sudo "$TMP_DIR/code/deploy-remote $VERSION $GIT_SHA"
+  ssh -t "$REMOTE_HOST" sudo "$TMP_DIR/code/deploy-remote $VERSION"
 }
 
 show_commands_as_they_run() {
