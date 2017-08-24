@@ -38,10 +38,11 @@ select_environment() {
 ensure_deploying_live_to_production() {
   if [[ "$ENVIRONMENT" =~ Production ]] && [[ "$(current_git_branch)" != "live" ]]
   then
-    read -rp -n 1 "Are you sure you want to deploy $(current_git_branch) to $ENVIRONMENT ? (y|n) "
+    read -rp "Are you sure you want to deploy '$(current_git_branch)' to $ENVIRONMENT ? (y|n) " -n 1
+    echo
     if ! [[ $REPLY =~ ^[Yy]$ ]]
     then
-      echo "Good answer, it was the right choice to bail out"
+      echo "Good answer, only 'live' should be deployed to production"
       exit 1
     fi
   fi
