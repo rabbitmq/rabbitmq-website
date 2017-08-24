@@ -137,17 +137,25 @@ limitations under the License.
             <td><code>exactly</code></td>
             <td><i>count</i></td>
             <td>
-              Queue is mirrored to <i>count</i> nodes in the
-              cluster. If there are less than <i>count</i> nodes in
-              the cluster, the queue is mirrored to all nodes. If
-              there are more than <i>count</i> nodes in the cluster,
-              and a node containing a mirror goes down, then a new
-              mirror will be created on another node. Use of
-              <code>exactly</code> mode with <a
-              href="#cluster-shutdown">
-              <code>"ha-promote-on-shutdown": "always"</code></a> can be dangerous since queues can
-              migrate across a cluster and become unsynced as it is
-              brought down.
+              Number of queue instances in the cluster.
+
+              A <i>count</i> value of 1 means just the queue master, with no
+              mirrors. If the node running the queue master becomes
+              unavailable, the queue will become unavailable.
+
+              A <i>count</i> value of 2 means 1 queue master and 1 queue
+              mirror. If the node running the queue master becomes unavailable,
+              the queue mirror will be automatically promoted to master. In
+              conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+
+              If there are less than <i>count</i> nodes in the cluster, the
+              queue is mirrored to all nodes. If there are more than
+              <i>count</i> nodes in the cluster, and a node containing a mirror
+              goes down, then a new mirror will be created on another node. Use
+              of <code>exactly</code> mode with <a href="#cluster-shutdown">
+                <code>"ha-promote-on-shutdown": "always"</code></a> can be
+              dangerous since queues can migrate across a cluster and become
+              unsynced as it is brought down.
             </td>
           </tr>
           <tr>
