@@ -77,7 +77,8 @@ limitations under the License.
 
       <p>
         To form a cluster, new ("blank") nodes need to be able to discover their
-        peers. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
+        peers. The goal of peer discovery is to produce a set of cluster nodes current node can
+        attempt to join. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
         Several implementations are available:
 
         <ul>
@@ -89,6 +90,7 @@ limitations under the License.
           <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd</a> (via a plugin)</li>
         </ul>
       </p>
+
       <p>
         The discovery mechanism to use is specified in the <a
         href="/configure.html">config file</a>, as are
@@ -120,7 +122,7 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       <p>
         This is done using the <code>cluster_formation.classic_config.nodes</code> config setting.
 
-        <pre class="sourcecode">
+        <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 
 cluster_formation.classic_config.nodes.1 = rabbit@hostname1.eng.example.local
@@ -150,7 +152,7 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
 
       <p>
         Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
-        It relies on a pre-configured hostname ("seed hostname") with DNS A records and reverse DNS lookups
+        It relies on a pre-configured hostname ("seed hostname") with DNS A (or AAAA) records and reverse DNS lookups
         to perform peer discovery. More specifically, this mechanism will perform the following steps:
 
         <ul>
@@ -199,9 +201,16 @@ cluster_formation.dns.hostname = discovery.eng.example.local
           <li>Using AWS autoscaling group membership</li>
         </ul>
 
-        Both methods rely on AWS-specific APIs and features and thus cannot work in
+        Both methods rely on AWS-specific APIs (endpoints) and features and thus cannot work in
         other IaaS environments. Once a list of cluster member instances is retrieved,
         final node names are computed using instance hostnames or IP addresses.
+      </p>
+
+      <p>
+        When the AWS peer discovery mechanism is used, nodes will
+        delay their startup for a randomly picked value to reduce the
+        probability of a race condition during initial cluster
+        formation (see below).
       </p>
 
       <doc:subsection name="peer-discovery-aws-credentials">
@@ -214,7 +223,6 @@ cluster_formation.dns.hostname = discovery.eng.example.local
           <ol>
             <li>Via <a href="/configure.html">config file</a></li>
             <li>Using environment variables</li>
-            <li></li>
           </ol>
 
           <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">EC2 Instance Metadata service</a> for the region will also be consulted.
@@ -335,7 +343,7 @@ cluster_formation.aws.use_autoscaling_group = true
 cluster_formation.aws.use_private_ip = true
 </pre>
         </p>
-      </doc:subsection>      
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="peer-discovery-k8s">
@@ -355,7 +363,134 @@ cluster_formation.aws.use_private_ip = true
     <doc:section name="peer-discovery-etcd">
       <doc:heading>Peer Discovery Using etcd</doc:heading>
 
-      <p>TBD
+      <p>
+        An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based</a> discovery mechanism
+        is available via a plugin. <a href="">etcd</a> v3 and v2 are supported.
+      </p>
+
+      <p>
+        Nodes register with etcd on boot and unregister when they
+        leave. Prior to registration, nodes will attempt to acquire a
+        lock in etcd to reduce the probability of a race condition
+        during initial cluster formation (see below).
+      </p>
+
+      <p>
+        Nodes contact etcd periodically to refresh
+        their keys. Those that haven't done so in a configurable
+        period of time (node TTL) are cleaned up from etcd.  If
+        configured, such nodes can be forcefully removed from the
+        cluster.
+      </p>
+
+      <p>
+        To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
+        to <code>rabbit_peer_discovery_etcd</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+# etcd host (hostname or IP address). Default value is localhost
+cluster_formation.etcd.host = etcd.eng.example.local
+</pre>
+      </p>
+
+      <p>
+        It is possible to configure etcd port and URI scheme:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# 2379 is used by default
+cluster_formation.etcd.port = 2379
+# http is used by default
+cluster_formation.etcd.scheme = http
+</pre>
+      </p>
+
+      <p>
+        etcd keys used by peer discovery will be prefixed with "rabbitmq" by default:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# rabbit is used by default
+cluster_formation.etcd.key_prefix = rabbitmq_discovery
+</pre>
+      </p>
+
+      <p>
+        Key used for node registration will have a TTL interval set for them. Online nodes
+        will periodically refresh their key(s). The TTL value can be configured:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# node TTL in seconds
+# default: 30
+cluster_formation.etcd.ttl = 40
+</pre>
+
+        Key refreshes will be performed every <code>TTL/2</code> seconds.
+      </p>
+
+      <p>
+        When a node tries to acquire a lock on boot and the lock is already taken,
+        it will wait for the lock to be come available with a timeout. Default value is 300
+        seconds but it can be configured:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# lock acquisition timeout in seconds
+# default: 300
+cluster_formation.etcd.lock_wait_time = 60
+</pre>
+      </p>
+
+      <p>
+        If multiple RabbitMQ clusters share an etcd instance, each must use
+        a unique cluster name:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# default name: "default"
+cluster_formation.etcd.cluster_name = staging
+</pre>
+      </p>
+    </doc:section>
+
+
+    <doc:section name="initial-formation-race-condition">
+      <doc:heading>Race Conditions During Initial Cluster Formation</doc:heading>
+
+      <p>
+        Consider a deployment
+        where the entire cluster is provisioned at once and all nodes
+        start in parallel. In this case there's a natural race
+        condition between node registration and more than one node
+        can become "first to register" (discovers no existing peers
+        and thus starts as standalone).
+      </p>
+      <p>
+        Different peer discovery backends use different approaches to
+        minimize the probability of such scenario. Some use locking
+        (etcd, Consul), others use a technique known as randomized startup delay.
+        With randomized startup delay nodes will delay their startup
+        for a randomly picked value (between 5 and 60 seconds by default).
+      </p>
+      <p>
+        Some backends (config file, DNS) rely on a pre-configured set of peers and avoid
+        the issue that way.
+      </p>
+      <p>
+        Effective delay interval, if used, is logged on node boot.
       </p>
     </doc:section>
 
