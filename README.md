@@ -2,8 +2,11 @@
 
 This repository contains source code for [rabbitmq.com](http://www.rabbitmq.com/) content.
 
+All changes that need to be deployed right away need to be committed to the `live` branch.
 
+Changes which should be deployed when the next patch release (a.k.a. stable) of RabbitMQ ships should be committed to the `stable` branch.
 
+Changes which should be deployed when the next minor release (a.k.a. master) of RabbitMQ ships should be committed to the `master` branch.
 
 ## Branches
 
