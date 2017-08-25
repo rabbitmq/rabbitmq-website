@@ -236,9 +236,9 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-Message acknowledgments are turned on by default. In previous
+Manual message acknowledgments are turned on by default. In previous
 examples we explicitly turned them off by setting the `autoAck` ("automatic acknowledgement mode")
-parameter to `true`. It's time to remove this flag and send a proper acknowledgment
+parameter to `true`. It's time to remove this flag and manually send a proper acknowledgment
 from the worker, once we're done with a task.
 
 <pre class="sourcecode csharp">
