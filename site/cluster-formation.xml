@@ -28,26 +28,47 @@ limitations under the License.
       <doc:heading>Introduction</doc:heading>
 
       <p>
-        This guide covers various automation-oriented cluster
-        formation and peer discovery features. For a general overview
-        of RabbitMQ clustering, please refer to the <a href="/clustering.html">Clustering guide</a>.
+        This guide covers various automation-oriented cluster formation and
+        peer discovery features. For a general overview of RabbitMQ clustering,
+        please refer to the <a href="/clustering.html">Clustering Guide</a>.
       </p>
 
       <p>
-        A RabbitMQ cluster can be formed in a number of ways:
+        To form a cluster, new ("blank") nodes need to be able to discover
+        their peers. The following peer discovery mechanisms are built-in:
 
-        <ul>
-          <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
-          <li>Declaratively using DNS-based discovery</li>
-          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
-          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes discovery</a> (via a plugin)</li>
-          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based discovery</a> (via a plugin)</li>
-          <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based discovery</a> (via a plugin)</li>
-          <li>
-            Manually with <code>rabbitmqctl</code>, which is out of scope for this
-            guide and covered in the <a href="">Clustering one</a>.
-          </li>
+        <ul class="plain">
+          <li><a href="#peer-discovery-classic-config">config file</a></li>
+          <li><a href="#peer-discovery-dns">DNS</a></li>
         </ul>
+      </p>
+
+      <p>
+        Additional peer discovery mechanisms are available via plugins:
+
+        <ul class="plain">
+          <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
+          <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
+          <li><a href="#peer-discovery-consul">Consul</a></li>
+          <li><a href="#peer-discovery-etcd">etcd</a></li>
+        </ul>
+      </p>
+
+      <p>
+        The discovery mechanism to use is specified in the <a
+          href="/configure.html">config file</a>, as are mechanism-specific
+        settings, for example, discovery service hostnames, credentials, and so
+        on. <code>cluster_formation.peer_discovery_backend</code> is the key
+        that controls what discovery module (implementation) is used:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+</pre>
+
+        The module has to implement the <a
+          href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
+        behaviour. Plugins therefore can introduce their own discovery
+        mechanisms.
       </p>
 
       <p>
@@ -72,45 +93,19 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="peer-discovery">
-      <doc:heading>Peer Discovery</doc:heading>
+
+    <doc:section name="rejoining">
+      <doc:heading>Peer Rejoining Timeout</doc:heading>
 
       <p>
-        To form a cluster, new ("blank") nodes need to be able to discover their
-        peers. The goal of peer discovery is to produce a set of cluster nodes the current node can
-        attempt to join. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
-        Several implementations are available:
+        If a node previously was a cluster member, when it boots it will try to contact
+        its "last seen" peer for a period of time.
 
-        <ul>
-          <li>Config file-based (a.k.a. the "classic config" backend)</li>
-          <li>Pre-configured DNS</li>
-          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
-          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes</a> (via a plugin)</li>
-          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul</a> (via a plugin)</li>
-          <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd</a> (via a plugin)</li>
-        </ul>
-      </p>
-
-      <p>
-        The discovery mechanism to use is specified in the <a
-        href="/configure.html">config file</a>, as are
-        mechanism-specific settings, for example, discovery service
-        hostnames, credentials, and so on.
-        <code>cluster_formation.peer_discovery_backend</code> is the key
-        that controls what discovery module (implementation) is used:
-
-        <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
-</pre>
-
-        The module has to implement the <a
-        href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
-        behaviour. Plugins therefore can introduce their own discovery
-        mechanisms.
+        Default values are <code>10</code> and <code>30 seconds</code>,
+        respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
+        time to start it is recommended that the number of retries is increased.
       </p>
     </doc:section>
-
-    <xi:include href="erlang-cookie.xml.inc"/>
 
     <doc:section name="peer-discovery-classic-config">
       <doc:heading>Config File Peer Discovery Backend</doc:heading>
@@ -492,19 +487,6 @@ cluster_formation.etcd.cluster_name = staging
       </p>
       <p>
         Effective delay interval, if used, is logged on node boot.
-      </p>
-    </doc:section>
-
-    <doc:section name="rejoining">
-      <doc:heading>Peer Rejoining Timeout</doc:heading>
-
-      <p>
-        If a node previously was a cluster member, when it boots it will try to contact
-        its "last seen" peer for a period of time.
-
-        Default values are <code>10</code> and <code>30 seconds</code>,
-        respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
-        time to start it is recommended that the number of retries is increased.
       </p>
     </doc:section>
   </body>
