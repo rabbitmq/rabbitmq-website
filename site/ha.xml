@@ -67,10 +67,6 @@ limitations under the License.
         <doc:heading>How Mirroring is Configured</doc:heading>
 
         <p>
-          Before we provide an example of how to enable mirroring we should take a look
-          at how it had been done historically and what is the recommended way today.
-        </p>
-        <p>
           Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
           one or more queues by name (using a regular expression pattern) and
           contains a definition (a map of optional arguments) that are added to the total set of

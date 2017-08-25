@@ -171,6 +171,11 @@ limitations under the License.
           The QoS setting can be configured for a channel or a consumer.
           See <a href="/consumer-prefetch.html">Consumer Prefetch</a> for details.
         </p>
+
+        <p>
+          The QoS setting has no effect on messages fetched using the <code>basic.get</code>
+          ("pull API"), even in manual confirmation mode.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="consumer-acks-double-acking">
