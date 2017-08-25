@@ -30,7 +30,7 @@ limitations under the License.
       <p>
         This guide covers various automation-oriented cluster
         formation and peer discovery features. For a general overview
-        of RabbitMQ clustering, please refer to the <a href="">Clustering guide</a>.
+        of RabbitMQ clustering, please refer to the <a href="/clustering.html">Clustering Guide</a>.
       </p>
 
       <p>
