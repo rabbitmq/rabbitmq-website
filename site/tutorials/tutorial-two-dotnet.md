@@ -212,7 +212,7 @@ Message acknowledgment
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
 With our current code, once RabbitMQ delivers a message to the customer it
-immediately removes it from memory. In this case, if you kill a worker
+immediately marks it for deletion. In this case, if you kill a worker
 we will lose the message it was just processing. We'll also lose all
 the messages that were dispatched to this particular worker but were not
 yet handled.
@@ -221,7 +221,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-message _acknowledgments_. An ack(nowledgement) is sent back from the
+[message _acknowledgments_](/confirms.html). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -236,10 +236,11 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off by setting the `autoAck` ("automatic acknowledgement mode")
-parameter to `true`. It's time to remove this flag and send a proper acknowledgment
-from the worker, once we're done with a task.
+[Manual message acknowledgments](/confirms.html) are turned on by default. In previous
+examples we explicitly turned them off by setting the autoAck
+("automatic acknowledgement mode") parameter to true. It's time to
+remove this flag and manually send a proper acknowledgment from the
+worker, once we're done with a task.
 
 <pre class="sourcecode csharp">
 var consumer = new EventingBasicConsumer(channel);
