@@ -364,23 +364,189 @@ cluster_formation.aws.use_private_ip = true
       </p>
 
       <p>
-        Nodes contact etcd periodically to refresh
-        their keys. Those that haven't done so in a configurable
-        period of time (node TTL) are cleaned up from Consul.  If
+        Nodes contact Consul periodically to keep
+        their <a href="https://www.consul.io/intro/getting-started/checks.html">health checks</a> passing. Those that haven't done so in a configurable
+        period of time (node TTL) will be marked by Consul as in "warning state". If
         configured, such nodes can be forcefully removed from the
         cluster.
       </p>
 
       <p>
-        To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
-        to <code>rabbit_peer_discovery_etcd</code>:
+        To use Consul for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
+        to <code>rabbit_peer_discovery_consul</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
 
-# etcd host (hostname or IP address). Default value is localhost
-cluster_formation.etcd.host = etcd.eng.example.local
+# Consul host (hostname or IP address). Default value is localhost
+cluster_formation.consul.host = consul.eng.example.local
 </pre>
+      </p>
+      <p>
+        It is possible to configure Consul port and URI scheme:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# 8500 is used by default
+cluster_formation.consul.port = 8500
+# http is used by default
+cluster_formation.consul.scheme = http
+</pre>
+      </p>
+
+      <p>
+        To configure <a href="https://www.consul.io/docs/guides/acl.html">Consul ACL</a> token,
+        use :
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+cluster_formation.consul.acl_token = acl-token-value
+</pre>
+      </p>
+
+      <p>
+        Service name (as registered in Consul) defaults to "rabbitmq" but can be overridden:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# rabbitmq is used by default
+cluster_formation.consul.svc = rabbitmq
+</pre>
+      </p>
+
+      <p>
+        Service hostname (address) as registered in Consul will be fetched by peers
+        and therefore must resolve on all nodes.
+        The hostname can be computed by the plugin or specified by the user. When computed automatically,
+        a number of node and OS properties can be used:
+
+        <ul>
+          <li>Hostname (as returned by <code>gethostname(2)</code>)</li>
+          <li>Node name (without the <code>rabbit@</code> prefix)</li>
+          <li>IP address of an NIC (network controller interface)</li>
+        </ul>
+
+        When <code>cluster_formation.consul.svc_addr_auto</code> is set to <code>false</code>,
+        service name will be taken as is from <code></code>. When it is set to <code>true</code>,
+        other options explained below come into play.
+      </p>
+
+      <p>
+        In the following example, the service address reported to Consul is
+        hardcoded to <code>hostname1.rmq.eng.example.local</code> instead of being computed automatically
+        from the environment:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+cluster_formation.consul.svc = rabbitmq
+# do not compute service address, it will be specified below
+cluster_formation.consul.svc_addr_auto = false
+# service address, will be communicated to other nodes
+cluster_formation.consul.svc_addr = hostname1.rmq.eng.example.local
+# use long RabbitMQ node names?
+cluster_formation.consul.use_longname = true
+</pre>
+      </p>
+
+      <p>
+        In this example, the service address reported to Consul is
+        parsed from node name (the <code>rabbit@</code> prefix will be dropped):
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+cluster_formation.consul.svc = rabbitmq
+# do compute service address
+cluster_formation.consul.svc_addr_auto = true
+# compute service address using node name
+cluster_formation.consul.svc_addr_nodename = true
+# use long RabbitMQ node names?
+cluster_formation.consul.use_longname = true
+</pre>
+
+        Note that <code>cluster_formation.consul.svc_addr_nodename</code> is a boolean
+        field.
+      </p>
+
+      <p>
+        In the next example, the service address is
+        computed using hostname as reported by the OS instead of node name:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+cluster_formation.consul.svc = rabbitmq
+# do compute service address
+cluster_formation.consul.svc_addr_auto = true
+# compute service address using host name and not node name
+cluster_formation.consul.svc_addr_nodename = false
+# use long RabbitMQ node names?
+cluster_formation.consul.use_longname = true
+</pre>
+      </p>
+
+      <p>
+        In the example below, the service address is
+        computed by taking the IP address of a provided NIC, <code>en0</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+cluster_formation.consul.svc = rabbitmq
+# do compute service address
+cluster_formation.consul.svc_addr_auto = true
+# compute service address using the IP address of a NIC, en0
+cluster_formation.consul.svc_addr_nic = en0
+cluster_formation.consul.svc_addr_nodename = false
+# use long RabbitMQ node names?
+cluster_formation.consul.use_longname = true
+</pre>
+      </p>
+
+      <p>
+        Service port as registered in Consul can be overridden. This is only
+        necessary if RabbitMQ uses a <a href="/networking.html">non-standard port</a>
+        for client (technically AMQP 0-9-1 and AMQP 1.0) connections since default value is 5672.
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = etcd.eng.example.local
+# 5672 is used by default
+cluster_formation.consul.svc_port = 6674
+</pre>
+      </p>
+
+      <p>
+        Service registration will have a TTL interval set for it. Online nodes
+        will periodically send a health check update to Consul to indicate the service
+        is available. The TTL value can be configured:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = etcd.eng.example.local
+# node TTL in seconds
+# default: 30
+cluster_formation.consul.svc_ttl = 40
+</pre>
+
+
       </p>
 
     </doc:section>
