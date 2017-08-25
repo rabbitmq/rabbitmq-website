@@ -30,11 +30,11 @@ limitations under the License.
       <p>
         This guide covers various automation-oriented cluster
         formation and peer discovery features. For a general overview
-        of RabbitMQ clustering, please refer to the <a href="">Clustering guide</a>.
+        of RabbitMQ clustering, please refer to the <a href="/clustering.html">Clustering guide</a>.
       </p>
 
       <p>
-        A RabbitMQ cluster can formed in a number of ways:
+        A RabbitMQ cluster can be formed in a number of ways:
 
         <ul>
           <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
@@ -77,7 +77,7 @@ limitations under the License.
 
       <p>
         To form a cluster, new ("blank") nodes need to be able to discover their
-        peers. The goal of peer discovery is to produce a set of cluster nodes current node can
+        peers. The goal of peer discovery is to produce a set of cluster nodes the current node can
         attempt to join. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
         Several implementations are available:
 
@@ -174,7 +174,7 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
         addresses return <code>node1.eng.example.local</code> and
         <code>node2.eng.example.local</code>, respectively. Current node's name is not
         set and defaults to <code>rabbit@$(hostname)</code>.
-        The final list of nodes discovered will contain two nodes: <code>node2.eng.example.local</code>
+        The final list of nodes discovered will contain two nodes: <code>node1.eng.example.local</code>
         and <code>node2.eng.example.local</code>.
       </p>
 
