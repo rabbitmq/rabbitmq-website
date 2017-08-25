@@ -149,7 +149,7 @@ limitations under the License.
           (arguments), sometimes referred to as
           <code>x-arguments</code>. Those are provided by clients when
           they declare queues (exchanges) and control various optional
-          features, such as <a href="/ha.html">mirroring</a> or <a
+          features, such as <a href="/maxlength.html">queue length limit</a> or <a
           href="/ttl.html">TTL</a>.
         </p>
         <p>
