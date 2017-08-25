@@ -352,8 +352,37 @@ cluster_formation.aws.use_private_ip = true
       <doc:heading>Peer Discovery Using Consul</doc:heading>
 
       <p>
-        TBD
+        An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based</a> discovery mechanism
+        is available via a plugin. <a href="https://www.consul.io">Consul</a> 0.8.0 and later versions are supported.
       </p>
+
+      <p>
+        Nodes register with Consul on boot and unregister when they
+        leave. Prior to registration, nodes will attempt to acquire a
+        lock in Consul to reduce the probability of a race condition
+        during initial cluster formation (see below).
+      </p>
+
+      <p>
+        Nodes contact etcd periodically to refresh
+        their keys. Those that haven't done so in a configurable
+        period of time (node TTL) are cleaned up from Consul.  If
+        configured, such nodes can be forcefully removed from the
+        cluster.
+      </p>
+
+      <p>
+        To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
+        to <code>rabbit_peer_discovery_etcd</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+# etcd host (hostname or IP address). Default value is localhost
+cluster_formation.etcd.host = etcd.eng.example.local
+</pre>
+      </p>
+
     </doc:section>
 
     <doc:section name="peer-discovery-etcd">
