@@ -100,11 +100,7 @@ limitations under the License.
            <tr>
              <td>20.x</td>
              <td>
-               <strong><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">Supported as of 3.6.11</a></strong>. With earlier
-               RabbitMQ releases, upgrading existing installations to OTP 20 can lead to
-               <strong>DATA LOSS</strong>.
-
-               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>, Ubuntu Zesty (17.04)
+               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
              </td>
            </tr>
            <tr>
