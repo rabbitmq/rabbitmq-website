@@ -553,7 +553,7 @@ cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
 cluster_formation.consul.svc_ttl = 30
 # how soon should nodes that fail their health checks be unregistered by Consul?
-# this value cannot be lower than 60 seconds
+# this value is in seconds and must not be lower than 60 (a Consul requirement)
 cluster_formation.consul.deregister_after = 90
 </pre>
 
