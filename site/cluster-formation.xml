@@ -361,14 +361,8 @@ cluster_formation.aws.use_private_ip = true
         leave. Prior to registration, nodes will attempt to acquire a
         lock in Consul to reduce the probability of a race condition
         during initial cluster formation (see below).
-      </p>
-
-      <p>
-        Nodes contact Consul periodically to keep
-        their <a href="https://www.consul.io/intro/getting-started/checks.html">health checks</a> passing. Those that haven't done so in a configurable
-        period of time (node TTL) will be marked by Consul as in "warning state". If
-        configured, such nodes can be forcefully removed from the
-        cluster.
+        When a node registers with Consul, it will set up a periodic <a href="https://www.consul.io/docs/agent/checks.html">health
+        check</a> for itself.
       </p>
 
       <p>
@@ -526,29 +520,72 @@ cluster_formation.consul.use_longname = true
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
 
-cluster_formation.consul.host = etcd.eng.example.local
+cluster_formation.consul.host = consul.eng.example.local
 # 5672 is used by default
 cluster_formation.consul.svc_port = 6674
 </pre>
       </p>
 
       <p>
-        Service registration will have a TTL interval set for it. Online nodes
-        will periodically send a health check update to Consul to indicate the service
-        is available. The TTL value can be configured:
+        When a node registers with Consul, it will set up a periodic <a href="https://www.consul.io/docs/agent/checks.html">health
+        check</a> for itself. Online nodes will periodically send a health check update to Consul to indicate the service
+        is available. This interval can be configured:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
 
-cluster_formation.consul.host = etcd.eng.example.local
-# node TTL in seconds
+cluster_formation.consul.host = consul.eng.example.local
+# health check interval (node TTL) in seconds
 # default: 30
 cluster_formation.consul.svc_ttl = 40
 </pre>
 
+        A node that failed its <a href="https://www.consul.io/docs/agent/checks.html">health
+        check</a> is considered to be in the warning state by Consul.
+        Such nodes can be automatically unregistered by Consul after a
+        period of time (note: this is a separate interval value from
+        the TTL above). The period cannot be less than 60 seconds.
 
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# health check interval (node TTL) in seconds
+cluster_formation.consul.svc_ttl = 30
+# how soon should nodes that fail their health checks be unregistered by Consul?
+# this value cannot be lower than 60 seconds
+cluster_formation.consul.deregister_after = 90
+</pre>
+
+        Please see a section on automatic cleanup of nodes below.
       </p>
 
+      <p>
+        If node name is computed and long node names are used, it is possible to
+        append a suffix to node names retrieved from Consul. The format is
+        <em>.node.{domain_suffix}</em>. This can be useful in environments with
+        DNS conventions, e.g. when all service nodes
+        are organised in a separate subdomain. Here's an example:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+cluster_formation.consul.svc = rabbitmq
+# do compute service address
+cluster_formation.consul.svc_addr_auto = true
+# compute service address using node name
+cluster_formation.consul.svc_addr_nodename = true
+# use long RabbitMQ node names?
+cluster_formation.consul.use_longname = true
+# append a suffix (node.rabbitmq.example.local) to node names retrieved from Consul
+cluster_formation.consul.domain_suffix = example.local
+</pre>
+
+        With this setup node names will be computed to <code>rabbit@192.168.100.1.node.example.local</code>
+        instead of <code>rabbit@192.168.100.1</code>.
+      </p>
     </doc:section>
 
     <doc:section name="peer-discovery-etcd">
@@ -626,6 +663,8 @@ cluster_formation.etcd.ttl = 40
 </pre>
 
         Key refreshes will be performed every <code>TTL/2</code> seconds.
+        It is possible to forcefully remove the nodes that fail to refresh their keys from the cluster.
+        This is covered later in this guide.
       </p>
 
       <p>
@@ -682,6 +721,39 @@ cluster_formation.etcd.cluster_name = staging
       </p>
       <p>
         Effective delay interval, if used, is logged on node boot.
+      </p>
+    </doc:section>
+
+    <doc:section name="initial-formation-race-condition">
+      <doc:heading>Node Health Checks and Cleanup</doc:heading>
+
+      <p>
+        Sometimes a node is a cluster member but not known to the discovery backend.
+        For example, consider a cluster that uses the AWS backend configured to use autoscaling group membership.
+        If an EC2 instance in that group fails and is later re-created, it will be considered
+        an unavailable node in the RabbitMQ cluster. Such unknown nodes can be logged or forcefully
+        removed from the cluster.
+      </p>
+      <p>
+        To log warnings for the unknown nodes,
+        <code>cluster_formation.node_cleanup.only_log_warning</code> should be set to
+        <code>true</code>. This is the default behavior.
+      </p>
+      <p>
+        To forcefully delete the unknown nodes from the cluster,
+        <code>cluster_formation.node_cleanup.only_log_warning</code> should be set to
+        <code>false</code>. Note that this option should be used with care, in particular
+        with discovery backends other than AWS.
+      </p>
+
+      <p>
+        Some backends (Consul, etcd) support node health checks (or TTL).
+        Nodes periodically notify their respective discovery service (e.g. Consul)
+        that they are still available. If no notifications from a node come
+        in after a period of time, the node is considered to be in the warning state.
+        With etcd, such nodes will no longer show up in discovery results. With Consul,
+        they can either be removed (deregistered) or their warning state can be
+        reported. Please see documentation for those backends to learn more.
       </p>
     </doc:section>
   </body>
