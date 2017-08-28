@@ -231,7 +231,7 @@ cluster_formation.dns.hostname = discovery.eng.example.local
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
-cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.access_key_id = ANIDEXAMPLE
 cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 </pre>
 
@@ -280,7 +280,7 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
-cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.access_key_id = ANIDEXAMPLE
 cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 
 cluster_formation.aws.use_autoscaling_group = true
@@ -307,7 +307,7 @@ cluster_formation.aws.use_autoscaling_group = true
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
-cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.access_key_id = ANIDEXAMPLE
 cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 
 cluster_formation.aws.instance_tags.region = us-east-1
@@ -331,7 +331,7 @@ cluster_formation.aws.instance_tags.environment = staging
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
-cluster_formation.aws.access_key_id = AKIDEXAMPLE
+cluster_formation.aws.access_key_id = ANIDEXAMPLE
 cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 
 cluster_formation.aws.use_autoscaling_group = true
