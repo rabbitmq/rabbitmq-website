@@ -562,6 +562,23 @@ cluster_formation.consul.deregister_after = 90
       </p>
 
       <p>
+        Nodes in the warning state are excluded from peer discovery results
+        by default. It is possible to opt into including them by setting
+        <code>cluster_formation.consul.include_nodes_with_warnings</code> to
+        <code>true</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# health check interval (node TTL) in seconds
+cluster_formation.consul.svc_ttl = 30
+# include node in the warning state into discovery result set
+cluster_formation.consul.include_nodes_with_warnings = true
+</pre>
+      </p>
+
+      <p>
         If node name is computed and long node names are used, it is possible to
         append a suffix to node names retrieved from Consul. The format is
         <em>.node.{domain_suffix}</em>. This can be useful in environments with
