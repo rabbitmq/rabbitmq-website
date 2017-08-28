@@ -427,7 +427,8 @@ cluster_formation.consul.svc = rabbitmq
         </ul>
 
         When <code>cluster_formation.consul.svc_addr_auto</code> is set to <code>false</code>,
-        service name will be taken as is from <code></code>. When it is set to <code>true</code>,
+        service name will be taken as is from <code>cluster_formation.consul.svc_addr</code>.
+         When it is set to <code>true</code>,
         other options explained below come into play.
       </p>
 
@@ -612,7 +613,7 @@ cluster_formation.consul.domain_suffix = example.local
       </p>
 
       <p>
-        To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
+        To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
         to <code>rabbit_peer_discovery_etcd</code>:
 
         <pre class="sourcecode ini">
