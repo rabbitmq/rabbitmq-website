@@ -396,8 +396,8 @@ cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount
       </p>
 
       <p>
-        Certificate and namespace paths use <code>cluster_formation.k8s.cer_path</code>
-        and <code>cluster_formation.k8s.cer_path</code>, respectively:
+        Certificate and namespace paths use <code>cluster_formation.k8s.cert_path</code>
+        and <code>cluster_formation.k8s.cert_path</code>, respectively:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
@@ -420,7 +420,7 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
       <p>
         When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
         either contain hostnames or IP addresses can be used. This is configrable using the
-        <code>cluster_formation.k8s.cer_path</code> key:
+        <code>cluster_formation.k8s.cert_path</code> key:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
@@ -461,7 +461,7 @@ cluster_formation.k8s.hostname_suffix = rmq.eng.example.local
 
       <p>
         Service name is <code>rabbitmq</code> by default but can be overridden using the
-        <code>cluster_formation.k8s.cer_path</code> key if needed:
+        <code>cluster_formation.k8s.service_name</code> key if needed:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
