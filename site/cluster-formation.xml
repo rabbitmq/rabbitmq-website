@@ -416,6 +416,66 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
         Just like with the token path key both must point to a local
         file that exists and is readable by RabbitMQ.
       </p>
+
+      <p>
+        When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
+        either contain hostnames or IP addresses can be used. This is configrable using the
+        <code>cluster_formation.k8s.cer_path</code> key:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+
+cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
+cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
+
+# should result set use hostnames or IP addresses
+# of Kubernetes API-reported containers?
+# supported values are "hostname" and "ip"
+cluster_formation.k8s.address_type = ip
+</pre>
+
+        Supported values are <code>ip</code> or <code>hostname</code>, the former
+        is used by default.
+      </p>
+
+      <p>
+        It is possible to append a suffix to peer hostnames returned by Kubernetes using
+        <code>cluster_formation.k8s.hostname_suffix</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+
+cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
+cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
+
+# no suffix is appended by default
+cluster_formation.k8s.hostname_suffix = rmq.eng.example.local
+</pre>
+      </p>
+
+      <p>
+        Service name is <code>rabbitmq</code> by default but can be overridden using the
+        <code>cluster_formation.k8s.cer_path</code> key if needed:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+
+cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
+cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
+
+# overrides Kubernetes service name. Default value is "rabbitmq".
+cluster_formation.k8s.service_name = rmq-qa
+</pre>
+      </p>
     </doc:section>
 
     <doc:section name="peer-discovery-consul">
