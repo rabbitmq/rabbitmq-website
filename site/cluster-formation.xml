@@ -344,7 +344,77 @@ cluster_formation.aws.use_private_ip = true
     <doc:section name="peer-discovery-k8s">
       <doc:heading>Peer Discovery on Kubernetes</doc:heading>
 
-      <p>TBD
+      <p>
+        An <a href="https://kubernetes.io/">Kubernetes</a>-based discovery mechanism
+        is available via <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">a plugin</a>.
+      </p>
+
+      <p>
+        Nodes register with Kubernetes on boot and unregister when they
+        leave. This backend relies on randomized startup delay to reduce
+        the probability of a race condition during initial cluster formation (see below).
+      </p>
+
+      <p>
+        To use Kubernetes for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
+        to <code>rabbit_peer_discovery_k8s</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+# Kubernetes API hostname (or IP address). Default value is etcd.eng.example.local
+cluster_formation..host = kubernetes.default.example.local
+</pre>
+      </p>
+
+      <p>
+        It is possible to configure Kubernetes API port and URI scheme:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+# 443 is used by default
+cluster_formation.k8s.port = 443
+# https is used by default
+cluster_formation.k8s.scheme = https
+</pre>
+      </p>
+
+      <p>
+        Kubernetes token file path is configurable via <code>cluster_formation.k8s.token_path</code>:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+# default value is /var/run/secrets/kubernetes.io/serviceaccount/token
+cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
+</pre>
+
+        It must point to a local file that exists and is readable by RabbitMQ.
+      </p>
+
+      <p>
+        Certificate and namespace paths use <code>cluster_formation.k8s.cer_path</code>
+        and <code>cluster_formation.k8s.cer_path</code>, respectively:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+# default value is /var/run/secrets/kubernetes.io/serviceaccount/token
+cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount/token
+
+# default value is /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+cluster_formation.k8s.cert_path = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+# default value is /var/run/secrets/kubernetes.io/serviceaccount/namespace
+cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceaccount/namespace
+</pre>
+
+        Just like with the token path key both must point to a local
+        file that exists and is readable by RabbitMQ.
       </p>
     </doc:section>
 
@@ -352,8 +422,9 @@ cluster_formation.aws.use_private_ip = true
       <doc:heading>Peer Discovery Using Consul</doc:heading>
 
       <p>
-        An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based</a> discovery mechanism
-        is available via a plugin. <a href="https://www.consul.io">Consul</a> 0.8.0 and later versions are supported.
+        A <a href="https://www.consul.io">Consul</a>-based discovery mechanism
+        is available via <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">a plugin</a>.
+        Consul 0.8.0 and later versions are supported.
       </p>
 
       <p>
@@ -610,8 +681,8 @@ cluster_formation.consul.domain_suffix = example.local
       <doc:heading>Peer Discovery Using etcd</doc:heading>
 
       <p>
-        An <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based</a> discovery mechanism
-        is available via a plugin. <a href="https://coreos.com/etcd">etcd</a> v3 and v2 are supported.
+        An <a href="https://coreos.com/etcd">etcd</a>-based discovery mechanism
+        is available via <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">a plugin</a>. etcd v3 and v2 are supported.
       </p>
 
       <p>
