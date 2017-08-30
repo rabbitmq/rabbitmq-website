@@ -169,8 +169,8 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
         addresses return <code>node1.eng.example.local</code> and
         <code>node2.eng.example.local</code>, respectively. Current node's name is not
         set and defaults to <code>rabbit@$(hostname)</code>.
-        The final list of nodes discovered will contain two nodes: <code>node1.eng.example.local</code>
-        and <code>node2.eng.example.local</code>.
+        The final list of nodes discovered will contain two nodes: <code>rabbit@node1.eng.example.local</code>
+        and <code>rabbit@node2.eng.example.local</code>.
       </p>
 
       <p>
@@ -793,7 +793,7 @@ cluster_formation.etcd.scheme = http
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
-# rabbit is used by default
+# rabbitmq is used by default
 cluster_formation.etcd.key_prefix = rabbitmq_discovery
 </pre>
       </p>
