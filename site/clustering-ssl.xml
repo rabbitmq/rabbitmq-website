@@ -23,7 +23,7 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Clustering Communication using TLS (SSL)</title>
+    <title>Securing Cluster (Inter-node) and CLI Tool Communication with TLS (SSL)</title>
   </head>
   <body>
       <doc:section name="intro">
@@ -38,7 +38,7 @@ limitations under the License.
         <doc:heading>Linux</doc:heading>
         <p>First we need to create the TLS certificate that's going to
         be used by the Erlang distribution mechanism. We assume you have done
-        that already, otherwise follow the guide <a href="/ssl.html">here</a>.
+        that already, otherwise follow the main <a href="/ssl.html">TLS guide</a>.
         Once we have our certificates ready we need to concatenate the server
         certificate and key into one file, for example, assuming we have the
         files <code>server_certificate.pem</code> and
@@ -139,7 +139,7 @@ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
       <doc:section name="how-to-windows">
         <doc:heading>Windows</doc:heading>
 
-        <p>Coming soon.</p>
+        <p>TBD.</p>
 
       </doc:section>
   </body>
