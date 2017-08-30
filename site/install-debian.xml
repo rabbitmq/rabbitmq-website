@@ -101,6 +101,7 @@ limitations under the License.
              <td>20.x</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
+               <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. <strong>NOT SUPPORTED</strong> by earlier versions.
              </td>
            </tr>
            <tr>
