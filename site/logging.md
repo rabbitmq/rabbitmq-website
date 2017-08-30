@@ -6,7 +6,7 @@ This guide describes various aspects of logging in RabbitMQ:
 
  * Log file location
  * Log levels
- * Log categories 
+ * Log categories
  * Supported log outputs
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
@@ -158,10 +158,16 @@ The categories are:
 It is possible to configure a different log level or file location for each message category
 using `log.<category>.level` and `log.<category>.file` configuration variables.
 
-For example, the following will enable debug logging for connection events:
+By default each category will not filter by level. So if you have an output configured
+to log `debug` messages, the debug messages will be printed from all categories,
+unless a category level is configured.
+
+For example, given debug level in the file output,
+the following will disable debug logging for connection events:
 
 <pre class="sourcecode ini">
-log.connection.level = debug
+log.file.level = debug
+log.connection.level = info
 </pre>
 
 Or, using the [classic configuration format](/configure.html):
@@ -169,9 +175,10 @@ Or, using the [classic configuration format](/configure.html):
 <pre class="sourcecode erlang">
 [{rabbit,
     [{log,
-        [{categories,
+        [{file, [{level, debug}]},
+         {categories,
             [{connection,
-                [{level, debug}]
+                [{level, info}]
             }]
         }]
     }]
@@ -235,16 +242,14 @@ The following log levels are used by RabbitMQ:
 | `critical` | 4        |
 | `none`     | 0        |
 
-By default all categories and inputs use the `info` log level:
-
-<pre class="sourcecode ini">
-log.default.level = info
-</pre>
 
 When a message is logged, if the level number is higher than the category level,
 the message will be dropped and not sent to outputs.
 
-To only log errors or higher severity messages, use
+If a category level is not configured, it's messages will always be sent
+to outputs.
+
+To make the `default` category log only errors or higher severity messages, use
 
 <pre class="sourcecode ini">
 log.default.level = error
@@ -260,39 +265,32 @@ For example if no outputs are configured to log
 `debug` messages, even if you set a category level to `debug`, the
 debug messages will not be logged.
 
-Similarly, if log level is set to `debug`, debug messages will
-not be logged unless message category level is also set to `debug`.
-
+Although, if an output is configured to log `debug` messages,
+it will get them from all categories, unless a category level is configured.
 
 ### Enabling Debug Logging
 
-To enable debug messages, you should have a debug output and a debug category
-configured.
+To enable debug messages, you should have a debug output.
 
-For example to log connection debug messages to a file:
+For example to log debug messages to a file:
 
 <pre class="sourcecode ini">
 log.file.level = debug
-log.connection.level = debug
 </pre>
 
 In the [classic config format](/configure.html#config-file-formats):
 
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
-    {file, [{level, debug}]},
-    {categories, [
-        {connection, [{level, debug}]}]}
-    ]}]
+    {file, [{level, debug}]}]
 }].
 </pre>
 
-To print default log message to standard out:
+To print log messages to standard out:
 
 <pre class="sourcecode ini">
 log.console.enabled = true
 log.console.level = debug
-log.default.level = debug
 </pre>
 
 In the [classic config format](/configure.html#config-file-formats):
@@ -300,25 +298,18 @@ In the [classic config format](/configure.html#config-file-formats):
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
     {console, [{enabled, true},
-               {level, debug}]},
-    {categories, [
-        {default, [{level, debug}]}]}
+               {level, debug}]}
     ]}]
 }].
 </pre>
 
-To enable debug logging for all categories:
+To disable debug logging for some categories:
 
 <pre class="sourcecode ini">
 log.file.level = debug
 
-log.connection.level = debug
-log.channel.level = debug
-log.queue.level = debug
-log.mirroring.level = debug
-log.federation.level = debug
-log.upgrade.level = debug
-log.default.level = debug
+log.connection.level = info
+log.channel.level = info
 </pre>
 
 In the [classic config format](/configure.html#config-file-formats):
@@ -327,13 +318,9 @@ In the [classic config format](/configure.html#config-file-formats):
 [{rabbit, [{log, [
     {file, [{level, debug}]},
     {categories, [
-        {connection, [{level, debug}]},
-        {channel, [{level, debug}]},
-        {queue, [{level, debug}]},
-        {mirroring, [{level, debug}]},
-        {federation, [{level, debug}]},
-        {upgrade, [{level, debug}]},
-        {default, [{level, debug}]}]}
+        {connection, [{level, info}]},
+        {channel, [{level, info}]}
+        ]}
     ]}]
 }].
 </pre>
@@ -404,19 +391,19 @@ under the hood and it looks like this:
              {size,0}]}]},
     {extra_sinks,
        [{error_logger_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_channel_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_connection_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_mirroring_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_queue_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_federation_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,info]}]}]},
+            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
         {rabbit_log_upgrade_lager_event,
             [{handlers,
                 [{lager_file_backend,
@@ -460,19 +447,19 @@ then generated handlers configuration will look something like this:
             {size,0}]
         }]},
      {extra_sinks,
-        [{error_logger_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event, info]}]}]},
+        [{error_logger_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event, inherit]}]}]},
          {rabbit_log_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                       info]}]}]},
+                                                                       inherit]}]}]},
          {rabbit_log_channel_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                               info]}]}]},
+                                                                               inherit]}]}]},
          {rabbit_log_connection_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                  info]}]}]},
+                                                                                  inherit]}]}]},
          {rabbit_log_mirroring_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                 info]}]}]},
+                                                                                 inherit]}]}]},
          {rabbit_log_queue_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                             info]}]}]},
+                                                                             inherit]}]}]},
          {rabbit_log_federation_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                  info]}]}]},
+                                                                                  inherit]}]}]},
          {rabbit_log_upgrade_lager_event,
             [{handlers,
                 [{lager_console_backend,
