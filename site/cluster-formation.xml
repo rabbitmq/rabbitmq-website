@@ -362,8 +362,8 @@ cluster_formation.aws.use_private_ip = true
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
 
-# Kubernetes API hostname (or IP address). Default value is etcd.eng.example.local
-cluster_formation..host = kubernetes.default.example.local
+# Kubernetes API hostname (or IP address). Default value is kubernetes.default.svc.cluster.local
+cluster_formation.k8s.host = kubernetes.default.example.local
 </pre>
       </p>
 
@@ -419,7 +419,7 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 
       <p>
         When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
-        either contain hostnames or IP addresses can be used. This is configrable using the
+        either contain hostnames or IP addresses can be used. This is configurable using the
         <code>cluster_formation.k8s.cert_path</code> key:
 
         <pre class="sourcecode ini">
