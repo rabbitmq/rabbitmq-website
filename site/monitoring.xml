@@ -1,0 +1,113 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent">
+%entities;
+]>
+<!--
+Copyright (c) 2007-2017 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>Monitoring</title>
+  </head>
+  <body show-in-this-page="true">
+    <p class="intro">The links below highlight some of our favourite content on this site and the
+      web that will help you get started with messaging and RabbitMQ. If you are just starting out
+      with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started
+      tutorials</a>. If you feel we have missed something or would like to suggest more links please
+      <a href="contact.html">contact us</a>.
+    </p>
+    <doc:section name="management">
+      <doc:heading>Management and Monitoring</doc:heading>
+      <p>
+        Management and monitoring capabilities are provided
+        by <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>
+        and <a href="management.html">the management plugin</a>.
+      </p>
+      <p>
+        In addition there are several community-maintained
+        tools. Please treat these as experimental and send feedback
+        to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">the
+        list</a>.
+      </p>
+
+      <ul>
+    <li>
+      <a href="management.html">RabbitMQ Management Plugin</a><br />
+      The management plugin provides a web interface and HTTP API
+      for managing and monitoring RabbitMQ.
+    </li>
+    <li>
+      <a href="https://github.com/jamesc/nagios-plugins-rabbitmq">Nagios Plugins for RabbitMQ</a><br />
+      A set of Nagios checks useful for monitoring a RabbitMQ server. They interface with the RabbitMQ Management plugin
+      over HTTP and therefore have a very light profile on the Nagios server.
+    </li>
+    <li>
+      <a href="https://github.com/ask/rabbitmq-munin">Munin Plugins for RabbitMQ</a><br />
+      Plugins for monitoring a RabbitMQ server with <a href="http://munin-monitoring.org">Munin</a>.
+    </li>
+    <li>
+      <a href="https://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
+      RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
+    </li>
+    <li>
+      <a href="https://github.com/auser/alice">Alice</a> and
+      <a href="https://github.com/auser/wonderland">Wonderland</a><br />
+      Provide RESTful administration and monitoring of RabbitMQ nodes and a
+      WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
+    </li>
+    <li>
+      <a href="https://github.com/opscode/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+      A cookbook for managing RabbitMQ with Chef.
+    </li>
+    <li>
+      <a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
+      A simple example of how to configure Zabbix (an open source monitoring and
+      graphing tool) to monitor queue and exchange statistics in RabbitMQ.
+    </li>
+    <li>
+      <a href="https://github.com/paukul/humpty">Humpty</a><br />
+      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="https://github.com/auser/alice">alice</a>)
+      and AMQP.
+    </li>
+    <li>
+      <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Monitoring RabbitMQ with Zenoss</a><br />
+      A video showing you how to monitor RabbitMQ with <a href="http://community.zenoss.org/">Zenoss</a>
+    </li>
+    <li>
+      <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
+      A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
+    </li>
+    <li>
+      <a href="https://github.com/gmr/Cony">Cony</a><br />
+      A HTTP based service written in Python for providing insight into running
+      RabbitMQ processes.
+    </li>
+    <li>
+      <a href="https://github.com/aaronfeng/trixx">Trixx</a><br />
+      An administration and monitoring tool written in Clojure so available for all
+      languages that run on JVM.
+    </li>
+    <li>
+      <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and
+      <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
+      More links to what others are doing to manage and monitor RabbitMQ.
+    </li>
+      </ul>
+    </doc:section>
+  </body>
+</html>
