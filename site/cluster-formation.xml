@@ -236,7 +236,7 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 </pre>
 
           If region is left unconfigured, <code>us-east-1</code> will be used by default.
-          Sensitive values in configuration file can optionally <a href="/configure.html">be encrypted</a>.
+          Sensitive values in configuration file can optionally <a href="/configure.html#configuration-encryption">be encrypted</a>.
         </p>
 
         <p>
@@ -493,7 +493,7 @@ cluster_formation.k8s.service_name = rmq-qa
         lock in Consul to reduce the probability of a race condition
         during initial cluster formation (see below).
         When a node registers with Consul, it will set up a periodic <a href="https://www.consul.io/docs/agent/checks.html">health
-        check</a> for itself.
+        check</a> for itself (more on this below).
       </p>
 
       <p>
@@ -549,7 +549,7 @@ cluster_formation.consul.svc = rabbitmq
         Service hostname (address) as registered in Consul will be fetched by peers
         and therefore must resolve on all nodes.
         The hostname can be computed by the plugin or specified by the user. When computed automatically,
-        a number of node and OS properties can be used:
+        a number of nodes and OS properties can be used:
 
         <ul>
           <li>Hostname (as returned by <code>gethostname(2)</code>)</li>
