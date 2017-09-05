@@ -47,15 +47,32 @@ limitations under the License.
       <doc:heading>RabbitMQ Metrics</doc:heading>
       <p>
         RabbitMQ metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-        or via several <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a> commands.
+        or via several <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a> commands. It is
+        recommended to collect metrics at 60 second intervals. More frequent collection may place too
+        much load on the RabbitMQ server and negatively affect performance.
       </p>
       <p>
-      <ul>
-        <li>M
-      </ul>
+        <table>
+          <thead>
+            <tr><td>Metric</td><td>JSON field name</td></tr>
+          </thead>
+          <tbody>
+            <tr><td>Memory</td><td><code>memory</code></td></tr>
+            <tr><td>Queued Messages</td><td><code>messages</code></td></tr>
+            <tr><td>Un-acked Messages</td><td><code>messages_unacknowledged</code></td></tr>
+            <tr><td>Messages Published</td><td><code>message_stats.publish</code></td></tr>
+            <tr><td>Message Publish Rate</td><td><code>message_stats.publish_details.rate</code></td></tr>
+            <tr><td>Messages Delivered</td><td><code>message_stats.deliver_get</code></td></tr>
+            <tr><td>Message Delivery Rate</td><td><code>message_stats.deliver_get.rate</code></td></tr>
+            <tr><td>Other Message Stats</td><td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td></tr>
+          </tbody>
+        </table>
+      </p>
     </doc:section>
     <doc:section name="third-party-monitoring-tools">
       <doc:heading>Third Party Monitoring Tools</doc:heading>
+      <p>
+      </p>
     </doc:section>
   </body>
 </html>
