@@ -46,10 +46,16 @@ limitations under the License.
     <doc:section name="rabbitmq-metrics">
       <doc:heading>RabbitMQ Metrics</doc:heading>
       <p>
+        The RabbitMQ <a href="management.html">management plugin</a> provides a starting point for
+        monitoring RabbitMQ metrics. One limitation, however, is that only up to one day's worth of
+        metrics are stored. Storing historical metrics can be an important tool to determine the root
+        cause of issues affecting your users or to plan for future capacity.
+      </p>
+      <p>
         RabbitMQ metrics are made available through the <a href="management.html#http-api">HTTP API</a>
         or via several <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a> commands. It is
-        recommended to collect metrics at 60 second intervals. More frequent collection may place too
-        much load on the RabbitMQ server and negatively affect performance.
+        recommended to collect metrics at 60 second intervals because more frequent collection may place
+        too much load on the RabbitMQ server and negatively affect performance.
       </p>
       <p>
         <table>
@@ -72,6 +78,26 @@ limitations under the License.
     <doc:section name="third-party-monitoring-tools">
       <doc:heading>Third Party Monitoring Tools</doc:heading>
       <p>
+        The following is an alphabetized list of third-party tools to collect RabbitMQ metrics.
+      </p>
+      <p>
+        <table>
+          <thead>
+            <tr><td>Plugin</td><td>Online Resource(s)</td></tr>
+          </thead>
+          <tbody>
+            <tr><td>AppDynamics</td><td><a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>, <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a></td></tr>
+            <tr><td><code>collectd</code></td><td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td></tr>
+            <tr><td>DataDog</td><td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog-RabbitMQ Integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td></tr>
+            <tr><td>Ganglia</td><td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td></tr>
+            <tr><td>Graphite</td><td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td></tr>
+            <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin homepage</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
+            <tr><td>Nagios</td><td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td></tr>
+            <tr><td>New Relic</td><td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td></tr>
+            <tr><td>Zabbix</td><td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td></tr>
+            <tr><td>Zenoss</td><td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td></tr>
+          </tbody>
+        </table>
       </p>
     </doc:section>
   </body>
