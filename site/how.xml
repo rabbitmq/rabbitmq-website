@@ -210,41 +210,22 @@ limitations under the License.
         and <a href="management.html">the management plugin</a>.
       </p>
       <p>
-        Please refer to the <a href="monitoring.html">monitoring documentation</a>
-        for information on monitoring your RabbitMQ server(s).
+        Please refer to <a href="monitoring.html">the monitoring page</a> for
+        information about RabbitMQ monitoring.
       </p>
       <p>
         In addition there are several community-maintained tools.
         Please treat these as experimental and send feedback to
-        <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">the list</a>.
+        <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">the mailing list</a>.
       </p>
       <ul>
         <li>
-          <a href="management.html">RabbitMQ Management Plugin</a><br />
-          The management plugin provides a web interface and HTTP API
-          for managing and monitoring RabbitMQ.
-        </li>
-        <li>
-          <a href="https://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
-          RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
-        </li>
-        <li>
-          <a href="https://github.com/opscode/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+          <a href="https://github.com/rabbitmq/chef-cookbook">Chef Cookbook</a><br />
           A cookbook for managing RabbitMQ with Chef.
         </li>
         <li>
-          <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
-          A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
-        </li>
-        <li>
-          <a href="https://github.com/gmr/Cony">Cony</a><br />
-          A HTTP based service written in Python for providing insight into running
-          RabbitMQ processes.
-        </li>
-        <li>
-          <a href="https://github.com/aaronfeng/trixx">Trixx</a><br />
-          An administration and monitoring tool written in Clojure so available for all
-          languages that run on JVM.
+          <a href="https://forge.puppet.com/puppetlabs/rabbitmq">Puppet Module</a><br />
+          A module for managing RabbitMQ with Puppet.
         </li>
         <li>
           <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and

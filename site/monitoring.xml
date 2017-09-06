@@ -78,7 +78,8 @@ limitations under the License.
     <doc:section name="third-party-monitoring-tools">
       <doc:heading>Third Party Monitoring Tools</doc:heading>
       <p>
-        The following is an alphabetized list of third-party tools to collect RabbitMQ metrics.
+        The following is an alphabetized list of third-party tools to collect RabbitMQ metrics. These
+        tools have the capability to monitor the recommended system and RabbitMQ metrics.
       </p>
       <p>
         <table>
