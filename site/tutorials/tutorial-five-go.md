@@ -317,7 +317,7 @@ func main() {
         }()
 
         log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
-        &lt;forever
+        &lt;-forever
 }
 </pre>
 

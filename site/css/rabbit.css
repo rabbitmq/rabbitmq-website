@@ -31,8 +31,8 @@ body, table {
 	letter-spacing: 0.01em;
 	font-weight: 400;
 	background: white;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	/*-webkit-font-smoothing: antialiased;*/
+	/*-moz-osx-font-smoothing: grayscale;*/
 }
 
 body {
