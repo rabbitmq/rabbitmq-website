@@ -32,6 +32,45 @@ limitations under the License.
       -->
 
    <doc:item>
+      <doc:date iso="2017-09-11T18:00:00+03:00">11 September 2017</doc:date>
+      <doc:title>RabbitMQ 3.6.12 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12">RabbitMQ 3.6.12</a>.
+        </p>
+
+        <p>
+          This is a bug fix release.
+        </p>
+
+        <p>
+          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          Please refer to the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM installation guides</a> for Debian/Ubuntu and RHEL/CentOS installation instructions.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12">GitHub</a>,
+          <a href="https://bintray.com/rabbitmq/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>,
+          as well as <a href="http://www.rabbitmq.com/download.html">rabbitmq.com</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+   <doc:item>
       <doc:date iso="2017-08-16T18:00:00+03:00">16 August 2017</doc:date>
       <doc:title>RabbitMQ 3.6.11 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_11</doc:link>
