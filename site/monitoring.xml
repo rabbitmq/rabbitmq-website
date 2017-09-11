@@ -53,9 +53,9 @@ limitations under the License.
       </p>
       <p>
         RabbitMQ metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-        or via several <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a> commands. It is
-        recommended to collect metrics at 60 second intervals because more frequent collection may place
-        too much load on the RabbitMQ server and negatively affect performance.
+        via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
+        endpoint. It is recommended to collect metrics at 60 second intervals because more frequent
+        collection may place too much load on the RabbitMQ server and negatively affect performance.
       </p>
       <p>
         <table>
@@ -78,7 +78,7 @@ limitations under the License.
     <doc:section name="third-party-monitoring-tools">
       <doc:heading>Third Party Monitoring Tools</doc:heading>
       <p>
-        The following is an alphabetized list of third-party tools to collect RabbitMQ metrics. These
+        The following is an alphabetised list of third-party tools to collect RabbitMQ metrics. These
         tools have the capability to monitor the recommended system and RabbitMQ metrics.
       </p>
       <p>
