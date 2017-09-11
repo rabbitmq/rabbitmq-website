@@ -224,7 +224,7 @@ limitations under the License.
           A cookbook for managing RabbitMQ with Chef.
         </li>
         <li>
-          <a href="https://forge.puppet.com/puppetlabs/rabbitmq">Puppet Module</a><br />
+          <a href="https://forge.puppet.com/puppet/rabbitmq">Puppet Module</a><br />
           A module for managing RabbitMQ with Puppet.
         </li>
         <li>
