@@ -88,7 +88,7 @@ limitations under the License.
 
 
     <doc:section name="resource-limits">
-      <doc:heading>Resource Limits</doc:heading>
+      <doc:heading>Resource Limits and Monitoring</doc:heading>
 
       <p>
         RabbitMQ uses <a href="/alarms.html">Resource-driven alarms</a>
@@ -137,7 +137,7 @@ limitations under the License.
           the best setting for your environment and workload.
         </p>
         <p>
-           <a href="/memory.html">Learn more about RabbitMQ &amp; system memory</a>
+           <a href="/memory.html">Learn more about RabbitMQ &amp; system memory</a> in a separate guide.
         </p>
       </doc:subsection>
 
@@ -204,7 +204,7 @@ limitations under the License.
         <p>
           Make sure your environment allows for at least 50K open file descriptors for effective RabbitMQ
           user, including in development environments.
-        </p>        
+        </p>
         <p>
           As a rule of thumb, multiple the 95th percentile number of concurrent connections
           by 2 and add total number of queues to calculate recommended open file handle limit.
@@ -213,9 +213,27 @@ limitations under the License.
           setups.
 
           See <a href="/networking.html">Networking guide</a>
-          for more information.          
+          for more information.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="monitoring">
+        <doc:heading>Monitoring</doc:heading>
+        <p>
+          <a href="/monitoring.html">Monitoring</a> several aspects of the system, from
+          infrastructure and kernel metrics to RabbitMQ to application-level metrics is highly recommended.
+          While monitoring requires an upfront investment in terms of time, it is very effective
+          at catching issues early (or at all).
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="logging">
+        <doc:heading>Log Collection</doc:heading>
+        <p>
+          It is highly recommended that logs of all RabbitMQ nodes and applications (when possible) are collected
+          and aggregated. Logs can be crucially important in investigating unusual system behaviour.
+        </p>
+      </doc:subsection>      
     </doc:section>
 
 
@@ -252,6 +270,11 @@ limitations under the License.
           default (e.g. SSLv3 is disabled), we recommend evaluating
           what TLS versions and cipher suites are enabled.  Please see
           our <a href="/ssl.html">TLS guide</a> for more information.
+        </p>
+
+        <p>
+          Note that TLS can have significant impact on overall system throughput,
+          including CPU usage of both RabbitMQ and applications that use it.
         </p>
       </doc:subsection>
     </doc:section>
