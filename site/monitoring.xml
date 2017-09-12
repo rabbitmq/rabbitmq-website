@@ -1,0 +1,154 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent">
+%entities;
+]>
+<!--
+Copyright (c) 2007-2017 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>Monitoring</title>
+  </head>
+  <body show-in-this-page="true">
+    <p class="intro">This document is intended to guide you on which RabbitMQ and system metrics
+      are most important to monitor. Monitoring your RabbitMQ installation is an effective means
+      to intercept issues before they affect the rest of your environment and, eventually, your
+      users.
+    </p>
+    <doc:section name="system-metrics">
+      <doc:heading>Infrastructure and Kernel Metrics</doc:heading>
+
+      <p>
+        First step towards a useful monitoring system starts with infrastructure and
+        kernel metrics. There are quite a few of them but some are more important than others.
+        The following metrics should be monitored on all nodes in a RabbitMQ cluster and, if possible,
+        all nodes that host applications:
+
+        <ul>
+          <li>CPU (idle, user, system, iowait)</li>
+          <li>Memory (free, cached, buffered)</li>
+          <li>Disk I/O (reads &amp; writes per unit time, I/O wait percentages)</li>
+          <li>Free Disk Space</li>
+          <li>File descriptors used by <code>beam.smp</code> vs. max system limit</li>
+          <li>Network throughput (bytes received, bytes sent) vs. maximum network link throughput</li>
+          <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">VM</a> statistics (dirty page flushes, writeback volume)</li>
+          <li>System load average (<code>/proc/loadavg</code>)</li>
+        </ul>
+      </p>
+
+      <p>
+        There is no shortage of existing tools (such as Graphite or Datadog) that collect infrastructure
+        and kernel metrics, store and visualise them over periods of time.
+      </p>
+    </doc:section>
+
+    <doc:section name="rabbitmq-metrics">
+      <doc:heading>RabbitMQ Metrics</doc:heading>
+      <p>
+        The RabbitMQ <a href="management.html">management plugin</a> provides a starting point for
+        monitoring RabbitMQ metrics. One limitation, however, is that only up to one day's worth of
+        metrics are stored. Storing historical metrics can be an important tool to determine the root
+        cause of issues affecting your users or to plan for future capacity.
+      </p>
+      <p>
+        RabbitMQ metrics are made available through the <a href="management.html#http-api">HTTP API</a>
+        via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
+        endpoint. It is recommended to collect metrics at 60 second intervals because more frequent
+        collection may place too much load on the RabbitMQ server and negatively affect performance.
+      </p>
+      <p>
+        <table>
+          <thead>
+            <tr><td>Metric</td><td>JSON field name</td></tr>
+          </thead>
+          <tbody>
+            <tr><td>Memory</td><td><code>memory</code></td></tr>
+            <tr><td>Queued Messages</td><td><code>messages</code></td></tr>
+            <tr><td>Un-acked Messages</td><td><code>messages_unacknowledged</code></td></tr>
+            <tr><td>Messages Published</td><td><code>message_stats.publish</code></td></tr>
+            <tr><td>Message Publish Rate</td><td><code>message_stats.publish_details.rate</code></td></tr>
+            <tr><td>Messages Delivered</td><td><code>message_stats.deliver_get</code></td></tr>
+            <tr><td>Message Delivery Rate</td><td><code>message_stats.deliver_get.rate</code></td></tr>
+            <tr><td>Other Message Stats</td><td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td></tr>
+          </tbody>
+        </table>
+      </p>
+    </doc:section>
+
+    <doc:section name="third-party-monitoring-tools">
+      <doc:heading>Third Party Monitoring Tools</doc:heading>
+      <p>
+        The following is an alphabetised list of third-party tools to collect RabbitMQ metrics. These
+        tools have the capability to monitor the recommended system and RabbitMQ metrics.
+      </p>
+      <p>
+        <table>
+          <thead>
+            <tr><td>Plugin</td><td>Online Resource(s)</td></tr>
+          </thead>
+          <tbody>
+            <tr><td>AppDynamics</td><td><a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>, <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a></td></tr>
+            <tr><td><code>collectd</code></td><td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td></tr>
+            <tr><td>DataDog</td><td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog-RabbitMQ Integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td></tr>
+            <tr><td>Ganglia</td><td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td></tr>
+            <tr><td>Graphite</td><td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td></tr>
+            <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin homepage</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
+            <tr><td>Nagios</td><td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td></tr>
+            <tr><td>New Relic</td><td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td></tr>
+            <tr><td>Zabbix</td><td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td></tr>
+            <tr><td>Zenoss</td><td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td></tr>
+          </tbody>
+        </table>
+      </p>
+    </doc:section>
+
+    <doc:section name="app-metrics">
+      <doc:heading>Application-level Metrics</doc:heading>
+      <p>
+        A system that uses RabbitMQ, or any messaging-based system, is almost always distributed or can
+        be treated as such. In such systems it is often not immediately obvious which component
+        is problematic. Every single one of them, including applications, should be monitored and
+        investigated.
+      </p>
+      <p>
+       Some infrastructure-level and RabbitMQ metrics can demonstrate
+       presence of an unusual system behaviour or issue but can't pin
+       point the root cause. For example, it is easy to tell that a
+       node is running out of disk space but not always easy to tell why.
+       This is where application metrics come in: they can help identify
+       a run-away publisher, a repeatedly failing consumer, a consumer that cannot
+       keep up with the rate, even a downstream service that's experiencing a slowdown
+       (e.g. a missing index in a database used by the consumers).
+      </p>
+      <p>
+        Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. Spring AMQP)
+        provide means of registering metrics collectors or collect metrics out of the box.
+      </p>
+    </doc:section>
+
+    <doc:section name="log-collection">
+      <doc:heading>Log Aggregation</doc:heading>
+      <p>
+        While not technically a metric, one more piece of information can be very useful
+        in troubleshooting a multi-service distributed system: logs. Consider collecting logs
+        from all RabbitMQ nodes as well as all applications (if possible). Like metrics,
+        logs can provide important clues that will help identify the root cause.
+      </p>
+    </doc:section>
+  </body>
+</html>

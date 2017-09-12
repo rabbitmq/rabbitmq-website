@@ -112,6 +112,9 @@ limitations under the License.
 
       <ul>
         <li>
+          <a href="monitoring.html">Monitoring Best Practices</a>
+        </li>
+        <li>
           <a href="management.html">Management UI and HTTP API</a>
         </li>
         <li>
@@ -121,13 +124,13 @@ limitations under the License.
           <a href="event-exchange.html">Internal Event Exchange</a>
         </li>
         <li>
-          <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
+          <a href="web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
         </li>
         <li>
           <a href="firehose.html">Message Tracing</a>
         </li>
         <li>
-          <a href="/amqp-wireshark.html">Capturing Traffic with Wireshark</a>
+          <a href="amqp-wireshark.html">Capturing Traffic with Wireshark</a>
         </li>
       </ul>
     </div>
