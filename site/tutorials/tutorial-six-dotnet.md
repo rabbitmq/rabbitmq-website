@@ -331,7 +331,7 @@ public class RpcClient
     private readonly IModel channel;
     private readonly string replyQueueName;
     private readonly EventingBasicConsumer consumer;
-    private readonly BlockingCollection<string> respQueue = new BlockingCollection<string>();
+    private readonly BlockingCollection&lt;string&gt; respQueue = new BlockingCollection&lt;string&gt;();
     private readonly IBasicProperties props;
 
 public RpcClient()
@@ -348,7 +348,7 @@ public RpcClient()
         props.CorrelationId = correlationId;
         props.ReplyTo = replyQueueName;
 
-        consumer.Received += (model, ea) =>
+        consumer.Received += (model, ea) =&gt;
         {
             var body = ea.Body;
             var response = Encoding.UTF8.GetString(body);
