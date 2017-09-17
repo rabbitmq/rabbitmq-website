@@ -17,10 +17,16 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using the pika 0.10.0 Python client)
+### (using the Pika Python client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
+### Prerequisites
+
+As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
+[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+
+### What This Tutorial Focuses On
 
 In the [second tutorial](tutorial-two-python.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
