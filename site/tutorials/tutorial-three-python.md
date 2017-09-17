@@ -21,7 +21,7 @@ limitations under the License.
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-### Pre-requisites
+### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
 [version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
