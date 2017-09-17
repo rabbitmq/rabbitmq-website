@@ -183,6 +183,9 @@ limitations under the License.
                 <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
               </li>
               <li>
+                <a href="monitoring.html">Monitoring</a>
+              </li>
+              <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
               <li>
@@ -227,6 +230,9 @@ limitations under the License.
           <li>
             Guidelines:
             <ul>
+              <li>
+                <a href="monitoring.html">Monitoring</a>
+              </li>
               <li>
                 <a href="production-checklist.html">Production Checklist</a>
               </li>
