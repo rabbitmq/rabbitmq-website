@@ -17,9 +17,14 @@ limitations under the License.
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 ## Work Queues
-### (using the pika 0.10.0 Python client)
+### (using the Pika Python client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
+
+### Pre-requisites
+
+As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
+[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -41,6 +46,7 @@ limitations under the License.
   </div>
 </div>
 
+### What This Tutorial Focuses On
 
 In the [first tutorial](tutorial-one-python.html) we
 wrote programs to send and receive messages from a named queue. In this
@@ -57,9 +63,6 @@ job. When you run many workers the tasks will be shared between them.
 This concept is especially useful in web applications where it's
 impossible to handle a complex task during a short HTTP request
 window.
-
-Preparation
-------------
 
 In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex

@@ -17,9 +17,16 @@ limitations under the License.
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using the pika 0.10.0 Python client)
+### (using the Pika Python client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
+
+### Pre-requisites
+
+As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
+[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+
+### What This Tutorial Focuses On
 
 In the [previous tutorial](tutorial-three-python.html) we built a
 simple logging system. We were able to broadcast log messages to many
