@@ -132,24 +132,10 @@ limitations under the License.
 
     <p>
       <a href="/ssl.html">TLS options</a> can also be specified globally using the
-      <code>ssl_config</code> environment key for the
-      <code>amqp_client</code> application. They will be merged with
+      <code>amqp_client.ssl_options</code> configuration key. They will be merged with
       the TLS parameters from the URI (the latter will take
-      precedence).
+      precedence). Please see the <a href="/ssl.html">TLS guide</a> for
+      details.
     </p>
-
-    <pre class="sourcecode erlang">
-%% Configures the maximum number of non-self-issued intermediate certificates
-%% that may follow the peer certificate in a valid certification path.
-%%
-%% Will have effect on all plugins that use RabbitMQ Erlang client, e.g.
-%% Shovel and Federation.
-[
-  {amqp_client, [
-    {ssl_config, [
-      {depth, 2}
-    ]}
-  ]}
-].</pre>
   </body>
 </html>
