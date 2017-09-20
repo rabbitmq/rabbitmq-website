@@ -38,7 +38,7 @@ limitations under the License.
         </r:download>
         <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.xz"
 		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">
-	  Generic Unix release (tar.xz, from github.com)
+	  Generic Unix release (tar.xz, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
       </r:downloads>
 
