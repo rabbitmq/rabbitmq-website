@@ -51,6 +51,9 @@ limitations under the License.
             <a href="install-standalone-mac.html">Standalone</a> |
             <a href="install-generic-unix.html">Generic Unix</a>
         </li>
+        <li>
+          <a href="/which-erlang.html">Erlang/OTP for RabbitMQ</a>
+        </li>
       </ul>
 
       <h3>Downloads <a href="https://bintray.com/rabbitmq">on Bintray</a></h3>
@@ -65,7 +68,8 @@ limitations under the License.
           <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
           <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
           <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
-          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a>
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
+          <a href="https://bintray.com/rabbitmq/rpm/erlang">Erlang RPM</a>
         </li>
         <li>
           <a href="https://dl.bintray.com/rabbitmq/binaries/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
@@ -87,7 +91,8 @@ limitations under the License.
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
+          <a href="https://github.com/rabbitmq/erlang-rpm">Erlang RPM</a>
         </li>
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
@@ -100,12 +105,6 @@ limitations under the License.
       <ul>
         <h3>Also Available From</h3>
         <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
-      </ul>
-
-      <h3>Release Signing Key</h3>
-      <ul>
-        <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
-        <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
       </ul>
 
       <h3>Cloud</h3>
@@ -121,6 +120,12 @@ limitations under the License.
         <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
         <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
         <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
+      </ul>
+
+      <h3>Release Signing Key</h3>
+      <ul>
+        <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
+        <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
       </ul>
 
       <h3>Older Versions</h3>
