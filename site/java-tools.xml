@@ -86,7 +86,7 @@ limitations under the License.
           identification and comparison:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-1" -a --id “test 1”
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-1" -a --id "test 1"
 </pre>
         </p>
 
@@ -96,7 +96,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-1" -a --id 
           on the machine and RabbitMQ nodes:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 2 -y 4 -u "throughput-test-2" -a --id “test 2”
+bin/runjava com.rabbitmq.perf.PerfTest -x 2 -y 4 -u "throughput-test-2" -a --id "test 2"
 </pre>
         </p>
 
@@ -104,7 +104,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 2 -y 4 -u "throughput-test-2" -a --id 
           This modification switches consumers to manual acknowledgements:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-3" --id “test 3”
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-3" --id "test 3"
 </pre>
         </p>
 
@@ -112,7 +112,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-3" --id “
           This modification changes message size from default (1 kB) to 4 kB:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-4" --id “test 4” -s 4000
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-4" --id "test 4" -s 4000
 </pre>
         </p>
 
@@ -209,7 +209,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-13" --id "t
           1M messages 1 kB in size each::
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -y0 -p -u “”throughput-test-14” -s 1000 -C 1000000 --id “test-14” -f persistent
+bin/runjava com.rabbitmq.perf.PerfTest -y0 -p -u "throughput-test-14" -s 1000 -C 1000000 --id "test-14" -f persistent
 </pre>
         </p>
 
@@ -218,7 +218,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -y0 -p -u “”throughput-test-14” -s 
           use
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u “”throughput-test-14” --id “test-15”
+bin/runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u "throughput-test-14" --id "test-15"
 </pre>
         </p>
 
@@ -259,6 +259,46 @@ bin/runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u “”throughput-test-14�
           messages from only one queue.
         </p>
       </doc:subsection>
+
+    <doc:subsection name="perf-test-tls">
+        <doc:heading>PerfTest and TLS</doc:heading>
+        <p>
+            PerfTest can use TLS to connect to the broker by specifying an AMQPS URI:
+        </p>
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest -h amqps://localhost:5671
+</pre>
+
+        <p>
+            This way PerfTest automatically trusts the server
+            and doesn't present any client certificate (a warning
+            shows up in the console). This should be enough for most
+            scenarios. If you want to use more TLS features, you can
+            use the <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#InstallationAndCustomization">appropriate
+            system properties</a> on the command line to override the
+            default <code>SSLContext</code>.
+            For example, to trust a given server:
+        </p>
+<pre class="sourcecode bash">
+JAVA_OPTS="-Djavax.net.ssl.trustStore=/path/to/server_key.p12 -Djavax.net.ssl.trustStorePassword=bunnies -Djavax.net.ssl.trustStoreType=PKCS12" \
+    bin/runjava com.rabbitmq.perf.PerfTest -h amqps://localhost:5671
+</pre>
+        <p>
+            The previous snippet uses a one-liner to define the <code>JAVA_OPTS</code> environment variable on the fly
+            and to launch PerfTest. Read the
+            <a href="/ssl.html">TLS guide</a> to configure the broker and use
+            <a href="https://github.com/michaelklishin/tls-gen/"><code>tls-gen</code></a>
+            to generate self-signed certificates (for experimentation and testing).
+            <code>tls-gen basic</code> profile is a good starting point to generate
+            key pairs and certificates to experiment with TLS client and server
+            authentication. For example:
+        </p>
+
+<pre class="sourcecode bash">
+JAVA_OPTS="-Djavax.net.ssl.trustStore=/path/to/server_key.p12 -Djavax.net.ssl.trustStorePassword=bunnies -Djavax.net.ssl.trustStoreType=PKCS12 -Djavax.net.ssl.keyStore=/path/to/client_key.p12 -Djavax.net.ssl.keyStorePassword=bunnies -Djavax.net.ssl.keyStoreType=PKCS12" \
+    bin/runjava com.rabbitmq.perf.PerfTest -h amqps://localhost:5671
+</pre>
+    </doc:subsection>
 
 
       <doc:subsection name="perf-html">
