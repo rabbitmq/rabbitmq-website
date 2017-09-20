@@ -35,13 +35,13 @@ limitations under the License.
       </p>
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
+        <r:download signature="yes" absolute="yes" url="https://dl.bintray.com/rabbitmq/windows/rabbitmq-server-windows-&version-server;.zip"
+                    downloadfile="rabbitmq-server-windows-&version-server;.zip">
+	  Binary build for Windows systems (from <a href="https://bintray.com/rabbitmq/windows">Bintray</a>)
+        </r:download>
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip"
                     downloadfile="rabbitmq-server-windows-&version-server;.zip">
-	  Binary build for Windows systems (from GitHub)
-        </r:download>
-        <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/windows/download_file?file_path=rabbitmq-server-windows-&version-server;.zip"
-                    downloadfile="rabbitmq-server-windows-&version-server;.zip">
-	  Binary build for Windows systems (from Bintray)
+	  Binary build for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
       </r:downloads>
 

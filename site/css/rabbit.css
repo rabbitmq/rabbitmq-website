@@ -788,6 +788,7 @@ body#index #getstarted,
 	.hubs-embedded {
 	  overflow: inherit !important;
 	  font-family: 'Raleway', sans-serif !important;
+	  margin-bottom: 0 !important;
 	}
 	.hubs-embedded a {
 		color: #FF6600 !important;
@@ -904,6 +905,10 @@ body#index #getstarted,
 #intro p {
 	max-width: 630px;
 	margin: 25px 0;
+}
+
+#intro p#morelinkafterufembed {
+	margin: 0 0 25px;
 }
 
 #intro .twothirds {

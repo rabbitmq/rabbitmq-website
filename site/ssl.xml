@@ -87,8 +87,9 @@ limitations under the License.
             In order to support TLS connections, RabbitMQ needs TLS and
             crypto-related modules to be available in the Erlang/OTP
             installation. The recommended Erlang/OTP version to use with
-            TLS is 18.2 or later. R16B03 may work for some certificates
-            but has <a href="#old-erlang">known limitations</a>.
+            TLS is the most recent <a href="/which-erlang.html">supported Erlang release</a>.
+            Earlier versions, even if they are supported, may work for most certificates
+            but have known limitations (see below).
           </p>
 
           <p>The Erlang <code>crypto</code>, <code>asn1</code>,
@@ -100,16 +101,24 @@ limitations under the License.
           href="https://github.com/rabbitmq/erlang-rpm">zero dependency
           Erlang RPM for RabbitMQ</a> includes the above modules.</p>
 
-          <p>If Erlang/OTP is compiled from source, it is necessarry to ensure that <code>configure</code>
+          <p>If Erlang/OTP is compiled from source, it is necessary to ensure that <code>configure</code>
           finds OpenSSL and builds the above libraries.</p>
+
+          <p>
+            When investigating TLS connectivity issues, please keep in mind that in the vast majority
+            of cases they are environment-specific and do not indicate a bug or limitation
+            in Erlang/OTP's TLS implementation. Please go through the steps outlined
+            in the <a href="troubleshooting-ssl.html">Troubleshooting TLS guide</a> to gather
+            more information first.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="known-compatibility-issues">
           <doc:heading>Known Incompatibilities and Limitations</doc:heading>
           <p>
             If elliptic curve cryptography (ECC) cipher suites is
-            expected to be used, the most recent Erlang/OTP release
-            (e.g. 19.x) is highly recommended. Earlier releases have
+            expected to be used, a recent <a href="/which-erlang.html">supported Erlang release</a>
+            (e.g. 19.3.x) is highly recommended. Earlier releases have
             known limitations around ECC.
           </p>
           <p>
@@ -753,7 +762,7 @@ factory.useSslProtocol("TLSv1.2");</pre>
           <p>
             It is possible to configure what cipher suites will be used by RabbitMQ. Note that not all
             suites will be available on all systems. For example, to use elliptic curve ciphers,
-            please run the most recent Erlang release available.
+            please run the most recent <a href="/which-erlang.html">supported Erlang release</a> available.
 
             The below examples demonstrates how the <code>ciphers</code> TLS option is used.
           </p>
