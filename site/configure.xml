@@ -1123,22 +1123,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>mirroring_sync_batch_size</code></td>
             <td>
-              Since RabbitMQ 3.6.0, masters perform synchronisation in batches.
-              Earlier versions will synchronise 1 message at a time by default.
-              <p>
-                By synchronising messages in batches, the synchronisation process can be sped up considerably.
-                To choose the right value, you need to consider:
-                <ul class="plain">
-                  <li>average message size</li>
-                  <li>network throughput between RabbitMQ nodes</li>
-                  <li><code>net_ticktime</code> value</li>
-                </ul>
-              </p>
-              <p>
-                For example, if you set this value to 50000 (messages), and each message in the queue is 1KB, then each synchronisation message between nodes will be ~49MB.
-                You need to make sure that your network between queue mirrors can accomodate this kind of traffic.
-                If the network takes longer than net_ticktime to send one batch of messages, then nodes in the cluster could think they are in the presence of a network partition.
-              </p>
+              Batch size of messages to synchronise between queue mirrors
+              See <a href="https://www.rabbitmq.com/ha.html#batch-sync" target="_blank">Batch Synchronization</a>
               <p>Default: <code>4096</code></p>
             </td>
           </tr>
