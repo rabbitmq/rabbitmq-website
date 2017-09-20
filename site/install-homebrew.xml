@@ -29,9 +29,13 @@ limitations under the License.
   </head>
   <body>
     <p>
-      A brew for the RabbitMQ server is available from
-      <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
-      <em>Note: </em>You may not be able to install the RabbitMQ brew from inside a firewall.
+      <a href="https://brew.sh/">Homebrew</a> is a popular package manager for MacOS.
+    </p>
+    <p>
+      <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/rabbitmq.rb">RabbitMQ formula</a> is available from
+      <a href="https://brew.sh/">Homebrew</a>'s core tap (out of the box).
+      The formula will also install a reasonably recent Erlang/OTP version
+      as a dependency.
     </p>
     <h3>Install the Server</h3>
     <p>

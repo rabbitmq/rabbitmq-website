@@ -34,11 +34,11 @@ limitations under the License.
       <r:downloads signature="yes">
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from GitHub)
+	  .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
-        <r:download signature="no" absolute="yes" url="https://bintray.com/rabbitmq/rabbitmq-server-deb/download_file?file_path=rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+        <r:download signature="no" absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-deb/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from Bintray)
+	  .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-deb">Bintray</a>)
         </r:download>
       </r:downloads>
     </doc:section>

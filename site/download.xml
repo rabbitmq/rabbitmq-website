@@ -34,64 +34,66 @@ limitations under the License.
       <h3>Installation Guides</h3>
       <ul>
         <li>
-            Windows:
-            <a href="install-windows.html">With installer (recommended)</a> |
-            <a href="install-windows-manual.html">Manual</a>
-        </li>
-        <li>
-            Linux / Unix:
+          Linux, BSD, UNIX:
             <a href="install-debian.html">Debian, Ubuntu</a> |
             <a href="install-rpm.html">RHEL, CentOS, Fedora</a> |
             <a href="install-generic-unix.html">Generic Unix</a> |
             <a href="install-solaris.html">Solaris</a>
         </li>
         <li>
-            Mac OS X:
-            <a href="install-standalone-mac.html">Standalone</a> |
-            <a href="install-generic-unix.html">Generic Unix</a> |
-            <a href="install-homebrew.html">Homebrew</a>
+          Windows:
+            <a href="install-windows.html">With installer (recommended)</a> |
+            <a href="install-windows-manual.html">Manual</a>
         </li>
-      </ul>
-
-      <h3>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></h3>
-      <ul>
         <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">Windows</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          Binary
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">.tar.xz</a>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">.zip</a>
+          MacOS:
+            <a href="install-homebrew.html">Homebrew</a> |
+            <a href="install-standalone-mac.html">Standalone</a> |
+            <a href="install-generic-unix.html">Generic Unix</a>
         </li>
       </ul>
 
       <h3>Downloads <a href="https://bintray.com/rabbitmq">on Bintray</a></h3>
       <ul>
         <li>
-          <a href="https://bintray.com/rabbitmq/windows/download_file?file_path=rabbitmq-server-&version-server;.exe">Windows</a> |
-          <a href="https://bintray.com/rabbitmq/rabbitmq-server-deb/download_file?file_path=rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a> |
-          <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm/download_file?file_path=rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          Binary
-          <a href="https://bintray.com/rabbitmq/binaries/download_file?file_path=rabbitmq-server-generic-unix-&version-server;.tar.xz">.tar.xz</a>
-          <a href="https://bintray.com/rabbitmq/windows/download_file?file_path=rabbitmq-server-windows-&version-server;.zip">.zip</a>
+          <a href="https://dl.bintray.com/rabbitmq/windows/rabbitmq-server-&version-server;.exe">Windows installer</a>
+        </li>
+        <li>
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-deb/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
+        </li>
+        <li>
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a>
+        </li>
+        <li>
+          <a href="https://dl.bintray.com/rabbitmq/binaries/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
+        </li>
+        <li>
+          <a href="https://dl.bintray.com/rabbitmq/windows/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
         </li>
       </ul>
 
-      <h3>Downloads on rabbitmq.com</h3>
+      <h3>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></h3>
       <ul>
         <li>
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a> |
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          Binary
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">.tar.xz</a>
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
-          Source
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.tar.xz">.tar.xz</a>
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">Windows installer</a>
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a>
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
         </li>
       </ul>
 
@@ -99,7 +101,7 @@ limitations under the License.
         <h3>Also Available From</h3>
         <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
       </ul>
-      
+
       <h3>Release Signing Key</h3>
       <ul>
         <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
@@ -118,7 +120,7 @@ limitations under the License.
       <ul>
         <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
         <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
-        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a></li>
+        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
       </ul>
 
       <h3>Older Versions</h3>
