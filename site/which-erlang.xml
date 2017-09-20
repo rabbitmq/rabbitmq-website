@@ -84,9 +84,9 @@ limitations under the License.
 
         <p>
           There are multiple RPM packages for Erlang/OTP, including a
-          zero-dependency one from the RabbitMQ team.  See <a
+          <a href="https://github.com/rabbitmq/erlang-rpm">zero-dependency Erlang RPM</a> from the RabbitMQ team. See <a
           href="/install-rpm.html">CentOS, RHEL and Fedora
-          installation guide</a> for more information on the options.
+          installation guide</a> for more information on the available options.
         </p>
       </doc:subsection>
     </doc:section>
@@ -100,7 +100,7 @@ limitations under the License.
       <table>
         <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
         <tr>
-          <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
+          <td>build or run <a href="download.html">RabbitMQ</a> server and most plugins</td>
           <td>R16B03</td>
           <td></td>
         </tr>
@@ -109,7 +109,7 @@ limitations under the License.
           <td>17.0</td>
           <td>
             Covers most common signature algorithms and can honor
-            server ciphers order. 19.2 or later version are
+            server ciphers order. 19.3.6 or later version are
             recommended.
           </td>
         </tr>
