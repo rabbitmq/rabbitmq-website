@@ -1304,12 +1304,33 @@ tcp_listen_options.exit_on_close = false
               <p>Default: <code>16777216</code></p>
             </td>
           </tr>
+            <tr>
+              <td><code>trace_vhosts</code></td>
+              <td>
+                Used internally by
+                the <a href="firehose.html">tracer</a>. You shouldn't
+                change this.
+                <p>Default: <code>[]</code></p>
+              </td>
+            </tr>
           <tr>
+            <td><code>msg_store_credit_disc_bound</code></td>
             <td>
-              Used internally by
-              the <a href="firehose.html">tracer</a>. You shouldn't
-              change this.
-              <p>Default: <code>[]</code></p>
+              The credits that a queue process is given by the message store.
+              <p>
+                By default, a queue process is given 4000 message store credits, and then 800 for every 800 messages that it processes.
+              </p>
+              <p>
+                Messages which need to be paged out due to memory pressure will also use this credit.
+              </p>
+              <p>
+                The Message Store is the last component in the credit flow chain. <a href="https://www.rabbitmq.com/blog/2015/10/06/new-credit-flow-settings-on-rabbitmq-3-5-5/" target="_blank">Learn about credit flow.</a>
+              </p>
+              <p>
+                This value only takes effect when messages are persisted to the message store.
+                If messages are embedded on the queue index, then modifying this setting has no effect because credit_flow is NOT used when writing to the queue index.
+              </p>
+              <p>Default: <code>{4000, 800}</code></p>
             </td>
           </tr>
           <tr>
@@ -1334,6 +1355,14 @@ tcp_listen_options.exit_on_close = false
               After how many queue index journal entries it will be
               flushed to disk.
               <p>Default: <code>32768</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>mirroring_sync_batch_size</code></td>
+            <td>
+              Batch size of messages to synchronise between queue mirrors
+              See <a href="https://www.rabbitmq.com/ha.html#batch-sync" target="_blank">Batch Synchronization</a>
+              <p>Default: <code>4096</code></p>
             </td>
           </tr>
           <tr>
