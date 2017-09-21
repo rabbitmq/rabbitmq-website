@@ -110,6 +110,7 @@ limitations under the License.
             <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin homepage</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
             <tr><td>Nagios</td><td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td></tr>
             <tr><td>New Relic</td><td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td></tr>
+            <tr><td>Prometheus</td><td><a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">Prometheus Plugin</a></td></tr> 
             <tr><td>Zabbix</td><td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td></tr>
             <tr><td>Zenoss</td><td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td></tr>
           </tbody>
