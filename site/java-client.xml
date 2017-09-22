@@ -101,7 +101,7 @@ dependencies {
       <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar"
                   downloadfile="amqp-client-&version-java-client;.jar"
                   absolute="yes">
-	Binary, compiled for JDK 6 or newer
+	Binary, compiled for JDK 8 or newer
       </r:download>
       <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar"
                   downloadfile="amqp-client-&version-java-client;-sources.jar"
