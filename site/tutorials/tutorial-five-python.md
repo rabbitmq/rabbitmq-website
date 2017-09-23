@@ -83,7 +83,7 @@ It's easiest to explain this in an example:
       //
       P [label="P", fillcolor="#00ffff"];
       subgraph cluster_X1 {
-        label="type=topic";
+        label="exchange_type=topic";
 	color=transparent;
         X [label="X", fillcolor="#3333CC"];
       };
@@ -172,7 +172,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs',
-                         type='topic')
+                         exchange_type='topic')
 
 routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
@@ -194,7 +194,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs',
-                         type='topic')
+                         exchange_type='topic')
 
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
