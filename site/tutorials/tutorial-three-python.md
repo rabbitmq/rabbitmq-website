@@ -99,7 +99,7 @@ an exchange of that type, and call it `logs`:
 
 <pre class="sourcecode python">
 channel.exchange_declare(exchange='logs',
-                         type='fanout')
+                         exchange_type='fanout')
 </pre>
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -275,7 +275,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='logs',
-                         type='fanout')
+                         exchange_type='fanout')
 
 message = ' '.join(sys.argv[1:]) or "info: Hello World!"
 channel.basic_publish(exchange='logs',
@@ -304,7 +304,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='logs',
-                         type='fanout')
+                         exchange_type='fanout')
 
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue

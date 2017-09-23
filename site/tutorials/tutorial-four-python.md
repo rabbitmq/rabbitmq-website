@@ -194,7 +194,7 @@ Like always we need to create an exchange first:
 
 <pre class="sourcecode python">
 channel.exchange_declare(exchange='direct_logs',
-                         type='direct')
+                         exchange_type='direct')
 </pre>
 
 And we're ready to send a message:
@@ -282,7 +282,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',
-                         type='direct')
+                         exchange_type='direct')
 
 severity = sys.argv[1] if len(sys.argv) > 2 else 'info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
@@ -304,7 +304,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost')
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs',
-                         type='direct')
+                         exchange_type='direct')
 
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
