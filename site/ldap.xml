@@ -104,8 +104,9 @@ limitations under the License.
       <dl>
         <dt><code>servers</code></dt>
         <dd>
-          List of LDAP servers to attempt to bind to, in order. You almost
-          certainly want to change this. Default: <code>["ldap"]</code>
+          A comma separated list of LDAP servers to attempt to bind (connect) to, in order. You almost
+          certainly want to change this. List values can be hostnames or IP addresses
+          as strings, for example, <code>["ldap.eng.megacorp.local", "192.168.0.100"]</code>. Default: <code>["ldap"]</code>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
