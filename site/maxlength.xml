@@ -56,8 +56,17 @@ limitations under the License.
         </p>
 
         <p>
-          Messages will be dropped or dead-lettered from the front of the
-          queue to make room for new messages once the limit is reached.
+          Queue overflow behaviour can be configured using the
+          <code>overflow</code> setting.
+          By default messages will be dropped or dead-lettered from the front
+          of the queue to make room for new messages, once the limit is reached.
+          This behaviour can be changed by setting the <code>overflow</code>
+          setting to <code>reject_publish</code>, then published messages will
+          be discarded and publisher will be informed with
+          <code>basic.nack</code> if publisher confirms are enabled.
+          If a message is routed to multiple queues and rejected by at least
+          one of them, the channel will NACK the message. The message will still
+          be published to all other queues which can enqueue it.
         </p>
       </doc:subsection>
 
@@ -91,6 +100,33 @@ limitations under the License.
         </p>
 
         <p>
+          To define an overflow behaviour - whether to drop messages from head
+          or to reject new publishes, add the key <code>overflow</code> to a
+          policy definition. For example:
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy Ten "^two-messages$" '{"max-length":2, "overflow":"reject_publish"}' --apply-to queues</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl.bat set_policy Ten "^one-meg$" "{""max-length-bytes"":2, ""overflow"":""reject_publish""}" --apply-to queues</pre>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          This ensures the queue called <code>two-messages</code> can contain
+          up to 2 messages and all additional publishes will be NACKed as long
+          as it contains 2 messages.
+        </p>
+
+        <p>
           Policies can also be defined using the management plugin, see
           the <a href="parameters.html#policies">policy
           documentation</a> for more details.
@@ -113,6 +149,12 @@ limitations under the License.
         <p>
           If both arguments are set then both will apply; whichever limit
           is hit first will be enforced.
+        </p>
+        <p>
+          Overflow behaviour can be set by supplying the
+          <code>x-overflow</code> queue declaration argument with a
+          string value. Possible values are <code>drop_head</code> (default) or
+          <code>reject_publish</code>
         </p>
         <p>
           This example in Java declares a queue with a maximum length

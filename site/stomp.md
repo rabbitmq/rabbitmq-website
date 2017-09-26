@@ -206,7 +206,7 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{proxy_protocol, true}]}
-    ].  
+    ].
 
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
@@ -498,10 +498,10 @@ queue and message TTL, queue limits, etc:
  * `x-dead-letter-exchange`
  * `x-dead-letter-routing-key`
  * `x-expires`
- * `x-message-ttl` 
+ * `x-message-ttl`
  * `x-max-length`
  * `x-max-length-bytes`
- * `x-max-length-bytes`
+ * `x-overflow`
  * `x-max-priority`
 
 The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
