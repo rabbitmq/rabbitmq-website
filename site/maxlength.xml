@@ -61,7 +61,7 @@ limitations under the License.
           By default messages will be dropped or dead-lettered from the front
           of the queue to make room for new messages, once the limit is reached.
           This behaviour can be changed by setting the <code>overflow</code>
-          setting to <code>reject_publish</code>, then published messages will
+          setting to <code>reject-publish</code>, then published messages will
           be discarded and publisher will be informed with
           <code>basic.nack</code> if publisher confirms are enabled.
           If a message is routed to multiple queues and rejected by at least
@@ -109,13 +109,13 @@ limitations under the License.
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_policy Ten "^two-messages$" '{"max-length":2, "overflow":"reject_publish"}' --apply-to queues</pre>
+              <pre>rabbitmqctl set_policy Ten "^two-messages$" '{"max-length":2, "overflow":"reject-publish"}' --apply-to queues</pre>
             </td>
           </tr>
           <tr>
             <th>rabbitmqctl (Windows)</th>
             <td>
-              <pre>rabbitmqctl.bat set_policy Ten "^one-meg$" "{""max-length-bytes"":2, ""overflow"":""reject_publish""}" --apply-to queues</pre>
+              <pre>rabbitmqctl.bat set_policy Ten "^one-meg$" "{""max-length-bytes"":2, ""overflow"":""reject-publish""}" --apply-to queues</pre>
             </td>
           </tr>
         </table>
@@ -153,8 +153,8 @@ limitations under the License.
         <p>
           Overflow behaviour can be set by supplying the
           <code>x-overflow</code> queue declaration argument with a
-          string value. Possible values are <code>drop_head</code> (default) or
-          <code>reject_publish</code>
+          string value. Possible values are <code>drop-head</code> (default) or
+          <code>reject-publish</code>
         </p>
         <p>
           This example in Java declares a queue with a maximum length
