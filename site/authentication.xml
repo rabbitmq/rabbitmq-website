@@ -42,7 +42,7 @@ limitations under the License.
           development.
         </p>
         <p>
-          A separate guide covers <a href="/access-control.html">authentication and authorisation backeds in RabbitMQ</a>
+          A separate guide covers <a href="/access-control.html">authentication and authorisation backends in RabbitMQ</a>
           and how they are configured.
         </p>
       </doc:section>
