@@ -6,7 +6,7 @@ REMOTE_HOST="$1"
 VERSION="${2:-www}"
 
 ENVIRONMENTS=(
-  Production:www.rabbitmq.com
+  Production:live.rabbitmq.com
   Staging:rabbit-web-stage.haas-40.pez.pivotal.io
 )
 
