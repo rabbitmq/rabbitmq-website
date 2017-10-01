@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -48,14 +48,19 @@ limitations under the License.
 	</p>
 	<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
 	<p>
-	  or you can download the key from our website directly:
-	</p>
+	  or you can download the key directly from our site:
 	<pre class="sourcecode bash">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc</pre>
-    <p>
-      For Debian repos:
-    </p>
-    <pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
+        </p>
+	<p>
+	  or <a href="">Bintray</a>:
+	<pre class="sourcecode bash">wget https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+gpg --import rabbitmq-release-signing-key.asc</pre>
+        </p>
+        <p>
+          For installation via <a href="/install-debian.html">Debian (apt) repositories</a>, use <code>apt-key</code>:
+        </p>
+        <pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">

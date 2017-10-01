@@ -128,15 +128,16 @@ auth_backends.2 = internal
       <dl>
         <dt><code>servers</code></dt>
         <dd>
-          List of LDAP servers to attempt to bind to, in order. You almost
-          certainly want to change this. Default: <code>["ldap"]</code>
+          A list of LDAP servers to attempt to bind (connect) to, in order.
+          List values can be hostnames or IP addresses. You almost
+          certainly want to change this. Default: <code>["ldap"]</code>.
           Example of configuration using the sysctl config format:
           <pre class="sourcecode ini">
-auth_ldap.servers.1 = some_server
-auth_ldap.servers.2 = some_other_server
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
           </pre>
           Using the classic config format:
-          <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
+          <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{servers, ["ldap.eng.megacorp.local", "192.168.0.100"]}]}].</pre>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
