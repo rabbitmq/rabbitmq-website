@@ -27,7 +27,8 @@ limitations under the License.
       When free disk space drops below a configured limit (50MB by default), an
       alarm will be triggered and all producers will be blocked.
 
-      This is a good thing, since a full disk will crash RabbitMQ.
+      The goal is to avoid fulling up the entire disk which will lead all
+      write operations on the node to fail and can lead to RabbitMQ termination.
 
       To reduce the risk of filling up the disk, all incoming messages are
       blocked. Transient messages, which aren't persisted, are still paged out
