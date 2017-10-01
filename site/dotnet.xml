@@ -40,6 +40,10 @@ limitations under the License.
     </p>
 
     <p>
+      Recent versions of the library are exclusively <a href="https://www.nuget.org/packages/RabbitMQ.Client">distributed via NuGet</a>.
+    </p>
+
+    <p>
       The .NET/C# RabbitMQ client library should be used in preference to the
       WCF binding where possible. The WCF binding suffers from a number
       of limitations and no further development is planned for it.
@@ -61,7 +65,7 @@ limitations under the License.
     <h3>The library</h3>
 
     <p>
-      The 4.x series of this library are distributed as a <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>. 3.6.x releases are
+      Modern versions of this library (e.g. 4.x and 5.x) are distributed as a <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>. 3.6.x releases are
       also available as binary builds.
     </p>
 

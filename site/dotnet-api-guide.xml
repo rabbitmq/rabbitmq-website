@@ -27,6 +27,7 @@ limitations under the License.
     <body show-in-this-page="true">
         <p class="intro">
             This page gives an overview of the <a href="/dotnet.html">RabbitMQ .NET/C# client</a> API.
+            It assumes the <a href="https://www.nuget.org/packages/RabbitMQ.Client">most recent major version of the client</a> is used.
         </p>
         <p class="intro">
             The code samples given here demonstrate connecting to RabbitMQ and
