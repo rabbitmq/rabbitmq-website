@@ -54,19 +54,32 @@ limitations under the License.
           <code>rabbitmqctl list_queues</code> and the management API show the values that
           would be limited.
         </p>
+      </doc:subsection>
 
+      <doc:subsection name="default-behaviour">
+        <doc:heading>Default Max Queue Length Behaviour</doc:heading>
+          <p>
+            The default behaviour for RabbitMQ when a maximum queue length or
+            size is set and the maximum is reached is to <em>drop</em> or
+            <em><a href="dlx.html">dead-letter</a></em> messages from the front
+            of the queue (i.e. the oldest messages in the queue). To modify
+            this behaviour, use the <code>overflow</code> setting described
+            below.
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="overflow-behaviour">
+        <doc:heading>Queue Overflow Behaviour</doc:heading>
         <p>
-          Queue overflow behaviour can be configured using the
-          <code>overflow</code> setting.
-          By default messages will be dropped or dead-lettered from the front
-          of the queue to make room for new messages, once the limit is reached.
-          This behaviour can be changed by setting the <code>overflow</code>
-          setting to <code>reject-publish</code>, then published messages will
-          be discarded and publisher will be informed with
-          <code>basic.nack</code> if publisher confirms are enabled.
-          If a message is routed to multiple queues and rejected by at least
-          one of them, the channel will NACK the message. The message will still
-          be published to all other queues which can enqueue it.
+          Use the <code>overflow</code> setting to configure queue overflow
+          behaviour. If <code>overflow</code> is set to <code>reject-publish</code>,
+          the most recently published messages will be discarded. In addition, if
+          <a href="confirms.html#publisher-confirms">publisher confirms</a>
+          are enabled, the publisher will be informed of the reject via a
+          <code>basic.nack</code> message. If a message is routed to multiple
+          queues and rejected by at least one of them, the channel will inform
+          the publisher via <code>basic.nack</code>. The message will still be
+          published to all other queues which can enqueue it.
         </p>
       </doc:subsection>
 
