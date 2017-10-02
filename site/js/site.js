@@ -34,7 +34,7 @@ function decorate_links() {
            or "/examples" as this directories don't have a tracking
            code and should be treated as remote content.
         */
-        if (link.href.match("^" + location + "/(releases|debian|javadoc|examples)/") ) {
+        if (link.href.match("^" + location + "/(install)/") ) {
             link.onclick = function () {
                 /* Google analytics don't know how to present remote links,
                    so we need to pretend they are local. For example:
