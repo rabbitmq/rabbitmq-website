@@ -213,7 +213,7 @@ limitations under the License.
         <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
         yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
 
-        <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
+        <p>Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>.</p>
       </doc:subsection>
 
       <doc:subsection name="from-package-cloud">
