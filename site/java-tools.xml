@@ -48,9 +48,12 @@ limitations under the License.
         <doc:heading>Installation</doc:heading>
 
         <p>
-          PerfTest is distributed as a <a href="https://github.com/rabbitmq/rabbitmq-perf-test/releases">binary build archive</a> as well as
-          <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22perf-test%22">Maven</a> (the latter allows it to be
-          also used as a library).
+          PerfTest is distributed as a binary build archive
+          from <a href="https://bintray.com/rabbitmq/java-tools/perf-test">Bintray</a> and
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/releases">GitHub releases</a>
+          as well.
+          It is also available on <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22perf-test%22">Maven Central</a>
+          if one needs to use it as library.
         </p>
 
         <p>
@@ -337,7 +340,8 @@ JAVA_OPTS="-Djavax.net.ssl.trustStore=/path/to/server_key.p12 -Djavax.net.ssl.tr
       <doc:subsection name="tracer-download">
         <doc:heading>Download and source code</doc:heading>
         <p>
-          <a href="https://github.com/rabbitmq/rabbitmq-tracer/releases">Releases</a>
+          Releases: <a href="https://bintray.com/rabbitmq/java-tools/tracer">Bintray</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-tracer/releases">GitHub releases</a>
         </p>
         <p>
           <a href="https://github.com/rabbitmq/rabbitmq-tracer">Source code</a>
