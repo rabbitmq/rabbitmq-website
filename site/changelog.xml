@@ -21,6 +21,11 @@ limitations under the License.
   <head><title>RabbitMQ Changelog</title></head>
 
   <body>
+    <p>
+      This is a change log for the RabbitMQ server distribution. <a href="https://github.com/rabbitmq/rabbitmq-java-client/releases">Java client release notes</a>
+      and <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases">.NET client release notes</a> are available on GitHub.
+    </p>
+
     <table id="changelog">
       <tr>
         <th class="centre">Version</th>
