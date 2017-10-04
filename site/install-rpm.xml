@@ -66,14 +66,15 @@ limitations under the License.
       <p>
         <code>rabbitmq-server</code> is included in Fedora. However,
         the versions included are often quite old. You will probably
-        get better results installing the .rpm from our website. Check
+        get better results installing the .rpm from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+        or <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>. Check
         the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
         package</a> details for which version of the server is
         available for which versions of the distribution.
       </p>
 
       <p>
-        We also upload our RPM packages to <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+        The package is distributed via Yum repositories on <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
         and <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>.
       </p>
     </doc:section>
@@ -213,7 +214,11 @@ limitations under the License.
         <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
         yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
 
-        <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
+        <p>
+          Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>:
+                  <pre>rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+        yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+        </p>
       </doc:subsection>
 
       <doc:subsection name="from-package-cloud">

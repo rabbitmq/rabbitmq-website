@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -24,30 +24,37 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>RabbitMQ Java client library</title>
+    <title>RabbitMQ Java Client Library</title>
   </head>
   <body>
     <p>
       The RabbitMQ Java client library allows Java code to interface
-      with RabbitMQ. The library is platform neutral; the binary
-      distributions listed below differ only in the version of Java
-      they are intended for use with. Please see the <a
-      href="specification.html">specification</a> page for more
-      information on AMQP interoperation and standards-conformance.
+      with RabbitMQ.
     </p>
 
     <p class="intro">
-      The library is open-source, and is triple-licensed under
+      5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
+      this means only <a href="https://developer.android.com/guide/platform/j8-jack.html">Android 7.0 or later</a> versions are supported.
+
+      4.x release series support JDK 6 and Android versions prior to 7.0.
+    </p>
+
+    <p class="intro">
+      The library is <a href="https://github.com/rabbitmq/rabbitmq-java-client/">open-source</a>, and is triple-licensed under
 
       <ul>
         <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
         <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
         <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
       </ul>
+
+      This means that the user can consider the library to be licensed under any of the licenses from the list above.
+      For example, the user may choose the Apache Public License 2.0 and include this client into
+      a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
     </p>
 
     <p>
-      You will need a <a href="download.html">RabbitMQ node</a> to use with the client
+      You will need a running <a href="download.html">RabbitMQ node</a> to use with the client
       library.
     </p>
 
@@ -101,7 +108,7 @@ dependencies {
       <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar"
                   downloadfile="amqp-client-&version-java-client;.jar"
                   absolute="yes">
-	Binary, compiled for JDK 8 or newer
+	Binary, compiled for JDK 8 (Android 7.0) or newer
       </r:download>
       <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar"
                   downloadfile="amqp-client-&version-java-client;-sources.jar"
