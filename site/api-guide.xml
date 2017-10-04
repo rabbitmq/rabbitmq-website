@@ -24,64 +24,69 @@ limitations under the License.
         <title>Java Client API Guide</title>
     </head>
     <body show-in-this-page="true">
-      <p class="intro">
-        This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
-        are <a href="getstarted.html"></a> available in a different section.
-      </p>
+      <doc:section name="intro">
 
-      <p class="intro">
-        5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
-        this means only <a href="https://developer.android.com/guide/platform/j8-jack.html">Android 7.0 or later</a> versions are supported.
+        <p class="intro">
+          This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
+          are <a href="getstarted.html">available in a different section</a>.
+        </p>
 
-        4.x release series support JDK 6 and Android versions prior to 7.0.
-      </p>
+        <p class="intro">
+          5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
+          this means only <a href="https://developer.android.com/guide/platform/j8-jack.html">Android 7.0 or later</a> versions are supported.
 
-      <p class="intro">
-        The client is triple-licensed under
+          4.x release series support JDK 6 and Android versions prior to 7.0.
+        </p>
 
-        <ul>
-          <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
-          <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-          <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
-        </ul>
+        <p class="intro">
+          The library is <a href="https://github.com/rabbitmq/rabbitmq-java-client/">open-source</a>, and is triple-licensed under
 
-        This means that the user can consider the library to be licensed under any of the licenses from the list above.
-        For example, the user may choose the Apache Public License 2.0 and include this client into
-        a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
-      </p>
-      <p class="intro">
-        For more details, please see the relevant Javadoc <a
-        href="&dir-current-javadoc;">documentation</a>.
-      </p>
-      <p class="intro">
-        There are also <a href="java-tools.html">command line tools</a>
-        that used to be shipped with the Java client.
-      </p>
-    <p>
-        The client API is closely modelled on the AMQP 0-9-1 protocol specification,
-        with additional abstractions for ease of use.
-    </p>
+          <ul>
+            <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+            <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+            <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+          </ul>
+
+          This means that the user can consider the library to be licensed under any of the licenses from the list above.
+          For example, the user may choose the Apache Public License 2.0 and include this client into
+          a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
+        </p>
+
+        <p class="intro">
+          An <a href="&dir-current-javadoc;">API reference</a> (JavaDoc) is available separately.
+        </p>
+
+        <p class="intro">
+          There are also <a href="java-tools.html">command line tools</a>
+          that used to be shipped with the Java client.
+        </p>
+
+        <p>
+          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+          with additional abstractions for ease of use.
+        </p>
+    </doc:section>
 
     <doc:section name="classoverview">
-        <doc:heading>Overview</doc:heading>
-        <p>
-            RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
-            The key classes and interfaces are:
+      <doc:heading>Overview</doc:heading>
+      <p>
+        RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
+        The key classes and interfaces are:
 
-            <ul>
-                <li>Channel</li>
-                <li>Connection</li>
-                <li>ConnectionFactory</li>
-                <li>Consumer</li>
-            </ul>
+        <ul>
+            <li>Channel</li>
+            <li>Connection</li>
+            <li>ConnectionFactory</li>
+            <li>Consumer</li>
+        </ul>
 
-            Protocol operations are available through the
-            <code>Channel</code> interface. <code>Connection</code> is
-            used to open channels, register connection lifecycle event
-            handlers, and close connections that are no longer needed.
-            <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
-            which is how you configure various connection settings, such as the vhost or username.
-        </p>
+        Protocol operations are available through the
+        <code>Channel</code> interface. <code>Connection</code> is
+        used to open channels, register connection lifecycle event
+        handlers, and close connections that are no longer needed.
+        <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
+        which is how you configure various connection settings, such as the vhost or username.
+      </p>
     </doc:section>
 
     <doc:section name="connecting">
