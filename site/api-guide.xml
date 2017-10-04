@@ -46,7 +46,8 @@ limitations under the License.
         </ul>
 
         This means that the user can consider the library to be licensed under any of the licenses from the list above.
-        If
+        For example, the user may choose the Apache Public License 2.0 and include this client into
+        a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
       </p>
       <p class="intro">
         For more details, please see the relevant Javadoc <a
