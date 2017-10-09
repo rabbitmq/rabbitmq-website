@@ -492,10 +492,12 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         </p>
 
         <p>
-          <a href="http://docs.basho.com/riak/latest/ops/tuning/linux/">How the limit is configured</a> varies from OS to OS.
-          If you run RabbitMQ on Linux, see Controlling System Limits on Linux
+          How the limit is configured varies from OS to OS and distribution to distribution, e.g. depending on whether systemd is used.
+          For Linux, Controlling System Limits on Linux
           in our <a href="/install-debian.html#kernel-resource-limits">Debian</a> and <a href="/install-rpm.html#kernel-resource-limits">RPM</a>
-          installation guides.
+          installation guides provides. Linux kernel limit management is covered by many resources on the Web,
+          including the <a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit">open file handle limit</a>.
+          MacOS uses a <a href="https://superuser.com/questions/827984/open-files-limit-does-not-work-as-before-in-osx-yosemite">similar system</a>.
         </p>
 
         <p>
