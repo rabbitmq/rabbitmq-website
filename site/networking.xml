@@ -403,7 +403,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         </p>
 
         <p>
-          How the limit is configured varies from OS to OS and distribution to distribution, e.g. depending on whether systemd is used.
+          How the limit is configured <a href="https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md">varies from OS to OS</a> and distribution to distribution, e.g. depending on whether systemd is used.
           For Linux, Controlling System Limits on Linux
           in our <a href="/install-debian.html#kernel-resource-limits">Debian</a> and <a href="/install-rpm.html#kernel-resource-limits">RPM</a>
           installation guides provides. Linux kernel limit management is covered by many resources on the Web,

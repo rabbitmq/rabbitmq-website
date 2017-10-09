@@ -39,7 +39,7 @@ limitations under the License.
           invoke <code>ulimit</code> before the service is started.
         </li>
         <li>
-          <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Mac-OS-X">Configure max open files limit</a> via <code>launchctl limit</code>
+          <a href="https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md#mac-os-x-el-capitan">Configure max open files limit</a> via <code>launchctl limit</code>
         <code>/etc/launchd.conf</code>.
         </li>
       </ul>
