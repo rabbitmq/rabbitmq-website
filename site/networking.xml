@@ -408,6 +408,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           in our <a href="/install-debian.html#kernel-resource-limits">Debian</a> and <a href="/install-rpm.html#kernel-resource-limits">RPM</a>
           installation guides provides. Linux kernel limit management is covered by many resources on the Web,
           including the <a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit">open file handle limit</a>.
+          MacOS uses a <a href="https://superuser.com/questions/827984/open-files-limit-does-not-work-as-before-in-osx-yosemite">similar system</a>.
         </p>
 
         <p>
