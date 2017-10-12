@@ -664,10 +664,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Strategy for memory usage reporting. Can be one of the following:
               <ul class="plain">
+                <li><code>allocated</code> - use Erlang memory allocator statistics</li>
                 <li><code>rss</code> - use operating system RSS memory reporting</li>
                 <li><code>erlang</code> - use Erlang memory reporting</li>
+                <li><code>legacy</code> - use legacy memory reporting (same as Erlang)</li>
               </ul>
-              <p>Default: <code>rss</code></p>
+              <p>Default: <code>allocated</code></p>
             </td>
           </tr>
           <tr>
