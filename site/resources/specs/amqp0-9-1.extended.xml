@@ -460,7 +460,7 @@
   <domain name = "short"      type = "short"     label = "16-bit integer" />
   <domain name = "long"       type = "long"      label = "32-bit integer" />
   <domain name = "longlong"   type = "longlong"  label = "64-bit integer" />
-  <domain name = "shortstr"   type = "shortstr"  label = "short string" />
+  <domain name = "shortstr"   type = "shortstr"  label = "short string (max. 256 characters)" />
   <domain name = "longstr"    type = "longstr"   label = "long string" />
   <domain name = "timestamp"  type = "timestamp" label = "64-bit timestamp" />
   <domain name = "table"      type = "table"     label = "field table" />
