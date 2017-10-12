@@ -46,7 +46,7 @@ ulimit -S -n 4096
   <p>
     This <em>soft</em> limit cannot go higher than the <em>hard</em> limit
     (which defaults to 4096 in many distributions).
-    <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">The hard limit can be increased</a> via
+    <a href="https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md">The hard limit can be increased</a> via
     <code>/etc/security/limits.conf</code>. This also requires enabling the <a href="http://askubuntu.com/a/34559">pam_limits.so</a> module
     and re-login or reboot.
   </p>

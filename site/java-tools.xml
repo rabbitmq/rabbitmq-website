@@ -112,7 +112,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-3" --id "te
         </p>
 
         <p>
-          This modification changes message size from default (1 kB) to 4 kB:
+          This modification changes message size from default (12 bytes) to 4 kB:
 
 <pre class="sourcecode bash">
 bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-4" --id "test 4" -s 4000

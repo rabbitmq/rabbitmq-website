@@ -190,8 +190,8 @@ cf.RequestedHeartbeat = 60;
     </doc:section>
 
 
-    <doc:section name="tcp-keepalives">
-      <doc:heading>Heartbeats and TCP Keepalives</doc:heading>
+    <doc:section name="tcp-proxies">
+      <doc:heading>Heartbeats and TCP Proxies</doc:heading>
       <p>
         Certain networking tools (HAproxy, AWS ELB) and equipment
         (hardware load balancers) which may terminate "idle" TCP

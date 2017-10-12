@@ -458,7 +458,7 @@ MQTT 3.1 specification does not define consistency or replication requirements f
 message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
 availability needs of a particular environment. For example, stores based on [Riak](http://basho.com/riak/)
 and [Cassandra](http://cassandra.apache.org/) would be suitable for most production environments as
-those data stores provide [tunable consistency](http://docs.basho.com/riak/latest/dev/advanced/replication-properties/).
+those data stores provide [tunable consistency](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/reference/strong-consistency.md).
 
 Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
 
