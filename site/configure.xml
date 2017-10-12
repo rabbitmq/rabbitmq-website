@@ -665,7 +665,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Strategy for memory usage reporting. Can be one of the following:
               <ul class="plain">
                 <li><code>allocated</code>: uses Erlang memory allocator statistics</li>
-                <li><code>rss</code>: uses operating system RSS memory reporting. This uses OS-specific means and may use short lived child processes.</li>
+                <li><code>rss</code>: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
                 <li><code>legacy</code>: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
                 <li><code>erlang</code>: same as <code>legacy</code>, preserved for backwards compatibility</li>
               </ul>
