@@ -1141,7 +1141,7 @@ cf.setExceptionHandler(customHandler);
                     Don't forget to add the appropriate dependencies (in Maven, Gradle, or even as JAR files) to JVM
                     classpath when using Micrometer or Dropwizard Metrics.
                     Those are optional dependencies and will not be pulled automatically with the Java client.
-                    You may also need to add other dependencies on the reporting
+                    You may also need to add other dependencies depending on the reporting
                     backend(s) used.
                 </li>
                 <li>
