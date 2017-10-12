@@ -1129,7 +1129,7 @@ cf.setExceptionHandler(customHandler);
         <p>
             Both Micrometer and Dropwizard Metrics provide counts, but also
             mean rate, last five minute rate, etc, for messages-related
-            metrics. They also support common tools for reporting
+            metrics. They also support common tools for monitoring and reporting
             (JMX, Graphite, Ganglia, Datadog, etc). See the dedicated
             sections below for more details.
         </p>
