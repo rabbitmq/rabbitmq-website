@@ -1128,7 +1128,7 @@ cf.setExceptionHandler(customHandler);
         </p>
         <p>
             Both Micrometer and Dropwizard Metrics provide counts, but also
-            mean rate, last five-minute rate, etc, for messages-related
+            mean rate, last five minute rate, etc, for messages-related
             metrics. They also support common tools for reporting
             (JMX, Graphite, Ganglia, Datadog, etc). See the dedicated
             sections below for more details.
@@ -1138,20 +1138,19 @@ cf.setExceptionHandler(customHandler);
 
             <ul>
                 <li>
-                    Don't forget to add the appropriate JAR files to your
+                    Don't forget to add the appropriate dependencies (in Maven, Gradle, or even as JAR files) to JVM
                     classpath when using Micrometer or Dropwizard Metrics.
-                    Those are not pulled automatically with the Java Client.
-                    You may also need to add other JAR files depending on the reporting
-                    backend(s) you're using.
+                    Those are optional dependencies and will not be pulled automatically with the Java client.
+                    You may also need to add other dependencies on the reporting
+                    backend(s) used.
                 </li>
                 <li>
-                    Metrics collection is extensible, nothing prevents you from
-                    implementing your own
-                    <code>MetricsCollector</code> for specific needs.
+                    Metrics collection is extensible. Implementing a custom
+                    <code>MetricsCollector</code> for specific needs is encouraged.
                 </li>
                 <li>
                     The <code>MetricsCollector</code> is set at the <code>ConnectionFactory</code>
-                    level, but can be shared across different instances.
+                    level but can be shared across different instances.
                 </li>
                 <li>
                     Metrics collection doesn't support transactions. E.g. if an acknowledgment
@@ -1160,8 +1159,9 @@ cf.setExceptionHandler(customHandler);
                     obviously). Note the acknowledgment is actually sent to the broker and
                     then cancelled by the transaction rollback, so the client metrics
                     are correct in term of acknowledgments sent. As a summary, don't use
-                    client metrics for sensitive business checks, as they're not guaranteed
-                    to be perfectly accurate.
+                    client metrics for critical business logic, they're not guaranteed
+                    to be perfectly accurate. They are meant to be used to simplify reasoning
+                    about a running system and make operations more efficient.
                 </li>
             </ul>
         </p>
