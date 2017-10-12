@@ -1098,94 +1098,132 @@ cf.setExceptionHandler(customHandler);
         called in several places of the client code.
       </p>
       <p>
-        The client ships with a <code>MetricsCollector</code> implementation
-        that uses the <a href="http://metrics.dropwizard.io/">Dropwizard Metrics</a>
-        library. One can enable the metrics collection the following way:
+          The client supports
+          <a href="http://micrometer.io">Micrometer</a> (as of version 4.3) and
+          <a href="http://metrics.dropwizard.io">Dropwizard Metrics</a>
+          out of the box.
+      </p>
+        <p>
+            Here are the collected metrics:
+            <ul>
+                <li>
+                    Number of open connections
+                </li>
+                <li>
+                    Number of open channels
+                </li>
+                <li>
+                    Number of published messages
+                </li>
+                <li>
+                    Number of consumed messages
+                </li>
+                <li>
+                    Number of acknowledged messages
+                </li>
+                <li>
+                    Number of rejected messages
+                </li>
+            </ul>
+        </p>
+        <p>
+            Both Micrometer and Dropwizard Metrics provide counts, but also
+            mean rate, last five-minute rate, etc, for messages-related
+            metrics. They also support common tools for reporting
+            (JMX, Graphite, Ganglia, Datadog, etc). See the dedicated
+            sections below for more details.
+        </p>
+        <p>
+            Please note the following about metrics collection:
 
-        <pre class="sourcecode java">
+            <ul>
+                <li>
+                    Don't forget to add the appropriate JAR files to your
+                    classpath when using Micrometer or Dropwizard Metrics.
+                    Those are not pulled automatically with the Java Client.
+                    You may also need to add other JAR files depending on the reporting
+                    backend(s) you're using.
+                </li>
+                <li>
+                    Metrics collection is extensible, nothing prevents you from
+                    implementing your own
+                    <code>MetricsCollector</code> for specific needs.
+                </li>
+                <li>
+                    The <code>MetricsCollector</code> is set at the <code>ConnectionFactory</code>
+                    level, but can be shared across different instances.
+                </li>
+                <li>
+                    Metrics collection doesn't support transactions. E.g. if an acknowledgment
+                    is sent in a transaction and the transaction is then rolled back,
+                    the acknowledgment is counted in the client metrics (but not by the broker
+                    obviously). Note the acknowledgment is actually sent to the broker and
+                    then cancelled by the transaction rollback, so the client metrics
+                    are correct in term of acknowledgments sent. As a summary, don't use
+                    client metrics for sensitive business checks, as they're not guaranteed
+                    to be perfectly accurate.
+                </li>
+            </ul>
+        </p>
+
+      <doc:subsection name="metrics-micrometer">
+        <doc:heading>Micrometer support</doc:heading>
+
+          <p>
+             You can enable metrics collection with
+             <a href="http://micrometer.io">Micrometer</a> the following way:
+
+<pre class="sourcecode java">
+ConnectionFactory connectionFactory = new ConnectionFactory();
+MicrometerMetricsCollector metrics = new MicrometerMetricsCollector();
+connectionFactory.setMetricsCollector(metrics);
+...
+metrics.getPublishedMessages(); // get Micrometer's Counter object
+</pre>
+
+          </p>
+          <p>
+              Micrometer supports
+              <a href="http://micrometer.io/docs">several reporting backends</a>:
+              Netflix Atlas, Prometheus, Datadog, Influx, JMX, etc.
+          </p>
+
+          <p>
+              You would typically pass in an instance of <code>MeterRegistry</code>
+              to the <code>MicrometerMetricsCollector</code>. Here is an example
+              with JMX:
+
+<pre class="sourcecode java">
+JmxMeterRegistry registry = new JmxMeterRegistry();
+MicrometerMetricsCollector metrics = new MicrometerMetricsCollector(registry);
+
+ConnectionFactory connectionFactory = new ConnectionFactory();
+connectionFactory.setMetricsCollector(metrics);
+</pre>
+
+          </p>
+
+      </doc:subsection>
+
+      <doc:subsection name="metrics-dropwizard-metrics">
+        <doc:heading>Dropwizard Metrics support</doc:heading>
+
+          <p>
+              You can enable metrics collection with
+              <a href="http://metrics.dropwizard.io">Dropwizard</a> the following way:
+
+<pre class="sourcecode java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
 StandardMetricsCollector metrics = new StandardMetricsCollector();
 connectionFactory.setMetricsCollector(metrics);
 ...
 metrics.getPublishedMessages(); // get Metrics' Meter object
-        </pre>
-
-      </p>
-      <p>
-        Here are the collected metrics:
-        <ul>
-          <li>
-            Number of open connections (a <code>Counter</code>
-            in the default implementation)
-          </li>
-          <li>
-            Number of open channels (a <code>Counter</code>
-            in the default implementation)
-          </li>
-          <li>
-            Number of published messages (a <code>Meter</code> in the
-            default implementation)
-          </li>
-          <li>
-            Number of consumed messages (a <code>Meter</code> in the
-            default implementation)
-          </li>
-          <li>
-            Number of acknowledged messages (a <code>Meter</code> in the
-            default implementation)
-          </li>
-          <li>
-            Number of rejected messages (a <code>Meter</code> in the
-            default implementation)
-          </li>
-        </ul>
-      </p>
-
-      <p>
-        By using Dropwizard Metrics, one gets not only counts, but also mean rate,
-        last five-minute rate, etc, and <a href="#metrics-reporting">out-of-the-box
-        reporting with common tools</a> (JMX, Graphite, Ganglia, HTTP).
-      </p>
-
-      <p>
-        Please note the following about metrics collection:
-
-        <ul>
-          <li>
-            If you use the default implementation based on Dropwizard
-            Metrics, don't forget to add the appropriate JAR file
-            to your classpath (Dropwizard Metrics isn't pulled automatically
-            with the Java client, as it's an optional dependency).
-          </li>
-          <li>
-            Metrics collection is extensible, nothing prevents you from
-            implementing your own
-            <code>MetricsCollector</code> for specific needs.
-          </li>
-          <li>
-            The <code>MetricsCollector</code> is set at the <code>ConnectionFactory</code>
-            level, but can be shared accross different instances.
-          </li>
-          <li>
-            Metrics collection doesn't support transactions. E.g. if an acknowledgment
-            is sent in a transaction and the transaction is then rolled back,
-            the acknowledgment is counted in the client metrics (but not by the broker
-            obviously). Note the acknowledgment is actually sent to the broker and
-            then cancelled by the transaction rollback, so the client metrics
-            are correct in term of acknowledgments sent. As a summary, don't use
-            client metrics for sensitive business checks, as they're not guaranteed
-            to be perfectly accurate.
-          </li>
-        </ul>
-      </p>
-
-      <doc:subsection name="metrics-reporting">
-        <doc:heading>Metrics reporting</doc:heading>
+</pre>
+          </p>
 
         <p>
-          If you use the <code>StandardMetricsCollector</code> based on Dropwizard
-          Metrics, you can send the metrics to
-          <a href="http://metrics.dropwizard.io/3.1.0/getting-started/">several reporting backends</a>:
+          Dropwizard Metrics supports
+          <a href="http://metrics.dropwizard.io/3.2.3/getting-started.html">several reporting backends</a>:
           console, JMX, HTTP, Graphite, Ganglia, etc.
         </p>
 
