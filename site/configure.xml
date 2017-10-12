@@ -866,10 +866,12 @@ vm_memory_high_watermark.absolute = 2GB
             <td>
               Strategy for memory usage reporting. Can be one of the following:
               <ul class="plain">
-                <li><code>rss</code> - use operating system RSS memory reporting</li>
-                <li><code>erlang</code> - use Erlang memory reporting</li>
+                <li><code>allocated</code>: uses Erlang memory allocator statistics</li>
+                <li><code>rss</code>: uses operating system RSS memory reporting. This uses OS-specific means and may use short lived child processes.</li>
+                <li><code>legacy</code>: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
+                <li><code>erlang</code>: same as <code>legacy</code>, preserved for backwards compatibility</li>
               </ul>
-              <p>Default: <code>rss</code></p>
+              <p>Default: <code>allocated</code></p>
             </td>
           </tr>
           <tr>
