@@ -373,33 +373,7 @@ management.load_definitions = /path/to/definitions/file.json
             the maximum size of both backlogs. Defaults to 250.
           </p>
         </doc:subsection>
-        <doc:subsection name="example-config">
-          <doc:heading>Example</doc:heading>
-          <p>
-            An example configuration file for RabbitMQ that switches
-            on request logging, increases the statistics interval to
-            10000ms and explicitly sets some other relevant parameters
-            to their default values, would look like this:
-          </p>
-<pre class="sourcecode ini">
-listeners.tcp.default = 5672
 
-collect_statistics_interval = 10000
-
-management.http_log_dir = /tmp/rabbit-mgmt
-management.rates_mode = basic
-</pre>
-
-          Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbit,                    [{tcp_listeners,               [5672]},
-                               {collect_statistics_interval, 10000} ]},
-  {rabbitmq_management,       [{http_log_dir,  "/tmp/rabbit-mgmt"},
-                               {rates_mode,    basic} ]}
-].</pre>
-        </doc:subsection>
         <doc:subsection name="web-dispatch-config">
           <doc:heading>Configuring the HTTP listener</doc:heading>
           <p>
@@ -469,22 +443,6 @@ management.sample_retention_policies.basic.hour   = 60
 
 management.sample_retention_policies.detailed.10 = 5
 </pre>
-
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbitmq_management,
-    [{sample_retention_policies,
-      %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
-      [{global,   [{605, 5}, {3660, 60}, {86400, 1200}]},
-       {basic,    [{605, 5}, {3600, 60}]},
-       {detailed, [{10, 5}]}]
-    }]
-  },
-].
-</pre>
-
           <p>
             There are three policies:
             <ul>
@@ -539,6 +497,102 @@ management.sample_retention_policies.detailed.10 = 5
 ].</pre>
       </doc:subsection>
 
+
+      <doc:subsection name="example-config">
+        <doc:heading>Example</doc:heading>
+        <p>
+          An example configuration file for RabbitMQ that switches
+          on request logging, increases the statistics interval to
+          10000ms and explicitly sets some other relevant parameters
+          to their default values, would look like this:
+        </p>
+        <pre class="sourcecode ini">
+listeners.tcp.default = 5672
+
+collect_statistics_interval = 10000
+
+# management.load_definitions = /path/to/exported/definitions.json
+
+management.listener.port = 15672
+management.listener.ip   = 0.0.0.0
+management.listener.ssl  = true
+
+management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
+management.listener.ssl_opts.certfile   = /path/to/cert.pem
+management.listener.ssl_opts.keyfile    = /path/to/key.pem
+
+management.http_log_dir = /path/to/rabbit/logs/http
+
+management.rates_mode = basic
+
+# Configure how long aggregated data (such as message rates and queue
+# lengths) is retained.
+# Your can use 'minute', 'hour' and 'day' keys or integer key (in seconds)
+management.sample_retention_policies.global.minute    = 5
+management.sample_retention_policies.global.hour  = 60
+management.sample_retention_policies.global.day = 1200
+
+management.sample_retention_policies.basic.minute   = 5
+management.sample_retention_policies.basic.hour = 60
+
+management.sample_retention_policies.detailed.10 = 5
+</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+        <pre class="sourcecode erlang">[
+{rabbit, [{tcp_listeners,               [5672]},
+          {collect_statistics_interval, 10000}]},
+
+{rabbitmq_management,
+  [
+   %% Pre-Load schema definitions from the following JSON file.
+   %%
+   %% {load_definitions, "/path/to/definitions.json"},
+
+   %% Log all requests to the management HTTP API to a directory.
+   %%
+   {http_log_dir, "/path/to/rabbit/logs/http"},
+
+   %% Change the port on which the HTTP listener listens,
+   %% specifying an interface for the HTTP server to bind to.
+   %% Also set the listener to use TLS and provide TLS options.
+   %%
+   %% {listener, [{port,     15672},
+   %%             {ip,       "0.0.0.0"},
+   %%             {ssl,      true},
+   %%             {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+   %%                         {certfile,   "/path/to/cert.pem"},
+   %%                         {keyfile,    "/path/to/key.pem"}]}]},
+
+   %% One of 'basic', 'detailed' or 'none'.
+   {rates_mode, basic},
+
+   %% increasing this parameter will make HTTP API cache data retrieved
+   %% from other cluster peers more aggressively
+   %% {management_db_cache_multiplier, 5},
+
+   %% If event collection falls back behind stats emission,
+   %% up to this many events will be kept in the backlog, the rest
+   %% will be dropped to avoid runaway memory consumption growth.
+   %% This setting is per-node. Unless there is evidence of
+   %% a stats collector backlog, you don't need to change this value.
+   %% {stats_event_max_backlog, 250},
+
+   %% CORS settings for HTTP API
+   %% {cors_allow_origins, ["https://rabbitmq.eng.megacorp.local", "https://monitoring.eng.megacorp.local"]},
+   %% {cors_max_age, 1800},
+
+   %% Configure how long aggregated data (such as message rates and queue
+   %% lengths) is retained.
+   %%
+   %% {sample_retention_policies,
+   %%  [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
+   %%   {basic,    [{60, 5}, {3600, 60}]},
+   %%   {detailed, [{10, 5}]}]}
+  ]}
+].</pre>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="clustering">

@@ -178,6 +178,28 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+      <doc:subsection name="automatic-requeueing">
+        <doc:heading>When Consumers Fail or Lose Connection: Automatic Requeueing</doc:heading>
+        <p>
+          When manual acknowledgements are used, any delivery
+          (message) that was not acked is automatically requeued when
+          the channel (or connection) on which the delivery happened
+          is closed. This includes TCP connection loss by clients,
+          consumer application (process) failures, and channel-level
+          protocol exceptions (covered below).
+        </p>
+        <p>
+          Note that it takes a period of time to <a href="/heartbeats.html">detect an unavailable client</a>.
+        </p>
+        <p>
+          Due to this behavior, consumers must be prepared to handle redeliveries and otherwise
+          be implemented with <a href="https://en.wikipedia.org/wiki/Idempotence">idempotence</a> in mind.
+          Redeliveries will have a special boolean property, <code>redeliver</code>, set to <code>true</code>
+          by RabbitMQ. For first time deliveries it will be set to <code>true</code>. Note that
+          a consumer can receive a message that was previously delivered to another consumer.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="consumer-acks-double-acking">
         <doc:heading>Client Errors: Double Acking and Unknown Tags</doc:heading>
         <p>
