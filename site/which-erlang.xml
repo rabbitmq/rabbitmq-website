@@ -35,11 +35,22 @@ limitations under the License.
         <doc:heading>RabbitMQ and Erlang/OTP Version Compatibility Table</doc:heading>
 
         <p>
-          As a rule of thumb, stable (GA) version of <a
-          href="https://packages.erlang-solutions.com/erlang/">Erlang/OTP
-          19.3.x</a> are recommended for running RabbitMQ.
+          As a rule of thumb, most recent stable (GA) versions of Erlang/OTP
+          19.3.x or 20.x are recommended for running RabbitMQ. Most recent versions
+          can be obtained from
+
+          <ul>
+            <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a></li>
+            <li><a href="https://github.com/rabbitmq/erlang-rpm">Zero dependency Erlang/OTP RPM for RabbitMQ</a></li>
+            <li><a href="https://hub.docker.com/_/erlang/">Erlang/OTP Docker images</a></li>
+            <li><a href="https://github.com/kerl/kerl">kerl</a></li>
+          </ul>
         </p>
 
+        <p>
+          Below is a RabbitMQ and Erlang/OTP compatibility matrix.
+        </p>
+        
         <table>
         <th>RabbitMQ Release Series</th>
         <th>Supported Erlang/OTP Series</th>
@@ -102,7 +113,7 @@ limitations under the License.
         <tr>
           <td>build or run <a href="download.html">RabbitMQ</a> server and most plugins</td>
           <td>R16B03</td>
-          <td></td>
+          <td>19.3.x and 20.x are recommended</td>
         </tr>
         <tr>
           <td>use <a href="ssl.html">TLS</a> reliably</td>
@@ -146,6 +157,7 @@ limitations under the License.
         If a sufficiently recent Erlang package is not available for your system then you will need to
         <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
         This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
+        <a href="https://github.com/kerl/kerl">kerl</a> is the recommended way of doing that.
       </p>
 
       <p>
