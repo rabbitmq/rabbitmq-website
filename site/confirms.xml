@@ -195,7 +195,7 @@ limitations under the License.
           Due to this behavior, consumers must be prepared to handle redeliveries and otherwise
           be implemented with <a href="https://en.wikipedia.org/wiki/Idempotence">idempotence</a> in mind.
           Redeliveries will have a special boolean property, <code>redeliver</code>, set to <code>true</code>
-          by RabbitMQ. For first time deliveries it will be set to <code>true</code>. Note that
+          by RabbitMQ. For first time deliveries it will be set to <code>false</code>. Note that
           a consumer can receive a message that was previously delivered to another consumer.
         </p>
       </doc:subsection>
