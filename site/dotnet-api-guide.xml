@@ -554,9 +554,10 @@ conn.AutoClose = true;
             <p>
               Network connection between clients and RabbitMQ nodes can fail.
               RabbitMQ .NET/C# client supports automatic recovery of connections
-              and topology (queues, exchanges, bindings, and consumers).
+              and topology (queues, exchanges, bindings, and consumers). The feature
+              has certain limitations covered later in this guide.
 
-              The automatic recovery process for many applications follows the following steps:
+              The automatic recovery process performs the following steps:
 
               <ol>
                 <li>Reconnect</li>
@@ -566,7 +567,8 @@ conn.AutoClose = true;
                 <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
               </ol>
 
-              Topology recovery includes the following actions, performed for every channel
+              Topology recovery starts after the above actions are completed. The following steps are
+              performed for every channel known to being open at the time of connection failure:
 
               <ol>
                 <li>Re-declare exchanges (except for predefined ones)</li>
@@ -611,6 +613,56 @@ Connection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
 </pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="automatic-recovery-limitations">
+            <doc:heading>Failure Detection and Recovery Limitations</doc:heading>
+            <p>
+              Automatic connection recovery has a number of limitations and intentional
+              design decisions that applications developers need to be aware of.
+            </p>
+            <p>
+              When a connection is down or lost, it <a href="/heartbeats.html">takes time to detect</a>.
+              Therefore there is a window of time in which both the
+              library and the application are unaware of effective
+              connection failure.  Any messages published during this
+              time frame are serialised and written to the TCP socket
+              as usual. Their delivery to the broker can only be
+              guaranteed via <a href="/confirms.html">publisher
+              confirms</a>: publishing in AMQP 0-9-1 is entirely
+              asynchronous by design.
+            </p>
+            <p>
+              When a socket or I/O operation error is detected by a
+              connection with automatic recovery enabled, recovery
+              begins after a configurable delay, 5 seconds by
+              default. This design assumes that even though a lot of
+              network failures are transient and generally short
+              lived, they do not go away in an instant. Connection recovery
+              attempts will continue at identical time intervals until
+              a new connection is successfully opened.
+            </p>
+            <p>
+              When a connection is in the recovering state, any
+              publishes attempted on its channels will be rejected
+              with an exception. The client currently does not perform
+              any internal buffering of such outgoing messages. It is
+              an application developer's responsibility to keep track of such
+              messages and republish them when recovery succeeds.
+              <a href="/confirms.html">Publisher confirms</a> is a protocol extension
+              that should be used by publishers that cannot afford message loss.
+            </p>
+            <p>
+              Connection recovery will not kick in when a channel is closed due to a
+              channel-level exception. Such exceptions often indicate application-level
+              issues. The library cannot make an informed decision about when that's
+              the case.
+            </p>
+            <p>
+              Closed channels won't be recovered even after connection recovery kicks in.
+              This includes both explicitly closed channels and the channel-level exception
+              case above.
             </p>
           </doc:subsection>
 
