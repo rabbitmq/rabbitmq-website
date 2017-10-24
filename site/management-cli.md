@@ -18,16 +18,21 @@ limitations under the License.
 # Management Command Line Tool NOSYNTAX
 
 The [management plugin](/management.html) ships with a command line
-tool **rabbitmqadmin** which can perform the same actions as the
-web-based UI, and which may be more convenient for use when
-scripting. Note that rabbitmqadmin is just a specialised HTTP client;
+tool **rabbitmqadmin** which can perform some of the same actions as the
+Web-based UI, and which may be more convenient for automation tasks.
+Note that rabbitmqadmin is just a specialised HTTP client;
 if you are contemplating invoking rabbitmqadmin from your own program
-you may want to consider using the HTTP API directly.
+you may want to consider using an HTTP API client library instead.
+
+Note that `rabbitnqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.1.man.html) or
+[rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html).
+HTTP API intentionally doesn't expose certain operations.
+
 
 ## Obtaining rabbitmqadmin
 
 With the management plugin installed, browse to
-`http://server-name:15672/cli/` to download. The tool supports
+`http://{hostname}:15672/cli/` to download. The tool supports
 
  * Python `3.x`
  * Python `2.6` or later for HTTP connections
@@ -36,23 +41,27 @@ With the management plugin installed, browse to
 
 Alternatively, you can download the version of rabbitmqadmin which
 corresponds with the management plugin version &version-server;
-[here](https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/bin/rabbitmqadmin).
+[from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/bin/rabbitmqadmin).
 
-## Getting started
 
-Unix users will probably want to copy `rabbitmqadmin` to `/usr/local/bin`.
+## Getting Started
 
-Windows users will need to ensure Python is on their path, and invoke
-rabbitmqadmin as `python.exe rabbitmqadmin`.
+UNIX-like operating system users need to copy `rabbitmqadmin` to a directory in `PATH`, e.g. `/usr/local/bin`.
+
+Windows users will need to ensure Python is on their `PATH`, and invoke
+`rabbitmqadmin` as `python.exe rabbitmqadmin`.
 
 Invoke `rabbitmqadmin --help` for usage instructions. You can:
 
-* list exchanges, queues, bindings, vhosts, users, permissions, connections and channels.
-* show overview information.
-* declare and delete exchanges, queues, bindings, vhosts, users and permissions.
-* publish and get messages.
-* close connections and purge queues.
-* import and export configuration.
+* list exchanges, queues, bindings, vhosts, users, permissions, connections and channels
+* show overview information
+* declare and delete exchanges, queues, bindings, vhosts, users and permissions
+* publish and get messages
+* close connections and purge queues
+* import and export configuration
+
+For other tasks, see [rabbitmqctl](/man/rabbitmqctl.1.man.html) and
+[rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html).
 
 
 ## bash completion

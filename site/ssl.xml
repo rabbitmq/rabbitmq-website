@@ -254,12 +254,12 @@ keyUsage = keyCertSign, cRLSign
 
 [ client_ca_extensions ]
 basicConstraints = CA:false
-keyUsage = digitalSignature
+keyUsage = digitalSignature,keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.2
 
 [ server_ca_extensions ]
 basicConstraints = CA:false
-keyUsage = keyEncipherment
+keyUsage = digitalSignature,keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
           <p>
@@ -299,8 +299,7 @@ openssl x509 -in cacert.pem -out cacert.cer -outform DER
           </p>
           <p>
             The process for creating server and client certificates is very
-            similar. The only difference is the <i>keyUsage</i> field that is added
-            when signing the certificate. First the server:
+            similar. First the server:
           </p>
 <pre class="sourcecode bash">
 cd ..
@@ -1102,14 +1101,19 @@ openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -out
           lacking something that apparently random numbers add. This is the
           <i>Extended Key Usage</i> extension - a sequence of object identifiers
           that further defines which uses of the certificate are permissible.</p>
+
           <p>Mono, however, seems to think that these extensions are both
           important, and need to be observed. Mono chooses to invalidate the
           certificate if the certificate omits a <i>Key Usage Extension</i>. By
           default, OpenSSL omits the <i>Key Usage Extension</i> for self-signed
           certificates because it is expected that if no <i>Key Usage Extension</i>
           is found, the certificate is valid to be used for any purpose.</p>
+
           <p>This is the reason why in the sample <code>openssl.cnf</code> file listed
-          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the latter two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
+          above, the extensions specified for <code>root_ca_extensions</code>,
+          <code>client_ca_extensions</code> and <code>server_ca_extensions</code>
+          all have <code>keyUsage</code> specified, and the latter two also have
+          <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
           valid for use by Mono; <code>keyEncipherment</code> specifies that the
           certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
