@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -31,13 +31,9 @@ More context is available in
 
 RabbitMQ Web STOMP plugin is rather simple. It takes the STOMP protocol,
 as provided by [RabbitMQ STOMP plugin](/stomp.html) and exposes it using
-either plain WebSockets or [a SockJS server](http://sockjs.org) (WebSocket emulation).
+WebSockets.
 
-SockJS is a WebSockets poly-fill that provides a WebSocket-like
-JavaScript object in any browser. It will therefore work in older
-browsers that don't have native WebSocket support, as well as in new
-browsers that are behind WebSocket-unfriendly proxies.
-
+Since version `3.7` support for SockJS websocket emulation was removed.
 
 ## Enabling the Plugin
 
@@ -59,30 +55,13 @@ by [Jeff Mesnil](https://github.com/jmesnil) and
 [This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
 is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples).
 
-By default the Web STOMP plugin exposes both a WebSocket and a
-SockJS endpoint on port 15674. The WebSocket endpoint is available
-on the `/ws` path:
+The WebSocket endpoint is available on the `/ws` path:
 
 <pre class="sourcecode">
 http://127.0.0.1:15674/ws
 </pre>
 
-The SockJS endpoint on the `/stomp` prefix:
-
-<pre class="sourcecode">
-http://127.0.0.1:15674/stomp
-</pre>
-
-The SockJS endpoint is provided for compatibility purposes with
-older browsers that do not implement Websocket. It has two
-limitations because of SockJS:
-
- *  STOMP heart-beats are disabled
- *  Messages must be encoded using UTF-8
-
-The raw Websocket endpoint was created to provide an alternative
-that does not have these limitations. On the other hand, this
-endpoint will only work with Websocket capable clients. Note that
+This endpoint will only work with Websocket capable clients. Note that
 some configuration is necessary in order to accept binary messages.
 
 In order to establish connection from the browser using WebSocket
@@ -96,23 +75,6 @@ you may use code like:
 <pre class="sourcecode javascript">
 &lt;script&gt;
 var ws = new WebSocket('ws://127.0.0.1:15674/ws');
-var client = Stomp.over(ws);
-[...]
-</pre>
-
-Using SockJS:
-
-<pre class="sourcecode html">
-&lt;!-- include SockJS --&gt;
-&lt;script src="http://cdn.sockjs.org/sockjs-0.3.min.js"&gt;&lt;/script&gt;
-&lt;!-- include the client library --&gt;    
-&lt;script src="stomp.js"&gt;&lt;/script&gt;
-</pre>
-
-<pre class="sourcecode javascript">
-&lt;script&gt;
-
-var ws = new SockJS('http://127.0.0.1:15674/stomp');
 var client = Stomp.over(ws);
 [...]
 </pre>
@@ -224,8 +186,7 @@ A separate guide on [TLS Troubleshooting](/troubleshooting-ssl.html) is also ava
 ## WebSocket Options and Content Encoding
 
 By default, the Web STOMP plugin will expect to handle messages
-encoded as UTF-8. This cannot be changed for the SockJS endpoint,
-however you can switch the WebSocket endpoint to binary if needed.
+encoded as UTF-8. You can switch the WebSocket endpoint to binary if needed.
 The `ws_frame` option serves this purpose:
 
 <pre class="sourcecode ini">
@@ -260,25 +221,6 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 ].
 </pre>
 
-The SockJS endpoint can also be configured further in the
-`sockjs_opts` section of the configuration. Look into the
-SockJS-erlang repository for a detailed [list of options](https://github.com/rabbitmq/sockjs-erlang#sockjs-erlang-api)
-you can use. For example, to use a different SockJS client
-version, you can use the following configuration:
-
-<pre class="sourcecode ini">
-web_stomp.sockjs_opts.url = https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js
-</pre>
-
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbitmq_web_stomp,
-      [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
-].
-</pre>
-
 ## Basic HTTP Authentication
 
 The `use_http_auth` option extends the authentication by
@@ -301,6 +243,5 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 ## Missing features
 
 RabbitMQ Web STOMP is fully compatible with the
-[RabbitMQ STOMP](/stomp.html) plugin, with the exception of STOMP
-heartbeats. STOMP heartbeats won't work with SockJS (WebSocket emulation).
+[RabbitMQ STOMP](/stomp.html) plugin.
 

@@ -26,8 +26,7 @@ from web browsers. It was heavily inspired by the [Web STOMP plugin](/web-stomp.
 
 RabbitMQ Web MQTT plugin is rather simple. It takes the MQTT protocol,
 as provided by [RabbitMQ MQTT plugin](/mqtt.html) and exposes it using
-WebSockets. Note that unlike Web STOMP, this plugin does not provide
-WebSocket emulation via SockJS.
+WebSockets.
 
 
 ## Installation and Enabling the Plugin
