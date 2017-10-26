@@ -33,9 +33,10 @@ limitations under the License.
       however they should still be accurate enough to be useful.
     </p>
     <p>
-      The <code>vm_memory_calculation_strategy</code> setting impacts
-      memory reporting. If set to <code>erlang</code> or <code>allocated</code>
-      some memory will not be reported. See unused memory section.
+      The <code>vm_memory_calculation_strategy</code> setting also impacts
+      memory reporting. If set to <code>legacy</code> (<code>erlang</code>) or <code>allocated</code>,
+      some memory breakdown fields will not be reported. This is covered in more detail
+      further in this guide.
     </p>
     <p>
       You can obtain the memory use report by
@@ -128,22 +129,23 @@ limitations under the License.
       is the number of available file descriptors.
     </p>
 
-    <h3>Unused memory</h3>
+    <h3>Preallocated memory</h3>
     <p>
       Erlang memory breakdown reports only memory it's currently using, and not
-      the memory allocated for later use or provided by an operating system.
-      OS tools like <code>ps</code> can report more memory used than erlang.
+      the memory that has been allocated for later use or reserved by the operating system.
+      OS tools like <code>ps</code> can report more memory used than the runtime.
 
-      This memory consists of allocated but not used, which is generally small,
-      and unallocated but provided by an OS, which depends on the OS behaviour
-      and will fluctuate significantly.
+      This memory consists of allocated but not used,
+      as well as unallocated but reserved by the OS. Both values depend on the OS and Erlang VM allocator
+      settings and can fluctuate significantly.
     </p>
     <p>
-      This section depends on the <code>vm_memory_calculation_strategy</code> setting
-      If memory calculation strategy is set to <code>erlang</code> - unused
+      Note that the sections depend on the <code>vm_memory_calculation_strategy</code> setting.
+      If the strategy is set to <code>erlang</code>, unused
       memory will not be reported.
-      If memory calculation strategy is set to <code>allocated</code> - memory
-      reserved by OS will not be reported.
+      If memory calculation strategy is set to <code>allocated</code>, memory
+      reserved by OS will not be reported. Therefore <code>rss</code> is the strategy
+      that provides most information from both the kernel and the runtime.
     </p>
 </body>
 </html>
