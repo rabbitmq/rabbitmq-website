@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -31,6 +31,11 @@ limitations under the License.
       Note that all measurements are somewhat approximate, based on
       values returned by the underlying Erlang virtual machine;
       however they should still be accurate enough to be useful.
+    </p>
+    <p>
+      The <code>vm_memory_calculation_strategy</code> setting impacts
+      memory reporting. If set to <code>erlang</code> or <code>allocated</code>
+      some memory will not be reported. See unused memory section.
     </p>
     <p>
       You can obtain the memory use report by
@@ -121,6 +126,24 @@ limitations under the License.
     <p>
       Other memory used by Erlang. One contributor to this value
       is the number of available file descriptors.
+    </p>
+
+    <h3>Unused memory</h3>
+    <p>
+      Erlang memory breakdown reports only memory it's currently using, and not
+      the memory allocated for later use or provided by an operating system.
+      OS tools like <code>ps</code> can report more memory used than erlang.
+
+      This memory consists of allocated but not used, which is generally small,
+      and unallocated but provided by an OS, which depends on the OS behaviour
+      and will fluctuate significantly.
+    </p>
+    <p>
+      This section depends on the <code>vm_memory_calculation_strategy</code> setting
+      If memory calculation strategy is set to <code>erlang</code> - unused
+      memory will not be reported.
+      If memory calculation strategy is set to <code>allocated</code> - memory
+      reserved by OS will not be reported.
     </p>
 </body>
 </html>
