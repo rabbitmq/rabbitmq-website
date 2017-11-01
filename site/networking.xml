@@ -919,7 +919,7 @@ net.ipv4.tcp_keepalive_probes=4
 
         Here's an example:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 =INFO REPORT==== 30-Oct-2017::21:40:32 ===
 accepting AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672)
 </pre>
@@ -933,7 +933,7 @@ accepting AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672
         Once a connection successfully authenticates and is granted access to a <a href="">virtual host</a>,
         that is also logged:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 =INFO REPORT==== 30-Oct-2017::21:40:32 ===
 connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 </pre>
@@ -957,7 +957,7 @@ connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest'
       <p>
         Below is an example entry for a successfully closed connection:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 =INFO REPORT==== 30-Oct-2017::21:40:32 ===
 closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
@@ -966,7 +966,7 @@ closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, 
       <p>
         Abruptly closed connections will be logged as warnings:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 =WARNING REPORT==== 1-Nov-2017::16:58:58 ===
 closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
