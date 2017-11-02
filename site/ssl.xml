@@ -753,6 +753,11 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
 </pre>
 
           <p>
+            An <a href="https://github.com/erlang/otp/wiki/Cipher-suite-correspondence-table">IANA and Erlang/OTP cipher suite correspondence table</a> 
+            can be used to find corresponding values in both formats.
+          </p>
+
+          <p>
             When overriding cipher suites, it is highly recommended
             that server-preferred cipher suite ordering is enforced
             (see the following section).
