@@ -495,8 +495,34 @@ management.sample_retention_policies.detailed.10 = 5
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
      {cors_max_age, 3600}]},
 ].</pre>
-      </doc:subsection>
+        </doc:subsection>
 
+        <doc:subsection name="path-prefix">
+          <doc:heading>Path Prefix</doc:heading>
+          <p>
+            Some environments require the use of a custom prefix for
+            all HTTP requests to the management plugin. The
+            <code>path_prefix</code> setting allows an arbitrary
+            prefix to be set for all HTTP request handlers in the
+            management plugin.
+          </p>
+          <p>
+            Setting <code>path_prefix</code> to <code>/my-prefix</code>
+            specifies all API requests to use the URI
+            <code>host:port/my-prefix/api/[...]</code>
+          </p>
+          <p>
+            The management UI login page will have the URI
+            <code>host:port/my-prefix/</code> - note that the
+            trailing slash is <em>required</em> in this case.
+          </p>
+          <pre class="sourcecode erlang">[
+  ...
+  {rabbitmq_management,
+    [{path_prefix, "/my-prefix"}]},
+  ...
+].</pre>
+        </doc:subsection>
 
       <doc:subsection name="example-config">
         <doc:heading>Example</doc:heading>

@@ -105,6 +105,17 @@ limitations under the License.
           a message was successfully processed while their negative counterpart
           suggests that a delivery wasn't processed but still should be deleted.
         </p>
+
+        <p>
+          In automatic acknowledgement mode, a message is considered
+          to be successfully delivered immediately after it is
+          sent. This mode trades off higher throughput (as long as the
+          consumers can keep up) for reduced safety of delivery and
+          consumer processing. This mode is often referred to as
+          "fire-and-forget".  Unlike with manual acknowledgement
+          model, if consumers's TCP connection or channel is closed
+          before successful delivery, it will be lost.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="consumer-acks-multiple-parameter">
