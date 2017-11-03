@@ -1105,6 +1105,17 @@ client unexpectedly closed TCP connection
           should be eliminated at the step that double checks server
           listener configuration.
         </p>
+        <p>
+          There's a great number of firewall, proxy and load balancer tools and products.
+          <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a> is a commonly used
+          firewall on Linux and other UNIX-like systems. There is no shortage of <code>iptables</code>
+          tutorials on the Web.
+        </p>
+        <p>
+          For the list of ports used by RabbitMQ and its various
+          plugins, see above. Generally all ports used for external
+          connections must be allowed by the firewalls and proxies.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="troubleshooting-ip-routing">
