@@ -979,5 +979,203 @@ client unexpectedly closed TCP connection
         a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
       </p>
     </doc:section>
+
+    <doc:section name="troubleshooting-where-to-start">
+      <doc:heading>Troubleshooting Network Connectivity</doc:heading>
+
+      <doc:subsection name="troubleshooting-intro">
+        <doc:heading>Methodology</doc:heading>
+        <p>
+          Troubleshooting of network connectivity issues is a broad topic. There are entire
+          books written about it. This guide provides some starting points for most common issues.
+        </p>
+
+        <p>
+          Networking protocols are <a href="https://en.wikipedia.org/wiki/OSI_model#Comparison_with_TCP.2FIP_model">layered</a>.
+          So are problems with them. An effective troubleshooting
+          strategy typically uses the process of elimination to pin point the issue (or multiple issues),
+          starting at higher levels. Specifically for messaging technologies, the following steps
+          are often effective and sufficient:
+
+          <ul>
+            <li>Verify client configuration</li>
+            <li>
+              Verify server configuration using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
+              and <code>rabbitmqctl environment</code>
+            </li>
+            <li>Check server logs (see above)</li>
+            <li>Verify hostname resolution</li>
+            <li>Verify TCP port connectivity</li>
+            <li>Verify IP routing</li>
+            <li>If needed, take and analyze a traffic dump (traffic capture)</li>
+          </ul>
+
+          These steps, when performed in sequence, usually help identify the root cause of
+          the vast majority of networking issues. Troubleshooting tools and techniques for
+          levels lower than the <a href="https://en.wikipedia.org/wiki/Internet_protocol_suite#Internet_layer">Internet (networking) layer</a>
+          are outside of the scope of this guide.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-verify-client">
+        <doc:heading>Verify Client Configuration</doc:heading>
+
+        <p>
+          All developers and operators have been there: typos,
+          outdated values, issues in provisioning tools, mixed up
+          public and private key paths, and so on. Step one is to
+          double check application and client library
+          configuration.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-verify-server">
+        <doc:heading>Verify Server Configuration</doc:heading>
+
+        <p>
+          Verifying server configuration helps prove that RabbitMQ is running
+          with the expected set of settings related to networking. It also verifies
+          that the node is actually running. Here are the recommended steps:
+
+          <ul>
+            <li>Make sure the node is running using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code></li>
+            <li>Verify <a href="/configure.html">config file is correctly placed and has correct syntax/structure</a></li>
+            <li>Inspect the <code>listeners</code> section in <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> output</li>
+            <li>Inspect effective configuration using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> environment</code></li>
+          </ul>
+        </p>
+
+        <p>
+          The listeners sections will look something like this:
+
+<pre class="sourcecode erlang">
+ % ...
+ {listeners,
+     [{clustering,25672,"::"},
+      {amqp,5672,"::"},
+      {'amqp/ssl',5671,"::"},
+      {http,15672,"::"}]}
+ % ...
+</pre>
+
+          In this example, there are 4 TCP listeners on the node:
+
+          <ul>
+            <li>Inter-node and CLI tool communication port, <code>25672</code></li>
+            <li>AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections, <code>5672</code></li>
+            <li>AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections, <code>5671</code></li>
+            <li><a href="/management.html">HTTP API</a>, 15672</li>
+          </ul>
+
+          All listeners are bound to all available interfaces.
+        </p>
+        <p>
+          Inspecting TCP listeners used by a node helps spot non-standard port configuration,
+          protocol plugins (e.g. <a href="/mqtt.html">MQTT</a>) that are supposed to be configured but aren't,
+          cases when the node is limited to only a few network interfaces, and so on.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="troubleshooting-hostname-resolution">
+        <doc:heading>Hostname Resolution</doc:heading>
+
+        <p>
+          It is very common for applications to use hostnames or URIs with hostnames when connecting
+          to RabbitMQ. <a href="https://en.wikipedia.org/wiki/Dig_(command)">dig</a> and <a href="https://en.wikipedia.org/wiki/Nslookup">nslookup</a> are
+          commonly used tools for troubleshooting hostnames resolution.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-port-access">
+        <doc:heading>Port Access</doc:heading>
+
+        <p>
+          Besides hostname resolution and IP routing issues,
+          TCP port inaccessibility for outside connections is a common reason for
+          failing client connections. <a href="https://en.wikipedia.org/wiki/Telnet">telnet</a> is a commonly
+          used, very minimalistic tool for testing TCP connections to a particular hostname and port.
+        </p>
+        <p>
+          Failed or timing out <code>telnet</code> connections
+          strongly suggest there's a proxy, load balancer or firewall
+          that blocks incoming connections on the target port. It
+          could also be due to RabbitMQ process not running on the
+          target node or uses a non-standard port. Those scenarios
+          should be eliminated at the step that double checks server
+          listener configuration.
+        </p>
+        <p>
+          There's a great number of firewall, proxy and load balancer tools and products.
+          <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a> is a commonly used
+          firewall on Linux and other UNIX-like systems. There is no shortage of <code>iptables</code>
+          tutorials on the Web.
+        </p>
+        <p>
+          For the list of ports used by RabbitMQ and its various
+          plugins, see above. Generally all ports used for external
+          connections must be allowed by the firewalls and proxies.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-ip-routing">
+        <doc:heading>IP Routing</doc:heading>
+
+        <p>
+          Messaging protocols supported by RabbitMQ use TCP and require IP routing between
+          clients and RabbitMQ hosts to be functional. There are several tools and techniques
+          that can be used to verify IP routing between two hosts. <a href="https://en.wikipedia.org/wiki/Traceroute">traceroute</a> and <a href="https://en.wikipedia.org/wiki/Ping_(networking_utility)">ping</a>
+          are two common options available for many operating systems. Most routing table inspection tools are OS-specific.
+        </p>
+
+        <p>
+          Note that both <code>traceroute</code> and <code>ping</code> use <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a>
+          while RabbitMQ client libraries and inter-node connections use TCP.
+          Therefore a successful <code>ping</code> run alone does not guarantee successful client connectivity.
+        </p>
+
+        <p>
+          Both <code>traceroute</code> and <code>ping</code> have Web-based and GUI tools built on top.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-traffic-captures">
+        <doc:heading>Capturing Traffic</doc:heading>
+
+        <p>
+          All network activity can be inspected, filtered and analyzed using a traffic capture.
+        </p>
+
+        <p>
+          <a href="https://en.wikipedia.org/wiki/Tcpdump">tcpdump</a> and its GUI sibling <a href="https://www.wireshark.org">Wireshark</a>
+          are the industry standards for capturing traffic, filtering and analysis. Both support all protocols supported by RabbitMQ.
+          See the <a href="/amqp-wireshark.html">Using Wireshark with RabbitMQ</a> guide for an overview.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-tls">
+        <doc:heading>TLS Connections</doc:heading>
+
+        <p>
+          For connections that use TLS there is a separate <a href="/troubleshooting-ssl.html">guide on troubleshooting TLS</a>.
+        </p>
+
+        <p>
+          When adopting TLS it is important to make sure that clients
+          use correct port to connect (see the list of ports above)
+          and that they are instructed to use TLS (perform TLS
+          upgrade). A client that is not configured to use TLS will
+          successfully connect to a TLS-enabled server port but its connection
+          will then time out since it never performs the TLS upgrade that the server
+          expects.
+        </p>
+
+        <p>
+          A TLS-enabled client connecting to a non-TLS enabled port will successfully
+          connect and try to perform a TLS upgrade which the server does not expect, this
+          triggering a protocol parser exception. Such exceptions will be logged by the server.
+        </p>
+      </doc:subsection>
+    </doc:section>
   </body>
 </html>

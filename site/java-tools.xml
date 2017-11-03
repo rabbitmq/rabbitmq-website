@@ -149,7 +149,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-5" --id "te
           Consumers can ack multiple messages at once, for example, 100 in this configuration:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-6" --id "test-6" -f persistent --multiAckEvery 100
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-6" --id "test-6" -f persistent --multi-ack-every 100
 </pre>
         </p>
 
@@ -157,7 +157,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-6" --id "te
 <a href="/confirms.html">Consumer prefetch (QoS)</a> can be configured as well (in this example to 500):
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-7" --id "test-7" -f persistent --multiAckEvery 200 -q 500
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-7" --id "test-7" -f persistent --multi-ack-every 200 -q 500
 </pre>
         </p>
 
@@ -189,7 +189,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-11" --id "t
           Consumer rate can be limited as well to simulate slower consumers or create a backlog:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-12" --id "test-12" -f persistent --rate 5000 --consumerRate 2000
+bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-12" --id "test-12" -f persistent --rate 5000 --consumer-rate 2000
 </pre>
         </p>
 
