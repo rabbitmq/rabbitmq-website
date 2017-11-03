@@ -116,6 +116,21 @@ limitations under the License.
           model, if consumers's TCP connection or channel is closed
           before successful delivery, it will be lost.
         </p>
+
+        <p>
+          Another things that's important to consider when using
+          automatic acknowledgement mode is that of consumer overload.
+          Manual acknowledgement mode is typically used with a bounded
+          channel prefetch which limits the number of outstanding ("in progress")
+          deliveries on a channel. With automatic acknowledgements, however, there is
+          no such limit by definition. Consumers therefore can be overwhelmed by
+          the rate of deliveries, potentially accumulating a backlog in memory
+          and running out of heap or getting their process terminated by the OS.
+          Some client libraries will apply TCP back pressure (stop reading from the socket
+          until the backlog of unprocessed deliveries drops beyond a certain limit).
+          Automatic acknolwedgement mode is therefore only recommended for consumers
+          that can process deliveries very efficiently and at a steady rate.
+        </p>        
       </doc:subsection>
 
       <doc:subsection name="consumer-acks-multiple-parameter">
