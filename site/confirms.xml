@@ -129,7 +129,7 @@ limitations under the License.
           Some client libraries will apply TCP back pressure (stop reading from the socket
           until the backlog of unprocessed deliveries drops beyond a certain limit).
           Automatic acknolwedgement mode is therefore only recommended for consumers
-          that can process deliveries very efficiently and at a steady rate.
+          that can process deliveries efficiently and at a steady rate.
         </p>        
       </doc:subsection>
 
