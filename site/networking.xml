@@ -986,7 +986,7 @@ client unexpectedly closed TCP connection
       <doc:subsection name="troubleshooting-intro">
         <doc:heading>Methodology</doc:heading>
         <p>
-          Troubleshooting network connectivity issues is a broad topic. There are entire
+          Troubleshooting of network connectivity issues is a broad topic. There are entire
           books written about it. This guide provides some starting points for most common issues.
         </p>
 
@@ -1041,7 +1041,7 @@ client unexpectedly closed TCP connection
             <li>Make sure the node is running using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code></li>
             <li>Verify <a href="/configure.html">config file is correctly placed and has correct syntax/structure</a></li>
             <li>Inspect the <code>listeners</code> section in <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> output</li>
-            <li>Inspect the <code>listeners</code> section in <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> output</li>
+            <li>Inspect effective configuration using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> environment</code></li>
           </ul>
         </p>
 
