@@ -1091,9 +1091,9 @@ client unexpectedly closed TCP connection
         <doc:heading>Port Access</doc:heading>
 
         <p>
-          Besides hostname resolution and IP routing issues have been ruled out,
+          Besides hostname resolution and IP routing issues,
           TCP port inaccessibility for outside connections is a common reason for
-          client connections to fail. <a href="https://en.wikipedia.org/wiki/Telnet">telnet</a> is a commonly
+          failing client connections. <a href="https://en.wikipedia.org/wiki/Telnet">telnet</a> is a commonly
           used, very minimalistic tool for testing TCP connections to a particular hostname and port.
         </p>
         <p>
