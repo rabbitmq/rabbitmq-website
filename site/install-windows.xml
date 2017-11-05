@@ -46,14 +46,15 @@ limitations under the License.
         <doc:heading>Install the Server</doc:heading>
         <p>
           First you need to install a <a href="/which-erlang.html">supported version of Erlang</a> for Windows.
-          Download and run
-          the <a href="http://www.erlang.org/download.html">Erlang for Windows</a> installer. 64-bit versions
-          are highly recommended.
+          Download and run the <a href="http://www.erlang.org/download.html">Erlang for Windows</a>
+          installer. 64-bit versions are highly recommended. <b>Important:</b> you
+          <em>must</em> run the Erlang installer using an administrative account
+          otherwise a registry key expected by the RabbitMQ installer will not be
+          present.
         </p>
         <p>
-          Then just run the installer, <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
-          It will set RabbitMQ up and running as a service, with a
-          default configuration.
+          Then, run the RabbitMQ installer, <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
+          It installs RabbitMQ as a Windows service and starts it using the default configuration.
         </p>
       </doc:subsection>
 
