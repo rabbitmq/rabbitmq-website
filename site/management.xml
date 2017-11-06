@@ -440,45 +440,71 @@ limitations under the License.
           </p>
         </doc:subsection>
 
-      <doc:subsection name="cors">
-        <doc:heading>Cross-origin resource sharing (CORS)</doc:heading>
-        <p>
-          The management API will by default not allow access to
-          websites hosted on different origins. Allowed origins
-          must be explicitly white-listed in configuration.
-        </p>
-        <pre class="sourcecode erlang">[
+        <doc:subsection name="cors">
+          <doc:heading>Cross-origin resource sharing (CORS)</doc:heading>
+          <p>
+            The management API will by default not allow access to
+            websites hosted on different origins. Allowed origins
+            must be explicitly white-listed in configuration.
+          </p>
+          <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]}]},
   ...
 ].</pre>
-        <p>
-          It is possible to allow any origin to use the API.
-          It is however not recommended if the API is reachable
-          from the outside world.
-        </p>
-        <pre class="sourcecode erlang">[
+          <p>
+            It is possible to allow any origin to use the API.
+            It is however not recommended if the API is reachable
+            from the outside world.
+          </p>
+          <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["*"]}]},
   ...
 ].</pre>
-        <p>
-          The CORS pre-flight requests are cached by the browser.
-          The management plugin defines a timeout of 30 minutes
-          by default. You can modify this value in the configuration.
-          It is defined in seconds.
-        </p>
-        <pre class="sourcecode erlang">[
+          <p>
+            The CORS pre-flight requests are cached by the browser.
+            The management plugin defines a timeout of 30 minutes
+            by default. You can modify this value in the configuration.
+            It is defined in seconds.
+          </p>
+          <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
     [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
      {cors_max_age, 3600}]},
   ...
 ].</pre>
-      </doc:subsection>
+        </doc:subsection>
 
+        <doc:subsection name="path-prefix">
+          <doc:heading>Path Prefix</doc:heading>
+          <p>
+            Some environments require the use of a custom prefix for
+            all HTTP requests to the management plugin. The
+            <code>path_prefix</code> setting allows an arbitrary
+            prefix to be set for all HTTP request handlers in the
+            management plugin.
+          </p>
+          <p>
+            Setting <code>path_prefix</code> to <code>/my-prefix</code>
+            specifies all API requests to use the URI
+            <code>host:port/my-prefix/api/[...]</code>
+          </p>
+          <p>
+            The management UI login page will have the URI
+            <code>host:port/my-prefix/</code> - note that the
+            trailing slash is <em>required</em> in this case.
+          </p>
+          <pre class="sourcecode erlang">[
+  ...
+  {rabbitmq_management,
+    [{path_prefix, "/my-prefix"}]},
+  ...
+].</pre>
+        </doc:subsection>
 
         <doc:subsection name="example-config">
           <doc:heading>Example</doc:heading>
