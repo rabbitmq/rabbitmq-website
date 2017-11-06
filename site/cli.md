@@ -90,23 +90,23 @@ or similar.
 #### Linux, MacOS, *BSD
 
 On UNIX systems, the cookie will be typically
-located in <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
-and <code>$HOME/.erlang.cookie</code> (used by CLI tools). Note that since the value
-of <code>$HOME</code> varies from user to user, it's necessary to place a copy of
+located in `/var/lib/rabbitmq/.erlang.cookie` (used by the server)
+and `$HOME/.erlang.cookie` (used by CLI tools). Note that since the value
+of `$HOME` varies from user to user, it's necessary to place a copy of
 the cookie file for each user that will be using the CLI tools. This could be one
 non-privileged user and `root`.
 
 #### Windows
 
-On Windows, the locations are <code>C:\Users\\{Username}\.erlang.cookie</code> (<code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code>)
-or <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code>, and
-<code>C:\Windows\.erlang.cookie</code> for RabbitMQ Windows service.
+On Windows, the locations are `C:\Users\\{Username}\.erlang.cookie` (`%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie`)
+or `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie`, and
+`C:\Windows\.erlang.cookie` for RabbitMQ Windows service.
 If Windows service is used, the cookie should be placed in both places.
 
 #### Runtime Arguments
 
-As an alternative, you can add the option "<code>-setcookie <i>value</i></code>"
-in the <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> <a href="/configure.html">environment variable value</a>:
+As an alternative, you can add the option "`-setcookie <i>value</i>`"
+in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>:
 
 <pre class="sourcecode ini">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
@@ -119,7 +119,7 @@ This is the least secure option and generally not recommended.
 
 When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
 such as "Connection attempt from disallowed node" and "Could not auto-cluster". When
-a CLI tool such as <code>rabbitmqctl</code> fails to authenticate with RabbitMQ,
+a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
 <pre class="sourcecode ini">
@@ -172,7 +172,7 @@ Non-TLS connections from other nodes and CLI tools will fail.
 #### Possible Reason 3: Hostname Mismatch
 
 Other reasons include a hostname mismatch in node name used by the target RabbitMQ node and that provided
-to the CLI tool (e.g. via the <code>-n</code> flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
+to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
 as its name but `rabbitmqctl` is invoked as
 
 <pre class="sourcecode ini">
