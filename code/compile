@@ -57,7 +57,11 @@ def blacklist(f):
     return f.startswith('resources/specs/')
 
 def render_file(in_f, out_f, site_mode, version):
-    rendered = render.render_page('/' + html_ext(in_f), site_mode, version)
+    try:
+        rendered = render.render_page('/' + html_ext(in_f), site_mode, version)
+    except Exception as e:
+        print "\n\nException rendering {0}".format(in_f)
+        raise e
     with open(html_ext(out_f), 'w') as f:
         f.write(rendered)
     sys.stdout.write("#")
