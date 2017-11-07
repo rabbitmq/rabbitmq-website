@@ -16,9 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!ENTITY version-java-client "5.0.0">
-<!ENTITY version-dotnet-client "3.3.14">
-<!ENTITY version-server "3.3.14">
-<!ENTITY version-erlang-client "3.3.14">
+<!ENTITY version-dotnet-client "3.6.14">
+<!ENTITY version-server "3.6.14">
+<!ENTITY version-erlang-client "3.6.14">
 <!--
   Note, the following entity should contain underscores not dots, like
   rabbitmq_vX_Y_Z for version X.Y.Z.
