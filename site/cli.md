@@ -202,6 +202,19 @@ current node details:
 </pre>
 
 
+#### Other Possible Reasons
+
+Just like with any network connection, CLI-to-node connections can fail due to
+
+ * Hostname resolution issues
+ * IP routing issues
+ * TCP port access (firewalls, etc) issues
+
+and so on.
+
+[RabbitMQ Networking guide](/networking.html) contains a section on troubleshooting of networking-related issues.
+
+
 ## rabbitmqadmin
 
 [rabbitmqadmin](/management-cli.html) is a command line tool that's built on top of [RabbitMQ HTTP API](/management.html).
