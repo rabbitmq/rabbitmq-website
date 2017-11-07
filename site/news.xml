@@ -32,7 +32,7 @@ limitations under the License.
       -->
 
    <doc:item>
-      <doc:date iso="2017-11-7T18:00:00+03:00">7 November 2017</doc:date>
+      <doc:date iso="2017-11-07T18:00:00+03:00">7 November 2017</doc:date>
       <doc:title>RabbitMQ 3.6.14 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14</doc:link>
       <doc:text>
@@ -72,7 +72,7 @@ limitations under the License.
     </doc:item>
 
    <doc:item>
-      <doc:date iso="2017-11-6T18:00:00+03:00">6 November 2017</doc:date>
+      <doc:date iso="2017-11-06T18:00:00+03:00">6 November 2017</doc:date>
       <doc:title>RabbitMQ 3.6.13 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_13</doc:link>
       <doc:text>
