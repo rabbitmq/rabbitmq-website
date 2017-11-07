@@ -78,7 +78,12 @@ def preprocess_markdown(fpath):
         processed = tutorial_head + processed + tutorial_foot
     utf8_parser = etree.XMLParser(encoding='utf-8')
     s = (pre + head + processed + post).encode("utf-8")
-    return etree.fromstring(s, parser = utf8_parser).getroottree()
+    try:
+      return etree.fromstring(s, parser = utf8_parser).getroottree()
+    except Exception as e:
+        print "\n\nException rendering {0}".format(fpath)
+        raise e
+
 
 
 def parse(fpath):
