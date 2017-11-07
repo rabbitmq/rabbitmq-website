@@ -115,7 +115,9 @@ limitations under the License.
        <x:page url="/networking.html" text="Networking"/>
        <x:page url="/memory-use.html" text="Memory Use">
          <x:related url="/lazy-queues.html"/>
+         <x:related url="/queue-memory.html"/>
        </x:page>
+       <x:page url="/queue-memory.html" text="Queue memory"/>
        <x:page url="/lazy-queues.html" text="Lazy Queues"/>
        <x:page url="/event-exchange.html" text="Internal Event Exchange"/>
        <x:page url="/firehose.html" text="Firehose (Message Tracing)"/>

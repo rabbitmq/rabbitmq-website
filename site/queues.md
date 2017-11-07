@@ -195,7 +195,7 @@ or when a certain amount of time passes (fraction of a second).
 [Lazy queues](/lazy-queues.html) page messages out to disk more aggressively
 regardless of their persistence property.
 
-See [Memory Usage](/memory-use.html), [Alarms](/alarms.html),
+See [Memory Usage](/memory-use.html), [Alarms](/alarms.html), [Queue memory](/queue-memory.html)
 [Memory Alarms](http://localhost:8191/memory.html), [Free Disk Space Alarms](/disk-alarms.html),
 [Production Checklist](/production-checklist.html), and [Message Store Configuration](/persistence-conf.html)
 guide for details.
