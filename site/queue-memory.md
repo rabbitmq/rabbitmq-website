@@ -1,6 +1,6 @@
 # Queue memory.
 
-This document is trying to explain memory usage of RabbitMQ queues.
+This document covers memory usage of RabbitMQ queues.
 
 ### Please to read first
 
@@ -28,8 +28,8 @@ in the node page. It's helpful to determine how much memory message payloads use
 ### How much memory does a message use?
 
 In addition to payload each message has metadata, which contains exchange,
-routing keys, message properties, persistence, redelivery status ets.
-Metadata takes at least **750** bytes per message. Can be more if the
+routing keys, message properties, persistence, redelivery status, etc.
+Metadata takes at least **750** bytes per message. This can be more if the
 message has properties (e.g. headers) configured.
 
 Messages ordering structure takes 2 bytes per message.
@@ -45,7 +45,7 @@ This allows ordering of operations and spreading load between thousands of queue
 
 To monitor a single queue memory, you can use HTTP API queue endpoint
 `<host>/api/queues/<vhost>/<queue_name>`.
-`memory` field will report the queue process memory, `message_bytes_ram`
+The `memory` field will report the queue process memory and the `message_bytes_ram`
 field will report amount of memory used by the queue messages.
 
 Message payloads are erlang binaries and can be stored in the queue heap or the erlang
@@ -65,7 +65,7 @@ for high number of messages.
 If messages are big, they will be stored in the global heap and will not reflect
 in the queue process.
 
-### Why does the queue memory spiky when publishing/consuming?
+### Why is the queue memory spiky when publishing/consuming?
 
 If a queue is idle, its memory usage will be minimized leaving only useful data,
 like messages and message metadata.
