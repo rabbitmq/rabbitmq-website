@@ -34,22 +34,22 @@ limitations under the License.
       <p>
         RabbitMQ provides tools that report and help analyse node memory use:
 
-        <ul>
-          <li><code><a href="/cli.html">rabbitmqctl</a> status</code> provides a memory breakdown section.</li>
-          <li><a href="/management.html">management UI</a> provides the same breakdown as <code>rabbitmqctl status</code> on the node page</li>
-          <li>As everything else in management UI, the same information is available via the <a href="/management.html">HTTP API</a>, for example, for <a href="/monitoring.html">monitoring</a></li>
-          <li><a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a>, a plugin inspired by <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> and similar process managers found in most operating systems</li>
+        <ul class="plain">
+          <li><code>rabbitmqctl status</code> provides a memory breakdown section</li>
+          <li><a href="/management.html">management UI</a> provides the same breakdown on the node page as <code>rabbitmqctl status</code></li>
+          <li><a href="/management.html#http-api">HTTP API</a> provides the same information as the management UI, useful for <a href="/monitoring.html">monitoring</a></li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a>, a plugin inspired by the <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> utility</li>
         </ul>
       </p>
 
       <p>
-        Obtaining a breakdown should be the first step when reasoning about node memory use.
+        Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
       </p>
 
       <p>
-        Note that all measurements are somewhat approximate, based on
-        values returned by the underlying runtime or the kernel at a specific point in time;
-        however they should still be accurate enough to be useful.
+        Note that all measurements are somewhat approximate, based on values
+        returned by the underlying runtime or the kernel at a specific point in
+        time, usually within a 5 seconds time window.
       </p>
     </doc:section>
 
@@ -58,20 +58,20 @@ limitations under the License.
 
       <p>
         Starting with version 3.6.11, different strategies can be used
-        to compute how much memory a node uses. Historically nodes
+        to compute how much memory a node uses. Historically, nodes
         obtained this information from the runtime, reporting how much
         memory is used (not just allocated). This strategy, known as
         <code>legacy</code> (alias for <code>erlang</code>) tends to
-        underreport and is not recommended with modern versions.
+        underreport and is not recommended.
       </p>
       <p>
-          Effective strategy is <a href="/configure.html">configured</a> using the <code>vm_memory_calculation_strategy</code> key.
+          Effective strategy is configured using the <code>vm_memory_calculation_strategy</code> key.
       </p>
       <p>
         <code>rss</code> uses OS-specific means of querying the kernel to find
         RSS (Resident Set Size) value of the node OS process. This strategy is most precise
         and used by default on Linux, MacOS, BSD and Solaris systems. When
-        this strategy is used, RabbitMQ may start short lived subprocesses (about once a second).
+        this strategy is used, RabbitMQ runs short lived subprocesses once a second.
       </p>
       <p>
         <code>allocated</code> is a strategy that queries runtime memory allocator
@@ -86,7 +86,7 @@ limitations under the License.
       </p>
 
       <p>
-        The following example uses the <code>rss</code> strategy:
+        The following config example uses the <code>rss</code> strategy:
 
         <pre class="sourcecode erlang">
 [
@@ -117,7 +117,7 @@ limitations under the License.
         <p>
           Memory use breakdown reports allocated memory distribution by category:
 
-          <ul>
+          <ul class="plain">
             <li>Connections (further split into three categories: readers, writers, other)</li>
             <li>Channels</li>
             <li>Queue master replicas</li>
@@ -143,7 +143,7 @@ limitations under the License.
         <doc:heading>Producing Memory Use Breakdown Using rabbitmqctl</doc:heading>
 
         <p>
-          A common way of producing memory breakdown is via <code><a href="/cli.html">rabbitmqctl</a> status</code>:
+          A common way of producing memory breakdown is via <code>rabbitmqctl status</code>:
         </p>
 
         <p>
@@ -620,7 +620,7 @@ curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memo
       <doc:heading>Preallocated memory</doc:heading>
 
       <p>
-        Erlang memory breakdown reports only memory it's currently using, and not
+        Erlang memory breakdown reports only memory is currently being used, and not
         the memory that has been allocated for later use or reserved by the operating system.
         OS tools like <code>ps</code> can report more memory used than the runtime.
 
