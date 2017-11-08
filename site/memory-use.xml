@@ -632,10 +632,10 @@ curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/m
       </p>
 
       <p>
-        Runtime's memory allocator behavior can be tuned. Please refer to the
-        <a href="http://erlang.org/doc/man/erl.html" target="_blank"><code>erl</code></a> and
-        <a href="http://erlang.org/doc/man/erts_alloc.html" target="_blank"><code>erts_alloc</code></a>
-        documentation on erlang.org.
+        Runtime's memory allocator behavior can be tuned, please refer to
+        <a href="http://erlang.org/doc/man/erl.html" target="_blank">erl</a> and
+        <a href="http://erlang.org/doc/man/erts_alloc.html" target="_blank">erts_alloc</a>
+        documentation.
       </p>
     </doc:section>
   </body>
