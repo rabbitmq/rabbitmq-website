@@ -460,7 +460,7 @@ curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/m
           configuration</a> of the node.
         </p>
         <p>
-          Message bodies do not show up here but inBinaries.
+          Message bodies do not show up here but in Binaries.
         </p>
       </doc:subsection>
 
