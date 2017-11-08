@@ -569,6 +569,17 @@ limitations under the License.
         </doc:subsection>
       </doc:section>
 
+
+      <doc:section name="memory-use-analysis">
+        <doc:heading>Memory Use Analysis</doc:heading>
+        <p>
+          Management UI can be used to inspect node's memory use, including displaying
+          a per-category breakdown. See the <a href="/memory-use.html">Memory Use Analysis</a> guide
+          for details.
+        </p>
+      </doc:section>
+
+
       <doc:section name="clustering">
         <doc:heading>Note on clustering</doc:heading>
         <p>
