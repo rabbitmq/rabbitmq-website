@@ -35,12 +35,17 @@ limitations under the License.
         RabbitMQ provides tools that report and help analyse node memory use:
 
         <ul>
-          <li><code><a href="/cli.html">rabbitmqctl</a> status</code> provides a memory breakdown section. This should be first step in analysing memory usage.</li>
+          <li><code><a href="/cli.html">rabbitmqctl</a> status</code> provides a memory breakdown section.</li>
           <li><a href="/management.html">management UI</a> provides the same breakdown as <code>rabbitmqctl status</code> on the node page</li>
           <li>As everything else in management UI, the same information is available via the <a href="/management.html">HTTP API</a>, for example, for <a href="/monitoring.html">monitoring</a></li>
           <li><a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a>, a plugin inspired by <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> and similar process managers found in most operating systems</li>
         </ul>
       </p>
+
+      <p>
+        Obtaining a breakdown should be the first step when reasoning about node memory use.
+      </p>
+
       <p>
         Note that all measurements are somewhat approximate, based on
         values returned by the underlying runtime or the kernel at a specific point in time;
@@ -60,7 +65,7 @@ limitations under the License.
         underreport and is not recommended with modern versions.
       </p>
       <p>
-          Effective strategy is <a href="/configure.thml">configured</a> using the <code>vm_memory_calculation_strategy</code> key.
+          Effective strategy is <a href="/configure.html">configured</a> using the <code>vm_memory_calculation_strategy</code> key.
       </p>
       <p>
         <code>rss</code> uses OS-specific means of querying the kernel to find
@@ -568,6 +573,46 @@ curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memo
           Memory used by atoms. Should be fairly constant.
         </p>
       </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="rabbitmq-top">
+      <doc:heading>Per-process Analysis with rabbitmq-top</doc:heading>
+
+      <p>
+        <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> is a plugin that helps
+        identify runtime processes ("lightweight threads") that consume most memory or scheduler (CPU)
+        time.
+      </p>
+
+      <p>
+        The plugin ships with RabbitMQ. Enable it with
+
+        <pre class="sourcecode bash">
+[sudo] rabbitmq-plugins enable rabbitmq_top
+</pre>
+      </p>
+
+      <p>
+        The plugin adds new administrative tabs to the <a href="/management.html">management UI</a>. One
+        tab displays top processes by one of the metrics:
+
+        <ul>
+          <li>Memory used</li>
+          <li>Reductions (unit of scheduler/CPU consumption)</li>
+          <li>Erlang mailbox length</li>
+          <li>For <code>gen_server2</code> processes, internal operation buffer length</li>
+        </ul>
+
+        <img src="img/memory/rabbitmq-top-processes.png" alt="Top processes in rabbitmq-top" title="Top processes in rabbitmq-top" />
+      </p>
+
+      <p>
+        Second tab displays ETS (internal key/value store) tables. The tables can be sorted by
+        the amount of memory used or number of rows:
+
+        <img src="img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
+      </p>
     </doc:section>
 
 
