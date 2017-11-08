@@ -366,10 +366,7 @@ limitations under the License.
 
         <p>
 <pre class="sourcecode ini">
-curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory | python -m json.tool
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   383  100   383    0     0   3892      0 --:--:-- --:--:-- --:--:--  3908
+curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory | python -m json.tool
 {
     "memory": {
         "atom": 1041593,
@@ -405,10 +402,7 @@ curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memo
 
         <p>
           <pre class="sourcecode ini">
-curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative | python -m json.tool
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   339  100   339    0     0   2930      0 --:--:-- --:--:-- --:--:--  2947
+curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative | python -m json.tool
 {
     "memory": {
         "allocated_unused": 32,
