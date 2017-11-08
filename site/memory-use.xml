@@ -20,132 +20,558 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Memory Use</title>
+    <title>Reasoning About Memory Use</title>
   </head>
   <body>
-    <p>
-      RabbitMQ can report on its own memory use, to let you see where
-      your system is using memory.
-    </p>
-    <p>
-      Note that all measurements are somewhat approximate, based on
-      values returned by the underlying Erlang virtual machine;
-      however they should still be accurate enough to be useful.
-    </p>
-    <p>
-      The <code>vm_memory_calculation_strategy</code> setting also impacts
-      memory reporting. If set to <code>legacy</code> (<code>erlang</code>) or <code>allocated</code>,
-      some memory breakdown fields will not be reported. This is covered in more detail
-      further in this guide.
-    </p>
-    <p>
-      You can obtain the memory use report by
-      invoking <code>rabbitmqctl status</code>, or by looking at the
-      node details page in
-      the <a href="management.html">management</a> web UI. Memory use
-      is split into the following categories (which do not overlap):
-    </p>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
 
-    <h3>Connections</h3>
-    <p>
-      This includes memory used by incoming connections and channels,
-      and outgoing ones if the appropriate plugins are loaded. It also
-      includes memory used by the SSL system.
-    </p>
+      <p>
+        Operators need to be able to reason about node's memory use,
+        both absolute and relative ("what uses most memory"). This is an
+        important aspect of <a href="/monitoring.html">system monitoring</a>.
+      </p>
+      <p>
+        RabbitMQ provides tools that report and help analyse node memory use:
 
-    <h3>Queues</h3>
-    <p>
-      Memory used by individual queue processes. Note that queues
-      will swap their contents out to disc when under memory
-      pressure. Message bodies do not show up here but in
-      Binaries.
-    </p>
+        <ul>
+          <li><code><a href="/cli.html">rabbitmqctl</a> status</code> provides a memory breakdown section. This should be first step in analysing memory usage.</li>
+          <li><a href="/management.html">management UI</a> provides the same breakdown as <code>rabbitmqctl status</code> on the node page</li>
+          <li>As everything else in management UI, the same information is available via the <a href="/management.html">HTTP API</a>, for example, for <a href="/monitoring.html">monitoring</a></li>
+          <li><a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a>, a plugin inspired by <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> and similar process managers found in most operating systems</li>
+        </ul>
+      </p>
+      <p>
+        Note that all measurements are somewhat approximate, based on
+        values returned by the underlying runtime or the kernel at a specific point in time;
+        however they should still be accurate enough to be useful.
+      </p>
+    </doc:section>
 
-    <h3>Plugins</h3>
-    <p>
-      Memory used by plugins (apart from the Erlang client which is
-      counted under Connections, and the management database which is
-      counted separately). Note that RabbitMQ will count some
-      per-connection memory here for protocol plugins such as STOMP
-      and MQTT.
-    </p>
+    <doc:section name="strategies">
+      <doc:heading>Total Memory Use Calculation Strategies</doc:heading>
 
-    <h3>Other process memory</h3>
-    <p>
-      Memory belonging to processes not counted above, and memory
-      assigned to "processes" by the Erlang VM, but not to any one
-      process. Memory that has recently been garbage collected can
-      show up here briefly.
-    </p>
+      <p>
+        Starting with version 3.6.11, different strategies can be used
+        to compute how much memory a node uses. Historically nodes
+        obtained this information from the runtime, reporting how much
+        memory is used (not just allocated). This strategy, known as
+        <code>legacy</code> (alias for <code>erlang</code>) tends to
+        underreport and is not recommended with modern versions.
+      </p>
+      <p>
+        <code>rss</code> uses OS-specific means of querying the kernel to find
+        RSS (Resident Set Size) value of the node OS process. This strategy is most precise
+        and used by default on Linux, MacOS, BSD and Solaris systems. When
+        this strategy is used, RabbitMQ may start short lived subprocesses (about once a second).
+      </p>
+      <p>
+        <code>allocated</code> is a strategy that queries runtime memory allocator
+        information. It is usually quite close to the values reported by the <code>rss</code>
+        strategy. This strategy is used by default on Windows.
+      </p>
+      <p>
+        The <code>vm_memory_calculation_strategy</code> setting also impacts
+        memory breakdown reporting. If set to <code>legacy</code> (<code>erlang</code>) or <code>allocated</code>,
+        some memory breakdown fields will not be reported. This is covered in more detail
+        further in this guide.
+      </p>
+    </doc:section>
 
-    <h3>Mnesia</h3>
-    <p>
-      Mnesia keeps an in-memory copy of all its data (even on disc
-      nodes). Typically this will only be large when there are a
-      large number of queues, exchanges, bindings, users or
-      virtual hosts.
-    </p>
 
-    <h3>Message store index</h3>
-    <p>
-      The default message store implementation keeps an in-memory
-      index of all messages, including those paged out to disc.
-    </p>
+    <doc:section name="breakdown">
+      <doc:heading>Memory Use Breakdown</doc:heading>
 
-    <h3>Management database</h3>
-    <p>
-      The management database (if the management plugin is
-      loaded). In a cluster, this will only be present on one
-      node.
-    </p>
+      <doc:subsection name="breakdown-intro">
+        <doc:heading>How Memory Breakdown Works</doc:heading>
 
-    <h3>Other ETS tables</h3>
-    <p>
-      Other in-memory tables besides the three sets above. Note
-      that due to a bug in current versions of the Erlang runtime,
-      some memory will be counted under this heading for all
-      tables, including the three sets above.
-    </p>
+        <p>
+          Memory use breakdown reports allocated memory distribution by category:
 
-    <h3>Binaries</h3>
-    <p>
-      Memory used by shared binary data in the Erlang
-      VM. In-memory message bodies show up here.
-    </p>
+          <ul>
+            <li>Connections (further split into three categories: readers, writers, other)</li>
+            <li>Channels</li>
+            <li>Queue master replicas</li>
+            <li>Queue mirror replicas</li>
+            <li>Message Store and Indices</li>
+            <li>Binaries</li>
+            <li>Node-local metrics (stats database)</li>
+            <li>Internal database tables</li>
+            <li>Plugins</li>
+            <li>Memory allocated but not yet used</li>
+            <li>Code (bytecode, module metadata)</li>
+            <li>ETS (in memory key/value store) tables</li>
+            <li>Atom tables</li>
+            <li>Other</li>
+          </ul>
 
-    <h3>Code</h3>
-    <p>
-      Memory used by code. Should be fairly constant.
-    </p>
+          Generally there is no overlap between the categories (no double accounting for the same memory).
+          Plugins and runtime versions may affect this.
+        </p>
+      </doc:subsection>
 
-    <h3>Atoms</h3>
-    <p>
-      Memory used by atoms. Should be fairly constant.
-    </p>
+      <doc:subsection name="breakdown-rabbitmqctl">
+        <doc:heading>Producing Memory Use Breakdown Using rabbitmqctl</doc:heading>
 
-    <h3>Other system memory</h3>
-    <p>
-      Other memory used by Erlang. One contributor to this value
-      is the number of available file descriptors.
-    </p>
+        <p>
+          A common way of producing memory breakdown is via <code><a href="/cli.html">rabbitmqctl</a> status</code>:
+        </p>
 
-    <h3>Preallocated memory</h3>
-    <p>
-      Erlang memory breakdown reports only memory it's currently using, and not
-      the memory that has been allocated for later use or reserved by the operating system.
-      OS tools like <code>ps</code> can report more memory used than the runtime.
+        <p>
+          <pre class="sourcecode erlang">
+{memory,
+    [{connection_readers,70896},
+     {connection_writers,166752},
+     {connection_channels,1239768},
+     {connection_other,233336},
+     {queue_procs,2941784},
+     {queue_slave_procs,0},
+     {plugins,4633344},
+     {other_proc,21878696},
+     {metrics,215544},
+     {mgmt_db,1244248},
+     {mnesia,79296},
+     {other_ets,2299848},
+     {binary,4660864},
+     {msg_index,47880},
+     {code,25423126},
+     {atom,1041593},
+     {other_system,22215713},
+     {allocated_unused,28552208},
+     {reserved_unallocated,0},
+     {total,90398720}]}
+</pre>
+        </p>
 
-      This memory consists of allocated but not used,
-      as well as unallocated but reserved by the OS. Both values depend on the OS and Erlang VM allocator
-      settings and can fluctuate significantly.
-    </p>
-    <p>
-      Note that the sections depend on the <code>vm_memory_calculation_strategy</code> setting.
-      If the strategy is set to <code>erlang</code>, unused
-      memory will not be reported.
-      If memory calculation strategy is set to <code>allocated</code>, memory
-      reserved by OS will not be reported. Therefore <code>rss</code> is the strategy
-      that provides most information from both the kernel and the runtime.
-    </p>
-</body>
+        <p>
+          <table>
+            <thead>
+              <td>Report Field</td>
+              <td>Category</td>
+              <td>Details</td>
+            </thead>
+
+            <tr>
+              <td>total</td>
+              <td></td>
+              <td>Total amount as reported by the effective memory calculation strategy (see above)</td>
+            </tr>
+
+            <tr>
+              <td>connection_readers</td>
+              <td>Connections</td>
+              <td>
+                Processes responsible for connection parser and most of connection state. Most of their memory attributes
+                to TCP buffers. The more client connections a node has, the more memory will be used by this category.
+                See <a href="/networking.html">Networking guide</a> for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>connection_writers</td>
+              <td>Connections</td>
+              <td>
+                Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
+                The more client connections a node has, the more memory will be used by this category.
+                See <a href="/networking.html">Networking guide</a> for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>connection_channels</td>
+              <td>Channels</td>
+              <td>The more channels client connections use, the more memory will be used by this category.</td>
+            </tr>
+
+            <tr>
+              <td>connection_other</td>
+              <td>Connections</td>
+              <td>Other memory related to client connections</td>
+            </tr>
+
+            <tr>
+              <td>queue_procs</td>
+              <td>Queues</td>
+              <td>
+                Queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
+                the more memory will generally be attributed to this section. However, this greatly depends on
+                queue properties and whether messages were published as transient.
+                See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
+                for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>queue_slave_procs</td>
+              <td>Queues</td>
+              <td>
+                Queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
+                inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
+                the more memory will generally be attributed to this section. However, this greatly depends on
+                queue properties and whether messages were published as transient.
+                See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, <a href="/ha.html">Mirroring</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
+                for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>metrics</td>
+              <td><a href="/management.html">Stats DB</a></td>
+              <td>
+                Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
+                See <a href="/management.html">managemeng plugin guide</a> for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>stats_db</td>
+              <td>Stats DB</td>
+              <td>
+                Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
+                See <a href="/management.html">managemeng plugin guide</a> for more information.
+              </td>
+            </tr>
+
+            <tr>
+              <td>binaries</td>
+              <td>Binaries</td>
+              <td>Runtime binary heap. Most of this section is usually message bodies and properties (metadata).</td>
+            </tr>
+
+            <tr>
+              <td>plugins</td>
+              <td>Plugins</td>
+              <td>
+                Plugins such as <a href="/shovel.html">Shovel</a>, <a href="/federation.html">Federation</a>, or protocol implementations such as <a href="">STOMP</a>
+                can accumulate messages in memory.
+              </td>
+            </tr>
+
+            <tr>
+              <td>allocated_unused</td>
+              <td>Preallocated Memory</td>
+              <td>Allocated by the runtime but not yet used.</td>
+            </tr>
+
+            <tr>
+              <td>reserved_unallocated</td>
+              <td>Preallocated Memory</td>
+              <td>Allocated/reserved by the kernel but not the runtime</td>
+            </tr>
+
+            <tr>
+              <td>mnesia</td>
+              <td>Internal Database</td>
+              <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+            </tr>
+
+            <tr>
+              <td>other_ets</td>
+              <td>Internal Database</td>
+              <td>Some plugins can use ETS tables to store their state</td>
+            </tr>
+
+            <tr>
+              <td>code</td>
+              <td>Code</td>
+              <td>
+                Bytecode and module metadata. This should only consume double digit % of
+                memory on blank/empty nodes.
+              </td>
+            </tr>
+
+            <tr>
+              <td>other</td>
+              <td>Other</td>
+              <td>
+                All other processes that RabbitMQ cannot categorise
+              </td>
+            </tr>
+          </table>
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="breakdown-management-ui">
+        <doc:heading>Producing Memory Use Breakdown Using Management UI</doc:heading>
+
+        <p>
+          Management UI can be used to produce a memory breakdown chart. This information is available on the
+          node metrics page that can be accessed from Overview:
+
+          <img src="img/memory/mgmt-ui-node-list.png" alt="Cluster node list in management UI" title="Cluster node list in management UI" />
+        </p>
+
+
+
+        <p>
+          On the node metrics page, scroll down to the memory breakdown buttons:
+
+          <img src="img/memory/mgmt-ui-memory-use-breakdown-buttons.png" alt="Node memory use breakdown buttons" title="Node memory use breakdown buttons" />
+        </p>
+
+
+
+        <p>
+          Memory and binary heap breakdowns can be expensive to calculate and are produced on demand when the <code>Update</code> button is pressed:
+
+          <img src="img/memory/mgmt-ui-memory-use-breakdown.png" alt="Node memory use breakdown chart" title="Node memory use breakdown chart" />
+        </p>
+
+        <p>
+          It is also possible to display a breakdown of binary heap use by various
+          things in the system (e.g. connections, queues):
+
+        <img src="img/memory/mgmt-ui-binaries-breakdown.png" alt="Binary heap use breakdown chart" title="Binary heap use breakdown chart" />
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="breakdown-http-api-curl">
+        <doc:heading>Producing Memory Use Breakdown Using HTTP API and curl</doc:heading>
+
+        <p>
+          It is possible to produce memory use breakdown over <a href="/management.html">HTTP API</a>
+          by issuing a <code>GET</code> request to the <code>/api/nodes/{node}/memory</code> endpoint.
+        </p>
+
+        <p>
+<pre class="sourcecode ini">
+curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   383  100   383    0     0   3892      0 --:--:-- --:--:-- --:--:--  3908
+{
+    "memory": {
+        "atom": 1041593,
+        "binary": 5133776,
+        "code": 25299059,
+        "connection_channels": 1823320,
+        "connection_other": 150168,
+        "connection_readers": 83760,
+        "connection_writers": 113112,
+        "metrics": 217816,
+        "mgmt_db": 266560,
+        "mnesia": 93344,
+        "msg_index": 48880,
+        "other_ets": 2294184,
+        "other_proc": 27131728,
+        "other_system": 21496756,
+        "plugins": 3103424,
+        "queue_procs": 2957624,
+        "queue_slave_procs": 0,
+        "total": 89870336
+    }
+}
+</pre>
+        </p>
+
+        <p>
+          It is also possible to retrieve a relative breakdown using the
+          <code>GET</code> request to the <code>/api/nodes/{node}/memory</code> endpoint.
+          Note that reported relative values are rounded to integers. This endpoint is
+          intended to be used for relative comparison (identifying top contributing categories),
+          not precise calculations.
+        </p>
+
+        <p>
+          <pre class="sourcecode ini">
+curl -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   339  100   339    0     0   2930      0 --:--:-- --:--:-- --:--:--  2947
+{
+    "memory": {
+        "allocated_unused": 32,
+        "atom": 1,
+        "binary": 5,
+        "code": 22,
+        "connection_channels": 2,
+        "connection_other": 1,
+        "connection_readers": 1,
+        "connection_writers": 1,
+        "metrics": 1,
+        "mgmt_db": 1,
+        "mnesia": 1,
+        "msg_index": 1,
+        "other_ets": 2,
+        "other_proc": 21,
+        "other_system": 19,
+        "plugins": 3,
+        "queue_procs": 4,
+        "queue_slave_procs": 0,
+        "reserved_unallocated": 0,
+        "total": 100
+    }
+}
+</pre>
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="breakdown-http-api-curl">
+      <doc:heading>Memory Breakdown Categories</doc:heading>
+
+      <doc:subsection name="breakdown-connections">
+        <doc:heading>Connections</doc:heading>
+
+        <p>
+          This includes memory used by incoming connections and channels,
+          and outgoing ones if the appropriate plugins are loaded. Most of the memory
+          is usually used by TCP and other kind of buffers. See <a href="/networking">Networking</a>
+          for more information.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-queues">
+        <doc:heading>Queues and Messages</doc:heading>
+
+        <p>
+          Memory used by queues, queue indices, queue state. Messages enqueued will
+          in part contribute to this category.
+        </p>
+        <p>
+          Queues will <a href="/memory.html">swap their contents out to disc when under memory
+          pressure</a>. The exact behavior of this depends on <a href="/queues.html">queue properties</a>,
+          whether clients publish messages as persistent or transient, and <a href="/persistence-conf.html">persistence
+          configuration</a> of the node.
+        </p>
+        <p>
+          Message bodies do not show up here but inBinaries.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-message-store-indexes">
+        <doc:heading>Message Store Indexes</doc:heading>
+
+        <p>
+          By default message store uses an in-memory
+          index of all messages, including those paged out to disc.
+          Plugins allow for replacing it with disk-based implementations.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-plugins">
+        <doc:heading>Plugins</doc:heading>
+
+        <p>
+          Memory used by plugins (apart from the Erlang client which
+          is counted under Connections, and the management database
+          which is counted separately). This category will include
+          some per-connection memory here for protocol plugins such as
+          STOMP and MQTT as well as messages enqueued by plugins such
+          as Shovel and Federation.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-preallocated-memory">
+        <doc:heading>Preallocated Memory</doc:heading>
+
+        <p>
+          Memory preallocated by the runtime (VM allocators) but not yet
+          used. This is covered in more detail below.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-internal-database">
+        <doc:heading>Internal Database</doc:heading>
+
+        <p>
+          Internal database (Mnesia) tables keep an in-memory copy of all its data (even on disc
+          nodes). Typically this will only be large when there are a
+          large number of queues, exchanges, bindings, users or
+          virtual hosts. Plugins can store data in the same database as well.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-management-stats-db">
+        <doc:heading>Management (Stats) Database</doc:heading>
+
+        <p>
+          The stats database (if the management plugin is enabled). In
+          a cluster, most stats are stored locally on the
+          node. Cross-node requests needed to aggregate stats in a
+          cluster can be cached. The cached data will be reported in
+          this category.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-binaries">
+        <doc:heading>Binaries</doc:heading>
+
+        <p>
+          Memory used by shared binary data in the runtime. Most of this
+          memory is message bodies and metadata.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-ets-tables">
+        <doc:heading>Other ETS tables</doc:heading>
+
+        <p>
+          Other in-memory tables besides those belonging to the stats database
+          and internal database tables.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-code">
+        <doc:heading>Code</doc:heading>
+
+        <p>
+          Memory used by code (bytecode, module metadata). This
+          section is usually fairly constant and relatively small
+          (unless the node is entirely blank and stores no data).
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="breakdown-atoms">
+        <doc:heading>Atoms</doc:heading>
+
+        <p>
+          Memory used by atoms. Should be fairly constant.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="memory-breakdown-and-monitoring">
+      <doc:heading>Memory Use Monitoring</doc:heading>
+
+      <p>
+        It is recommended that production systems monitor memory usage of all cluster nodes,
+        ideally with a breakdown, together with <a href="/monitoring.html">infrastructure-level metrics</a>.
+        By correlating breakdown categories with other metrics, e.g. the number of concurrent
+        connections or enqueued messages, it becomes possible to detect problems that
+        stem from a application-specific behavior (e.g. connection leaks or ever growing queues without consumers).
+      </p>
+    </doc:section>
+
+
+    <doc:section name="breakdown-preallocated-memory">
+      <doc:heading>Preallocated memory</doc:heading>
+
+      <p>
+        Erlang memory breakdown reports only memory it's currently using, and not
+        the memory that has been allocated for later use or reserved by the operating system.
+        OS tools like <code>ps</code> can report more memory used than the runtime.
+
+        This memory consists of allocated but not used,
+        as well as unallocated but reserved by the OS. Both values depend on the OS and Erlang VM allocator
+        settings and can fluctuate significantly.
+      </p>
+      <p>
+        Note that the sections depend on the <code>vm_memory_calculation_strategy</code> setting.
+        If the strategy is set to <code>erlang</code>, unused
+        memory will not be reported.
+        If memory calculation strategy is set to <code>allocated</code>, memory
+        reserved by OS will not be reported. Therefore <code>rss</code> is the strategy
+        that provides most information from both the kernel and the runtime.
+      </p>
+
+      <p>
+        Runtime's memory allocator behavior can be turned. See <a href="http://erlang.org/doc/man/erl.html"></a>
+        and <a href="http://erlang.org/doc/man/erts_alloc.html">erts_alloc</a> documentation on erlang.org.
+      </p>
+    </doc:section>
+  </body>
 </html>
