@@ -83,6 +83,19 @@ limitations under the License.
       <p>
         The following example uses the <code>rss</code> strategy:
 
+        <pre class="sourcecode ini">
+vm_memory_calculation_strategy = rss
+</pre>
+
+        Similarly, for the <code>allocated</code> strategy, use:
+
+        <pre class="sourcecode ini">
+vm_memory_calculation_strategy = allocated
+</pre>
+      </p>
+      <p>
+        To configure the <code>rss</code> strategy using classic config format:
+
         <pre class="sourcecode erlang">
 [
   {rabbit, [{vm_memory_calculation_strategy, rss}]}
