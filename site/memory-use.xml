@@ -60,6 +60,9 @@ limitations under the License.
         underreport and is not recommended with modern versions.
       </p>
       <p>
+          Effective strategy is <a href="/configure.thml">configured</a> using the <code>vm_memory_calculation_strategy</code> key.
+      </p>
+      <p>
         <code>rss</code> uses OS-specific means of querying the kernel to find
         RSS (Resident Set Size) value of the node OS process. This strategy is most precise
         and used by default on Linux, MacOS, BSD and Solaris systems. When
@@ -75,6 +78,27 @@ limitations under the License.
         memory breakdown reporting. If set to <code>legacy</code> (<code>erlang</code>) or <code>allocated</code>,
         some memory breakdown fields will not be reported. This is covered in more detail
         further in this guide.
+      </p>
+
+      <p>
+        The following example uses the <code>rss</code> strategy:
+
+        <pre class="sourcecode erlang">
+[
+  {rabbit, [{vm_memory_calculation_strategy, rss}]}
+].
+</pre>
+
+        Similarly, for the <code>allocated</code> strategy, use:
+
+        <pre class="sourcecode erlang">
+[
+  {rabbit, [{vm_memory_calculation_strategy, allocated}]}
+].
+</pre>
+      </p>
+      <p>
+        To find out waht strategy a node uses, see its <a href="/configure.html">effective configuration</a>.
       </p>
     </doc:section>
 
