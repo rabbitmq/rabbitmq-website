@@ -28,7 +28,7 @@ limitations under the License.
 
       <p>
         The minimum version of <a href="http://www.erlang.org">Erlang</a>
-        required to run the RabbitMQ server 3.7.x is <strong>19.2.0</strong>.
+        required to run the RabbitMQ server 3.7.x is <strong>19.3.0</strong>.
         The most recent Erlang/OTP release series supported by 3.7.x is <strong>20.0.x</strong>.
       </p>
 
@@ -51,23 +51,30 @@ limitations under the License.
         <p>
           Below is a RabbitMQ and Erlang/OTP compatibility matrix.
         </p>
-        
+
         <table>
         <th>RabbitMQ Release Series</th>
         <th>Supported Erlang/OTP Series</th>
         <th>Notes</th>
         <tr>
           <td>3.7.x</td>
-          <td>19.2.0 through 20.0.x</td>
-          <td>19.3.6.2 or later version is recommended; earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</td>
-        </tr>          
-        <tr>          
-          <td>3.6.x starting with 3.6.11</td>
+          <td>19.3.0 through 20.0.x</td>
+          <td>19.3.6.3 or later version is recommended; earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</td>
+        </tr>
+
+        <tr>
+          <td>3.6.x starting with 3.6.15</td>
+          <td>19.3.x, 20.x</td>
+          <td>Support Erlang/OTP versions older than 19.3 <a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">is phased out</a></td>
+        </tr>
+
+        <tr>
+          <td>3.6.11 through 3.6.14</td>
           <td>R16B03 through 20.x</td>
           <td>Erlang/OTP 20 is supported <a href="https://groups.google.com/d/msg/rabbitmq-users/_imbAavBYjY/S0LkV7b8CAAJ">starting with 3.6.11</a>; see below if you use TLS.</td>
         </tr>
         <tr>
-          <td>3.6.x</td>
+          <td>3.6.0 through 3.6.10</td>
           <td>R16B03 through 19.3.x</td>
           <td>19.x is supported starting with 3.6.4; Erlang/OTP 20 <strong>is NOT supported</strong> due to breaking changes; see below if you use TLS.</td>
         </tr>
@@ -139,7 +146,7 @@ limitations under the License.
       <p>
         RabbitMQ requires that the same major and minor version of
         Erlang is used across all <a href="clustering.html#upgrading">cluster nodes</a>
-        (e.g. 19.2.x). RabbitMQ will check for protocol versions of
+        (e.g. 19.3.x). RabbitMQ will check for protocol versions of
         Erlang and its distributed libraries when a node joins a
         cluster, refusing to cluster if there's a potentially
         incompatible combination detected.
