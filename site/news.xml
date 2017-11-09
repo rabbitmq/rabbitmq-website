@@ -31,6 +31,31 @@ limitations under the License.
        will give you a suitable RFC 3339 value.
       -->
 
+
+   <doc:item>
+      <doc:date iso="2017-11-10T12:00:00+03:00">11 November 2017</doc:date>
+      <doc:title>Dropping support for older Erlang versions</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14</doc:link>
+      <doc:text>
+        <p>
+          RabbitMQ 3.7.0 as well as 3.6.x series starting with 3.6.15 will <a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">drop support for Erlang/OTP versions older than 19.3</a>.
+        </p>
+
+        <p>
+          List of installation options for modern Erlang releases can be found in
+          the <a href="http://www.rabbitmq.com/which-erlang.html">RabbitMQ Erlang compatibility guide</a>.
+        </p>
+
+        <p>
+          As always, we welcome questions and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
    <doc:item>
       <doc:date iso="2017-11-07T18:00:00+03:00">7 November 2017</doc:date>
       <doc:title>RabbitMQ 3.6.14 release</doc:title>
