@@ -199,6 +199,16 @@ limitations under the License.
         </p>
 
         <p>
+          Manual acknowledgement mode with unlimited QoS should be used with care.
+          Consumers that consume a lot of messages without acknowledging will lead
+          to memory consumption growth on the node they are connected to. Finding
+          a suitable QoS value is a matter of trial and error and will vary from
+          workload to workload. Values in the 100 through 300 range usually offer
+          optimal throughput and do not run significant risk of overwhelming consumers.
+          Higher values often <a href="https://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">run into the law of diminishing returns</a>.
+        </p>
+        
+        <p>
           The QoS setting has no effect on messages fetched using the <code>basic.get</code>
           ("pull API"), even in manual confirmation mode.
         </p>
