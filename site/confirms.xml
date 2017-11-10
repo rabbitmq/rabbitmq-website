@@ -130,7 +130,7 @@ limitations under the License.
           until the backlog of unprocessed deliveries drops beyond a certain limit).
           Automatic acknolwedgement mode is therefore only recommended for consumers
           that can process deliveries efficiently and at a steady rate.
-        </p>        
+        </p>
       </doc:subsection>
 
       <doc:subsection name="consumer-acks-multiple-parameter">
@@ -207,7 +207,7 @@ limitations under the License.
           optimal throughput and do not run significant risk of overwhelming consumers.
           Higher values often <a href="https://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">run into the law of diminishing returns</a>.
         </p>
-        
+
         <p>
           The QoS setting has no effect on messages fetched using the <code>basic.get</code>
           ("pull API"), even in manual confirmation mode.
