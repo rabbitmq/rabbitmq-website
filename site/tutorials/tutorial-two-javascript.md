@@ -79,7 +79,7 @@ program will schedule tasks to our work queue, so let's name it
 var q = 'task_queue';
 var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-ch.assertQueue(q, {durable: true});
+ch.assertQueue(q, {durable: false});
 ch.sendToQueue(q, new Buffer(msg), {persistent: true});
 console.log(" [x] Sent '%s'", msg);
 </pre>
