@@ -24,7 +24,7 @@ Note that rabbitmqadmin is just a specialised HTTP client;
 if you are contemplating invoking rabbitmqadmin from your own program
 you may want to consider using an HTTP API client library instead.
 
-Note that `rabbitnqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.1.man.html) or
+Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.1.man.html) or
 [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html).
 HTTP API intentionally doesn't expose certain operations.
 
