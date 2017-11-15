@@ -54,10 +54,32 @@ limitations under the License.
           <code>rabbitmqctl list_queues</code> and the management API show the values that
           would be limited.
         </p>
+      </doc:subsection>
 
+      <doc:subsection name="default-behaviour">
+        <doc:heading>Default Max Queue Length Behaviour</doc:heading>
+          <p>
+            The default behaviour for RabbitMQ when a maximum queue length or
+            size is set and the maximum is reached is to <em>drop</em> or
+            <em><a href="dlx.html">dead-letter</a></em> messages from the front
+            of the queue (i.e. the oldest messages in the queue). To modify
+            this behaviour, use the <code>overflow</code> setting described
+            below.
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="overflow-behaviour">
+        <doc:heading>Queue Overflow Behaviour</doc:heading>
         <p>
-          Messages will be dropped or dead-lettered from the front of the
-          queue to make room for new messages once the limit is reached.
+          Use the <code>overflow</code> setting to configure queue overflow
+          behaviour. If <code>overflow</code> is set to <code>reject-publish</code>,
+          the most recently published messages will be discarded. In addition, if
+          <a href="confirms.html#publisher-confirms">publisher confirms</a>
+          are enabled, the publisher will be informed of the reject via a
+          <code>basic.nack</code> message. If a message is routed to multiple
+          queues and rejected by at least one of them, the channel will inform
+          the publisher via <code>basic.nack</code>. The message will still be
+          published to all other queues which can enqueue it.
         </p>
       </doc:subsection>
 
@@ -74,20 +96,50 @@ limitations under the License.
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_policy Ten "^one-meg$" '{"max-length-bytes":1000000}' --apply-to queues</pre>
+              <pre>rabbitmqctl set_policy my-pol "^one-meg$" '{"max-length-bytes":1048576}' --apply-to queues</pre>
             </td>
           </tr>
           <tr>
             <th>rabbitmqctl (Windows)</th>
             <td>
-              <pre>rabbitmqctl.bat set_policy Ten "^one-meg$" "{""max-length-bytes"":1000000}" --apply-to queues</pre>
+              <pre>rabbitmqctl.bat set_policy my-pol "^one-meg$" "{""max-length-bytes"":1048576}" --apply-to queues</pre>
             </td>
           </tr>
         </table>
 
         <p>
-          This ensures the queue called <code>one-meg</code> can contain
-          no more than 1MB of message bodies.
+          The <code>my-pol</code> policy ensures that the <code>one-meg</code>
+          queue contains no more than 1MiB of message data. When the 1MiB limit
+          is reached, the oldest messages are discarded from the head of the
+          queue.
+        </p>
+
+        <p>
+          To define an overflow behaviour - whether to drop messages from head
+          or to reject new publishes, add the key <code>overflow</code> to a
+          policy definition. For example:
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy my-pol "^two-messages$" '{"max-length":2,"overflow":"reject-publish"}' --apply-to queues</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl.bat set_policy my-pol "^two-messages$" "{""max-length"":2,""overflow"":""reject-publish""}" --apply-to queues</pre>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          The <code>my-pol</code> policy ensures that the <code>two-messages</code>
+          queue contains no more than 2 messages and all additional publishes
+          are sent <code>basic.nack</code> responses as long as the queue
+          contains 2 messages and publisher confirms are enabled.
         </p>
 
         <p>
@@ -113,6 +165,12 @@ limitations under the License.
         <p>
           If both arguments are set then both will apply; whichever limit
           is hit first will be enforced.
+        </p>
+        <p>
+          Overflow behaviour can be set by supplying the
+          <code>x-overflow</code> queue declaration argument with a
+          string value. Possible values are <code>drop-head</code> (default) or
+          <code>reject-publish</code>
         </p>
         <p>
           This example in Java declares a queue with a maximum length
