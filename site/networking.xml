@@ -1113,7 +1113,7 @@ client unexpectedly closed TCP connection
         </p>
         <p>
           Open sockets, TCP and UDP connections of a node can be inspected using <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,
-          <a href="https://linux.die.net/man/8/ss">ss</a> and <a href="/cli.html">rabbitmqctl</a>.
+          <a href="https://linux.die.net/man/8/ss">ss</a>, <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a>, and <a href="/cli.html">rabbitmqctl</a>.
         </p>
         <p>
           For the list of ports used by RabbitMQ and its various
