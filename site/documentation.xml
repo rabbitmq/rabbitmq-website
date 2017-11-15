@@ -166,6 +166,9 @@ limitations under the License.
                 <a href="networking.html">Networking</a>
               </li>
               <li>
+                <a href="troubleshooting-networking.html">Troubleshooting Network Connectivity</a>
+              </li>
+              <li>
                 <a href="ssl.html">Using TLS for Client Connections</a>
               </li>
               <li>
