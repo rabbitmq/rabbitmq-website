@@ -365,8 +365,10 @@ limitations under the License.
         </p>
 
         <p>
-<pre class="sourcecode ini">
-curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory | python -m json.tool
+<pre class="sourcecode json">
+curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
+  python -m json.tool
+
 {
     "memory": {
         "atom": 1041593,
@@ -401,8 +403,10 @@ curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/m
         </p>
 
         <p>
-          <pre class="sourcecode ini">
-curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative | python -m json.tool
+<pre class="sourcecode json">
+curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative |
+  python -m json.tool
+
 {
     "memory": {
         "allocated_unused": 32,
@@ -637,6 +641,111 @@ curl -s -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@mercurio/m
         <a href="http://erlang.org/doc/man/erts_alloc.html" target="_blank">erts_alloc</a>
         documentation.
       </p>
+    </doc:section>
+
+    <doc:section name="queue-memory">
+      <doc:heading>Queue Memory</doc:heading>
+        <doc:subsection name="message-memory-usage">
+          <doc:heading>How much memory does a message use?</doc:heading>
+
+          <p>A message has multiple parts that use up memory:</p>
+
+          <ul class="plain">
+            <li>Payload - >= 1 byte - variable size, typically few hundred bytes to a few hundred kilobytes</li>
+            <li>Protocol attributes - >= 0 bytes - variable size, contains headers, priority, timestamp, reply to, etc.</li>
+            <li>RabbitMQ metadata - >= 720 bytes - variable size, contains exchange, routing keys, message properties, persistence, redelivery status, etc.</li>
+            <li>RabbitMQ message ordering structure - 16 bytes</li>
+          </ul>
+
+          <p>Messages with a 1KB payload will use up 2KB of memory once attributes and metadata is factored in.</p>
+
+          <p>Some messages can be stored on disk, but still have their metadata kept in memory.</p>
+        </doc:subsection>
+
+        <doc:subsection name="queue-memory-usage">
+          <doc:heading>How much memory does a queue use?</doc:heading>
+
+          <p>A message has multiple parts that use up memory:</p>
+
+          <p>A queue is an Erlang process. If a queue is mirrored, each mirror is a separate Erlang process.</p>
+
+          <p>
+            Since a queues master is a single Erlang process, message ordering can be guaranteed.
+            Multiple queues means multiple Erlang processes which get an even amount of CPU time.
+            This ensures that no queue can block other queues.
+          </p>
+
+          <p>
+            The memory use of a single queue can be obtained via the HTTP API:
+
+<pre class="sourcecode json">
+curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
+  python -m json.tool
+
+{
+    ..
+    "memory": 97921904,
+    ...
+    "message_bytes_ram": 2153429941,
+    ...
+}
+</pre>
+          </p>
+
+          <ul class="plain">
+            <li><code>memory</code> - memory used by the queue process, accounts message metadata (at least 720 bytes per message), does not account for message payloads over 64 bytes</li>
+            <li><code>message_bytes_ram</code> - memory used by the message payloads, regardless of size</li>
+          </ul>
+
+          <p>
+            If messages are small, message metadata can use more memory than the message payload.
+            10,000 messages with 1 byte of payload will use 10KB of <code>message_bytes_ram</code> (payload) &amp; 7MB of <code>memory</code> (metadata).
+          </p>
+
+          <p>
+            If message payloads are large, they will not be reflected in the queue process memory.
+            10,000 messages with 100 KB of payload will use 976MB of <code>message_bytes_ram</code> (payload) &amp; 7MB of <code>memory</code> (metadata).
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="queue-memory-usage">
+          <doc:heading>Why does the queue memory grow and shrink when publishing/consuming?</doc:heading>
+
+          <p>
+            Erlang uses <a href="https://www.erlang-solutions.com/blog/erlang-19-0-garbage-collector.html" target="_blank">generational garbage collection</a> for each Erlang process.
+            Garbage collection is done per queue, independently of all other Erlang processes.
+          </p>
+
+          <p>
+            When garbage collection runs, it will copy used process memory before deallocating unused memory.
+            This can can lead to the queue process using up to twice as much memory during garbage collection, as shown here (queue contains a lot of messages):
+
+            <img src="img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="queue-memory-usage">
+          <doc:heading>Can queue memory growth during garbage collection be dangerous?</doc:heading>
+          <p>
+            If Erlang VM tries to allocate more memory than is available, the VM itself will either crash or be killed by the OOM killer.
+            When the Erlang VM crashes, RabbitMQ will lose all non-persistent data.
+          </p>
+
+          <p>
+            High memory watermark blocks publishers and prevents new messages from being enqueued.
+            Since garbage collection can double the memory used by a queue, it is unsafe to set the high memory watermark above <code>0.5</code>.
+            The default high memory watermark is set to <code>0.4</code> since this is safer as not all memory is used by queues.
+            This is entirely workload specific, which differs across RabbitMQ deployments.
+          </p>
+
+          <p>
+            We recommend many queues so that memory allocation / garbage collection is spread across many Erlang processes.
+          </p>
+
+          <p>
+            If the messages in a queue take up a lot of memory, we recommend lazy queues so that they are stored on disk as soon as possible and not kept in memory longer than is necessary.
+          </p>
+        </doc:subsection>
     </doc:section>
   </body>
 </html>
