@@ -1,33 +1,38 @@
-# Queue memory.
+# Queue memory management
 
-This document covers memory usage of RabbitMQ queues.
+This guide explains how memory is allocated and managed by a RabbitMQ queue. It
+is expected that you understand [memory use](memory-use.html), [memory
+alarms](memory.html) and [persistence configuration](persistence-conf.html).
+Now is a good time to review those pages, otherwise this guide will not be as
+useful.
 
-### Please to read first
+An AMQP message can be stored in a number of places, as covered in the
+persistence configuration. A message that is persisted to disk can still be
+kept in memory, as a performance optimization. Lazy queues are an exception to
+this rule, we will ignore them for the purpose of this guide.
 
-This document only explains how memory is allocated and managed. To learn about
-message persistence configuration, read [persistence](persistence-conf.html) document.
-To learn about memory reporting and watermark configuration,
-read [memory use](memory-use.html) and [memory configuration](memory.html) documents.
-Please read linked documents first, because this one uses some vocabulary from there.
-
-A message can be stored in a number of ways, explained in [persistence](persistence-conf.html).
-For non-lazy queues even if a message is persistent it can still be kept in memory,
-to improve performance.
-
-Following information is for messages stored in memory.
-
-### How much memory is used by queues with messages?
-
-[memory use](memory-use.html) document explains how to get a memory breakdown from a RabbitMQ node.
-Queue processes memory is reported as `queue_procs`, while message payloads are
-reported in `binary` section.
-
-Binary memory breakdown can be found in <a href="management.html">management</a> web UI
-in the node page. It's helpful to determine how much memory message payloads use.
+1. AMQP message
+1. queue index
+1. queue
+1. transient message store
+1. persistent message store
 
 ### How much memory does a message use?
 
-In addition to payload each message has metadata, which contains exchange,
+A message has multiple parts that use up memory:
+
+1. Payload - variable size, typically few hundred bytes to a few hundred kilobytes
+1. Protocol attributes - variable size, by default 0 bytes
+1. RabbitMQ metadata - **750 bytes**
+1. RabbitMQ message ordering structure - 16 bytes
+
+Messages with a 1KB payload will use up 2KB of memory once attributes and
+metadata is factored in.
+
+A message payload is variable and depends entirely on the publishers.
+Typically, it will be a few hundred bytes to a few hundred kilobytes.
+
+In addition to payload, or body, each message has metadata, which contains exchange,
 routing keys, message properties, persistence, redelivery status, etc.
 Metadata takes at least **750** bytes per message. This can be more if the
 message has properties (e.g. headers) configured.
@@ -37,6 +42,15 @@ Messages ordering structure takes 2 bytes per message.
 Some messages can be stored on disk, but still have their metadata kept in memory.
 
 If a message is stored in memory it will take approximately payload size.
+
+### How much memory is used by queues with messages?
+
+[memory use](memory-use.html) document explains how to get a memory breakdown from a RabbitMQ node.
+Queue processes memory is reported as `queue_procs`, while message payloads are
+reported in `binary` section.
+
+Binary memory breakdown can be found in <a href="management.html">management</a> web UI
+in the node page. It's helpful to determine how much memory message payloads use.
 
 ### How to break down per-queue memory?
 
