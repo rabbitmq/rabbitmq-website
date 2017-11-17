@@ -182,6 +182,9 @@ limitations under the License.
 
       <ul>
         <li>
+          <a href="memory-use.html">Memory Usage</a>
+        </li>
+        <li>
           <a href="memory.html">Memory Management</a>
         </li>
         <li>
@@ -201,9 +204,6 @@ limitations under the License.
         </li>
         <li>
           <a href="maxlength.html">Queue Length Limits</a>
-        </li>
-        <li>
-          <a href="queue-memory.html">Queue Memory</a>
         </li>
         <li>
           <a href="lazy-queues.html">Lazy Queues</a>
