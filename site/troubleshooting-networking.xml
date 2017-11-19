@@ -121,7 +121,8 @@ limitations under the License.
         <p>
           Inspecting TCP listeners used by a node helps spot non-standard port configuration,
           protocol plugins (e.g. <a href="/mqtt.html">MQTT</a>) that are supposed to be configured but aren't,
-          cases when the node is limited to only a few network interfaces, and so on.
+          cases when the node is limited to only a few network interfaces, and so on. If a port is not on the
+          listener list it means the node cannot accept any connections on it.
         </p>
       </doc:subsection>
 
@@ -144,6 +145,36 @@ limitations under the License.
           TCP port inaccessibility for outside connections is a common reason for
           failing client connections. <a href="https://en.wikipedia.org/wiki/Telnet">telnet</a> is a commonly
           used, very minimalistic tool for testing TCP connections to a particular hostname and port.
+        </p>
+        <p>
+          The following example uses <code>telnet</code> to connect to host <code>localhost</code> on port <code>5672</code>.
+          There is a running node with stock defaults running on <code>localhost</code> and nothing blocks access to the port, so
+          the connection succeeds. <code>12345</code> is then entered for input followed by Enter. Since <code>12345</code> is not a correct AMQP protocol header,
+          so the server closes TCP connection:
+
+          <pre class="sourcecode bash">
+telnet localhost 5672
+# => Trying ::1...
+# => Connected to localhost.
+# => Escape character is '^]'.
+12345 # enter this and hit Enter to send
+# => AMQP	Connection closed by foreign host.
+</pre>
+
+          After <code>telnet</code> connection succeeds, use <code>Control + ]</code> and then <code>Control + D</code> to
+          quit it.
+
+          The following example connects to <code>localhost</code> on port <code>5673</code>.
+          The connection fails (refused by the OS) since there is no process listening on that port.
+
+          <pre class="sourcecode bash">
+telnet localhost 5673
+# => Trying ::1...
+# => telnet: connect to address ::1: Connection refused
+# => Trying 127.0.0.1...
+# => telnet: connect to address 127.0.0.1: Connection refused
+# => telnet: Unable to connect to remote host
+</pre>
         </p>
         <p>
           Failed or timing out <code>telnet</code> connections
