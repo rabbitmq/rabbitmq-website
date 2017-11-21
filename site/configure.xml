@@ -885,6 +885,22 @@ vm_memory_high_watermark.absolute = 2GB
             </td>
           </tr>
           <tr>
+            <td><code>total_memory_available_override_value</code></td>
+            <td>
+              Makes it possible to override the total amount of memory
+              available, as opposed to inferring it from the environment using
+              OS-specific means. This should only be used when actual
+              maximum amount of RAM available to the node doesn't match the value
+              that will be inferred by the node, e.g. due to containerization or similar
+              constraints the node cannot be aware of. The value may be
+              set to an integer number of bytes or, alternatively, in
+              information units (e.g <code>"8GB"</code>). For example,
+              when the value is set to 4 GB, the node will believe it is
+              running on a machine with 4 GB of RAM.
+              <p>Default: <code>undefined</code> (not used)</p>
+            </td>
+          </tr>
+          <tr>
             <td><code>disk_free_limit</code></td>
             <td>
               Disk free space limit of the partition on which RabbitMQ
