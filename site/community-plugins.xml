@@ -151,6 +151,10 @@ limitations under the License.
 
         <table class="plugins">
           <r:plugin name="rabbitmq_auth_backend_http">
+            <i>
+              As of RabbitMQ 3.7.0 the HTTP auth backend plugin is
+              provided with the broker's package.
+            </i>
             Provides the ability for your RabbitMQ server to perform
             authentication (determining who can log in) and
             authorisation (determining what permissions they have)
@@ -174,6 +178,9 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_backend_ip_range">
+            <i>
+	      This plugin is not ported to RabbitMQ 3.7.x+ yet.
+            </i>
             Provides the ability for your RabbitMQ server to perform
             authorisation based on the client IP address.
             <ul>
@@ -184,6 +191,10 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_trust_store">
+            <i>
+              As of RabbitMQ 3.7.0 the trust store plugin is
+              provided with the broker's package.
+            </i>
             Provides support for TLS (x509) certificate whitelisting.
             All plugins which use the global TLS options will be
             configured with the same whitelist. This plugin is provided with
@@ -200,6 +211,10 @@ limitations under the License.
         <doc:heading>Management</doc:heading>
         <table class="plugins">
           <r:plugin name="rabbitmq_top">
+            <i>
+              As of RabbitMQ 3.7.0 the management top plugin is
+              provided with the broker's package.
+            </i>
             Adds a "top" like view of busy processes to the
             management plugin. This plugin is provided with the broker's
             package.
@@ -278,6 +293,10 @@ limitations under the License.
         <doc:heading>Logging</doc:heading>
         <table class="plugins">
           <r:plugin name="lager">
+            <i>
+              As of RabbitMQ 3.7.0 the lager plugin is
+	      replaced by native Lager support.
+            </i>
             Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
             <ul>
               <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/goldrush/_latestVersion#files">goldrush</a></li>
@@ -338,6 +357,9 @@ limitations under the License.
 -->
 
           <r:plugin name="rabbitmq_coap_pubsub">
+            <i>
+              This plugin currently fails to build with RabbitMQ 3.7.0 so far.
+            </i>
             Implements the Publish-Subscribe Broker for the Constrained
             Application Protocol (CoAP) as specified in the
             <a href="https://www.ietf.org/id/draft-koster-core-coap-pubsub-02.txt">draft-koster-core-coap-pubsub-02</a>.
@@ -363,17 +385,24 @@ limitations under the License.
             </ul>
           </r:plugin>
           <r:plugin name="pgsql_listen_exchange">
+            <i>
+	      This plugin is not ported to RabbitMQ 3.6.x+ yet.
+            </i>
             Translates PostgreSQL NOTIFY messages to AMQP messages and
             publishes them to bound queues. The PostgreSQL NOTIFY
             message channel is used as the routing key for the message
             using direct exchange style routing mechanics.
             <ul>
               <li>Author: <b>Gavin M. Roy</b></li>
-              <li>Github: <a href="https://github.com/aweber/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
+	      <li>Github: <a href="https://github.com/gmr/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
             </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_web_mqtt">
+            <i>
+              As of RabbitMQ 3.7.0 the Web-MQTT plugin is
+              provided with the broker's package.
+            </i>
             Provides support for MQTT-over-WebSockets.
             <ul>
               <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_web_mqtt/_latestVersion#files">rabbitmq_web_mqtt</a></li>
