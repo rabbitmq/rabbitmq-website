@@ -70,16 +70,16 @@ limitations under the License.
         <doc:heading>Routing</doc:heading>
 
         <table class="plugins">
-          <r:plugin name="rabbitmq_lvc">
+          <r:plugin name="rabbitmq_lvc_exchange">
             The last value exchange acts like a direct exchange (binding
             keys are compared for equality with routing keys); but it
             also keeps track of the last value that was published with
             each routing key, and when a queue is bound, it
             automatically enqueues the last value for the binding key.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_lvc/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_lvc_exchange-3.7.0-rc.2.zip">Download</a></li>
               <li>Maintainer: <b>Team RabbitMQ</b></li>
-              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq-lvc-exchange</a></li>
             </ul>
           </r:plugin>
 
@@ -88,7 +88,7 @@ limitations under the License.
             routing patterns at publishing time, instead of at
             binding time.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_rtopic_exchange/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_rtopic_exchange-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
             </ul>
@@ -118,7 +118,7 @@ limitations under the License.
             A plugin that adds delayed-messaging (or
             scheduled-messaging) to RabbitMQ.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_delayed_message_exchange/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_delayed_message_exchange-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
             </ul>
@@ -128,7 +128,7 @@ limitations under the License.
             A plugin that stamps a message with the node who first
             received it.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_routing_node_stamp/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_rtopic_exchange-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
             </ul>
@@ -138,7 +138,7 @@ limitations under the License.
             A plugin that adds a timestamp when a message first enters
             RabbitMQ.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_message_timestamp/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_message_timestamp-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
             </ul>
@@ -171,7 +171,7 @@ limitations under the License.
             Provides the ability for your RabbitMQ server to perform
             authentication and authorisation over AMQP itself.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_amqp/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_auth_backend_amqp-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
             </ul>
@@ -228,7 +228,7 @@ limitations under the License.
             Adds an exchange type which allows you to connect to the
             management API using AMQP rather than HTTP.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_management_exchange/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_management_exchange-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
             </ul>
@@ -245,7 +245,7 @@ limitations under the License.
             Adds the possibility to customize the management web UI
             look.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_management_themes/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_management_themes-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
             </ul>
@@ -256,7 +256,7 @@ limitations under the License.
             in a graph. This is a debugging tool: it is of no use in a
             production broker.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_boot_steps_visualiser/_latestVersion#files">Download</a></li>
+              <li><a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_boot_steps_visualiser-3.7.0-rc.2.zip">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
             </ul>
@@ -376,8 +376,7 @@ limitations under the License.
             Maps SMTP to AMQP (to convert an incoming email to an AMQP
             message) and AMQP to SMTP (to send an email from an AMQP message).
             <ul>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/gen_smtp/_latestVersion#files">gen_smtp</a></li>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_email/_latestVersion#files">rabbitmq_email</a></li>
+              <li>Download: <a href="https://s3-eu-west-1.amazonaws.com/server-release-pipeline/v3.7.x/tier2-plugins/rc/rabbitmq_email-0.2.0.zip">rabbitmq_email</a></li>
             </ul>
             <ul>
               <li>Authors: <b>Petr Gotthard</b></li>
