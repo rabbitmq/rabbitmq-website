@@ -70,7 +70,7 @@ limitations under the License.
         <doc:heading>Routing</doc:heading>
 
         <table class="plugins">
-          <r:plugin name="rabbitmq_lvc">
+          <r:plugin name="rabbitmq_lvc_exchange">
             The last value exchange acts like a direct exchange (binding
             keys are compared for equality with routing keys); but it
             also keeps track of the last value that was published with
@@ -79,7 +79,7 @@ limitations under the License.
             <ul>
               <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_lvc/_latestVersion#files">Download</a></li>
               <li>Maintainer: <b>Team RabbitMQ</b></li>
-              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq/rabbitmq-lvc-exchange</a></li>
             </ul>
           </r:plugin>
 
