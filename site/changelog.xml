@@ -35,6 +35,34 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.0</td>
+        <td class="centre">29 November 2017</td>
+        <td>
+          <ul>
+            <li><a href="which-erlang.html">Requires at least Erlang version 19.3.</a></li>
+            <li><a href="cluster-formation.html">Automation-friendly cluster formation.</a></li>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-management/issues/236">Distributed management plugin</a>,
+              including minor breaking HTTP API changes.
+            </li>
+            <li>Custom management plugins must target Cowboy 2.0.</li>
+            <li><a href="configure.html">Supports a simpler, ini-style configuration format.</a></li>
+            <li><a href="vhosts.html">Allows setting per-vhost limits.</a></li>
+            <li><a href="parameters.html">Allows setting operator policies.</a></li>
+            <li><a href="access-control.html">Topic-based authorisation.</a></li>
+            <li><a href="shovel.html">Cross-protocol shovel support (Currently supports AMQP 0.9.1 and AMQP 1.0).</a></li>
+            <li><a href="cli.html">Command-line tools are extensible via plugins.</a></li>
+            <li><a href="https://github.com/rabbitmq/rabbitmq-server/issues/567">Message store multi-tenancy.</a></li>
+            <li>Proxy protocol support.</li>
+            <li>Java and .NET client release versions no longer track RabbitMQ Server versions.</li>
+            <li>.NET client now supports .NET Core.</li>
+            <li><a href="https://github.com/rabbitmq/hop">Java client for HTTP API.</a></li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.14</td>
         <td class="centre">7 November 2017</td>
         <td>

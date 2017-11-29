@@ -16,15 +16,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!ENTITY version-java-client "5.0.0">
-<!ENTITY version-dotnet-client "3.6.14">
-<!ENTITY version-server "3.6.14">
-<!ENTITY version-erlang-client "3.6.14">
-<!--
-  Note, the following entity should contain underscores not dots, like
-  rabbitmq_vX_Y_Z for version X.Y.Z.
--->
-<!ENTITY version-server-tag "rabbitmq_v3_6_14">
-<!ENTITY standalone-otp-version "17.5">
+<!ENTITY version-dotnet-client "5.0.1">
+<!ENTITY version-server "3.7.0">
+<!ENTITY version-erlang-client "3.7.0">
+<!ENTITY version-server-tag "v3.7.0">
+<!ENTITY standalone-otp-version "19.3">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -33,7 +29,7 @@ limitations under the License.
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
 <!ENTITY nameVersion-dotnet-client "rabbitmq-dotnet-client-&version-dotnet-client;">
 <!ENTITY dir-current-dotnet-apidoc "/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html">
-<!ENTITY version-dotnet-client-tag "rabbitmq_v3_6_14">
+<!ENTITY version-dotnet-client-tag "5.0.1">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/rabbitmq-java-client/current-javadoc/">
@@ -49,5 +45,5 @@ limitations under the License.
 <!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
 <!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">
 
-<!ENTITY minimum-jdk-version "6">
-<!ENTITY minimum-dotnet-version "4.5">
+<!ENTITY minimum-jdk-version "8">
+<!ENTITY minimum-dotnet-version "4.5.1">
