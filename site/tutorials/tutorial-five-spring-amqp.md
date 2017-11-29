@@ -279,7 +279,7 @@ public class Tut5Receiver {
 The code for `Tut5Sender.java`:
 
 <pre class="sourcecode java">
-mport org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

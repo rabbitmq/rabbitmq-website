@@ -24,21 +24,23 @@ limitations under the License.
   </head>
   <body>
     <p class="intro">
-      Improve performance and simplicity of RPC clients by sending
-      replies direct to a waiting channel.
+      Direct reply-to is a feature that allows RPC (request/reply) clients with a design
+      similar to that demonstrated in <a href="/getstarted.html">tutorial 6</a> to avoid
+      declaring a response queue per request.
     </p>
     <h3>Motivation</h3>
     <p>
-      RPC is a popular pattern to implement with a messaging broker
-      like RabbitMQ. The typical way to do this is for RPC clients to
-      send requests to a long lived server queue. The RPC server(s)
-      read requests from this queue and then send replies to each client
+      RPC (request/reply) is a popular pattern to implement with a messaging broker
+      like RabbitMQ. <a href="/getstarted.html">Tutorial 6</a> demonstrates its implementation
+      with a variety of clients. The typical way to do this is for RPC clients to
+      send requests that are routed to a long lived (known) server queue. The RPC server(s)
+      consume requests from this queue and then send replies to each client
       using the queue named by the client in the <code>reply-to</code>
       header.
     </p>
 
     <p>
-      But where does the client's queue come from? The client can
+      Where does the client's queue come from? The client can
       declare a single-use queue for each request-response pair. But
       this is inefficient; even a transient unmirrored queue can be
       expensive to create and then delete (compared with the cost of
@@ -56,9 +58,9 @@ limitations under the License.
     <p>
       The direct reply-to feature allows RPC clients to receive
       replies directly from their RPC server, without going through a
-      reply queue. ("Directly" here still means going through AMQP and
-      the RabbitMQ server; there is no separate network connection
-      between RPC client and RPC server.)
+      reply queue. ("Directly" here still means going through the same connection
+      and a RabbitMQ node; there is no direct network connection
+      between RPC client and RPC server processes.)
     </p>
 
     <h2>Use</h2>

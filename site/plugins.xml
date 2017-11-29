@@ -70,6 +70,19 @@ limitations under the License.
       <doc:section name="maintained">
         <doc:heading>Supported Plugins</doc:heading>
         <table class="plugins">
+          <r:plugin name="rabbitmq_amqp1_0">
+            AMQP 1.0 protocol support.
+
+            This plugin is several years old and is moderately
+            mature. It may have certain limitations with its current
+            architecture but most major AMQP 1.0 features should be in
+            place.
+
+            <ul>
+              <li><r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/></li>
+            </ul>
+          </r:plugin>
+
           <r:plugin name="rabbitmq_auth_backend_ldap">
             Authentication / authorisation plugin using an external
             LDAP server.
@@ -79,9 +92,16 @@ limitations under the License.
             </ul>
           </r:plugin>
 
+          <r:plugin name="rabbitmq_auth_backend_http">
+            Authentication / authorisation plugin that uses an external HTTP API.
+            <ul>
+              <li><r:readme-link repo="rabbitmq-auth-backend-http" extension=".md"/></li>
+            </ul>
+          </r:plugin>
+
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
             Authentication mechanism plugin using SASL EXTERNAL to authenticate
-            using SSL client certificates.
+            using TLS (x509) client certificates.
             <ul>
               <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl" extension=".md"/></li>
             </ul>
@@ -158,16 +178,65 @@ limitations under the License.
               <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_tracing">
+            Adds message tracing to the management plugin. Logs
+            messages from the <a href="firehose.html">firehose</a> in
+            a couple of formats.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_trust_store">
+            Provides a client x509 certificate trust store.
+            <ul>
+              <li><r:readme-link repo="rabbitmq-trust-store" extension=".md"/></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp">
+            STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
+            browsers using WebSockets.
+            <ul>
+              <li><a href="web-stomp.html">Documentation for the
+              web-stomp plugin</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_web_mqtt">
+            MQTT-over-WebSockets: a bridge exposing <a href="/mqtt.html">rabbitmq_mqtt</a> to Web
+            browsers using WebSockets.
+            <ul>
+              <li><a href="web-mqtt.html">Documentation for the
+              web-mqtt plugin</a></li>
+            </ul>
+           </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
+            Adds some basic examples to
+            <code>rabbitmq_web_stomp</code>: a simple "echo" service
+            and a basic canvas-based collaboration tool.
+
+            <ul>
+              <li><r:readme-link repo="rabbitmq-web-stomp-examples" extension=".md"/></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_web_mqtt_examples" optional="true">
+            Adds some basic examples to
+            <code>rabbitmq_web_mqtt</code>: a simple "echo" service
+            and a basic canvas-based collaboration tool.
+
+            <ul>
+              <li><r:readme-link repo="rabbitmq-web-mqtt-examples" extension=".md"/></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 
-      <doc:section name="experimental">
-        <doc:heading>Experimental Plugins</doc:heading>
+      <doc:section name="discontinued">
+        <doc:heading>Discontinued</doc:heading>
         <p>
-          Currently, all plugins below are <em>experimental</em>. This
-          means we make no claims about their fitness for purpose or
-          stability, though they are in general under active
-          development.
+          All plugins below have been <em>discontinued</em>. They don't (or won't) ship
+          with the RabbitMQ distribution and are no longer maintained.
         </p>
 
         <table class="plugins">
@@ -177,34 +246,6 @@ limitations under the License.
             the management web interface, which then flexibly and
             interactively displays channels, queues and exchanges, and
             the links between them.
-          </r:plugin>
-
-          <r:plugin name="rabbitmq_tracing">
-            Adds message tracing to the management plugin. Logs
-            messages from the <a href="firehose.html">firehose</a> in
-            a couple of formats.
-          </r:plugin>
-
-          <r:plugin name="rabbitmq_web_stomp">
-            A bridge exposing <code>rabbitmq_stomp</code> to web
-            browsers using WebSockets.
-            <ul>
-              <li><a href="web-stomp.html">Documentation for the
-              web-stomp plugin</a></li>
-            </ul>
-           </r:plugin>
-
-          <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
-            Adds some basic examples to
-            <code>rabbitmq_web_stomp</code>: a simple "echo" service
-            and a basic canvas-based collaboration tool.
-          </r:plugin>
-
-          <r:plugin name="rabbitmq_amqp1_0">
-            An implementation of the AMQP 1.0 protocol.
-            <ul>
-              <li><r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/></li>
-            </ul>
           </r:plugin>
         </table>
       </doc:section>
