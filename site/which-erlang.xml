@@ -125,12 +125,12 @@ limitations under the License.
         <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
         <tr>
           <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
-          <td>19.2</td>
+          <td>19.3</td>
           <td></td>
         </tr>
         <tr>
           <td>use <a href="ssl.html">TLS</a> reliably</td>
-          <td>19.2</td>
+          <td>19.3</td>
           <td>
             Covers most common signature algorithms and can honor
             server ciphers order. 20.0.5 or later version are
