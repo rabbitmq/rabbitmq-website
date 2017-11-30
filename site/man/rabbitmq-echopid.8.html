@@ -1,0 +1,49 @@
+<div class="manual-text">
+<h2 class="Sh" title="Sh" id="NAME"><a class="selflink" href="#NAME">NAME</a></h2>
+<b class="Nm" title="Nm">rabbitmq-echopid.bat</b> &#x2014;
+  <span class="Nd" title="Nd">return the Windows process id of the Erlang
+  runtime hosting RabbitMQ</span>
+<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="selflink" href="#SYNOPSIS">SYNOPSIS</a></h2>
+<table class="Nm">
+  <tr>
+    <td><b class="Nm" title="Nm">rabbitmq-echopid.bat</b></td>
+    <td><var class="Ar" title="Ar">sname</var></td>
+  </tr>
+</table>
+<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="selflink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+RabbitMQ is an implementation of AMQP, the emerging standard for high
+  performance enterprise messaging. The RabbitMQ server is a robust and scalable
+  implementation of an AMQP broker.
+<div class="Pp"></div>
+Running <b class="Nm" title="Nm">rabbitmq-echopid.bat</b> will attempt to
+  discover and echo the process id (PID) of the Erlang runtime process
+  (<i class="Pa" title="Pa">erl.exe</i>) that is hosting RabbitMQ. To allow
+  <i class="Pa" title="Pa">erl.exe</i> time to start up and load RabbitMQ, the
+  script will wait for ten seconds before timing out if a suitable PID cannot be
+  found.
+<div class="Pp"></div>
+If a PID is discovered, the script will echo it to stdout before exiting with a
+  <code class="Ev" title="Ev">ERRORLEVEL</code> of 0. If no PID is discovered
+  before the timeout, nothing is written to stdout and the script exits setting
+  <code class="Ev" title="Ev">ERRORLEVEL</code> to 1.
+<div class="Pp"></div>
+Note that this script only exists on Windows due to the need to wait for
+  <i class="Pa" title="Pa">erl.exe</i> and possibly time-out. To obtain the PID
+  on Unix set <code class="Ev" title="Ev">RABBITMQ_PID_FILE</code> before
+  starting
+  <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>
+  and do not use <b class="Fl" title="Fl">-detached</b>.
+<h2 class="Sh" title="Sh" id="OPTIONS"><a class="selflink" href="#OPTIONS">OPTIONS</a></h2>
+<dl class="Bl-tag">
+  <dt class="It-tag"><var class="Ar" title="Ar">sname</var></dt>
+  <dd class="It-tag">The short-name form of the RabbitMQ node name.</dd>
+</dl>
+<h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="selflink" href="#SEE_ALSO">SEE
+  ALSO</a></h2>
+<a class="Xr" title="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>
+<h2 class="Sh" title="Sh" id="AUTHOR"><a class="selflink" href="#AUTHOR">AUTHOR</a></h2>
+<span class="An" title="An">The RabbitMQ Team</span>
+  &lt;<a class="Mt" title="Mt" href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>&gt;</div>
