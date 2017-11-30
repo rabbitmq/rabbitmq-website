@@ -69,7 +69,7 @@ limitations under the License.
          Below is a list of supported Debian-based distributions as of RabbitMQ 3.7.0:
          <ul>
            <li>Ubuntu 14.04 through 17.10</li>
-           <li>Debian Stretch</li>           
+           <li>Debian Stretch</li>
            <li>Debian Jessie</li>
          </ul>
 
@@ -94,6 +94,7 @@ limitations under the License.
            <tr>
              <td><strong>Erlang Release Series</strong></td>
              <td><strong>Repositories that provide it</strong></td>
+             <td><strong>Notes</strong></td>
            </tr>
          </thead>
          <tbody>
@@ -101,16 +102,10 @@ limitations under the License.
              <td>20.x</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
-               <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. <strong>NOT SUPPORTED</strong> by earlier versions.
+               <a href="https://packages.debian.org/buster/erlang">Debian Buster</a>
              </td>
-           </tr>
-           <tr>
-             <td>19.2 and later</td>
              <td>
-               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
-               <a href="https://packages.debian.org/search?suite=stretch&amp;searchon=names&amp;keywords=erlang">Debian Stretch</a>,
-               <a href="https://packages.debian.org/search?suite=jessie-backports&amp;searchon=names&amp;keywords=erlang">Debian Jessie backports</a>,
-               Ubuntu Zesty (17.04)
+               <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
              </td>
            </tr>
          </tbody>
@@ -151,7 +146,7 @@ sudo apt-cache policy
    <doc:section name="deb-package-dependencies">
      <doc:heading>Package Dependencies</doc:heading>
      <p>
-       When installing with apt, all dependencies should be met automatically in recent distributions (e.g. Ubuntu 14.04 or later,
+       When installing with apt, all dependencies other than Erlang/OTP should be met automatically in recent distributions (e.g. Ubuntu 16.04 or later,
        Debian Jessie). When that's not the case, dependency packages should be available
        from an appropriate <a href="https://backports.debian.org/Instructions/">backports repository</a>.
 
@@ -159,9 +154,10 @@ sudo apt-cache policy
        dependencies of RabbitMQ server as of <code>3.6.3</code>:
 
        <ul>
-         <li><code>erlang-nox (>= 1:16.b.3) | esl-erlang.</code> <a href="/which-erlang.html">Erlang</a>
-         can installed either from the standard repositories, <a href="https://backports.debian.org/Instructions/">backport repositories</a> or <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>.</li>
-         <li><code>init-system-helpers >= 1.13</code>. Required for systemd support.</li>
+         <li><code>erlang-nox (>= 1:19.3-1) | esl-erlang (>= 1:19.3-1)</code>. <a href="/which-erlang.html">Erlang</a>
+         can installed either from the <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>,
+         <a href="https://backports.debian.org/Instructions/">backport repositories</a>, or standard repositories depending on the distribution used.</li>
+         <li><code>init-system-helpers (>= 1.13~)</code>. Required for systemd support.</li>
          <li><code>socat</code></li>
          <li><code>adduser</code></li>
          <li><code>logrotate</code></li>
@@ -170,38 +166,69 @@ sudo apt-cache policy
    </doc:section>
 
    <doc:section name="apt">
-     <doc:heading>APT repositories</doc:heading>
+     <doc:heading>Apt repositories</doc:heading>
 
      <p>
-       RabbitMQ hosts our own apt repository. We also have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
+       RabbitMQ Apt repositories are available from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>.
      </p>
 
-     <doc:subsection name="apt-repos">
-       <doc:heading>Using rabbitmq.com APT Repository</doc:heading>
+     <doc:subsection name="bintray-apt-repo">
+       <doc:heading>Using Bintray Apt Repository</doc:heading>
 
        <p>
-         Execute the following command to add the APT repository to your <code>/etc/apt/sources.list.d</code>:
-         <pre class="sourcecode bash">echo 'deb http://www.rabbitmq.com/debian/ testing main' |
-     sudo tee /etc/apt/sources.list.d/rabbitmq.list</pre>
-         (Please note that the word <code>testing</code> in this
-         line refers to the state of our release of RabbitMQ, not
-         any particular Debian distribution. You can use it with
-         Debian stable, testing or unstable, as well as with
-         Ubuntu. We describe the release as "testing" to emphasise
-         that we release somewhat frequently.)
+         First make sure a <a href="/which-erlang.html">supported version of Erlang</a> is available for installation from an apt repository
+         on your system.
+       </p>
+
+       <p>
+         To add the Apt repository to your Apt source list directory (<code>/etc/apt/sources.list.d</code>), use:
+<pre class="sourcecode bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
+
+         where <code>{distribution}</code> is the name of the Debian or Ubuntu distribution used, e.g. <code>xenial</code> for Ubuntu 16.04,
+         <code>artful</code> for Ubuntu 17.10, or <code>stretch</code> for Debian Stretch.
        </p>
        <p>
-         (optional) To avoid warnings about unsigned packages, add
-         our <a href="rabbitmq-release-signing-key.asc">public
-           key</a> to your trusted key list using
+         So, on Ubuntu 16.04 the above command becomes
+
+<pre class="sourcecode bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
+
+         and on Ubuntu 17.10 it would be
+
+<pre class="sourcecode bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian artful main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
+
+         Supported distributions are
+
+         <ul>
+           <li>artful</li>
+           <li>jessie</li>
+           <li>precise</li>
+           <li>sid</li>
+           <li>stretch</li>
+           <li>trusty</li>
+           <li>wheezy</li>
+           <li>xenial</li>
+           <li>yakkety</li>
+           <li>zesty</li>
+         </ul>
+
+       </p>
+       <p>
+         Next add our <a href="rabbitmq-release-signing-key.asc">public key</a> to your trusted key list using
          <code>apt-key(8)</code>:
          <pre class="sourcecode bash">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
      sudo apt-key add -</pre>
          <p>
            Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>:
 
-         <pre class="sourcecode bash">wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc |
-     sudo apt-key add -</pre>
+<pre class="sourcecode bash">
+wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | sudo apt-key add -
+</pre>
          .</p>
        </p>
        <p>
@@ -214,8 +241,8 @@ sudo apt-cache policy
        </p>
      </doc:subsection>
 
-     <doc:subsection name="apt-repos">
-       <doc:heading>Using PackageCloud APT Repository</doc:heading>
+     <doc:subsection name="packagecloud-apt-repo">
+       <doc:heading>Using PackageCloud Apt Repository</doc:heading>
 
        <p>
          PackageCloud installs packages via HTTPS and signs them using their GPG key.
@@ -231,72 +258,41 @@ sudo apt-cache policy
          See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
        </p>
      </doc:subsection>
-   </doc:section>
 
+     <doc:subsection name="legacy-apt-repo">
+       <doc:heading>Legacy Apt Repository on rabbitmq.com</doc:heading>
 
-   <doc:section name="ubuntu-12.04">
-     <doc:heading>Installation on Ubuntu 12.04</doc:heading>
-
-     <p>
-       RabbitMQ Debian package can be installed on Ubuntu 12.04 with the help of
-       additional apt repositories, namely:
-
-       <ul>
-         <li><a href="https://backports.debian.org/Instructions/">Debian Wheezy backports</a> to obtain <code>init-system-helpers</code></li>
-         <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions apt repository</a> to obtain a supported version of <code>esl-erlang</code></li>
-       </ul>
-     </p>
-     <p>
-       Below is an example of how the above repositories can be added on the command line:
-
-<pre class="sourcecode bash">
-# Add Debian Wheezy backports repository to obtain init-system-helpers
-gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
-gpg -a --export 7638D0442B90D010 | sudo apt-key add -
-echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
-
-# Add Erlang Solutions repository to obtain esl-erlang
-wget -O- https://packages.erlang-solutions.com/debian/erlang_solutions.asc | sudo apt-key add -
-echo 'deb https://packages.erlang-solutions.com/debian wheezy contrib' | sudo tee /etc/apt/sources.list.d/esl.list
-
-sudo apt-get update
-sudo apt-get install init-system-helpers socat esl-erlang
-
-# continue with RabbitMQ installation as explained above
-wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
-echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
-
-sudo apt-get update
-sudo apt-get install rabbitmq-server
-</pre>
-     </p>
-     <p>
-       As mentioned above, Ubuntu 12.04 support in the RabbitMQ
-       Debian package is offered on a best-effort basis. We highly
-       recommend upgrading to Ubuntu 14.04 or 16.04.
-     </p>
+       <p>
+         rabbitmq.com apt repository is still available
+         but won't receive updates beyond the 3.6.x series. For RabbitMQ 3.7.0 and later versions, please
+         use the repositories on Bintray or Package Cloud.
+       </p>
+     </doc:subsection>
    </doc:section>
 
 
    <doc:section name="running-debian">
      <doc:heading>Run RabbitMQ Server</doc:heading>
-     <h3>Customise RabbitMQ Environment Variables</h3>
-     <p>
-       The server should start using defaults.
-       You can
-       <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-       Also see how to <a href="configure.html#configuration-file">configure components</a>.
-     </p>
 
      <h3>Start the Server</h3>
      <p>
        The server is started as a daemon by default when the
-       RabbitMQ server package is installed.
+       RabbitMQ server package is installed. It will run as a non-privileged user <code>rabbitmq</code>.
      </p>
      <p>
        As an administrator, start and stop the
-       server as usual for Debian using
+       server as usual for Debian-based systems:
        <code>service rabbitmq-server start</code>.
+     </p>
+   </doc:section>
+
+   <doc:section name="configuration-debian">
+     <doc:heading>Configuring RabbitMQ</doc:heading>
+     <p>
+       On most systems, a node should be able to start and run with all defaults.
+       Please refer to the <a href="configure.html">Configuration guide</a> to learn more
+       and <a href="/production-checklist.html">Production Checklist</a> for guidelines beyond
+       development environments.
      </p>
      <p>
        <em>Note: </em>The server is set up to run as system user
