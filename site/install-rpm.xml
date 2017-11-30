@@ -64,18 +64,20 @@ limitations under the License.
     <doc:section name="overview">
       <doc:heading>Overview</doc:heading>
       <p>
-        <code>rabbitmq-server</code> is included in Fedora. However,
-        the versions included are often quite old. You will probably
-        get better results installing the .rpm from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
-        or <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>. Check
-        the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
-        package</a> details for which version of the server is
-        available for which versions of the distribution.
+        The package is distributed via Yum repositories on <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+        and <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>.
       </p>
 
       <p>
-        The package is distributed via Yum repositories on <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
-        and <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>.
+        <code>rabbitmq-server</code> is included in Fedora. However,
+        the versions included often lag behind RabbitMQ releases.
+        It is recommended that you use Yum repositories from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+        or <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>.
+      </p>
+      <p>
+        Check the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
+        package</a> details for which version of the server is
+        available for which versions of the distribution.
       </p>
     </doc:section>
 
@@ -110,14 +112,13 @@ limitations under the License.
         <li>
           We produce <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
           down to only provide those components needed to run
-          RabbitMQ. <b>It may not be as up to date as Erlang Solutions'
-          packages</b>, but it might be easiest to use if installing
+          RabbitMQ. It might be easiest to use if installing
           Erlang's dependencies is proving difficult.
         </li>
         <li>
           <a href="https://www.erlang-solutions.com/resources/download.html">Erlang
           Solutions</a> produces packages that are usually up to
-          date. They produce two sets of packages - ones which are split
+          date. They produce two sets of packages: ones which are split
           up and are more convenient to use if you can add a yum
           repository, and a monolithic package which might be easier if
           you have to download manually.
@@ -148,7 +149,9 @@ limitations under the License.
           </li>
           <li>
             Issue the following command as 'root':
-            <pre>yum install erlang</pre>
+<pre class="sourcecode bash">
+yum install erlang
+</pre>
           </li>
         </ol>
       </doc:subsection>
@@ -174,19 +177,6 @@ limitations under the License.
             Download and install the <a href="/which-erlang.html">appropriate</a> <code>esl-erlang</code> RPM
             from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
           </li>
-          <li>
-            Download and install
-            the <a href="https://github.com/jasonmcintosh/esl-erlang-compat">esl-erlang-compat</a>
-            RPM
-            (<a href="https://github.com/jasonmcintosh/esl-erlang-compat/releases/download/1.1.1/esl-erlang-compat-18.1-1.noarch.rpm">direct
-            download</a>) produced by <a href="https://github.com/jasonmcintosh/">Jason
-            McIntosh</a>.
-            <p>
-              This is needed since Erlang Solutions' monolithic packages provide
-              "esl-erlang"; this package just requires "esl-erlang" and provides
-              "erlang".
-            </p>
-          </li>
         </ol>
       </doc:subsection>
 
@@ -211,13 +201,20 @@ limitations under the License.
           After downloading the server package, issue the following command as
           'root':
         </p>
-        <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-        yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+<pre class="sourcecode bash">
+rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+# this example assumes the CentOS 7 version of the package
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+</pre>
 
         <p>
           Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>:
-                  <pre>rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
-        yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+
+<pre class="sourcecode bash">
+rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+# this example assumes the CentOS 7 version of the package
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+</pre>
         </p>
       </doc:subsection>
 
@@ -240,35 +237,47 @@ limitations under the License.
       </doc:subsection>
     </doc:section>
 
-    <doc:section name="run-rabbitmq">
-      <doc:heading>Run RabbitMQ Server</doc:heading>
 
-      <h3>Customise RabbitMQ Environment Variables</h3>
-      <p>
-        The server should start using defaults. You can
-        <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-        Also see how to <a href="configure.html#configuration-file">configure components</a>.
-      </p>
-      <h3>Start the Server</h3>
+   <doc:section name="running-rpm">
+     <doc:heading>Run RabbitMQ Server</doc:heading>
+
+     <h3>Start the Server</h3>
       <p>
         The server is not started as a daemon by default when the
         RabbitMQ server package is installed. To start the daemon by default
         when the system boots, as an administrator run
-        <code>chkconfig rabbitmq-server on</code>.
+
+<pre class="sourcecode bash">
+chkconfig rabbitmq-server on
+</pre>
       </p>
       <p>
         As an administrator, start and stop the
-        server as usual using
-        <code>/sbin/service rabbitmq-server <i>stop/start/etc</i></code>.
+        server as usual:
+<pre class="sourcecode bash">
+/sbin/service rabbitmq-server start
+
+/sbin/service rabbitmq-server stop
+</pre>
       </p>
-      <p>
-        <em>Note: </em>The server is set up to run as system user
-        <code>rabbitmq</code>.
-        If you change the location of the Mnesia database or the logs,
-        you must ensure the files are owned by this user
-        (and also update the environment variables).
-      </p>
-    </doc:section>
+   </doc:section>
+
+   <doc:section name="configuration-rpm">
+     <doc:heading>Configuring RabbitMQ</doc:heading>
+     <p>
+       On most systems, a node should be able to start and run with all defaults.
+       Please refer to the <a href="configure.html">Configuration guide</a> to learn more
+       and <a href="/production-checklist.html">Production Checklist</a> for guidelines beyond
+       development environments.
+     </p>
+     <p>
+       <em>Note: </em>The server is set up to run as system user
+       <code>rabbitmq</code>.
+       If you change the location of the node database or the logs,
+       you must ensure the files are owned by this user
+       (and also update the environment variables).
+     </p>
+   </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
