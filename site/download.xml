@@ -56,7 +56,7 @@ limitations under the License.
         </li>
       </ul>
 
-      <h3>Downloads <a href="https://bintray.com/rabbitmq">on Bintray</a></h3>
+      <h3>Downloads <a href="https://bintray.com/rabbitmq/all">on Bintray</a></h3>
       <ul>
         <li>
           <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows installer</a>
@@ -77,6 +77,13 @@ limitations under the License.
         <li>
           <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">Windows binary</a>
         </li>
+      </ul>
+
+      <ul>
+        <h3>Apt and Yum Repositories</h3>
+        <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
+        <li><a href="https://bintray.com/rabbitmq/debian">Bintray</a> (Apt)</li>
+        <li><a href="https://bintray.com/rabbitmq/rpm">Bintray</a> (Yum)</li>
       </ul>
 
       <h3>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></h3>
@@ -100,11 +107,6 @@ limitations under the License.
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
         </li>
-      </ul>
-
-      <ul>
-        <h3>Also Available From</h3>
-        <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
       </ul>
 
       <h3>Cloud</h3>
