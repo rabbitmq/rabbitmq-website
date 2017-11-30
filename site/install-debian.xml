@@ -241,23 +241,31 @@ wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc |
        </p>
      </doc:subsection>
 
-     <doc:subsection name="packagecloud-apt-repo">
-       <doc:heading>Using PackageCloud Apt Repository</doc:heading>
+     <doc:subsection name="from-package-cloud">
+        <doc:heading>Using PackageCloud Apt Repository</doc:heading>
 
-       <p>
-         PackageCloud installs packages via HTTPS and signs them using their GPG key.
-         There are multiple ways to install:
+        <p>
+          PackageCloud is another distribution channel that provides an Apt repository.
 
-         <ul>
-           <li>Provided installation scripts</li>
-           <li>Using PackageCloud Chef cookbook</li>
-           <li>Using PackageCloud Puppet module</li>
-           <li>Manually</li>
-         </ul>
+          A quick way to install uses a <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install#bash-deb">Package Cloud-provided script</a>.
+        </p>
 
-         See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
-       </p>
-     </doc:subsection>
+        <p>
+          There are more installation options available:
+
+          <ul>
+            <li>Using PackageCloud Chef cookbook</li>
+            <li>Using PackageCloud Puppet module</li>
+            <li>Manually</li>
+          </ul>
+
+          See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
+        </p>
+
+        <p>
+          Note that Package Cloud signs distributed packages using their own GPG key.
+        </p>
+      </doc:subsection>
 
      <doc:subsection name="legacy-apt-repo">
        <doc:heading>Legacy Apt Repository on rabbitmq.com</doc:heading>

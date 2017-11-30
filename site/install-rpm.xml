@@ -219,20 +219,28 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.
       </doc:subsection>
 
       <doc:subsection name="from-package-cloud">
-        <doc:heading>Using PackageCloud RPM Repository</doc:heading>
+        <doc:heading>Using PackageCloud Yum Repository</doc:heading>
 
         <p>
-          PackageCloud installs packages via HTTPS and signs them using their GPG key.
-          There are multiple ways to install:
+          PackageCloud is another distribution channel that provides a Yum repository.
+
+          A quick way to install uses a <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install#bash-rpm">Package Cloud-provided script</a>.
+        </p>
+
+        <p>
+          There are more installation options available:
 
           <ul>
-            <li>Provided installation scripts</li>
             <li>Using PackageCloud Chef cookbook</li>
             <li>Using PackageCloud Puppet module</li>
             <li>Manually</li>
           </ul>
 
           See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
+        </p>
+
+        <p>
+          Note that Package Cloud signs distributed packages using their own GPG key.
         </p>
       </doc:subsection>
     </doc:section>
