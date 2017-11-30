@@ -32,9 +32,9 @@ limitations under the License.
     <doc:section name="standalone-mac">
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
-        <r:download absolute="yes" url="https://dl.bintray.com/rabbitmq/binaries/rabbitmq-server-mac-standalone-&version-server;.tar.xz"
+        <r:download absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-mac-standalone-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.xz">
-	  Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version; (from <a href="https://bintray.com/rabbitmq/binaries">Bintray</a>)
+	  Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version; (from <a href="https://bintray.com/rabbitmq/all">Bintray</a>)
         </r:download>
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.xz">

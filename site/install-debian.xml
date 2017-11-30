@@ -36,9 +36,9 @@ limitations under the License.
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
 	  .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
-        <r:download signature="no" absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-deb/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+        <r:download signature="no" absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                     downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-deb">Bintray</a>)
+	  .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>)
         </r:download>
       </r:downloads>
     </doc:section>
@@ -68,7 +68,7 @@ limitations under the License.
        <p>
          Below is a list of supported Debian-based distributions as of RabbitMQ 3.7.0:
          <ul>
-           <li>Ubuntu 14.04 through 17.04</li>
+           <li>Ubuntu 14.04 through 17.10</li>
            <li>Debian Stretch</li>           
            <li>Debian Jessie</li>
          </ul>

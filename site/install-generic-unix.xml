@@ -32,7 +32,7 @@ limitations under the License.
     <doc:section name="generic-unix">
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
-        <r:download absolute="yes" url="https://dl.bintray.com/rabbitmq/binaries/rabbitmq-server-generic-unix-&version-server;.tar.xz"
+        <r:download absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.xz">
 	  Generic Unix release (tar.xz, from <a href="https://bintray.com/rabbitmq/binaries">Bintray</a>)
         </r:download>
