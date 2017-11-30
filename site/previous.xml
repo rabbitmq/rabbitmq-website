@@ -28,6 +28,7 @@ limitations under the License.
       <a href="http://previous.rabbitmq.com">Historical versions of the website</a>
       that correspond with the final release of historical stable branches:
       <ul>
+        <li><a href="http://previous.rabbitmq.com/v3_6_x/documentation.html">RabbitMQ 3.6.x</a></li>
         <li><a href="http://previous.rabbitmq.com/v3_5_7/documentation.html">RabbitMQ 3.5.x</a></li>
         <li><a href="http://previous.rabbitmq.com/v3_4_x/documentation.html">RabbitMQ 3.4.x</a></li>
         <li><a href="http://previous.rabbitmq.com/v3_3_x/documentation.html">RabbitMQ 3.3.x</a></li>
