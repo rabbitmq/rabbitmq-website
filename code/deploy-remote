@@ -52,9 +52,7 @@ cp -r site $site_dir/site-src
 
 # TODO that "current" link is not created for nightlies
 if [ $mode = www ] ; then
-    if [ -d ${releases_dir}/rabbitmq-server/current/ ]; then
-        cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
-    fi
+    true
 elif [ $mode = previous ] ; then
     version_pattern=${version/_/\.}
     version_pattern=${version_pattern%_*}
