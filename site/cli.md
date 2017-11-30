@@ -19,8 +19,8 @@ limitations under the License.
 
 RabbitMQ comes with multiple command line tools:
 
- * [rabbitmqctl](/man/rabbitmqctl.8.html) for general administrative/operator tasks
- * [rabbitmq-plugins](/man/rabbitmq-plugins.8.html) for plugin management
+ * [rabbitmqctl](/rabbitmqctl.8.html) for general administrative/operator tasks
+ * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for plugin management
  * [rabbitmqadmin](/management-cli.html) for operator tasks over [HTTP API](/management.html)
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
@@ -38,7 +38,7 @@ HTTP API port open.
 
 ## rabbitmqctl
 
-[rabbitmqctl](/man/rabbitmqctl.8.html) is the original CLI tool that ships with RabbitMQ.
+[rabbitmqctl](/rabbitmqctl.8.html) is the original CLI tool that ships with RabbitMQ.
 It supports a wide range of operations, mostly administrative (operational) in nature.
 
 This includes
@@ -58,7 +58,7 @@ and more.
 
 ## rabbitmq-plugins
 
-[rabbitmq-plugins](/man/rabbitmq-plugins.8.html) is a tool that manages plugins:
+[rabbitmq-plugins](/rabbitmq-plugins.8.html) is a tool that manages plugins:
 lists, enables and disables them. It ships with RabbitMQ.
 
 It supports both online (when target node is running) and offline mode (changes

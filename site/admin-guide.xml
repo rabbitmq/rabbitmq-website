@@ -64,8 +64,8 @@ limitations under the License.
       <h2>CLI tools</h2>
 
       <ul>
-        <li><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
-        <li><a href="/man/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
+        <li><a href="/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
+        <li><a href="/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
         <li><a href="/management-cli.html">rabbitmqadmin</a> (requires <a href="/management.html">management plugin</a>)</li>
         <li><a href="/manpages.html">man pages</a></li>
       </ul>
