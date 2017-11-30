@@ -235,7 +235,7 @@ This includes queue length, ingress and egress rates, number of consumers, numbe
 messages in various states (e.g. ready for delivery or [unacknowledged](/confirms.html)),
 number of messages in RAM vs. on disk, and so on.
 
-[rabbitmqctl](/man/rabbitmqctl.1.man.html) can list queues and some basic metrics.
+[rabbitmqctl](/man/rabbitmqctl.8.man.html) can list queues and some basic metrics.
 
 Runtime metrics such as VM scheduler usage, queue (Erlang) process GC activity, amount of
 RAM used by the queue process, queue process mailbox length can be accessed
@@ -295,6 +295,6 @@ It is possible to determine queue length in a number of ways:
    (<code>queue.declare-ok</code>). The field name is <code>message_count</code>. How it is accessed
    varies from client library to client library.
  * Using [RabbitMQ HTTP API](/management.html).
- * Using the [rabbitmqctl](/man/rabbitmqctl.1.man.html) <code>list_queues</code> command.
+ * Using the [rabbitmqctl](/man/rabbitmqctl.8.man.html) <code>list_queues</code> command.
 
 Queue length is defined as the number of messages ready for delivery.

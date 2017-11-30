@@ -160,7 +160,7 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         <doc:heading>Verify Configuration: How to Check Effective Configuration</doc:heading>
         <p>
           It is possible to print effective configuration (user provided values merged into defaults) using
-          the <a href="/man/rabbitmqctl.1.man.html">rabbitmqctl environment</a> command.
+          the <a href="/man/rabbitmqctl.8.man.html">rabbitmqctl environment</a> command.
         </p>
         <p>
           Checking effective configuration

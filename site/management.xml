@@ -210,9 +210,9 @@ limitations under the License.
         <p>
           If you get locked out due to only having non-administrator
           users, or no users at all, you can use <a
-          href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
+          href="/man/rabbitmqctl.8.man.html#">rabbitmqctl add_user</a>
           to create a non-administrator user and <a
-          href="/man/rabbitmqctl.1.man.html#set_user_tags">rabbitmqctl
+          href="/man/rabbitmqctl.8.man.html#set_user_tags">rabbitmqctl
           set_user_tags</a> to promote a user to administrator.
         </p>
       </doc:section>

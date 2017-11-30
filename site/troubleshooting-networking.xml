@@ -49,7 +49,7 @@ limitations under the License.
           <ul>
             <li>Verify client configuration</li>
             <li>
-              Verify server configuration using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
+              Verify server configuration using <code><a href="/man/rabbitmqctl.8.man.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
               and <code>rabbitmqctl environment</code>
             </li>
             <li>Check server logs (see above)</li>
@@ -87,10 +87,10 @@ limitations under the License.
           that the node is actually running. Here are the recommended steps:
 
           <ul>
-            <li>Make sure the node is running using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code></li>
+            <li>Make sure the node is running using <code><a href="/man/rabbitmqctl.8.man.html">rabbitmqctl</a> status</code></li>
             <li>Verify <a href="/configure.html">config file is correctly placed and has correct syntax/structure</a></li>
-            <li>Inspect the <code>listeners</code> section in <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> status</code> output</li>
-            <li>Inspect effective configuration using <code><a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> environment</code></li>
+            <li>Inspect the <code>listeners</code> section in <code><a href="/man/rabbitmqctl.8.man.html">rabbitmqctl</a> status</code> output</li>
+            <li>Inspect effective configuration using <code><a href="/man/rabbitmqctl.8.man.html">rabbitmqctl</a> environment</code></li>
           </ul>
         </p>
 

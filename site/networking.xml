@@ -1067,7 +1067,7 @@ connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest'
       <p>
         The examples above include two values that can be used as connection identifiers
         in various scenarios: a connection PID (<code>&lt;0.24990.164&gt;</code>) and connection name (<code>127.0.0.1:57919 -> 127.0.0.1:5672</code>). The former is used
-        by <a href="/man/rabbitmqctl.1.man.html">rabbitmqctl</a> and the latter is used
+        by <a href="/man/rabbitmqctl.8.man.html">rabbitmqctl</a> and the latter is used
         by the <a href="/management.html">HTTP API</a>.
       </p>
 
