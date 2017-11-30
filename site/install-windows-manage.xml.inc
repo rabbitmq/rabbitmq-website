@@ -43,7 +43,7 @@ limitations under the License.
     </dd>
   </dl>
   <p>
-    More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl</a>
+    More  <a href="man/rabbitmqctl.8.html">info on rabbitmqctl</a>
   </p>
 
   <h3>Logging</h3>

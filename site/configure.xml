@@ -160,7 +160,7 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         <doc:heading>Verify Configuration: How to Check Effective Configuration</doc:heading>
         <p>
           It is possible to print effective configuration (user provided values merged into defaults) using
-          the <a href="/man/rabbitmqctl.8.man.html">rabbitmqctl environment</a> command.
+          the <a href="/man/rabbitmqctl.8.html">rabbitmqctl environment</a> command.
         </p>
         <p>
           Checking effective configuration
@@ -199,7 +199,7 @@ NODENAME=bunny@myhost
 CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
 </pre>
 
-            More info on using <code>rabbitmq-env.conf</code> can be found <a href="man/rabbitmq-env.conf.5.man.html">here</a>.
+            More info on using <code>rabbitmq-env.conf</code> can be found <a href="man/rabbitmq-env.conf.5.html">here</a>.
           </p>
         </doc:subsection>
 

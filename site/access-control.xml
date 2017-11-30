@@ -66,9 +66,9 @@ limitations under the License.
 
         <p>
           It is advisable
-          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
+          to <a href="man/rabbitmqctl.8.html#delete_user">delete</a>
           the <code>guest</code> user
-          or <a href="man/rabbitmqctl.1.man.html#change_password">change
+          or <a href="man/rabbitmqctl.8.html#change_password">change
           the password</a> to something private, particularly if your
           broker is accessible publicly.
         </p>
@@ -232,8 +232,8 @@ loopback_users = none
         </p>
         <p>
           For details of how to set up access control, please see the
-          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
-          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
+          <a href="man/rabbitmqctl.8.html#Access%20control">Access Control section</a>
+          of the <a href="man/rabbitmqctl.8.html">rabbitmqctl man page</a>.
         </p>
       </doc:section>
 
@@ -276,9 +276,9 @@ loopback_users = none
           authorisation as optional: you don't need to whitelist any
           exchanges. To use topic authorisation therefore you need to opt in
           and define topic permissions for one or more exchanges. For details please see the <a
-          href="man/rabbitmqctl.1.man.html#Access%20control">Access
+          href="man/rabbitmqctl.8.html#Access%20control">Access
           Control section</a> of the <a
-          href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man
+          href="man/rabbitmqctl.8.html">rabbitmqctl man
           page</a>.
         </p>
         <p>

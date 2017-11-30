@@ -206,7 +206,7 @@ limitations under the License.
       <doc:heading>Management and Monitoring</doc:heading>
       <p>
         Management and monitoring capabilities are provided
-        by <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>
+        by <a href="man/rabbitmqctl.8.html">rabbitmqctl</a>
         and <a href="management.html">the management plugin</a>.
       </p>
       <p>

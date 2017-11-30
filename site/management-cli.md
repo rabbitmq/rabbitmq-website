@@ -24,8 +24,8 @@ Note that rabbitmqadmin is just a specialised HTTP client;
 if you are contemplating invoking rabbitmqadmin from your own program
 you may want to consider using an HTTP API client library instead.
 
-Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.8.man.html) or
-[rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html).
+Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.8.html) or
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.html).
 HTTP API intentionally doesn't expose certain operations.
 
 
@@ -60,8 +60,8 @@ Invoke `rabbitmqadmin --help` for usage instructions. You can:
 * close connections and purge queues
 * import and export configuration
 
-For other tasks, see [rabbitmqctl](/man/rabbitmqctl.8.man.html) and
-[rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html).
+For other tasks, see [rabbitmqctl](/man/rabbitmqctl.8.html) and
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.html).
 
 
 ## bash completion

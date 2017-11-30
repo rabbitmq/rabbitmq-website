@@ -100,11 +100,11 @@ limitations under the License.
             The RabbitMQ server can be run as either an application or service (not both).
           </p>
           <ul>
-            <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server.bat</a>
+            <li><a href="man/rabbitmq-server.1.html">rabbitmq-server.bat</a>
               starts the broker as an application.</li>
-            <li><a href="man/rabbitmq-service.man.html">rabbitmq-service.bat</a>
+            <li><a href="man/rabbitmq-service.html">rabbitmq-service.bat</a>
               manages the service and starts the broker.</li>
-            <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl.bat</a>
+            <li><a href="man/rabbitmqctl.8.html">rabbitmqctl.bat</a>
               manages a running broker.</li>
           </ul>
           <p>
@@ -273,7 +273,7 @@ limitations under the License.
           <p>
             To manage the service (install, remove, start, stop,
             enable, disable), use
-            <a href="man/rabbitmq-service.man.html"><code>rabbitmq-service.bat</code></a>
+            <a href="man/rabbitmq-service.html"><code>rabbitmq-service.bat</code></a>
             commands.  You can also use the Windows Services panel
             (<code>services.msc</code>) to perform some of the
             same functions as the service script.

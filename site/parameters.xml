@@ -41,7 +41,7 @@ limitations under the License.
     <p>
       RabbitMQ calls these items <i>parameters</i>. Parameters can be
       set by
-      invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
+      invoking <a href="man/rabbitmqctl.8.html"><code>rabbitmqctl</code></a>
       or through <a href="management.html">the management plugin</a>'s HTTP API.
       There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
       Vhost-scoped parameters are tied to a virtual host and consist

@@ -41,7 +41,7 @@ limitations under the License.
       <p>
         The LDAP plugin is included in the RabbitMQ distribution. To
         enable it, use
-        <a href="man/rabbitmq-plugins.8.man.html">rabbitmq-plugins</a>:
+        <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
       </p>
       <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
       <p>

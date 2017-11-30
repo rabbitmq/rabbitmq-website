@@ -671,7 +671,7 @@ limitations under the License.
         <td>
           <ul>
             <li><a href="parameters.html#policies">Policy-based</a> configuration of <a href="ha.html#genesis">mirroring</a> and <a href="federation.html#configuration">federation</a></li>
-            <li>Revamped <a href="man/rabbitmqctl.1.man.html#Cluster%20management">clustering commands</a></li>
+            <li>Revamped <a href="man/rabbitmqctl.8.html#Cluster%20management">clustering commands</a></li>
             <li><a href="web-stomp.html">Web-STOMP</a> and <a href="https://github.com/rabbitmq/rabbitmq-mqtt">MQTT</a> plug-ins</li>
             <li><a href="ttl.html#per-message-ttl">Per-message TTL</a></li>
           </ul>

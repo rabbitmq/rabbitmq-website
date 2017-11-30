@@ -122,7 +122,7 @@ limitations under the License.
       <p>
         The federation plugin is included in the RabbitMQ distribution. To
         enable it, use
-        <a href="man/rabbitmq-plugins.8.man.html">rabbitmq-plugins</a>:
+        <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
       </p>
       <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_federation</pre>
 

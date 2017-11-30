@@ -35,7 +35,7 @@ enhancements
   behaviour See http://www.rabbitmq.com/specification.html#tx
 - replace the 'administrator' flag, as used by the management plugin,
   with a more general 'user tags' mechanism. See
-  http://www.rabbitmq.com/man/rabbitmqctl.1.man.html#set_user_tags
+  http://www.rabbitmq.com/man/rabbitmqctl.8.man.html#set_user_tags
 - do not require 'configure' permissions for passive queue/exchange
   declaration
 - optimise of message delivery on channels with a basic.qos

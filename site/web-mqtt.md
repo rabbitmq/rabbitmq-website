@@ -33,7 +33,7 @@ WebSockets.
 
 `rabbitmq_web_mqtt` plugin ships with RabbitMQ as of 3.6.7.
 
-To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
+To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
 <pre class="sourcecode bash">
 rabbitmq-plugins enable rabbitmq_web_mqtt

@@ -36,7 +36,7 @@ tweak the defaults.
 ## <a id="ifb"/>Enabling the Plugin
 
 The MQTT adapter is included in the RabbitMQ distribution. To enable
-it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
+it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
     rabbitmq-plugins enable rabbitmq_mqtt
 
