@@ -224,7 +224,8 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.
         <p>
           A Yum repository with RabbitMQ packages is available from PackageCloud.
 
-          A quick way to install uses a <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install#bash-rpm">Package Cloud-provided script</a>.
+          A quick way to install is to use a <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install#bash-rpm">Package Cloud-provided script</a>.
+          Package Cloud also can be used to <a href="https://packagecloud.io/rabbitmq/erlang/install#bash-rpm">install a recent Erlang version via yum</a>.
         </p>
 
         <p>
