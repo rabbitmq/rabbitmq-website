@@ -33,12 +33,12 @@ limitations under the License.
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/el/7/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
         </r:download>
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/el/6/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
         </r:download>
 
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
@@ -51,12 +51,12 @@ limitations under the License.
         </r:download>
 
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
-	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/opensuse/42.1/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
+	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
         </r:download>
         <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">
-	  RPM for SLES 11.x (from <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>)
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/sles/11/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">
+	  RPM for SLES 11.x (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
         </r:download>
       </r:downloads>
     </doc:section>
@@ -67,7 +67,7 @@ limitations under the License.
         <code>rabbitmq-server</code> is included in Fedora. However,
         the versions included are often quite old. You will probably
         get better results installing the .rpm from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
-        or <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>. Check
+        or <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>. Check
         the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
         package</a> details for which version of the server is
         available for which versions of the distribution.
@@ -75,7 +75,7 @@ limitations under the License.
 
       <p>
         The package is distributed via Yum repositories on <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
-        and <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>.
+        and <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>.
       </p>
     </doc:section>
 

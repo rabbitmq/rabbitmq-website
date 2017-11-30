@@ -65,10 +65,10 @@ limitations under the License.
           <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-deb/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
         </li>
         <li>
-          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
-          <a href="https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/el/7/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/el/6/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/opensuse/42.1/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
+          <a href="https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/&version-server-series;/sles/11/noarch/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
           <a href="https://bintray.com/rabbitmq/rpm/erlang">Erlang RPM</a>
         </li>
         <li>
