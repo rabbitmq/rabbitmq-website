@@ -28,7 +28,7 @@ with some extensions and restrictions (described [here](#pear)).
 ## <a id="ifb"/>Installing from binary
 
 The STOMP adapter is included in the RabbitMQ distribution.  To enable
-it, use [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
+it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
 
     rabbitmq-plugins enable rabbitmq_stomp
 

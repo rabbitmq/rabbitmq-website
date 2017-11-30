@@ -25,7 +25,7 @@ if you are contemplating invoking rabbitmqadmin from your own program
 you may want to consider using an HTTP API client library instead.
 
 Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.1.man.html) or
-[rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html).
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html).
 HTTP API intentionally doesn't expose certain operations.
 
 
@@ -61,7 +61,7 @@ Invoke `rabbitmqadmin --help` for usage instructions. You can:
 * import and export configuration
 
 For other tasks, see [rabbitmqctl](/man/rabbitmqctl.1.man.html) and
-[rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html).
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html).
 
 
 ## bash completion

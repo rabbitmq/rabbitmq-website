@@ -35,7 +35,7 @@ limitations under the License.
         </p>
         <p>
           To enable plugins, use
-          the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
+          the <a href="man/rabbitmq-plugins.8.man.html">rabbitmq-plugins</a>
           tool:
         </p>
         <pre class="sourcecode bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
@@ -53,7 +53,7 @@ limitations under the License.
         </p>
         <p>
           For more information on <code>rabbitmq-plugins</code>,
-          consult <a href="man/rabbitmq-plugins.1.man.html">the manual
+          consult <a href="man/rabbitmq-plugins.8.man.html">the manual
           page</a>.
         </p>
 

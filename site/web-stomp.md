@@ -39,7 +39,7 @@ Since version `3.7` support for SockJS websocket emulation was removed.
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
-To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
+To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
 
 <pre class="sourcecode bash">
 rabbitmq-plugins enable rabbitmq_web_stomp
