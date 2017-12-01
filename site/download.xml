@@ -75,6 +75,9 @@ limitations under the License.
           <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
         </li>
         <li>
+          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
+        </li>
+        <li>
           <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">Windows binary</a>
         </li>
       </ul>
@@ -103,6 +106,9 @@ limitations under the License.
         </li>
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
         </li>
         <li>
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
