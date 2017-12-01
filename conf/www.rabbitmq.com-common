@@ -77,11 +77,23 @@
 
     Alias /blog /usr/share/wordpress
 
+    # Redirect manpages from old location to new one that does not have '.man'
+    # in the URL and may change section as well
+
+    # NB: special-case section 5 man pages (rabbitmq-env.conf) as they did not
+    # change section
+    RedirectMatch permanent ^/man/(.+)\.5\.man\.html /$1.5.html
+    RedirectMatch permanent ^/(.+)\.5\.man\.html /$1.5.html
+
+    # NB: every other man page changed from the old section to section 8
+    RedirectMatch permanent ^/man/(.+)\.1\.man\.html /$1.8.html
+    RedirectMatch permanent ^/(.+)\.1\.man\.html /$1.8.html
+
     # Redirect manpages from release folder
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
-    
+
     <Location /server-status>
       SetHandler server-status
       Order deny,allow
