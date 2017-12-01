@@ -268,8 +268,16 @@ limitations under the License.
         <doc:heading>Clustering and Distributed RabbitMQ</doc:heading>
         <table class="plugins">
           <r:plugin name="autocluster">
-            Adds the possibility to automatically cluster RabbitMQ nodes
-            using Consul, etcd or DNS for service discovery.
+            <i>
+              As of RabbitMQ 3.7.0, this plugin was superseded by a
+              <a href="/cluster-formation.html">new peer discovery subsystem</a>
+              built on the same ideas and supporting the same backends via
+              separate plugins.
+            </i>
+            <p>
+              Adds the possibility to automatically cluster RabbitMQ nodes
+              using Consul, etcd or DNS for service discovery.
+            </p>
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Gavin M. Roy</b></li>
