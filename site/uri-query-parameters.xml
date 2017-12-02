@@ -88,7 +88,8 @@ limitations under the License.
       <tr>
         <td>
           <code>verify</code><br/>
-          <code>fail_if_no_peer_cert</code>
+          <code>fail_if_no_peer_cert</code><br/>
+          <code>server_name_indication</code>
         </td>
         <td>
           Use to configure verification of the server's SSL

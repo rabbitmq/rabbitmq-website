@@ -1535,28 +1535,55 @@ Using the <a href="/configure.html#erlang-term-config-file">classic config forma
               <li> The <code>certfile</code> is the client's own certificate in PEM format</li>
               <li> The <code>keyfile</code> is the client's private key file in PEM format.</li>
             </ul>
-
-            <p>As with RabbitMQ itself,
-            the <code>verify</code>
-            and <code>fail_if_no_peer_cert</code> options are
-            used to specify what action to
-            take if the server doesn't present a certificate or if
-            we're unable to establish a chain of trust to the server's
-            certificate. <code>depth</code> configures certificate verification depth
-            (see above).</p>
+            <p><code>server_name_indication</code> - set this option to the host name of the server
+              to which a TLS connection will be made to enable "Server Name Indication" verification
+              of the certificate presented by the server. This ensures that the server certificate's
+              <code>CN=</code> value will be verified during TLS connection establishment. You can
+              override this behavior by setting <code>server_name_indication</code> to a different
+              host name or to the special value <code>disable</code> to disable this
+              verification. Note that, by default, SNI is <b>not</b> enabled. This default
+              will change in a future RabbitMQ Erlang client release.
+            </p>
+            <p><code>verify</code> - set this option to <code>verify_peer</code> to enable X509
+              certificate chain verification. The <code>depth</code> option configures certificate
+              verification depth. Note that, by default, <code>verify</code> is set to
+              <code>verify_none</code>, which disables certificate chain verification. This default
+              will change in a future RabbitMQ Erlang client release.
+            </p>
         </doc:subsection>
 
         <doc:subsection name="erlang-code-example">
           <doc:heading>Code</doc:heading>
 <pre class="sourcecode erlang">
-Params = #amqp_params_network { port = 5671,
-                                ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
-                                               {certfile, &quot;/path/to/client/cert.pem&quot;},
-                                               {keyfile, &quot;/path/to/client/key.pem&quot;},
-                                               %% only necessary with intermediate CAs
-                                               %% {depth, 2},
-                                               {verify, verify_peer},
-                                               {fail_if_no_peer_cert, true}] },
+SslOpts = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
+           {certfile, &quot;/path/to/client/cert.pem&quot;},
+           {keyfile, &quot;/path/to/client/key.pem&quot;},
+
+           %% only necessary with intermediate CAs
+           %% {depth, 2},
+
+           %% Note: it is recommended to set 'verify' to
+           %% to 'verify_peer' to ensure that X509
+           %% certificate chain validation is enabled
+           %%
+           %% Do not set 'verify' or set it to verify_none
+           %% if x509 certificate chain validation is
+           %% not desired
+           {verify, verify_peer},
+
+           %% If Server Name Indication validation is desired,
+           %% set the following option to the host name to which
+           %% the connection is made. If necessary, this option
+           %% may be set to another host name to match the server
+           %% certificate's CN= value.
+           %% Do not set this option or set it to the atom 'disable'
+           %% to disable SNI validation
+           {server_name_indication, "my.rmq-server.net"}],
+
+Params = #amqp_params_network{host = "my.rmq-server.net",
+                              port = 5671,
+                              ssl_options = SslOpts}
+
 {ok, Conn} = amqp_connection:start(Params),
 </pre>
 
