@@ -237,6 +237,42 @@ bin/runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u "throughput-test-14" --id 
         </p>
       </doc:subsection>
 
+        <doc:subsection name="perftest-different-machines">
+            <doc:heading>Running producers and consumers on different machines</doc:heading>
+
+            <p>
+                If you run producers and consumers on different machines or even
+                in different processes, and you want PerfTest to calculate latency,
+                you need to use the <code>--use-millis</code> flag. E.g. for sending messages
+                from one host:
+            </p>
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --producers 1 --consumers 0 --predeclared --routing-key rk --queue q --use-millis
+</pre>
+            <p>
+            And for consuming messages from another host:
+            </p>
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --producers 0 --consumers 1 --predeclared --routing-key rk --queue q --use-millis
+</pre>
+            <p>
+                Note that as soon as you use <code>--use-millis</code>, latency is calculated in
+                milliseconds instead of microseconds. Note also the different machines should have
+                their clock synchronised, e.g. by NTP.
+                If you don't run producers and consumers on different machines or if you don't
+                want PerfTest to calculate latency, you don't need the <code>--use-millis</code> flag.
+            </p>
+            <p>
+                Why does one need to care about the <code>--use-millis</code> flag? PerfTest uses
+                by default <code>System.nanoTime()</code> in messages to calculate latency
+                between producers and senders. <code>System.nanoTime()</code> provides nanosecond precision
+                but must be used only in the same Java process. So PerfTest can fall back to <code>System.currentTimeMillis()</code>,
+                which provides only milliseconds precision, but is reliable between different machines
+                as long as their clocks are synchronised.
+            </p>
+
+
+        </doc:subsection>
 
       <doc:subsection name="how-perftest-works">
         <doc:heading>How It Works</doc:heading>
