@@ -206,7 +206,7 @@ limitations under the License.
 
 
       <doc:subsection name="channel-qos-prefetch">
-        <doc:heading>Consumer Acknowledgements and Throughput</doc:heading>
+        <doc:heading>Consumer Acknowledgement Modes, Prefetch and Throughput</doc:heading>
 
         <p>
           Acknowledgement mode and QoS prefetch value have significant
