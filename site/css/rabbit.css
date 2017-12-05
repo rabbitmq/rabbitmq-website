@@ -228,7 +228,6 @@ p {
 
 b, strong, .intro {
 	color: black;
-	font-weight: normal;
 }
 .clear {
 	clear:both;
