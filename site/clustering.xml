@@ -503,7 +503,7 @@ Starting node rabbit@rabbit2 ...done.</pre>
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
           You can find instructions for upgrading a cluster in
-          <a href="/upgrade.html">the upgrade guide</a>.
+          <a href="/upgrade.html#cluster">the upgrade guide</a>.
       </doc:section>
 
       <doc:section name="single-machine">

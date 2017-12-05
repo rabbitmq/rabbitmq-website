@@ -56,6 +56,7 @@ limitations under the License.
      <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
      <x:page url="/install-solaris.html" text="Install: Solaris"/>
      <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
+     <x:page url="/upgrade.html" text="Upgrade" gap-after="true"/>
      <x:page url="/platforms.html" text="Supported Platforms"/>
      <x:page url="/changelog.html" text="Changelog"/>
      <x:page url="/which-erlang.html" text="Erlang Versions"/>

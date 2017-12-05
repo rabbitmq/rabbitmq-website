@@ -2,7 +2,7 @@
 
 ## Before you upgrade
 
-### Erlang version
+### <a id="erlang"/> Erlang version
 
 Different versions of RabbtiMQ support different versions of Erlang.
 It's recommended to upgrade Erlang version when upgrading a RabbitMQ version
@@ -10,7 +10,7 @@ if it possible.
 
 Erlang version compatibility chart can be found [here](/which-erlang.html).
 
-### Compatible versions
+### <a id="aompatibility"/> Compatible versions
 
 Some version changes require intermediate upgrade. To upgrade to the latest version
 from some old versions, you should first upgrade to an intermediate version.
@@ -26,7 +26,7 @@ Current version upgrade compatibility:
 To upgrade RabbitMQ from version `3.4.x` or earlier to version `3.7.0`,
 you should first upgrade to `3.6.14`, then to `3.7.0`.
 
-### Plugin compatibility
+### <a id="plugins"/> Plugin compatibility
 
 RabbitMQ plugins API is supposed to be compatible in a single minor version track
 (e.g. between `3.6.11` and `3.6.14`). If upgrading to a new minor version
@@ -39,7 +39,7 @@ Please consult with release notes.
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins.
 
-## Single node upgrade.
+## <a id="single-node"/> Single node upgrade.
 
 To upgrade a single node RabbitMQ broker, the server running the old version
 should be stopped, and the new version started.
@@ -54,7 +54,7 @@ You should make sure the new version points to the same data directory.
 RabbitMQ does not support downgrades; it's strongly advised to backup data before
 performing an upgrade.
 
-## Cluster upgrades
+## <a id="cluster"/> Cluster upgrades
 
 RabbitMQ cluster *may* provide an opportunity to perform upgrades
 without cluster downtime using so-called rolling upgrade.
@@ -69,7 +69,7 @@ put more load on the broker. This can impact performance and stability
 of the cluster. It's not recommended to perform rolling upgrades
 under high load.
 
-### Version limitations for rolling upgrades
+### <a id="cluster-versions"/> Version limitations for rolling upgrades
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
@@ -100,7 +100,7 @@ which happened in the past every 3-5 major Erlang releases.
 It should be possible to upgrade to a newer minor Erlang version without stopping
 entire cluster.
 
-### Full-stop upgrades
+### <a id="cluster-full-stop"/> Full-stop upgrades
 
 When entire cluster is stopped for upgrade, the order in which nodes are
 stopped and started is important.
