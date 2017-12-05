@@ -502,54 +502,8 @@ Starting node rabbit@rabbit2 ...done.</pre>
 
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
-          <p>
-            When upgrading from one major or minor version of RabbitMQ
-            to another (i.e. from 3.0.x to 3.1.x, or from 2.x.x to
-            3.x.x), or when upgrading Erlang, the whole cluster must
-            be taken down for the upgrade (since clusters cannot run
-            mixed versions like this). This will generally not be the
-            case when upgrading from one patch version to another (i.e.
-            from 3.0.x to 3.0.y), except when indicated otherwise in
-            the release notes; these versions can be mixed in a cluster.
-            Therefore, it is strongly recommended to consult release
-            notes before upgrading.
-          </p>
-          <p>
-            Some patch releases known to require a cluster-wide
-            restart:
-
-            <ul>
-              <li>3.0.0 cannot be mixed with later
-                  versions from the 3.0.x series</li>
-              <li>3.6.6 and later cannot
-                  be mixed with earlier versions from the 3.6.x series</li>
-              <li>3.6.7 and later cannot
-                  be mixed with earlier versions from the 3.6.x series</li>
-            </ul>
-          </p>
-          <p>
-            RabbitMQ will automatically update its persistent data
-            structures if necessary when upgrading between major /
-            minor versions. In a cluster, this task is performed by
-            the first disc node to be started (the "upgrader"
-            node). Therefore when upgrading a RabbitMQ cluster, you
-            should not attempt to start any RAM nodes first; any RAM
-            nodes started will emit an error message and fail to start
-            up.
-          </p>
-          <p>
-            While not strictly necessary, it is a good idea to decide
-            ahead of time which disc node will be the upgrader, stop
-            that node last, and start it first. Otherwise changes to
-            the cluster configuration that were made between the
-            upgrader node stopping and the last node stopping will be
-            lost.
-          </p>
-          <p>
-            Automatic upgrades are only possible from RabbitMQ
-            versions 2.1.1 and later. If you have an earlier cluster,
-            you will need to rebuild it to upgrade.
-          </p>
+          You can find instructions for upgrading a cluster in
+          <a href="/upgrade.html">the upgrade guide</a>.
       </doc:section>
 
       <doc:section name="single-machine">
