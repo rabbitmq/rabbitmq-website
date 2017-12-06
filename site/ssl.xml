@@ -304,8 +304,8 @@ openssl x509 -in cacert.pem -out cacert.cer -outform DER
 <pre class="sourcecode bash">
 cd ..
 ls
-testca
-# => mkdir server
+# => testca
+mkdir server
 cd server
 openssl genrsa -out key.pem 2048
 openssl req -new -key key.pem -out req.pem -outform PEM \
