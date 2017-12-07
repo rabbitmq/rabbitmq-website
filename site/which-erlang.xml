@@ -19,12 +19,12 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Erlang Version Requirements</title>
+    <title>RabbitMQ Erlang Version Requirements</title>
   </head>
   <body>
 
     <doc:section name="requirements-and-recommendations">
-      <doc:subsection name="rabbitmq-erlang-compability">
+      <doc:subsection name="rabbitmq-erlang-version-requirements">
         <table>
           <th>RabbitMQ</th>
           <th>Minimum required Erlang/OTP</th>

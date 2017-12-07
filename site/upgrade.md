@@ -1,21 +1,14 @@
-# Upgrading RabbitMQ.
+# Upgrading RabbitMQ
 
-## Before you upgrade
+## <a id="rabbitmq-version-compatibility"/> RabbitMQ version compatibility
 
-### <a id="erlang"/> Erlang version
+The upgrade path will depend on your current RabbitMQ version, the RabbitMQ version that you want to upgrade to.
 
-Different versions of RabbtiMQ support different versions of Erlang.
-It's recommended to upgrade Erlang version when upgrading a RabbitMQ version
-if it possible.
+Some version changes require intermediate upgrades.
+For example, to upgrade from version `3.4.x` or earlier to version `3.7.0`,
+you must upgrade to `3.6.14`, and then to `3.7.0`.
 
-Erlang version compatibility chart can be found [here](/which-erlang.html).
-
-### <a id="aompatibility"/> Compatible versions
-
-Some version changes require intermediate upgrade. To upgrade to the latest version
-from some old versions, you should first upgrade to an intermediate version.
-
-Current version upgrade compatibility:
+Upgrade paths:
 
 | From     | To     |
 |----------|--------|
@@ -23,8 +16,6 @@ Current version upgrade compatibility:
 | 3.6.x    | 3.7.0  |
 | =< 3.4.x | 3.6.14 |
 
-To upgrade RabbitMQ from version `3.4.x` or earlier to version `3.7.0`,
-you should first upgrade to `3.6.14`, then to `3.7.0`.
 
 ### <a id="plugins"/> Plugin compatibility
 
@@ -38,6 +29,20 @@ Please consult with release notes.
 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins.
+
+
+## Erlang
+
+## RabbitMQ setup
+
+
+If you are upgrading within the same minor version, e.g. 3.6
+
+Based on your current RabbitMQ version, the upgrade path
+
+## Before you upgrade
+
+We recommended that you upgrade Erlang together with RabbitMQ. Please refer to [RabbitMQ Erlang Version Requirements](/which-erlang.html).
 
 ## <a id="single-node"/> Single node upgrade.
 
