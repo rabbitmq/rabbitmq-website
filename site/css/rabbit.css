@@ -26,11 +26,10 @@ html {
 body, table {
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
+        font-weight: 500;
 	line-height: 1.6em;
-	color: #585858;
+	color: #000;
 	letter-spacing: 0.01em;
-	font-weight: 400;
-	background: white;
 	/*-webkit-font-smoothing: antialiased;*/
 	/*-moz-osx-font-smoothing: grayscale;*/
 }
