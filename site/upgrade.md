@@ -1,119 +1,137 @@
 # Upgrading RabbitMQ
 
-Things to consider before upgrading RabbitMQ:
+## Intro
+
+This guide covers topics related to RabbitMQ installation upgrades.
+
+It is important to consider a number of things before upgrading RabbitMQ. 
 
 1. RabbitMQ version compatibility, version upgrading from &amp; version upgrading to
-1. RabbitMQ Erlang version requirement
-1. RabbitMQ plugins compatiblity between versions
-1. RabbitMQ cluster configuration, single node vs multiple nodes
+1. Erlang version requirement
+1. plugin compatiblity between versions
+1. Cluster configuration, single node vs. multiple nodes
 
-## <a id="rabbitmq-version-compatibility" class="anchor" /> [RabbitMQ version compatibility](#rabbitmq-version-compatibility)
+Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
-Some version changes require intermediate upgrade.
-To upgrade to the latest version from some old versions, you should first upgrade to an intermediate version.
+## <a id="rabbitmq-version-compatibility" class="anchor" /> [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility)
 
-Current version upgrade compatibility:
+When an upgrade jumps multiple release series (e.g. goes from `3.4.x` to `3.6.x`), it may be necessary to perform
+an intermediate upgrade first. For example, when upgrading from `3.2.x` to `3.7.x`, it would be necessary to
+first upgrade to 3.6.x and then upgrade to 3.7.0.
+
+Current release series upgrade compatibility:
 
 | From     | To     |
 |----------|--------|
-| 3.5.x    | 3.7.0  |
 | 3.6.x    | 3.7.0  |
+| 3.5.x    | 3.7.0  |
 | =< 3.4.x | 3.6.14 |
 
-To upgrade RabbitMQ from version `3.4.x` or earlier to version `3.7.0`, you should first upgrade to `3.6.14`, then to `3.7.0`.
+## <a id="rabbitmq-erlang-version-requirement" class="anchor" /> [Erlang Version Requirements](#rabbitmq-erlang-version-requirement)
 
-## <a id="rabbitmq-erlang-version-requirement" class="anchor" /> [RabbitMQ Erlang version requirement](#rabbitmq-erlang-version-requirement)
+We recommended that you upgrade Erlang together with RabbitMQ.
+Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
 
-We recommended that you upgrade Erlang together with RabbitMQ. Please refer to [RabbitMQ Erlang Version Requirements](/which-erlang.html).
+## <a id="rabbitmq-plugins-compatibility" class="anchor" /> [Plugin Compatibility Between Versions](#rabbitmq-plugins-compatibility)
 
-## <a id="rabbitmq-plugins-compatibility" class="anchor" /> [RabbitMQ plugins compatibility between versions](#rabbitmq-plugins-compatibility)
+Unless otherwise specified in release notes, RabbitMQ plugin API
+introduces no breaking changes within a release series (e.g. between
+`3.6.11` and `3.6.14`). If upgrading to a new minor version
+(e.g. `3.7.0`), plugin must be upgraded to their versions that support
+the new RabbitMQ version series.
 
-RabbitMQ plugins API is supposed to be compatible in a single minor version track
-(e.g. between `3.6.11` and `3.6.14`). If upgrading to a new minor version
-(e.g. `3.7.0`), you should upgrade plugins to versions, which support the
-new RabbitMQ minor version track.
-
-Sometimes patch versions of RabbitMQ (e.g. 3.6.7) can break some plugin APIs.
-Please consult with release notes.
+In rare cases patch versions of RabbitMQ (e.g. 3.6.7) can break some plugin APIs.
+Such cases will be documented the breaking changes section of the release notes document.
 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
-version support for plugins.
+version support for plugins not included into the RabbitMQ distribution.
 
 ## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ cluster configuration](#rabbitmq-cluster-configuration)
 
-### <a id="single-node-upgrade" class="anchor" /> [Single node upgrade](#single-node-upgrade)
+### <a id="single-node-upgrade" class="anchor" /> [Upgrading a Single Node Installation](#single-node-upgrade)
 
-To upgrade a single node RabbitMQ broker, the server running the old version
-should be stopped, and the new version started.
-The broker will handle data upgrade on startup.
-During data upgrade RabbitMQ will create a data backup,
-which will be deleted after a successful upgrade.
+When upgrading a single node installation, simply stop the node, install a new version and start it back.
+The node will perform all the necessary local database migrations on start. Depending on the nature
+of migrations and data set size this can take some time.
 
-On some distributions (e.g. generic unix) you can install a newer version of
+A data directory backup is performed before applying any migrations. The backup is deleted after
+successful upgrade. Upgrades therefore can temporarily double the amount of disk space node's data
+directory uses.
+
+Client (application) connections will be dropped when the node stops. Applications need to be
+prepared to handle this and reconnect.
+
+With some distributions (e.g. the generic binary UNIX) you can install a newer version of
 RabbitMQ without removing or replacing the old one, which can make upgrade faster.
-You should make sure the new version points to the same data directory.
+You should make sure the new version [uses the same data directory](/relocate.html).
 
-RabbitMQ does not support downgrades; it's strongly advised to backup data before
-performing an upgrade.
+RabbitMQ does not support downgrades; it's strongly advised to back node's data directory up before
+upgrading.
 
-### <a id="multiple-nodes-upgrade" class="anchor" /> [Multiple nodes upgrade](#multiple-nodes-upgrade)
+### <a id="multiple-nodes-upgrade" class="anchor" /> [Upgrading Multiple Nodes](#multiple-nodes-upgrade)
 
-RabbitMQ cluster *may* provide an opportunity to perform upgrades
-without cluster downtime using so-called rolling upgrade.
+Depending on what versions are involved in an upgrade, RabbitMQ cluster *may* provide an opportunity to perform upgrades
+without cluster downtime using a procedure known as rolling upgrade.
 
-Rolling upgrade is when nodes are stopped, upgraded and restarted
-one-by-one, so the cluster is still running while each node is upgrading.
-It is important to let an upgrading node fully start and sync all the mirrored
-queues before upgrading the next node.
+During a rolling upgrade is when nodes are stopped, upgraded and restarted
+one-by-one, with the rest of the cluster still running while each node being upgraded.
+It is important to let the node being upgraded to fully start and sync all data from its peers
+before proceeding to upgrade the next one.
+
+Client (application) connections will be dropped when each node stops. Applications need to be
+prepared to handle this and reconnect.
 
 During a rolling upgrade connections and queues will be rebalanced. This will
 put more load on the broker. This can impact performance and stability
 of the cluster. It's not recommended to perform rolling upgrades
 under high load.
 
-#### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version limitations for rolling upgrades](#rolling-upgrades-version-limitations)
+#### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version Limitations For Rolling Upgrades](#rolling-upgrades-version-limitations)
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
 When upgrading from one major or minor version of RabbitMQ to another
 (i.e. from 3.0.x to 3.1.x, or from 2.x.x to 3.x.x),
-the whole cluster must be taken down for the upgrade
-(since clusters cannot run mixed versions like this).
-This will generally not be the case when upgrading from one patch version to
-another (i.e. from 3.0.x to 3.0.y), except when indicated otherwise
-in the release notes; these versions can be mixed in a cluster.
-Therefore, it is strongly recommended to consult release notes before upgrading.
+the whole cluster must be taken down for the upgrade.
+Clusters that include nodes that run different release series are not supported.
+
+Rolling upgrades from one patch version to
+another (i.e. from 3.6.x to 3.6.y) are supported except when indicated otherwise
+in the release notes.
+It is strongly recommended to consult release notes before upgrading.
 
 Some patch releases known to require a cluster-wide restart:
 
-* 3.0.0 cannot be mixed with later versions from the 3.0.x series
-* 3.6.6 and later cannot be mixed with earlier versions from the 3.6.x series
 * 3.6.7 and later cannot be mixed with earlier versions from the 3.6.x series
+* 3.6.6 and later cannot be mixed with earlier versions from the 3.6.x series
+* 3.0.0 cannot be mixed with later versions from the 3.0.x series
 
-***A RabbitMQ node will fail to join a cluster with incompatible versions***
+***A RabbitMQ node will fail to [re-]join a peer running an incompatible version***.
 
-When upgrading Erlang, it's advised to run all nodes on the same major series
-(e.g. 19.x or 20.x), because even though you can start a cluster with different
-versions, they can have incompatibilities hard to predict.
+When upgrading Erlang it's advised to run all nodes on the same major series
+(e.g. 19.x or 20.x). Even though it is possible to run a cluster with mixed
+Erlang versions, they can have incompatibilities that will affect cluster stability.
 
-A RabbitMQ node will fail to join a cluster only of mnesia protocol is incompatible,
-which happened in the past every 3-5 major Erlang releases.
+Running mixed Erlang versions can result in internal inter-node communication
+protocol incompatibilities. When a node detects such an incompatibility it will
+refuse to join its peer (cluster).
 
-It should be possible to upgrade to a newer minor Erlang version without stopping
-entire cluster.
+Upgrading to a new minor or patch version of Erlang usually can be done using
+a rolling upgrade.
 
-#### <a id="full-stop-upgrades" class="anchor" /> [Full-stop upgrades](#full-stop-upgrades)
+#### <a id="full-stop-upgrades" class="anchor" /> [Full-Stop Upgrades](#full-stop-upgrades)
 
-When entire cluster is stopped for upgrade, the order in which nodes are
+When an entire cluster is stopped for upgrade, the order in which nodes are
 stopped and started is important.
 
-RabbitMQ will automatically update its persistent data structures
-if necessary when upgrading between major / minor versions.
+RabbitMQ will automatically update its data directory
+if necessary when upgrading between major or minor versions.
 In a cluster, this task is performed by the first disc node to be started
 (the "upgrader" node).
-Therefore when upgrading a RabbitMQ cluster, you should not attempt to start
-any RAM nodes first; any RAM nodes started will emit an error message
-and fail to start up.
+
+Therefore when upgrading a RabbitMQ cluster using the "full stop" method,
+a disc node must start first. Starting a RAM node first is not going to work:
+the node will log an error and stop.
 
 During an upgrade, the last disc node to go down must be the first node to
 be brought online. Otherwise the started node will emit an error message and

@@ -312,8 +312,8 @@ Cluster status of node rabbit@rabbit3 ...
           <p>
             Nodes that have been joined to a cluster can be stopped at
             any time. It is also ok for them to crash. In both cases
-            the rest of the cluster continues operating unaffected,
-            and the nodes automatically "catch up" with the other
+            the rest of the cluster continues operating,
+            and the nodes automatically "catch up" with (sync from) the other
             cluster nodes when they start up again.
           </p>
           <p>
