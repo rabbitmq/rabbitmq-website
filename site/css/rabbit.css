@@ -176,9 +176,12 @@ table#changelog .centre { text-align: center; }
 table#changelog .centre a { font-size: 80%; }
 
 li {
-  list-style-type: none; 
   margin: 0;
   padding: 3px 0 2px 10px;
+}
+
+ul li {
+  list-style-type: none;
 }
 
 ol.plain, ul.plain {

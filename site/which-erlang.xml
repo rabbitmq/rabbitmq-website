@@ -19,12 +19,12 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Erlang Version Requirements</title>
+    <title>RabbitMQ Erlang Version Requirements</title>
   </head>
   <body>
 
     <doc:section name="requirements-and-recommendations">
-      <doc:subsection name="rabbitmq-erlang-compability">
+      <doc:subsection name="rabbitmq-erlang-version-requirements">
         <table>
           <th>RabbitMQ</th>
           <th>Minimum required Erlang/OTP</th>
@@ -280,7 +280,8 @@ limitations under the License.
 
       <p>
         RabbitMQ requires that the same major and minor version of
-        Erlang is used across all <a href="clustering.html#upgrading">cluster nodes</a>
+        Erlang is used across all
+        <a href="upgrade.html#rolling-upgrades-version-limitations">cluster nodes</a>
         (e.g. 19.3.x). RabbitMQ will check for protocol versions of
         Erlang and its distributed libraries when a node joins a
         cluster, refusing to cluster if there's a potentially
