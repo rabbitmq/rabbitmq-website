@@ -1,14 +1,18 @@
 # Upgrading RabbitMQ
 
-## <a id="rabbitmq-version-compatibility"/> RabbitMQ version compatibility
+Things to consider before upgrading:
 
-The upgrade path will depend on your current RabbitMQ version, the RabbitMQ version that you want to upgrade to.
+* RabbitMQ version compatibility (version upgrading from, version upgrading to)
+* RabbitMQ Erlang version requirement
+* RabbitMQ plugins compatiblity
+* cluster configuration (1 node vs multiple nodes)
 
-Some version changes require intermediate upgrades.
-For example, to upgrade from version `3.4.x` or earlier to version `3.7.0`,
-you must upgrade to `3.6.14`, and then to `3.7.0`.
+## <a id="rabbitmq-version-compatibility"/>RabbitMQ version compatibility
 
-Upgrade paths:
+Some version changes require intermediate upgrade.
+To upgrade to the latest version from some old versions, you should first upgrade to an intermediate version.
+
+Current version upgrade compatibility:
 
 | From     | To     |
 |----------|--------|
@@ -16,8 +20,13 @@ Upgrade paths:
 | 3.6.x    | 3.7.0  |
 | =< 3.4.x | 3.6.14 |
 
+To upgrade RabbitMQ from version `3.4.x` or earlier to version `3.7.0`, you should first upgrade to `3.6.14`, then to `3.7.0`.
 
-### <a id="plugins"/> Plugin compatibility
+## <a id="rabbitmq-erlang-version-requirement"/>RabbitMQ Erlang version requirement
+
+We recommended that you upgrade Erlang together with RabbitMQ. Please refer to [RabbitMQ Erlang Version Requirements](/which-erlang.html).
+
+## <a id="rabbitmq-plugins-compatibility"/> RabbitMQ plugins compatibility
 
 RabbitMQ plugins API is supposed to be compatible in a single minor version track
 (e.g. between `3.6.11` and `3.6.14`). If upgrading to a new minor version
@@ -30,21 +39,9 @@ Please consult with release notes.
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins.
 
+## <a id="cluster-configuration"/> RabbitMQ cluster configuration
 
-## Erlang
-
-## RabbitMQ setup
-
-
-If you are upgrading within the same minor version, e.g. 3.6
-
-Based on your current RabbitMQ version, the upgrade path
-
-## Before you upgrade
-
-We recommended that you upgrade Erlang together with RabbitMQ. Please refer to [RabbitMQ Erlang Version Requirements](/which-erlang.html).
-
-## <a id="single-node"/> Single node upgrade.
+### <a id="single-node"/> Single node upgrade
 
 To upgrade a single node RabbitMQ broker, the server running the old version
 should be stopped, and the new version started.
@@ -59,7 +56,7 @@ You should make sure the new version points to the same data directory.
 RabbitMQ does not support downgrades; it's strongly advised to backup data before
 performing an upgrade.
 
-## <a id="cluster"/> Cluster upgrades
+### <a id="cluster"/> Multiple nodes upgrade
 
 RabbitMQ cluster *may* provide an opportunity to perform upgrades
 without cluster downtime using so-called rolling upgrade.
@@ -74,7 +71,7 @@ put more load on the broker. This can impact performance and stability
 of the cluster. It's not recommended to perform rolling upgrades
 under high load.
 
-### <a id="cluster-versions"/> Version limitations for rolling upgrades
+#### <a id="cluster-versions"/> Version limitations for rolling upgrades
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
@@ -105,7 +102,7 @@ which happened in the past every 3-5 major Erlang releases.
 It should be possible to upgrade to a newer minor Erlang version without stopping
 entire cluster.
 
-### <a id="cluster-full-stop"/> Full-stop upgrades
+#### <a id="cluster-full-stop"/> Full-stop upgrades
 
 When entire cluster is stopped for upgrade, the order in which nodes are
 stopped and started is important.
