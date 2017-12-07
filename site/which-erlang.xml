@@ -47,7 +47,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
                 <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
               </ul>
@@ -71,7 +71,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li><a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">Erlang/OTP versions prior to 19.3 are not supported</a></li>
                 <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
                 <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
@@ -99,7 +99,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
                 <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
               </ul>
@@ -129,7 +129,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
                 <li>For the best TLS support, the latest version of Erlang/OTP 19.3.x is recommended</li>
               </ul>
@@ -156,7 +156,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>For the best TLS support, the latest version of Erlang/OTP 18.3.x is recommended</li>
               </ul>
             </td>
@@ -179,7 +179,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>RabbitMQ 3.5 was released 2015-03-11, and reached end of life 2017-09-11, we strongly discourage its use</li>
               </ul>
             </td>
@@ -202,7 +202,7 @@ limitations under the License.
               </ul>
             </td>
             <td>
-              <ul>
+              <ul class="plain">
                 <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2017-05-31, we strongly discourage its use</li>
               </ul>
             </td>
