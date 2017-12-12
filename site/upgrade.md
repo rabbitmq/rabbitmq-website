@@ -150,14 +150,17 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
 
 1. Select a version to upgrade to.
 
-Minor version releases contain new features and bugfixes,
-which do not fit a patch release.
 Patch releases contain bugfixes and minor features,
 which do not break compatibility with plugins and clusters.
 
+Minor version releases contain new features and bugfixes,
+which do not fit a patch release.
+
 As soon as new minor version released (e.g. 3.7.0), previous verison series (3.6)
 will have patch releases for critical bugfixes only.
+
 There will be no new patch releases for versions after EOL.
+
 Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
 It's recommended to always upgrade at least to the latest patch release in a series.
 
@@ -171,6 +174,7 @@ See the [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility) sectio
 Check if the current Erlang version is supported by the new RabbitMQ version.
 See the [Erlang Version Requirements](/which-erlang.html) guide.
 If not - Erlang should be upgrades together with RabbitMQ.
+
 It's generally recommended to upgrade to the latest Erlang version supported to
 get all the latest bugfixes.
 
@@ -178,6 +182,7 @@ get all the latest bugfixes.
 
 It can be possible to do a rolling upgrade,
 if Erlang version and RabbitMQ version changes support it.
+
 See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
 
 1. Take a backup.
@@ -200,25 +205,4 @@ HTTP API to run basic health-checks.
 
 The overview page in the management UI displays effective RabbitMQ and Erlang
 version, basic health stats and message rates.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
