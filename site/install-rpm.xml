@@ -202,16 +202,16 @@ yum install erlang
           'root':
         </p>
 <pre class="sourcecode bash">
-rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
 # this example assumes the CentOS 7 version of the package
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
 </pre>
 
         <p>
-          Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>:
+          Our public signing key is also <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">available from rabbitmq.com</a>:
 
 <pre class="sourcecode bash">
-rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 # this example assumes the CentOS 7 version of the package
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
 </pre>

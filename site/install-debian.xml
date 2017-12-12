@@ -219,15 +219,15 @@ echo "deb https://dl.bintray.com/rabbitmq/debian artful main" | sudo tee /etc/ap
 
        </p>
        <p>
-         Next add our <a href="rabbitmq-release-signing-key.asc">public key</a> to your trusted key list using
+         Next add our <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">public key</a> to your trusted key list using
          <code>apt-key(8)</code>:
-         <pre class="sourcecode bash">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
+         <pre class="sourcecode bash">wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc |
      sudo apt-key add -</pre>
          <p>
-           Our public signing key is also <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">available from Bintray</a>:
+           Our public signing key is also <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">available from rabbitmq.com</a>:
 
 <pre class="sourcecode bash">
-wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | sudo apt-key add -
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
 </pre>
          .</p>
        </p>
