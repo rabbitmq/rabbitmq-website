@@ -43,18 +43,18 @@ limitations under the License.
 	<doc:heading>Importing the signing key</doc:heading>
 	<p>
 	  First, you need to import our <a
-	  href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">gpg key</a>. You can do that
+	  href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">gpg key</a>. You can do that
 	  using <a href="https://sks-keyservers.net/overview-of-pools.php">SKS Keyservers Pool</a>:
 	</p>
 	<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
 	<p>
-	  or you can download the key directly from our site:
-	<pre class="sourcecode bash">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+	  or you can download the key directly from <a href="https://bintray.com/rabbitmq">Bintray</a>:
+	<pre class="sourcecode bash">wget https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc</pre>
         </p>
 	<p>
-	  or <a href="">Bintray</a>:
-	<pre class="sourcecode bash">wget https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+	  or download the key from rabbitmq.com:
+	<pre class="sourcecode bash">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc</pre>
         </p>
         <p>
