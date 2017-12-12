@@ -719,39 +719,42 @@ limitations under the License.
       </p>
 <pre class="sourcecode erlang">
 {rabbitmq_shovel,
- [ {shovels, [ {my_first_shovel,
-                    [ {source,
-                        [ {protocol, amqp091},
-                          {uris, [ "amqp://fred:secret@host1.domain/my_vhost",
-                                   "amqp://john:secret@host2.domain/my_vhost" ]},
-                          {declarations, [ {'exchange.declare',
-                                              [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
-                                                {type, &lt;&lt;"fanout"&gt;&gt;},
-                                                durable
-                                              ]},
-                                           {'queue.declare',
-                                              [{arguments,
-                                                 [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
-                                           {'queue.bind',
-                                              [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
-                                                {queue,    &lt;&lt;&gt;&gt;}
-                                              ]}
-                                            ]},
-                          {queue, &lt;&lt;&gt;&gt;},
-                          {prefetch_count, 10}
-                        ]},
-                  {destination,
-                    [ {protocol, amqp10},
-                      {uris, ["amqp://host:5672"]},
-                      {properties, [ {user_id, &lt;&lt;"my-user"&gt;&gt;},
-                      {application_properties, [ {&lt;&lt;"my-prop"&gt;&gt;, &lt;&lt;"my-prop-value"&gt;&gt;},
-                      {add_forward_headers, true}
-                     ]},
-                  {ack_mode, on_confirm},
-                  {reconnect_delay, 5}
-                ]}
-             ]}
+ [{shovels, [{my_first_shovel,
+              {source,
+               [{protocol, amqp091},
+                {uris, ["amqp://fred:secret@host1.domain/my_vhost",
+                        "amqp://john:secret@host2.domain/my_vhost"]},
+                {declarations, [{'exchange.declare',
+                                   [{exchange, &lt;&lt;"my_fanout"&gt;&gt;},
+                                    {type, &lt;&lt;"fanout"&gt;&gt;},
+                                    durable]},
+                                {'queue.declare',
+                                   [{arguments,
+                                      [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]},
+                                {'queue.bind',
+                                   [{exchange, &lt;&lt;"my_fanout"&gt;&gt;},
+                                    {queue,    &lt;&lt;&gt;&gt;}
+                                    ]}
+                               ]},
+                {queue, &lt;&lt;&gt;&gt;},
+                {prefetch_count, 10}
+               ]},
+              {destination,
+               [{protocol, amqp10},
+                % Note: for plain text SASL authentication
+                % {uris, ["amqp://user:pass@host:5672?sasl=plain"]},
+                % Note: for anonymous access
+                {uris, ["amqp://host:5672"]},
+                {properties, [{user_id, &lt;&lt;"my-user"&gt;&gt;}]},
+                {application_properties, [{&lt;&lt;"my-prop"&gt;&gt;, &lt;&lt;"my-prop-value"&gt;&gt;}]},
+                {add_forward_headers, true},
+                {target_address, &lt;&lt;"destination-queue"&gt;&gt;}
+               ]},
+              {ack_mode, on_confirm},
+              {reconnect_delay, 5}
+             }]}
  ]}
+}
 </pre>
     </doc:section>
   </body>
