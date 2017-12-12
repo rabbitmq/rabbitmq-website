@@ -19,28 +19,202 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Erlang Versions Required and Supported by RabbitMQ</title>
+    <title>RabbitMQ Erlang Version Requirements</title>
   </head>
   <body>
 
     <doc:section name="requirements-and-recommendations">
-      <doc:heading>Minimum Required Version</doc:heading>
+      <doc:subsection name="rabbitmq-erlang-version-requirements">
+        <table>
+          <th>RabbitMQ</th>
+          <th>Minimum required Erlang/OTP</th>
+          <th>Maximum supported Erlang/OTP</th>
+          <th>Notes</th>
+          <tr>
+            <td>
+              <ul>
+                <li><strong>3.7.x</strong></li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li><strong>19.3</strong></li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li><strong>20.1.x</strong></li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
+              </ul>
+            </td>
+          </tr>
 
-      <p>
-        The minimum version of <a href="http://www.erlang.org">Erlang</a>
-        required to run the RabbitMQ server 3.7.x is <strong>19.3</strong>.
-        The most recent Erlang/OTP release series supported by 3.7.x is <strong>20.1.x</strong>.
-      </p>
+          <tr>
+            <td>
+              <ul>
+                <li>3.6.15</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>19.3</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>20.1.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li><a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">Erlang/OTP versions prior to 19.3 are not supported</a></li>
+                <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
+              </ul>
+            </td>
+          </tr>
 
-      <doc:subsection name="debian">
-        <doc:heading>RabbitMQ and Erlang/OTP Version Compatibility Table</doc:heading>
+          <tr>
+            <td>
+              <ul>
+                <li>3.6.14</li>
+                <li>3.6.13</li>
+                <li>3.6.12</li>
+                <li>3.6.11</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>R16B03</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>20.1.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <ul>
+                <li>3.6.10</li>
+                <li>3.6.9</li>
+                <li>3.6.8</li>
+                <li>3.6.7</li>
+                <li>3.6.6</li>
+                <li>3.6.5</li>
+                <li>3.6.4</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>R16B03</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>19.3.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>We recommend minimum Erlang/OTP 19.3.6.3, earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 19.3.x is recommended</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <ul>
+                <li>3.6.3</li>
+                <li>3.6.2</li>
+                <li>3.6.1</li>
+                <li>3.6.0</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>R16B03</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>18.3.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>For the best TLS support, the latest version of Erlang/OTP 18.3.x is recommended</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <ul>
+                <li>3.5.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>R14B04</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>17.5.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>RabbitMQ 3.5 was released 2015-03-11, and reached end of life 2017-09-11, we strongly discourage its use</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <ul>
+                <li>3.4.x</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>R13B03</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>16B03</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="plain">
+                <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2017-05-31, we strongly discourage its use</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
 
         <p>
           As a rule of thumb, most recent stable (GA) versions of Erlang/OTP
           19.3.x or 20.1.x are recommended for running RabbitMQ. Most recent versions
           can be obtained from
 
-          <ul>
+          <ul class="plain">
             <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a></li>
             <li><a href="https://github.com/rabbitmq/erlang-rpm">Zero dependency Erlang/OTP RPM for RabbitMQ</a></li>
             <li><a href="https://hub.docker.com/_/erlang/">Erlang/OTP Docker images</a></li>
@@ -48,102 +222,10 @@ limitations under the License.
           </ul>
         </p>
 
-        <p>
-          Below is a RabbitMQ and Erlang/OTP compatibility matrix.
-        </p>
-
-        <table>
-        <th>RabbitMQ</th>
-        <th>Minimum required Erlang/OTP</th>
-        <th>Maximum supported Erlang/OTP</th>
-        <th>Notes</th>
-        <tr>
-          <td>
-            <ul>
-              <li>3.7.x</li>
-            </ul>
-          </td>
-          <td>19.3</td>
-          <td>20.1.x</td>
-          <td>19.3.6.3 or later version is recommended; earlier versions have known bugs that can prevent RabbitMQ nodes from stopping</td>
-        </tr>
-
-        <tr>
-          <td>
-            <ul>
-              <li>3.6.15</li>
-            </ul>
-          </td>
-          <td>19.3</td>
-          <td>20.1.x</td>
-          <td>Erlang/OTP versions older than 19.3 <a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">are no longer supported</a></td>
-        </tr>
-
-        <tr>
-          <td>
-            <ul>
-              <li>3.6.14</li>
-              <li>3.6.13</li>
-              <li>3.6.12</li>
-              <li>3.6.11</li>
-            </ul>
-          </td>
-          <td>R16B03</td>
-          <td>20.1.x</td>
-          <td>Erlang/OTP 20 is supported <a href="https://groups.google.com/d/msg/rabbitmq-users/_imbAavBYjY/S0LkV7b8CAAJ">starting with 3.6.11</a>; see below if you use TLS.</td>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-              <li>3.6.10</li>
-              <li>3.6.9</li>
-              <li>3.6.8</li>
-              <li>3.6.7</li>
-              <li>3.6.6</li>
-              <li>3.6.5</li>
-              <li>3.6.4</li>
-            </ul>
-          </td>
-          <td>R16B03</td>
-          <td>19.3.x</td>
-          <td rowspan="2"><strong>Erlang/OTP 20.x is NOT supported</strong> due to breaking changes. See below if you use TLS.</td>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-              <li>3.6.3</li>
-              <li>3.6.2</li>
-              <li>3.6.1</li>
-              <li>3.6.0</li>
-            </ul>
-          </td>
-          <td>R16B03</td>
-          <td>18.3.x</td>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-              <li>3.5.x</li>
-            </ul>
-          </td>
-          <td>R14B04</td>
-          <td>17.5.x</td>
-          <td rowspan="2">See below if you use TLS</td>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-              <li>3.4.x</li>
-            </ul>
-          </td>
-          <td>R13B03</td>
-          <td>16B03</td>
-        </tr>
-      </table>
       </doc:subsection>
 
       <doc:subsection name="debian">
-        <doc:heading>Installing Erlang/OTP on Debian and Ubuntu</doc:heading>
+        <doc:heading>Installing Erlang/OTP on Debian or Ubuntu</doc:heading>
 
         <p>
           Standard Debian and Ubuntu repositories provide Erlang/OTP but it is
@@ -155,7 +237,7 @@ limitations under the License.
       </doc:subsection>
 
       <doc:subsection name="redhat">
-        <doc:heading>Installing Erlang/OTP on CentOS, RHEL, Fedora</doc:heading>
+        <doc:heading>Installing Erlang/OTP on CentOS, RHEL or Fedora</doc:heading>
 
         <p>
           There are multiple RPM packages for Erlang/OTP, including a
@@ -167,13 +249,15 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="configuration-and-plugin-requirements">
-      <doc:heading>Configuration- and Plugin-specific Erlang Version Requirements</doc:heading>
+      <doc:heading>Configuration and plugin-specific Erlang/OTP Version Requirements</doc:heading>
 
       <p>
         Certain RabbitMQ configurations require more recent versions:
       </p>
       <table>
-        <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
+        <th>If you want to:</th>
+        <th>Minimum required Erlang/OTP</th>
+        <th>Notes</th>
         <tr>
           <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
           <td>19.3</td>
@@ -196,7 +280,8 @@ limitations under the License.
 
       <p>
         RabbitMQ requires that the same major and minor version of
-        Erlang is used across all <a href="clustering.html#upgrading">cluster nodes</a>
+        Erlang is used across all
+        <a href="upgrade.html#rolling-upgrades-version-limitations">cluster nodes</a>
         (e.g. 19.3.x). RabbitMQ will check for protocol versions of
         Erlang and its distributed libraries when a node joins a
         cluster, refusing to cluster if there's a potentially

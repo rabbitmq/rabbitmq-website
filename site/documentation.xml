@@ -88,6 +88,7 @@ limitations under the License.
               <li><a href="/install-homebrew.html">MacOS via Homebrew</a></li>
               <li><a href="/ec2.html">Amazon EC2</a></li>
               <li><a href="/install-solaris.html">Solaris</a></li>
+              <li><a href="/upgrade.html">Upgrade</a></li>
               <li><a href="/signatures.html">Package Signatures</a></li>
               <li><a href="/which-erlang.html">Supported Erlang/OTP Versions</a></li>
               <li><a href="/changelog.html">Change log</a></li>

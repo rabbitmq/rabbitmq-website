@@ -194,25 +194,49 @@ limitations under the License.
         </p>
 
         <p>
-          The QoS setting can be configured for a channel or a consumer.
-          See <a href="/consumer-prefetch.html">Consumer Prefetch</a> for details.
+          The QoS prefetch setting has no effect on messages fetched using the <code>basic.get</code>
+          ("pull API"), even in manual confirmation mode.
         </p>
 
         <p>
-          Manual acknowledgement mode with unlimited QoS should be used with care.
+          The QoS setting can be configured for a channel or a consumer.
+          See <a href="/consumer-prefetch.html">Consumer Prefetch</a> for details.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="channel-qos-prefetch">
+        <doc:heading>Consumer Acknowledgement Modes, Prefetch and Throughput</doc:heading>
+
+        <p>
+          Acknowledgement mode and QoS prefetch value have significant
+          effect on consumer throughput. In general, increasing
+          prefetch will improve the rate of message delivery to
+          consumers. Automatic acknowledgement mode yields best
+          possible rate of delivery. However, in both cases the number
+          of delivered but not-yet-processed messages will also
+          increase, thus increasing consumer RAM consumption.
+        </p>
+
+        <p>
+          Automatic acknowledgement mode or manual acknowledgement mode with unlimited prefetch should be used with care.
           Consumers that consume a lot of messages without acknowledging will lead
           to memory consumption growth on the node they are connected to. Finding
-          a suitable QoS value is a matter of trial and error and will vary from
+          a suitable prefetch value is a matter of trial and error and will vary from
           workload to workload. Values in the 100 through 300 range usually offer
           optimal throughput and do not run significant risk of overwhelming consumers.
           Higher values often <a href="https://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">run into the law of diminishing returns</a>.
         </p>
 
         <p>
-          The QoS setting has no effect on messages fetched using the <code>basic.get</code>
-          ("pull API"), even in manual confirmation mode.
+          Prefetch value of 1 is the most conservative. It will
+          significantly reduce throughput, in particular in
+          environments where consumer connection latency is high. For
+          many applications, a higher value would be appropriate and
+          optimal.
         </p>
       </doc:subsection>
+
 
       <doc:subsection name="automatic-requeueing">
         <doc:heading>When Consumers Fail or Lose Connection: Automatic Requeueing</doc:heading>
