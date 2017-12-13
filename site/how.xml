@@ -174,7 +174,7 @@ limitations under the License.
     James Governor discusses how messaging in the cloud, specifically with RabbitMQ, is changing the way applications are architected. The slides on
     that page (by Matt Biddulph) are definitely worth a look.
     </li>
-    <li><a href="http://railsdog.com/blog/2009/12/generating-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>
+    <li><a href="http://seancribbs.com/tech/2009/12/23/generating-thousands-of-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>
     Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
     </li>
     <li><a href="http://notes.variogr.am/post/67710296/replacing-amazon-sqs-with-something-faster-and-cheaper">Replacing Amazon SQS with something faster and cheaper</a><br/>
