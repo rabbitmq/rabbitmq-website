@@ -99,9 +99,11 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 
       <p>
         If a node previously was a cluster member, when it boots it will try to contact
-        its "last seen" peer for a period of time.
+        its "last seen" peer for a period of time. If the peer is not booted (e.g. when
+        a full cluster restart or upgrade is performed) or cannot be reached, the node will
+        retry the operation a number of times.
 
-        Default values are <code>10</code> and <code>30 seconds</code>,
+        Default values are <code>10</code> retries and <code>30</code> seconds per attempt,
         respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
         time to start it is recommended that the number of retries is increased.
       </p>
