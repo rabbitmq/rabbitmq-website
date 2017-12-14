@@ -598,13 +598,14 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using node name
-cluster_formation.consul.svc_addr_nodename = true
+cluster_formation.consul.svc_addr_use_nodename = true
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
 
-        Note that <code>cluster_formation.consul.svc_addr_nodename</code> is a boolean
-        field.
+        <code>cluster_formation.consul.svc_addr_use_nodename</code> is a boolean
+        field that instructs Consul peer discovery backend to compute service address
+        using RabbitMQ node name.
       </p>
 
       <p>
@@ -620,7 +621,7 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using host name and not node name
-cluster_formation.consul.svc_addr_nodename = false
+cluster_formation.consul.svc_addr_use_nodename = false
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
@@ -640,7 +641,7 @@ cluster_formation.consul.svc = rabbitmq
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using the IP address of a NIC, en0
 cluster_formation.consul.svc_addr_nic = en0
-cluster_formation.consul.svc_addr_nodename = false
+cluster_formation.consul.svc_addr_use_nodename = false
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
@@ -727,7 +728,7 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using node name
-cluster_formation.consul.svc_addr_nodename = true
+cluster_formation.consul.svc_addr_use_nodename = true
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 # append a suffix (node.rabbitmq.example.local) to node names retrieved from Consul
