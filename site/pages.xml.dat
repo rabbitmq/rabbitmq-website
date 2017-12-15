@@ -109,6 +109,7 @@ limitations under the License.
        <x:page url="/authentication.html" text="Authentication Mechanisms"/>
        <x:page url="/ldap.html" text="LDAP"/>
        <x:page url="/production-checklist.html" text="Production Checklist"/>
+       <x:page url="/backup.html" text="Backup and restore"/>
        <x:page url="/alarms.html" text="Alarms">
          <x:page url="/memory.html" text="Memory Alarms"/>
          <x:page url="/disk-alarms.html" text="Disk Alarms"/>
