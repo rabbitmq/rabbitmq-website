@@ -150,59 +150,59 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
 
 1. Select a version to upgrade to.
 
-Patch releases contain bugfixes and minor features,
-which do not break compatibility with plugins and clusters.
+    Patch releases contain bugfixes and minor features,
+    which do not break compatibility with plugins and clusters.
 
-Minor version releases contain new features and bugfixes,
-which do not fit a patch release.
+    Minor version releases contain new features and bugfixes,
+    which do not fit a patch release.
 
-As soon as new minor version released (e.g. 3.7.0), previous verison series (3.6)
-will have patch releases for critical bugfixes only.
+    As soon as new minor version released (e.g. 3.7.0), previous verison series (3.6)
+    will have patch releases for critical bugfixes only.
 
-There will be no new patch releases for versions after EOL.
+    There will be no new patch releases for versions after EOL.
 
-Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
-It's recommended to always upgrade at least to the latest patch release in a series.
+    Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
+    It's recommended to always upgrade at least to the latest patch release in a series.
 
 1. Check version compatibility.
 
-To upgrade from 3.4.x to 3.7.x the intermediate upgrade is required.
-See the [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility) section above.
+    To upgrade from 3.4.x to 3.7.x the intermediate upgrade is required.
+    See the [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility) section above.
 
 1. Check Erlang version requirements.
 
-Check if the current Erlang version is supported by the new RabbitMQ version.
-See the [Erlang Version Requirements](/which-erlang.html) guide.
-If not - Erlang should be upgrades together with RabbitMQ.
+    Check if the current Erlang version is supported by the new RabbitMQ version.
+    See the [Erlang Version Requirements](/which-erlang.html) guide.
+    If not - Erlang should be upgrades together with RabbitMQ.
 
-It's generally recommended to upgrade to the latest Erlang version supported to
-get all the latest bugfixes.
+    It's generally recommended to upgrade to the latest Erlang version supported to
+    get all the latest bugfixes.
 
 1. If running RabbitMQ in a cluster - select the cluster upgrade strategy.
 
-It can be possible to do a rolling upgrade,
-if Erlang version and RabbitMQ version changes support it.
+    It can be possible to do a rolling upgrade,
+    if Erlang version and RabbitMQ version changes support it.
 
-See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
+    See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
 
 1. Take a backup.
 
-It's always good to have a schema backup before upgrading.
-See [backup](/backup.html) guide for instructions.
+    It's always good to have a schema backup before upgrading.
+    See [backup](/backup.html) guide for instructions.
 
 1. Perform the upgrade.
 
-It's recommended to upgrade Erlang version together with RabbitMQ, because both
-actions require restart and recent versions work better with recent Erlang versions.
+    It's recommended to upgrade Erlang version together with RabbitMQ, because both
+    actions require restart and recent versions work better with recent Erlang versions.
 
-Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
-[rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrade) strategy.
+    Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
+    [rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrade) strategy.
 
 1. Verify broker health and version.
 
-You can use `rabbitmqctl node_health_check` command, RabbitMQ management UI or
-HTTP API to run basic health-checks.
+    You can use `rabbitmqctl node_health_check` command, RabbitMQ management UI or
+    HTTP API to run basic health-checks.
 
-The overview page in the management UI displays effective RabbitMQ and Erlang
-version, basic health stats and message rates.
+    The overview page in the management UI displays effective RabbitMQ and Erlang
+    version, basic health stats and message rates.
 

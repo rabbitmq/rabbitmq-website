@@ -4,14 +4,14 @@ This guide covers backup and restore mechanism for RabbitMQ data.
 
 RabbitMQ data consists of two main components:
 
-1. RabbitMQ definitions
+* RabbitMQ definitions
 
 Definitions is broker topology schema: users, vhosts, queues, exchanges, bindings.
 Definitions are controlled by HTTP API, rabbitmqctl commands and `declare.` methods.
 Definitions are stored in the mnesia database and raplicated across all nodes in a cluster.
 Any node in a cluster has it's own replica of definitions, identical to all others.
 
-2. RabbitMQ messages
+* RabbitMQ messages
 
 Messages are stored in queue indexes and message stores.
 Messages are node-local, but can be replicated between queues using [HA queues mechanism](/ha.html)
@@ -100,14 +100,14 @@ the vhost name, so you can back up vhosts separately.
 ### Restoring messages
 
 Messages are restored on a node startup.
-To restore messages data you should restore the definitions first, without queues
-and vhosts data, messages will be lost.
+For messages to be restored, the broker should have all the defenitions, otherwise
+message data will not be loaded and can be deleted.
 
-You should fist import the definitions using the management UI or restore
-them manually from the mnesia directory backup.
+If you want to restore definitions using JSON file, you should fist import
+the definitions using the management UI.
 
 If you copying the mnesia directory manually it should start with all
-the definitions and messages data and there is no need to import definitions first.
+the definitions and messages and there is no need to import definitions first.
 
 
 
