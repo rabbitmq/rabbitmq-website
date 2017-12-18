@@ -765,12 +765,13 @@ cluster_formation.consul.domain_suffix = example.local
 
       <p>
         To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
-        to <code>rabbit_peer_discovery_etcd</code>:
+        to <code>rabbit_peer_discovery_etcd</code> and provide an etcd node hostname for the plugin
+        to connect to:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-# etcd host (hostname or IP address). Default value is localhost
+# etcd host (hostname or IP address). This property is required or peer discovery won't be performed.
 cluster_formation.etcd.host = etcd.eng.example.local
 </pre>
       </p>
