@@ -382,6 +382,9 @@ limitations under the License.
             <a href="jms-client.html">JMS library</a>
           </li>
           <li>
+            <a href="erlang-client-user-guide.html">Erlang client</a>
+          </li>
+          <li>
             <a href="/extensions.html">RabbitMQ extensions to AMQP 0-9-1</a>
           </li>
         </ul>
