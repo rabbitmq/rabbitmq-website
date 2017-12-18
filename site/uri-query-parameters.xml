@@ -49,7 +49,7 @@ limitations under the License.
     </p>
 
     <p>
-      Example:
+      Example (non-encrypted):
     </p>
 
     <pre>amqp://myhost?heartbeat=10&amp;connection_timeout=10000</pre>
@@ -57,8 +57,28 @@ limitations under the License.
     <p>
       This specifies a (non-encrypted) network connection to the host
       <code>myhost</code>. The heartbeat interval is set to 5 seconds,
-      and connection timeout is set to 10 seconds (10,000 milliseconds). Other parameters are
-      set to their default values.
+      and connection timeout is set to 10 seconds (10,000 milliseconds).
+      Other parameters are set to their default values.
+    </p>
+
+    <p>
+      Example (encrypted):
+    </p>
+
+    <pre>amqps://myhost?cacertfile=/certs/cacert.pem
+      &amp;certfile=/certs/cert.pem
+      &amp;keyfile=/certs/key.pem
+      &amp;verify=verify_peer
+      &amp;server_name_indication=myhost
+    </pre>
+
+    <p>
+      This specifies an encrypted network connection to the host
+      <code>myhost</code>. Absolute paths to the certificate files
+      are provided. <code>verify_peer</code> ensures that certificate
+      chain of trust is verified, and <code>server_name_indication</code>
+      validates the <code>CN</code> value in the server's certificate
+      against the hostname <code>myhost</code>.
     </p>
 
     <!--
@@ -88,14 +108,16 @@ limitations under the License.
       <tr>
         <td>
           <code>verify</code><br/>
-          <code>fail_if_no_peer_cert</code>
+          <code>server_name_indication</code>
         </td>
         <td>
-          Use to configure verification of the server's SSL
-          certificate. See the <a href="ssl.html">SSL guide</a> for
+          Only of use for the <code>amqps</code> scheme and used to
+          configure verification of the server's SSL
+          certificate. <b>Note:</b> It is highly recommended to use
+          both values. See the <a href="ssl.html">SSL guide</a> for
           details of SSL in RabbitMQ in general and specifically the
           <a href="ssl.html#configure-erlang">Erlang client</a>
-          section. Only of use for the <code>amqps</code> scheme.
+          section.
         </td>
       </tr>
       <tr>

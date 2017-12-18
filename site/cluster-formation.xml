@@ -99,9 +99,11 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 
       <p>
         If a node previously was a cluster member, when it boots it will try to contact
-        its "last seen" peer for a period of time.
+        its "last seen" peer for a period of time. If the peer is not booted (e.g. when
+        a full cluster restart or upgrade is performed) or cannot be reached, the node will
+        retry the operation a number of times.
 
-        Default values are <code>10</code> and <code>30 seconds</code>,
+        Default values are <code>10</code> retries and <code>30</code> seconds per attempt,
         respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
         time to start it is recommended that the number of retries is increased.
       </p>
@@ -596,13 +598,14 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using node name
-cluster_formation.consul.svc_addr_nodename = true
+cluster_formation.consul.svc_addr_use_nodename = true
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
 
-        Note that <code>cluster_formation.consul.svc_addr_nodename</code> is a boolean
-        field.
+        <code>cluster_formation.consul.svc_addr_use_nodename</code> is a boolean
+        field that instructs Consul peer discovery backend to compute service address
+        using RabbitMQ node name.
       </p>
 
       <p>
@@ -618,7 +621,7 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using host name and not node name
-cluster_formation.consul.svc_addr_nodename = false
+cluster_formation.consul.svc_addr_use_nodename = false
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
@@ -638,7 +641,7 @@ cluster_formation.consul.svc = rabbitmq
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using the IP address of a NIC, en0
 cluster_formation.consul.svc_addr_nic = en0
-cluster_formation.consul.svc_addr_nodename = false
+cluster_formation.consul.svc_addr_use_nodename = false
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 </pre>
@@ -725,7 +728,7 @@ cluster_formation.consul.svc = rabbitmq
 # do compute service address
 cluster_formation.consul.svc_addr_auto = true
 # compute service address using node name
-cluster_formation.consul.svc_addr_nodename = true
+cluster_formation.consul.svc_addr_use_nodename = true
 # use long RabbitMQ node names?
 cluster_formation.consul.use_longname = true
 # append a suffix (node.rabbitmq.example.local) to node names retrieved from Consul
@@ -762,12 +765,13 @@ cluster_formation.consul.domain_suffix = example.local
 
       <p>
         To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
-        to <code>rabbit_peer_discovery_etcd</code>:
+        to <code>rabbit_peer_discovery_etcd</code> and provide an etcd node hostname for the plugin
+        to connect to:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-# etcd host (hostname or IP address). Default value is localhost
+# etcd host (hostname or IP address). This property is required or peer discovery won't be performed.
 cluster_formation.etcd.host = etcd.eng.example.local
 </pre>
       </p>
