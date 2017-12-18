@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -72,7 +72,7 @@ limitations under the License.
 application:ensure_started(amqp_client).
     </pre>
   </doc:section>
- 
+
 <!-- ..................................................................... -->
 
 <doc:section name="model">
@@ -153,16 +153,16 @@ application:ensure_started(amqp_client).
     is equivalent to this:
 
     <pre class="sourcecode erlang">
-      #'exchange.declare'{exchange    = &lt;&lt;"my_exchange"&gt;&gt;,
-                          ticket      = 0,
-                          type        = &lt;&lt;"direct"&gt;&gt;,
-                          passive     = false,
-                          durable     = false,
-                          auto_delete = false,
-                          internal    = false,
-                          nowait      = false,
-                          arguments   = []}
-    </pre>
+#'exchange.declare'{exchange    = &lt;&lt;"my_exchange"&gt;&gt;,
+                    ticket      = 0,
+                    type        = &lt;&lt;"direct"&gt;&gt;,
+                    passive     = false,
+                    durable     = false,
+                    auto_delete = false,
+                    internal    = false,
+                    nowait      = false,
+                    arguments   = []}
+</pre>
   </p>
 </doc:section>
 
@@ -186,7 +186,7 @@ application:ensure_started(amqp_client).
     amqp_client.hrl in every module that uses the Erlang client:
 
     <pre class="sourcecode erlang">
-      -include("amqp_client.hrl").
+-include("amqp_client.hrl").
     </pre>
   </p>
 </doc:section>
@@ -200,7 +200,7 @@ application:ensure_started(amqp_client).
      broker:
 
      <pre class="sourcecode erlang">
-       {ok, Connection} = amqp_connection:start(#amqp_params_network{})
+{ok, Connection} = amqp_connection:start(#amqp_params_network{})
      </pre>
   </p>
   <p>
@@ -278,7 +278,7 @@ application:ensure_started(amqp_client).
   <p>
     Instead of working the #amqp_params_* records directly, <a
     href="uri-spec.html">AMQP URIs</a> may be used.  The
-    amqp_uri:parse/1 function is provided for this purpose.  It parses
+    <code>amqp_uri:parse/1</code> function is provided for this purpose.  It parses
     an URI and returns the equivalent #amqp_params_* record.
     Diverging from the spec, if the hostname is omitted, the
     connection is assumed to be direct and an #amqp_params_direct{}
@@ -294,8 +294,7 @@ application:ensure_started(amqp_client).
     amqp_connection module can be used to create channels:
 
     <pre class="sourcecode erlang">
-      {ok, Channel} = amqp_connection:open_channel(Connection)
-    </pre>
+{ok, Channel} = amqp_connection:open_channel(Connection)</pre>
 
     This function takes the pid of the connection process and returns
     {ok, Channel}, where Channel is a pid that encapsulates a server
@@ -312,16 +311,14 @@ application:ensure_started(amqp_client).
     called my_exchange, which by default, is the direct exchange:
 
     <pre class="sourcecode erlang">
-      Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
-      #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare)
-    </pre>
+Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+#'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare)</pre>
 
     Similarly, a queue called my_queue is created by this code:
 
     <pre class="sourcecode erlang">
-      Declare = #'queue.declare'{queue = &lt;&lt;"my_queue"&gt;&gt;},
-      #'queue.declare_ok'{} = amqp_channel:call(Channel, Declare)
-    </pre>
+Declare = #'queue.declare'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+#'queue.declare_ok'{} = amqp_channel:call(Channel, Declare)</pre>
 
     In many scenarios, a client is not interested in the actual name
     of the queue it wishes to receive messages from. In this case, it
@@ -330,8 +327,7 @@ application:ensure_started(amqp_client).
     queue attribute undefined:
 
     <pre class="sourcecode erlang">
-      #'queue.declare_ok'{queue = Queue} = amqp_channel:call(Channel, #'queue.declare'{})
-    </pre>
+#'queue.declare_ok'{queue = Queue} = amqp_channel:call(Channel, #'queue.declare'{})</pre>
 
     The server will auto-generate a queue name and return this name as
     part of the acknowledgement.
@@ -342,35 +338,31 @@ application:ensure_started(amqp_client).
     #'queue.bind'{} command is used:
 
     <pre class="sourcecode erlang">
-      Binding = #'queue.bind'{queue       = Queue,
-                              exchange    = Exchange,
-                              routing_key = RoutingKey},
-      #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding)
-    </pre>
+Binding = #'queue.bind'{queue       = Queue,
+                        exchange    = Exchange,
+                        routing_key = RoutingKey},
+#'queue.bind_ok'{} = amqp_channel:call(Channel, Binding)</pre>
 
     When this routing rule is no longer required, this route can be
     deleted using the #'queue.unbind'{} command:
 
     <pre class="sourcecode erlang">
-      Binding = #'queue.unbind'{queue       = Queue,
-                                exchange    = Exchange,
-                                routing_key = RoutingKey},
-      #'queue.unbind_ok'{} = amqp_channel:call(Channel, Binding)
-    </pre>
+Binding = #'queue.unbind'{queue       = Queue,
+                          exchange    = Exchange,
+                          routing_key = RoutingKey},
+#'queue.unbind_ok'{} = amqp_channel:call(Channel, Binding)</pre>
 
     An exchange can be deleted by the #'exchange.delete'{} command:
 
     <pre class="sourcecode erlang">
-      Delete = #'exchange.delete'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
-      #'exchange.delete_ok'{} = amqp_channel:call(Channel, Delete)
-    </pre>
+Delete = #'exchange.delete'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+#'exchange.delete_ok'{} = amqp_channel:call(Channel, Delete)</pre>
 
     Similarly, a queue is deleted using the #'queue.delete'{} command:
 
     <pre class="sourcecode erlang">
-      Delete = #'queue.delete'{queue = &lt;&lt;"my_queue"&gt;&gt;},
-      #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete)
-    </pre>
+Delete = #'queue.delete'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+#'queue.delete_ok'{} = amqp_channel:call(Channel, Delete)</pre>
   </p>
 
   <p>
@@ -398,10 +390,9 @@ application:ensure_started(amqp_client).
     record is used:
 
     <pre class="sourcecode erlang">
-      Payload = &lt;&lt;"foobar"&gt;&gt;,
-      Publish = #'basic.publish'{exchange = X, routing_key = Key},
-      amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
-    </pre>
+Payload = &lt;&lt;"foobar"&gt;&gt;,
+Publish = #'basic.publish'{exchange = X, routing_key = Key},
+amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})</pre>
 
     By default, the properties field of the #amqp_msg{} record
     contains a minimal implementation of the #'P_basic'{} properties
@@ -410,12 +401,11 @@ application:ensure_started(amqp_client).
     #amqp_msg{} needs to be constructed accordingly:
 
     <pre class="sourcecode erlang">
-      Payload = &lt;&lt;"foobar"&gt;&gt;,
-      Publish = #'basic.publish'{exchange = X, routing_key = Key},
-      Props = #'P_basic'{delivery_mode = 2}, %% persistent message
-      Msg = #amqp_msg{props = Props, payload = Payload},
-      amqp_channel:cast(Channel, Publish, Msg)
-    </pre>
+Payload = &lt;&lt;"foobar"&gt;&gt;,
+Publish = #'basic.publish'{exchange = X, routing_key = Key},
+Props = #'P_basic'{delivery_mode = 2}, %% persistent message
+Msg = #amqp_msg{props = Props, payload = Payload},
+amqp_channel:cast(Channel, Publish, Msg)</pre>
 
     The full list of message headers is explained in the AMQP protocol
     documentation.
@@ -433,16 +423,15 @@ application:ensure_started(amqp_client).
 <!-- ..................................................................... -->
 
 <doc:section name="receiving">
-  <doc:heading>Receiving Messages</doc:heading>
+  <doc:heading>Receiving Messages Using the "Fetch API"</doc:heading>
   <p>
     The simplest way to receive a message is to poll an existing
     queue. This is achieved using the #'basic.get'{} command:
 
     <pre class="sourcecode erlang">
-      Get = #'basic.get'{queue = Q, no_ack = true},
-      {#'basic.get_ok'{}, Content} = amqp_channel:call(Channel, Get),
-      #amqp_msg{payload = Payload} = Content
-    </pre>
+Get = #'basic.get'{queue = Q, no_ack = true},
+{#'basic.get_ok'{}, Content} = amqp_channel:call(Channel, Get),
+#amqp_msg{payload = Payload} = Content</pre>
 
     The payload that is returned is an Erlang binary, and it is up to
     the application to decode it, as the structure of this content is
@@ -455,8 +444,7 @@ application:ensure_started(amqp_client).
     message, as illustrated here:
 
     <pre class="sourcecode erlang">
-     #'basic.get_empty'{} = amqp_channel:call(Channel, Get)
-    </pre>
+#'basic.get_empty'{} = amqp_channel:call(Channel, Get)</pre>
 
   </p>
 
@@ -473,12 +461,11 @@ application:ensure_started(amqp_client).
     command, where the no_ack field is turned off by default:
 
     <pre class="sourcecode erlang">
-      Get = #'basic.get'{queue = Q},
-      {#'basic.get_ok'{delivery_tag = Tag}, Content}
-          = amqp_channel:call(Channel, Get),
-      %% Do something with the message payload.......and then ack it
-      amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag})
-    </pre>
+Get = #'basic.get'{queue = Q},
+{#'basic.get_ok'{delivery_tag = Tag}, Content}
+    = amqp_channel:call(Channel, Get),
+%% Do something with the message payload.......and then ack it
+amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag})</pre>
   </p>
 
   <p>
@@ -498,7 +485,7 @@ application:ensure_started(amqp_client).
 <!-- ..................................................................... -->
 
 <doc:section name="subscribing">
-  <doc:heading>Subscribing To Queues</doc:heading>
+  <doc:heading>Subscribing To Queues Using the "Push API"</doc:heading>
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
     queue can be a more efficient means of consuming messages than
@@ -506,26 +493,24 @@ application:ensure_started(amqp_client).
     #'basic.consume'{} command is used in one of two forms:
 
     <pre class="sourcecode erlang">
-      Sub = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} =
-        amqp_channel:subscribe(Channel, Sub, Consumer)
-    </pre>
+Sub = #'basic.consume'{queue = Q},
+#'basic.consume_ok'{consumer_tag = Tag} =
+  amqp_channel:subscribe(Channel, Sub, Consumer)</pre>
 
     or
 
     <pre class="sourcecode erlang">
-      Sub = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} =
-        amqp_channel:call(Channel, Sub) %% the caller is the subscriber
-    </pre>
+Sub = #'basic.consume'{queue = Q},
+#'basic.consume_ok'{consumer_tag = Tag} =
+  amqp_channel:call(Channel, Sub) %% the caller is the consumer</pre>
   </p>
   <p>
     The consumer argument is the pid of a process to which the client
     library will deliver messages. This can be an arbitrary Erlang
     process, including the process that initiated the
     subscription. The #'basic.consume_ok'{} notification contains a
-    tag that identifies the subscription. This is used at a later
-    point in time to cancel the subscription. This notification is
+    tag that identifies the subscription (consumer). This is used at a later
+    point in time to cancel the consumer. This notification is
     sent both to the process that created the subscription (as the
     return value to amqp_channel:subscribe/3) and as a message to the
     consumer process.
@@ -535,28 +520,27 @@ application:ensure_started(amqp_client).
     messages in its mailbox. An example receive loop looks like this:
 
     <pre class="sourcecode erlang">
-      loop(Channel) ->
-          receive
-              %% This is the first message received
-              #'basic.consume_ok'{} ->
-                  loop(Channel);
+loop(Channel) ->
+    receive
+        %% This is the first message received
+        #'basic.consume_ok'{} ->
+            loop(Channel);
 
-              %% This is received when the subscription is cancelled
-              #'basic.cancel_ok'{} ->
-                  ok;
+        %% This is received when the subscription is cancelled
+        #'basic.cancel_ok'{} ->
+            ok;
 
-              %% A delivery
-              {#'basic.deliver'{delivery_tag = Tag}, Content} ->
-                  %% Do something with the message payload
-                  %% (some work here)
+        %% A delivery
+        {#'basic.deliver'{delivery_tag = Tag}, Content} ->
+            %% Do something with the message payload
+            %% (some work here)
 
-                  %% Ack the message
-                  amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+            %% Ack the message
+            amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
 
-                  %% Loop
-                  loop(Channel)
-          end.
-     </pre>
+            %% Loop
+            loop(Channel)
+    end.</pre>
 
      In this simple example, the process consumes the subscription
      notification and then proceeds to wait for delivery messages to
@@ -575,8 +559,7 @@ application:ensure_started(amqp_client).
     with the #'basic.consume_ok'{} acknowledgement:
 
     <pre class="sourcecode erlang">
-      amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
-    </pre>
+amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})</pre>
 
 </doc:section>
 
@@ -621,15 +604,12 @@ application:ensure_started(amqp_client).
       it. This is achieved using amqp_channel:close/1:
 
       <pre class="sourcecode erlang">
-        amqp_channel:close(Channel)
-      </pre>
+amqp_channel:close(Channel)</pre>
 
       To close the connection, amqp_connection:close/1 is used:
 
       <pre class="sourcecode erlang">
-        amqp_connection:close(Connection)
-      </pre>
-
+amqp_connection:close(Connection)</pre>
   </p>
   <p>
     Both the #'channel.close'{} and #'connection.close'{} commands
@@ -640,8 +620,7 @@ application:ensure_started(amqp_client).
     reply_text attribute is just an arbitrary string, that the server
     may or may not log. If a client wants to set to a different reply
     code and/or text, it can use the overloaded functions
-    amqp_channel:close/3 and amqp_connection:close/3 respectively.
-
+    <code>amqp_channel:close/3</code> and <code>amqp_connection:close/3</code> respectively.
   </p>
 </doc:section>
 
@@ -654,44 +633,44 @@ application:ensure_started(amqp_client).
     This shows a complete example:
 
     <pre class="sourcecode erlang">
-      -module(amqp_example).
+-module(amqp_example).
 
-      -include("amqp_client.hrl").
+-include("amqp_client.hrl").
 
-      -compile([export_all]).
+-compile([export_all]).
 
-      test() ->
-          %% Start a network connection
-          {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
-          %% Open a channel on the connection
-          {ok, Channel} = amqp_connection:open_channel(Connection),
+test() ->
+    %% Start a network connection
+    {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+    %% Open a channel on the connection
+    {ok, Channel} = amqp_connection:open_channel(Connection),
 
-          %% Declare a queue
-          #'queue.declare_ok'{queue = Q}
-              = amqp_channel:call(Channel, #'queue.declare'{}),
+    %% Declare a queue
+    #'queue.declare_ok'{queue = Q}
+        = amqp_channel:call(Channel, #'queue.declare'{}),
 
-          %% Publish a message
-          Payload = &lt;&lt;"foobar"&gt;&gt;,
-          Publish = #'basic.publish'{exchange = &lt;&lt;&gt;&gt;, routing_key = Q},
-          amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
+    %% Publish a message
+    Payload = &lt;&lt;"foobar"&gt;&gt;,
+    Publish = #'basic.publish'{exchange = &lt;&lt;&gt;&gt;, routing_key = Q},
+    amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
 
-          %% Get the message back from the queue
-          Get = #'basic.get'{queue = Q},
-          {#'basic.get_ok'{delivery_tag = Tag}, Content}
-               = amqp_channel:call(Channel, Get),
+    %% Get the message back from the queue
+    Get = #'basic.get'{queue = Q},
+    {#'basic.get_ok'{delivery_tag = Tag}, Content}
+         = amqp_channel:call(Channel, Get),
 
-          %% Do something with the message payload
-          %% (some work here)
+    %% Do something with the message payload
+    %% (some work here)
 
-          %% Ack the message
-          amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+    %% Ack the message
+    amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
 
-          %% Close the channel
-          amqp_channel:close(Channel),
-          %% Close the connection
-          amqp_connection:close(Connection),
+    %% Close the channel
+    amqp_channel:close(Channel),
+    %% Close the connection
+    amqp_connection:close(Connection),
 
-          ok.
+    ok.
     </pre>
 
     In this example, a queue is created with a server generated name
@@ -729,27 +708,27 @@ application:ensure_started(amqp_client).
     a directory called deps. To compile the example, you first need to
     unpack the archives in the deps directory:
 
-    <pre class="sourcecode erlang">
-      $ unzip -d deps deps/amqp_client.ez
-      $ unzip -d deps deps/rabbit_common.ez
+    <pre class="sourcecode bash">
+unzip -d deps deps/amqp_client.ez
+unzip -d deps deps/rabbit_common.ez
     </pre>
 
     Then to compile the example code into the ebin directory:
 
-    <pre class="sourcecode erlang">
-      $ ERL_LIBS=deps erlc -o ebin amqp_example.erl
+    <pre class="sourcecode bash">
+ERL_LIBS=deps erlc -o ebin amqp_example.erl
     </pre>
 
     And then to run your application you could set the Erlang run-time like this:
 
-    <pre class="sourcecode erlang">
-      $ ERL_LIBS=deps erl -pa ebin
-      Erlang R16B (erts-5.10.1) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
-
-      Eshell V5.10.1  (abort with ^G)
-      1> amqp_example:test().
-      ok
-      2>
+    <pre class="sourcecode bash">
+ERL_LIBS=deps erl -pa ebin
+# => Erlang R16B (erts-5.10.1) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+# =>
+# => Eshell V5.10.1  (abort with ^G)
+# => 1> amqp_example:test().
+# => ok
+# => 2>
     </pre>
   </p>
 
