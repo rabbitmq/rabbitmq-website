@@ -112,9 +112,9 @@ limitations under the License.
         </td>
         <td>
           Only of use for the <code>amqps</code> scheme and used to
-          configure verification of the server's SSL
+          configure verification of the server's x509 (TLS)
           certificate. <b>Note:</b> It is highly recommended to use
-          both values. See the <a href="ssl.html">SSL guide</a> for
+          both values. See the <a href="ssl.html">TLS guide</a> for
           details of SSL in RabbitMQ in general and specifically the
           <a href="ssl.html#configure-erlang">Erlang client</a>
           section.
