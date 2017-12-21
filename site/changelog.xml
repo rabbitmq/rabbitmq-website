@@ -35,6 +35,17 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.1</td>
+        <td class="centre">21 December 2017</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.1">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.7.0</td>
         <td class="centre">29 November 2017</td>
         <td>
@@ -56,7 +67,7 @@ limitations under the License.
             <li><a href="web-stomp.html">Web STOMP</a> no longer supports WebSocket emulation</li>
             <li>Java and .NET client releases no longer track RabbitMQ server releases</li>
             <li>.NET client now supports .NET Core.</li>
-            <li>Management plugin extensions now must target Cowboy 2.0</li>            
+            <li>Management plugin extensions now must target Cowboy 2.0</li>
             <li><a href="https://github.com/rabbitmq/hop">Java client for RabbitMQ HTTP API</a></li>
           </ul>
         </td>
