@@ -35,6 +35,17 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.2</td>
+        <td class="centre">23 December 2017</td>
+        <td>
+          <ul>
+            <li>Bug fix in the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP auth backend</a></li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.2">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.7.1</td>
         <td class="centre">21 December 2017</td>
         <td>
