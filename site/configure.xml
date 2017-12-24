@@ -150,7 +150,7 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
           together with other details about nodes.
         </p>
         <p>
-          When troubleshooting configuration settings, it is very useful to veirfy that the config file
+          When troubleshooting configuration settings, it is very useful to verify that the config file
           path is correct, exists and can be loaded (e.g. the file is readable) before checking effective
           node configuration.
         </p>
@@ -160,10 +160,12 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         <doc:heading>Verify Configuration: How to Check Effective Configuration</doc:heading>
         <p>
           It is possible to print effective configuration (user provided values merged into defaults) using
-          the <a href="/rabbitmqctl.8.html">rabbitmqctl environment</a> command.
+          the <a href="/rabbitmqctl.8.html">rabbitmqctl environment</a> command. It will print
+          applied configuration for every application (RabbitMQ, plugins, libraries) running on the node.
         </p>
         <p>
-          Checking effective configuration
+          Effective configuration should be verified together with config file location (see above).
+          It is a useful step in troubleshooting a broad range of problems.
         </p>
       </doc:subsection>
       </doc:section>
