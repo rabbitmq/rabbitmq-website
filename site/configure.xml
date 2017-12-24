@@ -1072,16 +1072,18 @@ tcp_listen_options.exit_on_close = false
         <p>
           In addition, many plugins can have sections in the
           configuration file, with names of the
-          form <code>rabbitmq_<i>plugin</i></code>. Our maintained
-          plugins are documented in the following locations:
+          form <code>rabbitmq_<i>plugin</i></code>. Several plugins that ship with
+          RabbitMQ have dedicated documentation guides:
         </p>
         <ul>
           <li><a href="management.html#configuration">rabbitmq_management</a></li>
           <li><a href="management.html#configuration">rabbitmq_management_agent</a></li>
-          <li><a href="web-dispatch.html">rabbitmq_web_dispatch</a></li>
           <li><a href="stomp.html">rabbitmq_stomp</a></li>
+          <li><a href="mqtt.html">rabbitmq_mqtt</a></li>
           <li><a href="shovel.html">rabbitmq_shovel</a></li>
+          <li><a href="federation.html">rabbitmq_federation</a></li>
           <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
+          <li><a href="web-dispatch.html">rabbitmq_web_dispatch</a></li>
         </ul>
         </doc:subsection>
 
