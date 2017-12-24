@@ -88,6 +88,26 @@ limitations under the License.
               set in the environment configuration file, <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
           </td>
         </tr>
+
+        <tr>
+          <td>
+              <a href="cli.html">rabbitmqctl</a>
+          </td>
+          <td>
+              When <a href="access-control.html">internal authentication/authorization backend</a> is used,
+              <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+              <a href="cli.html">rabbitmq-plugins</a>
+          </td>
+          <td>
+              <code>rabbitmq-plugins</code> is the tool that manages enabled plugins.
+          </td>
+        </tr>
+
         <tr>
           <td>
               <a href="parameters.html">Runtime Parameters and Policies</a>
