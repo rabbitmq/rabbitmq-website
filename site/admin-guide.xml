@@ -64,6 +64,7 @@ limitations under the License.
       <h2>CLI tools</h2>
 
       <ul>
+        <li><a href="/cli.html">CLI Tools Overview</a></li>
         <li><a href="/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
         <li><a href="/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
         <li><a href="/management-cli.html">rabbitmqadmin</a> (requires <a href="/management.html">management plugin</a>)</li>
@@ -229,14 +230,6 @@ limitations under the License.
         <li>
           <a href="web-mqtt.html">MQTT over WebSockets</a>
         </li>
-      </ul>
-    </div>
-
-    <div class="landing-box">
-      <h2>Command Line Tools</h2>
-
-      <ul>
-        <li><a href="/manpages.html">man Pages</a></li>
       </ul>
     </div>
   </body>
