@@ -34,8 +34,24 @@ limitations under the License.
       </p>
 
       <p>
+        This guide assumes general familiarity with <a href="/clustering.html">RabbitMQ clustering</a>
+        and focuses on the peer discovery subsystem.
+        For example, it will not cover what <a href="/networking.html">ports must be
+        open</a> for inter-node communication, how nodes authenticate to each other, and so on.
+        Besides discovery mechanisms, this guide also covers the problem of <a href="#initial-formation-race-condition">initial
+        cluster formation</a> with nodes booting in parallel as well as <a href="#node-health-checks-and-cleanup">additional health checks</a> offered
+        by some discovery implementations.
+      </p>
+
+    </doc:section>
+
+
+    <doc:section name="peer-discovery">
+      <doc:heading>How Peer Discovery Works</doc:heading>
+
+      <p>
         To form a cluster, new ("blank") nodes need to be able to discover
-        their peers. The following peer discovery mechanisms are built-in:
+        their peers. This can be done using a variety of mechanisms. The following ones are built-in:
 
         <ul class="plain">
           <li><a href="#peer-discovery-classic-config">config file</a></li>
@@ -52,6 +68,14 @@ limitations under the License.
           <li><a href="#peer-discovery-consul">Consul</a></li>
           <li><a href="#peer-discovery-etcd">etcd</a></li>
         </ul>
+      </p>
+
+      <p>
+        All peer discovery mechanisms assume that newly joining nodes will be able to
+        contact their peers in the cluster and authenticate with them successfully.
+        The mechanisms that rely on an external service (e.g. DNS or Consul) or API (e.g. AWS or Kubernetes)
+        require the service(s) to be available and reachable over HTTP(S) on their standard ports.
+        Inability to reach the service will lead to node's inability to join the cluster.
       </p>
 
       <p>
@@ -89,7 +113,7 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       <p>
         If a node previously was a cluster member, it will try to contact
         its "last seen" peer for a period of time. In this case, no peer discovery
-        is performed.
+        will be performed.
       </p>
     </doc:section>
 
@@ -877,7 +901,7 @@ cluster_formation.etcd.cluster_name = staging
       </p>
     </doc:section>
 
-    <doc:section name="initial-formation-race-condition">
+    <doc:section name="node-health-checks-and-cleanup">
       <doc:heading>Node Health Checks and Cleanup</doc:heading>
 
       <p>
