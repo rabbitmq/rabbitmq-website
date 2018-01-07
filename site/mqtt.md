@@ -40,7 +40,11 @@ it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
     rabbitmq-plugins enable rabbitmq_mqtt
 
-After the plugin has been enabled, RabbitMQ needs restarting.
+**Note:** the plugin uses the `guest` account by default which will not allow
+non-`localhost` connections. You must set `default_user` and `default_pass`
+via [MQTT plugin configuration](#config) to a non-`guest` user who has the
+appropriate permissions, or specify a more permissive
+[`loopback_users`](access-control.html#loopback-users) setting.
 
 ## <a id="overview"/> How it Works
 
