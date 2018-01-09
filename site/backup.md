@@ -1,128 +1,159 @@
-# RabbitMQ backup and restore
+# Backup and Restore
 
-This guide covers backup and restore mechanisms for RabbitMQ data.
+## Overview
 
-## <a id="rabbitmq-data" class="anchor"/> [Two types of data](#rabbitmq-data)
+This guide covers backup and restore procedures for various types of data
+a RabbitMQ node may contain.
 
-RabbitMQ data consists of two main components:
+## <a id="rabbitmq-data" class="anchor"/> [Two Types of Node Data](#types-of-data)
 
-### <a id="rabbitmq-definitions" class="anchor"/> [RabbitMQ definitions](#rabbitmq-definitions)
+Every RabbitMQ node has a data directory that stores all the information that resides
+on that node.
 
-Definitions make the broker topology schema: users, vhosts, queues, exchanges, bindings.
-Definitions are controlled by HTTP API, rabbitmqctl commands and `declare` AMQP methods.
-Definitions are stored in the Mnesia database and replicated across all nodes in a cluster.
-Any node in a cluster has its own replica of definitions, identical to all others.
+A data directory contains two types of data: definitions (metadata, schema/topology) and
+message store data.
 
-### <a id="rabbitmq-messages" class="anchor"/> [RabbitMQ messages](#rabbitmq-messages)
+### <a id="rabbitmq-definitions" class="anchor"/> [Definitions (Topology)](#definitions)
 
-Messages are stored in queue indexes and message stores.
-Messages are node-local, but can be replicated between nodes using [HA queues mechanism](/ha.html)
-Messages are stored in subdirectories of the Mnesia directory.
+Nodes and clusters store information that can be thought of schema, metadata or topology.
+Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-### <a id="data-lifespan" class="anchor"/> [Lifespan of RabbitMQ data](#data-lifespan)
+Definitions can be exported and imported via the [HTTP API](/management.html), [CLI tools](/cli.html) and via
+declarations performed by client libraries (apps).
 
-Definitions are expected to be long-living, while messages are flowing from publishers to
+Definitions are stored in an internal database and replicated across all cluster nodes.
+Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
+the update is performed on all nodes in a single transaction. In the context of backups this
+means that in practice definitions can be exported from any cluster node with the same result.
+
+### <a id="rabbitmq-messages" class="anchor"/> [Messages](#messages)
+
+Messages are stored in a message store. For the purpose of this guide we will define "message store"
+as an internal store for messages, a single entity that's transparent to the user.
+
+Each node has its own data directory and stores messages for the queues that have
+their master hosted on that node. Messages can be replicated between nodes using [queue mirroring](/ha.html).
+Messages are stored in subdirectories of the node's data directory.
+
+### <a id="data-lifespan" class="anchor"/> [Data Lifecycle](#data-lifecycle)
+
+Definitions are usually mostly static, while messages are continuously flowing from publishers to
 consumers.
 
-When creating a backup, you should decide if you want to save only definitions
-or messages too.
-Because messages are short-living, it's not recommended to back them up when the broker
-is active. Some messages can be lost or duplicated in this case.
+When performing a backup, first step is deciding whether to back up only definitions
+or the message store as well.
+Because messages are often short-lived and possibly transient, backing them up from under
+a running node is highly discouraged and can lead to an inconsistent snapshot of the data.
 
-## <a id="definitions-backup" class="anchor"/> [Backing up definitions](#definitions-backup)
+Definitions can only be backed up from a running node.
 
-Definitions can be exported to a JSON file or copied manually. Manual backup will
-require additional steps if the node name or hostname changes.
+## <a id="definitions-backup" class="anchor"/> [Backing Up Definitions](#definitions-backup)
 
-### <a id="definitions-export" class="anchor"/> [Exporting definitions](#definitions-export)
+Definitions can be exported to a JSON file or backed up manually. In
+most cases, definition export/import is the optimal way of doing
+it. Manual backup will require additional steps if the node name or
+hostname changes.
 
-Definitions can be exported to JSON file using the [Management plugin](/management.html).
+### <a id="definitions-export" class="anchor"/> [Exporting Definitions](#definitions-export)
 
-You can do that on the overview page, using `/api/definitions`
-HTTP API endpoint or [rabbitmqadmin tool](/management-cli.html).
+Definitions are exported as a JSON file using the [HTTP API](/management.html):
 
-Definitions can be exported for a specific vhost or the entire broker.
-If you export a single vhost definitions, users data will not be exported.
+ * There's a definitions pane on the Overview page
+ * [rabbitmqadmin](/management-cli.html) provides a command that exports definitions
+ * The `GET /api/definitions` API endpoint can be invoked directly
 
-Exported user data contains raw passwords in some old RabbitMQ versions and
-password hashes in recent versions.
+Definitions can be exported for a specific vhost or the entire cluster (or standalone node).
+When only a single vhost definitions are exported, some information (e.g. cluster users and their permissions)
+will be exluded from the resulting file.
 
-### <a id="definitions-import" class="anchor"/> [Importing definitions](#definitions-import)
+Exported user data contains password hashes as well as hashing function information. While brute forcing
+passwords with hashing functions such as SHA-256 or SHA-512 is not a completely trivial task, user
+records should be considered sensitive information.
 
-To import definitions you can also use the overview page, HTTP API or rabbitmqadmin tool.
-You can also import definitions on broker startup using
-[`load_definitions` configuration parameter](/management.html#load-definitions)
 
-You can create simple broker replicas by importing definitions.
+### <a id="definitions-import" class="anchor"/> [Importing Definitions](#definitions-import)
 
-### <a id="manual-definitions-backup" class="anchor"/> [Manually backing up definitions](#manual-definitions-backup)
+A JSON file with definitions can be imported using the same three ways
 
-Definitions are stored in Mnesia database located in the Mnesia
-directory. You can get the directory path by running the following
-command while RabbitMQ server is running:
+ * There's a definitions pane on the Overview page
+ * [rabbitmqadmin](/management-cli.html) provides a command that imports definitions
+ * The `POST /api/definitions` API endpoint can be invoked directly
+
+It is also possible to load definitions from a local file on node boot, via the
+[`load_definitions` configuration parameter](/management.html#load-definitions).
+
+Importing a definitions file is sufficient for creating a broker with
+an identical set of definitions (e.g. users, vhosts, permissions,
+topologies).
+
+### <a id="manual-definitions-backup" class="anchor"/> [Manually Backing Up Definitions](#manual-definitions-backup)
+
+Definitions are stored in an internal database located in the node's data
+directory. To get the directory path, run the following
+command against a running RabbitMQ node:
 
 <pre class="sourcecode sh">
 rabbitmqctl eval 'rabbit_mnesia:dir().'
 </pre>
 
-If the server is not running, you can search for it in default directories:
+If the node isn't running, it is possible to inspect [default data directories](/relocate.html).
 
-* For Linux packages: `/var/lib/rabbitmq/mnesia`
+* For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
 * For Windows: `%APP_DATA%\RabbitMQ\db`
-* For standalone MacOS and generic Unix: `$SYS_PREFIX/var/lib/rabbitmq/mnesia`
+* For standalone MacOS and generic UNIX packages: `{installation_root}/var/lib/rabbitmq/mnesia`
 
-The Mnesia data directory will also contain message data. If you don't want to
-copy messages, do not copy [message directories](#manual-messages-backup).
+The above data directory will also contain message store data in a subdirectory. If you don't want to
+copy the messages, skip copying the [message directories](#manual-messages-backup).
 
-### <a id="manual-definitions-restore" class="anchor"/> [Restoring manual definitions backup](#manual-definitions-restore)
+### <a id="manual-definitions-restore" class="anchor"/> [Restoring from a Manual Definitions Backup](#manual-definitions-restore)
 
-Mnesia data is bound to a node name. If you want to change a node name or start a
-new clone you should change the node name. You can do that using the
-following command:
+Internal node database stores node's name in certain records. Should node name change, the database must first
+be updated to reflect the change using the following [rabbitmqctl](/cli.html) command:
 
 <pre class="sourcecode sh">
 rabbitmqctl rename_cluster_node &lt;oldnode&gt; &lt;newnode&gt;
 </pre>
 
-When you start a node targeting a restored Mnesia data directory, it should start
-with all the definitions.
+The command can take multiple old name/new name pairs if multiple nodes in a cluster are being renamed
+at the same time.
 
-## <a id="messages-backup" class="anchor"/> [Backing up messages](#messages-backup)
+When a new node starts with a backed up directory and a matching node name, it should perform
+the upgrade steps as needed and proceed booting.
 
-It's not recommended to back up messages if the broker is still running.
-Messages can be lost or duplicated.
-You need to stop the RabbitMQ broker to back up messages.
+
+## <a id="messages-backup" class="anchor"/> [Backing Up Messages](#messages-backup)
+
+To back up messages on a node it **must be first stopped**.
 
 In the case of a cluster with [mirrored queues](/ha.html), you need to
 stop the entire cluster to take a backup. If you stop one node at a
 time, you may loose messages or have duplicates, exactly like when you
 back up a single running node.
 
-### <a id="manual-messages-backup" class="anchor"/> [Manually backing up messages](#manual-messages-backup)
+### <a id="manual-messages-backup" class="anchor"/> [Manually Backing Up Messages](#manual-messages-backup)
 
-There is no automated way of backing up messages, so you should do that manually.
+Presently this is the only way of backing up messages.
 
-Message data is stored in Mnesia directory. See [manual definitions backup section](#manual-definitions-backup)
-to find the mnesia directory.
+Message data is stored in the [node's data directory](/relocate.html) mentioned above.
+
+In RabbitMQ versions starting with 3.7.0 all messages data is combined in the
+`msg_stores/vhosts` directory and stored in a subdirectory per vhost.
+Each vhost directory is named with a hash and contains a `.vhost` file with
+the vhost name, so a specific vhost's message set can be backed up separately.
 
 In RabbitMQ versions prior to 3.7.0 messages are stored in several directories
-under the Mnesia directory: `queues`, `msg_store_persistent` and `msg_store_transient`.
-Also there is a `recovery.dets` file which contains recovery data if the node
+under the node data directory: `queues`, `msg_store_persistent` and `msg_store_transient`.
+Also there is a `recovery.dets` file which contains recovery metadata if the node
 was stopped gracefully.
 
-In RabbitMQ versions starting from 3.7.0 all messages data is combined in the
-`msg_stores/vhosts` directory and stored in a directory per vhost.
-Each vhost directory is named with a hash and contains a `.vhost` file with
-the vhost name, so you can back up vhosts separately.
+### <a id="manual-messages-restore" class="anchor"/> [Restoring from a Manual Messages Backup](#manual-messages-restore)
 
-### <a id="manual-messages-restore" class="anchor"/> [Restoring manual messages backup](#manual-messages-restore)
+When a node boots, it will compute its data directory location and restore messages.
+For messages to be restored, the broker should have all the definitions already in place.
+Message data for unknown vhosts and queues will not be loaded and can be deleted by the node.
+Therefore when backing up message directories manually it is important to make sure that the
+definitions are already available on the target node (the one undergoing a restore), either
+via a definition file import or by backing up the entire node data directory.
 
-Messages are restored on a node startup.
-For messages to be restored, the broker should have all the definitions, otherwise
-message data will not be loaded and can be deleted.
-
-If you want to restore definitions using JSON file, you should fist import
-the definitions using the management UI.
-
-If you copy the Mnesia directory manually it should start with all
+If a node's data directory was backed up manually (copied), the node should start with all
 the definitions and messages. There is no need to import definitions first.
