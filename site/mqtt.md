@@ -35,16 +35,29 @@ tweak the defaults.
 
 ## <a id="ifb"/>Enabling the Plugin
 
-The MQTT adapter is included in the RabbitMQ distribution. To enable
-it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
+connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
     rabbitmq-plugins enable rabbitmq_mqtt
 
-**Note:** the plugin uses the `guest` account by default which will not allow
-non-`localhost` connections. You must set `default_user` and `default_pass`
-via [MQTT plugin configuration](#config) to a non-`guest` user who has the
-appropriate permissions, or specify a more permissive
-[`loopback_users`](access-control.html#loopback-users) setting.
+Now that the plugin is enabled, MQTT clients will be able to connect provided that
+they have a set of credentials for an existing user and the [appropriate permissions](/access-control.html).
+New users and their permissions can be managed using [rabbitmqctl](/cli.html), [management UI](/management.html)
+or HTTP API.
+
+## Local vs. Remote Client Connections
+
+The plugin uses the `guest` account by default which will not allow
+non-`localhost` connections. When connecting from a remote host, here are the
+options that make sure remote clients can successfully connect:
+
+ * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
+   that connect from remote hosts use those credentials
+ * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
+[appropriate permissions](/access-control.html)
+
+See the section on [authentication](#authentication) below for more information.
+
 
 ## <a id="overview"/> How it Works
 
@@ -146,6 +159,19 @@ the adapter in case MQTT clients provide no login credentials. If the
 `allow_anonymous` option is set to `false` then clients MUST provide credentials.
 The presence of client-supplied credentials over the network overrides
 the `allow_anonymous` option. Colons may not appear in usernames.
+
+
+#### Default User and Remote Connections
+
+The plugin uses the `guest` account by default which will not allow
+non-`localhost` connections. When connecting from a remote host, you must do one of the following:
+
+ * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
+   that connect from remote hosts use those credential
+ * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
+[appropriate permissions](/access-control.html)
+ * Configure [`loopback_users`](access-control.html#loopback-users) to not include `guest` (not recommended)
+
 
 #### Virtual Host Selection
 
