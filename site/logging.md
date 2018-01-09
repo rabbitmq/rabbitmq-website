@@ -58,12 +58,38 @@ severity messages.
 ### Logging to a File
 
 
- * `log.file`: log file path or `false` to disable the file output. Default value is taken from [environment variable](relocate.html)
+ * `log.file`: log file path or `false` to disable the file output. Default value is taken from an [environment variable](relocate.html)
  * `log.file.level`: log level for the file output. Default level is `info`.
- * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
+ * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings.
 
-See the rest of this guide as well as [Lager configuration reference](https://github.com/erlang-lager/lager) for a
-list of acceptable log levels and other values.
+The following example overiddes log file name:
+
+<pre class="sourcecode ini">
+log.file = rabbit.log
+</pre>
+
+The following example overiddes log file directory:
+
+<pre class="sourcecode ini">
+log.dir = /data/logs/rabbitmq
+</pre>
+
+The following example instructs RabbitMQ to log to a file at the `debug` level:
+
+<pre class="sourcecode ini">
+log.file.level = debug
+</pre>
+
+Logging to a file can be disabled with
+
+<pre class="sourcecode ini">
+log.file = false
+</pre>
+
+The rest of this guide, [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example), and [Lager configuration reference](https://github.com/erlang-lager/lager) cover
+the list of acceptable log levels and other values.
+
+#### Classic Config Format
 
 It is possible to configure file logging using the [classic configuration format](/configure.html):
 
@@ -90,6 +116,25 @@ Here are the main settings that control console (standard output) logging:
 
  * `log.console` (boolean): set to `true` to enable console output. Default is `false`
  * `log.console.level`: log level for the console output. Default level is `info`.
+
+To enable console logging, use the following config snippet:
+
+<pre class="sourcecode ini">
+log.console = true
+</pre>
+
+The following example disables console logging
+
+<pre class="sourcecode ini">
+log.console = false
+</pre>
+
+The following example instructs RabbitMQ to use the `debug` logging level when logging to console:
+
+<pre class="sourcecode ini">
+log.console.level = debug
+</pre>
+
 
 It is possible to configure console logging using the [classic config format](/configure.html#config-file-formats):
 
