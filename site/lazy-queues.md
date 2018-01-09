@@ -31,7 +31,7 @@ completely eliminating the in-memory cache mentioned before.
 This has the consequence of heavily reducing the amount of RAM consumed by a queue and also eliminates the need for paging.
 While this will increase I/O usage, it is the same behaviour as when publishing persistent messages.
 
-## <a id="usage" class="anchor" /> [Using Lazy Queues](#usage)
+## <a id="configuring" class="anchor" /> [Configuring Lazy Queues](#configuring)
 
 Queues can be made to run in `default` mode or `lazy` mode by:
 
@@ -123,24 +123,81 @@ This will result in delayed disk I/O which can be significant since more data wi
 
 ### RAM Utilization
 
-Lazy queues use much less memory than default queues.
 While it's hard to give numbers that make sense for every use case,
-let's consider publishing 10 million messages routed to a queue without any consumers.
-The message body size was 1000 bytes.
-`default` queue mode required 1.2GB of RAM, while `lazy` queues only used 1.5MB of RAM.
+this is a simplistic test that showcases the difference in RAM utilization between a `default` &amp; a `lazy` queue:
 
-For a `default` queue, it took 801 seconds to send 10 million messages, with an average sending rate of 12469 msg/s.
-To publish the same amount of messages into a `lazy` queue, the time required was 421 seconds, with an average sending rate of 23653 msg/s.
+| Number of messages | Message body size | Message type | Producers | Consumers |
+| -                  | -                 | -            | -         | -         |
+| 1,000,000          | 1,000 bytes       | persistent   | 1         | 0         |
 
-The difference can be explained by the fact that from time to time, the `default` queue had to page messages to disk.
-Once we activated a consumer, the `lazy` queue had a RAM consumption of approximately 40MB while it was delivering messages.
-The message receiving rate average was 13938 msg/s for one active consumer.
+The RAM utilization for `default` &amp; `lazy` queues after ingesting the above messages:
 
-You can reproduce the test with our [Java library](java-tools.html) by running:
+| Queue type | Queue process memory | Messages in memory | Memory used by messages | Node memory |
+| -          | -                    | -                  | -                       | -           |
+| `default`  | 257 MB               | 386,307            | 368 MB                  | 734 MB      |
+| `lazy`     | 159 KB               | 0                  | 0                       | 0           |
+
+Both queues persisted 1,000,000 messages that use 1.2 GB of disk space.
+
+You can re-create this test using [RabbitMQ Performance Testing Tool](https://github.com/rabbitmq/rabbitmq-perf-test).
+
+`default` queue test:
 
 <pre class="sourcecode bash">
-  ./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue \
-    -f persistent -s 1000 -x1 -y0 -C10000000
+# Start a temporary RabbitMQ node:
+# (this command will fail if there is another RabbitMQ node already running)
+#
+#       export RABBITMQ_NODENAME=default-queue-test
+#       export RABBITMQ_MNESIA_BASE=/tmp
+#       export RABBITMQ_LOG_BASE=/tmp/$RABBITMQ_NODENAME
+#       rabbitmq-server &amp;
+
+# In https://github.com/rabbitmq/rabbitmq-perf-test, run:
+make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -ad false -u default"
+
+# Queue stats:
+rabbitmqctl list_queues name arguments memory messages_ram message_bytes_ram messages_persistent message_bytes_persistent
+Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+default	[]	417421592	386307	386307000	1000000	1000000000
+
+# Node memory stats
+rabbitmqctl status | grep rss,
+      {total,[{erlang,1043205272},{rss,770306048},{allocated,1103822848}]}]},
+
+# Stop our temporary RabbitMQ node, clean all persistent files
+#
+#       rabbitmqctl shutdown
+#       rm -fr /tmp/$RABBITMQ_NODENAME*
+</pre>
+
+`lazy` queue test:
+
+<pre class="sourcecode bash">
+# Start a temporary RabbitMQ node:
+# (this command will fail if there is another RabbitMQ node already running)
+#
+#       export RABBITMQ_NODENAME=lazy-queue-test
+#       export RABBITMQ_MNESIA_BASE=/tmp
+#       export RABBITMQ_LOG_BASE=/tmp/$RABBITMQ_NODENAME
+#       rabbitmq-server &amp;
+
+# In https://github.com/rabbitmq/rabbitmq-perf-test, run:
+make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -ad false -u lazy -qa x-queue-mode=lazy"
+
+# Queue stats:
+rabbitmqctl list_queues name arguments memory messages_ram message_bytes_ram messages_persistent message_bytes_persistent
+Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+lazy	[{"x-queue-mode","lazy"}]	264704	0	0	1000000	1000000000
+
+# Node memory stats
+rabbitmqctl status | grep rss,
+
+# Stop our temporary RabbitMQ node, clean all persistent files
+#
+#       rabbitmqctl shutdown
+#       rm -fr /tmp/$RABBITMQ_NODENAME
 </pre>
 
 **Note that this was a very simplistic test.**
