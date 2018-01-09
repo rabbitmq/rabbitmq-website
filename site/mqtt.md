@@ -47,7 +47,15 @@ they have a set of credentials for an existing user with the appropriate permiss
 
 ### <a id="authentication"/> Users and Authentication
 
+For an MQTT connection to succeed, it must successfully authenticate and the user must
+have the [appropriate permissions](/access-control.html) to the virtual host used by the
+plugin (see below).
+
 MQTT clients can (and usually do) specify a set of credentials when they connect.
+
+The plugin supports anonymous authentication but its use is highly discouraged and it is a subject
+to certain limitations (listed below) enforced for a reasonable level of security
+by default.
 
 Users and their permissions can be managed using [rabbitmqctl](/cli.html), [management UI](/management.html)
 or HTTP API.
@@ -62,13 +70,7 @@ rabbitmqctl set_permissions -p / mqtt-test ".*" ".*" ".*"
 rabbitmqctl set_user_tags mqtt-test management
 </pre>
 
-For an MQTT connection to succeed, it must successfully authenticate and the user must
-have the [appropriate permissions](/access-control.html) to the virtual host used by the
-plugin (see below).
-
-The plugin supports anonymous authentication but its use is highly discouraged and is a subject
-to certain limitations (listed below) enforced for a reasonable level of security
-by default.
+Note that colons may not appear in usernames.
 
 
 ## Local vs. Remote Client Connections
@@ -86,11 +88,28 @@ that make sure remote clients can successfully connect:
 
 ### Anonymous Connections
 
-The `default_user` and `default_pass` options are used to authenticate
-the adapter in case MQTT clients provide no login credentials. If the
-`allow_anonymous` option is set to `false` then clients MUST provide credentials.
-The presence of client-supplied credentials over the network overrides
-the `allow_anonymous` option. Colons may not appear in usernames.
+MQTT supports optional authentication (clients may provide no credentials) but RabbitMQ
+does not. Therefore a default set of credentials is used for anonymous connections.
+
+The `mqtt.default_user` and `mqtt.default_pass` configuration keys are used to specify
+the credentials:
+
+<pre class="sourcecode ini">
+mqtt.default_user = some-user
+mqtt.default_pass = s3kRe7
+</pre>
+
+It is possible to disable anonymous connections:
+
+<pre class="sourcecode ini">
+mqtt.allow_anonymous = false
+</pre>
+
+If the `mqtt.allow_anonymous` key is set to `false` then clients **must** provide credentials.
+
+The use of anonymous connections is highly discouraged and it is a subject
+to certain limitations (see above) enforced for a reasonable level of security
+by default.
 
 
 ## <a id="overview"/> How it Works
