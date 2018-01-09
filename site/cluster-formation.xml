@@ -933,5 +933,34 @@ cluster_formation.etcd.cluster_name = staging
         reported. Please see documentation for those backends to learn more.
       </p>
     </doc:section>
+
+
+    <doc:section name="troubleshooting-cluster-formation">
+      <doc:heading>Troubleshooting</doc:heading>
+
+      <p>
+        The peer discovery subsystem and individual mechanism implementations log important
+        discovery procedure steps at the <code>info</code> log level. More extensive logging
+        is available at the <code>debug</code> level. Mechanisms that depend on external services
+        accessible over HTTP will log all outgoing HTTP requests and response codes at <code>debug</code> level.
+        See the <a href="/logging.html">logging guide</a> for more information about logging configuration.
+      </p>
+
+      <p>
+        If the log does not contain any entries that demonstrate peer discovery progress, for example, the list
+        of nodes retrieved by the mechanism or clustering attempts, it may mean that the node already has
+        an initialised data directory or is already a member of the cluster. In those cases peer discovery
+        won't be performed.
+      </p>
+
+      <p>
+        Peer discovery relies on inter-node network connectivity and successful authentication via a shared
+        secret. Verifying that nodes can communicate with one another and use the expected Erlang cookie value (that's also identical across all cluster nodes). See the main <a href="clustering.html">Clustering guide</a> for more information.
+      </p>
+
+      <p>
+        A methodology for network connectivty troubleshooting as well as commonly used tools are covered in the <a href="troubleshooting-networking.html">Troubleshooting Network Connectivity</a> guide.
+      </p>
+    </doc:section>
   </body>
 </html>

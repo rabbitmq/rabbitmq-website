@@ -35,16 +35,82 @@ tweak the defaults.
 
 ## <a id="ifb"/>Enabling the Plugin
 
-The MQTT adapter is included in the RabbitMQ distribution. To enable
-it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
+connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
-    rabbitmq-plugins enable rabbitmq_mqtt
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_mqtt
+</pre>
 
-**Note:** the plugin uses the `guest` account by default which will not allow
-non-`localhost` connections. You must set `default_user` and `default_pass`
-via [MQTT plugin configuration](#config) to a non-`guest` user who has the
-appropriate permissions, or specify a more permissive
-[`loopback_users`](access-control.html#loopback-users) setting.
+Now that the plugin is enabled, MQTT clients will be able to connect provided that
+they have a set of credentials for an existing user with the appropriate permissions.
+
+### <a id="authentication"/> Users and Authentication
+
+For an MQTT connection to succeed, it must successfully authenticate and the user must
+have the [appropriate permissions](/access-control.html) to the virtual host used by the
+plugin (see below).
+
+MQTT clients can (and usually do) specify a set of credentials when they connect.
+
+The plugin supports anonymous authentication but its use is highly discouraged and it is a subject
+to certain limitations (listed below) enforced for a reasonable level of security
+by default.
+
+Users and their permissions can be managed using [rabbitmqctl](/cli.html), [management UI](/management.html)
+or HTTP API.
+
+For example, the following commands create a new user for MQTT connections with full access
+to the default [virtual host](/vhosts.html) used by this plugin:
+
+<pre class="sourcecode bash">
+# username and password are both "mqtt-test"
+rabbitmqctl add_user mqtt-test mqtt-test
+rabbitmqctl set_permissions -p / mqtt-test ".*" ".*" ".*"
+rabbitmqctl set_user_tags mqtt-test management
+</pre>
+
+Note that colons may not appear in usernames.
+
+
+## Local vs. Remote Client Connections
+
+When an MQTT client provides no login credentials, the plugin uses the
+`guest` account by default which will not allow non-`localhost`
+connections. When connecting from a remote host, here are the options
+that make sure remote clients can successfully connect:
+
+ * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
+   that connect from remote hosts use those credentials
+ * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
+[appropriate permissions](/access-control.html)
+
+
+### Anonymous Connections
+
+MQTT supports optional authentication (clients may provide no credentials) but RabbitMQ
+does not. Therefore a default set of credentials is used for anonymous connections.
+
+The `mqtt.default_user` and `mqtt.default_pass` configuration keys are used to specify
+the credentials:
+
+<pre class="sourcecode ini">
+mqtt.default_user = some-user
+mqtt.default_pass = s3kRe7
+</pre>
+
+It is possible to disable anonymous connections:
+
+<pre class="sourcecode ini">
+mqtt.allow_anonymous = false
+</pre>
+
+If the `mqtt.allow_anonymous` key is set to `false` then clients **must** provide credentials.
+
+The use of anonymous connections is highly discouraged and it is a subject
+to certain limitations (see above) enforced for a reasonable level of security
+by default.
+
 
 ## <a id="overview"/> How it Works
 
@@ -105,49 +171,46 @@ level).
 
 Here is a sample <a href="/configure.html#config-file">configuration</a> that sets (almost) every MQTT plugin setting provided:
 
-    listeners.tcp.default = 5672
-    mqtt.default_user     = guest
-    mqtt.default_pass     = guest
-    mqtt.allow_anonymous  = true
-    mqtt.vhost            = /
-    mqtt.exchange         = amq.topic
-    # 24 hours by default
-    mqtt.subscription_ttl = 86400000
-    mqtt.prefetch         = 10
-    mqtt.listeners.ssl    = none
-    ## Default MQTT with TLS port is 8883
-    # mqtt.listeners.ssl.default = 8883
-    mqtt.listeners.tcp.default = 1883
-    mqtt.tcp_listen_options.backlog = 128
-    mqtt.tcp_listen_options.nodelay = true
+<pre class="sourcecode ini">
+listeners.tcp.default = 5672
+mqtt.default_user     = guest
+mqtt.default_pass     = guest
+mqtt.allow_anonymous  = true
+mqtt.vhost            = /
+mqtt.exchange         = amq.topic
+# 24 hours by default
+mqtt.subscription_ttl = 86400000
+mqtt.prefetch         = 10
+mqtt.listeners.ssl    = none
+## Default MQTT with TLS port is 8883
+# mqtt.listeners.ssl.default = 8883
+mqtt.listeners.tcp.default = 1883
+mqtt.tcp_listen_options.backlog = 128
+mqtt.tcp_listen_options.nodelay = true
+</pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-    
-    [{rabbit,        [{tcp_listeners,    [5672]}]},
-     {rabbitmq_mqtt, [{default_user,     <<"guest">>},
-                      {default_pass,     <<"guest">>},
-                      {allow_anonymous,  true},
-                      {vhost,            <<"/">>},
-                      {exchange,         <<"amq.topic">>},
-                      {subscription_ttl, 1800000},
-                      {prefetch,         10},
-                      {ssl_listeners,    []},
-                      %% Default MQTT with TLS port is 8883
-                      %% {ssl_listeners,    [8883]}
-                      {tcp_listeners,    [1883]},
-                      {tcp_listen_options, [{backlog,   128},
-                                            {nodelay,   true}]}]}
-    ].
 
-### <a id="authentication"/> Authentication
+<pre class="sourcecode erlang">
+[{rabbit,        [{tcp_listeners,    [5672]}]},
+ {rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
+                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
+                  {allow_anonymous,  true},
+                  {vhost,            &lt;&lt;"/"&gt;&gt;},
+                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
+                  {subscription_ttl, 1800000},
+                  {prefetch,         10},
+                  {ssl_listeners,    []},
+                  %% Default MQTT with TLS port is 8883
+                  %% {ssl_listeners,    [8883]}
+                  {tcp_listeners,    [1883]},
+                  {tcp_listen_options, [{backlog,   128},
+                                        {nodelay,   true}]}]}
+].
+</pre>
 
-The `default_user` and `default_pass` options are used to authenticate
-the adapter in case MQTT clients provide no login credentials. If the
-`allow_anonymous` option is set to `false` then clients MUST provide credentials.
-The presence of client-supplied credentials over the network overrides
-the `allow_anonymous` option. Colons may not appear in usernames.
 
-#### Virtual Host Selection
+### Virtual Hosts
 
 RabbitMQ is a multi-tenant system at the core and every connection belongs
 to a virtual host. Some messaging protocols have the concept of vhosts,
@@ -166,13 +229,15 @@ First way is mapping MQTT plugin (TCP or TLS) listener ports to vhosts. The mapp
 is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](/parameters.html).
 Let's take the following plugin configuration:
 
-    [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
-                      {default_pass,     <<"guest">>},
-                      {allow_anonymous,  true},
-                      {vhost,            <<"/">>},
-                      {tcp_listeners,    [1883, 1884]},
-                      {ssl_listeners,    [8883, 8884]}]
-    }].
+<pre class="sourcecode erlang">
+[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
+                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
+                  {allow_anonymous,  true},
+                  {vhost,            &lt;&lt;"/"&gt;&gt;},
+                  {tcp_listeners,    [1883, 1884]},
+                  {ssl_listeners,    [8883, 8884]}]
+}].
+</pre>
 
 Note the plugin listens on ports 1883, 1884, 8883, and 8884. Imagine you
 want clients connecting to ports 1883 and 8883 to connect to the `vhost1` virtual
@@ -180,18 +245,24 @@ host, and clients connecting to ports 1884 and 8884 to connect to the `vhost2`
 virtual vhost. You can specify port-to-vhost mapping by setting the
 `mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
 
-    rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
-        '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
+<pre class="sourcecode bash">
+rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
+    '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
+</pre>
 
 with `rabbitmqctl.bat` on Windows:
 
-    rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
-        "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
+<pre class="sourcecode powershell">
+rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
+    "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
+</pre>
 
 and with the HTTP API:
 
-    PUT /api/global-parameters/mqtt_port_to_vhost_mapping
-    {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
+<pre class="sourcecode bash">
+PUT /api/global-parameters/mqtt_port_to_vhost_mapping
+# => {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
+</pre>
 
 If there's no mapping for a given port (because the port cannot be found in
 the `mqtt_port_to_vhost_mapping` global parameter JSON document or if the global parameter
@@ -234,30 +305,33 @@ default MQTT TLS port is 8883. If this option is non-empty then the
 `ssl_options` configuration values must be provided. The plugin will use them
 just like AMQP 0-9-1 listeners do:
 
-    ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
-    ssl_options.certfile   = /path/to/tls/server/cert.pem
-    ssl_options.keyfile    = /path/to/tls/server/key.pem
-    ssl_options.verify     = verify_peer
-    ssl_options.fail_if_no_peer_cert  = true
-    
-    mqtt.listeners.ssl.default = 8883
-    mqtt.listeners.tcp.default = 1883
+<pre class="sourcecode ini">
+ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
+ssl_options.certfile   = /path/to/tls/server/cert.pem
+ssl_options.keyfile    = /path/to/tls/server/key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert  = true
+
+mqtt.listeners.ssl.default = 8883
+mqtt.listeners.tcp.default = 1883
+</pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    [{rabbit,        [
-                      {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
-                                     {certfile,   "/path/to/tls/server/cert.pem"},
-                                     {keyfile,    "/path/to/tls/server/key.pem"},
-                                     {verify,     verify_peer},
-                                     {fail_if_no_peer_cert, true}]}
-                     ]},
-     {rabbitmq_mqtt, [
-                      {ssl_listeners,    [8883]},
-                      {tcp_listeners,    [1883]}
-                      ]}
-    ].
-     
+<pre class="sourcecode erlang">
+[{rabbit,        [
+                  {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
+                                 {certfile,   "/path/to/tls/server/cert.pem"},
+                                 {keyfile,    "/path/to/tls/server/key.pem"},
+                                 {verify,     verify_peer},
+                                 {fail_if_no_peer_cert, true}]}
+                 ]},
+ {rabbitmq_mqtt, [
+                  {ssl_listeners,    [8883]},
+                  {tcp_listeners,    [1883]}
+                  ]}
+].
+</pre>
 
 Note that RabbitMQ rejects SSLv3 connections by default because that protocol
 is known to be compromised.
@@ -278,13 +352,17 @@ force all SSL clients to have a verifiable client certificate.
 To switch this feature on, set `ssl_cert_login` to `true` for the
 `rabbitmq_mqtt` application. For example:
 
-    mqtt.ssl_cert_login = true
-    
+<pre class="sourcecode ini">
+mqtt.ssl_cert_login = true
+</pre>
+
 Or using the classic config format:
 
-    [
-      {rabbitmq_mqtt, [{ssl_cert_login, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_mqtt, [{ssl_cert_login, true}]}
+].
+</pre>
 
 By default this will set the username to an RFC4514-ish string form of
 the certificate's subject's Distinguished Name, similar to that
@@ -292,11 +370,15 @@ produced by OpenSSL's "-nameopt RFC2253" option.
 
 To use the Common Name instead, add:
 
-    ssl_cert_login_from = common_name
+<pre class="sourcecode ini">
+ssl_cert_login_from = common_name
+</pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    {rabbit, [{ssl_cert_login_from, common_name}]}
+<pre class="sourcecode erlang">
+{rabbit, [{ssl_cert_login_from, common_name}]}
+</pre>
 
 to your configuration.
 
@@ -313,18 +395,24 @@ virtual hosts, respectively.
 
 Global parameters can be set up with `rabbitmqctl`:
 
-    rabbitmqctl set_global_parameter mqtt_default_vhosts \
-        '{"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}'
+<pre class="sourcecode bash">
+rabbitmqctl set_global_parameter mqtt_default_vhosts \
+    '{"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}'
+</pre>
 
 With `rabbitmqctl`, on Windows:
 
-    rabbitmqctl set_global_parameter mqtt_default_vhosts ^
-        "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
+<pre class="sourcecode powershell">
+rabbitmqctl set_global_parameter mqtt_default_vhosts ^
+    "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
+</pre>
 
 And with the HTTP API:
 
-    PUT /api/global-parameters/mqtt_default_vhosts
-    {"value": {"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}}
+<pre class="sourcecode bash">
+PUT /api/global-parameters/mqtt_default_vhosts
+# => {"value": {"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}}
+</pre>
 
 Note that:
 
@@ -346,28 +434,32 @@ option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com
 parameter, so the value `86400000` means 24 hours. To disable the TTL feature, just set
 the `subscription_ttl`  to `undefined` in the configuration file:
 
-    listeners.tcp.default = 5672
-    mqtt.default_user     = guest
-    mqtt.default_pass     = guest
-    mqtt.allow_anonymous  = true
-    mqtt.vhost            = /
-    mqtt.exchange         = amq.topic
-    mqtt.subscription_ttl = undefined
-    mqtt.prefetch         = 10
-    ...
+<pre class="sourcecode ini">
+listeners.tcp.default = 5672
+mqtt.default_user     = guest
+mqtt.default_pass     = guest
+mqtt.allow_anonymous  = true
+mqtt.vhost            = /
+mqtt.exchange         = amq.topic
+mqtt.subscription_ttl = undefined
+mqtt.prefetch         = 10
+...
+</pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    [{rabbit,        [{tcp_listeners,    [5672]}]},
-     {rabbitmq_mqtt, [{default_user,     <<"guest">>},
-                      {default_pass,     <<"guest">>},
-                      {allow_anonymous,  true},
-                      {vhost,            <<"/">>},
-                      {exchange,         <<"amq.topic">>},
-                      {subscription_ttl, undefined},
-                      {prefetch,         10},
-                      ...
-    ].
+<pre class="sourcecode erlang">
+[{rabbit,        [{tcp_listeners,    [5672]}]},
+ {rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
+                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
+                  {allow_anonymous,  true},
+                  {vhost,            &lt;&lt;"/"&gt;&gt;},
+                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
+                  {subscription_ttl, undefined},
+                  {prefetch,         10},
+                  ...
+].
+</pre>
 
 Note that disabling queue TTL carries a risk: short-lived clients that don't use clean sessions
 can leave queues and messages behind, which will consume resources and require manual
@@ -390,13 +482,17 @@ publish any messages. The exchange is expected to be a topic exchange.
 The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
 
-    mqtt.proxy_protocol = true
+<pre class="sourcecode ini">
+mqtt.proxy_protocol = true
+</pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_mqtt, [{proxy_protocol, true}]}
-    ].  
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_mqtt, [{proxy_protocol, true}]}
+].
+</pre>
 
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
@@ -417,40 +513,42 @@ With the second one, there is a limit of 2 GB per vhost. Both are node-local
 
 To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
 
-    
-    mqtt.default_user     = guest
-    mqtt.default_pass     = guest
-    mqtt.allow_anonymous  = true
-    mqtt.vhost            = /
-    mqtt.exchange         = amq.topic
-    mqtt.subscription_ttl = 1800000
-    mqtt.prefetch         = 10
+<pre class="sourcecode ini">
+mqtt.default_user     = guest
+mqtt.default_pass     = guest
+mqtt.allow_anonymous  = true
+mqtt.vhost            = /
+mqtt.exchange         = amq.topic
+mqtt.subscription_ttl = 1800000
+mqtt.prefetch         = 10
 
-    ## use DETS (disk-based) store for retained messages
-    mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
-    ## only used by DETS store
-    mqtt.retained_message_store_dets_sync_interval = 2000
-    
-    mqtt.listeners.ssl = none
-    mqtt.listeners.tcp.default = 1883
+## use DETS (disk-based) store for retained messages
+mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
+## only used by DETS store
+mqtt.retained_message_store_dets_sync_interval = 2000
+
+mqtt.listeners.ssl = none
+mqtt.listeners.tcp.default = 1883
+</pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-    [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
-                      {default_pass,     <<"guest">>},
-                      {allow_anonymous,  true},
-                      {vhost,            <<"/">>},
-                      {exchange,         <<"amq.topic">>},
-                      {subscription_ttl, 1800000},
-                      {prefetch,         10},
-                      %% use DETS (disk-based) store for retained messages
-                      {retained_message_store, rabbit_mqtt_retained_msg_store_dets},
-                      %% only used by DETS store
-                      {retained_message_store_dets_sync_interval, 2000},
-                      {ssl_listeners,    []},
-                      {tcp_listeners,    [1883]}]}
-    ].
-    
+<pre class="sourcecode erlang">
+[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
+                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
+                  {allow_anonymous,  true},
+                  {vhost,            &lt;&lt;"/"&gt;&gt;},
+                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
+                  {subscription_ttl, 1800000},
+                  {prefetch,         10},
+                  %% use DETS (disk-based) store for retained messages
+                  {retained_message_store, rabbit_mqtt_retained_msg_store_dets},
+                  %% only used by DETS store
+                  {retained_message_store_dets_sync_interval, 2000},
+                  {ssl_listeners,    []},
+                  {tcp_listeners,    [1883]}]}
+].
+</pre>
 
 The value must be a module that implements the store:
 
