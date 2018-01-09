@@ -172,6 +172,7 @@ limitations under the License.
         <li>
           <a href="production-checklist.html">Production Checklist</a>
         </li>
+        <li><a href="backup.html">Backup and restore</a></li>
         <li>
           <a href="/reliability.html">Reliable Message Delivery</a>
         </li>
