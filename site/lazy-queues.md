@@ -130,30 +130,29 @@ this is a simplistic test that showcases the difference in RAM utilization betwe
 | -                  | -                 | -            | -         | -         |
 | 1,000,000          | 1,000 bytes       | persistent   | 1         | 0         |
 
-The RAM utilization for `default` &amp; `lazy` queues after ingesting the above messages:
+The RAM utilization for `default` &amp; `lazy` queues **after** ingesting the above messages:
 
 | Queue type | Queue process memory | Messages in memory | Memory used by messages | Node memory |
 | -          | -                    | -                  | -                       | -           |
 | `default`  | 257 MB               | 386,307            | 368 MB                  | 734 MB      |
 | `lazy`     | 159 KB               | 0                  | 0                       | 0           |
 
-Both queues persisted 1,000,000 messages that use 1.2 GB of disk space.
-
-You can re-create this test using [RabbitMQ Performance Testing Tool](https://github.com/rabbitmq/rabbitmq-perf-test).
+Both queues persisted 1,000,000 messages and used 1.2 GB of disk space.
 
 `default` queue test:
 
 <pre class="sourcecode bash">
 # Start a temporary RabbitMQ node:
-# (this command will fail if there is another RabbitMQ node already running)
 #
 #       export RABBITMQ_NODENAME=default-queue-test
 #       export RABBITMQ_MNESIA_BASE=/tmp
-#       export RABBITMQ_LOG_BASE=/tmp/$RABBITMQ_NODENAME
+#       export RABBITMQ_LOG_BASE=/tmp
 #       rabbitmq-server &amp;
+#
+# (the last command will fail if there is another RabbitMQ node already running)
 
-# In https://github.com/rabbitmq/rabbitmq-perf-test, run:
-make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -ad false -u default"
+# In a https://github.com/rabbitmq/rabbitmq-perf-test clone, run:
+make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -u default -ad false"
 
 # Queue stats:
 rabbitmqctl list_queues name arguments memory messages_ram message_bytes_ram messages_persistent message_bytes_persistent
@@ -165,44 +164,25 @@ default	[]	417421592	386307	386307000	1000000	1000000000
 rabbitmqctl status | grep rss,
       {total,[{erlang,1043205272},{rss,770306048},{allocated,1103822848}]}]},
 
-# Stop our temporary RabbitMQ node, clean all persistent files
+# Stop our temporary RabbitMQ node &amp; clean all persistent files
 #
 #       rabbitmqctl shutdown
-#       rm -fr /tmp/$RABBITMQ_NODENAME*
+#       rm -fr /tmp/{log,$RABBITMQ_NODENAME*}
 </pre>
 
-`lazy` queue test:
+The `lazy` queue test is almost the same, these are the differences:
 
 <pre class="sourcecode bash">
-# Start a temporary RabbitMQ node:
-# (this command will fail if there is another RabbitMQ node already running)
+# Use a different RABBITMQ_NODENAME
 #
 #       export RABBITMQ_NODENAME=lazy-queue-test
-#       export RABBITMQ_MNESIA_BASE=/tmp
-#       export RABBITMQ_LOG_BASE=/tmp/$RABBITMQ_NODENAME
-#       rabbitmq-server &amp;
 
-# In https://github.com/rabbitmq/rabbitmq-perf-test, run:
-make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -ad false -u lazy -qa x-queue-mode=lazy"
-
-# Queue stats:
-rabbitmqctl list_queues name arguments memory messages_ram message_bytes_ram messages_persistent message_bytes_persistent
-Timeout: 60.0 seconds ...
-Listing queues for vhost / ...
-lazy	[{"x-queue-mode","lazy"}]	264704	0	0	1000000	1000000000
-
-# Node memory stats
-rabbitmqctl status | grep rss,
-
-# Stop our temporary RabbitMQ node, clean all persistent files
-#
-#       rabbitmqctl shutdown
-#       rm -fr /tmp/$RABBITMQ_NODENAME
+# In a https://github.com/rabbitmq/rabbitmq-perf-test clone, run:
+make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -u lazy -qa x-queue-mode=lazy -ad false"
 </pre>
 
 **Note that this was a very simplistic test.**
 **Please make sure to run your own benchmarks.**
-**Remember to change the queue mode between benchmarks runs.**
 
 ### Converting between queue modes
 
