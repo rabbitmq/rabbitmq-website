@@ -6,10 +6,11 @@ This guide covers topics related to RabbitMQ installation upgrades.
 
 It is important to consider a number of things before upgrading RabbitMQ.
 
-1. RabbitMQ version compatibility, version upgrading from &amp; version upgrading to
-2. Erlang version requirement
-3. Plugin compatiblity between versions
-4. Cluster configuration, single node vs. multiple nodes
+1. [RabbitMQ version compatibility](#rabbitmq-version-compatibility), version upgrading from &amp; version upgrading to
+1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
+1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
+1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
+1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
@@ -23,8 +24,8 @@ Current release series upgrade compatibility:
 
 | From     | To     |
 |----------|--------|
-| 3.6.x    | 3.7.0  |
-| 3.5.x    | 3.7.0  |
+| 3.6.x    | 3.7.x  |
+| 3.5.x    | 3.7.x  |
 | =< 3.4.x | 3.6.14 |
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" /> [Erlang Version Requirements](#rabbitmq-erlang-version-requirement)
@@ -46,7 +47,58 @@ Such cases will be documented the breaking changes section of the release notes 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
-## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ cluster configuration](#rabbitmq-cluster-configuration)
+## <a id="system-resource-usage" class="anchor" /> [Changes in System Resource Usage and Reporting](#system-resource-usage)
+
+Different versions of RabbitMQ can have different resource usage. That
+should be taken into account before upgrading: make sure there's enough
+capacity to run the workload with the new version. Always consult with
+the release notes of all versions between the one currently deployed and the
+target one in order to find out about changes which could impact
+your workload and resource usage.
+
+### <a id="stats-db-in-3.6.7" class="anchor" /> [Management stats DB in RabbitMQ 3.6.7](#stats-db-in-3.6.7)
+
+In RabbitMQ versions before `3.6.7` all management stats in a cluster
+were collected on a single node (the stats DB node). This put a lot
+of additional load on this node. Starting with RabbitMQ `3.6.7` each
+cluster node stores its own stats. It means that metrics (e.g. rates)
+for each node are stored and calculated locally. Therefore all nodes
+will consume a bit more memory and CPU resources to handle that. The
+benefit is that there is no single overloaded stats node.
+
+When an HTTP API request comes in, the stats are aggregated on the node
+which handles the request. If HTTP API requests are not distributed
+between cluster nodes, it can put some additional load on that node's
+CPU and memory resources. In practice stats database-related overload is
+a thing of the past.
+
+Individual node resource usage change is workload-specific. The best way
+to measure it is by reproducing a comparable workload in a temporary QA
+environment before upgrading production systems.
+
+### <a id="memory-reporting-in-3.6.11" class="anchor" /> [Memory reporting accuracy in RabbitMQ 3.6.11](#memory-reporting-in-3.6.11)
+
+In RabbitMQ versions before `3.6.11` memory used by the node was
+calculated using a runtime-provided mechanism that's not very precise.
+The actual memory allocated by the
+OS process usually was higher.
+
+Starting with RabbitMQ `3.6.11` a number of strategies is available. On Linux, MacOS, and BSD
+systems, operating system facilities will be used to compute the total amount of memory
+allocated by the node. It is possible to go back to the previous strategy, although
+that's not recommended. See the [Memory Usage guide](/memory-use.html) for details.
+
+After upgrading from a version prior to `3.6.11` to
+`3.6.11` or later, the memory usage reported by the management
+UI will increase. The effective node memory footprint didn't actually change
+but the calculation is now more accurate and no longer underreports.
+
+Nodes that often hovered around their RAM high watermark will see more
+frequent memory alarms and publishers will be blocked more often. On the upside
+this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
+of the OS.
+
+## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ Cluster Configuration](#rabbitmq-cluster-configuration)
 
 ### <a id="single-node-upgrade" class="anchor" /> [Upgrading a Single Node Installation](#single-node-upgrade)
 
