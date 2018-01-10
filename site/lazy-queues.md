@@ -31,7 +31,7 @@ completely eliminating the in-memory cache mentioned before.
 This has the consequence of heavily reducing the amount of RAM consumed by a queue and also eliminates the need for paging.
 While this will increase I/O usage, it is the same behaviour as when publishing persistent messages.
 
-## <a id="configuring" class="anchor" /> [Configuring Lazy Queues](#configuring)
+## <a id="configuration" class="anchor" /> [Configuration](#configuration)
 
 Queues can be made to run in `default` mode or `lazy` mode by:
 
@@ -196,3 +196,49 @@ and then it will start accepting publishes, acks, and other commands.
 When a queue goes from the `lazy` mode to the `default` one,
 it will perform the same process as when a queue is recovered after a server restart.
 A batch of 16384 messages will be loaded in the cache mentioned above.
+
+## <a id="behaviour" class="anchor" /> [Behaviour](#behaviour)
+
+Lazy queues are a great fit if you want to keep memory usage low and always write messages to disk, including transient ones.
+We encourage you to consider the following aspects before making exclusive use of lazy queues.
+
+### Node startup
+
+While a node is running, lazy queues will keep all messages on disk, the only exception being in-flight messages.
+
+When a RabbitMQ starts, any messages in a lazy queue which are below the `queue_index_embed_msgs_below` value will be loaded into memory, up to **16,384** messages.
+
+For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **16,384** messages into memory.
+These messages will use **63MB** of system memory.
+The queue process will use another **8.4MB** of system memory, bringing the total to just over **70MB**.
+This is an important consideration for capacity planning if the RabbitMQ node is memory constrained,
+or if there are many lazy queues running on this RabbitMQ node.
+
+**It is important to remember that an under-provisioned RabbitMQ node in terms of memory or disk space will fail to start**
+
+To prevent any messages in a lazy queue loading into memory on node startup,
+you can set the `queue_index_embed_msgs_below` to `0`, as described in [RabbitMQ Configuration](configure.html).
+We encourage you to read [Persistence Configuration](persistence-conf.html) before tuning this property.
+
+#### What about lazy queues with mixed message sizes?
+
+If all messages in the first **10,000** messages are below the `queue_index_embed_msgs_below` value,
+and the rest are above this value, only the first **10,000** will be loaded into memory on node startup.
+
+#### What about lazy queues with interleaved message sizes?
+
+Given the following interleaved message sizes:
+
+| Position in queue | Message size in bytes |
+| -                 | -                     |
+| 1                 | 5,000                 |
+| 2                 | 100                   |
+| 3                 | 5,000                 |
+| 4                 | 200                   |
+| ...               | ...                   |
+| 79                | 4,000                 |
+| 80                | 5,000                 |
+
+Only the first **20** messages below the `queue_index_embed_msgs_below` value will be loaded into memory on node startup.
+In this scenario, messages will use **21KB** of system memory, and queue process will use another **32KB** of system memory.
+The total system memory required for the queue process to finish starting is **53KB**.
