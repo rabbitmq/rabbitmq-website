@@ -6,10 +6,11 @@ This guide covers topics related to RabbitMQ installation upgrades.
 
 It is important to consider a number of things before upgrading RabbitMQ.
 
-1. RabbitMQ version compatibility, version upgrading from &amp; version upgrading to
-2. Erlang version requirement
-3. Plugin compatiblity between versions
-4. Cluster configuration, single node vs. multiple nodes
+1. [RabbitMQ version compatibility](#rabbitmq-version-compatibility), version upgrading from &amp; version upgrading to
+1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
+1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
+1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
+1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
@@ -45,6 +46,27 @@ Such cases will be documented the breaking changes section of the release notes 
 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
+
+## <a id="system-resource-usage" class="anchor" /> [Changes in system resource usage and reporting](#system-resource-usage)
+
+Different versions of RabbitMQ can have different resource usage which
+you should consider before upgrading to make sure you have enough
+resources to run a new version. We recommend to always consult with
+release notes of all versions between the one you are running and the
+one you target in order to find out about changes which could impact
+your workload and resource usage.
+
+In RabbitMQ versions before 3.6.7 all management stats in a cluster
+were collected on a single node (aka stats DB node). This has put some
+additional load on this node. Starting with RabbitMQ 3.6.7 each cluster
+node has its own management stats DB. It means that rates for each node
+are calculated locally. Therefore all nodes will consume a bit more
+memory and CPU resources to handle that. The benefit is that there is no
+single overloaded stats node. The stats are aggregated on the node which
+handles an HTTP request, which can put some additional load on this
+node CPU and memory resources. That said it should be lower than what a
+single stats DB node would have consumed in previous versions. We cannot
+tell the exact difference, for it is workload specific.
 
 ## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ cluster configuration](#rabbitmq-cluster-configuration)
 
