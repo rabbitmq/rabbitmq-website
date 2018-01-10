@@ -720,69 +720,32 @@ body#index #getstarted,
   padding: 0;
 }
 
-#hero #hero-anniversary {
+#hero #hero-37-release {
   background: url(../img/hero.svg) no-repeat center center;
   background-size: cover;
   padding: 60px 20px 80px;
 }
 
-#hero #hero-management-plugin,
-#hero #hero-37-release {
-  display: none;
-}
-
-/* Homepage hero: management plugin */
-/*	#hero #hero-management-plugin .container {
-max-width: 700px;
-text-align: left;
-padding: 60px 20px 80px;
-}
-
-#hero #hero-anniversary,
-#hero #hero-37-release {
-display: none;
-}
-
-#hero #hero-management-plugin {
-display: block;
-padding: 47px 0 20px;
-}
-
-#hero #hero-management-plugin img {
-float: left;
-margin: 5px 55px 0 0;
-}
-
-#hero #hero-management-plugin h1 {
-margin: 0;
-max-width: 100% !important;
-}*/
-
-
 /* Homepage hero: 3.7 release */
-/*	#hero {
+
+#hero {
 background: none;
 }
 #hero #hero-37-release {
-display: block;
-background: url(../img/hero-37-release-desktop.svg) no-repeat bottom center;
-background-size: contain;
-padding: 60px 20px 80px;
-}
-
-#hero #hero-management-plugin,
-#hero #hero-anniversary {
-display: none;
+  display: block;
+  background: url(../img/hero-37-release-desktop.svg) no-repeat bottom center;
+  background-size: contain;
+  padding: 60px 20px 80px;
 }
 
 #hero #hero-37-release .container {
-padding: 18px 0;
+  padding: 18px 0;
 }
 
 #hero #hero-37-release h2 {
 max-width: 300px;
 margin: 0 auto;
-}*/
+}
 
 
 /* Uberflip embed styles */
@@ -1138,16 +1101,9 @@ body#index #getstarted .fifty .container {
     padding-left: 20px;
     display: block;
   }
-  #hero #hero-anniversary {
+  #hero #hero-37-release {
     background: url(../img/hero-tablet.svg) no-repeat center center;
     background-size: 100%;
-  }
-  #hero #hero-management-plugin {
-    padding: 0;
-  }
-  #hero #hero-management-plugin img {
-    float: none;
-    margin: 0 0 20px;
   }
   .twothirds {
     max-width: 56%;
