@@ -13,16 +13,16 @@ Queues can become very long for various reasons:
 <ul class="plain">
   <li>consumers are offline / have crashed / are down for maintenance</li>
   <li>there is a sudden message ingress spike, producers are outpacing consumers</li>
-  <li>consumers are simply slower than normal</li>
+  <li>consumers are slower than normal</li>
 </ul>
 
-By default, queues keep an in-memory cache of messages that's filled up as messages are published into RabbitMQ.
-The idea of this cache is to be able to deliver messages to consumers as fast as possible -
-note that persistent messages are written to disk as they enter the broker **and** kept in this cache at the same time.
+By default, queues keep an in-memory cache of messages that is filled up as messages are published into RabbitMQ.
+The idea of this cache is to be able to deliver messages to consumers as fast as possible.
+Note that persistent messages are written to disk as they enter the broker **and** kept in this cache at the same time.
 
 Whenever the broker considers it needs to free up memory, messages from this cache will be paged out to disk.
-Paging messages to disk takes time and block the queue process, making it unable to receive new messages while it's paging.
-Even if on recent RabbitMQ versions we have improved the paging algorithm,
+Paging messages to disk takes time and blocks the queue process, making it unable to receive new messages while it's paging.
+Even though recent versions of RabbitMQ improved the paging algorithm,
 the situation is still not ideal for use cases where you have many millions on messages in the queue that might need to be paged out.
 
 Lazy queues help here by eliminating this cache and only loading messages in memory when requested by consumers.
@@ -68,7 +68,7 @@ This example in Java declares a queue with the queue mode set to `"lazy"`:
 
 ### Configuration using policy
 
-To specify a queue mode using a policy, add the key `queue-length` to a policy definition, e.g.:
+To specify a queue mode using a policy, add the key `queue-mode` to a policy definition, e.g.:
 
 <table>
   <tr>
@@ -186,10 +186,10 @@ make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -u lazy -qa x-queue-mode=la
 
 ### Converting between queue modes
 
-If we need to convert a `default` queue into a `lazy` one,
-then we will suffer the same performance impact as when a queue needs to page messages to disk.
+When converting a `default` queue into a `lazy` one,
+the operation will suffer the same performance impact as when a queue needs to page messages to disk.
 
-When we convert a `default` queue into a `lazy` one,
+During conversion from a `default` queue into a `lazy` one,
 the queue will first page messages to disk,
 and then it will start accepting publishes, acks, and other commands.
 
@@ -206,7 +206,7 @@ We encourage you to consider the following aspects before making exclusive use o
 
 While a node is running, lazy queues will keep all messages on disk, the only exception being in-flight messages.
 
-When a RabbitMQ starts, any messages in a lazy queue which are below the `queue_index_embed_msgs_below` value will be loaded into memory, up to **16,384** messages.
+When a RabbitMQ node starts, any messages in a lazy queue which are below the `queue_index_embed_msgs_below` value will be loaded into memory, up to **16,384** messages.
 
 For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **16,384** messages into memory.
 These messages will use **63MB** of system memory.
