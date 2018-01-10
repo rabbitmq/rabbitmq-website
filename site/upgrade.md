@@ -56,23 +56,47 @@ the release notes of all versions between the one currently deployed and the
 target one in order to find out about changes which could impact
 your workload and resource usage.
 
-In RabbitMQ versions before 3.6.7 all management stats in a cluster
-were collected on a single node (the stats DB node). This put a lot of
-additional load on this node. Starting with RabbitMQ 3.6.7 each cluster
-node stores its own stats. It means that metrics (e.g. rates) for each node
-are stored and calculated locally. Therefore all nodes will consume a bit more
-memory and CPU resources to handle that. The benefit is that there is no
-single overloaded stats node.
+### <a id="stats-db-in-3.6.7" class="anchor" /> [Management stats DB in RabbitMQ 3.6.7](#stats-db-in-3.6.7)
 
-When an HTTP API request comes in, the stats are aggregated on the node which
-handles the request. If HTTP API requests are not distributed between cluster nodes,
-it can put some additional load on that node's CPU and memory resources.
-In practice stats database-related overload is a thing of the past.
+In RabbitMQ versions before `3.6.7` all management stats in a cluster
+were collected on a single node (the stats DB node). This put a lot
+of additional load on this node. Starting with RabbitMQ `3.6.7` each
+cluster node stores its own stats. It means that metrics (e.g. rates)
+for each node are stored and calculated locally. Therefore all nodes
+will consume a bit more memory and CPU resources to handle that. The
+benefit is that there is no single overloaded stats node.
 
-Individual node resource usage change is workload-specific. The best
-way to measure it is by reproducing a comparable workload in a
-temporary QA environment before upgrading production systems.
+When an HTTP API request comes in, the stats are aggregated on the node
+which handles the request. If HTTP API requests are not distributed
+between cluster nodes, it can put some additional load on that node's
+CPU and memory resources. In practice stats database-related overload is
+a thing of the past.
 
+Individual node resource usage change is workload-specific. The best way
+to measure it is by reproducing a comparable workload in a temporary QA
+environment before upgrading production systems.
+
+### <a id="memory-reporting-in-3.6.11" class="anchor" /> [Memory reporting accuracy in RabbitMQ 3.6.11](#memory-reporting-in-3.6.11)
+
+In RabbitMQ versions before `3.6.11` memory used by the node was
+calculated using a runtime-provided mechanism that's not very precise.
+The actual memory allocated by the
+OS process usually was higher.
+
+Starting with RabbitMQ `3.6.11` a number of strategies is available. On Linux, MacOS, and BSD
+systems, operating system facilities will be used to compute the total amount of memory
+allocated by the node. It is possible to go back to the previous strategy, although
+that's not recommended. See the [Memory Usage guide](/memory-use.html) for details.
+
+After upgrading from a version prior to `3.6.11` to
+`3.6.11` or later, the memory usage reported by the management
+UI will increase. The effective node memory footprint didn't actually change
+but the calculation is now more accurate and no longer underreports.
+
+Nodes that often hovered around their RAM high watermark will see more
+frequent memory alarms and publishers will be blocked more often. On the upside
+this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
+of the OS.
 
 ## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ Cluster Configuration](#rabbitmq-cluster-configuration)
 
