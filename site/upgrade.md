@@ -78,18 +78,25 @@ environment before upgrading production systems.
 
 ### <a id="memory-reporting-in-3.6.11" class="anchor" /> [Memory reporting accuracy in RabbitMQ 3.6.11](#memory-reporting-in-3.6.11)
 
-In RabbitMQ versions before `3.6.11` memory used by RabbitMQ was
-calculated using Erlang memory reporting. The actual memory used by the
-system process might be different and greater most of the time. Since
-RabbitMQ version `3.6.11` there are configurable memory calculation
-strategies and memory will be calculated using system tools by default
-on Unix systems. After upgrading from version prior to `3.6.11` to
-version `3.6.11` and later, the memory usage reported by the management
-plugin could increase. Effectively the memory footprint didn't change
-and report should be more accurate. As a consequence you can see more
-frequent memory alarms and publishers will be blocked more often. This
-also means that RabbitMQ will less likely exhaust available memory and
-you should not experience crashes related to out-of-memory conditions.
+In RabbitMQ versions before `3.6.11` memory used by the node was
+calculated using a runtime-provided mechanism that's not very precise.
+The actual memory allocated by the
+OS process usually was higher.
+
+Starting with RabbitMQ `3.6.11` a number of strategies is available. On Linux, MacOS, and BSD
+systems, operating system facilities will be used to compute the total amount of memory
+allocated by the node. It is possible to go back to the previous strategy, although
+that's not recommended. See the [Memory Usage guide](/memory-use.html) for details.
+
+After upgrading from a version prior to `3.6.11` to
+`3.6.11` or later, the memory usage reported by the management
+UI will increase. The effective node memory footprint didn't actually change
+but the calculation is now more accurate and no longer underreports.
+
+Nodes that often hovered around their RAM high watermark will see more
+frequent memory alarms and publishers will be blocked more often. On the upside
+this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
+of the OS.
 
 ## <a id="rabbitmq-cluster-configuration" class="anchor" /> [RabbitMQ Cluster Configuration](#rabbitmq-cluster-configuration)
 
