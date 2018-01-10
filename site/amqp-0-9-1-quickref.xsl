@@ -353,7 +353,7 @@ limitations under the License.
           some messages are handled specifically and the remainder are processed by a generic handler.
         </p>
       </x:doc>
-      <x:url href="http://www.rabbitmq.com/ae.html" label="AE documention" />
+      <x:url href="http://www.rabbitmq.com/ae.html" label="AE documentation" />
       <x:javadoc href="Channel.html#exchangeDeclare(java.lang.String, java.lang.String, boolean, boolean, java.util.Map)" />
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
     </x:decorate>

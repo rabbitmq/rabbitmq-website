@@ -86,7 +86,7 @@ limitations under the License.
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
          standard Debian and Ubuntu also can be quite
          outdated. Consider installing a newer version, such as
-         19.3.6.
+         20.1.7.1.
        </p>
 
        <table>
@@ -99,7 +99,7 @@ limitations under the License.
          </thead>
          <tbody>
            <tr>
-             <td>20.x</td>
+             <td>20.1</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
                <a href="https://packages.debian.org/buster/erlang">Debian Buster</a>
@@ -117,17 +117,17 @@ limitations under the License.
          <p>
            <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to avoid undesired Erlang upgrades.
 
-           The following preference file example will pin <code>esl-erlang</code> package to to <code>19.3.6</code> and <code>erlang-*</code> packages to <code>19.3</code>
+           The following preference file example will pin <code>esl-erlang</code> package to to <code>20.1.7</code> and <code>erlang-*</code> packages to <code>20.1</code>
            (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for those packages is 1):
 
 <pre class="sourcecode ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:19.3-1
+Pin: version 1:20.1-1
 Pin-Priority: 1000
 
 Package: esl-erlang
-Pin: version 1:19.3.6
+Pin: version 1:20.1.7
 Pin-Priority: 1000
 </pre>
 

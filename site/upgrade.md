@@ -4,12 +4,12 @@
 
 This guide covers topics related to RabbitMQ installation upgrades.
 
-It is important to consider a number of things before upgrading RabbitMQ. 
+It is important to consider a number of things before upgrading RabbitMQ.
 
 1. RabbitMQ version compatibility, version upgrading from &amp; version upgrading to
-1. Erlang version requirement
-1. plugin compatiblity between versions
-1. Cluster configuration, single node vs. multiple nodes
+2. Erlang version requirement
+3. Plugin compatiblity between versions
+4. Cluster configuration, single node vs. multiple nodes
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
@@ -145,3 +145,99 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
+## <a id="recommended-upgrade-process" class="anchor" /> [Recommended upgrade process](#recommended-upgrade-process)
+
+1. Select a version to upgrade to.
+
+    Patch releases contain bugfixes and features which do not break
+    compatibility with plugins and clusters. Rarely there are exceptions
+    to this statement: when this happens, the release notes will
+    indicate when two patch releases are incompatible.
+
+    Minor version releases contain new features and bugfixes
+    which do not fit a patch release.
+
+    As soon as a new minor version is released (e.g. 3.7.0), previous verison series (3.6)
+    will have patch releases for critical bugfixes only.
+
+    There will be no new patch releases for versions after EOL.
+
+    Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
+    It's recommended to always upgrade at least to the latest patch release in a series.
+
+1. Read carefully the release notes of the selected RabbitMQ version.
+
+    The release notes may indicate specific additional upgrade steps.
+
+1. Check version compatibility.
+
+    To upgrade from 3.4.x to 3.7.x, the intermediate upgrade is required.
+    See the [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility) section above.
+
+1. Check Erlang version requirements.
+
+    Check if the current Erlang version is supported by the new RabbitMQ version.
+    See the [Erlang Version Requirements](/which-erlang.html) guide.
+    If not, Erlang should be upgraded together with RabbitMQ.
+
+    It's generally recommended to upgrade to the latest Erlang version supported to
+    get all the latest bugfixes.
+
+1. Make sure all package dependencies (in particular Erlang) are available.
+
+    If you are using Debian or RPM packages, you must ensure
+    that all dependencies are available. In particular, the
+    correct version of Erlang. You may have to setup additional
+    third-party package repositories to achieve that.
+
+    Please read recommendations for
+    [Debian-based](/which-erlang.html#debian) and
+    [RPM-based](/which-erlang.html#redhat) distributions to find the
+    appropriate repositories for Erlang.
+
+1. If running RabbitMQ in a cluster, select the cluster upgrade strategy.
+
+    It can be possible to do a rolling upgrade,
+    if Erlang version and RabbitMQ version changes support it.
+
+    See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
+
+1. Verify broker health.
+
+    Make sure nodes are healthy and there is no network partition or
+    disk or memory alarms.
+
+    You can use `rabbitmqctl node_health_check` command, RabbitMQ management UI or
+    HTTP API to run basic health-checks.
+
+    The overview page in the management UI displays effective RabbitMQ and Erlang
+    versions, basic health stats and message rates.
+
+    You can take this opportunity to record the number of durable
+    queues, the number of messages they hold and any informations about
+    the topology you like. It can be useful to double-check everything
+    is restored properly after the upgrade.
+
+1. Take a backup.
+
+    It's always good to have a backup before upgrading.
+    See [backup](/backup.html) guide for instructions.
+
+    To make a proper backup, you may need to stop the entire cluster.
+    Depending on your use case, you may make the backup while the
+    cluster is stopped for the upgrade.
+
+1. Perform the upgrade.
+
+    It's recommended to upgrade Erlang version together with RabbitMQ, because both
+    actions require restart and recent RabbitMQ work better with recent Erlang.
+
+    Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
+    [rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrades) strategy.
+
+1. Verify broker health and version.
+
+    Like you did before the upgrade, verify the health and data to
+    make sure your RabbitMQ nodes are in good shape and the service is
+    running again.
