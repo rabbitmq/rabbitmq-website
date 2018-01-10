@@ -31,6 +31,10 @@ limitations under the License.
         <a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>
         in AMQP 0-9-1.
       </p>
+      <p>
+        A separate guide covers multiple topics around <a href="/passwords.html">passwords</a>.
+        It is only applicable to the internal authentication backend.
+      </p>
     </doc:section>
 
     <doc:section name="terminology-and-definitions">
