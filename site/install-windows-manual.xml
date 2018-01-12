@@ -28,24 +28,33 @@ limitations under the License.
   <head>
     <title>Installing on Windows (manual)</title>
   </head>
+
   <body show-in-this-page="true">
-    <doc:section name="install-windows-separately">
+    <doc:section name="intro">
       <p>
-        If you should ever need to install RabbitMQ manually, this is how to do it:
+        This guide describes how RabbitMQ can be installed and configured manually on Windows. In general
+        we recommend using the <a href="/install-windows.html">provided Windows installer</a> when possible.
       </p>
+    </doc:section>
+
+    <doc:section name="download-windows-binary-build">
       <doc:heading>Download the Server</doc:heading>
       <r:downloads signature="yes">
         <r:download signature="yes" absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip"
                     downloadfile="rabbitmq-server-windows-&version-server;.zip">
-	  Binary build for Windows systems (from <a href="https://bintray.com/rabbitmq/windows">Bintray</a>)
+	  Binary build for Windows systems (from <a href="https://bintray.com/rabbitmq/all">Bintray</a>)
         </r:download>
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip"
                     downloadfile="rabbitmq-server-windows-&version-server;.zip">
 	  Binary build for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
       </r:downloads>
+    </doc:section>
 
-      <h3>Install Erlang</h3>
+
+    <doc:section name="install-erlang">
+      <doc:heading>Install Erlang/OTP</doc:heading>
+
       <p>
         First you need to install a <a href="/which-erlang.html">supported version of Erlang</a> for Windows.
         Run the <a href="http://www.erlang.org/download.html">Erlang Windows installer</a>.
@@ -55,26 +64,32 @@ limitations under the License.
         your platform and whether you chose a 32bit or 64bit version of Erlang.
       </p>
 
-      <h3>Set ERLANG_HOME</h3>
-      <p>
-        If you have an existing RabbitMQ installation with the broker running as a service and
-        you installed an Erlang VM with a different architecture then you must uninstall the
-        service before updating <span class="envvar">ERLANG_HOME</span>.
-      </p>
-      <p>
-        Set <span class="envvar">ERLANG_HOME</span> to where you actually put your Erlang installation, e.g.
-        <code>C:\Program Files\erl<var>x.x.x</var></code> (full path).
-        The RabbitMQ batch files expect to execute
-        <code><span class="envvar">%ERLANG_HOME%</span>\bin\erl.exe</code>.
-      </p>
-      <p>
-        Go to Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables.
-        Create the system environment variable <span class="envvar">ERLANG_HOME</span>
-        and set it to the full path of the directory which contains
-        <code>bin\erl.exe</code>.
-      </p>
+      <doc:subsection name="set-erlang-home-variable">
+        <doc:heading>Set ERLANG_HOME</doc:heading>
+        <p>
+            If you have an existing RabbitMQ installation with the broker running as a service and
+            you installed an Erlang VM with a different architecture then you must uninstall the
+            service before updating <span class="envvar">ERLANG_HOME</span>.
+        </p>
+        <p>
+            Set <span class="envvar">ERLANG_HOME</span> to where you actually put your Erlang installation, e.g.
+            <code>C:\Program Files\erl<var>x.x.x</var></code> (full path).
+            The RabbitMQ batch files expect to execute
+            <code><span class="envvar">%ERLANG_HOME%</span>\bin\erl.exe</code>.
+        </p>
+        <p>
+            Go to Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables.
+            Create the system environment variable <span class="envvar">ERLANG_HOME</span>
+            and set it to the full path of the directory which contains
+            <code>bin\erl.exe</code>.
+        </p>
+      </doc:subsection>
+    </doc:section>
 
-      <h3>Install RabbitMQ Server</h3>
+
+    <doc:section name="install-rabbitmq">
+      <doc:heading>Install RabbitMQ Server</doc:heading>
+
       <p>
         Download <code>rabbitmq-server-windows-&version-server;.zip</code>
         from the link above.
@@ -87,11 +102,80 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="find-rabbitmq-on-windows">
-      <doc:heading>Finding Command Scripts and App Data</doc:heading>
-      <dl class="instructions">
-        <dt>Commands for RabbitMQ Server</dt>
-        <dd>
+
+    <doc:section name="erlang-cookie">
+      <doc:heading>Synchronise Erlang Cookies </doc:heading>
+        <p>
+          The Erlang cookie is a shared secret used for authentication between <a href="/cluster.html">RabbitMQ cluster nodes</a> and <a href="/cli.html">CLI tools</a>.
+          The value is stored in a file commonly referred to as the Erlang cookie file.
+        </p>
+
+        <p>
+          The cookie file used by the service account and the user
+          running <code>rabbitmqctl.bat</code> must be synchronised for
+          CLI tools such as <code>rabbitmqctl.bat</code> to function. All nodes in a cluster must have the same
+          cookie value (cookie file contents).
+        </p>
+
+        <p>
+          When running a manually installed Windows service, making sure the cookie file is in sync is the
+          responsibility of the user.
+        </p>
+
+        <p>
+          On Windows, the cookie file location varies depending on Erlang version used and whether the <code>HOMEDRIVE</code> or <code>HOMEPATH</code>
+          environment variables are set.
+        </p>
+
+        <p>
+          On Erlang 20.2 or later versions, the cookie location is the following:
+
+          <ul>
+            <li>
+              <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (usually <code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
+              if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+            </li>
+            <li>
+              <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
+              <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\WINDOWS\system32\config\systemprofile</code>) for RabbitMQ Windows service
+            </li>
+          </ul>
+
+          The cookie file used by the Windows service account and the user
+          running CLI tools must be synchronised.
+        </p>
+
+        <p>
+          On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie location is the following:
+
+          <ul>
+            <li>
+              <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (usually <code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
+              if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+            </li>
+            <li>
+              <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
+              <code>%WINDIR%\.erlang.cookie</code> (usually <code>C:\Windows\.erlang.cookie</code>) for RabbitMQ Windows service
+            </li>
+          </ul>
+
+          The cookie file used by the Windows service account and the user
+          running CLI tools must be synchronised.
+        </p>
+
+        <p>
+          To ensure Erlang cookie files contain the same string,
+          copy the <code>.erlang.cookie</code> file from the Windows
+          service directory listed above to replace the user <code>.erlang.cookie</code>.
+        </p>
+    </doc:section>
+
+    <doc:section name="locating-binaries-and-data">
+      <doc:heading>Locating CLI Tools and App Data</doc:heading>
+
+      <doc:subsection name="locating-binaries">
+        <doc:heading>CLI tools</doc:heading>
+
           <p>
             Within the <code>rabbitmq_server-&version-server;\sbin</code>
             directory are some scripts which run commands to control the RabbitMQ server.
@@ -118,10 +202,9 @@ limitations under the License.
             <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
             (e.g. right-click on the icon to select Run as Administrator).
           </p>
-        </dd>
-        <dt>Find Commands Easily</dt>
-        <dd>
-          Set up the system path so you can find the server and
+
+          <p>
+            Set up the system path so you can find the server and
           <code>sbin</code> directory easily.
           <ul>
             <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
@@ -131,41 +214,25 @@ limitations under the License.
             <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
               to your system path (aka %PATH%).</li>
           </ul>
-          Now you can run rabbitmq commands from any (administrator) Command Prompt.
+            Now you can run rabbitmq commands from any (administrator) Command Prompt.
+          </p>
+
           <p>
             You will need to navigate to <code>rabbitmq_server-&version-server;\sbin</code>
             to run commands if your system path does not contain the RabbitMQ <code>sbin</code>
             directory.
           </p>
-        </dd>
+      </doc:subsection>
 
-        <dt>Synchronise Erlang Cookies (when running a manually installed Windows Service)</dt>
-        <dd>
-          <p>
-            Erlang Security Cookies used by the service account and the user
-            running <code>rabbitmqctl.bat</code> must be synchronised for
-            <code>rabbitmqctl.bat</code> to function.
-          </p>
-          <p>
-            To ensure Erlang cookie files contain the same string,
-            copy the <code>.erlang.cookie</code> file from the Windows
-            directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
-            to replace the user <code>.erlang.cookie</code>.
-            The user cookie will be in the user's home directory
-            (<span class="envvar">%HOMEDRIVE%</span><span class="envvar">%HOMEPATH%</span>), e.g.
-            <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>
-            or <code>C:\Users\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code> (Windows Vista and later).
-          </p>
-        </dd>
 
-        <dt>Finding Application Data</dt>
-        <dd>
+      <doc:subsection name="locating-data-directory">
+        <doc:heading>Data Directory</doc:heading>
+
           <p>
-            By default, the RabbitMQ logs and Mnesia database
+            By default, the RabbitMQ logs and node's data directory
             are stored in the current user's Application Data directory
             e.g. <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Application Data</code> or
-            <code>C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming</code>
-            (Windows Vista and later).
+            <code>C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming</code>.
           </p>
           <p>
             Execute <code>echo %APPDATA%</code> at a Command Prompt
@@ -173,9 +240,9 @@ limitations under the License.
             Start&#xA0;>&#xA0;Run&#xA0;<code>%APPDATA%</code>
             will open this folder.
           </p>
-        </dd>
-      </dl>
+      </doc:subsection>
     </doc:section>
+
 
     <doc:section name="running-windows">
       <doc:heading>Running RabbitMQ Server as an Application</doc:heading>
