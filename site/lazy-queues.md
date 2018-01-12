@@ -214,11 +214,13 @@ The queue process will use another **8.4MB** of system memory, bringing the tota
 This is an important consideration for capacity planning if the RabbitMQ node is memory constrained,
 or if there are many lazy queues running on this RabbitMQ node.
 
-**It is important to remember that an under-provisioned RabbitMQ node in terms of memory or disk space will fail to start**
+**It is important to remember that an under-provisioned RabbitMQ node in terms of memory or disk space will fail to start.**
 
-To prevent any messages in a lazy queue loading into memory on node startup,
-you can set the `queue_index_embed_msgs_below` to `0`, as described in [RabbitMQ Configuration](configure.html).
+Setting `queue_index_embed_msgs_below` to `0` will disable embedding messages in the queue index.
+As a result, lazy queues will not load messages into memory on node startup.
 We encourage you to read [Persistence Configuration](persistence-conf.html) before tuning this property.
+
+To clarify, changing the `queue_index_embed_msgs_below` property **after** messages have already been embedded in the queue index will not prevent lazy queues from loading messages into memory on node startup.
 
 #### What about lazy queues with mixed message sizes?
 
