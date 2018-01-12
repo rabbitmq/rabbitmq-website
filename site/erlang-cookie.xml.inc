@@ -42,12 +42,48 @@ limitations under the License.
     located in <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
     and <code>$HOME/.erlang.cookie</code> (used by CLI tools).
   </p>
+
   <p>
-    On Windows, the locations are <code>C:\Users\<i>Current User</i>\.erlang.cookie</code> (<code>%HOMEDRIVE% + %HOMEPATH%\.erlang.cookie</code>)
-    or <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code>, and
-    <code>C:\Windows\.erlang.cookie</code> for RabbitMQ Windows service.
-    If Windows service is used, the cookie should be placed in both places.
+    On Windows, the cookie file location varies depending on Erlang version used and whether the <code>HOMEDRIVE</code> or <code>HOMEPATH</code>
+    environment variables are set.
   </p>
+
+  <p>
+    On Erlang 20.2 or later versions, the cookie location is the following:
+
+    <ul>
+      <li>
+        <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (usually <code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
+        if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+      </li>
+      <li>
+        <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
+        <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\WINDOWS\system32\config\systemprofile</code>) for RabbitMQ Windows service
+      </li>
+    </ul>
+
+    The cookie file used by the Windows service account and the user
+    running CLI tools must be synchronised.
+  </p>
+
+  <p>
+    On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie location is the following:
+
+    <ul>
+      <li>
+        <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (<code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
+        if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+      </li>
+      <li>
+        <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
+        <code>%WINDIR%\.erlang.cookie</code> (usually <code>C:\Windows\.erlang.cookie</code>) for RabbitMQ Windows service
+      </li>
+    </ul>
+
+    The cookie file used by the Windows service account and the user
+    running CLI tools must be synchronised.
+  </p>
+
   <p>
     As an alternative, you can add the option "<code>-setcookie <i>value</i></code>" in the <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> <a href="/configure.html">environment variable value</a>:
 

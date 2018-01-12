@@ -31,7 +31,28 @@ limitations under the License.
        will give you a suitable RFC 3339 value.
       -->
 
-      <doc:item>
+    <doc:item>
+      <doc:date iso="2018-01-12T18:00:00+03:00">12 January 2018</doc:date>
+      <doc:title>Breaking changes in Erlang/OTP 20.2 on Windows</doc:title>
+      <doc:link>https://groups.google.com/forum/#!topic/rabbitmq-users/dzetiXNy0Ec</doc:link>
+      <doc:text>
+        <p>
+          RabbitMQ users who run on Windows should be aware that default Erlang cookie
+          location in Erlang/OTP 20.2 <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/dzetiXNy0Ec">has changed</a>.
+          RabbitMQ documentation guides <a href="/cli.html">were updated</a> to explain the difference.
+          Users on other operating systems are not affected.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+   </doc:item>
+      
+    <doc:item>
       <doc:date iso="2017-12-23T11:00:00+04:00">23 December 2017</doc:date>
       <doc:title>RabbitMQ 3.7.2 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.2</doc:link>
