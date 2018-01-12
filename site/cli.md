@@ -98,10 +98,40 @@ non-privileged user and `root`.
 
 #### Windows
 
-On Windows, the locations are `C:\Users\\{Username}\.erlang.cookie` (`%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie`)
-or `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie`, and
-`C:\Windows\.erlang.cookie` for RabbitMQ Windows service.
+On Windows, the cookie location depends on a few factors:
+
+ * Erlang version: prior to 20.2 or 20.2 and later
+ * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are set
+
+
+##### Erlang 20.2 or later
+
+With Erlang versions prior to 20.2, the cookie file locations
+are
+
+ * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (usually `C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
+ * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (`C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
+ * `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie` for user `Current User` and `%USERPROFILE%\.erlang.cookie` (usually `C:\WINDOWS\system32\config\systemprofile`) for RabbitMQ Windows service
+
 If Windows service is used, the cookie should be placed in both places.
+
+
+##### Erlang 19.3 through 20.2
+
+With Erlang versions prior to 20.2, the cookie file locations
+are
+
+ * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (usually `C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
+ * `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie` for user `Current User` and `%WINDIR%\.erlang.cookie` (usually `C:\Windows\.erlang.cookie`) for RabbitMQ Windows service
+
+If Windows service is used, the cookie should be placed in both places.
+
+##### Troubleshooting
+
+When a node starts, it will [log](/logging.html) its home (base) directory location. Unless
+any [server directories](/relocate.html) were overridden, that's the directory the cookie file
+will be created in by the RabbitMQ service.
+
 
 #### Runtime Arguments
 
@@ -113,6 +143,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
 This is the least secure option and generally not recommended.
+
 
 
 ### Authentication Failures
