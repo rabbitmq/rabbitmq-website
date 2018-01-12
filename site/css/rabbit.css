@@ -72,6 +72,15 @@ a {
   -ms-transition: all .2s;
 }
 
+h1 a,
+h2 a,
+h3 a {
+  font-weight: bold;
+}
+a.anchor + a {
+  text-decoration: none;
+}
+
 a:active, a:hover {
   text-decoration: none;
 }
