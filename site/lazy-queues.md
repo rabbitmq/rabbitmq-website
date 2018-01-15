@@ -153,6 +153,7 @@ Both queues persisted 1,000,000 messages and used 1.2 GB of disk space.
 
 # In a https://github.com/rabbitmq/rabbitmq-perf-test clone, run:
 make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -u default -ad false"
+# Run gmake on OS X
 
 # Queue stats:
 rabbitmqctl list_queues name arguments memory messages_ram message_bytes_ram messages_persistent message_bytes_persistent
@@ -179,6 +180,7 @@ The `lazy` queue test is almost the same, these are the differences:
 
 # In a https://github.com/rabbitmq/rabbitmq-perf-test clone, run:
 make run ARGS="-y 0 -s 1000 -f persistent -C 1000000 -u lazy -qa x-queue-mode=lazy -ad false"
+# Run gmake on OS X
 </pre>
 
 **Note that this was a very simplistic test.**
