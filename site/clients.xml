@@ -72,7 +72,7 @@ limitations under the License.
           <a href="erlang-client-user-guide.html">API Guide</a>
         </li>
         <li>
-          API Reference
+          <a href="https://hexdocs.pm/amqp_client/" target="_blank">API Reference</a>
         </li>
       </ul>
     </div>
