@@ -135,7 +135,7 @@ The RAM utilization for `default` &amp; `lazy` queues **after** ingesting the ab
 | Queue type | Queue process memory | Messages in memory | Memory used by messages | Node memory |
 | -          | -                    | -                  | -                       | -           |
 | `default`  | 257 MB               | 386,307            | 368 MB                  | 734 MB      |
-| `lazy`     | 159 KB               | 0                  | 0                       | 0           |
+| `lazy`     | 159 KB               | 0                  | 0                       | 117 MB      |
 
 Both queues persisted 1,000,000 messages and used 1.2 GB of disk space.
 
