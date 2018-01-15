@@ -38,9 +38,13 @@ limitations under the License.
     tools such as Chef, BOSH, Docker or similar.
   </p>
   <p>
-    On UNIX systems, the cookie will be typically
-    located in <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
-    and <code>$HOME/.erlang.cookie</code> (used by CLI tools).
+    On UNIX systems, the cookie will be typically located in
+    <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
+    and <code>$HOME/.erlang.cookie</code> (used by CLI tools). Note
+    that since the value of `$HOME` varies from user to user, it's
+    necessary to place a copy of the cookie file for each user that
+    will be using the CLI tools. This applies to both non-privileged
+    users and `root`.
   </p>
 
   <p>

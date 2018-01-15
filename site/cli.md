@@ -90,8 +90,8 @@ On UNIX systems, the cookie will be typically
 located in `/var/lib/rabbitmq/.erlang.cookie` (used by the server)
 and `$HOME/.erlang.cookie` (used by CLI tools). Note that since the value
 of `$HOME` varies from user to user, it's necessary to place a copy of
-the cookie file for each user that will be using the CLI tools. This could be one
-non-privileged user and `root`.
+the cookie file for each user that will be using the CLI tools. This applies to both
+non-privileged users and `root`.
 
 #### Windows
 
