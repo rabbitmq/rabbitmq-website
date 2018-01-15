@@ -30,16 +30,22 @@ limitations under the License.
       <h2>Java</h2>
       <ul>
         <li>
-          API Guide
+          <a href="java-client.html">Downloads and Installation</a>
         </li>
         <li>
-          Javadoc API Reference
+          <a href="api-guide.html">API Guide</a>
         </li>
         <li>
-          JMS Guide
+          <a href="releases/rabbitmq-java-client/current-javadoc/">API Reference</a>
         </li>
         <li>
-          <a href="/java-tools.html">Command line tools</a>
+          <a href="jms-client.html">JMS Guide</a>
+        </li>
+        <li>
+          <a href="jms-client-compliance.html">JMS Reference</a>
+        </li>
+        <li>
+          <a href="java-tools.html">Command line tools</a>
         </li>
       </ul>
     </div>
@@ -48,7 +54,10 @@ limitations under the License.
       <h2>.NET/C#</h2>
       <ul>
         <li>
-          Guide
+          <a href="dotnet.html">Downloads and Installation</a>
+        </li>
+        <li>
+          <a href="dotnet-api-guide.html">API Guide</a>
         </li>
           <li>
             API Reference
@@ -60,7 +69,10 @@ limitations under the License.
       <h2>Erlang</h2>
       <ul>
         <li>
-          Guide
+          <a href="erlang-client.html">Downloads and Installation</a>
+        </li>
+        <li>
+          <a href="erlang-client-user-guide.html">API Guide</a>
         </li>
         <li>
           API Reference
