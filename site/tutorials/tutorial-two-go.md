@@ -229,8 +229,8 @@ the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
 In this tutorial we will use manual message acknowledgements by passing
-the `false,  // auto-ack` option and send a proper acknowledgment
-from the worker `d.Ack(false)` (acknowledges a single delivery),
+a `false` for the "auto-ack" argument and then send a proper acknowledgment
+from the worker with `d.Ack(false)` (this acknowledges a single delivery),
 once we're done with a task.
 
 <pre class="sourcecode go">
