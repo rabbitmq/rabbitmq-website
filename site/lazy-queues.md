@@ -175,6 +175,7 @@ The `lazy` queue test is almost the same, these are the differences:
 
 <pre class="sourcecode bash">
 # Use a different RABBITMQ_NODENAME
+# All other variables remain the same as the previous example
 #
 #       export RABBITMQ_NODENAME=lazy-queue-test
 
