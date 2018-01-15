@@ -228,8 +228,7 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-Message acknowledgments are turned on by default.
-It's time to turn them off using the `false,  // auto-ack` option and send a proper acknowledgment
+To turn off auto acknowledgment, pass `false, // auto-ack` and send a proper acknowledgment
 from the worker `d.Ack(true)`, once we're done with a task.
 
 <pre class="sourcecode go">
