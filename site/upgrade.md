@@ -257,19 +257,62 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
 
 1. Verify broker health.
 
-    Make sure nodes are healthy and there is no network partition or
-    disk or memory alarms.
+    Make sure nodes are healthy and there are no [network
+    partition](/partitions.html) or [disk or memory
+    alarms](/alarms.html) in effect.
 
-    You can use `rabbitmqctl node_health_check` command, RabbitMQ management UI or
-    HTTP API to run basic health-checks.
+    RabbitMQ management UI, CLI tools or HTTP API can be used for
+    assessing the health of the system..
 
     The overview page in the management UI displays effective RabbitMQ and Erlang
-    versions, basic health stats and message rates.
+    versions, multiple cluster-wide metrics and rates.
 
-    You can take this opportunity to record the number of durable
-    queues, the number of messages they hold and any informations about
-    the topology you like. It can be useful to double-check everything
-    is restored properly after the upgrade.
+    We recommend recording the number of durable
+    queues, the number of messages they hold and other pieces of information about
+    the topology that are relevant. This data wil help verify that the
+    system operates within reasonable parameters after the upgrade.
+
+    Use the `rabbitmqctl node_health_check` command to
+    vet individual nodes.
+
+1. Make sure the broker has a capacity to upgrade.
+
+    The upgrade process can require additional resources.
+    Make sure there are enough resources available to proceed, in particular free
+    memory and free disk space.
+
+    It's recommended to have at least half of the system memory free
+    before the upgrade. Default memory watermark is 0.4 so it should be
+    ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
+    the way nodes [calculate their total RAM consumption](/memory-use.html) has changed.
+    When upgrading from an earlier version.
+
+    It is required that the node has enough free disk space to fit at
+    least a full copy of the node data directory. Nodes create backups
+    before proceeding to upgrade their database. If disk space is
+    depleted, the node will abort upgrading and may fail to start
+    until the data directory is restored from the backup.
+
+    When upgrading a cluster using the rolling upgrade strategy,
+    be aware that queues and connections can migrate to other nodes
+    during the upgrade.
+
+    If queues are mirrored to a subset of the cluster only (as opposed
+    to all nodes), new mirrors will be created on running nodes when
+    the to-be-upgraded node shuts down. If clients support connections
+    recovery and can connect to different nodes, they will reconnect
+    to the nodes that are still running. If clients are configured to create
+    exclusive queues, these queues might be recreated on different nodes
+    after client reconnection.
+
+    To handle such migrations, make sure you have enough
+    spare resources on the remaining nodes so they can handle the extra load.
+    Depending on the load balancing strategy all the connections from
+    the stopped node can go to a single node, so it should be able to
+    handle up to twice as many.
+    It's generally a good practice to run a cluster with N+1 redundancy
+    (resource-wise), so you always have a capacity to handle a single
+    node being down.
 
 1. Take a backup.
 
