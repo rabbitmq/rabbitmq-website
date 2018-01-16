@@ -14,7 +14,7 @@ bug fixes
 - channels no longer crash when detecting nodes that have gone offline
 - rabbitmqctl no longer garbles error messages when rendering non-ASCII
   characters
-- the installer now places the .erlang.cookie file in %HOMEDRIVE%\%HOMEPATH%
+- the installer now places the .erlang.cookie file in %HOMEDRIVE%%HOMEPATH%
   on Windows, so that %USERPROFILE% can be safely relocated
 
 STOMP plugin
