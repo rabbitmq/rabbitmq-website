@@ -31,6 +31,19 @@ limitations under the License.
        will give you a suitable RFC 3339 value.
       -->
 
+
+    <doc:item>
+      <doc:date iso="2018-01-15T18:00:00+03:00">15 January 2018</doc:date>
+      <doc:title>RabbitMQ Community Survey</doc:title>
+      <doc:link>https://goo.gl/forms/DqbquKSV9c8aVrd12</doc:link>
+      <doc:text>
+        <p>
+          Team RabbitMQ is conducting a <a href="https://goo.gl/forms/DqbquKSV9c8aVrd12">RabbitMQ user survey</a>. Please help us
+          understand how you use RabbitMQ and what are your top pain points are. It will only take a few minutes.
+        </p>
+      </doc:text>
+   </doc:item>
+
     <doc:item>
       <doc:date iso="2018-01-12T18:00:00+03:00">12 January 2018</doc:date>
       <doc:title>Breaking changes in Erlang/OTP 20.2 on Windows</doc:title>
@@ -51,7 +64,7 @@ limitations under the License.
         </p>
       </doc:text>
    </doc:item>
-      
+
     <doc:item>
       <doc:date iso="2017-12-23T11:00:00+04:00">23 December 2017</doc:date>
       <doc:title>RabbitMQ 3.7.2 release</doc:title>

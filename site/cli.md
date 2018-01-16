@@ -35,7 +35,6 @@ for external connections on the target node.
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
 
-
 ## rabbitmqctl
 
 [rabbitmqctl](/rabbitmqctl.8.html) is the original CLI tool that ships with RabbitMQ.
@@ -55,7 +54,6 @@ and more.
 
 `rabbitmqctl` uses shared secret authentication (described below) with server nodes.
 
-
 ## rabbitmq-plugins
 
 [rabbitmq-plugins](/rabbitmq-plugins.8.html) is a tool that manages plugins:
@@ -65,7 +63,6 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
-
 
 ## How CLI tools Authenticate Nodes (and Nodes to Each Other): the Erlang Cookie
 
@@ -93,45 +90,45 @@ On UNIX systems, the cookie will be typically
 located in `/var/lib/rabbitmq/.erlang.cookie` (used by the server)
 and `$HOME/.erlang.cookie` (used by CLI tools). Note that since the value
 of `$HOME` varies from user to user, it's necessary to place a copy of
-the cookie file for each user that will be using the CLI tools. This could be one
-non-privileged user and `root`.
+the cookie file for each user that will be using the CLI tools. This applies to both
+non-privileged users and `root`.
 
 #### Windows
 
 On Windows, the cookie location depends on a few factors:
 
  * Erlang version: prior to 20.2 or 20.2 and later
- * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are set
-
+ * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
 
 ##### Erlang 20.2 or later
 
-With Erlang versions prior to 20.2, the cookie file locations
-are
+With Erlang versions starting with 20.2, the cookie file locations are:
 
- * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (usually `C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
- * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (`C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
- * `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie` for user `Current User` and `%USERPROFILE%\.erlang.cookie` (usually `C:\WINDOWS\system32\config\systemprofile`) for RabbitMQ Windows service
+ * `%HOMEDRIVE%%HOMEPATH%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie` for user `%USERNAME%`) if both the `HOMEDRIVE` and `HOMEPATH` environment variables are set
+ * `%USERPROFILE%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie`) if `HOMEDRIVE` and `HOMEPATH` are not both set
+ * For the RabbitMQ Windows service - `%USERPROFILE%\.erlang.cookie` (usually `C:\WINDOWS\system32\config\systemprofile`)
 
-If Windows service is used, the cookie should be placed in both places.
-
+If the Windows service is used, the cookie should be copied from
+`C:\Windows\system32\config\systemprofile\.erlang.cookie` to the expected
+location for users running commands like `rabbitmqctl.bat`.
 
 ##### Erlang 19.3 through 20.2
 
-With Erlang versions prior to 20.2, the cookie file locations
-are
+With Erlang versions prior to 20.2, the cookie file locations are:
 
- * `%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie` (usually `C:\Users\\<i>Current User</i>\.erlang.cookie` for user `Current User`) if either the `HOMEDRIVE` or `HOMEPATH` environment variables are set
- * `C:\Documents and Settings\<i>Current User</i>\.erlang.cookie` for user `Current User` and `%WINDIR%\.erlang.cookie` (usually `C:\Windows\.erlang.cookie`) for RabbitMQ Windows service
+ * `%HOMEDRIVE%%HOMEPATH%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie` for user `%USERNAME%`) if both the `HOMEDRIVE` and `HOMEPATH` environment variables are set
+ * `%USERPROFILE%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie`) if `HOMEDRIVE` and `HOMEPATH` are not both set
+ * For the RabbitMQ Windows service - `%WINDIR%\.erlang.cookie` (usually `C:\Windows\.erlang.cookie`)
 
-If Windows service is used, the cookie should be placed in both places.
+If the Windows service is used, the cookie should be copied from
+`C:\Windows\.erlang.cookie` to the expected location for users
+running commands like `rabbitmqctl.bat`.
 
 ##### Troubleshooting
 
 When a node starts, it will [log](/logging.html) its home (base) directory location. Unless
 any [server directories](/relocate.html) were overridden, that's the directory the cookie file
 will be created in by the RabbitMQ service.
-
 
 #### Runtime Arguments
 
@@ -143,8 +140,6 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
 This is the least secure option and generally not recommended.
-
-
 
 ### Authentication Failures
 

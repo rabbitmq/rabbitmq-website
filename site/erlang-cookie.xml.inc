@@ -38,9 +38,13 @@ limitations under the License.
     tools such as Chef, BOSH, Docker or similar.
   </p>
   <p>
-    On UNIX systems, the cookie will be typically
-    located in <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
-    and <code>$HOME/.erlang.cookie</code> (used by CLI tools).
+    On UNIX systems, the cookie will be typically located in
+    <code>/var/lib/rabbitmq/.erlang.cookie</code> (used by the server)
+    and <code>$HOME/.erlang.cookie</code> (used by CLI tools). Note
+    that since the value of `$HOME` varies from user to user, it's
+    necessary to place a copy of the cookie file for each user that
+    will be using the CLI tools. This applies to both non-privileged
+    users and `root`.
   </p>
 
   <p>
@@ -49,44 +53,41 @@ limitations under the License.
   </p>
 
   <p>
-    On Erlang 20.2 or later versions, the cookie location is the following:
-
+    With Erlang versions starting with 20.2, the cookie file locations are:
     <ul>
       <li>
-        <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (usually <code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
-        if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+        <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
       </li>
       <li>
-        <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
-        <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\WINDOWS\system32\config\systemprofile</code>) for RabbitMQ Windows service
+        <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
+      </li>
+      <li>
+        For the RabbitMQ Windows service - <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\WINDOWS\system32\config\systemprofile</code>)
       </li>
     </ul>
-
     The cookie file used by the Windows service account and the user
     running CLI tools must be synchronised.
   </p>
 
   <p>
-    On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie location is the following:
-
+    On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie file locations are:
     <ul>
       <li>
-        <code>%HOMEDRIVE% + %HOMEPATH%\\.erlang.cookie</code> (<code>C:\Users\\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code>)
-        if either the <code>HOMEDRIVE</code> or <code>HOMEPATH</code> environment variables are set
+        <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
       </li>
       <li>
-        <code>C:\Documents and Settings\<i>Current User</i>\.erlang.cookie</code> for user <code>Current User</code> and
-        <code>%WINDIR%\.erlang.cookie</code> (usually <code>C:\Windows\.erlang.cookie</code>) for RabbitMQ Windows service
+        <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
+      </li>
+      <li>
+        For the RabbitMQ Windows service - <code>%WINDIR%\.erlang.cookie</code> (usually <code>C:\Windows\.erlang.cookie</code>)
       </li>
     </ul>
-
     The cookie file used by the Windows service account and the user
     running CLI tools must be synchronised.
   </p>
 
   <p>
     As an alternative, you can add the option "<code>-setcookie <i>value</i></code>" in the <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> <a href="/configure.html">environment variable value</a>:
-
 
 <pre class="sourcecode ini">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"

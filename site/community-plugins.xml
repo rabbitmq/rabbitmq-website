@@ -77,8 +77,8 @@ limitations under the License.
             each routing key, and when a queue is bound, it
             automatically enqueues the last value for the binding key.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_rtopic_exchange-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_lvc-3.6.12.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_lvc_exchange">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_lvc_exchange">3.6.x</a></li>
               <li>Maintainer: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq-lvc-exchange</a></li>
             </ul>
@@ -89,8 +89,8 @@ limitations under the License.
             routing patterns at publishing time, instead of at
             binding time.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_rtopic_exchange-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_rtopic_exchange-3.6.x-e9346e81.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_rtopic_exchange">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_rtopic_exchange">3.6.x</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
             </ul>
@@ -107,8 +107,8 @@ limitations under the License.
             A plugin that adds delayed-messaging (or
             scheduled-messaging) to RabbitMQ.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_delayed_message_exchange-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_delayed_message_exchange-0.0.1.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_delayed_message_exchange">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_delayed_message_exchange">3.6.x</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
             </ul>
@@ -118,8 +118,8 @@ limitations under the License.
             A plugin that stamps a message with the node who first
             received it.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_routing_node_stamp-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_routing_node_stamp-3.6.x-024f8f22.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_routing_node_stamp">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_routing_node_stamp">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
             </ul>
@@ -129,8 +129,8 @@ limitations under the License.
             A plugin that adds a timestamp when a message first enters
             RabbitMQ.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_message_timestamp-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_delayed_message_exchange-0.0.1.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_message_timestamp">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_message_timestamp">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
             </ul>
@@ -152,8 +152,7 @@ limitations under the License.
             authorisation (determining what permissions they have)
             by making requests to an HTTP server.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http-3.6.12.ez">3.6.7+</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http-3.6.x-61ed0a93.ez">3.6.0 through 3.6.6</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_http">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
             </ul>
@@ -163,8 +162,8 @@ limitations under the License.
             Provides the ability for your RabbitMQ server to perform
             authentication and authorisation over AMQP itself.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_auth_backend_amqp-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_amqp-3.6.x-d1d2d20f.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_auth_backend_amqp">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_amqp">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
             </ul>
@@ -177,7 +176,8 @@ limitations under the License.
             Provides the ability for your RabbitMQ server to perform
             authorisation based on the client IP address.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_ip_range-0.2.0.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_auth_backend_ip_range">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_ip_range">3.6.x</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>Github: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
             </ul>
@@ -185,7 +185,7 @@ limitations under the License.
 
           <r:plugin name="rabbitmq_trust_store">
             <i>
-              As of RabbitMQ 3.7.0 the trust store plugin is
+              As of RabbitMQ 3.6.3 the trust store plugin is
               provided with the broker's package.
             </i>
             Provides support for TLS (x509) certificate whitelisting.
@@ -205,7 +205,7 @@ limitations under the License.
         <table class="plugins">
           <r:plugin name="rabbitmq_top">
             <i>
-              As of RabbitMQ 3.7.0 the management top plugin is
+              As of RabbitMQ 3.6.3 the management top plugin is
               provided with the broker's package.
             </i>
             Adds a "top" like view of busy processes to the
@@ -221,8 +221,8 @@ limitations under the License.
             Adds an exchange type which allows you to connect to the
             management API using AMQP rather than HTTP.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_management_exchange-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_management_exchange-3.6.x-9f53a13b.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_management_exchange">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_management_exchange">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
             </ul>
@@ -239,8 +239,8 @@ limitations under the License.
             Adds the possibility to customize the management web UI
             look.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_management_themes-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_management_themes-3.6.x-b2959fbd.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_management_themes">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_management_themes">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
             </ul>
@@ -251,8 +251,8 @@ limitations under the License.
             in a graph. This is a debugging tool: it is of no use in a
             production broker.
             <ul> 
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.0/rabbitmq_boot_steps_visualiser-3.7.0.zip">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_boot_steps_visualiser-3.6.x-cdccdbae.ez">3.6.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_boot_steps_visualiser">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_boot_steps_visualiser">3.6.x</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
             </ul>
@@ -285,7 +285,6 @@ limitations under the License.
             Provides an alternative way of cluster formation. This plugin is deprecated.
 
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_clusterer-1.0.3.ez">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
             </ul>
@@ -302,10 +301,6 @@ limitations under the License.
 	      replaced by native Lager support.
             </i>
             Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
-            <ul>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/goldrush/_latestVersion#files">goldrush</a></li>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/lager/_latestVersion#files">lager</a></li>
-            </ul>
             <ul>
               <li>Author: <b>Basho Technologies</b></li>
               <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
@@ -368,10 +363,8 @@ limitations under the License.
             Application Protocol (CoAP) as specified in the
             <a href="https://www.ietf.org/id/draft-koster-core-coap-pubsub-02.txt">draft-koster-core-coap-pubsub-02</a>.
             <ul>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/gen_coap/_latestVersion#files">gen_coap</a></li>
-              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_coap_pubsub/_latestVersion#files">rabbitmq_coap_pubsub</a></li>
-            </ul>
-            <ul>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_coap_pubsub">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_coap_pubsub">3.6.x</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-coap-pubsub">gotthardp/rabbitmq-coap-pubsub</a></li>
             </ul>
@@ -380,9 +373,8 @@ limitations under the License.
             Maps SMTP to AMQP 0-9-1 (to convert an incoming email to an AMQP 0-9-1
             message) and AMQP 0-9-1 to SMTP (to send an email from an AMQP 0-9-1 message).
             <ul>
-              <li>Download for <a href="">rabbitmq_email</a></li>
-            </ul>
-            <ul>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_email">3.7.x</a></li>
+              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_email">3.6.x</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
             </ul>
@@ -403,12 +395,11 @@ limitations under the License.
 
           <r:plugin name="rabbitmq_web_mqtt">
             <i>
-              As of RabbitMQ 3.7.0 the Web-MQTT plugin is
+              As of RabbitMQ 3.6.2 the Web-MQTT plugin is
               provided with the broker's package.
             </i>
             Provides support for MQTT-over-WebSockets.
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_web_mqtt-3.6.x-a5e79164.ez">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt">rabbitmq/rabbitmq-web-mqtt</a></li>
             </ul>
