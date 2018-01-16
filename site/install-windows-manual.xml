@@ -132,7 +132,7 @@ limitations under the License.
           With Erlang versions starting with 20.2, the cookie file locations are:
           <ul>
             <li>
-              <code>%HOMEDRIVE%\%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
+              <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
             </li>
             <li>
               <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
@@ -147,7 +147,7 @@ limitations under the License.
           On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie file locations are:
           <ul>
             <li>
-              <code>%HOMEDRIVE%\%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
+              <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
             </li>
             <li>
               <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
