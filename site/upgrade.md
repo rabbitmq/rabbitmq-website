@@ -11,6 +11,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
+1. [Handling broker restart on the client side](#rabbitmq-restart-handling)
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
@@ -197,6 +198,20 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
+## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling broker restart on the client side](#rabbitmq-restart-handling)
+
+In order to reduce or eliminate the downtime, your clients (producers
+and consumers) should be able to cope with a server-initiated connection
+close. Otherwise you may have to take care of hung or crashed client
+applications. Some client libraries offer a way to react to such
+connection close; here are some examples of those libraries:
+
+* [Java client](api-guide.html#shutdown)
+* [.NET client](dotnet-api-guide.html#connection-recovery)
+* [Bunny Ruby client](http://rubybunny.info/articles/error_handling.html#network_connection_failures)
+* [Pika Python client](https://pika.readthedocs.io/en/0.10.0/modules/connection.html#pika.connection.Connection.add_on_close_callback)
+* [Go AMQP client](https://godoc.org/github.com/streadway/amqp#Connection.NotifyClose)
 
 ## <a id="recommended-upgrade-process" class="anchor" /> [Recommended upgrade process](#recommended-upgrade-process)
 
