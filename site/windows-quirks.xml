@@ -89,8 +89,9 @@ limitations under the License.
       </li>
       <li>
         Copy the file <code>.erlang.cookie</code> manually
-        from <code>%SystemRoot%</code> to
-        <code>%HOMEDRIVE%</code><code>%HOMEPATH%</code>.
+        from <code>%SystemRoot%</code> or
+        <code>%SystemRoot%\system32\config\systemprofile</code>
+        to <code>%HOMEDRIVE%%HOMEPATH%</code>.
       </li>
     </ul>
     <h3>Shutting down Windows</h3>
