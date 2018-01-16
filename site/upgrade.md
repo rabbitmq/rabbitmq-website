@@ -257,8 +257,9 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
 
 1. Verify broker health.
 
-    Make sure nodes are healthy and there is no network partition or
-    disk or memory alarms.
+    Make sure nodes are healthy and there is no [network
+    partition](/partitions.html) or [disk or memory
+    alarms](/alarms.html).
 
     You can use `rabbitmqctl node_health_check` command, RabbitMQ management UI or
     HTTP API to run basic health-checks.
@@ -270,6 +271,46 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
     queues, the number of messages they hold and any informations about
     the topology you like. It can be useful to double-check everything
     is restored properly after the upgrade.
+
+1. Make sure the broker has a capacity to upgrade.
+
+    The upgrade process can take some additional resources, so you
+    should make sure there are enough to proceed, in particular free
+    memory and available disk space.
+
+    It's recommended to have at least half of the system memory free
+    before the upgrade. Default memory watermark is 0.4 so it should be
+    ok, but you should still double-check. In versions before `3.6.11`
+    memory usage is not calculated based on the system memory usage but
+    on internal Erlang metric and thus can be underreported. Therefore
+    you should use system tools to determine how much more memory you
+    will need.
+
+    As for disk space it's recommended to have enough space to fit at
+    least a copy RabbitMQ data directory (for a backup made during
+    upgrade). If disk space is depleted, RabbitMQ can crash and fail to
+    start, making data recovery extremely hard.
+
+    When upgrading a cluster using rolling upgrade strategy, you should
+    be aware that some queues and connections can move to other nodes
+    during upgrade.
+
+    If queues are mirrored to a subset of the cluster only (as opposed
+    to all nodes), new mirrors will be created on running nodes when
+    the to-be-upgraded node shuts down. If clients support connections
+    recovery and can connect to different nodes, new connections will
+    be created on running nodes. If clients are configured to create
+    exclusive queues, these queues might be recreated on different nodes
+    as clients reconnect.
+
+    To handle such migrations, you should make sure you have enough
+    resources on the remaining nodes so they can handle the extra load.
+    Depending on the load balancing strategy all the connections from
+    the stopped node can go to a single node, so it should be able to
+    handle up to twice as many.
+    It's generally a good practice to run a cluster with N+1 redundancy
+    (resource-wise), so you always have a capacity to handle a single
+    node shutting down.
 
 1. Take a backup.
 
