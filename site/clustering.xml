@@ -399,10 +399,20 @@ Cluster status of node rabbit@rabbit3 ...
         </doc:subsection>
 
         <doc:subsection name="breakup">
-          <doc:heading>Breaking up a cluster</doc:heading>
+          <doc:heading>Breaking Up a Cluster</doc:heading>
           <p>
-            Nodes need to be removed explicitly from a cluster when they are no
-            longer meant to be part of it. We first remove
+            Sometimes it is necessary to remove a node from a
+            cluster. The operator has to do this explicitly using a
+            <code>rabbitmqctl</code> command.
+          </p>
+          <p>
+            Some <a href="/cluster-formation.html">peer discovery mechanisms</a>
+            support node health checks and forced
+            removal of nodes not known to the discovery backend. That feature is
+            opt-in (disabled by default).
+          </p>
+          <p>
+            We first remove
             <code>rabbit@rabbit3</code> from the cluster, returning it to
             independent operation. To do that, on <code>rabbit@rabbit3</code> we
             stop the RabbitMQ application, reset the node, and restart the
@@ -496,7 +506,13 @@ Stopping node rabbit@rabbit2 ...done.
 rabbit2$ <i>rabbitmqctl reset</i>
 Resetting node rabbit@rabbit2 ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit2 ...done.</pre>
+          Starting node rabbit@rabbit2 ...done.</pre>
+
+          <p>
+            Besides <code>rabbitmqctl forget_cluster_node</code> and the automatic cleanup of unknown nodes
+            by some <a href="/cluster-formation">peer discovery</a> plugins, there are no scenarios
+            in which a RabbitMQ node will permanently remove its peer node from a cluster.
+          </p>
         </doc:subsection>
       </doc:section>
 
