@@ -11,7 +11,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
-1. [Handling broker restart on the client side](#rabbitmq-restart-handling)
+1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
