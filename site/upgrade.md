@@ -215,6 +215,23 @@ In most client libraries there is a way to react to a connection closure, for ex
 * [Pika](https://pika.readthedocs.io/en/0.10.0/modules/connection.html#pika.connection.Connection.add_on_close_callback) (Python)
 * [Go](https://godoc.org/github.com/streadway/amqp#Connection.NotifyClose)
 
+The recovery procedure for many applications follows the same steps:
+
+1. Reconnect
+2. Re-open channels
+3. Restore channel settings (e.g. the [`basic.qos` setting](/confirms.html), publisher confirms)
+4. Recovery topology
+
+Topology recovery includes the following actions, performed for every channel:
+
+1. Re-declare exchanges declared by the application
+2. Re-declare queues
+3. Recover bindings (both queue and [exchange-to-exchange](/e2e.html) ones)
+4. Recover consumers
+
+This algorithm covers the majority of use cases and is what the
+aforementioned automatic recovery feature implements.
+
 During a rolling upgrade when a node is stopped, clients connected to this node
 will be disconnected using a server-sent `connection.close` method and should reconnect to a different node.
 This can be achieved by using a load balancer or proxy in front of the cluster
