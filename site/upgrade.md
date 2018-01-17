@@ -11,6 +11,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
+1. [Handling broker restart on the client side](#rabbitmq-restart-handling)
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
@@ -198,7 +199,34 @@ upgrader node stopping and the last node stopping will be lost.
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
 
-## <a id="recommended-upgrade-process" class="anchor" /> [Recommended upgrade process](#recommended-upgrade-process)
+## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
+
+In order to reduce or eliminate the downtime, applications (both producers
+and consumers) should be able to cope with a server-initiated connection
+close. Some client libraries offer automatic connection recovery
+to help with this:
+
+* [Java client](api-guide.html#recovery)
+* [.NET client](dotnet-api-guide.html#connection-recovery)
+* [Bunny](http://rubybunny.info/articles/error_handling.html#network_connection_failures) (Ruby)
+
+In most client libraries there is a way to react to a connection closure, for example:
+
+* [Pika](https://pika.readthedocs.io/en/0.10.0/modules/connection.html#pika.connection.Connection.add_on_close_callback) (Python)
+* [Go](https://godoc.org/github.com/streadway/amqp#Connection.NotifyClose)
+
+During a rolling upgrade when a node is stopped, clients connected to this node
+will be disconnected using a server-sent `connection.close` method and should reconnect to a different node.
+This can be achieved by using a load balancer or proxy in front of the cluster
+or by specifying multiple server hosts if client library supports this feature.
+
+The following libraries support host lists:
+
+* [Java client](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/ConnectionFactory.html#newConnection-com.rabbitmq.client.Address:A-)
+* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs#L376)
+* [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
+
+## <a id="recommended-upgrade-steps" class="anchor" /> [Recommended Upgrade Steps](#recommended-upgrade-steps)
 
 1. Select a version to upgrade to.
 
