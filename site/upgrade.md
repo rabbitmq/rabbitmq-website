@@ -213,6 +213,15 @@ connection close; here are some examples of those libraries:
 * [Pika Python client](https://pika.readthedocs.io/en/0.10.0/modules/connection.html#pika.connection.Connection.add_on_close_callback)
 * [Go AMQP client](https://godoc.org/github.com/streadway/amqp#Connection.NotifyClose)
 
+During the rolling upgrade when a node is stopped, clients connected to this node
+can reconnect to another one. This can be achieved by using a load balancer
+or by specifying multiple hosts in the client configuration if the client library supports it.
+Here are some examples of clients, supporting multiple hosts:
+
+* [Java client](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/ConnectionFactory.html#newConnection-com.rabbitmq.client.Address:A-)
+* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs#L376)
+* [Bunny Ruby client](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
+
 ## <a id="recommended-upgrade-process" class="anchor" /> [Recommended upgrade process](#recommended-upgrade-process)
 
 1. Select a version to upgrade to.
