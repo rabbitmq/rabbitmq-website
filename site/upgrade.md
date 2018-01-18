@@ -129,23 +129,24 @@ upgrading.
 
 ### <a id="multiple-nodes-upgrade" class="anchor" /> [Upgrading Multiple Nodes](#multiple-nodes-upgrade)
 
-Depending on what versions are involved in an upgrade, RabbitMQ cluster *may* provide an opportunity to perform upgrades
-without cluster downtime using a procedure known as rolling upgrade.
+Depending on what versions are involved in an upgrade, RabbitMQ cluster
+*may* provide an opportunity to perform upgrades without cluster
+downtime using a procedure known as rolling upgrade. A rolling upgrade
+is when nodes are stopped, upgraded and restarted one-by-one, with the
+rest of the cluster still running while each node being upgraded.
 
-During a rolling upgrade is when nodes are stopped, upgraded and restarted
-one-by-one, with the rest of the cluster still running while each node being upgraded.
-It is important to let the node being upgraded to fully start and sync all data from its peers
-before proceeding to upgrade the next one.
+If rolling upgrades are not possible, the entire cluster should be
+stopped, then restarted. This is referred to as the full stop upgrade.
+
+About mirrored queues, before you stop a node, you must ensure that
+all queues master it holds have at least one synchronized queue slave.
 
 Client (application) connections will be dropped when each node stops. Applications need to be
 prepared to handle this and reconnect.
 
-During a rolling upgrade connections and queues will be rebalanced. This will
-put more load on the broker. This can impact performance and stability
-of the cluster. It's not recommended to perform rolling upgrades
-under high load.
+#### <a id="rolling-upgrades" class="anchor" /> [Rolling Upgrades](#rolling-upgrades)
 
-#### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version Limitations For Rolling Upgrades](#rolling-upgrades-version-limitations)
+##### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version limitations](#rolling-upgrades-version-limitations)
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
@@ -177,6 +178,20 @@ refuse to join its peer (cluster).
 
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
+
+##### <a id="rolling-upgrades-restarting-nodes" class="anchor" /> [Restarting nodes](#rolling-upgrades-restarting-nodes)
+
+It is important to let the node being upgraded to fully start and sync
+all data from its peers before proceeding to upgrade the next one. You
+can check for that on the management UI. Confirm that:
+
+* the node is fully started from the overview page;
+* queues are synchronized from the queues list.
+
+During a rolling upgrade connections and queues will be rebalanced.
+This will put more load on the broker. This can impact performance
+and stability of the cluster. It's not recommended to perform rolling
+upgrades under high load.
 
 #### <a id="full-stop-upgrades" class="anchor" /> [Full-Stop Upgrades](#full-stop-upgrades)
 
