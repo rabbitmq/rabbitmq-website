@@ -138,9 +138,6 @@ rest of the cluster still running while each node being upgraded.
 If rolling upgrades are not possible, the entire cluster should be
 stopped, then restarted. This is referred to as the full stop upgrade.
 
-About mirrored queues, before you stop a node, you must ensure that
-all queues master it holds have at least one synchronized queue slave.
-
 Client (application) connections will be dropped when each node stops. Applications need to be
 prepared to handle this and reconnect.
 
@@ -186,7 +183,7 @@ all data from its peers before proceeding to upgrade the next one. You
 can check for that on the management UI. Confirm that:
 
 * the node is fully started from the overview page;
-* queues are synchronized from the queues list.
+* queues are synchronised from the queues list.
 
 During a rolling upgrade connections and queues will be rebalanced.
 This will put more load on the broker. This can impact performance
@@ -219,6 +216,23 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
+#### <a id="mirrored-queues" class="anchor" /> [Mirrored queues](#mirrored-queues)
+
+About mirrored queues, before you stop a node, you must ensure that
+all queues master it holds have at least one synchronised queue slave.
+
+You can verify that from the queues list in the management UI or using `rabbitmqctl`:
+
+<pre class="sourcecode sh">
+# For queues with non-empty `slave_pids`, you must have at least one
+# `synchronised_slave_pids`.
+rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
+</pre>
+
+If you have unsynchronised queues, either you enable
+automatic synchronisation or you [trigger it using
+`rabbitmqctl`](ha.html#unsynchronised-mirrors).
 
 ## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
 
