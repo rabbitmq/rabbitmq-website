@@ -630,7 +630,7 @@ disk_free_limit.absolute = 2GB
               number of connections, but might lead to connections
               dropping in the presence of network devices that close
               inactive connections.  <p>Default: <code>heartbeat =
-              600</code></p>
+              60</code></p>
             </td>
           </tr>
           <tr>
