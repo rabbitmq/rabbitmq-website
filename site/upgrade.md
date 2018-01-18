@@ -48,6 +48,12 @@ Such cases will be documented the breaking changes section of the release notes 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
+Sometimes a new feature release drops a plugin or multiple plugins from the distribution.
+For example, `rabbitmq_management_visualiser` no longer ships with RabbitMQ as of
+3.7.0. Such plugins **must be disabled** before the upgrade.
+A node that has a missing plugin enabled will fail to start.
+
+
 ## <a id="system-resource-usage" class="anchor" /> [Changes in System Resource Usage and Reporting](#system-resource-usage)
 
 Different versions of RabbitMQ can have different resource usage. That
