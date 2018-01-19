@@ -105,6 +105,20 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       </p>
 
       <p>
+        Depending on the backend (mechanism) used, the process of peer discovery may involve
+        contacting external services, for example, an AWS API endpoint, a Consul node or
+        performing a DNS query. Some backends require nodes to register (tell the backend that the
+        node is up and should be counted as a cluster member): for example, Consul and etcd both
+        support registration. With other backends the list of nodes is configured ahead of
+        time (e.g. config file or DNS) or controlled out-of-band (e.g. AWS autoscaling groups).
+        Those backends are said to not support node registration.
+      </p>
+
+      <p>
+        When the configured backend supports registration, nodes unregister when they stop.
+      </p>
+
+      <p>
         If peer discovery isn't configured, or it fails, or no peers are reachable,
         a node that wasn't a cluster member in the past
         will initialise from scratch and proceed as a standalone node.
