@@ -120,6 +120,14 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       </p>
 
       <p>
+        When a cluster is first formed and there are no registered nodes yet,
+        a natural race condition between booting
+        nodes occurs. Different backends <a href="#initial-formation-race-condition">address this problem</a>
+        differently: some try to acquire a lock with an external service, others rely on randomized
+        delays. This problem does not apply to the backends that require listing all nodes ahead of time.
+      </p>
+
+      <p>
         When the configured backend supports registration, nodes unregister when they stop.
       </p>
 
