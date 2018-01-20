@@ -48,6 +48,12 @@ Such cases will be documented the breaking changes section of the release notes 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
+Sometimes a new feature release drops a plugin or multiple plugins from the distribution.
+For example, `rabbitmq_management_visualiser` no longer ships with RabbitMQ as of
+3.7.0. Such plugins **must be disabled** before the upgrade.
+A node that has a missing plugin enabled will fail to start.
+
+
 ## <a id="system-resource-usage" class="anchor" /> [Changes in System Resource Usage and Reporting](#system-resource-usage)
 
 Different versions of RabbitMQ can have different resource usage. That
@@ -263,9 +269,11 @@ The following libraries support host lists:
     Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
     It's recommended to always upgrade at least to the latest patch release in a series.
 
-1. Read carefully the release notes of the selected RabbitMQ version.
+1. Read carefully the release notes up to the selected RabbitMQ version.
 
     The release notes may indicate specific additional upgrade steps.
+    Always consult with the release notes of all versions between the
+    one currently deployed and the target one.
 
 1. Check version compatibility.
 
@@ -307,18 +315,29 @@ The following libraries support host lists:
     alarms](/alarms.html) in effect.
 
     RabbitMQ management UI, CLI tools or HTTP API can be used for
-    assessing the health of the system..
+    assessing the health of the system.
 
-    The overview page in the management UI displays effective RabbitMQ and Erlang
-    versions, multiple cluster-wide metrics and rates.
+    The overview page in the management UI displays effective RabbitMQ
+    and Erlang versions, multiple cluster-wide metrics and rates. From
+    this page ensure that all nodes are running and they are all "green"
+    (w.r.t. file descriptors, memory, disk space, and so on).
 
-    We recommend recording the number of durable
-    queues, the number of messages they hold and other pieces of information about
-    the topology that are relevant. This data wil help verify that the
+    We recommend recording the number of durable queues, the number
+    of messages they hold and other pieces of information about the
+    topology that are relevant. This data wil help verify that the
     system operates within reasonable parameters after the upgrade.
 
     Use the `rabbitmqctl node_health_check` command to
     vet individual nodes.
+
+    Queues in flow state or blocked/blocking connections might be ok,
+    depending on your workload. It's up to you to determinate if this is
+    a normal situation or if the cluster is under unexpected load and
+    thus, decide if it's safe to continue with the upgrade.
+
+    However, if there queues in an undefined state (a.k.a. `NaN` or
+    "ghost" queues), you should first start by understanding what is
+    wrong before starting an upgrade.
 
 1. Make sure the broker has a capacity to upgrade.
 
@@ -337,6 +356,12 @@ The following libraries support host lists:
     before proceeding to upgrade their database. If disk space is
     depleted, the node will abort upgrading and may fail to start
     until the data directory is restored from the backup.
+
+    For example, if you have 10 GiB of free system memory and the Erlang
+    process (i.e. `beam.smp`) memory footprint is around 6 GiB, then it
+    can be unsafe to proceed. Likewise w.r.t. disk if you have 10 GiB of
+    free space and the data directory (e.g. `/var/lib/rabbitmq`) takes
+    10 GiB.
 
     When upgrading a cluster using the rolling upgrade strategy,
     be aware that queues and connections can migrate to other nodes
@@ -376,7 +401,7 @@ The following libraries support host lists:
     Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
     [rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrades) strategy.
 
-1. Verify broker health and version.
+1. Verify that the upgrade has succeeded
 
     Like you did before the upgrade, verify the health and data to
     make sure your RabbitMQ nodes are in good shape and the service is

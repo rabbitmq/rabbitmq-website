@@ -51,23 +51,9 @@ limitations under the License.
 
       <p>
         To form a cluster, new ("blank") nodes need to be able to discover
-        their peers. This can be done using a variety of mechanisms. The following ones are built-in:
-
-        <ul class="plain">
-          <li><a href="#peer-discovery-classic-config">config file</a></li>
-          <li><a href="#peer-discovery-dns">DNS</a></li>
-        </ul>
-      </p>
-
-      <p>
-        Additional peer discovery mechanisms are available via plugins:
-
-        <ul class="plain">
-          <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
-          <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
-          <li><a href="#peer-discovery-consul">Consul</a></li>
-          <li><a href="#peer-discovery-etcd">etcd</a></li>
-        </ul>
+        their peers. This can be done using a variety of mechanisms (backends).
+        Some mechanisms assumes all cluster members are known ahead of time (for example, listed
+        in the config file), others are dynamic (nodes can come and go).
       </p>
 
       <p>
@@ -96,12 +82,53 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       </p>
 
       <p>
+        The following mechanisms are built into the core:
+
+        <ul class="plain">
+          <li><a href="#peer-discovery-classic-config">Config file</a></li>
+          <li><a href="#peer-discovery-dns">Pre-configured DNS A/AAAA records</a></li>
+        </ul>
+
+        Additional peer discovery mechanisms are available via plugins. The following
+        peer discovery plugins ship with RabbitMQ as of 3.7.0:
+
+        <ul class="plain">
+          <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
+          <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
+          <li><a href="#peer-discovery-consul">Consul</a></li>
+          <li><a href="#peer-discovery-etcd">etcd</a></li>
+        </ul>
+      </p>
+
+      <p>
         When a node starts and detects it doesn't have a previously
         initialised database, it will check if there's a peer
         discovery mechanism configured. If that's the case, it will
         then perform the discovery and attempt to contact each
         discovered peer in order. Finally, it will attempt to join the
         cluster of the first reachable peer.
+      </p>
+
+      <p>
+        Depending on the backend (mechanism) used, the process of peer discovery may involve
+        contacting external services, for example, an AWS API endpoint, a Consul node or
+        performing a DNS query. Some backends require nodes to register (tell the backend that the
+        node is up and should be counted as a cluster member): for example, Consul and etcd both
+        support registration. With other backends the list of nodes is configured ahead of
+        time (e.g. config file) or managed by an external service (e.g. AWS autoscaling groups).
+        Those backends are said to not support node registration.
+      </p>
+
+      <p>
+        When a cluster is first formed and there are no registered nodes yet,
+        a natural race condition between booting
+        nodes occurs. Different backends <a href="#initial-formation-race-condition">address this problem</a>
+        differently: some try to acquire a lock with an external service, others rely on randomized
+        delays. This problem does not apply to the backends that require listing all nodes ahead of time.
+      </p>
+
+      <p>
+        When the configured backend supports registration, nodes unregister when they stop.
       </p>
 
       <p>
@@ -113,7 +140,7 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       <p>
         If a node previously was a cluster member, it will try to contact
         its "last seen" peer for a period of time. In this case, no peer discovery
-        will be performed.
+        will be performed. This is true for all backends.
       </p>
     </doc:section>
 
