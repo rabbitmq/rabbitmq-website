@@ -11,7 +11,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
-1. [Known issues during upgrade](#rabbitmq-known-issues)
+1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
@@ -219,12 +219,12 @@ upgrader node stopping and the last node stopping will be lost.
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
 
-## <a id="rabbitmq-known-issues" class="anchor" /> [Known issues during upgrade](#rabbitmq-known-issues)
+## <a id="caveats" class="anchor" /> [Caveats](#caveats)
 
 There are some minor things to consider during upgrade process when stopping and
 restarting nodes.
 
-### <a id="otp-bugs" class="anchor" /> [Erlang OTP bugs](#ot-bugs)
+### <a id="otp-bugs" class="anchor" /> [Erlang OTP bugs](#otp-bugs)
 
 Some bugs in Erlang runtime can cause node to hang during shutdown so it never stops.
 Both of them related to unterminated TCP sockets.
@@ -235,9 +235,9 @@ Both of them related to unterminated TCP sockets.
 When hitting those issues a node could hang completely. You will have to terminate
 the node process (e.g. using `kill -9` on Unix systems).
 
-Please note that in presence of many messages a node can take several minutes to
-stop normally, so you should not assume it hangs while the erlang distribution
-is still available. You can check erlang distribution using any rabbitmqctl command.
+Please note that in the presence of many messages a node can take several minutes to
+stop normally, so you should not assume it hangs while the Erlang distribution
+is still available. You can check the Erlang distribution using any rabbitmqctl command.
 For example:
 <pre class="sourcecode sh">
 rabbitmqctl eval "ok."
@@ -246,11 +246,11 @@ rabbitmqctl eval "ok."
 ### <a id="mirrored-queues-synchronisation" class="anchor" /> [Mirrored queues synchronisation](#mirrored-queues-synchronisation)
 
 Before you stop a node, you must ensure that
-all queues master it holds have at least one synchronised queue slave.
+all queue masters it holds have at least one synchronised queue slave.
 RabbitMQ will not promote unsynchronised queue slaves on controlled
 queue master shutdown when
 [default promote configuration](ha.html#promotion-while-down) is configured.
-Although if a queue master encounters any errors during shutdown, the unsynchronised
+However if a queue master encounters any errors during shutdown, an unsynchronised
 queue slave might still be promoted. It is generally safier option to synchronise
 a queue first.
 
@@ -266,7 +266,9 @@ If you have unsynchronised queues, either you enable
 automatic synchronisation or you [trigger it using
 `rabbitmqctl`](ha.html#unsynchronised-mirrors).
 
-### <a id="master-rebalance" class="anchor" /> [Mirrored queues master rebalancing](#master-rebalance)
+RabbitMQ shutdown process will not wait for queues to be synchronised if a synchronisation is in progress.
+
+### <a id="mirrored-queue-masters-rebalance" class="anchor" /> [Mirrored queue masters rebalancing](#mirrored-queue-masters-rebalance)
 
 Some upgrade scenarios can cause mirrored queue masters to be unevenly distributed
 between nodes in a cluster. This will put more load on the nodes with more queue masters.
@@ -286,6 +288,10 @@ which does this automatically for all queues, but it is not yet
 considered production ready and should be used with caution.
 The script has some assumptions (e.g. the default node name) and can fail to run on
 some installations.
+
+There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
+to rebalance queue masters. The plugin has some additional configuration and reporting tools,
+but is not supported or verified by the RabbitMQ team. Use at your own risk.
 
 ## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
 
