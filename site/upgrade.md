@@ -182,8 +182,9 @@ It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
 can check for that on the management UI. Confirm that:
 
+* the `rabbitmqctl wait &lt;pidfile&gt;` command returns;
 * the node is fully started from the overview page;
-* queues are synchronised from the queues list.
+* queues are [synchronised](#mirrored-queues) from the queues list.
 
 During a rolling upgrade connections and queues will be rebalanced.
 This will put more load on the broker. This can impact performance
