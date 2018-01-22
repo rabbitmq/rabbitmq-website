@@ -134,10 +134,10 @@ Depending on what versions are involved in an upgrade, RabbitMQ cluster
 *may* provide an opportunity to perform upgrades without cluster
 downtime using a procedure known as rolling upgrade. A rolling upgrade
 is when nodes are stopped, upgraded and restarted one-by-one, with the
-rest of the cluster still running while each node being upgraded.
+rest of the cluster still running while each node is being upgraded.
 
 If rolling upgrades are not possible, the entire cluster should be
-stopped, then restarted. This is referred to as the full stop upgrade.
+stopped, then restarted. This is referred to as a full stop upgrade.
 
 Client (application) connections will be dropped when each node stops. Applications need to be
 prepared to handle this and reconnect.
