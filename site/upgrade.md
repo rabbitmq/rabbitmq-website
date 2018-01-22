@@ -185,7 +185,7 @@ can check for that on the management UI. Confirm that:
 
 * the `rabbitmqctl wait &lt;pidfile&gt;` command returns;
 * the node is fully started from the overview page;
-* queues are [synchronised](#mirrored-queues) from the queues list.
+* queues are [synchronised](#mirrored-queues-synchronisation) from the queues list.
 
 During a rolling upgrade connections and queues will be rebalanced.
 This will put more load on the broker. This can impact performance
@@ -219,7 +219,7 @@ upgrader node stopping and the last node stopping will be lost.
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
 
-## <a id="#rabbitmq-known-issues" class="anchor" /> [Known issues during upgrade](#rabbitmq-known-issues)
+## <a id="rabbitmq-known-issues" class="anchor" /> [Known issues during upgrade](#rabbitmq-known-issues)
 
 There are some minor things to consider during upgrade process when stopping and
 restarting nodes.
@@ -243,7 +243,7 @@ For example:
 rabbitmqctl eval "ok."
 </pre>
 
-### <a id="mirrored-queues" class="anchor" /> [Mirrored queues](#mirrored-queues)
+### <a id="mirrored-queues-synchronisation" class="anchor" /> [Mirrored queues synchronisation](#mirrored-queues-synchronisation)
 
 Before you stop a node, you must ensure that
 all queues master it holds have at least one synchronised queue slave.
@@ -265,6 +265,27 @@ rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchron
 If you have unsynchronised queues, either you enable
 automatic synchronisation or you [trigger it using
 `rabbitmqctl`](ha.html#unsynchronised-mirrors).
+
+### <a id="master-rebalance" class="anchor" /> [Mirrored queues master rebalancing](#master-rebalance)
+
+Some upgrade scenarios can cause mirrored queue masters to be unevenly distributed
+between nodes in a cluster. This will put more load on the nodes with more queue masters.
+For example a full-stop upgrade will make all queue masters migrate to an upgrader node - the one stopped last and started first.
+Rolling upgrade of three nodes with two mirrors will also cause all queue masters to be on the same node.
+
+You can move a queue master for a queue using a temporary [policy](/parameters.html) with
+`ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
+The policy can be created via management UI or rabbitmqctl command:
+<pre class="sourcecode sh">
+rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queue&gt;$;' '{"ha-mode":"nodes", "ha-params":["&lt;new-master-node&gt;"]}'
+rabbitmqctl clear_policy move-my-queue
+</pre>
+
+There is a [bash script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
+which does this automatically for all queues, but it is not yet
+considered production ready and should be used with caution.
+The script has some assumptions (e.g. the default node name) and can fail to run on
+some installations.
 
 ## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
 
