@@ -181,7 +181,7 @@ a rolling upgrade.
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
-can check for that on the management UI. Confirm that:
+can check for that via the management UI. Confirm that:
 
 * the `rabbitmqctl wait &lt;pidfile&gt;` command returns;
 * the node is fully started from the overview page;
