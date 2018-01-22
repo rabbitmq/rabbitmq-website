@@ -245,8 +245,14 @@ rabbitmqctl eval "ok."
 
 ### <a id="mirrored-queues" class="anchor" /> [Mirrored queues](#mirrored-queues)
 
-About mirrored queues, before you stop a node, you must ensure that
+Before you stop a node, you must ensure that
 all queues master it holds have at least one synchronised queue slave.
+RabbitMQ will not promote unsynchronised queue slaves on controlled
+queue master shutdown when
+[default promote configuration](ha.html#promotion-while-down) is configured.
+Although if a queue master encounters any errors during shutdown, the unsynchronised
+queue slave might still be promoted. It is generally safier option to synchronise
+a queue first.
 
 You can verify that from the queues list in the management UI or using `rabbitmqctl`:
 
