@@ -1,25 +1,26 @@
-# Upgrading RabbitMQ using Blue-Green deployment strategy
+# Upgrading RabbitMQ Using Blue-Green Deployment Strategy
 
-The idea of an upgrade based on a blue-green deployment is to set up
-a second RabbitMQ cluster (the "green" one) next to your current production
-cluster (the "blue" one). You then switch your applications to the "green"
-cluster. When it's done, you can shut the "blue" cluster down. To ease the
-switch, you can use the federation plugin to transfer data from "blue" to
-"green".
+Blue-green deployment is an upgrade strategy that is based on the idea of to seting up
+a second RabbitMQ cluster (the "green" one) next to the current production
+cluster (the "blue" one). Applications are then switched to the "green"
+cluster. When that migration is done, the "blue" cluster is decomissioned (shut down).
+To simplify the switch, [federated queues](http://www.rabbitmq.com/federated-queues.html)
+can be used to transfer enqueued messages from the "blue" to the "green" cluster.
 
-## Preparing the "green" cluster
+## Preparing the "green" Cluster
 
-After you deployed a brand new "green" cluster, there two steps to follow:
+After deploying a brand new "green" cluster, there two steps to follow:
 
-* import definitions, e.g. exchanges, queues, bindings;
-* configure federation to later drain messages.
+ * import definitions, e.g. exchanges, queues, bindings;
+ * configure federation to later drain messages.
 
 ### Importing definitions
 
-Exporting definitions from "blue" to import them in "green" is the same
-[procedure already described to back them up](backup.html#definitions-export).
+The procedure of definitions export/import is
+covered in the [Backup guide](backup.html#definitions-export).
+The "blue" is the source cluster and the "green" one is the target.
 
-### Configuring federation
+### Configuring Queue Federation
 
 The [federation plugin](federation.html) allows you to move your consumers
 from "blue" to "green" without disrupting the message consumption and without

@@ -16,8 +16,8 @@ It is important to consider a number of things before upgrading RabbitMQ.
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
-Instead of a regular upgrade, you may consider a [blue-green deployment](blue-green-upgrade.html).
-It has the benefit of making the upgrade process safier at the cost of having
+Instead of a regular ("in place") upgrade, a strategy known as [blue-green deployment](blue-green-upgrade.html)
+can be used. It has the benefit of making the upgrade process safier at the cost of having
 to spawn an entire new RabbitMQ cluster.
 
 ## <a id="rabbitmq-version-compatibility" class="anchor" /> [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility)
