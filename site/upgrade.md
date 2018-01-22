@@ -11,6 +11,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
+1. [Known issues during upgrade](#rabbitmq-known-issues)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
@@ -218,7 +219,31 @@ upgrader node stopping and the last node stopping will be lost.
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
 
-#### <a id="mirrored-queues" class="anchor" /> [Mirrored queues](#mirrored-queues)
+## <a id="#rabbitmq-known-issues" class="anchor" /> [Known issues during upgrade](#rabbitmq-known-issues)
+
+There are some minor things to consider during upgrade process when stopping and
+restarting nodes.
+
+### <a id="otp-bugs" class="anchor" /> [Erlang OTP bugs](#ot-bugs)
+
+Some bugs in Erlang runtime can cause node to hang during shutdown so it never stops.
+Both of them related to unterminated TCP sockets.
+
+* [OTP-14441](https://bugs.erlang.org/browse/ERL-430) - fixed in `OTP-19.3.6` and `OTP-20.0`
+* [OTP-14509](https://bugs.erlang.org/browse/ERL-448) - fixed in `OTP-19.3.6.2` and `OTP-20.0.2`
+
+When hitting those issues a node could hang completely. You will have to terminate
+the node process (e.g. using `kill -9` on Unix systems).
+
+Please note that in presence of many messages a node can take several minutes to
+stop normally, so you should not assume it hangs while the erlang distribution
+is still available. You can check erlang distribution using any rabbitmqctl command.
+For example:
+<pre class="sourcecode sh">
+rabbitmqctl eval "ok."
+</pre>
+
+### <a id="mirrored-queues" class="anchor" /> [Mirrored queues](#mirrored-queues)
 
 About mirrored queues, before you stop a node, you must ensure that
 all queues master it holds have at least one synchronised queue slave.
