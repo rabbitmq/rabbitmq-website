@@ -177,6 +177,7 @@ limitations under the License.
           <a href="/reliability.html">Reliable Message Delivery</a>
         </li>
         <li><a href="upgrade.html">Upgrade</a></li>
+        <li><a href="blue-green-upgrade.html">Blue-green deployment-based upgrade</a></li>
       </ul>
     </div>
 

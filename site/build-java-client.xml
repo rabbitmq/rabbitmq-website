@@ -97,7 +97,7 @@ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 		the build:
 		<pre class="sourcecode bash">
 cd rabbitmq-java-client
-mvn clean package -Ddeps.dir=../ -DskipTests</pre>
+./mvnw clean package -Ddeps.dir=../ -DskipTests</pre>
 		The generated JAR file will be in <code>target</code>.
       </p>
 
