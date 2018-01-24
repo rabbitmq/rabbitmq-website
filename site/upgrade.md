@@ -228,37 +228,43 @@ If you have an earlier cluster, you will need to rebuild it to upgrade.
 There are some minor things to consider during upgrade process when stopping and
 restarting nodes.
 
-### <a id="otp-bugs" class="anchor" /> [Erlang OTP bugs](#otp-bugs)
+### <a id="otp-bugs" class="anchor" /> [Known Erlang OTP Bugs that Can Affect Upgrades](#otp-bugs)
 
-Some bugs in Erlang runtime can cause node to hang during shutdown so it never stops.
-Both of them related to unterminated TCP sockets.
+Known bugs in the Erlang runtime can affect upgrades. Most common issues involve nodes hanging
+during shutdown, which blocks subsequent upgrade steps:
 
-* [OTP-14441](https://bugs.erlang.org/browse/ERL-430) - fixed in `OTP-19.3.6` and `OTP-20.0`
-* [OTP-14509](https://bugs.erlang.org/browse/ERL-448) - fixed in `OTP-19.3.6.2` and `OTP-20.0.2`
+* [OTP-14441](https://bugs.erlang.org/browse/ERL-430): fixed in Erlang/OTP `19.3.6` and `20.0`
+* [OTP-14509](https://bugs.erlang.org/browse/ERL-448): fixed in Erlang/OTP `19.3.6.2` and `20.0.2`
 
-When hitting those issues a node could hang completely. You will have to terminate
-the node process (e.g. using `kill -9` on Unix systems).
+A node that suffered from the above bugs will fail to shut down and stop responding to inbound
+connections, including those of CLI tools. Such node's OS process has to be terminated
+(e.g. using `kill -9` on UNIX systems).
 
-Please note that in the presence of many messages a node can take several minutes to
-stop normally, so you should not assume it hangs while the Erlang distribution
-is still available. You can check the Erlang distribution using any rabbitmqctl command.
-For example:
+Please note that in the presence of many messages it can take a node several minutes to shut down
+cleanly, so if a node responds to CLI tool commands it could be performing various shutdown activities
+such as moving enqueued messages to disk.
+
+The following commands can be used to verify whether a node is experience the above bugs.
+An affected node will not respond to CLI connections in a reasonable amount of time
+when performing the following basic commands:
+
 <pre class="sourcecode sh">
+rabbitmqctl status
 rabbitmqctl eval "ok."
 </pre>
 
 ### <a id="mirrored-queues-synchronisation" class="anchor" /> [Mirrored queues synchronisation](#mirrored-queues-synchronisation)
 
-Before you stop a node, you must ensure that
-all queue masters it holds have at least one synchronised queue slave.
-RabbitMQ will not promote unsynchronised queue slaves on controlled
+Before stopping a node, make ensure that
+all mirrored queue masters it holds have at least one synchronised queue mirror.
+RabbitMQ will not promote unsynchronised queue mirrors on controlled
 queue master shutdown when
-[default promote configuration](ha.html#promotion-while-down) is configured.
+[default promotion settings](ha.html#promotion-while-down) are used.
 However if a queue master encounters any errors during shutdown, an unsynchronised
 queue slave might still be promoted. It is generally safier option to synchronise
 a queue first.
 
-You can verify that from the queues list in the management UI or using `rabbitmqctl`:
+This can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
 <pre class="sourcecode sh">
 # For queues with non-empty `slave_pids`, you must have at least one
@@ -266,18 +272,20 @@ You can verify that from the queues list in the management UI or using `rabbitmq
 rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
 </pre>
 
-If you have unsynchronised queues, either you enable
-automatic synchronisation or you [trigger it using
-`rabbitmqctl`](ha.html#unsynchronised-mirrors).
+If there are unsynchronised queues, either enable
+automatic synchronisation or [trigger it using
+`rabbitmqctl`](ha.html#unsynchronised-mirrors) manually.
 
-RabbitMQ shutdown process will not wait for queues to be synchronised if a synchronisation is in progress.
+RabbitMQ shutdown process will not wait for queues to be synchronised
+if a synchronisation operation is in progress.
 
 ### <a id="mirrored-queue-masters-rebalance" class="anchor" /> [Mirrored queue masters rebalancing](#mirrored-queue-masters-rebalance)
 
 Some upgrade scenarios can cause mirrored queue masters to be unevenly distributed
 between nodes in a cluster. This will put more load on the nodes with more queue masters.
-For example a full-stop upgrade will make all queue masters migrate to an upgrader node - the one stopped last and started first.
-Rolling upgrade of three nodes with two mirrors will also cause all queue masters to be on the same node.
+For example a full-stop upgrade will make all queue masters migrate to the "upgrader" node -
+the one stopped last and started first.
+A rolling upgrade of three nodes with two mirrors will also cause all queue masters to be on the same node.
 
 You can move a queue master for a queue using a temporary [policy](/parameters.html) with
 `ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
@@ -287,15 +295,17 @@ rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queu
 rabbitmqctl clear_policy move-my-queue
 </pre>
 
-There is a [bash script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
-which does this automatically for all queues, but it is not yet
-considered production ready and should be used with caution.
-The script has some assumptions (e.g. the default node name) and can fail to run on
-some installations.
+A [queue master rebalancing script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
+is available. It rebalances queue masters for all queues.
+
+The script has certain assumptions (e.g. the default node name) and can fail to run on
+some installations. The script should be considered
+experimental. Run it in a non-production environment first.
 
 There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
-to rebalance queue masters. The plugin has some additional configuration and reporting tools,
+that rebalances queue masters. The plugin has some additional configuration and reporting tools,
 but is not supported or verified by the RabbitMQ team. Use at your own risk.
+
 
 ## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
 
