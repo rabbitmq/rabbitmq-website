@@ -11,9 +11,14 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
+1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
+
+Instead of a regular ("in place") upgrade, a strategy known as [blue-green deployment](blue-green-upgrade.html)
+can be used. It has the benefit of making the upgrade process safier at the cost of having
+to spawn an entire new RabbitMQ cluster.
 
 ## <a id="rabbitmq-version-compatibility" class="anchor" /> [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility)
 
@@ -129,23 +134,21 @@ upgrading.
 
 ### <a id="multiple-nodes-upgrade" class="anchor" /> [Upgrading Multiple Nodes](#multiple-nodes-upgrade)
 
-Depending on what versions are involved in an upgrade, RabbitMQ cluster *may* provide an opportunity to perform upgrades
-without cluster downtime using a procedure known as rolling upgrade.
+Depending on what versions are involved in an upgrade, RabbitMQ cluster
+*may* provide an opportunity to perform upgrades without cluster
+downtime using a procedure known as rolling upgrade. A rolling upgrade
+is when nodes are stopped, upgraded and restarted one-by-one, with the
+rest of the cluster still running while each node is being upgraded.
 
-During a rolling upgrade is when nodes are stopped, upgraded and restarted
-one-by-one, with the rest of the cluster still running while each node being upgraded.
-It is important to let the node being upgraded to fully start and sync all data from its peers
-before proceeding to upgrade the next one.
+If rolling upgrades are not possible, the entire cluster should be
+stopped, then restarted. This is referred to as a full stop upgrade.
 
 Client (application) connections will be dropped when each node stops. Applications need to be
 prepared to handle this and reconnect.
 
-During a rolling upgrade connections and queues will be rebalanced. This will
-put more load on the broker. This can impact performance and stability
-of the cluster. It's not recommended to perform rolling upgrades
-under high load.
+#### <a id="rolling-upgrades" class="anchor" /> [Rolling Upgrades](#rolling-upgrades)
 
-#### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version Limitations For Rolling Upgrades](#rolling-upgrades-version-limitations)
+##### <a id="rolling-upgrades-version-limitations" class="anchor" /> [Version limitations](#rolling-upgrades-version-limitations)
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
@@ -178,6 +181,21 @@ refuse to join its peer (cluster).
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
+##### <a id="rolling-upgrades-restarting-nodes" class="anchor" /> [Restarting nodes](#rolling-upgrades-restarting-nodes)
+
+It is important to let the node being upgraded to fully start and sync
+all data from its peers before proceeding to upgrade the next one. You
+can check for that via the management UI. Confirm that:
+
+* the `rabbitmqctl wait &lt;pidfile&gt;` command returns;
+* the node is fully started from the overview page;
+* queues are [synchronised](#mirrored-queues-synchronisation) from the queues list.
+
+During a rolling upgrade connections and queues will be rebalanced.
+This will put more load on the broker. This can impact performance
+and stability of the cluster. It's not recommended to perform rolling
+upgrades under high load.
+
 #### <a id="full-stop-upgrades" class="anchor" /> [Full-Stop Upgrades](#full-stop-upgrades)
 
 When an entire cluster is stopped for upgrade, the order in which nodes are
@@ -204,6 +222,80 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
+## <a id="caveats" class="anchor" /> [Caveats](#caveats)
+
+There are some minor things to consider during upgrade process when stopping and
+restarting nodes.
+
+### <a id="otp-bugs" class="anchor" /> [Erlang OTP bugs](#otp-bugs)
+
+Some bugs in Erlang runtime can cause node to hang during shutdown so it never stops.
+Both of them related to unterminated TCP sockets.
+
+* [OTP-14441](https://bugs.erlang.org/browse/ERL-430) - fixed in `OTP-19.3.6` and `OTP-20.0`
+* [OTP-14509](https://bugs.erlang.org/browse/ERL-448) - fixed in `OTP-19.3.6.2` and `OTP-20.0.2`
+
+When hitting those issues a node could hang completely. You will have to terminate
+the node process (e.g. using `kill -9` on Unix systems).
+
+Please note that in the presence of many messages a node can take several minutes to
+stop normally, so you should not assume it hangs while the Erlang distribution
+is still available. You can check the Erlang distribution using any rabbitmqctl command.
+For example:
+<pre class="sourcecode sh">
+rabbitmqctl eval "ok."
+</pre>
+
+### <a id="mirrored-queues-synchronisation" class="anchor" /> [Mirrored queues synchronisation](#mirrored-queues-synchronisation)
+
+Before you stop a node, you must ensure that
+all queue masters it holds have at least one synchronised queue slave.
+RabbitMQ will not promote unsynchronised queue slaves on controlled
+queue master shutdown when
+[default promote configuration](ha.html#promotion-while-down) is configured.
+However if a queue master encounters any errors during shutdown, an unsynchronised
+queue slave might still be promoted. It is generally safier option to synchronise
+a queue first.
+
+You can verify that from the queues list in the management UI or using `rabbitmqctl`:
+
+<pre class="sourcecode sh">
+# For queues with non-empty `slave_pids`, you must have at least one
+# `synchronised_slave_pids`.
+rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
+</pre>
+
+If you have unsynchronised queues, either you enable
+automatic synchronisation or you [trigger it using
+`rabbitmqctl`](ha.html#unsynchronised-mirrors).
+
+RabbitMQ shutdown process will not wait for queues to be synchronised if a synchronisation is in progress.
+
+### <a id="mirrored-queue-masters-rebalance" class="anchor" /> [Mirrored queue masters rebalancing](#mirrored-queue-masters-rebalance)
+
+Some upgrade scenarios can cause mirrored queue masters to be unevenly distributed
+between nodes in a cluster. This will put more load on the nodes with more queue masters.
+For example a full-stop upgrade will make all queue masters migrate to an upgrader node - the one stopped last and started first.
+Rolling upgrade of three nodes with two mirrors will also cause all queue masters to be on the same node.
+
+You can move a queue master for a queue using a temporary [policy](/parameters.html) with
+`ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
+The policy can be created via management UI or rabbitmqctl command:
+<pre class="sourcecode sh">
+rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queue&gt;$;' '{"ha-mode":"nodes", "ha-params":["&lt;new-master-node&gt;"]}'
+rabbitmqctl clear_policy move-my-queue
+</pre>
+
+There is a [bash script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
+which does this automatically for all queues, but it is not yet
+considered production ready and should be used with caution.
+The script has some assumptions (e.g. the default node name) and can fail to run on
+some installations.
+
+There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
+to rebalance queue masters. The plugin has some additional configuration and reporting tools,
+but is not supported or verified by the RabbitMQ team. Use at your own risk.
 
 ## <a id="rabbitmq-restart-handling" class="anchor" /> [Handling Node Restarts in Applications](#rabbitmq-restart-handling)
 

@@ -78,7 +78,7 @@ limitations under the License.
           <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
         </li>
         <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">Windows binary</a>
+          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
         </li>
       </ul>
 
