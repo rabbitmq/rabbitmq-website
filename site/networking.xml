@@ -936,7 +936,7 @@ net.ipv4.tcp_keepalive_probes=4
       </p>
     </doc:section>
 
-    <doc:section name="nettick">
+    <doc:section name="handshake-timeout">
       <doc:heading>Connection Handshake Timeout</doc:heading>
 
       <p>
