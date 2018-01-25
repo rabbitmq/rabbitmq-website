@@ -28,7 +28,7 @@ limitations under the License.
     <title>Amazon EC2</title>
   </head>
   <body>
-<doc:section name="ec2">
+<doc:section>
 
   <p>This guide assumes familiarity with the general <a href="/clustering.html">clustering guide</a>.</p>
 

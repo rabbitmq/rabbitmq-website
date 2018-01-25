@@ -42,7 +42,7 @@ limitations under the License.
         </r:download>
       </r:downloads>
 
-      <doc:subsection name="install-windows">
+      <doc:subsection name="install">
         <doc:heading>Install the Server</doc:heading>
         <p>
           First you need to install a <a href="/which-erlang.html">supported version of Erlang</a> for Windows.
