@@ -32,6 +32,20 @@ limitations under the License.
       -->
 
     <doc:item>
+      <doc:date iso="2018-01-26T16:27:00+01:00">26 January 2018</doc:date>
+      <doc:title>Impact of Meltdown mitigation on RabbitMQ performance</doc:title>
+      <doc:link>https://groups.google.com/d/topic/rabbitmq-users/Q1PqJhbuC1A/discussion</doc:link>
+      <doc:text>
+        <p>
+          We tested a few workloads with and without KPTI, the solution
+          to mitigate the <a href="https://meltdownattack.com/">Meltdown
+	  attack</a> on Linux. You can find our results
+	  <a href="https://groups.google.com/d/topic/rabbitmq-users/Q1PqJhbuC1A/discussion">on the mailist-list</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2018-01-26T08:00:00+03:00">26 January 2018</doc:date>
       <doc:title>Securing RabbitMQ against the ROBOT TLS attack</doc:title>
       <doc:link>https://groups.google.com/forum/#!topic/rabbitmq-users/MudIwPhZRVo</doc:link>
