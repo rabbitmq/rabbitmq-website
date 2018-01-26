@@ -28,7 +28,7 @@ limitations under the License.
     <title>Installing Additional Plugins</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="installing-plugins">
+      <doc:section>
       <p>
         Any plugins that do not ship with the server will need to be
         installed as .ez archives by copying them to one of the plugins
