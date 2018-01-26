@@ -167,13 +167,14 @@ model.QueueDeclare("myqueue", false, false, false, args);
       </p>
 
       <p>
-        This example in Java publishes a message which can reside in the queue
-        for at most 60 seconds:
+        This example uses <a href="/api-guide.html">RabbitMQ Java client</a>
+        to publishe a message which can reside in the queue for at most 60 seconds:
       </p>
       <pre class="sourcecode java">
 byte[] messageBodyBytes = "Hello, world!".getBytes();
-AMQP.BasicProperties properties = new AMQP.BasicProperties();
-properties.setExpiration("60000");
+AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
+                                   .expiration("60000")
+                                   .build();
 channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
 
       <p>

@@ -44,7 +44,7 @@ limitations under the License.
 
       <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
 
-      <doc:subsection name="install-generic-unix">
+      <doc:subsection name="install">
         <doc:heading>Install the Server</doc:heading>
         <p>
           Install a <a href="/which-erlang.html">supported version of Erlang</a>.

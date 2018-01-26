@@ -182,21 +182,21 @@ limitations under the License.
 
   <xsl:template match="doc:section">
     <div class="docSection">
-      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
+      <xsl:if test="@name"><a name="{@name}" class="anchor"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="doc:subsection">
     <div class="docSubsection">
-      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
+      <xsl:if test="@name"><a name="{@name}" class="anchor"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="doc:subsubsection">
     <div class="docSubsection">
-      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
+      <xsl:if test="@name"><a name="{@name}" class="anchor"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -209,15 +209,41 @@ limitations under the License.
   </xsl:template>
 
   <xsl:template match="doc:section/doc:heading">
-    <h2 class="docHeading"><xsl:apply-templates/></h2>
+    <h2 class="docHeading">
+      <xsl:choose>
+        <xsl:when test="../@name">
+          <a class="anchor" href="#{../@name}"><xsl:apply-templates/></a>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </h2>
   </xsl:template>
 
   <xsl:template match="doc:subsection/doc:heading">
-    <h3 class="docHeading"><xsl:apply-templates/></h3>
+    <h3 class="docHeading">
+      <xsl:choose>
+        <xsl:when test="../@name">
+          <a class="anchor" href="#{../@name}"><xsl:apply-templates/></a>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </h3>
   </xsl:template>
 
   <xsl:template match="doc:subsubsection/doc:heading">
-    <h3 class="docHeading"><xsl:apply-templates/></h3>
+    <h3 class="docHeading"><xsl:choose>
+        <xsl:when test="../@name">
+          <a href="#{../@name}"><xsl:apply-templates/></a>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </h3>
   </xsl:template>
 
   <xsl:template match="doc:roadmapentry/doc:heading">

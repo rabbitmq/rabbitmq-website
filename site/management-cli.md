@@ -32,7 +32,8 @@ HTTP API intentionally doesn't expose certain operations.
 ## Obtaining rabbitmqadmin
 
 With the management plugin installed, browse to
-`http://{hostname}:15672/cli/` to download. The tool supports
+`http://{hostname}:15672/cli/rabbitmqadmin`
+to download. The tool supports
 
  * Python `3.x`
  * Python `2.6` or later for HTTP connections
