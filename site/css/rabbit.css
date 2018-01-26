@@ -77,8 +77,12 @@ h2 a,
 h3 a {
   font-weight: bold;
 }
-a.anchor + a {
+a.anchor {
+  color: #808080;
   text-decoration: none;
+}
+.anchor:hover, .anchor:active {
+  text-decoration: underline;
 }
 
 a:active, a:hover {

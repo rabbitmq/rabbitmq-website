@@ -54,6 +54,11 @@ limitations under the License.
           as well.
           It is also available on <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22perf-test%22">Maven Central</a>
           if one needs to use it as library.
+          Note the documentation below can cover features available only in milestone releases or
+          release candidates, available in our
+          <a href="https://bintray.com/rabbitmq/java-tools-milestones/perf-test">Java Tools milestones repository</a>
+          and in
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/releases">GitHub releases</a> as well.
         </p>
 
         <p>
@@ -191,18 +196,20 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-11" --id "t
 <pre class="sourcecode bash">
 bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-12" --id "test-12" -f persistent --rate 5000 --consumer-rate 2000
 </pre>
+
+            Note that the consumer rate limit is applied per consumer, so in the
+            configuration above the limit is actually 2 * 2000 = 4000
+            deliveries/second.
+
         </p>
 
         <p>
-          PerfTest can be configured to run for a limited amount of time (in seconds):
+          PerfTest can be configured to run for a limited amount of time in seconds with the
+            <code>-z</code> option:
 
 <pre class="sourcecode bash">
 bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-13" --id "test-13" -f persistent -z 30
 </pre>
-
-          Note that the consumer rate limit is applied per consumer, so in the
-          configuration above the limit is actually 2 * 2000 = 4000
-          deliveries/second.
 
         </p>
 
@@ -214,6 +221,15 @@ bin/runjava com.rabbitmq.perf.PerfTest -x 1 -y 2 -u "throughput-test-13" --id "t
 <pre class="sourcecode bash">
 bin/runjava com.rabbitmq.perf.PerfTest -y0 -p -u "throughput-test-14" -s 1000 -C 1000000 --id "test-14" -f persistent
 </pre>
+
+            Use the <code>-D</code> option to limit the number of consumed messages. Note
+            the <code>-z</code> (time limit), <code>-C</code> (number of
+            published messages), and <code>-D</code> (number of consumed messages)
+            options can be used together but their combination can lead to funny results.
+            <code>-r 1 -x 1 -C 10 -y 1 -D 20</code> would for example stop the producer
+            once 10 messages have been published, letting the consumer wait forever
+            the remaining 10 messages (as the publisher is stopped).
+
         </p>
 
         <p>
@@ -237,8 +253,161 @@ bin/runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u "throughput-test-14" --id 
         </p>
       </doc:subsection>
 
+        <doc:subsection name="customising-queues-and-messages">
+            <doc:heading>Customising queues and messages</doc:heading>
+
+            <p>
+                PerfTest can create queues using provided queue arguments:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-arguments x-max-length=10
+</pre>
+
+                The previous command will create a <a href="/maxlength.html">queue with a length limit</a>
+                of 10. You can also provide several queue arguments by separating the
+                key/value pairs with commas:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-arguments x-max-length=10,x-dead-letter-exchange=some.exchange.name
+</pre>
+
+            </p>
+
+            <p>
+                You can also specify message properties with key/value pairs separated by commas:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --message-properties priority=5,timestamp=2007-12-03T10:15:30+01:00
+</pre>
+
+                The supported property keys are: <code>contentType</code>,
+                <code>contentEncoding</code>,
+                <code>deliveryMode</code>, <code>priority</code>,
+                <code>correlationId</code>, <code>replyTo</code>,
+                <code>expiration</code>, <code>messageId</code>,
+                <code>timestamp</code>, <code>type</code>, <code>userId</code>,
+                <code>appId</code>, <code>clusterId</code>. If some provided
+                keys do not belong to the previous list, the pairs will be considered
+                as headers (arbitrary key/value pairs):
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --message-properties priority=10,header1=value1,header2=value2
+</pre>
+
+            </p>
+
+            <p>
+                You can mimic real messages by specifying their content and
+                content type. This can be useful when plugging real application
+                consumers downstream. The content can come from one or several files and
+                the content-type can be specified:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --body content1.json,content2.json --body-content-type application/json \
+    --consumers 0
+</pre>
+
+            </p>
+
+        </doc:subsection>
+
+        <doc:subsection name="working-with-many-queues">
+            <doc:heading>Working with many queues</doc:heading>
+
+            <p>PertTest supports balancing the publishing and the consumption
+                across a sequence of queues, e.g.:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 10 \
+    --producers 100 --consumers 100
+</pre>
+
+            The previous command would create the <code>perf-test-1</code>, <code>perf-test-2</code>, ...,
+            <code>perf-test-10</code> queues and spreads the producers and consumers across them.
+                This way each queue will have 10 consumers and 10 producers sending messages to it.</p>
+
+            <p>Load is balanced in a round-robin fashion:
+
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 10
+    --producers 15 --consumers 30
+</pre>
+                With the previous command, queues from <code>perf-test-1</code> to <code>perf-test-5</code>
+                will have 2 producers, and queues from <code>perf-test-6</code> to <code>perf-test-10</code>
+                will have only 1 producer. Each queue will have 3 consumers.
+
+            </p>
+
+            <p>
+                Note the <code>--queue-pattern</code> value is a
+                <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html">Java printf-style format string</a>.
+                The queue index is the only argument passed in. The formatting is very closed to C's <code>printf</code>.
+                <code>--queue-pattern 'perf-test-%03d' --queue-pattern-from 1 --queue-pattern-to 500</code> would for
+                instance create queues from <code>perf-test-001</code> to <code>perf-test-500</code>.
+
+            </p>
+
+        </doc:subsection>
+
+        <doc:subsection name="simulating-high-loads">
+            <doc:heading>Simulating High Loads</doc:heading>
+
+            <p>
+                PerfTest can easily run hundreds of connections on a simple desktop machine.
+                Each producer and consumer use a Java thread and a TCP connection though,
+                so a PerfTest process can quickly run out of file descriptors, depending
+                on the OS settings. A simple solution is to use several PerfTest processes,
+                on the same machine or not. This is especially handy when combined
+                with the <a href="#working-with-many-queues">queue sequence</a> feature:
+
+<pre class="sourcecode bash">
+# This first PerfTest process creates 500 queues (from 'perf-test-1' to 'perf-test-500').
+# Each queue will have 3 consumers and 1 producer sending messages to it.
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 500
+    --producers 500 --consumers 1500
+# This second PerfTest process creates 500 queues (from 'perf-test-501' to 'perf-test-1000').
+# Each queue will have 3 consumers and 1 producer sending messages to it.
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 501 --queue-pattern-to 1000
+--producers 500 --consumers 1500
+</pre>
+
+                Those 2 processes will simulate 1000 producers and 3000 consumers spread
+                across 1000 queues.
+            </p>
+
+            <p>
+                A PerfTest process can exhaust its file descriptors limit and throw
+                <code>java.lang.OutOfMemoryError: unable to create new native thread</code>
+                exceptions. A first way to avoid this is to reduce the number of Java threads
+                PerfTest uses with the <code>--heartbeat-sender-threads</code> option:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 1000
+    --producers 1000 --consumers 3000 --hearteat-sender-threads 10
+</pre>
+
+                By default, each producer and consumer connection uses a dedicated thread
+                to send heartbeats to the broker, so this is 4000 threads for heartbeats
+                in the previous sample. Considering producers and consumers always communicate
+                with the broker by publishing messages or sending acknowledgments, connections
+                are never idle, so using 10 threads for heartbeats for the 4000 connections
+                should be enough. Don't hesitate to experiment to come up with the appropriate
+                <code>--heartbeat-sender-threads</code> value for your use case.
+            </p>
+            <p>
+                Another way to avoid <code>java.lang.OutOfMemoryError: unable to create new native thread</code>
+                exceptions is to tune the number of file descriptors allowed per process
+                at the OS level, as some distributions use very low limits.
+                Here the recommendations are the same as for the broker, so you
+                can refer to our <a href="/networking.html#os-tuning">networking guide</a>.
+            </p>
+
+
+        </doc:subsection>
+
         <doc:subsection name="perftest-different-machines">
-            <doc:heading>Running producers and consumers on different machines</doc:heading>
+            <doc:heading>Running Producers and Consumers on Different Machines</doc:heading>
 
             <p>
                 If you run producers and consumers on different machines or even

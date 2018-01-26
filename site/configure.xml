@@ -1324,7 +1324,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
               <td>RABBITMQ_DIST_PORT</td>
               <td>RABBITMQ_NODE_PORT + 20000</td>
               <td>
-                Port used for inter-node and CLI tool communition. Ignored if your config
+                Port used for inter-node and CLI tool communication. Ignored if your config
                 file sets <code>kernel.inet_dist_listen_min</code> or
                 <code>kernel.inet_dist_listen_max</code> keys. See <a href="/networking.html">Networking</a> for details.
               </td>

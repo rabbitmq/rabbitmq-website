@@ -112,7 +112,7 @@ loopback_users = none
 </pre>
       </doc:section>
 
-      <doc:section name="access-control">
+      <doc:section name="permissions">
         <doc:heading>How Permissions Work</doc:heading>
         <p>
           When a RabbitMQ client establishes a connection to a

@@ -40,6 +40,7 @@ limitations under the License.
             <li>Enabling TLS listeners in RabbitMQ</li>
             <li>How to generate self-signed certificates for development and QA environments</li>
             <li>TLS configuration in Java and .NET clients</li>
+            <li>Known vulnerabilities and their migration</li>
             <li>TLS version and cipher suite configuration</li>
             <li>Certificate chain validation depth</li>
             <li>Tools that can be used to evaluate a TLS setup</li>
@@ -48,8 +49,9 @@ limitations under the License.
           and more. It is not, however, a primer on TLS, encryption, <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure">Public Key Infrastructure</a>
           and related topics, so the concepts are covered very briefly.
           A number of beginner-oriented primers are available elsewhere on the Web:
-          <a href="https://blog.talpor.com/2015/07/ssltls-certificates-beginners-tutorial/">one</a>,
-          <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html">two</a>, <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html">three</a>.
+          <a href="https://hpbn.co/transport-layer-security-tls/">one</a>
+          <a href="https://blog.talpor.com/2015/07/ssltls-certificates-beginners-tutorial/">two</a>,
+          <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html">three</a>, <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html">four</a>.
         </p>
 
         <p>
@@ -118,8 +120,7 @@ limitations under the License.
           <p>
             If elliptic curve cryptography (ECC) cipher suites is
             expected to be used, a recent <a href="/which-erlang.html">supported Erlang release</a>
-            (e.g. 19.3.x) is highly recommended. Earlier releases have
-            known limitations around ECC.
+            is highly recommended. Earlier releases have known limitations around ECC support.
           </p>
           <p>
             If you face the above limitations or any other incompatibilities,
@@ -540,7 +541,7 @@ cat otherca/cacert.pem &gt;&gt; all_cacerts.pem
             </p>
         </doc:subsection>
 
-        <doc:subsection name="disabling-tls-versions">
+        <doc:subsection name="private-key-passwords">
           <doc:heading>Providing Private Key Password</doc:heading>
           <p>
             It is possible to provide a password for private key using the <code>password</code> option:
@@ -568,25 +569,6 @@ The same example using the <a href="/configure.html#erlang-term-config-file">cla
 ].
 </pre>
 
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="major-vulnerabilities">
-          <doc:heading>Known TLS Vulnerabilities: POODLE, BEAST, etc</doc:heading>
-          <h4>POODLE</h4>
-          <p>
-              <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE</a> is a known SSL/TLS attack that originally compromised SSLv3.
-              Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
-              the POODLE attack that affects TLSv1.0 was <a href="https://www.imperialviolet.org/2014/12/08/poodleagain.html">announced</a>.
-              It is therefore recommended to either run Erlang 18.0 or later, which
-              <a href="http://www.erlang.org/news/88">eliminates TLS 1.0 implementation vulnerability to POODLE</a>,
-              or disable TLSv1.0 support (see below).
-          </p>
-
-          <h4>BEAST</h4>
-          <p>
-              <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack">BEAST attack</a> is a known vulnerability that
-              affects TLSv1.0. To mitigate it, disable TLSv1.0 support (see below).
           </p>
         </doc:subsection>
 
@@ -835,7 +817,7 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
 </pre>
 
           <p>
-            An <a href="https://github.com/erlang/otp/wiki/Cipher-suite-correspondence-table">IANA and Erlang/OTP cipher suite correspondence table</a> 
+            An <a href="https://github.com/erlang/otp/wiki/Cipher-suite-correspondence-table">IANA and Erlang/OTP cipher suite correspondence table</a>
             can be used to find corresponding values in both formats.
           </p>
 
@@ -872,7 +854,7 @@ ssl_options.honor_ecc_order    = true
 </pre>
 
 Or, in the classic config format:
-          
+
 <pre class="sourcecode erlang">
 %% Enforce server-provided cipher suite order (preference)
 [
@@ -895,6 +877,35 @@ Or, in the classic config format:
 </pre>
         </doc:subsection>
       </doc:section>
+
+
+      <doc:section name="major-vulnerabilities">
+        <doc:heading>Known TLS Vulnerabilities and Their Mitigation</doc:heading>
+        <h4>ROBOT</h4>
+        <p>
+          <a href="https://robotattack.org/">ROBOT attack</a> affects RabbitMQ installations that rely on RSA
+          cipher suites and run on Erlang/OTP versions prior to
+          19.3.6.4 and 20.1.7. To mitigate, <a href="/which-erlang.html">upgrade Erlang/OTP</a> to a patched version
+          and consider <a href="#configuring-ciphers">limiting the list of supported cipher suites</a>.
+        </p>
+
+        <h4>POODLE</h4>
+        <p>
+            <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE</a> is a known SSL/TLS attack that originally compromised SSLv3.
+            Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
+            the POODLE attack that affects TLSv1.0 was <a href="https://www.imperialviolet.org/2014/12/08/poodleagain.html">announced</a>.
+            It is therefore recommended to either run Erlang 18.0 or later, which
+            <a href="http://www.erlang.org/news/88">eliminates TLS 1.0 implementation vulnerability to POODLE</a>,
+            or <a href="#disabling-tls-versions">disable TLSv1.0 support</a>.
+        </p>
+
+        <h4>BEAST</h4>
+        <p>
+            <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack">BEAST attack</a> is a known vulnerability that
+            affects TLSv1.0. To mitigate it, <a href="#disabling-tls-versions">disable TLSv1.0 support</a>.
+        </p>
+      </doc:section>
+
 
       <doc:section name="trust-levels">
         <doc:heading>Levels of Trust</doc:heading>
