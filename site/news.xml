@@ -32,6 +32,19 @@ limitations under the License.
       -->
 
     <doc:item>
+      <doc:date iso="2018-01-26T08:00:00+03:00">26 January 2018</doc:date>
+      <doc:title>Securing RabbitMQ against the ROBOT TLS attack</doc:title>
+      <doc:link>https://groups.google.com/forum/#!topic/rabbitmq-users/MudIwPhZRVo</doc:link>
+      <doc:text>
+        <p>
+          A recently disclosed TLS vulnerability called <a href="https://robotattack.org">ROBOT</a> affects
+          Erlang/OTP. Learn what RabbitMQ installations are affected
+          and <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/MudIwPhZRVo">how to mitigate</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2018-01-17T11:00:00+04:00">17 January 2018</doc:date>
       <doc:title>RabbitMQ 3.6.15 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_15</doc:link>
