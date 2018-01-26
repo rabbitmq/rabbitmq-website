@@ -24,7 +24,7 @@ limitations under the License.
   </head>
 
   <body show-in-this-page="true">
-      <doc:section name="ovreview">
+      <doc:section name="overview">
         <doc:heading>Overview</doc:heading>
         <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
