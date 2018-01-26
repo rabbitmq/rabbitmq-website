@@ -212,7 +212,7 @@ limitations under the License.
     <h2 class="docHeading">
       <xsl:choose>
         <xsl:when test="../@name">
-          <a href="#{../@name}"><xsl:apply-templates/></a>
+          <a class="anchor" href="#{../@name}"><xsl:apply-templates/></a>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates/>
@@ -225,7 +225,7 @@ limitations under the License.
     <h3 class="docHeading">
       <xsl:choose>
         <xsl:when test="../@name">
-          <a href="#{../@name}"><xsl:apply-templates/></a>
+          <a class="anchor" href="#{../@name}"><xsl:apply-templates/></a>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates/>
