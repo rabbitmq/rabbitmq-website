@@ -25,14 +25,14 @@ protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
 with some extensions and restrictions (described [here](#pear)).
 
 
-## <a id="ifb"/>Installing from binary
+## <a id="ifb" class="anchor" href="#ifb">Installing from binary</a>
 
 The STOMP adapter is included in the RabbitMQ distribution.  To enable
 it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
     rabbitmq-plugins enable rabbitmq_stomp
 
-## <a id="caifs"/>Compiling and installing from source
+## <a id="caifs" class="anchor" href="#caifs">Compiling and installing from source</a>
 
 To build the STOMP adapter from source, follow the instructions for
 building the umbrella repository contained in the
@@ -40,7 +40,7 @@ building the umbrella repository contained in the
 
 You need to install the `rabbitmq_stomp.ez` and `amqp_client.ez` packages.
 
-## <a id="cta"/>Configuring the adapter
+## <a id="cta" class="anchor" href="#cta">Configuring the adapter</a>
 
 When no configuration is specified the STOMP Adapter will listen on
 all interfaces on port 61613 and have a default user login/passcode
@@ -74,7 +74,7 @@ Or, using the <a href="/configure.html#erlang-term-config-file">classic config f
                                          {"::1",       61613}]}]}
     ].
 
-## TLS/SSL Support
+## <a id="tls" class="anchor" href="#tls">TLS/SSL Support</a>
 
 To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
 STOMP TLS connections, add a TLS listener for STOMP. The plugin will use core RabbitMQ server
@@ -106,7 +106,7 @@ Or, using the <a href="/configure.html#erlang-term-config-file">classic config f
 This configuration creates a standard TCP listener on port 61613 and
 an SSL listener on port 61614.
 
-### <a id="cta.du"/>Default User
+### <a id="cta.du" class="anchor" href="#cta.du">Default User</a>
 
 The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
 and `passcode` headers if a default is configured.
@@ -127,7 +127,7 @@ Or, using the <a href="/configure.html#erlang-term-config-file">classic config f
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
-### <a id="cta.ssl"/>Authentication with TLS/x509 client certificates
+### <a id="cta.ssl" class="anchor" href="#cta.ssl">Authentication with TLS/x509 client certificates</a>
 
 The STOMP adapter can authenticate SSL-based connections by extracting
 a name from the client's SSL certificate, without using a password.
@@ -166,7 +166,7 @@ Note that:
 * The authenticated user must exist in the configured authentication / authorisation backend(s).
 * Clients must **not** supply `login` and `passcode` headers.
 
-### <a id="cta.ic"/>Implicit Connect
+### <a id="cta.ic" class="anchor" href="#cta.ic">Implicit Connect</a>
 
 If you configure a default user or use SSL client certificate
 authentication, you can also choose to allow clients to omit the
@@ -195,7 +195,7 @@ Implicit connect is *not* enabled by default.
 **Note:** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
 
-## <a id="proxy-protocol"/> Proxy Protocol
+## <a id="proxy-protocol" class="anchor" href="#proxy-protocol"> Proxy Protocol</a>
 
 The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for STOMP clients:
@@ -211,7 +211,7 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
-### <a id="cta.tta"/>Testing the Adapter
+### <a id="cta.tta" class="anchor" href="#cta.tta">Testing the Adapter</a>
 
 If the default STOMP adapter is running, you should be able to connect to port 61613
 using a STOMP client of your choice. In a pinch, `telnet` or netcat
@@ -245,7 +245,7 @@ The script `test.py` runs a suite of tests and this can be run
 using `make test` against a STOMP adapter built from source.
 See [Compiling and installing from source](#caifs) above.
 
-## <a id="d"/>Destinations
+## <a id="d" class="anchor" href="#d">Destinations</a>
 
 The STOMP specification does not prescribe what kinds of destinations
 a broker must support, instead the value of the `destination` header
@@ -283,7 +283,7 @@ Different destinations have different queue parameter defaults.
 They can be controlled explicitly via headers, as explained further
 in this guide.
 
-### <a id="d.ed"/>Exchange Destinations
+### <a id="d.ed" class="anchor" href="#d.ed">Exchange Destinations</a>
 
 Any exchange/queue or exchange/routing-key combination can be accessed
 using destinations prefixed with `/exchange`.
@@ -307,7 +307,7 @@ each subscriber and is bound to the specified exchange using the
 supplied routing key. To work with existing queues, use
 [`/amq/queue`](#d.aqd) destinations.
 
-### <a id="d.qd"/>Queue Destinations
+### <a id="d.qd" class="anchor" href="#d.qd">Queue Destinations</a>
 
 For simple queues, destinations of the form `/queue/<name>` can be
 used.
@@ -329,7 +329,7 @@ If no queue parameters are specified, queue will be assumed to be
 durable, non-exclusive, non-autodeleted.
 
 
-### <a id="d.aqd"/>AMQ Queue Destinations
+### <a id="d.aqd" class="anchor" href="#d.aqd">AMQ Queue Destinations</a>
 
 To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
@@ -347,7 +347,7 @@ created for the current STOMP session.
 If no queue parameters are specified, queue will be assumed to be
 durable, non-exclusive, non-autodeleted.
 
-### <a id="d.td"/>Topic Destinations
+### <a id="d.td" class="anchor" href="#d.td">Topic Destinations</a>
 
 Perhaps the most common destination type used by STOMP clients is `/topic/<name>`.
 They perform topic matching on publishing messages against subscriber patterns
@@ -367,7 +367,7 @@ For `SUBSCRIBE` frames, an autodeleted, non-durable queue is created and bound t
 `amq.topic` exchange with routing key `<name>`. A subscription is
 created against the queue.
 
-### <a id="d.dts"/>Durable Topic Subscriptions
+### <a id="d.dts" class="anchor" href="#d.dts">Durable Topic Subscriptions</a>
 
 The STOMP adapter supports durable topic subscriptions. Durable
 subscriptions allow clients to disconnect from and reconnect to the
@@ -420,7 +420,7 @@ For example:
     durable:true
     auto-delete:false
 
-### <a id="d.tqd"/>Temp Queue Destinations
+### <a id="d.tqd" class="anchor" href="#d.tqd">Temp Queue Destinations</a>
 
 Temp queue destinations allow you to define temporary destinations
 in the `reply-to` header of a `SEND` frame.
@@ -473,7 +473,7 @@ Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
 reply queues.
 
-### <a id="d.ugqn"/>User generated queue names for Topic and Exchange destinations
+### <a id="d.ugqn" class="anchor" href="#d.ugqn">User generated queue names for Topic and Exchange destinations</a>
 
 When subscribing to an `exchange` or `topic` destination, RabbitMQ would generate
 a queue name by default. Starting with version 3.5.7, is it possible to provide
@@ -483,7 +483,7 @@ a custom name using the `x-queue-name` header:
     destination:/topic/alarms
     x-queue-name:my-alarms-queue
 
-## Controlling RabbitMQ Queue Parameters with STOMP
+## <a id="queue-parameters" class="anchor" href="#queue-parameters">Controlling RabbitMQ Queue Parameters with STOMP</a>
 
 As of RabbitMQ 3.6.0, it is possible to control queue parameters via STOMP
 headers:
@@ -507,7 +507,7 @@ queue and message TTL, queue limits, etc:
 The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
 Please consult the rest of the documentation for details.
 
-## Using Policies with STOMP
+## <a id="policies" class="anchor" href="#policies">Using Policies with STOMP</a>
 
 RabbitMQ [policies](https://www.rabbitmq.com/parameters.html#policies) allow for flexible,
 centralised attribute configuration of queues and exchanges. Policies can
@@ -531,7 +531,7 @@ multiple arguments (e.g. queue length limit and dead lettering) one
 needs to put them into a single policy.
 
 
-## <a id="pear"/>Protocol Extensions and Restrictions
+## <a id="pear" class="anchor" href="#pear">Protocol Extensions and Restrictions</a>
 
 The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
 and supports a number of non-standard headers on certain
@@ -539,7 +539,7 @@ frames. These extra headers provide access to features that are not
 described in the STOMP specs. In addition, we prohibit some headers which
 are reserved for server use. The details are given below.
 
-### <a id="pear.c"/>Connection and Virtual Hosts
+### <a id="pear.c" class="anchor" href="#pear.c">Connection and Virtual Hosts</a>
 
 The `CONNECT` (or `STOMP`) frame in
 [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
@@ -564,7 +564,7 @@ virtual hosts known to the RabbitMQ server, otherwise the connection is
 rejected. The `host` header is respected even if the STOMP 1.0 version is
 negotiated at the time of the connect.
 
-### <a id="pear.mp"/>Message Persistence
+### <a id="pear.mp" class="anchor" href="#pear.mp">Message Persistence</a>
 
 On the `SEND` frame, the STOMP adapter supports the inclusion of a `persistent` header.
 
@@ -577,7 +577,7 @@ on persistent messages can be found [here](confirms.html).
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
-### <a id="ack-nack">ACK and NACK</a>
+### <a id="ack-nack" class="anchor" href="#ack-nack">ACK and NACK</a>
 
 RabbitMQ STOMP plugin supports `auto`, `client`, and `client-individual`
 subscription headers that affect how `ACK` on `NACK` operations work.
@@ -589,19 +589,19 @@ is for message-by-message manual acknowledgement.
 `NACK` frames can optionally carry the `requeue` header which controls whether
 the message will be requeued or discarded/dead lettered. Default value is `true`.
 
-### <a id="pear.p"/>Prefetch
+### <a id="pear.p" class="anchor" href="#pear.p">Prefetch</a>
 
 The prefetch count for all subscriptions is set to unlimited by
 default. This can be controlled by setting the `prefetch-count` header
 on `SUBSCRIBE` frames to the desired integer count.
 
-### <a id="pear.hpos"/>Header prohibited on `SEND`
+### <a id="pear.hpos" class="anchor" href="#pear.hpos">Header prohibited on `SEND`</a>
 
 It is not permitted to set a `message-id` header on a `SEND` frame.
 The header and its value is set by the server on a `MESSAGE` frame sent
 to a client.
 
-### <a id="pear.ap"/>Queue Properties
+### <a id="pear.ap" class="anchor" href="#pear.ap">Queue Properties</a>
 
 `SEND` frames also allow headers corresponding to the *AMQP properties*
 available when publishing messages. These headers are also set on

@@ -5,7 +5,7 @@
 This guide covers backup and restore procedures for various types of data
 a RabbitMQ node may contain.
 
-## <a id="rabbitmq-data" class="anchor"/> [Two Types of Node Data](#types-of-data)
+## <a id="rabbitmq-data" class="anchor" href="#rabbitmq-data">Two Types of Node Data</a>
 
 Every RabbitMQ node has a data directory that stores all the information that resides
 on that node.
@@ -13,7 +13,7 @@ on that node.
 A data directory contains two types of data: definitions (metadata, schema/topology) and
 message store data.
 
-### <a id="rabbitmq-definitions" class="anchor"/> [Definitions (Topology)](#definitions)
+### <a id="rabbitmq-definitions" class="anchor" href="#rabbitmq-definitions">Definitions (Topology)</a>
 
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
@@ -26,7 +26,7 @@ Every node in a cluster has its own replica of all definitions. When a part of d
 the update is performed on all nodes in a single transaction. In the context of backups this
 means that in practice definitions can be exported from any cluster node with the same result.
 
-### <a id="rabbitmq-messages" class="anchor"/> [Messages](#messages)
+### <a id="rabbitmq-messages" class="anchor" href="#rabbitmq-messages">Messages</a>
 
 Messages are stored in a message store. For the purpose of this guide we will define "message store"
 as an internal store for messages, a single entity that's transparent to the user.
@@ -35,7 +35,7 @@ Each node has its own data directory and stores messages for the queues that hav
 their master hosted on that node. Messages can be replicated between nodes using [queue mirroring](/ha.html).
 Messages are stored in subdirectories of the node's data directory.
 
-### <a id="data-lifespan" class="anchor"/> [Data Lifecycle](#data-lifecycle)
+### <a id="data-lifespan" class="anchor" href="#data-lifespan">Data Lifecycle</a>
 
 Definitions are usually mostly static, while messages are continuously flowing from publishers to
 consumers.
@@ -47,14 +47,14 @@ a running node is highly discouraged and can lead to an inconsistent snapshot of
 
 Definitions can only be backed up from a running node.
 
-## <a id="definitions-backup" class="anchor"/> [Backing Up Definitions](#definitions-backup)
+## <a id="definitions-backup" class="anchor" href="#definitions-backup">Backing Up Definitions</a>
 
 Definitions can be exported to a JSON file or backed up manually. In
 most cases, definition export/import is the optimal way of doing
 it. Manual backup will require additional steps if the node name or
 hostname changes.
 
-### <a id="definitions-export" class="anchor"/> [Exporting Definitions](#definitions-export)
+### <a id="definitions-export" class="anchor" href="#definitions-export">Exporting Definitions</a>
 
 Definitions are exported as a JSON file using the [HTTP API](/management.html):
 
@@ -71,7 +71,7 @@ passwords with hashing functions such as SHA-256 or SHA-512 is not a completely 
 records should be considered sensitive information.
 
 
-### <a id="definitions-import" class="anchor"/> [Importing Definitions](#definitions-import)
+### <a id="definitions-import" class="anchor" href="#definitions-import">Importing Definitions</a>
 
 A JSON file with definitions can be imported using the same three ways
 
@@ -86,7 +86,7 @@ Importing a definitions file is sufficient for creating a broker with
 an identical set of definitions (e.g. users, vhosts, permissions,
 topologies).
 
-### <a id="manual-definitions-backup" class="anchor"/> [Manually Backing Up Definitions](#manual-definitions-backup)
+### <a id="manual-definitions-backup" class="anchor" href="#manual-definitions-backup">Manually Backing Up Definitions</a>
 
 Definitions are stored in an internal database located in the node's data
 directory. To get the directory path, run the following
@@ -105,7 +105,7 @@ If the node isn't running, it is possible to inspect [default data directories](
 The above data directory will also contain message store data in a subdirectory. If you don't want to
 copy the messages, skip copying the [message directories](#manual-messages-backup).
 
-### <a id="manual-definitions-restore" class="anchor"/> [Restoring from a Manual Definitions Backup](#manual-definitions-restore)
+### <a id="manual-definitions-restore" class="anchor" href="#manual-definitions-restore">Restoring from a Manual Definitions Backup</a>
 
 Internal node database stores node's name in certain records. Should node name change, the database must first
 be updated to reflect the change using the following [rabbitmqctl](/cli.html) command:
@@ -121,7 +121,7 @@ When a new node starts with a backed up directory and a matching node name, it s
 the upgrade steps as needed and proceed booting.
 
 
-## <a id="messages-backup" class="anchor"/> [Backing Up Messages](#messages-backup)
+## <a id="messages-backup" class="anchor" href="#messages-backup">Backing Up Messages</a>
 
 To back up messages on a node it **must be first stopped**.
 
@@ -130,7 +130,7 @@ stop the entire cluster to take a backup. If you stop one node at a
 time, you may loose messages or have duplicates, exactly like when you
 back up a single running node.
 
-### <a id="manual-messages-backup" class="anchor"/> [Manually Backing Up Messages](#manual-messages-backup)
+### <a id="manual-messages-backup" class="anchor" href="#manual-messages-backup">Manually Backing Up Messages</a>
 
 Presently this is the only way of backing up messages.
 
@@ -146,7 +146,7 @@ under the node data directory: `queues`, `msg_store_persistent` and `msg_store_t
 Also there is a `recovery.dets` file which contains recovery metadata if the node
 was stopped gracefully.
 
-### <a id="manual-messages-restore" class="anchor"/> [Restoring from a Manual Messages Backup](#manual-messages-restore)
+### <a id="manual-messages-restore" class="anchor" href="#manual-messages-restore">Restoring from a Manual Messages Backup</a>
 
 When a node boots, it will compute its data directory location and restore messages.
 For messages to be restored, the broker should have all the definitions already in place.

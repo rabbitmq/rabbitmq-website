@@ -1,6 +1,6 @@
 # Lazy Queues
 
-## <a id="overview" class="anchor" /> [Overview](#overview)
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Since **RabbitMQ 3.6.0**, the broker has the concept of **Lazy Queues** -
 queues that move their contents to disk as early as practically possible,
@@ -32,7 +32,7 @@ Lazy queues attempt to move messages to disk as early as practically possible.
 This means significantly fewer messages are kept in RAM in the majority of cases under normal operation.
 This comes at a cost of increased disk I/O.
 
-## <a id="configuration" class="anchor" /> [Making a Queue Lazy](#configuration)
+## <a id="configuration" class="anchor" href="#configuration">Making a Queue Lazy</a>
 
 Queues can be made to run in `default` mode or `lazy` mode by:
 
@@ -113,7 +113,7 @@ to specify a different `queue-mode`:
   </tr>
 </table>
 
-## <a id="performance" class="anchor" /> [Performance Considerations for Lazy Queues](#performance)
+## <a id="performance" class="anchor" href="#performance">Performance Considerations for Lazy Queues</a>
 
 ### Disk Utilization
 
@@ -209,7 +209,7 @@ it will perform the same process as when a queue is recovered after a server res
 a batch of 16384 messages will be loaded into memory.
 
 
-## <a id="caveats-limitations" class="anchor" /> [Caveats and Limitations](#caveats-limitations)
+## <a id="caveats-limitations" class="anchor" href="#caveats-limitations">Caveats and Limitations</a>
 
 Lazy queues are appropriate when keeping node memory usage low is a priority
 and higher disk I/O and disk utilisation are acceptable. Lazy queues have other aspects
