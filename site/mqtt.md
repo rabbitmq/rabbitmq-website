@@ -19,7 +19,7 @@ limitations under the License.
 
 RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec).
 
-## <a id="smf"/> Supported MQTT 3.1.1 features
+## <a id="smf" class="anchor" href="#smf"> Supported MQTT 3.1.1 features</a>
 
 * QoS0 and QoS1 publish & consume
 * QoS2 publish (downgraded to QoS1)
@@ -33,7 +33,7 @@ the [management UI](/management.html) and several other clients can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
-## <a id="ifb"/>Enabling the Plugin
+## <a id="ifb" class="anchor" href="#ifb">Enabling the Plugin</a>
 
 The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
 connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
@@ -45,7 +45,7 @@ rabbitmq-plugins enable rabbitmq_mqtt
 Now that the plugin is enabled, MQTT clients will be able to connect provided that
 they have a set of credentials for an existing user with the appropriate permissions.
 
-### <a id="authentication"/> Users and Authentication
+### <a id="authentication" class="anchor" href="#authentication"> Users and Authentication</a>
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
 have the [appropriate permissions](/access-control.html) to the virtual host used by the
@@ -73,7 +73,7 @@ rabbitmqctl set_user_tags mqtt-test management
 Note that colons may not appear in usernames.
 
 
-## Local vs. Remote Client Connections
+## <a id="local-vs-remote" class="anchor" href="#local-vs-remote">Local vs. Remote Client Connections</a>
 
 When an MQTT client provides no login credentials, the plugin uses the
 `guest` account by default which will not allow non-`localhost`
@@ -86,7 +86,7 @@ that make sure remote clients can successfully connect:
 [appropriate permissions](/access-control.html)
 
 
-### Anonymous Connections
+### <a id="anonymous-connections" class="anchor" href="#anonymous-connections">Anonymous Connections</a>
 
 MQTT supports optional authentication (clients may provide no credentials) but RabbitMQ
 does not. Therefore a default set of credentials is used for anonymous connections.
@@ -112,7 +112,7 @@ to certain limitations (see above) enforced for a reasonable level of security
 by default.
 
 
-## <a id="overview"/> How it Works
+## <a id="overview" class="anchor" href="#overview"> How it Works</a>
 
 RabbitMQ MQTT plugin targets MQTT 3.1.1 and supports a broad range
 of MQTT clients. It also makes it possible for MQTT clients to interoperate
@@ -134,7 +134,7 @@ be avoided, the same goes for AMQP 0-9-1 routing keys that contains
 slahes.
 
 
-### <a id="durability"/> Subscription Durability
+### <a id="durability" class="anchor" href="#durability"> Subscription Durability</a>
 
 MQTT 3.1 assumes two primary usage scenarios:
 
@@ -167,7 +167,7 @@ request (SUBACK responses will contain the actually provided QoS
 level).
 
 
-## <a id="config"/> Plugin Configuration
+## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
 Here is a sample <a href="/configure.html#config-file">configuration</a> that sets (almost) every MQTT plugin setting provided:
 
@@ -210,7 +210,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 </pre>
 
 
-### Virtual Hosts
+### <a id="virtual-hosts" class="anchor" href="#virtual-hosts"> Virtual Hosts</a>
 
 RabbitMQ is a multi-tenant system at the core and every connection belongs
 to a virtual host. Some messaging protocols have the concept of vhosts,
@@ -291,13 +291,13 @@ means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 Specifying the virtual host in the username takes precedence over the port-to-vhost
 mapping specified with the `mqtt_port_to_vhost_mapping` global parameter.
 
-### Host and Port
+### <a id="host-and-port" class="anchor" href="#host-and-port">Host and Port</a>
 
 The `listeners.tcp` and `tcp_listen_options` options are interpreted in the same way
 as the corresponding options in the `rabbit` section, as explained in the
 [networking](/networking.html) and [broker configuration](/configure.html) doc guides.
 
-### TLS/SSL
+### <a id="tls" class="anchor" href="#tls">TLS/SSL</a>
 
 The `listeners.ssl` option in the `rabbitmq_mqtt` config section controls the
 endpoint (if any) that the adapter accepts TLS connections on. The
@@ -340,7 +340,7 @@ See the [TLS/SSL configuration guide](http://www.rabbitmq.com/ssl.html) for deta
 
 
 
-### <a id="cta.ssl"/>Authentication with SSL client certificates
+### <a id="cta.ssl" class="anchor" href="#cta.ssl">Authentication with SSL client certificates</a>
 
 The MQTT adapter can authenticate SSL-based connections by extracting
 a name from the client's SSL certificate, without using a password.
@@ -427,7 +427,7 @@ to reconnect to switch to a new virtual host.
 is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
 global parameter and so takes precedence over it.
 
-### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL
+### <a id="stickiness" class="anchor" href="#stickiness">Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL</a>
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
@@ -471,13 +471,13 @@ field, so a value of `0` means "no limit".
 
 
 
-### Custom Exchanges
+### <a id="custom-exchanges" class="anchor" href="#custom-exchanges">Custom Exchanges</a>
 
 The `exchange` option determines which exchange messages from MQTT clients are published
 to. If a non-default exchange is chosen then it must be created before clients
 publish any messages. The exchange is expected to be a topic exchange.
 
-### <a id="proxy-protocol"/> Proxy Protocol
+### <a id="proxy-protocol" class="anchor" href="#proxy-protocol"> Proxy Protocol</a>
 
 The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
@@ -498,7 +498,7 @@ See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 
-## <a id="retained"/> Retained Messages and Stores
+## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
 
 The plugin supports retained messages. Message store implementation is pluggable
 and the plugin ships with two implementation out of the box:
@@ -565,7 +565,7 @@ those data stores provide [tunable consistency](https://github.com/basho/basho_d
 Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
 
 
-## <a id="limitations"/> Limitations
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 ### Overlapping Subscriptions
 
