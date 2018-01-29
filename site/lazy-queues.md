@@ -238,7 +238,21 @@ Setting `queue_index_embed_msgs_below` to `0` will disable payload embedding in 
 As a result, lazy queues will not load message payloads into memory on node startup.
 See the [Persistence Configuration guide](persistence-conf.html) for details.
 
+When setting `queue_index_embed_msgs_below` to `0` all messages will be saved
+to the message store. If you have many messages across many lazy queues, you should
+expect higher file descriptor usage and higher disk usage.
 
+Message store uses generational garbage collection. When storing message it can
+use two times more disk space compared to combined message payloads size.
+You should plan your disk space accordingly.
+
+All messages in the message store are written in 16MB files. Each queue has
+its own file descriptor for each message store file it is reading from.
+Foe example if you have a 100 queues and they store 10GB messages, there will
+be 640 files in the message store and up to 64000 file descriptors.
+It's recommended to [increase open file limit](/production-checklist.html#resource-limits-file-handle-limit).
+In some cases you can also increase file size used by the message store using
+`msg_store_file_size_limit` configuration.
 
 #### Lazy Queues with Mixed Message Sizes
 
