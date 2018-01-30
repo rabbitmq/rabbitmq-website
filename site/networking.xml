@@ -286,14 +286,21 @@ proxy_protocol = true
       <p>
         RabbitMQ nodes communicate with CLI tools and other nodes using a port known as
         the <em>distribution port</em>. It is dynamically allocated from a range of values.
-        By default the range is limited to a single value computed as
-        configured <span class="envvar">RABBITMQ_NODE_PORT</span>
-        (AMQP port) + 20000, or 25672. This single port range can be
-        <a href="configure.html">configured</a> using the <span
-        class="envvar">RABBITMQ_DIST_PORT</span> environment variable.
+        For RabbitMQ, the default range is limited to a single value computed as
+        <span class="envvar">RABBITMQ_NODE_PORT</span> (AMQP port) + 20000, which results
+        in using port 25672. This single port can be <a href="configure.html">configured</a>
+        using the <span class="envvar">RABBITMQ_DIST_PORT</span> environment variable.
       </p>
       <p>
-        The range can also be controlled via two configuration keys:
+        RabbitMQ command line tools like <code><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a></code>
+        also use a range of ports. The default range is computed by taking the RabbitMQ
+        distribution port value and adding 10000 to it. The next 10 ports are also part
+        of this range. Thus, by default, this range is 35672 through 35682. This range
+        can be configured using the <span class="envvar">RABBITMQ_CTL_DIST_PORT_MIN</span>
+        and <span class="envvar">RABBITMQ_CTL_DIST_PORT_MAX</span> environment variables.
+      </p>
+      <p>
+        The range used by RabbitMQ can also be controlled via two configuration keys:
 
         <ul>
           <li><code>kernel.inet_dist_listen_min</code></li>
@@ -325,9 +332,7 @@ proxy_protocol = true
 epmd -names
 </pre>
 
-        on that node's host.
-
-        It will output that looks like this:
+        on that node's host. It will produce output that looks like this:
 
 <pre class="sourcecode ini">
 epmd: up and running on port 4369 with data:
