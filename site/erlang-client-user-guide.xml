@@ -55,8 +55,8 @@ limitations under the License.
      </ol>
    </p>
    <p>
-     Obtain the library source and related materials from the
-     <a href="&dir-current-erlang-client;">download directory</a>.
+     Obtain the library source and related materials from
+     <a href="&dir-current-erlang-client;">Hex.pm</a>.
    </p>
 
  </doc:section>

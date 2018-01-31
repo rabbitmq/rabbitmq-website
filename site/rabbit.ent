@@ -35,7 +35,7 @@ limitations under the License.
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/rabbitmq-java-client/current-javadoc/">
 
-<!ENTITY dir-current-erlang-client "/releases/rabbitmq-erlang-client/v&version-server;/">
+<!ENTITY dir-current-erlang-client "https://hex.pm/packages/amqp_client/&version-server;">
 
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win32-apps "C:\Program Files (x86)">
@@ -44,7 +44,7 @@ limitations under the License.
 
 <!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
 <!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
-<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">
+<!ENTITY dir-current-edoc "https://hexdocs.pm/amqp_client/&version-server;/">
 
 <!ENTITY minimum-jdk-version "8">
 <!ENTITY minimum-dotnet-version "4.5.1">
