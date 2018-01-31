@@ -292,12 +292,16 @@ proxy_protocol = true
         using the <span class="envvar">RABBITMQ_DIST_PORT</span> environment variable.
       </p>
       <p>
-        RabbitMQ command line tools like <code><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a></code>
+        RabbitMQ <a href="/cli.html">command line tools</a>
         also use a range of ports. The default range is computed by taking the RabbitMQ
         distribution port value and adding 10000 to it. The next 10 ports are also part
         of this range. Thus, by default, this range is 35672 through 35682. This range
         can be configured using the <span class="envvar">RABBITMQ_CTL_DIST_PORT_MIN</span>
         and <span class="envvar">RABBITMQ_CTL_DIST_PORT_MAX</span> environment variables.
+        Note that limiting the range to a single port will prevent more than one CLI
+        tool from running concurrently on the same host and may affect CLI commands
+        that require parallel connections to multiple cluster nodes. A port range of 10
+        is therefore a recommended value.
       </p>
       <p>
         The range used by RabbitMQ can also be controlled via two configuration keys:
