@@ -20,12 +20,12 @@ limitations under the License.
   <li>4369: <a href="http://erlang.org/doc/man/epmd.html">epmd</a>, a peer discovery service used by RabbitMQ nodes and CLI tools</li>
   <li>5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS</li>
   <li>
-    25672: used by Erlang distribution for inter-node and CLI tools communication
+    25672: used for inter-node and CLI tools communication (Erlang distribution server port)
     and is allocated from a dynamic range (limited to a single port by default,
     computed as AMQP port + 20000). See <a href="/networking.html">networking guide</a> for details.
   </li>
   <li>
-    35672-35682: used by Erlang distribution for inter-node and CLI tools communication
+    35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
     and is allocated from a dynamic range (computed as Erlang dist port + 10000 through
     dist port + 10010). See <a href="/networking.html">networking guide</a> for details.
   </li>
