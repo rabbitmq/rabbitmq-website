@@ -29,23 +29,15 @@ limitations under the License.
       <doc:section name="obtaining">
 	<doc:heading>Obtaining the source</doc:heading>
 
-	<br />
-	<ul>
-	  <li>
-	    Either download a released source code distribution from
-	    the <a href="java-client.html">download page</a>, or
-	  </li>
 
-	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
+	  <p>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
 	  <pre class="sourcecode bash">
 git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
 git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
-	  </li>
-	</ul>
+	  </p>
 
 	<p>
-	  If you choose to download a released source code distribution, be
-	  aware that the code-generation module is a dependency of
+	  Be aware that the code-generation module is a dependency of
 	  the Java client library.
 	</p>
       </doc:section>
