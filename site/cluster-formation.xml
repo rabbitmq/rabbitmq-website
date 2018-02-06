@@ -52,7 +52,7 @@ limitations under the License.
       <p>
         To form a cluster, new ("blank") nodes need to be able to discover
         their peers. This can be done using a variety of mechanisms (backends).
-        Some mechanisms assumes all cluster members are known ahead of time (for example, listed
+        Some mechanisms assume all cluster members are known ahead of time (for example, listed
         in the config file), others are dynamic (nodes can come and go).
       </p>
 
