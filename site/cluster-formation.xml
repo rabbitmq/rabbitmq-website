@@ -266,7 +266,7 @@ cluster_formation.dns.hostname = discovery.eng.example.local
 
         <p>
           Before a node can perform any operations on AWS, it needs to have a set of
-          AWS account credentials configured. This can be done in a couple of of ways:
+          AWS account credentials configured. This can be done in a couple of ways:
 
           <ol>
             <li>Via <a href="/configure.html">config file</a></li>
