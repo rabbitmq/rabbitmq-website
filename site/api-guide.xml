@@ -985,6 +985,26 @@ factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
 
+      <doc:subsection name="connection-recovery-triggers">
+        <doc:heading>When Will Connection Recovery Be Triggered?</doc:heading>
+        <p>
+          Automatic connection recovery, if enabled, will be triggered by the following events:
+          <ul>
+            <li>An I/O exception is thrown in connection's I/O loop</li>
+            <li>A socket read operation times out</li>
+            <li>Missed server <a href="/heartbeats.html">heartbeats</a> are detected</li>            
+            <li>Any other unexpected exception is thrown in connection's I/O loop</li>
+          </ul>
+
+          whichever happens first.
+        </p>
+        <p>
+          Channel-level exceptions will not trigger any kind of recovery as they usually
+          indicate a semantic issue in the application (e.g. an attempt to consume from a
+          non-existent queue).
+        </p>
+      </doc:subsection>
+      
       <doc:subsection name="recovery-listeners">
         <doc:heading>Recovery Listeners</doc:heading>
         <p>
