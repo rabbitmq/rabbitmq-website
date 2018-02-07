@@ -53,6 +53,14 @@ Such cases will be documented the breaking changes section of the release notes 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
 
+### Management Plugin Upgrades
+
+RabbitMQ management plugin comes with a Web application that runs in the browser. It is recommended
+that browser cache is cleared after any upgrade that involved a management plugin
+update.
+
+### Discontinued Plugins
+
 Sometimes a new feature release drops a plugin or multiple plugins from the distribution.
 For example, `rabbitmq_management_visualiser` no longer ships with RabbitMQ as of
 3.7.0. Such plugins **must be disabled** before the upgrade.
