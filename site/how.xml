@@ -348,12 +348,6 @@ limitations under the License.
       RabbitMQ, Celery and Python, all on a Mac.
     </li>
     <li>
-      <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
-      Whether or not you use .NET, section 3 of this guide describes ways
-      of working with AMQP and a number common messaging patterns and
-      interaction styles.
-    </li>
-    <li>
       <a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Listening to the System</a><br />
       Blog post from Ben Hyde examining some ideas how topic routing in AMQP
       is a good solution for building a message hub for real-time monitoring.

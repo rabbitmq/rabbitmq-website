@@ -53,9 +53,9 @@ limitations under the License.
     <h3>Version</h3>
 
     <p>
-      The current release of the RabbitMQ .NET/C# client library is <b>
-      &version-dotnet-client;</b>. It is recommended to use the <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>.
-      Release notes can be found on the <a href="/releases/rabbitmq-dotnet-client/">GitHub releases page</a>.
+      The current release of the RabbitMQ .NET/C# client library is <b>&version-dotnet-client;</b>.
+      It is recommended to use the <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>.
+      Release notes can be found on the <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases">GitHub releases page</a>.
     </p>
 
     <h2>
@@ -71,24 +71,19 @@ limitations under the License.
 
     <r:downloads signature="no">
       <tr>
-        <td class="desc">4.x series NuGet package for .NET Core and .NET 4.5.1 (recommended)</td>
+        <td class="desc">4.x series NuGet package for .NET Core and .NET 4.5.1</td>
         <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">4.x NuGet package</a></td>
       </tr>
-      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-&minimum-dotnet-version;.zip"
-		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET &minimum-dotnet-version; and newer (zip archive).
-      </r:download>
-
-      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
-		  downloadpath="&dir-dotnet-client;">
-	Source code and tools (zip)
-      </r:download>
+      <tr>
+        <td class="desc">3.x series binary builds</td>
+        <td><a href="releases/&dir-dotnet-client;">3.x builds</a></td>
+      </tr>
     </r:downloads>
 
     <h3>The documentation</h3>
     <p>
       Please refer to the <a href="dotnet-api-guide.html">API guide</a>. There's
-      also <a href="&dir-current-dotnet-apidoc;/index.html">an online API reference</a>.
+      also <a href="&url-dotnet-apidoc-root;/index.html">an online API reference</a>.
     </p>
 
     <h2>Change Log</h2>

@@ -35,7 +35,7 @@ limitations under the License.
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
   <xsl:variable name="javadoc-root" select="'&dir-current-javadoc;com/rabbitmq/client/'"/>
-  <xsl:variable name="dotnetdoc-root" select="'/&dir-current-dotnet-apidoc;/'"/>
+  <xsl:variable name="dotnetdoc-root" select="'&url-dotnet-apidoc;/'"/>
 
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
@@ -270,15 +270,15 @@ limitations under the License.
   <x:decorations>
     <x:decorate target="method" name="basic.ack">
       <x:javadoc href="Channel.html#basicAck(long, boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicAck(System.UInt64,System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicAck_System_UInt64_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.cancel">
       <x:javadoc href="Channel.html#basicCancel(java.lang.String)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicCancel(System.String)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicCancel_System_String_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.consume">
       <x:javadoc href="Channel.html#basicConsume(java.lang.String, boolean, java.lang.String, boolean, boolean, java.util.Map, com.rabbitmq.client.Consumer)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicConsume(System.String,System.Collections.IDictionary,RabbitMQ.Client.IBasicConsumer)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicConsume_System_String_System_Boolean_System_String_System_Boolean_System_Boolean_System_Collections_Generic_IDictionary_System_String_System_Object__RabbitMQ_Client_IBasicConsumer_" />
     </x:decorate>
     <x:decorate target="method" name="basic.deliver">
       <!-- x:javadoc ***not impl*** -->
@@ -286,34 +286,34 @@ limitations under the License.
     </x:decorate>
     <x:decorate target="method" name="basic.get">
       <x:javadoc href="Channel.html#basicGet(java.lang.String, boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicGet(System.String,System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicGet_System_String_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.nack">
       <x:amqp-extension />
       <x:url href="http://www.rabbitmq.com/nack.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#basicNack(long, boolean, boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicNack(System.UInt64,System.Boolean,System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicNack_System_UInt64_System_Boolean_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.publish">
       <x:javadoc href="Channel.html#basicPublish(java.lang.String, java.lang.String, boolean, boolean, com.rabbitmq.client.AMQP.BasicProperties, byte[])"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicPublish(System.String,System.String,System.Boolean,System.Boolean,RabbitMQ.Client.IBasicProperties,System.Byte%5B%5D)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicPublish_System_String_System_String_System_Boolean_RabbitMQ_Client_IBasicProperties_System_Byte___"/>
     </x:decorate>
     <x:decorate target="method" name="basic.qos">
       <x:javadoc href="Channel.html#basicQos(int, int, boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicQos(System.UInt32,System.UInt16,System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicQos_System_UInt32_System_UInt16_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.recover">
       <x:javadoc href="Channel.html#basicRecover(boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicRecover(System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicRecover_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.recover-async">
       <x:javadoc href="Channel.html#basicRecoverAsync(boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicRecoverAsync(System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicRecoverAsync_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.reject">
       <x:url href="http://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#basicReject(long, boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicReject(System.UInt64,System.Boolean)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicReject_System_UInt64_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.return">
       <!-- x:javadoc ***not impl*** -->
@@ -321,7 +321,7 @@ limitations under the License.
     </x:decorate>
     <x:decorate target="method" name="channel.close">
       <x:javadoc href="Channel.html#close(int, java.lang.String)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.Close(System.UInt16,System.String)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_Close"/>
     </x:decorate>
     <x:decorate target="method" name="channel.open">
       <!-- x:javadoc ***not impl*** -->
@@ -333,14 +333,14 @@ limitations under the License.
     <x:decorate target="method" name="confirm.select">
       <x:url href="http://www.rabbitmq.com/confirms.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#confirmSelect()"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ConfirmSelect"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ConfirmSelect"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
       <x:url href="http://www.rabbitmq.com/e2e.html" label="RabbitMQ Documentation"/>
       <x:url href="http://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#exchangeBind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeBind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.declare">
       <x:field override="auto-delete" name="auto-delete" domain="bit"/>
@@ -355,20 +355,20 @@ limitations under the License.
       </x:doc>
       <x:url href="http://www.rabbitmq.com/ae.html" label="AE documentation" />
       <x:javadoc href="Channel.html#exchangeDeclare(java.lang.String, java.lang.String, boolean, boolean, java.util.Map)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeDeclare_System_String_System_String_System_Boolean_System_Boolean_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>
     <x:decorate target="method" name="exchange.delete">
       <x:javadoc href="Channel.html#exchangeDelete(java.lang.String, boolean)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDelete(System.String,System.Boolean,System.Boolean)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeDelete_System_String_System_Boolean_" />
     </x:decorate>
     <x:decorate target="method" name="exchange.unbind">
       <x:amqp-extension />
       <x:javadoc href="Channel.html#exchangeUnbind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeUnbind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeUnbind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__"/>
     </x:decorate>
     <x:decorate target="method" name="queue.bind">
       <x:javadoc href="Channel.html#queueBind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueueBind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>
     <x:decorate target="method" name="queue.declare">
       <x:doc>
@@ -392,31 +392,31 @@ limitations under the License.
       <x:url href="http://www.rabbitmq.com/ttl.html#per-queue-message-ttl" label="x-message-ttl documentation"/>
       <x:url href="http://www.rabbitmq.com/ttl.html#queue-ttl" label="x-expires documentation"/>
       <x:javadoc href="Channel.html#queueDeclare(java.lang.String, boolean, boolean, boolean, java.util.Map)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueDeclare(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueueDeclare_System_String_System_Boolean_System_Boolean_System_Boolean_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>
     <x:decorate target="method" name="queue.delete">
       <x:javadoc href="Channel.html#queueDelete(java.lang.String, boolean, boolean)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueDelete(System.String,System.Boolean,System.Boolean,System.Boolean)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueueDelete_System_String_System_Boolean_System_Boolean_" />
     </x:decorate>
     <x:decorate target="method" name="queue.purge">
       <x:javadoc href="Channel.html#queuePurge(java.lang.String)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueuePurge(System.String,System.Boolean)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueuePurge_System_String_" />
     </x:decorate>
     <x:decorate target="method" name="queue.unbind">
       <x:javadoc href="Channel.html#queueUnbind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueUnbind(System.String,System.String,System.String,System.Collections.IDictionary)" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueueUnbind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>
     <x:decorate target="method" name="tx.commit">
       <x:javadoc href="Channel.html#txCommit()" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxCommit" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_TxCommit" />
     </x:decorate>
     <x:decorate target="method" name="tx.rollback">
       <x:javadoc href="Channel.html#txRollback()" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxRollback" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_TxRollback" />
     </x:decorate>
     <x:decorate target="method" name="tx.select">
       <x:javadoc href="Channel.html#txSelect()" />
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxSelect" />
+      <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_TxSelect" />
     </x:decorate>
   </x:decorations>
 
