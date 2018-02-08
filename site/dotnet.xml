@@ -71,11 +71,11 @@ limitations under the License.
 
     <r:downloads signature="no">
       <tr>
-        <td class="desc">4.x series NuGet package for .NET Core and .NET 4.5.1</td>
-        <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">4.x NuGet package</a></td>
+        <td class="desc">4.x and later series NuGet package for .NET Core and .NET 4.5.1</td>
+        <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
       </tr>
       <tr>
-        <td class="desc">3.x series binary builds</td>
+        <td class="desc">Legacy 3.x series binary builds</td>
         <td><a href="releases/&dir-dotnet-client;">3.x builds</a></td>
       </tr>
     </r:downloads>
@@ -127,9 +127,13 @@ fcb943b5.
 
 
 
-    <h2>Support</h2>
+    <h2>Getting Help</h2>
     <p>
-      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
+      Questions about RabbitMQ .NET client, suggestions and general feedback are welcome
+      on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+    </p>
+    <p>
+      For commercial support from Pivotal, please <a href="contact.html">contact sales</a>.
     </p>
   </body>
 </html>
