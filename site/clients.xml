@@ -36,7 +36,7 @@ limitations under the License.
           <a href="api-guide.html">API Guide</a>
         </li>
         <li>
-          <a href="releases/rabbitmq-java-client/current-javadoc/">API Reference</a>
+          <a href="&dir-current-javadoc;">API Reference</a>
         </li>
         <li>
           <a href="jms-client.html">JMS Guide</a>
@@ -58,6 +58,9 @@ limitations under the License.
         </li>
         <li>
           <a href="dotnet-api-guide.html">API Guide</a>
+        </li>
+        <li>
+          <a href="&url-dotnet-apidoc;/RabbitMQ.Client.html">API Reference</a>
         </li>
       </ul>
     </div>
