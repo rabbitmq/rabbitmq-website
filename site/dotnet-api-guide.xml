@@ -613,6 +613,10 @@ factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
               whichever happens first.
             </p>
             <p>
+              When a connection is closed by the application via the <code>Connection.Close</code> method,
+              connection recovery will not be initiated.
+            </p>
+            <p>
               Channel-level exceptions will not trigger any kind of recovery as they usually
               indicate a semantic issue in the application (e.g. an attempt to consume from a
               non-existent queue).

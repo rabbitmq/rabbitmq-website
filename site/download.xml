@@ -178,23 +178,11 @@ limitations under the License.
       <h3>.NET/C# Client</h3>
       <ul>
         <li>
-          On NuGet (<a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">4.x release series</a> for .NET Core and .NET 4.5.1):
+          On NuGet:
           <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
         </li>
         <li>
-          On NuGet (3.6.x series for .NET 4.5.0):
-          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
-        </li>
-        <li>
-          Quick download:
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/&nameVersion-dotnet-client;-dotnet-4.5.zip">Latest 3.6.x binary</a> for .NET 4.5.0 |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/&nameVersion-dotnet-client;.zip">Source</a>
-        </li>
-        <li>
-          <a href="dotnet.html">All .NET client downloads</a>
-        </li>
-        <li>
-          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a>
+          <a href="releases/&dir-dotnet-client;">Older versions</a>
         </li>
       </ul>
 
