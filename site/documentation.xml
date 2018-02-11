@@ -445,7 +445,7 @@ limitations under the License.
             <a href="&dir-current-javadoc;">Java</a>
           </li>
           <li>
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a>
+            <a href="&url-dotnet-apidoc-root;/index.html">.NET</a>
           </li>
           <li>
             <a href="&dir-current-edoc;">Erlang</a>

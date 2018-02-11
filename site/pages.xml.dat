@@ -157,7 +157,7 @@ limitations under the License.
          <x:page url="/uri-query-parameters.html" text="AMQP 0-9-1 URI Params"/>
        </x:page>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
-       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="&url-dotnet-apidoc-root;/index.html" text=".NET htmldoc"/>
        <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
      </x:page>
      <x:page url="/plugins.html" text="Plugins">

@@ -114,7 +114,9 @@ limitations under the License.
           consumer processing. This mode is often referred to as
           "fire-and-forget".  Unlike with manual acknowledgement
           model, if consumers's TCP connection or channel is closed
-          before successful delivery, it will be lost.
+          before successful delivery, the message sent by the server will be lost.
+          Automatic message acknowledgement is therefore <strong>should be considered unsafe</strong>
+          and not suitable for all workloads.
         </p>
 
         <p>
