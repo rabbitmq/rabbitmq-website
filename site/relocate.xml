@@ -97,6 +97,14 @@ limitations under the License.
         </td>
       </tr>
       <tr>
+        <td>RABBITMQ_GENERATED_CONFIG_DIR</td>
+        <td>
+          The directory where RabbitMQ writes its generated configuration
+          files.
+        </td>
+      </tr>
+              
+      <tr>
         <td>RABBITMQ_MNESIA_BASE</td>
         <td>
           This base directory contains sub-directories for the RabbitMQ
@@ -115,6 +123,13 @@ limitations under the License.
           files are placed. (In addition to Mnesia files this location also
           contains message storage and index files as well as schema and
           cluster details.)
+        </td>
+      </tr>
+              
+      <tr>
+        <td>RABBITMQ_SCHEMA_DIR</td>
+        <td>
+          The directory where RabbitMQ generates its schema files.
         </td>
       </tr>
 
