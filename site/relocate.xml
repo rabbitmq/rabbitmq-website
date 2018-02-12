@@ -79,8 +79,9 @@ limitations under the License.
       <tr>
         <td>RABBITMQ_BASE</td>
         <td>
-          This base directory contains sub-directories for the
-          RabbitMQ server's database and log files. Alternatively, set
+          <b>Note:</b> Windows only. This base directory contains
+          sub-directories for the RabbitMQ server's database and
+          log files. Alternatively, set
           <b>RABBITMQ_MNESIA_BASE</b> and
           <b>RABBITMQ_LOG_BASE</b> individually.
         </td>
@@ -219,7 +220,7 @@ limitations under the License.
         <tr>
           <td>RABBITMQ_BASE</td>
           <td>
-            (Not used)
+            (Not used - Windows only)
           </td>
         </tr>
         <tr>
