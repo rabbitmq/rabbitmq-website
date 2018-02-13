@@ -42,6 +42,11 @@ limitations under the License.
         acknowledgements to publishers are a protocol extension called
         publisher confirms.
       </p>
+      <p>
+        Both features Build on the same idea and are inspired by TCP.
+        They are essential for reliable delivery both from publishers
+        to RabbitMQ nodes and from RabbitMQ ndoes to consumers.
+      </p>
     </doc:section>
 
     <doc:section name="consumer-acknowledgements">
@@ -83,7 +88,17 @@ limitations under the License.
       </doc:subsection>
 
       <doc:subsection name="acknowledgement-modes">
-        <doc:heading>Acknowledgement Modes</doc:heading>
+        <doc:heading>Consumer Acknowledgement Modes and Data Safety Considerations</doc:heading>
+
+        <p>
+          When a node delivers a message to a consumer, it has to decide whether the
+          message should be considered handled (or at least received) the consumer. Since
+          multiple things (client connections, consumer apps, and so on) can fail,
+          this decision is a data safety concern. Messaging protocols usually provide
+          a confirmation mechanism that allows consumers to acknowledge deliveries
+          to the node they are connected to. Whether the mechanism is used is decided
+          at the time consumer subscribes.
+        </p>
 
         <p>
           Depending on the acknowledgement mode used, RabbitMQ can consider a message to be

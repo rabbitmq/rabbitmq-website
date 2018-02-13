@@ -162,6 +162,9 @@ limitations under the License.
           <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
         </li>
         <li>
+          <a href="&dir-current-javadoc;">Javadoc</a>
+        </li>
+        <li>
           <a href="java-client.html">All Java client downloads</a>
         </li>
         <li>
