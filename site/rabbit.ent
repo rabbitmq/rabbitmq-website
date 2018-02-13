@@ -32,7 +32,8 @@ limitations under the License.
 <!ENTITY url-dotnet-apidoc "&url-dotnet-apidoc-root;/api">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
-<!ENTITY dir-current-javadoc "/releases/rabbitmq-java-client/current-javadoc/">
+<!ENTITY dir-current-javadoc "https://rabbitmq.github.io/rabbitmq-java-client/api/current/">
+<!ENTITY dir-4.x.x-javadoc "https://rabbitmq.github.io/rabbitmq-java-client/api/4.x.x/">
 
 <!ENTITY dir-current-erlang-client "https://hex.pm/packages/amqp_client/&version-server;">
 
