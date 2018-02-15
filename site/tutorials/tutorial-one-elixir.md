@@ -206,7 +206,7 @@ run before. But we're not yet sure which
 program to run first. In such cases it's a good practice to repeat
 declaring the queue in both programs.
 
-[Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb).
+[Here's the whole send.esx script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs).
 
 > #### Sending doesn't work!
 >
