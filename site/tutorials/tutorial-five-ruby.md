@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -158,22 +158,20 @@ The code for `emit_log_topic.rb`:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+connection = Bunny.new
+connection.start
 
-conn = Bunny.new
-conn.start
+channel = connection.create_channel
+exchange = channel.topic('topic_logs')
+severity = ARGV.shift || 'anonymous.info'
+message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
-ch       = conn.create_channel
-x        = ch.topic("topic_logs")
-severity = ARGV.shift || "anonymous.info"
-msg      = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+exchange.publish(message, routing_key: severity)
+puts " [x] Sent #{severity}:#{message}"
 
-x.publish(msg, :routing_key => severity)
-puts " [x] Sent #{severity}:#{msg}"
-
-conn.close
+connection.close
 </pre>
 
 
@@ -181,65 +179,63 @@ The code for `receive_logs_topic.rb`:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+abort "Usage: #{$PROGRAM_NAME} [binding key]" if ARGV.empty?
 
-if ARGV.empty?
-  abort "Usage: #{$0} [binding key]"
-end
+connection = Bunny.new
+connection.start
 
-conn = Bunny.new
-conn.start
-
-ch  = conn.create_channel
-x   = ch.topic("topic_logs")
-q   = ch.queue("", :exclusive => true)
+channel = connection.create_channel
+exchange = channel.topic('topic_logs')
+queue = channel.queue('', exclusive: true)
 
 ARGV.each do |severity|
-  q.bind(x, :routing_key => severity)
+  queue.bind(exchange, routing_key: severity)
 end
 
-puts " [*] Waiting for logs. To exit press CTRL+C"
+puts ' [*] Waiting for logs. To exit press CTRL+C'
 
 begin
-  q.subscribe(:block => true) do |delivery_info, properties, body|
+  queue.subscribe(block: true) do |delivery_info, _properties, body|
     puts " [x] #{delivery_info.routing_key}:#{body}"
   end
 rescue Interrupt => _
-  ch.close
-  conn.close
+  channel.close
+  connection.close
+
+  exit(0)
 end
 </pre>
 
 To receive all the logs:
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs_topic.rb "#"
+ruby receive_logs_topic.rb "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs_topic.rb "kern.*"
+ruby receive_logs_topic.rb "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs_topic.rb "*.critical"
+ruby receive_logs_topic.rb "*.critical"
 </pre>
 
 You can create multiple bindings:
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs_topic.rb "kern.*" "*.critical"
+ruby receive_logs_topic.rb "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
 <pre class="sourcecode bash">
-ruby -rubygems emit_log_topic.rb "kern.critical" "A critical kernel error"
+ruby emit_log_topic.rb "kern.critical" "A critical kernel error"
 </pre>
 
 Have fun playing with these programs. Note that the code doesn't make
@@ -250,4 +246,3 @@ with more than two routing key parameters.
 and [receive_logs_topic.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive_logs_topic.rb))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-ruby.html)
-

@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -91,7 +91,7 @@ and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
 <pre class="sourcecode ruby">
-ch.fanout("logs")
+channel.fanout('logs')
 </pre>
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -121,7 +121,7 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 > <pre class="sourcecode ruby">
-> ch.default_exchange.publish("hello", :routing_key => "hello");
+> channel.default_exchange.publish('hello', routing_key: 'hello')
 > </pre>
 >
 > Here we use the default or _nameless_ exchange: messages are
@@ -130,8 +130,8 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
 <pre class="sourcecode ruby">
-x = ch.fanout("logs")
-x.publish(msg)
+exchange = channel.fanout('logs')
+exchange.publish(message)
 </pre>
 
 Temporary queues
@@ -159,7 +159,7 @@ In the [Bunny](http://rubybunny.info) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
 <pre class="sourcecode ruby">
-q = ch.queue("", :exclusive => true)
+queue = channel.queue('', exclusive: true)
 </pre>
 
 When the method returns, the queue instance contains a random queue name
@@ -199,7 +199,7 @@ tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
 <pre class="sourcecode ruby">
-q.bind("logs")
+queue.bind('logs')
 </pre>
 
 From now on the `logs` exchange will append messages to our queue.
@@ -255,22 +255,20 @@ nameless one. Here goes the code for
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+connection = Bunny.new
+connection.start
 
-conn = Bunny.new
-conn.start
+channel = connection.create_channel
+exchange = channel.fanout('logs')
 
-ch   = conn.create_channel
-x    = ch.fanout("logs")
+message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
-msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+exchange.publish(message)
+puts " [x] Sent #{message}"
 
-x.publish(msg)
-puts " [x] Sent #{msg}"
-
-conn.close
+connection.close
 </pre>
 
 [(emit_log.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log.rb)
@@ -286,28 +284,26 @@ The code for `receive_logs.rb`:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+connection = Bunny.new
+connection.start
 
-conn = Bunny.new
-conn.start
+channel = connection.create_channel
+exchange = channel.fanout('logs')
+queue = channel.queue('', exclusive: true)
 
-ch  = conn.create_channel
-x   = ch.fanout("logs")
-q   = ch.queue("", :exclusive => true)
+queue.bind(exchange)
 
-q.bind(x)
-
-puts " [*] Waiting for logs. To exit press CTRL+C"
+puts ' [*] Waiting for logs. To exit press CTRL+C'
 
 begin
-  q.subscribe(:block => true) do |delivery_info, properties, body|
+  queue.subscribe(block: true) do |_delivery_info, _properties, body|
     puts " [x] #{body}"
   end
 rescue Interrupt => _
-  ch.close
-  conn.close
+  channel.close
+  connection.close
 end
 </pre>
 
@@ -317,19 +313,19 @@ end
 If you want to save logs to a file, just open a console and type:
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs.rb > logs_from_rabbit.log
+ruby receive_logs.rb > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
 <pre class="sourcecode bash">
-ruby -rubygems receive_logs.rb
+ruby receive_logs.rb
 </pre>
 
 And of course, to emit logs type:
 
 <pre class="sourcecode bash">
-ruby -rubygems emit_log.rb
+ruby emit_log.rb
 </pre>
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
@@ -350,4 +346,3 @@ that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-ruby.html)
-
