@@ -160,12 +160,15 @@ supplying the `queue` parameter to [`AMQP.Queue.declare`](http://hexdocs.pm/amqp
 At this point `queue_name` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 
-Secondly, once we disconnect the consumer the queue should be
+Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
 <pre class="sourcecode elixir">
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 </pre>
+
+You can learn more about the `exclusive` flag and other queue
+properties in the [guide on queues](/queues.html).
 
 Bindings
 --------
