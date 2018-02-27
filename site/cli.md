@@ -188,14 +188,19 @@ current node details:
 </pre>
 
 
-#### Possible Reason 2: Inter-node Connections Require TLS
+#### Possible Reason 2: Node Name Type Mismatch
+
+If RabbitMQ nodes are configured to use long node names (`RABBITMQ_USE_LONGNAME` is exported to `true`),
+so should CLI tools via the same environment variable or the `--longnames` command line flag introduced in 3.7.0.
+
+#### Possible Reason 3: Inter-node Connections Require TLS
 
 If RabbitMQ is set up to [encrypt inter-node and CLI connections using TLS](http://www.rabbitmq.com/clustering-ssl.html),
 CLI tools also must use TLS and therefore require additional options.
 Non-TLS connections from other nodes and CLI tools will fail.
 
 
-#### Possible Reason 3: Hostname Mismatch
+#### Possible Reason 4: Hostname Mismatch
 
 Other reasons include a hostname mismatch in node name used by the target RabbitMQ node and that provided
 to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
