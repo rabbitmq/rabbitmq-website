@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -70,16 +70,14 @@ we need to require the library first:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
-
-require "bunny"
+require 'bunny'
 </pre>
 
 then connect to RabbitMQ server
 
 <pre class="sourcecode ruby">
-conn = Bunny.new
-conn.start
+connection = Bunny.new
+connection.start
 </pre>
 
 The connection abstracts the socket connection, and takes care of
@@ -91,23 +89,24 @@ machine we'd simply specify its name or IP address using the `:hostname`
 option:
 
 <pre class="sourcecode ruby">
-conn = Bunny.new(:hostname => "rabbit.local")
-conn.start
+connection = Bunny.new(hostname: 'rabbit.local')
+connection.start
 </pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
 <pre class="sourcecode ruby">
-ch   = conn.create_channel
+channel = connection.create_channel
 </pre>
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
 <pre class="sourcecode ruby">
-q    = ch.queue("hello")
-ch.default_exchange.publish("Hello World!", :routing_key => q.name)
+queue = channel.queue('hello')
+
+channel.default_exchange.publish('Hello World!', routing_key: queue.name)
 puts " [x] Sent 'Hello World!'"
 </pre>
 
@@ -118,7 +117,7 @@ whatever you like there.
 Lastly, we close the connection;
 
 <pre class="sourcecode ruby">
-conn.close
+connection.close
 </pre>
 
 [Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb).
@@ -149,9 +148,7 @@ The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
-
-require "bunny"
+require 'bunny'
 </pre>
 
 Setting up is the same as the producer; we open a connection and a
@@ -159,11 +156,11 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
 <pre class="sourcecode ruby">
-conn = Bunny.new
-conn.start
+connection = Bunny.new
+connection.start
 
-ch   = conn.create_channel
-q    = ch.queue("hello")
+channel = connection.create_channel
+queue = channel.queue('hello')
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
@@ -177,8 +174,8 @@ our consumer. This is what `Bunny::Queue#subscribe` does.
 
 <pre class="sourcecode ruby">
 begin
-  puts " [*] Waiting for messages. To exit press CTRL+C"
-  q.subscribe(:block => true) do |delivery_info, properties, body|
+  puts ' [*] Waiting for messages. To exit press CTRL+C'
+  queue.subscribe(block: true) do |_delivery_info, _properties, body|
     puts " [x] Received #{body}"
   end
 rescue Interrupt => _
@@ -198,13 +195,13 @@ block the calling thread (we don't want the script to finish running immediately
 Now we can run both scripts. In a terminal, run the consumer (receiver):
 
 <pre class="sourcecode bash">
-ruby -rubygems receive.rb
+ruby receive.rb
 </pre>
 
 then, run the publisher (sender):
 
 <pre class="sourcecode bash">
-ruby -rubygems send.rb
+ruby send.rb
 </pre>
 
 The consumer will print the message it gets from the producer via
@@ -226,4 +223,3 @@ the producer from another terminal.
 > </pre>
 
 Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
-

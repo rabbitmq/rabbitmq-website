@@ -76,10 +76,10 @@ program will schedule tasks to our work queue, so let's name it
 `new_task.rb`:
 
 <pre class="sourcecode ruby">
-msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
-q.publish(msg, :persistent => true)
-puts " [x] Sent #{msg}"
+queue.publish(message, persistent: true)
+puts " [x] Sent #{message}"
 </pre>
 
 Our old _receive.rb_ script also requires some changes: it needs to
@@ -87,11 +87,11 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.rb`:
 
 <pre class="sourcecode ruby">
-q.subscribe(:block => true) do |delivery_info, properties, body|
+queue.subscribe(block: true) do |delivery_info, _properties, body|
   puts " [x] Received #{body}"
   # imitate some work
-  sleep body.count(".").to_i
-  puts " [x] Done"
+  sleep body.count('.').to_i
+  puts ' [x] Done'
 end
 </pre>
 
@@ -101,12 +101,12 @@ Run them as in tutorial one:
 
 <pre class="sourcecode bash">
 # shell 1
-ruby -rubygems worker.rb
+ruby worker.rb
 </pre>
 
 <pre class="sourcecode bash">
 # shell 2
-ruby -rubygems new_task.rb
+ruby new_task.rb
 </pre>
 
 Round-robin dispatching
@@ -124,13 +124,13 @@ script. These consoles will be our two consumers - C1 and C2.
 
 <pre class="sourcecode bash">
 # shell 1
-ruby -rubygems worker.rb
+ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
 <pre class="sourcecode bash">
 # shell 2
-ruby -rubygems worker.rb
+ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
@@ -139,18 +139,18 @@ the consumers you can publish a few messages:
 
 <pre class="sourcecode bash">
 # shell 3
-ruby -rubygems new_task.rb First message.
-ruby -rubygems new_task.rb Second message..
-ruby -rubygems new_task.rb Third message...
-ruby -rubygems new_task.rb Fourth message....
-ruby -rubygems new_task.rb Fifth message.....
+ruby new_task.rb First message.
+ruby new_task.rb Second message..
+ruby new_task.rb Third message...
+ruby new_task.rb Fourth message....
+ruby new_task.rb Fifth message.....
 </pre>
 
 Let's see what is delivered to our workers:
 
 <pre class="sourcecode bash">
 # shell 1
-ruby -rubygems worker.rb
+ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'First message.'
 # => [x] Received 'Third message...'
@@ -159,7 +159,7 @@ ruby -rubygems worker.rb
 
 <pre class="sourcecode bash">
 # shell 2
-ruby -rubygems worker.rb
+ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'Second message..'
 # => [x] Received 'Fourth message....'
@@ -206,12 +206,12 @@ It's time to turn them on using the `:manual_ack` option and send a proper ackno
 from the worker, once we're done with a task.
 
 <pre class="sourcecode ruby">
-q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
+queue.subscribe(manual_ack: true, block: true) do |delivery_info, _properties, body|
   puts " [x] Received '#{body}'"
   # imitate some work
-  sleep body.count(".").to_i
-  puts " [x] Done"
-  ch.ack(delivery_info.delivery_tag)
+  sleep body.count('.').to_i
+  puts ' [x] Done'
+  channel.ack(delivery_info.delivery_tag)
 end
 </pre>
 
@@ -255,7 +255,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
 <pre class="sourcecode ruby">
-ch.queue("hello", :durable => true)
+channel.queue('hello', durable: true)
 </pre>
 
 Although this command is correct by itself, it won't work in our present
@@ -266,7 +266,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 <pre class="sourcecode ruby">
-ch.queue("task_queue", :durable => true)
+channel.queue('task_queue', durable: true)
 </pre>
 
 This `:durable` option change needs to be applied to both the producer
@@ -277,7 +277,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `:persistent` option `Bunny::Exchange#publish` takes.
 
 <pre class="sourcecode ruby">
-x.publish(msg, :persistent => true)
+exchange.publish(message, persistent: true)
 </pre>
 
 > #### Note on message persistence
@@ -340,7 +340,7 @@ previous one. Instead, it will dispatch it to the next worker that is not still 
 
 <pre class="sourcecode ruby">
 n = 1;
-ch.prefetch(n);
+channel.prefetch(n);
 </pre>
 
 > #### Note about queue size
@@ -355,23 +355,20 @@ Final code of our `new_task.rb` class:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+connection = Bunny.new(automatically_recover: false)
+connection.start
 
-conn = Bunny.new
-conn.start
+channel = connection.create_channel
+queue = channel.queue('task_queue', durable: true)
 
-ch   = conn.create_channel
-q    = ch.queue("task_queue", :durable => true)
+message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
-msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
+queue.publish(message, persistent: true)
+puts " [x] Sent #{message}"
 
-q.publish(msg, :persistent => true)
-puts " [x] Sent #{msg}"
-
-sleep 1.0
-conn.close
+connection.close
 </pre>
 
 [(new_task.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/new_task.rb)
@@ -380,29 +377,27 @@ And our `worker.rb`:
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
+require 'bunny'
 
-require "bunny"
+connection = Bunny.new(automatically_recover: false)
+connection.start
 
-conn = Bunny.new
-conn.start
+channel = connection.create_channel
+queue = channel.queue('task_queue', durable: true)
 
-ch   = conn.create_channel
-q    = ch.queue("task_queue", :durable => true)
-
-ch.prefetch(1)
-puts " [*] Waiting for messages. To exit press CTRL+C"
+channel.prefetch(1)
+puts ' [*] Waiting for messages. To exit press CTRL+C'
 
 begin
-  q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
+  queue.subscribe(manual_ack: true, block: true) do |delivery_info, _properties, body|
     puts " [x] Received '#{body}'"
     # imitate some work
-    sleep body.count(".").to_i
-    puts " [x] Done"
-    ch.ack(delivery_info.delivery_tag)
+    sleep body.count('.').to_i
+    puts ' [x] Done'
+    channel.ack(delivery_info.delivery_tag)
   end
 rescue Interrupt => _
-  conn.close
+  connection.close
 end
 </pre>
 

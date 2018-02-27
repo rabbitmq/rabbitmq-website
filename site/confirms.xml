@@ -45,7 +45,7 @@ limitations under the License.
       <p>
         Both features Build on the same idea and are inspired by TCP.
         They are essential for reliable delivery both from publishers
-        to RabbitMQ nodes and from RabbitMQ ndoes to consumers.
+        to RabbitMQ nodes and from RabbitMQ nodes to consumers.
       </p>
     </doc:section>
 

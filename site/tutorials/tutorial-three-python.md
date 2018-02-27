@@ -172,12 +172,15 @@ result = channel.queue_declare()
 At this point `result.method.queue` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 
-Secondly, once we disconnect the consumer the queue should be
+Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
 <pre class="sourcecode python">
 result = channel.queue_declare(exclusive=True)
 </pre>
+
+You can learn more about the `exclusive` flag and other queue
+properties in the [guide on queues](/queues.html).
 
 Bindings
 --------

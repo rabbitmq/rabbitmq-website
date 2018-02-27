@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -42,8 +42,11 @@ create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
 <pre class="sourcecode ruby">
-client   = FibonacciClient.new(ch, "rpc_queue")
+client = FibonacciClient.new('rpc_queue')
+
+puts ' [x] Requesting fib(30)'
 response = client.call(30)
+
 puts " [.] Got #{response}"
 </pre>
 
@@ -77,10 +80,10 @@ request. We can use the default queue.
 Let's try it:
 
 <pre class="sourcecode ruby">
-q = ch.queue("", :exclusive => true)
-x = ch.default_exchange
+queue = channel.queue('', exclusive: true)
+exchange = channel.default_exchange
 
-x.publish(message, :routing_key => "rpc_queue", :reply_to => q.name)
+exchange.publish(message, routing_key: 'rpc_queue', reply_to: queue.name)
 
 # ... then code to read a response message from the callback_queue ...
 </pre>
@@ -206,13 +209,10 @@ Putting it all together
 The Fibonacci task:
 
 <pre class="sourcecode ruby">
-def self.fib(n)
-  case n
-  when 0 then 0
-  when 1 then 1
-  else
-    fib(n - 1) + fib(n - 2)
-  end
+def fibonacci(value)
+  return value if value.zero? || value == 1
+
+  fibonacci(value - 1) + fibonacci(value - 2)
 end
 </pre>
 
@@ -225,49 +225,56 @@ The code for our RPC server [rpc_server.rb](https://github.com/rabbitmq/rabbitmq
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
-
-require "bunny"
-
-conn = Bunny.new
-conn.start
-
-ch   = conn.create_channel
+require 'bunny'
 
 class FibonacciServer
-  def initialize(ch)
-    @ch = ch
+  def initialize
+    @connection = Bunny.new
+    @connection.start
+    @channel = @connection.create_channel
   end
 
   def start(queue_name)
-    @q = @ch.queue(queue_name)
-    @x = @ch.default_exchange
+    @queue = channel.queue(queue_name)
+    @exchange = channel.default_exchange
+    subscribe_to_queue
+  end
 
-    @q.subscribe(:block => true) do |delivery_info, properties, payload|
-      n = payload.to_i
-      r = self.class.fib(n)
+  def stop
+    channel.close
+    connection.close
+  end
 
-      @x.publish(r.to_s, :routing_key => properties.reply_to, :correlation_id => properties.correlation_id)
+  private
+
+  attr_reader :channel, :exchange, :queue, :connection
+
+  def subscribe_to_queue
+    queue.subscribe(block: true) do |_delivery_info, properties, payload|
+      result = fibonacci(payload.to_i)
+
+      exchange.publish(
+        result.to_s,
+        routing_key: properties.reply_to,
+        correlation_id: properties.correlation_id
+      )
     end
   end
 
-  def self.fib(n)
-    case n
-    when 0 then 0
-    when 1 then 1
-    else
-      fib(n - 1) + fib(n - 2)
-    end
+  def fibonacci(value)
+    return value if value.zero? || value == 1
+
+    fibonacci(value - 1) + fibonacci(value - 2)
   end
 end
 
 begin
-  server = FibonacciServer.new(ch)
-  " [x] Awaiting RPC requests"
-  server.start("rpc_queue")
+  server = FibonacciServer.new
+
+  puts ' [x] Awaiting RPC requests'
+  server.start('rpc_queue')
 rescue Interrupt => _
-  ch.close
-  conn.close
+  server.stop
 end
 </pre>
 
@@ -288,68 +295,75 @@ The code for our RPC client [rpc_client.rb](https://github.com/rabbitmq/rabbitmq
 
 <pre class="sourcecode ruby">
 #!/usr/bin/env ruby
-# encoding: utf-8
-
-require "bunny"
-require "thread"
-
-conn = Bunny.new(:automatically_recover => false)
-conn.start
-
-ch   = conn.create_channel
+require 'bunny'
+require 'thread'
 
 class FibonacciClient
-  attr_reader :reply_queue
-  attr_accessor :response, :call_id
-  attr_reader :lock, :condition
+  attr_accessor :call_id, :response, :lock, :condition, :connection,
+                :channel, :server_queue_name, :reply_queue, :exchange
 
-  def initialize(ch, server_queue)
-    @ch             = ch
-    @x              = ch.default_exchange
+  def initialize(server_queue_name)
+    @connection = Bunny.new(automatically_recover: false)
+    @connection.start
 
-    @server_queue   = server_queue
-    @reply_queue    = ch.queue("", :exclusive => true)
+    @channel = connection.create_channel
+    @exchange = channel.default_exchange
+    @server_queue_name = server_queue_name
 
-    @lock      = Mutex.new
+    setup_reply_queue
+  end
+
+  def call(n)
+    @call_id = generate_uuid
+
+    exchange.publish(n.to_s,
+                     routing_key: server_queue_name,
+                     correlation_id: call_id,
+                     reply_to: reply_queue.name)
+
+    # wait for the signal to continue the execution
+    lock.synchronize { condition.wait(lock) }
+
+    response
+  end
+
+  def stop
+    channel.close
+    connection.close
+  end
+
+  private
+
+  def setup_reply_queue
+    @lock = Mutex.new
     @condition = ConditionVariable.new
-    that       = self
+    that = self
+    @reply_queue = channel.queue('', exclusive: true)
 
-    @reply_queue.subscribe do |delivery_info, properties, payload|
+    reply_queue.subscribe do |_delivery_info, properties, payload|
       if properties[:correlation_id] == that.call_id
         that.response = payload.to_i
-        that.lock.synchronize{that.condition.signal}
+
+        # sends the signal to continue the execution of #call
+        that.lock.synchronize { that.condition.signal }
       end
     end
   end
 
-  def call(n)
-    self.call_id = self.generate_uuid
-
-    @x.publish(n.to_s,
-      :routing_key    => @server_queue,
-      :correlation_id => call_id,
-      :reply_to       => @reply_queue.name)
-
-    lock.synchronize{condition.wait(lock)}
-    response
-  end
-
-  protected
-
   def generate_uuid
-    # very naive but good enough for code
-    # examples
+    # very naive but good enough for code examples
     "#{rand}#{rand}#{rand}"
   end
 end
 
-client   = FibonacciClient.new(ch, "rpc_queue")
-puts " [x] Requesting fib(30)"
+client = FibonacciClient.new('rpc_queue')
+
+puts ' [x] Requesting fib(30)'
 response = client.call(30)
+
 puts " [.] Got #{response}"
 
-ch.close
-conn.close
+client.stop
 </pre>
 
 
@@ -360,14 +374,14 @@ Now is a good time to take a look at our full example source code (which include
 Our RPC service is now ready. We can start the server:
 
 <pre class="sourcecode bash">
-ruby -rubygems rpc_server.rb
+ruby rpc_server.rb
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
 <pre class="sourcecode bash">
-ruby -rubygems rpc_client.rb
+ruby rpc_client.rb
 # => [x] Requesting fib(30)
 </pre>
 
