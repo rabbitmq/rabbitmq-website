@@ -301,8 +301,7 @@ limitations under the License.
         <tr>
           <td>RABBITMQ_BASE</td>
           <td>
-            <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span> or
-            <span class="path"><span class="envvar">%APPDATA%</span>\Roaming\RabbitMQ</span>
+            <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span>
           </td>
         </tr>
         <tr>
