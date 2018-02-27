@@ -101,6 +101,15 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       </p>
 
       <p>
+        The above plugins do not need to be installed but they need
+        to be enabled before node start using <a href="">rabbitmq-plugins</a>' <code>--offline</code> mode:
+
+        <pre class="sourcecode ini">
+rabbitmq-plugins --offline enable [plugin name]
+</pre>
+      </p>
+
+      <p>
         When a node starts and detects it doesn't have a previously
         initialised database, it will check if there's a peer
         discovery mechanism configured. If that's the case, it will

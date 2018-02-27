@@ -30,7 +30,10 @@ limitations under the License.
   <body>
 <doc:section>
 
-  <p>This guide assumes familiarity with the general <a href="/clustering.html">clustering guide</a>.</p>
+  <p>
+    This guide assumes familiarity with the general <a href="/clustering.html">clustering guide</a> as well
+    the guide on <a href="/cluster-formation.html">cluster peer discovery</a>.
+  </p>
 
   <doc:subsection name="overview">
     <doc:heading>Overview</doc:heading>
@@ -41,14 +44,15 @@ limitations under the License.
     </p>
 
     <p>
-      This guide uses traditional RabbitMQ clustering. It is worth noting that
-      alternative solutions are available and can be more suitable for automation:
+      This guide uses manual (<a href="/cli.html">CLI</a>-driven) RabbitMQ clustering. Other options
+      exist that are more suitable for automation:
 
       <ul>
-        <li><a href="/clustering.html">Auto-configuration of a cluster</a> (part of RabbitMQ core)</li>
         <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-autocluster">rabbitmq-autocluster</a>: forms
-          clusters using round-robin DNS (e.g. <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">with Route 53</a>), <a href="https://www.consul.io/">Consul</a> or <a href="https://github.com/coreos/etcd">etcd</a>.
+          <a href="/cluster-formation.html">peer discovery plugin for AWS</a> (RabbitMQ 3.7.0 or later)
+        </li>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-autocluster">rabbitmq-autocluster</a> (for 3.6.x).
         </li>
       </ul>
 
@@ -60,12 +64,13 @@ limitations under the License.
     <doc:heading>AMIs</doc:heading>
     <p>
       Pivotal currently does not provide AMI images with RabbitMQ pre-provisioned.
-      RabbitMQ works well on up-to-date Ubuntu and CentOS AMIs.
+      RabbitMQ works well on up-to-date Ubuntu, Debian and CentOS AMIs as long as
+      a <a href="/which-erlang.html">compatible version of Erlang/OTP</a> is installed.
     </p>
   </doc:subsection>
 
   <doc:subsection name="instance_type">
-    <doc:heading>Choose instance type</doc:heading>
+    <doc:heading>Choose Instance Type</doc:heading>
     <p>
       First, you need to choose what instance type to run. RabbitMQ
       will work on every instance type, but there are a few considerations
@@ -73,36 +78,36 @@ limitations under the License.
     </p>
     <ul>
       <li>
-	RabbitMQ will work on 32-bit operating system, but for
-	production usage we recommend 64-bit instances.
+	Use 64-bit instances.
       </li>
       <li>
-	RabbitMQ by default will take advantage of all the processors
-	in the system. However a single strong CPU configuration might
-	behave slightly better than a collection of weak processors.
-      </li>
-      <li>
-	In some cases RabbitMQ requires substantial amounts of memory.
+	Depending on the workload and settings, RabbitMQ can require substantial amounts of memory.
 	Make sure that your host does have <a href="/memory.html">enough RAM</a> and always have
-	at least a few gigabytes of swap space enabled.
+	at least a few gigabytes of swap space enabled. Workloads can be simulated using <a href="/java-tools.html">PerfTest</a>.
+        A separate guide about <a href="/memory-use.html">reasoning about node memory usage</a> is available.
+      </li>
+      <li>
+	RabbitMQ can take advantage of all the CPU cores
+	in the system provided the workload uses <a href="/queues.html">multiple queues</a>.
+        Other factors should be taken into account (e.g. disk and network I/O throughput).
+      </li>
+      <li>
+        <a href="/monitoring.html">Monitoring</a> RabbitMQ nodes as well as applications that use it
+        on real or simulated workloads will help assess how suitable a particular instance type is.
       </li>
     </ul>
   </doc:subsection>
 
 
   <doc:subsection name="os_type">
-    <doc:heading>Choose operating system</doc:heading>
+    <doc:heading>Choose Operating System</doc:heading>
     <p>
       Although RabbitMQ is tested with most major Linux distributions,
-      Ubuntu support for Amazon EC2 seems to be strongest. You can
-      get the list of Ubuntu AMI images here:
+      Ubuntu support for Amazon EC2 seems to be strongest, so that's the distribution this guide
+      will use.
 
-      <pre>
-      <a href="http://uec-images.ubuntu.com/releases/">http://uec-images.ubuntu.com/releases/</a></pre>
-
-      You may find more information
-      in <a href="https://help.ubuntu.com/community/EC2StartersGuide">Ubuntu
-      EC2 Starters Guide</a>.
+      See <a href="http://uec-images.ubuntu.com/releases/">Ubuntu Cloud Images</a>
+      and <a href="https://help.ubuntu.com/community/EC2StartersGuide">Ubuntu EC2 Starters Guide</a>.
     </p>
   </doc:subsection>
 
@@ -110,44 +115,25 @@ limitations under the License.
   <doc:subsection name="install">
     <doc:heading>Install RabbitMQ</doc:heading>
     <p>
-      Ubuntu ships with RabbitMQ but it's often not the latest
-      version. If you want the recent version, you may use
-      our <a href="install-debian.html">Debian
-      repository</a>. Here is a shell
-      script <code>rabbitmq-user-data.sh</code> that automates
-      RabbitMQ installation on Ubuntu:
+      Please consult the installation guides for
+
+      <ul>
+        <li><a href="install-debian.html">Debian and Ubuntu</a></li>
+        <li><a href="install-rpm.html">RHEL, CentOS and Fedora</a></li>
+      </ul>
     </p>
-    <pre class="sourcecode bash">
-#!/bin/sh
-cat &lt;&lt;EOF &gt; /etc/apt/sources.list.d/rabbitmq.list
-deb http://www.rabbitmq.com/debian/ testing main
-EOF
-
-curl https://www.rabbitmq.com/rabbitmq-release-signing-key.asc -o /tmp/rabbitmq-release-signing-key.asc
-apt-key add /tmp/rabbitmq-release-signing-key.asc
-rm /tmp/rabbitmq-release-signing-key.asc
-
-apt-get -qy update
-apt-get -qy install rabbitmq-server</pre>
 
     <p>
-      Instead of running it manually, you can tell the instance to run
-      this script automatically during the first start. You can do it
-      using the <code>user-data-file</code> command line option for
-      the <code>ec2-run-instances</code> command. For example:
+      A wide variety of deployment tools can be used to automate
+      RabbitMQ deployment.
 
-      <pre class="sourcecode bash">ec2-run-instances ami-XXX \
-    --key ${EC2_KEYPAIR} \
-    --instance-type m1.large \
-    --region eu-west-1 \
-    --user-data-file rabbitmq-user-data.sh</pre>
+      <ul>
+        <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
+        <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
+        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
+      </ul>
 
-      Put your chosen AMI id in the place of <code>ami-XXX</code>. The
-      string <code>${EC2_KEYPAIR}</code> should be replaced with the
-      public ssh keypair name that is going to be used to log in to
-      the instance. You can find more information
-      about <code>ec2-run-instances</code> command in
-      <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/">EC2 Getting Started Guide</a>.
+      are some popular options.
     </p>
   </doc:subsection>
 
