@@ -29,8 +29,8 @@ limitations under the License.
       This can be done using <a href="/queues.html">optional queue arguments</a> or
       <a href="/parameters.html">policies</a> (the latter option is recommended).
 
-      Message TTL can be enforced for a single queue, a group of
-      queues or applied for individual messages.
+      Message TTL can be applied to a single queue, a group of
+      queues or applied on the message-by-message basis.
     </p>
     <p>
       TTL settings also can be enforced by <a href="/parameters.html#operator-policies">operator policies</a>.
@@ -38,11 +38,13 @@ limitations under the License.
     <doc:section name="per-queue-message-ttl">
       <doc:heading>Per-Queue Message TTL in Queues</doc:heading>
       <p>
-        TTL can be set for a given queue by setting the
-        <code>x-message-ttl</code> argument to
-        <code>queue.declare</code>, or by setting the
-        <code>message-ttl</code> <a
-        href="parameters.html#policies">policy</a>. A message that has
+        Message TTL can be set for a given queue by setting the
+        <code>message-ttl</code> argument with a <a href="parameters.html#policies">policy</a>
+        or by specifying the same argument at the time of queue declaration.
+      </p>
+
+      <p>
+        A message that has
         been in the queue for longer than the configured TTL is said to
         be <em>dead</em>. Note that a message routed to multiple queues
         can die at different times, or not at all, in each queue in
@@ -54,7 +56,7 @@ limitations under the License.
         The server guarantees that dead messages will not be delivered
         using <code>basic.deliver</code> (to a consumer) or included into a <code>basic.get-ok</code> response
         (for one-off fetch operations).
-        Further, the server will try to reap messages at or
+        Further, the server will try to remove messages at or
         shortly after their TTL-based expiry.
       </p>
 
@@ -230,6 +232,13 @@ model.BasicPublish(exchangeName,
     <doc:section name="queue-ttl">
       <doc:heading>Queue TTL</doc:heading>
 
+      <p>
+        TTL can also be set on queues, not just queue contents.
+        Queues will expire after a period of time only when they
+        are not used (e.g. do not have consumers). This feature
+        can be used together with the <a href="/queues.html">auto-delete queue property</a>.
+      </p>
+      
       <p>
         Expiry time can be set for a given queue by setting the
         <code>x-expires</code> argument to <code>queue.declare</code>,
