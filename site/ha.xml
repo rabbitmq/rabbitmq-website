@@ -249,53 +249,7 @@ limitations under the License.
         <doc:heading>Examples</doc:heading>
 
         <p>
-          The following example declares a policy named <code>ha-all</code> which matches
-          the queues whose names begin with
-          "<code>ha.</code>" and configures mirroring to all nodes in the cluster (see <a href="#replication-factor">To How Many Nodes to Mirror?</a> above):
-        </p>
-
-        <table>
-          <tr>
-            <th>rabbitmqctl</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>rabbitmqctl (Windows)</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>HTTP API</th>
-            <td>
-              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>Web UI</th>
-            <td>
-              <ul>
-                <li>
-                  Navigate to Admin > Policies > Add / update a
-                  policy.
-                </li>
-                <li>
-                  Enter "ha-all" next to Name, "^ha\." next to Pattern,
-                  and "ha-mode" = "all" in the first line next to
-                  Policy.
-                </li>
-                <li>
-                  Click Add policy.
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
-
-        <p>
-          Policy where queues whose names begin with
+          Below is a policy where queues whose names begin with
           "<code>two.</code>" are mirrored to any two nodes in the
           cluster, with <a href="#eager-synchronisation">automatic
           synchronisation</a>:
@@ -350,7 +304,54 @@ limitations under the License.
         </table>
 
         <p>
-          Policy where queues whose names begin with
+          The following example declares a policy named <code>ha-all</code> which matches
+          the queues whose names begin with
+          "<code>ha.</code>" and configures mirroring to all nodes in the cluster (see <a href="#replication-factor">To How Many Nodes to Mirror?</a> above):
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>HTTP API</th>
+            <td>
+              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>Web UI</th>
+            <td>
+              <ul>
+                <li>
+                  Navigate to Admin > Policies > Add / update a
+                  policy.
+                </li>
+                <li>
+                  Enter "ha-all" next to Name, "^ha\." next to Pattern,
+                  and "ha-mode" = "all" in the first line next to
+                  Policy.
+                </li>
+                <li>
+                  Click Add policy.
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+
+
+        <p>
+          A policy where queues whose names begin with
           "<code>nodes.</code>" are mirrored to specific nodes in the
           cluster:
         </p>
@@ -404,6 +405,7 @@ limitations under the License.
           </tr>
         </table>
       </doc:section>
+
 
       <doc:section name="behaviour">
         <doc:heading>Mirrored Queue Implementation and Semantics</doc:heading>
@@ -603,6 +605,15 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           is preferable to allow active queues from which messages are
           being drained to synchronise naturally, and only explicitly
           synchronise inactive queues.
+        </p>
+
+        <p>
+          When enabling automatic queue mirroring, consider the expected on disk
+          data set of the queues involved. Queues with a sizeable data set
+          (say, tens of gigabytes or more) will have to replicate it to
+          the newly added mirror(s), which can put a significant load on
+          cluster resources such as network bandwidth and disk I/O. This is
+          a common scenario with lazy queues, for example.
         </p>
 
         <p>
