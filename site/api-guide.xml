@@ -1130,6 +1130,23 @@ factory.setTopologyRecoveryEnabled(false);
           be capable of handling redeliveries.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="recovery-channel-lifecycle">
+        <doc:heading>Channels Lifecycle and Topology Recovery</doc:heading>
+        <p>
+          Automatic connection recovery is meant to be as transparent as possible
+          for the application developer, that's why <code>Channel</code> instances
+          remain the same even if several connections fail and recover behind the scenes.
+          Technically, when automatic recovery is on, <code>Channel</code> instances
+          act as proxies or decorators: they delegate the AMQP business to an
+          actual AMQP channel implementation and implement some recovery machinery around it.
+          That is why you shouldn't close a channel after it has created some resources
+          (queues, exchanges, bindings) or topology recovery for those resources
+          will fail later, as the channel has been closed. Instead, leave creating channels open
+          for the life of the application.
+        </p>
+    </doc:subsection>
+
     </doc:section>
 
     <doc:section name="unhandled-exceptions">
