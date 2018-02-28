@@ -282,3 +282,13 @@ Given the following interleaved message sizes:
 Only the first **20** messages below the `queue_index_embed_msgs_below` value will be loaded into memory on node startup.
 In this scenario, messages will use **21KB** of system memory, and queue process will use another **32KB** of system memory.
 The total system memory required for the queue process to finish starting is **53KB**.
+
+
+### Mirroring of Lazy Queues
+
+When enabling [automatic queue mirroring](/ha.html#unsynchronised-mirrors), consider the expected on disk
+data set of the queues involved. Queues with a sizeable data set
+(say, tens of gigabytes or more) will have to replicate it to
+the newly added mirror(s), which can put a significant load on
+cluster resources such as network bandwidth and disk I/O. This is
+a common scenario with lazy queues, for example.
