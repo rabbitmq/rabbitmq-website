@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -64,7 +64,7 @@ div#innerContainer {
 
 a {
   color: #FF6600;
-  text-decoration: underline;	
+  text-decoration: underline;
   transition: all .2s;
   -webkit-transition: all .2s;
   -moz-transition: all .2s;
@@ -198,13 +198,13 @@ ul li {
 }
 
 ol.plain, ul.plain {
-  margin: 5px 0px 0px 10px;	
+  margin: 5px 0px 0px 10px;
   padding: 0px 0px 0px 0px;
 }
 
 ol.plain li, ul.plain li {
   background: none;
-  margin: 0px 0px 0px 10px;	
+  margin: 0px 0px 0px 10px;
   padding: 0px 0px 0px 0px;
   border-bottom: none;
 }
@@ -783,7 +783,7 @@ margin: 0 auto;
 .hubs-embedded .tile.single .description h3.h3like {
   font-weight: 400 !important;
 }
-.hubs-embedded  div.tile.single>a.view, 
+.hubs-embedded  div.tile.single>a.view,
 .hubs-embedded li.tile.single>a.view {
   padding-left: 20px !important;
   background-image: none !important;
@@ -812,7 +812,7 @@ margin: 0 auto;
 .hubs-embedded  .tile.single>a.view:after {
   background: transparent url(../img/icon-arrow-orange.svg) left top no-repeat !important;
   top: 15px !important;
-  width: 20px; 
+  width: 20px;
   height: 10px;
 }
 .hubs-embedded  .tile.single {
@@ -997,6 +997,10 @@ body#index #getstarted .fifty .container {
   float: right;
 }
 
+img.screenshot {
+  max-width: 600px;
+}
+
 /* Responsive */
 
 @media(max-width: 1031px) {
@@ -1005,6 +1009,10 @@ body#index #getstarted .fifty .container {
   .hubs-embedded #collection-items .tile:nth-child(3) {
     margin-left: 0 !important;
     margin-right: 10px !important;
+  }
+
+  img.screenshot {
+    width: 600px;
   }
 }
 
@@ -1086,6 +1094,10 @@ body#index #getstarted .fifty .container {
   #s1p-promo {
     float: left;
   }
+
+  img.screenshot {
+    max-width: 600px;
+  }
 }
 
 @media(max-width: 800px) {
@@ -1135,7 +1147,7 @@ body#index #getstarted .fifty .container {
   #intro .onethird,
   #intro .onethird .container {
     max-width: 100%;
-  }	
+  }
   #intro .twothirds .inner {
     padding-right: 0;
   }
@@ -1151,6 +1163,10 @@ body#index #getstarted .fifty .container {
   #intro .onethird .container {
     float: none;
     padding: 0;
+  }
+
+  img.screenshot {
+    max-width: 600px;
   }
 }
 
@@ -1221,6 +1237,10 @@ body#index #getstarted .fifty .container {
   #community .orangebtn {
     margin-bottom: 10px;
   }
+
+  img.screenshot {
+    max-width: 500px;
+  }
 }
 
 @media(max-width: 480px) {
@@ -1230,5 +1250,9 @@ body#index #getstarted .fifty .container {
   }
   div#right-nav li {
     display: block;
+  }
+
+  img.screenshot {
+    max-width: 450px;
   }
 }

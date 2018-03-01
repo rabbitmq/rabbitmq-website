@@ -211,20 +211,20 @@ limitations under the License.
           Below is an example of a queue named <code>two.replicas</code> which has a master
           and a mirror:
 
-          <img src="img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
+          <img class="screenshot" src="img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
         </p>
 
         <p>
           Master node for the queue and its online mirror(s), if any, will be listed on the queue page:
 
-          <img src="img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
+          <img class="screenshot" src="img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
         </p>
 
         <p>
           If the queue page does not list any mirrors, the queue is not mirrored (or has only one mirror which
           is not online):
 
-          <img src="img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
+          <img class="screenshot" src="img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
         </p>
 
         <p>
