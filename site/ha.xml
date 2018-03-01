@@ -163,18 +163,59 @@ limitations under the License.
           to keep its existing mirrors as far as this fits with the new
           policy.
         </p>
+      </doc:section>
 
-        <h3 id="replication-factor">To How Many Nodes to Mirror?</h3>
+
+      <doc:section name="ways-to-configure">
+        <doc:heading>How Mirroring is Configured</doc:heading>
+
         <p>
-          Note that mirroring to all queues is the most conservative option
-          and is unnecessary in many cases. For clusters of 3 and more nodes
-          it is recommended to mirror to a quorum (the majority) of nodes,
-          e.g. 2 nodes in a 3 node cluster or 3 nodes in a 5 node cluster.
-          Since some data can be inherently transient or very time sensitive,
-          it can be perfectly reasonable to use a lower number of mirrors
-          for some queues (or even not use any mirroring).
+          Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
+          one or more queues by name (using a regular expression pattern) and
+          contains a definition (a map of optional arguments) that are added to the total set of
+          properties of the matching queues.
+          Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
+          for more information on policies.
         </p>
       </doc:section>
+
+
+      <doc:section name="how-to-check-i-a-queue-is-mirrored">
+        <doc:heading>How to Check if a Queue is Mirrored?</doc:heading>
+
+        <p>
+          Mirrored queues will have a policy name and the number of additional replicas (mirrors)
+          next to it on the queue page in the <a href="/management.html">management UI</a>.
+        </p>
+
+        <p>
+          Below is an example of a queue named <code>two.replicas</code> which has a master
+          and a mirror:
+
+          <img src="img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
+        </p>
+
+        <p>
+          It is possible to list queue master and mirrors using <code>rabbitmqctl list_queues</code>. In this
+          example we also display queue policy since it's highly relevant:
+          
+<pre class="sourcecode bash">
+rabbitmqctl list_queues name policy pid slave_pids
+
+# =&gt; Timeout: 60.0 seconds ...
+# =&gt; Listing queues for vhost / ...
+# =&gt; two.replicas	ha-two	&lt;hare@warp10.1.2223.0&gt;	[&lt;rabbit@warp10.3.1360.0&gt;]
+</pre>
+        </p>
+
+        <p>
+          If a queue that's expected to be mirroring is not, this usually means that its name
+          doesn't match that specified in the policy that controls mirroring or that another
+          policy takes priority (and does not enable mirroring).
+          See <a href="/parameters.html#policies">Runtime Parameters and Policies</a> to learn more.
+        </p>
+      </doc:section>
+
 
       <doc:section name="master-migration-data-locality">
         <doc:heading>Queue Masters, Master Migration, Data Locality</doc:heading>
@@ -227,7 +268,7 @@ limitations under the License.
           will shut down.
         </p>
 
-        <h3>Exclusive Queues</h3>
+        <h3>Mirroring of Exclusive Queues</h3>
 
         <p>
           Exclusive queues will be deleted when the connection that
