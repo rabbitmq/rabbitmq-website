@@ -108,52 +108,71 @@ limitations under the License.
             <th>Result</th>
           </tr>
           <tr>
-            <td><code>all</code></td>
-            <td>(absent)</td>
-            <td>
-              Queue is mirrored across all nodes in the
-              cluster. When a new node is added to the cluster, the
-              queue will be mirrored to that node.
-            </td>
-          </tr>
-          <tr>
             <td><code>exactly</code></td>
             <td><i>count</i></td>
             <td>
-              Number of queue instances in the cluster.
+              Number of queue replicas (master plus mirrors) in the cluster.
 
-              A <i>count</i> value of 1 means just the queue master, with no
-              mirrors. If the node running the queue master becomes
-              unavailable, the queue will become unavailable.
+              <p>
+                A <i>count</i> value of 1 means just the queue master, with no
+                mirrors. If the node running the queue master becomes
+                unavailable, the behaviour depends on queue durability.
+                A durable queue will become unavailable, a non-durable one
+                will be migrated to a different node (note: since it's a non-mirrored
+                queue, it will be empty after the migration).
+              </p>
 
-              A <i>count</i> value of 2 means 1 queue master and 1 queue
-              mirror. If the node running the queue master becomes unavailable,
-              the queue mirror will be automatically promoted to master. In
-              conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+              <p>
+                A <i>count</i> value of 2 means 1 queue master and 1 queue
+                mirror. If the node running the queue master becomes unavailable,
+                the queue mirror will be automatically promoted to master. In
+                conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+              </p>
 
-              If there are fewer than <i>count</i> nodes in the cluster, the
-              queue is mirrored to all nodes. If there are more than
-              <i>count</i> nodes in the cluster, and a node containing a mirror
-              goes down, then a new mirror will be created on another node. Use
-              of <code>exactly</code> mode with <a href="#cluster-shutdown">
-                <code>"ha-promote-on-shutdown": "always"</code></a> can be
-              dangerous since queues can migrate across a cluster and become
-              unsynced as it is brought down.
+              <p>
+                If there are fewer than <i>count</i> nodes in the cluster, the
+                queue is mirrored to all nodes. If there are more than
+                <i>count</i> nodes in the cluster, and a node containing a mirror
+                goes down, then a new mirror will be created on another node. Use
+                of <code>exactly</code> mode with <a href="#cluster-shutdown">
+                  <code>"ha-promote-on-shutdown": "always"</code></a> can be
+                dangerous since queues can migrate across a cluster and become
+                unsynced as it is brought down.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>all</code></td>
+            <td>(none)</td>
+            <td>
+                Queue is mirrored across all nodes in the
+                cluster. When a new node is added to the cluster, the
+                queue will be mirrored to that node.
+
+              <p>
+                This setting is very
+                conservative, mirroring to a quorum (N/2 + 1) of cluster nodes
+                is recommended instead. Mirroring to all nodes will put additional
+                strain on all cluster nodes, including network I/O, disk I/O and
+                disk space usage.
+              </p>
             </td>
           </tr>
           <tr>
             <td><code>nodes</code></td>
             <td><i>node names</i></td>
             <td>
-              Queue is mirrored to the nodes listed in <i>node
-              names</i>. Node names are the Erlang node names as they
-              appear in <code>rabbitmqctl cluster_status</code>; they
-              usually have the form "<tt>rabbit@hostname</tt>". If
-              any of those node names are not a part of the cluster,
-              this does not constitute an error. If none of the nodes
-              in the list are online at the time when the queue is
-              declared then the queue will be created on the node that
-              the declaring client is connected to.
+                Queue is mirrored to the nodes listed in <i>node
+                names</i>. Node names are the Erlang node names as they
+                appear in <code>rabbitmqctl cluster_status</code>; they
+                usually have the form "<tt>rabbit@hostname</tt>".
+              <p>
+                If any of those node names are not a part of the cluster,
+                this does not constitute an error. If none of the nodes
+                in the list are online at the time when the queue is
+                declared then the queue will be created on the node that
+                the declaring client is connected to.
+              </p>
             </td>
           </tr>
         </table>
@@ -198,7 +217,7 @@ limitations under the License.
         <p>
           It is possible to list queue master and mirrors using <code>rabbitmqctl list_queues</code>. In this
           example we also display queue policy since it's highly relevant:
-          
+
 <pre class="sourcecode bash">
 rabbitmqctl list_queues name policy pid slave_pids
 
