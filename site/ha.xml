@@ -215,6 +215,27 @@ limitations under the License.
         </p>
 
         <p>
+          Master node for the queue and its online mirror(s), if any, will be listed on the queue page:
+
+          <img src="img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
+        </p>
+
+        <p>
+          If the queue page does not list any mirrors, the queue is not mirrored (or has only one mirror which
+          is not online):
+
+          <img src="img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
+        </p>
+
+        <p>
+          When a new queue mirror is added, the event is logged:
+
+<pre class="sourcecode">
+2018-03-01 07:26:33.121 [info] &lt;0.1360.0&gt; Mirrored queue 'two.replicas' in vhost '/': Adding mirror on node hare@warp10: &lt;37324.1148.0&gt;
+</pre>
+        </p>
+        
+        <p>
           It is possible to list queue master and mirrors using <code>rabbitmqctl list_queues</code>. In this
           example we also display queue policy since it's highly relevant:
 
@@ -223,7 +244,7 @@ rabbitmqctl list_queues name policy pid slave_pids
 
 # =&gt; Timeout: 60.0 seconds ...
 # =&gt; Listing queues for vhost / ...
-# =&gt; two.replicas	ha-two	&lt;hare@warp10.1.2223.0&gt;	[&lt;rabbit@warp10.3.1360.0&gt;]
+# =&gt; two.replicas ha-two &lt;hare@warp10.1.2223.0&gt; [&lt;rabbit@warp10.3.1360.0&gt;]
 </pre>
         </p>
 
