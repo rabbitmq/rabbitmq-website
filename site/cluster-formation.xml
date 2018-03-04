@@ -130,7 +130,7 @@ rabbitmq-plugins --offline enable [plugin name]
         AWS autoscaling groups is a good example: AWS keeps track of group membership,
         so nodes don't have to (or cannot) explicitly register. However, the list of cluster members
         is not predefined. Such backends usually include a no-op registration step
-        and one of the mechanisms described in the next paragraph.
+        and apply one of the race condition mitigation mechanisms described below.
       </p>
 
       <p>
