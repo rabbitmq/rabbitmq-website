@@ -45,7 +45,7 @@ limitations under the License.
 
     <doc:section name="overview">
       <doc:heading>What is Queue Mirroring</doc:heading>
-      
+
       <p>
         By default, contents of a queue within a RabbitMQ cluster are located on
         a single node (the node on which the queue was
@@ -301,7 +301,7 @@ rabbitmqctl list_queues name policy pid slave_pids
         strategies and how to set them:
 
         <ul>
-          <li>Pick the node hosting the minimum number of masters:
+          <li>Pick the node hosting the minimum number of <em>bound</em> masters:
           <code>min-masters</code></li>
           <li>Pick the node the client that declares the queue is
           connected to: <code>client-local</code></li>
