@@ -64,7 +64,7 @@ Definitions are exported as a JSON file using the [HTTP API](/management.html):
 
 Definitions can be exported for a specific vhost or the entire cluster (or standalone node).
 When only a single vhost definitions are exported, some information (e.g. cluster users and their permissions)
-will be exluded from the resulting file.
+will be excluded from the resulting file.
 
 Exported user data contains password hashes as well as hashing function information. While brute forcing
 passwords with hashing functions such as SHA-256 or SHA-512 is not a completely trivial task, user
