@@ -1018,11 +1018,13 @@ img.screenshot {
 
 @media(max-width: 1014px) {
   div#innerContainer {
-    display: table;
+    display: flex;
+    flex-direction: column;
   }
   div#left-content {
-    display: table-footer-group;
     float: none;
+    order: 1;
+    max-width: 100%;
   }
   div#right-nav {
     float: none;
@@ -1031,6 +1033,10 @@ img.screenshot {
   }
   div#right-nav li {
     display: inline-block;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 }
 
