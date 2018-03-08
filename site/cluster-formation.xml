@@ -124,8 +124,13 @@ rabbitmq-plugins --offline enable [plugin name]
         performing a DNS query. Some backends require nodes to register (tell the backend that the
         node is up and should be counted as a cluster member): for example, Consul and etcd both
         support registration. With other backends the list of nodes is configured ahead of
-        time (e.g. config file) or managed by an external service (e.g. AWS autoscaling groups).
-        Those backends are said to not support node registration.
+        time (e.g. config file). Those backends are said to not support node registration.
+
+        In some cases node registration is implicit or managed by an external service.
+        AWS autoscaling groups is a good example: AWS keeps track of group membership,
+        so nodes don't have to (or cannot) explicitly register. However, the list of cluster members
+        is not predefined. Such backends usually include a no-op registration step
+        and apply one of the race condition mitigation mechanisms described below.
       </p>
 
       <p>

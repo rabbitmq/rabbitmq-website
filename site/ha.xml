@@ -22,115 +22,137 @@ limitations under the License.
     <title>Highly Available (Mirrored) Queues</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="overview">
-        <p>
-          By default, queues within a RabbitMQ cluster are located on
-          a single node (the node on which they were first
-          declared). This is in contrast to exchanges and bindings,
-          which can always be considered to be on all nodes. Queues
-          can optionally be made <i>mirrored</i> across multiple
-          nodes. Each mirrored queue consists of one <i>master</i> and
-          one or more <i>mirrors</i>, with the oldest mirror being
-          promoted to the new master if the old master disappears for
-          any reason.
-        </p>
-        <p>
-          Messages published to the queue are replicated to all
-          mirrors. Consumers are connected to the master regardless of
-          which node they connect to, with mirrors dropping messages
-          that have been acknowledged at the master. Queue mirroring
-          therefore enhances availability, but does not distribute
-          load across nodes (all participating nodes each do all the
-          work).
-        </p>
-        <p>
-          This solution requires a RabbitMQ cluster, which means that
-          it will not cope seamlessly with network partitions within
-          the cluster and, for that reason, is not recommended for use
-          across a WAN (though of course, clients can still connect
-          from as near and as far as needed).
-        </p>
-        <p>
-          There are multiple terms commonly used to identify primary
-          and secondary replicas in a distributed system. This guide
-          typically uses "master" to refer to the primary replica of a
-          queue and "mirror" for secondary replicas.  However, you
-          will find "slave" used here and there. This is because
-          RabbitMQ CLI tools historically have been using the term
-          "slave" to refer to secondaries. Therefore both terms are
-          currently used interchangeably but we'd like to eventually
-          get rid of the legacy terminology.
-        </p>
-      </doc:section>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
 
-      <doc:section name="ways-to-configure">
-        <doc:heading>How Mirroring is Configured</doc:heading>
+      <p>
+        This guide covers queue mirroring (queue contents replication):
 
-        <p>
-          Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
-          one or more queues by name (using a regular expression pattern) and
-          contains a definition (a map of optional arguments) that are added to the total set of
-          properties of the matching queues.
-          Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
-          for more information on policies.
-        </p>
-      </doc:section>
+        <ul>
+          <li>What is mirroring and how it works</li>
+          <li>How to enable it</li>
+          <li>Replication factor</li>
+          <li>Data locality</li>
+          <li>Mirror promotion and unsynchronised mirrors</li>
+        </ul>
 
-      <doc:section name="mirroring-arguments">
-        <doc:heading>Queue Arguments that Control Mirroring</doc:heading>
-        <p>
-          As we've covered above, queues have mirroring enabled
-          via <a href="parameters.html#policies">policy</a>. Policies
-          can change at any time; it is valid to create a non-mirrored
-          queue, and then make it mirrored at some later point (and
-          vice versa). There is a difference between a non-mirrored
-          queue and a mirrored queue which does not have any mirrors -
-          the former lacks the extra mirroring infrastructure and will
-          likely provide higher throughput.
-        </p>
-        <p>
-          You should be aware of the behaviour
-          of <a href="#unsynchronised-mirrors">adding mirrors to a
-          queue</a>.
-        </p>
-        <p>
-          To cause queues to become mirrored, you need to create a
-          policy which matches them and sets policy
-          keys <code>ha-mode</code> and
-          (optionally) <code>ha-params</code>. The following table
-          explains the options for these keys:
-        </p>
+        and more.
+      </p>
+      <p>
+        This guide assumes general familiarity with <a href="/clustering.html">RabbitMQ clustering</a>.
+      </p>
+    </doc:section>
 
-        <table>
-          <tr>
-            <th><code>ha-mode</code></th>
-            <th><code>ha-params</code></th>
-            <th>Result</th>
-          </tr>
-          <tr>
-            <td><code>all</code></td>
-            <td>(absent)</td>
-            <td>
-              Queue is mirrored across all nodes in the
-              cluster. When a new node is added to the cluster, the
-              queue will be mirrored to that node.
-            </td>
-          </tr>
-          <tr>
-            <td><code>exactly</code></td>
-            <td><i>count</i></td>
-            <td>
-              Number of queue instances in the cluster.
+    <doc:section name="overview">
+      <doc:heading>What is Queue Mirroring</doc:heading>
 
+      <p>
+        By default, contents of a queue within a RabbitMQ cluster are located on
+        a single node (the node on which the queue was
+        declared). This is in contrast to exchanges and bindings,
+        which can always be considered to be on all nodes. Queues
+        can optionally be made <i>mirrored</i> across multiple
+        nodes. Each mirrored queue consists of one <i>master</i> and
+        one or more <i>mirrors</i>, with the oldest mirror being
+        promoted to the new master if the old master disappears for
+        any reason.
+      </p>
+      <p>
+        Messages published to the queue are replicated to all
+        mirrors. Consumers are connected to the master regardless of
+        which node they connect to, with mirrors dropping messages
+        that have been acknowledged at the master. Queue mirroring
+        therefore enhances availability, but does not distribute
+        load across nodes (all participating nodes each do all the
+        work).
+      </p>
+      <p>
+        This solution requires a RabbitMQ cluster, which means that
+        it will not cope seamlessly with network partitions within
+        the cluster and, for that reason, is not recommended for use
+        across a WAN (though of course, clients can still connect
+        from as near and as far as needed).
+      </p>
+      <p>
+        There are multiple terms commonly used to identify primary
+        and secondary replicas in a distributed system. This guide
+        typically uses "master" to refer to the primary replica of a
+        queue and "mirror" for secondary replicas.  However, you
+        will find "slave" used here and there. This is because
+        RabbitMQ CLI tools historically have been using the term
+        "slave" to refer to secondaries. Therefore both terms are
+        currently used interchangeably but we'd like to eventually
+        get rid of the legacy terminology.
+      </p>
+    </doc:section>
+
+    <doc:section name="ways-to-configure">
+      <doc:heading>How Mirroring is Configured</doc:heading>
+
+      <p>
+        Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
+        one or more queues by name (using a regular expression pattern) and
+        contains a definition (a map of optional arguments) that are added to the total set of
+        properties of the matching queues.
+        Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
+        for more information on policies.
+      </p>
+    </doc:section>
+
+    <doc:section name="mirroring-arguments">
+      <doc:heading>Queue Arguments that Control Mirroring</doc:heading>
+      <p>
+        As we've covered above, queues have mirroring enabled
+        via <a href="parameters.html#policies">policy</a>. Policies
+        can change at any time; it is valid to create a non-mirrored
+        queue, and then make it mirrored at some later point (and
+        vice versa). There is a difference between a non-mirrored
+        queue and a mirrored queue which does not have any mirrors -
+        the former lacks the extra mirroring infrastructure and will
+        likely provide higher throughput.
+      </p>
+      <p>
+        You should be aware of the behaviour
+        of <a href="#unsynchronised-mirrors">adding mirrors to a
+        queue</a>.
+      </p>
+      <p>
+        To cause queues to become mirrored, you need to create a
+        policy which matches them and sets policy
+        keys <code>ha-mode</code> and
+        (optionally) <code>ha-params</code>. The following table
+        explains the options for these keys:
+      </p>
+
+      <table>
+        <tr>
+          <th><code>ha-mode</code></th>
+          <th><code>ha-params</code></th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td><code>exactly</code></td>
+          <td><i>count</i></td>
+          <td>
+            Number of queue replicas (master plus mirrors) in the cluster.
+
+            <p>
               A <i>count</i> value of 1 means just the queue master, with no
               mirrors. If the node running the queue master becomes
-              unavailable, the queue will become unavailable.
+              unavailable, the behaviour depends on queue durability.
+              A durable queue will become unavailable, a non-durable one
+              will be migrated to a different node (note: since it's a non-mirrored
+              queue, it will be empty after the migration).
+            </p>
 
+            <p>
               A <i>count</i> value of 2 means 1 queue master and 1 queue
               mirror. If the node running the queue master becomes unavailable,
               the queue mirror will be automatically promoted to master. In
               conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+            </p>
 
+            <p>
               If there are fewer than <i>count</i> nodes in the cluster, the
               queue is mirrored to all nodes. If there are more than
               <i>count</i> nodes in the cluster, and a node containing a mirror
@@ -139,443 +161,522 @@ limitations under the License.
                 <code>"ha-promote-on-shutdown": "always"</code></a> can be
               dangerous since queues can migrate across a cluster and become
               unsynced as it is brought down.
-            </td>
-          </tr>
-          <tr>
-            <td><code>nodes</code></td>
-            <td><i>node names</i></td>
-            <td>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>all</code></td>
+          <td>(none)</td>
+          <td>
+              Queue is mirrored across all nodes in the
+              cluster. When a new node is added to the cluster, the
+              queue will be mirrored to that node.
+
+            <p>
+              This setting is very
+              conservative, mirroring to a quorum (N/2 + 1) of cluster nodes
+              is recommended instead. Mirroring to all nodes will put additional
+              strain on all cluster nodes, including network I/O, disk I/O and
+              disk space usage.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>nodes</code></td>
+          <td><i>node names</i></td>
+          <td>
               Queue is mirrored to the nodes listed in <i>node
               names</i>. Node names are the Erlang node names as they
               appear in <code>rabbitmqctl cluster_status</code>; they
-              usually have the form "<tt>rabbit@hostname</tt>". If
-              any of those node names are not a part of the cluster,
+              usually have the form "<tt>rabbit@hostname</tt>".
+            <p>
+              If any of those node names are not a part of the cluster,
               this does not constitute an error. If none of the nodes
               in the list are online at the time when the queue is
               declared then the queue will be created on the node that
               the declaring client is connected to.
-            </td>
-          </tr>
-        </table>
+            </p>
+          </td>
+        </tr>
+      </table>
 
-        <p>
-          Whenever the HA policy for a queue changes it will endeavour
-          to keep its existing mirrors as far as this fits with the new
-          policy.
-        </p>
+      <p>
+        Whenever the HA policy for a queue changes it will endeavour
+        to keep its existing mirrors as far as this fits with the new
+        policy.
+      </p>
+    </doc:section>
 
-        <h3 id="replication-factor">To How Many Nodes to Mirror?</h3>
-        <p>
-          Note that mirroring to all queues is the most conservative option
-          and is unnecessary in many cases. For clusters of 3 and more nodes
-          it is recommended to mirror to a quorum (the majority) of nodes,
-          e.g. 2 nodes in a 3 node cluster or 3 nodes in a 5 node cluster.
-          Since some data can be inherently transient or very time sensitive,
-          it can be perfectly reasonable to use a lower number of mirrors
-          for some queues (or even not use any mirroring).
-        </p>
-      </doc:section>
 
-      <doc:section name="master-migration-data-locality">
-        <doc:heading>Queue Masters, Master Migration, Data Locality</doc:heading>
+    <doc:section name="ways-to-configure">
+      <doc:heading>How Mirroring is Configured</doc:heading>
 
-        <h3 id="queue-master-location">Queue Master Location</h3>
-        <p>
-          Every queue in RabbitMQ has a home node. That node is called
-          <em>queue master</em>. All queue operations go through the master
-          first and then are replicated to mirrors. This is necessary to
-          guarantee FIFO ordering of messages.
-        </p>
-        <p>
-          Queue masters can be distributed between nodes using several
-          strategies. Which strategy is used is controlled in three ways,
-          namely, using the <code>x-queue-master-locator</code> queue
-          declare argument, setting the <code>queue-master-locator</code>
-          policy key or by defining the <code>queue_master_locator</code>
-          key in <a href="configure.html#configuration-file">
-          <code>the configuration file</code></a>. Here are the possible
-          strategies and how to set them:
+      <p>
+        Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
+        one or more queues by name (using a regular expression pattern) and
+        contains a definition (a map of optional arguments) that are added to the total set of
+        properties of the matching queues.
+        Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
+        for more information on policies.
+      </p>
+    </doc:section>
 
-          <ul>
-            <li>Pick the node hosting the minimum number of masters:
-            <code>min-masters</code></li>
-            <li>Pick the node the client that declares the queue is
-            connected to: <code>client-local</code></li>
-            <li>Pick a random node: <code>random</code></li>
-          </ul>
-        </p>
 
-        <h3>"nodes" Policy and Migrating Masters</h3>
+    <doc:section name="how-to-check-i-a-queue-is-mirrored">
+      <doc:heading>How to Check if a Queue is Mirrored?</doc:heading>
 
-        <p>
-          Note that setting or modifying a "nodes" policy can cause
-          the existing master to go away if it is not listed in the
-          new policy. In order to prevent message loss, RabbitMQ will
-          keep the existing master around until at least one other
-          mirror has synchronised (even if this is a long
-          time). However, once synchronisation has occurred things will
-          proceed just as if the node had failed: consumers will be
-          disconnected from the master and will need to reconnect.
-        </p>
-        <p>
-          For example, if a queue is on <code>[A B]</code>
-          (with <code>A</code> the master), and you give it
-          a <code>nodes</code> policy telling it to be on
-          <code>[C D]</code>, it will initially end up on
-          <code>[A C D]</code>. As soon as the queue synchronises on its new
-          mirrors <code>[C D]</code>, the master on <code>A</code>
-          will shut down.
-        </p>
+      <p>
+        Mirrored queues will have a policy name and the number of additional replicas (mirrors)
+        next to it on the queue page in the <a href="/management.html">management UI</a>.
+      </p>
 
-        <h3>Exclusive Queues</h3>
+      <p>
+        Below is an example of a queue named <code>two.replicas</code> which has a master
+        and a mirror:
 
-        <p>
-          Exclusive queues will be deleted when the connection that
-          declared them is closed. For this reason, it is not useful
-          for an exclusive queue to be mirrored (or durable for that
-          matter) since when the node hosting it goes down, the
-          connection will close and the queue will need to be deleted
-          anyway.
-        </p>
+        <img class="screenshot" src="img/mirroring/queue_mirroring_indicators_management_ui_row_only.png" alt="Mirrored queue indicators in management UI" title="Mirrored queue indicators in management UI" />
+      </p>
 
-        <p>
-          For this reason, exclusive queues are never mirrored (even
-          if they match a policy stating that they should be). They
-          are also never durable (even if declared as such).
-        </p>
-      </doc:section>
+      <p>
+        Master node for the queue and its online mirror(s), if any, will be listed on the queue page:
 
-      <doc:section name="examples">
-        <doc:heading>Examples</doc:heading>
+        <img class="screenshot" src="img/mirroring/queue_mirroring_one_mirror_present.png" alt="Mirrored queue details on individual queue page" title="Mirrored queue details on individual queue page" />
+      </p>
 
-        <p>
-          Below is a policy where queues whose names begin with
-          "<code>two.</code>" are mirrored to any two nodes in the
-          cluster, with <a href="#eager-synchronisation">automatic
-          synchronisation</a>:
-        </p>
+      <p>
+        If the queue page does not list any mirrors, the queue is not mirrored (or has only one mirror which
+        is not online):
 
-        <table>
-          <tr>
-            <th>rabbitmqctl</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-two "^two\." \
+        <img class="screenshot" src="img/mirroring/queue_mirroring_no_mirrors.png" alt="Non-mirrored queue details on individual queue page" title="Non-mirrored queue details on individual queue page" />
+      </p>
+
+      <p>
+        When a new queue mirror is added, the event is logged:
+
+<pre class="sourcecode">
+2018-03-01 07:26:33.121 [info] &lt;0.1360.0&gt; Mirrored queue 'two.replicas' in vhost '/': Adding mirror on node hare@warp10: &lt;37324.1148.0&gt;
+</pre>
+      </p>
+
+      <p>
+        It is possible to list queue master and mirrors using <code>rabbitmqctl list_queues</code>. In this
+        example we also display queue policy since it's highly relevant:
+
+<pre class="sourcecode bash">
+rabbitmqctl list_queues name policy pid slave_pids
+
+# =&gt; Timeout: 60.0 seconds ...
+# =&gt; Listing queues for vhost / ...
+# =&gt; two.replicas ha-two &lt;hare@warp10.1.2223.0&gt; [&lt;rabbit@warp10.3.1360.0&gt;]
+</pre>
+      </p>
+
+      <p>
+        If a queue that's expected to be mirroring is not, this usually means that its name
+        doesn't match that specified in the policy that controls mirroring or that another
+        policy takes priority (and does not enable mirroring).
+        See <a href="/parameters.html#policies">Runtime Parameters and Policies</a> to learn more.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="master-migration-data-locality">
+      <doc:heading>Queue Masters, Master Migration, Data Locality</doc:heading>
+
+      <h3 id="queue-master-location">Queue Master Location</h3>
+      <p>
+        Every queue in RabbitMQ has a home node. That node is called
+        <em>queue master</em>. All queue operations go through the master
+        first and then are replicated to mirrors. This is necessary to
+        guarantee FIFO ordering of messages.
+      </p>
+      <p>
+        Queue masters can be distributed between nodes using several
+        strategies. Which strategy is used is controlled in three ways,
+        namely, using the <code>x-queue-master-locator</code> queue
+        declare argument, setting the <code>queue-master-locator</code>
+        policy key or by defining the <code>queue_master_locator</code>
+        key in <a href="configure.html#configuration-file">
+        <code>the configuration file</code></a>. Here are the possible
+        strategies and how to set them:
+
+        <ul>
+          <li>Pick the node hosting the minimum number of <em>bound</em> masters:
+          <code>min-masters</code></li>
+          <li>Pick the node the client that declares the queue is
+          connected to: <code>client-local</code></li>
+          <li>Pick a random node: <code>random</code></li>
+        </ul>
+      </p>
+
+      <h3>"nodes" Policy and Migrating Masters</h3>
+
+      <p>
+        Note that setting or modifying a "nodes" policy can cause
+        the existing master to go away if it is not listed in the
+        new policy. In order to prevent message loss, RabbitMQ will
+        keep the existing master around until at least one other
+        mirror has synchronised (even if this is a long
+        time). However, once synchronisation has occurred things will
+        proceed just as if the node had failed: consumers will be
+        disconnected from the master and will need to reconnect.
+      </p>
+      <p>
+        For example, if a queue is on <code>[A B]</code>
+        (with <code>A</code> the master), and you give it
+        a <code>nodes</code> policy telling it to be on
+        <code>[C D]</code>, it will initially end up on
+        <code>[A C D]</code>. As soon as the queue synchronises on its new
+        mirrors <code>[C D]</code>, the master on <code>A</code>
+        will shut down.
+      </p>
+
+      <h3>Mirroring of Exclusive Queues</h3>
+
+      <p>
+        Exclusive queues will be deleted when the connection that
+        declared them is closed. For this reason, it is not useful
+        for an exclusive queue to be mirrored (or durable for that
+        matter) since when the node hosting it goes down, the
+        connection will close and the queue will need to be deleted
+        anyway.
+      </p>
+
+      <p>
+        For this reason, exclusive queues are never mirrored (even
+        if they match a policy stating that they should be). They
+        are also never durable (even if declared as such).
+      </p>
+    </doc:section>
+
+    <doc:section name="examples">
+      <doc:heading>Examples</doc:heading>
+
+      <p>
+        Below is a policy where queues whose names begin with
+        "<code>two.</code>" are mirrored to any two nodes in the
+        cluster, with <a href="#eager-synchronisation">automatic
+        synchronisation</a>:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-two "^two\." \
    '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>rabbitmqctl (Windows)</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-two "^two\." ^
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-two "^two\." ^
    "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>HTTP API</th>
-            <td>
-              <pre>PUT /api/policies/%2f/ha-two
+          </td>
+        </tr>
+        <tr>
+          <th>HTTP API</th>
+          <td>
+            <pre>PUT /api/policies/%2f/ha-two
 {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2,"ha-sync-mode":"automatic"}}</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>Web UI</th>
-            <td>
-              <ul>
-                <li>
-                  Navigate to Admin > Policies > Add / update a
-                  policy.
-                </li>
-                <li>
-                  Enter "ha-two" next to Name and "^two\." next to
-                  Pattern.
-                </li>
-                <li>
-                  Enter "ha-mode" = "exactly" in the first line
-                  next to Policy, then "ha-params" = 2 in the second
-                  line, then "ha-sync-mode" = "automatic" in the third,
-                  and set the type on the second line to "Number".
-                </li>
-                <li>
-                  Click Add policy.
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
+          </td>
+        </tr>
+        <tr>
+          <th>Web UI</th>
+          <td>
+            <ul>
+              <li>
+                Navigate to Admin > Policies > Add / update a
+                policy.
+              </li>
+              <li>
+                Enter "ha-two" next to Name and "^two\." next to
+                Pattern.
+              </li>
+              <li>
+                Enter "ha-mode" = "exactly" in the first line
+                next to Policy, then "ha-params" = 2 in the second
+                line, then "ha-sync-mode" = "automatic" in the third,
+                and set the type on the second line to "Number".
+              </li>
+              <li>
+                Click Add policy.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
 
-        <p>
-          The following example declares a policy named <code>ha-all</code> which matches
-          the queues whose names begin with
-          "<code>ha.</code>" and configures mirroring to all nodes in the cluster (see <a href="#replication-factor">To How Many Nodes to Mirror?</a> above):
-        </p>
+      <p>
+        The following example declares a policy named <code>ha-all</code> which matches
+        the queues whose names begin with
+        "<code>ha.</code>" and configures mirroring to all nodes in the cluster (see <a href="#replication-factor">To How Many Nodes to Mirror?</a> above):
+      </p>
 
-        <table>
-          <tr>
-            <th>rabbitmqctl</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>rabbitmqctl (Windows)</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>HTTP API</th>
-            <td>
-              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>Web UI</th>
-            <td>
-              <ul>
-                <li>
-                  Navigate to Admin > Policies > Add / update a
-                  policy.
-                </li>
-                <li>
-                  Enter "ha-all" next to Name, "^ha\." next to Pattern,
-                  and "ha-mode" = "all" in the first line next to
-                  Policy.
-                </li>
-                <li>
-                  Click Add policy.
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>HTTP API</th>
+          <td>
+            <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>Web UI</th>
+          <td>
+            <ul>
+              <li>
+                Navigate to Admin > Policies > Add / update a
+                policy.
+              </li>
+              <li>
+                Enter "ha-all" next to Name, "^ha\." next to Pattern,
+                and "ha-mode" = "all" in the first line next to
+                Policy.
+              </li>
+              <li>
+                Click Add policy.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
 
 
-        <p>
-          A policy where queues whose names begin with
-          "<code>nodes.</code>" are mirrored to specific nodes in the
-          cluster:
-        </p>
+      <p>
+        A policy where queues whose names begin with
+        "<code>nodes.</code>" are mirrored to specific nodes in the
+        cluster:
+      </p>
 
-        <table>
-          <tr>
-            <th>rabbitmqctl</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-nodes "^nodes\." \
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-nodes "^nodes\." \
    '{"ha-mode":"nodes","ha-params":["rabbit@nodeA", "rabbit@nodeB"]}'</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>rabbitmqctl (Windows)</th>
-            <td>
-              <pre>rabbitmqctl set_policy ha-nodes "^nodes\." ^
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy ha-nodes "^nodes\." ^
    "{""ha-mode"":""nodes"",""ha-params"":[""rabbit@nodeA"", ""rabbit@nodeB""]}"</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>HTTP API</th>
-            <td>
-              <pre>PUT /api/policies/%2f/ha-nodes
+          </td>
+        </tr>
+        <tr>
+          <th>HTTP API</th>
+          <td>
+            <pre>PUT /api/policies/%2f/ha-nodes
 {"pattern":"^nodes\.", "definition":{"ha-mode":"nodes", "ha-params":["rabbit@nodeA", "rabbit@nodeB"]}</pre>
-            </td>
-          </tr>
-          <tr>
-            <th>Web UI</th>
-            <td>
-              <ul>
-                <li>
-                  Navigate to Admin > Policies > Add / update a
-                  policy.
-                </li>
-                <li>
-                  Enter "ha-nodes" next to Name and "^nodes\." next to
-                  Pattern.
-                </li>
-                <li>
-                  Enter "ha-mode" = "nodes" in the first line next to
-                  Policy, then "ha-params" in the second line, set the
-                  second line's type to "List", and then enter
-                  "rabbit@nodeA" and "rabbit@nodeB" in the sublist which
-                  appears.
-                </li>
-                <li>
-                  Click Add policy.
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
-      </doc:section>
+          </td>
+        </tr>
+        <tr>
+          <th>Web UI</th>
+          <td>
+            <ul>
+              <li>
+                Navigate to Admin > Policies > Add / update a
+                policy.
+              </li>
+              <li>
+                Enter "ha-nodes" next to Name and "^nodes\." next to
+                Pattern.
+              </li>
+              <li>
+                Enter "ha-mode" = "nodes" in the first line next to
+                Policy, then "ha-params" in the second line, set the
+                second line's type to "List", and then enter
+                "rabbit@nodeA" and "rabbit@nodeB" in the sublist which
+                appears.
+              </li>
+              <li>
+                Click Add policy.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </doc:section>
 
 
-      <doc:section name="behaviour">
-        <doc:heading>Mirrored Queue Implementation and Semantics</doc:heading>
+    <doc:section name="behaviour">
+      <doc:heading>Mirrored Queue Implementation and Semantics</doc:heading>
+      <p>
+        As discussed, for each mirrored queue there is one
+        <i>master</i> and several <i>mirrors</i>, each on a
+        different node. The mirrors apply the operations that occur
+        to the master in exactly the same order as the master and
+        thus maintain the same state. All actions other than
+        publishes go only to the master, and the master then
+        broadcasts the effect of the actions to the mirrors. Thus
+        clients consuming from a mirrored queue are in fact
+        consuming from the master.
+      </p>
+      <p>
+        Should a mirror fail, there is little to be done other than
+        some bookkeeping: the master remains the master and no
+        client need take any action or be informed of the failure.
+        Note that mirror failures may not be detected immediately and
+        the interruption of the per-connection flow control mechanism
+        can delay message publication. The details are described
+        <a href="nettick.html">here</a>.
+      </p>
+      <p>
+        If the master fails, then one of the mirrors will be promoted to
+        master as follows:
+        <ol class="plain">
+          <li>
+            The longest running mirror is promoted to master, the assumption
+            being that it is most likely to be fully synchronised with the
+            master. If there is no mirror that is <a
+              href="#unsynchronised-mirrors">synchronised</a> with the
+            master, messages that only existed on master will be lost.
+          </li>
+          <li>
+            The mirror considers all previous consumers to have been abruptly
+            disconnected. It requeues all messages that have been delivered
+            to clients but are pending acknowledgement. This can include
+            messages for which a client has issued acknowledgements, say, if
+            an acknowledgement was either lost on the wire before reaching the
+            node hosting queue master, or it was lost when broadcast from the master to the
+            mirrors. In either case, the new master has no choice but to
+            requeue all messages that it has not seen acknowledgements for.
+          </li>
+          <li>
+            Consumers that have requested to be notified when a queue fails
+            over <a href="#cancellation">will be notified of cancellation</a>.
+          </li>
+          <li>
+            As a result of the requeuing, clients that re-consume from the
+            queue <b>must</b> be aware that they are likely to subsequently
+            receive messages that they have already received.
+          </li>
+          <li>
+            As the chosen mirror becomes the master, no messages that are
+            published to the mirrored queue during this time will be lost
+            (barring subsequent failures on the promoted node).
+            Messages published to a node that hosts queue mirror are routed
+            to the queue master and then replicated to all mirrors. Should the master fail,
+            the messages continue to be sent to the mirrors and will be added
+            to the queue once the promotion of a mirror to the master
+            completes.
+          </li>
+          <li>
+            Messages published by clients using <a
+              href="confirms.html">publisher confirms</a> will still be
+            confirmed even if the master (or any mirrors) fail
+            between the message being published and a confirmation received
+            by the publisher. From the point of view of the publisher,
+            publishing to a mirrored queue is no different from publishing to
+            a non-mirrored one.
+          </li>
+        </ol>
+      </p>
+      <p>
+        If you are consuming from a mirrored queue with
+        <code>noAck=true</code> (i.e. the client is not sending message
+        acknowledgements), then messages can be lost. This is no different
+        from the norm of course: the broker considers a message
+        <em>acknowledged</em> as soon as it has been sent to a
+        <code>noAck=true</code> consumer. Should the client disconnect
+        abruptly, the message may never be received. In the case of a
+        mirrored queue, should the master die, messages that are in-flight on
+        their way to <code>noAck=true</code> consumers may never be received
+        by those clients, and will not be requeued by the new master. Because
+        of the possibility that the consuming client is connected to a node
+        that survives, the <a href="#cancellation">consumer cancellation
+          notification</a> is useful to identify when such events may have
+        occurred. Of course, in practise, if you care about not losing
+        messages, then you are advised to consume with
+        <code>noAck=false</code>.
+      </p>
+      <doc:subsection name="confirms-transactions">
+        <doc:heading>Publisher Confirms and Transactions</doc:heading>
         <p>
-          As discussed, for each mirrored queue there is one
-          <i>master</i> and several <i>mirrors</i>, each on a
-          different node. The mirrors apply the operations that occur
-          to the master in exactly the same order as the master and
-          thus maintain the same state. All actions other than
-          publishes go only to the master, and the master then
-          broadcasts the effect of the actions to the mirrors. Thus
-          clients consuming from a mirrored queue are in fact
-          consuming from the master.
+          Mirrored queues support both <a
+          href="confirms.html">publisher confirms</a> and
+          <a href="specification.html#tx">transactions</a>. The
+          semantics chosen are that in the case of both confirms and
+          transactions, the action spans all mirrors of the
+          queue. So in the case of a transaction, a
+          <code>tx.commit-ok</code> will only be returned to a
+          client when the transaction has been applied across all
+          mirrors of the queue. Equally, in the case of publisher
+          confirms, a message will only be confirmed to the
+          publisher when it has been accepted by all of the
+          mirrors. It is correct to think of the semantics as being
+          the same as a message being routed to multiple normal
+          queues, and of a transaction with publications within
+          that similarly are routed to multiple queues.
+        </p>
+      </doc:subsection>
+      <doc:subsection name="flow-control">
+        <doc:heading>Flow Control</doc:heading>
+        <p>
+          RabbitMQ uses a credit-based algorithm to <a
+          href="memory.html#per-connection">limit the rate of
+          message publication</a>.  Publishers are permitted to
+          publish when they receive credit from all mirrors of a
+          queue.  Credit in this context means permission to
+          publish.  Mirrors that fail to issue credit can cause
+          publishers to stall. Publishers will remain blocked until
+          all mirrors issue credit or until the remaining nodes
+          consider the mirror to be disconnected from the cluster.
+          Erlang detects such disconnections by periodically sending
+          a tick to all nodes. The tick interval can be controlled
+          with the <a href="nettick.html">net_ticktime</a>
+          configuration setting.
+        </p>
+      </doc:subsection>
+      <doc:subsection name="cancellation">
+        <doc:heading>Master Failures and Consumer Cancellation</doc:heading>
+        <p>
+          Clients that are consuming from a mirrored queue may wish
+          to know that the queue from which they have been consuming
+          has failed over. When a mirrored queue fails over,
+          knowledge of which messages have been sent to which
+          consumer is lost, and therefore all unacknowledged
+          messages are redelivered with the <code>redelivered</code>
+          flag set. Consumers may wish to know this is going to
+          happen.
         </p>
         <p>
-          Should a mirror fail, there is little to be done other than
-          some bookkeeping: the master remains the master and no
-          client need take any action or be informed of the failure.
-          Note that mirror failures may not be detected immediately and
-          the interruption of the per-connection flow control mechanism
-          can delay message publication. The details are described
-          <a href="nettick.html">here</a>.
+          If so, they can consume with the argument
+          <code>x-cancel-on-ha-failover</code> set to
+          <code>true</code>. Their consuming will then be cancelled
+          on failover and a <a href="consumer-cancel.html">consumer
+          cancellation notification</a> sent. It is then the
+          consumer's responsibility to reissue
+          <code>basic.consume</code> to start consuming again.
         </p>
         <p>
-          If the master fails, then one of the mirrors will be promoted to
-          master as follows:
-          <ol class="plain">
-            <li>
-              The longest running mirror is promoted to master, the assumption
-              being that it is most likely to be fully synchronised with the
-              master. If there is no mirror that is <a
-                href="#unsynchronised-mirrors">synchronised</a> with the
-              master, messages that only existed on master will be lost.
-            </li>
-            <li>
-              The mirror considers all previous consumers to have been abruptly
-              disconnected. It requeues all messages that have been delivered
-              to clients but are pending acknowledgement. This can include
-              messages for which a client has issued acknowledgements, say, if
-              an acknowledgement was either lost on the wire before reaching the
-              node hosting queue master, or it was lost when broadcast from the master to the
-              mirrors. In either case, the new master has no choice but to
-              requeue all messages that it has not seen acknowledgements for.
-            </li>
-            <li>
-              Consumers that have requested to be notified when a queue fails
-              over <a href="#cancellation">will be notified of cancellation</a>.
-            </li>
-            <li>
-              As a result of the requeuing, clients that re-consume from the
-              queue <b>must</b> be aware that they are likely to subsequently
-              receive messages that they have already received.
-            </li>
-            <li>
-              As the chosen mirror becomes the master, no messages that are
-              published to the mirrored queue during this time will be lost
-              (barring subsequent failures on the promoted node).
-              Messages published to a node that hosts queue mirror are routed
-              to the queue master and then replicated to all mirrors. Should the master fail,
-              the messages continue to be sent to the mirrors and will be added
-              to the queue once the promotion of a mirror to the master
-              completes.
-            </li>
-            <li>
-              Messages published by clients using <a
-                href="confirms.html">publisher confirms</a> will still be
-              confirmed even if the master (or any mirrors) fail
-              between the message being published and a confirmation received
-              by the publisher. From the point of view of the publisher,
-              publishing to a mirrored queue is no different from publishing to
-              a non-mirrored one.
-            </li>
-          </ol>
+          For example (in Java):
         </p>
-        <p>
-          If you are consuming from a mirrored queue with
-          <code>noAck=true</code> (i.e. the client is not sending message
-          acknowledgements), then messages can be lost. This is no different
-          from the norm of course: the broker considers a message
-          <em>acknowledged</em> as soon as it has been sent to a
-          <code>noAck=true</code> consumer. Should the client disconnect
-          abruptly, the message may never be received. In the case of a
-          mirrored queue, should the master die, messages that are in-flight on
-          their way to <code>noAck=true</code> consumers may never be received
-          by those clients, and will not be requeued by the new master. Because
-          of the possibility that the consuming client is connected to a node
-          that survives, the <a href="#cancellation">consumer cancellation
-            notification</a> is useful to identify when such events may have
-          occurred. Of course, in practise, if you care about not losing
-          messages, then you are advised to consume with
-          <code>noAck=false</code>.
-        </p>
-        <doc:subsection name="confirms-transactions">
-          <doc:heading>Publisher Confirms and Transactions</doc:heading>
-          <p>
-            Mirrored queues support both <a
-            href="confirms.html">publisher confirms</a> and
-            <a href="specification.html#tx">transactions</a>. The
-            semantics chosen are that in the case of both confirms and
-            transactions, the action spans all mirrors of the
-            queue. So in the case of a transaction, a
-            <code>tx.commit-ok</code> will only be returned to a
-            client when the transaction has been applied across all
-            mirrors of the queue. Equally, in the case of publisher
-            confirms, a message will only be confirmed to the
-            publisher when it has been accepted by all of the
-            mirrors. It is correct to think of the semantics as being
-            the same as a message being routed to multiple normal
-            queues, and of a transaction with publications within
-            that similarly are routed to multiple queues.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="flow-control">
-          <doc:heading>Flow Control</doc:heading>
-          <p>
-            RabbitMQ uses a credit-based algorithm to <a
-            href="memory.html#per-connection">limit the rate of
-            message publication</a>.  Publishers are permitted to
-            publish when they receive credit from all mirrors of a
-            queue.  Credit in this context means permission to
-            publish.  Mirrors that fail to issue credit can cause
-            publishers to stall. Publishers will remain blocked until
-            all mirrors issue credit or until the remaining nodes
-            consider the mirror to be disconnected from the cluster.
-            Erlang detects such disconnections by periodically sending
-            a tick to all nodes. The tick interval can be controlled
-            with the <a href="nettick.html">net_ticktime</a>
-            configuration setting.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="cancellation">
-          <doc:heading>Master Failures and Consumer Cancellation</doc:heading>
-          <p>
-            Clients that are consuming from a mirrored queue may wish
-            to know that the queue from which they have been consuming
-            has failed over. When a mirrored queue fails over,
-            knowledge of which messages have been sent to which
-            consumer is lost, and therefore all unacknowledged
-            messages are redelivered with the <code>redelivered</code>
-            flag set. Consumers may wish to know this is going to
-            happen.
-          </p>
-          <p>
-            If so, they can consume with the argument
-            <code>x-cancel-on-ha-failover</code> set to
-            <code>true</code>. Their consuming will then be cancelled
-            on failover and a <a href="consumer-cancel.html">consumer
-            cancellation notification</a> sent. It is then the
-            consumer's responsibility to reissue
-            <code>basic.consume</code> to start consuming again.
-          </p>
-          <p>
-            For example (in Java):
-          </p>
 
-          <pre class="sourcecode java">
+        <pre class="sourcecode java">
 Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-cancel-on-ha-failover", true);
 channel.basicConsume("my-queue", false, args, consumer);</pre>
 
-          <p>
-            This creates a new consumer with the argument set.
-          </p>
-        </doc:subsection>
-
-      </doc:section>
-
-
+        <p>
+          This creates a new consumer with the argument set.
+        </p>
+      </doc:subsection>
+    </doc:section>
 
       <doc:section name="unsynchronised-mirrors">
         <doc:heading>Unsynchronised Mirrors</doc:heading>

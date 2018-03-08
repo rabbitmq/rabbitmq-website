@@ -341,7 +341,7 @@ vm_memory_calculation_strategy = allocated
           Management UI can be used to produce a memory breakdown chart. This information is available on the
           node metrics page that can be accessed from Overview:
 
-          <img src="img/memory/mgmt-ui-node-list.png" alt="Cluster node list in management UI" title="Cluster node list in management UI" />
+          <img class="screenshot" src="img/memory/mgmt-ui-node-list.png" alt="Cluster node list in management UI" title="Cluster node list in management UI" />
         </p>
 
 
@@ -349,7 +349,7 @@ vm_memory_calculation_strategy = allocated
         <p>
           On the node metrics page, scroll down to the memory breakdown buttons:
 
-          <img src="img/memory/mgmt-ui-memory-use-breakdown-buttons.png" alt="Node memory use breakdown buttons" title="Node memory use breakdown buttons" />
+          <img class="screenshot" src="img/memory/mgmt-ui-memory-use-breakdown-buttons.png" alt="Node memory use breakdown buttons" title="Node memory use breakdown buttons" />
         </p>
 
 
@@ -357,14 +357,14 @@ vm_memory_calculation_strategy = allocated
         <p>
           Memory and binary heap breakdowns can be expensive to calculate and are produced on demand when the <code>Update</code> button is pressed:
 
-          <img src="img/memory/mgmt-ui-memory-use-breakdown.png" alt="Node memory use breakdown chart" title="Node memory use breakdown chart" />
+          <img class="screenshot" src="img/memory/mgmt-ui-memory-use-breakdown.png" alt="Node memory use breakdown chart" title="Node memory use breakdown chart" />
         </p>
 
         <p>
           It is also possible to display a breakdown of binary heap use by various
           things in the system (e.g. connections, queues):
 
-        <img src="img/memory/mgmt-ui-binaries-breakdown.png" alt="Binary heap use breakdown chart" title="Binary heap use breakdown chart" />
+        <img class="screenshot" src="img/memory/mgmt-ui-binaries-breakdown.png" alt="Binary heap use breakdown chart" title="Binary heap use breakdown chart" />
         </p>
       </doc:subsection>
 
@@ -602,14 +602,14 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
           <li>For <code>gen_server2</code> processes, internal operation buffer length</li>
         </ul>
 
-        <img src="img/memory/rabbitmq-top-processes.png" alt="Top processes in rabbitmq-top" title="Top processes in rabbitmq-top" />
+        <img class="screenshot" src="img/memory/rabbitmq-top-processes.png" alt="Top processes in rabbitmq-top" title="Top processes in rabbitmq-top" />
       </p>
 
       <p>
         Second tab displays ETS (internal key/value store) tables. The tables can be sorted by
         the amount of memory used or number of rows:
 
-        <img src="img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
+        <img class="screenshot" src="img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
       </p>
     </doc:section>
 
@@ -733,7 +733,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
             When garbage collection runs, it will copy used process memory before deallocating unused memory.
             This can can lead to the queue process using up to twice as much memory during garbage collection, as shown here (queue contains a lot of messages):
 
-            <img src="img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
+            <img class="screenshot" src="img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
           </p>
         </doc:subsection>
 

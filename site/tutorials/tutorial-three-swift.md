@@ -275,7 +275,7 @@ q.subscribe({(_ message: RMQMessage) -> Void in
 })
 </pre>
 
-[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/objective-c/tutorial3/tutorial3/ViewController.m)
+[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial3/tutorial3/ViewController.swift)
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receiveLogs`
