@@ -32,6 +32,35 @@ limitations under the License.
       -->
 
     <doc:item>
+      <doc:date iso="2018-03-08T01:00:00+00:00">8 March 2018</doc:date>
+      <doc:title>RabbitMQ 3.7.4 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.4</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.4.
+        </p>
+        <p>
+          This release primarily contains bug fixes.
+          You can view the changes <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          Binary and source distributions of the new release can be found on the
+          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2018-01-30T10:43:30+01:00">30 January 2018</doc:date>
       <doc:title>RabbitMQ 3.7.3 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.3</doc:link>
