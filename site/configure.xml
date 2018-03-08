@@ -1466,8 +1466,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
               <td>None</td>
               <td>
                 Parameters for the <code>erl</code> command used when invoking
-                <code>rabbitmqctl</code>. This should be overridden for
-                debugging purposes only.
+                <code>rabbitmqctl</code>. This could be set to specify a range
+                of ports to use for Erlang distribution:<br/>
+                <code>-kernel inet_dist_listen_min 35672</code><br/>
+                <code>-kernel inet_dist_listen_max 35680</code>
               </td>
             </tr>
 
