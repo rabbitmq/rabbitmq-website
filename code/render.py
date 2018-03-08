@@ -6,8 +6,8 @@ import markdown
 import codecs
 
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+import imp
+imp.reload(sys)
 
 try:
     from mod_python import apache
@@ -81,7 +81,7 @@ def preprocess_markdown(fpath):
     try:
       return etree.fromstring(s, parser = utf8_parser).getroottree()
     except Exception as e:
-        print "\n\nException rendering {0}".format(fpath)
+        print("\n\nException rendering {0}".format(fpath))
         raise e
 
 
@@ -90,7 +90,7 @@ def parse(fpath):
     class MissingFeedResolver(etree.Resolver):
         def resolve(self, url, id, context):
             if not '://' in url and not os.path.exists(url):
-                print "Ignoring missing file ", url
+                print("Ignoring missing file {}".format(url))
                 return self.resolve_empty(context)
             return None # Defer to other resolvers
 
@@ -100,7 +100,7 @@ def parse(fpath):
     try:
         return etree.parse(fpath, parser)
     except Exception as e:
-        print "\n\nException rendering {0}".format(fpath)
+        print("\n\nException rendering {0}".format(fpath))
         raise e
 
 MARKUPS={'.xml': parse,
@@ -160,7 +160,7 @@ def read_file(page_name):
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):
             return preprocess(fpath)
-    raise Error404, page_name
+    raise Error404(page_name)
 
 def handler(req, site_mode):
     req.content_type = "text/html; charset=utf-8"
