@@ -104,8 +104,8 @@ limitations under the License.
 
       <p>
         Before installing RabbitMQ, you must install a <a href="/which-erlang.html">supported version</a> of Erlang/OTP. We strongly
-        recommend using a packaged version. There are three suggested sources
-        for Erlang packages:
+        recommend using a packaged version. There are three commonly used sources
+        for Erlang packages. We recommend using one of them.
       </p>
 
       <ul>
@@ -133,52 +133,47 @@ limitations under the License.
       </ul>
 
       <doc:subsection name="install-zero-dependency-rpm">
-        <doc:heading>Install zero-dependency Erlang from RabbitMQ</doc:heading>
+        <doc:heading>Zero-dependency Erlang from RabbitMQ</doc:heading>
 
-        <ol class="plain">
-          <li>
-            Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>. As the name suggests, the package strips off some Erlang modules and dependencies
-            that are not essential for running RabbitMQ.
-          </li>
-        </ol>
-
-        <h3>Install Erlang from the EPEL repository <i>or</i></h3>
-        <ol class="plain">
-          <li>
-            Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
-          </li>
-          <li>
-            Issue the following command as 'root':
-<pre class="sourcecode bash">
-yum install erlang
-</pre>
-          </li>
-        </ol>
+        <p>
+          Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>.
+          As the name suggests, the package strips off some Erlang modules and dependencies
+          that are not essential for running RabbitMQ.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="install-from-esl-repository">
-        <doc:heading>Install Erlang from the Erlang Solutions repository <i>or</i></doc:heading>
-        <ol class="plain">
-          <li>
-            Follow the instructions under "Installation using repository"
-            at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
-            Note that Erlang Solutions tend to provide cutting edge Erlang versions that may or may not
-            be <a href="/which-erlang.html">supported by RabbitMQ</a>. Version locking (see below) is recommended
-            when Erlang installed using this option.
-          </li>
-        </ol>
+        <doc:heading>Erlang Yum Repository from Erlang Solutions</doc:heading>
+        <p>
+          Follow the instructions under "Installation using repository"
+          at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
+          Note that Erlang Solutions tend to provide cutting edge Erlang versions that may or may not
+          be <a href="/which-erlang.html">supported by RabbitMQ</a>. Version locking (see below) is recommended
+          when Erlang installed using this option.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="install-monolithic-from-esl-repository">
-        <doc:heading>Install monolithic Erlang from Erlang Solutions <i>or</i></doc:heading>
+        <doc:heading>Monolithic Erlang Package from Erlang Solutions</doc:heading>
 
-        <ol class="plain">
-          <li>
-            Download and install the <a href="/which-erlang.html">appropriate</a> <code>esl-erlang</code> RPM
-            from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
-          </li>
-        </ol>
+        <p>
+          Download and install the <a href="/which-erlang.html">appropriate</a> <code>esl-erlang</code> RPM
+          from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
+        </p>
       </doc:subsection>
+
+      <doc:subsection name="install-erlang-from-epel-repository">
+        <doc:heading>Erlang package from the EPEL Repository</doc:heading>
+
+        <p>
+          Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on the target
+          machine, then run the following command as root:
+<pre class="sourcecode bash">
+yum install erlang
+</pre>
+        </p>
+      </doc:subsection>
+
 
       <doc:subsection name="rpm-version-locking">
         <doc:heading>Package Version Locking in Yum</doc:heading>
