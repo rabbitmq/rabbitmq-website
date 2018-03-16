@@ -11,8 +11,8 @@ This guide describes various aspects of logging in RabbitMQ:
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
-under the hood. The library supports logging to a file, console or a Syslog endpoint
-and provides a fair amount of flexibility when it comes to configuration.
+under the hood. The library supports logging to a file, console or a number of other sources
+via 3rd party plugins and provides a fair amount of flexibility when it comes to configuration.
 
 ## Log File Location
 
@@ -44,8 +44,8 @@ of how RabbitMQ nodes are configured.
 
 ### Log Outputs
 
-Default RabbitMQ logging configuration will direct log messages to a log file. Standard output and
-Syslog endpoint are two other supported options.
+Default RabbitMQ logging configuration will direct log messages to a log file. Standard output is
+another option available out of the box.
 
 Multiple outputs can be used at the same time. Log entries will be copied to all of them.
 
@@ -153,33 +153,6 @@ default. To disable the file output, set `log.file` to `false`.
 
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
-
-
-### Logging to Syslog
-
-The following settings are available for Syslog configuration:
-
- * `log.syslog`: (boolean) set to `true` to enable syslog output. Default is `false`
- * `log.syslog.level`: the log level for the syslog output. Default level is `info`
- * `log.syslog.identity`: syslog identity string. Default is `"rabbitmq"`
- * `log.syslog.facility`: syslog facility. Default is `daemon`
-
-It is possible to configure Syslog logging using the [classic configuration format](/configure.html):
-
-<pre class="sourcecode erlang">
-[{rabbit, [
-        {log, [
-            {syslog, [{enabled, true},        %% log.syslog
-                      {level, info},          %% log.syslog.level
-                      {identity, "rabbitmq"}, %% log.syslog.identity
-                      {facility, daemon}      %% log.syslog.facility
-            ]}
-        ]}
-    ]}].
-</pre>
-
-If you enable Syslog output, the file output will still be enabled by
-default. To disable the file output, set `log.file` to `false`.
 
 
 ## <a id="log-message-categories" /> Log Message Categories
