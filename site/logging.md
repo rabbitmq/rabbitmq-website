@@ -383,7 +383,7 @@ the [log handler and sink abstractions](https://github.com/erlang-lager/lager#co
 
 A sink is an "endpoint" where log entries are written by connections, queues and so on.
 A handler is stateful entity that consumes log entries and processes them, e.g.
-writes them to a file, sends them to a Syslog endpoint or discards them.
+writes them to a file, sends them to a log collection endpoint or discards them.
 
 By default RabbitMQ creates one file backend handler and one sink per log category (see above).
 Changing RabbitMQ log configuration parameters changes log handler used under the hood.
