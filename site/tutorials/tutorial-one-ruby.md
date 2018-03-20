@@ -179,7 +179,7 @@ begin
     puts " [x] Received #{body}"
   end
 rescue Interrupt => _
-  conn.close
+  connection.close
 
   exit(0)
 end
