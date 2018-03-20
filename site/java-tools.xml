@@ -303,8 +303,8 @@ bin/runjava com.rabbitmq.perf.PerfTest --message-properties priority=10,header1=
                 the content-type can be specified:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest --body content1.json,content2.json --body-content-type application/json \
-    --consumers 0
+bin/runjava com.rabbitmq.perf.PerfTest --consumers 0 \
+    --body content1.json,content2.json --body-content-type application/json
 </pre>
 
             </p>
@@ -318,7 +318,8 @@ bin/runjava com.rabbitmq.perf.PerfTest --body content1.json,content2.json --body
                 across a sequence of queues, e.g.:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 10 \
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 10 \
     --producers 100 --consumers 100
 </pre>
 
@@ -330,7 +331,8 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pa
 
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 10
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 10 \
     --producers 15 --consumers 30
 </pre>
                 With the previous command, queues from <code>perf-test-1</code> to <code>perf-test-5</code>
@@ -364,12 +366,14 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pa
 <pre class="sourcecode bash">
 # This first PerfTest process creates 500 queues (from 'perf-test-1' to 'perf-test-500').
 # Each queue will have 3 consumers and 1 producer sending messages to it.
-bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 500
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 500 \
     --producers 500 --consumers 1500
 # This second PerfTest process creates 500 queues (from 'perf-test-501' to 'perf-test-1000').
 # Each queue will have 3 consumers and 1 producer sending messages to it.
-bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 501 --queue-pattern-to 1000
---producers 500 --consumers 1500
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 501 --queue-pattern-to 1000 \
+    --producers 500 --consumers 1500
 </pre>
 
                 Those 2 processes will simulate 1000 producers and 3000 consumers spread
@@ -383,7 +387,8 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pa
                 PerfTest uses with the <code>--heartbeat-sender-threads</code> option:
 
 <pre class="sourcecode bash">
-bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pattern-from 1 --queue-pattern-to 1000
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 1000 \
     --producers 1000 --consumers 3000 --hearteat-sender-threads 10
 </pre>
 
@@ -401,6 +406,108 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' --queue-pa
                 at the OS level, as some distributions use very low limits.
                 Here the recommendations are the same as for the broker, so you
                 can refer to our <a href="/networking.html#os-tuning">networking guide</a>.
+            </p>
+
+
+        </doc:subsection>
+
+        <doc:subsection name="simulating-high-loads">
+            <doc:heading>Simulating IoT loads</doc:heading>
+
+            <p>
+                A typical IoT load involves many producers and consumers (dozens or hundreds of thousands)
+                that exchange messages at a low rate, usually a message every few seconds or minutes
+                for each producer or consumer. Simulating such loads is very different from simulating
+                loads with high throughput and few clients. With the appropriate settings,
+                PerfTest can simulate IoT loads without requiring too much resource.
+            </p>
+            <p>
+                With an IoT load, publishers usually don't publish many messages per second,
+                but rather a message every few seconds, so the <code>--publishing-interval</code>
+                options is more appropriate than the <code>--rate</code> option:
+
+                <pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --publishing-interval 5
+                </pre>
+
+                The command above makes the publisher publish a message every 5 seconds.
+                The publishing interval option can also be combined with the
+                <code>--queue-pattern</code> options to simulate many clients across
+                many queues:
+
+                <pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 1000 \
+    --producers 1000 --consumers 1000 \
+    --hearteat-sender-threads 10 \
+    --publishing-interval 5
+                </pre>
+
+                To prevent publishers to publish a message all at the same time and
+                avoid a publishing storm, use
+                the <code>--producer-random-start-delay</code> option to add an random
+                delay before the first published message:
+
+                <pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+--queue-pattern-from 1 --queue-pattern-to 1000 \
+--producers 1000 --consumers 1000 \
+--hearteat-sender-threads 10 \
+--publishing-interval 5 --producer-random-start-delay 120
+                </pre>
+
+                With the command above, each publisher will start with a random delay
+                between 1 and 120 seconds.
+
+            </p>
+
+            <p>
+                When using <code>--publishing-interval</code>, a Java thread is in charge
+                of scheduling 50 producers. So 1000 producers should keep 20 threads busy for
+                the publishing scheduling. This ratio can be decreased or increased with the
+                <code>--producer-scheduler-threads</code> options depending on the load and the target environment.
+                Very few threads can be used for very slow publishers:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 1000 \
+    --producers 1000 --consumers 1000 \
+    --hearteat-sender-threads 10 \
+    --publishing-interval 60 --producer-random-start-delay 1800 \
+    --producer-scheduler-threads 10
+</pre>
+                In the example above, 1000 publishers will publish every 60 seconds
+                with a random start-up delay between 1 second and 15 minutes (1800 seconds). They
+                will be scheduled by only 10 threads (instead of 20 by default).
+            </p>
+
+            <p>
+                By default, PerfTest uses Java blocking network IO to communicate with
+                the broker. This mode works fine for most cases, but the RabbitMQ Java client
+                provides also a <a href="/api-guide.html#java-nio">NIO mode</a>,
+                where resources like threads can be easily tuned. The goal here is to use as few
+                resources as possible to simulate as much load as possible with a single PerfTest instance,
+                and not to have to use a farm of servers to simulate dozens of thousands of clients.
+                If we go back to our slow publishers above, a handful of threads should be enough
+                to handle the IO, so let's tell PerfTest to switch to NIO and 10 IO threads with the
+                <code>--nio-threads</code> option:
+
+<pre class="sourcecode bash">
+bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
+    --queue-pattern-from 1 --queue-pattern-to 1000 \
+    --producers 1000 --consumers 1000 \
+    --hearteat-sender-threads 10 \
+    --publishing-interval 60 --producer-random-start-delay 1800 \
+    --producer-scheduler-threads 10
+    --nio-threads 10
+</pre>
+
+                PerfTest will actually use 2 extra threads for internal machinery, so this is 12 threads
+                overall for network communication with NIO. With the default blocking IO mode, each producer/consumer
+                uses a thread to read from the network socket, that is 2000 threads to simulate 1000 producers and
+                1000 consumers.
+                So using NIO in PerfTest can dramatically reduce the resources used to simulate IoT loads, they
+                just require extra and appropriate tuning.
             </p>
 
 
