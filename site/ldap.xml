@@ -28,44 +28,60 @@ limitations under the License.
   </head>
   <body show-in-this-page="true">
     <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+
       <p>
-        The LDAP plugin provides the ability for your RabbitMQ server to
-        perform authentication (determining who can log in) and
-        authorisation (determining what permissions they have) by deferring
-        to an external LDAP server. To use this plugin, some editing of the
-        RabbitMQ configuration file is required. You must enable the plugin,
-        and then configure it. You are advised to read this entire page
-        before starting.
+        RabbitMQ can use LDAP to perform authentication (determining
+        who can log in) and authorisation (determining what
+        permissions they have) by deferring to an external LDAP
+        server. This functionality is provided by a
+        plugin. Authentication and authorisation operations are
+        translated into LDAP queries. Multiple query types are
+        supported.
       </p>
 
       <p>
-        The LDAP plugin is included in the RabbitMQ distribution. To
+        This guide assumes basic familiarity with LDAP. Several beginner-oriented
+        LDAP primers are available elsewhere on the Web, for example, <a href="https://www.digitalocean.com/community/tutorials/understanding-the-ldap-protocol-data-hierarchy-and-entry-components">one</a>,
+        <a href="https://www.ldap.com/basic-ldap-concepts">two</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="basic-setup">
+      <doc:heading>Enabling the Plugin</doc:heading>
+      <p>
+        The LDAP plugin ships with RabbitMQ. To
         enable it, use
         <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
       </p>
       <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
       <p>
-        You will then need to set the value of the <code>auth_backends</code>
-        configuration item for the <code>rabbit</code> application to include
-        <code>rabbit_auth_backend_ldap</code>. <code>rabbit.auth_backends</code> is a
-        list of authentication/authoriation providers to try in order. For
-        more information, see the <a href="/access-control.html">Access Control</a>
-        guide.
+        After enabling the plugin it is necessary to configure the node to use it.
+        To do so, add <code>rabbit_auth_backend_ldap</code> to the list of <code>auth_backends</code>.
+        See the <a href="/access-control.html">Access Control</a> guide for an overview of authentication
+        and authorisation backends and how they are used.
       </p>
 
       <p>
         The following example
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database:
+
+<pre class="sourcecode init">
+auth_backends.1 = ldap
+</pre>
+
+        The same can be done using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+{rabbit, [
+  {auth_backends, [rabbit_auth_backend_ldap]}
+]}
+</pre>
       </p>
-      <pre class="sourcecode init">auth_backends.1 = ldap</pre>
-
-          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-      <pre class="sourcecode erlang">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
       <p>
-        This will check LDAP first, and then fall back to the internal
+        The following example will instruct the node to check LDAP first and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
 
@@ -74,12 +90,16 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
-          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          Same example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-      <pre class="sourcecode erlang">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
+<pre class="sourcecode erlang">
+{rabbit,[
+  {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
+]}
+</pre>
 
       <p>
-        The example below will check LDAP first. If the user is found in LDAP then the
+        In example, LDAP will be used for authentication first. If the user is found in LDAP then the
         password will be checked against LDAP and subsequent authorisation
         checks will be performed against the internal database (therefore
         users in LDAP must exist in the internal database as well, but do not
@@ -93,7 +113,7 @@ auth_backends.1.authz = internal
 auth_backends.2 = internal
 </pre>
 
-          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 {rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
@@ -102,11 +122,7 @@ auth_backends.2 = internal
     </doc:section>
 
     <doc:section name="basic">
-      <doc:heading>Basic configuration</doc:heading>
-      <p>
-        You must then configure the plugin. This plugin has quite a few
-        configuration options, but most have sensible defaults.
-      </p>
+      <doc:heading>Configuration</doc:heading>
 
       <p>
         The most complex part of configuring the plugin pertains to
@@ -116,8 +132,8 @@ auth_backends.2 = internal
       </p>
       <p>
         The default configuration allows all users to access all objects in
-        all vhosts, but does not make them administrators. If you're happy
-        with that, there is no need to read the documentation on authorisation.
+        all vhosts, but does not make them administrators. Restricting access is possible
+        by configuring LDAP queries.
       </p>
       <p>
         Listed options can be defined using <a href="/configure.html">sysctl config format</a> in

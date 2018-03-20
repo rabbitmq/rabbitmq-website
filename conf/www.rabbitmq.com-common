@@ -1,4 +1,5 @@
     ServerName www.rabbitmq.com
+    ServerAlias live.rabbitmq.com
     ServerAlias *.haas-40.pez.pivotal.io
     ServerAdmin postmaster@rabbitmq.com
 
