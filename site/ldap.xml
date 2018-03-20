@@ -24,20 +24,26 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>LDAP Plugin</title>
+    <title>LDAP Support</title>
   </head>
   <body show-in-this-page="true">
     <doc:section name="overview">
       <doc:heading>Overview</doc:heading>
 
       <p>
-        RabbitMQ can use LDAP to perform authentication (determining
-        who can log in) and authorisation (determining what
-        permissions they have) by deferring to an external LDAP
+        RabbitMQ can use LDAP to perform <a
+        href="/access-control.html">authentication and
+        authorisation</a> by deferring to an external LDAP
         server. This functionality is provided by a
-        plugin. Authentication and authorisation operations are
+        plugin that ships with RAbbitMQ.
+        Authentication and authorisation operations are
         translated into LDAP queries. Multiple query types are
         supported.
+      </p>
+
+      <p>
+        The plugin primarily targets OpenLDAP and Microsoft Active Directory. Other
+        LDAP v3 implementations should work reasonably well.
       </p>
 
       <p>
@@ -47,14 +53,19 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="basic-setup">
+    <doc:section name="enabling-the-plugin">
       <doc:heading>Enabling the Plugin</doc:heading>
       <p>
         The LDAP plugin ships with RabbitMQ. To
         enable it, use
         <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
+        <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
       </p>
-      <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
+    </doc:section>
+
+    <doc:section name="essential-configuration">
+      <doc:heading>Enabling LDAP AuthN and AuthZ backends</doc:heading>
+
       <p>
         After enabling the plugin it is necessary to configure the node to use it.
         To do so, add <code>rabbit_auth_backend_ldap</code> to the list of <code>auth_backends</code>.
@@ -125,225 +136,364 @@ auth_backends.2 = internal
       <doc:heading>Configuration</doc:heading>
 
       <p>
-        The most complex part of configuring the plugin pertains to
-        authorisation (i.e. granting permissions to your users via LDAP). This
-        is documented separately below and can be skipped if only using the
-        plugin for authentication.
+        Once the plugin is enabled and its backends are wired in, a number of LDAP-specific
+        settings must be configured. They include LDAP server list, authentication and
+        authorisation settings and more.
       </p>
+
       <p>
         The default configuration allows all users to access all objects in
         all vhosts, but does not make them administrators. Restricting access is possible
         by configuring LDAP queries.
       </p>
-      <p>
-        Listed options can be defined using <a href="/configure.html">sysctl config format</a> in
-        <code>rabbitmq.conf</code>
-        The options not directly related to authorisation are:
-      </p>
 
-      <dl>
-        <dt><code>servers</code></dt>
-        <dd>
-          A list of LDAP servers to attempt to bind (connect) to, in order.
-          List values can be hostnames or IP addresses. You almost
-          certainly want to change this. Default: <code>["ldap"]</code>.
-          Example of configuration using the sysctl config format:
-          <pre class="sourcecode ini">
+      <doc:subsection name="connectivity">
+        <doc:heading>LDAP Servers</doc:heading>
+
+        <p>
+          For the plugin to be able to connect to a LDAP server, at least one server hostname or IP address must be configured
+          using the `auth_ldap.servers` key. If multiple values are provided,
+          List values can be hostnames or IP addresses. This value must be configured. The following
+          example configures the plugin to use two LDAP servers. They will be tried
+          in order until connection to one of them succeeds:
+
+<pre class="sourcecode ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
-          </pre>
-          Using the classic config format:
-          <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{servers, ["ldap.eng.megacorp.local", "192.168.0.100"]}]}].</pre>
-        </dd>
-        <dt><code>user_dn_pattern</code></dt>
-        <dd>
-          <p>
-            There are two ways to convert a username as provided through AMQP to
-            a Distinguished Name. The simplest way is via string substitution
-            with <code>user_dn_pattern</code>. To do this, set
-            <code>user_dn_pattern</code> to a string containing exactly one
-            instance of <code>${username}</code>.
-          </p>
-          <p>
-            For example, setting user_dn_pattern to:
-            <code>"cn=${username},ou=People,dc=example,dc=com"</code>
-          </p>
-          <p>
-            would cause the username <code>simon</code> to be converted to the
-            DN <code>cn=simon,ou=People,dc=example,dc=com</code>
-          </p>
-          <p>
-            Default: <code>"${username}"</code>
-          </p>
-        </dd>
-        <dt><code>dn_lookup_attribute</code>, <code>dn_lookup_base</code> and <code>dn_lookup_bind</code></dt>
-        <dd>
-          <p>
-            The other way to convert a username to a Distinguished
-            Name is via an LDAP lookup.
-          </p>
-          <p>
-            To do this, set <code>dn_lookup_attribute</code> to the
-            name of the attribute that represents the user name,
-            and <code>dn_lookup_base</code> to the base DN for the
-            query.
-          </p>
-          <p>
-            The lookup can be done at one of two times, either before
-            attempting to bind as the user in question, or afterwards.
-          </p>
-          <p>
-            If you want to do the lookup after binding, you can leave
-            <code>dn_lookup_bind</code> set to its default
-            of <code>as_user</code>. The LDAP plugin will then bind
-            with the user's unadorned username to do the login, then
-            look up its DN. In order for this to work your LDAP server
-            needs to be configured to allow binding with the unadorned
-            username (Microsoft Active Directory typically does this).
-          </p>
-          <p>
-            If you want to do the lookup before binding, you must
-            set <code>dn_lookup_bind</code> to a tuple
-            <code>{UserDN, Password}</code>. The LDAP plugin will then bind with
-            these credentials first to do the lookup, then bind with
-            the user's DN and password to do the login.
-          </p>
-          <p>
-            For example, if I set
-          </p>
-          <pre class="sourcecode ini">
+</pre>
+
+          The same examples using the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+    {servers, ["ldap.eng.megacorp.local", "192.168.0.100"]}
+  ]}
+].
+</pre>
+        </p>
+
+        <p>
+          LDAP servers typically use port <code>389</code> and that's the port the
+          LDAP plugin will use by default. <code>auth_ldap.port</code> can be used
+          to override this:
+
+<pre class="sourcecode ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+auth_ldap.port      = 6389
+</pre>
+
+          The same examples using the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+    {servers, ["ldap.eng.megacorp.local", "192.168.0.100"]},
+    {port,    6389}
+  ]}
+].
+</pre>
+        </p>
+
+        <p>
+          TCP connections to LDAP servers can be given a timeout using the <code>auth_ldap.timeout</code>
+          configuration key:
+
+<pre class="sourcecode ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+# 15 seconds in milliseconds
+auth_ldap.timeout   = 15000
+</pre>
+
+          The default is `infinity`, or no timeout.
+        </p>
+
+        <p>
+          LDAP server connections are pooled to avoid excessive connection churn and LDAP server
+          load. By default the pool has up to 64 connections. This can be controlled using the
+          <code>auth_ldap.pool_size</code> setting:
+
+<pre class="sourcecode ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+auth_ldap.pool_size = 256
+</pre>
+
+          Pooled connections without activity are closed after a period of time
+          configurable via <code>auth_ldap.idle_timeout</code>, in milliseconds
+          or `infinity`:
+
+<pre class="sourcecode ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+auth_ldap.pool_size    = 256
+# 300 seconds in milliseconds
+auth_ldap.idle_timeout = 300000
+</pre>
+
+          Values between 120 and 300 seconds are recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="ldap-tls">
+        <doc:heading>Using TLS for LDAP Connections</doc:heading>
+
+
+        <p>
+          It is possible to connect to LDAP servers using TLS. To instruct the
+          plugin to do so, set the <code>auth_ldap.use_ssl</code> setting to <code>true</code>.
+          If StartTLS is used by the LDAP server, use <code>auth_ldap.use_starttls</code> instead.
+          Note that those settings are mutually exclusive (cannot be combined).
+          Both values default to <code>false</code>.
+        </p>
+
+        <p>
+          Client side TLS settings are configured using <code>ssl_options</code>, which
+          are very similar to <a href="/ssl.html">TLS settings elsewhere in RabbitMQ</a>.
+          TLS settings for LDAP connections can only be configured via the advanced config file:
+
+<pre class="sourcecode ini">
+auth_ldap.servers.1 = ldap.eng.megacorp.local
+auth_ldap.servers.2 = 192.168.0.100
+
+auth_ldap.use_ssl   = true
+</pre>
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {verify, verify_peer},
+                    {fail_if_no_peer_cert, true}]}
+   ]}
+].
+</pre>
+
+
+          An example that uses both of the above and uses the <a href="/configure.html">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+     {use_ssl,     true},
+     {ssl_options, [{cacertfile, "/path/to/testca/cacert.pem"},
+                    {certfile,   "/path/to/server/cert.pem"},
+                    {keyfile,    "/path/to/server/key.pem"},
+                    {verify,               verify_peer},
+                    {fail_if_no_peer_cert, true}]}
+   ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
+
+
+
+      <doc:subsection name="usernames-and-dns">
+        <doc:heading>Usernames and Distinguished Names</doc:heading>
+
+        <p>
+          Client connections provide usernames which are translated into Distinguished
+          Names (DNs) in LDAP.
+          There are two ways to do that. The simplest way is via string substitution
+          with <code>user_dn_pattern</code>. To use this option, set
+          <code>user_dn_pattern</code> to a string containing exactly one
+          instance of <code>${username}</code>, a variable that will be
+          substituited for the username value provided by the client.
+        </p>
+        <p>
+          For example, setting user_dn_pattern to
+          <code>"cn=${username},ou=People,dc=example,dc=com"</code>
+          would cause the username <code>simon</code> to be converted to the
+          DN <code>cn=simon,ou=People,dc=example,dc=com</code>. Default value is
+          <code>"${username}"</code>, in other words, the username is used verbatim.
+        </p>
+
+        <p>
+          The other way to convert a username to a Distinguished
+          Name is via an LDAP lookup. To do this, set
+          <code>auth_ldap.dn_lookup_attribute</code> to the name of the
+          attribute that represents the user name, and
+          <code>auth_ldap.dn_lookup_base</code> to the base DN for the
+          query. The lookup can be done at one of two times, either
+          before attempting to bind as the user in question, or
+          afterwards.
+        </p>
+        <p>
+          To do the lookup after binding, leave
+          <code>auth_ldap.dn_lookup_bind</code> set to its default
+          of <code>as_user</code>. The LDAP plugin will then bind
+          with the user's plain (unmodified) username to do the login, then
+          look up its DN. In order for this to work the LDAP server
+          needs to be configured to allow binding with the plain
+          username (Microsoft Active Directory typically does this).
+        </p>
+        <p>
+          To do the lookup before binding,
+          set <code>auth_ldap.dn_lookup_bind</code> to a tuple
+          <code>{UserDN, Password}</code>. The LDAP plugin will then bind with
+          these credentials first to do the lookup, then bind with
+          the user's DN and password to do the login.
+        </p>
+        <p>
+          Consider the following example:
+        </p>
+        <pre class="sourcecode ini">
 auth_ldap.dn_lookup_attribute = userPrincipalName
 auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
-          <p>
-            I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
-            local Active Directory server return my real DN.
-          </p>
-          <p>
-            If you set both <code>dn_lookup_attribute</code>
-            and <code>user_dn_pattern</code> then the approaches are
-            combined: the plugin fills out the template and then
-            searches for the DN.
-          </p>
-          <p>
-            Default: <code>none</code>, <code>none</code> and <code>as_user</code>
-          </p>
-        </dd>
-        <dt><code>group_lookup_base</code></dt>
-        <dd>
-            <p>
-                Base DN to search for nested groups. Used by
-                the <code>{in_group_nested, ...}</code> query only.
-                For more info see the <a href="#query-reference">section on queries</a>.
-            </p>
-            <p>
-                In the below example <code>ou=groups,dc=example,dc=com</code> is the directory that contains all groups:
-            </p>
-            <pre>{group_lookup_base, "ou=groups,dc=example,dc=com"}</pre>
-            <p>
-                Default: <code>'none'</code>
-            </p>
-        </dd>
-        <dt><code>other_bind</code></dt>
-        <dd>
-          <p>
-            For authentication this plugin binds to the LDAP server as the
-            user it is trying to authenticate. This option controls how to
-            bind for authorisation queries, and to retrieve the details of a
-            user who is logging in without presenting a password (e.g. SASL
-            EXTERNAL).
-          </p>
-          <p>
-            This option must either be one of the
-            atoms <code>as_user</code> (to bind as the authenticated
-            user) or <code>anon</code> (to bind anonymously), or be presented by two
-            options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
-            to bind with a specified username and password.
-            For example:
-            <pre class="sourcecode ini">
-auth_ldap.other_bind.user_dn = username
-auth_ldap.other_bind.password = password</pre>
+        <p>
+          With this configuration it is possible authenticate using an email address
+          (<code>userPrincipalName</code> values are typically email addresses)
+          and have the local Active Directory server return an actual DN to do
+          the login.
+        </p>
+        <p>
+          If both <code>auth_ldap.dn_lookup_attribute</code>
+          and <code>auth_ldap.user_dn_pattern</code> are set then the approaches are
+          combined: the plugin fills out the template and then
+          searches for the DN.
+        </p>
+        <p>
+          <code>auth_ldap.dn_lookup_bind</code>'s default value is <code>as_user</code>.
+          For <code>auth_ldap.dn_lookup_base</code> and <code>auth_ldap.dn_lookup_attribute</code>
+          it is <code>none</code>.
+        </p>
+      </doc:subsection>
 
-            Using the classic config format:
-            <pre class="sourcecode erlang">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
-          </p>
-          <p>
-            Note that it is not possible to use the
-            default <code>as_user</code> configuration when users connect
-            without passwords. You must set <code>other_bind</code>
-            to <code>anon</code>, or with user_dn and password for users
-            to log in without passwords.
-          </p>
-          <p>
-            Default: <code>as_user</code>
-          </p>
-        </dd>
-        <dt><code>use_ssl</code></dt>
-        <dd>
-          Whether to use LDAP over SSL. Default:
-          <code>false</code>
-        </dd>
-        <dt><code>use_starttls</code></dt>
-        <dd>
-          Whether to use LDAP secured with StartTLS. Requires Erlang
-          R16B03 or later. Default:
-          <code>false</code>
-          <p>Only one of <code>use_ssl</code> and
-          <code>use_starttls</code> can be <code>true</code>.</p>
-        </dd>
-        <dt><code>ssl_options</code></dt>
-        <dd>
-          SSL client options to use with <code>use_ssl</code> or
-          <code>use_starttls</code>. Uses the same <a href="ssl.html">SSL
-          configuration</a> as elsewhere in RabbitMQ. Requires Erlang
-          R16A or later. Default:
-          <code>[]</code>
-        </dd>
-        <dt><code>port</code></dt>
-        <dd>
-          Port on which to connect to the LDAP servers. Default:
-          <code>389</code>.
-        </dd>
-        <dt><code>timeout</code></dt>
-        <dd>
-          LDAP connection timeout in milliseconds, or 'infinity' for
-          no timeout. Default:
-          <code>infinity</code>.
-        </dd>
-        <dt><code>pool_size</code></dt>
-        <dd>
-          LDAP queries worker pool size. Default:
-          <code>64</code>.
-        </dd>
-        <dt><code>idle_timeout</code></dt>
-        <dd>
-          Time in milliseconds after which inactive LDAP connections
-          are closed. Set to 'infinity' for no timeout. Default:
-          <code>infinity</code>.
-        </dd>
-        <dt><code>log</code></dt>
-        <dd>
-          <p>
-            Select <code>true</code> for verbose logging of the logic used by
-            the LDAP plugin to make decisions. This is typically useful for
-            debugging. Note; credentials in bind request outcomes will be
-            scrubbed under this option.
-          </p>
-          <p>
-            Select <code>network</code> to <b>additionally</b> cause LDAP
-            network traffic to be logged at a somewhat lower level, with bind
-            request credentials scrubbed.
-          </p>
-          <p>
-            Select <code>network_unsafe</code> to cause LDAP network traffic to
-            be logged at a lower level, with bind request credentials such as
-            passwords, written to the logs; exercise caution.
-          </p>
-          <p>
-            Default: <code>false</code>
-          </p>
-        </dd>
-      </dl>
+
+
+      <doc:subsection name="logging">
+        <doc:heading>LDAP Activity Logging</doc:heading>
+
+        <p>
+          The plugin makes it possible to control the verbosity of LDAP activity
+          logging using the <code>auth_ldap.log</code>
+          (<code>rabbitmq_auth_backend_ldap.log</code> in the classic config format) setting.
+          This is essential for troubleshooting.
+        </p>
+        <p>
+          Setting the value to <code>true</code> will enable verbose logging of the logic used by
+          the LDAP plugin to make decisions. Credentials in bind request outcomes will be
+          scrubbed in this mode. This mode is not recommended for production systems
+          but ocassionally can be useful.
+        </p>
+        <p>
+          The value of <code>network</code> works similarly to the above but  <b>additionally</b> causes LDAP
+          network traffic to be logged at a lower (LDAP client) level, with bind
+          request credentials scrubbed. This setting can result in excessive logging and should be
+          used with great care.
+        </p>
+        <p>
+          The value of <code>network_unsafe</code> causes LDAP network traffic to
+          be logged at a lower (LDAP client) level, with bind request credentials such as
+          passwords, written to the logs; this mode must not be used in production and will violate
+          nearly every widely adopted security policy.
+          It can, however, be very useful for troubleshooting in development
+          and QA environments.
+        </p>
+        <p>
+          Lastly, the value of <code>false</code> (the default) disables LDAP traffic logging.
+        </p>
+
+        <p>
+          The following examples sets LDAP logging level to <code></code>:
+
+<pre class="sourcecode ini">
+auth_ldap.log = network
+</pre>
+
+          The same examples in the classic config format:
+
+<pre class="sourcecode ini">
+[
+  {rabbitmq_auth_backend_ldap, [
+    %% ...
+    {log, network}
+  ]}
+]
+</pre>
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="other-bind">
+        <doc:heading>Binding for Authorisation Queries</doc:heading>
+
+        <p>
+          For authentication this plugin binds to the LDAP server as the
+          user it is trying to authenticate. The <code>other_bind</code> setting controls how to
+          bind for authorisation queries, and to retrieve the details of a
+          user who is logging in without presenting a password (e.g. using the
+          <a href="/authentication.html">EXTERNAL authentication mechanism</a>).
+        </p>
+        <p>
+          The accepted values are <code>as_user</code> (to bind as the authenticated
+          user) or <code>anon</code> (to bind anonymously), or be presented by two
+          options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
+          to bind with a specified username and password. For example:
+
+<pre class="sourcecode ini">
+auth_ldap.other_bind.user_dn = a-username
+auth_ldap.other_bind.password = a-password</pre>
+
+          Using the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+    {other_bind, {"a-username", "a-password"}}
+  ]}
+].
+</pre>
+        </p>
+        <p>
+          Note that it is not possible to use the
+          default <code>as_user</code> configuration when users connect
+          without providing a password. In that case, use
+          <code>auth_ldap.other_bind.user_dn</code> and <code>auth_ldap.other_bind.password</code>
+          or the <code>anon</code> option.
+        </p>
+        <p>
+          Default value of <code>auth_ldap.other_bind</code> is <code>as_user</code>.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="group-lookups">
+        <doc:heading>Group Membership Lookup</doc:heading>
+
+        <p>
+          The plugin supports several group membership lookup queries.
+          The <code>group_lookup_base</code> setting controls what base DN will be used to search for nested groups. It is used by
+          the <code>{in_group_nested, ...}</code> query only. For more info see the <a href="#query-reference">section on queries</a>.
+        </p>
+        <p>
+          In the following example <code>ou=groups,dc=example,dc=com</code> is the directory that contains all groups.
+          Note that it uses the <a href="/configure.html">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_auth_backend_ldap, [
+    %% ...
+    {group_lookup_base, "ou=groups,dc=example,dc=com"}
+  ]}
+]
+</pre>
+        </p>
+        <p>
+          Default value is <code>'none'</code>.
+        </p>
+      </doc:subsection>
     </doc:section>
+
 
     <doc:section name="authorisation">
       <doc:heading>Configuring Authorisation</doc:heading>
