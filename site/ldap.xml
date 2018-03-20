@@ -497,122 +497,198 @@ auth_ldap.other_bind.password = a-password</pre>
 
     <doc:section name="authorisation">
       <doc:heading>Configuring Authorisation</doc:heading>
-      <p>
-        Since LDAP has a view of the world which is rather different
-        from that of RabbitMQ, we need to be able to configure the
-        LDAP plugin to execute various queries against the LDAP
-        database to determine whether the user is authorised to do
-        various things. Authorisation is therefore controlled by
-        three configuration options:
-      </p>
 
-      <ul>
-        <li><code>vhost_access_query</code></li>
-        <li><code>resource_access_query</code></li>
-        <li><code>topic_access_query</code></li>
-        <li><code>tag_queries</code></li>
-      </ul>
+      <doc:subsection name="authorisation-overview">
+        <doc:heading>How RabbitMQ Permission Model Maps to LDAP</doc:heading>
 
-      <p>
-        Queries are complex erlang terms, so they can be defined only using the
-        <a href="/configure.html#erlang-term-config-file">classic config format</a>. When using the sysctl
-        format, <config>additional.config</config> can be used for query definitions
-      </p>
+        <p>
+          RabbitMQ <a href="/access-control.html">permission model</a>
+          is different from that of LDAP. In addition, the way LDAP
+          schemas are used will vary from company to
+          company. Therefore a mechanism that defines what LDAP
+          requests are used by the RabbitMQ authorisation functions is
+          needed. Authorisation is controlled by four configurable queries:
 
-      <p>
-        Note that in order for a user to be able to access a virtual
-        host, it must have been created within RabbitMQ; unlike users
-        and permissions, virtual hosts cannot live entirely within
-        LDAP.
-      </p>
+          <ul>
+            <li><code>rabbitmq_auth_backend_ldap.vhost_access_query</code></li>
+            <li><code>rabbitmq_auth_backend_ldap.resource_access_query</code></li>
+            <li><code>rabbitmq_auth_backend_ldap.topic_access_query</code></li>
+            <li><code>rabbitmq_auth_backend_ldap.tag_queries</code></li>
+          </ul>
 
-      <p>
-        Each defines a query that will determine whether a user has
-        access to a vhost, whether they have access to a resource
-        (e.g. exchange, queue, binding) and
-        which <a href="management.html#permissions">tags</a> they
-        have.
-      </p>
+          Each defines a query that will determine whether a user has
+          access to a vhost, whether they have access to a resource
+          (e.g. exchange, queue, binding) and
+          which <a href="management.html#permissions">tags</a> they
+          have.
+        </p>
 
-      <p>
-        The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>, <code>{constant, true}</code>
-        and <code>[{administrator, {constant, false}}]</code>
-        respectively, granting all users access to all objects in all
-        vhosts, but not making them administrators.
-      </p>
-
-      <p>
-        A query can be of one of several types, defined below. Since
-        you are likely to write several queries, and since queries can
-        be nested, it can be helpful to switch on the <code>log</code>
-        configuration parameter documented above. This will cause the
-        LDAP plugin to write fairly verbose descriptions of the
-        queries it executes and the decisions it therefore makes to
-        the RabbitMQ log.
-      </p>
-
-      <p>
-        All of the query types which take strings support string
-        substitution, where variables pertaining to the query being
-        made can be substituted in. Each of the three queries allow
-        different substitutions:
-      </p>
-
-      <p><code>vhost_access_query</code> allows</p>
-      <ul>
-        <li><code>${username}</code> - the user name provided at authentication</li>
-        <li><code>${user_dn}</code> - the distinguished name of the user</li>
-        <li><code>${vhost}</code> - the virtual host for which we are querying access</li>
-      </ul>
-
-      <p><code>resource_access_query</code> allows</p>
-      <ul>
-        <li><code>${username}</code> - the user name provided at authentication</li>
-        <li><code>${user_dn}</code> - the distinguished name of the user</li>
-        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
-        <li><code>${resource}</code> - one of "exchange" or "queue" for the type of resource</li>
-        <li><code>${name}</code> - the name of the resource</li>
-        <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
-      </ul>
-
-      <p><code>topic_access_query</code> allows</p>
-      <ul>
-        <li><code>${username}</code> - the user name provided at authentication</li>
-        <li><code>${user_dn}</code> - the distinguished name of the user</li>
-        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
-        <li><code>${resource}</code> - always "topic" in this case</li>
-        <li><code>${name}</code> - the name of the resource</li>
-        <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming, queue and
-          exchange-to-exchange binding for topic exchanges)
-        </li>
-        <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
-          or routing key of the topic exchange to queue/exchange binding ("read" permission)
-        </li>
-      </ul>
-
-      <p>
-        The terms configure, write and read for resource access have the
-        same meanings that they do for the built-in RabbitMQ permissions
-        system, see http://www.rabbitmq.com/access-control.html. See
-        also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
-        for <code>topic_access_query</code>.
-      </p>
+        <p>
+          Note the longer <code>rabbitmq_auth_backend_ldap</code> prefix.
+          Queries are expressed using a domain-specific language expressed in Erlang terms (data structures),
+          so they can be defined only using the
+          <a href="/configure.html#erlang-term-config-file">classic config format</a>. Starting with RabbitMQ 3.7
+          query definitions are commonly placed into the <config>additional.config</config> file.
+        </p>
+      </doc:subsection>
 
 
-      <p><code>tag_queries</code> allows</p>
-      <ul>
-        <li><code>${username}</code> - the user name provided at authentication</li>
-        <li><code>${user_dn}</code> - the distinguished name of the user</li>
-      </ul>
+      <doc:subsection name="query-types">
+        <doc:heading>Queries and Their Types</doc:heading>
 
-      <p>
-        Note that tag_queries consists of a proplist, mapping the name
-        of a tag to a query to perform to determine whether or not the
-        user has that tag. You must list queries for all tags that you
-        want your users to be able to have.
-      </p>
+        <p>
+          Each query mentioned above is used at a different authorisation stage and must
+          evaluate to either <code>true</code> or false. Specific query types (expressions,
+          e.g. value comparison or group membership check) are covered later
+          in this guide.
+        </p>
+
+        <p>
+          A query can be of one of several types. Each type represents a boolean expression or function:
+          a comparison, string match, object existence check, group membership check, and so on.
+          Queries can be nested and combined using boolean operators.
+        </p>
+
+        <p>
+          The default values (expressions) can be found in the table below:
+
+          <table>
+            <thead>
+              <td>Query</td>
+              <td>Default Expression</td>
+            </thead>
+            <tr>
+              <td><code>rabbitmq_auth_backend_ldap.vhost_access_query</code></td>
+              <td><code>{constant, true}</code></td>
+            </tr>
+            <tr>
+              <td><code>rabbitmq_auth_backend_ldap.resource_access_query</code></td>
+              <td><code>{constant, true}</code></td>
+            </tr>
+            <tr>
+              <td><code>rabbitmq_auth_backend_ldap.topic_access_query</code></td>
+              <td><code>{constant, true}</code></td>
+            </tr>
+            <tr>
+              <td><code>rabbitmq_auth_backend_ldap.tag_queries</code></td>
+              <td><code>[{administrator, {constant, false}}]</code></td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          This means that all users are granted access to all objects in all
+          vhosts but they are not system administrators.
+        </p>
+
+        <p>
+          All of the query types which take strings for arguments support string
+          substitution, where variables pertaining to the query being
+          made can be substituted in. Each of the queries supports
+          different variables.
+        </p>
+
+        <p>
+          The <code>vhost_access_query</code> support
+
+          <ul>
+            <li><code>${username}</code> - the user name provided at authentication</li>
+            <li><code>${user_dn}</code> - the distinguished name of the user</li>
+            <li><code>${vhost}</code> - the virtual host for which we are querying access</li>
+          </ul>
+        </p>
+
+        <p>
+          The <code>resource_access_query</code> supports
+
+          <ul>
+            <li><code>${username}</code> - the user name provided at authentication</li>
+            <li><code>${user_dn}</code> - the distinguished name of the user</li>
+            <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+            <li><code>${resource}</code> - one of "exchange" or "queue" for the type of resource</li>
+            <li><code>${name}</code> - the name of the resource</li>
+            <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
+          </ul>
+        </p>
+
+        <p>
+          The <code>tag_queries</code> supports
+
+          <ul>
+            <li><code>${username}</code> - the user name provided at authentication</li>
+            <li><code>${user_dn}</code> - the distinguished name of the user</li>
+          </ul>
+        </p>
+
+        <p>
+          Finally, the <code>topic_access_query</code> supports
+
+          <ul>
+            <li><code>${username}</code> - the user name provided at authentication</li>
+            <li><code>${user_dn}</code> - the distinguished name of the user</li>
+            <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+            <li><code>${resource}</code> - always "topic" in this case</li>
+            <li><code>${name}</code> - the name of the resource</li>
+            <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming, queue and
+              exchange-to-exchange binding for topic exchanges)
+            </li>
+            <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
+              or routing key of the topic exchange to queue/exchange binding ("read" permission)
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          The terms configure, write and read for resource access have the
+          same meanings that they do for the built-in RabbitMQ permissions
+          system, see http://www.rabbitmq.com/access-control.html. See
+          also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
+          for <code>topic_access_query</code>.
+        </p>
+
+        <p>
+          When first getting familiar with the query DSL, it can be
+          helpful to switch on the <code>log</code> configuration
+          parameter documented above. This will cause the LDAP plugin
+          to write fairly verbose descriptions of the queries it
+          executes and the decisions it therefore makes to the
+          RabbitMQ log.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="authorisation-vhost-access">
+        <doc:heading>Virtual Host Access</doc:heading>
+
+        <p>
+          <code>rabbitmq_auth_backend_ldap.vhost_access_query</code>
+          is the query used to control virtual host
+          access. If the query evaluates to <code>true</code> then access
+          is granted.
+        </p>
+
+        <p>
+          Note that before a user can access a virtual host, the
+          virtualhost must have been created within RabbitMQ; unlike
+          users and permissions, virtual hosts cannot live entirely
+          within LDAP.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="authorisation-tag-query">
+        <doc:heading>User Tags</doc:heading>
+
+        <p>
+          The <code>tag_queries</code> consists of a key-value map
+          mapping the name of a tag to a query to perform to determine
+          whether or not the user has that tag. It is necessary to
+          list list queries for all tags that the users should to
+          have.
+        </p>
+      </doc:subsection>
     </doc:section>
+
 
     <doc:section name="query-reference">
       <doc:heading>Authorisation Query Reference</doc:heading>
