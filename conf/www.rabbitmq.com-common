@@ -1,3 +1,5 @@
+# vim:ft=apache:
+
     ServerName www.rabbitmq.com
     ServerAlias live.rabbitmq.com
     ServerAlias *.haas-40.pez.pivotal.io
@@ -55,28 +57,43 @@
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
+        Require all granted
         Options -Indexes
     </Directory>
     <Directory /home/rabbitmq/extras/releases>
+        Require all granted
         Options +Indexes
         IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
         HeaderName /templates/index-header.html
         ReadmeName /templates/index-footer.html
     </Directory>
     <Directory /home/rabbitmq/extras/nightlies>
+        Require all granted
         Options +Indexes
         IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
         HeaderName /templates/index-header.html
         ReadmeName /templates/index-footer.html
     </Directory>
     <Directory /home/rabbitmq/extras/community-plugins>
+        Require all granted
         Options +Indexes
         IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
         HeaderName /templates/index-header.html
         ReadmeName /templates/index-footer.html
     </Directory>
 
+    Alias /blog/wp-content /var/lib/wordpress/wp-content
     Alias /blog /usr/share/wordpress
+    <Directory /usr/share/wordpress>
+        Options FollowSymLinks
+        AllowOverride Limit Options FileInfo
+        DirectoryIndex index.php
+        Require all granted
+    </Directory>
+    <Directory /var/lib/wordpress/wp-content>
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
 
     # Redirect manpages from old location to new one that does not have '.man'
     # in the URL and may change section as well
