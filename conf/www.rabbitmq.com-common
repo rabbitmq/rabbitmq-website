@@ -31,6 +31,10 @@
     Alias /debian-snapshot /home/rabbitmq/extras/nightlies/debian
 
     Alias /wp-uploads /srv/www/wp-uploads/rabbit-web.eng.vmware.com
+    <Directory /srv/www/wp-uploads/rabbit-web.eng.vmware.com>
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
 
     # /how appeared on some printed materials
     Redirect permanent /how http://www.rabbitmq.com/how.html
