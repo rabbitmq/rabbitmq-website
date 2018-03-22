@@ -389,7 +389,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 <pre class="sourcecode bash">
 bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
     --queue-pattern-from 1 --queue-pattern-to 1000 \
-    --producers 1000 --consumers 3000 --hearteat-sender-threads 10
+    --producers 1000 --consumers 3000 --heartbeat-sender-threads 10
 </pre>
 
                 By default, each producer and consumer connection uses a dedicated thread
@@ -439,7 +439,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --publishing-interval 5
 bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
     --queue-pattern-from 1 --queue-pattern-to 1000 \
     --producers 1000 --consumers 1000 \
-    --hearteat-sender-threads 10 \
+    --heartbeat-sender-threads 10 \
     --publishing-interval 5
                 </pre>
 
@@ -452,7 +452,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 --queue-pattern-from 1 --queue-pattern-to 1000 \
 --producers 1000 --consumers 1000 \
---hearteat-sender-threads 10 \
+--heartbeat-sender-threads 10 \
 --publishing-interval 5 --producer-random-start-delay 120
                 </pre>
 
@@ -472,7 +472,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
     --queue-pattern-from 1 --queue-pattern-to 1000 \
     --producers 1000 --consumers 1000 \
-    --hearteat-sender-threads 10 \
+    --heartbeat-sender-threads 10 \
     --publishing-interval 60 --producer-random-start-delay 1800 \
     --producer-scheduler-threads 10
 </pre>
@@ -496,7 +496,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
     --queue-pattern-from 1 --queue-pattern-to 1000 \
     --producers 1000 --consumers 1000 \
-    --hearteat-sender-threads 10 \
+    --heartbeat-sender-threads 10 \
     --publishing-interval 60 --producer-random-start-delay 1800 \
     --producer-scheduler-threads 10
     --nio-threads 10
