@@ -89,7 +89,7 @@ private static String getMessage(String[] strings){
     if (strings.length &lt; 1)
         return "Hello World!";
     return joinStrings(strings, " ");
-}  
+}
 
 private static String joinStrings(String[] strings, String delimiter) {
     int length = strings.length;
@@ -131,7 +131,7 @@ private static void doWork(String task) throws InterruptedException {
     for (char ch: task.toCharArray()) {
         if (ch == '.') Thread.sleep(1000);
     }
-}    
+}
 </pre>
 
 Compile them as in tutorial one (with the jar files in the working directory
@@ -436,7 +436,7 @@ public class NewTask {
 
     channel.close();
     connection.close();
-  }      
+  }
   //...
 }
 </pre>
@@ -503,7 +503,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `Channel` methods and `MessageProperties`, you can browse the
-[JavaDocs online](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/).
+[JavaDocs online](https://rabbitmq.github.io/rabbitmq-java-client/api/current/).
 
 Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
 to deliver the same message to many consumers.

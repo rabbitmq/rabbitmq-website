@@ -20,15 +20,9 @@
     ErrorDocument 500 /500.html
 
     # These directories are constructed by the rabbitmq-umbrella
-    Alias /examples /home/rabbitmq/extras/examples
-    Alias /javadoc /home/rabbitmq/extras/javadoc
     Alias /releases /home/rabbitmq/extras/releases
     Alias /debian /home/rabbitmq/extras/releases/debian
     Alias /community-plugins /home/rabbitmq/extras/community-plugins
-
-    # These directories are created/managed by the sync-nightly infrastructure
-    Alias /nightlies /home/rabbitmq/extras/nightlies
-    Alias /debian-snapshot /home/rabbitmq/extras/nightlies/debian
 
     Alias /wp-uploads /srv/www/wp-uploads/rabbit-web.eng.vmware.com
     <Directory /srv/www/wp-uploads/rabbit-web.eng.vmware.com>
@@ -115,14 +109,12 @@
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
+    RewriteRule ^/tutorials/$ /getstarted.html [R=301]
 
     <Location /server-status>
       SetHandler server-status
-      Order deny,allow
-      Deny from all
-      Allow from 10.20.218.0/23
-      Allow from 213.122.168.19/28
-      Allow from 127.0.0.1
+      Require ip 10.70.64.0/24 10.20.218.0/23 213.122.168.19/28 93.19.7.141
+      Require local
     </Location>
 
       # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
