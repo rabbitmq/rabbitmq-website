@@ -47,9 +47,15 @@ limitations under the License.
       </p>
 
       <p>
-        This guide assumes basic familiarity with LDAP. Several beginner-oriented
+        This guide provides a very brief overview of LDAP terms but generally
+        assumes basic familiarity with LDAP. Several beginner-oriented
         LDAP primers are available elsewhere on the Web, for example, <a href="https://www.digitalocean.com/community/tutorials/understanding-the-ldap-protocol-data-hierarchy-and-entry-components">one</a>,
-        <a href="https://www.ldap.com/basic-ldap-concepts">two</a>.
+        <a href="https://www.ldap.com/basic-ldap-concepts">two</a>, and the <a href="https://www.ldap.com/glossary-of-ldap-terms">LDAP glossary</a>.
+      </p>
+
+      <p>
+        This guide covers the LDAP operation flow used by RabbitMQ, how the LDAP model
+        maps to the RabbitMQ permission model and what tools are available for troubleshooting.
       </p>
     </doc:section>
 
@@ -295,6 +301,105 @@ auth_ldap.use_ssl   = true
         </p>
       </doc:subsection>
 
+
+
+      <doc:subsection name="ldap-essentials-and-terminology">
+        <doc:heading>LDAP Essentials and Terminology</doc:heading>
+
+        <p>
+          This section covers some basic LDAP terminology used in this document. For an LDAP primer, please
+          refer to <a href="https://www.digitalocean.com/community/tutorials/understanding-the-ldap-protocol-data-hierarchy-and-entry-components">this overview</a> by Digital Ocean and the <a href="https://www.ldap.com/glossary-of-ldap-terms">LDAP glossary</a> from ldap.com.
+        </p>
+
+        <p>
+          <table>
+            <thead>
+              <td>Term</td>
+              <td>Description</td>
+            </thead>
+            <tr>
+              <td>Bind</td>
+              <td>LDAP speak for "authentication request".</td>
+            </tr>
+            <tr>
+              <td>Distinguished Name (DN)</td>
+              <td>
+                A distinguished name is a unique key in an LDAP directory (tree) that identifies an object
+                (like a user or a group). The plugin will translate a client-provided username into a
+                distinguished name during the authentication stage (see below). One way to think of
+                a DN is an absolute file path in a filesystem.
+              </td>
+            </tr>
+            <tr>
+              <td>Common Name (CN)</td>
+              <td>
+                A short identifier of an object in the tree. This identifier will vary between
+                object classes (types) in the LDAP database. For example, a person's common name
+                will be her full name. A group's common name would be the name of that group.
+                One way to think of a CN is a file name in a filesystem.
+              </td>
+            </tr>
+            <tr>
+              <td>Attribute</td>
+              <td>
+                A property of an object (a key-value pair). Think of it as a field of an object in
+                an object-oriented programming language.
+              </td>
+            </tr>
+            <tr>
+              <td>Object Class</td>
+              <td>
+                A set of predefined attributes. Think of it as a type (class) in an object-oriented language.
+              </td>
+            </tr>
+
+            <tr>
+              <td>Entry</td>
+              <td>
+                An LDAP database entity, for example, a person or a
+                group. It has an object class associated with it and
+                one or more attributes, including a common name.
+                Since the entity is located somewhere in the LDAP
+                database tree it also must have a distringuished name
+                which uniquely identifies it. Entries is what LDAP
+                plugin queries use (look up, check for membership,
+                compare attributes of and so on). An LDAP database
+                must have some entries (typically users, groups) in
+                order to be practically useful for RabbitMQ
+                authentication and authorisation.
+              </td>
+            </tr>
+          </table>
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="ldap-operation-flow">
+        <doc:heading>LDAP Operation Flow</doc:heading>
+
+        <p>
+          In order to execute an LDAP query the plugin will open a connection to the first
+          LDAP server on the list which is reachable. Then, depending on the credential
+          configuration it will perform an anonymous bind or a "<a href="https://msdn.microsoft.com/en-us/library/cc223499.aspx">simple bind</a>"
+          (authenticate the user with the LDAP server using a username/password pair).
+          The credentials used to perform the bind can be derived from the client-provided username
+          as explained in the following section.
+        </p>
+
+        <p>
+          If vhost access query is configured it will be executed next, otherwise vhost access
+          is granted unconditionally.
+        </p>
+
+        <p>
+          At this point the connection can be considered successfully negotiated and established.
+          It should be possible to open a channel on it, for example. All further operations
+          performed on the connection will execute one of the authorisation queries. For example,
+          declaring a queue will execute a resource access query (covered below). Publishing a
+          message to a topic exchange will additionally execute a topic access query. Please refer
+          to the <a href="/access-control.html">Access Control guide</a> to learn more.
+        </p>
+      </doc:subsection>
 
 
       <doc:subsection name="usernames-and-dns">
@@ -1029,6 +1134,30 @@ auth_ldap.log        = false
    ]
   }
 ].</pre>
+    </doc:section>
+
+
+
+    <doc:section name="troubleshooting">
+      <doc:heading>Troubleshooting</doc:heading>
+
+      <p>
+        Using LDAP for authentication and/or authorisation introduces another moving
+        part into the system. Since LDAP servers are accessed over the network,
+        some topics covered in the <a href="/troubleshooting-networking.html">Network Troubleshooting</a>
+        and <a href="/troubleshooting-ssl.html">TLS Troubleshooting</a> guides apply to LDAP.
+      </p>
+
+      <p>
+        In order to troubleshoot LDAP operations performed during the authentication and authorisation
+        stages, <a href="#logging">enabling LDAP traffic logging</a> is highly recommended.
+      </p>
+
+      <p>
+        <a href="http://bit.ly/2GPyTmq">ldapsearch</a> is a command line tool that ships with LDAP and makes it possible to execute arbitrary
+        LDAP queries against an OpenLDAP installation. This can be useful when troubleshooting complex authorisation
+        queries. <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772839(v=ws.10)">ldp.exe</a> is the Active Directory counterpart.
+      </p>
     </doc:section>
   </body>
 </html>

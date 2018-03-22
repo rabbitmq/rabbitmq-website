@@ -47,10 +47,11 @@ limitations under the License.
           <ul>
             <li>Interfaces and ports</li>
             <li>TLS</li>
-            <li>TCP socket settings (e.g. buffer size)</li>
+            <li>TCP buffer size (directly translate into per-connection <a href="/memory-use.html">memory use</a>)</li>
+            <li>Other TCP socket settings</li>
             <li>Kernel TCP settings (e.g. TCP keepalives)</li>
             <li>(AMQP 0-9-1, STOMP) Heartbeats, known as keepalives in MQTT</li>
-            <li>Hostnames and DNS</li>
+            <li>Hostnames, hostname resolution and DNS</li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
@@ -538,7 +539,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
       </doc:subsection>
 
       <doc:subsection name="tuning-for-large-number-of-connections-tcp-buffer-size">
-        <doc:heading>TCP Buffer Size</doc:heading>
+        <doc:heading>Per Connection Memory Consumption: TCP Buffer Size</doc:heading>
         <p>
           See the section above for an overview. It is possible to
           decrease buffer size using the
@@ -606,12 +607,29 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 ].
 </pre>
 
-         Note that lower TCP buffer sizes will result in a significant throughput drop,
+         Note that lowering TCP buffer sizes will result in a proportional throughput drop,
          so an optimal value between throughput and per-connection RAM use needs to be
          found for every workload.
 
          Setting send and receive buffer sizes to different values is dangerous
          and is not recommended. Values lower than 8 KiB are not recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-channel-max">
+        <doc:heading>Limiting Number of Channels on a Connection</doc:heading>
+
+        <p>
+          Channels also consume RAM. By optimising how many channels applications use, that amount
+          can be decreased. It is possible to cap the max number of channels on a connection using
+          the <code>channel_max</code> configuration setting:
+
+<pre class="sourcecode ini">
+channel_max = 16
+</pre>
+
+          Note that some libraries and tools that build on top of RabbitMQ clients may implicitly require
+          a certain number of channels. Finding an optimal value is usually a matter of trial and error.
         </p>
       </doc:subsection>
 

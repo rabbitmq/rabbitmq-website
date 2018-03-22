@@ -456,10 +456,24 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
         <doc:heading>Connections</doc:heading>
 
         <p>
-          This includes memory used by incoming connections and channels,
-          and outgoing ones if the appropriate plugins are loaded. Most of the memory
-          is usually used by TCP and other kind of buffers. See <a href="/networking">Networking</a>
-          for more information.
+          This includes memory used by client connections (including <a href="/shovel.html">Shovels</a> and <a href="federation.html">Federation links</a>
+          and channels, and outgoing ones (Shovels and Federation upstream links). Most of the memory
+          is usually used by TCP buffers, which on Linux autotune to about 100 kB in size by default.
+          TCP buffer size can be reduced at the cost of a proportional decrease in connection throughput.
+          See the <a href="/networking">Networking guide</a> for details.
+        </p>
+
+        <p>
+          Channels also consume RAM. By optimising how many channels applications use, that amount
+          can be decreased. It is possible to cap the max number of channels on a connection using
+          the <code>channel_max</code> configuration setting:
+
+<pre class="sourcecode ini">
+channel_max = 16
+</pre>
+
+          Note that some libraries and tools that build on top of RabbitMQ clients may implicitly require
+          a certain number of channels. Finding an optimal value is usually a matter of trial and error.
         </p>
       </doc:subsection>
 
