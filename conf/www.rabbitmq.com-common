@@ -115,6 +115,7 @@
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
+    RewriteRule ^/tutorials/$ /getstarted.html [R=301]
 
     <Location /server-status>
       SetHandler server-status
