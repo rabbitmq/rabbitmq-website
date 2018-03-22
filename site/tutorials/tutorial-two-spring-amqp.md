@@ -409,7 +409,7 @@ allow let the messages to survive even if RabbitMQ is restarted.
 For more information on `Channel` methods and `MessageProperties`,
 you can browse the [javadocs online](http://docs.spring.io/spring-amqp/docs/current/api/index.html?org/springframework/amqp/package-summary.html)
 For understanding the underlying foundation for spring-amqp you can find the
-[rabbitmq-java-ciient](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/).
+[rabbitmq-java-client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/).
 
 
 Now we can move on to [tutorial 3](tutorial-three-spring-amqp.html) and learn how

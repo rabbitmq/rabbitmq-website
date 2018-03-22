@@ -503,7 +503,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `Channel` methods and `MessageProperties`, you can browse the
-[JavaDocs online](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/).
+[JavaDocs online](https://rabbitmq.github.io/rabbitmq-java-client/api/current/).
 
 Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
 to deliver the same message to many consumers.
