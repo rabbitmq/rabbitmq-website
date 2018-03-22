@@ -151,10 +151,10 @@ public class Tut2Sender {
     @Scheduled(fixedDelay = 1000, initialDelay = 500)
     public void send() {
         StringBuilder builder = new StringBuilder("Hello");
-		if (dots++ == 3) {
-			dots = 1;
-		}
-       for (int i = 0; i &lt; dots; i++) {
+        if (dots++ == 3) {
+            dots = 1;
+        }
+        for (int i = 0; i &lt; dots; i++) {
             builder.append('.');
         }
 
