@@ -419,7 +419,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
                 that exchange messages at a low rate, usually a message every few seconds or minutes
                 for each producer or consumer. Simulating such loads is very different from simulating
                 loads with high throughput and few clients. With the appropriate settings,
-                PerfTest can simulate IoT loads without requiring too much resource.
+                PerfTest can simulate IoT loads without requiring too many resources.
             </p>
             <p>
                 With an IoT load, publishers usually don't publish many messages per second,
@@ -506,8 +506,8 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
                 overall for network communication with NIO. With the default blocking IO mode, each producer/consumer
                 uses a thread to read from the network socket, that is 2000 threads to simulate 1000 producers and
                 1000 consumers.
-                So using NIO in PerfTest can dramatically reduce the resources used to simulate IoT loads, they
-                just require extra and appropriate tuning.
+                Using NIO in PerfTest can dramatically reduce the resources used to simulate IoT loads with
+                appropriate tuning.
             </p>
 
 
