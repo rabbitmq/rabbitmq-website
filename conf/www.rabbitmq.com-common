@@ -119,11 +119,8 @@
 
     <Location /server-status>
       SetHandler server-status
-      Order deny,allow
-      Deny from all
-      Allow from 10.20.218.0/23
-      Allow from 213.122.168.19/28
-      Allow from 127.0.0.1
+      Require ip 10.70.64.0/24 10.20.218.0/23 213.122.168.19/28 93.19.7.141
+      Require local
     </Location>
 
       # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
