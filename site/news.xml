@@ -37,7 +37,8 @@ limitations under the License.
       <doc:link>https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ</doc:link>
       <doc:text>
         <p>
-          As announced previously, RabbitMQ 3.6.x release series will reach end of life on May 1st, 2018.
+          As announced previously on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>,
+          RabbitMQ 3.6.x release series will reach end of life on May 1st, 2018.
         </p>
         <p>
           What this means:

@@ -33,7 +33,7 @@ limitations under the License.
       </doc:subsection>
 
       <doc:subsection name="troubleshooting-intro">
-        <doc:heading>Methodology</doc:heading>
+        <doc:heading>Troubleshooting Client Connection Issues: the Methodology</doc:heading>
         <p>
           Troubleshooting of network connectivity issues is a broad topic. There are entire
           books written about it. This guide provides some starting points for most common issues.
@@ -193,30 +193,29 @@ telnet localhost 5673
         </p>
         <p>
           Open ports, TCP and UDP connections of a node can be inspected using <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,
-          <a href="https://linux.die.net/man/8/ss">ss</a>, <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a>. <a href="/cli.html">rabbitmqctl status</a>
-          can be used to list configured ports as well.
+          <a href="https://linux.die.net/man/8/ss">ss</a>, <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a>.
         </p>
         <p>
           The following example uses <code>lsof</code> to display OS processes that listen on port 5672 and use IPv4:
 
 <pre class="sourcecode ini">
-lsof -n -i4TCP:5672 | grep LISTEN
+sudo lsof -n -i4TCP:5672 | grep LISTEN
 </pre>
 
           Similarly, for programs that use IPv6:
 
 <pre class="sourcecode ini">
-lsof -n -i6TCP:5672 | grep LISTEN
+sudo lsof -n -i6TCP:5672 | grep LISTEN
 </pre>
 
           On port 1883:
 
 <pre class="sourcecode ini">
-lsof -n -i4TCP:1883 | grep LISTEN
+sudo lsof -n -i4TCP:1883 | grep LISTEN
 </pre>
 
 <pre class="sourcecode ini">
-lsof -n -i6TCP:1883 | grep LISTEN
+sudo lsof -n -i6TCP:1883 | grep LISTEN
 </pre>
 
 
@@ -226,19 +225,40 @@ lsof -n -i6TCP:1883 | grep LISTEN
           The following example uses <code>ss</code> to display listening TCP sockets that use IPv4 and their OS processes:
 
 <pre class="sourcecode ini">
-ss --tcp -f inet --listening --numeric --processes
+sudo ss --tcp -f inet --listening --numeric --processes
 </pre>
 
           Similarly, for TCP sockets that use IPv6:
 
 <pre class="sourcecode ini">
-ss --tcp -f inet6 --listening --numeric --processes
+sudo ss --tcp -f inet6 --listening --numeric --processes
 </pre>
         </p>
         <p>
           For the list of ports used by RabbitMQ and its various
           plugins, see above. Generally all ports used for external
           connections must be allowed by the firewalls and proxies.
+        </p>
+
+        <p>
+          <a href="/cli.html">rabbitmqctl status</a>
+          can be used to list configured ports as well.
+        </p>
+
+        <p>
+          The following example uses <code>netstat</code> to list all TCP connection sockets regardless of their state and interface.
+          IP addresses will be displayed as numbers instead of being resolved to domain names. Program names will be printed next
+          to numeric port values (as opposed to protocol names).
+
+          <pre class="sourcecode bash">
+sudo netstat --all --numeric --tcp --programs
+</pre>
+          
+          Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
+          Federation links and Shovels) connections can be inspected this way.
+        </p>
+
+        <p>
         </p>
       </doc:subsection>
 
@@ -298,6 +318,18 @@ ss --tcp -f inet6 --listening --numeric --processes
           A TLS-enabled client connecting to a non-TLS enabled port will successfully
           connect and try to perform a TLS upgrade which the server does not expect, this
           triggering a protocol parser exception. Such exceptions will be logged by the server.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="troubleshooting-">
+        <doc:heading>Inspecting Connections</doc:heading>
+        <p>
+
+        </p>
+
+        <p>
+
         </p>
       </doc:subsection>
     </doc:section>
