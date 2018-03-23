@@ -443,7 +443,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
                 </pre>
 
                 To prevent publishers from publishing at roughly the same time and
-                distributed the rate more evenly, use
+                distribute the rate more evenly, use
                 the <code>--producer-random-start-delay</code> option to add an random
                 delay before the first published message:
 
