@@ -411,7 +411,7 @@ bin/runjava com.rabbitmq.perf.PerfTest --queue-pattern 'perf-test-%d' \
 
         </doc:subsection>
 
-        <doc:subsection name="simulating-high-loads">
+        <doc:subsection name="iot-workloads">
             <doc:heading>Simulating Workloads with a Large Number of Clients ("IoT" Workloads)</doc:heading>
 
             <p>
