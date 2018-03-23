@@ -246,19 +246,6 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
         </p>
 
         <p>
-          The following example uses <code>netstat</code> to list all TCP connection sockets regardless of their state and interface.
-          IP addresses will be displayed as numbers instead of being resolved to domain names. Program names will be printed next
-          to numeric port values (as opposed to protocol names).
-
-          <pre class="sourcecode bash">
-sudo netstat --all --numeric --tcp --programs
-</pre>
-          
-          Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
-          Federation links and Shovels) connections can be inspected this way.
-        </p>
-
-        <p>
         </p>
       </doc:subsection>
 
@@ -325,11 +312,43 @@ sudo netstat --all --numeric --tcp --programs
       <doc:subsection name="troubleshooting-">
         <doc:heading>Inspecting Connections</doc:heading>
         <p>
-
+          Open ports, TCP and UDP connections of a node can be inspected using <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,
+          <a href="https://linux.die.net/man/8/ss">ss</a>, <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a>.
         </p>
 
         <p>
+          The following example uses <code>netstat</code> to list all TCP connection sockets regardless of their state and interface.
+          IP addresses will be displayed as numbers instead of being resolved to domain names. Program names will be printed next
+          to numeric port values (as opposed to protocol names).
 
+          <pre class="sourcecode bash">
+sudo netstat --all --numeric --tcp --programs
+</pre>
+
+          Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
+          Federation links and Shovels) connections can be inspected this way.
+        </p>
+
+        <p>
+          <code>rabbitmqctl list_connections</code> and management UI can be used to inspect
+          more connection properties, some of which are RabbitMQ- or messaging protocol-specific:
+
+          <ul>
+            <li>Network traffic flow, both inbound and outbound</li>
+            <li>Messaging (application-level) protocol used</li>
+            <li>Connection virtual host</li>
+            <li>Time of connection</li>
+            <li>Username</li>
+            <li>Number of channels</li>
+            <li>Client library details (name, version, capabilities)</li>
+            <li>Effective heartbeat timeout</li>
+            <li>TLS details</li>
+          </ul>
+        </p>
+
+        <p>
+          Combining connection information from management UI or CLI tools with those of <code>netstat</code> or <code>ss</code>
+          can help troubleshoot misbehaving applications, application instances and client libraries.
         </p>
       </doc:subsection>
     </doc:section>
