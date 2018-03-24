@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-from __future__ import with_statement
+#!/usr/bin/env python3
 
 import render
 import sys
@@ -9,7 +7,7 @@ import os.path
 import shutil
 
 def usage():
-    print "Usage: compile <in-dir> <out-dir> <mode> <version> [<file>]"
+    print("Usage: compile <in-dir> <out-dir> <mode> <version> [<file>]")
     exit(1)
 
 def main():
@@ -41,7 +39,7 @@ def main():
                                 site_mode, version)
     else:
         usage()
-    print ""
+    print("")
 
 def handle_file(in_dir, in_f, out_f, site_mode, version):
     ext = os.path.splitext(in_f)[1].lower()
@@ -60,7 +58,7 @@ def render_file(in_f, out_f, site_mode, version):
     try:
         rendered = render.render_page('/' + html_ext(in_f), site_mode, version)
     except Exception as e:
-        print "\n\nException rendering {0}".format(in_f)
+        print("\n\nException rendering {0}".format(in_f))
         raise e
     with open(html_ext(out_f), 'w') as f:
         f.write(rendered)
