@@ -22,7 +22,7 @@ except ImportError:
 SITE_DIR='define_me_before_use'
 
 def preprocess_markdown(fpath):
-    contents = open(fpath).read()
+    contents = open(fpath, encoding = 'utf-8').read()
 
     ## Markdown will treat the whole file as markdown, whereas
     ## we want to only transform the body text.
@@ -31,7 +31,7 @@ def preprocess_markdown(fpath):
     contents = contents[0:title.start()] + contents[title.end():]
     title = title.group(1)
 
-    entities = open(os.path.join(SITE_DIR, 'rabbit.ent')).read()
+    entities = open(os.path.join(SITE_DIR, 'rabbit.ent'), encoding = 'utf-8').read()
     entities = '\n'.join(entities.split('\n')[1:])
 
     nosyntax = re.search("NOSYNTAX", title)
