@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import BaseHTTPServer
-import SimpleHTTPServer
-import StringIO
+import socketserver
+import http.server
+import io
 import os
 
 import sys
@@ -19,14 +19,14 @@ class StubReq:
             self.path = uri
         else:
             self.path = uri[:queryPos]
-        self.wfile = StringIO.StringIO()
+        self.wfile = io.StringIO()
         self.content_type = None
         self.status = 200
 
     def write(self, s):
         self.wfile.write(s)
 
-class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class ReqHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         self.do_GET()
     def do_GET(self):
@@ -46,9 +46,9 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.send_response(r.status)
             self.send_header("Content-type", r.content_type)
             self.end_headers()
-            self.wfile.write(r.wfile.getvalue())
+            self.wfile.write(r.wfile.getvalue().encode('utf-8'))
         else:
-            return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+            return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
     def translate_path(self, path):
         if path[0] == '/':
@@ -59,7 +59,8 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         site_mode = sys.argv[1]
-    addr = ('0.0.0.0', 8191)
-    httpd = BaseHTTPServer.HTTPServer(addr, ReqHandler)
-    print 'Serving on', addr
-    httpd.serve_forever()
+
+    addr = ("0.0.0.0", 8191)
+    with socketserver.TCPServer(addr, ReqHandler) as httpd:
+        print('Serving on {0}'.format(addr))
+        httpd.serve_forever()
