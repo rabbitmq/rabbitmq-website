@@ -55,9 +55,7 @@ version support for plugins not included into the RabbitMQ distribution.
 
 ### Management Plugin Upgrades
 
-RabbitMQ management plugin comes with a Web application that runs in the browser. It is recommended
-that browser cache is cleared after any upgrade that involved a management plugin
-update.
+RabbitMQ management plugin comes with a Web application that runs in the browser. It is recommended to clear browser local storage, session storage and cookies after any upgrade that involved a management plugin update.
 
 ### Discontinued Plugins
 
