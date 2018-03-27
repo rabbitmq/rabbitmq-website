@@ -27,9 +27,11 @@ master        | Changes to the website that will correspond to the next minor re
 
 ### Running a Local Copy
 
-The site requires Python and Python XSLT support for development, and
-assumes Apache is used for deployment. For simple development on Debian-based
-systems, it is enough to run
+The site requires Python 3.6 at least and Python XSLT support for development, and
+assumes Apache is used for deployment. You can use [pyenv](https://github.com/pyenv/pyenv)
+to install the appropriate Python version without affecting the version(s) you alreay have
+and use on your system. You can also use your OS native package manager, but be aware that those packages
+are often out-of-date. For simple development on Debian-based systems, it is enough to run
 
 ```sh
 sudo apt-get install python-lxml python-markdown python-pygments
