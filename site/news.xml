@@ -32,6 +32,35 @@ limitations under the License.
       -->
 
     <doc:item>
+      <doc:date iso="2018-03-08T01:00:00+00:00">23 March 2018</doc:date>
+      <doc:title>RabbitMQ 3.6.x Series Reaches End-of-Life on May 1st, 2018</doc:title>
+      <doc:link>https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ</doc:link>
+      <doc:text>
+        <p>
+          As announced previously on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>,
+          RabbitMQ 3.6.x release series will reach end of life on May 1st, 2018.
+        </p>
+        <p>
+          What this means:
+
+          <ul>
+            <li>3.6.x releases after May 2018 are highly unlikely</li>
+            <li>Security patches may be provided depending on their severity through September 1st, 2018</li>
+            <li>Bugs that only affect 3.6.x releases won't be addressed</li>
+            <li>Most recent 3.6.x version packages will continue to be available from Bintray, Package Cloud and GitHub</li>
+          </ul>
+        </p>
+        <p>
+          We encourage all 3.6.x users to <a href="/upgrade.html">upgrade</a> to <a href="/changelog.html">the latest release</a>.
+        </p>
+        <p>
+          We welcome any questions you may have on our
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">official mailing list, rabbitmq-users</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2018-03-08T01:00:00+00:00">8 March 2018</doc:date>
       <doc:title>RabbitMQ 3.7.4 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.4</doc:link>
