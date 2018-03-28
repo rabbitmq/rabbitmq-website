@@ -321,13 +321,36 @@ channel.basicPublish(exchangeName, routingKey,
       <p>
         Concurrent publishing on a shared channel can result in
         incorrect frame interleaving on the wire, triggering a
-        connection-level protocol exception and connection closure. It
-        therefore requires explicit synchronization in application
+        connection-level protocol exception and immediate connection closure by the broker.
+        It therefore requires explicit synchronization in application
         code (<code>Channel#basicPublish</code> must be invoked in a
         critical section). Sharing channels between threads will also
         interfere with <a href="confirms.html">Publisher
-        Confirms</a>. We highly recommend avoiding concurrent
-        publishing on a shared channel.
+        Confirms</a>. Concurrent publishing on a shared channel is best avoided entirely,
+        e.g. by using a channel per thread.
+      </p>
+      <p>
+        It is possible to use channel pooling to avoid concurrent
+        publishing on a shared channel: once a thread is done working
+        with a channel, it gives it back to the pool, making the
+        channel available for another thread. Channel pooling can be
+        thought of a specific case of synchronization. Spring AMQP
+        which comes with a ready-to-use channel pooling feature. It is
+        recommended that existing existing pooling libraries are used
+        instead of homegrown solutions.
+      </p>
+      <p>
+        Channels consume resources and in most cases applications very rarely need more than a few hundreds
+        open channels in the same JVM process. If we assume that the application
+        has a thread for each channel (as channel shouldn't be used concurrently), thousands
+        of threads for a single JVM is already a fair amount of overhead that likely can be avoided.
+        Moreover a few fast publishers can easily saturate a network interface and a broker node:
+        publishing involves less work than routing, storing and delivering messages.
+      </p>
+      <p>
+        A classic anti-pattern to be avoided is opening a channel for each published message. Channels
+        are supposed to be reasonably long-lived and opening a new one is a network round-trip which
+        makes this pattern extremely inefficient.
       </p>
       <p>
         Consuming in one thread and publishing in another thread on a shared channel
