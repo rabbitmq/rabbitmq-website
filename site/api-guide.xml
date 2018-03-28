@@ -332,12 +332,12 @@ channel.basicPublish(exchangeName, routingKey,
       <p>
         It is possible to use channel pooling to avoid concurrent
         publishing on a shared channel: once a thread is done working
-        with a channel, it gives it back to the pool, making the
+        with a channel, it returns it to the pool, making the
         channel available for another thread. Channel pooling can be
-        thought of a specific case of synchronization. Spring AMQP
-        which comes with a ready-to-use channel pooling feature. It is
-        recommended that existing existing pooling libraries are used
-        instead of homegrown solutions.
+        thought of as a specific synchronization solution. It is
+        recommended that an existing pooling library is used
+        instead of a homegrown solution. For example, <a href="https://projects.spring.io/spring-amqp/">Spring AMQP</a>
+        which comes with a ready-to-use channel pooling feature.
       </p>
       <p>
         Channels consume resources and in most cases applications very rarely need more than a few hundreds
