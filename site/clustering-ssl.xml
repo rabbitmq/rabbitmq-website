@@ -53,44 +53,65 @@ cat server_certificate.pem server_key.pem &gt; rabbit.pem
         this:</p>
 
 <pre class="sourcecode bash">
-echo `erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
-"/path/to/erl/lib/ssl-5.3.5/ebin"
-export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+# NOTE: these commands ensure that ERL_SSL_PATH is the first line in
+# /etc/rabbitmq/rabbitmq-env.conf and will preserve the existing
+# contents of that file if it already exists
+
+erl -noinput -eval 'io:format("ERL_SSL_PATH=~p~n",[code:lib_dir(ssl, ebin)]),halt().' > /tmp/ssl-path.txt
+cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf > /tmp/new-rabbitmq-env.conf
+mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 </pre>
 
-        <p>There first we find where Erlang has the ssl library, and then the
-          variable ERL_SSL_PATH is set with the result from the first command
-          <em>without</em> the double quotes.</p>
+        <p>First we find where Erlang has the ssl library, and then the
+        variable <code>ERL_SSL_PATH</code> is set with the result from that command.</p>
 
         <p>By using the previous information now is time to craft the
-        <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> environment variable
+        <code>SERVER_ADDITIONAL_ERL_ARGS</code> environment variable
         so RabbitMQ is able to start Erlang using TLS for distribution. We do
         that by setting the <code>proto_dist</code> argument to
         <code>inet_tls</code> and then telling Erlang what certificate to use
         (in our case that's the <code>rabbit.pem</code> file we just
         created). Finally we set secure renegotiation to
-        <code>true</code>. Here's the whole command:</p>
+        <code>true</code>. Here is the line that should be added to
+        <code>/etc/rabbitmq/rabbitmq-env.conf</code> following the
+        <code>ERL_SSL_PATH</code> line that the above commands added.
+        Please note that the double quotes <b>must</b> be present:</p>
 
 <pre class="sourcecode bash">
-export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
+SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
 -proto_dist inet_tls \
 -ssl_dist_opt server_certfile /path/to/rabbit.pem \
--ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 </pre>
 
         <p>Once our initial ("seed") node has inter-node connection configured with
-        TLS, CLI tools such as
-        <code>rabbitmqctl</code> also must use TLS
-        to talk to the node. This
-        means we have to do what we just did for
-        <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> but this time for
-        the environment variable <code>RABBITMQ_CTL_ERL_ARGS</code>.</p>
+        TLS, CLI tools such as <code>rabbitmqctl</code> also must use TLS
+        to talk to the node. This means we have to do what we just did for
+        <code>SERVER_ADDITIONAL_ERL_ARGS</code> but this time for
+        the environment variable <code>CTL_ERL_ARGS</code>. Here is the complete
+        <code>/etc/rabbitmq/rabbitmq-env.conf</code> file:</p>
+
+<pre class="sourcecode bash">
+# NOTE: the following path is **system dependent**
+ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-8.2.4/ebin"
+
+SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
+-proto_dist inet_tls \
+-ssl_dist_opt server_certfile /path/to/rabbit.pem \
+-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
+
+CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
+-proto_dist inet_tls \
+-ssl_dist_opt server_certfile /path/to/rabbit.pem \
+-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
+</pre>
 
         <p>Now that we have this in place, it's just a matter of
         starting RabbitMQ as we usually do to get the Erlang distribution to
         use TLS for internode communication. Just like CLI tools, all other nodes in
         the cluster that want to join our initial node must have inter-node connection TLS
-        configured using <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> arguments.</p>
+        configured using <code>SERVER_ADDITIONAL_ERL_ARGS</code> in their
+        <code>/etc/rabbitmq/rabbitmq-env.conf</code> file.</p>
 
         <p>
           All nodes and CLI tools must use certificate/key pairs and
