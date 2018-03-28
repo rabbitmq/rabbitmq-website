@@ -330,6 +330,26 @@ channel.basicPublish(exchangeName, routingKey,
         publishing on a shared channel.
       </p>
       <p>
+        It is possible to use channel pooling to avoid concurrent publishing
+        on a shared channel: once a thread is done working with a channel, it gives it back
+        to the pool, making the channel available for another thread. Channel pooling
+        is actually a specific case of synchronization. You can roll out your own implementation of channel
+        pooling, build on existing pooling libraries, or use Spring AMQP which comes with
+        a ready-to-use channel pooling feature.
+      </p>
+      <p>
+        Whatever solution you choose, an application shouldn't have more than a few hundreds
+        or thousands open channels in the same JVM process. If we consider that the application
+        has a thread for each channel (as channel shouldn't be used concurrently), thousands
+        of threads for a single JVM is already a fair amount of work. Moreover a few fast publishers can
+        easily saturate a network interface and a broker node. Publishing is usually faster than
+        dealing with messages and consuming them.
+      </p>
+      <p>
+        Something that should be avoided is opening a channel for each published message, as this
+        is a blocking operation that involves a network roundtrip.
+      </p>
+      <p>
         Consuming in one thread and publishing in another thread on a shared channel
         can be safe.
       </p>
