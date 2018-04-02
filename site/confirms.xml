@@ -284,6 +284,13 @@ limitations under the License.
           RabbitMQ will result a channel error such as <code>PRECONDITION_FAILED - unknown delivery tag 100</code>.
           The same channel exception will be thrown if an unknown delivery tag is used.
         </p>
+
+        <p>
+          Another scenario in which the broker will complain about an "unknown delivery tag" is when
+          an acknowledgement, whether positive or negative, is attempted on a channel different from
+          that on which the delivery was received on. Deliveries must be acknowledged on the same
+          channel.
+        </p>
       </doc:subsection>
     </doc:section>
 
