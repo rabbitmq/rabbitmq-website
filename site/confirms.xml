@@ -222,7 +222,7 @@ limitations under the License.
       </doc:subsection>
 
 
-      <doc:subsection name="channel-qos-prefetch">
+      <doc:subsection name="channel-qos-prefetch-throughput">
         <doc:heading>Consumer Acknowledgement Modes, Prefetch and Throughput</doc:heading>
 
         <p>
