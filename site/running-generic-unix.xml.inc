@@ -22,24 +22,35 @@ limitations under the License.
 
 <doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="running-generic-unix">
   <doc:heading>Run RabbitMQ Server</doc:heading>
-  <dl class="instructions">
-    <dt>Start the Server</dt>
-    <dd>
-      <p>
-        Invoke the <code>sbin/rabbitmq-server</code> shell script. This
-        displays a short banner message, concluding with the message
-        "completed with <i>[n]</i> plugins.", indicating that the
-        RabbitMQ broker has been started successfully.
-      </p>
-      <p>
-        You can also start the server in "detached" mode with
-        <code>rabbitmq-server -detached</code>, in which case the
-        server process runs in the background.
-      </p>
-    </dd>
-    <dt>Configure the Server</dt>
-    <dd>
-      You can <a
+  <div class="instructions">
+    <h4>Overview</h4>
+    
+    <p>
+      Unlike some other installation methods, namely the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM packages</a>, RabbitMQ
+      generic UNIX binary build does not require <code>sudo</code>. It can be uncompressed
+      into any location and started and managed using the tools under <code>sbin</code>.
+      Default <a href="/relocate.html">data directory location</a> will be under <code>./var</code>,
+      that is, in the installation directory.
+    </p>
+
+    <h4>Start the Server</h4>    
+    <p>
+      To start the server, run the <code>sbin/rabbitmq-server</code> script. This
+      displays a short banner message, concluding with the message
+      "completed with <i>[n]</i> plugins.", indicating that the
+      RabbitMQ broker has been started successfully.
+    </p>
+    <p>
+      To start the server in "detached" mode, use
+      <code>rabbitmq-server -detached</code>. This will run
+      the node process in the background.
+    </p>
+  </div>
+
+  <div class="instructions">
+    <h4>Configure the Server</h4>
+    <p>
+      It is possible to <a
       href="configure.html#customise-general-unix-environment">customise
       the RabbitMQ environment</a> by setting environment
       variables in <code><span
@@ -49,6 +60,6 @@ limitations under the License.
       file</a> located at <code><span
       class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.config</code>.
       Neither of these files exist after installation.
-    </dd>
-  </dl>
+    </p>
+  </div>
 </doc:subsection>

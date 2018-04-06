@@ -99,6 +99,16 @@ limitations under the License.
        </p>
    </doc:section>
 
+   <doc:section name="sudo-requirements">
+       <doc:heading>User Privilege Requirements</doc:heading>
+
+       <p>
+         RabbitMQ RPM package will require <code>sudo</code> privileges to install and manage.
+         In environments where <code>sudo</code> isn't available, consider using the
+         <a href="/install-generic-unix.html">generic binary build</a>.
+       </p>
+   </doc:section>
+
     <doc:section name="install-erlang">
       <doc:heading>Install Erlang</doc:heading>
 
