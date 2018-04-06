@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Downloading and Installing RabbitMQ</title>
@@ -29,215 +29,274 @@ limitations under the License.
     <x:modal mode="www">
     <p>The latest release of RabbitMQ is <b>&version-server;</b>. For release notes, see <a href="changelog.html">changelog</a>.</p>
     <div class="landing-box">
-      <h2>RabbitMQ Server</h2>
+      <doc:section name="server-installation-guides">
+        <doc:heading>RabbitMQ Server</doc:heading>
 
-      <h3>Installation Guides</h3>
-      <ul>
-        <li>
-          Linux, BSD, UNIX:
-            <a href="install-debian.html">Debian, Ubuntu</a> |
-            <a href="install-rpm.html">RHEL, CentOS, Fedora</a> |
-            <a href="install-generic-unix.html">Generic Unix</a> |
-            <a href="install-solaris.html">Solaris</a>
-        </li>
-        <li>
-          Windows:
-            <a href="install-windows.html">With installer (recommended)</a> |
-            <a href="install-windows-manual.html">Manual</a>
-        </li>
-        <li>
-          MacOS:
-            <a href="install-homebrew.html">Homebrew</a> |
-            <a href="install-standalone-mac.html">Standalone</a> |
-            <a href="install-generic-unix.html">Generic Unix</a>
-        </li>
-        <li>
-          <a href="/which-erlang.html">Erlang/OTP for RabbitMQ</a>
-        </li>
-      </ul>
+        <doc:subsection name="installation-guides">
+          <doc:heading>Installation guides</doc:heading>
 
-      <h3>Downloads <a href="https://bintray.com/rabbitmq/all">on Bintray</a></h3>
-      <ul>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows installer</a>
-        </li>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
-        </li>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
-          <a href="https://bintray.com/rabbitmq/rpm/erlang">Erlang RPM</a>
-        </li>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
-        </li>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
-        </li>
-        <li>
-          <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
-        </li>
-      </ul>
+          <ul>
+            <li>
+              Linux, BSD, UNIX:
+                <a href="install-debian.html">Debian, Ubuntu</a> |
+                <a href="install-rpm.html">RHEL, CentOS, Fedora</a> |
+                <a href="install-generic-unix.html">Generic Unix</a> |
+                <a href="install-solaris.html">Solaris</a>
+            </li>
+            <li>
+              Windows:
+                <a href="install-windows.html">With installer (recommended)</a> |
+                <a href="install-windows-manual.html">Manual</a>
+            </li>
+            <li>
+              MacOS:
+                <a href="install-homebrew.html">Homebrew</a> |
+                <a href="install-standalone-mac.html">Standalone</a> |
+                <a href="install-generic-unix.html">Generic Unix</a>
+            </li>
+            <li>
+              <a href="/which-erlang.html">Erlang/OTP for RabbitMQ</a>
+            </li>
+          </ul>
+        </doc:subsection>
+      </doc:section>
 
-      <ul>
-        <h3>Apt and Yum Repositories</h3>
-        <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
-        <li><a href="https://bintray.com/rabbitmq/debian">Bintray</a> (Apt)</li>
-        <li><a href="https://bintray.com/rabbitmq/rpm">Bintray</a> (Yum)</li>
-      </ul>
+      <doc:section name="install-from-bintray">
+        <doc:heading>Downloads <a href="https://bintray.com/rabbitmq/all">on Bintray</a></doc:heading>
+        <ul>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows installer</a>
+          </li>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
+          </li>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
+            <a href="https://bintray.com/rabbitmq/rpm/erlang">Erlang RPM</a>
+          </li>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
+          </li>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
+          </li>
+          <li>
+            <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
+          </li>
+        </ul>
+      </doc:section>
 
-      <h3>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></h3>
-      <ul>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">Windows installer</a>
-        </li>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
-        </li>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
-          <a href="https://github.com/rabbitmq/erlang-rpm">Erlang RPM</a>
-        </li>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
-        </li>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
-        </li>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
-        </li>
-      </ul>
 
-      <h3>Cloud</h3>
-      <ul>
-        <li><a href="ec2.html">Amazon EC2</a></li>
-        <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
-        <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
-        <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>
-      </ul>
+      <doc:section name="install-from-bintray">
+        <doc:heading>Debian (Apt) and RPM (Yum) Repositories</doc:heading>
+        <ul>
+          <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
+          <li><a href="https://bintray.com/rabbitmq/debian">Bintray</a> (Apt)</li>
+          <li><a href="https://bintray.com/rabbitmq/rpm">Bintray</a> (Yum)</li>
+        </ul>
+      </doc:section>
 
-      <h3>Chef, Puppet, Docker</h3>
-      <ul>
-        <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
-        <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
-        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
-      </ul>
 
-      <h3>Release Signing Key</h3>
-      <ul>
-        <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
-        <li><a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">Release Signing Key</a> (from Bintray)</li>
-        <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
-      </ul>
+      <doc:section name="install-from-github">
+        <doc:heading>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></doc:heading>
+        <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">Windows installer</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
+            <a href="https://github.com/rabbitmq/erlang-rpm">Erlang RPM</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
+          </li>
+        </ul>
+      </doc:section>
 
-      <h3>Older Versions</h3>
-      <ul>
-        <li>
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases">3.5.0 or later</a> |
-          <a href="https://bintray.com/rabbitmq/archive">Older than 3.5.0</a> |
-          <a href="changelog.html">Changelog</a>
-        </li>
-      </ul>
+
+      <doc:section name="cloud">
+        <doc:heading>Cloud</doc:heading>
+        <ul>
+          <li><a href="ec2.html">Amazon EC2</a></li>
+          <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
+          <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
+          <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>
+        </ul>
+      </doc:section>
+
+
+      <doc:section name="provisioning-automation-tools">
+        <doc:heading>Chef, Puppet, Docker</doc:heading>
+        <ul>
+          <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
+          <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
+          <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
+        </ul>
+      </doc:section>
+
+
+      <doc:section name="release-signing-key">
+        <doc:heading>Release Signing Key</doc:heading>
+
+        <ul>
+          <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
+          <li><a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">Release Signing Key</a> (from Bintray)</li>
+          <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="older-versions">
+        <doc:heading>Older Versions</doc:heading>
+
+        <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/releases">3.5.0 or later</a> |
+            <a href="https://bintray.com/rabbitmq/archive">Older than 3.5.0</a> |
+            <a href="changelog.html">Changelog</a>
+          </li>
+        </ul>
+      </doc:section>
     </div>
 
     <div class="landing-box">
-      <h2>Official Clients</h2>
-      <h3>Java Client</h3>
-      <ul>
-        <li>
-          On Maven Central:
-          <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22">RabbitMQ Java client</a>.
-        </li>
-        <li>
-          Quick download:
-          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Binary</a>
-          |
-          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
-        </li>
-        <li>
-          <a href="&dir-current-javadoc;">Javadoc</a>
-        </li>
-        <li>
-          <a href="java-client.html">All Java client downloads</a>
-        </li>
-        <li>
-          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
-        </li>
-      </ul>
-      <h3>JMS Client</h3>
-      <ul>
-        <li>
-          On Maven Central:
-          <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
-        </li>
-      </ul>
-      <h3>.NET/C# Client</h3>
-      <ul>
-        <li>
-          On NuGet:
-          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
-        </li>
-        <li>
-          <a href="releases/&dir-dotnet-client;">Older versions</a>
-        </li>
-      </ul>
+      <doc:section name="clients">
+        <doc:heading>Client Libraries</doc:heading>
 
-      <h3>Erlang Client</h3>
-      <ul>
-        <li>
-          Quick download:
-          Binary <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;.ez">client.ez</a> <a href="/releases/&dir-erlang-client;/rabbit_common-&version-erlang-client;.ez">common.ez</a> |
-          Source <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;-src.tar.xz">.tar.xz</a>
-        </li>
-        <li>
-          <a href="erlang-client.html">All Erlang client downloads</a>
-        </li>
-        <li>
-          <a href="/releases/rabbitmq-erlang-client/">Older versions</a>
-        </li>
-      </ul>
+        <doc:subsection name="java-client">
+          <doc:heading>Java Client</doc:heading>
+
+          <ul>
+            <li>
+              On Maven Central:
+              <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22">RabbitMQ Java client</a>.
+            </li>
+            <li>
+              Quick download:
+              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Binary</a>
+              |
+              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
+            </li>
+            <li>
+              <a href="&dir-current-javadoc;">Javadoc</a>
+            </li>
+            <li>
+              <a href="java-client.html">All Java client downloads</a>
+            </li>
+            <li>
+              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
+            </li>
+          </ul>
+        </doc:subsection>
+
+
+        <doc:subsection name="jms-client">
+          <doc:heading>JMS Client</doc:heading>
+          <ul>
+            <li>
+              On Maven Central:
+              <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="dotnet-client">
+          <doc:heading>.NET/C# Client</doc:heading>
+
+          <ul>
+            <li>
+              On NuGet:
+              <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+            </li>
+            <li>
+              <a href="releases/&dir-dotnet-client;">Older versions</a>
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="erlang-client">
+          <doc:heading>Erlang Client</doc:heading>
+
+          <ul>
+            <li>
+              Quick download:
+              Binary <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;.ez">client.ez</a> <a href="/releases/&dir-erlang-client;/rabbit_common-&version-erlang-client;.ez">common.ez</a> |
+              Source <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;-src.tar.xz">.tar.xz</a>
+            </li>
+            <li>
+              <a href="erlang-client.html">All Erlang client downloads</a>
+            </li>
+            <li>
+              <a href="/releases/rabbitmq-erlang-client/">Older versions</a>
+            </li>
+          </ul>
+        </doc:subsection>
+      </doc:section>
     </div>
+
     <div class="landing-box">
-      <h2>Clients for other languages</h2>
-      <p>
-        The RabbitMQ community has created a large number of <a
-        href="devtools.html">clients and developer tools</a> covering
-        a variety of platforms and languages.
-      </p>
+      <doc:section name="clients-for-other-languages">
+        <doc:heading>Clients for other languages</doc:heading>
+
+        <p>
+          The RabbitMQ community has created a large number of <a
+          href="devtools.html">clients and developer tools</a> covering
+          a variety of platforms and languages.
+        </p>
+      </doc:section>
     </div>
+
+
     <div class="landing-box">
-      <h2>Community plugins</h2>
-      <p>
-        For your convenience, we offer binary downloads of various
-        plugins developed by the community.
-      </p>
-      <ul>
-        <li>
-          <a href="community-plugins.html">Description of available plugins</a>
-        </li>
-        <li>
-          <a href="/community-plugins">Plugin downloads</a>
-        </li>
-      </ul>
+      <doc:section name="clients-for-other-languages">
+        <doc:heading>Community Plugins</doc:heading>
+
+        <p>
+          For your convenience, we offer binary downloads of various
+          plugins developed by the community.
+        </p>
+        <ul>
+          <li>
+            <a href="community-plugins.html">Description of available plugins</a>
+          </li>
+          <li>
+            <a href="/community-plugins">Plugin downloads</a>
+          </li>
+        </ul>
+      </doc:section>
     </div>
+
+
     <div class="landing-box">
-      <h2>Snapshot (Nightly) Builds</h2>
-      <p>
+      <doc:section name="snapshot-builds">
+        <doc:heading>Snapshot (Nightly) Builds</doc:heading>
+
+        <p>
           Snapshot releases of the RabbitMQ broker
           available to users who wish to experiment with the latest and
           greatest features and bugfixes. For more details, head over to
           the <a href="snapshots.html">snapshots page</a>.
-      </p>
+        </p>
+      </doc:section>
     </div>
-    </x:modal>
-    <x:modal mode="next">
+  </x:modal>
+
+
+  <x:modal mode="next">
     <div class="landing-box">
       <h2>Looking for RabbitMQ?</h2>
       <p>
