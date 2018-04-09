@@ -53,10 +53,6 @@ limitations under the License.
         </p>
 
         <p class="intro">
-          An <a href="&dir-current-javadoc;">API reference</a> (JavaDoc) is available separately.
-        </p>
-
-        <p class="intro">
           There are also <a href="java-tools.html">command line tools</a>
           that used to be shipped with the Java client.
         </p>
@@ -64,6 +60,10 @@ limitations under the License.
         <p>
           The client API is closely modelled on the <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 protocol model</a>,
           with additional abstractions for ease of use.
+        </p>
+
+        <p class="intro">
+          An <a href="&dir-current-javadoc;">API reference</a> (JavaDoc) is available separately.
         </p>
     </doc:section>
 
@@ -1015,7 +1015,7 @@ factory.newConnection(addresses);</pre>
           <ul>
             <li>An I/O exception is thrown in connection's I/O loop</li>
             <li>A socket read operation times out</li>
-            <li>Missed server <a href="/heartbeats.html">heartbeats</a> are detected</li>            
+            <li>Missed server <a href="/heartbeats.html">heartbeats</a> are detected</li>
             <li>Any other unexpected exception is thrown in connection's I/O loop</li>
           </ul>
 
@@ -1027,7 +1027,7 @@ factory.newConnection(addresses);</pre>
           non-existent queue).
         </p>
       </doc:subsection>
-      
+
       <doc:subsection name="recovery-listeners">
         <doc:heading>Recovery Listeners</doc:heading>
         <p>
