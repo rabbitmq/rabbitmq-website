@@ -79,6 +79,9 @@ limitations under the License.
             <li>Connection</li>
             <li>ConnectionFactory</li>
             <li>Consumer</li>
+            <li>DefaultConsumer</li>
+            <li>BasicProperties</li>
+            <li>BasicProperties.Builder</li>
         </ul>
 
         Protocol operations are available through the
@@ -94,19 +97,18 @@ limitations under the License.
     <doc:heading>Connections and Channels</doc:heading>
 
     <p>
-            The core API classes are <code>Connection</code>
-            and <code>Channel</code>, representing an AMQP 0-9-1 connection and
-            channel, respectively. They are typically imported before used:
+      The core API classes are <code>Connection</code>
+      and <code>Channel</code>, representing an AMQP 0-9-1 connection and
+      channel, respectively. They are typically imported before used:
     </p>
 <pre class="sourcecode java">
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 </pre>
 
-    <doc:heading>Connecting to a broker</doc:heading>
-
+    <doc:heading>Connecting to RabbitMQ</doc:heading>
     <p>
-        The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
+      The following code connects to a RabbitMQ node using the given parameters (host name, port number, etc):
     </p>
 
 <pre class="sourcecode java">
@@ -120,10 +122,10 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-        All of these parameters have sensible defaults for a RabbitMQ server running locally.
+      All of these parameters have sensible defaults for a RabbitMQ node running locally.
     </p>
     <p>
-        Alternatively, <a href="uri-spec.html">URIs</a> may be used:
+      Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
 <pre class="sourcecode java">
@@ -133,33 +135,72 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-        All of these parameters have sensible defaults for a stock
-        RabbitMQ server running locally.
+      All of these parameters have sensible defaults for a stock
+      RabbitMQ server running locally.
     </p>
 
-        <p>
-        The <code>Connection</code> interface can then be used to open a channel:
-        </p>
+    <p>
+      The <code>Connection</code> interface can then be used to open a channel:
+    </p>
 
 <pre class="sourcecode java">
 Channel channel = conn.createChannel();
 </pre>
-    <p>
+
+      <p>
         The channel can now be used to send and receive messages, as described in subsequent sections.
-    </p>
+      </p>
 
-    <p>
+      <p>
+        Successful and unsuccessful client connection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="disconnecting">
+      <doc:heading>Disconnecting from RabbitMQ</doc:heading>
+      <p>
         To disconnect, simply close the channel and the connection:
-    </p>
+      </p>
 
-    <pre class="sourcecode java">channel.close();
+<pre class="sourcecode java">
+channel.close();
 conn.close();</pre>
 
-    <p>
+      <p>
         Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
         automatically anyway when the underlying connection is closed.
-    </p>
+      </p>
 
+      <p>
+        Client disconnection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="connection-and-channel-lifspan">
+      <doc:heading>Connection and Channel Lifespan</doc:heading>
+
+      <p>
+        Connections are meant to be long-lived. The underlying protocol is designed and optimized for
+        long running connections. That means that opening a new connection per operation,
+        e.g. a message published, is unnecessary and strongly discouraged as it will introduce a lot of
+        network roundtrips and overhead.
+      </p>
+
+      <p>
+        Channels are also meant to be long-lived but since many recoverable protocol errors will
+        result in channel closure, channel lifespan could be shorter than that of its connection.
+        Closing and opening new channels per operation is usually unnecessary but can be
+        appropriate. When in doubt, consider reusing channels fist.
+      </p>
+
+      <p>
+        Channel-level exceptions such as attempts to consume from a
+        queue that does not exist will result in channel closure. A closed channel can no
+        longer be used and will not receive any more events from the server (such
+        as message deliveries). Channel-level exceptions will be logged by RabbitMQ
+        and will initiate a shutdown sequence for the channel (see below).
+      </p>
   </doc:section>
 
 
