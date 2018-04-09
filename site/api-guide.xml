@@ -27,8 +27,9 @@ limitations under the License.
       <doc:section name="intro">
 
         <p class="intro">
-          This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
-          are <a href="getstarted.html">available in a different section</a>.
+          This guide covers <a href="/java-client.html">RabbitMQ Java client</a> and its public API.
+          It assumes that the <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
+          and the reader is familiar with <a href="/getstarted.html">the basics</a>.
         </p>
 
         <p class="intro">
