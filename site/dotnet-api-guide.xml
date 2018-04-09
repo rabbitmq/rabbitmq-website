@@ -193,12 +193,15 @@ IModel channel = conn.CreateModel();
         <doc:heading>Disconnecting from RabbitMQ</doc:heading>
         <p>
           To disconnect, simply close the channel and the connection:
-        </p>
 
 <pre class="sourcecode csharp">
-channel.Close(200, "Goodbye");
+channel.Close();
 conn.Close();
 </pre>
+
+          Disposing channel and connection objects is not enough, they must be explicitly closed
+          with the API methods from the example above.
+        </p>
 
         <p>
           Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
@@ -241,8 +244,9 @@ conn.Close();
         <doc:heading>Using Exchanges and Queues</doc:heading>
 
         <p>
-          Client applications work with exchanges and queues, the high-level
-          building blocks of AMQP 0-9-1. These must be "declared" before they can be
+          Client applications work with exchanges and <a href="/queues.html">queues</a>,
+          the high-level <a href="/tutorials/amqp-concepts.html">building blocks of the protocol</a>.
+          These must be "declared" before they can be
           used. Declaring either type of object simply ensures that one of that
           name exists, creating it if necessary.
 
@@ -261,18 +265,55 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
             <li>a non-durable, non-autodelete exchange of "direct" type</li>
             <li>a non-durable, non-autodelete, non-exclusive queue</li>
           </ul>
+        </p>
 
+        <p>
           The exchange can be customised by using additional parameters.
           The above code then binds the queue to the exchange with the given
           routing key.
+        </p>
 
-          Note that many channel API (<code>IModel</code>) methods are overloaded. The convenient
+        <p>
+          Many channel API (<code>IModel</code>) methods are overloaded. The convenient
           short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
           also longer forms with more parameters, to let you override these
           defaults as necessary, giving full control where needed.
 
           This "short version, long version" pattern is used throughout the API.
         </p>
+
+        <p>
+          Some common operations also have a "no wait" version which won't wait for server
+          response. For example, to declare a queue and instruct the server to not send any
+          response, use
+
+          <pre class="sourcecode java">channel.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
+
+          The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+          are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+          When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+          with high topology (queue, binding) churn.
+        </p>
+
+      <p>
+        A queue or exchange can be explicitly deleted:
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", false, false)</pre>
+
+        It is possible to delete a queue only if it is empty:
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", false, true)</pre>
+
+        or if it is not used (does not have any consumers):
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", true, false)</pre>
+      </p>
+
+      <p>
+        A queue can be purged (all of its messages deleted):
+
+        <pre class="sourcecode java">model.QueuePurge("queue-name")</pre>
+      </p>
       </doc:section>
 
         <doc:section name="publishing">
@@ -334,7 +375,7 @@ props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Expiration = "36000000"
 
-mode.BasicPublish(exchangeName,
+model.BasicPublish(exchangeName,
                   routingKey, props,
                   messageBodyBytes);
 </pre>
