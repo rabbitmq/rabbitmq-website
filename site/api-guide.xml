@@ -39,7 +39,7 @@ limitations under the License.
         </p>
 
         <p class="intro">
-          The library is <a href="https://github.com/rabbitmq/rabbitmq-java-client/">open-source</a>, and is triple-licensed under
+          The library is open source, developed <a href="https://github.com/rabbitmq/rabbitmq-java-client/">on GitHub</a>, and is triple-licensed under
 
           <ul>
             <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
@@ -62,7 +62,7 @@ limitations under the License.
         </p>
 
         <p>
-          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+          The client API is closely modelled on the <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 protocol model</a>,
           with additional abstractions for ease of use.
         </p>
     </doc:section>
