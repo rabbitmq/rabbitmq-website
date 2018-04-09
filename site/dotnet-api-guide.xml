@@ -108,7 +108,7 @@ using RabbitMQ.Client;
           All other namespaces are reserved for private implementation detail of
           the library, although members of private namespaces are usually made
           available to applications using the library in order to permit
-          developers to implement workarounds for faults or design mistakes they
+          developers to implement workarounds for faults and gaps they
           discover in the library implementation. Applications cannot rely on
           any classes, interfaces, member variables etc. that appear within
           private namespaces remaining stable across releases of the library.
@@ -152,25 +152,48 @@ IConnection conn = factory.CreateConnection();
 
           All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
 
-          <dl>
-            <dt>Username</dt>
-            <dd><code>"guest"</code></dd>
+          <table>
+            <thead>
+              <tr>
+                <td>Property</td>
+                <td>Default Value</td>
+              </tr>
+            </thead>
 
-            <dt>Password</dt>
-            <dd><code>"guest"</code></dd>
+            <tr>
+              <td>Username</td>
+              <td><code>"guest"</code></td>
+            </tr>
 
-            <dt>Virtual host</dt>
-            <dd><code>"/"</code></dd>
+            <tr>
+              <td>Password</td>
+              <td><code>"guest"</code></td>
+            </tr>
 
-            <dt>Hostname</dt>
-            <dd><code>"localhost"</code></dd>
+            <tr>
+              <td>Virtual host</td>
+              <td><code>"/"</code></td>
+            </tr>
 
-            <dt>port</dt>
-            <dd>
-              <code>5672</code> for regular connections,
-              <code>5671</code> for connections that use TLS
-            </dd>
-          </dl>
+            <tr>
+              <td>Hostname</td>
+              <td><code>"localhost"</code></td>
+            </tr>
+
+            <tr>
+              <td>port</td>
+
+              <td>
+                <code>5672</code> for regular connections,
+                <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+              </td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          Note that <a href="/access-control.html">user guest can only connect from localhost</a> by default.
+          This is to limit well-known credential use in production systems.
         </p>
 
         <p>
