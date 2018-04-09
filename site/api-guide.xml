@@ -75,13 +75,14 @@ limitations under the License.
         The key classes and interfaces are:
 
         <ul>
-            <li>Channel</li>
-            <li>Connection</li>
-            <li>ConnectionFactory</li>
-            <li>Consumer</li>
-            <li>DefaultConsumer</li>
-            <li>BasicProperties</li>
-            <li>BasicProperties.Builder</li>
+            <li>Channel: represents an AMQP 0-9-1 channel, and provides most
+            of the operations (protocol methods).</li>
+            <li>Connection: represents an AMQP 0-9-1 connection</li>
+            <li>ConnectionFactory: constructs <code>Connection</code> instances</li>
+            <li>Consumer: represents a message consumer</li>
+            <li>DefaultConsumer: commonly used base class for consumers</li>
+            <li>BasicProperties: message properties (metadata)</li>
+            <li>BasicProperties.Builder: builder for <code>BasicProperties</code></li>
         </ul>
 
         Protocol operations are available through the
@@ -122,8 +123,51 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-      All of these parameters have sensible defaults for a RabbitMQ node running locally.
+      All of these parameters have sensible defaults for a RabbitMQ
+      node running locally.
+
+      The default value for a property will be used if the property
+      remains unassigned prior to creating a connection:
+
+      <table>
+        <thead>
+          <tr>
+            <td>Property</td>
+            <td>Default Value</td>
+          </tr>
+        </thead>
+
+        <tr>
+          <td>Username</td>
+          <td><code>"guest"</code></td>
+        </tr>
+
+        <tr>
+          <td>Password</td>
+          <td><code>"guest"</code></td>
+        </tr>
+
+        <tr>
+          <td>Virtual host</td>
+          <td><code>"/"</code></td>
+        </tr>
+
+        <tr>
+          <td>Hostname</td>
+          <td><code>"localhost"</code></td>
+        </tr>
+
+        <tr>
+          <td>port</td>
+
+          <td>
+            <code>5672</code> for regular connections,
+            <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+          </td>
+        </tr>
+      </table>
     </p>
+
     <p>
       Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
@@ -138,6 +182,11 @@ Connection conn = factory.newConnection();
       All of these parameters have sensible defaults for a stock
       RabbitMQ server running locally.
     </p>
+
+        <p>
+          Note that <a href="/access-control.html">user guest can only connect from localhost</a> by default.
+          This is to limit well-known credential use in production systems.
+        </p>
 
     <p>
       The <code>Connection</code> interface can then be used to open a channel:
