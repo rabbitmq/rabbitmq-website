@@ -114,11 +114,13 @@ import com.rabbitmq.client.Channel;
 
 <pre class="sourcecode java">
 ConnectionFactory factory = new ConnectionFactory();
+// "guest"/"guest" by default, limited to localhost connections
 factory.setUsername(userName);
 factory.setPassword(password);
 factory.setVirtualHost(virtualHost);
 factory.setHost(hostName);
 factory.setPort(portNumber);
+
 Connection conn = factory.newConnection();
 </pre>
 
