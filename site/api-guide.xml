@@ -208,8 +208,9 @@ conn.close();</pre>
       <doc:heading>Using Exchanges and Queues</doc:heading>
 
       <p>
-       Client applications work with exchanges and queues, the high-level building blocks of AMQP.
-       These must be "declared" before they can be used. Declaring either type of object
+       Client applications work with exchanges and <a href="/queues.html">queues</a>,
+       the high-level <a href="/tutorials/amqp-concepts.html">building blocks of the protocol</a>.
+       These must be declared before they can be used. Declaring either type of object
        simply ensures that one of that name exists, creating it if necessary.
       </p>
 
@@ -259,18 +260,52 @@ channel.queueBind(queueName, exchangeName, routingKey);</pre>
       </ol>
 
       <p>
-        Note that all of these <code>Channel</code> API methods are overloaded.
+        Many <code>Channel</code> API methods are overloaded.
         These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code>
         use sensible defaults. There are also longer forms with more parameters, to let you override these defaults
         as necessary, giving full control where needed.
       </p>
+
       <p>
         This "short form, long form" pattern is used throughout the client API uses.
+      </p>
+
+      <p>
+        Some common operations also have a "no wait" version which won't wait for server
+        response. For example, to declare a queue and instruct the server to not send any
+        response, use
+
+        <pre class="sourcecode java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
+
+        The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+        are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+        When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+        with high topology (queue, binding) churn.
+      </p>
+
+      <p>
+        A queue or exchange can be explicitly deleted:
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name")</pre>
+
+        It is possible to delete a queue only if it is empty:
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name", false, true)</pre>
+
+        or if it is not used (does not have any consumers):
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name", true, false)</pre>
+      </p>
+
+      <p>
+        A queue can be purged (all of its messages deleted):
+
+        <pre class="sourcecode java">channel.queuePurge("queue-name")</pre>
       </p>
     </doc:section>
 
     <doc:section name="publishing">
-      <doc:heading>Publishing messages</doc:heading>
+      <doc:heading>Publishing Messages</doc:heading>
 
       <p>
         To publish a message to an exchange, use <code>Channel.basicPublish</code> as follows:
