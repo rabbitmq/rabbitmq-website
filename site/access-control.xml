@@ -73,8 +73,7 @@ limitations under the License.
           to <a href="rabbitmqctl.8.html#delete_user">delete</a>
           the <code>guest</code> user
           or <a href="rabbitmqctl.8.html#change_password">change
-          the password</a> to something private, particularly if your
-          broker is accessible publicly.
+          the password</a> to a password that's not publicly known.
         </p>
       </doc:section>
 

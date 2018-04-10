@@ -757,7 +757,7 @@ cluster_formation.consul.svc_ttl = 30
 cluster_formation.consul.deregister_after = 90
 </pre>
 
-        Please see a section on automatic cleanup of nodes below.
+        Please see a section on <a href="#node-health-checks-and-cleanup">automatic cleanup of nodes</a> below.
       </p>
 
       <p>
@@ -953,6 +953,12 @@ cluster_formation.etcd.cluster_name = staging
         removed from the cluster.
       </p>
       <p>
+        Forced node removal can be dangerous and should be carefully considered. For example,
+        a node that's temporarily unavailable but will be rejoining (or recreated with its
+        persistent storage re-attached from its previous incarnation) can be kicked
+        out of the cluster permanently by automatic cleanup, thus failing to rejoin.
+      </p>
+      <p>
         To log warnings for the unknown nodes,
         <code>cluster_formation.node_cleanup.only_log_warning</code> should be set to
         <code>true</code>. This is the default behavior.
@@ -972,6 +978,16 @@ cluster_formation.etcd.cluster_name = staging
         With etcd, such nodes will no longer show up in discovery results. With Consul,
         they can either be removed (deregistered) or their warning state can be
         reported. Please see documentation for those backends to learn more.
+      </p>
+
+      <p>
+        Automatic cleanup of absent nodes makes most sense in environments where failed/discontinued nodes
+        will be replaced with brand new ones (including cases when persistent storage won't be re-attached).
+      </p>
+
+      <p>
+        When automatic node cleanup is disabled (switched to the warning mode), operators have to
+        explicitly remove absent cluster nodes using <a href="/cli.html">CLI tools</a>.
       </p>
     </doc:section>
 
