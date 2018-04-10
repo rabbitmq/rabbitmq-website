@@ -88,6 +88,12 @@ limitations under the License.
           restricted in this way.
         </p>
         <p>
+          The recommended way to address this in production systems
+          is to create a new user or set of users with the permissions
+          to access the necessary virtual hosts. This can be done
+          using <a href="/cli.html">CLI tools</a>, <a href="/management.html">HTTP API or definitions import</a>.
+        </p>
+        <p>
           This is configured via the <code>loopback_users</code> item
           in the <a href="configure.html#configuration-file">
           configuration file</a>.
