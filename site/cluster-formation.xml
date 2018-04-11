@@ -130,7 +130,7 @@ rabbitmq-plugins --offline enable [plugin name]
         AWS autoscaling groups is a good example: AWS keeps track of group membership,
         so nodes don't have to (or cannot) explicitly register. However, the list of cluster members
         is not predefined. Such backends usually include a no-op registration step
-        and apply one of the race condition mitigation mechanisms described below.
+        and apply one of the <a href="#initial-formation-race-condition">race condition mitigation mechanisms</a> described below.
       </p>
 
       <p>
@@ -271,8 +271,8 @@ cluster_formation.dns.hostname = discovery.eng.example.local
       <p>
         When the AWS peer discovery mechanism is used, nodes will
         delay their startup for a randomly picked value to reduce the
-        probability of a race condition during initial cluster
-        formation (see below).
+        probability of a <a href="#initial-formation-race-condition">race condition during initial cluster
+        formation</a>.
       </p>
 
       <doc:subsection name="peer-discovery-aws-credentials">
@@ -417,9 +417,16 @@ cluster_formation.aws.use_private_ip = true
       </p>
 
       <p>
-        Nodes register with Kubernetes on boot and unregister when they
-        leave. This backend relies on randomized startup delay to reduce
-        the probability of a race condition during initial cluster formation (see below).
+        With this mechanism, nodes fetch a list of their peers from
+        the Kubernetes API endpoint using a set of configured values:
+        a URI scheme, host, port, as as well as the token and
+        certificate paths.
+      </p>
+
+      <p>
+        Data services such as RabbitMQ usually use <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset">stateful set</a>, which <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization">starts pods one at a time</a>. That's the recommended
+        way of dealing with the natural <a href="#initial-formation-race-condition">race condition during the initial cluster formation</a>.
+        Randomized startup delay in such scenarios can use a significantly lower delay value range (e.g. 0 to 1 second).
       </p>
 
       <p>
@@ -543,6 +550,24 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 cluster_formation.k8s.service_name = rmq-qa
 </pre>
       </p>
+
+
+      <p>
+        As mentioned above, with stateful sets pods are initialised one by one, which
+        significantly reduces the probability of a <a href="#initial-formation-race-condition">race condition during initial cluster formation</a>.
+        Therefore randomized startup delay can be reduced:
+
+        <pre class="sourcecode ini">
+cluster_formation.randomized_startup_delay_range.min = 0
+cluster_formation.randomized_startup_delay_range.max = 2
+
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+
+cluster_formation.k8s.host = kubernetes.default.example.local
+
+# ...
+</pre>
+      </p>
     </doc:section>
 
     <doc:section name="peer-discovery-consul">
@@ -557,8 +582,8 @@ cluster_formation.k8s.service_name = rmq-qa
       <p>
         Nodes register with Consul on boot and unregister when they
         leave. Prior to registration, nodes will attempt to acquire a
-        lock in Consul to reduce the probability of a race condition
-        during initial cluster formation (see below).
+        lock in Consul to reduce the probability of a <a href="#initial-formation-race-condition">race condition
+        during initial cluster formation</a>.
         When a node registers with Consul, it will set up a periodic <a href="https://www.consul.io/docs/agent/checks.html">health
         check</a> for itself (more on this below).
       </p>
@@ -816,8 +841,8 @@ cluster_formation.consul.domain_suffix = example.local
       <p>
         Nodes register with etcd on boot and unregister when they
         leave. Prior to registration, nodes will attempt to acquire a
-        lock in etcd to reduce the probability of a race condition
-        during initial cluster formation (see below).
+        lock in etcd to reduce the probability of a <a href="#initial-formation-race-condition">race condition
+        during initial cluster formation</a>.
       </p>
 
       <p>
@@ -939,6 +964,11 @@ cluster_formation.etcd.cluster_name = staging
       </p>
       <p>
         Effective delay interval, if used, is logged on node boot.
+      </p>
+      <p>
+        Lastly, some mechanism rely on ordered node startup provided by the underlying
+        provisioning and orchestration tool. <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization">Kubernetes stateful sets</a> is one example
+        of an environment that offers such a guarantee.
       </p>
     </doc:section>
 
