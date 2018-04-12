@@ -150,6 +150,7 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+
       <doc:subsection name="consumer-acks-multiple-parameter">
         <doc:heading>Acknowledging Multiple Deliveries at Once</doc:heading>
 
@@ -171,6 +172,170 @@ limitations under the License.
           be unacknowledged.
         </p>
       </doc:subsection>
+
+
+      <doc:subsection name="consumer-nacks-requeue">
+        <doc:heading>Negative Acknowledgement and Requeuing of Deliveries</doc:heading>
+
+        <p>
+          Sometimes a consumer cannot process a delivery immediately but other instances might
+          be able to. In this case it may be desired to requeue it and let another consumer receive
+          and handle it. <code>basic.reject</code> and <code>basic.nack</code> are two protocol
+          methods that are used for that.
+        </p>
+
+        <p>
+          The methods are generally used to negatively acknowledge a delivery. Such deliveires can
+          be discarded by the broker or requeued. This behaviour is controlled by the <code>requeue</code> field.
+          When the field is set to <code>true</code>, the broker will requeue the delivery (or multiple
+          deliveries, as will be explained shortly) with the specified delivery tag.
+        </p>
+
+        <p>
+          Both methods are usually exposed as operations on a channel in client libraries. Java
+          client users will use <code>Channel#basicReject</code> and <code>Channel#basicNack</code>
+          to perform a <code>basic.reject</code> and <code>basic.nack</code>, respectively:
+
+<pre class="sourcecode java">
+// this example assumes an existing channel instance
+
+boolean autoAck = false;
+channel.basicConsume(queueName, autoAck, "a-consumer-tag",
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             long deliveryTag = envelope.getDeliveryTag();
+             // negatively acknowledge, the message will
+             // be discarded
+             channel.basicReject(deliveryTag, false);
+         }
+     });
+</pre>
+
+<pre class="sourcecode java">
+// this example assumes an existing channel instance
+
+boolean autoAck = false;
+channel.basicConsume(queueName, autoAck, "a-consumer-tag",
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             long deliveryTag = envelope.getDeliveryTag();
+             // requeue the delivery
+             channel.basicReject(deliveryTag, true);
+         }
+     });
+</pre>
+        </p>
+
+        <p>
+          In .NET client the methods are <code></code> and <code></code>, respectively:
+
+<pre class="sourcecode csharp">
+// this example assumes an existing channel (IModel) instance
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (ch, ea) =>
+                {
+                    var body = ea.Body;
+                    // negatively acknowledge, the message will
+                    // be discarded
+                    channel.BasicReject(ea.DeliveryTag, false);
+                };
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+</pre>
+
+<pre class="sourcecode csharp">
+// this example assumes an existing channel (IModel) instance
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (ch, ea) =>
+                {
+                    var body = ea.Body;
+                    // requeue the delivery
+                    channel.BasicReject(ea.DeliveryTag, true);
+                };
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+</pre>
+        </p>
+
+        <p>
+          When a message is requeued, it will be placed to its original
+          position in its queue, if possible. If not (due to concurrent
+          deliveries and acknowledgements from other consumers when
+          multiple consumers share a queue), the message will be requeued
+          to a position closer to queue head.
+        </p>
+
+        <p>
+          Requeued messages may be immediately ready for redelivery depending
+          on their position in the queue, the prefetch value used by the channels
+          with active consumers. This means that if all consumers requeue because
+          they cannot process a delivery due to a transient condition, they will
+          create a requeue/redelivery loop. Such loops can be costly in terms of
+          network bandwidth and CPU resources. Consumer implementations can track
+          the number of redeliveries and reject messages for good (discard them)
+          or schedule requeueing after a delay.
+        </p>
+
+
+        <p>
+          It is possible to reject or requeue multiple messages at once using the <code>basic.nack</code>
+          method. This is what differentiates it from <code>basic.reject</code>. It accepts an additional
+          parameter, <code>multiple</code>. Here's a Java client example:
+
+<pre class="sourcecode java">
+// this example assumes an existing channel instance
+
+boolean autoAck = false;
+channel.basicConsume(queueName, autoAck, "a-consumer-tag",
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             long deliveryTag = envelope.getDeliveryTag();
+             // requeue all unacknowledged deliveries up to
+             // this delivery tag
+             channel.basicNack(deliveryTag, true, true);
+         }
+     });
+</pre>
+        </p>
+
+        <p>
+          Things work very similarly with .NET client:
+
+<pre class="sourcecode csharp">
+// this example assumes an existing channel (IModel) instance
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (ch, ea) =>
+                {
+                    var body = ea.Body;
+                    // requeue all unacknowledged deliveries up to
+                    // this delivery tag
+                    channel.BasicNack(ea.DeliveryTag, true, true);
+                };
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+</pre>
+        </p>
+      </doc:subsection>
+
+
 
       <doc:subsection name="channel-qos-prefetch">
         <doc:heading>Channel Prefetch Setting (QoS)</doc:heading>
@@ -339,7 +504,7 @@ limitations under the License.
       </p>
 
       <doc:subsection name="server-sent-nacks">
-        <doc:heading>Negative Acknowledgment</doc:heading>
+        <doc:heading>Negative Acknowledgments for Publishes</doc:heading>
 
         <p>
           In exceptional cases when the broker is unable to handle
@@ -365,15 +530,7 @@ limitations under the License.
           <code>basic.nack</code> will only be delivered if an internal
           error occurs in the Erlang process responsible for a queue.
         </p>
-
-        <p>
-          When a message is requeued, it will be placed to its original
-          position in its queue, if possible. If not (due to concurrent
-          deliveries and acknowledgements from other consumers when
-          multiple consumers share a queue), the message will be requeued
-          to a position closer to queue head.
-        </p>
-        </doc:subsection>
+      </doc:subsection>
 
       <doc:subsection name="when-publishes-are-confirmed">
         <doc:heading>When will messages be confirmed?</doc:heading>
