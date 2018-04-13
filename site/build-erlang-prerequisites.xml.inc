@@ -48,6 +48,10 @@ limitations under the License.
     </li>
 
     <li>
+      a recent version of <a href="https://elixir-lang.org/">Elixir</a>
+    </li>
+      
+    <li>
       a recent version of <a
       href="http://www.gnu.org/software/make/">GNU make</a>
     </li>
