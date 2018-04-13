@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -34,6 +34,16 @@ for external connections on the target node.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
+
+
+## System and Environment Requirements
+
+RabbitMQ CLI tools require a [compatible Erlang/OTP](/which-erlang.html) version to be installed.
+
+The tools assume that system locale is a UTF-8 one (e.g. `en_GB.UTF-8` or `en_US.UTF-8`). If that's
+not the case, the tools may still function correctly but it cannot be guaranteed.
+A warning will be emitted in non-UTF-8 locales.
+
 
 ## rabbitmqctl
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -208,7 +208,7 @@ predefined RabbitMQ queue. A JMS application can then read these
 messages using the JMS API. RabbitMQ JMS Client packs them up into
 JMS Messages automatically. Messages read in this way are, by default,
 `BytesMessage`s, but individual messages can be marked `TextMessage`
-(by adding an AMQP message property called "JMSType" whose value is
+(by adding an AMQP message header called "JMSType" whose value is
 "TextMessage"), which will interpret the byte-array payload as a UTF8
 encoded String and return them as `TextMessage`s.
 
