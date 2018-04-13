@@ -555,12 +555,12 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
 <pre class="sourcecode ini">
-tcp_lsiten_options.backlog = 128
-tcp_lsiten_options.nodelay = true
+tcp_listen_options.backlog = 128
+tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
 tcp_listen_options.linger.timeout = 0
-tcp_lsiten_options.sndbuf  = 32768
-tcp_lsiten_options.recbuf  = 32768
+tcp_listen_options.sndbuf  = 32768
+tcp_listen_options.recbuf  = 32768
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
