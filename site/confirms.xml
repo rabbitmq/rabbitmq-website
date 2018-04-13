@@ -43,7 +43,7 @@ limitations under the License.
         publisher confirms.
       </p>
       <p>
-        Both features Build on the same idea and are inspired by TCP.
+        Both features build on the same idea and are inspired by TCP.
         They are essential for reliable delivery both from publishers
         to RabbitMQ nodes and from RabbitMQ nodes to consumers.
       </p>
@@ -54,7 +54,7 @@ limitations under the License.
 
       <p>
         When RabbitMQ delivers a message to a consumer, it needs to know
-        when to consider the message successfully sent. What kind of logic is
+        when to consider the message to be successfully sent. What kind of logic is
         optimal depends on the system. It is therefore primarily an application
         decision. In AMQP 0-9-1 it is made when a consumer is registered using
         the <code>basic.consume</code> method or a message is fetched on demand
@@ -79,11 +79,19 @@ limitations under the License.
           uniquely identifies the delivery on a channel. Delivery tags are
           therefore scoped per channel.
         </p>
+
         <p>
           Delivery tags are monotonically growing positive
           integers and are presented as such by client libraries.
           Client library methods that acknowledge deliveries take a delivery tag
           as an argument.
+        </p>
+
+        <p>
+          Because delivery tags are scoped per channel, deliveries must be
+          acknowledged on the same channel they were received on. Acknowledging
+          on a different channel will result in an "unknown delivery tag" protocol
+          exception and close the channel.
         </p>
       </doc:subsection>
 
@@ -111,10 +119,12 @@ limitations under the License.
             <li><code>basic.nack</code> is used for negative acknowledgements (note: this is a <a href="/nack.html">RabbitMQ extension to AMQP 0-9-1</a>)</li>
             <li><code>basic.reject</code> is used for negative acknowledgements but has one limitation compared to <code>basic.nack</code></li>
           </ul>
+
+          How these methods are exposed in client library APIs will be discussed below.
         </p>
 
         <p>
-          Positive acknowledgements simply instruct RabbitMQ to record a message as delivered.
+          Positive acknowledgements simply instruct RabbitMQ to record a message as delivered and can be discarded.
           Negative acknowledgements with <code>basic.reject</code> have the same effect. The difference
           is primarily in the semantics: positive acknowledgements assume
           a message was successfully processed while their negative counterpart
@@ -151,6 +161,59 @@ limitations under the License.
       </doc:subsection>
 
 
+      <doc:subsection name="consumer-acks-api-elements">
+        <doc:heading>Positively Acknowledging Deliveries</doc:heading>
+
+        <p>
+          API methods used for delivery acknowledgement are usually exposed as operations on a channel in client libraries.
+          Java client users will use <code>Channel#basicAck</code> and <code>Channel#basicNack</code>
+          to perform a <code>basic.ack</code> and <code>basic.nack</code>, respectively. Here's a Java
+          client examples that demonstrates a positive acknowledgement:
+
+<pre class="sourcecode java">
+// this example assumes an existing channel instance
+
+boolean autoAck = false;
+channel.basicConsume(queueName, autoAck, "a-consumer-tag",
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             long deliveryTag = envelope.getDeliveryTag();
+             // positively acknowledge a single delivery, the message will
+             // be discarded
+             channel.basicAck(deliveryTag, false);
+         }
+     });
+</pre>
+        </p>
+
+        <p>
+          In .NET client the methods are <code>IModel#BasicAck</code> and <code>IModel#BasicNack</code>, respectively.
+          Here's an example that demonstrates a positive acknowledgement with that client:
+
+<pre class="sourcecode csharp">
+// this example assumes an existing channel (IModel) instance
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (ch, ea) =>
+                {
+                    var body = ea.Body;
+                    // positively acknowledge a single delivery, the message will
+                    // be discarded
+                    channel.BasicAck(ea.DeliveryTag, false);
+                };
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+</pre>
+        </p>
+
+      </doc:subsection>
+
+
       <doc:subsection name="consumer-acks-multiple-parameter">
         <doc:heading>Acknowledging Multiple Deliveries at Once</doc:heading>
 
@@ -170,6 +233,51 @@ limitations under the License.
           and <code>multiple</code> set to <code>true</code>, all tags from 5 to 8 will be acknowledged.
           If <code>multiple</code> was set to <code>false</code>, deliveries 5, 6, and 7 would still
           be unacknowledged.
+        </p>
+
+        <p>
+          To acknowledge multiple deliveries with RabbitMQ Java client, pass <code>true</code> for the
+          <code>multiple</code> parameter to <code>Channel#basicAck</code>:
+
+<pre class="sourcecode java">
+// this example assumes an existing channel instance
+
+boolean autoAck = false;
+channel.basicConsume(queueName, autoAck, "a-consumer-tag",
+     new DefaultConsumer(channel) {
+         @Override
+         public void handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    byte[] body)
+             throws IOException
+         {
+             long deliveryTag = envelope.getDeliveryTag();
+             // positively acknowledge all deliveries up to
+             // this delivery tag
+             channel.basicAck(deliveryTag, true);
+         }
+     });
+</pre>
+
+        </p>
+
+        <p>
+          The idea is very much the same with the .NET client:
+
+<pre class="sourcecode csharp">
+// this example assumes an existing channel (IModel) instance
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (ch, ea) =>
+                {
+                    var body = ea.Body;
+                    // positively acknowledge all deliveries up to
+                    // this delivery tag
+                    channel.BasicAck(ea.DeliveryTag, true);
+                };
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+</pre>
         </p>
       </doc:subsection>
 
@@ -239,7 +347,8 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
         </p>
 
         <p>
-          In .NET client the methods are <code></code> and <code></code>, respectively:
+          In .NET client the methods are <code>IModel#BasicReject</code> and <code>IModel#BasicNack</code>,
+          respectively:
 
 <pre class="sourcecode csharp">
 // this example assumes an existing channel (IModel) instance
@@ -533,7 +642,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
       </doc:subsection>
 
       <doc:subsection name="when-publishes-are-confirmed">
-        <doc:heading>When will messages be confirmed?</doc:heading>
+        <doc:heading>When Will Published Messages Be Confirmed by the Broker?</doc:heading>
 
         <p>
           For unroutable messages, the broker will issue a confirm
