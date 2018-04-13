@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -260,8 +260,8 @@ instance 2 [x] Received 'Hello..5'
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-Spring-amqp by default takes a conservative approach to message
-acknowledgement. If the listener throws an exception the container
+Spring AMQP by default takes a conservative approach to [message acknowledgement](/confirms.html).
+If the listener throws an exception the container
 calls:
 
 <pre class="sourcecode java">
@@ -282,6 +282,12 @@ processing the message the listener calls:
 <pre class="sourcecode java">
 channel.basicAck()
 </pre>
+
+Acknowledgement must be sent on the same channel the delivery it is for
+was received on. Attempts to acknowledge using a different channel
+will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
+Spring AMQP generally takes care of this but when used in combination with code
+that uses RabbitMQ Java client directly, this is something to keep in mind.
 
 > #### Forgotten acknowledgment
 >

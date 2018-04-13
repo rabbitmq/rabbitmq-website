@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -24,107 +24,106 @@ limitations under the License.
     <head>
         <title>.NET/C# Client API Guide</title>
     </head>
+
     <body show-in-this-page="true">
-        <p class="intro">
-            This page gives an overview of the <a href="/dotnet.html">RabbitMQ .NET/C# client</a> API.
-            It assumes the <a href="https://www.nuget.org/packages/RabbitMQ.Client">most recent major version of the client</a> is used.
-        </p>
-        <p class="intro">
-            The code samples given here demonstrate connecting to RabbitMQ and
-            performing several common operations with the client.
-        </p>
+      <doc:section name="overview">
 
         <p class="intro">
-            The library is open-source, and is dual-licensed under <a
-            href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
-            License v2</a> and <a href="mpl.html">the Mozilla Public License
-            v1.1</a>.
+          This guide covers <a href="/dotnet.html">RabbitMQ .NET/C# client</a> and its public API.
+          It assumes that the <a href="https://www.nuget.org/packages/RabbitMQ.Client">most recent major version of the client</a> is used
+          and the reader is familiar with <a href="/getstarted.html">the basics</a>.
         </p>
 
         <p class="intro">
-            The client is dual-licensed under
+          4.x and 5.x release series of this library require .NET 4.5.1+ or .NET Standard 1.5+ implementation (e.g. .NET Core 2.x).
+        </p>
 
-            <ul>
-                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
-                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-            </ul>
+        <p class="intro">
+          The library is open source, developed <a href="https://github.com/rabbitmq/rabbitmq-java-client/">on GitHub</a>, and is double-licensed under the
+
+          <ul>
+            <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+            <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+          </ul>
+
+          This means that the user can consider the library to be licensed under any of the licenses from the list above.
+          For example, the user may choose the Apache Public License 2.0 and include this client into
+          a commercial product.
         </p>
 
         <p>
-            The client API is closely modelled on the AMQP 0-9-1 protocol specification,
-            with additional abstractions for ease of use.
+          The client API is closely modelled on the <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 protocol model</a>,
+          with additional abstractions for ease of use.
         </p>
 
+        <p class="intro">
+          An <a href="&dir-current-docfx;">API reference</a> is available separately.
+        </p>
+      </doc:section>
+
+
+      <doc:section name="major-api-elements">
+        <doc:heading>Major namespaces, interfaces and classes</doc:heading>
         <p>
-            This section gives an overview of the RabbitMQ .NET client API.
-
-            Only the basics of using the library are covered: for full detail,
-            please see the javadoc-like API documentation generated from the
-            source code.
-        </p>
-
-        <doc:section name="classoverview">
-            <doc:heading>Major namespaces, interfaces and classes</doc:heading>
-            <p>
-                The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+            The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
 
 <pre class="sourcecode csharp">
 using RabbitMQ.Client;
 </pre>
 
-    The core API interfaces and classes are
+        The core API interfaces and classes are
 
-    <ul>
-        <li><code>IModel</code>: represents an AMQP 0-9-1 channel, and provides most
-        of the operations (protocol methods).</li>
+          <ul>
+            <li><code>IModel</code>: represents an AMQP 0-9-1 channel, and provides most
+            of the operations (protocol methods).</li>
 
-        <li><code>IConnection</code>: represents an AMQP 0-9-1 connection</li>
+            <li><code>IConnection</code>: represents an AMQP 0-9-1 connection</li>
 
-        <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
+            <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
 
-        <li><code>IBasicConsumer</code>: represents a message consumer</li>
-    </ul>
+            <li><code>IBasicConsumer</code>: represents a message consumer</li>
+          </ul>
 
-    Other useful interfaces and classes include:
+          Other useful interfaces and classes include:
 
-    <ul>
-      <li><code>DefaultBasicConsumer</code>: commonly used base class for consumers</li>
-    </ul>
+          <ul>
+            <li><code>DefaultBasicConsumer</code>: commonly used base class for consumers</li>
+          </ul>
 
-    Public namespaces other than <code>RabbitMQ.Client</code> include:
+          Public namespaces other than <code>RabbitMQ.Client</code> include:
 
-    <ul>
-        <li>
-            <code>RabbitMQ.Client.Events</code>: various events and event handlers
-            that are part of the client library, including <code>EventingBasicConsumer</code>,
-            a consumer implementation built around C# event handlers.
-        </li>
-        <li>
-            <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
-        </li>
-    </ul>
-          </p>
+          <ul>
+              <li>
+                <code>RabbitMQ.Client.Events</code>: various events and event handlers
+                that are part of the client library, including <code>EventingBasicConsumer</code>,
+                a consumer implementation built around C# event handlers.
+              </li>
+              <li>
+                <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
+              </li>
+          </ul>
+        </p>
 
-          <p>
-            All other namespaces are reserved for private implementation detail of
-            the library, although members of private namespaces are usually made
-            available to applications using the library in order to permit
-            developers to implement workarounds for faults or design mistakes they
-            discover in the library implementation. Applications cannot rely on
-            any classes, interfaces, member variables etc. that appear within
-            private namespaces remaining stable across releases of the library.
-          </p>
-        </doc:section>
+        <p>
+          All other namespaces are reserved for private implementation detail of
+          the library, although members of private namespaces are usually made
+          available to applications using the library in order to permit
+          developers to implement workarounds for faults and gaps they
+          discover in the library implementation. Applications cannot rely on
+          any classes, interfaces, member variables etc. that appear within
+          private namespaces remaining stable across releases of the library.
+        </p>
+      </doc:section>
 
 
-        <doc:section name="connecting">
-          <doc:heading>Connecting to a Broker</doc:heading>
-          <p>
-            To connect to a RabbitMQ, it is necessary to instantiate a <code>ConnectionFactory</code>
-            and configure it to use desired hostname, virtual host, and credentials. Then
-            use <code>ConnectionFactory.CreateConnection()</code> to open a connection.
+      <doc:section name="connecting">
+        <doc:heading>Connecting to RabbitMQ</doc:heading>
+        <p>
+          To connect to a RabbitMQ, it is necessary to instantiate a <code>ConnectionFactory</code>
+          and configure it to use desired hostname, virtual host, and credentials. Then
+          use <code>ConnectionFactory.CreateConnection()</code> to open a connection.
 
-            The following two code snippets connect to a RabbitMQ node on <code>hostName</code>:
+          The following two code snippets connect to a RabbitMQ node on <code>hostName</code>:
 
 <pre class="sourcecode csharp">
 ConnectionFactory factory = new ConnectionFactory();
@@ -143,60 +142,139 @@ factory.Uri = "amqp://user:pass@hostName:port/vhost";
 
 IConnection conn = factory.CreateConnection();
 </pre>
-          </p>
+        </p>
 
-          <p>
-            Since the .NET client uses a stricter interpretation of the <a href="/uri-spec.html">AMQP 0-9-1 URI
-            spec</a> than the other clients, care must be taken when using URIs.  In
-            particular, the host part must not be omitted and virtual hosts with
-            empty names are not addressable.
+        <p>
+          Since the .NET client uses a stricter interpretation of the <a href="/uri-spec.html">AMQP 0-9-1 URI
+          spec</a> than the other clients, care must be taken when using URIs.  In
+          particular, the host part must not be omitted and virtual hosts with
+          empty names are not addressable.
 
-            All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
+          All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
 
-            <dl>
-              <dt>Username</dt>
-              <dd><code>"guest"</code></dd>
+          <table>
+            <thead>
+              <tr>
+                <td>Property</td>
+                <td>Default Value</td>
+              </tr>
+            </thead>
 
-              <dt>Password</dt>
-              <dd><code>"guest"</code></dd>
+            <tr>
+              <td>Username</td>
+              <td><code>"guest"</code></td>
+            </tr>
 
-              <dt>Virtual host</dt>
-              <dd><code>"/"</code></dd>
+            <tr>
+              <td>Password</td>
+              <td><code>"guest"</code></td>
+            </tr>
 
-              <dt>Hostname</dt>
-              <dd><code>"localhost"</code></dd>
+            <tr>
+              <td>Virtual host</td>
+              <td><code>"/"</code></td>
+            </tr>
 
-              <dt>port</dt>
-              <dd>
+            <tr>
+              <td>Hostname</td>
+              <td><code>"localhost"</code></td>
+            </tr>
+
+            <tr>
+              <td>port</td>
+
+              <td>
                 <code>5672</code> for regular connections,
-                <code>5671</code> for connections that use TLS
-              </dd>
-            </dl>
-          </p>
+                <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+              </td>
+            </tr>
+          </table>
+        </p>
 
-          <p>
-            The <code>IConnection</code> interface can then be used to open a channel:
+        <p>
+          Note that <a href="/access-control.html">user guest can only connect from localhost</a> by default.
+          This is to limit well-known credential use in production systems.
+        </p>
+
+        <p>
+          The <code>IConnection</code> interface can then be used to open a channel:
 
 <pre class="sourcecode csharp">
 IModel channel = conn.CreateModel();
 </pre>
 
-            The channel can now be used to send and receive messages,
-            as described in subsequent sections.
-          </p>
-        </doc:section>
+          The channel can now be used to send and receive messages,
+          as described in subsequent sections.
+        </p>
 
-        <doc:section name="using-exchanges-and-queues">
-          <doc:heading>Using Exchanges and Queues</doc:heading>
+        <p>
+          Successful and unsuccessful client connection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+        </p>
+      </doc:section>
 
-          <p>
-            Client applications work with exchanges and queues, the high-level
-            building blocks of AMQP 0-9-1. These must be "declared" before they can be
-            used. Declaring either type of object simply ensures that one of that
-            name exists, creating it if necessary.
+      <doc:section name="disconnecting">
+        <doc:heading>Disconnecting from RabbitMQ</doc:heading>
+        <p>
+          To disconnect, simply close the channel and the connection:
 
-            Continuing the previous example, the following code declares an
-            exchange and a queue, then binds them together.
+<pre class="sourcecode csharp">
+channel.Close();
+conn.Close();
+</pre>
+
+          Disposing channel and connection objects is not enough, they must be explicitly closed
+          with the API methods from the example above.
+        </p>
+
+        <p>
+          Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
+          automatically anyway when the underlying connection is closed.
+        </p>
+
+        <p>
+          Client disconnection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+        </p>
+      </doc:section>
+
+      <doc:section name="connection-and-channel-lifspan">
+        <doc:heading>Connection and Channel Lifespan</doc:heading>
+
+        <p>
+          Connections are meant to be long-lived. The underlying protocol is designed and optimized for
+          long running connections. That means that opening a new connection per operation,
+          e.g. a message published, is unnecessary and strongly discouraged as it will introduce a lot of
+          network roundtrips and overhead.
+        </p>
+
+        <p>
+          Channels are also meant to be long-lived but since many recoverable protocol errors will
+          result in channel closure, channel lifespan could be shorter than that of its connection.
+          Closing and opening new channels per operation is usually unnecessary but can be
+          appropriate. When in doubt, consider reusing channels fist.
+        </p>
+
+        <p>
+          Channel-level exceptions such as attempts to consume from a
+          queue that does not exist will result in channel closure. A closed channel can no
+          longer be used and will not receive any more events from the server (such
+          as message deliveries). Channel-level exceptions will be logged by RabbitMQ
+          and will initiate a shutdown sequence for the channel (see below).
+        </p>
+      </doc:section>
+
+
+      <doc:section name="using-exchanges-and-queues">
+        <doc:heading>Using Exchanges and Queues</doc:heading>
+
+        <p>
+          Client applications work with exchanges and <a href="/queues.html">queues</a>,
+          the high-level <a href="/tutorials/amqp-concepts.html">building blocks of the protocol</a>.
+          These must be "declared" before they can be
+          used. Declaring either type of object simply ensures that one of that
+          name exists, creating it if necessary.
+
+          Continuing the previous example, the following code declares an
+          exchange and a queue, then binds them together.
 
 <pre class="sourcecode csharp">
 model.ExchangeDeclare(exchangeName, ExchangeType.Direct);
@@ -204,25 +282,62 @@ model.QueueDeclare(queueName, false, false, false, null);
 model.QueueBind(queueName, exchangeName, routingKey, null);
 </pre>
 
-            This will actively declare the following objects:
+          This will actively declare the following objects:
 
-            <ul>
-              <li>a non-durable, non-autodelete exchange of "direct" type</li>
-              <li>a non-durable, non-autodelete, non-exclusive queue</li>
-            </ul>
+          <ul>
+            <li>a non-durable, non-autodelete exchange of "direct" type</li>
+            <li>a non-durable, non-autodelete, non-exclusive queue</li>
+          </ul>
+        </p>
 
-            The exchange can be customised by using additional parameters.
-            The above code then binds the queue to the exchange with the given
-            routing key.
+        <p>
+          The exchange can be customised by using additional parameters.
+          The above code then binds the queue to the exchange with the given
+          routing key.
+        </p>
 
-            Note that many channel API (<code>IModel</code>) methods are overloaded. The convenient
-            short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
-            also longer forms with more parameters, to let you override these
-            defaults as necessary, giving full control where needed.
+        <p>
+          Many channel API (<code>IModel</code>) methods are overloaded. The convenient
+          short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
+          also longer forms with more parameters, to let you override these
+          defaults as necessary, giving full control where needed.
 
-            This "short version, long version" pattern is used throughout the API.
-          </p>
-        </doc:section>
+          This "short version, long version" pattern is used throughout the API.
+        </p>
+
+        <p>
+          Some common operations also have a "no wait" version which won't wait for server
+          response. For example, to declare a queue and instruct the server to not send any
+          response, use
+
+          <pre class="sourcecode java">channel.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
+
+          The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+          are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+          When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+          with high topology (queue, binding) churn.
+        </p>
+
+      <p>
+        A queue or exchange can be explicitly deleted:
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", false, false)</pre>
+
+        It is possible to delete a queue only if it is empty:
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", false, true)</pre>
+
+        or if it is not used (does not have any consumers):
+
+        <pre class="sourcecode java">model.QueueDelete("queue-name", true, false)</pre>
+      </p>
+
+      <p>
+        A queue can be purged (all of its messages deleted):
+
+        <pre class="sourcecode java">model.QueuePurge("queue-name")</pre>
+      </p>
+      </doc:section>
 
         <doc:section name="publishing">
           <doc:heading>Publishing Messages</doc:heading>
@@ -283,7 +398,7 @@ props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Expiration = "36000000"
 
-mode.BasicPublish(exchangeName,
+model.BasicPublish(exchangeName,
                   routingKey, props,
                   messageBodyBytes);
 </pre>
@@ -510,37 +625,6 @@ model.BasicReturn +=
             The <code>BasicReturn</code> event will fire, for example, if the client
             publishes a message with the "mandatory" flag set to an exchange of
             "direct" type which is not bound to a queue.
-          </p>
-        </doc:section>
-
-        <doc:section name="disconnecting">
-          <doc:heading>Disconnecting from RabbitMQ</doc:heading>
-          <p>
-            To disconnect, simply close the channel and the connection:
-
-<pre class="sourcecode csharp">
-channel.Close(200, "Goodbye");
-conn.Close();
-</pre>
-
-            Note that closing the channel is considered good practice, but isn't
-            strictly necessary - it will be done automatically anyway when the
-            underlying connection is closed.
-
-            In some situations, you may want the connection to close automatically
-            once the last open channel on the connection closes. To achieve this,
-            set the <code>IConnection.AutoClose</code> property to true, but only
-            <strong>after</strong> creating the first channel:
-
-<pre class="sourcecode csharp">
-IConnection conn = factory.CreateConnection(...);
-IModel channel = conn.CreateModel();
-conn.AutoClose = true;
-</pre>
-
-            When <code>AutoClose</code> is true, the last channel to close will also
-            cause the connection to close. If it is set to true before any
-            channel is created, the connection will close then and there.
           </p>
         </doc:section>
 

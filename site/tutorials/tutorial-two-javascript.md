@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -224,6 +224,10 @@ ch.consume(q, function(msg) {
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
 after the worker dies all unacknowledged messages will be redelivered.
+
+Acknowledgement must be sent on the same channel the delivery it is for
+was received on. Attempts to acknowledge using a different channel
+will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
 
 > #### Forgotten acknowledgment
 >

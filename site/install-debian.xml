@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -26,7 +26,7 @@ limitations under the License.
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Installing on Debian / Ubuntu</title>
+    <title>Installing on Debian and Ubuntu</title>
   </head>
   <body>
     <doc:section name="debian-packages">
@@ -43,13 +43,13 @@ limitations under the License.
       </r:downloads>
     </doc:section>
 
-   <doc:section name="standard-packages">
-       <doc:heading>Standard Ubuntu and Debian Repositories</doc:heading>
+   <doc:section name="overview">
+       <doc:heading>Overview</doc:heading>
        <p>
        <code>rabbitmq-server</code> is included in standard Debian
        and Ubuntu repositories. However, the versions included are
-       often quite old. You will probably get better results
-       installing the .deb from the apt repository on rabbitmq.com or <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>. Check the <a
+       often quite old. Installing
+       the package from the apt repository on rabbitmq.com or <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a> is highly recommended. Check the <a
        href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
        package</a> and <a
        href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
@@ -57,8 +57,8 @@ limitations under the License.
        available for which versions of the distribution.
        </p>
        <p>
-           You can either download it with the link above and install
-           with <code>dpkg</code>, or use our APT repository (see below).
+         You can either download it with the link above and install
+         with <code>dpkg</code>, or use our APT repository (see below).
        </p>
    </doc:section>
 
@@ -77,6 +77,16 @@ limitations under the License.
          if dependencies (see below) are satisfied (e.g. using the
          Wheezy backports repository) but their testing and support
          is done on a best effort basis.
+       </p>
+   </doc:section>
+
+   <doc:section name="sudo-requirements">
+       <doc:heading>User Privilege Requirements</doc:heading>
+
+       <p>
+         RabbitMQ Debian package will require <code>sudo</code> privileges to install and manage.
+         In environments where <code>sudo</code> isn't available, consider using the
+         <a href="/install-generic-unix.html">generic binary build</a>.
        </p>
    </doc:section>
 

@@ -207,6 +207,10 @@ Using this code we can be sure that even if a worker dies using while it was
 processing a message, nothing will be lost. Soon after the worker dies all
 unacknowledged messages will be redelivered.
 
+Acknowledgement must be sent on the same channel the delivery it is for
+was received on. Attempts to acknowledge using a different channel
+will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
+
 > #### Forgotten acknowledgment
 >
 > It's a common mistake to miss the `ack`. It's an easy error,

@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -27,8 +27,9 @@ limitations under the License.
       <doc:section name="intro">
 
         <p class="intro">
-          This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
-          are <a href="getstarted.html">available in a different section</a>.
+          This guide covers <a href="/java-client.html">RabbitMQ Java client</a> and its public API.
+          It assumes that the <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
+          and the reader is familiar with <a href="/getstarted.html">the basics</a>.
         </p>
 
         <p class="intro">
@@ -39,7 +40,7 @@ limitations under the License.
         </p>
 
         <p class="intro">
-          The library is <a href="https://github.com/rabbitmq/rabbitmq-java-client/">open-source</a>, and is triple-licensed under
+          The library is open source, developed <a href="https://github.com/rabbitmq/rabbitmq-java-client/">on GitHub</a>, and is triple-licensed under
 
           <ul>
             <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
@@ -53,17 +54,17 @@ limitations under the License.
         </p>
 
         <p class="intro">
-          An <a href="&dir-current-javadoc;">API reference</a> (JavaDoc) is available separately.
-        </p>
-
-        <p class="intro">
           There are also <a href="java-tools.html">command line tools</a>
           that used to be shipped with the Java client.
         </p>
 
         <p>
-          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+          The client API is closely modelled on the <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 protocol model</a>,
           with additional abstractions for ease of use.
+        </p>
+
+        <p class="intro">
+          An <a href="&dir-current-javadoc;">API reference</a> (JavaDoc) is available separately.
         </p>
     </doc:section>
 
@@ -74,10 +75,14 @@ limitations under the License.
         The key classes and interfaces are:
 
         <ul>
-            <li>Channel</li>
-            <li>Connection</li>
-            <li>ConnectionFactory</li>
-            <li>Consumer</li>
+            <li>Channel: represents an AMQP 0-9-1 channel, and provides most
+            of the operations (protocol methods).</li>
+            <li>Connection: represents an AMQP 0-9-1 connection</li>
+            <li>ConnectionFactory: constructs <code>Connection</code> instances</li>
+            <li>Consumer: represents a message consumer</li>
+            <li>DefaultConsumer: commonly used base class for consumers</li>
+            <li>BasicProperties: message properties (metadata)</li>
+            <li>BasicProperties.Builder: builder for <code>BasicProperties</code></li>
         </ul>
 
         Protocol operations are available through the
@@ -93,36 +98,80 @@ limitations under the License.
     <doc:heading>Connections and Channels</doc:heading>
 
     <p>
-            The core API classes are <code>Connection</code>
-            and <code>Channel</code>, representing an AMQP 0-9-1 connection and
-            channel, respectively. They are typically imported before used:
+      The core API classes are <code>Connection</code>
+      and <code>Channel</code>, representing an AMQP 0-9-1 connection and
+      channel, respectively. They are typically imported before used:
     </p>
 <pre class="sourcecode java">
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 </pre>
 
-    <doc:heading>Connecting to a broker</doc:heading>
-
+    <doc:heading>Connecting to RabbitMQ</doc:heading>
     <p>
-        The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
+      The following code connects to a RabbitMQ node using the given parameters (host name, port number, etc):
     </p>
 
 <pre class="sourcecode java">
 ConnectionFactory factory = new ConnectionFactory();
+// "guest"/"guest" by default, limited to localhost connections
 factory.setUsername(userName);
 factory.setPassword(password);
 factory.setVirtualHost(virtualHost);
 factory.setHost(hostName);
 factory.setPort(portNumber);
+
 Connection conn = factory.newConnection();
 </pre>
 
     <p>
-        All of these parameters have sensible defaults for a RabbitMQ server running locally.
+      All of these parameters have sensible defaults for a RabbitMQ
+      node running locally.
+
+      The default value for a property will be used if the property
+      remains unassigned prior to creating a connection:
+
+      <table>
+        <thead>
+          <tr>
+            <td>Property</td>
+            <td>Default Value</td>
+          </tr>
+        </thead>
+
+        <tr>
+          <td>Username</td>
+          <td><code>"guest"</code></td>
+        </tr>
+
+        <tr>
+          <td>Password</td>
+          <td><code>"guest"</code></td>
+        </tr>
+
+        <tr>
+          <td>Virtual host</td>
+          <td><code>"/"</code></td>
+        </tr>
+
+        <tr>
+          <td>Hostname</td>
+          <td><code>"localhost"</code></td>
+        </tr>
+
+        <tr>
+          <td>port</td>
+
+          <td>
+            <code>5672</code> for regular connections,
+            <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+          </td>
+        </tr>
+      </table>
     </p>
+
     <p>
-        Alternatively, <a href="uri-spec.html">URIs</a> may be used:
+      Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
 <pre class="sourcecode java">
@@ -132,33 +181,77 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-        All of these parameters have sensible defaults for a stock
-        RabbitMQ server running locally.
+      All of these parameters have sensible defaults for a stock
+      RabbitMQ server running locally.
     </p>
 
         <p>
-        The <code>Connection</code> interface can then be used to open a channel:
+          Note that <a href="/access-control.html">user guest can only connect from localhost</a> by default.
+          This is to limit well-known credential use in production systems.
         </p>
+
+    <p>
+      The <code>Connection</code> interface can then be used to open a channel:
+    </p>
 
 <pre class="sourcecode java">
 Channel channel = conn.createChannel();
 </pre>
-    <p>
+
+      <p>
         The channel can now be used to send and receive messages, as described in subsequent sections.
-    </p>
+      </p>
 
-    <p>
+      <p>
+        Successful and unsuccessful client connection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="disconnecting">
+      <doc:heading>Disconnecting from RabbitMQ</doc:heading>
+      <p>
         To disconnect, simply close the channel and the connection:
-    </p>
+      </p>
 
-    <pre class="sourcecode java">channel.close();
+<pre class="sourcecode java">
+channel.close();
 conn.close();</pre>
 
-    <p>
+      <p>
         Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
         automatically anyway when the underlying connection is closed.
-    </p>
+      </p>
 
+      <p>
+        Client disconnection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="connection-and-channel-lifspan">
+      <doc:heading>Connection and Channel Lifespan</doc:heading>
+
+      <p>
+        Connections are meant to be long-lived. The underlying protocol is designed and optimized for
+        long running connections. That means that opening a new connection per operation,
+        e.g. a message published, is unnecessary and strongly discouraged as it will introduce a lot of
+        network roundtrips and overhead.
+      </p>
+
+      <p>
+        Channels are also meant to be long-lived but since many recoverable protocol errors will
+        result in channel closure, channel lifespan could be shorter than that of its connection.
+        Closing and opening new channels per operation is usually unnecessary but can be
+        appropriate. When in doubt, consider reusing channels fist.
+      </p>
+
+      <p>
+        Channel-level exceptions such as attempts to consume from a
+        queue that does not exist will result in channel closure. A closed channel can no
+        longer be used and will not receive any more events from the server (such
+        as message deliveries). Channel-level exceptions will be logged by RabbitMQ
+        and will initiate a shutdown sequence for the channel (see below).
+      </p>
   </doc:section>
 
 
@@ -166,8 +259,9 @@ conn.close();</pre>
       <doc:heading>Using Exchanges and Queues</doc:heading>
 
       <p>
-       Client applications work with exchanges and queues, the high-level building blocks of AMQP.
-       These must be "declared" before they can be used. Declaring either type of object
+       Client applications work with exchanges and <a href="/queues.html">queues</a>,
+       the high-level <a href="/tutorials/amqp-concepts.html">building blocks of the protocol</a>.
+       These must be declared before they can be used. Declaring either type of object
        simply ensures that one of that name exists, creating it if necessary.
       </p>
 
@@ -217,18 +311,52 @@ channel.queueBind(queueName, exchangeName, routingKey);</pre>
       </ol>
 
       <p>
-        Note that all of these <code>Channel</code> API methods are overloaded.
+        Many <code>Channel</code> API methods are overloaded.
         These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code>
         use sensible defaults. There are also longer forms with more parameters, to let you override these defaults
         as necessary, giving full control where needed.
       </p>
+
       <p>
         This "short form, long form" pattern is used throughout the client API uses.
+      </p>
+
+      <p>
+        Some common operations also have a "no wait" version which won't wait for server
+        response. For example, to declare a queue and instruct the server to not send any
+        response, use
+
+        <pre class="sourcecode java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
+
+        The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+        are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+        When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+        with high topology (queue, binding) churn.
+      </p>
+
+      <p>
+        A queue or exchange can be explicitly deleted:
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name")</pre>
+
+        It is possible to delete a queue only if it is empty:
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name", false, true)</pre>
+
+        or if it is not used (does not have any consumers):
+
+        <pre class="sourcecode java">channel.queueDelete("queue-name", true, false)</pre>
+      </p>
+
+      <p>
+        A queue can be purged (all of its messages deleted):
+
+        <pre class="sourcecode java">channel.queuePurge("queue-name")</pre>
       </p>
     </doc:section>
 
     <doc:section name="publishing">
-      <doc:heading>Publishing messages</doc:heading>
+      <doc:heading>Publishing Messages</doc:heading>
 
       <p>
         To publish a message to an exchange, use <code>Channel.basicPublish</code> as follows:
@@ -321,13 +449,36 @@ channel.basicPublish(exchangeName, routingKey,
       <p>
         Concurrent publishing on a shared channel can result in
         incorrect frame interleaving on the wire, triggering a
-        connection-level protocol exception and connection closure. It
-        therefore requires explicit synchronization in application
+        connection-level protocol exception and immediate connection closure by the broker.
+        It therefore requires explicit synchronization in application
         code (<code>Channel#basicPublish</code> must be invoked in a
         critical section). Sharing channels between threads will also
         interfere with <a href="confirms.html">Publisher
-        Confirms</a>. We highly recommend avoiding concurrent
-        publishing on a shared channel.
+        Confirms</a>. Concurrent publishing on a shared channel is best avoided entirely,
+        e.g. by using a channel per thread.
+      </p>
+      <p>
+        It is possible to use channel pooling to avoid concurrent
+        publishing on a shared channel: once a thread is done working
+        with a channel, it returns it to the pool, making the
+        channel available for another thread. Channel pooling can be
+        thought of as a specific synchronization solution. It is
+        recommended that an existing pooling library is used
+        instead of a homegrown solution. For example, <a href="https://projects.spring.io/spring-amqp/">Spring AMQP</a>
+        which comes with a ready-to-use channel pooling feature.
+      </p>
+      <p>
+        Channels consume resources and in most cases applications very rarely need more than a few hundreds
+        open channels in the same JVM process. If we assume that the application
+        has a thread for each channel (as channel shouldn't be used concurrently), thousands
+        of threads for a single JVM is already a fair amount of overhead that likely can be avoided.
+        Moreover a few fast publishers can easily saturate a network interface and a broker node:
+        publishing involves less work than routing, storing and delivering messages.
+      </p>
+      <p>
+        A classic anti-pattern to be avoided is opening a channel for each published message. Channels
+        are supposed to be reasonably long-lived and opening a new one is a network round-trip which
+        makes this pattern extremely inefficient.
       </p>
       <p>
         Consuming in one thread and publishing in another thread on a shared channel
@@ -992,7 +1143,7 @@ factory.newConnection(addresses);</pre>
           <ul>
             <li>An I/O exception is thrown in connection's I/O loop</li>
             <li>A socket read operation times out</li>
-            <li>Missed server <a href="/heartbeats.html">heartbeats</a> are detected</li>            
+            <li>Missed server <a href="/heartbeats.html">heartbeats</a> are detected</li>
             <li>Any other unexpected exception is thrown in connection's I/O loop</li>
           </ul>
 
@@ -1004,7 +1155,7 @@ factory.newConnection(addresses);</pre>
           non-existent queue).
         </p>
       </doc:subsection>
-      
+
       <doc:subsection name="recovery-listeners">
         <doc:heading>Recovery Listeners</doc:heading>
         <p>
