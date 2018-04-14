@@ -572,10 +572,17 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
       <doc:heading>Publisher Confirms</doc:heading>
 
       <p>
+        Networks can fail in less-than-obvious ways and detecting some failures <a href="/heartbeats.html">takes time</a>.
+        Therefore a client that's written a protocol frame or a set of frames (e.g. a published message) to
+        its socket cannot assume that the message has reached the server and was successfully processed.
+        It could have been lost along the way or its delivery can be significantly delayed.
+      </p>
+
+      <p>
         Using standard AMQP 0-9-1, the only way to guarantee that a
         message isn't lost is by using transactions -- make the
-        channel transactional, publish the message, commit.  In this
-        case, transactions are unnecessarily heavyweight and
+        channel transactional then for each message or set of messages publish, commit.
+        In this case, transactions are unnecessarily heavyweight and
         decrease throughput by a factor of 250.  To remedy this,
         a confirmation mechanism was introduced. It mimics the consumer
         acknowledgements mechanism already present in the protocol.
