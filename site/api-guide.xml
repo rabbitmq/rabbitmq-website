@@ -700,7 +700,7 @@ channel.addReturnListener(new ReturnListener() {
       <doc:section name="shutdown">
         <doc:heading>Shutdown Protocol</doc:heading>
           <doc:subsection name="shutdown-overview">
-        <doc:heading>Overview of the AMQP client shutdown</doc:heading>
+        <doc:heading>Overview of the Client Shutdown Process</doc:heading>
         <p>
           The AMQP 0-9-1 connection and channel share the same general
           approach to managing network failure, internal failure,
