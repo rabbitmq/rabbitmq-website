@@ -89,6 +89,20 @@ limitations under the License.
               <div id="left-content">
                 <h1><xsl:value-of select="//html:title"/></h1>
                 <xsl:apply-templates/>
+
+                <div id="help-and-feedback">
+                  <h2>Getting Help and Providing Feedback</h2>
+                  <p>
+                    If you have questions about the contents of this guide or
+                    any other topic related to RabbitMQ, don't hesitate to ask them
+                    on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+                  </p>
+
+                  <p>
+                    Documentation feedback is also very welcome on the list. If you'd like to contribute an improvement
+                    to the site, its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                  </p>
+                </div>
               </div>
               <div id="right-nav">
                 <xsl:call-template name="in-this-section"/>
