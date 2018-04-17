@@ -59,9 +59,11 @@ port to 12345 would look like:
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
+].
+</pre>
 
 while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
@@ -71,10 +73,12 @@ both IPv4 and IPv6) would look like:
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
-                                         {"::1",       61613}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
+                                     {"::1",       61613}]}]}
+].
+</pre>
 
 ## <a id="tls" class="anchor" href="#tls">TLS/SSL Support</a>
 
@@ -94,19 +98,21 @@ certificates and key (just like AMQP 0-9-1):
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [{rabbit,          [
-                        {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
-                                       {certfile,   "/path/to/tls/server/cert.pem"},
-                                       {keyfile,    "/path/to/tls/server/key.pem"},
-                                       {verify,     verify_peer},
-                                       {fail_if_no_peer_cert, true}]}
-                       ]},
-      {rabbitmq_stomp, [{tcp_listeners, [61613]},
-                        {ssl_listeners, [61614]}]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbit,          [
+                    {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
+                                   {certfile,   "/path/to/tls/server/cert.pem"},
+                                   {keyfile,    "/path/to/tls/server/key.pem"},
+                                   {verify,     verify_peer},
+                                   {fail_if_no_peer_cert, true}]}
+                   ]},
+  {rabbitmq_stomp, [{tcp_listeners, [61613]},
+                    {ssl_listeners, [61614]}]}
+].
+</pre>
 
 This configuration creates a standard TCP listener on port 61613 and
-an SSL listener on port 61614.
+a TLS listener on port 61614.
 
 ### <a id="cta.du" class="anchor" href="#cta.du">Default User</a>
 
@@ -121,10 +127,12 @@ section to the `rabbitmq_stomp` application configuration. For example:
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{default_user, [{login, "guest"},
-                                        {passcode, "guest"}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                    {passcode, "guest"}]}]}
+].
+</pre>
 
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
@@ -145,9 +153,11 @@ To switch this feature on, set `ssl_cert_login` to `true` for the
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{ssl_cert_login, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{ssl_cert_login, true}]}
+].
+</pre>
 
 By default this will set the username to an RFC4514-ish string form of
 the certificate's subject's Distinguished Name, similar to that
@@ -159,7 +169,11 @@ To use the Common Name instead, add:
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    {rabbit, [{ssl_cert_login_from, common_name}]}
+<pre class="sourcecode erlang">
+[
+  {rabbit, [{ssl_cert_login_from, common_name}]}
+].
+</pre>
 
 to your configuration.
 
@@ -186,11 +200,13 @@ To enable implicit connect, set `implicit_connect` to `true` for the
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{default_user,     [{login, "guest"},
-                                            {passcode, "guest"}]},
-                        {implicit_connect, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{default_user,     [{login, "guest"},
+                                        {passcode, "guest"}]},
+                    {implicit_connect, true}]}
+].
+</pre>
 
 Implicit connect is *not* enabled by default.
 
@@ -206,9 +222,11 @@ This feature is disabled by default, to enable it for STOMP clients:
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{proxy_protocol, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{proxy_protocol, true}]}
+].
+</pre>
 
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
