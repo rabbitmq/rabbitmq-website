@@ -84,7 +84,7 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 ].
 </pre>
 
-## <a id="tls" class="anchor" href="#tls">TLS/SSL Support</a>
+## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
 STOMP TLS connections, add a TLS listener for STOMP. The plugin will use core RabbitMQ server
@@ -118,6 +118,24 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 This configuration creates a standard TCP listener on port 61613 and
 a TLS listener on port 61614.
+
+When a TLS listener is set up it may be desired to disable all non-TLS ones.
+This can be configured like so:
+
+<pre class="sourcecode ini">
+stomp.listeners.tcp   = none
+stomp.listeners.ssl.1 = 61614
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, []},
+                    {ssl_listeners, [61614]}]}
+].
+</pre>
+
 
 ### <a id="cta.du" class="anchor" href="#cta.du">Default User</a>
 
