@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ STOMP Adapter NOSYNTAX
+# RabbitMQ STOMP Plugin NOSYNTAX
 
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
@@ -30,7 +30,9 @@ with some extensions and restrictions (described [here](#pear)).
 The STOMP adapter is included in the RabbitMQ distribution.  To enable
 it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
-    rabbitmq-plugins enable rabbitmq_stomp
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_stomp
+</pre>
 
 ## <a id="caifs" class="anchor" href="#caifs">Compiling and installing from source</a>
 
@@ -55,7 +57,7 @@ port to 12345 would look like:
 
     stomp.listeners.tcp.1 = 12345
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
@@ -67,7 +69,7 @@ both IPv4 and IPv6) would look like:
     stomp.listeners.tcp.1 = 127.0.0.1:61613
     stomp.listeners.tcp.2 = ::1:61613
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
@@ -90,7 +92,7 @@ certificates and key (just like AMQP 0-9-1):
     stomp.listeners.tcp.1 = 61613
     stomp.listeners.ssl.1 = 61614
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [{rabbit,          [
                         {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
@@ -117,7 +119,7 @@ section to the `rabbitmq_stomp` application configuration. For example:
     stomp.default_user = guest
     stomp.default_pass = guest
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
@@ -141,7 +143,7 @@ To switch this feature on, set `ssl_cert_login` to `true` for the
 
     stomp.ssl_cert_login = true
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{ssl_cert_login, true}]}
@@ -155,7 +157,7 @@ To use the Common Name instead, add:
 
     ssl_cert_login_from = common_name
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     {rabbit, [{ssl_cert_login_from, common_name}]}
 
@@ -182,7 +184,7 @@ To enable implicit connect, set `implicit_connect` to `true` for the
     stomp.default_pass = guest
     stomp.implicit_connect = true
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{default_user,     [{login, "guest"},
@@ -524,7 +526,15 @@ All server-named queues created by the STOMP plugin are prefixed with `stomp-`
 which makes it easy to match the queues in a policy. For example, to limit
 STOMP queue length to 1000 messages, create the following policy:
 
-<pre>rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues</pre>
+<pre class="sourcecode bash">
+rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues
+</pre>
+
+with `rabbitmqctl.bat` on Windows:
+
+<pre class="sourcecode powershell">
+rabbitmqctl.bat set_policy stomp-queues "^stomp-" "{""max-length"":1000}" --apply-to queues
+</pre>
 
 Note that only one policy is applied to a queue at a time, so to specify
 multiple arguments (e.g. queue length limit and dead lettering) one
@@ -553,7 +563,7 @@ section to the `rabbitmq_stomp` application configuration, e.g.
 
     stomp.default_vhost = /
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
     [
       {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
