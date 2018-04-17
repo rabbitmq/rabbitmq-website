@@ -424,9 +424,12 @@ cluster_formation.aws.use_private_ip = true
       </p>
 
       <p>
-        Data services such as RabbitMQ usually use <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset">stateful set</a>, which <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization">starts pods one at a time</a>. That's the recommended
-        way of dealing with the natural <a href="#initial-formation-race-condition">race condition during the initial cluster formation</a>.
-        Randomized startup delay in such scenarios can use a significantly lower delay value range (e.g. 0 to 1 second).
+        It is highly recommended that RabbitMQ clusters are deployed using a <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset">stateful set</a>. If a stateless set is used
+        recreated nodes will not have their persisted data and will start as blank nodes.
+        This can lead to data loss and higher network traffic volume due to more frequent
+        <a href="ha.html">eager synchronisation</a> of newly joining nodes. Stateless sets are also
+        prone to the <a href="#initial-formation-race-condition">natural race condition</a> during initial
+        cluster formation, unlike stateful sets that initialise pods <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization">one by one</a>.
       </p>
 
       <p>
@@ -553,9 +556,10 @@ cluster_formation.k8s.service_name = rmq-qa
 
 
       <p>
-        As mentioned above, with stateful sets pods are initialised one by one, which
-        significantly reduces the probability of a <a href="#initial-formation-race-condition">race condition during initial cluster formation</a>.
-        Therefore randomized startup delay can be reduced:
+        As mentioned above, stateful sets is the recommended way of running RabbitMQ on Kubernetes.
+        Stateful set pods are initialised one at a time. That effectively addresses
+        the natural <a href="#initial-formation-race-condition">race condition during the initial cluster formation</a>.
+        Randomized startup delay in such scenarios can use a significantly lower delay value range (e.g. 0 to 1 second):
 
         <pre class="sourcecode ini">
 cluster_formation.randomized_startup_delay_range.min = 0
