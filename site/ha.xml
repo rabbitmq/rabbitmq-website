@@ -733,7 +733,26 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         <p>
           These features are also available through the management plugin.
         </p>
-
+        <doc:subsection name="promoting-unsynchronised-mirrors">
+          <doc:heading>Promoting unsynchronised mirrors</doc:heading>
+          <p>
+            By default if master node fails or being disconnects from the cluster
+            an oldest mirror will be promoted a new master. This mirror can be
+            unsynchronised, which will cause data loss.
+          </p>
+          <p>
+            To avoid that, you can configure the <code>ha-promote-on-failure</code>
+            policy key to <code>when-synced</code> rather than its default value of
+            <code>always</code>. This will make sure that unsynchronised mirrors
+            are not promoted. Although this will make the queue unavailable
+            until master node rejoins. If a master node is lost, hence the data
+            is lost - the queue may be deleted and redeclared.
+          </p>
+          <p>
+            Please use this setting with caution, as it will make the queue
+            unavailable.
+          </p>
+        </doc:subsection>
         <doc:subsection name="start-stop">
           <doc:heading>Stopping nodes and synchronisation</doc:heading>
           <p>
@@ -786,6 +805,13 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             <code>ha-promote-on-shutdown</code> policy key to
             <code>always</code> rather than its default value of
             <code>when-synced</code>.
+          </p>
+          <p>
+            Please note that <code>ha-promote-on-shutdown</code> and
+            <code>ha-promote-on-failure</code> have different default behaviours.
+            <code>ha-promote-on-shutdown</code> is set to <code>when-synced</code>
+            by default, while <code>ha-promote-on-failure</code> is set to
+            <code>always</code> by default.
           </p>
 
         </doc:subsection>
