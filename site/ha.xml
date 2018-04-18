@@ -807,6 +807,12 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             <code>when-synced</code>.
           </p>
           <p>
+            If the <code>ha-promote-on-failure</code> policy key is set to
+            <code>when-synced</code>, unsynchronised mirrors will not be promoted
+            even if the <code>ha-promote-on-shutdown</code> key is set to
+            <code>always</code>.
+          </p>
+          <p>
             Please note that <code>ha-promote-on-shutdown</code> and
             <code>ha-promote-on-failure</code> have different default behaviours.
             <code>ha-promote-on-shutdown</code> is set to <code>when-synced</code>
