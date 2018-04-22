@@ -34,6 +34,7 @@ limitations under the License.
           <li>Replication factor</li>
           <li>Data locality</li>
           <li>Mirror promotion and unsynchronised mirrors</li>
+          <li>Mirrored vs. non-mirrored queue behavior in case of node failure</li>
         </ul>
 
         and more.
@@ -139,10 +140,7 @@ limitations under the License.
             <p>
               A <i>count</i> value of 1 means just the queue master, with no
               mirrors. If the node running the queue master becomes
-              unavailable, the behaviour depends on queue durability.
-              A durable queue will become unavailable, a non-durable one
-              will be migrated to a different node (note: since it's a non-mirrored
-              queue, it will be empty after the migration).
+              unavailable, <a href="#non-mirrored-queue-behavior-on-node-failure">the behaviour depends on queue durability</a>.
             </p>
 
             <p>
@@ -348,6 +346,46 @@ rabbitmqctl list_queues name policy pid slave_pids
         are also never durable (even if declared as such).
       </p>
     </doc:section>
+
+
+    <doc:section name="non-mirrored-queue-behavior-on-node-failure">
+      <doc:heading>Non-mirrored Queue Behavior in a Cluster</doc:heading>
+
+      <p>
+        This guide focuses on mirrored queues, however, it is important
+        to briefly explain how non-mirrored queues behave in a cluster in contrast
+        with mirrored ones.
+      </p>
+
+      <p>
+        If master node of a queue (the node running queue master) is available,
+        all queue operations (e.g. declaration, binding and consumer management, message routing
+        to the queue) can be performed on any node. Cluster nodes will route
+        operations to the master node transparently to the clients.
+      </p>
+
+      <p>
+        If master node of a queue
+        becomes unavailable, the behaviour of a non-mirrored queue
+        depends on its durability. A durable queue will become
+        unavailable until the node comes back. A non-durable one will
+        be migrated to a different node (note: since it's a
+        non-mirrored queue, it will be empty after the migration).
+        All operations on a durable queue with unavailable master node
+        will fail with a message in server logs that looks like this:
+
+        <pre class="">
+operation queue.declare caused a channel exception not_found: home node 'rabbit@hostname' of durable queue 'queue-name' in vhost '/' is down or inaccessible
+        </pre>
+      </p>
+
+      <p>
+        In a way this difference in behavior allows developers to
+        emphasize consistency or availability for a non-mirrored
+        queue.
+      </p>
+    </doc:section>
+
 
     <doc:section name="examples">
       <doc:heading>Examples</doc:heading>
