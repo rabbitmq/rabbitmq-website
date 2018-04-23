@@ -555,12 +555,12 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
 <pre class="sourcecode ini">
-tcp_lsiten_options.backlog = 128
-tcp_lsiten_options.nodelay = true
+tcp_listen_options.backlog = 128
+tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
 tcp_listen_options.linger.timeout = 0
-tcp_lsiten_options.sndbuf  = 32768
-tcp_lsiten_options.recbuf  = 32768
+tcp_listen_options.sndbuf  = 32768
+tcp_listen_options.recbuf  = 32768
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -1075,70 +1075,7 @@ Using the classic config format:
       <doc:heading>Connection Event Logging</doc:heading>
 
       <p>
-        Successful TCP connections that send at least 1 byte of data will be logged. Connections
-        that do not send any data, such as health checks of certain load balancer products, will
-        not be logged.
-
-        Here's an example:
-
-<pre class="sourcecode ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-accepting AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672)
-</pre>
-
-        The entry includes client IP address and port (<code>127.0.0.1:57919</code>) as well as the target
-        IP address and port of the server (<code>127.0.0.1:5672</code>). This information can be useful
-        when troubleshooting client connections.
-      </p>
-
-      <p>
-        Once a connection successfully authenticates and is granted access to a <a href="">virtual host</a>,
-        that is also logged:
-
-<pre class="sourcecode ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
-</pre>
-      </p>
-
-      <p>
-        The examples above include two values that can be used as connection identifiers
-        in various scenarios: a connection PID (<code>&lt;0.24990.164&gt;</code>) and connection name (<code>127.0.0.1:57919 -> 127.0.0.1:5672</code>). The former is used
-        by <a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> and the latter is used
-        by the <a href="/management.html">HTTP API</a>.
-      </p>
-
-      <p>
-        A connection can be closed cleanly or abnormally. In the
-        former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
-        MQTT) connection gracefully using a dedicated library function
-        (method). In the latter case the client closes TCP connection
-        or TCP connection is lost. Both cases will be logged by the broker.
-      </p>
-
-      <p>
-        Below is an example entry for a successfully closed connection:
-
-<pre class="sourcecode ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
-</pre>
-      </p>
-
-      <p>
-        Abruptly closed connections will be logged as warnings:
-
-<pre class="sourcecode ini">
-=WARNING REPORT==== 1-Nov-2017::16:58:58 ===
-closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
-client unexpectedly closed TCP connection
-</pre>
-      </p>
-
-      <p>
-        Abruptly closed connections could be harmless (e.g. a short lived program has naturally terminated
-        and didn't have a chance to close its connection properly) or indicate a genuine issue such as
-        a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
+        See <a href="/logging.html#connection-lifecycle-events">Connection Lifecycle Events</a> in the logging guide.
       </p>
     </doc:section>
 

@@ -697,74 +697,74 @@ channel.addReturnListener(new ReturnListener() {
       </p>
     </doc:section>
 
-      <doc:section name="shutdown">
-        <doc:heading>Shutdown Protocol</doc:heading>
-          <doc:subsection name="shutdown-overview">
-        <doc:heading>Overview of the AMQP client shutdown</doc:heading>
-        <p>
-          The AMQP 0-9-1 connection and channel share the same general
-          approach to managing network failure, internal failure,
-          and explicit local shutdown.
-        </p>
-        <p>
-          The AMQP 0-9-1 connection and channel have the following lifecycle states:
-        </p>
-        <ul>
-          <li>
-        <code>open</code>: the object is ready to use
-          </li>
-          <li>
-        <code>closing</code>: the object has been explicitly
-        notified to shut down locally, has issued a shutdown
-        request to any supporting lower-layer objects, and is
-        waiting for their shutdown procedures to complete
-          </li>
-          <li>
-        <code>closed</code>: the object has received all
-        shutdown-complete notification(s) from any lower-layer
-        objects, and as a consequence has shut itself down
-          </li>
-        </ul>
-        <p>
-          Those objects always end up in the closed state,
-          regardless of the reason that caused the closure, like
-          an application request, an internal client library
-          failure, a remote network request or network failure.
-        </p>
-        <p>
-          The AMQP connection and channel objects possess the
-          following shutdown-related methods:
-        </p>
-        <ul>
-          <li>
+    <doc:section name="shutdown">
+      <doc:heading>Shutdown Protocol</doc:heading>
+        <doc:subsection name="shutdown-overview">
+          <doc:heading>Overview of the Client Shutdown Process</doc:heading>
+          <p>
+            The AMQP 0-9-1 connection and channel share the same general
+            approach to managing network failure, internal failure,
+            and explicit local shutdown.
+          </p>
+          <p>
+            The AMQP 0-9-1 connection and channel have the following lifecycle states:
+          </p>
+          <ul>
+            <li>
+          <code>open</code>: the object is ready to use
+            </li>
+            <li>
+          <code>closing</code>: the object has been explicitly
+          notified to shut down locally, has issued a shutdown
+          request to any supporting lower-layer objects, and is
+          waiting for their shutdown procedures to complete
+            </li>
+            <li>
+          <code>closed</code>: the object has received all
+          shutdown-complete notification(s) from any lower-layer
+          objects, and as a consequence has shut itself down
+            </li>
+          </ul>
+          <p>
+            Those objects always end up in the closed state,
+            regardless of the reason that caused the closure, like
+            an application request, an internal client library
+            failure, a remote network request or network failure.
+          </p>
+          <p>
+            The AMQP connection and channel objects possess the
+            following shutdown-related methods:
+          </p>
+          <ul>
+            <li>
 
-        <code>addShutdownListener(ShutdownListener listener)</code> and
+          <code>addShutdownListener(ShutdownListener listener)</code> and
 
-        <code>removeShutdownListener(ShutdownListener listener)</code>, to manage any listeners, which will
-        be fired when the object transitions to
-        <code>closed</code> state. Note that, adding a
-        ShutdownListener to an object that is already closed
-        will fire the listener immediately
-          </li>
-          <li>
-        <code>getCloseReason()</code>, to allow the
-        investigation of what was the reason of the object&#8217;s
-        shutdown
-          </li>
-          <li>
-        <code>isOpen()</code>, useful for testing whether the
-        object is in an open state
-          </li>
-          <li>
+          <code>removeShutdownListener(ShutdownListener listener)</code>, to manage any listeners, which will
+          be fired when the object transitions to
+          <code>closed</code> state. Note that, adding a
+          ShutdownListener to an object that is already closed
+          will fire the listener immediately
+            </li>
+            <li>
+          <code>getCloseReason()</code>, to allow the
+          investigation of what was the reason of the object&#8217;s
+          shutdown
+            </li>
+            <li>
+          <code>isOpen()</code>, useful for testing whether the
+          object is in an open state
+            </li>
+            <li>
 
-        <code>close(int closeCode, String closeMessage)</code>, to explicitly notify the object
-        to shut down
-          </li>
-        </ul>
-        <p>
-          Simple usage of listeners would look like:
-        </p>
-            <pre class="sourcecode java">import com.rabbitmq.client.ShutdownSignalException;
+          <code>close(int closeCode, String closeMessage)</code>, to explicitly notify the object
+          to shut down
+            </li>
+          </ul>
+          <p>
+            Simple usage of listeners would look like:
+          </p>
+          <pre class="sourcecode java">import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.client.ShutdownListener;
 
 connection.addShutdownListener(new ShutdownListener() {
@@ -773,32 +773,33 @@ connection.addShutdownListener(new ShutdownListener() {
         ...
     }
 });</pre>
-      </doc:subsection>
-      <doc:subsection name="shutdown-cause">
-        <doc:heading>Information about the circumstances of a shutdown</doc:heading>
-        <p>
-          One can retrieve the
-          <code>ShutdownSignalException</code>, which contains all
-          the information available about the close reason, either
-          by explicitly calling the <code>getCloseReason()</code>
-          method or by using the <code>cause</code> parameter in
-          the <code>service(ShutdownSignalException cause)</code>
-          method of the <code>ShutdownListener</code> class.
-        </p>
-        <p>
-          The <code>ShutdownSignalException</code> class provides
-          methods to analyze the reason of the shutdown. By
-          calling the <code>isHardError()</code> method we get
-          information whether it was a connection or a channel
-          error, and <code>getReason()</code> returns information
-          about the cause, in the form an AMQP method - either
-          <code>AMQP.Channel.Close</code> or
-          <code>AMQP.Connection.Close</code> (or null if the cause
-          was some exception in the library, such as a network
-          communication failure, in which case that exception can
-          be retrieved with <code>getCause()</code>).
-        </p>
-            <pre class="sourcecode java">public void shutdownCompleted(ShutdownSignalException cause)
+        </doc:subsection>
+
+        <doc:subsection name="shutdown-cause">
+          <doc:heading>Information about the circumstances of a shutdown</doc:heading>
+          <p>
+            One can retrieve the
+            <code>ShutdownSignalException</code>, which contains all
+            the information available about the close reason, either
+            by explicitly calling the <code>getCloseReason()</code>
+            method or by using the <code>cause</code> parameter in
+            the <code>service(ShutdownSignalException cause)</code>
+            method of the <code>ShutdownListener</code> class.
+          </p>
+          <p>
+            The <code>ShutdownSignalException</code> class provides
+            methods to analyze the reason of the shutdown. By
+            calling the <code>isHardError()</code> method we get
+            information whether it was a connection or a channel
+            error, and <code>getReason()</code> returns information
+            about the cause, in the form an AMQP method - either
+            <code>AMQP.Channel.Close</code> or
+            <code>AMQP.Connection.Close</code> (or null if the cause
+            was some exception in the library, such as a network
+            communication failure, in which case that exception can
+            be retrieved with <code>getCause()</code>).
+          </p>
+          <pre class="sourcecode java">public void shutdownCompleted(ShutdownSignalException cause)
 {
   if (cause.isHardError())
   {
@@ -814,16 +815,16 @@ connection.addShutdownListener(new ShutdownListener() {
     ...
   }
 }</pre>
-          </doc:subsection>
-          <doc:subsection name="shutdown-atomicity">
-            <doc:heading>Atomicity and use of the isOpen() method</doc:heading>
-            <p>
-             Use of the <code>isOpen()</code> method of channel and
-             connection objects is not recommended for production
-             code, because the value returned by the method is
-             dependent on the existence of the shutdown cause.  The
-             following code illustrates the possibility of race
-             conditions:
+        </doc:subsection>
+        <doc:subsection name="shutdown-atomicity">
+          <doc:heading>Atomicity and use of the isOpen() method</doc:heading>
+          <p>
+           Use of the <code>isOpen()</code> method of channel and
+           connection objects is not recommended for production
+           code, because the value returned by the method is
+           dependent on the existence of the shutdown cause.  The
+           following code illustrates the possibility of race
+           conditions:
         </p>
         <pre class="sourcecode java">public void brokenMethod(Channel channel)
 {
@@ -863,13 +864,12 @@ connection.addShutdownListener(new ShutdownListener() {
         ...
     }
 }</pre>
-          </doc:subsection>
+      </doc:subsection>
     </doc:section>
 
-
-<doc:section name="advanced-connection">
-  <doc:heading>Advanced Connection options</doc:heading>
-    <doc:subsection name="consumer-thread-pool">
+    <doc:section name="advanced-connection">
+      <doc:heading>Advanced Connection options</doc:heading>
+      <doc:subsection name="consumer-thread-pool">
         <doc:heading><i>Consumer thread pool</i></doc:heading>
         <p>
           <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
@@ -878,10 +878,10 @@ connection.addShutdownListener(new ShutdownListener() {
           <code>newConnection()</code> method, so that this pool of threads is
           used instead. Here is an example where a larger thread pool is
           supplied than is normally allocated:
-<pre class="sourcecode java">
-ExecutorService es = Executors.newFixedThreadPool(20);
-Connection conn = factory.newConnection(es);
-</pre>
+  <pre class="sourcecode java">
+  ExecutorService es = Executors.newFixedThreadPool(20);
+  Connection conn = factory.newConnection(es);
+  </pre>
           Both <code>Executors</code> and <code>ExecutorService</code> classes
           are in the <code>java.util.concurrent</code> package.
         </p>
@@ -908,167 +908,166 @@ Connection conn = factory.newConnection(es);
           the total thread resources allocated are bounded, even if a burst of consumer
           activity may occasionally occur.
         </p>
-    </doc:subsection>
+      </doc:subsection>
 
-    <doc:subsection name="address-array">
-        <doc:heading>Using Lists of Hosts</doc:heading>
+      <doc:subsection name="address-array">
+          <doc:heading>Using Lists of Hosts</doc:heading>
+          <p>
+            It is possible to pass an <code>Address</code> array
+            to <code>newConnection()</code>.
+            An <code>Address</code> is simply a convenience class
+            in the <code>com.rabbitmq.client</code> package with <i>host</i>
+            and <i>port</i> components.
+            For example:
+  <pre class="sourcecode java">
+  Address[] addrArr = new Address[]{ new Address(hostname1, portnumber1)
+                                   , new Address(hostname2, portnumber2)};
+  Connection conn = factory.newConnection(addrArr);
+  </pre>
+            will attempt to connect to <code>hostname1:portnumber1</code>, and if
+            that fails to <code>hostname2:portnumber2</code>. The connection returned is
+            the first in the array that succeeds (without throwing
+            <code>IOException</code>). This is entirely equivalent to repeatedly
+            setting host and port on a factory, calling
+            <code>factory.newConnection()</code> each time, until one of them succeeds.
+          </p>
+          <p>
+            If an <code>ExecutorService</code> is provided as well (using the
+            form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
+            associated with the (first) successful connection.
+          </p>
+          <p>
+            If you want more control over the host to connect to, see
+            <a href="#service-discovery-with-address-resolver">
+            the support for service discovery</a>.
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="service-discovery-with-address-resolver">
+          <doc:heading>Service discovery with the AddressResolver interface</doc:heading>
+          <p>
+            As of version 3.6.6, it is possible to let an implementation of
+            <code>AddressResolver</code> choose where to connect when creating a connection:
+  <pre class="sourcecode java">
+  Connection conn = factory.newConnection(addressResolver);
+  </pre>
+          The <code>AddressResolver</code> interface is like the following:
+  <pre class="sourcecode java">
+  public interface AddressResolver {
+
+    List&lt;Address&gt; getAddresses() throws IOException;
+
+  }
+  </pre>
+            Just like with <a href="#address-array">a list of hosts</a>,
+            the first <code>Address</code> returned will be tried first, then
+            the second if the client fails to connect to the first, and so on.
+          </p>
+          <p>
+            If an <code>ExecutorService</code> is provided as well (using the
+            form <code>factory.newConnection(es, addressResolver)</code>) the thread pool is
+            associated with the (first) successful connection.
+          </p>
+          <p>
+            The <code>AddressResolver</code> is the perfect place to implement
+            custom service discovery logic, which is especially useful in a dynamic
+            infrastructure. Combined with <a href="#recovery">automatic recovery</a>,
+            the client can automatically connect to nodes that weren't even up
+            when it was first started. Affinity and load balancing are other
+            scenarios where a custom <code>AddressResolver</code> could be useful.
+          </p>
+          <p>
+            The Java client ships with the following implementations
+            (see the javadoc for details):
+            <ol>
+              <li>
+                <code>DnsRecordIpAddressResolver</code>: given the name
+                of a host, returns its IP addresses (resolution against
+                the platform DNS server). This can be useful for simple
+                DNS-based load balancing or failover.
+              </li>
+              <li>
+                <code>DnsSrvRecordAddressResolver</code>: given the name
+                of a service, returns hostname/port pairs. The search is
+                implemented as a DNS SRV request. This can be useful
+                when using a service registry like
+                <a href="https://www.consul.io/">HashiCorp Consul</a>.
+              </li>
+            </ol>
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="heartbeats-timeout">
+          <doc:heading>Heartbeat Timeout</doc:heading>
+          <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
+          and how to configure them in the Java client.</p>
+      </doc:subsection>
+
+      <doc:subsection name="thread-factories">
+        <doc:heading><i>Custom Thread Factories</i></doc:heading>
         <p>
-          It is possible to pass an <code>Address</code> array
-          to <code>newConnection()</code>.
-          An <code>Address</code> is simply a convenience class
-          in the <code>com.rabbitmq.client</code> package with <i>host</i>
-          and <i>port</i> components.
-          For example:
-<pre class="sourcecode java">
-Address[] addrArr = new Address[]{ new Address(hostname1, portnumber1)
-                                 , new Address(hostname2, portnumber2)};
-Connection conn = factory.newConnection(addrArr);
-</pre>
-          will attempt to connect to <code>hostname1:portnumber1</code>, and if
-          that fails to <code>hostname2:portnumber2</code>. The connection returned is
-          the first in the array that succeeds (without throwing
-          <code>IOException</code>). This is entirely equivalent to repeatedly
-          setting host and port on a factory, calling
-          <code>factory.newConnection()</code> each time, until one of them succeeds.
+          Environments such as Google App Engine (GAE) can <a
+          href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+          direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+          it's necessary to configure a custom <code>ThreadFactory</code> that uses
+          an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
+
+          Below is an example for Google App Engine.
         </p>
         <p>
-          If an <code>ExecutorService</code> is provided as well (using the
-          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
-          associated with the (first) successful connection.
+  <pre class="sourcecode java">
+  import com.google.appengine.api.ThreadManager;
+
+  ConnectionFactory cf = new ConnectionFactory();
+  cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+  </pre>
+        </p>
+      </doc:subsection>
+      <doc:subsection name="java-nio">
+        <doc:heading>Support for Java non-blocking IO</doc:heading>
+        <p>
+          Version 4.0 of the Java client brings <i>experimental</i> support for Java non-blocking
+          IO (a.k.a Java NIO). NIO isn't supposed to be faster than blocking IO,
+          it simply allows to control resources (in this case, threads) more easily.
         </p>
         <p>
-          If you want more control over the host to connect to, see
-          <a href="#service-discovery-with-address-resolver">
-          the support for service discovery</a>.
-        </p>
-    </doc:subsection>
-
-    <doc:subsection name="service-discovery-with-address-resolver">
-        <doc:heading>Service discovery with the AddressResolver interface</doc:heading>
-        <p>
-          As of version 3.6.6, it is possible to let an implementation of
-          <code>AddressResolver</code> choose where to connect when creating a connection:
-<pre class="sourcecode java">
-Connection conn = factory.newConnection(addressResolver);
-</pre>
-        The <code>AddressResolver</code> interface is like the following:
-<pre class="sourcecode java">
-public interface AddressResolver {
-
-  List&lt;Address&gt; getAddresses() throws IOException;
-
-}
-</pre>
-          Just like with <a href="#address-array">a list of hosts</a>,
-          the first <code>Address</code> returned will be tried first, then
-          the second if the client fails to connect to the first, and so on.
+          With the default blocking IO mode, each connection uses a thread to read
+          from the network socket. With the NIO mode, you can control the number of
+          threads that read and write from/to the network socket.
         </p>
         <p>
-          If an <code>ExecutorService</code> is provided as well (using the
-          form <code>factory.newConnection(es, addressResolver)</code>) the thread pool is
-          associated with the (first) successful connection.
+          Use the NIO mode if your Java process uses many connections (dozens or hundreds).
+          You should use fewer threads than with the default blocking mode. With the
+          appropriate number of threads set, you shouldn't
+          experiment any decrease in performance, especially if the connections are
+          not so busy.
         </p>
         <p>
-          The <code>AddressResolver</code> is the perfect place to implement
-          custom service discovery logic, which is especially useful in a dynamic
-          infrastructure. Combined with <a href="#recovery">automatic recovery</a>,
-          the client can automatically connect to nodes that weren't even up
-          when it was first started. Affinity and load balancing are other
-          scenarios where a custom <code>AddressResolver</code> could be useful.
+          NIO must be enabled explicitly:
         </p>
         <p>
-          The Java client ships with the following implementations
-          (see the javadoc for details):
-          <ol>
-            <li>
-              <code>DnsRecordIpAddressResolver</code>: given the name
-              of a host, returns its IP addresses (resolution against
-              the platform DNS server). This can be useful for simple
-              DNS-based load balancing or failover.
-            </li>
-            <li>
-              <code>DnsSrvRecordAddressResolver</code>: given the name
-              of a service, returns hostname/port pairs. The search is
-              implemented as a DNS SRV request. This can be useful
-              when using a service registry like
-              <a href="https://www.consul.io/">HashiCorp Consul</a>.
-            </li>
-          </ol>
+  <pre class="sourcecode java">
+  ConnectionFactory connectionFactory = new ConnectionFactory();
+  connectionFactory.useNio();
+  </pre>
         </p>
-    </doc:subsection>
-
-    <doc:subsection name="heartbeats-timeout">
-        <doc:heading>Heartbeat Timeout</doc:heading>
-        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
-        and how to configure them in the Java client.</p>
-    </doc:subsection>
-
-    <doc:subsection name="thread-factories">
-      <doc:heading><i>Custom Thread Factories</i></doc:heading>
-      <p>
-        Environments such as Google App Engine (GAE) can <a
-        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
-        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
-        it's necessary to configure a custom <code>ThreadFactory</code> that uses
-        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
-
-        Below is an example for Google App Engine.
-      </p>
-      <p>
-<pre class="sourcecode java">
-import com.google.appengine.api.ThreadManager;
-
-ConnectionFactory cf = new ConnectionFactory();
-cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
-</pre>
-      </p>
-    </doc:subsection>
-    <doc:subsection name="java-nio">
-      <doc:heading>Support for Java non-blocking IO</doc:heading>
-      <p>
-        Version 4.0 of the Java client brings <i>experimental</i> support for Java non-blocking
-        IO (a.k.a Java NIO). NIO isn't supposed to be faster than blocking IO,
-        it simply allows to control resources (in this case, threads) more easily.
-      </p>
-      <p>
-        With the default blocking IO mode, each connection uses a thread to read
-        from the network socket. With the NIO mode, you can control the number of
-        threads that read and write from/to the network socket.
-      </p>
-      <p>
-        Use the NIO mode if your Java process uses many connections (dozens or hundreds).
-        You should use fewer threads than with the default blocking mode. With the
-        appropriate number of threads set, you shouldn't
-        experiment any decrease in performance, especially if the connections are
-        not so busy.
-      </p>
-      <p>
-        NIO must be enabled explicitly:
-      </p>
-      <p>
-<pre class="sourcecode java">
-ConnectionFactory connectionFactory = new ConnectionFactory();
-connectionFactory.useNio();
-</pre>
-      </p>
-      <p>
-        The NIO mode can be configured through the <code>NioParams</code> class:
-      </p>
-      <p>
-<pre class="sourcecode java">
-connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
-</pre>
-      </p>
-      <p>
-        The NIO mode uses reasonable defaults, but you may need to change them according
-        to your own workload. Some of the settings are: the total number of IO
-        threads used, the size of buffers, a service executor to use for the IO loops,
-        parameters for the in-memory write queue (write requests are enqueued before
-        being sent on the network). Please read the Javadoc for details and defaults.
-      </p>
-    </doc:subsection>
-</doc:section>
-
+        <p>
+          The NIO mode can be configured through the <code>NioParams</code> class:
+        </p>
+        <p>
+  <pre class="sourcecode java">
+  connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
+  </pre>
+        </p>
+        <p>
+          The NIO mode uses reasonable defaults, but you may need to change them according
+          to your own workload. Some of the settings are: the total number of IO
+          threads used, the size of buffers, a service executor to use for the IO loops,
+          parameters for the in-memory write queue (write requests are enqueued before
+          being sent on the network). Please read the Javadoc for details and defaults.
+        </p>
+      </doc:subsection>
+    </doc:section>
 
     <doc:section name="recovery">
       <doc:heading>Automatic Recovery From Network Failures</doc:heading>
@@ -1531,89 +1530,87 @@ cf.setRequestedHeartbeat(5);
     </doc:section>
 
 
-      <doc:section name="rpc">
-    <doc:heading>The RPC (Request/Reply) Pattern</doc:heading>
+    <doc:section name="rpc">
+      <doc:heading>The RPC (Request/Reply) Pattern: an Example</doc:heading>
 
-    <p>
-      As a programming convenience, the Java client API offers a
-      class <code>RpcClient</code> which uses a temporary reply
-      queue to provide simple <a href="/tutorials/tutorial-six-java.html">RPC-style communication</a> facilities via AMQP 0-9-1.
-    </p>
-    <p>
-      The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
-      It simply provides a mechanism for sending a message to a given exchange with a particular
-      routing key, and waiting for a response on a reply queue.
-    </p>
+      <p>
+        As a programming convenience, the Java client API offers a
+        class <code>RpcClient</code> which uses a temporary reply
+        queue to provide simple <a href="/tutorials/tutorial-six-java.html">RPC-style communication</a> facilities via AMQP 0-9-1.
+      </p>
+      <p>
+        The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
+        It simply provides a mechanism for sending a message to a given exchange with a particular
+        routing key, and waiting for a response on a reply queue.
+      </p>
 
-    <pre class="sourcecode java">
+      <pre class="sourcecode java">
 import com.rabbitmq.client.RpcClient;
 
 RpcClient rpc = new RpcClient(channel, exchangeName, routingKey);</pre>
 
-    <p>
-      (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
-      <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
-      and with <code>basic.reply_to</code> set to the name of the reply queue.)
-    </p>
+      <p>
+        (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
+        <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
+        and with <code>basic.reply_to</code> set to the name of the reply queue.)
+      </p>
 
-    <p>
-      Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
-    </p>
+      <p>
+        Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
+      </p>
 
-    <pre class="sourcecode java">byte[] primitiveCall(byte[] message);
+      <pre class="sourcecode java">byte[] primitiveCall(byte[] message);
 String stringCall(String message)
 Map mapCall(Map message)
 Map mapCall(Object[] keyValuePairs)</pre>
 
-    <p>
-      The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
-      bodies. The method <code>stringCall</code> is a thin
-      convenience wrapper around <code>primitiveCall</code>,
-      treating the message bodies as <code>String</code> instances
-      in the default character encoding.
-    </p>
-    <p>
-      The <code>mapCall</code> variants are a little more sophisticated: they encode
-      a <code>java.util.Map</code> containing ordinary Java values
-      into an AMQP 0-9-1 binary table representation, and decode the
-      response in the same way. (Note that there are some restrictions on what value
-      types can be used here - see the javadoc for details.)
-    </p>
+      <p>
+        The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
+        bodies. The method <code>stringCall</code> is a thin
+        convenience wrapper around <code>primitiveCall</code>,
+        treating the message bodies as <code>String</code> instances
+        in the default character encoding.
+      </p>
+      <p>
+        The <code>mapCall</code> variants are a little more sophisticated: they encode
+        a <code>java.util.Map</code> containing ordinary Java values
+        into an AMQP 0-9-1 binary table representation, and decode the
+        response in the same way. (Note that there are some restrictions on what value
+        types can be used here - see the javadoc for details.)
+      </p>
 
-    <p>
-      All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
-      transport mechanism, and just provide a wrapping layer on top of it.
-    </p>
-      </doc:section>
+      <p>
+        All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
+        transport mechanism, and just provide a wrapping layer on top of it.
+      </p>
+    </doc:section>
 
     <doc:section name="tls">
-    <doc:heading>TLS Support</doc:heading>
+      <doc:heading>TLS Support</doc:heading>
+      <p>
+          It's possible to encrypt the communication between the client and the broker
+          <a href="/ssl.html">using TLS</a>. Client and server authentication (a.k.a. peer verification) is also supported.
+          Here is the simplest way to use encryption with the Java client:
+      </p>
 
-        <p>
-            It's possible to encrypt the communication between the client and the broker
-            <a href="/ssl.html">using TLS</a>. Client and server authentication (a.k.a. peer verification) is also supported.
-            Here is the simplest way to use encryption with the Java client:
-        </p>
-
-        <pre class="sourcecode">
+      <pre class="sourcecode">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost("localhost");
 factory.setPort(5671);
 
 factory.useSslProtocol();
-        </pre>
+      </pre>
 
-        <p>
-            Note the client doesn't enforce any server authentication (peer certificate chain verification) in the above
-            sample as the default, "trust all certificates" <code>TrustManager</code> is used.
-            This is convenient for local development but prone to man-in-the-middle attacks
-            and therefore not recommended for production.
-            To learn more about TLS support in RabbitMQ, see
-            the <a href="ssl.html">TLS guide</a>. If you only want to configure
-            the Java client (especially the peer verification and trust manager parts),
-            read <a href="ssl.html#trust-levels">the appropriate section</a> of the TLS guide.
-        </p>
+      <p>
+        Note the client doesn't enforce any server authentication (peer certificate chain verification) in the above
+        sample as the default, "trust all certificates" <code>TrustManager</code> is used.
+        This is convenient for local development but prone to man-in-the-middle attacks
+        and therefore not recommended for production.
+        To learn more about TLS support in RabbitMQ, see
+        the <a href="ssl.html">TLS guide</a>. If you only want to configure
+        the Java client (especially the peer verification and trust manager parts),
+        read <a href="ssl.html#trust-levels">the appropriate section</a> of the TLS guide.
+      </p>
     </doc:section>
-
   </body>
 </html>
