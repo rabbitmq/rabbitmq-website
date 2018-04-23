@@ -75,6 +75,19 @@ limitations under the License.
 
   <xsl:template match="html:body">
     <body id="{$page-id}">
+      <a target="_blank" id="pvtl-nyse" href="https://content.pivotal.io/announcements/pivotal-software-lists-on-nyse-as-pvtl">
+        <div class="container">
+          <img src="https://d1fto35gcfffzn.cloudfront.net/images/global/pvtl-nyse.svg"/>
+          <div class="text">
+            <p>Thank you to all the people building the future with us.</p>
+            <h5>Read More</h5>
+            <svg class="arrow" viewBox="0 0 23.9 10.47" xmlns="http://www.w3.org/2000/svg">
+              <polyline class="cls-1" points="18.31 0.35 23.19 5.24 18.31 10.12"></polyline>
+              <line class="cls-1" x1="17.35" y1="5.39" y2="5.39"></line>
+            </svg>
+          </div>
+        </div>
+      </a>
       <div id="outerContainer">
         <div class="container">
           <xsl:call-template name="page-header"/>
@@ -89,6 +102,20 @@ limitations under the License.
               <div id="left-content">
                 <h1><xsl:value-of select="//html:title"/></h1>
                 <xsl:apply-templates/>
+
+                <div id="help-and-feedback">
+                  <h2>Getting Help and Providing Feedback</h2>
+                  <p>
+                    If you have questions about the contents of this guide or
+                    any other topic related to RabbitMQ, don't hesitate to ask them
+                    on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+                  </p>
+
+                  <p>
+                    Documentation feedback is also very welcome on the list. If you'd like to contribute an improvement
+                    to the site, its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                  </p>
+                </div>
               </div>
               <div id="right-nav">
                 <xsl:call-template name="in-this-section"/>

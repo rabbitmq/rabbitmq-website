@@ -60,35 +60,10 @@ limitations under the License.
     <h3>The library</h3>
 
     <p>
-      The library is available as source, or compiled as a loadable .ez binary
-archive. The RabbitMQ client binary archive has a runtime dependency on the some
-modules common to the RabbitMQ server. These are provided as a separate
-loadable .ez archive.
+      The library is distributed <a href="https://hex.pm/packages/amqp_client">via hex.pm</a>.
     </p>
 
-    <r:downloads signature="yes">
-      <r:download downloadfile="amqp_client-&version-erlang-client;.ez"
-		  downloadpath="&dir-erlang-client;">
-	AMQP client library .ez archive
-      </r:download>
-      <r:download downloadfile="rabbit_common-&version-erlang-client;.ez"
-		  downloadpath="&dir-erlang-client;">
-	RabbitMQ common library .ez bundle
-      </r:download>
-      <r:download downloadfile="amqp_client-&version-erlang-client;-src.tar.xz"
-		  downloadpath="&dir-erlang-client;">
-	Source code and tests (tar.xz)
-      </r:download>
-    </r:downloads>
-
-    <p>
-      Please see <a href="signatures.html">checking signatures</a> for
-      details on how to verify the signatures on our packages, and the
-      <a href="build-erlang-client.html">build page</a> for
-      instructions on compiling from source-code.
-    </p>
-
-    <h3>The documentation</h3>
+    <h3>Documentation</h3>
 
     <p>Please refer to the <a href="erlang-client-user-guide.html">Erlang RabbitMQ
 user quide</a>.</p>
