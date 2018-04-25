@@ -155,7 +155,7 @@ limitations under the License.
                 <a href="ldap.html">LDAP</a>
               </li>
               <li>
-                <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/stable">x509 Certificate-based</a> Authentication
+                <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.7.x">x509 Certificate-based</a> Authentication
               </li>
               <li>
                 <a href="/validated-user-id.html">Validated User ID</a>
