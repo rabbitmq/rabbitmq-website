@@ -27,29 +27,68 @@ limitations under the License.
       <doc:section name="overview">
         <doc:heading>Overview</doc:heading>
         <p>
+          This guide covers fundamental topics related to RabbitMQ clustering:
+
+          <ul>
+            <li>Requirements for clustering</li>
+            <li>What data is and isn't replicated between cluster nodes</li>
+            <li>What clustering means for clients</li>
+            <li>How clusters are formed</li>
+            <li>How nodes authenticate to each other</li>
+            <li>How nodes rejoin their cluster</li>
+            <li>How to remove a cluster node</li>
+          </ul>
+
+          and more. <a href="/cluster-formation.html">Cluster Formation and Peer Discovery</a> is a closely related guide
+          that focuses on peer discovery and cluster formation automation-related topics. For queue contents
+          (message) replication, see the <a href="/ha.html">Mirrored Queues</a> guide.
+        </p>
+
+        <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
           several Erlang <i>nodes</i>, each running the RabbitMQ
           <i>application</i> and sharing users, virtual hosts,
           queues, exchanges, bindings, and runtime parameters. Sometimes we refer to the collection
           of nodes as a <i>cluster</i>.
         </p>
+      </doc:section>
 
 
-        <doc:subsection name="overview-what-is-replicated">
-          <doc:heading>What is Replicated?</doc:heading>
+      <doc:section name="cluster-formation">
+        <doc:heading>Cluster Formation</doc:heading>
+        <doc:subsection name="cluster-formation-options">
+          <doc:heading>Ways of Forming a Cluster</doc:heading>
           <p>
-            All data/state required for the operation of a RabbitMQ
-            broker is replicated across all nodes. An exception to this
-            are message queues, which by default reside on one node,
-            though they are visible and reachable from all nodes. To
-            replicate queues across nodes in a cluster, see the
-            documentation on <a href="ha.html">high availability</a>
-            (note that you will need a working cluster first).
+            A RabbitMQ cluster can formed in a number of ways:
+
+            <ul>
+              <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
+              <li>Declaratively using DNS-based discovery</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based discovery</a> (via a plugin)</li>
+              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based discovery</a> (via a plugin)</li>
+              <li>Manually with <code>rabbitmqctl</code></li>
+            </ul>
+          </p>
+
+          <p>
+            Please refer to the <a href="/cluster-formation.html">Cluster Formation guide</a> for details.
+          </p>
+
+          <p>
+            The composition of a cluster can be altered dynamically.
+            All RabbitMQ brokers start out as running on a single
+            node. These nodes can be joined into clusters, and
+            subsequently turned back into individual brokers again.
           </p>
         </doc:subsection>
+      </doc:section>
 
-        <doc:subsection name="overview-hostname-requirements">
-          <doc:heading>Hostname Resolution Requirements</doc:heading>
+
+      <doc:section name="cluster-formation-requirements">
+        <doc:subsection name="hostname-resolution-requirement">
+          <doc:heading>Cluster Formation Requirements</doc:heading>
           <p>
             RabbitMQ nodes address each other using domain names,
             either short or fully-qualified (FQDNs). Therefore
@@ -82,37 +121,94 @@ limitations under the License.
           </p>
         </doc:subsection>
 
+        <xi:include href="install-selinux-ports.xml.inc"/>
+      </doc:section>
 
-        <doc:subsection name="overview-cluster-formation-and-membership">
-          <doc:heading>Cluster Formation</doc:heading>
+
+      <doc:section name="cluster-membership">
+        <doc:heading>Nodes in a Cluster</doc:heading>
+
+        <doc:subsection name="overview-what-is-replicated">
+          <doc:heading>What is Replicated?</doc:heading>
           <p>
-            A RabbitMQ cluster can formed in a number of ways:
-
-            <ul>
-              <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
-              <li>Declaratively using DNS-based discovery</li>
-              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-aws">AWS (EC2) instance discovery</a> (via a plugin)</li>
-              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">Kubernetes discovery</a> (via a plugin)</li>
-              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-consul">Consul-based discovery</a> (via a plugin)</li>
-              <li>Declaratively using <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd">etcd-based discovery</a> (via a plugin)</li>
-              <li>Manually with <code>rabbitmqctl</code></li>
-            </ul>
-          </p>
-
-          <p>
-            Please refer to the <a href="/cluster-formation.html">Cluster Formation guide</a> for details.
-          </p>
-
-          <p>
-            The composition of a cluster can be altered dynamically.
-            All RabbitMQ brokers start out as running on a single
-            node. These nodes can be joined into clusters, and
-            subsequently turned back into individual brokers again.
+            All data/state required for the operation of a RabbitMQ
+            broker is replicated across all nodes. An exception to this
+            are message queues, which by default reside on one node,
+            though they are visible and reachable from all nodes. To
+            replicate queues across nodes in a cluster, see the
+            documentation on <a href="ha.html">high availability</a>
+            (note: this guide is a prerequisite for mirroring).
           </p>
         </doc:subsection>
 
-        <doc:subsection name="overview-dealing-with-failure">
-          <doc:heading>Failure Handling</doc:heading>
+
+        <doc:subsection name="peer-equality">
+          <doc:heading>Nodes are Equal Peers</doc:heading>
+
+          <p>
+            Some distributed systems
+            have leader and follower nodes. This is generally not true for RabbitMQ.
+            All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
+            This topic becomes more nuanced when <a href="ha.html">queue mirroring</a> and plugins
+            are taken into consideration but for most intents and purposes,
+            all cluster nodes should be considered equal
+          </p>
+
+          <p>
+            Many <a href="/cli.html">CLI tool</a> operations can be executed against any node.
+            An <a href="/management.html">HTTP API</a> client can target any cluster node.
+          </p>
+
+          <p>
+            Individual plugins can designate (elect)
+            certain nodes to be "special" for a period of time. For example, <a href="/federation.html">federation links</a>
+            are colocated on a particular cluster node. Should that node fail, the links will
+            be restarted on a different node.
+          </p>
+
+          <p>
+            In versions older than 3.6.7, <a href="/management.html">RabbitMQ management plugin</a> used
+            a dedicated node for stats collection and aggregation.
+          </p>
+        </doc:subsection>
+
+        <xi:include href="erlang-cookie.xml.inc"/>
+
+        <doc:subsection name="clustering-and-clients">
+          <doc:heading>Clustering and Clients</doc:heading>
+
+          <p>
+            Assuming all cluster members
+            are available, a client can connect to any node and
+            perform any operation. Nodes will route operations to the
+            <a href="ha.html#master-migration-data-locality">queue master node</a> transparently to
+            clients.
+          </p>
+
+          <p>
+            With all supported messaging protocols a client is only connected to one node
+            at a time.
+          </p>
+
+          <p>
+            In case of a node failure, clients should be able to reconnect
+            to a different node, recover their topology and continue operation. For
+            this reason, most client libraries accept a list of endpoints (hostnames or IP addresses)
+            as a connection option. The list of hosts will be used during initial connection
+            as well as connection recovery, if the client supports it. See documentation guides
+            for individual clients to learn more.
+          </p>
+
+          <p>
+            There are scenarios where it may not be possible for a client to transparently continue
+            operations after connecting to a different node. They usually involve
+            <a href="/ha.html#non-mirrored-queue-behavior-on-node-failure">non-mirrored queues hosted on a failed node</a>.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="clustering-dealing-with-failure">
+          <doc:heading>Node Failure Handling</doc:heading>
 
           <p>
             RabbitMQ brokers tolerate the failure of individual
@@ -120,6 +216,17 @@ limitations under the License.
             as long as they can contact a cluster member node
             known at the time of shutdown.
           </p>
+
+          <p>
+            <a href="/ha.html">Queue mirroring</a> allows queue contents to be replicated
+            across multiple cluster nodes.
+          </p>
+
+          <p>
+            Non-mirrored queues can also be used in clusters. Non-mirrored queue <a href="/ha.html#non-mirrored-queue-behavior-on-node-failure">behaviour in case of node failure</a>
+            depends on queue durability.
+          </p>
+
           <p>
             RabbitMQ clustering has several modes of dealing with <a href="partitions.html">network partitions</a>,
             primarily consistency oriented. Clustering is meant to be used across LAN. It is
@@ -131,23 +238,41 @@ limitations under the License.
           </p>
         </doc:subsection>
 
-        <doc:subsection name="overview-node-types">
+
+        <doc:subsection name="clustering-and-stats">
+          <doc:heading>Metrics and Statistics</doc:heading>
+
+          <p>
+            Every node stores and aggregates its own metrics and stats, and provides an API for
+            other nodes to access it. Some stats are cluster-wide, others are specific to individual nodes.
+            Node that responds to an <a href="/management.html">HTTP API</a> request contacts its peers
+            to retrieve their data and then produces an aggregated result.
+          </p>
+
+          <p>
+            In versions older than 3.6.7, <a href="/management.html">RabbitMQ management plugin</a> used
+            a dedicated node for stats collection and aggregation.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="cluster-node-types">
           <doc:heading>Disk and RAM Nodes</doc:heading>
 
           <p>
             A node can be a <em>disk node</em> or a <em>RAM node</em>.
             (<b>Note:</b> <i>disk</i> and <i>disc</i> are used
             interchangeably). RAM nodes store internal database tables
-            in RAM. This does not include messages, message store
+            in RAM only. This does not include messages, message store
             indices, queue indices and other node state.
           </p>
 
           <p>
-            In well over 90% of cases you want all your nodes to be
+            In the vast majority of cases you want all your nodes to be
             disk nodes; RAM nodes are a special case that can be used
             to improve the performance clusters with high queue,
             exchange, or binding churn. RAM nodes do not provide
-            meaningfully higher message rates.  When in doubt, use
+            higher message rates. When in doubt, use
             disk nodes only.
           </p>
 
@@ -160,13 +285,16 @@ limitations under the License.
         </doc:subsection>
       </doc:section>
 
+
       <doc:section name="transcript">
         <doc:heading>Clustering Transcript with <code>rabbitmqctl</code></doc:heading>
         <p>
-          The following is a transcript of setting up and manipulating
+          The following is a transcript of manually setting up and manipulating
           a RabbitMQ cluster across three machines -
           <code>rabbit1</code>, <code>rabbit2</code>,
-          <code>rabbit3</code>.
+          <code>rabbit3</code>. It is recommended that the example is studied before
+          <a href="/cluster-formation.html">more automation-friendly</a> cluster formation
+          options are used.
         </p>
         <p>
           We assume that the user is logged into all three machines,
@@ -179,10 +307,8 @@ limitations under the License.
           explained more details below.
         </p>
 
-        <xi:include href="erlang-cookie.xml.inc"/>
-
         <doc:subsection name="starting">
-          <doc:heading>Starting independent nodes</doc:heading>
+          <doc:heading>Starting Independent Nodes</doc:heading>
           <p>
             Clusters are set up by re-configuring existing RabbitMQ
             nodes into a cluster configuration. Hence the first step
@@ -307,7 +433,7 @@ Cluster status of node rabbit@rabbit3 ...
         </doc:subsection>
 
         <doc:subsection name="restarting">
-          <doc:heading>Restarting cluster nodes</doc:heading>
+          <doc:heading>Restarting Cluster Nodes</doc:heading>
 
           <p>
             Nodes that have been joined to a cluster can be stopped at

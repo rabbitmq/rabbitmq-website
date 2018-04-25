@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ STOMP Adapter NOSYNTAX
+# RabbitMQ STOMP Plugin NOSYNTAX
 
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
@@ -30,7 +30,9 @@ with some extensions and restrictions (described [here](#pear)).
 The STOMP adapter is included in the RabbitMQ distribution.  To enable
 it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
-    rabbitmq-plugins enable rabbitmq_stomp
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_stomp
+</pre>
 
 ## <a id="caifs" class="anchor" href="#caifs">Compiling and installing from source</a>
 
@@ -53,58 +55,87 @@ to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
-    stomp.listeners.tcp.1 = 12345
+<pre class="sourcecode ini">
+stomp.listeners.tcp.1 = 12345
+</pre>
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
+].
+</pre>
 
 while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
 
-    stomp.listeners.tcp.1 = 127.0.0.1:61613
-    stomp.listeners.tcp.2 = ::1:61613
+<pre class="sourcecode ini">
+stomp.listeners.tcp.1 = 127.0.0.1:61613
+stomp.listeners.tcp.2 = ::1:61613
+</pre>
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
-                                         {"::1",       61613}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
+                                     {"::1",       61613}]}]}
+].
+</pre>
 
-## <a id="tls" class="anchor" href="#tls">TLS/SSL Support</a>
+## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
 STOMP TLS connections, add a TLS listener for STOMP. The plugin will use core RabbitMQ server
 certificates and key (just like AMQP 0-9-1):
 
+<pre class="sourcecode ini">
+ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
+ssl_options.certfile   = /path/to/tls/server/cert.pem
+ssl_options.keyfile    = /path/to/tls/server/key.pem
+ssl_options.verify     =  verify_peer
+ssl_options.fail_if_no_peer_cert = true
 
-    ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
-    ssl_options.certfile   = /path/to/tls/server/cert.pem
-    ssl_options.keyfile    = /path/to/tls/server/key.pem
-    ssl_options.verify     =  verify_peer
-    ssl_options.fail_if_no_peer_cert = true
+stomp.listeners.tcp.1 = 61613
+stomp.listeners.ssl.1 = 61614
+</pre>
 
-    stomp.listeners.tcp.1 = 61613
-    stomp.listeners.ssl.1 = 61614
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-    [{rabbit,          [
-                        {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
-                                       {certfile,   "/path/to/tls/server/cert.pem"},
-                                       {keyfile,    "/path/to/tls/server/key.pem"},
-                                       {verify,     verify_peer},
-                                       {fail_if_no_peer_cert, true}]}
-                       ]},
-      {rabbitmq_stomp, [{tcp_listeners, [61613]},
-                        {ssl_listeners, [61614]}]}
-    ].
+<pre class="sourcecode erlang">
+[{rabbit,          [
+                    {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
+                                   {certfile,   "/path/to/tls/server/cert.pem"},
+                                   {keyfile,    "/path/to/tls/server/key.pem"},
+                                   {verify,     verify_peer},
+                                   {fail_if_no_peer_cert, true}]}
+                   ]},
+  {rabbitmq_stomp, [{tcp_listeners, [61613]},
+                    {ssl_listeners, [61614]}]}
+].
+</pre>
 
 This configuration creates a standard TCP listener on port 61613 and
-an SSL listener on port 61614.
+a TLS listener on port 61614.
+
+When a TLS listener is set up it may be desired to disable all non-TLS ones.
+This can be configured like so:
+
+<pre class="sourcecode ini">
+stomp.listeners.tcp   = none
+stomp.listeners.ssl.1 = 61614
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{tcp_listeners, []},
+                    {ssl_listeners, [61614]}]}
+].
+</pre>
+
 
 ### <a id="cta.du" class="anchor" href="#cta.du">Default User</a>
 
@@ -114,15 +145,19 @@ and `passcode` headers if a default is configured.
 To configure a default login and passcode, add a `default_user`
 section to the `rabbitmq_stomp` application configuration. For example:
 
-    stomp.default_user = guest
-    stomp.default_pass = guest
+<pre class="sourcecode ini">
+stomp.default_user = guest
+stomp.default_pass = guest
+</pre>
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{default_user, [{login, "guest"},
-                                        {passcode, "guest"}]}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                    {passcode, "guest"}]}]}
+].
+</pre>
 
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
@@ -139,13 +174,17 @@ force all SSL clients to have a verifiable client certificate.
 To switch this feature on, set `ssl_cert_login` to `true` for the
 `rabbitmq_stomp` application. For example:
 
-    stomp.ssl_cert_login = true
+<pre class="sourcecode ini">
+stomp.ssl_cert_login = true
+</pre>
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{ssl_cert_login, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{ssl_cert_login, true}]}
+].
+</pre>
 
 By default this will set the username to an RFC4514-ish string form of
 the certificate's subject's Distinguished Name, similar to that
@@ -153,11 +192,17 @@ produced by OpenSSL's "-nameopt RFC2253" option.
 
 To use the Common Name instead, add:
 
-    ssl_cert_login_from = common_name
+<pre class="sourcecode ini">
+ssl_cert_login_from = common_name
+</pre>
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    {rabbit, [{ssl_cert_login_from, common_name}]}
+<pre class="sourcecode erlang">
+[
+  {rabbit, [{ssl_cert_login_from, common_name}]}
+].
+</pre>
 
 to your configuration.
 
@@ -177,18 +222,21 @@ the default user or the user supplied in the SSL certificate.
 To enable implicit connect, set `implicit_connect` to `true` for the
 `rabbit_stomp` application. For example:
 
+<pre class="sourcecode ini">
+stomp.default_user = guest
+stomp.default_pass = guest
+stomp.implicit_connect = true
+</pre>
 
-    stomp.default_user = guest
-    stomp.default_pass = guest
-    stomp.implicit_connect = true
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-    [
-      {rabbitmq_stomp, [{default_user,     [{login, "guest"},
-                                            {passcode, "guest"}]},
-                        {implicit_connect, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{default_user,     [{login, "guest"},
+                                        {passcode, "guest"}]},
+                    {implicit_connect, true}]}
+].
+</pre>
 
 Implicit connect is *not* enabled by default.
 
@@ -200,13 +248,17 @@ Implicit connect is *not* enabled by default.
 The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for STOMP clients:
 
-    stomp.proxy_protocol = true
+<pre class="sourcecode ini">
+stomp.proxy_protocol = true
+</pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-    [
-      {rabbitmq_stomp, [{proxy_protocol, true}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{proxy_protocol, true}]}
+].
+</pre>
 
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
@@ -524,7 +576,15 @@ All server-named queues created by the STOMP plugin are prefixed with `stomp-`
 which makes it easy to match the queues in a policy. For example, to limit
 STOMP queue length to 1000 messages, create the following policy:
 
-<pre>rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues</pre>
+<pre class="sourcecode bash">
+rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues
+</pre>
+
+with `rabbitmqctl.bat` on Windows:
+
+<pre class="sourcecode powershell">
+rabbitmqctl.bat set_policy stomp-queues "^stomp-" "{""max-length"":1000}" --apply-to queues
+</pre>
 
 Note that only one policy is applied to a queue at a time, so to specify
 multiple arguments (e.g. queue length limit and dead lettering) one
@@ -550,14 +610,17 @@ When omitted, the default virtual host (`/`) is presumed.
 To configure a different default virtual host, add a `default_vhost`
 section to the `rabbitmq_stomp` application configuration, e.g.
 
+<pre class="sourcecode ini">
+stomp.default_vhost = /
+</pre>
 
-    stomp.default_vhost = /
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-    [
-      {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
-    ].
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_stomp, [{default_vhost, &lt;&lt;"/"&gt;&gt;}]}
+].
+</pre>
 
 If a `host` header is specified it must be one of the
 virtual hosts known to the RabbitMQ server, otherwise the connection is

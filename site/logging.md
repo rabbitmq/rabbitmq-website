@@ -344,6 +344,65 @@ In the [classic config format](/configure.html#config-file-formats):
 </pre>
 
 
+## <a id="logged-events" class="anchor" href="#logged-events">Logged Events</a>
+
+### <a id="connection-lifecycle-events" class="anchor" href="#connection-lifecycle-events">Connection Lifecycle Events</a>
+
+Successful TCP connections that send at least 1 byte of data will be logged. Connections
+that do not send any data, such as health checks of certain load balancer products, will
+not be logged.
+
+Here's an example:
+
+<pre class="sourcecode ini">
+=INFO REPORT==== 30-Oct-2017::21:40:32 ===
+accepting AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672)
+</pre>
+
+The entry includes client IP address and port (<code>127.0.0.1:57919</code>) as well as the target
+IP address and port of the server (<code>127.0.0.1:5672</code>). This information can be useful
+when troubleshooting client connections.
+
+Once a connection successfully authenticates and is granted access to a [virtual host](/vhosts.html),
+that is also logged:
+
+<pre class="sourcecode ini">
+=INFO REPORT==== 30-Oct-2017::21:40:32 ===
+connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+</pre>
+
+The examples above include two values that can be used as connection identifiers
+in various scenarios: a connection PID (`&lt;0.24990.164&gt;`) and connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`).
+The former is used by [rabbitmqctl](./cli.html) and the latter is used
+by the [HTTP API](/management.html).
+
+A connection can be closed cleanly or abnormally. In the
+former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
+MQTT) connection gracefully using a dedicated library function
+(method). In the latter case the client closes TCP connection
+or TCP connection is lost. Both cases will be logged by the broker.
+щ
+Below is an example entry for a successfully closed connection:
+
+<pre class="sourcecode ini">
+=INFO REPORT==== 30-Oct-2017::21:40:32 ===
+closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
+</pre>
+
+Abruptly closed connections will be logged as warnings:
+
+<pre class="sourcecode ini">
+=WARNING REPORT==== 1-Nov-2017::16:58:58 ===
+closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
+client unexpectedly closed TCP connection
+</pre>
+
+Abruptly closed connections could be harmless (e.g. a short lived program has naturally terminated
+and didn't have a chance to close its connection properly) or indicate a genuine issue such as
+a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
+
+
+
 ## Upgrading From pre-3.7 Versions
 
 RabbitMQ versions prior to 3.7.0 had a different logging subsystem.

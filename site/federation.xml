@@ -32,41 +32,46 @@ limitations under the License.
 
       <p>
         The high-level goal of the federation plugin is to transmit messages
-        between brokers without requiring clustering. This is useful for various
-        reasons:
+        between brokers without requiring clustering. This is useful for a number of
+        reasons.
       </p>
 
-      <dl class="plain">
-        <dt><b>Loose coupling</b></dt>
-        <dd>
-          The federation plugin can transmit messages between brokers
-          (or clusters) in different administrative domains:
-          <ul class="plain">
-            <li>
-              they may have different users and virtual hosts;
-            </li>
-            <li>
-              they may run on different versions of RabbitMQ and Erlang.
-            </li>
-          </ul>
-        </dd>
-        <dt><b>WAN-friendly</b></dt>
-        <dd>
-          The federation plugin uses AMQP 0-9-1 to communicate between brokers, and is
-          designed to tolerate intermittent connectivity.
-        </dd>
-        <dt><b>Specificity</b></dt>
-        <dd>
-          A broker can contain federated <i>and</i> local-only components - you
-          don't need to federate everything if you don't want to.
-        </dd>
-        <dt><b>Scalability</b></dt>
-        <dd>
-          Federation does not require O(n<sup>2</sup>) connections between
-          <i>n</i> brokers (although this is the easiest way to set
-          things up), which should mean it scales better.
-        </dd>
-      </dl>
+      <p>
+        <h3>Loose Coupling of Nodes or Clusters</h3>
+
+        The federation plugin can transmit messages between brokers
+        (or clusters) in different administrative domains:
+        <ul class="plain">
+          <li>
+            they may have different users and virtual hosts;
+          </li>
+          <li>
+            they may run on different versions of RabbitMQ and Erlang.
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        <h3>WAN friendliness</h3>
+
+        The federation plugin uses AMQP 0-9-1 to communicate between brokers, and is
+        designed to tolerate intermittent connectivity.
+      </p>
+
+      <p>
+        <h3>Specificity</h3>
+
+        A broker can contain federated <i>and</i> local-only components - you
+        don't need to federate everything if you don't want to.
+      </p>
+
+      <p>
+        <h3>Scalability with Growing Connected Node Count</h3>
+
+        Federation does not require O(n<sup>2</sup>) connections between
+        <i>n</i> brokers (although this is the easiest way to set
+        things up), which should mean it scales better.
+      </p>
     </doc:section>
 
     <doc:section name="what-does-it-do">
