@@ -612,13 +612,6 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
         the sequence number have been handled.
       </p>
 
-      <p>
-        An example in Java that publishes a large number of
-        messages to a channel in confirm mode and waits for the
-        acknowledgements can be found <a
-        href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-perf-test/master/src/main/java/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
-      </p>
-
       <doc:subsection name="server-sent-nacks">
         <doc:heading>Negative Acknowledgments for Publishes</doc:heading>
 
