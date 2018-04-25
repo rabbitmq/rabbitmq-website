@@ -771,28 +771,9 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         <p>
           These features are also available through the management plugin.
         </p>
-        <doc:subsection name="promoting-unsynchronised-mirrors">
-          <doc:heading>Promoting unsynchronised mirrors</doc:heading>
-          <p>
-            By default if master node fails or being disconnects from the cluster
-            an oldest mirror will be promoted a new master. This mirror can be
-            unsynchronised, which will cause data loss.
-          </p>
-          <p>
-            To avoid that, you can configure the <code>ha-promote-on-failure</code>
-            policy key to <code>when-synced</code> rather than its default value of
-            <code>always</code>. This will make sure that unsynchronised mirrors
-            are not promoted. Although this will make the queue unavailable
-            until master node rejoins. If a master node is lost, hence the data
-            is lost - the queue may be deleted and redeclared.
-          </p>
-          <p>
-            Please use this setting with caution, as it will make the queue
-            unavailable.
-          </p>
-        </doc:subsection>
+
         <doc:subsection name="start-stop">
-          <doc:heading>Stopping nodes and synchronisation</doc:heading>
+          <doc:heading>Stopping Nodes and Synchronisation</doc:heading>
           <p>
             If you stop a RabbitMQ node which contains the master of a
             mirrored queue, some mirror on some other node will be
@@ -891,6 +872,29 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             master in a stopped cluster, you must invoke
             <code>rabbitmqctl forget_cluster_node</code> <i>before</i>
             starting mirrors again.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="promoting-unsynchronised-mirrors">
+          <doc:heading>Promotion of Unsynchronised Mirrors</doc:heading>
+          <p>
+            By default if a queue's master node or being disconnects from the cluster,
+            the oldest mirror will be promoted to be the new master. In some circumstances (see above)
+            this mirror can be unsynchronised, which will cause data loss.
+          </p>
+          <p>
+            The <code>ha-promote-on-failure</code>
+            policy key controls whether unsynchronised mirror promotion is allowed. When set to
+            <code>when-synced</code>, it will make sure that unsynchronised mirrors
+            are not promoted. This option is safer in terms of data loss but will make the queue unavailable
+            until the master node recovers or rejoins. If a master node is lost or removed permanently, so is
+            its data. Then the queue may be deleted and redeclared.
+            The default value is <code>always</code>.
+          </p>
+          <p>
+            Please use this setting with caution, as it will make the queue
+            unavailable.
           </p>
         </doc:subsection>
 
