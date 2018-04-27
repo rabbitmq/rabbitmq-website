@@ -316,7 +316,7 @@ name rabbit at port 25672
         Intermediaries can also have side effects on connections.
       </p>
 
-      <doc:subsection name="proxy-protocol">
+      <doc:subsection name="proxy-effects">
         <doc:heading>Proxy Effects</doc:heading>
 
         <p>
