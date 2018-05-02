@@ -733,16 +733,10 @@ body#index #getstarted,
   padding: 0;
 }
 
-#hero #hero-37-release {
-  background: url(../img/hero.svg) no-repeat center center;
-  background-size: cover;
-  padding: 60px 20px 80px;
-}
-
 /* Homepage hero: 3.7 release */
 
-#hero {
-background: none;
+/*#hero {
+  background: none;
 }
 #hero #hero-37-release {
   display: block;
@@ -756,10 +750,44 @@ background: none;
 }
 
 #hero #hero-37-release h2 {
-max-width: 300px;
-margin: 0 auto;
+  max-width: 300px;
+  margin: 0 auto;
+}*/
+
+/* Homepage hero: Summit */
+
+#hero #hero-summit {
+  background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
+  background-size: cover;
+  padding: 70px 0;
+  text-align: left;
+  margin: 10px 0 0;
 }
 
+#hero #hero-summit .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-summit h2 a {
+  font-weight: normal;
+}
+
+@media(max-width: 800px) {
+  #hero #hero-summit {
+    background: url(../img/home/banner/home-banner-summit-promo-tablet.svg) no-repeat right;
+    background-size: cover;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-summit {
+    background: url(../img/home/banner/home-banner-summit-promo-smartphone.svg) no-repeat bottom right;
+    background-size: 100%;
+    padding-bottom: 180px;
+    text-align: center;
+  }
+}
 
 /* Uberflip embed styles */
 .hubs-embedded {
@@ -1105,10 +1133,10 @@ img.screenshot {
     padding-right: 10px;
     padding-left: 10px;
   }
-  #hero #hero-37-release h1 {
+/*  #hero #hero-37-release h1 {
     max-width: 320px;
     margin: 0 auto 0.5em;
-  }
+  }*/
   #features .feature {
     max-width: 49%;
   }
@@ -1192,10 +1220,10 @@ img.screenshot {
     padding-left: 20px;
     display: block;
   }
-  #hero #hero-37-release {
+/*  #hero #hero-37-release {
     background: url(../img/hero-tablet.svg) no-repeat center center;
     background-size: 100%;
-  }
+  }*/
   .twothirds {
     max-width: 56%;
   }
@@ -1285,10 +1313,10 @@ img.screenshot {
   .menubtn {
     display: none;
   }
-  #hero h1 {
+/*  #hero h1 {
     max-width: 270px;
     margin: 0 auto;
-  }
+  }*/
   .fifty,
   #features .feature,
   .twothirds,
@@ -1346,10 +1374,10 @@ img.screenshot {
 }
 
 @media(max-width: 480px) {
-  #hero #hero-37-release {
+/*  #hero #hero-37-release {
     background: url(../img/hero-37-release-phone.svg) no-repeat bottom center;
     padding: 10px 0 150px;
-  }
+  }*/
   div#right-nav li {
     display: block;
   }
