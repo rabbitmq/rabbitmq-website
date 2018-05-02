@@ -87,6 +87,7 @@ connection with the broker:
 
 var options = {
     timeout: 3,
+    keepAliveInterval: 30,
     onSuccess: function () {
         debug("CONNECTION SUCCESS");
         client.subscribe('/topic/test', {qos: 1});
