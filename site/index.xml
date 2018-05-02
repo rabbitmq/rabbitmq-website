@@ -31,7 +31,7 @@ limitations under the License.
           <div id='hero-summit'>
             <div class='container'>
               <h1>Call for proposals!<br/>RabbitMQ Summit 2018</h1>
-              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-cfp-promo" target="_blank">Submit your abstract</a> by June 11.</h2>
+              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-cfp-promo" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Submit your abstract</a> by June 11.</h2>
             </div>
           </div>
         </div>
