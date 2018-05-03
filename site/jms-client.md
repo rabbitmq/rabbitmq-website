@@ -99,7 +99,7 @@ plugin, you need to enable the plugin in order to use it.
 Enable the plugin using the `rabbitmq-plugins` command:
 
 <pre class="sourcecode bash">
-$ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
+rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 </pre>
 
 You don't need to restart the broker to activate the plugin.
@@ -123,13 +123,14 @@ framework like Spring.
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
 <pre class="sourcecode xml">
-    &lt;Resource   name="jms/ConnectionFactory"
-                type="javax.jms.ConnectionFactory"
-             factory="com.rabbitmq.jms.admin.RMQObjectFactory"
-            username="guest"
-            password="guest"
-         virtualHost="/"
-                host="localhost"/&gt;
+&lt;Resource name="jms/ConnectionFactory"
+            type="javax.jms.ConnectionFactory"
+         factory="com.rabbitmq.jms.admin.RMQObjectFactory"
+        username="guest"
+        password="guest"
+     virtualHost="/"
+            host="localhost"
+            port="5672"/&gt;
 </pre>
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client 1.7.0):
@@ -144,6 +145,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
          &lt;property name=&quot;password&quot; value=&quot;guest&quot;/&gt;
          &lt;property name=&quot;virtualHost&quot; value=&quot;/&quot;/&gt;
          &lt;property name=&quot;host&quot; value=&quot;localhost&quot;/&gt;
+         &lt;property name=&quot;port&quot; value="5672"/&gt;
      &lt;/environment&gt;
 &lt;/object-factory&gt;
 </pre>
@@ -151,26 +153,28 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
 Here is the equivalent Spring bean example (Java configuration):
 
 <pre class="sourcecode java">
-    @Bean
-    public ConnectionFactory jmsConnectionFactory() {
-      RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
-      connectionFactory.setUsername("guest");
-      connectionFactory.setPassword("guest");
-      connectionFactory.setVirtualHost("/");
-      connectionFactory.setHost("localhost");
-      return connectionFactory;
-    }
+@Bean
+public ConnectionFactory jmsConnectionFactory() {
+  RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+  connectionFactory.setUsername("guest");
+  connectionFactory.setPassword("guest");
+  connectionFactory.setVirtualHost("/");
+  connectionFactory.setHost("localhost");
+  connectionFactory.setPort(5672);
+  return connectionFactory;
+}
 </pre>
 
 And here is the Spring XML configuration:
 
 <pre class="sourcecode xml">
-    &lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
-      &lt;property name="username" value="guest" /&gt;
-      &lt;property name="password" value="guest" /&gt;
-      &lt;property name="virtualHost" value="/" /&gt;
-      &lt;property name="host" value="localhost" /&gt;
-    &lt;/bean&gt;
+&lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
+  &lt;property name="username" value="guest" /&gt;
+  &lt;property name="password" value="guest" /&gt;
+  &lt;property name="virtualHost" value="/" /&gt;
+  &lt;property name="host" value="localhost" /&gt;
+  &lt;property name="port" value="5672" /&gt;      
+&lt;/bean&gt;
 </pre>
 
 The following table lists all of the attributes/properties that are available.
@@ -182,9 +186,9 @@ The following table lists all of the attributes/properties that are available.
 | `factory`                           |    Yes     | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                                                                                                                             |
 | `username`                          |    No      | Name to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                              |
 | `password`                          |    No      | Password to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                          |
-| `virtualHost`                       |    No      | RabbitMQ virtual host within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
+| `virtualHost`                       |    No      | RabbitMQ [virtual host](/vhosts.html) within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
 | `host`                              |    No      | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
-| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is an SSL connection, in which case the default is "5671".                                                                                                                                                                                                                        |
+| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is a [TLS connection](/ssl.html), in which case the default is "5671".                                                                                                                                                                                                                        |
 | `ssl`                               |    No      | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
 | `uri`                               |    No      | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `username`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
 | `onMessageTimeoutMs`                |    No      | How long to wait for `MessageListener#onMessage()` to return, in milliseconds. Default is 2000 ms. |
