@@ -17,7 +17,7 @@ limitations under the License.
 
 # RabbitMQ JMS Client
 
-## Introduction
+## <a id="introduction" class="anchor" href="#introduction">Introduction</a>
 
 RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
 RabbitMQ is not a JMS provider but includes [a
@@ -29,7 +29,7 @@ existing JMS applications to connect to RabbitMQ.
 
 The plugin and the JMS client are meant to work and be used together.
 
-## Components
+## <a id="components" class="anchor" href="#components">Components</a>
 
 To fully leverage JMS with RabbitMQ, you need the following components:
 
@@ -41,7 +41,7 @@ To fully leverage JMS with RabbitMQ, you need the following components:
    messages using an expression based on SQL syntax. Message selectors
    for Queues are not currently supported.
 
-## JMS and AMQP 0-9-1
+## <a id="jms-amqp" class="anchor" href="#jms-amqp">JMS and AMQP 0-9-1</a>
 
 JMS is the standard messaging API for the JEE platform. It is
 available in commercial and open source implementations.  Each
@@ -71,7 +71,7 @@ client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 You can download the JMS 1.1 specification and API documentation from
 the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
 
-## Limitations
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 
@@ -89,9 +89,9 @@ Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 See [the JMS API compliance documentation](jms-client-compliance.html) for a
 detailed list of supported JMS APIs.
 
-## Installing and Configuring
+## <a id="installing-configuring" class="anchor" href="#installing-configuring">Installing and Configuring</a>
 
-### Enabling the Topic Selector Plug-in
+### <a id="plugin" class="anchor" href="#plugin">Enabling the Topic Selector Plug-in</a>
 
 The topic selector plugin is included with RabbitMQ. Like any RabbitMQ
 plugin, you need to enable the plugin in order to use it.
@@ -104,7 +104,7 @@ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 
 You don't need to restart the broker to activate the plugin.
 
-### Enabling the JMS client in a Java container
+### <a id="java-container" class="anchor" href="#java-container">Enabling the JMS client in a Java container</a>
 
 To enable the JMS Client in a Java container (e.g. Java EE application
 server, web container), you must install the JMS client JAR files and
@@ -118,7 +118,7 @@ and its dependencies to the application classpath. The JMS resources
 can be defined programmatically or through a dependency injection
 framework like Spring.
 
-### Defining the JMS Connection Factory
+### <a id="jms-connection-factory" class="anchor" href="#jms-connection-factory">Defining the JMS Connection Factory</a>
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
@@ -195,7 +195,7 @@ The following table lists all of the attributes/properties that are available.
 | `preferProducerMessageProperty`     |    No      | Whether `MessageProducer` properties (delivery mode, priority, TTL) take precedence over respective `Message` properties or not. Default is true (which is compliant to the JMS specification). |
 | `requeueOnMessageListenerException` |    No      | Whether requeuing messages on a `RuntimeException` in the `MessageListener` or not. Default is false. |
 
-## JMS and AMQP 0-9-1 Destination Interoperability
+## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
 An interoperability feature allows you to define JMS 'amqp' destinations
 that read and/or write to non-JMS RabbitMQ resources.
@@ -337,7 +337,7 @@ available:
 | `amqpQueueName`           |    No      | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
 | `destinationName`         |    No      | Name of the JMS destination.                                                                                                                                                                                                                  |
 
-## Configuring Logging for the JMS Client
+## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
 SLF4J delegates to a logging framework, such as Apache log4j or
@@ -367,7 +367,7 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
-## Implementation Details
+## <a id="implementation-details" class="anchor" href="#implementation-details">Implementation Details</a>
 
 This section provides additional implementation details for specific
 JMS API classes in the JMS Client.
@@ -524,7 +524,7 @@ normal case, when the message is an instance of
 `com.rabbitmq.jms.client.RMQMessage`, no copying is done.
 
 
-## Further Reading
+## <a id="further-reading" class="anchor" href="#further-reading">Further Reading</a>
 
 To gain better understanding of AMQP 0-9-1 concepts and interoperability of
 the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
