@@ -30,8 +30,7 @@ limitations under the License.
         <doc:heading>Overview</doc:heading>
       <p>
         RabbitMQ comes with default built-in settings. Those can be entirely
-        sufficient in some environment (e.g. development and QA). If it runs fine,
-        then you possibly don't need any configuration at all.
+        sufficient in some environment (e.g. development and QA).
         For all other cases, as well as <a href="/production-checklist.html">production deployment tuning</a>,
         there is a way to configure many things in the broker as well as plugins.
       </p>
@@ -54,77 +53,77 @@ limitations under the License.
       <doc:section name="means-of-configuration">
         <doc:heading>Means of Configuration</doc:heading>
 
-      <p>
-          RabbitMQ provides three general ways to customise the server:
-      <table>
-        <thead>
-          <td>Mechanism</td>
-          <td>Description</td>
-        </thead>
-        <tr>
-          <td>
-              <a href="#configuration-files">Configuration File(s)</a>
-          </td>
-          <td>
-              defines server and plugin settings for
+        <p>
+            RabbitMQ provides three general ways to customise the server:
+          <table>
+            <thead>
+              <td>Mechanism</td>
+              <td>Description</td>
+            </thead>
+            <tr>
+              <td>
+                <a href="#configuration-files">Configuration File(s)</a>
+              </td>
+              <td>
+                defines server and plugin settings for
 
-              <ul>
-                <li><a href="/networking.html">TCP listeners and other networking-related settings</a></li>
-                <li><a href="/ssl.html">TLS</a></li>
-                <li><a href="/alarms.html">resource constraints (alarms)</a></li>
-                <li><a href="/access-control.html">authentication and authorization backends</a></li>
-                <li><a href="/persistence-conf.html">message store settings</a></li>
-              </ul>
+                <ul>
+                  <li><a href="/networking.html">TCP listeners and other networking-related settings</a></li>
+                  <li><a href="/ssl.html">TLS</a></li>
+                  <li><a href="/alarms.html">resource constraints (alarms)</a></li>
+                  <li><a href="/access-control.html">authentication and authorization backends</a></li>
+                  <li><a href="/persistence-conf.html">message store settings</a></li>
+                </ul>
 
-              and so on.
-          </td>
-        </tr>
-        <tr>
-          <td>
-              <a href="#customise-environment">Environment Variables</a>
-          </td>
-          <td>
-              define node name, file and directory locations, runtime flags (taken from the shell, or
-              set in the environment configuration file, <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
-          </td>
-        </tr>
+                and so on.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#customise-environment">Environment Variables</a>
+              </td>
+              <td>
+                define node name, file and directory locations, runtime flags (taken from the shell, or
+                set in the environment configuration file, <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
+              </td>
+            </tr>
 
-        <tr>
-          <td>
-              <a href="cli.html">rabbitmqctl</a>
-          </td>
-          <td>
-              When <a href="access-control.html">internal authentication/authorization backend</a> is used,
-              <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions.
-          </td>
-        </tr>
+            <tr>
+              <td>
+                <a href="cli.html">rabbitmqctl</a>
+              </td>
+              <td>
+                When <a href="access-control.html">internal authentication/authorization backend</a> is used,
+                <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions.
+              </td>
+            </tr>
 
-        <tr>
-          <td>
-              <a href="cli.html">rabbitmq-plugins</a>
-          </td>
-          <td>
-              <code>rabbitmq-plugins</code> is the tool that manages enabled plugins.
-          </td>
-        </tr>
+            <tr>
+              <td>
+                <a href="cli.html">rabbitmq-plugins</a>
+              </td>
+              <td>
+                <code>rabbitmq-plugins</code> is the tool that manages enabled plugins.
+              </td>
+            </tr>
 
-        <tr>
-          <td>
-              <a href="parameters.html">Runtime Parameters and Policies</a>
-          </td>
-          <td>
-              defines cluster-wide settings which can change at run time
-              as well as settings that are convenient to configure for groups of queues (exchanges, etc)
-              such as including optional queue arguments.
-          </td>
-        </tr>
-      </table>
-      </p>
+            <tr>
+              <td>
+                <a href="parameters.html">Runtime Parameters and Policies</a>
+              </td>
+              <td>
+                defines cluster-wide settings which can change at run time
+                as well as settings that are convenient to configure for groups of queues (exchanges, etc)
+                such as including optional queue arguments.
+              </td>
+            </tr>
+          </table>
+        </p>
 
-      <p>
-      Most settings are configured using the first two methods. This guide,
-      therefore, focuses on them.
-      </p>
+        <p>
+          Most settings are configured using the first two methods. This guide,
+          therefore, focuses on them.
+        </p>
       </doc:section>
 
 

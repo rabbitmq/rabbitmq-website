@@ -53,10 +53,22 @@ limitations under the License.
         declared). This is in contrast to exchanges and bindings,
         which can always be considered to be on all nodes. Queues
         can optionally be made <i>mirrored</i> across multiple
-        nodes. Each mirrored queue consists of one <i>master</i> and
-        one or more <i>mirrors</i>, with the oldest mirror being
-        promoted to the new master if the old master disappears for
-        any reason.
+        nodes.
+      </p>
+      <p>
+        Each mirrored queue consists of one <i>master</i> and
+        one or more <i>mirrors</i>. The master is hosted on one
+        node commonly referred as the master node. Each queue has
+        its own master node. All operations for a given queue are first applied
+        on the queue's master node and then propagated to mirrors. This
+        involves enqueueing publishes, delivering messages to consumers, tracking
+        <a href="/confirms.html">acknowledgements from consumers</a> and so on.
+      </p>
+      <p>
+        Queue mirroring implies <a href="/clustering.html">a cluster of nodes</a>.
+        It is therefore not recommended for use
+        across a WAN (though of course, clients can still connect
+        from as near and as far as needed).
       </p>
       <p>
         Messages published to the queue are replicated to all
@@ -68,11 +80,9 @@ limitations under the License.
         work).
       </p>
       <p>
-        This solution requires a RabbitMQ cluster, which means that
-        it will not cope seamlessly with network partitions within
-        the cluster and, for that reason, is not recommended for use
-        across a WAN (though of course, clients can still connect
-        from as near and as far as needed).
+        If the node that hosts queue master fails, the oldest mirror will be
+        promoted to the new master as long as it synchronised. <a href="#unsynchronised-mirrors">Unsynchronised mirrors</a>
+        can be promoted, too, depending on queue mirroring parameters.
       </p>
       <p>
         There are multiple terms commonly used to identify primary

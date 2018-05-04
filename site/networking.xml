@@ -57,12 +57,20 @@ limitations under the License.
           Except for OS kernel parameters and DNS, all RabbitMQ settings
           are <a href="/configure.html">configured via RabbitMQ configuration file(s)</a>.
         </p>
+
         <p>
           Networking is a broad topic. There are many configuration options
           that can have positive or negative effect on certain workloads.
           As such, this guide does not try to be a complete reference but rather
           offer an index of key tunable parameters and serve as a starting
           point.
+        </p>
+
+        <p>
+          In addition, this guide briefly covers a few topics closely related to networking,
+          such as connection lifecycle logging, proxies and load balancers, and so on.
+          A methodology for <a href="/troubleshooting-networking.html">troubleshooting of networking-related issues</a>
+          is covered in a separate guide.
         </p>
       </doc:subsection>
     </doc:section>
@@ -211,55 +219,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           See our <a href="/configure.html">Configuration guide</a> for detalis.
         </p>
       </doc:subsection>
-
-      <doc:subsection name="proxy-protocol">
-        <doc:heading>Proxy Protocol</doc:heading>
-    <p>
-        RabbitMQ supports the
-        <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>.
-        The protocol makes servers such as RabbitMQ aware of the actual client IP address
-        when connections go over a proxy (e.g. HAproxy or AWS ELB).
-        This makes it easier for the operator to inspect connection origins in the management UI
-        or CLI tools.
-    </p>
-    <p>
-        The protocol spec
-        dictates that either it must be applied to all connections or none of them for
-        security reasons, this feature is disabled by default and needs to be enabled
-        for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and AMQP 1.0 clients:
-
-<pre class="sourcecode ini">
-proxy_protocol = true
-</pre>
-
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbit, [
-    {proxy_protocol, true}
-  ]}
-].
-</pre>
-    </p>
-    <p>
-      When proxy protocol is enabled, clients won't be able to connect
-      to RabbitMQ directly unless they themselves support the protocol.
-      Therefore, when this option is enabled, all client connections must go through
-      a proxy that also supports the protocol, e.g. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
-      or <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS ELB</a>.
-    </p>
-    <p>
-      When proxy protocol is enabled and connections go through a compatible proxy, no action
-      or modifications are required from client libraries. The communication is entirely
-      transparent to them.
-    </p>
-    <p>
-        <a href="stomp.html#proxy-protocol">STOMP</a> and
-        <a href="mqtt.html#proxy-protocol">MQTT</a>
-        have their own settings that enable support for the proxy protocol.
-    </p>
-      </doc:subsection>
     </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc" />
@@ -345,6 +304,101 @@ name rabbit at port 25672
 </pre>
       </p>
     </doc:section>
+
+
+    <doc:section name="intermediaries">
+      <doc:heading>Intermediaries: Proxies and Load Balancers</doc:heading>
+
+      <p>
+        Proxies and load balancers are fairly commonly used to distribute client connections
+        between <a href="/clustering.html">cluster nodes</a>. Proxies can also be useful
+        to make it possible for clients to access RabbitMQ nodes without exposing them publicly.
+        Intermediaries can also have side effects on connections.
+      </p>
+
+      <doc:subsection name="proxy-effects">
+        <doc:heading>Proxy Effects</doc:heading>
+
+        <p>
+          Proxies and load balancers introduce an extra network hop (or even multiple ones)
+          between client and its target node. Intermediaries also can become a network
+          contention point: their throughput will then become a limiting factor for the entire system.
+          Network bandwidth overprovisioning and throughput monitoring for proxies and load balancers
+          are therefore very important.
+        </p>
+
+        <p>
+          Intermediaries also may terminate "idle" TCP connections
+          when there's no activity on them for a certain period of
+          time. Most of the time it is not desirable.
+        </p>
+
+        <p>
+          When <a href="/heartbeats.html">heartbeats</a> are enabled on a connection, it results in
+          periodic light network traffic. Therefore heartbeats have a side effect
+          of guarding client connections that can go idle for periods of
+          time against premature closure by proxies and load balancers.
+        </p>
+
+        <p>
+          Heartbeat timeouts from 10 to 30 seconds will produce periodic
+          network traffic often enough (roughly every 5 to 15 seconds))
+          to satisfy defaults of most proxy tools and load balancers.
+          Values that are too low will produce false positives.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="proxy-protocol">
+        <doc:heading>Proxy Protocol</doc:heading>
+        <p>
+          RabbitMQ supports the
+          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>.
+          The protocol makes servers such as RabbitMQ aware of the actual client IP address
+          when connections go over a proxy (e.g. HAproxy or AWS ELB).
+          This makes it easier for the operator to inspect connection origins in the management UI
+          or CLI tools.
+        </p>
+        <p>
+          The protocol spec
+          dictates that either it must be applied to all connections or none of them for
+          security reasons, this feature is disabled by default and needs to be enabled
+          for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and AMQP 1.0 clients:
+
+<pre class="sourcecode ini">
+proxy_protocol = true
+</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[
+  {rabbit, [
+    {proxy_protocol, true}
+  ]}
+].
+</pre>
+    </p>
+    <p>
+      When proxy protocol is enabled, clients won't be able to connect
+      to RabbitMQ directly unless they themselves support the protocol.
+      Therefore, when this option is enabled, all client connections must go through
+      a proxy that also supports the protocol, e.g. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
+      or <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS ELB</a>.
+    </p>
+    <p>
+      When proxy protocol is enabled and connections go through a compatible proxy, no action
+      or modifications are required from client libraries. The communication is entirely
+      transparent to them.
+    </p>
+    <p>
+        <a href="stomp.html#proxy-protocol">STOMP</a> and
+        <a href="mqtt.html#proxy-protocol">MQTT</a>
+        have their own settings that enable support for the proxy protocol.
+    </p>
+      </doc:subsection>
+    </doc:section>
+
+
 
     <doc:section name="tls-support">
       <doc:heading>TLS (SSL) Support</doc:heading>
@@ -1083,7 +1137,8 @@ Using the classic config format:
       <doc:heading>Troubleshooting Network Connectivity</doc:heading>
 
       <p>
-        <a href="/troubleshooting-networking.html">Troubleshooting of networking-related issues</a> is covered in a separate guide.
+        A methodology for <a href="/troubleshooting-networking.html">troubleshooting of networking-related issues</a>
+        is covered in a separate guide.
       </p>
     </doc:section>
   </body>

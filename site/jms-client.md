@@ -17,7 +17,7 @@ limitations under the License.
 
 # RabbitMQ JMS Client
 
-## Introduction
+## <a id="introduction" class="anchor" href="#introduction">Introduction</a>
 
 RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
 RabbitMQ is not a JMS provider but includes [a
@@ -29,7 +29,7 @@ existing JMS applications to connect to RabbitMQ.
 
 The plugin and the JMS client are meant to work and be used together.
 
-## Components
+## <a id="components" class="anchor" href="#components">Components</a>
 
 To fully leverage JMS with RabbitMQ, you need the following components:
 
@@ -41,7 +41,7 @@ To fully leverage JMS with RabbitMQ, you need the following components:
    messages using an expression based on SQL syntax. Message selectors
    for Queues are not currently supported.
 
-## JMS and AMQP 0-9-1
+## <a id="jms-amqp" class="anchor" href="#jms-amqp">JMS and AMQP 0-9-1</a>
 
 JMS is the standard messaging API for the JEE platform. It is
 available in commercial and open source implementations.  Each
@@ -71,7 +71,7 @@ client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 You can download the JMS 1.1 specification and API documentation from
 the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
 
-## Limitations
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 
@@ -89,9 +89,9 @@ Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 See [the JMS API compliance documentation](jms-client-compliance.html) for a
 detailed list of supported JMS APIs.
 
-## Installing and Configuring
+## <a id="installing-configuring" class="anchor" href="#installing-configuring">Installing and Configuring</a>
 
-### Enabling the Topic Selector Plug-in
+### <a id="plugin" class="anchor" href="#plugin">Enabling the Topic Selector Plug-in</a>
 
 The topic selector plugin is included with RabbitMQ. Like any RabbitMQ
 plugin, you need to enable the plugin in order to use it.
@@ -99,12 +99,12 @@ plugin, you need to enable the plugin in order to use it.
 Enable the plugin using the `rabbitmq-plugins` command:
 
 <pre class="sourcecode bash">
-$ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
+rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 </pre>
 
 You don't need to restart the broker to activate the plugin.
 
-### Enabling the JMS client in a Java container
+### <a id="java-container" class="anchor" href="#java-container">Enabling the JMS client in a Java container</a>
 
 To enable the JMS Client in a Java container (e.g. Java EE application
 server, web container), you must install the JMS client JAR files and
@@ -118,18 +118,19 @@ and its dependencies to the application classpath. The JMS resources
 can be defined programmatically or through a dependency injection
 framework like Spring.
 
-### Defining the JMS Connection Factory
+### <a id="jms-connection-factory" class="anchor" href="#jms-connection-factory">Defining the JMS Connection Factory</a>
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
 <pre class="sourcecode xml">
-    &lt;Resource   name="jms/ConnectionFactory"
-                type="javax.jms.ConnectionFactory"
-             factory="com.rabbitmq.jms.admin.RMQObjectFactory"
-            username="guest"
-            password="guest"
-         virtualHost="/"
-                host="localhost"/&gt;
+&lt;Resource name="jms/ConnectionFactory"
+            type="javax.jms.ConnectionFactory"
+         factory="com.rabbitmq.jms.admin.RMQObjectFactory"
+        username="guest"
+        password="guest"
+     virtualHost="/"
+            host="localhost"
+            port="5672"/&gt;
 </pre>
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client 1.7.0):
@@ -144,6 +145,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
          &lt;property name=&quot;password&quot; value=&quot;guest&quot;/&gt;
          &lt;property name=&quot;virtualHost&quot; value=&quot;/&quot;/&gt;
          &lt;property name=&quot;host&quot; value=&quot;localhost&quot;/&gt;
+         &lt;property name=&quot;port&quot; value="5672"/&gt;
      &lt;/environment&gt;
 &lt;/object-factory&gt;
 </pre>
@@ -151,26 +153,28 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
 Here is the equivalent Spring bean example (Java configuration):
 
 <pre class="sourcecode java">
-    @Bean
-    public ConnectionFactory jmsConnectionFactory() {
-      RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
-      connectionFactory.setUsername("guest");
-      connectionFactory.setPassword("guest");
-      connectionFactory.setVirtualHost("/");
-      connectionFactory.setHost("localhost");
-      return connectionFactory;
-    }
+@Bean
+public ConnectionFactory jmsConnectionFactory() {
+  RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+  connectionFactory.setUsername("guest");
+  connectionFactory.setPassword("guest");
+  connectionFactory.setVirtualHost("/");
+  connectionFactory.setHost("localhost");
+  connectionFactory.setPort(5672);
+  return connectionFactory;
+}
 </pre>
 
 And here is the Spring XML configuration:
 
 <pre class="sourcecode xml">
-    &lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
-      &lt;property name="username" value="guest" /&gt;
-      &lt;property name="password" value="guest" /&gt;
-      &lt;property name="virtualHost" value="/" /&gt;
-      &lt;property name="host" value="localhost" /&gt;
-    &lt;/bean&gt;
+&lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
+  &lt;property name="username" value="guest" /&gt;
+  &lt;property name="password" value="guest" /&gt;
+  &lt;property name="virtualHost" value="/" /&gt;
+  &lt;property name="host" value="localhost" /&gt;
+  &lt;property name="port" value="5672" /&gt;      
+&lt;/bean&gt;
 </pre>
 
 The following table lists all of the attributes/properties that are available.
@@ -182,16 +186,16 @@ The following table lists all of the attributes/properties that are available.
 | `factory`                           |    Yes     | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                                                                                                                             |
 | `username`                          |    No      | Name to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                              |
 | `password`                          |    No      | Password to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                          |
-| `virtualHost`                       |    No      | RabbitMQ virtual host within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
+| `virtualHost`                       |    No      | RabbitMQ [virtual host](/vhosts.html) within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
 | `host`                              |    No      | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
-| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is an SSL connection, in which case the default is "5671".                                                                                                                                                                                                                        |
+| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is a [TLS connection](/ssl.html), in which case the default is "5671".                                                                                                                                                                                                                        |
 | `ssl`                               |    No      | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
 | `uri`                               |    No      | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `username`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
 | `onMessageTimeoutMs`                |    No      | How long to wait for `MessageListener#onMessage()` to return, in milliseconds. Default is 2000 ms. |
 | `preferProducerMessageProperty`     |    No      | Whether `MessageProducer` properties (delivery mode, priority, TTL) take precedence over respective `Message` properties or not. Default is true (which is compliant to the JMS specification). |
 | `requeueOnMessageListenerException` |    No      | Whether requeuing messages on a `RuntimeException` in the `MessageListener` or not. Default is false. |
 
-## JMS and AMQP 0-9-1 Destination Interoperability
+## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
 An interoperability feature allows you to define JMS 'amqp' destinations
 that read and/or write to non-JMS RabbitMQ resources.
@@ -333,7 +337,7 @@ available:
 | `amqpQueueName`           |    No      | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
 | `destinationName`         |    No      | Name of the JMS destination.                                                                                                                                                                                                                  |
 
-## Configuring Logging for the JMS Client
+## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
 SLF4J delegates to a logging framework, such as Apache log4j or
@@ -363,7 +367,7 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
-## Implementation Details
+## <a id="implementation-details" class="anchor" href="#implementation-details">Implementation Details</a>
 
 This section provides additional implementation details for specific
 JMS API classes in the JMS Client.
@@ -520,7 +524,7 @@ normal case, when the message is an instance of
 `com.rabbitmq.jms.client.RMQMessage`, no copying is done.
 
 
-## Further Reading
+## <a id="further-reading" class="anchor" href="#further-reading">Further Reading</a>
 
 To gain better understanding of AMQP 0-9-1 concepts and interoperability of
 the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
