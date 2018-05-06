@@ -500,28 +500,59 @@ Cluster status of node rabbit@rabbit3 ...
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
-            There are some important caveats:
+            It is important to understand the process node go though when
+            they are stopped and restarted.
           </p>
-          <ul>
-            <li>
-              When the entire cluster is brought down, the last node to go down
-              must be the first node to be brought online. If this doesn't
-              happen, the nodes will wait 30 seconds for the last disc node to
-              come back online, and fail afterwards.  If the last node to go
-              offline cannot be brought back up, it can be removed from the
-              cluster using the <code>forget_cluster_node</code> command -
-              consult the <code>rabbitmqctl</code> manpage for more information.
-            </li>
-            <li>
-              If all cluster nodes stop in a simultaneous and
-              uncontrolled manner (for example with a power cut) you
-              can be left with a situation in which all nodes think
-              that some other node stopped after them. In this case
-              you can use the <code>force_boot</code> command on one
-              node to make it bootable again - consult the
-              <code>rabbitmqctl</code> manpage for more information.
-            </li>
-          </ul>
+
+          <p>
+            A stopping node picks an online cluster member (only disc
+            nodes will be considered) to sync with after restart. Upon
+            restart the node will try to contact that peer 10 times by
+            default, with 30 second response timeouts.  In case the
+            peer becomes available in that time interval, the node
+            successfully starts, syncs what it needs from the peer and
+            keeps going.
+          </p>
+
+          <p>
+            When a node has no online peers during shutdown, it will start without
+            attempts to sync with any known peers. It does not start as a standalone
+            node, however, and peers will be able to rejoin it.
+          </p>
+
+          <p>
+            When the entire cluster is brought down therefore, the last node to go down
+            must be the first node to be brought online. However, since nodes will
+            try to contact a known peer for up to 5 minutes (by default), nodes
+            can be restarted in any order in that period of time. In this case
+            they will rejoin each other one by one successfully. This window of time
+            can be adjusted using two configuration settings:
+
+<pre class="sourcecode ini">
+# wait for 60 seconds instead of 30
+mnesia_table_loading_retry_timeout = 60000
+
+# retry 15 times instead of 10
+mnesia_table_loading_retry_limit = 15</pre>
+
+            By adjusting these settings and tweaking the time window in which
+            known peer has to come back it is possible to account for cluster-wide
+            redeployment scenarios that can be longer than 5 minutes to complete.
+          </p>
+
+          <p>
+            In some cases the last node to go
+            offline cannot be brought back up. It can be removed from the
+            cluster using the <code>forget_cluster_node</code> <a href="/cli.html">rabbitmqctl</a> command.
+          </p>
+
+          <p>
+            Alternatively <code>force_boot</code> <a href="/cli.html">rabbitmqctl</a> command can be used
+            on a node to make it boot without trying to sync with any
+            peers (as if they were last to shut down). This is
+            usually only necessary if the last node to shut down or a
+            set of nodes will never be brought back online.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="breakup">
