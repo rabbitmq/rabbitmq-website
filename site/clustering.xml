@@ -35,7 +35,7 @@ limitations under the License.
             <li>What clustering means for clients</li>
             <li>How clusters are formed</li>
             <li>How nodes authenticate to each other</li>
-            <li>How nodes rejoin their cluster</li>
+            <li>Node restarts and How nodes rejoin their cluster</li>
             <li>How to remove a cluster node</li>
           </ul>
 
