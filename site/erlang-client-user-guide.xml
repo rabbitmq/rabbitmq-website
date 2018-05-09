@@ -221,7 +221,7 @@ application:ensure_started(amqp_client).
       <tr><td>virtual_host</td><td>/</td></tr>
       <tr><td>host</td><td>localhost</td></tr>
       <tr><td>port</td><td>5672</td></tr>
-      <tr><td>channel_max</td><td>2048</td></tr>
+      <tr><td>channel_max</td><td>2047</td></tr>
       <tr><td>frame_max</td><td>0</td></tr>
       <tr><td>heartbeat</td><td>0</td></tr>
       <tr><td>ssl_options</td><td>none</td></tr>
