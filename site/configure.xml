@@ -603,9 +603,10 @@ disk_free_limit.absolute = 2GB
             <td><code>channel_max</code></td>
             <td>
               Maximum permissible number of channels to
-              negotiate with clients. Setting to 0 means "unlimited".
+              negotiate with clients, not including a special channel number 0 used in the protocol.
+              Setting to 0 means "unlimited", a dangerous value since applications sometimes have channel leaks.
               Using more channels increases memory footprint of the broker.
-              <p>Default: <code>channel_max = 2048</code></p>
+              <p>Default: <code>channel_max = 2047</code></p>
             </td>
           </tr>
           <tr>
