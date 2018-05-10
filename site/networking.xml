@@ -683,7 +683,8 @@ channel_max = 16
 </pre>
 
           Note that some libraries and tools that build on top of RabbitMQ clients may implicitly require
-          a certain number of channels. Finding an optimal value is usually a matter of trial and error.
+          a certain number of channels. Values above 200 are rarely necessary.
+          Finding an optimal value is usually a matter of trial and error.
         </p>
       </doc:subsection>
 
@@ -1017,7 +1018,7 @@ net.ipv4.tcp_keepalive_probes=4
       </p>
     </doc:section>
 
-    <doc:section name="nettick">
+    <doc:section name="handshake-timeout">
       <doc:heading>Connection Handshake Timeout</doc:heading>
 
       <p>

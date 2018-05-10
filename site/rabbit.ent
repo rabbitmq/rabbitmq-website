@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -17,10 +17,10 @@ limitations under the License.
 -->
 <!ENTITY version-java-client "5.2.0">
 <!ENTITY version-dotnet-client "5.0.1">
-<!ENTITY version-server "3.7.4">
+<!ENTITY version-server "3.7.5">
 <!ENTITY version-server-series "v3.7.x">
-<!ENTITY version-erlang-client "3.7.4">
-<!ENTITY version-server-tag "v3.7.4">
+<!ENTITY version-erlang-client "3.7.5">
+<!ENTITY version-server-tag "v3.7.5">
 <!ENTITY standalone-otp-version "20.2.3">
 
 <!ENTITY serverDebMinorVersion "1">

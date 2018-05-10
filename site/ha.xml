@@ -782,8 +782,34 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           These features are also available through the management plugin.
         </p>
 
+
+        <doc:subsection name="promoting-unsynchronised-mirrors">
+          <doc:heading>Promotion of Unsynchronised Mirrors on Failure</doc:heading>
+          <p>
+            By default if a queue's master node fails, loses
+            connection to its peers or is removed from the cluster,
+            the oldest mirror will be promoted to be the new
+            master. In some circumstances this mirror can be
+            unsynchronised, which will cause data loss.
+          </p>
+          <p>
+            Starting with RabbitMQ 3.7.5, the <code>ha-promote-on-failure</code>
+            policy key controls whether unsynchronised mirror promotion is allowed. When set to
+            <code>when-synced</code>, it will make sure that unsynchronised mirrors
+            are not promoted. This option is safer in terms of data loss but will make the queue unavailable
+            until the master node recovers or rejoins. If a master node is lost or removed permanently, so is
+            its data. Then the queue may be deleted and redeclared.
+            The default value is <code>always</code>.
+          </p>
+          <p>
+            The <code>when-synced</code> value should be used with consideration.
+            Sometimes queue availability can be even more important than data safety.
+          </p>
+        </doc:subsection>
+
+
         <doc:subsection name="start-stop">
-          <doc:heading>Stopping nodes and synchronisation</doc:heading>
+          <doc:heading>Stopping Nodes and Synchronisation</doc:heading>
           <p>
             If you stop a RabbitMQ node which contains the master of a
             mirrored queue, some mirror on some other node will be
@@ -811,6 +837,7 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           </p>
         </doc:subsection>
 
+
         <doc:subsection name="cluster-shutdown">
           <doc:heading>Stopping Master Nodes with Only Unsynchronised Mirrors</doc:heading>
           <p>
@@ -827,16 +854,31 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             failover even to an unsynchronised mirror.
           </p>
           <p>
-            If you would prefer to have master nodes fail over to
-            unsynchronised mirrors in all circumstances (i.e. you would
+            If you would prefer to have queue master move to an
+            unsynchronised mirror in all circumstances (i.e. you would
             choose availability of the queue over avoiding message
             loss) then you can set the
             <code>ha-promote-on-shutdown</code> policy key to
             <code>always</code> rather than its default value of
             <code>when-synced</code>.
           </p>
+          <p>
+            If the <code>ha-promote-on-failure</code> policy key is set to
+            <code>when-synced</code>, unsynchronised mirrors will not be promoted
+            even if the <code>ha-promote-on-shutdown</code> key is set to
+            <code>always</code>.
+          </p>
+          <p>
+            Note that <code>ha-promote-on-shutdown</code> and
+            <code>ha-promote-on-failure</code> have different default behaviours.
+            <code>ha-promote-on-shutdown</code> is set to <code>when-synced</code>
+            by default, while <code>ha-promote-on-failure</code> is set to
+            <code>always</code> by default.
+          </p>
 
         </doc:subsection>
+
+
 
         <doc:subsection name="promotion-while-down">
           <doc:heading>Loss of a Master While All Mirrors are Stopped</doc:heading>
