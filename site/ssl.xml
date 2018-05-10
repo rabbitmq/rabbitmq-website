@@ -480,19 +480,44 @@ started SSL Listener on 0.0.0.0:5671</pre>
 
         <doc:subsection name="clients-root">
           <doc:heading>Trust the Client's Root CA</doc:heading>
-          <p>Currently, we're telling RabbitMQ to look at the <code>testca/cacert.pem</code> file. This contains just the public certificate of
-          our test <i>Certificate Authority</i>. We may have certificates being
-          presented by clients which have been signed by several different
-          <i>Certificate Authorities</i>, and we wish RabbitMQ to trust all of
-          them. Therefore, we can simply append these certificates to one
-          another and provide the path to this new file as the <code>cacerts</code>
-          argument to RabbitMQ:</p>
+          <p>
+            The configuration demonstrated so far instructs RabbitMQ to use the <code>testca/cacert.pem</code> for the CA (Certificate Authority) file.
+            This contains just the public certificate of the test <i>Certificate Authority</i> created. When clients (applications_ connect, they will
+            present their own certificates. Those may (and often will) have been signed by other
+            <i>Certificate Authorities</i>. In order for RabbitMQ node(s) to accept those connections and treat clusters as trusted,
+            it is necessary to make RabbitMQ trust all of them.
+          </p>
+
+          <p>
+            Every TLS implementation, including Erlang/OTP and
+            OpenSSL, has a set of certificates that are considered to
+            be trusted. On Linux and other UNIX-like systems this is
+            usually a directory administered by superusers.  CA
+            certificates in that directory will be considered trusted,
+            and so are the certificates issued by them (such as those
+            presented by clients). While it is possible to place final ("leaf") certificates
+            such as those used by servers and clients to the trusted certificate directory,
+            a much more practice is to ad CA certificates to the trusted certificate list.
+            Locations of the trusted certificate directory will <a href="https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/">vary</a>
+            <a href="http://gagravarr.org/writing/openssl-certs/others.shtml">between distributions</a>, operating systems and releases.
+          </p>
+
+          <p>
+            On Windows trusted certificates are managed using tools such as <a href="https://docs.microsoft.com/en-us/dotnet/framework/tools/certmgr-exe-certificate-manager-tool">certmgr</a>.
+          </p>
+
+          <p>
+            Another way would be to append these certificates to one
+            another and use the combined Certificate Authority file
+            argument to RabbitMQ:
+
 <pre class="sourcecode bash">
-cat testca/cacert.pem &gt;&gt; all_cacerts.pem
-cat otherca/cacert.pem &gt;&gt; all_cacerts.pem
+cat testca/cacert.pem otherca/cacert.pem &gt; all_cacerts.pem
 </pre>
 
-          <p>and so forth.</p>
+            Note that this approach is only practical with a very small number of CAs involved.
+            The above approach with trusted certificate lists is recommended.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="peer-verification">
