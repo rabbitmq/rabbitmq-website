@@ -592,7 +592,7 @@ ssl_options.versions.3 = tlsv1
 
 Using the <a href="/configure.html#advanced-config-file">advanced config</a>:
 
-<pre classic="sourcecode">
+<pre classic="sourcecode erlang">
 %% advanced config here is only used to configure TLS versions
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
 </pre>
