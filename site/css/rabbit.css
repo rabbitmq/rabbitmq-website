@@ -1028,65 +1028,6 @@ img.screenshot {
   max-width: 600px;
 }
 
-#pvtl-nyse {
-  background: #00ae9e;
-  padding: 0;
-  display: block;
-  font-size: 18px;
-  text-align: center;
-  transition: all .2s;
-  -webkit-transition: all .2s;
-  -moz-transition: all .2s;
-  -o-transition: all .2s;
-  -ms-transition: all .2s;
-  text-decoration: none;
-}
-#pvtl-nyse:hover {
-  background: #00cec2;
-}
-#pvtl-nyse .container {
-  padding: 0 20px;
-  margin: 0 auto;
-  max-width: 1140px;
-}
-#pvtl-nyse img {
-  height: 44px;
-  max-width: 44px;
-  margin: 0 10px 0 5px;
-}
-#pvtl-nyse img,
-#pvtl-nyse .text,
-#pvtl-nyse p,
-#pvtl-nyse h5,
-#pvtl-nyse .arrow {
-  display: inline-block;
-}
-#pvtl-nyse p {
-  color: white;
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  margin: 10px 0;
-  padding: 0 15px;
-  font-weight: 600;
-  font-size: 18px;
-}
-#pvtl-nyse h5 {
-  color: #00253e;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 600;
-}
-#pvtl-nyse .arrow {
-  margin: 0 0 0 8px;
-  width: 28px;
-  height: 12px;
-  background: none;
-}
-#pvtl-nyse .arrow .cls-1 {
-  stroke: #00253e;
-  fill: none;
-  stroke-miterlimit: 10;
-}
-
 
 /* Responsive */
 
@@ -1260,42 +1201,6 @@ img.screenshot {
 
   img.screenshot {
     max-width: 600px;
-  }
-
-  #pvtl-nyse {
-    padding: 10px 0;
-    overflow: hidden;
-  }
-  #pvtl-nyse p {
-    font-size: 14px;
-    border-left: none;
-    text-align: left;
-    padding: 0 0 2px;
-    line-height: 1.3em;
-    margin: 0;
-  }
-  #pvtl-nyse img {
-    margin: 5px auto;
-    float: left;
-  }
-  #pvtl-nyse .arrow {
-    display: none;
-  }
-  #pvtl-nyse .container {
-    max-width: 280px;
-    width: 100%;
-  }
-  #pvtl-nyse .text {
-    float: left;
-    text-align: left;
-    max-width: 190px;
-    padding: 0 0 0 15px;
-  }
-  #pvtl-nyse h5 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    display:block;
   }
 }
 
