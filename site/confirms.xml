@@ -100,7 +100,7 @@ limitations under the License.
 
         <p>
           When a node delivers a message to a consumer, it has to decide whether the
-          message should be considered handled (or at least received) the consumer. Since
+          message should be considered handled (or at least received) by the consumer. Since
           multiple things (client connections, consumer apps, and so on) can fail,
           this decision is a data safety concern. Messaging protocols usually provide
           a confirmation mechanism that allows consumers to acknowledge deliveries
@@ -140,7 +140,7 @@ limitations under the License.
           "fire-and-forget".  Unlike with manual acknowledgement
           model, if consumers's TCP connection or channel is closed
           before successful delivery, the message sent by the server will be lost.
-          Automatic message acknowledgement is therefore <strong>should be considered unsafe</strong>
+          Therefore, automatic message acknowledgement <strong>should be considered unsafe</strong>
           and not suitable for all workloads.
         </p>
 
