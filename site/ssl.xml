@@ -390,7 +390,7 @@ openssl ecparam -out key.pem -genkey -name prime256v1
               <code>ssl_options.keyfile</code>: server private key file path
             </li>
             <li>
-              <code>ssl_options.verify</code>: controls peer verification mode
+              <code>ssl_options.verify</code>: should <a href="#peer-verification">peer verification</a> be enabled?
             </li>
             <li>
               <code>ssl_options.fail_if_no_peer_cert</code>: when set to true, TLS connection
@@ -478,14 +478,47 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <p>Also, take note of the last line, which shows that RabbitMQ server is
           up and running and listening for ssl connections.</p>
 
-        <doc:subsection name="clients-root">
-          <doc:heading>Trust the Client's Root CA</doc:heading>
+        <doc:subsection name="peer-verification">
+          <doc:heading>TLS Peer Verification: Who Do You Say You Are?</doc:heading>
+
           <p>
-            The configuration demonstrated so far instructs RabbitMQ to use the <code>testca/cacert.pem</code> for the CA (Certificate Authority) file.
-            This contains just the public certificate of the test <i>Certificate Authority</i> created. When clients (applications_ connect, they will
-            present their own certificates. Those may (and often will) have been signed by other
-            <i>Certificate Authorities</i>. In order for RabbitMQ node(s) to accept those connections and treat clusters as trusted,
-            it is necessary to make RabbitMQ trust all of them.
+            When a TLS connection is established there are two important stages in
+            the protocol.
+          </p>
+          <p>
+            The first stage is when the peers <em class="">optionally</em> exchange
+            certificates. Each peer usually provides a <em class="">chain of certificates</em> begins with a "leaf"
+            (client or server) certificate and continues with at least one Certificate Authority (CA) certificate. That
+            CA issued (signed) the leaf CA. If there are multiple CA certificates, they usually form a chain of signatures,
+            meaning that each CA certificate was signed by the next one. The very last (or only) CA is often referred
+            to as the <em class="">root CA</em> for the chain. Root CAs can be issued by well-known Certifica Authorities
+            (commercial vendors) or any other party (<a href="https://en.wikipedia.org/wiki/Self-signed_certificate">self-signed</a>).
+          </p>
+          <p>
+            Having exchanged certificates, the peers can <em class="">optionally</em> attempt
+            to establish a chain of trust between their root
+            certificates, and the certificates presented. This acts to verify that
+            the peer is who it claims to be (provided the private key hasn't been
+            stolen). The process is known as peer verification.
+          </p>
+          <p>
+            During peer verification TLS connection client (or server) traverses
+            the chain of certificates presented by the peer
+            and if a trusted certificate is found, considers the peer trusted.
+            If no trusted certificate is found, peer verification fails.
+          </p>
+          <p>
+            The configuration demonstrated so far instructs RabbitMQ
+            to use the <code>testca/cacert.pem</code> for the CA
+            (Certificate Authority) file.  This contains just the
+            public certificate of the test <i>Certificate
+            Authority</i> created.  When clients (applications_
+            connect, they will present their own certificates. Those
+            may (and often will) have been signed by other
+            <i>Certificate Authorities</i>. In order for RabbitMQ
+            node(s) to accept those connections and treat clusters as
+            trusted, it is necessary to make RabbitMQ trust all of
+            them.
           </p>
 
           <p>
@@ -518,31 +551,37 @@ cat testca/cacert.pem otherca/cacert.pem &gt; all_cacerts.pem
             Note that this approach is only practical with a very small number of CAs involved.
             The above approach with trusted certificate lists is recommended.
           </p>
-        </doc:subsection>
 
-        <doc:subsection name="peer-verification">
-          <doc:heading>TLS Peer Verification: Who Do You Say You Are?</doc:heading>
-            <p>
-              TLS offers peer verification (validation), a way for client and server to
-              verify each other's identity based on peer's certificate information.
-              When peer verification is enabled, typically the <em class="">hostname</em> of the server
-              you're connecting to needs to match the <em class="">CN (Common Name)</em> field on
-              the server's certificate, otherwise the certificate will be
-              rejected. However, peer verification doesn't have to be limited to just CN
-              and hostname matching in general.
-            </p>
-            <p>
-              This is why the commands at the start of this guide specify
-              <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
-              hostname. If you're generating certificates on one machine, and using
-              them on the other then be sure to swap out the <code>$(hostname)</code>
-              section, and replace it with the correct hostname for your server.
-            </p>
-            <p>
-              On the server end, peer verification is primarily controlled using two <code>rabbit.ssl_options</code>
-              options: <code>verify</code> and <code>fail_if_no_peer_cert</code>. For example, the following
-              config will perform peer verification and reject clients that do not provide
-              a certificate:
+          <p>
+            The second stage is where the peers negotiate a symmetric encryption
+            key that will be used for the rest of the communication. If
+            certificates were exchanged, the public/private keys will be used in
+            the key negotiation.
+          </p>
+          <p>
+            Thus it is possible to create an encrypted TLS connection <em class="">without</em> having to
+            verify certificates. Client libraries usually support both modes of operation.
+          </p>
+
+          <p>
+            When peer verification is enabled, it is common for clients to also check whether the
+            the <em class="">hostname</em> of the server
+            they are connecting to matches one of two fields in the server certificate: the <em class="">SAN (Subject Alternative Name)</em> or <em class="">CN (Common Name)</em>. If there is no match, peer verification will also be
+            failed by the client. However, this check is not necessarily performed by all clients.
+          </p>
+          <p>
+            This is why some commands at the start of this guide specify
+            <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
+            hostname. If the certificates are generated on one machine and used
+            on other machines then the <code>$(hostname)</code>
+            value should be replaced with the correct hostname of the target server.
+          </p>
+          <p>
+            Servers also can perform peer verification on clients.
+            On the server end, peer verification is primarily controlled using two <code>rabbit.ssl_options</code>
+            options: <code>verify</code> and <code>fail_if_no_peer_cert</code>. For example, the following
+            config will perform peer verification and reject clients that do not provide
+            a certificate:
 
 <pre class="sourcecode erlang">
 [
@@ -934,20 +973,6 @@ Or, in the classic config format:
 
       <doc:section name="trust-levels">
         <doc:heading>Levels of Trust</doc:heading>
-          <p>When setting up an SSL connection there are two important stages in
-          the protocol.</p>
-          <p>The first stage is when the peers <em class="">optionally</em> exchange
-          certificates. Having exchanged certificates, the peers can <em class="">optionally</em> attempt to establish a chain of trust between their root
-          certificates, and the certificates presented. This acts to verify that
-          the peer is who it claims to be (provided the private key hasn't been
-          stolen!).</p>
-          <p>The second stage is where the peers negotiate a symmetric encryption
-          key that will be used for the rest of the communication. If
-          certificates were exchanged, the public/private keys will be used in
-          the key negotiation.</p>
-          <p>Thus you can create an encrypted SSL connection <em class="">without</em> having to
-          verify certificates. The Java client supports both modes of operation.</p>
-
 
 
         <doc:subsection name="managers-and-stores">
