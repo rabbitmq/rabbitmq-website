@@ -39,13 +39,22 @@ limitations under the License.
       <doc:heading>Using Policies</doc:heading>
 
       <p>
-        The recommended way to use priority queues is via <a href="/parameters.html">policies</a>. Policies
+        The most convenient way to define priorities for a queue is via <a href="/parameters.html">policies</a>. Policies
         match a set of existing queues and define (add) <a href="/queues.html#optional-arguments">optional arguments</a>
         for them.
       </p>
 
       <p>
+        Here's an example that will make all queues whose name begin with "priority." to have
+        up to 5 priorities:
 
+<pre class="sourcecode bash">rabbitmqctl set_policy priority-queues "^priority\." '{"max-priority": 5}' --apply-to queueus</pre>
+      </p>
+
+      <p>
+        On Windows argument escaping would be a bit different:
+
+<pre class="sourcecode powershell">rabbitmqctl.bat set_policy priority-queues "^priority\." "{""max-priority"": 5}" --apply-to queues</pre>
       </p>
     </doc:section>
 
