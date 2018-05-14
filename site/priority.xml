@@ -48,7 +48,7 @@ limitations under the License.
         Here's an example that will make all queues whose name begin with "priority." to have
         up to 5 priorities:
 
-<pre class="sourcecode bash">rabbitmqctl set_policy priority-queues "^priority\." '{"max-priority": 5}' --apply-to queueus</pre>
+<pre class="sourcecode bash">rabbitmqctl set_policy priority-queues "^priority\." '{"max-priority": 5}' --apply-to queues</pre>
       </p>
 
       <p>

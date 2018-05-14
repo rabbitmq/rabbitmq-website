@@ -75,7 +75,7 @@ same as those in the declaration a channel-level exception
 with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 
 
-### Optional Arguments
+### <a id="optional-arguments"></a>Optional Arguments
 
 Optional queue arguments, also know as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) that can
