@@ -31,7 +31,7 @@ limitations under the License.
       <p>
         RabbitMQ has priority queue implementation in the core as of version <code>3.5.0</code>.
         Any queue can be turned into a priority one using <a href="/queues.html#optional-arguments">optional arguments</a>.
-        The implementation supports a limited number of priorities.
+        The implementation supports a limited number of priorities: 255. Values between 1 and 10 are recommended.
       </p>
     </doc:section>
 
