@@ -30,7 +30,7 @@ however, much of the content is applicable to other supported protocols.
 Some protocols (e.g. STOMP and MQTT) are based around the idea of topics.
 For them, queues are an implementation detail.
 
-## Names
+## <a id="names" class="anchor" href="#names">Names</a>
 
 Queues have names so that applications can reference them.
 
@@ -42,7 +42,7 @@ use by the broker. Attempts to declare a queue with a name that
 violates this rule will result in a channel-level exception
 with reply code 403 (<code>ACCESS_REFUSED</code>).
 
-### Server-named Queues
+### <a id="server-named-queues" class="anchor" href="#server-named-queues">Server-named Queues</a>
 
 In AMQP 0-9-1, the broker can generate a unique queue name on behalf of
 an app. To use this feature, pass an empty string as the queue name
@@ -52,7 +52,7 @@ name is expected. This works because the channel remembers the last
 server-generated queue name.
 
 
-## Properties
+## <a id="properties" class="anchor" href="#properties">Properties</a>
 
 Queues have properties that define how they behave. There is a set
 of mandatory properties and a map of optional ones:
@@ -64,7 +64,7 @@ of mandatory properties and a map of optional ones:
  * Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)
 
 
-### Declaration and Property Equivalence
+### <a id="property-equivalence" class="anchor" href="#property-equivalence">Declaration and Property Equivalence</a>
 
 Before a queue can be used it has to be declared. Declaring
 a queue will cause it to be created if it does not already
@@ -75,7 +75,7 @@ same as those in the declaration a channel-level exception
 with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 
 
-### <a id="optional-arguments"></a>Optional Arguments
+### <a id="optional-arguments" class="anchor" href="#optional-arguments">Optional Arguments</a>
 
 Optional queue arguments, also know as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) that can
@@ -104,7 +104,7 @@ to client library but is usually an argument next to the <code>durable</code>,
 declares queues.
 
 
-## Message Ordering
+## <a id="server-named-queues" class="anchor" href="#server-named-queues">Message Ordering</a>
 
 Queues in RabbitMQ are ordered collections of messages. Messages
 are enqueued and dequeued (consumed) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)),
@@ -112,7 +112,7 @@ although [priority queues](/priority.html), [sharded queues](https://github.com/
 may affect this.
 
 
-## Durability
+## <a id="durability" class="anchor" href="#durability">Durability</a>
 
 Durable queues are persisted to disk and thus survive broker
 restarts. Queues that are not durable are called transient.
@@ -125,7 +125,7 @@ during broker startup, however, only <em>persistent</em>
 messages will be recovered.
 
 
-## Temporary Queues
+## <a id="temporary-queues" class="anchor" href="#temporary-queues">Temporary Queues</a>
 
 With some workloads queues are supposed to be short lived. While clients can
 delete the queues they declare before disconnection, this is not always convenient.
@@ -147,7 +147,7 @@ using the <code>basic.get</code> method (the "pull" API), it wont' be automatica
 deleted. For such cases, use exclusive queues or queue TTL.
 
 
-## Exclusive Queues
+## <a id="exclusive-queues" class="anchor" href="#exclusive-queues">Exclusive Queues</a>
 
 An exclusive queue can only be used (consumed from, purged, deleted, etc)
 by its declaring connection. An attempt to use an exclusive queue from
@@ -162,14 +162,14 @@ are only suitable for client-specific transient state.
 It is common to make exclusive queues server-named.
 
 
-## Mirrored and Distributed Queues
+## <a id="distributed" class="anchor" href="#distributed">Mirrored and Distributed Queues</a>
 
 Queues can be [replicated across cluster nodes](/ha.html) and [federated](http://www.rabbitmq.com/federated-queues.html)
 across loosely coupled nodes or clusters. Note that mirroring and federation
 are orthogonal features and should not be considered direct alternatives.
 
 
-## Time-to-Live and Length Limit
+## <a id="ttl-and-limits" class="anchor" href="#ttl-and-limits">Time-to-Live and Length Limit</a>
 
 Queues can have their length [limited](/maxlength.html).
 Queues and messages can have a [TTL](/ttl.html).
@@ -179,7 +179,7 @@ how many resources (RAM, disk space) a queue can use at most, e.g.
 when consumers go offline or their throughput falls behind publishers.
 
 
-## In Memory and Durable Storage
+## <a id="storage" class="anchor" href="#storage">In Memory and Durable Storage</a>
 
 Queues keep messages in RAM and/or on disk. In some protocols (e.g. AMQP 0-9-1)
 this is in part controlled by the client. In AMQP 0-9-1, this is done
@@ -201,7 +201,7 @@ See [Memory Usage](/memory-use.html), [Alarms](/alarms.html)
 guide for details.
 
 
-## Priorities
+## <a id="priorities" class="anchor" href="#priorites">Priorities</a>
 
 Queues can have 0 or more [priorities](/priority.html). This feature is opt-in:
 only queues that have maximum number of priorities configured via an optional argument
@@ -214,7 +214,7 @@ If priority queues are desired, we recommend using between 1 and 10.
 Currently using more priorities will consume more resources (Erlang processes).
 
 
-## CPU Utilisation and Parallelism Considerations
+## <a id="runtime-characteristics" class="anchor" href="#runtime-characteristics">CPU Utilisation and Parallelism Considerations</a>
 
 Currently a single queue (master or mirror) is limited to a single CPU core
 on its hot code path. This design therefore assumes that most systems
@@ -227,7 +227,7 @@ In case when it is desirable to trade off message ordering for parallelism
 provides an opinionated way of doing so transparently to the clients.
 
 
-## Metrics and Monitoring
+## <a id="metrics" class="anchor" href="#metrics">Metrics and Monitoring</a>
 
 RabbitMQ collects multiple metrics about queues. Most of them are available
 via [RabbitMQ HTTP API and management UI](/management.html), which is designed for monitoring.
@@ -244,7 +244,7 @@ individual queue pages in the management UI.
 
 
 
-## Consumers and Acknowledgements
+## <a id="consumer-acknowledgement" class="anchor" href="#consumer-acknowledgement">Consumers and Acknowledgements</a>
 
 Messages can be consumed by registering a consumer (subscription),
 which means RabbitMQ will push messages to the client, or fetched
@@ -259,7 +259,7 @@ rate and uses less network bandwidth. However, it offers the least number
 of guarantees when it comes to [failures](/reliability.html). As a rule of
 thumb, consider using manual acknowledgement mode first.
 
-### Prefetch and Consumer Overload
+### <a id="prefetch-consumer-overload" class="anchor" href="#prefetch-consumer-overload">Prefetch and Consumer Overload</a>
 
 Automatic acknowledgement mode can also overwhelm
 consumers which cannot process messages as quickly as they are delivered.
@@ -276,18 +276,18 @@ High number of unacknowledged messages will lead to higher memory usage by
 the broker.
 
 
-### Message States
+### <a id="message-states" class="anchor" href="#message-states">Message States</a>
 
 Enqueued messages therefore can be in one of two states:
 
  * Ready for delivery
- * Delivered by not yet [acknowledged by consumer](/confirms.html)
+ * Delivered but not yet [acknowledged by consumer](/confirms.html)
 
 Message breakdown by state can be found in the management UI.
 
 
 
-## Determining Queue Length
+## <a id="queue-length" class="anchor" href="#queue-length">Determining Queue Length</a>
 
 It is possible to determine queue length in a number of ways:
 

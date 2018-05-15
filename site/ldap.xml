@@ -221,13 +221,13 @@ auth_ldap.timeout   = 15000
         <p>
           LDAP server connections are pooled to avoid excessive connection churn and LDAP server
           load. By default the pool has up to 64 connections. This can be controlled using the
-          <code>auth_ldap.pool_size</code> setting:
+          <code>auth_ldap.connection_pool_size</code> setting:
 
 <pre class="sourcecode ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
-auth_ldap.pool_size = 256
+auth_ldap.connection_pool_size = 256
 </pre>
 
           Pooled connections without activity are closed after a period of time
@@ -238,7 +238,7 @@ auth_ldap.pool_size = 256
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
-auth_ldap.pool_size    = 256
+auth_ldap.connection_pool_size = 256
 # 300 seconds in milliseconds
 auth_ldap.idle_timeout = 300000
 </pre>
