@@ -228,8 +228,8 @@ limitations under the License.
 
         <p>
           As a rule of thumb, most recent stable (GA) versions of Erlang/OTP
-          19.3.x or 20.1.x are recommended for running RabbitMQ. Most recent versions
-          can be obtained from
+          19.3.x or 20.3.x are recommended for running RabbitMQ. Most recent versions
+          can be obtained from:
 
           <ul class="plain">
             <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a></li>
