@@ -281,7 +281,7 @@ the broker.
 Enqueued messages therefore can be in one of two states:
 
  * Ready for delivery
- * Delivered by not yet [acknowledged by consumer](/confirms.html)
+ * Delivered but not yet [acknowledged by consumer](/confirms.html)
 
 Message breakdown by state can be found in the management UI.
 
