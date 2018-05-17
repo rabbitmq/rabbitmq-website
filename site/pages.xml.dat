@@ -80,6 +80,7 @@ limitations under the License.
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>
+         <x:page url="/logging.html" text="Logging"/>
          <x:page url="/persistence-conf.html" text="Persistence"/>
          <x:page url="/networking.html" text="Networking"/>
          <x:page url="/parameters.html" text="Parameters and Policies"/>
