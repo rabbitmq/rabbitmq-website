@@ -87,6 +87,25 @@ limitations under the License.
     </doc:section>
 
 
+    <doc:section name="inter-node-authentication">
+      <doc:heading>Inter-node Authentication</doc:heading>
+
+      <p>
+        RabbitMQ nodes authenticate to each other using a <a href="/clustering.html#erlang-cookie">shared secret</a>
+        stored in a file. It is important that the value is generated in a reasonably secure way
+        (e.g. not computed from an easy to guess value). This is usually done using deployment
+        automation tools at the time of initial deployment. Those tools can use default or
+        placeholder values: don't rely on them.
+      </p>
+
+      <p>
+        CLI tools use the same authentication mechanism. It is recommended that
+        <a href="/clustering.html#selinux-ports">inter-node and CLI communication port</a> access is limited to the hosts that run
+        RabbitMQ nodes or CLI tools.
+      </p>
+    </doc:section>
+
+
     <doc:section name="resource-limits">
       <doc:heading>Resource Limits and Monitoring</doc:heading>
 
@@ -233,7 +252,7 @@ limitations under the License.
           It is highly recommended that logs of all RabbitMQ nodes and applications (when possible) are collected
           and aggregated. Logs can be crucially important in investigating unusual system behaviour.
         </p>
-      </doc:subsection>      
+      </doc:subsection>
     </doc:section>
 
 
