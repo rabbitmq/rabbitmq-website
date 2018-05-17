@@ -177,7 +177,7 @@ rfc3164 protocol.
 
 Please make sure you have UDP input configured in your syslog service.
 
-You can use UDP, TCP or TLS transports with rfc3164 and rfc5424 protocols.
+You can use UDP or TCP transports with rfc3164 and rfc5424 protocols. TLS is only compatible with the rfc5424 protocol.
 
 To connect using TCP and rfc5424:
 
@@ -200,6 +200,7 @@ To connect using TLS, you should configure ssl options:
 <pre class="sourcecode ini">
 log.syslog = true
 log.syslog.transport = tls
+log.syslog.protocol = rfc5424
 
 log.syslog.ssl_options.cacertfile = /path/to/tls/cacert.pem
 log.syslog.ssl_options.certfile = /path/to/tls/cert.pem
@@ -217,10 +218,7 @@ In the classic config format:
 ].
 </pre>
 
-TLS transport is only supported in rfc5424 ptotocol.
-You cannot use rfc3164 with TLS.
-
-To configure different IP and port to connect to:
+To configure a different IP and port to connect to:
 
 <pre class="sourcecode ini">
 log.syslog = true
