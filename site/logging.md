@@ -179,7 +179,7 @@ Please make sure you have UDP input configured in your syslog service.
 
 You can use UDP, TCP or TLS transports with rfc3164 and rfc5424 protocols.
 
-To connect using TLS and rfc5424:
+To connect using TCP and rfc5424:
 
 <pre class="sourcecode ini">
 log.syslog = true
