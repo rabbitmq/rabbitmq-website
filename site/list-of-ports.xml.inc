@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -22,7 +22,9 @@ limitations under the License.
   <li>
     25672: used for inter-node and CLI tools communication (Erlang distribution server port)
     and is allocated from a dynamic range (limited to a single port by default,
-    computed as AMQP port + 20000). See <a href="/networking.html">networking guide</a> for details.
+    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
+    the cluster uses <a href="/federation.html">federation</a> or CLI tools are used on machines outside the subnet),
+    these ports should not be publicly exposed. See <a href="/networking.html">networking guide</a> for details.
   </li>
   <li>
     35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
