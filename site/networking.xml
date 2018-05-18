@@ -330,7 +330,9 @@ name rabbit at port 25672
         <p>
           Intermediaries also may terminate "idle" TCP connections
           when there's no activity on them for a certain period of
-          time. Most of the time it is not desirable.
+          time. Most of the time it is not desirable. Such events will result in
+          <a href="/logging.html#connection-lifecycle-events">abrupt connection closure log messages</a>
+          on the server end and I/O exceptions on the client end.
         </p>
 
         <p>
