@@ -34,6 +34,14 @@ limitations under the License.
         important to assess your configuration before going into
         production. This guide aims to help with that.
       </p>
+
+      <p>
+        Production systems have concerns that go beyond configuration:
+        a certain degree of system visibility (monitoring, metrics)
+        and security (e.g. firewalls, credentials and shared secret
+        generation) are also important. This guide provides a brief
+        overview of such topics as well.
+      </p>
     </doc:section>
 
 
