@@ -278,6 +278,23 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+      <doc:subsection name="security-firewall-rules">
+        <doc:heading>Firewall Configuration</doc:heading>
+        <p>
+          <a href="/networking.html#selinux-ports">Ports used by RabbitMQ</a> can be broadly put into
+          one of two categories:
+
+          <ul>
+            <li>Ports used by client libraries (AMQP 0-9-1, AMQP 1.0, MQTT, STOMP, HTTP API)</li>
+            <li>All other ports (inter node communication, CLI tools and so on)</li>
+          </ul>
+
+          Access to ports from the latter category generally should be restricted to hosts running RabbitMQ nodes
+          or CLI tools. Ports in the former category should be accessible to hosts that run applications,
+          which in some cases can mean public networks, for example, behind a load balancer.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="security-considerations-tls">
         <doc:heading>TLS</doc:heading>
         <p>
@@ -291,7 +308,7 @@ limitations under the License.
         <p>
           While RabbitMQ tries to offer a secure TLS configuration by
           default (e.g. SSLv3 is disabled), we recommend evaluating
-          TLS configuration (versions< cipher suites and so on) using tools such as <a href="https://testssl.sh/">testssl.sh</a>.
+          TLS configuration (versions cipher suites and so on) using tools such as <a href="https://testssl.sh/">testssl.sh</a>.
           Please refer to the <a href="/ssl.html">TLS guide</a> to learn more.
         </p>
 
