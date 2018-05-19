@@ -87,31 +87,6 @@ limitations under the License.
     </doc:section>
 
 
-    <doc:section name="inter-node-authentication">
-      <doc:heading>Inter-node and CLI Tool Authentication</doc:heading>
-
-      <p>
-        RabbitMQ nodes authenticate to each other using a <a href="/clustering.html#erlang-cookie">shared secret</a>
-        stored in a file. It is important that the value is generated in a reasonably secure way
-        (e.g. not computed from an easy to guess value). This is usually done using deployment
-        automation tools at the time of initial deployment. Those tools can use default or
-        placeholder values: don't rely on them. Allowing the runtome to generate a cookie file
-        on one node and copying it to all other nodes is also a poor practice: it makes the generated value
-        more predictable since the generation algorithm is known.
-      </p>
-
-      <p>
-        CLI tools use the same authentication mechanism. It is recommended that
-        <a href="/clustering.html#selinux-ports">inter-node and CLI communication port</a>
-        access is limited to the hosts that run RabbitMQ nodes or CLI tools.
-      </p>
-
-      <p>
-        <a href="/clustering-ssl.html">Securing inter-node communication with TLS</a> is recommended.
-        It implies that CLI tools are also configured to use TLS.
-      </p>
-    </doc:section>
-
 
     <doc:section name="resource-limits">
       <doc:heading>Resource Limits and Monitoring</doc:heading>
@@ -273,11 +248,33 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="security-considerations-erlang-cookie">
-        <doc:heading>Erlang Cookie</doc:heading>
+      <doc:subsection name="inter-node-authentication">
+        <doc:heading>Inter-node and CLI Tool Authentication</doc:heading>
+
         <p>
-          On Linux and BSD systems, it is necessary to restrict <a href="/clustering.html">Erlang cookie</a>
-          access only to the users that will run RabbitMQ and tools such as <code>rabbitmqctl</code>.
+          RabbitMQ nodes authenticate to each other using a <a href="/clustering.html#erlang-cookie">shared secret</a>
+          stored in a file. On Linux and other UNIX-like systems, it is necessary to restrict cookie file
+          access only to the OS users that will run RabbitMQ and <a href="/cli.html">CLI tools</a>.
+        </p>
+
+        <p>
+          It is important that the value is generated in a reasonably secure way
+          (e.g. not computed from an easy to guess value). This is usually done using deployment
+          automation tools at the time of initial deployment. Those tools can use default or
+          placeholder values: don't rely on them. Allowing the runtome to generate a cookie file
+          on one node and copying it to all other nodes is also a poor practice: it makes the generated value
+          more predictable since the generation algorithm is known.
+        </p>
+
+        <p>
+          CLI tools use the same authentication mechanism. It is recommended that
+          <a href="/clustering.html#selinux-ports">inter-node and CLI communication port</a>
+          access is limited to the hosts that run RabbitMQ nodes or CLI tools.
+        </p>
+
+        <p>
+          <a href="/clustering-ssl.html">Securing inter-node communication with TLS</a> is recommended.
+          It implies that CLI tools are also configured to use TLS.
         </p>
       </doc:subsection>
 
@@ -294,8 +291,8 @@ limitations under the License.
         <p>
           While RabbitMQ tries to offer a secure TLS configuration by
           default (e.g. SSLv3 is disabled), we recommend evaluating
-          what TLS versions and cipher suites are enabled.  Please see
-          our <a href="/ssl.html">TLS guide</a> for more information.
+          TLS configuration (versions< cipher suites and so on) using tools such as <a href="https://testssl.sh/">testssl.sh</a>.
+          Please refer to the <a href="/ssl.html">TLS guide</a> to learn more.
         </p>
 
         <p>
