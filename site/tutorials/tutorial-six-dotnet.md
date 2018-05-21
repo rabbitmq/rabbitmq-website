@@ -80,10 +80,8 @@ receive a response we need to send a 'callback' queue address with the
 request:
 
 <pre class="sourcecode csharp">
-var corrId = Guid.NewGuid().ToString();
 var props = channel.CreateBasicProperties();
 props.ReplyTo = replyQueueName;
-props.CorrelationId = corrId;
 
 var messageBytes = Encoding.UTF8.GetBytes(message);
 channel.BasicPublish(exchange: "",
