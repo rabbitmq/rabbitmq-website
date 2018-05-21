@@ -269,7 +269,7 @@ limitations under the License.
           It is important that the value is generated in a reasonably secure way
           (e.g. not computed from an easy to guess value). This is usually done using deployment
           automation tools at the time of initial deployment. Those tools can use default or
-          placeholder values: don't rely on them. Allowing the runtome to generate a cookie file
+          placeholder values: don't rely on them. Allowing the runtime to generate a cookie file
           on one node and copying it to all other nodes is also a poor practice: it makes the generated value
           more predictable since the generation algorithm is known.
         </p>
