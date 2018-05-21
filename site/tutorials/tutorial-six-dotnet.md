@@ -38,7 +38,7 @@ service that returns Fibonacci numbers.
 ### Client interface
 
 To illustrate how an RPC service could be used we're going to
-create a simple client class. It's going to expose a method named `call`
+create a simple client class. It's going to expose a method named `Call`
 which sends an RPC request and blocks until the answer is received:
 
 <pre class="sourcecode csharp">
@@ -100,14 +100,14 @@ channel.BasicPublish(exchange: "",
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
-> * `deliveryMode`: Marks a message as persistent (with a value of `2`)
+> * `DeliveryMode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
 >    from [the second tutorial](tutorial-two-dotnet.html).
-> * `contentType`: Used to describe the mime-type of the encoding.
+> * `ContentType`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
-> * `replyTo`: Commonly used to name a callback queue.
-> * `correlationId`: Useful to correlate RPC responses with requests.
+> * `ReplyTo`: Commonly used to name a callback queue.
+> * `CorrelationId`: Useful to correlate RPC responses with requests.
 
 
 ### Correlation Id
@@ -118,11 +118,11 @@ a better way - let's create a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
-`correlationId` property is used. We're going to set it to a unique
+`CorrelationId` property is used. We're going to set it to a unique
 value for every request. Later, when we receive a message in the
 callback queue we'll look at this property, and based on that we'll be
 able to match a response with a request. If we see an unknown
-`correlationId` value, we may safely discard the message - it
+`CorrelationId` value, we may safely discard the message - it
 doesn't belong to our requests.
 
 You may ask, why should we ignore unknown messages in the callback
@@ -199,14 +199,14 @@ Our RPC will work like this:
   * When the Client starts up, it creates an anonymous exclusive
     callback queue.
   * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to the callback queue and `correlationId`,
+    `ReplyTo`, which is set to the callback queue and `CorrelationId`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
-    result back to the Client, using the queue from the `replyTo` field.
+    result back to the Client, using the queue from the `ReplyTo` property.
   * The client waits for data on the callback queue. When a message
-    appears, it checks the `correlationId` property. If it matches
+    appears, it checks the `CorrelationId` property. If it matches
     the value from the request it returns the response to the
     application.
 
@@ -311,8 +311,8 @@ The server code is rather straightforward:
     the queue.
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
-    `prefetchCount` setting in channel.basicQos.
-  * We use `basicConsume` to access the queue. Then we register a delivery handler in which
+    `prefetchCount` setting in `channel.BasicQos`.
+  * We use `BasicConsume` to access the queue. Then we register a delivery handler in which
     we do the work and send the response back.
 
 
@@ -404,16 +404,16 @@ The client code is slightly more involved:
     exclusive 'callback' queue for replies.
   * We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * Our `call` method makes the actual RPC request.
-  * Here, we first generate a unique `correlationId`
+  * Our `Call` method makes the actual RPC request.
+  * Here, we first generate a unique `CorrelationId`
     number and save it - the while loop will
     use this value to catch the appropriate response.
   * Next, we publish the request message, with two properties:
-    `replyTo` and `correlationId`.
+    `ReplyTo` and `CorrelationId`.
   * At this point we can sit back and wait until the proper
     response arrives.
   * The while loop is doing a very simple job,
-    for every response message it checks if the `correlationId`
+    for every response message it checks if the `CorrelationId`
     is the one we're looking for. If so, it saves the response.
   * Finally we return the response back to the user.
 
@@ -457,7 +457,7 @@ service, but it has some important advantages:
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `RPCServer` in a new console.
  * On the client side, the RPC requires sending and
-   receiving only one message. No synchronous calls like `queueDeclare`
+   receiving only one message. No synchronous calls like `QueueDeclare`
    are required. As a result the RPC client needs only one network
    round trip for a single RPC request.
 

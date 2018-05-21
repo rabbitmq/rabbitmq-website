@@ -326,7 +326,7 @@ channel.QueueDeclare(queue: "task_queue",
                      arguments: null);
 </pre>
 
-This `queueDeclare` change needs to be applied to both the producer
+This `QueueDeclare` change needs to be applied to both the producer
 and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
@@ -390,7 +390,7 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to change this behavior we can use the `basicQos` method with the
+In order to change this behavior we can use the `BasicQos` method with the
 `prefetchCount` = `1` setting. This tells RabbitMQ not to give more than
 one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the

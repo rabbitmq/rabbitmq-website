@@ -166,7 +166,7 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the .NET client, when we supply no parameters to `queueDeclare()`
+In the .NET client, when we supply no parameters to `QueueDeclare()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
 <pre class="sourcecode csharp">
