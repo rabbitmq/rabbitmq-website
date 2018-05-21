@@ -39,7 +39,7 @@ limitations under the License.
         Production systems have concerns that go beyond configuration:
         a certain degree of system visibility (monitoring, metrics)
         and security (e.g. firewalls, credentials and shared secret
-        generation) are also important. This guide provides a brief
+        generation) are essential. This guide provides a brief
         overview of such topics as well.
       </p>
     </doc:section>
