@@ -98,9 +98,10 @@ channel.BasicPublish(exchange: "",
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
-> * `DeliveryMode`: Marks a message as persistent (with a value of `2`)
->    or transient (any other value). This is similar to the `Persistent` 
->    property from [the second tutorial](tutorial-two-dotnet.html).
+> * `Persistent`: : Marks a message as persistent (with a value of `2`)
+>    or transient (any other value). Take a look at [the second tutorial](tutorial-two-dotnet.html).
+> * `DeliveryMode`: those familiar with the protocol may choose to use this
+>    property instead of `Persistent`. They control the same thing.
 > * `ContentType`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
