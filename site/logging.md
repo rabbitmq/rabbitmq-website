@@ -4,17 +4,17 @@
 
 This guide describes various aspects of logging in RabbitMQ:
 
- * Log file location
- * Log levels
- * Log categories
- * Supported log outputs
- * Advanced configuration topics (custom log handlers, sinks, etc)
+ * <a href="#log-file-location">Log file location</a>
+ * <a href="#log-levels">Log levels</a>
+ * <a href="#log-message-categories">Log categories</a>
+ * <a href="#log-outputs">Supported log outputs</a>
+ * <a href="#advanced-configuration">Advanced configuration topics (custom log handlers, sinks, etc)</a>
 
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
 under the hood. The library supports logging to a file, console or a number of other sources
 via 3rd party plugins and provides a fair amount of flexibility when it comes to configuration.
 
-## Log File Location
+## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
 Prior to 3.7.0 there were two log files: for regular messages and unhandled
 exceptions. As of 3.7.0 a single log file is used for all messages
@@ -42,7 +42,7 @@ See the [Configuration guide](/configure.html) for a general overview
 of how RabbitMQ nodes are configured.
 
 
-### Log Outputs
+### <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
 Default RabbitMQ logging configuration will direct log messages to a log file. Standard output is
 another option available out of the box.
@@ -55,7 +55,7 @@ information while the file output will log only error and higher
 severity messages.
 
 
-### Logging to a File
+### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
 
 
  * `log.file`: log file path or `false` to disable the file output. Default value is taken from an [environment variable](relocate.html)
@@ -110,7 +110,7 @@ Log file rotation via Lager is disabled by default. [Debian](/install-debian.htm
 log rotation via `logrotate` after package installation.
 
 
-### Logging to Console (Standard Output)
+### <a id="logging-to-console" class="anchor" href="#logging-to-console">Logging to Console (Standard Output)</a>
 
 Here are the main settings that control console (standard output) logging:
 
@@ -154,8 +154,117 @@ default. To disable the file output, set `log.file` to `false`.
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
 
+### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to Syslog</a>
 
-## <a id="log-message-categories" /> Log Message Categories
+RabbitMQ logs can be forwarded to a Syslog server via TCP or UDP. UDP is used by default
+and **requires Syslog service configuration**. TLS is also supported.
+
+Syslog output has to be explicitly configured:
+
+<pre class="sourcecode ini">
+log.syslog = true
+</pre>
+
+Or, in the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [
+    {syslog, [{enabled, true}]}]}]
+}].
+</pre>
+
+#### Syslog Endpoint Configuration
+
+By default the Syslog logger will send log messages to UDP port 514 using
+the [RFC 3164](https://www.ietf.org/rfc/rfc3164.txt) protocol. [RFC 5424](https://tools.ietf.org/html/rfc5424)
+protocol also can be used.
+
+In order to use UDP the **Syslog service must have UDP input configured**.
+
+UDP and TCP transports can be used with both RFC 3164 and RFC 5424 protocols.
+TLS support requires the RFC 5424 protocol.
+
+The following example uses TCP and the RFC 5424 protocol:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.transport = tcp
+log.syslog.protocol = rfc5424
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{protocol, {tcp, rfc5424}}]}
+].
+</pre>
+
+To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.transport = tls
+log.syslog.protocol = rfc5424
+
+log.syslog.ssl_options.cacertfile = /path/to/tls/cacert.pem
+log.syslog.ssl_options.certfile = /path/to/tls/cert.pem
+log.syslog.ssl_options.keyfile = /path/to/tls/key.pem
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{protocol, {tls, rfc5424,
+                        [{cacertfile,"/path/to/tls/cacert.pem"},
+                         {certfile,"/path/to/tls/cert.pem"},
+                         {keyfile,"/path/to/tls/key.pem"}]}}]}
+].
+</pre>
+
+Syslog service IP address (note: hostnames are not supported) and port can be customised:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.ip = 10.10.10.10
+log.syslog.port = 1514
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{dest_host, {10, 10, 10, 10}},
+           {dest_port, 1514}]}
+].
+</pre>
+
+Syslog metadata identity and facility values also can be configured.
+By default identity will be set to the name part of the node name (for example `rabbitmq` for `rabbitmq@hostname`)
+and facility will be set to `daemon`.
+
+To set identity and facility of log messages:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.identity = my_rabbitmq
+log.syslog.facility = user
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{app_name, "my_rabbitmq"},
+           {facility, user}]}
+].
+</pre>
+
+Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
+
+
+## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
 
 RabbitMQ has several categories of messages, which can be logged with different
 levels or to different files.
@@ -244,7 +353,7 @@ Using the [classic configuration format](/configure.html):
 }].
 </pre>
 
-### Log Levels
+### <a id="log-levels" class="anchor" href="#log-levels">Log Levels</a>
 
 Log levels is another way to filter and tune logging. Each log level has a severity associated with it.
 More critical messages have lower severity number, while `debug` has the highest number.
@@ -286,7 +395,7 @@ debug messages will not be logged.
 Although, if an output is configured to log `debug` messages,
 it will get them from all categories, unless a category level is configured.
 
-### Enabling Debug Logging
+### <a id="enabling-debug-logging" class="anchor" href="#enabling-debug-logging">Enabling Debug Logging</a>
 
 To enable debug messages, you should have a debug output.
 
@@ -402,7 +511,6 @@ and didn't have a chance to close its connection properly) or indicate a genuine
 a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
 
 
-
 ## Upgrading From pre-3.7 Versions
 
 RabbitMQ versions prior to 3.7.0 had a different logging subsystem.
@@ -428,7 +536,7 @@ use categories. You would probably wish to switch to the new config format.
 because it's not clear which should take precedence.
 
 
-## Advanced Configuration
+## <a id="advanced-configuration" class="anchor" href="#advanced-configuration">Advanced Configuration</a>
 
 This section describes the nitty gritty details of the logging
 subsystem. Most RabbitMQ installations won't require deep knowledge of
