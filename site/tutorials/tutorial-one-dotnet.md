@@ -234,7 +234,7 @@ using System.Text;
 
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
-Note this matches up with the queue that `send` publishes to.
+Note this matches up with the queue that `Send` publishes to.
 
 <pre class="sourcecode csharp">
 class Receive
