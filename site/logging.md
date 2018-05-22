@@ -154,17 +154,18 @@ default. To disable the file output, set `log.file` to `false`.
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
 
-### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to syslog</a>
+### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to Syslog</a>
 
-RabbitMQ logs can be forwarded to syslog server via TCP, UDP or TLS protocols.
+RabbitMQ logs can be forwarded to a Syslog server via TCP or UDP. UDP is used by default
+and **requires Syslog service configuration**. TLS is also supported.
 
-To enable syslog output:
+Syslog output has to be explicitly configured:
 
 <pre class="sourcecode ini">
 log.syslog = true
 </pre>
 
-In the classic config format:
+Or, in the classic config format:
 
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [
@@ -172,14 +173,18 @@ In the classic config format:
 }].
 </pre>
 
-By default syslog library will send log messages to UDP port 514 using
-rfc3164 protocol.
+#### Syslog Endpoint Configuration
 
-Please make sure you have UDP input configured in your syslog service.
+By default the Syslog logger will send log messages to UDP port 514 using
+the [RFC 3164](https://www.ietf.org/rfc/rfc3164.txt) protocol. [RFC 5424](https://tools.ietf.org/html/rfc5424)
+protocol also can be used.
 
-You can use UDP or TCP transports with rfc3164 and rfc5424 protocols. TLS is only compatible with the rfc5424 protocol.
+In order to use UDP the **Syslog service must have UDP input configured**.
 
-To connect using TCP and rfc5424:
+UDP and TCP transports can be used with both RFC 3164 and RFC 5424 protocols.
+TLS support requires the RFC 5424 protocol.
+
+The following example uses TCP and the RFC 5424 protocol:
 
 <pre class="sourcecode ini">
 log.syslog = true
@@ -195,7 +200,7 @@ In the classic config format:
 ].
 </pre>
 
-To connect using TLS, you should configure ssl options:
+To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
 
 <pre class="sourcecode ini">
 log.syslog = true
@@ -218,7 +223,7 @@ In the classic config format:
 ].
 </pre>
 
-To configure a different IP and port to connect to:
+Syslog service IP address (note: hostnames are not supported) and port can be customised:
 
 <pre class="sourcecode ini">
 log.syslog = true
@@ -235,9 +240,9 @@ In the classic config format:
 ].
 </pre>
 
-You can configure syslog metadata identity and facility values.
-By default identity will be a name part of the node name
-and facility will be `daemon`.
+Syslog metadata identity and facility values also can be configured.
+By default identity will be set to the name part of the node name (for example `rabbitmq` for `rabbitmq@hostname`)
+and facility will be set to `daemon`.
 
 To set identity and facility of log messages:
 
@@ -256,8 +261,7 @@ In the classic config format:
 ].
 </pre>
 
-For more configuration options,
-consult with [syslog library documentation](https://github.com/schlagert/syslog)
+Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
 
 ## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
