@@ -565,7 +565,7 @@ limitations under the License.
      Commodity Enterprise Middleware' begins on the 50th page of the PDF.
     </li>
     <li>
-      <a href="http://www.hpts.ws/session5/das.pdf">Advanced Message Queueing Protocol</a><br />
+      <a href="http://hpts.ws/papers/2009/session5/das.pdf">Advanced Message Queueing Protocol</a><br />
       Presentation from Pranta Das from Cisco giving a good background on AMQP, an
       overview of the the new information model in AMQP 1.0 and some general use
       cases for AMQP messaging.
