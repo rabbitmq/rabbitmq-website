@@ -171,7 +171,7 @@ $channel = $connection->channel();
 
 $channel->queue_declare('hello', false, false, false, false);
 
-echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+echo " [*] Waiting for messages. To exit press CTRL+C\n";
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
@@ -184,13 +184,13 @@ that will receive the messages sent by the server. Keep in mind
 that messages are sent asynchronously from the server to the clients.
 
 <pre class="sourcecode php">
-$callback = function($msg) {
-  echo " [x] Received ", $msg->body, "\n";
+$callback = function ($msg) {
+  echo ' [x] Received ', $msg->body, "\n";
 };
 
 $channel->basic_consume('hello', '', false, true, false, false, $callback);
 
-while(count($channel->callbacks)) {
+while (count($channel->callbacks)) {
     $channel->wait();
 }
 </pre>
