@@ -132,8 +132,8 @@ limitations under the License.
 
         <p>
           RabbitMQ nodes will <a href="/logging.html">log</a> key
-          client connection lifecycle events. A TCP connection must be
-          successfully established and at least 1 byte of data must be
+          client <a href="/logging.html#connection-lifecycle-events">connection lifecycle events</a>.
+          A TCP connection must be successfully established and at least 1 byte of data must be
           sent by the peer for a connection to be considered (and
           logged as) accepted. If no events are logged, this means
           that either there were no successful TCP connections or they
