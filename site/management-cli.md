@@ -29,7 +29,7 @@ Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqct
 HTTP API intentionally doesn't expose certain operations.
 
 
-## Obtaining rabbitmqadmin
+## Obtaining `rabbitmqadmin`
 
 With the management plugin installed, browse to
 `http://{hostname}:15672/cli/rabbitmqadmin`
@@ -63,6 +63,17 @@ Invoke `rabbitmqadmin --help` for usage instructions. You can:
 
 For other tasks, see [rabbitmqctl](/man/rabbitmqctl.8.html) and
 [rabbitmq-plugins](/man/rabbitmq-plugins.8.html).
+
+
+## rabbitmqadmin and RabbitMQ HTTP API Compatibility
+
+`rabbitmqadmin` is developed in lock step with the management plugin and thus
+targets a specific version of the HTTP API. For most operations, `rabbitmqadmin` can used
+against any reasonably recent RabbitMQ version. However, there are exceptions to this rule.
+
+`rabbitmqadmin` therefore requires the same version series as its target RabbitMQ nodes.
+For example, `rabbitmqadmin` 3.7.x can only be used against RabbitMQ 3.7.x nodes, 3.6.x against RabbitMQ 3.6.x nodes,
+and so on.
 
 
 ## bash completion

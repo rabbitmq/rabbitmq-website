@@ -77,12 +77,14 @@ program will schedule tasks to our work queue, so let's name it
 
 <pre class="sourcecode php">
 $data = implode(' ', array_slice($argv, 1));
-if(empty($data)) $data = "Hello World!";
+if (empty($data)) {
+    $data = "Hello World!";
+}
 $msg = new AMQPMessage($data);
 
 $channel->basic_publish($msg, '', 'hello');
 
-echo " [x] Sent ", $data, "\n";
+echo ' [x] Sent ', $data, "\n";
 </pre>
 
 Our old _receive.php_ script also requires some changes: it needs to
@@ -90,10 +92,10 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.php`:
 
 <pre class="sourcecode php">
-$callback = function($msg){
-  echo " [x] Received ", $msg->body, "\n";
+$callback = function ($msg) {
+  echo ' [x] Received ', $msg->body, "\n";
   sleep(substr_count($msg->body, '.'));
-  echo " [x] Done", "\n";
+  echo " [x] Done\n";
 };
 
 $channel->basic_consume('hello', '', false, true, false, false, $callback);
@@ -211,10 +213,10 @@ It's time to turn them on by setting the fourth parameter to `basic_consume` to 
 from the worker, once we're done with a task.
 
 <pre class="sourcecode php">
-$callback = function($msg){
-  echo " [x] Received ", $msg->body, "\n";
+$callback = function ($msg) {
+  echo ' [x] Received ', $msg->body, "\n";
   sleep(substr_count($msg->body, '.'));
-  echo " [x] Done", "\n";
+  echo " [x] Done\n";
   $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 };
 
@@ -289,9 +291,10 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 as part of the property array.
 
 <pre class="sourcecode php">
-$msg = new AMQPMessage($data,
-       array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-       );
+$msg = new AMQPMessage(
+    $data,
+    array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+);
 </pre>
 
 > #### Note on message persistence
@@ -376,23 +379,23 @@ use PhpAmqpLib\Message\AMQPMessage;
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-
 $channel->queue_declare('task_queue', false, true, false, false);
 
 $data = implode(' ', array_slice($argv, 1));
-if(empty($data)) $data = "Hello World!";
-$msg = new AMQPMessage($data,
-                        array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-                      );
+if (empty($data)) {
+    $data = "Hello World!";
+}
+$msg = new AMQPMessage(
+    $data,
+    array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+);
 
 $channel->basic_publish($msg, '', 'task_queue');
 
-echo " [x] Sent ", $data, "\n";
+echo ' [x] Sent ', $data, "\n";
 
 $channel->close();
 $connection->close();
-
-?&gt;
 </pre>
 
 
@@ -411,26 +414,24 @@ $channel = $connection->channel();
 
 $channel->queue_declare('task_queue', false, true, false, false);
 
-echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
-$callback = function($msg){
-  echo " [x] Received ", $msg->body, "\n";
-  sleep(substr_count($msg->body, '.'));
-  echo " [x] Done", "\n";
-  $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+$callback = function ($msg) {
+    echo ' [x] Received ', $msg->body, "\n";
+    sleep(substr_count($msg->body, '.'));
+    echo " [x] Done\n";
+    $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 };
 
 $channel->basic_qos(null, 1, null);
 $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
 
-while(count($channel->callbacks)) {
+while (count($channel->callbacks)) {
     $channel->wait();
 }
 
 $channel->close();
 $connection->close();
-
-?&gt;
 </pre>
 
 [(worker.php source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/worker.php)

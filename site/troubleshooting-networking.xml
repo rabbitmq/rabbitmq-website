@@ -52,7 +52,7 @@ limitations under the License.
               Verify server configuration using <code><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
               and <code>rabbitmqctl environment</code>
             </li>
-            <li>Check server logs (see above)</li>
+            <li>Inspect <a href="/logging.html">server logs</a></li>
             <li>Verify hostname resolution</li>
             <li>Verify TCP port connectivity</li>
             <li>Verify IP routing</li>
@@ -125,7 +125,21 @@ limitations under the License.
           listener list it means the node cannot accept any connections on it.
         </p>
       </doc:subsection>
+<a href="/logging.html">server logs</a>
 
+      <doc:subsection name="troubleshooting-server-logs">
+        <doc:heading>Inspect Server Logs</doc:heading>
+
+        <p>
+          RabbitMQ nodes will <a href="/logging.html">log</a> key
+          client <a href="/logging.html#connection-lifecycle-events">connection lifecycle events</a>.
+          A TCP connection must be successfully established and at least 1 byte of data must be
+          sent by the peer for a connection to be considered (and
+          logged as) accepted. If no events are logged, this means
+          that either there were no successful TCP connections or they
+          sent no data.
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="troubleshooting-hostname-resolution">
         <doc:heading>Hostname Resolution</doc:heading>
@@ -309,7 +323,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
       </doc:subsection>
 
 
-      <doc:subsection name="troubleshooting-">
+      <doc:subsection name="troubleshooting-inspecting-connections">
         <doc:heading>Inspecting Connections</doc:heading>
         <p>
           Open ports, TCP and UDP connections of a node can be inspected using <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,

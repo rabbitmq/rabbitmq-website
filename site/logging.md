@@ -4,11 +4,12 @@
 
 This guide describes various aspects of logging in RabbitMQ:
 
- * <a href="#log-file-location">Log file location</a>
- * <a href="#log-levels">Log levels</a>
- * <a href="#log-message-categories">Log categories</a>
- * <a href="#log-outputs">Supported log outputs</a>
- * <a href="#advanced-configuration">Advanced configuration topics (custom log handlers, sinks, etc)</a>
+ * [Log file location](#log-file-location)
+ * [Log levels](#log-levels)
+ * [Log categories](#log-message-categories)
+ * [Debug logging](#debug-logging)
+ * Supported log outputs
+ * Advanced configuration topics (custom log handlers, sinks, etc)
 
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
 under the hood. The library supports logging to a file, console or a number of other sources
@@ -28,14 +29,14 @@ by setting the `RABBITMQ_LOGS` environment variable. Effective log
 file path can be discovered using [RabbitMQ management UI](/management.html) or
 CLI commands such as `rabbitmqctl environment`.
 
-`RABBITMQ_LOGS` variable value can be either a file path or `-`, which means
+`RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`), which means
 all log messages should be printed to standard output.
 
 The environment variable takes precedence over the configuration file.
 When in doubt, consider overriding log file location via the config file.
 
 
-## Configuration
+## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 RabbitMQ initializes its logging subsystem on node start.
 See the [Configuration guide](/configure.html) for a general overview
@@ -58,7 +59,7 @@ severity messages.
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
 
 
- * `log.file`: log file path or `false` to disable the file output. Default value is taken from an [environment variable](relocate.html)
+ * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](/configure.html).
  * `log.file.level`: log level for the file output. Default level is `info`.
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings.
 
@@ -395,7 +396,7 @@ debug messages will not be logged.
 Although, if an output is configured to log `debug` messages,
 it will get them from all categories, unless a category level is configured.
 
-### <a id="enabling-debug-logging" class="anchor" href="#enabling-debug-logging">Enabling Debug Logging</a>
+### <a id="debug-logging" class="anchor" href="#debug-logging">Enabling Debug Logging</a>
 
 To enable debug messages, you should have a debug output.
 
@@ -511,7 +512,7 @@ and didn't have a chance to close its connection properly) or indicate a genuine
 a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
 
 
-## Upgrading From pre-3.7 Versions
+## <a id="upgrading" class="anchor" href="#upgrading">Upgrading From pre-3.7 Versions</a>
 
 RabbitMQ versions prior to 3.7.0 had a different logging subsystem.
 
@@ -525,15 +526,14 @@ Starting with 3.7.0 these two files were merged and all errors now can be found 
 the `<nodename>.log` file. So `RABBITMQ_SASL_LOGS` environment variable is not used
 anymore.
 
-Log levels in pre-3.7.0 versions were configured using `log_levels` environment
-variable. Since 3.7 it's been replaced with [categories](#log-message-categories),
+Log levels in pre-3.7.0 versions were configured using the `log_levels` configuration key.
+Starting with 3.7 it's been replaced with [categories](#log-message-categories),
 which are more descriptive and powerful.
 
-If you have `log_levels` in your `rabbitmq.config` file, you should update it to
-use categories. You would probably wish to switch to the new config format.
+If the `log_levels` key is present in `rabbitmq.config` file, it should be updated to
+use categories.
 
-`rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined
-because it's not clear which should take precedence.
+`rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined.
 
 
 ## <a id="advanced-configuration" class="anchor" href="#advanced-configuration">Advanced Configuration</a>

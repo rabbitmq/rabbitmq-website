@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -22,14 +22,16 @@ limitations under the License.
   <li>
     25672: used for inter-node and CLI tools communication (Erlang distribution server port)
     and is allocated from a dynamic range (limited to a single port by default,
-    computed as AMQP port + 20000). See <a href="/networking.html">networking guide</a> for details.
+    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
+    the cluster uses <a href="/federation.html">federation</a> or CLI tools are used on machines outside the subnet),
+    these ports should not be publicly exposed. See <a href="/networking.html">networking guide</a> for details.
   </li>
   <li>
     35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
-    and is allocated from a dynamic range (computed as Erlang dist port + 10000 through
-    dist port + 10010). See <a href="/networking.html">networking guide</a> for details.
+    and is allocated from a dynamic range (computed as server distribution port + 10000 through
+    server distribution port + 10010). See <a href="/networking.html">networking guide</a> for details.
   </li>
-  <li>15672: <a href="/management.html">HTTP API</a> clients and <a href="/management-cli.html">rabbitmqadmin</a> (only if the <a href="/management.html">management plugin</a> is enabled)</li>
+  <li>15672: <a href="/management.html">HTTP API</a> clients, <a href="/management.html">management UI</a> and <a href="/management-cli.html">rabbitmqadmin</a> (only if the <a href="/management.html">management plugin</a> is enabled)</li>
   <li>61613, 61614: <a href="https://stomp.github.io/stomp-specification-1.2.html">STOMP clients</a> without and with TLS (only if the <a href="/stomp.html">STOMP plugin</a> is enabled)</li>
   <li>1883, 8883: (<a href="http://mqtt.org/">MQTT clients</a> without and with TLS, if the <a href="/mqtt.html">MQTT plugin</a> is enabled</li>
   <li>15674: STOMP-over-WebSockets clients (only if the <a href="/web-stomp.html">Web STOMP plugin</a> is enabled)</li>

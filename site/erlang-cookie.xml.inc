@@ -32,10 +32,14 @@ limitations under the License.
     Every cluster node must have the same cookie.
   </p>
   <p>
-    If the file does not exist, Erlang VM will automatically create
+    If the file does not exist, Erlang VM will try to create
     one with a randomly generated value when the RabbitMQ server
-    starts up. Erlang cookie management is best done using automation
-    tools such as Chef, BOSH, Docker or similar.
+    starts up. Using such generated cookie files are appropriate in development
+    environments only. Since each node will generate its own value independently,
+    this strategy is not really viable in a <a href="/clustering.html">clustered environment</a>.
+    
+    Erlang cookie generation should be done at cluster deployment stage, ideally using automation
+    and orchestration tools such as Chef, Puppet, BOSH, Docker or similar.
   </p>
   <p>
     On UNIX systems, the cookie will be typically located in
@@ -95,6 +99,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 
     This is the least secure option and generally not recommended.
   </p>
+
   <p>
      When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
      such as "Connection attempt from disallowed node" and "Could not auto-cluster". When

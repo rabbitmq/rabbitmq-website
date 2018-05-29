@@ -28,226 +28,294 @@ limitations under the License.
     <title>Plugins</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="overview">
-        <p>
-          RabbitMQ supports a variety of plugins. This page documents
-          the plugins that ship with RabbitMQ &version-server;.
-        </p>
-        <p>
-          To enable plugins, use
-          the <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>
-          tool:
-        </p>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+
+      <p>
+        RabbitMQ supports plugins and a number of features are implemented as plugins
+        that ship in the core distribution. This page documents
+        the plugins that ship with RabbitMQ &version-server;. Other plugins can be installed separately.
+        A set of <a href="#plugin-tiers">curated plugins</a> is also available.
+      </p>
+      <p>
+        Plugins are activated when a node is started or at runtime when a <a href="cli.html">CLI tool</a>
+        is used. For a plugin to be activated at boot, it must be enabled. To enable a plugin, use
+        the <a href="cli.html">rabbitmq-plugins</a>:
+
         <pre class="sourcecode bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
-        <p>And to disable plugins again, use:</p>
+
+        And to disable a plugin, use:
+
         <pre class="sourcecode bash">rabbitmq-plugins disable <i>plugin-name</i></pre>
-        <p>You can see a list of which plugins are enabled with:</p>
+      </p>
+
+      <p>
+        A list of plugins available locally (in the node's <a href="/relocate.html">plugins directory</a>) as well
+        as their status (enabled or disabled) can be obtained using <code></code>:
+
         <pre class="sourcecode bash">rabbitmq-plugins list</pre>
-        <p>
-          The <code>rabbitmq-plugins</code> comand will enable or
-          disable plugins by updating the plugin configuration
-          file. It will then contact the running server to tell it to
-          start or stop plugins as needed. You can use the
-          <code>-n</code> option to specify a different node, or use
-          <code>--offline</code> to only change the file.
-        </p>
-        <p>
-          For more information on <code>rabbitmq-plugins</code>,
-          consult <a href="man/rabbitmq-plugins.8.html">the manual
-          page</a>.
-        </p>
+      </p>
+    </doc:section>
 
-        <p>
-          In addition to the plugins bundled with the server, we also
-          offer binary downloads of plugins which have been
-          contributed by authors in the community. See the <a
-          href="community-plugins.html">community plugins page</a> for
-          more detail on which plugins are available and how to
-          install them.
-        </p>
-      </doc:section>
+    <doc:section name="ways-to-enable-plugins">
+      <doc:heading>Different Ways to Enable Plugins</doc:heading>
 
-      <doc:section name="maintained">
-        <doc:heading>Supported Plugins</doc:heading>
-        <table class="plugins">
-          <r:plugin name="rabbitmq_amqp1_0">
-            AMQP 1.0 protocol support.
+      <p>
+        The <code>rabbitmq-plugins</code> comand enables or
+        disables plugins by contacting the running node to tell it to
+        start or stop plugins as needed. It is possible to contact an arbitrary
+        node <code>-n</code> option to specify a different node.
+      </p>
 
-            This plugin is several years old and is moderately
-            mature. It may have certain limitations with its current
-            architecture but most major AMQP 1.0 features should be in
-            place.
+      <p>
+        Having a node running before the plugins are enabled is not always practical
+        or operator-friendly. For those cases <code>rabbitmq-plugins</code>
+        provides an alternative way. If the <code>--offline</code> flag is specified,
+        the tool will not contact any nodes and instead will modify the file containing
+        the list of enabled plugins (appropriately named <code>enabled_plugins</code>) directly.
+        This option is often optimal for node provisioning automation.
+      </p>
 
-            <ul>
-              <li><r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+      <p>
+        The <code>enabled_plugins</code> file is usually <a href="/relocate.html">located</a> in the node
+        data directory or under <code>/etc</code>, together with configuration files. The file contains
+        a list of plugin names ending with a dot. For example, when <a href="/management.html">rabbitmq_management</a> and
+        <a href="/shovel.html">rabbitmq_shovel</a> plugins are enabled,
+        the file contents will look like this:
+        
 
-          <r:plugin name="rabbitmq_auth_backend_ldap">
-            Authentication / authorisation plugin using an external
-            LDAP server.
-            <ul>
-              <li><a href="ldap.html">Documentation for the LDAP
-              plugin</a></li>
-            </ul>
-          </r:plugin>
+<pre class="sourcecode erlang">
+[rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel].
+</pre>
 
-          <r:plugin name="rabbitmq_auth_backend_http">
-            Authentication / authorisation plugin that uses an external HTTP API.
-            <ul>
-              <li><r:readme-link repo="rabbitmq-auth-backend-http" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+        Note that dependencies of plugins are not listed. Plugins with correct dependency metadata
+        will specify their dependencies there and they will be enabled first at the time of
+        plugin activation. Unlike <code>rabbitmq-plugins disable</code> calls against a running node,
+        changes to the file require a node restart.
+      </p>
+        
+      <p>
+        The file can be generated by deployment tools. This is another automation-friendly approach.
+        When a plugin must be disabled, it should be removed from the list and the node must be restarted.
+      </p>
 
-          <r:plugin name="rabbitmq_auth_mechanism_ssl">
-            Authentication mechanism plugin using SASL EXTERNAL to authenticate
-            using TLS (x509) client certificates.
-            <ul>
-              <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+      <p>
+        For more information on <code>rabbitmq-plugins</code>,
+        consult <a href="man/rabbitmq-plugins.8.html">the manual
+        page</a>.
+      </p>
+    </doc:section>
 
-          <r:plugin name="rabbitmq_consistent_hash_exchange">
-            Consistent hash exchange type.
-            <ul>
-              <li><r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+    <doc:section name="plugin-tiers">
+      <doc:heading>Plugin Tiers</doc:heading>
 
-          <r:plugin name="rabbitmq_federation">
-            Scalable messaging across WANs and administrative
-            domains.
-            <ul>
-              <li><a href="federation.html">Documentation for the
-              federation plugin</a></li>
-            </ul>
-          </r:plugin>
+      <p>
+        Plugins that ship with the RabbitMQ distributions are often referred
+        to as tier 1 plugins. Provided that a standard distribution package is
+        used they do not need to be <a href="/installing-plugins.html">installed</a> but do need to be
+        enabled before they can be used.
+      </p>
 
-          <r:plugin name="rabbitmq_federation_management">
-            Shows federation status in the management API and UI. Only
-            of use when using rabbitmq_federation in conjunction with
-            <code>rabbitmq_management</code>. In a heterogenous cluster this
-            should be installed on the same nodes as rabbitmq_management.
-          </r:plugin>
+      <p>
+        In addition to the plugins bundled with the server, team RabbitMQ
+        offers binary downloads of curated plugins which have been
+        contributed by authors in the community. See the <a
+        href="community-plugins.html">community plugins page</a> for
+        more details.
+      </p>
 
-          <r:plugin name="rabbitmq_management">
-            A management / monitoring API over HTTP, along with a
-            browser-based UI.
-            <ul>
-              <li><a href="management.html">Documentation for the
-              management plugin</a></li>
-            </ul>
-          </r:plugin>
+      <p>
+        Even more plugins can be found on GitHub, GitLab, Bitbucket and similar
+        services.
+      </p>
+    </doc:section>
 
-          <r:plugin name="rabbitmq_management_agent">
-            When installing the management plugin on <em>some</em>
-            of the nodes in a cluster, you must install
-            <code>rabbitmq_management_agent</code>
-            on <em>all</em> of the nodes in the cluster. You can install the
-            full management plugin on as many of the nodes as you
-            want.
-          </r:plugin>
+    <doc:section name="tier1-plugins">
+      <doc:heading>Tier 1 (Core) Plugins</doc:heading>
 
-          <r:plugin name="rabbitmq_mqtt">
-            An adapter implementing the MQTT 3.1 protocol.
-            <ul>
-              <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
-            </ul>
-          </r:plugin>
+      <p>
+        The table below lists tier 1 (core) plugins that ship with RabbitMQ.
+      </p>
 
-          <r:plugin name="rabbitmq_shovel">
-            A plug-in for RabbitMQ that shovels messages from a queue on
-            one broker to an exchange on another broker.
-            <ul>
-              <li><a href="/shovel.html">Documentation for the Shovel plugin</a></li>
-            </ul>
-          </r:plugin>
+      <table class="plugins">
+        <r:plugin name="rabbitmq_amqp1_0">
+          AMQP 1.0 protocol support.
 
-          <r:plugin name="rabbitmq_shovel_management">
-            Shows shovel status in the management API and UI. See the
-            plugin <r:readme-link repo="rabbitmq-shovel-management"/>.
-            Only of use when using <code>rabbitmq_shovel</code> in
-            conjunction with <code>rabbitmq_management</code>. In a
-            heterogenous cluster this should be installed on the same
-            nodes as <code>rabbitmq_management</code>.
-          </r:plugin>
+          This plugin is several years old and is moderately
+          mature. It may have certain limitations with its current
+          architecture but most major AMQP 1.0 features should be in
+          place.
 
-          <r:plugin name="rabbitmq_stomp">
-            Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
-            <ul>
-              <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
-            </ul>
-          </r:plugin>
+          <ul>
+            <li><r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/></li>
+          </ul>
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_tracing">
-            Adds message tracing to the management plugin. Logs
-            messages from the <a href="firehose.html">firehose</a> in
-            a couple of formats.
-          </r:plugin>
+        <r:plugin name="rabbitmq_auth_backend_ldap">
+          Authentication / authorisation plugin using an external
+          LDAP server.
+          <ul>
+            <li><a href="ldap.html">Documentation for the LDAP
+            plugin</a></li>
+          </ul>
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_trust_store">
-            Provides a client x509 certificate trust store.
-            <ul>
-              <li><r:readme-link repo="rabbitmq-trust-store" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+        <r:plugin name="rabbitmq_auth_backend_http">
+          Authentication / authorisation plugin that uses an external HTTP API.
+          <ul>
+            <li><r:readme-link repo="rabbitmq-auth-backend-http" extension=".md"/></li>
+          </ul>
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_web_stomp">
-            STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
-            browsers using WebSockets.
-            <ul>
-              <li><a href="web-stomp.html">Documentation for the
-              web-stomp plugin</a></li>
-            </ul>
-          </r:plugin>
+        <r:plugin name="rabbitmq_auth_mechanism_ssl">
+          Authentication mechanism plugin using SASL EXTERNAL to authenticate
+          using TLS (x509) client certificates.
+          <ul>
+            <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl" extension=".md"/></li>
+          </ul>
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_web_mqtt">
-            MQTT-over-WebSockets: a bridge exposing <a href="/mqtt.html">rabbitmq_mqtt</a> to Web
-            browsers using WebSockets.
-            <ul>
-              <li><a href="web-mqtt.html">Documentation for the
-              web-mqtt plugin</a></li>
-            </ul>
-           </r:plugin>
+        <r:plugin name="rabbitmq_consistent_hash_exchange">
+          Consistent hash exchange type.
+          <ul>
+            <li><r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/></li>
+          </ul>
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
-            Adds some basic examples to
-            <code>rabbitmq_web_stomp</code>: a simple "echo" service
-            and a basic canvas-based collaboration tool.
+        <r:plugin name="rabbitmq_federation">
+          Scalable messaging across WANs and administrative
+          domains.
+          <ul>
+            <li><a href="federation.html">Documentation for the
+            federation plugin</a></li>
+          </ul>
+        </r:plugin>
 
-            <ul>
-              <li><r:readme-link repo="rabbitmq-web-stomp-examples" extension=".md"/></li>
-            </ul>
-          </r:plugin>
+        <r:plugin name="rabbitmq_federation_management">
+          Shows federation status in the management API and UI. Only
+          of use when using rabbitmq_federation in conjunction with
+          <code>rabbitmq_management</code>. In a heterogenous cluster this
+          should be installed on the same nodes as rabbitmq_management.
+        </r:plugin>
 
-          <r:plugin name="rabbitmq_web_mqtt_examples" optional="true">
-            Adds some basic examples to
-            <code>rabbitmq_web_mqtt</code>: a simple "echo" service
-            and a basic canvas-based collaboration tool.
+        <r:plugin name="rabbitmq_management">
+          A management / monitoring API over HTTP, along with a
+          browser-based UI.
+          <ul>
+            <li><a href="management.html">Documentation for the
+            management plugin</a></li>
+          </ul>
+        </r:plugin>
 
-            <ul>
-              <li><r:readme-link repo="rabbitmq-web-mqtt-examples" extension=".md"/></li>
-            </ul>
-          </r:plugin>
-        </table>
-      </doc:section>
+        <r:plugin name="rabbitmq_management_agent">
+          When installing the management plugin on <em>some</em>
+          of the nodes in a cluster, you must install
+          <code>rabbitmq_management_agent</code>
+          on <em>all</em> of the nodes in the cluster. You can install the
+          full management plugin on as many of the nodes as you
+          want.
+        </r:plugin>
 
-      <doc:section name="discontinued">
-        <doc:heading>Discontinued</doc:heading>
-        <p>
-          All plugins below have been <em>discontinued</em>. They don't (or won't) ship
-          with the RabbitMQ distribution and are no longer maintained.
-        </p>
+        <r:plugin name="rabbitmq_mqtt">
+          An adapter implementing the MQTT 3.1 protocol.
+          <ul>
+            <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
+          </ul>
+        </r:plugin>
 
-        <table class="plugins">
-          <r:plugin name="rabbitmq_management_visualiser">
-            Broker topology visualiser plugin which is itself a plugin
-            to the management plugin. Adds a <i>Visualiser</i> tab to
-            the management web interface, which then flexibly and
-            interactively displays channels, queues and exchanges, and
-            the links between them.
-          </r:plugin>
-        </table>
-      </doc:section>
+        <r:plugin name="rabbitmq_shovel">
+          A plug-in for RabbitMQ that shovels messages from a queue on
+          one broker to an exchange on another broker.
+          <ul>
+            <li><a href="/shovel.html">Documentation for the Shovel plugin</a></li>
+          </ul>
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_shovel_management">
+          Shows shovel status in the management API and UI. See the
+          plugin <r:readme-link repo="rabbitmq-shovel-management"/>.
+          Only of use when using <code>rabbitmq_shovel</code> in
+          conjunction with <code>rabbitmq_management</code>. In a
+          heterogenous cluster this should be installed on the same
+          nodes as <code>rabbitmq_management</code>.
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_stomp">
+          Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
+          <ul>
+            <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
+          </ul>
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_tracing">
+          Adds message tracing to the management plugin. Logs
+          messages from the <a href="firehose.html">firehose</a> in
+          a couple of formats.
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_trust_store">
+          Provides a client x509 certificate trust store.
+          <ul>
+            <li><r:readme-link repo="rabbitmq-trust-store" extension=".md"/></li>
+          </ul>
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_web_stomp">
+          STOMP-over-WebSockets: a bridge exposing <code>rabbitmq_stomp</code> to web
+          browsers using WebSockets.
+          <ul>
+            <li><a href="web-stomp.html">Documentation for the
+            web-stomp plugin</a></li>
+          </ul>
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_web_mqtt">
+          MQTT-over-WebSockets: a bridge exposing <a href="/mqtt.html">rabbitmq_mqtt</a> to Web
+          browsers using WebSockets.
+          <ul>
+            <li><a href="web-mqtt.html">Documentation for the
+            web-mqtt plugin</a></li>
+          </ul>
+         </r:plugin>
+
+        <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
+          Adds some basic examples to
+          <code>rabbitmq_web_stomp</code>: a simple "echo" service
+          and a basic canvas-based collaboration tool.
+
+          <ul>
+            <li><r:readme-link repo="rabbitmq-web-stomp-examples" extension=".md"/></li>
+          </ul>
+        </r:plugin>
+
+        <r:plugin name="rabbitmq_web_mqtt_examples" optional="true">
+          Adds some basic examples to
+          <code>rabbitmq_web_mqtt</code>: a simple "echo" service
+          and a basic canvas-based collaboration tool.
+
+          <ul>
+            <li><r:readme-link repo="rabbitmq-web-mqtt-examples" extension=".md"/></li>
+          </ul>
+        </r:plugin>
+      </table>
+    </doc:section>
+
+    <doc:section name="discontinued">
+      <doc:heading>Discontinued</doc:heading>
+      <p>
+        All plugins below have been <em>discontinued</em>. They don't (or won't) ship
+        with the RabbitMQ distribution and are no longer maintained.
+      </p>
+
+      <table class="plugins">
+        <r:plugin name="rabbitmq_management_visualiser">
+          Broker topology visualiser plugin which is itself a plugin
+          to the management plugin. Adds a <i>Visualiser</i> tab to
+          the management web interface, which then flexibly and
+          interactively displays channels, queues and exchanges, and
+          the links between them.
+        </r:plugin>
+      </table>
+    </doc:section>
   </body>
 </html>

@@ -267,17 +267,17 @@ $channel = $connection->channel();
 $channel->exchange_declare('logs', 'fanout', false, false, false);
 
 $data = implode(' ', array_slice($argv, 1));
-if(empty($data)) $data = "info: Hello World!";
+if (empty($data)) {
+    $data = "info: Hello World!";
+}
 $msg = new AMQPMessage($data);
 
 $channel->basic_publish($msg, 'logs');
 
-echo " [x] Sent ", $data, "\n";
+echo ' [x] Sent ', $data, "\n";
 
 $channel->close();
 $connection->close();
-
-?&gt;
 </pre>
 
 [(emit_log.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log.php)
@@ -300,29 +300,26 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-
 $channel->exchange_declare('logs', 'fanout', false, false, false);
 
 list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
 $channel->queue_bind($queue_name, 'logs');
 
-echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
+echo " [*] Waiting for logs. To exit press CTRL+C\n";
 
-$callback = function($msg){
-  echo ' [x] ', $msg->body, "\n";
+$callback = function ($msg) {
+    echo ' [x] ', $msg->body, "\n";
 };
 
 $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
 
-while(count($channel->callbacks)) {
+while (count($channel->callbacks)) {
     $channel->wait();
 }
 
 $channel->close();
 $connection->close();
-
-?&gt;
 </pre>
 
 [(receive_logs.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs.php)
