@@ -31,6 +31,17 @@ limitations under the License.
       </p>
     </doc:section>
 
+
+    <doc:section name="unsupported versions">
+      <doc:heading>Unsupported Versions</doc:heading>
+      <p>
+        Erlang/OTP versions <strong>older than 19.3 and newer than 20.3.x (including 21.0) are not supported</strong> by currently maintained
+        RabbitMQ release series.
+        OTP 21 support will be <a href="https://github.com/rabbitmq/rabbitmq-server/issues/1616">introduced eventually</a>.
+      </p>
+    </doc:section>
+
+
     <doc:section name="requirements-and-recommendations">
       <doc:subsection name="rabbitmq-erlang-version-requirements">
         <doc:heading>Requirements by Release Series</doc:heading>

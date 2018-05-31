@@ -36,7 +36,7 @@ for external connections on the target node.
 HTTP API port open.
 
 
-## System and Environment Requirements
+## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
 
 RabbitMQ CLI tools require a [compatible Erlang/OTP](/which-erlang.html) version to be installed.
 
@@ -45,7 +45,7 @@ not the case, the tools may still function correctly but it cannot be guaranteed
 A warning will be emitted in non-UTF-8 locales.
 
 
-## rabbitmqctl
+## <a id="rabbitmqctl" class="anchor" href="#rabbitmqctl">rabbitmqctl</a>
 
 [rabbitmqctl](/rabbitmqctl.8.html) is the original CLI tool that ships with RabbitMQ.
 It supports a wide range of operations, mostly administrative (operational) in nature.
@@ -64,7 +64,7 @@ and more.
 
 `rabbitmqctl` uses shared secret authentication (described below) with server nodes.
 
-## rabbitmq-plugins
+## <a id="rabbitmq-plugins" class="anchor" href="#rabbitmq-plugins">rabbitmq-plugins</a>
 
 [rabbitmq-plugins](/rabbitmq-plugins.8.html) is a tool that manages plugins:
 lists, enables and disables them. It ships with RabbitMQ.
@@ -74,7 +74,7 @@ take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
 
-## How CLI tools Authenticate Nodes (and Nodes to Each Other): the Erlang Cookie
+## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI tools Authenticate Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 
 RabbitMQ nodes and CLI tools (with the exception of `rabbitmqadmin`) use a
 cookie to determine whether they are allowed to communicate with
@@ -151,7 +151,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 
 This is the least secure option and generally not recommended.
 
-### Authentication Failures
+## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 
 When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
 such as "Connection attempt from disallowed node" and "Could not auto-cluster". When
@@ -256,7 +256,7 @@ and so on.
 [RabbitMQ Networking guide](/networking.html) contains a section on troubleshooting of networking-related issues.
 
 
-## rabbitmqadmin
+## <a id="http-api-cli" class="anchor" href="#http-api-cli">rabbitmqadmin</a>
 
 [rabbitmqadmin](/management-cli.html) is a command line tool that's built on top of [RabbitMQ HTTP API](/management.html).
 It is not a replacement for `rabbitmqctl` and provides access to a subset of most commonly

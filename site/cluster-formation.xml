@@ -843,8 +843,9 @@ cluster_formation.consul.domain_suffix = example.local
       </p>
 
       <p>
-        Nodes register with etcd on boot and unregister when they
-        leave. Prior to registration, nodes will attempt to acquire a
+        Nodes register with etcd on boot by creating a key in a conventionally named directory. The keys have
+        a short (say, a minute) expiration period. The keys are deleted when nodes stop cleanly.
+        Prior to registration, nodes will attempt to acquire a
         lock in etcd to reduce the probability of a <a href="#initial-formation-race-condition">race condition
         during initial cluster formation</a>.
       </p>
@@ -885,7 +886,17 @@ cluster_formation.etcd.scheme = http
       </p>
 
       <p>
-        etcd keys used by peer discovery will be prefixed with "rabbitmq" by default:
+        Directories and keys used by the peer discovery mechanism follow a naming scheme:
+
+        <pre class="sourcecode ini">/v2/keys/{key_prefix}/{cluster_name}/nodes/{node_name}</pre>
+
+        Here's an example of a key that would be used by node <code>rabbit@hostname1</code>
+        with default key prefix and cluster name:
+
+        <pre class="sourcecode ini">/v2/keys/rabbitmq/default/nodes/rabbit@hostname1</pre>
+
+        Default key prefix is simply "rabbitmq". It rarely needs overriding but that's
+        supported:
 
         <pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
@@ -893,6 +904,19 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 cluster_formation.etcd.host = etcd.eng.example.local
 # rabbitmq is used by default
 cluster_formation.etcd.key_prefix = rabbitmq_discovery
+</pre>
+      </p>
+
+      <p>
+        If multiple RabbitMQ clusters share an etcd installation, each cluster must use
+        a unique name:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.host = etcd.eng.example.local
+# default name: "default"
+cluster_formation.etcd.cluster_name = staging
 </pre>
       </p>
 
@@ -926,19 +950,6 @@ cluster_formation.etcd.host = etcd.eng.example.local
 # lock acquisition timeout in seconds
 # default: 300
 cluster_formation.etcd.lock_wait_time = 60
-</pre>
-      </p>
-
-      <p>
-        If multiple RabbitMQ clusters share an etcd instance, each must use
-        a unique cluster name:
-
-        <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
-
-cluster_formation.etcd.host = etcd.eng.example.local
-# default name: "default"
-cluster_formation.etcd.cluster_name = staging
 </pre>
       </p>
     </doc:section>

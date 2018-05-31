@@ -32,9 +32,9 @@ limitations under the License.
     <doc:section name="throughput-load-testing">
       <doc:heading>PerfTest</doc:heading>
       <p>
-        RabbitMQ has a basic throughput testing tool, PerfTest (docs, source
-        code and releases), that is based on the Java client and can be
-        configured to simulate basic workloads. PerfTest has extra tools
+        RabbitMQ has a throughput testing tool, PerfTest, that is based on the Java client and can be
+        configured to simulate basic workloads and <a href="#iot-workloads">more advanced workloads</a>
+        as well. PerfTest has extra tools
         that produce HTML graphs of the output.
 
         A RabbitMQ cluster can be limited by a number of factors, from
