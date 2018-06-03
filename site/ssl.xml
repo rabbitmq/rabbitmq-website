@@ -548,7 +548,9 @@ started SSL Listener on 0.0.0.0:5671</pre>
 cat testca/cacert.pem otherca/cacert.pem &gt; all_cacerts.pem
 </pre>
 
-            Note that this approach is only practical with a very small number of CAs involved.
+            Note that this approach is only practical with a very small number of CAs involved,
+            and only <i>root</i> CAs will be used as trust anchors (any intermediate certificates 
+            will be ignored).
             The above approach with trusted certificate lists is recommended.
           </p>
 
