@@ -30,6 +30,18 @@ limitations under the License.
           This guide covers <a href="/java-client.html">RabbitMQ Java client</a> and its public API.
           It assumes that the <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
           and the reader is familiar with <a href="/getstarted.html">the basics</a>.
+
+          Key sections of the guide are:
+
+          <ul>
+            <li><a href="#connecting">Connecting to RabbitMQ</a></li>
+            <li><a href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a></li>
+            <li><a href="#exchanges-and-queues">Using Exchanges and Queues</a></li>
+            <li><a href="#publishing">Publishing Messages</a></li>
+            <li><a href="#consuming">Consuming Using a Subscription</a></li>
+            <li><a href="#channel-threads">Concurrency Considerations and Safety</a></li>
+            <li><a href="#recovery">Automatic Recovery From Network Failures</a></li>
+          </ul>
         </p>
 
         <p class="intro">
@@ -534,8 +546,8 @@ import com.rabbitmq.client.DefaultConsumer;</pre>
       <p>
         Distinct <code>Consumer</code> instances must have distinct
         consumer tags. Duplicate consumer tags on a connection is
-        strongly discouraged and can lead to issues with automatic
-        connection recovery and confusing monitoring data when
+        strongly discouraged and can lead to issues with <a href="#connection-recovery">automatic
+        connection recovery</a> and confusing monitoring data when
         consumers are monitored.
       </p>
 
@@ -1106,7 +1118,7 @@ connection.addShutdownListener(new ShutdownListener() {
           When it is deleted or is scheduled for deletion (e.g. because it is <a href="/queues.html">auto-deleted</a>)
           it will be removed. This model has some limitations covered below.
         </p>
-        
+
         <p>
           To disable or enable automatic connection recovery, use
           the <code>factory.setAutomaticRecoveryEnabled(boolean)</code>
@@ -1156,6 +1168,28 @@ factory.newConnection(addresses);</pre>
 
           whichever happens first.
         </p>
+            <p>
+              If initial client connection to a RabbitMQ node fails, automatic connection
+              recovery won't kick in. Applications developers are responsible for retrying
+              such connections, logging failed attempts, implementing a limit to the number
+              of retries and so on. Here's a very basic example:
+
+<pre class="sourcecode csharp">
+ConnectionFactory factory = new ConnectionFactory();
+// configure various connection settings
+
+try {
+  Connection conn = factory.newConnection();
+} catch (java.net.ConnectException e) {
+  Thread.sleep(5000);
+  // apply retry logic
+}
+</pre>
+            </p>
+            <p>
+              When a connection is closed by the application via the <code>Connection.Close</code> method,
+              connection recovery will not be initiated.
+            </p>
         <p>
           Channel-level exceptions will not trigger any kind of recovery as they usually
           indicate a semantic issue in the application (e.g. an attempt to consume from a
@@ -1538,7 +1572,7 @@ cf.setRequestedHeartbeat(5);
 
         However, the client cannot track these topology changes beyond a single connection.
         Applications that rely on auto-delete queues or exchanges, as well as queue TTL (note: not message TTL!),
-        and use automatic connection recovery, should explicitly delete entities know to be unused
+        and use <a href="#connection-recovery">automatic connection recovery</a>, should explicitly delete entities know to be unused
         or deleted, to purge client-side topology cache. This is facilitated by <code>Channel#queueDelete</code>,
         <code>Channel#exchangeDelete</code>, <code>Channel#queueUnbind</code>, and <code>Channel#exchangeUnbind</code>
         being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).

@@ -697,6 +697,24 @@ factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
               whichever happens first.
             </p>
             <p>
+              If initial client connection to a RabbitMQ node fails, automatic connection
+              recovery won't kick in. Applications developers are responsible for retrying
+              such connections, logging failed attempts, implementing a limit to the number
+              of retries and so on. Here's a very basic example:
+
+<pre class="sourcecode csharp">
+ConnectionFactory factory = new ConnectionFactory();
+// configure various connection settings
+
+try {
+  Connection conn = factory.CreateConnection();
+} catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e) {
+  Thread.Sleep(5000);
+  // apply retry logic
+}
+</pre>
+            </p>
+            <p>
               When a connection is closed by the application via the <code>Connection.Close</code> method,
               connection recovery will not be initiated.
             </p>
