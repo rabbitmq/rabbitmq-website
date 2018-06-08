@@ -246,7 +246,7 @@ limitations under the License.
             exchange and routing key.
           </p>
           <p>
-            If the destination queue does not exist on the source broker, it
+            If the destination queue does not exist on the destination broker, it
             will be declared as a durable queue with no arguments.
           </p>
         </dd>
@@ -258,7 +258,7 @@ limitations under the License.
             or <code>dest-queue</code> (but not both) may be set.
           </p>
           <p>
-            If the destination exchange does not exist on the source broker,
+            If the destination exchange does not exist on the destination broker,
             it will be not declared; the shovel will fail to start.
           </p>
         </dd>
