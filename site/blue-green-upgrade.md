@@ -23,10 +23,9 @@ The "blue" is the source cluster and the "green" one is the target.
 ### Configuring Queue Federation
 
 The [federation plugin](federation.html) allows you to move your consumers
-from "blue" to "green" without disrupting the message consumption and without
-loosing messages. The principle of [federated queues](/federated-queues.html)
-is that the consumers now connected to "green" will get messages published to
-"blue".
+from "blue" to "green", without disrupting message consumption or losing messages.
+The principle of [federated queues](/federated-queues.html) is that the consumers
+now connected to "green" will get messages published to "blue".
 
 Here is an example to federate all queues. In this example, the "blue" cluster
 is the upstream and the "green" one is the downstream.
