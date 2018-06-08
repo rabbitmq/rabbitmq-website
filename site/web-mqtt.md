@@ -165,14 +165,14 @@ use the former as a port number, ignoring the one in `tcp_config`.
 See [RabbitMQ Networking guide](/networking.html) for more information.
 
 
-## <a id="tls" class="anchor" href="#tls">TLS</a>
+## <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
 The plugin supports WebSockets with TLS (WSS) connections.
 
 TLS configuration parameters for the plugin use the <code>web_mqtt.ssl</code> prefix:
 
 <pre class="sourcecode ini">
-web_mqtt.ssl.port = 12345
+web_mqtt.ssl.port       = 12345
 web_mqtt.ssl.backlog    = 1024
 web_mqtt.ssl.certfile   = path/to/certs/client/cert.pem
 web_mqtt.ssl.keyfile    = path/to/certs/client/key.pem
@@ -200,8 +200,47 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 Note that port, certificate file and private key file are all mandatory.
 An extended list of TLS settings can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.4/manual/ranch_ssl/).
 
+
+### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
+
+It is possible to configure what TLS versions and cipher suites will be used by RabbitMQ. Note that not all
+suites will be available on all systems.
+
+RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
+[on cipher suites](/ssl.html#configuring-ciphers). Below is an example
+in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
+and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
+
+<pre class="sourcecode erlang">
+
+{rabbitmq_web_mqtt,
+  [{ssl_config,
+    [{cacertfile,           "/path/to/ca_certificate.pem"},
+     {certfile,             "/path/to/server_certificate.pem"},
+     {keyfile,              "/path/to/private_key.pem"},
+     {verify,               verify_peer},
+     {fail_if_no_peer_cert, true},
+     {versions,             ['tlsv1.2']},
+     {honor_cipher_order,   true},
+     {honor_ecc_order,      true},
+     {secure_renegotiate,   true},
+     {ciphers,              [{rsa,aes_256_cbc,sha256},
+                             {rsa,aes_128_cbc,sha256},
+                             {rsa,aes_256_cbc,sha},
+                             {rsa,'3des_ede_cbc',sha},
+                             {rsa,aes_128_cbc,sha},
+                             {rsa,des_cbc,sha}]}]
+    ]
+  }]
+}
+</pre>
+
+
+### Troubleshooting TLS (WSS)
+
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
 information.
+
 
 ## <a id="websocket-options" class="anchor" href="#websocket-options">WebSocket Options</a>
 
