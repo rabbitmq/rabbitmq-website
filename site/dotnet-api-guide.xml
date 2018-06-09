@@ -305,54 +305,95 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
           This "short version, long version" pattern is used throughout the API.
         </p>
 
-        <p>
-          Some common operations also have a "no wait" version which won't wait for server
-          response. For example, to declare a queue and instruct the server to not send any
-          response, use
 
-          <pre class="sourcecode java">channel.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
-
-          The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
-          are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
-          When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
-          with high topology (queue, binding) churn.
-        </p>
-
-      <p>
-        A queue or exchange can be explicitly deleted:
-
-        <pre class="sourcecode java">model.QueueDelete("queue-name", false, false)</pre>
-
-        It is possible to delete a queue only if it is empty:
-
-        <pre class="sourcecode java">model.QueueDelete("queue-name", false, true)</pre>
-
-        or if it is not used (does not have any consumers):
-
-        <pre class="sourcecode java">model.QueueDelete("queue-name", true, false)</pre>
-      </p>
-
-      <p>
-        A queue can be purged (all of its messages deleted):
-
-        <pre class="sourcecode java">model.QueuePurge("queue-name")</pre>
-      </p>
-      </doc:section>
-
-        <doc:section name="publishing">
-          <doc:heading>Publishing Messages</doc:heading>
+        <doc:subsection name="passive-declaration">
+          <doc:heading>Passive Declaration</doc:heading>
 
           <p>
-            To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
-            follows:
+            Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
+            with the provided name exists. If it does, the operation is a no-op. For queues successful
+            passive declares will return the same information as non-passive ones, namely the number of
+            consumers and messages in <a href="/confirms.html">ready state</a> in the queue.
+
+            If the entity does not exist, the operation fails with a channel level exception. The channel
+            cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
+            channels for passive declarations.
+          </p>
+
+          <p>
+            <code>IModel#QueueDeclarePassive</code> and <code>IModel#ExchangeDeclarePassive</code> are the
+            methods used for passive declaration. The following example demonstrates <code>IModel#QueueDeclarePassive</code>:
+
+<pre class="sourcecode csharp">
+var response = model.QueueDeclarePassive("queue-name");
+// returns the number of messages in Ready state in the queue
+response.MessageCount;
+// returns the number of consumers the queue has
+response.ConsumerCount;
+</pre>
+
+            <code>IModel#ExchangeDeclarePassive</code>'s return value contains no useful information. Therefore
+            if the method returns and no channel exceptions occurs, it means that the exchange does exist.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="nowait-methods">
+          <doc:heading>Operations with Optional Responses</doc:heading>
+
+          <p>
+            Some common operations also have a "no wait" version which won't wait for server
+            response. For example, to declare a queue and instruct the server to not send any
+            response, use
+
+            <pre class="sourcecode csharp">model.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
+
+            The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+            are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+            When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+            with high topology (queue, binding) churn.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="deleting-entities">
+          <doc:heading>Deleting Entities and Purging Messages</doc:heading>
+
+          <p>
+            A queue or exchange can be explicitly deleted:
+
+            <pre class="sourcecode csharp">model.QueueDelete("queue-name", false, false)</pre>
+
+            It is possible to delete a queue only if it is empty:
+
+            <pre class="sourcecode csharp">model.QueueDelete("queue-name", false, true)</pre>
+
+            or if it is not used (does not have any consumers):
+
+            <pre class="sourcecode csharp">model.QueueDelete("queue-name", true, false)</pre>
+          </p>
+
+          <p>
+            A queue can be purged (all of its messages deleted):
+
+            <pre class="sourcecode csharp">model.QueuePurge("queue-name")</pre>
+          </p>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="publishing">
+        <doc:heading>Publishing Messages</doc:heading>
+
+        <p>
+          To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
+          follows:
 
 <pre class="sourcecode csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 </pre>
 
-            For fine control, you can use overloaded variants to specify the
-            mandatory flag, or specify messages properties:
+          For fine control, you can use overloaded variants to specify the
+          mandatory flag, or specify messages properties:
 
 <pre class="sourcecode csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
@@ -364,9 +405,9 @@ model.BasicPublish(exchangeName,
                    messageBodyBytes);
 </pre>
 
-            This sends a message with delivery mode 2 (persistent) and
-            content-type "text/plain". See the definition of the <code>IBasicProperties</code>
-            interface for more information about the available message properties.
+          This sends a message with delivery mode 2 (persistent) and
+          content-type "text/plain". See the definition of the <code>IBasicProperties</code>
+          interface for more information about the available message properties.
           </p>
           <p>
             In the following example, we publish a message with custom headers:
