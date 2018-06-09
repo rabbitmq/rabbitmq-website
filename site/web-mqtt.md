@@ -167,7 +167,7 @@ See [RabbitMQ Networking guide](/networking.html) for more information.
 
 ## <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
-The plugin supports WebSockets with TLS (WSS) connections.
+The plugin supports WebSocket connections with TLS encryption (WSS connections).
 
 TLS configuration parameters for the plugin use the <code>web_mqtt.ssl</code> prefix:
 
@@ -197,8 +197,10 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 ].
 </pre>
 
-Note that port, certificate file and private key file are all mandatory.
-An extended list of TLS settings can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.4/manual/ranch_ssl/).
+TLS listener port, server certificate file and private key file are mandatory options.
+An extended list of TLS settings is largely identical to those [for the core server](/ssl.html)
+but there are some minor differences. Full list of options accepted by this plugin
+can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.4/manual/ranch_ssl/).
 
 
 ### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
