@@ -138,14 +138,14 @@ For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
 <pre class="sourcecode ini">
-web_mqtt.port = 12345
+web_mqtt.tcp.port = 15675
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [
-  {rabbitmq_web_mqtt, [{port, 12345}]}
+  {rabbitmq_web_mqtt, [{port, 15675}]}
 ].
 </pre>
 
@@ -154,7 +154,7 @@ This is a shorthand for the following:
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_mqtt,
-      [{tcp_config, [{port, 12345}]}]}
+      [{tcp_config, [{port, 15675}]}]}
 ].
 </pre>
 
