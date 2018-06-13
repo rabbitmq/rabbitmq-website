@@ -43,7 +43,7 @@ See the [Configuration guide](/configure.html) for a general overview
 of how RabbitMQ nodes are configured.
 
 
-### Log Outputs
+### <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
 Default RabbitMQ logging configuration will direct log messages to a log file. Standard output is
 another option available out of the box.
@@ -56,7 +56,7 @@ information while the file output will log only error and higher
 severity messages.
 
 
-### Logging to a File
+### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
 
 
  * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](/configure.html).
@@ -111,7 +111,7 @@ Log file rotation via Lager is disabled by default. [Debian](/install-debian.htm
 log rotation via `logrotate` after package installation.
 
 
-### Logging to Console (Standard Output)
+### <a id="logging-to-console" class="anchor" href="#logging-to-console">Logging to Console (Standard Output)</a>
 
 Here are the main settings that control console (standard output) logging:
 
@@ -154,6 +154,115 @@ default. To disable the file output, set `log.file` to `false`.
 
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
+
+### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to Syslog</a>
+
+RabbitMQ logs can be forwarded to a Syslog server via TCP or UDP. UDP is used by default
+and **requires Syslog service configuration**. TLS is also supported.
+
+Syslog output has to be explicitly configured:
+
+<pre class="sourcecode ini">
+log.syslog = true
+</pre>
+
+Or, in the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [
+    {syslog, [{enabled, true}]}]}]
+}].
+</pre>
+
+#### Syslog Endpoint Configuration
+
+By default the Syslog logger will send log messages to UDP port 514 using
+the [RFC 3164](https://www.ietf.org/rfc/rfc3164.txt) protocol. [RFC 5424](https://tools.ietf.org/html/rfc5424)
+protocol also can be used.
+
+In order to use UDP the **Syslog service must have UDP input configured**.
+
+UDP and TCP transports can be used with both RFC 3164 and RFC 5424 protocols.
+TLS support requires the RFC 5424 protocol.
+
+The following example uses TCP and the RFC 5424 protocol:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.transport = tcp
+log.syslog.protocol = rfc5424
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{protocol, {tcp, rfc5424}}]}
+].
+</pre>
+
+To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.transport = tls
+log.syslog.protocol = rfc5424
+
+log.syslog.ssl_options.cacertfile = /path/to/tls/cacert.pem
+log.syslog.ssl_options.certfile = /path/to/tls/cert.pem
+log.syslog.ssl_options.keyfile = /path/to/tls/key.pem
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{protocol, {tls, rfc5424,
+                        [{cacertfile,"/path/to/tls/cacert.pem"},
+                         {certfile,"/path/to/tls/cert.pem"},
+                         {keyfile,"/path/to/tls/key.pem"}]}}]}
+].
+</pre>
+
+Syslog service IP address (note: hostnames are not supported) and port can be customised:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.ip = 10.10.10.10
+log.syslog.port = 1514
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{dest_host, {10, 10, 10, 10}},
+           {dest_port, 1514}]}
+].
+</pre>
+
+Syslog metadata identity and facility values also can be configured.
+By default identity will be set to the name part of the node name (for example `rabbitmq` for `rabbitmq@hostname`)
+and facility will be set to `daemon`.
+
+To set identity and facility of log messages:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.identity = my_rabbitmq
+log.syslog.facility = user
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{app_name, "my_rabbitmq"},
+           {facility, user}]}
+].
+</pre>
+
+Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
 
 ## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
@@ -401,7 +510,6 @@ client unexpectedly closed TCP connection
 Abruptly closed connections could be harmless (e.g. a short lived program has naturally terminated
 and didn't have a chance to close its connection properly) or indicate a genuine issue such as
 a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
-
 
 
 ## <a id="upgrading" class="anchor" href="#upgrading">Upgrading From pre-3.7 Versions</a>
