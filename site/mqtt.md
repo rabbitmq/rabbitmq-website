@@ -33,7 +33,7 @@ the [management UI](/management.html) and several other clients can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
-## <a id="ifb" class="anchor" href="#ifb">Enabling the Plugin</a>
+## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
 connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):

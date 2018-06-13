@@ -30,6 +30,18 @@ limitations under the License.
           This guide covers <a href="/java-client.html">RabbitMQ Java client</a> and its public API.
           It assumes that the <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
           and the reader is familiar with <a href="/getstarted.html">the basics</a>.
+
+          Key sections of the guide are:
+
+          <ul>
+            <li><a href="#connecting">Connecting to RabbitMQ</a></li>
+            <li><a href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a></li>
+            <li><a href="#exchanges-and-queues">Using Exchanges and Queues</a></li>
+            <li><a href="#publishing">Publishing Messages</a></li>
+            <li><a href="#consuming">Consuming Using a Subscription</a></li>
+            <li><a href="#channel-threads">Concurrency Considerations and Safety</a></li>
+            <li><a href="#recovery">Automatic Recovery From Network Failures</a></li>
+          </ul>
         </p>
 
         <p class="intro">
@@ -266,7 +278,7 @@ conn.close();</pre>
       </p>
 
       <p>
-       Continuing the previous example, the following code declares an exchange and a queue,
+       Continuing the previous example, the following code declares an exchange and a <a href="/queues.html#server-named-queues">server-named queue</a>,
        then binds them together.
       </p>
 
@@ -321,38 +333,77 @@ channel.queueBind(queueName, exchangeName, routingKey);</pre>
         This "short form, long form" pattern is used throughout the client API uses.
       </p>
 
-      <p>
-        Some common operations also have a "no wait" version which won't wait for server
-        response. For example, to declare a queue and instruct the server to not send any
-        response, use
+        <doc:subsection name="passive-declaration">
+          <doc:heading>Passive Declaration</doc:heading>
 
-        <pre class="sourcecode java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
+          <p>
+            Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
+            with the provided name exists. If it does, the operation is a no-op. For queues successful
+            passive declares will return the same information as non-passive ones, namely the number of
+            consumers and messages in <a href="/confirms.html">ready state</a> in the queue.
 
-        The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
-        are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
-        When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
-        with high topology (queue, binding) churn.
-      </p>
+            If the entity does not exist, the operation fails with a channel level exception. The channel
+            cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
+            channels for passive declarations.
+          </p>
 
-      <p>
-        A queue or exchange can be explicitly deleted:
+          <p>
+            <code>Channel#queueDeclarePassive</code> and <code>Channel#exchangeDeclarePassive</code> are the
+            methods used for passive declaration. The following example demonstrates <code>Channel#queueDeclarePassive</code>:
 
-        <pre class="sourcecode java">channel.queueDelete("queue-name")</pre>
+<pre class="sourcecode java">
+Queue.DeclareOk response = channel.queueDeclarePassive("queue-name");
+// returns the number of messages in Ready state in the queue
+response.getMessageCount();
+// returns the number of consumers the queue has
+response.getConsumerCount();
+</pre>
 
-        It is possible to delete a queue only if it is empty:
+            <code>Channel#exchangeDeclarePassive</code>'s return value contains no useful information. Therefore
+            if the method returns and no channel exceptions occurs, it means that the exchange does exist.
+          </p>
+        </doc:subsection>
 
-        <pre class="sourcecode java">channel.queueDelete("queue-name", false, true)</pre>
+        <doc:subsection name="nowait-methods">
+          <doc:heading>Operations with Optional Responses</doc:heading>
 
-        or if it is not used (does not have any consumers):
+          <p>
+            Some common operations also have a "no wait" version which won't wait for server
+            response. For example, to declare a queue and instruct the server to not send any
+            response, use
 
-        <pre class="sourcecode java">channel.queueDelete("queue-name", true, false)</pre>
-      </p>
+            <pre class="sourcecode java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
 
-      <p>
-        A queue can be purged (all of its messages deleted):
+            The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
+            are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+            When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
+            with high topology (queue, binding) churn.
+          </p>
+        </doc:subsection>
 
-        <pre class="sourcecode java">channel.queuePurge("queue-name")</pre>
-      </p>
+        <doc:subsection name="deleting-entities">
+          <doc:heading>Deleting Entities and Purging Messages</doc:heading>
+
+          <p>
+            A queue or exchange can be explicitly deleted:
+
+            <pre class="sourcecode java">channel.queueDelete("queue-name")</pre>
+
+            It is possible to delete a queue only if it is empty:
+
+            <pre class="sourcecode java">channel.queueDelete("queue-name", false, true)</pre>
+
+            or if it is not used (does not have any consumers):
+
+            <pre class="sourcecode java">channel.queueDelete("queue-name", true, false)</pre>
+          </p>
+
+          <p>
+            A queue can be purged (all of its messages deleted):
+
+            <pre class="sourcecode java">channel.queuePurge("queue-name")</pre>
+          </p>
+        </doc:subsection>
     </doc:section>
 
     <doc:section name="publishing">
@@ -534,8 +585,8 @@ import com.rabbitmq.client.DefaultConsumer;</pre>
       <p>
         Distinct <code>Consumer</code> instances must have distinct
         consumer tags. Duplicate consumer tags on a connection is
-        strongly discouraged and can lead to issues with automatic
-        connection recovery and confusing monitoring data when
+        strongly discouraged and can lead to issues with <a href="#connection-recovery">automatic
+        connection recovery</a> and confusing monitoring data when
         consumers are monitored.
       </p>
 
@@ -1106,7 +1157,7 @@ connection.addShutdownListener(new ShutdownListener() {
           When it is deleted or is scheduled for deletion (e.g. because it is <a href="/queues.html">auto-deleted</a>)
           it will be removed. This model has some limitations covered below.
         </p>
-        
+
         <p>
           To disable or enable automatic connection recovery, use
           the <code>factory.setAutomaticRecoveryEnabled(boolean)</code>
@@ -1156,6 +1207,28 @@ factory.newConnection(addresses);</pre>
 
           whichever happens first.
         </p>
+            <p>
+              If initial client connection to a RabbitMQ node fails, automatic connection
+              recovery won't kick in. Applications developers are responsible for retrying
+              such connections, logging failed attempts, implementing a limit to the number
+              of retries and so on. Here's a very basic example:
+
+<pre class="sourcecode csharp">
+ConnectionFactory factory = new ConnectionFactory();
+// configure various connection settings
+
+try {
+  Connection conn = factory.newConnection();
+} catch (java.net.ConnectException e) {
+  Thread.sleep(5000);
+  // apply retry logic
+}
+</pre>
+            </p>
+            <p>
+              When a connection is closed by the application via the <code>Connection.Close</code> method,
+              connection recovery will not be initiated.
+            </p>
         <p>
           Channel-level exceptions will not trigger any kind of recovery as they usually
           indicate a semantic issue in the application (e.g. an attempt to consume from a
@@ -1538,7 +1611,7 @@ cf.setRequestedHeartbeat(5);
 
         However, the client cannot track these topology changes beyond a single connection.
         Applications that rely on auto-delete queues or exchanges, as well as queue TTL (note: not message TTL!),
-        and use automatic connection recovery, should explicitly delete entities know to be unused
+        and use <a href="#connection-recovery">automatic connection recovery</a>, should explicitly delete entities know to be unused
         or deleted, to purge client-side topology cache. This is facilitated by <code>Channel#queueDelete</code>,
         <code>Channel#exchangeDelete</code>, <code>Channel#queueUnbind</code>, and <code>Channel#exchangeUnbind</code>
         being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
