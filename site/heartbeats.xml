@@ -47,7 +47,7 @@ limitations under the License.
 
 
     <doc:section name="heartbeats-timeout">
-      <doc:heading>Heartbeat Timeout Interval</doc:heading>
+      <doc:heading>Heartbeat Timeout Value</doc:heading>
       <p>
         The heartbeat timeout value defines after what period of time
         the peer TCP connection should be considered unreachable (down) by RabbitMQ
@@ -61,11 +61,18 @@ limitations under the License.
       </p>
       <p>
         Heartbeat frames are sent about every <code>timeout / 2</code>
-        seconds. After two missed heartbeats, the peer is considered
+        seconds. This value is sometimes referred to as the <code>heartbeat interval</code>.
+        After two missed heartbeats, the peer is considered
         to be unreachable. Different clients manifest this differently
         but the TCP connection will be closed. When a client detects
         that RabbitMQ node is unreachable due to a heartbeat, it needs
         to re-connect.
+      </p>
+      <p>
+        It is important to not confuse the timeout value with the interval one.
+        RabbitMQ <a href="/configure.html">configuration</a> exposes the timeout value,
+        so do the officially supported client libraries. However some clients might expose
+        the interval, potentially causing confusion.
       </p>
       <p>
         Any traffic (e.g. protocol operations, published messages, <a
