@@ -495,7 +495,7 @@ or TCP connection is lost. Both cases will be logged by the broker.
 Below is an example entry for a successfully closed connection:
 
 <pre class="sourcecode ini">
-2018-06-17 06:23:29.855 [info] <0.634.0> closing AMQP connection <0.634.0> (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
+2018-06-17 06:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
 
 Prior to RabbitMQ 3.7 the format was different:
@@ -508,7 +508,7 @@ closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, 
 Abruptly closed connections will be logged as warnings:
 
 <pre class="sourcecode ini">
-2018-06-17 06:28:40.868 [warning] <0.646.0> closing AMQP connection <0.646.0> (127.0.0.1:58667 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
+2018-06-17 06:28:40.868 [warning] &lt;0.646.0&gt; closing AMQP connection &lt;0.646.0&gt; (127.0.0.1:58667 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
 </pre>
 
