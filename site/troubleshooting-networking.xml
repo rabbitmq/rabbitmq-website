@@ -365,6 +365,29 @@ sudo netstat --all --numeric --tcp --programs
           can help troubleshoot misbehaving applications, application instances and client libraries.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="detecting-high-connection-churn">
+        <doc:heading>Detecting High Connection Churn</doc:heading>
+        <p>
+          High connection churn (lots of connections opened and closed after a brief
+          period of time) <a href="/networking.html#dealing-with-high-connection-churn">can lead to resource exhaustion</a>.
+          It is therefore important to be able to identify such scenarios. <code>netstat</code> and <code>ss</code>
+          are most popular options for <a href="troubleshooting-inspecting-connections">inspecting TCP connections</a>.
+          A lot of connections in the <code>TIME_WAIT</code> state is a likely symptom of high connection churn.
+          Lots of connections in states other than <code>ESTABLISHED</code> also might be a symptom worth investigating.
+        </p>
+
+        <p>
+          Evidence of short lived connections can be found in RabbitMQ log files. E.g. here's an example
+          of such connection that lasted only a few milliseconds:
+
+<pre class="sourcecode ini">
+2018-06-17 16:23:29.851 [info] &lt;0.634.0&gt; accepting AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672)
+2018-06-17 16:23:29.853 [info] &lt;0.634.0&gt; connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')            
+</pre>
+        </p>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
