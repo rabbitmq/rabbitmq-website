@@ -90,6 +90,27 @@ limitations under the License.
       </p>
     </doc:section>
 
+    <doc:section name="top-5-cluster-metrics">
+      <doc:heading>Top 5 Cluster Metrics</doc:heading>
+      <p>
+        These are the 5 most important metrics for determining whether a RabbitMQ cluster is healthy:
+      </p>
+
+      <h4>1. Running RabbitMQ nodes</h4>
+      <p>
+        It is important to know how many of the nodes in the cluster are running.
+        This metric needs to be collected from each node so that we can be confident that each node is able to communicate with every other node.
+      </p>
+      <p>
+        This metric can be collected via <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>GET /api/nodes</code></a>
+      </p>
+
+      <h4>2. Messages</h4>
+      <h4>3. Queues</h4>
+      <h4>4. Channels</h4>
+      <h4>5. Connections</h4>
+    </doc:section>
+
     <doc:section name="third-party-monitoring-tools">
       <doc:heading>Third Party Monitoring Tools</doc:heading>
       <p>
