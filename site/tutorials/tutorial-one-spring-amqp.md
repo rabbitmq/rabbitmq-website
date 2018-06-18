@@ -51,10 +51,10 @@ select maven with Spring Boot 1.5.2.
 Open the [Spring Initializr](http://start.spring.io) and provide:
 the group id (e.g. org.springframework.amqp.tutorials)
 the artifact id (e.g. rabbitmq-amqp-tutorials)
-Search for the amqp dependency and select the AMQP dependency.
+Search for the RabbitMQ dependency and select the RabbitMQ dependency.
 
 <div class="diagram">
-    <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]" 
+    <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]"
         height="100" />
 </div>
 
@@ -152,10 +152,10 @@ public class RabbitAmqpTutorialsApplication {
 
             @Override
             public void run(String... arg0) throws Exception {
-                System.out.println("This app uses Spring Profiles to 
+                System.out.println("This app uses Spring Profiles to
                     control its behavior.\n");
-                System.out.println("Sample usage: java -jar 
-                    rabbit-tutorials.jar 
+                System.out.println("Sample usage: java -jar
+                    rabbit-tutorials.jar
                     --spring.profiles.active=hello-world,sender");
             }
         };
@@ -327,5 +327,5 @@ java -jar rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
 > rabbitmqctl.bat list_queues
 > </pre>
 
-Time to move on to [part 2](tutorial-two-spring-amqp.html) and 
+Time to move on to [part 2](tutorial-two-spring-amqp.html) and
 build a simple _work queue_.
