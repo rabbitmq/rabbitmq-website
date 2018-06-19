@@ -20,10 +20,6 @@ TCP_PORT := 8191
 ### TARGETS ###
 #
 
-clean: ;
-
-distclean: ;
-
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
@@ -35,12 +31,10 @@ libxslt: /usr/local/opt/libxslt/
 	@brew install python
 python3: /usr/local/bin/python3
 
-"$(PIPENV_BIN)": python3
+$(PIPENV_BIN): python3
+ifeq ($(wildcard $(PIPENV_BIN)),)
 	@brew install pipenv
-
-/usr/local/bin/pipenv: python3
-	@brew install pipenv
-
+endif
 pipenv: $(PIPENV_BIN)
 
 deps: libxslt pipenv
