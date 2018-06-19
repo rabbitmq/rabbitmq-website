@@ -391,7 +391,7 @@ operation queue.declare caused a channel exception not_found: home node 'rabbit@
 
       <p>
         In case it is desired that the queue remains available at all times,
-        mirrors can be configured to be <a href="#unsynchronised-mirrors">promoted to master even when no in sync</a>.
+        mirrors can be configured to be <a href="#unsynchronised-mirrors">promoted to master even when not in sync</a>.
       </p>
     </doc:section>
 
