@@ -10,8 +10,10 @@ endif
 export PATH := /usr/local/opt/libxslt/bin:$(PATH)
 export LDFLAGS := "-L/usr/local/opt/libxslt/lib"
 export CPPFLAGS := "-I/usr/local/opt/libxslt/include"
+export LC_ALL := en_US.UTF-8
+export LANG := en_US.UTF-8
 
-PIPENV_BIN := $(realpath /usr/local/bin/pipenv)
+PIPENV_BIN := /usr/local/bin/pipenv
 
 TCP_PORT := 8191
 
@@ -29,12 +31,16 @@ help:
 	@brew install libxslt
 libxslt: /usr/local/opt/libxslt/
 
-/usr/local/bin/pyhon3:
+/usr/local/bin/python3:
 	@brew install python
 python3: /usr/local/bin/python3
 
 "$(PIPENV_BIN)": python3
 	@brew install pipenv
+
+/usr/local/bin/pipenv: python3
+	@brew install pipenv
+
 pipenv: $(PIPENV_BIN)
 
 deps: libxslt pipenv
