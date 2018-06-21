@@ -6,7 +6,7 @@ This guide covers topics related to RabbitMQ installation upgrades.
 
 It is important to consider a number of things before upgrading RabbitMQ.
 
-1. [RabbitMQ version compatibility](#rabbitmq-version-compatibility), version upgrading from &amp; version upgrading to
+1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from &amp; version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
@@ -20,13 +20,15 @@ Instead of a regular ("in place") upgrade, a strategy known as [blue-green deplo
 can be used. It has the benefit of making the upgrade process safier at the cost of having
 to spawn an entire new RabbitMQ cluster.
 
-## <a id="rabbitmq-version-compatibility" class="anchor" href="#rabbitmq-version-compatibility">RabbitMQ Version Compatibility</a>
+## <a id="rabbitmq-version-upgradability" class="anchor" href="#rabbitmq-version-upgradability">RabbitMQ Version Upgradability</a>
 
 When an upgrade jumps multiple release series (e.g. goes from `3.4.x` to `3.6.x`), it may be necessary to perform
 an intermediate upgrade first. For example, when upgrading from `3.2.x` to `3.7.x`, it would be necessary to
 first upgrade to 3.6.x and then upgrade to 3.7.0.
 
-Current release series upgrade compatibility:
+Please note, that a [full cluster stop](#full-stop-upgrades) is required for such upgrades.
+
+Current release series upgrade compatibility with full stop upgrade:
 
 | From     | To     |
 |----------|--------|
@@ -383,10 +385,10 @@ The following libraries support host lists:
     Always consult with the release notes of all versions between the
     one currently deployed and the target one.
 
-1. Check version compatibility.
+1. Check RabbitMQ version.
 
     To upgrade from 3.4.x to 3.7.x, the intermediate upgrade is required.
-    See the [RabbitMQ Version Compatibility](#rabbitmq-version-compatibility) section above.
+    See the [RabbitMQ Version Upgradability](#rabbitmq-version-upgradability) section above.
 
 1. Check Erlang version requirements.
 
