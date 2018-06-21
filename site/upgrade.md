@@ -26,7 +26,7 @@ When an upgrade jumps multiple release series (e.g. goes from `3.4.x` to `3.6.x`
 an intermediate upgrade first. For example, when upgrading from `3.2.x` to `3.7.x`, it would be necessary to
 first upgrade to 3.6.x and then upgrade to 3.7.0.
 
-Please note, that a [full cluster stop](#full-stop-upgrades) is required for such upgrades.
+Please note that a [full cluster stop](#full-stop-upgrades) is required for feature version upgrades.
 
 Current release series upgrade compatibility with full stop upgrade:
 
@@ -34,7 +34,7 @@ Current release series upgrade compatibility with full stop upgrade:
 |----------|--------|
 | 3.6.x    | 3.7.x  |
 | 3.5.x    | 3.7.x  |
-| =< 3.4.x | 3.6.14 |
+| =< 3.4.x | 3.6.16 |
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" href="#rabbitmq-erlang-version-requirement">Erlang Version Requirements</a>
 
@@ -45,7 +45,7 @@ Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
 
 Unless otherwise specified in release notes, RabbitMQ plugin API
 introduces no breaking changes within a release series (e.g. between
-`3.6.11` and `3.6.14`). If upgrading to a new minor version
+`3.6.11` and `3.6.16`). If upgrading to a new minor version
 (e.g. `3.7.0`), plugin must be upgraded to their versions that support
 the new RabbitMQ version series.
 
