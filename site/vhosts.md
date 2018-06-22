@@ -22,7 +22,7 @@ limitations under the License.
 RabbitMQ is multi-tenant system: connections, exchanges, queues, bindings, user permissions,
 policies and some other things belong to **virtual hosts**, logical groups of
 entities. If you are familiar with [virtual hosts in Apache](https://httpd.apache.org/docs/2.4/vhosts/)
-or [server blocks in Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/),the idea is similar.
+or [server blocks in Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/), the idea is similar.
 There is, however, one important difference: virtual hosts in Apache are defined
 in the configuration file; that's not the case with RabbitMQ: virtual hosts are
 created using `rabbitmqctl` or HTTP API instead.
