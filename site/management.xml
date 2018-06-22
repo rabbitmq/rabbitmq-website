@@ -511,6 +511,12 @@ management.sample_retention_policies.detailed.10 = 5
           <p>
             Example of setting the session timeout to 1 hour:
           </p>
+          <pre class="sourcecode ini">
+management.login_session_timeout = 60
+</pre>
+
+          Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
           <pre class="sourcecode erlang">[
   ...
   {rabbitmq_management,
