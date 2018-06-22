@@ -462,7 +462,7 @@ management.sample_retention_policies.detailed.10 = 5
         </doc:subsection>
 
       <doc:subsection name="cors">
-        <doc:heading>Cross-origin resource sharing (CORS)</doc:heading>
+        <doc:heading>Cross-origin Resource Sharing (CORS)</doc:heading>
         <p>
           The management API will by default not allow access to
           websites hosted on different origins. Allowed origins
@@ -498,18 +498,18 @@ management.sample_retention_policies.detailed.10 = 5
         </doc:subsection>
 
         <doc:subsection name="login-session-timeout">
-          <doc:heading>Login session timeout</doc:heading>
+          <doc:heading>Login Session Timeout</doc:heading>
           <p>
-            By default the web UI login session will expire after 8 hours.
+            After the user logs in, her web UI login session will expire after 8 hours by default.
             It is possible to configure a different timeout using the
             <code>login_session_timeout</code> setting.
           </p>
           <p>
-            The value should be an integer and will configure time in minutes
-            after login to expire the authorisation cookie.
+            The value should be an integer: it controls the length of login
+            session in minutes. When the time is up, the user will be signed out.
           </p>
           <p>
-            Example of setting the session timeout to 1 hour:
+            The following example sets the session timeout to 1 hour:
           </p>
           <pre class="sourcecode ini">
 management.login_session_timeout = 60
