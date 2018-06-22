@@ -497,6 +497,29 @@ management.sample_retention_policies.detailed.10 = 5
 ].</pre>
         </doc:subsection>
 
+        <doc:subsection name="login-session-timeout">
+          <doc:heading>Login session timeout</doc:heading>
+          <p>
+            By default the web UI login session will expire after 8 hours.
+            It is possible to configure a different timeout using the
+            <code>login_session_timeout</code> setting.
+          </p>
+          <p>
+            The value should be an integer and will configure time in minutes
+            after login to expire the authorisation cookie.
+          </p>
+          <p>
+            Example of setting the session timeout to 1 hour:
+          </p>
+          <pre class="sourcecode erlang">[
+  ...
+  {rabbitmq_management,
+    [{login_session_timeout, 60}]},
+  ...
+].</pre>
+        </doc:subsection>
+
+
         <doc:subsection name="path-prefix">
           <doc:heading>Path Prefix</doc:heading>
           <p>
