@@ -308,8 +308,10 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 
         <p>
           If an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM role is assigned to EC2 instances</a> running RabbitMQ nodes,
-          a policy has to be used to allow said instances use EC2 Instance Metadata Service.
-          Below is an example of such policy:
+          a policy has to be used to <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">allow said instances use EC2 Instance Metadata Service</a>.
+          When the plugin is configured to use Autoscaling group members,
+          a policy has to <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/control-access-using-iam.html">grant access to describe autoscaling group members</a> (instances).
+          Below is an example of a policy that covers both use cases:
 
           <pre class="sourcecode json">
 {
