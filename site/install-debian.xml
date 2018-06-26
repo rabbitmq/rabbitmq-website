@@ -145,7 +145,7 @@ Pin-Priority: 1000
 <pre class="sourcecode ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:20.2.2-1
+Pin: version 1:20.3-1
 Pin-Priority: 1000
 </pre>
 
