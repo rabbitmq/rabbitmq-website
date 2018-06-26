@@ -139,7 +139,7 @@ Pin-Priority: 1000
 </pre>
 
            The following preference file example will pin all <code>erlang-*</code> packages (in other words, all Erlang packages in the standard
-           Debian and Ubuntu repositories) to <code>20.2.2</code>
+           Debian and Ubuntu repositories) to <code>20.3</code>
            (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
 
 <pre class="sourcecode ini">
