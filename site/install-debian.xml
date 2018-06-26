@@ -58,7 +58,7 @@ limitations under the License.
        </p>
        <p>
          You can either download it with the link above and install
-         with <code>dpkg</code>, or use our APT repository (see below).
+         with <code>dpkg</code>, or use the Bintray and Package Cloud repositories (see below).
        </p>
    </doc:section>
 
@@ -69,6 +69,7 @@ limitations under the License.
          Below is a list Debian-based distributions supported by RabbitMQ 3.7.x packages:
          <ul>
            <li>Ubuntu 14.04 through 18.04</li>
+           <li>Debian Buster</li>
            <li>Debian Stretch</li>
            <li>Debian Jessie</li>
          </ul>
@@ -96,7 +97,7 @@ limitations under the License.
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
          standard Debian and Ubuntu also can be quite
          outdated. Consider installing a newer version, such as
-         20.1.7.1.
+         20.3.6.
        </p>
 
        <table>
@@ -109,7 +110,7 @@ limitations under the License.
          </thead>
          <tbody>
            <tr>
-             <td>20.1</td>
+             <td>20.x</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
                <a href="https://packages.debian.org/buster/erlang">Debian Buster</a>
@@ -127,21 +128,28 @@ limitations under the License.
          <p>
            <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to avoid undesired Erlang upgrades.
 
-           The following preference file example will pin <code>esl-erlang</code> package to to <code>20.1.7</code> and <code>erlang-*</code> packages to <code>20.1</code>
-           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for those packages is 1):
+           The following preference file example will pin <code>esl-erlang</code> package to to <code>20.3.6</code>
+           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
+
+<pre class="sourcecode ini">
+# /etc/apt/preferences.d/erlang
+Package: esl-erlang
+Pin: version 1:20.3.6
+Pin-Priority: 1000
+</pre>
+
+           The following preference file example will pin all <code>erlang-*</code> packages (in other words, all Erlang packages in the standard
+           Debian and Ubuntu repositories) to <code>20.2.2</code>
+           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
 
 <pre class="sourcecode ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:20.1-1
-Pin-Priority: 1000
-
-Package: esl-erlang
-Pin: version 1:20.1.7
+Pin: version 1:20.2.2-1
 Pin-Priority: 1000
 </pre>
 
-           The above example should be placed into a file under <code>/etc/apt/preferences.d/</code>, e.g. <code>/etc/apt/preferences.d/erlang</code>.
+           The above examples should be placed into a file under <code>/etc/apt/preferences.d/</code>, e.g. <code>/etc/apt/preferences.d/erlang</code>.
          </p>
          <p>
            Effective package pinning policy can be verified with
