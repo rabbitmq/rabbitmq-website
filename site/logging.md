@@ -9,6 +9,7 @@ This guide describes various aspects of logging in RabbitMQ:
  * [Log categories](#log-message-categories)
  * [Debug logging](#debug-logging)
  * Supported log outputs
+ * [Connection lifecycle events](#logged-events) logged
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
@@ -275,7 +276,7 @@ earlier than 3.7.0.
 
 The categories are:
 
- * `connection`: connection lifecycle events for AMQP 0-9-1, AMQP 1.0, MQTT and STOMP.
+ * `connection`: [connection lifecycle events](#connection-lifecycle-events) for AMQP 0-9-1, AMQP 1.0, MQTT and STOMP.
  * `channel`: channel logs. Mostly errors and warnings on AMQP 0-9-1 channels.
  * `queue`: queue logs. Mostly debug messages.
  * `mirroring`: queue mirroring logs. Queue mirrors status changes: starting/stopping/synchronizing.
