@@ -68,9 +68,9 @@ limitations under the License.
               <ul class="plain">
                 <li>RabbitMQ 3.7.7 is the first version to support Erlang/OTP 21</li>
                 <li>Erlang/OTP 21 includes file I/O efficiency improvements</li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 21.0.x is recommended</li>
                 <li>Versions prior to 19.3.6.4 have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
                 <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-
                 <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
               </ul>
             </td>
@@ -100,10 +100,9 @@ limitations under the License.
             </td>
             <td>
               <ul class="plain">
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.3.x is recommended</li>
                 <li>We recommend Erlang/OTP 19.3.6.4 or later, earlier versions have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
                 <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-
-                <li>For the best TLS support, the latest version of Erlang/OTP 20.x is recommended</li>
                 <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
               </ul>
             </td>
@@ -128,10 +127,10 @@ limitations under the License.
             </td>
             <td>
               <ul class="plain">
-                <li><a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">Erlang/OTP versions prior to 19.3 are not supported</a></li>
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.3.x is recommended</li>
                 <li>We recommend Erlang/OTP 19.3.6.4 or later, earlier versions have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
                 <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-                <li>For the best TLS support, the latest version of Erlang/OTP 20.x is recommended</li>
+                <li><a href="https://groups.google.com/d/msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">Erlang/OTP versions prior to 19.3 are not supported</a></li>
                 <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
               </ul>
             </td>
@@ -158,9 +157,9 @@ limitations under the License.
             </td>
             <td>
               <ul class="plain">
+                <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
                 <li>We recommend Erlang/OTP 19.3.6.4 or later, earlier versions have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
                 <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-                <li>For the best TLS support, the latest version of Erlang/OTP 20.1.x is recommended</li>
               </ul>
             </td>
           </tr>
@@ -189,9 +188,9 @@ limitations under the License.
             </td>
             <td>
               <ul class="plain">
+                <li>For the best TLS support, the latest version of Erlang/OTP 19.3.x is recommended</li>
                 <li>We recommend Erlang/OTP 19.3.6.4 or later, earlier versions have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
                 <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-                <li>For the best TLS support, the latest version of Erlang/OTP 19.3.x is recommended</li>
               </ul>
             </td>
           </tr>
