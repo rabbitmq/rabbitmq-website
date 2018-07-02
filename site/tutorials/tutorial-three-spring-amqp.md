@@ -2,8 +2,8 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -24,18 +24,18 @@ limitations under the License.
 
 In the [first tutorial](tutorial-one-spring-amqp.html) we showed how
 to use start.spring.io to leverage Spring Initializr to create a project
-with the RabbitMQ starter dependency for create spring-amqp 
+with the RabbitMQ starter dependency to create spring-amqp 
 applications.
 
 In the [previous tutorial](tutorial-two-spring-amqp.html) we created
 a new package (tut2) to place our config, sender and receiver and
-created a work queue with two consumers. The assumption behind a work 
-queue is that each task is delivered to exactly one worker. 
+created a work queue with two consumers. The assumption behind a work
+queue is that each task is delivered to exactly one worker.
 
 In this part we'll implement the fanout pattern to deliver
 a message to multiple consumers. This pattern is known as "publish/subscribe"
 and is implementing by configuring a number of beans in our Tut3Config file.
- 
+
 Essentially, published messages are going to be broadcast to all the receivers.
 
 Exchanges
@@ -146,11 +146,11 @@ public class Tut3Config {
 
 We ollow the same approach as in the previous two tutorials.  We create three
 profiles, the tutorial ("tut3", "pub-sub", or "publish-subscribe"). They are
-all synonyms for running the fanout profile tutorial. Next we configure 
-the FanoutExchange as a bean. Within the "receiver" (Tut3Receiver) file we 
-define" four beans; 1) two autoDeleteQueues or AnonymousQueues and 
+all synonyms for running the fanout profile tutorial. Next we configure
+the FanoutExchange as a bean. Within the "receiver" (Tut3Receiver) file we
+define" four beans; 1) two autoDeleteQueues or AnonymousQueues and
 two bindings to bind those queues to the exchange.
- 
+
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
 queues it knows. And that's exactly what we need for fanning out our
@@ -181,7 +181,7 @@ messages.
 > </pre>
 >
 > The first parameter is the the name of the exchange that was autowired into
-> the sender. The empty string denotes the default or _nameless_ exchange: 
+> the sender. The empty string denotes the default or _nameless_ exchange:
 > messages are routed to the queue with the name specified by `routingKey`,
 if it exists.
 
@@ -218,8 +218,8 @@ To do this we could create a queue with a random name, or,
 even better - let the server choose a random queue name for us.
 
 Secondly, once we disconnect the consumer the queue should be
-automatically deleted. To do this with the spring-amqp client, 
-we defined and _AnonymousQueue_, which creates a non-durable, 
+automatically deleted. To do this with the spring-amqp client,
+we defined and _AnonymousQueue_, which creates a non-durable,
 exclusive, autodelete queue with a generated name:
 
 <pre class="sourcecode java">
@@ -266,11 +266,11 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_. In the above
 Tut3Config you can see that we have two bindings, one for each
-AnonymousQueue. 
+AnonymousQueue.
 
 <pre class="sourcecode java">
 @Bean
-public Binding binding1(FanoutExchange fanout, 
+public Binding binding1(FanoutExchange fanout,
         Queue autoDeleteQueue1) {
 	return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
 }
@@ -394,7 +394,7 @@ public class Tut3Receiver {
 		System.out.println("instance " + receiver + " [x] Received '" + in + "'");
 		doWork(in);
 		watch.stop();
-		System.out.println("instance " + receiver + " [x] Done in " 
+		System.out.println("instance " + receiver + " [x] Done in "
 		    + watch.getTotalTimeSeconds() + "s");
 	}
 
@@ -421,9 +421,9 @@ mvn clean package
 And of course, to execute the tutorial do the following:
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,receiver 
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,receiver
     --tutorial.client.duration=60000
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,sender 
+java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar --spring.profiles.active=pub-sub,sender
     --tutorial.client.duration=60000
 </pre>
 
