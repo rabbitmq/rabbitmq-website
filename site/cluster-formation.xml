@@ -43,6 +43,9 @@ limitations under the License.
         by some discovery implementations.
       </p>
 
+      <p>
+        The guide also covers the basics of <a href="#troubleshooting-cluster-formation">peer discovery troubleshooting</a>.
+      </p>
     </doc:section>
 
 
