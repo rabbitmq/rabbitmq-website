@@ -513,11 +513,11 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 # should result set use hostnames or IP addresses
 # of Kubernetes API-reported containers?
 # supported values are "hostname" and "ip"
-cluster_formation.k8s.address_type = ip
+cluster_formation.k8s.address_type = hostname
 </pre>
 
-        Supported values are <code>ip</code> or <code>hostname</code>, the former
-        is used by default.
+        Supported values are <code>ip</code> or <code>hostname</code>. <code>hostname</code> is
+        the recommended option. <code>ip</code> is used by default for backwards compatibility.
       </p>
 
       <p>
