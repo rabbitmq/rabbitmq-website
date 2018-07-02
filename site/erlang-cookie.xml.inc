@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="erlang-cookie">
-  <doc:heading>How Nodes (and CLI tools) Authenticate to Each Other: the Erlang Cookie</doc:heading>
+  <doc:heading>How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</doc:heading>
   <p>
     RabbitMQ nodes and CLI tools (e.g. <code>rabbitmqctl</code>) use a
     cookie to determine whether they are allowed to communicate with

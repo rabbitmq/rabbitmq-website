@@ -63,10 +63,10 @@ limitations under the License.
           <h3>Customise RabbitMQ Environment Variables</h3>
           <p>
             The service will run fine using its default
-            settings. You may want to
-            <a href="configure.html#customise-windows-environment">customise
+            settings. It is possible to
+            <a href="/configure.html#customise-windows-environment">customise
             the RabbitMQ environment</a> or
-            edit <a href="configure.html#configuration-file">configuration</a>.
+            edit <a href="/configure.html#configuration-file">configuration</a>.
           </p>
           <h3>Run RabbitMQ</h3>
           <p>
@@ -76,14 +76,16 @@ limitations under the License.
           </p>
           <h3>Manage the Service</h3>
           <p>
-            You can find links to RabbitMQ directories in the Start Menu.
+            Links to RabbitMQ directories can be found in the Start Menu.
           </p>
           <p>
             There is also a link to a command prompt window that
             will start in the sbin dir, in the Start Menu. This is
             the most convenient way to run
-            the <a href="manpages.html">various command line
-            tools</a>.
+            the <a href="/cli.html">command line
+            tools</a>. Note that CLI tools will have to <a href="/cli.html#erlang-cookie">authenticate
+            to the RabbitMQ node</a> running locally. That involves a shared secret file
+            which has to be placed into the correct location for the user.
           </p>
       </doc:subsection>
 

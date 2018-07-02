@@ -378,21 +378,20 @@ rabbitmqctl list_queues name policy pid slave_pids
         If master node of a queue
         becomes unavailable, the behaviour of a non-mirrored queue
         depends on its durability. A durable queue will become
-        unavailable until the node comes back. A non-durable one will
-        be migrated to a different node (note: since it's a
-        non-mirrored queue, it will be empty after the migration).
+        unavailable until the node comes back.
         All operations on a durable queue with unavailable master node
         will fail with a message in server logs that looks like this:
 
         <pre class="">
 operation queue.declare caused a channel exception not_found: home node 'rabbit@hostname' of durable queue 'queue-name' in vhost '/' is down or inaccessible
         </pre>
+
+        A non-durable one will be deleted.
       </p>
 
       <p>
-        In a way this difference in behavior allows developers to
-        emphasize consistency or availability for a non-mirrored
-        queue.
+        In case it is desired that the queue remains available at all times,
+        mirrors can be configured to be <a href="#unsynchronised-mirrors">promoted to master even when not in sync</a>.
       </p>
     </doc:section>
 

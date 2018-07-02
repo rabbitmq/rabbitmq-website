@@ -74,7 +74,7 @@ take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
 
-## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI tools Authenticate Nodes (and Nodes to Each Other): the Erlang Cookie</a>
+## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 
 RabbitMQ nodes and CLI tools (with the exception of `rabbitmqadmin`) use a
 cookie to determine whether they are allowed to communicate with

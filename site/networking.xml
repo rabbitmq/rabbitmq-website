@@ -67,8 +67,9 @@ limitations under the License.
         </p>
 
         <p>
-          In addition, this guide briefly covers a few topics closely related to networking,
-          such as connection lifecycle logging, proxies and load balancers, and so on.
+          In addition, this guide touches on a few topics closely related to networking,
+          such as connection lifecycle logging, proxies and load balancers, high connection churn and resource
+          exhaustion, and more.
           A methodology for <a href="/troubleshooting-networking.html">troubleshooting of networking-related issues</a>
           is covered in a separate guide.
         </p>
@@ -793,6 +794,111 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
       </doc:subsection>
     </doc:section>
 
+
+    <doc:section name="dealing-with-high-connection-churn">
+      <doc:heading>Dealing with High Connection Churn</doc:heading>
+
+      <doc:subsection name="dealing-with-high-connection-churn-overview">
+        <doc:heading>Why is High Connection Churn Problematic?</doc:heading>
+
+        <p>
+          Workloads with high connection churn (a high rate of connections being opened and closed) will require
+          TCP setting tuning to avoid exhaustion of certain resources: max number of file handles,
+          Erlang processes on RabbitMQ nodes, kernel's ephemeral port range (for hosts that *open* a lot
+          of connections, including <a href="/federation.html">Federation</a> links and <a href="/shovel.html">Shovel</a> connections), and others.
+          Nodes that are exhausted of those resources <strong>won't be able to accept new connections</strong>,
+          which will negatively affect overall system availability.
+        </p>
+
+        <p>
+          Due to a combination of certain TCP features
+          and defaults of most modern Linux distributions, closed connections can be detected after
+          a prolonged period of time. This is covered in the <a href="/heartbeats.html">heartbeats guide</a>.
+          This can be one contributing factor to connection build-up. Another is the <code>TIME_WAIT</code> TCP
+          connection state. The state primarily exists to make sure that retransmitted segments from closed
+          connections won't "reappear" on a different (newer) connection with the same client host and port.
+          Depending on the OS and TCP stack configuration connections can spend minutes in this state,
+          which on a busy system is guaranteed to lead to a connection build-up.
+
+          See <a href="http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">Coping with the TCP TIME_WAIT connections on busy servers</a> for details.
+        </p>
+
+        <p>
+          TCP stack configuration can reduce peak number of connection in closing states and
+          avoid resource exhaustion, in turn allowing nodes to accept new connections at all times.
+        </p>
+
+        <p>
+          High connection churn can also mean developer mistakes or incorrect assumptions about how
+          the messaging protocols supported by RabbitMQ are meant to be used. All supported protocols
+          assume long lived connections. Applications that open and almost immediately close connections
+          unnecessarily waste resources (network bandwidth, CPU, RAM) and contribute to the problem
+          described in this section.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dealing-with-high-connection-churn-troubleshooting">
+        <doc:heading>Inspecting Connections and Gathering Evidence</doc:heading>
+
+        <p>
+          If a node fails to accept connections it is important to first gather data (metrics, evidence) to
+          determing the state of the system and the limiting factor (exhausted resource).
+          Tools such as <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,
+          <a href="https://linux.die.net/man/8/ss">ss</a>, <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a> can be used
+          to inspect TCP connections of a node. See <a href="/troubleshooting-networking.html">Troubleshooting Networking</a> for examples.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dealing-with-high-connection-churn-tcp-keepalives">
+        <p>
+          While <a href="/heartbeats.html">heartbeats</a> are sufficient for detecting defunct connections,
+          they are not going to be sufficient in high connection churn scenarios. In those cases
+          heartbeats should be combined with <a href="#tcp-keepalives">TCP keepalives</a> to speed
+          up disconnected client detection.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dealing-with-high-connection-churn-time-wait">
+        <doc:heading>Reducing Amount of Time Spent in TIME_WAIT</doc:heading>
+
+        <p>
+          TCP stack tuning can also reduce the amount of time connections spend in the <code>TIME_WAIT</code> state.
+          The <code>net.ipv4.tcp_fin_timeout</code> setting specifically can help here:
+
+<pre class="sourcecode sysctl">
+net.ipv4.tcp_fin_timeout = 30
+</pre>
+          Note that like other settings prefixed with <code>net.ipv4.</code>, this one applies to both IPv4 and IPv6
+          connections despite the name.
+        </p>
+
+        <p>
+          If inbound connections (from clients, plugins, CLI tools and so on) do not rely on NAT,
+          <code>net.ipv4.tcp_tw_reuse</code> can be set to <code>1</code> (enabled) to allow the kernel
+          to reuse sockets in the <code>TIME_WAIT</code> state for outgoing connections. This setting can
+          be applied on client hosts or intermediaries such as proxies and load balancers. Note that
+          if NAT is used the setting is not safe and can lead to hard to track down issues.
+        </p>
+
+        <p>
+          The settings above generally should be combined with reduced <a href="#tcp-keepalives">TCP keepalive</a>
+          values, for example:
+
+
+<pre class="sourcecode sysctl">
+net.ipv4.tcp_fin_timeout = 30
+
+net.ipv4.tcp_keepalive_time=30
+net.ipv4.tcp_keepalive_intvl=10
+net.ipv4.tcp_keepalive_probes=4
+
+net.ipv4.tcp_tw_reuse = 1
+</pre>
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
     <doc:section name="os-tuning">
       <doc:heading>OS Level Tuning</doc:heading>
 
@@ -809,7 +915,8 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
       <doc:subsection name="os-tuning-important-options">
         <p>
-          A few important configurable kernel options include (for IPv4):
+          A few important configurable kernel options include (note that despite option names they
+          are effective for both IPv4 and IPv6 connections):
 
           <dl>
             <dt><code>fs.file-max</code></dt>
@@ -827,15 +934,14 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
             <dt><code>net.ipv4.tcp_tw_reuse</code></dt>
             <dd>
               When enabled, allows the kernel to reuse sockets in <code>TIME_WAIT</code>
-              state when it's safe to do so. See <a href="http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">Coping with the TCP TIME_WAIT connections on busy servers</a> for details.
-              This option is dangerous when used behind NAT.
+              state when it's safe to do so. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
+              This option is dangerous when clients and peers connect using NAT.
             </dd>
 
             <dt><code>net.ipv4.tcp_fin_timeout</code></dt>
             <dd>
-              Lowering this value to 5-10 reduces the amount of time closed connections
-              will stay in the TIME_WAIT state. Recommended for cases when a large
-              number of concurrent connections is expected.
+              Lowering this timeout to a value in the 15-30 second range reduces the amount of time closed connections
+              will stay in the TIME_WAIT state. See <a href="#dealing-with-high-connection-churn">Dealing with High Connection Churn</a>.
             </dd>
 
             <dt><code>net.core.somaxconn</code></dt>
@@ -1005,12 +1111,12 @@ sysctl -w fs.file-max 200000
         not.
 
         Below is an example sysctl configuration for TCP keepalives
-        that considers TCP connections dead or unreachable after 120
-        seconds (4 attempts every 15 seconds after connection idle for 60 seconds):
+        that considers TCP connections dead or unreachable after 70
+        seconds (4 attempts every 10 seconds after connection idle for 30 seconds):
 
 <pre class="sourcecode sysctl">
-net.ipv4.tcp_keepalive_time=60
-net.ipv4.tcp_keepalive_intvl=15
+net.ipv4.tcp_keepalive_time=30
+net.ipv4.tcp_keepalive_intvl=10
 net.ipv4.tcp_keepalive_probes=4
 </pre>
 

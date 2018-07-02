@@ -43,6 +43,9 @@ limitations under the License.
         by some discovery implementations.
       </p>
 
+      <p>
+        The guide also covers the basics of <a href="#troubleshooting-cluster-formation">peer discovery troubleshooting</a>.
+      </p>
     </doc:section>
 
 
@@ -308,8 +311,10 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 
         <p>
           If an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM role is assigned to EC2 instances</a> running RabbitMQ nodes,
-          a policy has to be used to allow said instances use EC2 Instance Metadata Service.
-          Below is an example of such policy:
+          a policy has to be used to <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">allow said instances use EC2 Instance Metadata Service</a>.
+          When the plugin is configured to use Autoscaling group members,
+          a policy has to <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/control-access-using-iam.html">grant access to describe autoscaling group members</a> (instances).
+          Below is an example of a policy that covers both use cases:
 
           <pre class="sourcecode json">
 {
@@ -511,11 +516,11 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 # should result set use hostnames or IP addresses
 # of Kubernetes API-reported containers?
 # supported values are "hostname" and "ip"
-cluster_formation.k8s.address_type = ip
+cluster_formation.k8s.address_type = hostname
 </pre>
 
-        Supported values are <code>ip</code> or <code>hostname</code>, the former
-        is used by default.
+        Supported values are <code>ip</code> or <code>hostname</code>. <code>hostname</code> is
+        the recommended option. <code>ip</code> is used by default for backwards compatibility.
       </p>
 
       <p>

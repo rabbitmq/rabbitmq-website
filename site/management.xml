@@ -266,11 +266,13 @@ limitations under the License.
         <p>
           There are several configuration options which affect the
           management plugin. These are managed through the main
-          RabbitMQ
-          <a href="configure.html#configuration-file">configuration file</a>.
+          RabbitMQ <a href="configure.html#configuration-file">configuration file</a>.
+          There are also <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
+          that affect all plugins that provide HTTP or WebSocket endpoints.
         </p>
+
         <doc:subsection name="http-logging">
-          <doc:heading>HTTP request logging</doc:heading>
+          <doc:heading>HTTP Request Logging</doc:heading>
           <p>
             To create simple access logs of requests to the HTTP API,
             set the value of the <code>http_log_dir</code> variable in
@@ -281,8 +283,9 @@ limitations under the License.
             files which make up the browser-based GUI.
           </p>
         </doc:subsection>
+
         <doc:subsection name="statistics-interval">
-          <doc:heading>Statistics interval</doc:heading>
+          <doc:heading>Statistics Interval</doc:heading>
           <p>
             By default the server will emit statistics events every
             5000ms. The message rate values shown in the management
@@ -298,8 +301,9 @@ limitations under the License.
             interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
+
         <doc:subsection name="fine-stats">
-          <doc:heading>Message rates</doc:heading>
+          <doc:heading>Message Rates</doc:heading>
           <p>
             The management plugin by default shows message rates
             globally, and for each queue, channel, exchange, and
@@ -326,60 +330,14 @@ limitations under the License.
             <code>none</code>.
           </p>
         </doc:subsection>
-        <doc:subsection name="load-definitions">
-          <doc:heading>Load definitions at startup</doc:heading>
-          <p>
-            The management plugin lets you export a JSON file
-            containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts, permissions and
-            parameters). In some scenarios it may be useful to ensure
-            the existence of these objects at every startup.
-          </p>
-          <p>
-            To do this, set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
-            in the classic config format) config key
-            to the path of a previously exported JSON file containing
-            the definitions you want:
-
-<pre class="sourcecode ini">
-management.load_definitions = /path/to/definitions/file.json
-</pre>
-
-            Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-          <pre class="sourcecode erlang">[
-{rabbitmq_management, [
-  {load_definitions, "/path/to/definitions/file.json"}
-  ]}
-].</pre>
-          </p>
-          <p>
-            Note that the definitions in the file will overwrite
-            anything already in the broker; using this option will not
-            delete anything that is already there. However, if you
-            start from a completely reset broker, use of this
-            option <strong>will</strong> prevent the usual default user /
-            virtual host / permissions from being created.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="max-backlog">
-          <doc:heading>Events backlog</doc:heading>
-          <p>
-            Under heavy load, the processing of statistics events can
-            increase the memory consumption. To reduce this,
-            the maximum backlog size of the channel and queue statistics
-            collectors can be regulated. The value of the
-            <code>stats_event_max_backlog</code> variable in
-            the <code>rabbitmq_management</code> application sets
-            the maximum size of both backlogs. Defaults to 250.
-          </p>
-        </doc:subsection>
 
         <doc:subsection name="web-dispatch-config">
-          <doc:heading>Configuring the HTTP listener</doc:heading>
+          <doc:heading>Configuring the HTTP and HTTPS Listener</doc:heading>
           <p>
+
             It is possible to configure rabbitmq-web-dispatch to serve the
             management plugin on a different port or network
-            interface, with SSL, etc. To do so, you should configure the
+            interface, with TLS, etc. To do so, you should configure the
             <code>listener</code> configuration item; for example to
             change the port:
           </p>
@@ -422,6 +380,19 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
           <p>
             See the <a href="web-dispatch.html">rabbitmq-web-dispatch</a>
             guide for more details.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="max-backlog">
+          <doc:heading>Event Backlog</doc:heading>
+          <p>
+            Under heavy load, the processing of statistics events can
+            increase the memory consumption. To reduce this,
+            the maximum backlog size of the channel and queue statistics
+            collectors can be regulated. The value of the
+            <code>stats_event_max_backlog</code> variable in
+            the <code>rabbitmq_management</code> application sets
+            the maximum size of both backlogs. Defaults to 250.
           </p>
         </doc:subsection>
 
@@ -648,6 +619,43 @@ management.sample_retention_policies.detailed.10 = 5
   ]}
 ].</pre>
         </doc:subsection>
+      </doc:section>
+
+
+      <doc:section name="load-definitions">
+        <doc:heading>Load Definitions at Startup</doc:heading>
+        <p>
+          The management plugin lets you export a JSON file
+          containing definitions of all broker objects (queues,
+          exchanges, bindings, users, virtual hosts, permissions and
+          parameters). In some scenarios it may be useful to ensure
+          the existence of these objects at every startup.
+        </p>
+        <p>
+          To do this, set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
+          in the classic config format) config key
+          to the path of a previously exported JSON file containing
+          the definitions you want:
+
+<pre class="sourcecode ini">
+management.load_definitions = /path/to/definitions/file.json
+</pre>
+
+            Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          <pre class="sourcecode erlang">[
+{rabbitmq_management, [
+  {load_definitions, "/path/to/definitions/file.json"}
+  ]}
+].</pre>
+        </p>
+        <p>
+          Note that the definitions in the file will overwrite
+          anything already in the broker; using this option will not
+          delete anything that is already there. However, if you
+          start from a completely reset broker, use of this
+          option <strong>will</strong> prevent the usual default user /
+          virtual host / permissions from being created.
+        </p>
       </doc:section>
 
 
