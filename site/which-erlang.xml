@@ -79,23 +79,23 @@ limitations under the License.
           <tr>
             <td>
               <ul>
-                <li><strong>3.7.6</strong></li>
-                <li><strong>3.7.5</strong></li>
-                <li><strong>3.7.4</strong></li>
-                <li><strong>3.7.3</strong></li>
-                <li><strong>3.7.2</strong></li>
-                <li><strong>3.7.1</strong></li>
-                <li><strong>3.7.0</strong></li>
+                <li>3.7.6</li>
+                <li>3.7.5</li>
+                <li>3.7.4</li>
+                <li>3.7.3</li>
+                <li>3.7.2</li>
+                <li>3.7.1</li>
+                <li>3.7.0</li>
               </ul>
             </td>
             <td>
               <ul>
-                <li><strong>19.3</strong></li>
+                <li>19.3</li>
               </ul>
             </td>
             <td>
               <ul>
-                <li><strong>20.3.x</strong></li>
+                <li>20.3.x</li>
               </ul>
             </td>
             <td>
