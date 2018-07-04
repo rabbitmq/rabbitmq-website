@@ -68,11 +68,21 @@ limitations under the License.
           the <code>PerfTest</code> Java class.
         </p>
         <p>
-          To verify a PerfTest installation, use
+          To verify a PerfTest installation, use:
 
           <pre class="sourcecode bash">bin/runjava com.rabbitmq.perf.PerfTest --help</pre>
         </p>
       </doc:subsection>
+
+        <doc:subsection name="perf-test-cloud-foundry">
+            <doc:heading>Running PerfTest on Cloud Foundry</doc:heading>
+
+            <p>
+            There is a <a href="https://github.com/rabbitmq/rabbitmq-perf-test-for-cf">template project</a>
+            to easily run PerfTest on <a href="https://www.cloudfoundry.org/">Cloud Foundry</a>.
+            </p>
+
+        </doc:subsection>
 
       <doc:subsection name="using-perf-test">
         <doc:heading>Using PerfTest</doc:heading>
