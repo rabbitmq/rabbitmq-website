@@ -261,6 +261,7 @@ limitations under the License.
         </p>
       </doc:section>
 
+
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
@@ -270,6 +271,59 @@ limitations under the License.
           There are also <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
           that affect all plugins that provide HTTP or WebSocket endpoints.
         </p>
+
+
+        <doc:subsection name="web-dispatch-config">
+          <doc:heading>Configuring the HTTP and HTTPS Listener</doc:heading>
+          <p>
+            It is possible to configure HTTP API and management UI to
+            use a different port or network interface, enable HTTPS
+            and so on.
+
+            The port is configured using the <code>management.listener.port</code> key:
+          </p>
+<pre class="sourcecode ini">
+management.listener.port = 12345
+</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+].
+</pre>
+
+          <p>
+            or to make the management plugin use HTTPS:
+          </p>
+
+<pre class="sourcecode ini">
+management.listener.port = 15671
+management.listener.ssl = true
+management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
+management.listener.ssl_opts.certfile = /path/to/cert.pem
+management.listener.ssl_opts.keyfile = /path/to/key.pem
+</pre>
+
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,     15671},
+               {ssl,      true},
+               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                           {certfile,   "/path/to/cert.pem"},
+                           {keyfile,    "/path/to/key.pem"}]}
+              ]}
+  ]}
+].</pre>
+          <p>
+            There are many more <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
+            that can be used to configure response body compression, limits, and so on.
+          </p>
+        </doc:subsection>
+
 
         <doc:subsection name="http-logging">
           <doc:heading>HTTP Request Logging</doc:heading>
@@ -331,57 +385,6 @@ limitations under the License.
           </p>
         </doc:subsection>
 
-        <doc:subsection name="web-dispatch-config">
-          <doc:heading>Configuring the HTTP and HTTPS Listener</doc:heading>
-          <p>
-
-            It is possible to configure rabbitmq-web-dispatch to serve the
-            management plugin on a different port or network
-            interface, with TLS, etc. To do so, you should configure the
-            <code>listener</code> configuration item; for example to
-            change the port:
-          </p>
-<pre class="sourcecode ini">
-management.listener.port = 12345
-</pre>
-
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbitmq_management, [{listener, [{port, 12345}]}]},
-].
-</pre>
-
-          <p>
-            or to make the management plugin use HTTPS:
-          </p>
-
-<pre class="sourcecode ini">
-management.listener.port = 15671
-management.listener.ssl = true
-management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
-management.listener.ssl_opts.certfile = /path/to/cert.pem
-management.listener.ssl_opts.keyfile = /path/to/key.pem
-</pre>
-
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[{rabbitmq_management,
-  [{listener, [{port,     15671},
-               {ssl,      true},
-               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
-                           {certfile,   "/path/to/cert.pem"},
-                           {keyfile,    "/path/to/key.pem"}]}
-              ]}
-  ]}
-].</pre>
-          <p>
-            See the <a href="web-dispatch.html">rabbitmq-web-dispatch</a>
-            guide for more details.
-          </p>
-        </doc:subsection>
 
         <doc:subsection name="max-backlog">
           <doc:heading>Event Backlog</doc:heading>
