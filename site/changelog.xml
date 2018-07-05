@@ -35,6 +35,19 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.7</td>
+        <td class="centre">5 July 2018</td>
+        <td>
+          <ul>
+            <li><a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">Erlang 21 compatibility</a></li>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.7">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.7.6</td>
         <td class="centre">13 June 2018</td>
         <td>
