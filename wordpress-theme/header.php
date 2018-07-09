@@ -2,6 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSPM4RC');</script>
+    <!-- End Google Tag Manager -->
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?> - Messaging that just works</title>
   <meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"></meta>
 <meta xmlns="http://www.w3.org/1999/xhtml" name="googlebot" content="NOODP"></meta>
@@ -17,21 +24,13 @@
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <script type="text/javascript" src="/js/site.js"/>
-<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
-try{
- var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1001800-1']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-}catch(err){};
-      </script>
 </head>
 
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSPM4RC"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
     <div class='container'>
       <div class="rabbit-logo">

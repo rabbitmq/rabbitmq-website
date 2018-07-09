@@ -38,6 +38,14 @@ limitations under the License.
 
   <xsl:template match="html:head">
     <head>
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NSPM4RC');</script>
+      <!-- End Google Tag Manager -->
+
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="googlebot" content="NOODP"/>
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
@@ -66,7 +74,7 @@ limitations under the License.
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script type="text/javascript" src="/js/site.js"></script>
-      <script type="text/javascript" src="/js/ga-bootstrap.js"></script>
+      <!-- <script type="text/javascript" src="/js/ga-bootstrap.js"></script> -->
 
       <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
       <xsl:apply-templates/>
@@ -75,6 +83,10 @@ limitations under the License.
 
   <xsl:template match="html:body">
     <body id="{$page-id}">
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSPM4RC"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
       <div id="outerContainer">
         <div class="container">
           <xsl:call-template name="page-header"/>
