@@ -61,11 +61,11 @@ digraph G {
 >
 > <pre class="sourcecode elixir">
 > def application do
->   [applications: [:logger, :amqp]]
+>   [applications: [:amqp]]
 > end
 > defp deps() do
 >   [
->     {:amqp, "~> 0.2.1"},
+>     {:amqp, "~> 1.0"},
 >   ]
 > end
 > </pre>
@@ -266,7 +266,7 @@ defmodule Receive do
     receive do
       {:basic_deliver, payload, _meta} ->
         IO.puts " [x] Received #{payload}"
-        wait_for_messages
+        wait_for_messages()
     end
   end
 end
@@ -307,7 +307,7 @@ whenever necessary.
 
 <pre class="sourcecode elixir">
 IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
-Receive.wait_for_messages
+Receive.wait_for_messages()
 </pre>
 
 ### Putting it all together
@@ -334,7 +334,7 @@ defmodule Receive do
     receive do
       {:basic_deliver, payload, _meta} ->
         IO.puts " [x] Received #{payload}"
-        wait_for_messages
+        wait_for_messages()
     end
   end
 end
@@ -345,7 +345,7 @@ AMQP.Queue.declare(channel, "hello")
 AMQP.Basic.consume(channel, "hello", nil, no_ack: true)
 IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
-Receive.wait_for_messages
+Receive.wait_for_messages()
 </pre>
 
 [(receive.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive.exs)
