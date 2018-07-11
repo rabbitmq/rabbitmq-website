@@ -266,7 +266,8 @@ dotnet run "kern.*"
 Or if you want to hear only about "`critical`" logs:
 
 <pre class="sourcecode bash">
-ReceiveLogsTopic.exe "*.critical"
+cd ReceiveLogsTopic
+dotnet run "*.critical"
 </pre>
 
 You can create multiple bindings:
