@@ -32,6 +32,37 @@ limitations under the License.
       -->
 
     <doc:item>
+      <doc:date iso="2018-07-05T17:00:00+00:00">5 July 2018</doc:date>
+      <doc:title>RabbitMQ 3.7.7 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.7</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.7.
+        </p>
+        <p>
+          This release introduces <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">Erlang 21 compatibility</a>
+          and bug fixes. You can view the changes <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://bintray.com/rabbitmq/">Bintray</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>.
+          See <a href="http://www.rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+    <doc:item>
       <doc:date iso="2018-06-13T17:00:00+00:00">13 June 2018</doc:date>
       <doc:title>RabbitMQ 3.7.6 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.6</doc:link>

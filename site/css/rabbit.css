@@ -733,34 +733,13 @@ body#index #getstarted,
   padding: 0;
 }
 
-/* Homepage hero: 3.7 release */
-
-/*#hero {
-  background: none;
-}
-#hero #hero-37-release {
-  display: block;
-  background: url(../img/hero-37-release-desktop.svg) no-repeat bottom center;
-  background-size: contain;
-  padding: 60px 20px 80px;
-}
-
-#hero #hero-37-release .container {
-  padding: 18px 0;
-}
-
-#hero #hero-37-release h2 {
-  max-width: 300px;
-  margin: 0 auto;
-}*/
-
 /* Homepage hero: Summit */
 
 #hero #hero-summit {
   background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
   background-size: cover;
   padding: 70px 0;
-  text-align: left;
+  text-align: right;
 }
 
 #hero #hero-summit .container {
