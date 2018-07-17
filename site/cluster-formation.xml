@@ -417,7 +417,7 @@ cluster_formation.aws.use_private_ip = true
       <doc:heading>Peer Discovery on Kubernetes</doc:heading>
 
       <p>
-        An <a href="https://kubernetes.io/">Kubernetes</a>-based discovery mechanism
+        A <a href="https://kubernetes.io/">Kubernetes</a>-based discovery mechanism
         is available via <a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s">a plugin</a>.
       </p>
 
