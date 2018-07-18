@@ -29,36 +29,21 @@ limitations under the License.
     <title>Installing on Debian and Ubuntu</title>
   </head>
   <body>
-    <doc:section name="debian-packages">
-      <doc:heading>Download the Server</doc:heading>
-      <r:downloads signature="yes">
-        <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
-                    downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-        </r:download>
-        <r:download signature="no" absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
-                    downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-	  .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>)
-        </r:download>
-      </r:downloads>
-    </doc:section>
-
    <doc:section name="overview">
        <doc:heading>Overview</doc:heading>
        <p>
-       <code>rabbitmq-server</code> is included in standard Debian
-       and Ubuntu repositories. However, the versions included are
-       often quite old. Installing
-       the package from the apt repository on rabbitmq.com or <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a> is highly recommended. Check the <a
-       href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
-       package</a> and <a
-       href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
-       package</a> details for which version of the server is
-       available for which versions of the distribution.
+         <code>rabbitmq-server</code> is included in standard Debian
+         and Ubuntu repositories. However, the versions included are
+         usually months behind RabbitMQ releases.
        </p>
+
        <p>
-         You can either download it with the link above and install
-         with <code>dpkg</code>, or use the Bintray and Package Cloud repositories (see below).
+         There are two ways to install the most recent version of RabbitMQ:
+
+         <ul>
+           <li>Installing the package using an <a href="#apt">apt repository on Bintray or Package Cloud</a> (this option is highly recommended)</li>
+           <li><a href="#downloads">Downloading</a> the package and installing it with <code>dpkg -i</code>. This option will require manual installation of all <a href="#package-dependencies">package dependencies</a>.</li>
+         </ul>
        </p>
    </doc:section>
 
@@ -181,7 +166,7 @@ sudo apt-cache policy
        </doc:subsection>
    </doc:section>
 
-   <doc:section name="deb-package-dependencies">
+   <doc:section name="package-dependencies">
      <doc:heading>Package Dependencies</doc:heading>
      <p>
        When installing with apt, all dependencies other than Erlang/OTP should be met automatically in recent distributions (e.g. Ubuntu 16.04 or later,
@@ -303,16 +288,26 @@ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-ke
           Note that Package Cloud signs distributed packages using their own GPG key.
         </p>
       </doc:subsection>
+   </doc:section>
 
-     <doc:subsection name="legacy-apt-repo">
-       <doc:heading>Legacy Apt Repository on rabbitmq.com</doc:heading>
 
-       <p>
-         rabbitmq.com apt repository is still available
-         but won't receive updates starting with November 2017, including RabbitMQ 3.7.x release series. Please
-         use the repositories <a href="https://bintray.com/rabbitmq/debian/">on Bintray</a> or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
-       </p>
-     </doc:subsection>
+   <doc:section name="downloads">
+     <doc:heading>Download the Server</doc:heading>
+     <p>
+       Installation via <a href="#apt">apt repositories</a> on Bintray and Package Cloud is recommended
+       over downloading the package directly and installing via <code>dpkg -i</code>.
+     </p>
+
+     <r:downloads signature="yes">
+       <r:download signature="yes" absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+                   downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
+         .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>)
+       </r:download>
+       <r:download signature="no" absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+                   downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
+         .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
+       </r:download>
+     </r:downloads>
    </doc:section>
 
 
