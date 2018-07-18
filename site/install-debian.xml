@@ -95,9 +95,13 @@ limitations under the License.
        <doc:heading>Installing Erlang/OTP</doc:heading>
        <p>
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
-         standard Debian and Ubuntu also can be quite
-         outdated. Consider installing a newer version, such as
-         20.3.6.
+         standard Debian and Ubuntu repositories can be out of date
+         and not <a href="/which-erlang.html">supported by modern RabbitMQ versions</a>.
+       </p>
+
+       <p>
+         Most recent Erlang/OTP release series are available from a number of alternative
+         apt repositories covered in the table below:
        </p>
 
        <table>
@@ -110,10 +114,26 @@ limitations under the License.
          </thead>
          <tbody>
            <tr>
+             <td>21.x</td>
+             <td>
+               <ul>
+                 <li><a href="https://bintray.com/rabbitmq/debian/erlang/">Debian packages of Erlang</a> by Team RabbitMQ</li>
+                 <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
+                 <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
+               </ul>
+             </td>
+             <td>
+               <strong>Supported <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">starting with 3.7.7</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+             </td>
+           </tr>
+           <tr>
              <td>20.x</td>
              <td>
-               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>.
-               <a href="https://packages.debian.org/buster/erlang">Debian Buster</a>
+               <ul>
+                 <li><a href="https://bintray.com/rabbitmq/debian/erlang/">Debian packages of Erlang</a> by Team RabbitMQ</li>
+                 <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
+                 <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
+               </ul>
              </td>
              <td>
                <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
@@ -205,7 +225,7 @@ echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee
 </pre>
 
          where <code>{distribution}</code> is the name of the Debian or Ubuntu distribution used, e.g. <code>xenial</code> for Ubuntu 16.04,
-         <code>artful</code> for Ubuntu 17.10, or <code>stretch</code> for Debian Stretch.
+         <code>bionic</code> for Ubuntu 18.04, or <code>stretch</code> for Debian Stretch.
        </p>
        <p>
          So, on Ubuntu 16.04 the above command becomes
@@ -214,10 +234,10 @@ echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee
 echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
-         and on Ubuntu 17.10 it would be
+         and on Ubuntu 18.04 it would be
 
 <pre class="sourcecode bash">
-echo "deb https://dl.bintray.com/rabbitmq/debian artful main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
          Supported distributions are
