@@ -243,13 +243,12 @@ echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | sudo tee /etc/ap
          Supported distributions are
 
          <ul>
+           <li>bionic</li>
            <li>artful</li>
-           <li>jessie</li>
-           <li>precise</li>
+           <li>trusty</li>
            <li>sid</li>
            <li>stretch</li>
-           <li>trusty</li>
-           <li>wheezy</li>
+           <li>jessie</li>
            <li>xenial</li>
            <li>yakkety</li>
            <li>zesty</li>
