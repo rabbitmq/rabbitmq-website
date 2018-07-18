@@ -189,7 +189,7 @@ sudo apt-cache policy
        from an appropriate <a href="https://backports.debian.org/Instructions/">backports repository</a>.
 
        However, when installing via dpkg that's not the case. Below is the list of
-       dependencies of RabbitMQ server as of <code>3.6.3</code>:
+       dependencies of RabbitMQ server as of <code>3.7.0</code>:
 
        <ul>
          <li><code>erlang-nox (>= 1:19.3-1) | esl-erlang (>= 1:19.3-1)</code>. <a href="/which-erlang.html">Erlang</a>
