@@ -309,8 +309,8 @@ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-ke
 
        <p>
          rabbitmq.com apt repository is still available
-         but won't receive updates beyond the 3.6.x series. For RabbitMQ 3.7.0 and later versions, please
-         use the repositories on Bintray or Package Cloud.
+         but won't receive updates starting with November 2017, including RabbitMQ 3.7.x release series. Please
+         use the repositories <a href="https://bintray.com/rabbitmq/debian/">on Bintray</a> or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
        </p>
      </doc:subsection>
    </doc:section>
