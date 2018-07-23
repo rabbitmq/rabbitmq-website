@@ -385,9 +385,16 @@ Pin-Priority: 1000
          When using the repository on Bintray it is recommended that Erlang/OTP is also <a href="#installing-erlang-package">installed from Bintray</a>.
        </p>
 
+       <h4>Signing Key</h4>
+       <p>
+         In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
+
+         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+
+         This will instruct apt to trust packages signed by that key.
+       </p>
 
        <h4>Source List File</h4>
-
        <p>
          As with all 3rd party apt repositories, a file describing the repository
          must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
@@ -406,7 +413,6 @@ deb https://dl.bintray.com/rabbitmq/debian $distribution main
        </p>
 
        <h4>Distribution</h4>
-
        <p>
          In order to set up an apt repository that provides the correct package, a few
          decisions have to be made. One is determining the distribution name. It comes
@@ -448,20 +454,25 @@ echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/ap
 </pre>
        </p>
 
-       <h4>Signing Key</h4>
-
        <p>
-         In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
+         It is possible to list multiple components per line, for example, the <code>main</code> component that provides
+         RabbitMQ packages and the <code>erlang</code> component that <a href="#erlang-repositories">provides Erlang/OTP packages</a>.
+         On Ubuntu 18.04 that can be done by modifying the command in the above example like so:
 
-         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+<pre class="sourcecode bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian bionic main erlang" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
 
-         This will instruct apt to trust packages signed by that key.
+         and on Ubuntu 16.04 it would be
+
+<pre class="sourcecode bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian xenial main erlang" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
        </p>
 
-
        <h4>Installing Erlang Packages</h4>
-
-       After updating the list of <code>apt</code> sources it is necessary to run <code>apt-get update</code>:
+       <p>
+         After updating the list of <code>apt</code> sources it is necessary to run <code>apt-get update</code>:
 
 <pre class="sourcecode">
 sudo apt-get update
@@ -472,6 +483,7 @@ Then packages can be installed just like with the standard Debian repositories:
 <pre class="sourcecode">
 sudo apt-get install rabbitmq-server
 </pre>
+       </p>
      </doc:subsection>
 
 
