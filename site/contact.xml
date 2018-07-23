@@ -18,7 +18,6 @@ limitations under the License.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>Contact Us</title>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="/js/contact.js"></script>
   </head>
   <body>
@@ -61,10 +60,14 @@ limitations under the License.
     </p>
     <h2 id="email">Private Enquiries</h2>
     <p>
+      Please use <a href="mailto:security@rabbitmq.com">security@rabbitmq.com</a> for responsible disclosure
+      of security-related issues.
+    </p>
+    <p>
       To contact the team privately, please email on <a
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.  Please
+      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>. Please
       note that this should <b>only</b> be used for things that need
-      to be discussed in private such as security vulnerabilities; if
+      to be discussed in private; if
       you want to ask a question about how to use RabbitMQ please use
       <a
       href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
