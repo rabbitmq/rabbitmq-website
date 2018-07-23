@@ -45,6 +45,22 @@ limitations under the License.
            <li><a href="#downloads">Downloading</a> the package and installing it with <code>dpkg -i</code>. This option will require manual installation of all <a href="#package-dependencies">package dependencies</a>.</li>
          </ul>
        </p>
+
+       <p>
+         The following guide focuses on RabbitMQ installation on Debian and Debian-derived distributions
+         such as Ubuntu. It covers a number of topics:
+
+         <ul>
+           <li>Package installation from apt repositories <a href="#apt">on Bintray</a> or <a href="#package-cloud">Package Cloud</a></li>
+           <li>Installation of recent Erlang/OTP versions from <a href="#erlang-repositories">3rd party apt repositories</a></li>
+           <li><a href="#package-dependencies">Package dependencies</a></li>
+           <li><a href="#supported-debian-distributions">Supported distributions</a></li>
+           <li><a href="#sudo-requirements">Privilege requirements</a></li>
+           <li><a href="#downloads">Package downloads</a></li>
+         </ul>
+
+         and more.
+       </p>
    </doc:section>
 
    <doc:section name="supported-debian-distributions">
@@ -72,105 +88,68 @@ limitations under the License.
        <p>
          RabbitMQ Debian package will require <code>sudo</code> privileges to install and manage.
          In environments where <code>sudo</code> isn't available, consider using the
-         <a href="/install-generic-unix.html">generic binary build</a>.
+         <a href="/install-generic-unix.html">generic binary build</a> instead.
        </p>
    </doc:section>
 
-   <doc:section name="erlang-requirementes">
-       <doc:heading>Installing Erlang/OTP</doc:heading>
-       <p>
-         RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
-         standard Debian and Ubuntu repositories can be out of date
-         and not <a href="/which-erlang.html">supported by modern RabbitMQ versions</a>.
-       </p>
+   <doc:section name="erlang-repositories">
+     <doc:heading>Erlang/OTP Repositories</doc:heading>
+     <p>
+       RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
+       standard Debian and Ubuntu repositories can be out of date
+       and not <a href="/which-erlang.html">supported by modern RabbitMQ versions</a>.
+     </p>
 
-       <p>
-         Most recent Erlang/OTP release series are available from a number of alternative
-         apt repositories covered in the table below:
-       </p>
+     <p>
+       Most recent Erlang/OTP release series are available from a number of alternative
+       apt repositories:
+     </p>
 
-       <table>
-         <thead>
-           <tr>
-             <td><strong>Erlang Release Series</strong></td>
-             <td><strong>Repositories that provide it</strong></td>
-             <td><strong>Notes</strong></td>
-           </tr>
-         </thead>
-         <tbody>
-           <tr>
-             <td>21.x</td>
-             <td>
-               <ul>
-                 <li><a href="https://bintray.com/rabbitmq/debian/erlang/">Debian packages of Erlang</a> by Team RabbitMQ</li>
-                 <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
-                 <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
-               </ul>
-             </td>
-             <td>
-               <strong>Supported <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">starting with 3.7.7</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
-             </td>
-           </tr>
-           <tr>
-             <td>20.x</td>
-             <td>
-               <ul>
-                 <li><a href="https://bintray.com/rabbitmq/debian/erlang/">Debian packages of Erlang</a> by Team RabbitMQ</li>
-                 <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
-                 <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
-               </ul>
-             </td>
-             <td>
-               <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
-             </td>
-           </tr>
-         </tbody>
-       </table>
-
-       <doc:subsection name="apt-pinning">
-         <doc:heading>Erlang Version Pinning</doc:heading>
-
-         <p>
-           <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to avoid undesired Erlang upgrades.
-
-           The following preference file example will pin <code>esl-erlang</code> package to to <code>20.3.6</code>
-           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
-
-<pre class="sourcecode ini">
-# /etc/apt/preferences.d/erlang
-Package: esl-erlang
-Pin: version 1:20.3.6
-Pin-Priority: 1000
-</pre>
-
-           The following preference file example will pin all <code>erlang-*</code> packages (in other words, all Erlang packages in the standard
-           Debian and Ubuntu repositories) to <code>20.3</code>
-           (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
-
-<pre class="sourcecode ini">
-# /etc/apt/preferences.d/erlang
-Package: erlang*
-Pin: version 1:20.3-1
-Pin-Priority: 1000
-</pre>
-
-           The above examples should be placed into a file under <code>/etc/apt/preferences.d/</code>, e.g. <code>/etc/apt/preferences.d/erlang</code>.
-         </p>
-         <p>
-           Effective package pinning policy can be verified with
-
-<pre class="sourcecode">
-sudo apt-cache policy
-</pre>
-         </p>
-       </doc:subsection>
+     <table>
+       <thead>
+         <tr>
+           <td><strong>Erlang Release Series</strong></td>
+           <td><strong>Repositories that provide it</strong></td>
+           <td><strong>Notes</strong></td>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>21.x</td>
+           <td>
+             <ul>
+               <li><a href="#bintray-apt-repo-erlang">Debian packages of Erlang</a> by Team RabbitMQ</li>
+               <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
+               <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
+             </ul>
+           </td>
+           <td>
+             <strong>Supported <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">starting with 3.7.7</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+           </td>
+         </tr>
+         <tr>
+           <td>20.x</td>
+           <td>
+             <ul>
+               <li><a href="#bintray-apt-repo-erlang">Debian packages of Erlang</a> by Team RabbitMQ</li>
+               <li><a href="https://packages.debian.org/buster/erlang">Debian Buster</a></li>
+               <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a> (not all patch releases are available)</li>
+             </ul>
+           </td>
+           <td>
+             <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+           </td>
+         </tr>
+       </tbody>
+     </table>
    </doc:section>
+
 
    <doc:section name="package-dependencies">
      <doc:heading>Package Dependencies</doc:heading>
      <p>
        When installing with apt, all dependencies other than Erlang/OTP should be met automatically in recent distributions (e.g. Ubuntu 16.04 or later,
-       Debian Jessie). When that's not the case, dependency packages should be available
+       Debian Stretch). When that's not the case, dependency packages should be available
        from an appropriate <a href="https://backports.debian.org/Instructions/">backports repository</a>.
 
        However, when installing via dpkg that's not the case. Below is the list of
@@ -178,8 +157,8 @@ sudo apt-cache policy
 
        <ul>
          <li><code>erlang-nox (>= 1:19.3-1) | esl-erlang (>= 1:19.3-1)</code>. <a href="/which-erlang.html">Erlang</a>
-         can installed either from the <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>,
-         <a href="https://backports.debian.org/Instructions/">backport repositories</a>, or standard repositories depending on the distribution used.</li>
+         can installed from the <a href="#bintray-apt-repo-erlang">Bintray Erlang repository</a> maintained by the RabbitMQ team, or <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions apt repo</a>,
+         or Debian-based distribution <a href="https://backports.debian.org/Instructions/">backport repositories</a>, or standard distribution repositories depending on the distribution used.</li>
          <li><code>init-system-helpers (>= 1.13~)</code>. Required for systemd support.</li>
          <li><code>socat</code></li>
          <li><code>adduser</code></li>
@@ -188,86 +167,319 @@ sudo apt-cache policy
      </p>
    </doc:section>
 
-   <doc:section name="apt">
-     <doc:heading>Apt repositories</doc:heading>
+
+   <doc:section name="bintray-apt-repo-erlang">
+     <doc:heading>Using Recent Erlang Package Repository on Bintray</doc:heading>
 
      <p>
-       RabbitMQ Apt repositories are available from <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>.
+       Standard Debian and Ubuntu repositories tend to provide outdated versions of Erlang/OTP. Team RabbitMQ maintains
+       an apt repository that includes <a href="https://bintray.com/rabbitmq/debian/erlang/">packages of modern Erlang/OTP releases</a> for
+       a number of commonly used Debian and Ubuntu distributions:
+
+       <ul>
+         <li>Ubuntu 18.04 (Bionic)</li>
+         <li>Ubuntu 16.04 (Xenial)</li>
+         <li>Debian Stretch</li>
+         <li>Debian Jessie</li>
+       </ul>
+     </p>
+
+     <p>
+       The repo provides most recent patch releases in the following Erlang series:
+
+       <ul>
+         <li>21.x</li>
+         <li>20.3.x</li>
+         <li>19.3.x</li>
+         <li>master (22.x)</li>
+         <li>R16B03 (16.x)</li>
+       </ul>
+     </p>
+
+     <doc:subsection name="erlang-apt-repo-signing-key">
+       <doc:heading>Signing Key</doc:heading>
+
+       <p>
+         In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
+
+         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+
+         This will instruct apt to trust packages signed by that key.
+       </p>
+     </doc:subsection>
+
+     <doc:subsection name="erlang-source-list-file">
+       <doc:heading>Source List File</doc:heading>
+
+       <p>
+         As with all 3rd party Apt (Debian) repositories, a file describing the repository
+         must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
+         <code>/etc/apt/sources.list.d/bintray.erlang.list</code> is the recommended location.
+
+         The file should have a source (repository) definition line that uses the following
+         pattern:
+
+<pre class="sourcecode">
+# See below for supported distribution and component values
+deb https://dl.bintray.com/rabbitmq/debian $distribution $component
+</pre>
+
+         The next couple of sections discuss what distribution and component values
+         are supported.
+       </p>
+
+       <h4>Distribution</h4>
+
+       <p>
+         In order to set up an apt repository that provides the correct package, a few
+         decisions have to be made. One is determining the distribution name. It comes
+         from the Debian or Ubuntu release used:
+
+         <ul>
+           <li><code>bionic</code> for Ubuntu 18.04</li>
+           <li><code>xenial</code> for Ubuntu 16.04</li>
+           <li><code>stretch</code> for Debian Stretch</li>
+           <li><code>jessie</code> for Debian Jessie</li>
+         </ul>
+       </p>
+
+       <h4>Erlang/OTP Version</h4>
+
+       <p>
+         Another is what Erlang/OTP release version should be provisioned. It is possible to track
+         a specific series (e.g. <code>20.x</code>) or install the most recent version available. The choice
+         determines what Debian repository <code>component</code> will be configured.
+
+         Consider the following repository file at <code>/etc/apt/sources.list.d/bintray.erlang.list</code>:
+
+<pre class="sourcecode">
+deb http://dl.bintray.com/rabbitmq/debian bionic erlang
+</pre>
+
+         It configures apt to install the most recent Erlang/OTP version available in the
+         repository and use packages for Ubuntu 18.04 (Bionic).
+       </p>
+
+       <p>
+         For Debian Stretch the file would look like this:
+
+<pre class="sourcecode">
+deb http://dl.bintray.com/rabbitmq/debian stretch erlang
+</pre>
+
+         To use the most recent <code>20.x</code> patch release available, switch the component
+         to <code>erlang-20.x</code>:
+
+<pre class="sourcecode">
+deb http://dl.bintray.com/rabbitmq/debian bionic erlang-20.x
+</pre>
+
+         <code>erlang-21.x</code>, <code>erlang-19.x</code>, and <code>erlang-16.x</code> are the components for Erlang 21.x,
+         19.x and R16B03, respectively.
+       </p>
+
+       <p>
+         Installations that target <code>erlang</code> will install the most recent
+         generally available (GA) patch release.
+       </p>
+     </doc:subsection>
+
+     <doc:subsection name="installing-erlang-package">
+       <doc:heading>Installing Erlang Packages</doc:heading>
+
+       After updating the list of <code>apt</code> sources it is necessary to run <code>apt-get update</code>:
+
+<pre class="sourcecode">
+sudo apt-get update
+</pre>
+
+Then packages can be installed just like with the standard Debian repositories:
+
+<pre class="sourcecode">
+# or "erlang"
+sudo apt-get install erlang-nox
+</pre>
+     </doc:subsection>
+
+     <doc:subsection name="apt-pinning">
+       <doc:heading>Erlang Version and Repository Pinning</doc:heading>
+
+       <p>
+         When the same package (e.g. <code>erlang-nox</code>) is available from multiple apt repositories operators need
+         to have a way to indicate what repository should be preferred. It may also be desired to restrict Erlang version to avoid undesired upgrades.
+         <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to address both problems.
+       </p>
+
+       <p>
+         Package pinning is configured with a file placed under the <code>/etc/apt/preferences.d/</code> directory, e.g. <code>/etc/apt/preferences.d/erlang</code>.
+         After updating apt preferences it is necessary to run <code>apt-get update</code>:
+
+<pre class="sourcecode">
+sudo apt-get update
+</pre>
+       </p>
+
+       <p>
+         The following preference file example will configure <code>apt</code> to install <code>erlang-*</code> packages from Bintray
+         and not standard Debian or Ubuntu repository:
+
+<pre class="sourcecode ini">
+# /etc/apt/preferences.d/erlang
+Package: erlang*
+Pin: release o=Bintray
+Pin-Priority: 1000
+</pre>
+
+         This apt preference configuration is recommended when the <code>erlang</code> <a href="#erlang-source-list-file">repository component is used</a>.
+       </p>
+
+       <p>
+         Effective package pinning policy can be verified with
+
+<pre class="sourcecode">
+sudo apt-cache policy
+</pre>
+       </p>
+
+       <p>
+         The following preference file example will pin all <code>erlang-*</code> packages to <code>20.3.8.2</code>
+         (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
+
+<pre class="sourcecode ini">
+# /etc/apt/preferences.d/erlang
+Package: erlang*
+Pin: version 1:20.3.8.2-1
+Pin-Priority: 1000
+</pre>
+
+         The following preference file example will pin <code>esl-erlang</code> package to to <code>20.3.6</code>
+         (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
+
+<pre class="sourcecode ini">
+# /etc/apt/preferences.d/erlang
+Package: esl-erlang
+Pin: version 1:20.3.6
+Pin-Priority: 1000
+</pre>
+       </p>
+     </doc:subsection>
+   </doc:section>
+
+
+   <doc:section name="apt">
+     <doc:heading>Using RabbitMQ Package Repository on Bintray</doc:heading>
+
+     <p>
+       RabbitMQ packages can be installed from apt (Debian) repositories on <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a> or
+       <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">Package Cloud</a>.
+     </p>
+
+     <p>
+
      </p>
 
      <doc:subsection name="bintray-apt-repo">
        <doc:heading>Using Bintray Apt Repository</doc:heading>
 
        <p>
-         First make sure a <a href="/which-erlang.html">supported version of Erlang</a> is available for installation from an apt repository
-         on your system.
+         When using the repository on Bintray it is recommended that Erlang/OTP is also <a href="#installing-erlang-package">installed from Bintray</a>.
+       </p>
+
+
+       <h4>Source List File</h4>
+
+       <p>
+         As with all 3rd party apt repositories, a file describing the repository
+         must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
+         <code>/etc/apt/sources.list.d/bintray.rabbitmq.list</code> is the recommended location.
+
+         The file should have a source (repository) definition line that uses the following
+         pattern:
+
+<pre class="sourcecode">
+# See below for supported distribution and component values
+deb https://dl.bintray.com/rabbitmq/debian $distribution main
+</pre>
+
+         The next couple of sections discusses what distribution and component values
+         are supported.
+       </p>
+
+       <h4>Distribution</h4>
+
+       <p>
+         In order to set up an apt repository that provides the correct package, a few
+         decisions have to be made. One is determining the distribution name. It comes
+         from the Debian or Ubuntu release used:
+
+         <ul>
+           <li>bionic (Ubuntu 18.04)</li>
+           <li>artful</li>
+           <li>trusty</li>
+           <li>sid</li>
+           <li>buster</li>
+           <li>stretch</li>
+           <li>jessie</li>
+           <li>xenial (Ubuntu 16.04)</li>
+           <li>yakkety</li>
+           <li>zesty</li>
+         </ul>
        </p>
 
        <p>
-         To add the Apt repository to your Apt source list directory (<code>/etc/apt/sources.list.d</code>), use:
+         To add the apt repository to the source list directory (<code>/etc/apt/sources.list.d</code>), use:
 <pre class="sourcecode bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
-         where <code>{distribution}</code> is the name of the Debian or Ubuntu distribution used, e.g. <code>xenial</code> for Ubuntu 16.04,
-         <code>bionic</code> for Ubuntu 18.04, or <code>stretch</code> for Debian Stretch.
+         where <code>{distribution}</code> is the name of the Debian or Ubuntu distribution used (see above).
        </p>
        <p>
-         So, on Ubuntu 16.04 the above command becomes
-
-<pre class="sourcecode bash">
-echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
-</pre>
-
-         and on Ubuntu 18.04 it would be
+         So, on Ubuntu 18.04 the above command becomes
 
 <pre class="sourcecode bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
-         Supported distributions are
-
-         <ul>
-           <li>bionic</li>
-           <li>artful</li>
-           <li>trusty</li>
-           <li>sid</li>
-           <li>stretch</li>
-           <li>jessie</li>
-           <li>xenial</li>
-           <li>yakkety</li>
-           <li>zesty</li>
-         </ul>
-
-       </p>
-       <p>
-         Next add our <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">public key</a> to your trusted key list using
-         <code>apt-key(8)</code>:
-         <pre class="sourcecode bash">wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc |
-     sudo apt-key add -</pre>
-         <p>
-           Our public signing key is also <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">available from rabbitmq.com</a>:
+         and on Ubuntu 16.04 it would be
 
 <pre class="sourcecode bash">
-wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
-         .</p>
        </p>
+
+       <h4>Signing Key</h4>
+
        <p>
-         Run the following command to update the package list:
-         <pre class="sourcecode bash">sudo apt-get update</pre>
+         In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
+
+         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+
+         This will instruct apt to trust packages signed by that key.
        </p>
-       <p>
-         Install <code>rabbitmq-server</code> package:
-         <pre class="sourcecode bash">sudo apt-get install rabbitmq-server</pre>
-       </p>
+
+
+       <h4>Installing Erlang Packages</h4>
+
+       After updating the list of <code>apt</code> sources it is necessary to run <code>apt-get update</code>:
+
+<pre class="sourcecode">
+sudo apt-get update
+</pre>
+
+Then packages can be installed just like with the standard Debian repositories:
+
+<pre class="sourcecode">
+sudo apt-get install rabbitmq-server
+</pre>
      </doc:subsection>
 
-     <doc:subsection name="from-package-cloud">
+
+     <doc:subsection name="package-cloud">
         <doc:heading>Using PackageCloud Apt Repository</doc:heading>
 
         <p>
-          PackageCloud is another distribution channel that provides an Apt repository.
+          PackageCloud is another distribution channel that provides an apt repository.
 
           A quick way to install uses a <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install#bash-deb">Package Cloud-provided script</a>.
         </p>
@@ -285,7 +497,11 @@ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-ke
         </p>
 
         <p>
-          Note that Package Cloud signs distributed packages using their own GPG key.
+          Package Cloud signs distributed packages using their own GPG key.
+        </p>
+
+        <p>
+          Package Cloud Debian repository can be used in combination with <a href="#bintray-apt-repo-erlang">Erlang installed from the Bintray repository</a>.
         </p>
       </doc:subsection>
    </doc:section>
@@ -293,9 +509,10 @@ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-ke
 
    <doc:section name="downloads">
      <doc:heading>Download the Server</doc:heading>
+
      <p>
-       Installation via <a href="#apt">apt repositories</a> on Bintray and Package Cloud is recommended
-       over downloading the package directly and installing via <code>dpkg -i</code>.
+       In some cases it may easier to download the package and install it manually. The package can be downloaded
+       from Bintray or GitHub.
      </p>
 
      <r:downloads signature="yes">
@@ -308,6 +525,13 @@ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-ke
          .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
        </r:download>
      </r:downloads>
+
+     <p>
+       Installation via <a href="#apt">apt repositories</a> on Bintray and Package Cloud is recommended
+       over downloading the package directly and installing via <code>dpkg -i</code>. When the RabbitMQ
+       package is installed manually with <code>dpkg -i</code> the operator is responsible for making sure
+       that all <a href="#package-dependencies">package dependencies</a> are met.
+     </p>
    </doc:section>
 
 
