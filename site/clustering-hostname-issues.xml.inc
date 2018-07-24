@@ -28,8 +28,7 @@ limitations under the License.
     changes, a new empty database is created. To avoid data loss it's
     crucial to set up a fixed and resolvable hostname.
 
-    Whenever the hostname changes you should restart RabbitMQ:
-<pre class="sourcecode">$ /etc/init.d/rabbitmq-server restart</pre>
+    Whenever the hostname changes RabbitMQ node must be restarted.
   </p>
   <p>
     A similar effect can be achieved by using <code>rabbit@localhost</code>
@@ -46,6 +45,6 @@ limitations under the License.
     <code>RABBITMQ_USE_LONGNAME=true</code>.
   </p>
   <p>
-    See the <a href="/clustering.html#overview-hostname-requirements">hostname resolution guide</a> for more information.
+    See the section on <a href="/clustering.html#overview-hostname-requirements">hostname resolution</a> for more information.
   </p>
 </doc:section>
