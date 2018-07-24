@@ -207,6 +207,49 @@ limitations under the License.
         </doc:subsection>
 
 
+        <doc:subsection name="clustering-and-observability">
+          <doc:heading>Clustering and Observability</doc:heading>
+
+          <p>
+            Client connections, channels and queues will be distributed across cluster nodes.
+            Operators need to be able to inspect and <a href="/monitoring.html">monitor</a> such resources
+            across all cluster nodes.
+          </p>
+
+          <p>
+            RabbitMQ <a href="/cli.html">CLI tools</a> such as <code>rabbitmq-diagnostics</code> and <code>rabbitmqctl</code>
+            provide commands that inspect resources and cluster-wide state. Some commands focus on the state of a single node
+            (e.g. <code>rabbitmq-diagnostics environment</code> and <code>rabbitmq-diagnostics status</code>), others
+            inspect cluster-wide state. Some examples of the latter include <code>rabbitmqctl list_connections</code>,
+            <code>rabbitmqctl list_mqtt_connections</code>, <code>rabbitmqctl list_stomp_connections</code>, <code>rabbitmqctl list_users</code>,
+            <code>rabbitmqctl list_vhosts</code> and so on.
+          </p>
+
+          <p>
+            Such "cluster-wide" commands will often contact one node
+            first, discover cluster members and contact them all to
+            retrieve and combine their respective state. For example,
+            <code>rabbitmqctl list_connections</code> will contact all
+            nodes, retrieve their AMQP 0-9-1 and AMQP 1.0 connections,
+            and display them all to the user.  The user doesn't have
+            to manually contact all nodes. Assuming a non-changing
+            state of the cluster (e.g. no connections are closed or
+            opened), two CLI commands executed against two different
+            nodes one after another will produce identical or
+            semantically identical results. "Node-local" commands, however, will not produce
+            identical results since two nodes rarely have identical state: at the very least their
+            node names will be different!
+          </p>
+
+          <p>
+            <a href="/management.html">Management UI</a> works similarly: a node that has to respond to an HTTP API request
+            will fan out to other cluster members and aggregate their responses. In a cluster with multiple nodes that have management plugin
+            enabled, the operator can use any node to access management UI. The same goes for monitoring tools that use
+            the HTTP API to collect data about the state of the cluster. There is no need to issue a request to every cluster node in turn.
+          </p>
+        </doc:subsection>
+
+
         <doc:subsection name="clustering-dealing-with-failure">
           <doc:heading>Node Failure Handling</doc:heading>
 
