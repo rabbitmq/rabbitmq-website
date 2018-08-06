@@ -122,7 +122,7 @@ limitations under the License.
             AMQP 0-9-1 messaging
             over <a href="http://json-rpc.org/">JSON-RPC</a> to the
             browser. Note that since JSON RPC is a synchronous protocol, some
-            parts of AMQP that depend on aysnchronous delivery to the client
+            parts of AMQP that depend on asynchronous delivery to the client
             are emulated by polling.
           </li>
         </ul>
