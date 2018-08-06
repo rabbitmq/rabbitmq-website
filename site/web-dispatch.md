@@ -25,7 +25,7 @@ to clients.
 This guide covers various HTTP-specific settings that are applicable
 to multiple plugins, e.g. [rabbitmq-management](/management.html), [rabbitmq-web-stomp](/web-stomp.html),
 [rabbitmq-web-mqtt](/web-mqtt.html), [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top), and others.
-In this guide these plugins will be references as "HTTP API plugins" or "plugins based on the Web dispatch mechanism".
+In this guide these plugins will be referenced as "HTTP API plugins" or "plugins based on the Web dispatch mechanism".
 
 The `rabbitmq-web-dispatch` plugin provides a foundation for such plugins.
 It is not a plugin that has to be enabled directly. When a plugin that
