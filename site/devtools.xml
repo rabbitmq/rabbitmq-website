@@ -40,13 +40,10 @@ limitations under the License.
             <h4>Java</h4>
             <ul class="plain">
               <li>
-                <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
+                <a href="java-client.html">RabbitMQ Java client</a> and its <a href="api-guide.html">developer guide</a>
               </li>
               <li>
                 <a href="jms-client.html">RabbitMQ JMS client</a>
-              </li>
-              <li>
-                Lyra, <a href="https://github.com/jhalterman/lyra">highly available RabbitMQ Java client</a>
               </li>
               <li>
                 <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
@@ -74,7 +71,7 @@ limitations under the License.
             <doc:heading>.NET</doc:heading>
             <ul class="plain">
               <li>
-                <a href="dotnet.html">RabbitMQ .NET Client</a> (supports .NET Core and .NET 4.5.1+ as of <code>4.0.0</code>)
+                <a href="dotnet.html">RabbitMQ .NET Client</a> (supports .NET Core and .NET 4.5.1+)
               </li>
               <li>
                 <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ

@@ -15,32 +15,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Web dispatch plugin NOSYNTAX
+# HTTP Server Configuration for Plugins with HTTP API NOSYNTAX
 
-The `rabbitmq-web-dispatch` plugin provides hosting for other plugins that
-have HTTP interfaces. It allows these interfaces to co-exist on one or
-more HTTP listeners.
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-## Configuration
+There are several plugins that expose an HTTP or HTTP-based (WebSockets) API
+to clients.
 
-Plugins using `rabbitmq-web-dispatch` typically take a `listener`
+This guide covers various HTTP-specific settings that are applicable
+to multiple plugins, e.g. [rabbitmq-management](/management.html), [rabbitmq-web-stomp](/web-stomp.html),
+[rabbitmq-web-mqtt](/web-mqtt.html), [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top), and others.
+In this guide these plugins will be referenced as "HTTP API plugins" or "plugins based on the Web dispatch mechanism".
+
+The `rabbitmq-web-dispatch` plugin provides a foundation for such plugins.
+It is not a plugin that has to be enabled directly. When a plugin that
+provides an HTTP API is enabled, it will enable `rabbitmq-web-dispatch`
+as a dependency.
+
+## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
+
+Plugins that are based on the Web dispatch mechanism take a `listener`
 configuration item to configure their listening HTTP port. In this
 page we will give examples for the `rabbitmq_management` application,
-but the same configuration can be applied to `rabbitmq_jsonrpc` and
-`rabbitmq_web_stomp_examples`.
+but the same configuration can be applied to `rabbitmq_web_stomp`,
+`rabbitmq_web_mqtt`, and other HTTP API plugins.
 
 The `listener` configuration item can contain the following keys:
 
 * `port` (mandatory)
 * `ip` (to listen on only one interface)
-* `ssl` (to enable SSL)
-* `ssl_opts` (to configure SSL)
-* `cowboy_opts` (to configure the Cowboy HTTP server)
+* `ssl` (to enable TLS/HTTPS)
+* `ssl_opts` (to configure TLS options for HTTPS)
+* `cowboy_opts` (to configure the embedded HTTP server, [Cowboy](https://ninenines.eu/docs/en/cowboy/2.0/guide/).
 
-## Listening on a single interface
+### <a id="listener-interface" class="anchor" href="#listener-interfaces">Listening on a Single Interface</a>
 
-Use `ip` to specify an interface for Cowboy to bind to (giving an IP
-address as a string or tuple). For example:
+Use the `listener.ip` key to specify an interface for Cowboy to bind to. For example:
 
 <pre class="sourcecode ini">
 management.listener.port = 15672
@@ -58,17 +68,17 @@ Or, using the <a href="/configure.html#erlang-term-config-file">classic config f
 ].
 </pre>
 
-## TLS/SSL
+### <a id="https" class="anchor" href="#https">Enabling TLS (HTTPS)</a>
 
-Set `ssl` to `true` to turn on TLS for a listener. Use `ssl_opts` to
-specify SSL options. These are the standard Erlang TLS options: [see
+Set `listener.ssl` to `true` to turn on TLS for a listener. Use `listener.ssl_opts` to
+specify TLS options. These are named the same as TLS options for other protocols, [see
 the RabbitMQ TLS guide](/ssl.html) for more information.
 
-For convenience, if you do not specify `ssl_opts` then
-Web Dispatch will use the same options as the main RabbitMQ
-server does for AMQP over TLS, <b>but with client certificate
-verification turned off</b>. If you wish to use client certificate
-verification, specify `ssl_opts` explicitly.
+For convenience, if `listener.ssl_opts` are not specified then
+ will use the same options as the main RabbitMQ
+server does for AMQP 0-9-1 and AMQP 1.0 over TLS except that **client certificate
+verification will turned off by default**. To use client certificate
+verification, specify `listener.ssl_opts` explicitly.
 
 For example:
 
@@ -95,13 +105,17 @@ The same example using the <a href="/configure.html#erlang-term-config-file">cla
 ].
 </pre>
 
-## Compressed responses
+### <a id="advanced-options" class="anchor" href="#advanced-options">Advanced HTTP Server Options</a>
 
-Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
-that can be used to customize the behavior of the server. You
-can specify those in the listener options under `cowboy_opts`.
+Cowboy provides [a number of options](https://ninenines.eu/docs/en/cowboy/2.0/manual/cowboy_http/)
+that can be used to customize the behavior of the server.
+They are configured using the `cowboy_opts` listener options.
 
-To compress responses, set the proper `cowboy_opts` option:
+#### <a id="advanced-options-compression" class="anchor" href="#advanced-options-compression">Response Compression</a>
+
+Response compression is enabled by default when no `listener.cowboy_opts` are configured.
+
+To enable response compression explicitly, set the `listener.cowboy_opts.compress` option to `true`:
 
 <pre class="sourcecode erlang">
 [{rabbitmq_management,
@@ -111,3 +125,30 @@ To compress responses, set the proper `cowboy_opts` option:
   ]}
 ].
 </pre>
+
+#### <a id="advanced-options-timeouts" class="anchor" href="#advanced-options-timeouts">Client Inactivity Timeouts</a>
+
+Some HTTP API endpoints respond quickly, others may need to return or stream
+a sizeable data set to the client (e.g. many thousands of connections) or perform
+an operation that takes time proportionally to the input (e.g. [import a large definitions file](http://www.rabbitmq.com/management.html#load-definitions)).
+In those cases the amount of time it takes to process the request can exceed certain
+timeouts in the Web server as well as HTTP client.
+
+It is possible to bump Cowboy timeouts using the `listener.cowboy_opts.idle_timeout`,
+`listener.cowboy_opts.inactivity_timeout`, and `listener.cowboy_opts.request_timeout` options:
+
+<pre class="sourcecode erlang">
+[{rabbitmq_management,
+  [{listener, [{port,        15672},
+               {cowboy_opts, [{compress, true},
+                              %% 120 seconds
+                              {idle_timeout,      120000},
+                              {inactivity_timeout,120000},
+                              {request_timeout,   120000}]}
+              ]}
+  ]}
+].
+</pre>
+
+All values are in milliseconds and default to `60000` (1 minute). It is recommended that
+all timeouts are increased at the same time.

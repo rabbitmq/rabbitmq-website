@@ -92,7 +92,7 @@ starts up.
 Erlang cookie management is best done using automation tools such as Chef, BOSH, Docker
 or similar.
 
-### Cookie File Locations
+## <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
 
 #### Linux, MacOS, *BSD
 
@@ -266,3 +266,34 @@ The tool requires Python 2.7.9 or a more recent version.
 
 `rabbitmqadmin` uses HTTP API authentication mechanism (basic HTTP authentication). It has to be
 downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-management/blob/stable/bin/rabbitmqadmin).
+
+
+## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Cluster-wide" Commands</a>
+
+Client connections, channels and queues will be distributed across cluster nodes.
+Operators need to be able to inspect and [monitor](/monitoring.html) such resources
+across all cluster nodes.
+
+CLI tools such as [rabbitmqctl](/rabbitmqctl.8.html) and
+`rabbitmq-diagnostics` provide commands that inspect resources and
+cluster-wide state. Some commands focus on the state of a single node
+(e.g. `rabbitmq-diagnostics environment` and `rabbitmq-diagnostics
+status`), others inspect cluster-wide state. Some examples of the
+latter include `rabbitmqctl list_connections`, `rabbitmqctl
+list_mqtt_connections`, `rabbitmqctl list_stomp_connections`,
+`rabbitmqctl list_users`, `rabbitmqctl list_vhosts` and so on.
+
+Such "cluster-wide" commands will often contact one node
+first, discover cluster members and contact them all to
+retrieve and combine their respective state. For example,
+`rabbitmqctl list_connections` will contact all
+nodes, retrieve their AMQP 0-9-1 and AMQP 1.0 connections,
+and display them all to the user. The user doesn't have
+to manually contact all nodes.
+
+Assuming a non-changing
+state of the cluster (e.g. no connections are closed or
+opened), two CLI commands executed against two different
+nodes one after another will produce identical or
+semantically identical results. "Node-local" commands, however, likely will not produce
+identical results since two nodes rarely have entirely identical state.

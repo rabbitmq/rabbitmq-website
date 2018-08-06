@@ -37,9 +37,9 @@ limitations under the License.
         PerfTest documentation is hosted on GitHub Pages:
 
           <ul>
-              <li><a href="https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/">Documentation for latest stable release</a></li>
-              <li><a href="https://rabbitmq.github.io/rabbitmq-perf-test/milestone/htmlsingle/">Documentation for latest milestone release</a></li>
-              <li><a href="https://rabbitmq.github.io/rabbitmq-perf-test/snapshot/htmlsingle/">Documentation for latest development build</a></li>
+              <li>For <a href="https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/">the latest stable release</a></li>
+              <li>For <a href="https://rabbitmq.github.io/rabbitmq-perf-test/milestone/htmlsingle/">the latest milestone release</a></li>
+              <li>For <a href="https://rabbitmq.github.io/rabbitmq-perf-test/snapshot/htmlsingle/">the latest development build</a></li>
           </ul>
       </p>
 
