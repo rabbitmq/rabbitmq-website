@@ -92,7 +92,10 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
         <code>/etc/rabbitmq/rabbitmq-env.conf</code> file:</p>
 
 <pre class="sourcecode bash">
-# NOTE: the following path is **system dependent**
+# NOTE: the following path is **system dependent** (will
+#       change depending on Erlang version, distribution used
+#       installation method used). Please double check it before
+#       proceeding.
 ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-8.2.4/ebin"
 
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
@@ -183,16 +186,16 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
 </pre>
         <p>
           The file contains many of the most common options enabled to fully validate certificates.
-          These options are documented online via
-          <a href="http://erlang.org/doc/apps/ssl/ssl_distribution.html">"Using TLS for Erlang Distribution"</a>
+          These options are documented further in the Erlang/OTP documentation:
+          <a href="http://erlang.org/doc/apps/ssl/ssl_distribution.html">Using TLS for Erlang Distribution</a>
           as well as in the <a href="http://erlang.org/doc/man/ssl.html">ssl library documentation</a>.
         </p>
 
       </doc:section>
 
-      <doc:section name="how-to-osx">
-        <doc:heading>OS X</doc:heading>
-        <p>If you are using the OSX Standalone Release, then you need
+      <doc:section name="how-to-macos">
+        <doc:heading>MacOS</doc:heading>
+        <p>If you are using the <a href="/install-standalone-mac.html#standalone-mac">MacOS standalone distribution</a>, then you need
         to add some extra arguments in order to run the <code>erl</code>
         command to find the path of Erlang's TLS library.  Assuming you are
         inside the folder where you installed the standalone release, the
@@ -205,14 +208,18 @@ echo erts-6.1/bin/erl -boot releases/3.4.3/start_clean \
 export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 </pre>
 
-        <p>The difference is that we need to specify the path to the
-        <code>erl</code> executable and also provide a path to a boot file,
-        which in our case is inside the releases folder of our standalone
-        installation.</p>
+        <p>
+          The difference is that we need to specify the path to the
+          <code>erl</code> executable and also provide a path to a boot file,
+          which in our case is inside the releases folder of our standalone
+          installation.
+        </p>
 
-        <p>Once you have ran the previous commands, then you can
-        proceed to create the environment variables as explained above on the
-        <a href="/clustering-ssl.html#how-to-linux">Linux section</a></p>
+        <p>
+          Once you have ran the previous commands, then you can
+          proceed to create the environment variables as explained above on the
+          <a href="/clustering-ssl.html#how-to-linux">Linux section</a>
+        </p>
 
       </doc:section>
 
