@@ -439,6 +439,9 @@ limitations under the License.
               <li>
                 <a href="https://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
               </li>
+              <li>
+                <a href="https://github.com/jandelgado/rabtap">rabtap</a>, RabbitMQ wire tap and swiss army knife command line tool (in go)
+              </li>
             </ul>
           </doc:section>
           <doc:section name="community-plugins">
