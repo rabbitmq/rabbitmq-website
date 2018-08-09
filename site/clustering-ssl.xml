@@ -195,7 +195,7 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
 
       <doc:section name="how-to-macos">
         <doc:heading>MacOS</doc:heading>
-        <p>If you are using the <a href="/install-standalone-mac.html#standalone-mac">MacOS standalone distribution</a>, then you need
+        <p>With the <a href="/install-standalone-mac.html#standalone-mac">MacOS standalone distribution</a> it is necessary
         to add some extra arguments in order to run the <code>erl</code>
         command to find the path of Erlang's TLS library.  Assuming you are
         inside the folder where you installed the standalone release, the
@@ -209,14 +209,14 @@ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 </pre>
 
         <p>
-          The difference is that we need to specify the path to the
-          <code>erl</code> executable and also provide a path to a boot file,
-          which in our case is inside the releases folder of our standalone
+          The difference is that the path to the
+          <code>erl</code> executable and boot file has to be explicitly specified.
+          In RabbitMQ's case the boot file will be inside the releases folder of our standalone
           installation.
         </p>
 
         <p>
-          Once you have ran the previous commands, then you can
+          After executing the previous commands,
           proceed to create the environment variables as explained above on the
           <a href="/clustering-ssl.html#how-to-linux">Linux section</a>
         </p>
@@ -225,7 +225,8 @@ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 
       <doc:section name="how-to-windows">
         <doc:heading>Windows</doc:heading>
-        <p>There are some minor differences when configuring TLS for distributed Erlang on Windows.
+        <p>
+          There are some minor differences when configuring TLS for distributed Erlang on Windows.
           First, the command to find the location of the <code>inet_tls_dist</code> module is
           different due to shell parsing rules:
         </p>
@@ -234,11 +235,13 @@ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:which(inet_tls_dist))])" -s init stop
 </pre>
 
-        <p>Next, the file containing the custom environment variables is named <code>rabbitmq-env-conf.bat</code> on Windows.
+        <p>
+          Next, the file containing the custom environment variables is named <code>rabbitmq-env-conf.bat</code> on Windows.
           This file <em>must</em> be saved to the <code>%AppData%\RabbitMQ</code> directory of the administrative
           user that installed RabbitMQ.
         </p>
-        <p>Here is a complete <code>rabbitmq-env-conf.bat</code> file using the <code>-ssl_dist_opfile</code> setting.
+        <p>
+          Here is a complete <code>rabbitmq-env-conf.bat</code> file using the <code>-ssl_dist_opfile</code> setting.
           Note the use of forward-slash directory delimiters.
         </p>
 
@@ -267,9 +270,10 @@ rem See this PR for details
 rem https://github.com/rabbitmq/rabbitmq-server/pull/1666
 </pre>
 
-        <p>Finally, here is an example <code>ssl_dist.config</code> file.
-          Note that, as with Unix systems, more ssl options are available
-          to be set here if necessary.</p>
+        <p>
+          Below is an example <code>ssl_dist.config</code> file.
+          Note that, as with UNIX-like systems, more <a href="/ssl.html">TLS options</a> are available
+          to be set if necessary.</p>
 
 <pre class="sourcecode bash">
 [
