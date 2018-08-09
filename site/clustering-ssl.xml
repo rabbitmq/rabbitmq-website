@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
+<!ENTITY % entities SYSTEM "rabbit.ent">
 %entities;
 ]>
 <!--
@@ -48,17 +48,19 @@ limitations under the License.
 cat server_certificate.pem server_key.pem &gt; rabbit.pem
 </pre>
 
-        <p>Then we have to tell Erlang where to find the
-        <code>ssl</code> library during startup. We can create a variable like
-        this:</p>
+        <p>
+          Then we have to tell Erlang where to find the
+          <code>ssl</code> library during startup. We can create a variable like
+          this:
+        </p>
 
 <pre class="sourcecode bash">
 # NOTE: these commands ensure that ERL_SSL_PATH is the first line in
 # /etc/rabbitmq/rabbitmq-env.conf and will preserve the existing
 # contents of that file if it already exists
 
-erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop > /tmp/ssl-path.txt
-cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf > /tmp/new-rabbitmq-env.conf
+erl -noinput -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop &gt; /tmp/ssl-path.txt
+cat /tmp/ssl-path.txt /etc/rabbitmq/rabbitmq-env.conf &gt; /tmp/new-rabbitmq-env.conf
 mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 </pre>
 
