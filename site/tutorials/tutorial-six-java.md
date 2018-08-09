@@ -227,7 +227,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our RPC server can be found here: [`RPCServer.java`].
+The code for our RPC server can be found here: [`RPCServer.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
 
 The server code is rather straightforward:
 
@@ -244,14 +244,14 @@ The code for our RPC client can be found here: [`RPCClient.java`](https://github
 
 The client code is slightly more involved:
 
-  * We establish a connection and channel and declare an
-    exclusive 'callback' queue for replies.
+  * We establish a connection and channel.
   * We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
     number and save it - our implementation of `handleDelivery`
     in `RpcConsumer` will use this value to catch the appropriate response.
+  * Then, a dedicated exclusive queue for the reply is created.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
   * At this point we can sit back and wait until the proper
@@ -280,7 +280,6 @@ fibonacciRpc.close();
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
-
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
