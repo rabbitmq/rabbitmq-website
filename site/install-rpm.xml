@@ -118,32 +118,28 @@ limitations under the License.
       <doc:heading>Install Erlang</doc:heading>
 
       <p>
-        Before installing RabbitMQ, you must install a <a href="/which-erlang.html">supported version</a> of Erlang/OTP. We strongly
-        recommend using a packaged version. There are three commonly used sources
-        for Erlang packages. We recommend using one of them.
+        Before installing RabbitMQ, you must install a <a href="/which-erlang.html">supported version</a> of Erlang/OTP.
+        There are three commonly used sources for Erlang packages on RPM-based distributions.
       </p>
 
       <ul>
         <li>
-          We produce <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
+          Team RabbitMQ produces <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
           down to only provide those components needed to run
           RabbitMQ. It might be easiest to use if installing
           Erlang's dependencies is proving difficult.
         </li>
         <li>
           <a href="https://www.erlang-solutions.com/resources/download.html">Erlang
-          Solutions</a> produces packages that are usually up to
-          date. They produce two sets of packages: ones which are split
-          up and are more convenient to use if you can add a yum
-          repository, and a monolithic package which might be easier if
-          you have to download manually.
+          Solutions</a> produces packages that are usually reasonably up to
+          date and involve installation of a potentially excessive list of dependencies.
         </li>
         <li>
           <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> ("Extra Packages
-          for Enterprise Linux"); part of the Red Hat / Fedora organisation,
+          for Enterprise Linux"); part of the Red Hat/Fedora organisation,
           provides many additional packages, including Erlang. These are the
-          most official packages, and are split into many small packages, but
-          are not always up to date.
+          most official packages but tend to be out of date.
+          The packages are split into many small pieces.
         </li>
       </ul>
 
@@ -151,7 +147,11 @@ limitations under the License.
         <doc:heading>Zero-dependency Erlang from RabbitMQ</doc:heading>
 
         <p>
-          Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>.
+          <a href="https://github.com/rabbitmq/erlang-rpm">Zero dependency Erlang RPM package for running RabbitMQ</a> can be
+          installed via Yum repositories <a href="https://bintray.com/rabbitmq/rpm/erlang">on Bintray</a> and <a href="https://packagecloud.io/rabbitmq/erlang">Package Cloud</a>
+          as well as a direct download.
+        </p>
+        <p>
           As the name suggests, the package strips off some Erlang modules and dependencies
           that are not essential for running RabbitMQ.
         </p>
