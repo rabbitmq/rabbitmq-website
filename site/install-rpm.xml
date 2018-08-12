@@ -92,14 +92,13 @@ limitations under the License.
        <p>
          Below is a list of supported RPM-based distributions as of RabbitMQ 3.6.3:
          <ul>
-           <li>CentOS 6.x and 7.x (note: there are two separate RPM packages for 6.x and 7.x)</li>
-           <li>RedHat Enterprise Linux 6.x and 7.x (same as for CentOS, there are two separate packages)</li>
-           <li>Fedora 23 through 25 (use the RHEL 7.x package)</li>
+           <li>CentOS 7.x and x.x (note: there are two separate RPM packages for each series)</li>
+           <li>RedHat Enterprise Linux 7.x and x.x (same packages as for CentOS)</li>
+           <li>Fedora 23 through 25 (use the CentOS 7.x package)</li>
          </ul>
 
          The packages may work on other RPM-based distributions
-         if dependencies (see below) are satisfied (e.g. using the
-         Wheezy backports repository) but their testing and support
+         if <a href="#package-dependencies">dependencies</a> are satisfied but their testing and support
          is done on a best effort basis.
        </p>
    </doc:section>
