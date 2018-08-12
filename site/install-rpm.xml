@@ -29,37 +29,42 @@ limitations under the License.
     <title>Installing on RPM-based Linux (RHEL, CentOS, Fedora, openSUSE)</title>
   </head>
   <body>
-    <doc:section name="rpm-packages">
-      <doc:heading>Download the Server</doc:heading>
-      <r:downloads signature="yes">
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
-        </r:download>
 
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
-        </r:download>
+   <doc:section name="overview">
+       <doc:heading>Overview</doc:heading>
+       <p>
+         <code>rabbitmq-server</code> is included in standard Fedora
+         and RHEL repositories. However, the versions included are
+         usually outdated.
+       </p>
 
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
-	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
-        </r:download>
-        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">
-	  RPM for SLES 11.x (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
-        </r:download>
-      </r:downloads>
-    </doc:section>
+       <p>
+         There are two ways to install the most recent version of RabbitMQ:
+
+         <ul>
+           <li>Installing the package using Yum repositories on <a href="#package-cloud">Package Cloud</a> or <a href="#bintray">Bintray</a> (this option is highly recommended)</li>
+           <li><a href="#downloads">Downloading</a> the package and installing it with <code>rpm</code>. This option will require manual installation of all <a href="#package-dependencies">package dependencies</a>.</li>
+         </ul>
+       </p>
+
+       <p>
+         The following guide focuses on RabbitMQ installation on RPM-based distributions
+         such as Fedora, RHEL and CentOS. It covers a number of topics:
+
+         <ul>
+           <li>Package installation from Yum repositories on <a href="#package-cloud">Package Cloud</a> or <a href="#bintray">Bintray</a></li>
+           <li><a href="#install-erlang">Installation of recent Erlang/OTP versions</a></li>
+           <li><a href="#package-dependencies">Package dependencies</a></li>
+           <li><a href="#supported-distributions">Supported distributions</a></li>
+           <li><a href="#sudo-requirements">Privilege requirements</a></li>
+           <li><a href="#downloads">Package downloads</a></li>
+         </ul>
+
+         and more.
+       </p>
+   </doc:section>
+
+
 
     <doc:section name="overview">
       <doc:heading>Overview</doc:heading>
@@ -81,7 +86,7 @@ limitations under the License.
       </p>
     </doc:section>
 
-   <doc:section name="supported-rpm-distributions">
+   <doc:section name="supported-distributions">
        <doc:heading>Supported Distributions</doc:heading>
 
        <p>
@@ -196,34 +201,31 @@ yum install erlang
       </doc:subsection>
     </doc:section>
 
+
+   <doc:section name="package-dependencies">
+     <doc:heading>Package Dependencies</doc:heading>
+     <p>
+       When installing with Yum, all dependencies other than Erlang/OTP should be resolved and installed automatically
+       as long as compatible versions are available. When that's not the case, dependency packages must be installed manually.
+
+       However, when installing a local RPM file via <code>yum</code> dependencies must be installed
+       manually. Below is the list of dependencies of RabbitMQ server as of <code>3.7.0</code>:
+
+       <ul>
+         <li><code>erlang >= 19.3</code>. <a href="/which-erlang.html">Erlang</a>
+         can installed from a number of <a href="#install-erlang">repositories</a></li>
+         <li><code>socat</code></li>
+         <li><code>logrotate</code></li>
+       </ul>
+     </p>
+   </doc:section>
+
+
+
     <doc:section name="install-rabbitmq">
       <doc:heading>Install RabbitMQ Server</doc:heading>
 
-      <doc:subsection name="with-rpm">
-        <doc:heading>With rpm and Downloaded RPM</doc:heading>
-
-        <p>
-          After downloading the server package, issue the following command as
-          'root':
-        </p>
-<pre class="sourcecode bash">
-rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
-# this example assumes the CentOS 7 version of the package
-yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
-</pre>
-
-        <p>
-          Our public signing key is also <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">available from rabbitmq.com</a>:
-
-<pre class="sourcecode bash">
-rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-# this example assumes the CentOS 7 version of the package
-yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
-</pre>
-        </p>
-      </doc:subsection>
-
-      <doc:subsection name="from-package-cloud">
+      <doc:subsection name="package-cloud">
         <doc:heading>Using PackageCloud Yum Repository</doc:heading>
 
         <p>
@@ -249,6 +251,147 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.
           Note that Package Cloud signs distributed packages using their own GPG key.
         </p>
       </doc:subsection>
+
+
+      <doc:subsection name="bintray">
+        <doc:heading>Using Bintray Yum Repository</doc:heading>
+
+        <p>
+          A Yum repository with RabbitMQ packages is <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">available from Bintray</a>. The package page provides a repository
+          setup help section.
+
+          Bintray also can be used to <a href="https://bintray.com/rabbitmq/rpm/erlang">install a recent Erlang version via yum</a>.
+        </p>
+
+        <p>
+          Before the Yum repository can be used, its signing key must be imported first. This makes
+          RPM tools trust the signature on the packages provided in the repository. To do so,
+          run <code>rpm --import</code> as a superuser:
+
+<pre class="sourcecode bash">
+rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+</pre>
+        </p>
+
+        <p>
+          In order to use the Yum repository, a <code>.repo</code> file has to be added under the <code>/etc/yum.repos.d/</code>
+          directory. The contents of the file will vary slightly between distributions (e.g. CentOS 7 vs. CentOS 6 vs. OpenSUSE).
+          The following example targest CentOS 7:
+
+<pre class="sourcecode bash">
+[bintray-rabbitmq-server]
+name=bintray-rabbitmq-rpm
+baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+</pre>
+        </p>
+
+        <p>
+          On CentOS 6 the <code>baseurl</code> line would be slightly different:
+
+<pre class="sourcecode bash">
+[bintray-rabbitmq-server]
+name=bintray-rabbitmq-rpm
+baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/6/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+</pre>
+        </p>
+
+        <p>
+          The following example targets OpenSUSE:
+
+<pre class="sourcecode bash">
+[bintray-rabbitmq-server]
+name=bintray-rabbitmq-rpm
+baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/opensuse/42.1/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+</pre>
+        </p>
+
+        <p>
+          The following example targets SLES 11.x:
+
+<pre class="sourcecode bash">
+[bintray-rabbitmq-server]
+name=bintray-rabbitmq-rpm
+baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/sles/11
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+</pre>
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="with-rpm">
+        <doc:heading>With rpm and Downloaded RPM</doc:heading>
+
+        <p>
+          After downloading the server package, issue the following command as
+          'root':
+        </p>
+<pre class="sourcecode bash">
+rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+# this example assumes the CentOS 7 version of the package
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+</pre>
+
+        <p>
+          Our public signing key is also <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">available from rabbitmq.com</a>:
+
+<pre class="sourcecode bash">
+rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+# this example assumes the CentOS 7 version of the package
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+</pre>
+        </p>
+      </doc:subsection>
+
+    </doc:section>
+
+
+    <doc:section name="downloads">
+      <doc:heading>Download the Server</doc:heading>
+
+      <p>
+        In some cases it may easier to download the package and install it manually. The package can be downloaded
+        from Bintray or GitHub.
+      </p>
+
+      <r:downloads signature="yes">
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
+        </r:download>
+
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
+        </r:download>
+
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">
+	  RPM for openSUSE Linux (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm"
+		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">
+	  RPM for SLES 11.x (from <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">Bintray</a>)
+        </r:download>
+      </r:downloads>
     </doc:section>
 
 
