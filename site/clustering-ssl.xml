@@ -81,9 +81,9 @@ mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 
 <pre class="sourcecode bash">
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
--proto_dist inet_tls \
--ssl_dist_opt server_certfile /path/to/rabbit.pem \
--ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
+  -proto_dist inet_tls \
+  -ssl_dist_opt server_certfile /path/to/rabbit.pem \
+  -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 </pre>
 
         <p>Once our initial ("seed") node has inter-node connection configured with
@@ -101,14 +101,14 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
 ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-8.2.4/ebin"
 
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
--proto_dist inet_tls \
--ssl_dist_opt server_certfile /path/to/rabbit.pem \
--ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
+  -proto_dist inet_tls \
+  -ssl_dist_opt server_certfile /path/to/rabbit.pem \
+  -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 
 CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
--proto_dist inet_tls \
--ssl_dist_opt server_certfile /path/to/rabbit.pem \
--ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
+  -proto_dist inet_tls \
+  -ssl_dist_opt server_certfile /path/to/rabbit.pem \
+  -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 </pre>
 
         <p>Now that we have this in place, it's just a matter of
@@ -153,13 +153,13 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
 # NOTE: the following path is **system dependent**
 ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-8.2.4/ebin"
 
-SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
--proto_dist inet_tls \
--ssl_dist_optfile /etc/rabbitmq/ssl_dist.config
+SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH
+  -proto_dist inet_tls
+  -ssl_dist_optfile /etc/rabbitmq/ssl_dist.config"
 
-CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
--proto_dist inet_tls \
--ssl_dist_optfile /etc/rabbitmq/ssl_dist.config
+CTL_ERL_ARGS="-pa $ERL_SSL_PATH
+  -proto_dist inet_tls
+  -ssl_dist_optfile /etc/rabbitmq/ssl_dist.config"
 </pre>
 
         <p>
