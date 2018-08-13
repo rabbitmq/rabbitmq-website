@@ -142,12 +142,19 @@ limitations under the License.
       </doc:section>
 
 
+      <doc:section name="docker">
+        <doc:heading>Docker</doc:heading>
+        <ul>
+          <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> from Docker, Inc. (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
+        </ul>
+      </doc:section>
+
+
       <doc:section name="provisioning-automation-tools">
-        <doc:heading>Chef, Puppet, Docker</doc:heading>
+        <doc:heading>Provisioning Tools (Chef, Puppet, etc)</doc:heading>
         <ul>
           <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
           <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
-          <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>)</li>
         </ul>
       </doc:section>
 

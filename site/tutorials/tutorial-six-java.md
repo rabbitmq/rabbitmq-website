@@ -196,16 +196,15 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * When the Client starts up, it creates an anonymous exclusive
-    callback queue.
   * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to the callback queue and `correlationId`,
+    `replyTo`, which is set to a anonymous exclusive queue created
+    just for the request, and `correlationId`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `replyTo` field.
-  * The client waits for data on the callback queue. When a message
+  * The client waits for data on the reply queue. When a message
     appears, it checks the `correlationId` property. If it matches
     the value from the request it returns the response to the
     application.
@@ -227,91 +226,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-
-The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java) looks like this:
-
-
-<pre class="sourcecode java">
-import com.rabbitmq.client.*;
-
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
-public class RPCServer {
-
-    private static final String RPC_QUEUE_NAME = "rpc_queue";
-
-    public static void main(String[] argv) {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-
-        Connection connection = null;
-        try {
-            connection      = factory.newConnection();
-            final Channel channel = connection.createChannel();
-
-            channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-
-            channel.basicQos(1);
-
-            System.out.println(" [x] Awaiting RPC requests");
-
-            Consumer consumer = new DefaultConsumer(channel) {
-                @Override
-                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                            .Builder()
-                            .correlationId(properties.getCorrelationId())
-                            .build();
-
-                    String response = "";
-
-                    try {
-                        String message = new String(body,"UTF-8");
-                        int n = Integer.parseInt(message);
-
-                        System.out.println(" [.] fib(" + message + ")");
-                        response += fib(n);
-                    }
-                    catch (RuntimeException e){
-                        System.out.println(" [.] " + e.toString());
-                    }
-                    finally {
-                        channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
-
-                        channel.basicAck(envelope.getDeliveryTag(), false);
-			
-			// RabbitMq consumer worker thread notifies the RPC server owner thread 
-            		synchronized(this) {
-            			this.notify();
-            		}
-                    }
-                }
-            };
-
-            channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
-	    
-            // Wait and be prepared to consume the message from RPC client.
-	    while (true) {
-	    	synchronized(consumer) {
-		try {
-		      consumer.wait();
-		    } catch (InterruptedException e) {
-		      e.printStackTrace();	    	
-		    }
-	     	}
-	     }
-    	} catch (IOException | TimeoutException e) {
-     		e.printStackTrace();
-    	} finally {
-      	    if (connection != null)
-		try {
-          	    connection.close();
-        	 } catch (IOException _ignore) {}
-    	 }
-    }
-}
-</pre>
+The code for our RPC server can be found here: [`RPCServer.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
 
 The server code is rather straightforward:
 
@@ -324,85 +239,23 @@ The server code is rather straightforward:
     form of an object (`DefaultConsumer`) that will do the work and send the response back.
 
 
-The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java):
-
-<pre class="sourcecode java">
-import com.rabbitmq.client.*;
-
-import java.io.IOException;
-import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeoutException;
-
-public class RPCClient {
-
-    private Connection connection;
-    private Channel channel;
-    private String requestQueueName = "rpc_queue";
-    private String replyQueueName;
-
-    public RPCClient() throws IOException, TimeoutException {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-
-        connection = factory.newConnection();
-        channel = connection.createChannel();
-
-        replyQueueName = channel.queueDeclare().getQueue();
-    }
-
-    public String call(String message) throws IOException, InterruptedException {
-        final String corrId = UUID.randomUUID().toString();
-
-        AMQP.BasicProperties props = new AMQP.BasicProperties
-                .Builder()
-                .correlationId(corrId)
-                .replyTo(replyQueueName)
-                .build();
-
-        channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
-
-        final BlockingQueue&lt;String&gt; response = new ArrayBlockingQueue&lt;String&gt;(1);
-
-        channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                if (properties.getCorrelationId().equals(corrId)) {
-                    response.offer(new String(body, "UTF-8"));
-                }
-            }
-        });
-
-        return response.take();
-    }
-
-    public void close() throws IOException {
-        connection.close();
-    }
-
-    //...
-}
-</pre>
-
+The code for our RPC client can be found here: [`RPCClient.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java).
 
 The client code is slightly more involved:
 
-  * We establish a connection and channel and declare an
-    exclusive 'callback' queue for replies.
-  * We subscribe to the 'callback' queue, so that
-    we can receive RPC responses.
+  * We establish a connection and channel.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
     number and save it - our implementation of `handleDelivery`
-    in `DefaultConsumer` will use this value to catch the appropriate response.
+    in `RpcConsumer` will use this value to catch the appropriate response.
+  * Then, we create a dedicated exclusive queue for the reply and subscribe to it.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
   * At this point we can sit back and wait until the proper
     response arrives.
   * Since our consumer delivery handling is happening in a separate thread,
-    we're going to need something to suspend `main` thread before response arrives.
-    Usage of `BlockingQueue` is one of possible solutions. Here we are creating `ArrayBlockingQueue`
+    we're going to need something to suspend the `main` thread before the response arrives.
+    Usage of `BlockingQueue` is one possible solutions to do so. Here we are creating `ArrayBlockingQueue`
     with capacity set to 1 as we need to wait for only one response.
   * The `handleDelivery` method is doing a very simple job,
     for every consumed response message it checks if the `correlationId`
@@ -424,7 +277,6 @@ fibonacciRpc.close();
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
-
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
