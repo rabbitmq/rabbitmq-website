@@ -196,16 +196,15 @@ gracefully, and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * When the Client starts up, it creates an anonymous exclusive
-    callback queue.
   * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to the callback queue and `correlationId`,
+    `replyTo`, which is set to a anonymous exclusive queue created
+    just for the request, and `correlationId`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `replyTo` field.
-  * The client waits for data on the callback queue. When a message
+  * The client waits for data on the reply queue. When a message
     appears, it checks the `correlationId` property. If it matches
     the value from the request it returns the response to the
     application.
@@ -245,13 +244,11 @@ The code for our RPC client can be found here: [`RPCClient.java`](https://github
 The client code is slightly more involved:
 
   * We establish a connection and channel.
-  * We subscribe to the 'callback' queue, so that
-    we can receive RPC responses.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
     number and save it - our implementation of `handleDelivery`
     in `RpcConsumer` will use this value to catch the appropriate response.
-  * Then, a dedicated exclusive queue for the reply is created.
+  * Then, we create a dedicated exclusive queue for the reply and subscribe to it.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
   * At this point we can sit back and wait until the proper
