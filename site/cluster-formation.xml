@@ -91,7 +91,9 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
           <li><a href="#peer-discovery-classic-config">Config file</a></li>
           <li><a href="#peer-discovery-dns">Pre-configured DNS A/AAAA records</a></li>
         </ul>
+      </p>
 
+      <p>
         Additional peer discovery mechanisms are available via plugins. The following
         peer discovery plugins ship with RabbitMQ as of 3.7.0:
 
