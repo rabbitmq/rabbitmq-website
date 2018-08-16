@@ -59,8 +59,9 @@ limitations under the License.
       </p>
 
       <p>
-        This guide covers the LDAP operation flow used by RabbitMQ, how the LDAP model
-        maps to the RabbitMQ permission model and what tools are available for troubleshooting.
+        This guide covers the <a href="#ldap-operation-flow">LDAP operation flow</a> used by RabbitMQ, how the LDAP model
+        <a href="#authorisation">maps to the RabbitMQ permission model</a> and what tools are available
+        for <a href="#troubleshooting">troubleshooting</a>.
       </p>
     </doc:section>
 
