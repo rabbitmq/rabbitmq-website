@@ -520,7 +520,9 @@ cluster_formation.k8s.address_type = hostname
 </pre>
 
         Supported values are <code>ip</code> or <code>hostname</code>. <code>hostname</code> is
-        the recommended option. <code>ip</code> is used by default for backwards compatibility.
+        the recommended option but has limitations: it can only be used with <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset">stateful sets</a> (also highly recommended)
+        and <a href="https://kubernetes.io/docs/concepts/services-networking/service/#headless-services">headless services</a>.
+        <code>ip</code> is used by default for better compatibility.
       </p>
 
       <p>
