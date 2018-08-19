@@ -24,7 +24,7 @@ limitations under the License.
              name="getting-help">
   <doc:heading>Getting Help</doc:heading>
   <p>
-    If you have questions or need help, feel free to ask on 
+    If you have questions or need help, feel free to ask on the
     <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
   </p>
 </doc:section>
