@@ -18,12 +18,16 @@ limitations under the License.
 
 <doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
              xmlns:xi="http://www.w3.org/2003/XInclude"
-             name="selinux-ports">
+             name="ports">
   <doc:heading>Port Access</doc:heading>
   <p>
-    SELinux, and similar mechanisms may prevent RabbitMQ from binding to a port. When that happens,
-    RabbitMQ will fail to start. Firewalls can prevent nodes and CLI tools from communicating with each other.
-    Make sure the following ports can be opened:
+    RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client and CLI tool connections.
+    Other processes and tools such as SELinux may prevent RabbitMQ from binding to a port. When that happens,
+    the node will fail to start.
+
+    CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP sockets).
+    Firewalls can prevent nodes and CLI tools from communicating with each other.
+    Make sure the following ports are accessible:
 
     <xi:include href="list-of-ports.xml.inc" />
 
