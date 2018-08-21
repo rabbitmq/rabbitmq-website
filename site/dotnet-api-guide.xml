@@ -32,13 +32,26 @@ limitations under the License.
           This guide covers <a href="/dotnet.html">RabbitMQ .NET/C# client</a> and its public API.
           It assumes that the <a href="https://www.nuget.org/packages/RabbitMQ.Client">most recent major version of the client</a> is used
           and the reader is familiar with <a href="/getstarted.html">the basics</a>.
+
+          Key sections of the guide are:
+
+          <ul>
+            <li><a href="#major-api-elements">Important interfaces and classes</a> in the public API</li>
+            <li><a href="#connecting">Connecting to RabbitMQ</a></li>
+            <li><a href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a></li>
+            <li><a href="#exchanges-and-queues">Using Exchanges and Queues</a></li>
+            <li><a href="#publishing">Publishing Messages</a></li>
+            <li><a href="#consuming">Consuming Using a Subscription</a></li>
+            <li><a href="#concurrency">Concurrency Considerations and Safety</a></li>
+            <li><a href="#recovery">Automatic Recovery From Network Failures</a></li>
+          </ul>
         </p>
 
-        <p class="intro">
+        <p>
           4.x and 5.x release series of this library require .NET 4.5.1+ or .NET Standard 1.5+ implementation (e.g. .NET Core 2.x).
         </p>
 
-        <p class="intro">
+        <p>
           The library is open source, developed <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/">on GitHub</a>, and is double-licensed under the
 
           <ul>
@@ -56,7 +69,7 @@ limitations under the License.
           with additional abstractions for ease of use.
         </p>
 
-        <p class="intro">
+        <p>
           An <a href="&dir-current-docfx;">API reference</a> is available separately.
         </p>
       </doc:section>
@@ -263,7 +276,7 @@ conn.Close();
       </doc:section>
 
 
-      <doc:section name="using-exchanges-and-queues">
+      <doc:section name="exchanges-and-queues">
         <doc:heading>Using Exchanges and Queues</doc:heading>
 
         <p>
@@ -446,47 +459,11 @@ model.BasicPublish(exchangeName,
           </p>
         </doc:section>
 
-        <doc:section name="basic-get">
-          <doc:heading>Fetching Individual Messages ("pull API")</doc:heading>
-
-          <p>
-            To retrieve individual messages, use <code>IModel.BasicGet</code>. The
-            returned value is an instance of BasicGetResult, from which the header
-            information (properties) and message body can be extracted:
-
-<pre class="sourcecode csharp">
-bool noAck = false;
-BasicGetResult result = channel.BasicGet(queueName, noAck);
-if (result == null) {
-    // No message available at this time.
-} else {
-    IBasicProperties props = result.BasicProperties;
-    byte[] body = result.Body;
-    ...
-</pre>
-
-            Since <code>noAck = false</code> above, you must also call
-            <code>IModel.BasicAck</code> to acknowledge that you have
-            successfully received and processed the message:
-
-<pre class="sourcecode csharp">
-    ...
-    // acknowledge receipt of the message
-    channel.BasicAck(result.DeliveryTag, false);
-}
-</pre>
-
-            Note that fetching messages using this API is relatively inefficient. If you'd prefer
-            RabbitMQ to push messages to the client, see the next section.
-          </p>
-        </doc:section>
-
-
-        <doc:section name="basic-consume">
+        <doc:section name="consuming">
           <doc:heading>Retrieving Messages By Subscription ("push API")</doc:heading>
 
           <p>
-            Another way to receive messages is to set up a subscription using the
+            The recommended and most convenient way to receive messages is to set up a subscription using the
             <code>IBasicConsumer</code> interface. The messages will then be delivered
             automatically as they arrive, rather than having to be requested
             proactively.
@@ -528,6 +505,43 @@ channel.BasicCancel(consumerTag);
 When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
 explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> document.
+          </p>
+        </doc:section>
+
+
+        <doc:section name="basic-get">
+          <doc:heading>Fetching Individual Messages ("pull API")</doc:heading>
+
+          <p>
+            It is also possible to retrieve individual messages on demand ("pull")
+            using the <code>IModel.BasicGet</code> method. The
+            returned value is an instance of BasicGetResult, from which the header
+            information (properties) and message body can be extracted:
+
+<pre class="sourcecode csharp">
+bool noAck = false;
+BasicGetResult result = channel.BasicGet(queueName, noAck);
+if (result == null) {
+    // No message available at this time.
+} else {
+    IBasicProperties props = result.BasicProperties;
+    byte[] body = result.Body;
+    ...
+</pre>
+
+            Since <code>noAck = false</code> above, you must also call
+            <code>IModel.BasicAck</code> to acknowledge that you have
+            successfully received and processed the message:
+
+<pre class="sourcecode csharp">
+    ...
+    // acknowledge receipt of the message
+    channel.BasicAck(result.DeliveryTag, false);
+}
+</pre>
+
+            Note that fetching messages using this API is relatively inefficient. If you'd prefer
+            RabbitMQ to push messages to the client, see the next section.
           </p>
         </doc:section>
 
@@ -670,7 +684,7 @@ model.BasicReturn +=
         </doc:section>
 
 
-        <doc:section name="connection-recovery">
+        <doc:section name="recovery">
           <doc:heading>Automatic Recovery From Network Failures</doc:heading>
 
           <doc:subsection name="connection-recovery">
@@ -724,7 +738,7 @@ factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
             </p>
           </doc:subsection>
 
-          <doc:subsection name="connection-recovery-triggers">
+          <doc:subsection name="recovery-triggers">
             <doc:heading>When Will Connection Recovery Be Triggered?</doc:heading>
             <p>
               Automatic connection recovery, if enabled, will be triggered by the following events:
