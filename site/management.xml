@@ -332,10 +332,19 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
             set the value of the <code>http_log_dir</code> variable in
             the <code>rabbitmq_management</code> application to the name
             of a directory in which logs can be created and restart
-            RabbitMQ. Note that only requests to the API
-            at <code>/api</code> are logged, not requests to the static
-            files which make up the browser-based GUI.
+            RabbitMQ.
           </p>
+<pre class="sourcecode ini">
+management.http_log_dir = /path/to/folder
+</pre>
+          <p>
+            Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          </p>
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_management, [{http_log_dir, "/path/to/folder"}]}
+].
+</pre>
         </doc:subsection>
 
         <doc:subsection name="statistics-interval">
