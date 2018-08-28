@@ -421,7 +421,7 @@ limitations under the License.
             <li><code>max-length-bytes</code></li>
           </ul>
 
-          The arguments above are all numeric. Thie reason for that is explained
+          The arguments above are all numeric. The reason for that is explained
           in the following section.
         </p>
       </doc:subsection>
