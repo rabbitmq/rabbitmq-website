@@ -931,12 +931,11 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
           shells you are very likely to need to quote this.</dd>
     </dl>
     <div class="Pp"></div>
-    For example, this command sets the parameter &#x201C;local_username&#x201D;
-      for the &#x201C;federation&#x201D; component in the default virtual host
-      to the JSON term &#x201C;guest&#x201D;:
+    For example, this command sets the parameter &#x201C;node01&#x201D;
+      for the &#x201C;federation-upstream&#x201D; component in the default virtual host
+      to following JSON:
     <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmqctl set_parameter federation
-      local_username &#x201C;guest&#x201D;</code></div>
+    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmqctl set_parameter federation-upstream node01 '{&quot;uri&quot;:&quot;amqp://user:password@server/%2F&quot;,&quot;ack-mode&quot;:&quot;on-publish&quot;}'</code></div>
   </dd>
   <dt class="It-tag"><a class="selflink" href="#clear_parameter"><b class="Cm" title="Cm" id="clear_parameter">clear_parameter</b></a>
     [<span class="Op"><b class="Fl" title="Fl">-p</b>
@@ -953,11 +952,10 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
     </dl>
     <div class="Pp"></div>
     For example, this command clears the parameter
-      &#x201C;local_username&#x201D; for the &#x201C;federation&#x201D;
+      &#x201C;node01&#x201D; for the &#x201C;federation-upstream&#x201D;
       component in the default virtual host:
     <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmqctl clear_parameter federation
-      local_username</code></div>
+    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmqctl clear_parameter federation-upstream node01</code></div>
   </dd>
   <dt class="It-tag"><a class="selflink" href="#list_parameters"><b class="Cm" title="Cm" id="list_parameters">list_parameters</b></a>
     [<span class="Op"><b class="Fl" title="Fl">-p</b>
