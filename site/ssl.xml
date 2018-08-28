@@ -138,7 +138,7 @@ limitations under the License.
       </doc:section>
 
 
-      <doc:section>
+      <doc:section name="automated-certificate-generation">
         <doc:heading>The Short Route to Generating a CA, Certificates, and Keys</doc:heading>
         <p>
           This guide walks you through the process of setting up a <a
@@ -165,8 +165,8 @@ limitations under the License.
         </p>
       </doc:section>
 
-      <doc:section name="keys-and-certs">
-        <doc:heading>Keys, Certificates and CA Certificates</doc:heading>
+      <doc:section name="manual-certificate-generation">
+        <doc:heading>Manually Generating a CA, Certificates and Private Keys</doc:heading>
           <p>
             TLS is a large and complex topic. For a thorough understanding of
             TLS, OpenSSL and how to get the most out of it, we would recommend the use
@@ -177,7 +177,7 @@ limitations under the License.
             TLS can be used simply to establish an encrypted communication
             channel, but can additionally exchange signed certificates between the
             end points of the channel, and those certificates can optionally be
-            verified. The verification of a certificate requires establishing a
+            <a href="#peer-verification">verified</a>. The verification of a certificate requires establishing a
             chain of trust from a known, trusted <i>root</i> certificate, and the
             certificate presented. The <i>root</i> certificate is a self-signed
             certificate, made available by a <i>Certificate Authority</i>. These
@@ -188,11 +188,8 @@ limitations under the License.
           <p>
             For the purposes of this guide, we will start by creating our own
             <i>Certificate Authority</i>. Once we have done this, we will generate
-            signed certificates for the server and clients, in a number of
-            formats. These will we then use with the Java, .Net and Erlang AMQP
-            clients. Note that Mono has more stringent requirements on OpenSSL
-            certificates (and a few bugs too), so we will be specifying slightly
-            more stringent key usage constraints than is normally necessary.
+            certificates and private keys for the server and clients, in a number of
+            formats for different client libraries to use.
           </p>
 <pre class="sourcecode bash">
 mkdir testca
@@ -203,8 +200,8 @@ echo 01 &gt; serial
 touch index.txt
 </pre>
           <p>
-            Now place the following in <code>openssl.cnf</code> within the <code>testca</code>
-            directory we've just created:
+            Now place the following in <code>openssl.cnf</code> within the newly created <code>testca</code>
+            directory:
           </p>
 
 <pre class="sourcecode ini">
@@ -264,7 +261,7 @@ keyUsage = digitalSignature,keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
           <p>
-            Now we can generate the key and certificates that our test
+            Next we need to generate the key and certificates that our test
             <i>Certificate Authority</i> will use. Still within the <code>testca</code>
             directory:
           </p>
@@ -276,27 +273,39 @@ openssl x509 -in cacert.pem -out cacert.cer -outform DER
 </pre>
 
           <p>
-            This is all that is needed to generate our test <i>Certificate
+            This is all that is needed to generate a test <i>Certificate
             Authority</i>. The <i>root</i> certificate is in <code>testca/cacert.pem</code>
             and is also in <code>testca/cacert.cer</code>. These two files contain the
-            same information, but in different formats. Whilst the vast majority
-            of the world is perfectly happy to use the <i>PEM</i> format, Microsoft
-            and Mono like to be different, and so use the <i>DER</i> format.
+            same information, but in different formats, <i>PEM</i> and <i>DER</i>.
+            Most software uses the former but some tools require the latter.
           </p>
           <p>
             Having set up our <i>Certificate Authority</i>, we now need to generate
-            keys and certificates for the clients and the server. The Erlang
-            client and the RabbitMQ broker are both able to use <i>PEM</i> files
-            directly.  They will both be informed of three files: the <i>root</i>
-            certificate, which is implicitly trusted, the private key, which is
-            used to prove ownership of the public certificate being presented, and
-            the public certificate itself, which identifies the peer.
+            private keys and certificates for the clients and the server.
+            RabbitMQ broker uses certificates and private keys in the <i>PEM</i> format.
+            Some client libraries use the <i>PEM</i> format, others will require coversion
+            to a different format (e.g. <i>PKCS#12</i>).
           </p>
           <p>
-            For convenience, we provide to the Java and .Net clients, a <i>PKCS
-            #12</i> store, which contains both the client's certificate and key. The
-            <i>PKCS store</i> is usually password protected itself, and so that
-            password must also be provided.
+            Java and .NET clients use a certificate format called <i>PKCS
+            #12</i> and custom certificate stores. Certificate store contains
+            both the client's certificate and key. The <i>PKCS store</i> is usually password protected, and so that
+            a password must be provided.
+          </p>
+          <p>
+            When TLS is enabled, both RabbitMQ and clients typically will require three files: a <i>CA</i>
+            certificate file, which contains one or more Certificate Authority certificates;
+            a private key, which is used to prove ownership of the certificate (public key) being presented, and
+            the certificate itself. The certificate identifies the server or client. The certificates in the
+            CA certificate file are usually considered to be trusted. Trusted certificates will be used to verify
+            connection peer (e.g. a RabbitMQ node for a connecting client) when <a href="#peer-verification">peer verification</a>
+            is enabled. Note that trusted certificates can come from more sources (a trusted certificate directory or certificate store)
+            depending on the operating system and runtime.
+          </p>
+          <p>
+            RabbitMQ nodes will have to load the CA certificates file, the private key and
+            the certificate from a local file system. Ownership and permissions of those files
+            must make it possible.
           </p>
           <p>
             The process for creating server and client certificates is very
@@ -549,8 +558,8 @@ cat testca/cacert.pem otherca/cacert.pem &gt; all_cacerts.pem
 </pre>
 
             Note that this approach is only practical with a very small number of CAs involved. Also
-            note that for client authentication, only <i>root</i> CAs will be used by the server as 
-            trust anchors when validating client certificates (any intermediate certificates will be 
+            note that for client authentication, only <i>root</i> CAs will be used by the server as
+            trust anchors when validating client certificates (any intermediate certificates will be
             ignored).
             The above approach with trusted certificate lists is recommended.
           </p>
