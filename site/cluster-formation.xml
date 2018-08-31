@@ -91,7 +91,9 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
           <li><a href="#peer-discovery-classic-config">Config file</a></li>
           <li><a href="#peer-discovery-dns">Pre-configured DNS A/AAAA records</a></li>
         </ul>
+      </p>
 
+      <p>
         Additional peer discovery mechanisms are available via plugins. The following
         peer discovery plugins ship with RabbitMQ as of 3.7.0:
 
@@ -520,7 +522,9 @@ cluster_formation.k8s.address_type = hostname
 </pre>
 
         Supported values are <code>ip</code> or <code>hostname</code>. <code>hostname</code> is
-        the recommended option. <code>ip</code> is used by default for backwards compatibility.
+        the recommended option but has limitations: it can only be used with <a href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset">stateful sets</a> (also highly recommended)
+        and <a href="https://kubernetes.io/docs/concepts/services-networking/service/#headless-services">headless services</a>.
+        <code>ip</code> is used by default for better compatibility.
       </p>
 
       <p>

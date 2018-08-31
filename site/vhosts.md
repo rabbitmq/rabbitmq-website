@@ -33,6 +33,13 @@ Virtual hosts provide logical grouping and separation of
 resources. Separation of physical resources is not a goal of virtual
 hosts and should be considered an implementation detail.
 
+For example, [resource permissions](/access-control.html) in RabbitMQ are
+scoped per virtual host. A user doesn't have global permissions, only
+permissions in one or more virtual hosts. User tags can be considered
+global permissions but they are an exception to the rule.
+
+Therefore when talking about user permissions it is very Important
+to clarify what virtual host(s) they apply to.
 
 ## Virtual Hosts and Client Connections
 

@@ -39,7 +39,7 @@ limitations under the License.
             <li><a href="#exchanges-and-queues">Using Exchanges and Queues</a></li>
             <li><a href="#publishing">Publishing Messages</a></li>
             <li><a href="#consuming">Consuming Using a Subscription</a></li>
-            <li><a href="#channel-threads">Concurrency Considerations and Safety</a></li>
+            <li><a href="#concurrency">Concurrency Considerations and Safety</a></li>
             <li><a href="#recovery">Automatic Recovery From Network Failures</a></li>
           </ul>
         </p>
@@ -482,7 +482,7 @@ channel.basicPublish(exchangeName, routingKey,
       </p>
     </doc:section>
 
-    <doc:section name="channel-threads">
+    <doc:section name="concurrency">
       <doc:heading>Channels and Concurrency Considerations (Thread Safety)</doc:heading>
 
       <p>
@@ -1194,7 +1194,7 @@ factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
 
-      <doc:subsection name="connection-recovery-triggers">
+      <doc:subsection name="recovery-triggers">
         <doc:heading>When Will Connection Recovery Be Triggered?</doc:heading>
         <p>
           Automatic connection recovery, if enabled, will be triggered by the following events:

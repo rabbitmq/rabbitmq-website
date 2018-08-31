@@ -45,13 +45,14 @@ limitations under the License.
           There are several areas which can be configured or tuned:
 
           <ul>
-            <li>Interfaces and ports</li>
-            <li>TLS</li>
-            <li>TCP buffer size (directly translate into per-connection <a href="/memory-use.html">memory use</a>)</li>
+            <li><a href="#interfaces">Interfaces</a></li>
+            <li><a href="#ports">Ports</a> used by clients, inter-node traffic and <a href="/cli.html">CLI tools</a></li>
+            <li><a href="#tls-support">TLS</a></li>
+            <li>TCP buffer size (affects <a href="#tuning-for-throughput-tcp-buffers">throughput</a> and <a href="#tuning-for-large-number-of-connections-tcp-buffer-size">how much memory is used per connection</a>)</li>
             <li>Other TCP socket settings</li>
-            <li>Kernel TCP settings (e.g. TCP keepalives)</li>
-            <li>(AMQP 0-9-1, STOMP) Heartbeats, known as keepalives in MQTT</li>
-            <li>Hostnames, hostname resolution and DNS</li>
+            <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
+            <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
+            <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
@@ -68,7 +69,7 @@ limitations under the License.
 
         <p>
           In addition, this guide touches on a few topics closely related to networking,
-          such as connection lifecycle logging, proxies and load balancers, high connection churn and resource
+          such as <a href="#logging">connection lifecycle logging</a>, <a href="#intermediaries">proxies and load balancers</a>, <a href="#dealing-with-high-connection-churn">high connection churn</a> and resource
           exhaustion, and more.
           A methodology for <a href="/troubleshooting-networking.html">troubleshooting of networking-related issues</a>
           is covered in a separate guide.
@@ -445,7 +446,8 @@ proxy_protocol = true
           <code>rabbit.tcp_listen_options</code>,
           <code>rabbitmq_mqtt.tcp_listen_options</code>,
           <code>rabbitmq_amqp1_0.tcp_listen_options</code>, and
-          related config keys.
+          related config keys. Note that increasing TCP buffer size will directly translate
+          into higher <a href="/memory-use.html">RAM use of the node</a>.
         </p>
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
@@ -551,15 +553,15 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           Several factors can limit how many concurrent connections a single node can support:
 
           <ul>
-            <li>Maximum number of open file handles (including sockets) as well as other kernel-enforced resource limits</li>
-            <li>Amount of RAM used by each connection</li>
+            <li>Maximum number of <a href="#open-file-handle-limit">open file handles</a> (including sockets) as well as other kernel-enforced resource limits</li>
+            <li>Amount of <a href="/memory-use.html">RAM used by each connection</a></li>
             <li>Amount of CPU resources used by each connection</li>
             <li>Maximum number of Erlang processes the VM is configured to allow</li>
           </ul>
         </p>
       </doc:subsection>
 
-      <doc:subsection name="tuning-for-large-number-of-connections-open-file-handles-limit">
+      <doc:subsection name="open-file-handle-limit">
         <doc:heading>Open File Handle Limit</doc:heading>
         <p>
           Most operating systems limit the number of file handles that
@@ -1134,8 +1136,8 @@ net.ipv4.tcp_keepalive_probes=4
         default. When clients run in heavily constrained environments,
         it may be necessary to increase the timeout. This can be done via
         the <code>rabbit.handshake_timeout</code> (in milliseconds):
-<pre class="code">
-    handshake_timeout = 20000
+<pre class="sourcecode sysctl">
+handshake_timeout = 20000
 </pre>
 
 Using the classic config format:
@@ -1155,7 +1157,7 @@ Using the classic config format:
       </p>
 
       <doc:subsection name="tls-handshake">
-        <doc:heading>TLS/SSL Handshake</doc:heading>
+        <doc:heading>TLS (SSL) Handshake</doc:heading>
 
         <p>
           If TLS/SSL is enabled, it may necessary to increase also the TLS/SSL

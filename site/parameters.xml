@@ -46,7 +46,7 @@ limitations under the License.
       There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
       Vhost-scoped parameters are tied to a virtual host and consist
       of a component name, a name and a value.
-      Global parameters are not tied to a particular virtual and they consist
+      Global parameters are not tied to a particular virtual host and they consist
       of a name and value.
     </p>
     <p>
@@ -421,7 +421,7 @@ limitations under the License.
             <li><code>max-length-bytes</code></li>
           </ul>
 
-          The arguments above are all numeric. Thie reason for that is explained
+          The arguments above are all numeric. The reason for that is explained
           in the following section.
         </p>
       </doc:subsection>
