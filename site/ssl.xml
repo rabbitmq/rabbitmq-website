@@ -492,7 +492,7 @@ ssl_options.password   = t0p$3kRe7
 
           <p>
             Every TLS-enabled tool and TLS implementation, including Erlang/OTP and
-            RabbitMQ, has a way to mark a set of certificates as
+            RabbitMQ, has a way of marking a set of certificates as
             trusted. On Linux and other UNIX-like systems this is
             usually a directory administered by superusers. CA
             certificates in that directory will be considered trusted,
