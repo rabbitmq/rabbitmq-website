@@ -266,7 +266,7 @@ make info
 ls -l ./result
 </pre>
 
-            The certificate chain used by this basic tls-gen profile looks like this:
+            The certificate chain produced by this basic tls-gen profile looks like this:
 
             <img class="figure" src="/img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
           </p>
