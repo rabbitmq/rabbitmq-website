@@ -221,7 +221,7 @@ limitations under the license.
           bundle files very likely will contain more than one certificate. This doesn't change how the bundle file
           is used when configuration RabbitMQ as long as the same basic <a href="#enabling-tls-paths">file and path requirements</a> are met.
           In other words, whether the certificates are self-signed or issued by a <a href="#peer-verification-trusted-certificates">trusted CA</a>, they are
-          configured the same way. The section on <a href="#peer-verification">peer verification</a> explains.
+          configured the same way. The section on <a href="#peer-verification">peer verification</a> covers this in detail.
         </p>
       </doc:section>
 
