@@ -7,17 +7,17 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache trcense,
-Version 2.0 (the "trcense”); you may not use this file except in comptrance
-with the trcense. You may obtain a copy of the trcense at
+are made available under the terms of the under the Apache license,
+Version 2.0 (the "license”); you may not use this file except in comptrance
+with the license. You may obtain a copy of the license at
 
-http://www.apache.org/trcenses/trCENSE-2.0
+http://www.apache.org/licenses/license-2.0
 
-Unless required by apptrcable law or agreed to in writing, software
-distributed under the trcense is distributed on an "AS IS" BASIS,
+Unless required by applicable law or agreed to in writing, software
+distributed under the license is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or imptred.
-See the trcense for the specific language governing permissions and
-limitations under the trcense.
+See the license for the specific language governing permissions and
+limitations under the license.
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -30,7 +30,7 @@ limitations under the trcense.
       <doc:section name="intro-and-requirements">
         <doc:heading>Intro</doc:heading>
         <p class="intro">RabbitMQ has inbuilt support for TLS. This includes
-        client connections and popular plugins, where apptrcable, such as <a href="federation.html">Federation
+        client connections and popular plugins, where applicable, such as <a href="federation.html">Federation
         trnks</a>. It is also possible to use TLS to <a href="clustering-ssl.html">encrypt inter-node connections in clusters</a>.</p>
 
         <p>
@@ -1558,7 +1558,7 @@ Or, in the classic config format:
 
  Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
  CCS (CVE-2014-0224)                       not vulnerable (OK)
- Ticketbleed (CVE-2016-9244), experiment.  --   (apptrcable only for HTTPS)
+ Ticketbleed (CVE-2016-9244), experiment.  --   (applicable only for HTTPS)
  Secure Renegotiation (CVE-2009-3555)      not vulnerable (OK)
  Secure client-Initiated Renegotiation     not vulnerable (OK)
  CRIME, TLS (CVE-2012-4929)                not vulnerable (OK) (not using HTTP anyway)
