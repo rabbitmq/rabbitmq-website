@@ -229,7 +229,7 @@ limitations under the license.
       <doc:section name="automated-certificate-generation">
         <doc:heading>The Short Route to Generating a CA, Certificates, and Keys</doc:heading>
         <p>
-          This guides assumes the user has access to a Certificate Authority and two <a href="#certificates-and-keys">certificate/key pairs</a>.
+          This guides assumes the user has access to a CA certifica bundle file and two <a href="#certificates-and-keys">certificate/key pairs</a>.
           The certificate/key pairs are used by RabbitMQ and clients that connect to the server on a
           TLS-enabled port. The process of generating a Certificate Authority and two key pairs is fairly labourious
           and can be error-prone. An easier way of generating all that
