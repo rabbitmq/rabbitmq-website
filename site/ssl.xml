@@ -669,7 +669,7 @@ ssl_options.fail_if_no_peer_cert = false
 
 
       <doc:section name="java-client">
-        <doc:heading>Using TLS with the Java Client</doc:heading>
+        <doc:heading>Using TLS in the Java Client</doc:heading>
 
         <p>
           There are two main parts to enabling TLS in the RabbitMQ Java client:
