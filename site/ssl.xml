@@ -260,9 +260,9 @@ limitations under the license.
 git clone https://github.com/michaelklishin/tls-gen tls-gen
 cd tls-gen/basic
 # private key password
-gmake PASSWORD=bunnies
-gmake verify
-gmake info
+make PASSWORD=bunnies
+make verify
+make info
 ls -l ./result
 </pre>
 
