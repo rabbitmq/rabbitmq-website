@@ -116,6 +116,10 @@ img {
   border: 0;
 }
 
+img.figure {
+  display: block;
+}
+
 .btn {
   border-radius: 3px;
   background: #866e8b;
