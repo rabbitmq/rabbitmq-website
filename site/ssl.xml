@@ -510,7 +510,7 @@ ssl_options.password   = t0p$3kRe7
           <p>
             While it is possible to place final ("leaf") certificates
             such as those used by servers and clients to the trusted certificate directory,
-            a much more common practice is to ad CA certificates to the trusted certificate list.
+            a much more common practice is to add CA certificates to the trusted certificate list.
           </p>
           <p>
             The most common way of appending several certificates to one
@@ -1766,7 +1766,7 @@ openssl x509 -in ca_certificate_bundle.pem -out ca_certificate_bundle.cer -outfo
             Having set up our Certificate Authority, we now need to generate
             private keys and certificates for the clients and the server.
             RabbitMQ broker uses certificates and private keys in the PEM format.
-            Some client libraries use the PEM format, others will require coversion
+            Some client libraries use the PEM format, others will require conversion
             to a different format (e.g. PKCS#12).
           </p>
           <p>
