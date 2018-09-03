@@ -484,10 +484,10 @@ ssl_options.password   = t0p$3kRe7
           <doc:heading>Trusted Certificates</doc:heading>
 
           <p>
-            Every TLS implementation, including Erlang/OTP and
-            OpenSSL, has a set of certificates that are considered to
-            be trusted in the system. On Linux and other UNIX-like systems this is
-            usually a directory administered by superusers.  CA
+            Every TLS-enabled tool and TLS implementation, including Erlang/OTP and
+            RabbitMQ, has a way to mark a set of certificates as
+            trusted. On Linux and other UNIX-like systems this is
+            usually a directory administered by superusers. CA
             certificates in that directory will be considered trusted,
             and so are the certificates issued by them (such as those
             presented by clients). Locations of the trusted certificate directory will <a href="https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/">vary</a>
