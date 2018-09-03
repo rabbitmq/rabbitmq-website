@@ -602,7 +602,7 @@ ssl_options.fail_if_no_peer_cert = true
 
             <p>
               <a href="#automatic-certificate-generation">tls-gen</a> will use local machine's hostname for both values.
-              likewise, in the <a href="#manual-certificate-generation">manual certificate/key pair generation section</a> local machine's hostname is specified as
+              Likewise, in the <a href="#manual-certificate-generation">manual certificate/key pair generation section</a> local machine's hostname is specified as
               <code>...-subj /CN=$(hostname)/...</code> to some OpenSSL CLI tool commands.
             </p>
           </doc:subsection>
