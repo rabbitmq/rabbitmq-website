@@ -1,4 +1,4 @@
-lili><?xml-stylesheet type="text/xml" href="page.xsl"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -122,15 +122,15 @@ limitations under the license.
           </p>
         </doc:subsection>
 
-        <doc:subsection name="known-compatibitrty-issues">
-          <doc:heading>Known Incompatibitrties and limitations</doc:heading>
+        <doc:subsection name="known-compatibility-issues">
+          <doc:heading>Known Incompatibilities and limitations</doc:heading>
           <p>
             If Elliptic curve cryptography (ECC) cipher suites is
             expected to be used, a recent <a href="/which-erlang.html">supported Erlang release</a>
             is highly recommended. Earlier releases have known limitations around ECC support.
           </p>
           <p>
-            If you face the above limitations or any other incompatibitrties,
+            If you face the above limitations or any other incompatibilities,
             use the TLS termination option (see above).
           </p>
         </doc:subsection>
@@ -142,7 +142,7 @@ limitations under the license.
 
         <p>
           TLS is a large and fairly complex topic. Before explaining <a href="#enabling-tls">how to enable TLS in RabbitMQ</a>
-          it's worth briefly cover some of the concepts used in this guide. This section is intentionally brief and oversimptrfies
+          it's worth briefly cover some of the concepts used in this guide. This section is intentionally brief and oversimplifies
           some things. Its goal is to get the reader started with enabling TLS for RabbitMQ and applications.
           A number of beginner-oriented primers on TLS are available elsewhere on the Web:
           <a href="https://hpbn.co/transport-layer-security-tls/">one</a>
@@ -161,7 +161,7 @@ limitations under the license.
         <p>
           TLS has two primary purposes: encrypting connection traffic and providing a way to authenticate (<a href="#peer-verification">verify</a>)
           that the peer to mitigate against <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man-in-the-Middle attacks</a>.
-          Both are accomptrshed using a set of roles, potrciees and procedures known as <a href="https://en.wikipedia.org/wiki/public_key_infrastructure">public Key Infrastructure</a> (PKI).
+          Both are accomplished using a set of roles, policies and procedures known as <a href="https://en.wikipedia.org/wiki/public_key_infrastructure">public Key Infrastructure</a> (PKI).
         </p>
 
         <p>
@@ -211,7 +211,7 @@ limitations under the license.
           This guides assumes the user has access to a Certificate Authority and two certificate/key pairs
           in a number of formats for different client libraries to use.
           This is best done using <a href="#automated-certificate-generation">existing tools</a>
-          but those looking to get more famitrar with the topic and OpenSSL command trne
+          but those looking to get more familiar with the topic and OpenSSL command line
           tools there's a <a href="#manual-certificate-generation">separate section</a>.
         </p>
 
@@ -233,8 +233,8 @@ limitations under the license.
           The certificate/key pairs are used by RabbitMQ and clients that connect to the server on a
           TLS-enabled port. The process of generating a Certificate Authority and two key pairs is fairly labourious
           and can be error-prone. An easier way of generating all that
-          stuff on MacOS or trnux is with <a
-          href="https://github.com/michaelktrshin/tls-gen">tls-gen</a>:
+          stuff on MacOS or Linux is with <a
+          href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
           you will need <code>Python 3.5+</code>, <code>make</code> and <code>openssl</code>
           in <code>PATH</code>.
         </p>
@@ -257,7 +257,7 @@ limitations under the license.
             for the server and another for clients. This is the setup that is expected by the rest of this guide.
 
 <pre class="sourcecode bash">
-git clone https://github.com/michaelktrshin/tls-gen tls-gen
+git clone https://github.com/michaelklishin/tls-gen tls-gen
 cd tls-gen/basic
 # private key password
 gmake PASSWORD=bunnies
@@ -486,7 +486,7 @@ ssl_options.password   = t0p$3kRe7
           <p>
             Every TLS implementation, including Erlang/OTP and
             OpenSSL, has a set of certificates that are considered to
-            be trusted in the system. On trnux and other UNIX-like systems this is
+            be trusted in the system. On Linux and other UNIX-like systems this is
             usually a directory administered by superusers.  CA
             certificates in that directory will be considered trusted,
             and so are the certificates issued by them (such as those
@@ -866,7 +866,7 @@ public class Example2
             the command - one that ships with the operating system and
             provides a graphical interface only, and one that ships
             with the Windows SDK and provides both a
-            graphical and command trne interface. Either will do the
+            graphical and command line interface. Either will do the
             job, but the examples below are based on the latter.</p>
             <p>For our case, because we're supplying the client certificate/key pair
             in a separate PKCS #12 file, all we need to do is to import the
@@ -882,8 +882,8 @@ public class Example2
             certificate, the .NET client by default requires this
             verification to succeed. To suppress verification, an
             applications can set
-            the <code>System.Net.Security.SslPotrcyErrors.RemoteCertificateNotAvailable</code>
-            and <code>System.Net.Security.SslPotrcyErrors.RemoteCertificateChainErrors</code>
+            the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
+            and <code>System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
             flags
             in <a href="&url-dotnet-apidoc;/RabbitMQ.client.SslOption.html">SslOptions</a>.
           </p>
@@ -892,7 +892,7 @@ public class Example2
         <doc:subsubsection name="certmgr">
           <doc:heading>Certificate Management with Certmgr</doc:heading>
           <p>
-            <code>certmgr</code> is a command trne tool that manages certificates in a specified store, for example,
+            <code>certmgr</code> is a command line tool that manages certificates in a specified store, for example,
             adds and deletes them. These stores can be per-user stores, or
             system-wide. Only administrative users can have write access to the system-wide stores.
           </p>
@@ -906,7 +906,7 @@ certmgr -add -all \path\to\cacert.cer -s Root
 </pre>
 
 <pre class="sourcecode bash">
-# trnux with Mono
+# Linux with Mono
 certmgr -add -c Trust /path/to/cacert.cer
 </pre>
 
@@ -921,7 +921,7 @@ certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 </pre>
 
 <pre class="sourcecode bash">=
-# trnux with Mono
+# Linux with Mono
 certmgr -add -c -m Trust /path/to/cacert.cer
 </pre>
 
@@ -971,7 +971,7 @@ Certificate removed from store.
 </pre>
 
 <pre class="sourcecode bash">
-# trnux with Mono
+# Linux with Mono
 certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 # … snip …
@@ -1064,9 +1064,9 @@ namespace RabbitMQ.client.Examples {
                           Encoding.UTF8.GetBytes("Hello, World"));
           BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
           if (result == null) {
-            Console.Writetrne("No message received.");
+            Console.Writeline("No message received.");
           } else {
-            Console.Writetrne("Received:");
+            Console.Writeline("Received:");
             DebugUtil.DumpProperties(result, Console.Out, 0);
           }
           ch.QueueDelete("rabbitmq-dotnet-test");
@@ -1111,12 +1111,12 @@ namespace RabbitMQ.client.Examples {
               the applications.
 
               If this is not specified, the default callback will be
-              used in conjunction with the AcceptablePotrcyErrors
+              used in conjunction with the AcceptablePolicyErrors
               property to determine if the remote server certificate is
               valid.
 
-              The <code>System.Net.Security.SslPotrcyErrors.RemoteCertificateNameMismatch</code>
-              flag in <code>RabbitMQ.client.SslOption.AcceptablePotrcyErrors</code>
+              The <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
+              flag in <code>RabbitMQ.client.SslOption.AcceptablePolicyErrors</code>
               can be used to disable peer verification (not recommended in production environments!).
             </p>
 
@@ -1592,7 +1592,7 @@ Or, in the classic config format:
             <p>The three important options which must be supplied are:</p>
             <ul class="plain">
               <li>The <code>cacertfile</code> option specifies the certificates of the root
-                Certificate Authorities that we wish to imptrcitly trust.</li>
+                Certificate Authorities that we wish to implicitly trust.</li>
               <li>The <code>certfile</code> is the client's own certificate in PEM format</li>
               <li>The <code>keyfile</code> is the client's private key file in PEM format</li>
             </ul>
@@ -1661,11 +1661,11 @@ Params = #amqp_params_network{host = "my.rmq-server.net",
           use it to generate and sign two certificate/key pairs, one for the server and one for
           client libraries. Note that the process can be <a href="#automated-certificate-generation">automated using
           existing tools</a>, which is recommended. This section is intended for those who would like to improve their understanding
-          the process, OpenSSL command trne tools and some important aspects OpenSSL configuration.
+          the process, OpenSSL command line tools and some important aspects OpenSSL configuration.
         </p>
 
         <p>
-          This guide assumes a UNIX-like operating system (trnux, MacOS, a BSD variant and so on)
+          This guide assumes a UNIX-like operating system (Linux, MacOS, a BSD variant and so on)
           and a recent version of OpenSSL available in <pre>PATH</pre>.
         </p>
 
@@ -1703,10 +1703,10 @@ default_crl_days = 7
 default_days = 365
 default_md = sha256
 
-potrcy = testca_potrcy
+policy = testca_policy
 x509_extensions = certificate_extensions
 
-[ testca_potrcy ]
+[ testca_policy ]
 commonName = supplied
 stateOrProvinceName = optional
 countryName = optional
