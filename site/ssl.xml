@@ -442,21 +442,24 @@ ssl_options.password   = t0p$3kRe7
 
           <p>
             When a TLS connection is established client and server perform connection negotiation that takes several steps.
-            The first step is when the peers <em class="">optionally</em> exchange their
+            The first step is when the peers <em>optionally</em> exchange their
             <a href="#certificates-and-keys">certificates</a>.
             Having exchanged certificates, the peers can <em class="">optionally</em> attempt
             to establish a chain of trust between their CA
             certificates and the certificates presented. This acts to verify that
             the peer is who it claims to be (provided the private key hasn't been
-            stolen). The process is known as peer verification or peer validation.
+            stolen). The process is known as peer verification or peer validation
+            and follows an algorithm known as the <a href="https://en.wikipedia.org/wiki/Certification_path_validation_algorithm">Certification path validation algorithm</a>.
+            Understanding the entire algorithm is not necessary in order to use peer verification,
+            so this section provides an oversimplified explanation of the key parts.
           </p>
           <p>
-            Each peer usually provides a <em class="">chain of certificates</em> begins with a "leaf"
+            Each peer provides a <em>chain of certificates</em> that begins with a "leaf"
             (client or server) certificate and continues with at least one Certificate Authority (CA) certificate. That
             CA issued (signed) the leaf CA. If there are multiple CA certificates, they usually form a chain of signatures,
             meaning that each CA certificate was signed by the next one. For example, if certificate B is signed by A and C is signed by B,
             the chain is <code>A, B, C</code> (commas here are used for clarify). The "topmost" (first or only) CA is often referred
-            to as the <em class="">root CA</em> for the chain. Root CAs can be issued by well-known Certifica Authorities
+            to as the <em>root CA</em> for the chain. Root CAs can be issued by well-known Certifica Authorities
             (commercial vendors) or any other party (<a href="https://en.wikipedia.org/wiki/Self-signed_certificate">self-signed</a>).
           </p>
 
@@ -475,8 +478,12 @@ ssl_options.password   = t0p$3kRe7
             During peer verification TLS connection client (or server) traverses
             the chain of certificates presented by the peer
             and if a trusted certificate is found, considers the peer trusted.
-            If no trusted certificate is found, peer verification fails and client connection is closed
+            If no trusted and otherwise valid certificate is found, peer verification fails and client connection is closed
             with an error ("alert" in OpenSSL parlance).
+          </p>
+          <p>
+            Certificate validity is also checked at every step. Certificates that are expired
+            and aren't yet valid will be rejected and skipped.
           </p>
         </doc:subsection>
 
@@ -583,19 +590,22 @@ ssl_options.fail_if_no_peer_cert = true
           <doc:subsection name="peer-verification-clients">
             <p>
               Thus it is possible to create an encrypted TLS connection <em class="">without</em> having to
-              verify certificates. client libraries usually support both modes of operation.
+              verify certificates. Client libraries usually support both modes of operation.
             </p>
 
             <p>
               When peer verification is enabled, it is common for clients to also check whether the
-              the <em class="">hostname</em> of the server
-              they are connecting to matches one of two fields in the server certificate: the <em class="">SAN (Subject Alternative Name)</em> or <em class="">CN (Common Name)</em>.
-              If there is no match, peer verification will also be
-              failed by the client. However, this check is not necessarily performed by all clients.
+              the hostname of the server
+              they are connecting to matches one of two fields
+              in the server certificate: the <a href="https://en.wikipedia.org/wiki/Subject_Alternative_Name">SAN (Subject Alternative Name)</a>
+              or CN (Common Name). When <a href="https://en.wikipedia.org/wiki/Wildcard_certificate">wildcard certificates</a> are used,
+              the hostname is matched against a pattern. If there is no match, peer verification will also be
+              failed by the client. Hostname checks are also optional and generally orthogonal to certificate chain
+              verification performed by the client.
             </p>
 
             <p>
-              Because of this it is important to know what <em class="">SAN (Subject Alternative Name)</em> or <em class="">CN (Common Name)</em> values
+              Because of this it is important to know what SAN (Subject Alternative Name) or CN (Common Name) values
               were used when generating the certificate. If a certificate is generated on one host and used
               on a different host then the <code>$(hostname)</code> value should be replaced with the correct hostname of the target server.
             </p>
@@ -863,29 +873,26 @@ public class Example2
           </p>
           <p>
             NB: On some flavours of Windows there are two versions of
-            the command - one that ships with the operating system and
+            the command: one that ships with the operating system and
             provides a graphical interface only, and one that ships
             with the Windows SDK and provides both a
             graphical and command line interface. Either will do the
-            job, but the examples below are based on the latter.</p>
-            <p>For our case, because we're supplying the client certificate/key pair
-            in a separate PKCS #12 file, all we need to do is to import the
-            certificate of the root <i>Certificate Authority</i> into
-            the <i>Root</i> (Windows) / <i>Trust</i> (Mono)
-
-            store. All certificates signed by any certificate in that
-            store are automatically trusted.
+            job, but the examples below are based on the latter.
           </p>
           <p>
-            In contrast to the Java client, which is happy to use an
-            SSL connection without verifying the server's
-            certificate, the .NET client by default requires this
-            verification to succeed. To suppress verification, an
-            applications can set
+            For our case, because we're supplying the client certificate/key pair
+            in a separate PKCS#12 file, all we need to do is to import the
+            certificate of the root Certificate Authority into
+            the Root (Windows) or Trust (Mono) store.
+            All certificates signed by any certificate in that store are automatically trusted.
+          </p>
+          <p>
+            In contrast to the Java client, which is happy to use a
+            TLS connection without performing peer verification, the .NET client by default requires this
+            verification to succeed. To suppress verification, an applications can set
             the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
             and <code>System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
-            flags
-            in <a href="&url-dotnet-apidoc;/RabbitMQ.client.SslOption.html">SslOptions</a>.
+            flags in <a href="&url-dotnet-apidoc;/RabbitMQ.client.SslOption.html">SslOptions</a>.
           </p>
         </doc:subsection>
 
