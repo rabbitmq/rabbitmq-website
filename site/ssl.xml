@@ -382,7 +382,7 @@ openssl ecparam -out key.pem -genkey -name prime256v1
           and if the client does present a certificate, whether we
           should accept the certificate if we can't establish a chain
           of trust to it. These settings are controlled by
-          several configuration keys:</p>
+          severalconfiguration keys:</p>
 
           <ul class="plain">
             <li>
@@ -500,7 +500,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             (client or server) certificate and continues with at least one Certificate Authority (CA) certificate. That
             CA issued (signed) the leaf CA. If there are multiple CA certificates, they usually form a chain of signatures,
             meaning that each CA certificate was signed by the next one. The very last (or only) CA is often referred
-            to as the <em class="">root CA</em> for the chain. Root CAs can be issued by well-known Certificate Authorities
+            to as the <em class="">root CA</em> for the chain. Root CAs can be issued by well-known Certifica Authorities
             (commercial vendors) or any other party (<a href="https://en.wikipedia.org/wiki/Self-signed_certificate">self-signed</a>).
           </p>
           <p>
@@ -521,7 +521,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             to use the <code>testca/cacert.pem</code> for the CA
             (Certificate Authority) file.  This contains just the
             public certificate of the test <i>Certificate
-            Authority</i> created.  When clients (applications)
+            Authority</i> created.  When clients (applications_
             connect, they will present their own certificates. Those
             may (and often will) have been signed by other
             <i>Certificate Authorities</i>. In order for RabbitMQ
@@ -539,7 +539,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             and so are the certificates issued by them (such as those
             presented by clients). While it is possible to place final ("leaf") certificates
             such as those used by servers and clients to the trusted certificate directory,
-            a much more common practice is to add CA certificates to the trusted certificate list.
+            a much more practice is to ad CA certificates to the trusted certificate list.
             Locations of the trusted certificate directory will <a href="https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/">vary</a>
             <a href="http://gagravarr.org/writing/openssl-certs/others.shtml">between distributions</a>, operating systems and releases.
           </p>
