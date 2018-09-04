@@ -405,13 +405,5 @@ limitations under the License.
         trusted on the node where federation link(s) runs, and vice versa.
       </p>
     </doc:section>
-
-    <doc:section name="getting-help">
-      <doc:heading>Getting Help</doc:heading>
-      <p>
-        If you have any questions or comments regarding RabbitMQ, feel free to
-        ask them on <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
-      </p>
-    </doc:section>
   </body>
 </html>
