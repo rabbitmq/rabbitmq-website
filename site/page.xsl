@@ -76,7 +76,7 @@ limitations under the License.
       <script type="text/javascript" src="/js/site.js"></script>
       <!-- <script type="text/javascript" src="/js/ga-bootstrap.js"></script> -->
 
-      <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
+      <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
