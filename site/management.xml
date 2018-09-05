@@ -30,96 +30,120 @@ limitations under the License.
       <doc:section name="intro">
         <doc:heading>Introduction</doc:heading>
         <p>
-          The rabbitmq-management plugin provides an HTTP-based API
-          for management and monitoring of your RabbitMQ server, along
+          The <code>rabbitmq-management</code> plugin provides an HTTP-based API
+          for management and monitoring of RabbitMQ nodes and clusters, along
           with a browser-based UI and a command line tool, <a
-          href="management-cli.html">rabbitmqadmin</a>. Features
-          include:
+          href="management-cli.html">rabbitmqadmin</a>.
         </p>
-        <ul>
-          <li>
-            Declare, list and delete exchanges, queues, bindings,
-            users, virtual hosts and permissions.
-          </li>
-          <li>
-            Monitor queue length, message rates globally and per
-            channel, data rates per connection, etc.
-          </li>
-          <li>
-            Monitor resource usage, such as file descriptors, memory
-            use, available disk space.
-          </li>
-          <li>
-            Manage users (provided administrative permissions of the current user).
-          </li>
-          <li>
-            Export and import object definitions (vhosts, users,
-            permissions, queues, exchanges, bindings, parameters,
-            policies) to JSON.
-          </li>
-          <li>
-            Force close connections, purge queues.
-          </li>
-          <li>
-            Send and receive messages (useful in development environments
-            and for troubleshooting).
-          </li>
-        </ul>
+
+        <p>
+          It periodically collects and aggregates data about many aspects of the system. Those metrics
+          are exposed to both operators in the UI and <a href="/monitoring.html">monitoring systems</a> for
+          long term storage, alerting, visualisation, chart analysis and so on.
+        </p>
+
+        <p>
+          The plugin also provides extension points that other plugins, such as <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
+          <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a> use to extend the UI.
+        </p>
       </doc:section>
 
       <doc:section name="getting-started">
-        <doc:heading>Getting started</doc:heading>
+        <doc:heading>Getting Started</doc:heading>
 
         <p>
           The management plugin is included in the RabbitMQ
-          distribution. To enable it, use <a
+          distribution. Like any other <a href="/plugins.html">plugin</a> it must
+          be enabled before it can be ised. That's done using <a
           href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
+
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_management
+</pre>
         </p>
-        <pre class="sourcecode bash">rabbitmq-plugins enable rabbitmq_management</pre>
-        <ul>
-          <li>
-            The Web UI is located at:
-            http://<i>server-name</i>:15672/
-          </li>
-          <li>
-            The Web UI uses an HTTP API provided by the same plugin. Said API's documentation can be accessed at
-            http://<i>server-host</i>:15672/api/ or
-            our <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
-            latest HTTP API documentation here</a>).
-          </li>
-          <li>
-            Download <a href="management-cli.html">rabbitmqadmin</a>
-            at: http://<i>server-name</i>:15672/cli/
-          </li>
-        </ul>
+
         <p>
-          NB: The port for RabbitMQ versions prior to 3.0 is 55672.
-        </p>
-        <p>
-          To use the web UI you will need to authenticate as a
-          RabbitMQ user (on a fresh installation the user "guest" is
-          created with password "guest"). From here you can manage
-          exchanges, queues, bindings, virtual hosts, users and
-          permissions. Hopefully the UI is fairly self-explanatory.
-        </p>
-        <p>
-          The management UI is implemented as a single static HTML
-          page which makes background queries to the HTTP API. As such
-          it makes heavy use of Javascript. It has been tested with
-          recent versions of Firefox, Chromium and Safari, and with
-          versions of Microsoft Internet Explorer back to 6.0.
+          Node restart is not required after plugin activation.
         </p>
       </doc:section>
 
-      <doc:section name="permissions">
-        <doc:heading>Permissions</doc:heading>
+      <doc:section name="usage">
+        <doc:heading>Usage</doc:heading>
+
         <p>
-          The management plugin extends the existing <a
-          href="access-control.html">permissions model</a> somewhat. Users can
-          be given arbitrary tags within RabbitMQ. The management plugin makes
-          use of tags called "management", "policymaker", "monitoring" and
-          "administrator". The following table shows what the different types
-          of user can do:
+          The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
+          for a node running on the local machine it can be either <code>http://{hostname}:15672/</code>
+          or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
+        </p>
+
+        <p>
+          The management UI is implemented as a single page application which relies on the the <a href="#http-api">HTTP API</a>.
+          Some of the features include:
+
+          <ul>
+            <li>
+              Declare, list and delete exchanges, <a href="/queues.html">queues</a>, bindings,
+              users, <a href="/vhosts.html">virtual hosts</a> and <a href="/access-control.html">user permissions</a>.
+            </li>
+            <li>
+              Monitor queue length, message rates (globally and per
+              queue, exchange or channel), resource usage of queue,
+              node GC activity, data rates of client connections, and more.
+            </li>
+            <li>
+              Monitor node resource usage: file descriptors, memory
+              use, available disk space and bandwidth usage on inter-node communication
+              links.
+            </li>
+            <li>
+              Manage users (provided administrative permissions of the current user).
+            </li>
+            <li>
+              Manage <a href="/parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
+            </li>
+            <li>
+              <a href="/backup.html">Export schema</a> (vhosts, users,
+              permissions, queues, exchanges, bindings, parameters,
+              policies) and <a href="#load-definitions">import it on node start</a>. This can be used for <a href="/backup.html">recovery
+              purposes</a> or setup automation of new nodes and clusters.
+            </li>
+            <li>
+              Force close client connections, purge queues.
+            </li>
+            <li>
+              Send and receive messages (useful in development environments
+              and for troubleshooting).
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          The UI application supports recent versions of Google Chrome Safari, Firefox, and Microsoft Edge browsers.
+        </p>
+
+        <p>
+          To access management UI the user has to authenticate and have certain permissions (be authorised).
+          This is covered in the <a href="#permissions">following section</a>.
+        </p>
+
+        <doc:subsection name="usage-clusters">
+          <doc:heading>Management UI Access in Clusters</doc:heading>
+          <p>
+            Any cluster node with <code>rabbitmq-management</code> plugin enabled can be
+            used for management UI access or data collection by monitoring tools.
+            It will reach out to other nodes and collect their stats, then aggregate and return a response
+            to the client. It is not neceessary for monitoring systems to contact every node for cluster-wide
+            (as in, not node-specific) metrics such as those displayed on the Overview tab.
+          </p>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="permissions">
+        <doc:heading>Access and Permissions</doc:heading>
+        <p>
+          The management UI requires  <a
+          href="access-control.html">authentication and authorisation</a>, much like RabbitMQ requires
+          it from connecting clients.
         </p>
         <table>
           <tr>
@@ -194,26 +218,26 @@ limitations under the License.
         <p>
           Note that since "administrator" does everything "monitoring"
           does, and "monitoring" does everything "management" does,
-          you frequently only need to give each user a maximum of one tag.
+          each user often needs a maximum of one tag.
         </p>
         <p>
-          Normal RabbitMQ permissions still apply to monitors and
+          Normal RabbitMQ <a href="/access-control.html">permissions to resources</a> still apply to monitors and
           administrators; just because a user is a monitor or
-          administrator does not give them full access to exchanges,
-          queues and bindings through either AMQP or the management
-          plugin.
+          administrator does not grant them full access to exchanges,
+          queues and bindings through the management
+          plugin or other means.
         </p>
         <p>
-          All users can only list objects within a particular virtual
-          host if they have any permissions for that virtual host.
+          All users can only list objects within the virtual
+          hosts they have any permissions for.
         </p>
         <p>
-          If you get locked out due to only having non-administrator
-          users, or no users at all, you can use <a
-          href="/man/rabbitmqctl.8.html#">rabbitmqctl add_user</a>
-          to create a non-administrator user and <a
-          href="/man/rabbitmqctl.8.html#set_user_tags">rabbitmqctl
-          set_user_tags</a> to promote a user to administrator.
+          If access to management UI is impossible to due the lack of users
+          with sufficient permissions or forgotten/incorrect permissions, <a href="/cli.html">CLI tools</a> must
+          be used to manage the users and their credentials. <a href="/man/rabbitmqctl.8.html#">rabbitmqctl add_user</a>
+          should be used to create a user, <a href="/man/rabbitmqctl.8.html#">rabbitmqctl set_permissions</a> to grant the
+          user the desired permissions and finally, <a href="/man/rabbitmqctl.8.html#set_user_tags">rabbitmqctl
+          set_user_tags</a> should be used to give the user management UI access permissions.
         </p>
       </doc:section>
 
@@ -635,7 +659,7 @@ management.sample_retention_policies.detailed.10 = 5
 
 
       <doc:section name="load-definitions">
-        <doc:heading>Load Definitions at Startup</doc:heading>
+        <doc:heading>Loading Definitions (Schema) at Startup</doc:heading>
         <p>
           The management plugin lets you export a JSON file
           containing definitions of all broker objects (queues,
