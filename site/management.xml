@@ -75,66 +75,67 @@ rabbitmq-plugins enable rabbitmq_management
       <doc:section name="usage">
         <doc:heading>Usage</doc:heading>
 
-        <p>
-          The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
-          for a node running on the local machine with hostname of <code>warp10.local</code> it can be accessed at either <code>http://warp10.local:15672/</code>
-          or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
-        </p>
+        <doc:subsection name="usage-ui">
+          <doc:heading>Management UI Access</doc:heading>
+          <p>
+            The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
+            for a node running on the local machine with hostname of <code>warp10.local</code> it can be accessed at either <code>http://warp10.local:15672/</code>
+            or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
+          </p>
 
-        <p>
-          Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
-          <a href="/networking.html#ports">Separate ports</a> should be used by those clients.
-        </p>
+          <p>
+            Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
+            <a href="/networking.html#ports">Separate ports</a> should be used by those clients.
+          </p>
+        </doc:subsection>
 
-        <p>
-          The management UI is implemented as a single page application which relies on the the <a href="#http-api">HTTP API</a>.
-          Some of the features include:
+        <doc:subsection name="usage-highlights">
+          <doc:heading>Notable Features</doc:heading>
+          <p>
+            The management UI is implemented as a single page application which relies on the the <a href="#http-api">HTTP API</a>.
+            Some of the features include:
 
-          <ul>
-            <li>
-              Declare, list and delete exchanges, <a href="/queues.html">queues</a>, bindings,
-              users, <a href="/vhosts.html">virtual hosts</a> and <a href="/access-control.html">user permissions</a>.
-            </li>
-            <li>
-              Monitor queue length, message rates (globally and per
-              queue, exchange or channel), resource usage of queue,
-              node GC activity, data rates of client connections, and more.
-            </li>
-            <li>
-              Monitor node resource use: <a href="/networking.html#open-file-handle-limit">sockets and file descriptors</a>,
-              <a href="/memory-use.html">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
-              links.
-            </li>
-            <li>
-              Manage users (provided administrative permissions of the current user).
-            </li>
-            <li>
-              Manage <a href="/parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
-            </li>
-            <li>
-              <a href="/backup.html">Export schema</a> (vhosts, users,
-              permissions, queues, exchanges, bindings, parameters,
-              policies) and <a href="#load-definitions">import it on node start</a>. This can be used for <a href="/backup.html">recovery
-              purposes</a> or setup automation of new nodes and clusters.
-            </li>
-            <li>
-              Force close client connections, purge queues.
-            </li>
-            <li>
-              Send and receive messages (useful in development environments
-              and for troubleshooting).
-            </li>
-          </ul>
-        </p>
+            <ul>
+              <li>
+                Declare, list and delete exchanges, <a href="/queues.html">queues</a>, bindings,
+                users, <a href="/vhosts.html">virtual hosts</a> and <a href="/access-control.html">user permissions</a>.
+              </li>
+              <li>
+                Monitor queue length, message rates (globally and per
+                queue, exchange or channel), resource usage of queue,
+                node GC activity, data rates of client connections, and more.
+              </li>
+              <li>
+                Monitor node resource use: <a href="/networking.html#open-file-handle-limit">sockets and file descriptors</a>,
+                <a href="/memory-use.html">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
+                links.
+              </li>
+              <li>
+                Manage users (provided administrative permissions of the current user).
+              </li>
+              <li>
+                Manage <a href="/parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
+              </li>
+              <li>
+                <a href="/backup.html">Export schema</a> (vhosts, users,
+                permissions, queues, exchanges, bindings, parameters,
+                policies) and <a href="#load-definitions">import it on node start</a>. This can be used for <a href="/backup.html">recovery
+                purposes</a> or setup automation of new nodes and clusters.
+              </li>
+              <li>
+                Force close client connections, purge queues.
+              </li>
+              <li>
+                Send and receive messages (useful in development environments
+                and for troubleshooting).
+              </li>
+            </ul>
+          </p>
 
-        <p>
-          The UI application supports recent versions of Google Chrome Safari, Firefox, and Microsoft Edge browsers.
-        </p>
-
-        <p>
-          To access management UI the user has to authenticate and have certain permissions (be authorised).
-          This is covered in the <a href="#permissions">following section</a>.
-        </p>
+          <p>
+            The UI application supports recent versions of Google Chrome Safari, Firefox, and Microsoft Edge browsers.
+          </p>
+        </doc:subsection>
 
         <doc:subsection name="usage-ui-clusters">
           <doc:heading>Management UI Access in Clusters</doc:heading>
@@ -145,6 +146,11 @@ rabbitmq-plugins enable rabbitmq_management
             to the client.
           </p>
         </doc:subsection>
+
+        <p>
+          To access management UI the user has to authenticate and have certain permissions (be authorised).
+          This is covered in the <a href="#permissions">following section</a>.
+        </p>
       </doc:section>
 
       <doc:section name="permissions">
