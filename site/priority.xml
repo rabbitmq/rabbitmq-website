@@ -70,8 +70,8 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
       <doc:heading>Behaviour</doc:heading>
 
       <p>
-        The AMQP 0-9-1 spec is a bit vague about how priorities work. It says
-        that all queues MUST support at least 2 priorities, and MAY
+        The AMQP 0-9-1 spec is a bit vague about how priorities are expected to work.
+        It says that all queues MUST support at least 2 priorities, and MAY
         support up to 10. It does not define how messages without a
         priority property are treated.
       </p>
@@ -106,7 +106,7 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
 
 
     <doc:section name="resource-usage">
-      <doc:heading>Resource Usage Considerations</doc:heading>
+      <doc:heading>Max Number of Priorities and Resource Usage</doc:heading>
 
       <p>
         If priority queues are desired, we recommend using between 1 and 10.
@@ -115,7 +115,7 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
     </doc:section>
 
 
-    <doc:section name="resource-usage">
+    <doc:section name="interaction-with-consumers">
       <doc:heading>Interaction with consumers</doc:heading>
 
       <p>
@@ -141,7 +141,7 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
     </doc:section>
 
 
-    <doc:section name="interactions-with-other-features">
+    <doc:section name="interaction-with-other-features">
       <doc:heading>Interaction with Other Features</doc:heading>
 
       <p>
@@ -176,7 +176,8 @@ ch.queueDeclare("my-priority-queue", true, false, false, args);
 
       <p>
         The most convenient way to define optional arguments for a queue is via <a href="/parameters.html">policies</a>.
-        Policies are the recommended way to configure <a href="/maxlength.html">queue length limits</a>, <a href="ttl.html">TTL</a> and more. However, policies cannot be used to configure priorities because policies are dynamic
+        Policies are the recommended way to configure <a href="/maxlength.html">queue length limits</a>, <a href="ttl.html">TTL</a> and more.
+        However, policies cannot be used to configure priorities because policies are dynamic
         and can changed after a queue has been declared. Priority queues can never change the number of priorities they
         support after queue declaration, so policies would not be a safe option to use.
       </p>
