@@ -46,6 +46,11 @@ limitations under the License.
           The plugin also provides extension points that other plugins, such as <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
           <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a> use to extend the UI.
         </p>
+
+        <p>
+          The plugin can be <a href="#configuration">configured</a> to use HTTPS, a non-standard port, path prefix,
+          HTTP server options and more.
+        </p>
       </doc:section>
 
       <doc:section name="getting-started">
