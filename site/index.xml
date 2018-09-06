@@ -31,7 +31,7 @@ limitations under the License.
           <div id='hero-summit'>
             <div class='container'>
               <h1>RabbitMQ Summit 2018<br/>Nov 12 | London, UK</h1>
-              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-2018" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Early Bird Tickets on Sale through August 31</a></h2>
+              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-2018" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Tickets on Sale through November 10</a></h2>
             </div>
           </div>
         </div>
