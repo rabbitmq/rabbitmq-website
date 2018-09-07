@@ -921,7 +921,7 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             Since RabbitMQ 3.6.0, masters perform synchronisation in
             batches. Batch can be configured via the
             <code>ha-sync-batch-size</code> queue argument.  Earlier
-            versions will will synchronise <code>1</code> message at a
+            versions will synchronise <code>1</code> message at a
             time by default.  By synchronising messages in batches,
             the synchronisation process can be sped up considerably.
           </p>
