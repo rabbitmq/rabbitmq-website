@@ -503,7 +503,7 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 
       <p>
         When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
-        either contain hostnames or IP addresses can be used. This is configurable using the
+        either hostnames or IP addresses can be used. This is configurable using the
         <code>cluster_formation.k8s.address_type</code> key:
 
         <pre class="sourcecode ini">
