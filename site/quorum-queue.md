@@ -32,7 +32,7 @@ comprehensible guarantees and simple failure semantics within RabbitMQ.
 
 A combination of network partitions and other failures can result in HA queues
 losing data. Quorum queues are designed to provide simpler semantics that users
-should find easier to reason about when designing and operating they're systems.
+should find easier to reason about when designing and operating their systems.
 
 ##  Usage
 
@@ -204,7 +204,7 @@ event even when the queue has a significant backlog.
 #### Atom use
 
 The internal implementation of quorum queues converts the queue name
-into an erlang atom. If queues with arbitrary names are continuously
+into an Erlang atom. If queues with arbitrary names are continuously
 created and deleted it _may_ threaten the long term stability of the
 RabbitMQ system. We do not recommend using quorum queues in this manner
 at this point.
