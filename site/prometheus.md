@@ -63,17 +63,19 @@ cd /usr/lib/rabbitmq/plugins
 
 # now let's grab the relevant plugins straight from source
 # (you might need to install curl first)
-get="curl --progress-bar --location --remote-name"
-download_base_url="https://github.com/deadtrickster/prometheus_rabbitmq_exporter/releases/download/v3.7.2.2"
-$get $download_base_url/accept-0.3.3.ez
+get() {
+  curl --progress-bar --location --remote-name \
+  https://github.com/deadtrickster/prometheus_rabbitmq_exporter/releases/download/v3.7.2.2/$1
+}
+get accept-0.3.3.ez
 ######################################################################## 100.0%
-$get $download_base_url/prometheus-3.5.1.ez
+get prometheus-3.5.1.ez
 ######################################################################## 100.0%
-$get $download_base_url/prometheus_cowboy-0.1.4.ez
+get prometheus_cowboy-0.1.4.ez
 ######################################################################## 100.0%
-$get $download_base_url/prometheus_httpd-2.1.8.ez
+get prometheus_httpd-2.1.8.ez
 ######################################################################## 100.0%
-$get $download_base_url/prometheus_rabbitmq_exporter-v3.7.2.2.ez
+get prometheus_rabbitmq_exporter-v3.7.2.2.ez
 ######################################################################## 100.0%
 </pre>
 
@@ -203,22 +205,66 @@ rabbitmq_channels 0
 ...
 </pre>
 
-All the RabbitMQ metrics exposed via this URL update according to the `collect_statistics_interval` value.
-To find out what this value is for your RabbitMQ node, run the following command:
+Congratulations, your RabbitMQ deployment is now exposing metrics in a way that
+Prometheus can consume and store.
+
+## <a id="store-rabbitmq-metrics-in-prometheus" class="anchor" href="#store-rabbitmq-metrics-in-prometheus">How to store RabbitMQ metrics in Prometheus?</a>
+
+All the RabbitMQ metrics exposed via this URL update according to the
+`collect_statistics_interval` value.  This is useful when configuring the
+Prometheus `scrape_interval` for RabbitMQ.  To find out what this value is for
+your RabbitMQ node, run the following command:
 
 <pre class="sourcecode sh">
 rabbitmqctl eval 'application:get_env(rabbit, collect_statistics_interval).'
 {ok,5000}
 </pre>
 
-In this case, metrics update every 5 seconds, or 5000ms. This is relevant...
+In this case, metrics update every 5 seconds expressed in milliseconds, which
+is a RabbitMQ default.  Assuming that we have a compatible [`prometheus`
+binary](https://prometheus.io/docs/prometheus/latest/installation/) on the host
+where RabbitMQ is running, we run the following commands:
 
-## Prometheus scrape_config
+<pre class="sourcecode sh">
+cat &gt; rabbitmq.yml &lt;&lt;EOF
+scrape_configs:
+  - job_name: rabbitmq
+    scrape_interval: 5s
+    scrape_timeout: 4s
+    metrics_path: /api/metrics
+    static_configs:
+      - targets: ['localhost:15672']
+EOF
+prometheus --config.file=./rabbitmq.yml --web.external-url=http://localhost:9090/
+</pre>
 
-* targets
-* console
-* graph
+Confirm that Prometheus is successfully pulling metrics from RabbitMQ by
+checking the targets page,
+[http://localhost:9090/targets](http://localhost:9090/targets) by default:
 
-## Grafana overview dashboard
+![Prometheus Targets - RabbitMQ](/img/prometheus-rabbitmq-target.png)
 
-## prometheus_rabbitmq_exporter options
+We can confirm that RabbitMQ metrics are stored in Prometheus by querying the
+number of exchanges, e.g.
+[http://localhost:9090/graph?g0.range_input=1h&g0.expr=rabbitmq_exchanges&g0.tab=0](http://localhost:9090/graph?g0.range_input=1h&g0.expr=rabbitmq_exchanges&g0.tab=0):
+
+![Prometheus Graph - RabbitMQ Exchanges](/img/prometheus-rabbitmq-exchanges-graph.png)
+
+## <a id="beyond-prometheus-monitoring" class="anchor" href="#beyond-prometheus-monitoring">Beyond monitoring with Prometheus</a>
+
+While this might be a helpful guide for integrating RabbitMQ with Prometheus,
+it is just the beginning of a longer journey.
+
+First of all, querying many thousands of metrics every 5 seconds will put a lot
+of pressure on RabbitMQ, a more sensible default would be 30 seconds. In the
+same context, it's also worth mentioning the default [Sample Retention
+Policies](http://www.rabbitmq.com/management.html#sample-retention), which
+might not be optimal for a RabbitMQ deployment that has metrics stored in
+Prometheus.
+
+Second of all, you will most likely want to integrate Grafana with Prometheus,
+which is outside the scope of this guide.
+
+Lastly, there are a few configuration options in
+[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter#configuration)
+that you will want to get familiar with.
