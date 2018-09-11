@@ -1698,7 +1698,7 @@ factory.useSslProtocol();
         To learn more about TLS support in RabbitMQ, see
         the <a href="ssl.html">TLS guide</a>. If you only want to configure
         the Java client (especially the peer verification and trust manager parts),
-        read <a href="ssl.html#trust-levels">the appropriate section</a> of the TLS guide.
+        read <a href="ssl.html#java-client">the appropriate section</a> of the TLS guide.
       </p>
     </doc:section>
   </body>

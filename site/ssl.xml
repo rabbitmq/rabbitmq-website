@@ -722,14 +722,11 @@ ssl_options.fail_if_no_peer_cert = false
 import java.io.*;
 import java.security.*;
 
-
 import com.rabbitmq.client.*;
 
-public class Example1
-{
-    public static void main(String[] args) throws Exception
-    {
+public class Example1 {
 
+    public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(&quot;localhost&quot;);
         factory.setPort(5671);
@@ -745,15 +742,13 @@ public class Example1
         channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
         channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
         GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-        if(chResponse == null) {
+        if (chResponse == null) {
             System.out.println(&quot;No message retrieved&quot;);
         } else {
             byte[] body = chResponse.getBody();
-            System.out.println(&quot;Recieved: &quot; + new String(body));
+            System.out.println(&quot;Received: &quot; + new String(body));
         }
-
 
         channel.close();
         conn.close();
@@ -806,12 +801,9 @@ import javax.net.ssl.*;
 
 import com.rabbitmq.client.*;
 
+public class Example2 {
 
-public class Example2
-{
-    public static void main(String[] args) throws Exception
-    {
-
+    public static void main(String[] args) throws Exception {
       char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
       KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
       ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
@@ -826,13 +818,14 @@ public class Example2
       TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
       tmf.init(tks);
 
-      SSLContext c = SSLContext.getInstance(&quot;TLSv1.1&quot;);
+      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
       c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
       ConnectionFactory factory = new ConnectionFactory();
       factory.setHost(&quot;localhost&quot;);
       factory.setPort(5671);
       factory.useSslProtocol(c);
+      factory.enableHostnameVerification();
 
       Connection conn = factory.newConnection();
       Channel channel = conn.createChannel();
@@ -840,15 +833,13 @@ public class Example2
       channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
       channel.basicpublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
       GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-      if(chResponse == null) {
+      if (chResponse == null) {
           System.out.println(&quot;No message retrieved&quot;);
       } else {
           byte[] body = chResponse.getBody();
-          System.out.println(&quot;Recieved: &quot; + new String(body));
+          System.out.println(&quot;Received: &quot; + new String(body));
       }
-
 
       channel.close();
       conn.close();
@@ -861,6 +852,33 @@ public class Example2
             a RabbitMQ node with a certificate that has not been imported
             into the key store and watch the connection fail.
           </p>
+
+          <p>
+            Note hostname verification must be explicitly enabled with
+            <code>ConnectionFactory#enableHostnameVerification()</code>. This checks
+            that the server certificate has been issued for the hostname the
+            client is requested. If you're using Java 6, you need to add
+            the Commons HttpClient dependency to your project, e.g. for Maven
+            and Gradle:
+          </p>
+<pre class="sourcecode xml">
+&lt;!-- Maven dependency to add for hostname verification on Java 6 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;version&gt;4.5.6&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+<pre class="sourcecode groovy">
+// Gradle dependency to add for hostname verification on Java 6
+compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+</pre>
+          <p>If you don't want to use Commons HttpClient, use
+            <code>ConnectionFactory#enableHostnameVerification(HostnameVerifier)</code>
+            with the <code>HostnameVerifier</code> instance of your choice. Again, this is
+            needed only for Java 6, hostname verification is built-in in Java 7 and more.
+          </p>
+
         </doc:subsection>
 
         <doc:subsection name="tls-versions-java-client">
