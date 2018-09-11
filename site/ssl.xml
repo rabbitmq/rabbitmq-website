@@ -479,11 +479,29 @@ ssl_options.password   = t0p$3kRe7
             the chain of certificates presented by the peer
             and if a trusted certificate is found, considers the peer trusted.
             If no trusted and otherwise valid certificate is found, peer verification fails and client connection is closed
-            with an error ("alert" in OpenSSL parlance).
+            with an error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
+            will be logged by the server with a message similar to this:
+
+<pre class="sourcecode ini">
+2018-09-10 18:10:46.502 [info] &lt;0.902.0&gt; TLS server generated SERVER ALERT: Fatal - Unknown CA
+</pre>
           </p>
           <p>
             Certificate validity is also checked at every step. Certificates that are expired
-            and aren't yet valid will be rejected and skipped.
+            or aren't yet valid will be rejected. The TLS alert in that case will look something
+            like this:
+
+<pre class="sourcecode ini">
+2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
+</pre>
+
+          </p>
+
+          <p>
+            The examples above demonstrate TLS alert messages logged by RabbitMQ running on Erlang/OTP 21.
+            Clients that perform peer verification will also raise alerts but may use different
+            error messages. <a href="https://tools.ietf.org/html/rfc8446#section-6.2">RFC 8446 section 6.2</a>
+            provides an overview of various alerts and what they mean.
           </p>
         </doc:subsection>
 
@@ -722,14 +740,11 @@ ssl_options.fail_if_no_peer_cert = false
 import java.io.*;
 import java.security.*;
 
-
 import com.rabbitmq.client.*;
 
-public class Example1
-{
-    public static void main(String[] args) throws Exception
-    {
+public class Example1 {
 
+    public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(&quot;localhost&quot;);
         factory.setPort(5671);
@@ -745,15 +760,13 @@ public class Example1
         channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
         channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
         GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-        if(chResponse == null) {
+        if (chResponse == null) {
             System.out.println(&quot;No message retrieved&quot;);
         } else {
             byte[] body = chResponse.getBody();
-            System.out.println(&quot;Recieved: &quot; + new String(body));
+            System.out.println(&quot;Received: &quot; + new String(body));
         }
-
 
         channel.close();
         conn.close();
@@ -792,7 +805,7 @@ keytool -import -alias server1 -file /path/to/server/certificate.pem -keystore /
             <code>keytool</code> will confirm that the certificate is trusted and ask for a password.
           </p>
           <p>
-            We then use our client certificate and key in a <code>PKCS#12</code> file as
+            The client certificate and key in a <code>PKCS#12</code> file are then used as
             already shown above.
           </p>
           <p>
@@ -806,12 +819,9 @@ import javax.net.ssl.*;
 
 import com.rabbitmq.client.*;
 
+public class Example2 {
 
-public class Example2
-{
-    public static void main(String[] args) throws Exception
-    {
-
+    public static void main(String[] args) throws Exception {
       char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
       KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
       ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
@@ -826,13 +836,14 @@ public class Example2
       TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
       tmf.init(tks);
 
-      SSLContext c = SSLContext.getInstance(&quot;TLSv1.1&quot;);
+      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
       c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
       ConnectionFactory factory = new ConnectionFactory();
       factory.setHost(&quot;localhost&quot;);
       factory.setPort(5671);
       factory.useSslProtocol(c);
+      factory.enableHostnameVerification();
 
       Connection conn = factory.newConnection();
       Channel channel = conn.createChannel();
@@ -840,15 +851,13 @@ public class Example2
       channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
       channel.basicpublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
       GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-      if(chResponse == null) {
+      if (chResponse == null) {
           System.out.println(&quot;No message retrieved&quot;);
       } else {
           byte[] body = chResponse.getBody();
-          System.out.println(&quot;Recieved: &quot; + new String(body));
+          System.out.println(&quot;Received: &quot; + new String(body));
       }
-
 
       channel.close();
       conn.close();
@@ -861,6 +870,86 @@ public class Example2
             a RabbitMQ node with a certificate that has not been imported
             into the key store and watch the connection fail.
           </p>
+
+          <h4><a class="anchor" href="#java-client-hostname-verification">Server Hostname Verification</a></h4>
+          <p>
+            Hostname verification must be enabled separately using the
+            <code>ConnectionFactory#enableHostnameVerification()</code> method. This is done in the example
+            above, for instance:
+
+            <pre class="sourcecode java">
+            import java.io.*;
+            import java.security.*;
+            import javax.net.ssl.*;
+
+            import com.rabbitmq.client.*;
+
+            public class Example2 {
+
+                public static void main(String[] args) throws Exception {
+                  char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
+                  KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
+                  ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
+
+                  KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
+                  kmf.init(ks, passphrase);
+
+                  char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
+                  KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
+                  tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
+
+                  TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+                  tmf.init(tks);
+
+                  SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+                  c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+                  ConnectionFactory factory = new ConnectionFactory();
+                  factory.setHost(&quot;localhost&quot;);
+                  factory.setPort(5671);
+                  factory.useSslProtocol(c);
+                  factory.enableHostnameVerification();
+
+                  // this connection will both perform peer verification
+                  // and server hostname verification
+                  Connection conn = factory.newConnection();
+
+                  // snip ...
+              }
+            }</pre>
+
+            This will verify
+            that the server certificate has been issued for the hostname the
+            client is connecting to. Unlike certificate chain verification, this feature
+            is client-specific (not usually performed by the server).
+          </p>
+
+          <p>
+            With JDK 6, it is necessary to add a dependency on
+            <a href="https://hc.apache.org/">Apache Commons HttpClient</a> for hostname verification to work, e.g. with Maven:
+
+<pre class="sourcecode xml">
+&lt;!-- Maven dependency to add for hostname verification on JDK 6 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;version&gt;4.5.6&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+
+            With Gradle:
+
+<pre class="sourcecode groovy">
+// Gradle dependency to add for hostname verification on JDK 6
+compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+</pre>
+          </p>
+          <p>
+            Alternatively with JDK 6
+            <code>ConnectionFactory#enableHostnameVerification(HostnameVerifier)</code>
+            can be provided a <code>HostnameVerifier</code> instance of choice.
+          </p>
+
         </doc:subsection>
 
         <doc:subsection name="tls-versions-java-client">
