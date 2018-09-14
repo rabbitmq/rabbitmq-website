@@ -479,11 +479,29 @@ ssl_options.password   = t0p$3kRe7
             the chain of certificates presented by the peer
             and if a trusted certificate is found, considers the peer trusted.
             If no trusted and otherwise valid certificate is found, peer verification fails and client connection is closed
-            with an error ("alert" in OpenSSL parlance).
+            with an error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
+            will be logged by the server with a message similar to this:
+
+<pre class="sourcecode ini">
+2018-09-10 18:10:46.502 [info] &lt;0.902.0&gt; TLS server generated SERVER ALERT: Fatal - Unknown CA
+</pre>
           </p>
           <p>
             Certificate validity is also checked at every step. Certificates that are expired
-            and aren't yet valid will be rejected and skipped.
+            or aren't yet valid will be rejected. The TLS alert in that case will look something
+            like this:
+
+<pre class="sourcecode ini">
+2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
+</pre>
+
+          </p>
+
+          <p>
+            The examples above demonstrate TLS alert messages logged by RabbitMQ running on Erlang/OTP 21.
+            Clients that perform peer verification will also raise alerts but may use different
+            error messages. <a href="https://tools.ietf.org/html/rfc8446#section-6.2">RFC 8446 section 6.2</a>
+            provides an overview of various alerts and what they mean.
           </p>
         </doc:subsection>
 
@@ -492,7 +510,7 @@ ssl_options.password   = t0p$3kRe7
 
           <p>
             Every TLS-enabled tool and TLS implementation, including Erlang/OTP and
-            RabbitMQ, has a way to mark a set of certificates as
+            RabbitMQ, has a way of marking a set of certificates as
             trusted. On Linux and other UNIX-like systems this is
             usually a directory administered by superusers. CA
             certificates in that directory will be considered trusted,
@@ -668,56 +686,65 @@ ssl_options.fail_if_no_peer_cert = false
       </doc:section>
 
 
-      <doc:section name="java-client-peer-verification">
-        <doc:heading>Peer Verification with Java client</doc:heading>
+      <doc:section name="java-client">
+        <doc:heading>Using TLS in the Java Client</doc:heading>
 
+        <p>
+          There are two main parts to enabling TLS in the RabbitMQ Java client:
+          setting up the key store and a bit of Java security framework plumbing and
+          implementing the desired peer verification strategy.
+        </p>
 
         <doc:subsection name="java-client-trust-managers-and-stores">
           <doc:heading>Key Managers, Trust Managers and Stores</doc:heading>
 
             <p>
-              There are three components to be aware of in the Java security
-              framework: Key Manager, Trust Manager and Key Store.
+              There are three main components in the Java security
+              framework: <a href="https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/KeyManager.html">Key Manager</a>,
+              <a href="https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/TrustManager.html">Trust Manager</a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html">Key Store</a>.
             </p>
             <p>
-              A Key Manager is used by a peer to manage its certificates. This means
-              that in a session set-up, the Key Manager will control which
+              A Key Manager is used by a peer (in this case, a client connection) to manage its certificates.
+              During TLS connection/session negotiation, the key manager will control which
               certificates to send to the remote peer.
             </p>
             <p>
-              A Trust Manager is used by a peer to manage remote certificates. This
-              means that in a session set-up, the Trust Manager will control which
-              certificates are trusted from a remote peer.
+              A Trust Manager is used by a peer to manage remote certificates.
+              During TLS connection/session negotiation, the trust manager will control which
+              certificates are trusted from a remote peer. Trust managers can be used
+              to implement any certificate chain verification logic
             </p>
             <p>
-              A Key Store is a Java encapsulation of certificates. Java needs all
-              certificates to either be converted into a Java specific binary format
+              A Key Store is a Java encapsulation of the certificate store concept. All
+              certificates must either be converted into a Java specific binary format
               or to be in the PKCS#12 format. These formats are managed using the
-              Key Store class. For the server certificate, we'll use the Java binary
-              format, but for client key/certificate pair, we'll use the PKCS#12
-              format.
+              Key Store class. In the below examples the binary format is used to add the trusted (server) certificate(s)
+              to the store, while for the client key/certificate pair, the PKCS#12
+              key file generated by <a href="#automated-certificate-generation">tls-gen</a> will be used.
+            </p>
+
+            <p>
+              All TLS-related settings in the Java client
+              are configured via the <a href="https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html">ConnectionFactory</a>.
             </p>
         </doc:subsection>
 
-        <doc:subsection name="java-client-connecting-without-peer-verification">
-          <doc:heading>Connecting without Peer Verification</doc:heading>
+        <doc:subsection name="java-client-connecting">
+          <doc:heading>Connecting with TLS</doc:heading>
             <p>
               This very basic example will show a simple client connecting to a RabbitMQ
-              server over TLS <em class="">without</em> validating the server certificate, and
+              server over TLS without validating the server certificate, and
               without presenting any client certificate to the server.
 
 <pre class="sourcecode java">
 import java.io.*;
 import java.security.*;
 
-
 import com.rabbitmq.client.*;
 
-public class Example1
-{
-    public static void main(String[] args) throws Exception
-    {
+public class Example1 {
 
+    public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(&quot;localhost&quot;);
         factory.setPort(5671);
@@ -733,15 +760,13 @@ public class Example1
         channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
         channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
         GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-        if(chResponse == null) {
+        if (chResponse == null) {
             System.out.println(&quot;No message retrieved&quot;);
         } else {
             byte[] body = chResponse.getBody();
-            System.out.println(&quot;Recieved: &quot; + new String(body));
+            System.out.println(&quot;Received: &quot; + new String(body));
         }
-
 
         channel.close();
         conn.close();
@@ -780,7 +805,7 @@ keytool -import -alias server1 -file /path/to/server/certificate.pem -keystore /
             <code>keytool</code> will confirm that the certificate is trusted and ask for a password.
           </p>
           <p>
-            We then use our client certificate and key in a <code>PKCS#12</code> file as
+            The client certificate and key in a <code>PKCS#12</code> file are then used as
             already shown above.
           </p>
           <p>
@@ -794,12 +819,9 @@ import javax.net.ssl.*;
 
 import com.rabbitmq.client.*;
 
+public class Example2 {
 
-public class Example2
-{
-    public static void main(String[] args) throws Exception
-    {
-
+    public static void main(String[] args) throws Exception {
       char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
       KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
       ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
@@ -814,13 +836,14 @@ public class Example2
       TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
       tmf.init(tks);
 
-      SSLContext c = SSLContext.getInstance(&quot;TLSv1.1&quot;);
+      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
       c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
       ConnectionFactory factory = new ConnectionFactory();
       factory.setHost(&quot;localhost&quot;);
       factory.setPort(5671);
       factory.useSslProtocol(c);
+      factory.enableHostnameVerification();
 
       Connection conn = factory.newConnection();
       Channel channel = conn.createChannel();
@@ -828,15 +851,13 @@ public class Example2
       channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
       channel.basicpublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
-
       GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
-      if(chResponse == null) {
+      if (chResponse == null) {
           System.out.println(&quot;No message retrieved&quot;);
       } else {
           byte[] body = chResponse.getBody();
-          System.out.println(&quot;Recieved: &quot; + new String(body));
+          System.out.println(&quot;Received: &quot; + new String(body));
       }
-
 
       channel.close();
       conn.close();
@@ -848,6 +869,110 @@ public class Example2
             To ensure that the above code works as expected with untrusted certificates, set up
             a RabbitMQ node with a certificate that has not been imported
             into the key store and watch the connection fail.
+          </p>
+
+          <h4><a class="anchor" href="#java-client-hostname-verification">Server Hostname Verification</a></h4>
+          <p>
+            Hostname verification must be enabled separately using the
+            <code>ConnectionFactory#enableHostnameVerification()</code> method. This is done in the example
+            above, for instance:
+
+<pre class="sourcecode java">
+import java.io.*;
+import java.security.*;
+import javax.net.ssl.*;
+
+import com.rabbitmq.client.*;
+
+public class Example2 {
+
+    public static void main(String[] args) throws Exception {
+      char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
+      KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
+      ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
+
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
+      kmf.init(ks, passphrase);
+
+      char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
+      KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
+      tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
+
+      TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+      tmf.init(tks);
+
+      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+      c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+      ConnectionFactory factory = new ConnectionFactory();
+      factory.setHost(&quot;localhost&quot;);
+      factory.setPort(5671);
+      factory.useSslProtocol(c);
+      factory.enableHostnameVerification();
+
+      // this connection will both perform peer verification
+      // and server hostname verification
+      Connection conn = factory.newConnection();
+
+      // snip ...
+  }
+}</pre>
+
+            This will verify
+            that the server certificate has been issued for the hostname the
+            client is connecting to. Unlike certificate chain verification, this feature
+            is client-specific (not usually performed by the server).
+          </p>
+
+          <p>
+            With JDK 6, it is necessary to add a dependency on
+            <a href="https://hc.apache.org/">Apache Commons HttpClient</a> for hostname verification to work, e.g. with Maven:
+
+<pre class="sourcecode xml">
+&lt;!-- Maven dependency to add for hostname verification on JDK 6 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;version&gt;4.5.6&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+
+            With Gradle:
+
+<pre class="sourcecode groovy">
+// Gradle dependency to add for hostname verification on JDK 6
+compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+</pre>
+          </p>
+          <p>
+            Alternatively with JDK 6
+            <code>ConnectionFactory#enableHostnameVerification(HostnameVerifier)</code>
+            can be provided a <code>HostnameVerifier</code> instance of choice.
+          </p>
+
+        </doc:subsection>
+
+        <doc:subsection name="tls-versions-java-client">
+          <doc:heading>Configuring TLS Version in Java client</doc:heading>
+
+          <p>
+            Just like RabbitMQ server can be <a href="#tls-versions">configured to support only specific TLS versions</a>,
+            it may be necessary to configure preferred TLS version in the Java client. This is done using
+            the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
+            or a <code>SSLContext</code>:
+
+<pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setHost(&quot;localhost&quot;);
+factory.setPort(5671);
+
+factory.useSslProtocol("TLSv1.2");
+</pre>
+          </p>
+
+          <p>
+            Modern releases of the library will attempt to use the latest TLS version
+            supported by the runtime.
           </p>
         </doc:subsection>
       </doc:section>
@@ -1035,14 +1160,14 @@ Certificate removed from store.
         </doc:subsection>
 
         <doc:subsection name="dotnet-example">
-          <doc:heading>Example</doc:heading>
+          <doc:heading>Code Example</doc:heading>
 
           <p>
-            This is the same example as in the Java section. It
-            creates a channel, rabbitmq-dotnet-test and publishes to
+            This is a more or less direct port of the <a href="#java-client-connecting">Java client example</a>. It
+            creates a channel and publishes to
             the default direct exchange, then reads back what has been
             published and echoes it out. Note that we use an
-            exclusive, non-durable, auto-delete queue so we don't have
+            <a href="/queues.html">exclusive, non-durable, auto-delete queue</a> so we don't have
             to worry about manually cleaning up after ourselves
           </p>
 
@@ -1257,30 +1382,6 @@ openssl s_client -connect 127.0.0.1:5671 -tls1
 SSL-Session:
 Protocol  : TLSv1
 </pre>
-        </doc:subsection>
-
-        <doc:subsection name="tls-versions-java-client">
-          <doc:heading>Configuring TLS Version in Java client</doc:heading>
-
-          <p>
-            Since RabbitMQ server can be configured to support only specific TLS versions,
-            it may be necessary to configure preferred TLS version in the Java client. This is done using
-            the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
-            or a <code>SSLContext</code>:
-
-<pre class="sourcecode java">
-ConnectionFactory factory = new ConnectionFactory();
-factory.setHost(&quot;localhost&quot;);
-factory.setPort(5671);
-
-factory.useSslProtocol("TLSv1.2");
-</pre>
-          </p>
-
-          <p>
-            Modern releases of the library will attempt to use the latest TLS version
-            supported by the runtime.
-          </p>
         </doc:subsection>
 
         <doc:subsection name="tls-version-support-in-jdk-and-net">

@@ -262,7 +262,7 @@ limitations under the License.
         node failures. Federation will automatically distribute links across
         the downstream cluster and fail them over on failure of a downstream
         node. In order to connect to a new upstream when an upstream
-        node fails you can specify multiple redundant URIs for an upstream,
+        node fails, you can specify multiple redundant URIs for an upstream,
         or connect via a TCP load balancer.
       </p>
       <p>
