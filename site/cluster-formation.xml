@@ -38,7 +38,8 @@ limitations under the License.
         and focuses on the peer discovery subsystem.
         For example, it will not cover what <a href="/networking.html">ports must be
         open</a> for inter-node communication, how nodes authenticate to each other, and so on.
-        Besides discovery mechanisms, this guide also covers the problem of <a href="#initial-formation-race-condition">initial
+        Besides discovery mechanisms and <a href="#configuring">their configuration</a>,
+        this guide also covers the problem of <a href="#initial-formation-race-condition">initial
         cluster formation</a> with nodes booting in parallel as well as <a href="#node-health-checks-and-cleanup">additional health checks</a> offered
         by some discovery implementations.
       </p>
@@ -180,7 +181,7 @@ rabbitmq-plugins --offline enable [plugin name]
     </doc:section>
 
 
-    <doc:section name="configuring-peer-discovery">
+    <doc:section name="configuring">
       <doc:heading>How to Configure Peer Discovery</doc:heading>
 
       <p>
