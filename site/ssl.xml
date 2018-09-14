@@ -877,46 +877,46 @@ public class Example2 {
             <code>ConnectionFactory#enableHostnameVerification()</code> method. This is done in the example
             above, for instance:
 
-            <pre class="sourcecode java">
-            import java.io.*;
-            import java.security.*;
-            import javax.net.ssl.*;
+<pre class="sourcecode java">
+import java.io.*;
+import java.security.*;
+import javax.net.ssl.*;
 
-            import com.rabbitmq.client.*;
+import com.rabbitmq.client.*;
 
-            public class Example2 {
+public class Example2 {
 
-                public static void main(String[] args) throws Exception {
-                  char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
-                  KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
-                  ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
+    public static void main(String[] args) throws Exception {
+      char[] keyPassphrase = &quot;MySecretPassword&quot;.toCharArray();
+      KeyStore ks = KeyStore.getInstance(&quot;PKCS12&quot;);
+      ks.load(new FileInputStream(&quot;/path/to/client_key.p12&quot;), keyPassphrase);
 
-                  KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
-                  kmf.init(ks, passphrase);
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance(&quot;SunX509&quot;);
+      kmf.init(ks, passphrase);
 
-                  char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
-                  KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
-                  tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
+      char[] trustPassphrase = &quot;rabbitstore&quot;.toCharArray();
+      KeyStore tks = KeyStore.getInstance(&quot;JKS&quot;);
+      tks.load(new FileInputStream(&quot;/path/to/trustStore&quot;), trustPassphrase);
 
-                  TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
-                  tmf.init(tks);
+      TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;SunX509&quot;);
+      tmf.init(tks);
 
-                  SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
-                  c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+      SSLContext c = SSLContext.getInstance(&quot;TLSv1.2&quot;);
+      c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
-                  ConnectionFactory factory = new ConnectionFactory();
-                  factory.setHost(&quot;localhost&quot;);
-                  factory.setPort(5671);
-                  factory.useSslProtocol(c);
-                  factory.enableHostnameVerification();
+      ConnectionFactory factory = new ConnectionFactory();
+      factory.setHost(&quot;localhost&quot;);
+      factory.setPort(5671);
+      factory.useSslProtocol(c);
+      factory.enableHostnameVerification();
 
-                  // this connection will both perform peer verification
-                  // and server hostname verification
-                  Connection conn = factory.newConnection();
+      // this connection will both perform peer verification
+      // and server hostname verification
+      Connection conn = factory.newConnection();
 
-                  // snip ...
-              }
-            }</pre>
+      // snip ...
+  }
+}</pre>
 
             This will verify
             that the server certificate has been issued for the hostname the
