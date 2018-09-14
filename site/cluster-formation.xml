@@ -74,7 +74,7 @@ limitations under the License.
         on. <code>cluster_formation.peer_discovery_backend</code> is the key
         that controls what discovery module (implementation) is used:
 
-        <pre class="sourcecode ini">
+<pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 </pre>
 
@@ -178,6 +178,38 @@ rabbitmq-plugins --offline enable [plugin name]
         time to start it is recommended that the number of retries is increased.
       </p>
     </doc:section>
+
+
+    <doc:section name="configuring-peer-discovery">
+      <doc:heading>How to Configure Peer Discovery</doc:heading>
+
+      <p>
+        Peer discovery plugins are configured just like the core server and other
+        plugins: using a <a href="/configure.html">config file</a>.
+      </p>
+
+      <p>
+        <code>cluster_formation.peer_discovery_backend</code> is the key that controls what
+        peer discovery backend will be used. Each backend will also have a number of
+        configuration settings specific to it.
+      </p>
+
+      <p>
+        The rest of the guide will cover configurable settings specific to a particular mechanism
+        as well as provide examples for each one.
+      </p>
+
+      <p>
+        Environment variables can also be used to configure several mechanisms for easier
+        migration from <code>rabbitmq-autocluster</code>. This method is highly discouraged,
+        however: using environment variables is more error prone compared to the config file,
+        and it is harder to <a href="/configure.html#verify-configuration-effective-configuration">verify effective configuration</a>.
+        Only those <a href="/upgrade.html">migrating</a> clusters that use <code>rabbitmq-autocluster</code> should
+        use environment variables for peer discoveery configuration, this guide leaves them out. Variable
+        names are the same as used by <code>rabbitmq-autocluster</code>.
+      </p>
+    </doc:section>
+
 
     <doc:section name="peer-discovery-classic-config">
       <doc:heading>Config File Peer Discovery Backend</doc:heading>
