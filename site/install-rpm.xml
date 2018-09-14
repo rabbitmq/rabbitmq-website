@@ -273,8 +273,9 @@ rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.a
         </p>
 
         <p>
-          In order to use the Yum repository, a <code>.repo</code> file has to be added under the <code>/etc/yum.repos.d/</code>
-          directory. The contents of the file will vary slightly between distributions (e.g. CentOS 7 vs. CentOS 6 vs. OpenSUSE).
+          In order to use the Yum repository, a <code>.repo</code> file (e.g. <code>rabbitmq.repo</code>) has to be
+          added under the <code>/etc/yum.repos.d/</code> directory. The contents of the file will vary slightly
+          between distributions (e.g. CentOS 7 vs. CentOS 6 vs. OpenSUSE).
           The following example targest CentOS 7:
 
 <pre class="sourcecode bash">
