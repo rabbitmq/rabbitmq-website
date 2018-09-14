@@ -110,8 +110,9 @@ over all nodes. For these systems the quorum queue size should be constrained to
 smaller uneven number of nodes.
 
 Performance tails off quite a bit for quorum queue node sizes larger than 5.
-We do not recommend running quorum queues on more than 7 RabbitMQ nodes which is
-the default value of the `x-quorum-queue-size` queue argument.
+We do not recommend running quorum queues on more than 7 RabbitMQ nodes. The
+default quorum queue size is 5 and is controllable using the
+`x-quorum-queue-size` queue argument.
 
 #### [Data safety](#data-safety)
 
