@@ -17,9 +17,8 @@ repository:
 
 Branch        | Description
 :-------------|:--------------------
-live          | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](http://www.rabbitmq.com/).
-stable        | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.7.x release occurs.
-3.6.x         | Same as stable but for RabbitMQ 3.6.x. This gets merged into live when a 3.6.x release occurs.
+`live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](http://www.rabbitmq.com/).
+`stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.7.x release occurs.
 master        | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
 
 
@@ -34,57 +33,57 @@ can be used to install the appropriate Python version without affecting the syst
 When using OS native package managers be aware that Python packages
 can be out-of-date.
 
-#### On Debian-based Linux
-
-On a recent Debian-based system it should be enough to run
-
-```sh
-sudo apt-get install python-lxml python-markdown python-pygments
-```
-
-to install the dependencies and then
-
-```sh
-./driver.py [www|next|previous]
-```
-
-from the base of the repository to run a local version of the site, with page
-regeneration on reload. The site will be available at
-[http://localhost:8191](http://localhost:8191/). Note that using [driver.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/driver.py) the site will not
-feature:
-
- * Any release artefacts (such as Web versions of the man pages)
- * The blog
-
-The script [diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) generates PNGs from graph descriptions
-embedded in files. Generally you don't need to run this, since the generated
-PNGs are committed. To work on the diagrams please install Graphviz:
-
-```sh
-sudo apt-get install graphviz
-```
-
-To generate the `site/news.atom` feed, run the following command:
-
-```sh
-xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
-```
-
 #### On MacOS
 
-Using [Homebrew](http://brew.sh/), you can install the necessary parts with:
+On a recent MacOS version with [Homebrew](http://brew.sh/) it should be enough to run
+
+```sh
+make preview
+```
+
+to install the dependencies and run a local copy on [localhost:8191](http://localhost:8191)
+
+It is also possible to install the dependencies manually:
 
 ```sh
 brew install python
 pip install lxml markdown
 ```
 
-Using the system Python, you can install the necessary parts with:
+Using the system Python, dependencies must be installed differently:
 
 ```sh
 sudo easy_install pip
 sudo pip install lxml markdown
 ```
+
+To run a local copy manually on [localhost:8191](http://localhost:8191), use:
+
+```sh
+./driver.py [www|next|previous]
+```
+
+#### On Debian-based Linux
+
+On Debian and Ubuntu dependencies can be installed via `apt`:
+
+```sh
+sudo apt-get install python-lxml python-markdown python-pygments
+```
+
+To run a local copy manually on [localhost:8191](http://localhost:8191), use:
+
+```sh
+./driver.py [www|next|previous]
+```
+
+#### Limitations of Local Copy
+
+Note that when running a local copy the site will not feature:
+
+ * Any release artefacts (such as Web versions of the man pages)
+ * The blog
+
 
 ### Modes
 
@@ -100,6 +99,24 @@ previous | For [previous.rabbitmq.com](http://previous.rabbitmq.com/). The websi
 You determine which mode you are using with an argument to the driver
 or deploy scripts. Modes are implemented with the `<x:modal/>` tag and
 the `$page-mode` variable in XSLT.
+
+### Tutorial Charts (Diagrams)
+
+[diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) is a script generates PNGs from graph descriptions
+embedded in files. Generally you don't need to run this, since the generated
+PNGs are committed. To work on the diagrams please install Graphviz:
+
+```sh
+sudo apt-get install graphviz
+```
+
+### Generating the Atom Feed
+
+To generate the `site/news.atom` feed, run the following command:
+
+```sh
+xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+```
 
 
 ## Copyright and License
