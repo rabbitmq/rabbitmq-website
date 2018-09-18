@@ -239,3 +239,11 @@ which is outside the scope of this guide.
 Lastly, there are a few configuration options in
 [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter#configuration)
 that you will want to get familiar with.
+
+`prometheus_process_collector` is an additional plugin that can be installed
+alongside `prometheus_rabbitmq_exporter`. It collects Erlang VM system process
+metrics from the operating system. Unlike RabbitMQ, this plugin uses native
+code and it does not run on all operating systems that RabbitMQ runs on.
+Please see [prometheus_process_collector home
+page](https://github.com/deadtrickster/prometheus_process_collector) for
+compatibility and installation instructions.
