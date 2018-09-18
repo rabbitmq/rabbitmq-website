@@ -53,7 +53,7 @@ Now that we have a basic Prometheus understanding, we will configure RabbitMQ
 to make all its metrics available to Prometheus.
 
 
-### <a id="installation" class="anchor" href="#installation">Installating and Enabling the Plugin</a>
+### <a id="installation" class="anchor" href="#installation">Installing and Enabling the Plugin</a>
 
 Just like any other [RabbitMQ plugin](./plugins.html), the Prometheus exporter plugin has to be
 installed and enabled. Plugin installation involves downloading a plugin archive and all of its dependencies
@@ -88,17 +88,17 @@ get prometheus_cowboy-0.1.4.ez
 ######################################################################## 100.0%
 get prometheus_httpd-2.1.8.ez
 ######################################################################## 100.0%
-get prometheus_rabbitmq_exporter-v3.7.2.3.ez
+get prometheus_rabbitmq_exporter-3.7.2.3.ez
 ######################################################################## 100.0%
 </pre>
 
-Next verify that plugin archives are in place:
+Verify that plugin archives are in place:
 
 <pre class="sourcecode sh">
 find /usr/lib/rabbitmq/plugins
 
 /usr/lib/rabbitmq/plugins
-/usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-v3.7.2.2.ez
+/usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-3.7.2.3.ez
 /usr/lib/rabbitmq/plugins/prometheus_httpd-2.1.8.ez
 /usr/lib/rabbitmq/plugins/accept-0.3.3.ez
 /usr/lib/rabbitmq/plugins/prometheus_cowboy-0.1.4.ez
@@ -108,8 +108,9 @@ find /usr/lib/rabbitmq/plugins
 RabbitMQ must be able to read the plugin files, so archive file permissions must allow
 for that.
 
-Once the plugin is successfully installed, it should show up in the
-`rabbitmq-plugins list` output like so:
+Once `prometheus_rabbitmq_exporter` plugin and all its dependencies are
+downloaded , use [rabbitmq-plugins](/cli.html) to ensure that it was
+successfully installed by listing all available plugins:
 
 <pre class="sourcecode sh">
 rabbitmq-plugins list
@@ -117,7 +118,7 @@ rabbitmq-plugins list
  Configured: E = explicitly enabled; e = implicitly enabled
  | Status: * = running on rabbit@0998e19c44ee
  |/
-[  ] prometheus_rabbitmq_exporter      v3.7.2.3
+[  ] prometheus_rabbitmq_exporter      3.7.2.3
 [  ] rabbitmq_amqp1_0                  3.7.7
 # … elided for brevity …
 [  ] rabbitmq_web_stomp                3.7.7
