@@ -15,7 +15,6 @@ It is based on a pull-based model, meaning that Prometheus pulls metrics from th
 systems it monitors. Tools that Prometheus monitors are expected to provide pre-configured HTTP
 endpoints, known as targets, that get queried periodically.
 
-
 RabbitMQ needs a plugin to expose its metrics as Prometheus targets.
 
 There are 2 ways to make RabbitMQ metrics available to Prometheus:
@@ -27,10 +26,10 @@ There are 2 ways to make RabbitMQ metrics available to Prometheus:
    context of RabbitMQ Management API:
    [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter)
 
-Both approaches have their own merits and neither is better - they are just
-different.  For the purpose of this guide, we will cover the second approach,
-which implies setting up community-maintained RabbitMQ plugins while the
-RabbitMQ node is running, without incurring any downtime.
+Both approaches have their own merits - neither is better.  For the purpose of
+this guide, we will cover the second approach, which implies setting up
+community-maintained RabbitMQ plugins while the RabbitMQ node is running,
+without incurring any downtime.
 
 ### <a id="prometheus-data-format" class="anchor" href="#prometheus-data-format">Metrics Data Format</a>
 
@@ -222,7 +221,7 @@ number of exchanges, e.g.
 
 ![Prometheus Graph - RabbitMQ Exchanges](/img/prometheus-rabbitmq-exchanges-graph.png)
 
-## <a id="beyond-prometheus-monitoring" class="anchor" href="#beyond-prometheus-monitoring">Beyond monitoring with Prometheus</a>
+## <a id="beyond-prometheus-monitoring" class="anchor" href="#beyond-prometheus-monitoring">Beyond Monitoring with Prometheus</a>
 
 While this might be a helpful guide for integrating RabbitMQ with Prometheus,
 it is just the beginning of a longer journey.
