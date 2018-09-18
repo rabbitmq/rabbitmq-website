@@ -124,10 +124,10 @@ rabbitmq-plugins list
 [  ] rabbitmq_web_stomp_examples       3.7.7
 </pre>
 
-To enable the plugin and some of its dependencies, use <a href="/cli.html">rabbitmq-plugins</a>:
+To enable the plugin:
 
 <pre class="sourcecode sh">
-rabbitmq-plugins enable prometheus_cowboy prometheus_httpd prometheus_rabbitmq_exporter
+rabbitmq-plugins enable prometheus_rabbitmq_exporter
 </pre>
 
 ### <a id="verify" class="anchor" href="#verify">Verifying Endpoints</a>
