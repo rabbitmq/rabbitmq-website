@@ -110,6 +110,84 @@ limitations under the License.
       </p>
     </doc:section>
 
+
+    <doc:section name="plugin-directories">
+      <doc:heading>Plugin Directories</doc:heading>
+
+      <p>
+        RabbitMQ loads plugins from the local filesystem. Plugins are distributed as
+        archives (<code>.ez</code> files) with compiled code modules and metadata.
+        Since some plugins <a href="/#plugin-tiers">ship with RabbitMQ</a>, every
+        node has at least one default plugin directory. The path varies between
+        package types and can be <a href="/relocate.html">overridden</a> using the
+        <code>RABBITMQ_PLUGINS_DIR</code> <a href="/configure.html#customise-environment">environment variable</a>.
+        Please see <a href="/relocate.html">File and Directory Locations guide</a> to learn about the default
+        value on various platforms.
+      </p>
+
+      <p>
+        The built-in plugin directory is by definition version-independent: its contents will change
+        from release to release. So will its exact path (by default) which contains version number,
+        e.g. <code>/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins</code>. Because of this
+        automated installation of 3rd party plugins into this directory is harder and more error-prone,
+        and therefore not recommended. To solve this problem, the plugin directory can be a list
+        of paths separated by a colon (on Linux, MacOS, BSD):
+
+<pre class="sourcecode sh">
+# Example rabbitmq-env.conf file that features a colon-separated list of plugin directories
+PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"
+</pre>
+
+        On Windows, a semicolon is used as path separator:
+
+<pre class="sourcecode powershell">
+# Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
+PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7.7\plugins"
+</pre>
+      </p>
+
+      <p>
+        Plugin directory paths that don't have a version-specific component and are not updated
+        by RabbitMQ package installers during upgrades are optimal for 3rd party plugin installation.
+        Provisioning automation tools can rely on those directories to be stable and only managed
+        by them.
+      </p>
+
+      <p>
+        3rd party plugin directories will differ from platform to platform and installation method
+        to installation method. For example, <code>/usr/lib/rabbitmq/plugins</code> is a 3rd party plugin directory
+        path used by RabbitMQ <a href="/install-debian.html">Debian packages</a>.
+      </p>
+
+      <p>
+        Plugin directory can be located by executing the following command on the host
+        with a running RabbitMQ node:
+
+<pre class="sourcecode sh">
+rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"}
+</pre>
+
+        The first directory in the example above is the 3rd party plugin directory.
+        The second one contains plugins that ship with RabbitMQ and will change as
+        installed RabbitMQ version changes between upgrades.
+      </p>
+
+      <doc:subsection name="plugin-expansion">
+        <doc:heading>Plugin Expansion (Extraction)</doc:heading>
+        <p>
+          Not every plugin can be loaded from an archive <code>.ez</code> file.
+          For this reason RabbitMQ will extracts plugin archives on boot into a separate
+          directory that is then added to its code path. This directory is known
+          as the expanded plugins directory. It is usually managed entirely by RabbitMQ
+          but if node directories are changed to non-standard ones, that directory will likely
+          need to be overridden, too. It can be done using the <code>RABBITMQ_PLUGINS_EXPAND_DIR</code>
+          <a href="/configure.html#customise-environment">environment variable</a>. The directory
+          must be readable and writable by the effective operating system user of the RabbitMQ node.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
     <doc:section name="plugin-tiers">
       <doc:heading>Plugin Tiers</doc:heading>
 
