@@ -297,7 +297,7 @@ func main() {
         }()
 
         log.Printf(" [*] Awaiting RPC requests")
-        &lt;forever
+        &lt;-forever
 }
 </pre>
 
