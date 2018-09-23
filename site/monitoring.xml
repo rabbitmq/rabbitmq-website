@@ -30,7 +30,11 @@ limitations under the License.
 
       <p class="intro">
         This document provides an overview of topics related to RabbitMQ monitoring.
+        Monitoring your RabbitMQ installation is an effective means to detect issues before they affect
+        the rest of your environment and, eventually, your users.
+      </p>
 
+      <p>
         Many aspects of the system can be monitored. This guide will group them into a handful of
         categories:
 
@@ -46,12 +50,18 @@ limitations under the License.
               <li><a href="#queue-metrics">Queue metrics</a></li>
             </ul>
           </li>
+          <li><a href="#app-metrics">Application-level metrics</a></li>
         </ul>
       </p>
 
       <p>
-        Monitoring your RabbitMQ installation is an effective means to detect issues before they affect
-        the rest of your environment and, eventually, your users.
+        <a href="#log-collection">Log aggregation</a> across all nodes and applications is closely related to monitoring
+        and also covered in this guide.
+      </p>
+
+      <p>
+        A number of <a href="#monitoring-tools">popular tools</a>, both open source and commercial,
+        can be used to monitor RabbitMQ.
       </p>
     </doc:section>
 
@@ -171,7 +181,8 @@ limitations under the License.
       <doc:heading>Monitoring Tools</doc:heading>
       <p>
         The following is an alphabetised list of third-party tools to collect RabbitMQ metrics. These
-        tools have the capability to monitor the recommended system and RabbitMQ metrics.
+        tools have the capability to monitor the recommended system and RabbitMQ metrics. Note that this list is
+        by no means complete.
       </p>
       <p>
         <table>
