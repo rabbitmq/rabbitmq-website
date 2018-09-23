@@ -109,10 +109,15 @@ limitations under the License.
                     any other topic related to RabbitMQ, don't hesitate to ask them
                     on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
                   </p>
+                </div>
+
+                <div id="contribute">
+                  <h2>Help Us Improve the Docs &lt;3</h2>
 
                   <p>
-                    Documentation feedback is also very welcome on the list. If you'd like to contribute an improvement
-                    to the site, its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                    If you'd like to contribute an improvement to the site,
+                    its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                    Simply fork the repository and submit a pull request. Thank you!
                   </p>
                 </div>
               </div>
