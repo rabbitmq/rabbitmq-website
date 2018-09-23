@@ -37,8 +37,8 @@ limitations under the License.
         <ul>
           <li><a href="#system-metrics">Infrastructure and kernel metrics</a></li>
           <li>
-            <a href="#rabbitmq-metrics">RabbitMQ metrics</a> which can be further split
-            into
+            <a href="#rabbitmq-metrics">RabbitMQ metrics</a> which can be further broken
+            down to
 
             <ul>
               <li>Cluster-wide metrics</li>
