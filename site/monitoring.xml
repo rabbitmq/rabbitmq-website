@@ -96,16 +96,59 @@ limitations under the License.
     <doc:section name="rabbitmq-metrics">
       <doc:heading>RabbitMQ Metrics</doc:heading>
       <p>
-        The RabbitMQ <a href="management.html">management plugin</a> provides a starting point for
-        monitoring RabbitMQ metrics. One limitation, however, is that only up to one day's worth of
-        metrics are stored. Collecting and storing metrics for the long term is important for anomaly detection,
-        root cause analysis and capacity planning.
+        The RabbitMQ <a href="management.html">management plugin</a> provides an API for
+        accessing RabbitMQ metrics. The plugin will store up to one day's worth of
+        metric data. Longer term monitoring should be accomplished with an <a href="#monitoring-tools">external tool</a>.
+        Collecting and storing metrics for the long term is critically important for anomaly detection,
+        root cause analysis, trend detection and capacity planning.
       </p>
 
       <p>
-        It is recommended that metrics are collected at 60 second intervals (or at least 30 second intervals if higher update rate
-        is desired). More frequent collection will increase load and the system and provide no practical benefits for monitoring systems.
+        This section will cover multiple RabbitMQ-specific aspects of monitoring.
       </p>
+
+      <doc:subsection name="clusters">
+        <doc:heading>Monitoring Clusters</doc:heading>
+
+        <p>
+          When monitoring clusters it is important to understand the guarantees provided by the
+          HTTP API. In a clustered environment every node can serve metric endpoint requests.
+          This means that it is possible to retrieve cluster-wide metrics from any node, assuming the node
+          <a href="/management.html#clustering">is capable of contacting its peers</a>. That node
+          will collect and aggregate data from its peers as needed before producing a response.
+        </p>
+
+        <p>
+          Every node also can serve requests to endpoints that provide <a href="#node-metrics">node-specific metrics</a>
+          for itself as well as other cluster nodes. Like <a href="#system-metrics">infrastructure and OS metrics</a>,
+          node-specific metrics must be collected for each node individually. However, HTTP API requests
+          can be issued to any node. As stated earlier, inter-node connectivity issues
+          will <a href="/management.html#clustering">affect HTTP API behaviour</a>. It is therefore
+          recommended that a random online node is chosen for monitoring requests, e.g. with the help of
+          a load balancer or <a href="https://en.wikipedia.org/wiki/Round-robin_DNS">round-robin DNS</a>.
+        </p>
+
+        <p>
+          Note that some endpoints (e.g. aliveness check) perform operations on the contacted node
+          specifically; they are an exception, not the rule.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="monitoring-frequency">
+        <doc:heading>Frequency of Monitoring</doc:heading>
+
+        <p>
+          Many monitoring systems poll their monitored services periodically. How often that's
+          done varies from tool to tool but usually can be configured by the operator.
+        </p>
+
+        <p>
+          It is recommended that metrics are collected at 60 second intervals (or at least 30 second
+          intervals if higher update rate is desired). More frequent collection will increase load and
+          the system and provide no practical benefits for monitoring systems.
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="node-metrics">
         <doc:heading>Node Metrics</doc:heading>
