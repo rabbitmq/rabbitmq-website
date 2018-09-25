@@ -233,14 +233,21 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           resolution of node names in a cluster. The default epmd
           port is 4369, but this can be changed using the <span
           class="envvar">ERL_EPMD_PORT</span> environment
-          variable. All nodes must use the same port. For further
-          details see the <a
-          href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
-          manpage</a>.
+          variable. All nodes must use the same port.
+      </p>
+      <p>
+        <code>epmd</code> will listen on all interfaces by default. It can
+        be limited to a number of interfaces using the <code>ERL_EPMD_ADDRESS</code>
+        environment variable. The loopback interface will be implicitly added
+        to that list (in other words, <code>epmd</code> will always bind to loopback interface).
+      </p>
+      <p>
+        See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+        man page</a> to learn more about <code>epmd</code>.
       </p>
       <p>
           Once a distributed Erlang node address has been resolved
-          via epmd, other nodes will attempt to communicate directly
+          via <code>epmd</code>, other nodes will attempt to communicate directly
           with that address using the Erlang distribution
           protocol.
           See the following section for details.
