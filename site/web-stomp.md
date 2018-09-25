@@ -125,11 +125,13 @@ To change this, edit your
 [Advanced configuration file](/configure.html#configuration-file),
 to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_stomp` application.
 
+For more information about configuring web_stomp, see the page [HTTP Server Configuration for Plugins with HTTP API](/web-dispatch.html).
+
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
 <pre class="sourcecode ini">
-web_stomp.port = 12345
+web_stomp.listener.port = 12345
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -137,7 +139,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_stomp,
-      [{tcp_config, [{port, 12345}]}]}
+      [{listener, [{port, 12345}]}]}
 ].
 </pre>
 
@@ -154,12 +156,12 @@ Erlang/OTP 17.5 or a later version.
 TLS (SSL) configuration parameters are provided in the `ssl_config` section:
 
 <pre class="sourcecode ini">
-web_stomp.ssl.port       = 12345
-web_stomp.ssl.backlog    = 1024
-web_stomp.ssl.certfile   = path/to/certs/client/cert.pem
-web_stomp.ssl.keyfile    = path/to/certs/client/key.pem
-web_stomp.ssl.cacertfile = path/to/certs/testca/cacert.pem
-web_stomp.ssl.password   = changeme
+web_stomp.listener.port                = 12345
+web_stomp.listener.ssl                 = true
+web_stomp.listener.ssl_opts.certfile   = path/to/certs/client/cert.pem
+web_stomp.listener.ssl_opts.keyfile    = path/to/certs/client/key.pem
+web_stomp.listener.ssl_opts.cacertfile = path/to/certs/testca/cacert.pem
+web_stomp.listener.ssl_opts.password   = changeme
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -167,13 +169,14 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_stomp,
-      [{ssl_config, [{port,       15671},
-                     {backlog,    1024},
-                     {certfile,   "path/to/certs/client/cert.pem"},
-                     {keyfile,    "path/to/certs/client/key.pem"},
-                     {cacertfile, "path/to/certs/testca/cacert.pem"},
-                     %% needed when private key has a passphrase
-                     {password,   "changeme"}]}]}
+      [{listener, [{port,     15671},
+                   {ssl,      true},
+                   {ssl_opts, [{certfile,   "path/to/certs/client/cert.pem"},
+                               {keyfile,    "path/to/certs/client/key.pem"},
+                               {cacertfile, "path/to/certs/testca/cacert.pem"},
+                               %% needed when private key has a passphrase
+                               {password,   "changeme"}]}]}
+      ]}
 ].
 </pre>
 
@@ -209,7 +212,10 @@ w.r.t. WebSocket connection handling. You can specify those in the Web
 STOMP plugin configuration, in the `cowboy_opts` section:
 
 <pre class="sourcecode ini">
-web_stomp.cowboy_opts.max_keepalive = 10
+web_stomp.listener.cowboy_opts.compress = true
+web_stomp.listener.cowboy_opts.idle_timeout = 120000
+web_stomp.listener.cowboy_opts.inactivity_timeout = 120000
+web_stomp.listener.cowboy_opts.request_timeout = 120000
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -217,7 +223,13 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_stomp,
-      [{cowboy_opts, [{max_keepalive, 10}]}]}
+    [{listener, [{cowboy_opts, [{compress, true},
+                                %% 120 seconds
+                                {idle_timeout,      120000},
+                                {inactivity_timeout,120000},
+                                {request_timeout,   120000}]}
+              ]}
+  ]}
 ].
 </pre>
 
