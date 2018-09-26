@@ -248,6 +248,11 @@ cf.RequestedHeartbeat = 60;
     <doc:section name="troubleshooting">
       <doc:heading>Troubleshooting Active and Defunct Connections</doc:heading>
       <p>
+        RabbitMQ nodes will <a href="/logging.html#connection-lifecycle-events">log connections</a> closed due to missed heartbeats. So will all
+        officially supported client libraries. Inspecting server and client logs will provide
+        valuable information and should be the first troubleshooting step.
+      </p>
+      <p>
         It may be necessary to inspect the connections open to or from a node,
         their state, origin, username and effective heartbeat timeout value.
         <a href="/troubleshooting-networking.html">Network Troubleshooting</a> guide

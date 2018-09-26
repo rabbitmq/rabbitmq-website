@@ -34,10 +34,10 @@ limitations under the License.
 
       <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
       executed. By default, when the RabbitMQ server uses above 40%
-      of the installed RAM, it raises a memory alarm and blocks all
+      of the available RAM, it raises a memory <a href="/alarms.html">alarm</a> and blocks all
       connections that are publishing messages. Once the memory alarm has cleared (e.g. due
       to the server paging messages to disk or delivering them to
-      clients that only consume) normal service resumes.
+      clients that consume and <a href="/confirms.html">acknowledge the deliveries</a>) normal service resumes.
     </p>
 
     <p>

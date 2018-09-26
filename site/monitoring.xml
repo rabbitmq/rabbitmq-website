@@ -25,11 +25,46 @@ limitations under the License.
     <title>Monitoring</title>
   </head>
   <body show-in-this-page="true">
-    <p class="intro">This document is intended to guide you on which RabbitMQ and system metrics
-      are most important to monitor. Monitoring your RabbitMQ installation is an effective means
-      to intercept issues before they affect the rest of your environment and, eventually, your
-      users.
-    </p>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+
+      <p class="intro">
+        This document provides an overview of topics related to RabbitMQ monitoring.
+        Monitoring your RabbitMQ installation is an effective means to detect issues before they affect
+        the rest of your environment and, eventually, your users.
+      </p>
+
+      <p>
+        Many aspects of the system can be monitored. This guide will group them into a handful of
+        categories:
+
+        <ul>
+          <li><a href="#system-metrics">Infrastructure and kernel metrics</a></li>
+          <li>
+            <a href="#rabbitmq-metrics">RabbitMQ metrics</a> which can be further broken
+            down to
+
+            <ul>
+              <li>Cluster-wide metrics</li>
+              <li><a href="#node-metrics">Node metrics</a></li>
+              <li><a href="#queue-metrics">Queue metrics</a></li>
+            </ul>
+          </li>
+          <li><a href="#app-metrics">Application-level metrics</a></li>
+        </ul>
+      </p>
+
+      <p>
+        <a href="#log-collection">Log aggregation</a> across all nodes and applications is closely related to monitoring
+        and also covered in this guide.
+      </p>
+
+      <p>
+        A number of <a href="#monitoring-tools">popular tools</a>, both open source and commercial,
+        can be used to monitor RabbitMQ.
+      </p>
+    </doc:section>
+
     <doc:section name="system-metrics">
       <doc:heading>Infrastructure and Kernel Metrics</doc:heading>
 
@@ -40,11 +75,12 @@ limitations under the License.
         all nodes that host applications:
 
         <ul>
-          <li>CPU (idle, user, system, iowait)</li>
-          <li>Memory (free, cached, buffered)</li>
+          <li>CPU stats (idle, user, system, iowait)</li>
+          <li>Memory usage (free, cached, buffered)</li>
           <li>Disk I/O (reads &amp; writes per unit time, I/O wait percentages)</li>
-          <li>Free Disk Space</li>
-          <li>File descriptors used by <code>beam.smp</code> vs. max system limit</li>
+          <li>Free disk space</li>
+          <li>File descriptors used by <code>beam.smp</code> vs. <a href="/networking.html#open-file-handle-limit">max system limit</a></li>
+          <li>TCP connections by state (<code>ESTABLISHED</code>, <code>CLOSE_WAIT</code>, <code>TIME_WAIT</code>)</li>
           <li>Network throughput (bytes received, bytes sent) vs. maximum network link throughput</li>
           <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">VM</a> statistics (dirty page flushes, writeback volume)</li>
           <li>System load average (<code>/proc/loadavg</code>)</li>
@@ -60,18 +96,112 @@ limitations under the License.
     <doc:section name="rabbitmq-metrics">
       <doc:heading>RabbitMQ Metrics</doc:heading>
       <p>
-        The RabbitMQ <a href="management.html">management plugin</a> provides a starting point for
-        monitoring RabbitMQ metrics. One limitation, however, is that only up to one day's worth of
-        metrics are stored. Storing historical metrics can be an important tool to determine the root
-        cause of issues affecting your users or to plan for future capacity.
+        The RabbitMQ <a href="management.html">management plugin</a> provides an API for
+        accessing RabbitMQ metrics. The plugin will store up to one day's worth of
+        metric data. Longer term monitoring should be accomplished with an <a href="#monitoring-tools">external tool</a>.
+        Collecting and storing metrics for the long term is critically important for anomaly detection,
+        root cause analysis, trend detection and capacity planning.
       </p>
+
       <p>
-        RabbitMQ metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-        via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
-        endpoint. It is recommended to collect metrics at 60 second intervals because more frequent
-        collection may place too much load on the RabbitMQ server and negatively affect performance.
+        This section will cover multiple RabbitMQ-specific aspects of monitoring.
       </p>
-      <p>
+
+      <doc:subsection name="clusters">
+        <doc:heading>Monitoring Clusters</doc:heading>
+
+        <p>
+          When monitoring clusters it is important to understand the guarantees provided by the
+          HTTP API. In a clustered environment every node can serve metric endpoint requests.
+          This means that it is possible to retrieve cluster-wide metrics from any node, assuming the node
+          <a href="/management.html#clustering">is capable of contacting its peers</a>. That node
+          will collect and aggregate data from its peers as needed before producing a response.
+        </p>
+
+        <p>
+          Every node also can serve requests to endpoints that provide <a href="#node-metrics">node-specific metrics</a>
+          for itself as well as other cluster nodes. Like <a href="#system-metrics">infrastructure and OS metrics</a>,
+          node-specific metrics must be collected for each node individually. However, HTTP API requests
+          can be issued to any node. As stated earlier, inter-node connectivity issues
+          will <a href="/management.html#clustering">affect HTTP API behaviour</a>. It is therefore
+          recommended that a random online node is chosen for monitoring requests, e.g. with the help of
+          a load balancer or <a href="https://en.wikipedia.org/wiki/Round-robin_DNS">round-robin DNS</a>.
+        </p>
+
+        <p>
+          Note that some endpoints (e.g. aliveness check) perform operations on the contacted node
+          specifically; they are an exception, not the rule.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="monitoring-frequency">
+        <doc:heading>Frequency of Monitoring</doc:heading>
+
+        <p>
+          Many monitoring systems poll their monitored services periodically. How often that's
+          done varies from tool to tool but usually can be configured by the operator.
+        </p>
+
+        <p>
+          It is recommended that metrics are collected at 60 second intervals (or at least 30 second
+          intervals if higher update rate is desired). More frequent collection will increase load and
+          the system and provide no practical benefits for monitoring systems.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="node-metrics">
+        <doc:heading>Node Metrics</doc:heading>
+        <p>
+          Node metrics are made available through the <a href="management.html#http-api">HTTP API</a>
+          via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/nodes/<i>name</i></code></a>
+          endpoint.
+        </p>
+
+        <p>
+          Most of the metrics represent point-in-time absolute values. Some, however, represent activity over a recent period of time
+          (for example, GC runs and bytes reclaimed). The latter metrics are primarily useful when compared to their
+          previous values and historical mean/percentile values.
+        </p>
+
+        <table>
+          <thead>
+            <tr><td>Metric</td><td>JSON field name</td></tr>
+          </thead>
+          <tbody>
+            <tr><td>Total amount of <a href="/memory-use.html">memory used</a></td><td><code>mem_used</code></td></tr>
+            <tr><td>Memory usage high watermark</td><td><code>mem_limit</code></td></tr>
+            <tr><td>Is a <a href="/memory.html">memory alarm</a> in effect?</td><td><code>mem_alarm</code></td></tr>
+            <tr><td>Free disk space low watermark</td><td><code>disk_free_limit</code></td></tr>
+            <tr><td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td><td><code>disk_free_alarm</code></td></tr>
+            <tr><td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td><td><code>fd_total</code></td></tr>
+            <tr><td>File descriptors used</td><td><code>fd_used</code></td></tr>
+            <tr><td>File descriptor open attempts</td><td><code>io_file_handle_open_attempt_count</code></td></tr>
+            <tr><td>Sockets available</td><td><code>sockets_total</code></td></tr>
+            <tr><td>Sockets used</td><td><code>sockets_used</code></td></tr>
+            <tr><td>GC runs</td><td><code>gc_num</code></td></tr>
+            <tr><td>Bytes reclaimed by GC</td><td><code>gc_bytes_reclaimed</code></td></tr>
+            <tr><td>Erlang process limit</td><td><code>proc_total</code></td></tr>
+            <tr><td>Erlang processes used</td><td><code>proc_used</code></td></tr>
+            <tr><td>Runtime run queue</td><td><code>run_queue</code></td></tr>
+            <tr>
+              <td>Message stats (total, ready, <a href="/confirms.html">unacknowledged</a>)</td>
+              <td><code>queue_totals.messages</code>, <code>queue_totals.ready</code>, <code>queue_totals.unacknowledged</code></td></tr>
+            <tr><td>Total number of queues</td><td><code>object_totals.queues</code></td></tr>
+            <tr><td>Message store disk reads</td><td><code>message_stats.disk_reads</code></td></tr>
+            <tr><td>Message store disk writes</td><td><code>message_stats.disk_writes</code></td></tr>
+          </tbody>
+        </table>
+      </doc:subsection>
+
+      <doc:subsection name="queue-metrics">
+        <doc:heading>Individual Queue Metrics</doc:heading>
+        <p>
+          Individual queue metrics are made available through the <a href="management.html#http-api">HTTP API</a>
+          via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
+          endpoint.
+        </p>
+
         <table>
           <thead>
             <tr><td>Metric</td><td>JSON field name</td></tr>
@@ -87,14 +217,15 @@ limitations under the License.
             <tr><td>Other Message Stats</td><td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td></tr>
           </tbody>
         </table>
-      </p>
+      </doc:subsection>
     </doc:section>
 
-    <doc:section name="third-party-monitoring-tools">
-      <doc:heading>Third Party Monitoring Tools</doc:heading>
+    <doc:section name="monitoring-tools">
+      <doc:heading>Monitoring Tools</doc:heading>
       <p>
         The following is an alphabetised list of third-party tools to collect RabbitMQ metrics. These
-        tools have the capability to monitor the recommended system and RabbitMQ metrics.
+        tools have the capability to monitor the recommended system and RabbitMQ metrics. Note that this list is
+        by no means complete.
       </p>
       <p>
         <table>
@@ -104,13 +235,13 @@ limitations under the License.
           <tbody>
             <tr><td>AppDynamics</td><td><a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>, <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a></td></tr>
             <tr><td><code>collectd</code></td><td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td></tr>
-            <tr><td>DataDog</td><td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog-RabbitMQ Integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td></tr>
+            <tr><td>DataDog</td><td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td></tr>
             <tr><td>Ganglia</td><td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td></tr>
             <tr><td>Graphite</td><td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td></tr>
-            <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin homepage</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
+            <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin docs</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
             <tr><td>Nagios</td><td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td></tr>
             <tr><td>New Relic</td><td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td></tr>
-            <tr><td>Prometheus</td><td><a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">Prometheus Plugin</a></td></tr> 
+            <tr><td>Prometheus</td><td><a href="/prometheus.html">Prometheus guide</a>, <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">GitHub</a></td></tr>
             <tr><td>Zabbix</td><td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td></tr>
             <tr><td>Zenoss</td><td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td></tr>
           </tbody>
