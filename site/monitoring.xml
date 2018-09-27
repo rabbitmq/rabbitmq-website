@@ -342,8 +342,7 @@ limitations under the License.
         <doc:heading>Individual Queue Metrics</doc:heading>
         <p>
           Individual queue metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-          via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
-          endpoint.
+          via the <code>GET /api/queues/{vhost}/{qname}</code> endpoint.
         </p>
 
         <table>
