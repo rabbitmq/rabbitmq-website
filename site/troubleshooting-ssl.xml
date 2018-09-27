@@ -31,7 +31,8 @@ limitations under the License.
       <doc:heading>Introduction</doc:heading>
        <doc:subsection>
        <p class="intro">
-         This guide covers a methodology and some tooling that can help diagnose TLS-related issues and errors (TLS alerts).
+         This guide covers a methodology and some tooling that can help diagnose TLS connectivity issues and errors (TLS alerts).
+         It accompanies the main guide on <a href="/ssl.html">TLS in RabbitMQ</a>.
          The strategy is to test the required components with an alternative TLS
          implementation in the process of elimination to identify the problematic end (client or server).
        </p>
