@@ -239,7 +239,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         <code>epmd</code> will listen on all interfaces by default. It can
         be limited to a number of interfaces using the <code>ERL_EPMD_ADDRESS</code>
         environment variable. The loopback interface will be implicitly added
-        to that list (in other words, <code>epmd</code> will always bind to loopback interface).
+        to that list (in other words, <code>epmd</code> will always bind to the loopback interface).
       </p>
       <p>
         See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
