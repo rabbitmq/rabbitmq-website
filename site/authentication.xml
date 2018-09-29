@@ -65,9 +65,8 @@ limitations under the License.
             <code>AMQPLAIN</code>
           </dt>
           <dd>
-            Non-standard version of PLAIN as defined by the AMQP 0-8
-            specification. This is enabled by default in the RabbitMQ
-            server, and is the default for QPid's Python client.
+            Non-standard version of PLAIN retained for backwards compatibility.
+            This is enabled by default in the RabbitMQ server.
           </dd>
 
           <dt>
