@@ -175,7 +175,7 @@ limitations under the License.
         <ul>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-server/releases">3.5.0 or later</a> |
-            <a href="https://bintray.com/rabbitmq/archive">Older than 3.5.0</a> |
+            <a href="http://www.rabbitmq.com/releases/rabbitmq-server/">Older than 3.5.0</a> |
             <a href="changelog.html">Changelog</a>
           </li>
         </ul>
@@ -335,7 +335,7 @@ limitations under the License.
       <h2>Previous releases</h2>
       <p>
         If you wish to download older releases of RabbitMQ, you can go
-        to <a href="https://bintray.com/rabbitmq/archive">the release archive</a>.
+        to <a href="http://www.rabbitmq.com/releases/rabbitmq-server/">the release archive</a>.
         Starting with 3.5.0, all releases are <a href="https://github.com/rabbitmq/rabbitmq-server/releases">published to GitHub</a>.
       </p>
     </div>
