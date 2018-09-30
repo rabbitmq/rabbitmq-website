@@ -163,7 +163,7 @@ limitations under the License.
             </li>
             <li>
               Quick download:
-              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Binary</a>
+              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Maven.org</a>
               |
               <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
             </li>
