@@ -35,8 +35,8 @@ limitations under the License.
       <ul class="compact">
         <li>Linux</li>
         <li>Windows, NT through 10</li>
-        <li>Windows Server 2003 through 2016</li>
-        <li>Mac OS X</li>
+        <li>Windows Server 2008 through 2016</li>
+        <li>MacOS</li>
         <li>Solaris</li>
         <li>FreeBSD</li>
         <li>TRU64</li>
@@ -51,7 +51,7 @@ limitations under the License.
         <li>Ubuntu and Debian-based Linux distributions</li>
         <li>Fedora, CentOS and RPM-based Linux distributions</li>
         <li>Windows Server</li>
-        <li>Mac OS X</li>
+        <li>MacOS</li>
         <li>openSUSE and derived distributions (including SLES and SLERT)</li>
       </ul>
     </p>

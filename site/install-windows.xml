@@ -32,23 +32,22 @@ limitations under the License.
     <doc:section name="windows">
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
-        <r:download signature="yes" downloadfile="rabbitmq-server-&version-server;.exe"
-		    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">
-	  Installer for Windows systems (from <a href="https://bintray.com/rabbitmq/all">Bintray</a>)
-        </r:download>
         <r:download downloadfile="rabbitmq-server-&version-server;.exe"
-		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">
-	  Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
+		                absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">
+	                   Installer for Windows systems (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>, recommended)
+        </r:download>
+        <r:download signature="yes" downloadfile="rabbitmq-server-&version-server;.exe"
+                    absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">
+                    Alternative download location (from <a href="https://bintray.com/rabbitmq/all">Bintray</a>)
         </r:download>
       </r:downloads>
 
       <doc:subsection name="install">
         <doc:heading>Install the Server</doc:heading>
         <p>
-          First you need to install a <a href="/which-erlang.html">supported version of Erlang</a> for Windows.
-          Download and run the <a href="http://www.erlang.org/download.html">Erlang for Windows</a>
-          installer. 64-bit versions are highly recommended. <b>Important:</b> you
-          <em>must</em> run the Erlang installer using an administrative account
+          RabbitMQ requires a 64-bit <a href="/which-erlang.html">supported version of Erlang</a> for Windows to be installed.
+          There's a <a href="http://www.erlang.org/download.html">Windows installer for Erlang</a>.
+          <b>Important:</b> the Erlang installer <em>must</em> be run using an administrative account
           otherwise a registry key expected by the RabbitMQ installer will not be
           present.
         </p>

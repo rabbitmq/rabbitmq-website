@@ -46,14 +46,13 @@ limitations under the License.
      <x:page url="/install-windows.html" text="Install: Windows">
        <x:related url="/windows-quirks.html"/>
      </x:page>
-     <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
+     <x:page url="/install-debian.html" text="Install: Debian and Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
-     <x:page url="/install-standalone-mac.html" text="Install: Mac OS X"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
      <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
        <x:related url="/windows-quirks.html"/>
      </x:page>
-     <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
+     <x:page url="/install-generic-unix.html" text="Install: Generic binary build"/>
      <x:page url="/install-solaris.html" text="Install: Solaris"/>
      <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
      <x:page url="/upgrade.html" text="Upgrade" gap-after="true"/>
