@@ -343,7 +343,7 @@ limitations under the License.
         RabbitMQ requires that the same major and minor version of
         Erlang is used across all
         <a href="upgrade.html#rolling-upgrades-version-limitations">cluster nodes</a>
-        (e.g. 19.3.x). RabbitMQ will check for protocol versions of
+        (e.g. 20.3.x). RabbitMQ will check for protocol versions of
         Erlang and its distributed libraries when a node joins a
         cluster, refusing to cluster if there's a potentially
         incompatible combination detected.
