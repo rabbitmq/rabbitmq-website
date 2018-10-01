@@ -58,8 +58,7 @@ limitations under the License.
       library.
     </p>
 
-    <h3>Version</h3>
-
+    <h3>Latest Version</h3>
     <p>
       The current release of the RabbitMQ Java client is <b>
       &version-java-client;</b>.
@@ -67,13 +66,12 @@ limitations under the License.
 
     <h2>Adding Library Dependency</h2>
     <p>
-      The recommended way to get started using the RabbitMQ Java AMQP
+      The recommended way to get started using the RabbitMQ Java client
       in your project is with a dependency management system.
     </p>
     <p>
-      The snippet below can be copied and pasted into your build
-      if you're using Maven:
-      <pre class="sourcecode xml">
+      If you're using Maven, add this dependency to the POM file of your project:
+<pre class="sourcecode xml">
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
@@ -81,8 +79,8 @@ limitations under the License.
 &lt;/dependency&gt;</pre>
     </p>
     <p>
-      Alternatively, if you're using Gradle:
-      <pre class="sourcecode groovy">
+      Alternatively, if using Gradle:
+<pre class="sourcecode groovy">
 dependencies {
   compile 'com.rabbitmq:amqp-client:&version-java-client;'
 }
