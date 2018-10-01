@@ -32,7 +32,7 @@ limitations under the License.
     <doc:section name="signing-process">
       <p>
         RabbitMQ release artifacts, both binary and source,
-        are signed using <a href="http://www.gnupg.org/">GnuPG</a> and <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">our release signing key</a>.
+        are signed using <a href="http://www.gnupg.org/">GnuPG</a> and <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">our release signing key</a>.
       </p>
     </doc:section>
 
@@ -40,7 +40,7 @@ limitations under the License.
 	     <doc:heading>Importing the Signing Key</doc:heading>
 	     <p>
 	        Before signatures can be verified, RabbitMQ <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">signing key</a> must be downloaded.
-           This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
+          This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
 
 <pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
 	     </p>
@@ -53,7 +53,8 @@ limitations under the License.
        </p>
 
 	     <p>
-	        Alternatively the key can be downloaded directly from <a href="https://github.com/rabbitmq/signing-keys/releases/">signing key</a> or <a href="">Bintray</a>
+	        Alternatively the key can be downloaded directly from <a href="https://github.com/rabbitmq/signing-keys/releases/">GitHub</a> or
+          <a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">Bintray</a>
           or <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">rabbitmq.com</a>:
 <pre class="sourcecode bash">
 wget https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
