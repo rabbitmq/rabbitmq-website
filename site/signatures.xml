@@ -66,19 +66,19 @@ gpg --import rabbitmq-release-signing-key.asc</pre>
       <doc:section name="checking-signatures">
 	<doc:heading>Checking signatures</doc:heading>
 	<p>
-	  Now you should be able to check signatures for our packages.
-	  The appropriate command for checking a detached signature is
+	  To check signatures for the packagees, use
+
+<pre class="sourcecode bash">gpg --verify [filename].asc [filename]</pre>
 	</p>
-	<pre class="sourcecode bash">gpg --verify <i>filename</i>.asc <i>filename</i></pre>
 	<p>
 	  Here's an example session, after having retrieved a RabbitMQ
 	  source archive and its associated detached signature from
 	  the download area:
 	</p>
 	<pre class="sourcecode bash">
-gpg --verify rabbitmq-server_3.6.2-1_all.deb.asc rabbitmq-server_3.6.2-1_all.deb
-gpg: Signature made Thu 12 May 2016 11:18:49 AM BST
-gpg:                using RSA key 0xEDF4AE3B59B046FA
+gpg --verify rabbitmq-server_3.7.8-1_all.deb.asc rabbitmq-server_3.7.8-1_all.deb
+gpg: Signature made Thu Sep 20 16:32:33 2018 BST
+gpg:                using RSA key 6B73A36E6026DFCA
 gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA
 gpg: using PGP trust model
 gpg: Good signature from "RabbitMQ Signing Key &lt;info@rabbitmq.com&gt;" [full]
