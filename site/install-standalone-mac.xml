@@ -34,7 +34,7 @@ limitations under the License.
       <r:downloads signature="yes">
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.xz">
-	   Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version; (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
+	                   Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version; (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
         </r:download>
       </r:downloads>
 
@@ -43,7 +43,7 @@ limitations under the License.
       <doc:subsection name="dependencies">
         <doc:heading>Dependencies</doc:heading>
         <p>
-          This package requires OpenSSL 1.0.x installed. We strongly recommend
+          This package requires OpenSSL 1.1.x or 1.0.x installed. We strongly recommend
           doing this via <a href="http://brew.sh/">Homebrew</a> to avoid possible
           issues with dynamic library paths.
         </p>
