@@ -23,59 +23,58 @@ limitations under the License.
     <title>Signatures</title>
   </head>
   <body>
-      <p class="intro">
-	This page describes the signing process we use when building
-	RabbitMQ release packages, and how to verify the signatures on
-	packages you download.
-      </p>
-
-      <doc:section name="signing-process">
-	<p>
-	  When we build package archive files, both binary and source,
-	  we digitally sign them using <a
-	  href="http://www.gnupg.org/">GnuPG</a> and <a
-	  href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">our public signing
-	  key</a>.
+    <p class="intro">
+      This page describes the signing process used when building
+      RabbitMQ release packages, and how to verify the signatures on
+      downloaded releasee artifacts.
     </p>
-      </doc:section>
 
-      <doc:section name="importing-gpg-key">
-	<doc:heading>Importing the signing key</doc:heading>
-	<p>
-	  First, you need to import our <a
-	  href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">gpg key</a>. You can do that
-	  using <a href="https://sks-keyservers.net/overview-of-pools.php">SKS Keyservers Pool</a>:
-	</p>
-	<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
-	<p>
-	  or you can download the key directly from <a href="https://bintray.com/rabbitmq">Bintray</a>:
-	<pre class="sourcecode bash">wget https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
-gpg --import rabbitmq-release-signing-key.asc</pre>
+    <doc:section name="signing-process">
+      <p>
+        RabbitMQ release artifacts, both binary and source,
+        are signed using <a href="http://www.gnupg.org/">GnuPG</a> and <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">our release signing key</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="importing-gpg-key">
+	     <doc:heading>Importing the Signing Key</doc:heading>
+	     <p>
+	        Before signatures can be verified, RabbitMQ <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">signing key</a> must be downloaded.
+           This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
+
+<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
+	     </p>
+
+       <p>
+         On Debian and Ubuntu systems, assuming that <a href="/install-debian.html">apt repositories</a> are used for installation,
+         <code>apt-key</code> should be used:
+
+<pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
+       </p>
+
+	     <p>
+	        Alternatively the key can be downloaded directly from <a href="https://github.com/rabbitmq/signing-keys/releases/">signing key</a> or <a href="">Bintray</a>
+          or <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">rabbitmq.com</a>:
+<pre class="sourcecode bash">
+wget https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+gpg --import rabbitmq-release-signing-key.asc
+</pre>
         </p>
-	<p>
-	  or download the key from rabbitmq.com:
-	<pre class="sourcecode bash">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-gpg --import rabbitmq-release-signing-key.asc</pre>
-        </p>
-        <p>
-          For installation via <a href="/install-debian.html">Debian (apt) repositories</a>, use <code>apt-key</code>:
-        </p>
-        <pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">
-	<doc:heading>Checking signatures</doc:heading>
-	<p>
-	  To check signatures for the packagees, use
+	       <doc:heading>Verifying Signatures</doc:heading>
+	       <p>
+	          To check signatures for the packages, use <code>gpg --verify</code>:
 
 <pre class="sourcecode bash">gpg --verify [filename].asc [filename]</pre>
-	</p>
-	<p>
-	  Here's an example session, after having retrieved a RabbitMQ
-	  source archive and its associated detached signature from
-	  the download area:
-	</p>
-	<pre class="sourcecode bash">
+	       </p>
+      	 <p>
+      	    Here's an example session, after having retrieved a RabbitMQ
+      	    source archive and its associated detached signature from
+      	    the download area:
+
+<pre class="sourcecode bash">
 gpg --verify rabbitmq-server_3.7.8-1_all.deb.asc rabbitmq-server_3.7.8-1_all.deb
 gpg: Signature made Thu Sep 20 16:32:33 2018 BST
 gpg:                using RSA key 6B73A36E6026DFCA
@@ -86,22 +85,25 @@ Primary key fingerprint: 4E30 C634 2FB4 AF5C 6334  2330 79A1 D640 D80A 61F0
      Subkey fingerprint: 5EC4 26E8 A6F3 523D D924  8FC8 EDF4 AE3B 59B0 46FA
 gpg: binary signature, digest algorithm SHA512
 </pre>
+      	 </p>
         <p>
-	  If the signature is invalid, you will see a "BAD signature"
-	  message, and you should not use the package.
-	</p>
-	<p>
-	  If the signature is valid, you should expect a "Good
-	  signature" message; if you've not signed our key, you will
-	  see a "Good signature" message along with a warning about
-	  our key being untrusted.
+	         If the signature is invalid, a "BAD signature"
+	         message will be emitted. If that's the case the origin of the package,
+           the signature file and the signing key should be carefully verified.
+           Packages that fail signature verification must not be used.
+	      </p>
+        <p>
+          If the signature is valid, you should expect a "Good
+          signature" message; if you've not signed our key, you will
+          see a "Good signature" message along with a warning about
+          our key being untrusted.
         </p>
-	<p>
-	  If you trust our key, you can avoid the warning output by
-	  GnuPG by signing it using your own key (to
-	  create your private key run <code>gpg --gen-key</code>):
-	</p>
-	<pre>gpg --sign-key 0x6B73A36E6026DFCA</pre>
+        <p>
+	        If you trust the RabbitMQ signing key you avoid the warning output by
+	        GnuPG by signing it using your own key (to create your private key run <code>gpg --gen-key</code>):
+
+<pre class="sourcecode bash">gpg --sign-key 0x6B73A36E6026DFCA</pre>
+        </p>
       </doc:section>
   </body>
 </html>
