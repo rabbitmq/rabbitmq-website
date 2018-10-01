@@ -51,7 +51,7 @@ limitations under the License.
          such as Ubuntu. It covers a number of topics:
 
          <ul>
-           <li>Package installation from apt repositories on <a href="#package-cloud">Package Cloud</a> or <a href="#apt">Bintray</a></li>
+           <li>Package installation from apt repositories <a href="#apt">on Bintray</a> or <a href="#package-cloud">Package Cloud</a></li>
            <li>Installation of recent Erlang/OTP versions from <a href="#erlang-repositories">3rd party apt repositories</a></li>
            <li><a href="#package-dependencies">Package dependencies</a></li>
            <li><a href="#supported-debian-distributions">Supported distributions</a></li>

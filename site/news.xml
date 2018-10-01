@@ -43,7 +43,8 @@ limitations under the License.
           This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
         </p>
         <p>
-          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>, <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          Binary builds and packages of the new release can be found on <a href="https://bintray.com/rabbitmq/">Bintray</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>.
           See <a href="http://www.rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
         </p>
         <p>
