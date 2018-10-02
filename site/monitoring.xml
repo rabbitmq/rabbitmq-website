@@ -79,7 +79,7 @@ limitations under the License.
           <li>Memory usage (used, buffered, cached &amp; free percentages)</li>
           <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">Virtual Memory</a> statistics (dirty page flushes, writeback volume)</li>
           <li>Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)</li>
-          <li>Free disk space on the mount used for <code>MNESIA_BASE</code></li>
+          <li>Free disk space on the mount used for the <a href="/relocate.html">node data directory</a></li>
           <li>File descriptors used by <code>beam.smp</code> vs. <a href="/networking.html#open-file-handle-limit">max system limit</a></li>
           <li>TCP connections by state (<code>ESTABLISHED</code>, <code>CLOSE_WAIT</code>, <code>TIME_WAIT</code>)</li>
           <li>Network throughput (bytes received, bytes sent) &amp; maximum network throughput)</li>
