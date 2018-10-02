@@ -1364,7 +1364,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
                   <li><b>Debian</b> - <span class="path">/etc/rabbitmq/rabbitmq</span></li>
                   <li><b>RPM</b> - <span class="path">/etc/rabbitmq/rabbitmq</span></li>
                   <li>
-                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    <b>MacOS(Homebrew)</b> - <span class="path"><span
                     class="envvar">${install_prefix}</span>/etc/rabbitmq/rabbitmq</span>,
                     the Homebrew prefix is usually <code>/usr/local</code>
                   </li>
@@ -1388,7 +1388,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
                   <li><b>Debian</b> - <span class="path">/etc/rabbitmq/advanced</span></li>
                   <li><b>RPM</b> - <span class="path">/etc/rabbitmq/advanced</span></li>
                   <li>
-                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    <b>MacOS (Homebrew)</b> - <span class="path"><span
                     class="envvar">${install_prefix}</span>/etc/rabbitmq/advanced</span>,
                     the Homebrew prefix is usually <code>/usr/local</code>
                   </li>
@@ -1411,7 +1411,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies
                   <li><b>Ubuntu and Debian</b>: <span class="path">/etc/rabbitmq/rabbitmq-env.conf</span></li>
                   <li><b>RPM</b>: <span class="path">/etc/rabbitmq/rabbitmq-env.conf</span></li>
                   <li>
-                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    <b>MacOS (Homebrew)</b> - <span class="path"><span
                     class="envvar">${install_prefix}</span>/etc/rabbitmq/rabbitmq-env.conf</span>,
                     the Homebrew prefix is usually <code>/usr/local</code>
                   </li>

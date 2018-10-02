@@ -46,7 +46,7 @@ limitations under the License.
 
           <ul>
             <li><a href="#interfaces">Interfaces</a></li>
-            <li><a href="#ports">Ports</a> used by clients, inter-node traffic and <a href="/cli.html">CLI tools</a></li>
+            <li><a href="#ports">Ports</a> used by clients, <a href="#epmd-inet-dist-port-range">inter-node traffic</a> in clusters and <a href="/cli.html">CLI tools</a></li>
             <li><a href="#tls-support">TLS</a></li>
             <li>TCP buffer size (affects <a href="#tuning-for-throughput-tcp-buffers">throughput</a> and <a href="#tuning-for-large-number-of-connections-tcp-buffer-size">how much memory is used per connection</a>)</li>
             <li>Other TCP socket settings</li>
@@ -229,28 +229,17 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
       <doc:heading>EPMD and Inter-node Communication Port(s)</doc:heading>
 
       <p>
-          Erlang makes use of a Port Mapper Daemon (epmd) for
-          resolution of node names in a cluster. The default epmd
-          port is 4369, but this can be changed using the <span
-          class="envvar">ERL_EPMD_PORT</span> environment
-          variable. All nodes must use the same port.
+        Erlang makes use of a Port Mapper Daemon (epmd) for
+        resolution of node names in a cluster. The default epmd
+        port is 4369, but this can be changed using the <span
+        class="envvar">ERL_EPMD_PORT</span> environment
+        variable. All nodes must use the same port.
       </p>
       <p>
-        <code>epmd</code> will listen on all interfaces by default. It can
-        be limited to a number of interfaces using the <code>ERL_EPMD_ADDRESS</code>
-        environment variable. The loopback interface will be implicitly added
-        to that list (in other words, <code>epmd</code> will always bind to loopback interface).
-      </p>
-      <p>
-        See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
-        man page</a> to learn more about <code>epmd</code>.
-      </p>
-      <p>
-          Once a distributed Erlang node address has been resolved
-          via <code>epmd</code>, other nodes will attempt to communicate directly
-          with that address using the Erlang distribution
-          protocol.
-          See the following section for details.
+        Once a distributed Erlang node address has been resolved
+        via <code>epmd</code>, other nodes will attempt to communicate directly
+        with that address using the Erlang distribution
+        protocol.
       </p>
       <p>
         RabbitMQ nodes communicate with CLI tools and other nodes using a port known as
@@ -271,6 +260,12 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         tool from running concurrently on the same host and may affect CLI commands
         that require parallel connections to multiple cluster nodes. A port range of 10
         is therefore a recommended value.
+      </p>
+      <p>
+        When configuring firewall rules it is highly recommended to allow remote connections
+        on the inter-node communication port from every cluster member and every host where
+        CLI tools might be used. epmd port must be open for CLI tools and clustering
+        to function.
       </p>
       <p>
         The range used by RabbitMQ can also be controlled via two configuration keys:
@@ -311,6 +306,16 @@ epmd -names
 epmd: up and running on port 4369 with data:
 name rabbit at port 25672
 </pre>
+      </p>
+      <p>
+        <code>epmd</code> will listen on all interfaces by default. It can
+        be limited to a number of interfaces using the <code>ERL_EPMD_ADDRESS</code>
+        environment variable. The loopback interface will be implicitly added
+        to that list (in other words, <code>epmd</code> will always bind to the loopback interface).
+      </p>
+      <p>
+        See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+        man page</a> to learn more about <code>epmd</code>.
       </p>
     </doc:section>
 

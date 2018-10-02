@@ -24,23 +24,37 @@ limitations under the License.
     xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
     xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>TLS/SSL Troubleshooting</title>
+    <title>Troubleshooting TLS-enabled Connections</title>
   </head>
   <body show-in-this-page="true">
     <doc:section name="intro">
       <doc:heading>Introduction</doc:heading>
        <doc:subsection>
-       <p class="intro">This page collects some tips to aid the diagnosis of TLS-related issues and errors (TLS alerts).
+       <p class="intro">
+         This guide covers a methodology and some tooling that can help diagnose TLS connectivity issues and errors (TLS alerts).
+         It accompanies the main guide on <a href="/ssl.html">TLS in RabbitMQ</a>.
          The strategy is to test the required components with an alternative TLS
-         implementation in a process of elimination to identify the fault.
+         implementation in the process of elimination to identify the problematic end (client or server).
        </p>
        <p>
          Bear in mind that this process is not guaranteed to identify the problem if
          the interaction between two specific components is responsible for the problem.
        </p>
        <p>
-         We also explain some of the most common <a href="#logs">error
-         messages</a> you may see in logs.
+         The steps recommended in this guide are:
+
+         <ul>
+           <li>Verify <a href="#verify-config">effective configuration</a></li>
+           <li>Verify that the node <a href="#verify-listeners">listens for TLS connections</a></li>
+           <li>Verify <a href="#verify-file-permissions">file permissions</a></li>
+           <li>Verify <a href="#verify-tls-support-in-erlang">TLS support in Erlang/OTP</a></li>
+           <li>Verify certificate/key pairs and test with alternative TLS client or server <a href="#openssl-tools">using OpenSSL command line tools</a></li>
+           <li>Verify client connections <a href="#validate-with-stunnel">with a TLS-terminating proxy</a></li>
+           <li>And finally, test a real client connection against a real server connection again</li>
+         </ul>
+
+         When testing with a RabbitMQ node and/or a real RabbitMQ client it is important to inspect
+         <a href="/logging.html">logs</a> for both server and client.
        </p>
        </doc:subsection>
     </doc:section>
@@ -54,76 +68,132 @@ limitations under the License.
           configuration. Before performing any other TLS
           troubleshooting steps it is important to verify config file
           location and effective configuration (whether the node has
-          loaded it successfully). See <a href="">Configuration guide</a>
+          loaded it successfully). See <a href="/configure.html">Configuration guide</a>
           for details.
         </p>
       </doc:subsection>
 
-       <doc:subsection name="erlang-support">
-       <doc:heading>Check TLS Support in Erlang</doc:heading>
-       <p>
-         Another key requirement for establishing TLS connections to the broker
-         is TLS support in the broker. Confirm that the Erlang VM has support
-         for TLS by running the
-         <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
-         entering <pre class="sourcecode erlang">ssl:versions().</pre>
-         The output should look similar to this (with version number differences possible):
+      <doc:subsection name="verify-listeners">
+        <doc:heading>Check TLS Listeners (Ports)</doc:heading>
+        <p>
+          This step checks that the broker is listening on the <a href="/networking.html">expected port(s)</a>, such as
+          5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on.
+
+         To verify that TLS has been enabled on the node, restart it and inspect its <a href="/logging.html">log file</a>.
+         It should contain an entry about a TLS listener being enabled, looking like this:
+
+<pre class="sourcecode">
+2018-09-02 14:24:58.611 [info] &lt;0.664.0&gt; started TCP listener on [::]:5672
+2018-09-02 14:24:58.614 [info] &lt;0.680.0&gt; started SSL listener on [::]:5671
+</pre>
+
+          If the node is configured to use TLS but a message similar to the above is not logged,
+          it is possible that your configuration file was placed at an incorrect location and was not read by
+          the broker or the node was not restarted after config file changes.
+          See the <a href="/configure.html#introduction">configuration page</a> for details
+          on config file verification.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="verify-file-permissions">
+        <doc:heading>Check Certificate, Private Key and CA Bundle File Permissions</doc:heading>
+        <p>
+          RabbitMQ must be able to read its configured CA certificate bundle, server certificate and private key.
+          The files must exist and have the appropriate permissions. Incorrect permissions (e.g. files
+          being owned by `root` or another superuser account that installed them) is a very common issue
+          with TLS setups.
+        </p>
+        <p>
+          On Linux, BSD and MacOS directory permissions can also affect node's ability to read the files.
+        </p>
+        <p>
+          When certificate or private key files are not readable or do not exist,
+          the node fail to accept TLS-enabled connections or TLS connections will just hang (the behavior
+          differs between Erlang/OTP versions).
+        </p>
+        <p>
+          When <a href="/configure.html#config-file-formats">new style configuration format</a> is used to configure certificate and private
+          key paths, the node will check if the files exist on boot and refuse to start if that's not the case.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="verify-tls-support-in-erlang">
+        <doc:heading>Check TLS Support in Erlang</doc:heading>
+        <p>
+          Another key requirement for establishing TLS connections to the broker
+          is TLS support in the broker. Confirm that the Erlang VM has support
+          for TLS by running the
+          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
+          entering <pre class="sourcecode erlang">ssl:versions().</pre>
+          The output should look similar to this (version number will likely differ):
+
 <pre class="sourcecode erlang">
-[{ssl_app,"5.3.6"},
- {supported,['tlsv1.2','tlsv1.1',tlsv1]},
- {available,['tlsv1.2','tlsv1.1',tlsv1]}]
+[{ssl_app,"9.0.2"},
+   {supported,['tlsv1.2','tlsv1.1',tlsv1]},
+   {supported_dtls,['dtlsv1.2',dtlsv1]},
+   {available,['tlsv1.2','tlsv1.1',tlsv1,sslv3]},
+   {available_dtls,['dtlsv1.2',dtlsv1]}]
 </pre>
        </p>
        <p>
-         If you receive an error instead, confirm that Erlang was built
-         with OpenSSL. On <a href="/install-debian.html">Debian-based systems</a> you may need to install the
-         <code>erlang-ssl</code> package.
+         If an error is reported instead, confirm that the Erlang/OTP installation <a href="/ssl.html#erlang-otp-requirements">includes TLS support</a>.
        </p>
        </doc:subsection>
 
-       <doc:subsection name="keys-and-certs">
-       <doc:heading>Check Keys and Certificates with OpenSSL</doc:heading>
-       <p>
-         We will now verify the certificates and keys specified in the
-         <a href="configure.html#configuration-file"> configuration
-         file</a> against an alternative TLS implementation. This
-         example uses OpenSSL <a
-         href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
-         and <a
-         href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
-         We will confirm that the certificates and keys can be used to
-         establish a secure link by connecting two terminals. For the
-         examples that follow, we will assume you have the following:
-       </p>
-         <table>
-          <tr>
-           <td>Item</td>
-           <td>Location</td>
-          </tr>
-          <tr>
-           <td>CA certificate</td>
-           <td><code>testca/cacert.pem</code></td>
-          </tr>
-          <tr>
-           <td>Server certificate</td>
-           <td><code>server/cert.pem</code></td>
-          </tr>
-          <tr>
-           <td>Server key</td>
-           <td><code>server/key.pem</code></td>
-          </tr>
-          <tr>
-           <td>Client certificate</td>
-           <td><code>client/cert.pem</code></td>
-          </tr>
-          <tr>
-           <td>Client key</td>
-           <td><code>client/key.pem</code></td>
-          </tr>
-         </table>
-       <p>
-         In one terminal window execute the following command:
-         <pre class="sourcecode bash">
+       <doc:subsection name="openssl-tools">
+         <doc:heading>Use OpenSSL Tools</doc:heading>
+         <p>
+           OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
+           and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>
+           are commonly used command line tools that can be used to test TLS connections
+           and certificate/key pairs. They help narrow problems down by testing against
+           alternative TLS client and server implementations. For example, if a certain TLS
+           client works successfully with <code>s_server</code> but not a RabbitMQ node,
+           the root cause is likely on the server end. Likewise if an <code>s_client</code>
+           client can successfully connect to a RabbitMQ node but a different client cannot,
+           it's the client setup that should be inspected closely first.
+         </p>
+
+         <p>
+           The example below seeks to confirm that the certificates and keys can be used to
+           establish a TLS connection by connecting an <code>s_client</code> client to an <code>s_server</code> server
+           in two separate shells (terminal windows).
+         </p>
+
+         <p>
+           The example will assume you have the following files:
+
+           <table>
+            <tr>
+             <td>Item</td>
+             <td>Location</td>
+            </tr>
+            <tr>
+             <td>CA certificate</td>
+             <td><code>testca/cacert.pem</code></td>
+            </tr>
+            <tr>
+             <td>Server certificate</td>
+             <td><code>server/cert.pem</code></td>
+            </tr>
+            <tr>
+             <td>Server key</td>
+             <td><code>server/key.pem</code></td>
+            </tr>
+            <tr>
+             <td>Client certificate</td>
+             <td><code>client/cert.pem</code></td>
+            </tr>
+            <tr>
+             <td>Client key</td>
+             <td><code>client/key.pem</code></td>
+            </tr>
+           </table>
+         </p>
+
+         <p>
+           In one terminal window execute the following command:
+           <pre class="sourcecode bash">
 openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
   -CAfile testca/cacert.pem</pre>
          In another terminal window execute
@@ -145,163 +215,145 @@ Verify return code: 0 (ok)</pre>
        </p>
        </doc:subsection>
 
-       <doc:subsection name="broker-listens">
-       <doc:heading>Check TLS Listeners (Ports)</doc:heading>
-       <p>
-         This step checks that the broker is listening on the <a href="/networking.html">expected port(s)</a>, such as
-         5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on..
-         When you start the broker with a valid TLS configuration file, the broker
-         will report the TLS listening address in the logfile. You should see an entry
-         similar to this:<pre class="sourcecode ini">
-=INFO REPORT==== 8-Aug-2011::11:51:47 ===
-started SSL Listener on 0.0.0.0:5671</pre>
-         If you included an "ssl_listeners" configuration directive and you don't see
-         this message, it is possible that your configuration file was not read by
-         the broker or the node was not restarted after config file changes.
-         See the <a href="/configure.html#introduction">configuration page</a> for details
-         on config file verification.
-       </p>
-       </doc:subsection>
-
        <doc:subsection name="broker-listens-ssl">
-       <doc:heading>Attempt TLS Connection to Broker</doc:heading>
-       <p>
-         Once you have a RabbitMQ broker listening on an TLS port you can again use
-         the OpenSSL s_client to verify TLS connection establishment, this time against the broker.
-         This check establishes whether the broker is likely to be configured correctly,
-         without needing to configure an AMQPS client.
-         The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
-         TLS connections on localhost port 5671:
-         <pre class="sourcecode bash">
-openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
-  -CAfile testca/cacert.pem</pre>
-         The output should appear similar to the case where port 8443 was used. The broker logfile
-         should contain a new entry when the connection is established:
-         <pre class="sourcecode ini">
-=INFO REPORT==== 8-Aug-2011::11:55:13 ===
-accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
+         <doc:heading>Attempt TLS Connection to Broker</doc:heading>
+         <p>
+           Once a RabbitMQ node was configure to listen on an TLS port,
+           the OpenSSL <code>s_client</code> can be used to test TLS connection establishment, this time against the node.
+           This check establishes whether the broker is likely to be configured correctly, without needing
+           to configure an RabbitMQ client. The tool can also be useful to compare the behaviour of different clients.
+           The example assumes a node running on <code>localhost</code> on <a href="networking.html#ports">default TLS port for AMQP 0-9-1 and AMQP 1.0</a>, 5671:
+
+<pre class="sourcecode bash">
+openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem -CAfile testca/cacert.pem
+</pre>
+
+         The output should appear similar to the case where port 8443 was used. The node log file
+         should <a href="/logging.html#logged-events">contain a new entry when the connection is established</a>:
+
+<pre class="sourcecode ini">
+2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; accepting AMQP connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671)
+2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671): user 'user' authenticated and granted access to vhost 'virtual_host'
+</pre>
        </p>
        <p>
-         It should now be possible to present the broker with an AMQP 0-9-1 connection
-         header sequence over the TLS connection. If you present the broker
-         with eight random bytes, the broker will respond with the string "AMQP"
-         followed by an encoded version number. If you recognise the "AMQP" string,
-         you can be confident that you are connected to a TLS-enabled node on the correct port.
+         The node will expect clients to perform protocol handshake (AMQP 0-9-1, AMQP 1.0 and so on). If that doesn't
+         happen within a short time window (10 seconds by default for most protocols), the node will close the
+         connection.
        </p>
       </doc:subsection>
 
       <doc:subsection name="validate-with-stunnel">
-       <doc:heading>Validate client connections with stunnel</doc:heading>
+       <doc:heading>Validate Client Connections with Stunnel</doc:heading>
        <p>
-         The final check is to validate TLS-enabled clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
-         to provide TLS capability. In this configuration clients will make a secure connection to stunnel,
+         <a href="http://www.stunnel.org/">stunnel</a> is a tool that can be used to validate TLS-enabled clients.
+         In this configuration clients will make a secure connection to stunnel,
          which will pass the decrypted data through to a "regular" port of the broker (say, 5672 for AMQP 0-9-1 and AMQP 1.0).
          This provides some confidence that the client TLS configuration is correct independently of the broker TLS configuration.
        </p>
        <p>
-         stunnel will run in daemon mode on the same host as the broker. In the discussion that follows it is
-         assumed that stunnel will only be used temporarily. It is of course possible to use stunnel to
-         provide TLS capability more permanently, but the lack of integration with the broker
-         means that management reporting features and authentication plugins that use TLS
-         information will not be able to do so.
+         <code>stunnel</code> is a specialised proxy. In this example it will run in daemon mode on the same host as the broker.
+         In the discussion that follows it is assumed that stunnel will only be used temporarily. It is also possible to use stunnel to
+         perform TLS termination but that is out of scope for this guide.
        </p>
        <p>
-         In this example, stunnel will connect to the unencrypted port of the broker (5672) and accept
+         In this example <code>stunnel</code> will connect to the unencrypted port of the broker (5672) and accept
          TLS connections from TLS-capable clients on port 5679:
-         <pre  class="sourcecode">cat client/key.pem client/cert.pem > client/key-cert.pem
-stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
-         stunnel requires a certificate and corresponding key. The generated client certificate
-         and corresponding key should be used and concatenated as shown above with the <code>cat</code> command.
-         stunnel requires that the key not be password-protected.
-       </p>
-       <p>
-         TLS-capable clients should now be able to connect to port 5679 and any TLS errors will appear
-         on the console where stunnel was started.
-       </p>
+
+<pre  class="sourcecode">
+cat client/key.pem client/cert.pem > client/key-cert.pem
+stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
+</pre>
+
+          <code>stunnel</code> requires a certificate and its corresponding private key. The certificate
+          and private key files must be concatenated as shown above with the <code>cat</code> command.
+          <code>stunnel</code> requires that the key not be password-protected.
+        </p>
+        <p>
+          TLS-capable clients should now be able to connect to port 5679 and any TLS errors will appear
+          on the console where <code>stunnel</code> was started.
+        </p>
       </doc:subsection>
 
       <doc:subsection>
-       <doc:heading>Connect Client and Broker</doc:heading>
-       <p>
-         If none of the previous steps produced errors then you can confidently connect the tested TLS-enabled
-         client to the TLS-enabled port of the broker, making sure to stop any running OpenSSL or stunnel
-         sessions first.
-       </p>
+        <doc:heading>Validate RabbitMQ Client Connection to RabbitMQ Node</doc:heading>
+        <p>
+          Assuming none of the previous steps produced errors then you can confidently connect the tested TLS-enabled
+          client to the TLS-enabled port of the broker, making sure to stop any running OpenSSL <code>s_server</code>
+          or <code>stunnel</code> instances first.
+        </p>
       </doc:subsection>
 
-      <doc:subsection name="certificate-chains">
+      <doc:subsection name="verify-verification-depth">
         <doc:heading>Certificate Chains and Verification Depth</doc:heading>
         <p>
-          When using a client certificate signed by an intermediate CA, it may be necessary
-          to configure RabbitMQ server to use a higher verification depth.
+          When using a client certificate <a href="/ssl.html#peer-verification">signed by an intermediate CA</a>, it may be necessary
+          to configure RabbitMQ server to use a higher <a href="/ssl.html#peer-verification-depth">verification depth</a>.
 
-          The depth is the maximum number of non-self-issued intermediate certificates that
-          may follow the peer certificate in a valid certification path.
+          Insufficient verification depth will result in TLS peer verification failures.
         </p>
-        <p>Refer to the <a href="./ssl.html">TLS/SSL guide</a> to learn how to configure verification depth.</p>
       </doc:subsection>
     </doc:section>
 
-
-      <doc:section name="logs">
-       <doc:heading>Understanding TLS Connection Log Errors</doc:heading>
-        <p>
-         New broker logfile entries will be generated during many of the preceding steps. These entries
-         together with diagnostic output from commands on the console should help to identify the cause
-         of TLS-related errors. What follows is a list of the most common error entries:
-        </p>
-        <dl>
+    <doc:section name="logs">
+     <doc:heading>Understanding TLS Connection Log Errors</doc:heading>
+      <p>
+       New broker logfile entries will be generated during many of the preceding steps. These entries
+       together with diagnostic output from commands on the console should help to identify the cause
+       of TLS-related errors. What follows is a list of the most common error entries:
+      </p>
+      <dl>
+        <dt>
+          Entries containing <code>{undef, [{crypto,hash,...</code>
+        </dt>
+        <dd>
+          The <code>crypto</code> module is missing in the Erlang/OTP installation
+          used or it is out of date. On Debian, Ubuntu, and other Debian-derived distributions
+          it usually means that the <a href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> package was not installed.
+        </dd>
           <dt>
-            Entries containing <code>{undef, [{crypto,hash,...</code>
+             Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>
+             or <code>{ssl_upgrade_error, ecertfile}</code>
           </dt>
           <dd>
-            The <code>crypto</code> module is missing in the Erlang/OTP installation
-            used or it is out of date. On Debian, Ubuntu, and other Debian-derived distributions
-            it usually means that the <a href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> package was not installed.
+             <p>
+               This means the broker keyfile or certificate file is invalid.
+               Confirm that the keyfile matches the certificate and that both are in PEM format.
+               PEM format is a printable encoding with recognisable delimiters. The certificate
+               will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
+               <code>-----END CERTIFICATE-----</code> respectively. The keyfile will likewise
+               start and end with <code>-----BEGIN RSA PRIVATE KEY-----</code> and
+               <code>-----END RSA PRIVATE KEY-----</code> respectively.
+             </p>
           </dd>
-            <dt>
-               Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>
-               or <code>{ssl_upgrade_error, ecertfile}</code>
-            </dt>
-            <dd>
-               <p>
-                 This means the broker keyfile or certificate file is invalid.
-                 Confirm that the keyfile matches the certificate and that both are in PEM format.
-                 PEM format is a printable encoding with recognisable delimiters. The certificate
-                 will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
-                 <code>-----END CERTIFICATE-----</code> respectively. The keyfile will likewise
-                 start and end with <code>-----BEGIN RSA PRIVATE KEY-----</code> and
-                 <code>-----END RSA PRIVATE KEY-----</code> respectively.
-               </p>
-            </dd>
-            <dt>Entries containing <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
-            <dd>
-               <p>
-                 This error is related to client verification. The client is presenting an invalid
-                 certificate or no certificate. If the ssl_options has the <code>verify</code> option
-                 set to <code>verify_peer</code> then try using the value <code>verify_none</code>
-                 temporarily. Ensure that the client certificate has been generated correctly, and that
-                 the client is presenting the correct certificate.
-               </p>
-            </dd>
-            <dt>Entries containing <code>{ssl_upgrade_error, ...}</code></dt>
-            <dd>
-               <p>
-                 This is a generic error that could have many causes. Make sure you are
-                 using the recommended version of Erlang.
-               </p>
-            </dd>
+          <dt>Entries containing <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
+          <dd>
+             <p>
+               This error is related to client verification. The client is presenting an invalid
+               certificate or no certificate. If the ssl_options has the <code>verify</code> option
+               set to <code>verify_peer</code> then try using the value <code>verify_none</code>
+               temporarily. Ensure that the client certificate has been generated correctly, and that
+               the client is presenting the correct certificate.
+             </p>
+          </dd>
+          <dt>Entries containing <code>{ssl_upgrade_error, ...}</code></dt>
+          <dd>
+             <p>
+               This is a generic error that could have many causes. Make sure you are
+               using the recommended version of Erlang.
+             </p>
+          </dd>
 
-            <dt>Entries containing <code>{tls_alert,"bad record mac"}</code></dt>
-            <dd>
-              <p>
-                The server has tried verifying integrity of a piece of data it received
-              and the check failed. This can be due to problematic network equipment, unintentional
-              socket sharing in the client (e.g. due to the use of <code>fork(2)</code>) or a bug
-              in the client implementation of TLS.
-              </p>
-            </dd>
-        </dl>
-      </doc:section>
+          <dt>Entries containing <code>{tls_alert,"bad record mac"}</code></dt>
+          <dd>
+            <p>
+              The server has tried verifying integrity of a piece of data it received
+            and the check failed. This can be due to problematic network equipment, unintentional
+            socket sharing in the client (e.g. due to the use of <code>fork(2)</code>) or a bug
+            in the client implementation of TLS.
+            </p>
+          </dd>
+      </dl>
+    </doc:section>
   </body>
 </html>

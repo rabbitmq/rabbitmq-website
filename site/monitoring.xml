@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -45,7 +45,7 @@ limitations under the License.
             down to
 
             <ul>
-              <li>Cluster-wide metrics</li>
+              <li><a href="#cluster-wide-metrics">Cluster-wide metrics</a></li>
               <li><a href="#node-metrics">Node metrics</a></li>
               <li><a href="#queue-metrics">Queue metrics</a></li>
             </ul>
@@ -72,23 +72,23 @@ limitations under the License.
         First step towards a useful monitoring system starts with infrastructure and
         kernel metrics. There are quite a few of them but some are more important than others.
         The following metrics should be monitored on all nodes in a RabbitMQ cluster and, if possible,
-        all nodes that host applications:
+        all instances that host RabbitMQ clients:
 
-        <ul>
-          <li>CPU stats (idle, user, system, iowait)</li>
-          <li>Memory usage (free, cached, buffered)</li>
-          <li>Disk I/O (reads &amp; writes per unit time, I/O wait percentages)</li>
-          <li>Free disk space</li>
+        <ul class="plain">
+          <li>CPU stats (user, system, iowait &amp; idle percentages)</li>
+          <li>Memory usage (used, buffered, cached &amp; free percentages)</li>
+          <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">Virtual Memory</a> statistics (dirty page flushes, writeback volume)</li>
+          <li>Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)</li>
+          <li>Free disk space on the mount used for the <a href="/relocate.html">node data directory</a></li>
           <li>File descriptors used by <code>beam.smp</code> vs. <a href="/networking.html#open-file-handle-limit">max system limit</a></li>
           <li>TCP connections by state (<code>ESTABLISHED</code>, <code>CLOSE_WAIT</code>, <code>TIME_WAIT</code>)</li>
-          <li>Network throughput (bytes received, bytes sent) vs. maximum network link throughput</li>
-          <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">VM</a> statistics (dirty page flushes, writeback volume)</li>
-          <li>System load average (<code>/proc/loadavg</code>)</li>
+          <li>Network throughput (bytes received, bytes sent) &amp; maximum network throughput)</li>
+          <li>Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)</li>
         </ul>
       </p>
 
       <p>
-        There is no shortage of existing tools (such as Graphite or Datadog) that collect infrastructure
+        There is no shortage of existing tools (such as Prometheus or Datadog) that collect infrastructure
         and kernel metrics, store and visualise them over periods of time.
       </p>
     </doc:section>
@@ -121,8 +121,12 @@ limitations under the License.
         <p>
           Every node also can serve requests to endpoints that provide <a href="#node-metrics">node-specific metrics</a>
           for itself as well as other cluster nodes. Like <a href="#system-metrics">infrastructure and OS metrics</a>,
-          node-specific metrics must be collected for each node individually. However, HTTP API requests
-          can be issued to any node. As stated earlier, inter-node connectivity issues
+          node-specific metrics must be stored for each node individually. However, HTTP API requests
+          can be issued to any node.
+        </p>
+
+        <p>
+          As mentioned earlier, inter-node connectivity issues
           will <a href="/management.html#clustering">affect HTTP API behaviour</a>. It is therefore
           recommended that a random online node is chosen for monitoring requests, e.g. with the help of
           a load balancer or <a href="https://en.wikipedia.org/wiki/Round-robin_DNS">round-robin DNS</a>.
@@ -150,12 +154,101 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+      <doc:subsection name="cluster-wide-metrics">
+        <doc:heading>Cluster-wide Metrics</doc:heading>
+
+        <p>
+          Cluster-wide metrics provide the highest possible level view of cluster state. Some (cluster links, detected network
+          partitions) respresent node interaction, others are aggregates of certain metrics across all cluster members.
+          They are complimentary to infrastructure and node metrics.
+        </p>
+
+        <p>
+          <code>GET /api/overview</code> is the <a href="management.html#http-api">HTTP API</a> endpoint that returns cluster-wide metrics.
+        </p>
+
+        <p>
+          <table>
+            <thead>
+              <tr><td>Metric</td><td>JSON field name</td></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cluster name</td>
+                <td><code>cluster_name</code></td>
+              </tr>
+              <tr>
+                <td>Cluster-wide message rates</td>
+                <td><code>message_stats</code></td>
+              </tr>
+              <tr>
+                <td>Total number of connections</td>
+                <td><code>object_totals.connections</code></td>
+              </tr>
+              <tr>
+                <td>Total number of channels</td>
+                <td><code>object_totals.channels</code></td>
+              </tr>
+              <tr>
+                <td>Total number of queues</td>
+                <td><code>object_totals.queues</code></td>
+              </tr>
+              <tr>
+                <td>Total number of consumers</td>
+                <td><code>object_totals.consumers</code></td>
+              </tr>
+              <tr>
+                <td>Total number of messages (ready plus unacknowledged)</td>
+                <td><code>queue_totals.messages</code></td>
+              </tr>
+              <tr>
+                <td>Number of messages ready for delivery</td>
+                <td><code>queue_totals.messages_ready</code></td>
+              </tr>
+              <tr>
+                <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+                <td><code>queue_totals.messages_unacknowledged</code></td>
+              </tr>
+              <tr>
+                <td>Messages published recently</td>
+                <td><code>message_stats.publish</code></td>
+              </tr>
+              <tr>
+                <td>Message publish rate</td>
+                <td><code>message_stats.publish_details.rate</code></td>
+              </tr>
+              <tr>
+                <td>Messages delivered to consumers recently</td>
+                <td><code>message_stats.deliver_get</code></td>
+              </tr>
+              <tr>
+                <td>Message delivery rate</td>
+                <td><code>message_stats.deliver_get.rate</code></td>
+              </tr>
+              <tr>
+                <td>Other message stats</td>
+                <td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="node-metrics">
         <doc:heading>Node Metrics</doc:heading>
         <p>
-          Node metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-          via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/nodes/<i>name</i></code></a>
-          endpoint.
+          There are two  <a href="management.html#http-api">HTTP API</a> endpoints that provide access to node-specific metrics:
+
+          <ul>
+            <li><code>GET /api/nodes/{node}</code> returns stats for a single node</li>
+            <li><code>GET /api/nodes</code> returns stats for all cluster members</li>
+          </ul>
+
+          The latter endpoint returns an array of objects. Monitoring tools that support (or can support)
+          that as an input should prefer that endpoint since it redunces the number of requests that has
+          to be issued. When that's not the case, the former endpoint can be used to retrieve stats for
+          every cluster member in turn. That implies that the monitoring system is aware of the
+          list of cluster members.
         </p>
 
         <p>
@@ -169,27 +262,78 @@ limitations under the License.
             <tr><td>Metric</td><td>JSON field name</td></tr>
           </thead>
           <tbody>
-            <tr><td>Total amount of <a href="/memory-use.html">memory used</a></td><td><code>mem_used</code></td></tr>
-            <tr><td>Memory usage high watermark</td><td><code>mem_limit</code></td></tr>
-            <tr><td>Is a <a href="/memory.html">memory alarm</a> in effect?</td><td><code>mem_alarm</code></td></tr>
-            <tr><td>Free disk space low watermark</td><td><code>disk_free_limit</code></td></tr>
-            <tr><td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td><td><code>disk_free_alarm</code></td></tr>
-            <tr><td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td><td><code>fd_total</code></td></tr>
-            <tr><td>File descriptors used</td><td><code>fd_used</code></td></tr>
-            <tr><td>File descriptor open attempts</td><td><code>io_file_handle_open_attempt_count</code></td></tr>
-            <tr><td>Sockets available</td><td><code>sockets_total</code></td></tr>
-            <tr><td>Sockets used</td><td><code>sockets_used</code></td></tr>
-            <tr><td>GC runs</td><td><code>gc_num</code></td></tr>
-            <tr><td>Bytes reclaimed by GC</td><td><code>gc_bytes_reclaimed</code></td></tr>
-            <tr><td>Erlang process limit</td><td><code>proc_total</code></td></tr>
-            <tr><td>Erlang processes used</td><td><code>proc_used</code></td></tr>
-            <tr><td>Runtime run queue</td><td><code>run_queue</code></td></tr>
             <tr>
-              <td>Message stats (total, ready, <a href="/confirms.html">unacknowledged</a>)</td>
-              <td><code>queue_totals.messages</code>, <code>queue_totals.ready</code>, <code>queue_totals.unacknowledged</code></td></tr>
-            <tr><td>Total number of queues</td><td><code>object_totals.queues</code></td></tr>
-            <tr><td>Message store disk reads</td><td><code>message_stats.disk_reads</code></td></tr>
-            <tr><td>Message store disk writes</td><td><code>message_stats.disk_writes</code></td></tr>
+              <td>Total amount of <a href="/memory-use.html">memory used</a></td>
+              <td><code>mem_used</code></td>
+            </tr>
+            <tr>
+              <td>Memory usage high watermark</td>
+              <td><code>mem_limit</code></td>
+            </tr>
+            <tr>
+              <td>Is a <a href="/memory.html">memory alarm</a> in effect?</td>
+              <td><code>mem_alarm</code></td>
+            </tr>
+            <tr>
+              <td>Free disk space low watermark</td>
+              <td><code>disk_free_limit</code></td>
+            </tr>
+            <tr>
+              <td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td>
+              <td><code>disk_free_alarm</code></td>
+            </tr>
+            <tr>
+              <td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td>
+              <td><code>fd_total</code></td>
+            </tr>
+            <tr>
+              <td>File descriptors used</td>
+              <td><code>fd_used</code></td>
+            </tr>
+            <tr>
+              <td>File descriptor open attempts</td>
+              <td><code>io_file_handle_open_attempt_count</code></td>
+            </tr>
+            <tr>
+              <td>Sockets available</td>
+              <td><code>sockets_total</code></td>
+            </tr>
+            <tr>
+              <td>Sockets used</td>
+              <td><code>sockets_used</code></td>
+            </tr>
+            <tr>
+              <td>Message store disk reads</td>
+              <td><code>message_stats.disk_reads</code></td>
+            </tr>
+            <tr>
+              <td>Message store disk writes</td>
+              <td><code>message_stats.disk_writes</code></td>
+            </tr>
+            <tr>
+              <td>Inter-node communication links</td>
+              <td>cluster_links</td>
+            </tr>
+            <tr>
+              <td>GC runs</td>
+              <td><code>gc_num</code></td>
+            </tr>
+            <tr>
+              <td>Bytes reclaimed by GC</td>
+              <td><code>gc_bytes_reclaimed</code></td>
+            </tr>
+            <tr>
+              <td>Erlang process limit</td>
+              <td><code>proc_total</code></td>
+            </tr>
+            <tr>
+              <td>Erlang processes used</td>
+              <td><code>proc_used</code></td>
+            </tr>
+            <tr>
+              <td>Runtime run queue</td>
+              <td><code>run_queue</code></td>
+            </tr>
           </tbody>
         </table>
       </doc:subsection>
@@ -198,8 +342,7 @@ limitations under the License.
         <doc:heading>Individual Queue Metrics</doc:heading>
         <p>
           Individual queue metrics are made available through the <a href="management.html#http-api">HTTP API</a>
-          via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html"><code>api/queues/<i>vhost</i>/<i>qname</i></code></a>
-          endpoint.
+          via the <code>GET /api/queues/{vhost}/{qname}</code> endpoint.
         </p>
 
         <table>
@@ -207,14 +350,42 @@ limitations under the License.
             <tr><td>Metric</td><td>JSON field name</td></tr>
           </thead>
           <tbody>
-            <tr><td>Memory</td><td><code>memory</code></td></tr>
-            <tr><td>Queued Messages</td><td><code>messages</code></td></tr>
-            <tr><td>Un-acked Messages</td><td><code>messages_unacknowledged</code></td></tr>
-            <tr><td>Messages Published</td><td><code>message_stats.publish</code></td></tr>
-            <tr><td>Message Publish Rate</td><td><code>message_stats.publish_details.rate</code></td></tr>
-            <tr><td>Messages Delivered</td><td><code>message_stats.deliver_get</code></td></tr>
-            <tr><td>Message Delivery Rate</td><td><code>message_stats.deliver_get.rate</code></td></tr>
-            <tr><td>Other Message Stats</td><td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td></tr>
+            <tr>
+              <td>Memory</td>
+              <td><code>memory</code></td>
+            </tr>
+            <tr>
+              <td>Total number of messages (ready plus unacknowledged)</td>
+              <td><code>messages</code></td>
+            </tr>
+            <tr>
+              <td>Number of messages ready for delivery</td>
+              <td><code>messages_ready</code></td>
+            </tr>
+            <tr>
+              <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+              <td><code>messages_unacknowledged</code></td>
+            </tr>
+            <tr>
+              <td>Messages published recently</td>
+              <td><code>message_stats.publish</code></td>
+            </tr>
+            <tr>
+              <td>Message publishing rate</td>
+              <td><code>message_stats.publish_details.rate</code></td>
+            </tr>
+            <tr>
+              <td>Messages delivered recently</td>
+              <td><code>message_stats.deliver_get</code></td>
+            </tr>
+            <tr>
+              <td>Message delivery rate</td>
+              <td><code>message_stats.deliver_get.rate</code></td>
+            </tr>
+            <tr>
+              <td>Other message stats</td>
+              <td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td>
+            </tr>
           </tbody>
         </table>
       </doc:subsection>
@@ -230,20 +401,53 @@ limitations under the License.
       <p>
         <table>
           <thead>
-            <tr><td>Plugin</td><td>Online Resource(s)</td></tr>
+            <tr><td>Monitoring Tool</td><td>Online Resource(s)</td></tr>
           </thead>
           <tbody>
-            <tr><td>AppDynamics</td><td><a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>, <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a></td></tr>
-            <tr><td><code>collectd</code></td><td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td></tr>
-            <tr><td>DataDog</td><td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td></tr>
-            <tr><td>Ganglia</td><td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td></tr>
-            <tr><td>Graphite</td><td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td></tr>
-            <tr><td>Munin</td><td><a href="http://munin-monitoring.org/">Munin docs</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td></tr>
-            <tr><td>Nagios</td><td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td></tr>
-            <tr><td>New Relic</td><td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td></tr>
-            <tr><td>Prometheus</td><td><a href="/prometheus.html">Prometheus guide</a>, <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">GitHub</a></td></tr>
-            <tr><td>Zabbix</td><td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td></tr>
-            <tr><td>Zenoss</td><td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td></tr>
+            <tr>
+              <td>AppDynamics</td>
+              <td><a href="https://www.appdynamics.com/community/exchange/extension/rabbitmq-monitoring-extension/">AppDynamics</a>, <a href="https://github.com/Appdynamics/rabbitmq-monitoring-extension">GitHub</a></td>
+            </tr>
+            <tr>
+              <td><code>collectd</code></td>
+              <td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>DataDog</td>
+              <td><a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>, <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>Ganglia</td>
+              <td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>Graphite</td>
+              <td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td>
+            </tr>
+            <tr>
+              <td>Munin</td>
+              <td><a href="http://munin-monitoring.org/">Munin docs</a>, <a href="https://github.com/ask/rabbitmq-munin">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>Nagios</td>
+              <td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>New Relic</td>
+              <td><a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>, <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>Prometheus</td>
+              <td><a href="/prometheus.html">Prometheus guide</a>, <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">GitHub</a></td>
+            </tr>
+            <tr>
+              <td>Zabbix</td>
+              <td><a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Blog article</a></td>
+            </tr>
+            <tr>
+              <td>Zenoss</td>
+              <td><a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>, <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a></td>
+            </tr>
           </tbody>
         </table>
       </p>

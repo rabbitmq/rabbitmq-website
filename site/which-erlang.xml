@@ -276,9 +276,9 @@ limitations under the License.
           can be obtained from:
 
           <ul class="plain">
-            <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a></li>
             <li><a href="https://github.com/rabbitmq/erlang-rpm">Zero dependency Erlang/OTP RPM for RabbitMQ</a></li>
             <li><a href="https://hub.docker.com/_/erlang/">Erlang/OTP Docker images</a></li>
+            <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a></li>
             <li><a href="https://github.com/kerl/kerl">kerl</a></li>
           </ul>
         </p>
@@ -343,7 +343,7 @@ limitations under the License.
         RabbitMQ requires that the same major and minor version of
         Erlang is used across all
         <a href="upgrade.html#rolling-upgrades-version-limitations">cluster nodes</a>
-        (e.g. 19.3.x). RabbitMQ will check for protocol versions of
+        (e.g. 20.3.x). RabbitMQ will check for protocol versions of
         Erlang and its distributed libraries when a node joins a
         cluster, refusing to cluster if there's a potentially
         incompatible combination detected.
