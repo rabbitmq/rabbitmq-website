@@ -83,7 +83,6 @@ limitations under the License.
           <li>TCP connections by state (<code>ESTABLISHED</code>, <code>CLOSE_WAIT</code>, <code>TIME_WAIT</code>)</li>
           <li>Network throughput (bytes received, bytes sent) vs. maximum network link throughput</li>
           <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">VM</a> statistics (dirty page flushes, writeback volume)</li>
-          <li>System load average (<code>/proc/loadavg</code>)</li>
         </ul>
       </p>
 
