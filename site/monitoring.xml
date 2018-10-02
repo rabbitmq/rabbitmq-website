@@ -72,17 +72,18 @@ limitations under the License.
         First step towards a useful monitoring system starts with infrastructure and
         kernel metrics. There are quite a few of them but some are more important than others.
         The following metrics should be monitored on all nodes in a RabbitMQ cluster and, if possible,
-        all nodes that host applications:
+        all instances that host RabbitMQ clients:
 
-        <ul>
-          <li>CPU stats (idle, user, system, iowait)</li>
-          <li>Memory usage (free, cached, buffered)</li>
-          <li>Disk I/O (reads &amp; writes per unit time, I/O wait percentages)</li>
-          <li>Free disk space</li>
+        <ul class="plain">
+          <li>CPU stats (user, system, iowait &amp; idle percentages)</li>
+          <li>Memory usage (used, buffered, cached &amp; free percentages)</li>
+          <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">Virtual Memory</a> statistics (dirty page flushes, writeback volume)</li>
+          <li>Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)</li>
+          <li>Free disk space on the mount used for <code>MNESIA_BASE</code></li>
           <li>File descriptors used by <code>beam.smp</code> vs. <a href="/networking.html#open-file-handle-limit">max system limit</a></li>
           <li>TCP connections by state (<code>ESTABLISHED</code>, <code>CLOSE_WAIT</code>, <code>TIME_WAIT</code>)</li>
-          <li>Network throughput (bytes received, bytes sent) vs. maximum network link throughput</li>
-          <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">VM</a> statistics (dirty page flushes, writeback volume)</li>
+          <li>Network throughput (bytes received, bytes sent) &amp; maximum network throughput)</li>
+          <li>Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)</li>
         </ul>
       </p>
 
