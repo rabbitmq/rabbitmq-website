@@ -87,7 +87,7 @@ limitations under the License.
       </p>
 
       <p>
-        There is no shortage of existing tools (such as Graphite or Datadog) that collect infrastructure
+        There is no shortage of existing tools (such as Prometheus or Datadog) that collect infrastructure
         and kernel metrics, store and visualise them over periods of time.
       </p>
     </doc:section>
