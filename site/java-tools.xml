@@ -64,17 +64,19 @@ limitations under the License.
       </dl>
 
       <doc:subsection name="tracer-download">
-        <doc:heading>Download and source code</doc:heading>
+        <doc:heading>Download and Source Code</doc:heading>
         <p>
-		Releases: 
-                <a href="https://github.com/rabbitmq/rabbitmq-tracer/releases">GitHub releases</a>
-		<a href="https://bintray.com/rabbitmq/java-tools/tracer">Bintray</a>
+		      Releases can be obtained from:
+
+          <ul>
+            <li><a href="https://github.com/rabbitmq/rabbitmq-tracer/releases">GitHub</a></li>
+            <li><a href="https://bintray.com/rabbitmq/java-tools/tracer">Bintray</a></li>
+          </ul>
         </p>
         <p>
-          <a href="https://github.com/rabbitmq/rabbitmq-tracer">Source code</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-tracer">Source repository</a> is hosted on GitHub.
         </p>
       </doc:subsection>
-
     </doc:section>
   </body>
 </html>
