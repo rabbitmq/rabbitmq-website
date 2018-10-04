@@ -43,11 +43,8 @@
     <li>
       <p>
         <em>A queue</em> is the name for a post box which lives inside RabbitMQ.
-
         Although messages flow through RabbitMQ and your applications, they can only be stored inside a <em>queue</em>.
-
         A <em>queue</em> is only bound by the host's memory &amp; disk limits, it's essentially a large message buffer.
-
         Many <em>producers</em> can send messages that go to one queue, and many <em>consumers</em> can try to receive data from one <em>queue</em>.
 
         This is how we represent a queue:
@@ -94,5 +91,8 @@
     </li>
   </ul>
 
-  <p>Note that the producer, consumer, and broker do not have to reside on the same host; indeed in most applications they don't.</p>
+  <p>
+    Note that the producer, consumer, and broker do not have to reside on the same host; indeed in most applications they don't.
+    An application can be both a producer and consumer, too.
+  </p>
 </div>

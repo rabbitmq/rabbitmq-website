@@ -72,7 +72,12 @@ def preprocess_markdown(fpath):
     tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*(-[a-z]*)?.md$', fpath)
     if tutorial is not None:
         tutorial_head = """<div id="left-content" class="tutorial">"""
-        tutorial_foot = """</div><div id="right-nav" class="{0}">
+        tutorial_foot = """
+   <xi:include href="site/tutorials/disclaimer.xml.inc"/>
+   <xi:include href="site/tutorials/getting_help.xml.inc"/>
+   <xi:include href="site/tutorials/contribute.xml.inc"/>
+</div>
+<div id="right-nav" class="{0}">
    <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>""".format(tutorial.group(1))
         processed = tutorial_head + processed + tutorial_foot

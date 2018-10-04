@@ -27,7 +27,7 @@ limitations under the License.
     <doc:section name="classoverview">
       <doc:heading>Overview</doc:heading>
       <p>
-        The <code>queue.bind</code> method binds a queue to an
+        In <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1</a> the <code>queue.bind</code> method binds a queue to an
         exchange so that messages flow (subject to various criteria)
         from the exchange (the <em>source</em>) to the queue (the
         <em>destination</em>). We have introduced an
