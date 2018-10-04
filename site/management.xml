@@ -59,7 +59,7 @@ limitations under the License.
         <p>
           The management plugin is included in the RabbitMQ
           distribution. Like any other <a href="/plugins.html">plugin</a> it must
-          be enabled before it can be ised. That's done using <a
+          be enabled before it can be used. That's done using <a
           href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
 
 <pre class="sourcecode bash">
