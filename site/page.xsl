@@ -183,7 +183,7 @@ limitations under the License.
             <li><a href="/blog/">Blog</a></li>
           </xsl:if>
         </ul>
-        <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq&amp;utm_medium=banner-link&amp;utm_campaign=springone-platform-2018' target="_blank"><img src='/img/promos/S1P-Promo-RabbitMQ-2018.png'/></a>
+        <!-- <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq&amp;utm_medium=banner-link&amp;utm_campaign=springone-platform-2018' target="_blank"><img src='/img/promos/S1P-Promo-RabbitMQ-2018.png'/></a> -->
         <p id="copyright">
           Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
           <a href="https://pivotal.io/legal">Terms of Use</a>,
