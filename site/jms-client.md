@@ -367,6 +367,151 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
+## <a id="rpc-support" class="anchor" href="#rpc-support">Support for Request/Reply (a.k.a. RPC)</a>
+
+It is possible to use JMS for synchronous request/reply use cases.
+This pattern is commonly known as *Remote Procedure Call* or *RPC*.
+
+### With JMS API
+
+An RPC client can be implemented in pure JMS like the following:
+
+<pre class="sourcecode java">
+Message request = ... // create the request message
+// set up reply-to queue and start listening on it
+Destination replyQueue = session.createTemporaryQueue();
+message.setJMSReplyTo(replyQueue);
+MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+responseConsumer.setMessageListener(msg -> queue.add(msg));
+// send request message
+MessageProducer producer = session.createProducer("request.queue");
+producer.send(request);
+// wait response for 5 seconds
+Message response = queue.poll(5, TimeUnit.SECONDS);
+// close the response consumer
+responseConsumer.close();
+</pre>
+
+Note this sample uses a `MessageListener` and a `BlockingQueue` to wait
+for the response. This implies a network roundtrip to register an AMQP
+consumer and another one to close the consumer.
+`MessageConsumer#receive` could have been used as well, in this case the JMS
+client polls the reply destination to get the response, which can result in several
+network roundtrips if the response takes some time to come.
+
+The server part looks like the following:
+
+<pre class="sourcecode java">
+MessageProducer replyProducer = session.createProducer(null);
+MessageConsumer consumer = session.createConsumer("request.queue");
+consumer.setMessageListener(message -> {
+    try {
+        Destination replyQueue = message.getJMSReplyTo();
+        if (replyQueue != null) {
+            // create response and send it
+            Message response = ...
+            replyProducer.send(replyQueue, response);
+        }
+    } catch (JMSException e) {
+        // deal with exception
+    }
+});
+</pre>
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcIT.java)
+for a full RPC example.
+
+The JMS client also supports [direct reply-to](direct-reply-to.html), which is faster as it doesn't imply
+creating a temporary reply destination:
+
+<pre class="sourcecode java">
+Message request = ...
+// use direct reply-to
+RMQDestination replyQueue = new RMQDestination(
+    "amq.rabbitmq.reply-to", "", "amq.rabbitmq.reply-to", "amq.rabbitmq.reply-to"
+);
+replyQueue.setDeclared(true); // don't need to create this destination
+message.setJMSReplyTo(replyQueue);
+MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+responseConsumer.setMessageListener(msg -> queue.add(msg));
+// send request message
+MessageProducer producer = session.createProducer("request.queue");
+producer.send(request);
+// wait response for 5 seconds
+Message response = queue.poll(5, TimeUnit.SECONDS);
+// close the response consumer
+responseConsumer.close();
+</pre>
+
+Using direct reply-to for JMS-based RPC has the following implications:
+
+ * it uses automatically auto-acknowledgment
+ * the response must be a `BytesMessage` or a `TextMessage` as direct reply-to
+ is considered an [AMQP destination](#destination-interoperability). Use `response.setStringProperty("JMSType", "TextMessage")`
+ on the response message in the RPC server if you want to receive a `TextMessage`
+ on the client side.
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcWithAmqpDirectReplyIT.java) for a full RPC example using direct reply-to.
+
+### With Spring JMS
+
+[Spring JMS](https://docs.spring.io/spring/docs/5.1.0.RELEASE/spring-framework-reference/integration.html#jms)
+is a popular way to work with JMS as it avoids most of JMS boilerplate.
+
+The following sample shows how a client can perform RPC with the
+`JmsTemplate`:
+
+<pre class="sourcecode java">
+// NB: do not create a new JmsTemplate for each request
+JmsTemplate tpl = new JmsTemplate(connectionFactory);
+tpl.setReceiveTimeout(5000);
+Message response = tpl.sendAndReceive(
+    "request.queue",
+    session -> ... // create request message in MessageCreator
+);
+</pre>
+
+This is no different from any other JMS client.
+
+RPC with direct reply-to
+must be implemented with a `SessionCallback`, as the reply destination
+must be explicitly declared:
+
+<pre class="sourcecode java">
+// NB: do not create a new JmsTemplate for each request
+JmsTemplate tpl = new JmsTemplate(connectionFactory);
+Message response = tpl.execute(session -> {
+    Message request = ... // create request message
+    // setup direct reply-to as reply-to destination
+    RMQDestination replyQueue = new RMQDestination(
+        "amq.rabbitmq.reply-to", "", "amq.rabbitmq.reply-to", "amq.rabbitmq.reply-to"
+    );
+    replyQueue.setDeclared(true); // don't need to create this destination
+    message.setJMSReplyTo(replyQueue);
+    MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+    BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+    responseConsumer.setMessageListener(msg -> queue.add(msg));
+    // send request message
+    MessageProducer producer = session.createProducer(session.createQueue("request.queue"));
+    producer.send(message);
+    try {
+        // wait response for 5 seconds
+        Message response = queue.poll(2, TimeUnit.SECONDS);
+        // close the response consumer
+        responseConsumer.close();
+        return response;
+    } catch (InterruptedException e) {
+        // deal with exception
+    }
+});
+</pre>
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcSpringJmsIT.java)
+for a full example of RPC with Spring JMS, including using a `@JmsListener` bean
+for the server part.
+
 ## <a id="implementation-details" class="anchor" href="#implementation-details">Implementation Details</a>
 
 This section provides additional implementation details for specific
