@@ -321,6 +321,22 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+      <doc:subsection name="apps-automatic-recovery">
+        <doc:heading>Recovery from Connection Failures</doc:heading>
+        <p>
+          Some client libraries, for example, <a href="/api-guide.html">Java</a>, <a
+          href="/dotnet-api-guide.html">.NET</a> and <a href="http://rubybunny.info">Ruby</a>, support
+          automatic connection recovery after network failures. If the
+          client used provides this feature, it is recommended to use
+          it instead of developing your own recovery mechanism.
+        </p>
+
+        <p>
+          Other clients (Go, Pika) do not support automatic connection recovery as a feature
+          but do provide examples that demonstrate how to recover from connection failures.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="apps-excessive-channel-usage">
         <doc:heading>Excessive Channel Usage</doc:heading>
 
@@ -418,23 +434,11 @@ limitations under the License.
     <doc:section name="networking">
       <doc:heading>Networking Configuration</doc:heading>
 
-      <doc:subsection name="networking-configuration-intro">
-        <p>
-          Production environments may require network configuration
-          tuning. Please refer to the <a href="/networking.html">Networking Guide</a> for details.
-        </p>
-      </doc:subsection>
-
-      <doc:subsection name="networking-configuration-automatic-recovery">
-        <doc:heading>Automatic Connection Recovery</doc:heading>
-        <p>
-          Some client libraries, for example, <a href="/api-guide.html">Java</a>, <a
-          href="/dotnet-api-guide.html">.NET</a>, and <a href="http://rubybunny.info">Ruby</a> ones, support
-          automatic connection recovery after network failures. If the
-          client used provides this feature, it is recommended to use
-          it instead of developing your own recovery mechanism.
-        </p>
-      </doc:subsection>
+      <p>
+        Production environments may require network configuration
+        tuning, for example, to sustain a high number of concurrent clients.
+        Please refer to the <a href="/networking.html">Networking Guide</a> for details.
+      </p>
     </doc:section>
 
 
