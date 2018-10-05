@@ -280,12 +280,10 @@ limitations under the License.
         <doc:heading>Connection Management</doc:heading>
 
         <p>
-          While messaging protocols generally assume long-lived connections.
-          Applications, however, must close connections they no longer use.
-          For a long running consumer application that might be before it stops.
-          For apps that open connections more often it is important to close
-          them when they are no longer used. Note that closing a connection
-          automatically closes all channels on it.
+          Messaging protocols generally assume long-lived connections. Some applications
+          connect to RabbitMQ on start and only close the connection(s) when they have to terminate.
+          Others open and close connections more dynamically. For the latter group it is important to close
+          them when they are no longer used.
         </p>
 
         <p>
@@ -344,6 +342,10 @@ limitations under the License.
           Channels also consume resources in both client and server. Applications should minimize
           the number of channels they use when possible and close channels that are no longer necessary.
           Channels, like connections, are meant to be long lived.
+        </p>
+
+        <p>
+          Note that closing a connection automatically closes all channels on it.
         </p>
       </doc:subsection>
     </doc:section>
