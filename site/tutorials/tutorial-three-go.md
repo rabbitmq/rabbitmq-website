@@ -2,8 +2,8 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -320,7 +320,6 @@ import (
 func failOnError(err error, msg string) {
         if err != nil {
                 log.Fatalf("%s: %s", msg, err)
-                panic(fmt.Sprintf("%s: %s", msg, err))
         }
 }
 
@@ -394,7 +393,6 @@ import (
 func failOnError(err error, msg string) {
         if err != nil {
                 log.Fatalf("%s: %s", msg, err)
-                panic(fmt.Sprintf("%s: %s", msg, err))
         }
 }
 

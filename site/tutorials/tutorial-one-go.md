@@ -2,8 +2,8 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -80,14 +80,13 @@ import (
 )
 </pre>
 
-We also need an helper function to check the return value for each 
+We also need an helper function to check the return value for each
 amqp call:
 
 <pre class="sourcecode go">
 func failOnError(err error, msg string) {
   if err != nil {
     log.Fatalf("%s: %s", msg, err)
-    panic(fmt.Sprintf("%s: %s", msg, err))
   }
 }
 </pre>
@@ -181,7 +180,6 @@ import (
 func failOnError(err error, msg string) {
   if err != nil {
     log.Fatalf("%s: %s", msg, err)
-    panic(fmt.Sprintf("%s: %s", msg, err))
   }
 }
 </pre>
@@ -215,7 +213,7 @@ the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. Since it will push us messages asynchronously, we will read 
+queue. Since it will push us messages asynchronously, we will read
 the messages from a channel (returned by `amqp::Consume`) in a goroutine.
 
 <pre class="sourcecode go">
