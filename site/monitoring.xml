@@ -474,6 +474,22 @@ limitations under the License.
       <p>
         Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. Spring AMQP)
         provide means of registering metrics collectors or collect metrics out of the box.
+        With others developers have to track metrics in their application code.
+      </p>
+      <p>
+        What metrics applications track can be system-specific but some are relevant
+        to most systems:
+
+        <ul>
+          <li/>Connection opening rate</li>
+          <li/>Channel opening rate</li>
+          <li/>Connection failure (recovery) rate</li>
+          <li/>Publishing rate</li>
+          <li/>Delivery rate</li>
+          <li/>Positive delivery acknowledgement rate</li>
+          <li/>Negative delivery acknowledgement rate</li>
+          <li/>Mean/95th percentile delivery processing latency</li>
+        </ul>
       </p>
     </doc:section>
 
