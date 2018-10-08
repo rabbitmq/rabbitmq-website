@@ -24,22 +24,14 @@ with some [extensions and restrictions](#pear).
 
 ## <a id="ifb" class="anchor" href="#ifb">Installing from binary</a>
 
-The STOMP adapter is included in the RabbitMQ distribution.  To enable
-it, use [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+The STOMP plugin is included in the RabbitMQ distribution. Before clients can successfully
+connect, it must be enabled using [rabbitmq-plugins](/cli.html):
 
 <pre class="sourcecode bash">
 rabbitmq-plugins enable rabbitmq_stomp
 </pre>
 
-## <a id="caifs" class="anchor" href="#caifs">Compiling and installing from source</a>
-
-To build the STOMP adapter from source, follow the instructions for
-building the umbrella repository contained in the
-[Plugin Development Guide](/plugin-development.html).
-
-You need to install the `rabbitmq_stomp.ez` and `amqp_client.ez` packages.
-
-## <a id="cta" class="anchor" href="#cta">Configuring the adapter</a>
+## <a id="cta" class="anchor" href="#cta">Configuration</a>
 
 When no configuration is specified the STOMP Adapter will listen on
 all interfaces on port 61613 and have a default user login/passcode

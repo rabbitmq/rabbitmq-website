@@ -35,8 +35,8 @@ tweak the defaults.
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
-The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+The MQTT plugin is included in the RabbitMQ distribution. Before clients can successfully
+connect, it must be enabled using [rabbitmq-plugins](/cli.html):
 
 <pre class="sourcecode bash">
 rabbitmq-plugins enable rabbitmq_mqtt
