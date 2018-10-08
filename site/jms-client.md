@@ -393,12 +393,20 @@ Message response = queue.poll(5, TimeUnit.SECONDS);
 responseConsumer.close();
 </pre>
 
+It's also possible to create a single reply-to destination instead of
+a temporary destination for each request. This is more efficient but requires
+to properly correlate the response with the request, by using e.g.
+a correlation ID header. RabbitMQ's [direct reply-to](direct-reply-to.html)
+is another alternative (see below).
+
 Note this sample uses a `MessageListener` and a `BlockingQueue` to wait
 for the response. This implies a network roundtrip to register an AMQP
 consumer and another one to close the consumer.
 `MessageConsumer#receive` could have been used as well, in this case the JMS
-client polls the reply destination to get the response, which can result in several
-network roundtrips if the response takes some time to come.
+client internally polls the reply destination to get the response, which can result in several
+network roundtrips if the response takes some time to come. The request
+call will also incur a constant penalty equals to the polling interval (100 milliseconds
+by default).
 
 The server part looks like the following:
 
