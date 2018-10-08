@@ -21,8 +21,12 @@ RabbitMQ supports [STOMP](http://stomp.github.com) via a plugin that ships
 in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](http://stomp.github.com/stomp-specification-1.2.html)
 with some [extensions and restrictions](#pear).
 
+STOMP clients can interoperate with other protocols. All the functionality in
+the [management UI](/management.html) and several other plugins can be
+used with STOMP, although there may be some limitations or the need to
+tweak the defaults.
 
-## <a id="ifb" class="anchor" href="#ifb">Installing from binary</a>
+## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The STOMP plugin is included in the RabbitMQ distribution. Before clients can successfully
 connect, it must be enabled using [rabbitmq-plugins](/cli.html):

@@ -29,7 +29,7 @@ RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 * Retained messages with pluggable storage backends
 
 MQTT clients can interoperate with other protocols. All the functionality in
-the [management UI](/management.html) and several other clients can be
+the [management UI](/management.html) and several other plugins can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
