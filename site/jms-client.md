@@ -403,6 +403,9 @@ network roundtrips if the response takes some time to come.
 The server part looks like the following:
 
 <pre class="sourcecode java">
+// this is necessary when using temporary reply-to destinations
+connectionFactory.setDeclareReplyToDestination(false);
+...
 MessageProducer replyProducer = session.createProducer(null);
 MessageConsumer consumer = session.createConsumer("request.queue");
 consumer.setMessageListener(message -> {
@@ -418,6 +421,12 @@ consumer.setMessageListener(message -> {
     }
 });
 </pre>
+
+Note the `connectionFactory.setDeclareReplyToDestination(false)`
+statement: it is necessary when using temporary reply-to destinations.
+If this flag is not set to `false` on the RPC server side, the JMS
+client will try to re-create the temporary reply-to destination, which will
+interfere with the client-side declaration.
 
 See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcIT.java)
 for a full RPC example.
@@ -474,6 +483,10 @@ Message response = tpl.sendAndReceive(
 </pre>
 
 This is no different from any other JMS client.
+
+The `JmsTemplate` uses a temporary reply-to destination,
+so the call to `connectionFactory.setDeclareReplyToDestination(false)`
+on the RPC server side is necessary, just like with regular JMS.
 
 RPC with direct reply-to
 must be implemented with a `SessionCallback`, as the reply destination
