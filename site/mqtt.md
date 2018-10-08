@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ MQTT Adapter NOSYNTAX
+# MQTT Plugin NOSYNTAX
 
-RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec).
+RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
 ## <a id="smf" class="anchor" href="#smf"> Supported MQTT 3.1.1 features</a>
 

@@ -15,14 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ STOMP Plugin NOSYNTAX
+# STOMP Plugin NOSYNTAX
 
-The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
-protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
-[STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html),
-[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) and
-[STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
-with some extensions and restrictions (described [here](#pear)).
+RabbitMQ supports [STOMP](http://stomp.github.com) via a plugin that ships
+in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](http://stomp.github.com/stomp-specification-1.2.html)
+with some [extensions and restrictions](#pear).
 
 
 ## <a id="ifb" class="anchor" href="#ifb">Installing from binary</a>
