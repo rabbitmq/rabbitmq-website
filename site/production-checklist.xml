@@ -31,16 +31,21 @@ limitations under the License.
         parameters. Some configurations make a lot of sense for
         development but are not really suitable for production.  No
         single configuration fits every use case.  It is, therefore,
-        important to assess your configuration before going into
-        production. This guide aims to help with that.
+        important to assess system configuration before going into production.
       </p>
 
       <p>
         Production systems have concerns that go beyond configuration:
-        a certain degree of system visibility (monitoring, metrics)
-        and security (e.g. firewalls, credentials and shared secret
-        generation) are essential. This guide provides a brief
+        a certain degree of system observability (<a href="#monitoring-and-resource-usage">monitoring</a>, metrics),
+        <a href="#apps">application resource usage</a> and <a href="#security-considerations">security</a>
+        (e.g. firewalls, credentials and shared secret generation) are essential. This guide provides an
         overview of such topics as well.
+      </p>
+
+      <p>
+        <a href="/monitoring.html">Monitoring</a> and metrics the foundation of a production-grade system.
+        Besides helping detect issues, it provides the oprator data that can be used
+        to size and configure both RabbitMQ nodes and applications.
       </p>
     </doc:section>
 
@@ -95,19 +100,32 @@ limitations under the License.
     </doc:section>
 
 
-
-    <doc:section name="resource-limits">
-      <doc:heading>Resource Limits and Monitoring</doc:heading>
+    <doc:section name="monitoring-and-resource-usage">
+      <doc:heading>Monitoring and Resource Limits</doc:heading>
 
       <p>
-        RabbitMQ uses <a href="/alarms.html">Resource-driven alarms</a>
-        to throttle publishers when consumers do not keep up.
+        RabbitMQ nodes are limited by various resources, both physical
+        (e.g. the amount of RAM available) as well as software (e.g. max number of file handles a process can open).
         It is important to evaluate resource limit configurations before
-        going into production.
+        going into production and continuously monitor resource usage after that.
       </p>
+
+      <doc:subsection name="monitoring">
+        <doc:heading>Monitoring</doc:heading>
+        <p>
+          <a href="/monitoring.html">Monitoring</a> several aspects of the system, from
+          infrastructure and kernel metrics to RabbitMQ to application-level metrics is essential.
+          While monitoring requires an upfront investment in terms of time, it is very effective
+          at catching issues and noticing potentially problematic trends early (or at all).
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="resource-limits-ram">
         <doc:heading>Memory</doc:heading>
+        <p>
+          RabbitMQ uses <a href="/alarms.html">Resource-driven alarms</a>
+          to throttle publishers when consumers do not keep up.
+        </p>
         <p>
           By default, RabbitMQ will not accept any new messages when it detects
           that it's using more than 40% of the available memory (as reported by the OS):
@@ -226,21 +244,108 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="monitoring">
-        <doc:heading>Monitoring</doc:heading>
-        <p>
-          <a href="/monitoring.html">Monitoring</a> several aspects of the system, from
-          infrastructure and kernel metrics to RabbitMQ to application-level metrics is highly recommended.
-          While monitoring requires an upfront investment in terms of time, it is very effective
-          at catching issues early (or at all).
-        </p>
-      </doc:subsection>
-
       <doc:subsection name="logging">
         <doc:heading>Log Collection</doc:heading>
         <p>
           It is highly recommended that logs of all RabbitMQ nodes and applications (when possible) are collected
           and aggregated. Logs can be crucially important in investigating unusual system behaviour.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="apps">
+      <doc:heading>Application Considerations</doc:heading>
+
+      <p>
+        The way applications are designed and use RabbitMQ client libraries
+        is a major contributor to the overall system resilience. Applications
+        that use resourcees inefficiently or leak them will eventually affect the
+        rest of the system. For example, an app that continously opens connections
+        but never closes them will exhaust cluster nodes out of file descriptors so
+        no new connections will be accepted. This and similar problems can
+        manifest themselves in more complex scenarios, e.g those collectively
+        known as the thundering herd problem.
+      </p>
+
+      <p>
+        This section covers a number of most common problems. Most of these problems
+        are generally not protocol-specific or new. They can be hard to detect, however.
+        Adequate <a href="/monitoring.html">monitoring</a> of the system is critically
+        important as it is the only way to spot problematic trends
+        (e.g. channel leaks, growing file descriptor usage from poor connection management) early.
+      </p>
+
+      <doc:subsection name="apps-connection-management">
+        <doc:heading>Connection Management</doc:heading>
+
+        <p>
+          Messaging protocols generally assume long-lived connections. Some applications
+          connect to RabbitMQ on start and only close the connection(s) when they have to terminate.
+          Others open and close connections more dynamically. For the latter group it is important to close
+          them when they are no longer used.
+        </p>
+
+        <p>
+          Connections can be closed for reasons outside of application developer's control.
+          Messaging protocols supported by RabbitMQ use a feature called <a href="/heartbeats.html">heartbeats</a> (the name
+          may vary but the concept does not) to detect such connections quicker than the TCP stack.
+          Developers should be careful about using heartbeat timeout that are too low (less than 5 seconds)
+          as that may producee false positives when network congestion or system load goes up.
+        </p>
+
+        <p>
+          Very short lived connections should be avoided when possible. The following section
+          will cover this in more detail.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="apps-connection-churn">
+        <doc:heading>Connection Churn</doc:heading>
+
+        <p>
+          As mentioned above, messaging protocols generally assume long-lived connections. Some applications
+          may open a new connection to perform a single operation (e.g. publish a message) and then close it.
+          This is highly inefficient as opening a connection is an expensive operation (compared to reusing
+          an existing one). Such workload also leads to <a href="/networking.html#dealing-with-high-connection-churn">connection churn</a>.
+          Nodes experiencing high connection churn must be tuned to release TCP connections much quicker than
+          kernel defaults, otherwise they will eventually run out of file handles or memory and will stop
+          accepting new connections.
+        </p>
+
+        <p>
+          If a small number of long lived connections is not an option, connection pooling can help
+          reduce peak resource usage.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="apps-automatic-recovery">
+        <doc:heading>Recovery from Connection Failures</doc:heading>
+        <p>
+          Some client libraries, for example, <a href="/api-guide.html">Java</a>, <a
+          href="/dotnet-api-guide.html">.NET</a> and <a href="http://rubybunny.info">Ruby</a>, support
+          automatic connection recovery after network failures. If the
+          client used provides this feature, it is recommended to use
+          it instead of developing your own recovery mechanism.
+        </p>
+
+        <p>
+          Other clients (Go, Pika) do not support automatic connection recovery as a feature
+          but do provide examples that demonstrate how to recover from connection failures.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="apps-excessive-channel-usage">
+        <doc:heading>Excessive Channel Usage</doc:heading>
+
+        <p>
+          Channels also consume resources in both client and server. Applications should minimize
+          the number of channels they use when possible and close channels that are no longer necessary.
+          Channels, like connections, are meant to be long lived.
+        </p>
+
+        <p>
+          Note that closing a connection automatically closes all channels on it.
         </p>
       </doc:subsection>
     </doc:section>
@@ -328,26 +433,14 @@ limitations under the License.
     </doc:section>
 
 
-    <doc:section name="Networking Configuration">
+    <doc:section name="networking">
       <doc:heading>Networking Configuration</doc:heading>
 
-      <doc:subsection name="networking-configuration-intro">
-        <p>
-          Production environments may require network configuration
-          tuning. Please refer to the <a href="/networking.html">Networking Guide</a> for details.
-        </p>
-      </doc:subsection>
-
-      <doc:subsection name="networking-configuration-automatic-recovery">
-        <doc:heading>Automatic Connection Recovery</doc:heading>
-        <p>
-          Some client libraries, for example, <a href="/api-guide.html">Java</a>, <a
-          href="/dotnet-api-guide.html">.NET</a>, and <a href="http://rubybunny.info">Ruby</a> ones, support
-          automatic connection recovery after network failures. If the
-          client used provides this feature, it is recommended to use
-          it instead of developing your own recovery mechanism.
-        </p>
-      </doc:subsection>
+      <p>
+        Production environments may require network configuration
+        tuning, for example, to sustain a high number of concurrent clients.
+        Please refer to the <a href="/networking.html">Networking Guide</a> for details.
+      </p>
     </doc:section>
 
 
