@@ -481,14 +481,14 @@ limitations under the License.
         to most systems:
 
         <ul>
-          <li/>Connection opening rate</li>
-          <li/>Channel opening rate</li>
-          <li/>Connection failure (recovery) rate</li>
-          <li/>Publishing rate</li>
-          <li/>Delivery rate</li>
-          <li/>Positive delivery acknowledgement rate</li>
-          <li/>Negative delivery acknowledgement rate</li>
-          <li/>Mean/95th percentile delivery processing latency</li>
+          <li>Connection opening rate</li>
+          <li>Channel opening rate</li>
+          <li>Connection failure (recovery) rate</li>
+          <li>Publishing rate</li>
+          <li>Delivery rate</li>
+          <li>Positive delivery acknowledgement rate</li>
+          <li>Negative delivery acknowledgement rate</li>
+          <li>Mean/95th percentile delivery processing latency</li>
         </ul>
       </p>
     </doc:section>
