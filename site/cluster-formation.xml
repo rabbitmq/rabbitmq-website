@@ -107,18 +107,17 @@ rabbitmq-plugins --offline enable [plugin name]
       </doc:subsection>
 
       <doc:subsection name="peer-discovery-configuring-mechanism">
-        <doc:heading>Specifying Peer Discovery Mechanism</doc:heading>
+        <doc:heading>Specifying the Peer Discovery Mechanism</doc:heading>
 
         <p>
-          The discovery mechanism to use is specified in the <a
-            href="/configure.html">config file</a>, as are mechanism-specific
-          settings, for example, discovery service hostnames, credentials, and so
+          The discovery mechanism to use is specified in the <a href="/configure.html">config file</a>,
+          as are various mechanism-specific settings, for example, discovery service hostnames, credentials, and so
           on. <code>cluster_formation.peer_discovery_backend</code> is the key
           that controls what discovery module (implementation) is used:
 
-  <pre class="sourcecode ini">
-  cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
-  </pre>
+<pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+</pre>
 
           The module has to implement the <a
             href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
