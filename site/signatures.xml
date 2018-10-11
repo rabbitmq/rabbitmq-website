@@ -28,10 +28,10 @@ limitations under the License.
 
        <p class="intro">
          This guide covers RabbitMQ release packages signing and how to verify the signatures on
-         downloaded releasee artifacts.
+         downloaded release artifacts.
        </p>
        <p>
-         Release signing allows users verify that the artifacts they have downloaded
+         Release signing allows users to verify that the artifacts they have downloaded
          were published by a trusted party (such as a team or package distribution
          service). This can be using GPG command line tools. Package management tools such as <code>apt</code> and <code>yum</code>
          verify package signing, too.
