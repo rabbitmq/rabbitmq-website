@@ -279,12 +279,12 @@ rpm --import https://packagecloud.io/gpg.key
         </p>
 
         <p>
-          Before the Yum repository can be used, its signing key must be imported first. This makes
-          RPM tools trust the signature on the packages provided in the repository. To do so,
+          Before the Yum repository can be used, <a href="/signatures.html">RabbitMQ signing key</a> must be imported first.
+          This makes RPM tools trust the signature on the packages provided in the repository. To do so,
           run <code>rpm --import</code> as a superuser:
 
 <pre class="sourcecode bash">
-rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 </pre>
         </p>
 
