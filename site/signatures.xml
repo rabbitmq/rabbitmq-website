@@ -23,57 +23,89 @@ limitations under the License.
     <title>Signatures</title>
   </head>
   <body>
-    <p class="intro">
-      This page describes the signing process used when building
-      RabbitMQ release packages, and how to verify the signatures on
-      downloaded releasee artifacts.
-    </p>
+    <doc:section name="intro">
+	     <doc:heading>Intro</doc:heading>
 
-    <doc:section name="signing-process">
+       <p class="intro">
+         This guide covers RabbitMQ release packages signing and how to verify the signatures on
+         downloaded release artifacts.
+       </p>
+       <p>
+         Release signing allows users to verify that the artifacts they have downloaded
+         were published by a trusted party (such as a team or package distribution
+         service). This can be done using GPG command line tools. Package management tools such as <code>apt</code> and <code>yum</code>
+         also verify repository signatures.
+       </p>
+    </doc:section>
+
+
+    <doc:section name="signing-keys">
+      <doc:heading>Signing Keys</doc:heading>
       <p>
         RabbitMQ release artifacts, both binary and source,
         are signed using <a href="http://www.gnupg.org/">GnuPG</a> and <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">our release signing key</a>.
       </p>
+      <p>
+        Services that distribute packages can do signing on behalf of the publisher. <a href="#package-cloud">Package Cloud</a> is one such
+        service used by RabbitMQ. Users who provision packages from Package Cloud must import the Package Cloud-provided signing keys
+        instead of those used by the RabbitMQ team.
+      </p>
     </doc:section>
 
-    <doc:section name="importing-gpg-key">
-	     <doc:heading>Importing the Signing Key</doc:heading>
-	     <p>
-	        Before signatures can be verified, RabbitMQ <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">signing key</a> must be downloaded.
-          This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
+    <doc:section name="importing-gpg-keys">
+      <doc:heading>Importing Signing Keys</doc:heading>
 
-<pre class="sourcecode bash">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
-	     </p>
+      <doc:subsection name="importing-gpg">
+        <doc:heading>With GPG</doc:heading>
+        <p>
+          Before signatures can be verified, RabbitMQ <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">signing key</a>
+          must be downloaded. This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
 
-       <p>
-         On Debian and Ubuntu systems, assuming that <a href="/install-debian.html">apt repositories</a> are used for installation,
-         <code>apt-key</code> should be used:
-
-<pre class="sourcecode bash">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
-       </p>
-
-	     <p>
-	        Alternatively the key can be downloaded directly from <a href="https://github.com/rabbitmq/signing-keys/releases/">GitHub</a> or
-          <a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">Bintray</a>
-          or <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">rabbitmq.com</a>:
 <pre class="sourcecode bash">
-wget https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+gpg --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+</pre>
+        </p>
+
+        <p>
+   	  Alternatively the key can be downloaded directly from <a href="https://github.com/rabbitmq/signing-keys/releases/">GitHub</a>
+          or <a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">Bintray</a>
+          or <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">rabbitmq.com</a>:
+
+<pre class="sourcecode bash">
+curl -L https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc --output rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc
 </pre>
         </p>
-      </doc:section>
+      </doc:subsection>
 
-      <doc:section name="checking-signatures">
-	       <doc:heading>Verifying Signatures</doc:heading>
-	       <p>
-	          To check signatures for the packages, use <code>gpg --verify</code>:
+      <doc:subsection name="importing-apt">
+        <doc:heading>With apt</doc:heading>
+        <p>
+          On Debian and Ubuntu systems, assuming that <a href="/install-debian.html">apt repositories</a> are used for installation,
+          <code>apt-key</code> should be used to import the keys:
+
+<pre class="sourcecode bash">
+apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA
+</pre>
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="checking-signatures">
+      <doc:heading>Verifying Signatures</doc:heading>
+      <p>
+        To check signatures for the packages, download the RabbitMQ signing key
+        and a signature file. Signature files use the <code>.asc</code> extension that follows their artifact filename,
+        e.g. the signature file of <code>rabbitmq-server-generic-unix-3.7.8.tar.xz</code> would be <code>rabbitmq-server-generic-unix-3.7.8.tar.xz.asc</code>.
+
+        Then use <code>gpg --verify</code>:
 
 <pre class="sourcecode bash">gpg --verify [filename].asc [filename]</pre>
-	       </p>
-      	 <p>
-      	    Here's an example session, after having retrieved a RabbitMQ
-      	    source archive and its associated detached signature from
-      	    the download area:
+      </p>
+      <p>
+      	Here's an example session, after having retrieved a RabbitMQ
+      	source archive and its associated detached signature from
+      	the download area:
 
 <pre class="sourcecode bash">
 gpg --verify rabbitmq-server_3.7.8-1_all.deb.asc rabbitmq-server_3.7.8-1_all.deb
@@ -86,25 +118,59 @@ Primary key fingerprint: 4E30 C634 2FB4 AF5C 6334  2330 79A1 D640 D80A 61F0
      Subkey fingerprint: 5EC4 26E8 A6F3 523D D924  8FC8 EDF4 AE3B 59B0 46FA
 gpg: binary signature, digest algorithm SHA512
 </pre>
-      	 </p>
-        <p>
-	         If the signature is invalid, a "BAD signature"
-	         message will be emitted. If that's the case the origin of the package,
-           the signature file and the signing key should be carefully verified.
-           Packages that fail signature verification must not be used.
-	      </p>
-        <p>
-          If the signature is valid, you should expect a "Good
-          signature" message; if you've not signed our key, you will
-          see a "Good signature" message along with a warning about
-          our key being untrusted.
-        </p>
-        <p>
-	        If you trust the RabbitMQ signing key you avoid the warning output by
-	        GnuPG by signing it using your own key (to create your private key run <code>gpg --gen-key</code>):
+      </p>
+      <p>
+        If the signature is invalid, a "BAD signature"
+        message will be emitted. If that's the case the origin of the package,
+        the signature file and the signing key should be carefully verified.
+        Packages that fail signature verification must not be used.
+      </p>
+      <p>
+        If the signature is valid, you should expect a "Good
+        signature" message; if you've not signed our key, you will
+        see a "Good signature" message along with a warning about
+        our key being untrusted.
+      </p>
+      <p>
+	If you trust the RabbitMQ signing key you avoid the warning output by
+	GnuPG by signing it using your own key (to create your private key run <code>gpg --gen-key</code>):
 
-<pre class="sourcecode bash">gpg --sign-key 0x6B73A36E6026DFCA</pre>
-        </p>
-      </doc:section>
+<pre class="sourcecode bash">
+gpg --sign-key 0x6B73A36E6026DFCA
+</pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="package-cloud">
+      <doc:heading>Package Cloud</doc:heading>
+      <p>
+        <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> is a hosted package distribution
+        service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
+        must be imported with GPG, <code>apt-key</code> and similar tools. Package Cloud provides repository
+        setup script that include signing key import.
+      </p>
+      <p>
+        As of late 2018 Package Cloud is undergoing a signing key migration. Instead of relying on a "master key",
+        projects will migrate to use repository-specific signing keys. Before the migration is completed,
+        both old and new key must be imported for forward compatibility:
+
+<pre class="sourcecode bash">
+# import the new PackageCloud key that will be used starting December 1st, 2018 (GMT)
+curl -L https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey \
+  -O packagecloud-rabbitmq-key.asc -s
+gpg --import packagecloud-rabbitmq-gpg-key.asc
+
+# import the old PackageCloud key that will be discontinued on December 1st, 2018 (GMT)
+curl -L https://packagecloud.io/gpg.key \
+  -O packagecloud-legacy-key.asc -s
+gpg --import packagecloud-legacy-key.asc
+</pre>
+      </p>
+
+      <p>
+        After importing both keys please follow the <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> repository
+        setup instructions.
+      </p>
+    </doc:section>
   </body>
 </html>
