@@ -33,8 +33,8 @@ limitations under the License.
        <p>
          Release signing allows users to verify that the artifacts they have downloaded
          were published by a trusted party (such as a team or package distribution
-         service). This can be using GPG command line tools. Package management tools such as <code>apt</code> and <code>yum</code>
-         verify package signing, too.
+         service). This can be done using GPG command line tools. Package management tools such as <code>apt</code> and <code>yum</code>
+         also verify repository signatures.
        </p>
     </doc:section>
 
