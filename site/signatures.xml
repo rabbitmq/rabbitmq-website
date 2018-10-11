@@ -94,7 +94,7 @@ apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026D
     <doc:section name="checking-signatures">
       <doc:heading>Verifying Signatures</doc:heading>
       <p>
-	To check signatures for the packages, download the RabbitMQ signing key
+        To check signatures for the packages, download the RabbitMQ signing key
         and a signature file. Signature files use the <code>.asc</code> extension that follows their artifact filename,
         e.g. the signature file of <code>rabbitmq-server-generic-unix-3.7.8.tar.xz</code> would be <code>rabbitmq-server-generic-unix-3.7.8.tar.xz.asc</code>.
 
@@ -120,8 +120,8 @@ gpg: binary signature, digest algorithm SHA512
 </pre>
       </p>
       <p>
-	If the signature is invalid, a "BAD signature"
-	message will be emitted. If that's the case the origin of the package,
+        If the signature is invalid, a "BAD signature"
+        message will be emitted. If that's the case the origin of the package,
         the signature file and the signing key should be carefully verified.
         Packages that fail signature verification must not be used.
       </p>
