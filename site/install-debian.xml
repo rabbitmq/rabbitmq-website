@@ -202,7 +202,15 @@ limitations under the License.
        <p>
          In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
 
-         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+         <pre class="sourcecode shell">
+         apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA
+         </pre>
+
+         The key can be downloaded and imported without involving a key server:
+
+<pre class="sourcecode shell">
+wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo apt-key add -
+</pre>
 
          This will instruct apt to trust packages signed by that key.
        </p>
@@ -374,10 +382,6 @@ Pin-Priority: 1000
        <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">Package Cloud</a>.
      </p>
 
-     <p>
-
-     </p>
-
      <doc:subsection name="bintray-apt-repo">
        <doc:heading>Using Bintray Apt Repository</doc:heading>
 
@@ -387,9 +391,17 @@ Pin-Priority: 1000
 
        <h4>Signing Key</h4>
        <p>
-         In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
+        In order to use the repository, add <a href="/signatures.html">RabbitMQ signing key</a> to <code>apt-key</code>:
 
-         <pre class="sourcecode shell">wget -O - 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc' | sudo apt-key add -</pre>
+<pre class="sourcecode shell">
+apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA
+</pre>
+
+         The key can be downloaded and imported without involving a key server:
+
+<pre class="sourcecode shell">
+wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo apt-key add -
+</pre>
 
          This will instruct apt to trust packages signed by that key.
        </p>
@@ -509,11 +521,23 @@ sudo apt-get install rabbitmq-server
         </p>
 
         <p>
-          Package Cloud signs distributed packages using their own GPG key.
+          Package Cloud signs distributed packages using their own GPG keys.
+          As of late 2018 Package Cloud is undergoing a signing key migration. Instead of relying on a "master key",
+          projects will migrate to use repository-specific signing keys. Before the migration is completed,
+          both old and new key must be imported for forward compatibility:
+
+<pre class="sourcecode bash">
+# import the new PackageCloud key that will be used starting December 1st, 2018 (GMT)
+rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+
+# import the old PackageCloud key that will be discontinued on December 1st, 2018 (GMT)
+rpm --import https://packagecloud.io/gpg.key
+</pre>
         </p>
 
         <p>
-          Package Cloud Debian repository can be used in combination with <a href="#bintray-apt-repo-erlang">Erlang installed from the Bintray repository</a>.
+          After importing both keys please follow the <a href="https://packagecloud.io/rabbitmq/install">Package Cloud</a> repository
+          setup instructions.
         </p>
       </doc:subsection>
    </doc:section>
@@ -524,14 +548,10 @@ sudo apt-get install rabbitmq-server
 
      <p>
        In some cases it may easier to download the package and install it manually. The package can be downloaded
-       from Bintray or GitHub.
+       from GitHub.
      </p>
 
      <r:downloads signature="yes">
-       <r:download signature="yes" absolute="yes" url="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
-                   downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
-         .deb for Debian-based Linux (from <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Bintray</a>)
-       </r:download>
        <r:download signature="no" absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
                    downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
          .deb for Debian-based Linux (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>)
