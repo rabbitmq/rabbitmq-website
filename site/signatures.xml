@@ -62,7 +62,7 @@ limitations under the License.
           must be downloaded. This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
 
 <pre class="sourcecode bash">
-gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA
+gpg --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
         </p>
 
