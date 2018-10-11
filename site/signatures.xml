@@ -152,9 +152,8 @@ gpg --sign-key 0x6B73A36E6026DFCA
       <p>
         As of late 2018 Package Cloud is undergoing a signing key migration. Instead of relying on a "master key",
         projects will migrate to use repository-specific signing keys. Before the migration is completed,
-        both old and new key must be imported for forward compatibility.
-      </p>
-      <p>
+        both old and new key must be imported for forward compatibility:
+
 <pre class="sourcecode bash">
 # import the new PackageCloud key that will be used starting December 1st, 2018 (GMT)
 curl -L https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey \
