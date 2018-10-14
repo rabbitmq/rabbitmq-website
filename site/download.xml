@@ -45,8 +45,8 @@ limitations under the License.
             </li>
             <li>
               Windows:
-                <a href="install-windows.html">With installer (recommended)</a> |
-                <a href="install-windows-manual.html">Manual</a>
+                <a href="install-windows.html">Installer (recommended)</a> |
+                <a href="install-windows-manual.html">Binary build</a>
             </li>
             <li>
               MacOS:
