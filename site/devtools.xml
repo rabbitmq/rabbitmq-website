@@ -171,6 +171,13 @@ limitations under the License.
             </ul>
           </doc:section>
 
+          <doc:section name="rust-dev">
+            <doc:heading>Rust</doc:heading>
+            <ul class="plain">
+              <a href="https://github.com/sozu-proxy/lapin">Lapin</a>, a Rust client
+            </ul>
+          </doc:section>
+          
           <doc:section name="alt-jvm-dev">
             <doc:heading>Other JVM Languages</doc:heading>
             <h4>Scala</h4>
@@ -182,7 +189,7 @@ limitations under the License.
                 <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
-                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, a new (mid-2015), optinionated Akka-based RabbitMQ
+                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, an optinionated Akka-based RabbitMQ
                 client for Scala.
               </li>
               <li>

@@ -536,7 +536,7 @@ rpm --import https://packagecloud.io/gpg.key
         </p>
 
         <p>
-          After importing both keys please follow the <a href="https://packagecloud.io/rabbitmq/install">Package Cloud</a> repository
+          After importing both keys please follow the <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">Package Cloud</a> repository
           setup instructions.
         </p>
       </doc:subsection>
