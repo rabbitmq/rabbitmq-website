@@ -28,7 +28,7 @@ limitations under the License.
     <p>
       Unlike some other installation methods, namely the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM packages</a>, RabbitMQ
       generic UNIX binary build does not require <code>sudo</code>. It can be uncompressed
-      into any location and started and managed using the tools under <code>sbin</code>.
+      into any location and started and managed using the scripts and <a href="/cli.html">CLI tools</a> under <code>sbin</code>.
       Default <a href="/relocate.html">data directory location</a> will be under <code>./var</code>,
       that is, in the installation directory.
     </p>
