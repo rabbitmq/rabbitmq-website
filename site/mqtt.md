@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# RabbitMQ MQTT Adapter NOSYNTAX
+# MQTT Plugin NOSYNTAX
 
-RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec).
+RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
 ## <a id="smf" class="anchor" href="#smf"> Supported MQTT 3.1.1 features</a>
 
@@ -29,14 +29,14 @@ RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec)
 * Retained messages with pluggable storage backends
 
 MQTT clients can interoperate with other protocols. All the functionality in
-the [management UI](/management.html) and several other clients can be
+the [management UI](/management.html) and several other plugins can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
-The MQTT adapter is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+The MQTT plugin is included in the RabbitMQ distribution. Before clients can successfully
+connect, it must be enabled using [rabbitmq-plugins](/cli.html):
 
 <pre class="sourcecode bash">
 rabbitmq-plugins enable rabbitmq_mqtt

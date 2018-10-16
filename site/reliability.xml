@@ -155,8 +155,8 @@ limitations under the License.
       <p>
         Mirrored queues replicate their contents across all configured cluster
         nodes, tolerating node failures seamlessly and without message loss
-        (although see <a href="ha.html#unsynchronised-slaves">this note on
-        unsynchronised slaves</a>). However, consuming applications need to be
+        (although see <a href="ha.html#unsynchronised-mirrors">this note on
+        unsynchronised mirrors</a>). However, consuming applications need to be
         aware that when queues fail their consumers will be cancelled and they
         will need to reconsume - see <a href="ha.html#behaviour">the
         documentation</a> for more details.
@@ -262,7 +262,7 @@ limitations under the License.
         node failures. Federation will automatically distribute links across
         the downstream cluster and fail them over on failure of a downstream
         node. In order to connect to a new upstream when an upstream
-        node fails you can specify multiple redundant URIs for an upstream,
+        node fails, you can specify multiple redundant URIs for an upstream,
         or connect via a TCP load balancer.
       </p>
       <p>

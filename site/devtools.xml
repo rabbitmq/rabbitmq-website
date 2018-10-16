@@ -133,6 +133,10 @@ limitations under the License.
                 <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
                 (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
               </li>
+              <li>
+                <a href="https://pypi.org/project/aioamqp/">aioamqp</a>, a pure-Python AMQP 0-9-1 library using asyncio
+                (the <a href="https://github.com/Polyconseil/aioamqp">source code</a> is on github and the <a href="https://aioamqp.readthedocs.io/en/latest/">docs</a> are on Read the Docs)
+              </li>
             </ul>
           </doc:section>
 
@@ -167,6 +171,13 @@ limitations under the License.
             </ul>
           </doc:section>
 
+          <doc:section name="rust-dev">
+            <doc:heading>Rust</doc:heading>
+            <ul class="plain">
+              <a href="https://github.com/sozu-proxy/lapin">Lapin</a>, a Rust client
+            </ul>
+          </doc:section>
+          
           <doc:section name="alt-jvm-dev">
             <doc:heading>Other JVM Languages</doc:heading>
             <h4>Scala</h4>
@@ -178,7 +189,7 @@ limitations under the License.
                 <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
-                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, a new (mid-2015), optinionated Akka-based RabbitMQ
+                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, an optinionated Akka-based RabbitMQ
                 client for Scala.
               </li>
               <li>

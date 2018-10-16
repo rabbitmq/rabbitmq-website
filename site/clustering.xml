@@ -543,7 +543,7 @@ Cluster status of node rabbit@rabbit3 ...
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
-            It is important to understand the process node go though when
+            It is important to understand the process node go through when
             they are stopped and restarted.
           </p>
 

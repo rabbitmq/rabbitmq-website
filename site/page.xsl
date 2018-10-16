@@ -76,7 +76,7 @@ limitations under the License.
       <script type="text/javascript" src="/js/site.js"></script>
       <!-- <script type="text/javascript" src="/js/ga-bootstrap.js"></script> -->
 
-      <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
+      <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
@@ -109,10 +109,15 @@ limitations under the License.
                     any other topic related to RabbitMQ, don't hesitate to ask them
                     on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
                   </p>
+                </div>
+
+                <div id="contribute">
+                  <h2>Help Us Improve the Docs &lt;3</h2>
 
                   <p>
-                    Documentation feedback is also very welcome on the list. If you'd like to contribute an improvement
-                    to the site, its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                    If you'd like to contribute an improvement to the site,
+                    its source is <a href="https://github.com/rabbitmq/rabbitmq-website">available on GitHub</a>.
+                    Simply fork the repository and submit a pull request. Thank you!
                   </p>
                 </div>
               </div>
@@ -178,7 +183,7 @@ limitations under the License.
             <li><a href="/blog/">Blog</a></li>
           </xsl:if>
         </ul>
-        <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq&amp;utm_medium=banner-link&amp;utm_campaign=springone-platform-2018' target="_blank"><img src='/img/promos/S1P-Promo-RabbitMQ-2018.png'/></a>
+        <!-- <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq&amp;utm_medium=banner-link&amp;utm_campaign=springone-platform-2018' target="_blank"><img src='/img/promos/S1P-Promo-RabbitMQ-2018.png'/></a> -->
         <p id="copyright">
           Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
           <a href="https://pivotal.io/legal">Terms of Use</a>,

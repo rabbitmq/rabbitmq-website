@@ -216,20 +216,6 @@ limitations under the License.
     </doc:section>
 
 
-    <doc:section name="ways-to-configure">
-      <doc:heading>How Mirroring is Configured</doc:heading>
-
-      <p>
-        Mirroring parameters are configured using <a href="/parameters.html#policies">policies</a>. A policy matches
-        one or more queues by name (using a regular expression pattern) and
-        contains a definition (a map of optional arguments) that are added to the total set of
-        properties of the matching queues.
-        Please see <a href="/parameters.html#policies">Runtime Parameters and Policies</a>
-        for more information on policies.
-      </p>
-    </doc:section>
-
-
     <doc:section name="how-to-check-i-a-queue-is-mirrored">
       <doc:heading>How to Check if a Queue is Mirrored?</doc:heading>
 
@@ -921,7 +907,7 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             Since RabbitMQ 3.6.0, masters perform synchronisation in
             batches. Batch can be configured via the
             <code>ha-sync-batch-size</code> queue argument.  Earlier
-            versions will will synchronise <code>1</code> message at a
+            versions will synchronise <code>1</code> message at a
             time by default.  By synchronising messages in batches,
             the synchronisation process can be sped up considerably.
           </p>

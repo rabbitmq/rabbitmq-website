@@ -1319,9 +1319,18 @@ factory.setTopologyRecoveryEnabled(false);
             begins after a configurable delay, 5 seconds by
             default. This design assumes that even though a lot of
             network failures are transient and generally short
-            lived, they do not go away in an instant. Connection recovery
-            attempts will continue at identical time intervals until
+            lived, they do not go away in an instant. Having a delay
+            also avoids an inherent race conditon between server-side resource
+            cleanup (such as <a href="/queues.html">exclusive or auto-delete queue</a> deletion)
+            and operations performed on a newly opened connection on the same resources.
+          </p>
+          <p>
+            Connection recovery attempts by default will continue at identical time intervals until
             a new connection is successfully opened.
+            Recovery delay can be made dynamic by providing a <code>RecoveryDelayHandler</code>
+            implementation instance to <code>ConnectionFactory#setRecoveryDelayHandler</code>.
+            Implementations that use dynamically computed delay intervals should avoid
+            values that are too low (as a rule of thumb, lower than 2 seconds).
           </p>
           <p>
             When a connection is in the recovering state, any
@@ -1698,7 +1707,7 @@ factory.useSslProtocol();
         To learn more about TLS support in RabbitMQ, see
         the <a href="ssl.html">TLS guide</a>. If you only want to configure
         the Java client (especially the peer verification and trust manager parts),
-        read <a href="ssl.html#trust-levels">the appropriate section</a> of the TLS guide.
+        read <a href="ssl.html#java-client">the appropriate section</a> of the TLS guide.
       </p>
     </doc:section>
   </body>

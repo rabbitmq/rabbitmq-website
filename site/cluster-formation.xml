@@ -38,7 +38,9 @@ limitations under the License.
         and focuses on the peer discovery subsystem.
         For example, it will not cover what <a href="/networking.html">ports must be
         open</a> for inter-node communication, how nodes authenticate to each other, and so on.
-        Besides discovery mechanisms, this guide also covers the problem of <a href="#initial-formation-race-condition">initial
+        Besides discovery mechanisms and <a href="#configuring">their configuration</a>,
+        this guide also covers a closely related topic of <a href="#rejoining">rejoining nodes</a>,
+        the problem of <a href="#initial-formation-race-condition">initial
         cluster formation</a> with nodes booting in parallel as well as <a href="#node-health-checks-and-cleanup">additional health checks</a> offered
         by some discovery implementations.
       </p>
@@ -50,7 +52,7 @@ limitations under the License.
 
 
     <doc:section name="peer-discovery">
-      <doc:heading>How Peer Discovery Works</doc:heading>
+      <doc:heading>What is Peer Discovery?</doc:heading>
 
       <p>
         To form a cluster, new ("blank") nodes need to be able to discover
@@ -67,105 +69,129 @@ limitations under the License.
         Inability to reach the service will lead to node's inability to join the cluster.
       </p>
 
-      <p>
-        The discovery mechanism to use is specified in the <a
-          href="/configure.html">config file</a>, as are mechanism-specific
-        settings, for example, discovery service hostnames, credentials, and so
-        on. <code>cluster_formation.peer_discovery_backend</code> is the key
-        that controls what discovery module (implementation) is used:
+      <doc:subsection name="peer-discovery-plugins">
+        <doc:heading>Available Discovery Mechanisms</doc:heading>
 
-        <pre class="sourcecode ini">
+        <p>
+          The following mechanisms are built into the core and always available:
+
+          <ul class="plain">
+            <li><a href="#peer-discovery-classic-config">Config file</a></li>
+            <li><a href="#peer-discovery-dns">Pre-configured DNS A/AAAA records</a></li>
+          </ul>
+        </p>
+
+        <p>
+          Additional peer discovery mechanisms are available via plugins. The following
+          peer discovery plugins ship with RabbitMQ as of 3.7.0:
+
+          <ul class="plain">
+            <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
+            <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
+            <li><a href="#peer-discovery-consul">Consul</a></li>
+            <li><a href="#peer-discovery-etcd">etcd</a></li>
+          </ul>
+        </p>
+
+        <p>
+          The above plugins do not need to be installed but like all <a href="/plugins.html">plugins</a> they do need
+          to be enabled before node start using <a href="/cli.html">rabbitmq-plugins</a>' <code>--offline</code> mode:
+
+<pre class="sourcecode ini">
+rabbitmq-plugins --offline enable [plugin name]
+</pre>
+
+          A node with configuration settings that belong a non-enabled peer discovery plugin will fail
+          to start and report those settings as unknown.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="peer-discovery-configuring-mechanism">
+        <doc:heading>Specifying the Peer Discovery Mechanism</doc:heading>
+
+        <p>
+          The discovery mechanism to use is specified in the <a href="/configure.html">config file</a>,
+          as are various mechanism-specific settings, for example, discovery service hostnames, credentials, and so
+          on. <code>cluster_formation.peer_discovery_backend</code> is the key
+          that controls what discovery module (implementation) is used:
+
+<pre class="sourcecode ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 </pre>
 
-        The module has to implement the <a
-          href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
-        behaviour. Plugins therefore can introduce their own discovery
-        mechanisms.
-      </p>
+          The module has to implement the <a
+            href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
+          behaviour. Plugins therefore can introduce their own discovery
+          mechanisms.
+        </p>
+      </doc:subsection>
 
-      <p>
-        The following mechanisms are built into the core:
+      <doc:subsection name="peer-discovery-how-does-it-work">
+        <doc:heading>How Peer Discovery Works</doc:heading>
 
-        <ul class="plain">
-          <li><a href="#peer-discovery-classic-config">Config file</a></li>
-          <li><a href="#peer-discovery-dns">Pre-configured DNS A/AAAA records</a></li>
-        </ul>
-      </p>
+        <p>
+          When a node starts and detects it doesn't have a previously
+          initialised database, it will check if there's a peer
+          discovery mechanism configured. If that's the case, it will
+          then perform the discovery and attempt to contact each
+          discovered peer in order. Finally, it will attempt to join the
+          cluster of the first reachable peer.
+        </p>
 
-      <p>
-        Additional peer discovery mechanisms are available via plugins. The following
-        peer discovery plugins ship with RabbitMQ as of 3.7.0:
+        <p>
+          Depending on the backend (mechanism) used, the process of peer discovery may involve
+          contacting external services, for example, an AWS API endpoint, a Consul node or
+          performing a DNS query. Some backends require nodes to register (tell the backend that the
+          node is up and should be counted as a cluster member): for example, Consul and etcd both
+          support registration. With other backends the list of nodes is configured ahead of
+          time (e.g. config file). Those backends are said to not support node registration.
 
-        <ul class="plain">
-          <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
-          <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
-          <li><a href="#peer-discovery-consul">Consul</a></li>
-          <li><a href="#peer-discovery-etcd">etcd</a></li>
-        </ul>
-      </p>
+          In some cases node registration is implicit or managed by an external service.
+          AWS autoscaling groups is a good example: AWS keeps track of group membership,
+          so nodes don't have to (or cannot) explicitly register. However, the list of cluster members
+          is not predefined. Such backends usually include a no-op registration step
+          and apply one of the <a href="#initial-formation-race-condition">race condition mitigation mechanisms</a> described below.
+        </p>
 
-      <p>
-        The above plugins do not need to be installed but they need
-        to be enabled before node start using <a href="">rabbitmq-plugins</a>' <code>--offline</code> mode:
+        <p>
+          When a cluster is first formed and there are no registered nodes yet,
+          a natural race condition between booting
+          nodes occurs. Different backends <a href="#initial-formation-race-condition">address this problem</a>
+          differently: some try to acquire a lock with an external service, others rely on randomized
+          delays. This problem does not apply to the backends that require listing all nodes ahead of time.
+        </p>
 
-        <pre class="sourcecode ini">
-rabbitmq-plugins --offline enable [plugin name]
-</pre>
-      </p>
+        <p>
+          When the configured backend supports registration, nodes unregister when they stop.
+        </p>
 
-      <p>
-        When a node starts and detects it doesn't have a previously
-        initialised database, it will check if there's a peer
-        discovery mechanism configured. If that's the case, it will
-        then perform the discovery and attempt to contact each
-        discovered peer in order. Finally, it will attempt to join the
-        cluster of the first reachable peer.
-      </p>
+        <p>
+          If peer discovery isn't configured, or it fails, or no peers are reachable,
+          a node that wasn't a cluster member in the past
+          will initialise from scratch and proceed as a standalone node.
+        </p>
 
-      <p>
-        Depending on the backend (mechanism) used, the process of peer discovery may involve
-        contacting external services, for example, an AWS API endpoint, a Consul node or
-        performing a DNS query. Some backends require nodes to register (tell the backend that the
-        node is up and should be counted as a cluster member): for example, Consul and etcd both
-        support registration. With other backends the list of nodes is configured ahead of
-        time (e.g. config file). Those backends are said to not support node registration.
-
-        In some cases node registration is implicit or managed by an external service.
-        AWS autoscaling groups is a good example: AWS keeps track of group membership,
-        so nodes don't have to (or cannot) explicitly register. However, the list of cluster members
-        is not predefined. Such backends usually include a no-op registration step
-        and apply one of the <a href="#initial-formation-race-condition">race condition mitigation mechanisms</a> described below.
-      </p>
-
-      <p>
-        When a cluster is first formed and there are no registered nodes yet,
-        a natural race condition between booting
-        nodes occurs. Different backends <a href="#initial-formation-race-condition">address this problem</a>
-        differently: some try to acquire a lock with an external service, others rely on randomized
-        delays. This problem does not apply to the backends that require listing all nodes ahead of time.
-      </p>
-
-      <p>
-        When the configured backend supports registration, nodes unregister when they stop.
-      </p>
-
-      <p>
-        If peer discovery isn't configured, or it fails, or no peers are reachable,
-        a node that wasn't a cluster member in the past
-        will initialise from scratch and proceed as a standalone node.
-      </p>
-
-      <p>
-        If a node previously was a cluster member, it will try to contact
-        its "last seen" peer for a period of time. In this case, no peer discovery
-        will be performed. This is true for all backends.
-      </p>
+        <p>
+          If a node previously was a cluster member, it will try to contact
+          its "last seen" peer for a period of time. In this case, no peer discovery
+          will be performed. This is true for all backends.
+        </p>
+      </doc:subsection>
     </doc:section>
 
 
     <doc:section name="rejoining">
-      <doc:heading>Peer Rejoining Timeout</doc:heading>
+      <doc:heading>Rejoining Nodes</doc:heading>
+
+      <p>
+        A new node joining a cluster is just one possible case. Another common scenario
+        is when an existing cluster member temporarily leaves and then rejoins the cluster.
+      </p>
+
+      <p>
+        Existing cluster members <strong>will not perform peer discovery</strong>. Instead they will try to
+        contact their previously known peers.
+      </p>
 
       <p>
         If a node previously was a cluster member, when it boots it will try to contact
@@ -177,7 +203,49 @@ rabbitmq-plugins --offline enable [plugin name]
         respectively, or 5 minutes total. In environments where nodes can take a long and/or uneven
         time to start it is recommended that the number of retries is increased.
       </p>
+
+      <p>
+        If a node is reset since losing contact with the cluster, it will behave <a href="#peer-discovery-how-does-it-work">like a blank node</a>.
+        Note that other cluster members might still consider it to be a cluster member, in which case
+        there two sides will disagree and the node will fail to join. Such reset nodes must also be
+        removed from the cluster using <a href="/cli.html">rabbitmqctl forget_cluster_node</a> executed against
+        an existing cluster member.
+      </p>
+
+      <p>
+        If a node was explicitly removed from the cluster by the operator and then reset,
+        it can rejoin the cluster. In this case it will behave exactly
+        <a href="#peer-discovery-how-does-it-work">like a blank node</a> would.
+      </p>
     </doc:section>
+
+
+    <doc:section name="configuring">
+      <doc:heading>How to Configure Peer Discovery</doc:heading>
+
+      <p>
+        Peer discovery plugins are configured just like the core server and other
+        plugins: using a <a href="/configure.html">config file</a>.
+      </p>
+
+      <p>
+        <code>cluster_formation.peer_discovery_backend</code> is the key that <a href="#peer-discovery-configuring-mechanism">controls what
+        peer discovery backend will be used</a>. Each backend will also have a number of
+        configuration settings specific to it. The rest of the guide will cover configurable settings specific to a particular mechanism
+        as well as provide examples for each one.
+      </p>
+
+      <p>
+        Environment variables can also be used to configure several mechanisms for easier
+        migration from <code>rabbitmq-autocluster</code>. This method is highly discouraged,
+        however: using environment variables is more error prone compared to the config file,
+        and it is harder to <a href="/configure.html#verify-configuration-effective-configuration">verify effective configuration</a>.
+        Only those <a href="/upgrade.html">migrating</a> clusters that use <code>rabbitmq-autocluster</code> should
+        use environment variables for peer discoveery configuration, this guide leaves them out. Variable
+        names are the same as used by <code>rabbitmq-autocluster</code>.
+      </p>
+    </doc:section>
+
 
     <doc:section name="peer-discovery-classic-config">
       <doc:heading>Config File Peer Discovery Backend</doc:heading>
@@ -503,7 +571,7 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 
       <p>
         When a list of peer nodes is computed from a list of pod containers returned by Kubernetes,
-        either contain hostnames or IP addresses can be used. This is configurable using the
+        either hostnames or IP addresses can be used. This is configurable using the
         <code>cluster_formation.k8s.address_type</code> key:
 
         <pre class="sourcecode ini">
@@ -841,6 +909,36 @@ cluster_formation.consul.domain_suffix = example.local
         With this setup node names will be computed to <code>rabbit@192.168.100.1.node.example.local</code>
         instead of <code>rabbit@192.168.100.1</code>.
       </p>
+
+      <p>
+        When a node tries to acquire a lock on boot and the lock is already taken,
+        it will wait for the lock to become available for a limited amount of time. Default value is 300
+        seconds but it can be configured:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# lock acquisition timeout in seconds
+# default: 300
+# cluster_formation.consul.lock_wait_time is an alias
+cluster_formation.consul.lock_timeout = 60
+</pre>
+      </p>
+
+      <p>
+        Lock key prefix is <code>rabbitmq</code> by default. It can also be overridden:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+cluster_formation.consul.lock_timeout = 60
+# should the Consul key used for locking be prefixed with something
+# other than "rabbitmq"?
+cluster_formation.consul.lock_prefix = environments-qa
+</pre>
+      </p>
     </doc:section>
 
     <doc:section name="peer-discovery-etcd">
@@ -949,7 +1047,7 @@ cluster_formation.etcd.ttl = 40
 
       <p>
         When a node tries to acquire a lock on boot and the lock is already taken,
-        it will wait for the lock to be come available with a timeout. Default value is 300
+        it will wait for the lock to become available for a limited amount of time. Default value is 300
         seconds but it can be configured:
 
         <pre class="sourcecode ini">
@@ -958,7 +1056,8 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 cluster_formation.etcd.host = etcd.eng.example.local
 # lock acquisition timeout in seconds
 # default: 300
-cluster_formation.etcd.lock_wait_time = 60
+# cluster_formation.consul.lock_wait_time is an alias
+cluster_formation.etcd.lock_timeout = 60
 </pre>
       </p>
     </doc:section>
@@ -1003,24 +1102,60 @@ cluster_formation.etcd.lock_wait_time = 60
         Sometimes a node is a cluster member but not known to the discovery backend.
         For example, consider a cluster that uses the AWS backend configured to use autoscaling group membership.
         If an EC2 instance in that group fails and is later re-created, it will be considered
-        an unavailable node in the RabbitMQ cluster. Such unknown nodes can be logged or forcefully
-        removed from the cluster.
+        an unavailable node in the RabbitMQ cluster. With some peer discovery backends
+        such unknown nodes can be logged or forcefully removed from the cluster.
+        They are
+
+        <ul class="plain">
+          <li><a href="#peer-discovery-aws">AWS (EC2)</a></li>
+          <li><a href="#peer-discovery-k8s">Kubernetes</a></li>
+          <li><a href="#peer-discovery-consul">Consul</a></li>
+          <li><a href="#peer-discovery-etcd">etcd</a></li>
+        </ul>
       </p>
+
       <p>
         Forced node removal can be dangerous and should be carefully considered. For example,
         a node that's temporarily unavailable but will be rejoining (or recreated with its
         persistent storage re-attached from its previous incarnation) can be kicked
         out of the cluster permanently by automatic cleanup, thus failing to rejoin.
       </p>
+
+      <p>
+        Before enabling the configuration keys covered below make sure that a compatible
+        peer discovery plugin is enabled. If that's not the case the node will report
+        the settings to be unknown and will fail to start.
+      </p>
+
       <p>
         To log warnings for the unknown nodes,
         <code>cluster_formation.node_cleanup.only_log_warning</code> should be set to
-        <code>true</code>. This is the default behavior.
+        <code>true</code>:
+
+<pre class="sourcecode ini">
+# Don't remove cluster members unknown to the peer discovery backend but log
+# warnings.
+#
+# This setting can only be used if a compatible peer discovery plugin is enabled.
+cluster_formation.node_cleanup.only_log_warning = true
+</pre>
+
+        This is the default behavior.
       </p>
       <p>
         To forcefully delete the unknown nodes from the cluster,
         <code>cluster_formation.node_cleanup.only_log_warning</code> should be set to
-        <code>false</code>. Note that this option should be used with care, in particular
+        <code>false</code>.
+
+<pre class="sourcecode ini">
+# Forcefully remove cluster members unknown to the peer discovery backend. Once removed,
+# the nodes won't be able to rejoin. Use this mode with great care!
+#
+# This setting can only be used if a compatible peer discovery plugin is enabled.
+cluster_formation.node_cleanup.only_log_warning = false
+</pre>
+
+        Note that this option should be used with care, in particular
         with discovery backends other than AWS.
       </p>
 

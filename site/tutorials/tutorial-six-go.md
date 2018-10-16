@@ -2,8 +2,8 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -34,6 +34,26 @@ In this tutorial we're going to use RabbitMQ to build an RPC system: a
 client and a scalable RPC server. As we don't have any time-consuming
 tasks that are worth distributing, we're going to create a dummy RPC
 service that returns Fibonacci numbers.
+
+> #### A note on RPC
+>
+> Although RPC is a pretty common pattern in computing, it's often criticised.
+> The problems arise when a programmer is not aware
+> whether a function call is local or if it's a slow RPC. Confusions
+> like that result in an unpredictable system and adds unnecessary
+> complexity to debugging. Instead of simplifying software, misused RPC
+> can result in unmaintainable spaghetti code.
+>
+> Bearing that in mind, consider the following advice:
+>
+>  * Make sure it's obvious which function call is local and which is remote.
+>  * Document your system. Make the dependencies between components clear.
+>  * Handle error cases. How should the client react when the RPC server is
+>    down for a long time?
+>
+> When in doubt avoid RPC. If you can, you should use an asynchronous
+> pipeline - instead of RPC-like blocking, results are asynchronously
+> pushed to a next computation stage.
 
 ### Callback queue
 
@@ -219,7 +239,6 @@ import (
 func failOnError(err error, msg string) {
         if err != nil {
                 log.Fatalf("%s: %s", msg, err)
-                panic(fmt.Sprintf("%s: %s", msg, err))
         }
 }
 
@@ -297,7 +316,7 @@ func main() {
         }()
 
         log.Printf(" [*] Awaiting RPC requests")
-        &lt;forever
+        &lt;-forever
 }
 </pre>
 
@@ -332,7 +351,6 @@ import (
 func failOnError(err error, msg string) {
         if err != nil {
                 log.Fatalf("%s: %s", msg, err)
-                panic(fmt.Sprintf("%s: %s", msg, err))
         }
 }
 
@@ -452,7 +470,7 @@ service, but it has some important advantages:
 
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `rpc_server.go` in a new console.
- * On the client side, the RPC requires sending and receiving only one message. 
+ * On the client side, the RPC requires sending and receiving only one message.
    As a result the RPC client needs only one network round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more

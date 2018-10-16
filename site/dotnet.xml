@@ -124,16 +124,5 @@ fcb943b5.
       you will need an appropriate .NET SDK available and follow
       the <a href="/build-dotnet-client.html">build instructions</a>.
     </p>
-
-
-
-    <h2>Getting Help</h2>
-    <p>
-      Questions about RabbitMQ .NET client, suggestions and general feedback are welcome
-      on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
-    </p>
-    <p>
-      For commercial support from Pivotal, please <a href="contact.html">contact sales</a>.
-    </p>
   </body>
 </html>
