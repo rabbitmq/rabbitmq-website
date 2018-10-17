@@ -237,7 +237,7 @@ cf.RequestedHeartbeat = 60;
         time against premature closure by proxies and load balancers.
       </p>
       <p>
-        Heartbeat timeouts below 30 seconds will produce periodic
+        Heartbeat timeouts of 30 seconds will produce periodic
         network traffic often enough (roughly every 15 seconds)
         to satisfy defaults of most proxy and load balancers.
         Also see the section on low timeouts and false positives above.
