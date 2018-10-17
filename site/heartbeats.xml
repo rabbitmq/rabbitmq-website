@@ -34,7 +34,7 @@ limitations under the License.
         disrupted connections (and also completely unresponsive
         peers). Heartbeats also defend against certain network
         equipment which may terminate "idle" TCP connections when
-        there's no activity on them for a certain period of time.
+        there is no activity on them for a certain period of time.
       </p>
 
       <p>
@@ -129,8 +129,8 @@ cf.RequestedHeartbeat = 60;
       <doc:heading>Low Timeout Values and False Positives</doc:heading>
       <p>
         Setting heartbeat timeout value too low can lead to false
-        positives (peer being considered unavailable while it really
-        isn't the case) due to transient network congestion,
+        positives (peer being considered unavailable while it is not
+        really the case) due to transient network congestion,
         short-lived server flow control, and so on.
 
         This should be taken into consideration when picking a timeout
@@ -226,8 +226,8 @@ cf.RequestedHeartbeat = 60;
       <doc:heading>Heartbeats and TCP Proxies</doc:heading>
       <p>
         Certain networking tools (HAproxy, AWS ELB) and equipment
-        (hardware load balancers) which may terminate "idle" TCP
-        connections when there's no activity on them for a certain
+        (hardware load balancers) may terminate "idle" TCP
+        connections when there is no activity on them for a certain
         period of time. Most of the time it is not desirable.
       </p>
       <p>
