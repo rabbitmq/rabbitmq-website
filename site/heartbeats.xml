@@ -49,7 +49,7 @@ limitations under the License.
     <doc:section name="heartbeats-timeout">
       <doc:heading>Heartbeat Timeout Value</doc:heading>
       <p>
-        The heartbeat timeout value defines after what period of time
+        The <code>heartbeat timeout</code> value defines after what period of time
         the peer TCP connection should be considered unreachable (down) by RabbitMQ
         and client libraries. This value is negotiated between the
         client and RabbitMQ server at the time of connection. The
@@ -60,7 +60,7 @@ limitations under the License.
         (<code>580</code> prior to release 3.5.5).
       </p>
       <p>
-        Heartbeat frames are sent about every <code>timeout / 2</code>
+        Heartbeat frames are sent about every <code>heartbeat timeout / 2</code>
         seconds. This value is sometimes referred to as the <code>heartbeat interval</code>.
         After two missed heartbeats, the peer is considered
         to be unreachable. Different clients manifest this differently
@@ -237,9 +237,9 @@ cf.RequestedHeartbeat = 60;
         time against premature closure by proxies and load balancers.
       </p>
       <p>
-        Heartbeat timeouts from 10 to 30 seconds will produce periodic
-        network traffic often enough (roughly every 5 to 15 seconds))
-        to satisfy defaults of most proxy tools and load balancers.
+        Heartbeat timeouts below 30 seconds will produce periodic
+        network traffic often enough (roughly every 15 seconds)
+        to satisfy defaults of most proxy and load balancers.
         Also see the section on low timeouts and false positives above.
       </p>
     </doc:section>
