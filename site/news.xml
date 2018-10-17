@@ -52,8 +52,8 @@ limitations under the License.
           error.
         </p>
         <p>
-          Services and tools that use RabbitMQ's own <a href="/signatures.html">release signing key</a> are not affected
-          by this transition.
+          Services and tools that do not use PackageCloud (and thus rely on RabbitMQ's own <a href="/signatures.html">release signing key</a> for signing)
+          are not affected by this transition.
         </p>
         <p>
           As always, we welcome any questions, bug reports, and other feedback
