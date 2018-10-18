@@ -37,7 +37,7 @@ limitations under the License.
       <p>
         <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/rabbitmq.rb">RabbitMQ formula</a> is available from
         <a href="https://brew.sh/">Homebrew</a>'s core tap (out of the box).
-        The formula will also install a reasonably recent Erlang/OTP version
+        The formula will also install a reasonably recent <a href="/which-erlang.html">supported Erlang/OTP version</a>
         as a dependency.
       </p>
     </doc:section>
@@ -57,6 +57,11 @@ brew update
 <pre class="sourcecode shell">
 brew install rabbitmq
 </pre>
+      </p>
+
+      <p>
+        Installing the RabbitMQ formula will install key dependencies such
+        as a <a href="/which-erlang.html">supported Erlang/OTP version</a>.
       </p>
     </doc:section>
 
