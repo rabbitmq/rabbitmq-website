@@ -67,7 +67,7 @@ limitations under the License.
     <doc:section name="installation">
       <doc:heading>Installation</doc:heading>
 
-      <doc:subsection name="install">
+      <doc:subsection name="install-erlang">
         <doc:heading>Make Sure Erlang/OTP is Installed</doc:heading>
         <p>
           This package requires a <a href="/which-erlang.html">supported version of Erlang</a> to be installed
@@ -90,7 +90,6 @@ limitations under the License.
       <xi:include href="running-generic-unix.xml.inc"/>
       <xi:include href="generic-unix-file-locations.xml.inc"/>
     </doc:section>
-
 
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
