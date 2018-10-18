@@ -56,8 +56,7 @@ limitations under the License.
     <h3>Version</h3>
 
     <p>
-      The current release of the RabbitMQ .NET/C# client library is <b>&version-dotnet-client;</b>.
-      It is recommended to use the <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>.
+      The most recent release of the RabbitMQ .NET client library is <b>&version-dotnet-client;</b> (<a href="https://www.nuget.org/packages/RabbitMQ.Client">on NuGet</a>).
       Release notes can be found on the <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases">GitHub releases page</a>.
     </p>
 
