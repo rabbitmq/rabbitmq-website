@@ -203,10 +203,13 @@ limitations under the License.
               <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
             </li>
             <li>
-              <a href="&dir-current-javadoc;">Javadoc</a>
+              <a href="/api-guide.html">API guide</a>
             </li>
             <li>
-              <a href="java-client.html">All Java client downloads</a>
+              <a href="&dir-current-javadoc;">API reference</a> (JavaDoc)
+            </li>
+            <li>
+              <a href="java-client.html">License and other information</a>
             </li>
             <li>
               <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
@@ -230,8 +233,16 @@ limitations under the License.
 
           <ul>
             <li>
-              On NuGet:
-              <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+              On NuGet: <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+            </li>
+            <li>
+              <a href="/dotnet-api-guide.html">API guide</a>
+            </li>
+            <li>
+              <a href="https://rabbitmq.github.io/rabbitmq-dotnet-client/">API reference</a>
+            </li>
+            <li>
+              <a href="dotnet.html">License and other information</a>
             </li>
             <li>
               <a href="releases/&dir-dotnet-client;">Older versions</a>
