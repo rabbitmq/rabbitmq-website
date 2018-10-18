@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -24,16 +24,16 @@ limitations under the License.
   <doc:heading>Run RabbitMQ Server</doc:heading>
   <div class="instructions">
     <h4>Overview</h4>
-    
+
     <p>
       Unlike some other installation methods, namely the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM packages</a>, RabbitMQ
       generic UNIX binary build does not require <code>sudo</code>. It can be uncompressed
-      into any location and started and managed using the tools under <code>sbin</code>.
+      into any location and started and managed using the scripts and <a href="/cli.html">CLI tools</a> under <code>sbin</code>.
       Default <a href="/relocate.html">data directory location</a> will be under <code>./var</code>,
       that is, in the installation directory.
     </p>
 
-    <h4>Start the Server</h4>    
+    <h4>Starting the Server</h4>
     <p>
       To start the server, run the <code>sbin/rabbitmq-server</code> script. This
       displays a short banner message, concluding with the message
@@ -44,6 +44,13 @@ limitations under the License.
       To start the server in "detached" mode, use
       <code>rabbitmq-server -detached</code>. This will run
       the node process in the background.
+    </p>
+
+    <h4>Stopping the Server</h4>    
+    <p>
+      To top a running node, use <code>sbin/rabbitmqctl shutdown</code>. The command
+      will wait for the node process to stop. If the target node is not running,
+      it will exit with an error.
     </p>
   </div>
 

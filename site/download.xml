@@ -45,8 +45,8 @@ limitations under the License.
             </li>
             <li>
               Windows:
-                <a href="install-windows.html">With installer (recommended)</a> |
-                <a href="install-windows-manual.html">Manual</a>
+                <a href="install-windows.html">Installer (recommended)</a> |
+                <a href="install-windows-manual.html">Binary build</a>
             </li>
             <li>
               MacOS:
@@ -136,7 +136,7 @@ limitations under the License.
           <li><a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">Release Signing Key</a> <code>0x6B73A36E6026DFCA</code> (on GitHub)</li>
           <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
           <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on rabbitmq.com)</li>
-          <li><a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on Bintray)</li>
+          <li><a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on Bintray)</li>
         </ul>
       </doc:section>
 
