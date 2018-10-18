@@ -239,7 +239,7 @@ cf.RequestedHeartbeat = 60;
       <p>
         With a heartbeat timeout of 30 seconds the connection will produce periodic
         network traffic roughly every 15 seconds. Activity in the 5 to 15 second range
-        is enough to satisfy the defaults of most popular proxy and load balancers.
+        is enough to satisfy the defaults of most popular proxies and load balancers.
         Also see the section on low timeouts and false positives above.
       </p>
     </doc:section>
