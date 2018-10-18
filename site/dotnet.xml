@@ -28,8 +28,11 @@ limitations under the License.
   <body>
     <p>
       The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
-      library for C# (and, implicitly, other .NET languages). Starting with the <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">4.0 release</a> release it supports .NET Core
-      and .NET 4.5.1+.
+      library for C# (and, implicitly, other .NET languages).
+    </p>
+
+    <p>
+      4.x and 5.x release series of this library require .NET 4.5.1+ or .NET Standard 1.5+ implementation (e.g. .NET Core 2.x).
     </p>
 
     <p>
