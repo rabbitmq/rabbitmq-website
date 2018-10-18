@@ -241,7 +241,7 @@ loopback_users = none
         </p>
         <p>
           For details of how to set up access control, please see the
-          <a href="rabbitmqctl.8.html#Access%20control">Access Control section</a>
+          <a href="rabbitmqctl.8.html#Access_Control">Access Control section</a>
           of the <a href="rabbitmqctl.8.html">rabbitmqctl man page</a>.
         </p>
       </doc:section>
