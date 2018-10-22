@@ -208,9 +208,6 @@ limitations under the License.
                 <a href="vhosts.html">Per Virtual Host Limits</a>
               </li>
               <li>
-                <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
-              </li>
-              <li>
                 <a href="firehose.html">Message Tracing</a>
               </li>
               <li>

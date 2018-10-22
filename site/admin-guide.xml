@@ -139,9 +139,6 @@ limitations under the License.
           <a href="event-exchange.html">Internal Event Exchange</a>
         </li>
         <li>
-          <a href="web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
-        </li>
-        <li>
           <a href="firehose.html">Message Tracing</a>
         </li>
         <li>
