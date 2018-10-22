@@ -1,6 +1,6 @@
 # Upgrading RabbitMQ Using Blue-Green Deployment Strategy
 
-Blue-green deployment is an upgrade strategy that is based on the idea of to seting up
+Blue-green deployment is an upgrade strategy that is based on the idea of to setting up
 a second RabbitMQ cluster (the "green" one) next to the current production
 cluster (the "blue" one). Applications are then switched to the "green"
 cluster. When that migration is done, the "blue" cluster is decomissioned (shut down).
@@ -9,7 +9,7 @@ can be used to transfer enqueued messages from the "blue" to the "green" cluster
 
 ## Preparing the "green" Cluster
 
-After deploying a brand new "green" cluster, there two steps to follow:
+After deploying a brand new "green" cluster, there are two steps to follow:
 
  * import definitions, e.g. exchanges, queues, bindings;
  * configure federation to later drain messages.
