@@ -473,9 +473,9 @@ management.listener.server.compress = true
 #
 # Configures HTTP (non-encrypted) listener,
 # sets all types of timeouts to 120 seconds
-management.tcp.idle_timeout       = 12000
-management.tcp.inactivity_timeout = 12000
-management.tcp.request_timeout    = 12000
+management.tcp.idle_timeout       = 120000
+management.tcp.inactivity_timeout = 120000
+management.tcp.request_timeout    = 120000
 </pre>
 
 <pre class="sourcecode ini">
@@ -483,9 +483,9 @@ management.tcp.request_timeout    = 12000
 #
 # Configures HTTPS (TLS-enabled) listener,
 # sets all types of timeouts to 120 seconds
-management.ssl.idle_timeout       = 12000
-management.ssl.inactivity_timeout = 12000
-management.ssl.request_timeout    = 12000
+management.ssl.idle_timeout       = 120000
+management.ssl.inactivity_timeout = 120000
+management.ssl.request_timeout    = 120000
 </pre>
 
             In the classic config format:
