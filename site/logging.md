@@ -7,9 +7,10 @@ This guide describes various aspects of logging in RabbitMQ:
  * [Log file location](#log-file-location)
  * [Log levels](#log-levels)
  * [Log categories](#log-message-categories)
- * [Debug logging](#debug-logging)
  * Supported log outputs
  * [Connection lifecycle events](#logged-events) logged
+ * [Logging to Syslog](#logging-to-syslog)
+ * [Debug logging](#debug-logging)
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
