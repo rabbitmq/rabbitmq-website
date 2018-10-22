@@ -145,22 +145,10 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 
 <pre class="sourcecode erlang">
 [
-  {rabbitmq_web_mqtt, [{port, 15675}]}
-].
-</pre>
-
-This is a shorthand for the following:
-
-<pre class="sourcecode erlang">
-[
   {rabbitmq_web_mqtt,
       [{tcp_config, [{port, 15675}]}]}
 ].
 </pre>
-
-You can use the `tcp_config` section to specify any TCP option you need.
-When both a `port` and a `tcp_config` sections exist, the plugin will
-use the former as a port number, ignoring the one in `tcp_config`.
 
 See [RabbitMQ Networking guide](/networking.html) for more information.
 
@@ -244,20 +232,68 @@ See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.htm
 information.
 
 
-## <a id="websocket-options" class="anchor" href="#websocket-options">WebSocket Options</a>
+## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
 
 The Web MQTT plugin uses the Cowboy HTTP and WebSocket server under the hood.  Cowboy
-provides [a number of
-options](https://ninenines.eu/docs/en/cowboy/2.3/manual/cowboy_http/)
+provides [a number of options](https://ninenines.eu/docs/en/cowboy/2.4/manual/cowboy_http/)
 that can be used to customize the behavior of the server
-w.r.t. WebSocket connection handling. Those can be specified using the advanced
-config file in the`cowboy_opts` section, for example:
+w.r.t. WebSocket connection handling.
+
+Some settings are generic HTTP ones, others are specific to WebSockets.
+
+### HTTP Options
+
+Generic HTTP server settings can be specified using `web_mqtt.cowboy_opts.*` keys,
+for example:
+
+<pre class="sourcecode ini">
+# connection inactivity timeout
+web_mqtt.cowboy_opts.idle_timeout = 60000
+# max number of pending requests allowed on a connection
+web_mqtt.cowboy_opts.max_keepalive = 200
+# max number of headers in a request
+web_mqtt.cowboy_opts.max_headers   = 100
+# max number of empty lines before request body
+web_mqtt.cowboy_opts.max_empty_lines = 5
+# max request line length allowed in requests
+web_mqtt.cowboy_opts.max_request_line_length
+</pre>
+
+In the classic config format:
 
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_mqtt,
       [
-        {cowboy_opts, [{max_keepalive, 10}]}
+        {cowboy_opts, [{max_keepalive, 200},
+                       {max_headers,   100}]}
+      ]
+  }
+].
+</pre>
+
+
+### WebSocket Options
+
+<pre class="sourcecode ini">
+# WebSocket traffic compression is enabled by default
+web_mqtt.ws_opts.compress = true
+
+# WebSocket connection inactivity timeout
+web_mqtt.ws_opts.idle_timeout
+
+web_mqtt.ws_opts.max_frame_size = 50000
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt,
+      [
+        {cowboy_ws_opts, [{compress,       true},
+                          {idle_timeout,   60000},
+                          {max_frame_size, 50000}]}
       ]
   }
 ].

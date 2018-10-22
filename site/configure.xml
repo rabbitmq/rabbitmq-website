@@ -1090,7 +1090,6 @@ tcp_listen_options.exit_on_close = false
             <li><a href="shovel.html">rabbitmq_shovel</a></li>
             <li><a href="federation.html">rabbitmq_federation</a></li>
             <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
-            <li><a href="web-dispatch.html">rabbitmq_web_dispatch</a></li>
           </ul>
         </doc:subsection>
 
