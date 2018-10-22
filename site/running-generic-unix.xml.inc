@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -21,7 +21,7 @@ limitations under the License.
 -->
 
 <doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="running-generic-unix">
-  <doc:heading>Run RabbitMQ Server</doc:heading>
+  <doc:heading>Running and Managing the Node</doc:heading>
   <div class="instructions">
     <h4>Overview</h4>
 
@@ -46,7 +46,7 @@ limitations under the License.
       the node process in the background.
     </p>
 
-    <h4>Stopping the Server</h4>    
+    <h4>Stopping the Server</h4>
     <p>
       To top a running node, use <code>sbin/rabbitmqctl shutdown</code>. The command
       will wait for the node process to stop. If the target node is not running,
@@ -55,18 +55,16 @@ limitations under the License.
   </div>
 
   <div class="instructions">
-    <h4>Configure the Server</h4>
+    <h4>Configuring the Server</h4>
     <p>
-      It is possible to <a
-      href="configure.html#customise-general-unix-environment">customise
-      the RabbitMQ environment</a> by setting environment
-      variables in <code><span
-      class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</code>. Server
-      components may be configured, too, in the <a
-      href="configure.html#configuration-file">RabbitMQ configuration
-      file</a> located at <code><span
-      class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.config</code>.
-      Neither of these files exist after installation.
+      <a href="configure.html#configuration-file">RabbitMQ configuration file</a> located at <code><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.conf</code>
+      is the primary way of configuring the node.
+    </p>
+    <p>
+      It is possible to <a href="configure.html#customise-general-unix-environment">use
+      environment variables</a> to control certain settings. The recommended way of doing that
+      is using the <code><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</code> file.
+      Neither of these files exist after installation, so they must be created first.
     </p>
   </div>
 </doc:subsection>

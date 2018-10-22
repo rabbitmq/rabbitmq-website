@@ -325,30 +325,42 @@ rabbitmq-plugins enable rabbitmq_management
           that affect all plugins that provide HTTP or WebSocket endpoints.
         </p>
 
-        <doc:subsection name="web-dispatch-config">
-          <doc:heading>Configuring the HTTP and HTTPS Listener</doc:heading>
           <p>
             It is possible to configure HTTP API and management UI to
             use a different port or network interface, enable HTTPS
             and so on.
+          </p>
 
+        <p>
+          While rarely needed, it is possible to configure multiple listeners (ports), e.g. to both enable HTTPS and
+          retain support for clients that can only use HTTP (without TLS). This uses an alternative
+          set of configuration keys and available starting with RabbitMQ 3.7.9.
+        </p>
+
+        <doc:subsection name="single-listener-port">
+          <doc:heading>Port</doc:heading>
+          <p>
             The port is configured using the <code>management.listener.port</code> key:
           </p>
 <pre class="sourcecode ini">
-management.listener.port = 12345
+management.listener.port = 15672
 </pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [
-  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+  {rabbitmq_management, [{listener, [{port, 15672}]}]},
 ].
 </pre>
+        </doc:subsection>
+
+        <doc:subsection name="single-listener-https">
+          <doc:heading>HTTPS</doc:heading>
+
 
           <p>
-            or to make the management plugin use HTTPS:
-          </p>
+            The management plugin can be configured to use HTTPS:
 
 <pre class="sourcecode ini">
 management.listener.port = 15671
@@ -357,8 +369,11 @@ management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
 management.listener.ssl_opts.certfile = /path/to/cert.pem
 management.listener.ssl_opts.keyfile = /path/to/key.pem
 </pre>
+          </p>
 
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+          <p>
+            Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [{rabbitmq_management,
@@ -370,6 +385,36 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
               ]}
   ]}
 ].</pre>
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="">
+          <doc:heading>Using HTTP and HTTPS Together</doc:heading>
+
+          <p>
+            As of RabbitMQ 3.7.9 it is possible to use both HTTP and HTTPS on different ports:
+
+<pre class="sourcecode ini">
+management.tcp.port = 15672
+
+management.ssl.port = 15671
+management.ssl.cacertfile = /path/to/cacert.pem
+management.ssl.certfile = /path/to/cert.pem
+management.ssl.keyfile = /path/to/key.pem
+</pre>
+          </p>
+
+          <p>
+            The same configuration keys can be used to configure a single listener (just HTTP or HTTPS)
+            and match those used by the <a href="/web-stomp.html">Web STOMP</a> and <a href="/web-mqtt.html">Web MQTT</a>.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="advanced-options">
+          <doc:heading>Advanced Options</doc:heading>
+
           <p>
             There are many more <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
             that can be used to configure response body compression, limits, and so on.
