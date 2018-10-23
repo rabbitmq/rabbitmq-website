@@ -101,7 +101,7 @@ limitations under the License.
           can decrypt only the traffic that have been encrypted using the
           RSA keys, excluding the RSA ephemeral and Diffie-Hellman
           Ephemeral (DHE/EDH) cipher suites. You should
-          <a href="ssl.html#configuring-ciphers">set cipher suites</a> used
+          <a href="ssl.html#cipher-suites">set cipher suites</a> used
           by RabbitMQ and restrict the list to RSA only.
         </p>
 <pre class="sourcecode erlang">
