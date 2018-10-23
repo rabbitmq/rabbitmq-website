@@ -51,35 +51,38 @@ such as Prometheus exporter. If the reported directory does not exist, it has to
 The following example shell script downloads the plugin and all of its dependencies:
 
 <pre class="sourcecode sh">
+#!/bin/sh
+
 # make sure the directory exists
 mkdir -p /usr/lib/rabbitmq/plugins
 cd /usr/lib/rabbitmq/plugins
 
 # Downloads prometheus_rabbitmq_exporter and its dependencies with curl
+
+readonly base_url='https://github.com/deadtrickster/prometheus_rabbitmq_exporter/releases/download/v3.7.2.3'
+
 get() {
-  # git.io/prometheus_rmq is merely a shorter version of
-  # https://github.com/deadtrickster/prometheus_rabbitmq_exporter
-  local release="https://git.io/prometheus_rmq/releases/download/v3.7.2.3"
-  curl --progress-bar --location --remote-name $release/$1
+  curl -LO "$base_url/$1"
 }
+
 get accept-0.3.3.ez
 get prometheus-3.5.1.ez
 get prometheus_cowboy-0.1.4.ez
 get prometheus_httpd-2.1.8.ez
+get prometheus_process_collector-1.3.1.ez
 get prometheus_rabbitmq_exporter-3.7.2.3.ez
 </pre>
 
-Verify that plugin archives are in place:
+Verify that plugin archives are in place (output should be similar to this - note file sizes):
 
 <pre class="sourcecode sh">
-find /usr/lib/rabbitmq/plugins
-
-/usr/lib/rabbitmq/plugins
-/usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-3.7.2.3.ez
-/usr/lib/rabbitmq/plugins/prometheus_httpd-2.1.8.ez
-/usr/lib/rabbitmq/plugins/accept-0.3.3.ez
-/usr/lib/rabbitmq/plugins/prometheus_cowboy-0.1.4.ez
-/usr/lib/rabbitmq/plugins/prometheus-3.5.1.ez
+$ ls -la /user/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
+-rw-r--r-- 1 root root  13397 Oct 23 10:22 /usr/lib/rabbitmq/plugins/accept-0.3.3.ez
+-rw-r--r-- 1 root root 200783 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus-3.5.1.ez
+-rw-r--r-- 1 root root  14343 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_cowboy-0.1.4.ez
+-rw-r--r-- 1 root root  22059 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_httpd-2.1.8.ez
+-rw-r--r-- 1 root root  17313 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_process_collector-1.3.1.ez
+-rw-r--r-- 1 root root 219060 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-3.7.2.3.ez
 </pre>
 
 RabbitMQ must be able to read the plugin files, so archive file permissions must allow
