@@ -43,7 +43,7 @@ limitations under the license.
             <li>How to generate self-signed certificates for development and QA environments <a href="#automated-certificate-generation">with tls-gen</a> or <a href="#manual-certificate-generation">manually</a></li>
             <li>TLS configuration in <a href="#java-client">Java</a> and <a href="#dotnet-client">.NET</a> clients</li>
             <li><a href="#peer-verification">Peer (certificate chain) verification</a></li>
-            <li><a href="#tls-versions">TLS version</a> and <a href="#configuring-ciphers">cipher suite</a> configuration</li>
+            <li><a href="#tls-versions">TLS version</a> and <a href="#cipher-suites">cipher suite</a> configuration</li>
             <li>Tools that can be used to evaluate a TLS setup</li>
             <li>Known vulnerabilities and their migration</li>
             <li>How to use <a href="#private-key-passwords">private key passwords</a></li>
@@ -1277,7 +1277,7 @@ namespace RabbitMQ.client.Examples {
             Each version builds on the shortcomings of previous versions. Most of the time
             the shortcomings resulted in <a href="#major-vulnerabilities">known attacks</a> that affect specific
             versions of TLS (and SSL). disabling older TLS versions is a way to mitigate
-            many of those attacks (another technique is to <a href="#configuring-ciphers">disable affected cipher suites</a>).
+            many of those attacks (another technique is to <a href="#cipher-suites">disable affected cipher suites</a>).
             It is common for environments with highest security requirements to only support TLSv1.2, for example.
           </p>
         </doc:subsection>
@@ -1428,8 +1428,8 @@ Protocol  : TLSv1
     </doc:section>
 
 
-    <doc:section name="configuring-ciphers">
-      <doc:heading>Configuring Cipher Suites</doc:heading>
+    <doc:section name="cipher-suites">
+      <doc:heading>Cipher Suites</doc:heading>
 
       <p>
         It is possible to configure what cipher suites will be used by RabbitMQ. Note that not all
@@ -1437,24 +1437,60 @@ Protocol  : TLSv1
         the most recent <a href="/which-erlang.html">supported Erlang release</a> is highly recommended.
       </p>
 
-      <p>
-        To list cipher suites supported by the Erlang runtime of a running node, use <code>rabbitmq-diagnostics cipher_suites --openssl-format</code>:
+      <doc:subsection name="available-cipher-suites">
+        <doc:heading>Listing Available Cipher Suites</doc:heading>
+
+        <p>
+          To list cipher suites supported by the Erlang runtime of a running node, use <code>rabbitmq-diagnostics cipher_suites --openssl-format</code>:
 
 <pre class="sourcecode ini">
 rabbitmq-diagnostics cipher_suites --openssl-format -q
 </pre>
 
-        Note that if <code>--openssl-format</code> is omitted, <code>rabbitmq-diagnostics cipher_suites</code> will list cipher suites in the format
-        that's only accepted in the <a href="/configure.html#erlang-term-config-file">classic config format</a>. The OpenSSL format is accepted
-        by both config formats.
-      </p>
+          This will produce a list of cipher suites in the OpenSSL format.
+        </p>
 
-      <p>
-        Cipher suites are configured using the <code>ssl_options.ciphers</code> config option (<code>rabbit.ssl_options.ciphers</code>
-        in the classic config format).
+        <p>
+          Note that if <code>--openssl-format</code> is set to <code>false</code>:
 
-        The below examples demonstrates how the option is used. Note that cipher suites are not enquoted in the new style config format
-        but double quotes are required in the classic format.
+<pre class="sourcecode ini">
+rabbitmq-diagnostics cipher_suites -q --openssl-format=false
+</pre>
+
+          then <code>rabbitmq-diagnostics cipher_suites</code> will list cipher suites in the format
+          that's only accepted in the <a href="/configure.html#erlang-term-config-file">classic config format</a>. The OpenSSL format is accepted
+          by both config formats. Note that cipher suites are not enquoted in the new style config format
+          but double quotes are required in the classic format.
+        </p>
+
+        <p>
+          The cipher suites listed by the above command are in formats that can be used for inbound and outgoing (e.g. <a href="/shovel.html">Shovel</a>, <a href="/federation.html">Federation</a>)
+          client TLS connections. They are different from those used by <a href="/configure.html#configuration-encryption">configuration value encryption</a>.
+        </p>
+
+        <p>
+          When overriding cipher suites, it is highly recommended
+          that server-preferred <a href="#cipher-suite-order">cipher suite ordering is enforced</a>.
+        </p>
+
+        <p>
+          When using classic config format, the following formatter setting can be helpful as it will produce
+          a list of cipher suites that can be used in that file format:
+
+<pre class="sourcecode ini">
+rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
+</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="configuring-cipher-suites">
+        <doc:heading>Configuring Cipher Suites</doc:heading>
+
+        <p>
+          Cipher suites are configured using the <code>ssl_options.ciphers</code> config option (<code>rabbit.ssl_options.ciphers</code>
+          in the classic config format).
+
+          The below examples demonstrates how the option is used.
 
 <pre class="sourcecode ini">
 listeners.ssl.1 = 5671
@@ -1509,7 +1545,7 @@ ssl_options.honor_cipher_order = true
 ssl_options.honor_ecc_order    = true
 </pre>
 
-        In the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          In the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 %% list allowed ciphers
@@ -1568,34 +1604,9 @@ ssl_options.honor_ecc_order    = true
           ]}
 ].
 </pre>
-      </p>
+        </p>
+      </doc:subsection>
 
-      <p>
-        To list all cipher suites supported by installed Erlang runtime, use <code>rabbitmq-diagnostics</code>:
-
-<pre class="sourcecode bash">
-rabbitmq-diagnostics cipher_suites
-</pre>
-
-        the output uses Erlang terms and thus can be copied into
-        RabbitMQ's <a href="/configure.html">classic or advanced config file</a>.
-      </p>
-
-      <p>The same suites can be listed in the OpenSSL format:</p>
-
-<pre class="sourcecode bash">
-rabbitmq-diagnostics cipher_suites --openssl-format
-</pre>
-
-      <p>
-        An <a href="https://github.com/erlang/otp/wiki/Cipher-suite-correspondence-table">IANA and Erlang/OTP cipher suite correspondence table</a>
-        can be used to find corresponding values in both formats.
-      </p>
-
-      <p>
-        When overriding cipher suites, it is highly recommended
-        that server-preferred <a href="#cipher-suite-order">cipher suite ordering is enforced</a>.
-      </p>
 
       <doc:subsection name="cipher-suite-order">
         <doc:heading>Cipher Suite Order</doc:heading>
@@ -1655,7 +1666,7 @@ Or, in the classic config format:
         <a href="https://robotattack.org/">ROBOT attack</a> affects RabbitMQ installations that rely on RSA
         cipher suites and run on Erlang/OTP versions prior to
         19.3.6.4 and 20.1.7. To mitigate, <a href="/which-erlang.html">upgrade Erlang/OTP</a> to a patched version
-        and consider <a href="#configuring-ciphers">limiting the list of supported cipher suites</a>.
+        and consider <a href="#cipher-suites">limiting the list of supported cipher suites</a>.
       </p>
 
       <h4>POODLE</h4>

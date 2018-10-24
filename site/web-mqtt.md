@@ -197,7 +197,7 @@ It is possible to configure what TLS versions and cipher suites will be used by 
 suites will be available on all systems.
 
 RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
-[on cipher suites](/ssl.html#configuring-ciphers). Below is an example
+[on cipher suites](/ssl.html#cipher-suites). Below is an example
 in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
 and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 
