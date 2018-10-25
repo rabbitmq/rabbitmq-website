@@ -16,16 +16,13 @@ limitations under the License.
 -->
 # RabbitMQ Web STOMP Plugin NOSYNTAX
 
-The Web STOMP plugin is a simple bridge exposing the
-[STOMP](http://stomp.github.com) protocol over direct or emulated
-[HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
+The Web STOMP plugin makes it possible to use
+[STOMP](/stomp.html) over a WebSocket connection.
 
-The main intention of Web-Stomp is to make it possible to use RabbitMQ
-from Web browsers. It influenced the [Web MQTT plugin](/web-mqtt.html)
-which is the same idea for a different protocol, [MQTT](/mqtt.html).
+The goal of this plugin is to enable STOMP messaging in Web applications.
 
-More context is available in
-[the introductory blog post](http://www.rabbitmq.com/blog/2012/05/14/introducing-rabbitmq-web-stomp/).
+A similar plugin, [Web MQTT plugin](/web-mqtt.html), makes it possible to use [MQTT](/mqtt.html) over
+WebSockets.
 
 ## How It Works
 
@@ -244,4 +241,3 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 
 RabbitMQ Web STOMP is fully compatible with the
 [RabbitMQ STOMP](/stomp.html) plugin.
-
