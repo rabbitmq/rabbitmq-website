@@ -16,11 +16,13 @@ limitations under the License.
 -->
 # RabbitMQ Web MQTT Plugin NOSYNTAX
 
-The Web MQTT plugin is a simple bridge exposing the
-[MQTT](http://mqtt.org/) protocol over [HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
+The Web STOMP plugin makes it possible to use
+[MQTT](/mqtt.html) over a WebSocket connection.
 
-The main intention of Web MQTT is to make it possible to use RabbitMQ
-from web browsers. It was heavily inspired by the [Web STOMP plugin](/web-stomp.html).
+The goal of this plugin is to enable MQTT messaging in Web applications.
+
+A similar plugin, [Web STOMP plugin](/web-stomp.html), makes it possible to use [STOMP](/stomp.html) over
+WebSockets.
 
 ## How It Works
 
