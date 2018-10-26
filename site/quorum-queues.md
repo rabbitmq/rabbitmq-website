@@ -62,7 +62,7 @@ A client library that can use regular mirrored queues will be able to use quorum
 The following operations works the same way for quorum queues as they do for regular queues:
 
  * Consumption (subscription)
- * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](/confirms.html#channel-qos-prefetch))
+ * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](#global-qos))
  * Cancelling consumers
  * Purging
  * Deletion
@@ -183,7 +183,7 @@ A client library that can use regular mirrored queues will be able to use quorum
 The following operations works the same way for quorum queues as they do for regular queues:
 
  * Consumption (subscription)
- * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](/confirms.html#channel-qos-prefetch))
+ * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](#global-qos))
  * Cancelling consumers
  * Purging
  * Deletion
@@ -314,7 +314,6 @@ permanently lost) the queue is permanently unavailable and
 will need to be force deleted and recreated.
 
 
-
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 There are a few new configuration parameters that can be tweaked using
@@ -350,20 +349,22 @@ Example:
 ## [Resource Use](#resource-use)
 
 Quorum queues are typically require more resources (disk and RAM)
- than HA queues. To enable fast fail over and data safety as well as
-good throughput performance all members in a quorum queue
-"cluster" keep all messages in the queue in memory _and_ on disk. Quorum queues
-should not be used in memory constrained systems.
+than classic mirrored queues. To enable fast election of a new leader and recovery, data safety as well as
+good throughput characteristics all members in a quorum queue
+"cluster" keep all messages in the queue in memory _and_ on disk.
+Quorum queues should not be used in memory constrained systems.
 
 
 ## [Limitations](#limitations)
 
-#### Global QoS
+### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
-Global [QoS](/confirms.html#channel-qos-prefetch) where a channel sets a single
-prefetch limit for all consumers using that channel is not supported. If an attempt
+Quorum queues do not support global [QoS prefetch](/confirms.html#channel-qos-prefetch) where a channel sets a single
+prefetch limit for all consumers using that channel. If an attempt
 is made to consume from a quorum queue from a channel with global QoS enabled
 a channel error will be returned.
+
+Use per-consumer QoS prefetch, which is the default in several popular clients.
 
 #### Increased Atom Use
 
