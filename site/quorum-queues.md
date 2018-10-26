@@ -19,12 +19,16 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The quorum queue is a new (since 3.8) queue type for RabbitMQ implementing a durable,
+The quorum queue is a queue type for RabbitMQ implementing a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
+It is available as of RabbitMQ 3.8.0.
 
 The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
 (a.k.a. HA queues) purpose built for a [set of use cases](#use-cases) where [data safety](#data-safety) is
-a top priority.
+a top priority. This is covered in [Motivation](#motivation).
+
+Quorum queues also have important [differences in behaviour](#behaviour)
+and [limitations](#limitations) compared to classic mirrored queues.
 
 ### What is a Quorum?
 
@@ -238,12 +242,12 @@ Care needs to be taken not to accidentally make a queue unavailable by losing
 the quorum whilst performing membership changes.
 
 
-## <a id="behavior" class="anchor" href="#behavior">Behaviour</a>
+## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
 
 A quorum queue is quorum-based system that relies on a consensus protocol
 to ensure data consistency.
 
-### Leader Election and Failure Handling
+### <a id="leader-election" class="anchor" href="#leader-election">Leader Election and Failure Handling</a>
 
 A quorum queue requires a quorum of the declared nodes to be available
 to function. When a RabbitMQ node hosting a current quorum queue
@@ -257,7 +261,7 @@ new leader should be elected and queue availability should be resumed
 very shortly after the failure event even when the queue has a
 significant backlog.
 
-### Fault Tolerance and Minimum Number of Replicas Online
+### <a id="quorum-requirements" class="anchor" href="#quorum-requirements">Fault Tolerance and Minimum Number of Replicas Online</a>
 
 Consensus systems can provide certain guarantees with regard to data safety.
 These guarantees do mean that certain conditions need to be met before they
@@ -288,7 +292,7 @@ We do not recommend running quorum queues on more than 7 RabbitMQ nodes. The
 default quorum queue size is 5 and is controllable using the
 `x-quorum-queue-size` queue argument.
 
-### Data Safety
+### <a id="data-safety" class="anchor" href="#data-safety">Data Safety</a>
 
 Quorum queues are designed to provide data safety under network partition and
 failure scenarios. A message that was successfully confirmed back to the publisher
@@ -302,7 +306,7 @@ Generally quorum queues favours data consistency over availability.
 the publisher confirm mechanism_*. They may never reach the queue.
 
 
-### Availability
+### <a id="availability" class="anchor" href="#availability">Availability</a>
 
 Quorum queues should be able to tolerate a minority of queue members becoming unavailable
 with no or little affect on availability. (NB: RabbitMQ may restart itself during
@@ -346,7 +350,7 @@ Example:
 ]
 </pre>
 
-## [Resource Use](#resource-use)
+## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
 Quorum queues are typically require more resources (disk and RAM)
 than classic mirrored queues. To enable fast election of a new leader and recovery, data safety as well as
@@ -355,7 +359,7 @@ good throughput characteristics all members in a quorum queue
 Quorum queues should not be used in memory constrained systems.
 
 
-## [Limitations](#limitations)
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 ### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
