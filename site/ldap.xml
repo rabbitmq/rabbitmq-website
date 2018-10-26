@@ -700,7 +700,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>vhost_access_query</code> support
+          The <code>vhost_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -710,7 +710,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>resource_access_query</code> supports
+          The <code>resource_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -723,7 +723,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>tag_queries</code> supports
+          The <code>tag_queries</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -732,7 +732,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          Finally, the <code>topic_access_query</code> supports
+          The <code>topic_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -746,6 +746,16 @@ auth_ldap.other_bind.password = a-password</pre>
             <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
               or routing key of the topic exchange to queue/exchange binding ("read" permission)
             </li>
+          </ul>
+        </p>
+
+        <p>
+          Finally, if the user name provided at authentication is in the form
+          <code>Domain\User</code> (which is the case in some Active Directory environments),
+          two <i>additional</i> variables will be made available for each of the above queries:
+          <ul>
+            <li><code>${ad_domain}</code> - the domain part of <code>Domain\User</code></li>
+            <li><code>${ad_user}</code> - the user part of <code>Domain\User</code></li>
           </ul>
         </p>
 
