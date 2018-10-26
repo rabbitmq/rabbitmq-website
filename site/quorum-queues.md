@@ -347,6 +347,14 @@ Example:
 ]
 </pre>
 
+## [Resource Use](#resource-use)
+
+Quorum queues are typically require more resources (disk and RAM)
+ than HA queues. To enable fast fail over and data safety as well as
+good throughput performance all members in a quorum queue
+"cluster" keep all messages in the queue in memory _and_ on disk. Quorum queues
+should not be used in memory constrained systems.
+
 
 ## [Limitations](#limitations)
 
