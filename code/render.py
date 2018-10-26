@@ -60,11 +60,16 @@ def preprocess_markdown(fpath):
 </html>
 """
     if nosyntax:
-        args = ["tables"]
+        extensionsArg = ["tables"]
+        extensionsConfigArg = {}
     else:
-        args = ["codehilite(css_class=highlight)", "tables"]
+        extensionsArg = ["codehilite", "tables"]
+        extensionsConfigArg = {
+            'codehilite': {
+            'css_class': 'highlight'
+        }}
 
-    processed = markdown.markdown(contents, args)
+    processed = markdown.markdown(contents, extensions=extensionsArg, extension_configs=extensionsConfigArg)
 
     # Unfortunately we can't stop markdown escaping entities. Unescape them.
     processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
