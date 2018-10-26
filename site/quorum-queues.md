@@ -350,6 +350,13 @@ Example:
 
 ## [Limitations](#limitations)
 
+#### Global QoS
+
+Global [QoS](/confirms.html#channel-qos-prefetch) where a channel sets a single
+prefetch limit for all consumers using that channel is not supported. If an attempt
+is made to consume from a quorum queue from a channel with global QoS enabled
+a channel error will be returned.
+
 #### Increased Atom Use
 
 The internal implementation of quorum queues converts the queue name
