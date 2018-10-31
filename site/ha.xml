@@ -751,16 +751,15 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         </p>
 
         <p>
-          You can determine which mirrors are synchronised with the
-          following rabbitmqctl invocation:
+          To see mirror status (whether they are synchronised), use:
         </p>
         <pre class="sourcecode bash">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
         <p>
-          You can manually synchronise a queue with:
+          It is possible to manually synchronise a queue:
         </p>
         <pre class="sourcecode bash">rabbitmqctl sync_queue <i>name</i></pre>
         <p>
-          And you can cancel synchronisation with:
+          Or cancel an in-progress synchronisation:
         </p>
         <pre class="sourcecode bash">rabbitmqctl cancel_sync_queue <i>name</i></pre>
         <p>
@@ -775,20 +774,33 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             connection to its peers or is removed from the cluster,
             the oldest mirror will be promoted to be the new
             master. In some circumstances this mirror can be
-            unsynchronised, which will cause data loss.
+            <a href="#unsynchronised-mirrors">unsynchronised</a>, which will cause data loss.
           </p>
           <p>
             Starting with RabbitMQ 3.7.5, the <code>ha-promote-on-failure</code>
             policy key controls whether unsynchronised mirror promotion is allowed. When set to
             <code>when-synced</code>, it will make sure that unsynchronised mirrors
-            are not promoted. This option is safer in terms of data loss but will make the queue unavailable
-            until the master node recovers or rejoins. If a master node is lost or removed permanently, so is
-            its data. Then the queue may be deleted and redeclared.
-            The default value is <code>always</code>.
+            are not promoted.
           </p>
           <p>
-            The <code>when-synced</code> value should be used with consideration.
-            Sometimes queue availability can be even more important than data safety.
+            Default value is <code>always</code>.
+            The <code>when-synced</code> value should be used with care. It trades off
+            safety from unsynchronised mirror promotion for increased reliance on queue master's
+            availability. Sometimes queue availability can be more important than consistency.
+          </p>
+          <p>
+            The <code>when-synced</code> promotion strategy avoids data loss due to promotion of an unsynchronised mirror
+            but makes queue availability dependent on its master's availability.
+            In the event of queue master node failure the queue will become unavailable until queue master
+            recovers. In case of a permanent loss of queue master the queue won't be available
+            unless it is deleted and redeclared. Deleting a queue deletes all of its contents,
+            which means a permanent master with this promotion strategy equates to losing all
+            queue contents.
+          </p>
+          <p>
+            Systems that use the <code>when-synced</code> promotion strategy must use
+            <a href="/confirms.html">publisher confirms</a> in order to detect queue unavailability
+            and broker's inability to enqueue messages.
           </p>
         </doc:subsection>
 
@@ -851,7 +863,10 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             If the <code>ha-promote-on-failure</code> policy key is set to
             <code>when-synced</code>, unsynchronised mirrors will not be promoted
             even if the <code>ha-promote-on-shutdown</code> key is set to
-            <code>always</code>.
+            <code>always</code>. This means that in the event of queue master node
+            failure the queue will become unavailable until master recovers.
+            In case of a permanent loss of queue master the queue won't be available
+            unless it is deleted (that will also delete all of its contents) and redeclared.
           </p>
           <p>
             Note that <code>ha-promote-on-shutdown</code> and
@@ -860,7 +875,6 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             by default, while <code>ha-promote-on-failure</code> is set to
             <code>always</code> by default.
           </p>
-
         </doc:subsection>
 
 
