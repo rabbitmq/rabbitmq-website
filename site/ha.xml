@@ -29,12 +29,12 @@ limitations under the License.
         This guide covers queue mirroring (queue contents replication):
 
         <ul>
-          <li>What is mirroring and how it works</li>
-          <li>How to enable it</li>
-          <li>Replication factor</li>
-          <li>Data locality</li>
-          <li>Mirror promotion and unsynchronised mirrors</li>
-          <li>Mirrored vs. non-mirrored queue behavior in case of node failure</li>
+          <li><a href="#overview">What is mirroring</a> and how it works</li>
+          <li>How to <a href="#ways-to-configure">enable it</a></li>
+          <li><a href="#replication-factor">Replication factor</a></li>
+          <li><a href="#master-migration-data-locality">Data locality</a></li>
+          <li><a href="#behaviour">Master election</a> (mirror promotion) and <a href="#unsynchronised-mirrors">unsynchronised mirrors</a></li>
+          <li>Mirrored vs. <a href="#non-mirrored-queue-behavior-on-node-failure">non-mirrored queue behavior</a> in case of node failure</li>
         </ul>
 
         and more.
@@ -841,20 +841,26 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             It's possible that when you shut down a master node that
             all available mirrors are unsynchronised. A common
             situation in which this can occur is rolling cluster
-            upgrades. By default, RabbitMQ will refuse to fail over to
+            upgrades.
+          </p>
+          <p>
+            By default, RabbitMQ will refuse to promote
             an unsynchronised mirror on controlled master shutdown
             (i.e. explicit stop of the RabbitMQ service or shutdown of
             the OS) in order to avoid message loss; instead the entire
             queue will shut down as if the unsynchronised mirrors were
-            not there. An uncontrolled master shutdown (i.e. server or
+            not there.
+          </p>
+          <p>
+            An uncontrolled master shutdown (i.e. server or
             node crash, or network outage) will still trigger a
-            failover even to an unsynchronised mirror.
+            promotion of an unsynchronised mirror.
           </p>
           <p>
             If you would prefer to have queue master move to an
             unsynchronised mirror in all circumstances (i.e. you would
             choose availability of the queue over avoiding message
-            loss) then you can set the
+            loss due to unsynchronised mirror promotion) then set the
             <code>ha-promote-on-shutdown</code> policy key to
             <code>always</code> rather than its default value of
             <code>when-synced</code>.
