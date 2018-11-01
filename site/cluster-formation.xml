@@ -1037,7 +1037,7 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 cluster_formation.etcd.host = etcd.eng.example.local
 # node TTL in seconds
 # default: 30
-cluster_formation.etcd.ttl = 40
+cluster_formation.etcd.node_ttl = 40
 </pre>
 
         Key refreshes will be performed every <code>TTL/2</code> seconds.
