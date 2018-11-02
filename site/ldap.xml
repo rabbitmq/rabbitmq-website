@@ -412,6 +412,17 @@ auth_ldap.use_ssl   = true
         <doc:heading>Usernames and Distinguished Names</doc:heading>
 
         <p>
+          During the simple bind phase, the <code>user_dn_pattern</code> pattern is used to translate
+          the provided username into a value to be used for the bind. By default, the pattern
+          passes the provided value as-is (i.e. the pattern is <code>${username}</code>). If
+          <code>user_bind_pattern</code> is specified, it takes precedence over
+          <code>user_dn_pattern</code>. This can be handy if a different <code>user_dn_pattern</code>
+          needs to be used during the distinguished name lookup phase. Note that the above does
+          not apply to anonymous binds, nor when <code>dn_lookup_bind</code> is not set to
+          <code>as_user</code>.
+        </p>
+
+        <p>
           Client connections provide usernames which are translated into Distinguished
           Names (DNs) in LDAP.
           There are two ways to do that. The simplest way is via string substitution
@@ -700,7 +711,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>vhost_access_query</code> support
+          The <code>vhost_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -710,7 +721,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>resource_access_query</code> supports
+          The <code>resource_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -723,7 +734,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>tag_queries</code> supports
+          The <code>tag_queries</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -732,7 +743,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          Finally, the <code>topic_access_query</code> supports
+          The <code>topic_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -746,6 +757,16 @@ auth_ldap.other_bind.password = a-password</pre>
             <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
               or routing key of the topic exchange to queue/exchange binding ("read" permission)
             </li>
+          </ul>
+        </p>
+
+        <p>
+          Finally, if the user name provided at authentication is in the form
+          <code>Domain\User</code> (which is the case in some Active Directory environments),
+          two <i>additional</i> variables will be made available for each of the above queries:
+          <ul>
+            <li><code>${ad_domain}</code> - the domain part of <code>Domain\User</code></li>
+            <li><code>${ad_user}</code> - the user part of <code>Domain\User</code></li>
           </ul>
         </p>
 

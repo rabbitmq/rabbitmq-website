@@ -18,7 +18,6 @@ limitations under the License.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>Contact Us</title>
-    <script type="text/javascript" src="/js/contact.js"></script>
   </head>
   <body>
     <h2 id="email">Commercial Enquiries</h2>
@@ -49,7 +48,7 @@ limitations under the License.
     <h3 id="slack">Slack</h3>
     <p>
       Feel free to join our community-driven <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ Slack channel</a>.
-    </p>    
+    </p>
     <h3 id="irc">IRC</h3>
     <p>
       RabbitMQ IRC channgel is <code>#rabbitmq</code> on
@@ -84,11 +83,13 @@ limitations under the License.
       RabbitMQ is <a href="http://www.facebook.com/pages/RabbitMQ/202623286424686">on Facebook</a>.
     </p>
     <div id="getting_here">
-    <h2>Getting here</h2>
-    <h3 id="location">Location</h3>
-    <p>
-      We're based in Pivotal's <a href="https://pivotal.io/locations/london">London Office</a>.
-    </p>
+      <h2>Getting here</h2>
+      <h3 id="location">Location</h3>
+      <p>
+        We're based in Pivotal's <a href="https://pivotal.io/locations/london">London Office</a>.
+      </p>
     </div>
+
+    <script async="true" type="text/javascript" src="/js/contact.js"></script>
   </body>
 </html>
