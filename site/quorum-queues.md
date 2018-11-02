@@ -378,3 +378,14 @@ created and deleted it _may_ threaten the long term stability of the
 RabbitMQ system (if the size of the atom table reaches the maximum limit,
 about 1M by default). It is not recommended to use quorum queues in this manner
 at this point.
+
+
+#### <a id="requeue" class="anchor" href="#requeue">Sustained Requeues</a>
+
+Internally quorum queues are implemented using a log where all operations including
+messages are persisted. To avoid this log growing too large it needs to be
+truncated regularly. To be able to truncate a section of the log all messages
+in that section needs to be acknowledged. Usage patterns that continuously
+[reject or nack](/nack.html) the same message with the `requeue` flag set to true
+could cause the log to grow in an unbounded fashion and eventually fill
+up the disks.
