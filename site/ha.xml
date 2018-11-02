@@ -29,12 +29,12 @@ limitations under the License.
         This guide covers queue mirroring (queue contents replication):
 
         <ul>
-          <li>What is mirroring and how it works</li>
-          <li>How to enable it</li>
-          <li>Replication factor</li>
-          <li>Data locality</li>
-          <li>Mirror promotion and unsynchronised mirrors</li>
-          <li>Mirrored vs. non-mirrored queue behavior in case of node failure</li>
+          <li><a href="#overview">What is mirroring</a> and how it works</li>
+          <li>How to <a href="#ways-to-configure">enable it</a></li>
+          <li><a href="#replication-factor">Replication factor</a></li>
+          <li><a href="#master-migration-data-locality">Data locality</a></li>
+          <li><a href="#behaviour">Master election</a> (mirror promotion) and <a href="#unsynchronised-mirrors">unsynchronised mirrors</a></li>
+          <li>Mirrored vs. <a href="#non-mirrored-queue-behavior-on-node-failure">non-mirrored queue behavior</a> in case of node failure</li>
         </ul>
 
         and more.
@@ -148,16 +148,17 @@ limitations under the License.
             Number of queue replicas (master plus mirrors) in the cluster.
 
             <p>
-              A <i>count</i> value of 1 means just the queue master, with no
-              mirrors. If the node running the queue master becomes
+              A <i>count</i> value of 1 means a single replica: just the queue master.
+              If the node running the queue master becomes
               unavailable, <a href="#non-mirrored-queue-behavior-on-node-failure">the behaviour depends on queue durability</a>.
             </p>
 
             <p>
-              A <i>count</i> value of 2 means 1 queue master and 1 queue
-              mirror. If the node running the queue master becomes unavailable,
-              the queue mirror will be automatically promoted to master. In
-              conclusion: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+              A <i>count</i> value of 2 means 2 replicas: 1 queue master and 1 queue
+              mirror. In other words: <code>NumberOfQueueMirrors = NumberOfNodes - 1</code>.
+              If the node running the queue master becomes unavailable,
+              the queue mirror will be automatically promoted to master
+              according to the <a href="#unsynchronised-mirrors">mirror promotion strategy</a> configured.
             </p>
 
             <p>
@@ -166,7 +167,7 @@ limitations under the License.
               <i>count</i> nodes in the cluster, and a node containing a mirror
               goes down, then a new mirror will be created on another node. Use
               of <code>exactly</code> mode with <a href="#cluster-shutdown">
-                <code>"ha-promote-on-shutdown": "always"</code></a> can be
+              <code>"ha-promote-on-shutdown": "always"</code></a> can be
               dangerous since queues can migrate across a cluster and become
               unsynced as it is brought down.
             </p>
@@ -182,8 +183,9 @@ limitations under the License.
 
             <p>
               This setting is very
-              conservative, mirroring to a quorum (N/2 + 1) of cluster nodes
-              is recommended instead. Mirroring to all nodes will put additional
+              conservative. Mirroring to a quorum (N/2 + 1) of cluster nodes
+              is <a href="#replication-factor">recommended instead</a>.
+              Mirroring to all nodes will put additional
               strain on all cluster nodes, including network I/O, disk I/O and
               disk space usage.
             </p>
@@ -213,6 +215,26 @@ limitations under the License.
         to keep its existing mirrors as far as this fits with the new
         policy.
       </p>
+
+      <doc:subsection name="replication-factor">
+        <doc:heading>Replication Factory: How Many Mirrors are Optimal?</doc:heading>
+
+        <p>
+          Mirroring to all nodes is the most conservative option.
+          It will put additional strain on all cluster nodes, including network I/O, disk I/O and
+          disk space usage. Having a replica on every node is unnecessary in most cases.
+        </p>
+        <p>
+          For clusters of 3 and more nodes
+          it is recommended to replicate to a quorum (the majority) of nodes,
+          e.g. 2 nodes in a 3 node cluster or 3 nodes in a 5 node cluster.
+        </p>
+        <p>
+          Since some data can be inherently transient or very time sensitive,
+          it can be perfectly reasonable to use a lower number of mirrors
+          for some queues (or even not use any mirroring).
+        </p>
+      </doc:subsection>
     </doc:section>
 
 
@@ -325,8 +347,8 @@ rabbitmqctl list_queues name policy pid slave_pids
         will shut down.
       </p>
 
-      <h3>Mirroring of Exclusive Queues</h3>
 
+      <h3>Mirroring of Exclusive Queues</h3>
       <p>
         Exclusive queues will be deleted when the connection that
         declared them is closed. For this reason, it is not useful
@@ -751,16 +773,15 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         </p>
 
         <p>
-          You can determine which mirrors are synchronised with the
-          following rabbitmqctl invocation:
+          To see mirror status (whether they are synchronised), use:
         </p>
         <pre class="sourcecode bash">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
         <p>
-          You can manually synchronise a queue with:
+          It is possible to manually synchronise a queue:
         </p>
         <pre class="sourcecode bash">rabbitmqctl sync_queue <i>name</i></pre>
         <p>
-          And you can cancel synchronisation with:
+          Or cancel an in-progress synchronisation:
         </p>
         <pre class="sourcecode bash">rabbitmqctl cancel_sync_queue <i>name</i></pre>
         <p>
@@ -775,20 +796,33 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             connection to its peers or is removed from the cluster,
             the oldest mirror will be promoted to be the new
             master. In some circumstances this mirror can be
-            unsynchronised, which will cause data loss.
+            <a href="#unsynchronised-mirrors">unsynchronised</a>, which will cause data loss.
           </p>
           <p>
             Starting with RabbitMQ 3.7.5, the <code>ha-promote-on-failure</code>
             policy key controls whether unsynchronised mirror promotion is allowed. When set to
             <code>when-synced</code>, it will make sure that unsynchronised mirrors
-            are not promoted. This option is safer in terms of data loss but will make the queue unavailable
-            until the master node recovers or rejoins. If a master node is lost or removed permanently, so is
-            its data. Then the queue may be deleted and redeclared.
-            The default value is <code>always</code>.
+            are not promoted.
           </p>
           <p>
-            The <code>when-synced</code> value should be used with consideration.
-            Sometimes queue availability can be even more important than data safety.
+            Default value is <code>always</code>.
+            The <code>when-synced</code> value should be used with care. It trades off
+            safety from unsynchronised mirror promotion for increased reliance on queue master's
+            availability. Sometimes queue availability can be more important than consistency.
+          </p>
+          <p>
+            The <code>when-synced</code> promotion strategy avoids data loss due to promotion of an unsynchronised mirror
+            but makes queue availability dependent on its master's availability.
+            In the event of queue master node failure the queue will become unavailable until queue master
+            recovers. In case of a permanent loss of queue master the queue won't be available
+            unless it is deleted and redeclared. Deleting a queue deletes all of its contents,
+            which means a permanent master with this promotion strategy equates to losing all
+            queue contents.
+          </p>
+          <p>
+            Systems that use the <code>when-synced</code> promotion strategy must use
+            <a href="/confirms.html">publisher confirms</a> in order to detect queue unavailability
+            and broker's inability to enqueue messages.
           </p>
         </doc:subsection>
 
@@ -829,20 +863,26 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             It's possible that when you shut down a master node that
             all available mirrors are unsynchronised. A common
             situation in which this can occur is rolling cluster
-            upgrades. By default, RabbitMQ will refuse to fail over to
+            upgrades.
+          </p>
+          <p>
+            By default, RabbitMQ will refuse to promote
             an unsynchronised mirror on controlled master shutdown
             (i.e. explicit stop of the RabbitMQ service or shutdown of
             the OS) in order to avoid message loss; instead the entire
             queue will shut down as if the unsynchronised mirrors were
-            not there. An uncontrolled master shutdown (i.e. server or
+            not there.
+          </p>
+          <p>
+            An uncontrolled master shutdown (i.e. server or
             node crash, or network outage) will still trigger a
-            failover even to an unsynchronised mirror.
+            promotion of an unsynchronised mirror.
           </p>
           <p>
             If you would prefer to have queue master move to an
             unsynchronised mirror in all circumstances (i.e. you would
             choose availability of the queue over avoiding message
-            loss) then you can set the
+            loss due to unsynchronised mirror promotion) then set the
             <code>ha-promote-on-shutdown</code> policy key to
             <code>always</code> rather than its default value of
             <code>when-synced</code>.
@@ -851,7 +891,10 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             If the <code>ha-promote-on-failure</code> policy key is set to
             <code>when-synced</code>, unsynchronised mirrors will not be promoted
             even if the <code>ha-promote-on-shutdown</code> key is set to
-            <code>always</code>.
+            <code>always</code>. This means that in the event of queue master node
+            failure the queue will become unavailable until master recovers.
+            In case of a permanent loss of queue master the queue won't be available
+            unless it is deleted (that will also delete all of its contents) and redeclared.
           </p>
           <p>
             Note that <code>ha-promote-on-shutdown</code> and
@@ -860,7 +903,6 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             by default, while <code>ha-promote-on-failure</code> is set to
             <code>always</code> by default.
           </p>
-
         </doc:subsection>
 
 
@@ -960,8 +1002,7 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
                 drained messages that only exist on the master. If the master
                 queue fails before all unsychronised messages are drained,
                 those messages will be lost. You can fully synchronise a queue
-                manually, refer to <a
-                  href="#unsynchronised-mirrors">unsynchronised mirrors</a>
+                manually, refer to <a href="#unsynchronised-mirrors">unsynchronised mirrors</a>
                 section for details.
               </li>
               <li>

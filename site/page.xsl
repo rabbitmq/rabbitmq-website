@@ -73,8 +73,7 @@ limitations under the License.
       <![endif]]]></xsl:comment>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
-      <script type="text/javascript" src="/js/site.js"></script>
-      <!-- <script type="text/javascript" src="/js/ga-bootstrap.js"></script> -->
+      <script async="true" type="text/javascript" src="/js/site.js"></script>
 
       <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
       <xsl:apply-templates/>

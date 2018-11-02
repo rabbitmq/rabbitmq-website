@@ -75,7 +75,7 @@ brew install rabbitmq
 
 <pre class="sourcecode shell">
 export PATH=$PATH:/usr/local/sbin
-</pre>.
+</pre>
 
         The server can then be started with <code>rabbitmq-server</code>.
       </p>
