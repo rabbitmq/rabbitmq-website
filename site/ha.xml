@@ -217,7 +217,7 @@ limitations under the License.
       </p>
 
       <doc:subsection name="replication-factor">
-        <doc:heading>Replication Factory: How Many Mirrors are Optimal?</doc:heading>
+        <doc:heading>Replication Factor: How Many Mirrors are Optimal?</doc:heading>
 
         <p>
           Mirroring to all nodes is the most conservative option.
