@@ -263,31 +263,31 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="memory-use.html">Memory Usage</a>
+                <a href="/memory-use.html">Memory Usage</a>
               </li>
               <li>
-                <a href="memory.html">Memory Management</a>
+                <a href="/memory.html">Memory Management</a>
               </li>
               <li>
-                <a href="alarms.html">Resource Alarms</a>
+                <a href="/alarms.html">Resource Alarms</a>
               </li>
               <li>
-                <a href="disk-alarms.html">Free Disk Space Alarms</a>
+                <a href="/disk-alarms.html">Free Disk Space Alarms</a>
               </li>
               <li>
-                <a href="flow-control.html">Flow Control</a>
+                <a href="/flow-control.html">Flow Control</a>
               </li>
               <li>
-                <a href="persistence-conf.html">Message Store Configuration</a>
+                <a href="/persistence-conf.html">Message Store Configuration</a>
               </li>
               <li>
-                <a href="ttl.html">Queue and Message TTL</a>
+                <a href="/ttl.html">Queue and Message TTL</a>
               </li>
               <li>
-                <a href="maxlength.html">Queue Length Limits</a>
+                <a href="/maxlength.html">Queue Length Limits</a>
               </li>
               <li>
-                <a href="lazy-queues.html">Lazy Queues</a>
+                <a href="/lazy-queues.html">Lazy Queues</a>
               </li>
             </ul>
           </li>
@@ -297,16 +297,19 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="queues.html">Queue Properties and Feature Overview</a>
+                <a href="/queues.html">Queue Properties and Feature Overview</a>
               </li>
               <li>
-                <a href="ttl.html">Queue and Message TTL</a>
+                <a href="/consumers.html">Consumer Feature Overview</a>
               </li>
               <li>
-                <a href="maxlength.html">Queue Length Limits</a>
+                <a href="/ttl.html">Queue and Message TTL</a>
               </li>
               <li>
-                <a href="lazy-queues.html">Lazy Queues</a>
+                <a href="/maxlength.html">Queue Length Limits</a>
+              </li>
+              <li>
+                <a href="/lazy-queues.html">Lazy Queues</a>
               </li>
               <li>
                 <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
@@ -340,10 +343,10 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="stomp.html">STOMP</a>
+                <a href="/stomp.html">STOMP</a>
               </li>
               <li>
-                <a href="mqtt.html">MQTT</a>
+                <a href="/mqtt.html">MQTT</a>
               </li>
 
               <li>
