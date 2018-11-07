@@ -144,7 +144,7 @@ public class Tut3Config {
 }
 </pre>
 
-We ollow the same approach as in the previous two tutorials.  We create three
+We follow the same approach as in the previous two tutorials.  We create three
 profiles, the tutorial ("tut3", "pub-sub", or "publish-subscribe"). They are
 all synonyms for running the fanout profile tutorial. Next we configure
 the FanoutExchange as a bean. Within the "receiver" (Tut3Receiver) file we
