@@ -164,12 +164,15 @@ In some cases quorum queues should not be used. They typically involve:
 
 Quorum queues are designed to trade latency for throughput and have been tested
 and compared against [mirrored queues](/ha.html) in 3, 5 and 7 node configurations at several
-message sizes. In all scenarios quorum queues have been observed to be have
-equal or greater throughput to classic mirrored queues. When message sizes are small they can
-achieve nearly 3x the throughput of mirrored queues.
+message sizes. In scenarios using both consumer acks and publisher confirms
+ quorum queues have been observed to be have equal or greater throughput to
+classic mirrored queues.
 
 As quorum queues persist all data to disks before doing anything it is recommended
-to use the fastest disks possible.
+to use the fastest disks possible. Quorum queues also benefit from consumers
+using higher prefetch values to ensure consumers aren't starved whilst
+acknowledgements are flowing through the system and allowing messages
+to be delivered in a timely fashion.
 
 Due to the disk I/O-heavy nature of quorum queues, their throughput decreases
 as message sizes increase.
