@@ -36,7 +36,7 @@ and more.
 
 ## <a id="terminology" class="anchor" href="#terminology">Terminology</a>
 
-The term "consumer" means different things in different context. In general in messaging
+The term "consumer" means different things in different contexts. In general in messaging
 a consumer is an application (or application instance) that consumes messages. The same
 application can also publish messages and thus be a publisher at the same time.
 
@@ -85,7 +85,7 @@ run.
 
 Consumers can be more dynamic and register in reaction to a system event, unsubscribing
 when they are no longer necessary. This is common with WebSocket clients
-used via [Web STOMP]() and [Web MQTT]() plugins, mobile clients and so on.
+used via [Web STOMP](/web-stomp.html) and [Web MQTT](web-mqtt.html) plugins, mobile clients and so on.
 
 ### <a id="connection-recovery" class="anchor" href="#connection-recovery">Connection Recovery</a>
 
@@ -93,7 +93,8 @@ Client can lose their connection to RabbitMQ. When connection loss is [detected]
 message delivery stops.
 
 Some client libraries offer automatic connection recovery features that involves consumer recovery.
-[Java](/api-guide.html#recovery), [.NET](/dotnet-api-guide.html#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html) are examples of such libraries.
+[Java](/api-guide.html#recovery), [.NET](/dotnet-api-guide.html#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
+are examples of such libraries.
 While connection recovery cannot cover 100% of scenarios and workloads, it generally works very well for consuming
 applications and is recommended.
 
@@ -136,12 +137,12 @@ When registering a consumer applications can choose one of two delivery modes:
  * Automatic (deliveries require no acknowledgement, a.k.a. "fire and forget")
  * Manual (deliveries require client acknowledgement)
 
- Consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html), together with
- publisher confirms, a closely related concept for publishers.
+Consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html), together with
+publisher confirms, a closely related concept for publishers.
 
 ## <a id="prefetch" class="anchor" href="#prefetch">Limiting Simultaneous Deliveries with Prefetch</a>
 
-With manual acknowledgement mode consumer have a way of limiting how many deliveries can be "in flight" (in transit
+With manual acknowledgement mode consumers have a way of limiting how many deliveries can be "in flight" (in transit
 over the network or delivered but unacknowledged). This can avoid consumer overload.
 
 This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html).
@@ -177,7 +178,7 @@ See [Java client guide](/api-guide.html#getting) for examples.
 
 ### .NET Client
 
-See [.NET client guide](/dotnet-api-guide.html#getting) for examples.
+See [.NET client guide](/dotnet-api-guide.html#basic-get) for examples.
 
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
