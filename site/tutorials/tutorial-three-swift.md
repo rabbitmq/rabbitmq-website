@@ -120,8 +120,8 @@ x.publish(msg.data(using: .utf8))
 Temporary queues
 ----------------
 
-As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+As you may remember previously we were using queues that had
+specific names (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
