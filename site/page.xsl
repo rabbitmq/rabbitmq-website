@@ -190,7 +190,6 @@ limitations under the License.
           <a href="/trademark-guidelines.html">Trademark Guidelines</a>
           <br/>
           <a id='teconsent'></a>
-          <script async="async" src="//consent.trustarc.com/notice?domain=rabbitmq.com&amp;c=teconsent&amp;js=nj&amp;text=true&amp;pcookie" crossorigin=""></script>
         </p>
       </div>
     </div>
