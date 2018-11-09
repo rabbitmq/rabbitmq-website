@@ -24,16 +24,36 @@ limitations under the License.
     <title>Clustering and Network Partitions</title>
   </head>
   <body show-in-this-page="true">
-    <p>
-      RabbitMQ clusters do not tolerate network partitions well. If
-      you are thinking of clustering across a WAN, don't. You should
-      use <a href="/federation.html">federation</a> or
-      the <a href="/shovel.html">shovel</a> instead.
+    <p>RabbitMQ clusters can be used to achieve a higher throughput, 
+      better availability or better data protection.
+      They all require different configurations. In case you plan to spread 
+      your cluster across a WAN, take <a href="/federation.html">federation</a> 
+      and <a href="/shovel.html">shovel</a> into account. They
+      might be the better option for your use-case.
+    </p>    
+    <p>If you run your cluster for better performance, all nodes should remain
+      in the same datacenter, ideally in the same rack. This is the default use-case 
+      and works well with the default configuration. If nothing special is mentioned,
+      the default configuration is assumed in this chapter.
+    </p>
+    <p>If you want to achieve better data protection, you have to
+      operate your cluster with <a href="#pause-minority">pause_minority</a>. 
+      This will prevent a split-brain in case of network partitions. Additionaly 
+      configure <a href="/ha.html">mirroring</a> for all queues, 
+      which require improved data protection.
+    </p>
+    <p>If you want to achieve better availability, as defined by the CAP theorem, 
+      and you can tolerate inconsistencies (split-brain), you do not have to
+      change <code>cluster_partition_handling</code>. 
+      If you cannot tolerate  inconsistencies, your cluster has to consist of 
+      at least three nodes, which should be distributed over three datacenters 
+      with direct connection to each other. Also you have to operate your cluster 
+      with <a href="#pause-minority">pause_minority</a>>
     </p>
     <p>
-      However, sometimes accidents happen. This page documents how
-      to detect network partitions, some of the bad effects that may
-      happen during partitions, and how to recover from them.
+      This page documents how to detect network partitions, 
+      some of the bad effects that may happen during partitions, 
+      and how to recover from them.
     </p>
     <p>
       RabbitMQ stores information about queues, exchanges, bindings
@@ -100,18 +120,21 @@ rabbitmqctl cluster_status
     <p>
       While a network partition is in place, the two (or more!) sides
       of the cluster can evolve independently, with both sides
-      thinking the other has crashed. Queues, bindings, exchanges can
+      thinking the other has crashed. This is called split-brain.
+      Queues, bindings, exchanges can
       be created or deleted separately. <a href="ha.html">Mirrored
       queues</a> which are split across the partition will end up with
       one master on each side of the partition, again with both sides
       acting independently. Other undefined and weird behaviour may
       occur.
+      Such a split-brain situation can be prevented using 
+      <a href="#pause-minority">pause_minority</a>.
     </p>
     <p>
       <b>It is important to understand that when network connectivity
-      is restored, this state of affairs persists. The cluster
-      will continue to act in this way until you take action to
-      fix it.</b>
+      is restored, the split-brain will persist. The cluster
+      will continue to operate, as if the nodes would not be able to 
+      reach each other, until you take action to fix it.</b>
     </p>
     </doc:section>
 
@@ -132,11 +155,12 @@ rabbitmqctl cluster_status
       While you could suspend a cluster node by running it on a laptop
       and closing the lid, the most common reason for this to happen
       is for a virtual machine to have been suspended by the
-      hypervisor. While it's fine to run RabbitMQ clusters in
+      hypervisor.
+      <b>While it's fine to run RabbitMQ clusters in
       virtualised environments, you should make sure that VMs are not
       suspended while running. Note that some virtualisation features
       such as migration of a VM from one host to another will tend to
-      involve the VM being suspended.
+      involve the VM being suspended.</b>
     </p>
 
     <p>
@@ -149,9 +173,9 @@ rabbitmqctl cluster_status
     </doc:section>
 
     <doc:section name="recovering">
-    <doc:heading>Recovering from a network partition</doc:heading>
+    <doc:heading>Recovering from a split-brain</doc:heading>
     <p>
-      To recover from a network partition, first choose one partition
+      To recover from a split-brain, first choose one partition
       which you trust the most. This partition will become the
       authority for the state of Mnesia to use; any changes which have
       occurred on other partitions will be lost.
@@ -190,7 +214,9 @@ rabbitmqctl cluster_status
       event of a network partition, at most the nodes in a single
       partition will continue to run. The minority nodes will pause as
       soon as a partition starts, and will start again when the
-      partition ends.
+      partition ends. This configuration prevents split-brain and
+      is therefore able to automatically recover from 
+      network partitions without inconsistencies.
     </p>
 
     <p>
@@ -283,11 +309,13 @@ rabbitmqctl cluster_status
       </li>
       <li>
         <code>pause_minority</code> - Your network is maybe less
-        reliable. You have clustered across 3 AZs in EC2, and you
-        assume that only one AZ will fail at once. In that scenario
-        you want the remaining two AZs to continue working and the
-        nodes from the failed AZ to rejoin automatically and without
-        fuss when the AZ comes back.
+        reliable. You have clustered across three datacenters, and you
+        assume that only one datacenter will fail at once. In that scenario
+        you want the remaining two datacenters to continue working and the
+        nodes from the failed datacenter to rejoin automatically and without
+        fuss when the datacenter comes back. Those datacenters have to have
+        a direct and reliable connection to each other, like availability zones
+        in EC2.
       </li>
       <li>
         <code>autoheal</code> - Your network may not be reliable. You
@@ -316,10 +344,11 @@ rabbitmqctl cluster_status
       enable pause-minority mode on a cluster of two nodes since in
       the event of any network partition <b>or node failure</b>, both
       nodes will pause. However, <code>pause_minority</code> mode is
-      likely to be safer than <code>ignore</code> mode for clusters of
-      more than two nodes, especially if the most likely form of
-      network partition is that a single minority of nodes drops off
-      the network.
+      safer than <code>ignore</code> mode, with regards to integrity.
+      For clusters of more than two nodes, especially if the most likely 
+      form of network partition is that a single minority of nodes 
+      drops off the network, the availability is remains as good as 
+      with <code>ignore</code> mode.
     </p>
     <p>
       Finally, note that <code>pause_minority</code> mode will do
