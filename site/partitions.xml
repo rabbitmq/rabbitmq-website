@@ -53,7 +53,7 @@ limitations under the License.
     <doc:section name="detecting">
       <doc:heading>Detecting Network Partitions</doc:heading>
       <p>
-        Nodes determine if its peer is downif another
+        Nodes determine if its peer is down if another
         node is unable to contact it for a <a href="nettick.html">period of time</a>, 60 seconds by default.
         If two nodes come back into contact, both having thought the other is down, the nodes will
         determine that a partition has occurred. This will be written to
