@@ -25,6 +25,7 @@ This guide covers various topics related to consumers:
  * [Consumer lifecycle](#consumer-lifecycle)
  * [How to register a consumer](#subscribing) (subscribe, "push API")
  * [Acknowledgement modes](#acknowledgement-modes)
+ * [Message properties](#message-properties) and delivery metadata
  * [How to limit number of outstanding deliveries with prefetch](#prefetch)
  * [How to cancel a consumer](#unsubscribing)
  * [Fetching individual messages](#fetching) ("pull API")
@@ -130,7 +131,7 @@ See [Java client guide](/api-guide.html#consuming) for examples.
 
 See [.NET client guide](/dotnet-api-guide.html#consuming) for examples.
 
-###
+### <a id="message-properties" class="anchor" href="#message-properties">Message Properties and Delivery Metadata</a>
 
 Every delivery combintes message metadata and delivery information. Different client
 libraries use slightly different ways of providing access to those properties. Typically
