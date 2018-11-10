@@ -130,6 +130,41 @@ See [Java client guide](/api-guide.html#consuming) for examples.
 
 See [.NET client guide](/dotnet-api-guide.html#consuming) for examples.
 
+###
+
+Every delivery combintes message metadata and delivery information. Different client
+libraries use slightly different ways of providing access to those properties. Typically
+delivery handlers have access to a delivery data structure.
+
+The following properties are delivery and routing details; they are not message properties per se
+and set by RabbitMQ at routing and delivery time:
+
+ * Delivery tag
+ * Consumer tag
+ * Redelivery tag
+ * Exchange
+ * Routing key
+
+ 
+The following are message properties. Most of them are optional. They are set by publishers
+at the time of publishing:
+
+ * Content type
+ * Content encoding
+ * Headers (a map with key strings)
+ * Delivery mode
+ * Priority
+ * Correlation ID
+ * Reply To
+ * Expiration
+ * Message ID
+ * Timestamp
+ * Type
+ * User ID
+ * App ID
+ * Cluster ID
+
+
 ## <a id="acknowledgement-modes" class="anchor" href="#acknowledgement-modes">Acknowledgement Modes</a>
 
 When registering a consumer applications can choose one of two delivery modes:
