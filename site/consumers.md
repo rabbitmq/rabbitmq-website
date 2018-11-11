@@ -159,7 +159,7 @@ and set by RabbitMQ at routing and delivery time:
     <tr>
       <td>Redelivered</td>
       <td>Boolean</td>
-      <td>Set to `true` if this message was previously <a href="http://localhost:8191/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+      <td>Set to `true` if this message was previously <a href="/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
     </tr>
     <tr>
       <td>Exchange</td>
