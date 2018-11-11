@@ -140,30 +140,135 @@ delivery handlers have access to a delivery data structure.
 The following properties are delivery and routing details; they are not message properties per se
 and set by RabbitMQ at routing and delivery time:
 
- * Delivery tag
- * Consumer tag
- * Redelivery tag
- * Exchange
- * Routing key
+<table>
+  <thead>
+    <tr>
+      <td>Property</td>
+      <td>Type</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Delivery tag</td>
+      <td>Positive integer</td>
+      <td>
+        Delivery identifier, see <a href="/confirms.html">Confirms</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>Redelivered</td>
+      <td>Boolean</td>
+      <td>Set to `true` if this message was previously <a href="http://localhost:8191/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+    </tr>
+    <tr>
+      <td>Exchange</td>
+      <td>String</td>
+      <td>Exchange which routed this message</td>
+    </tr>
+    <tr>
+      <td>Routing key</td>
+      <td>String</td>
+      <td>Routing key used by the publisher</td>
+    </tr>
+    <tr>
+      <td>Consumer tag</td>
+      <td>String</td>
+      <td>Consumer (subscription) identifier</td>
+    </tr>
+  </tbody>
+</table>
 
- 
 The following are message properties. Most of them are optional. They are set by publishers
 at the time of publishing:
 
- * Content type
- * Content encoding
- * Headers (a map with key strings)
- * Delivery mode
- * Priority
- * Correlation ID
- * Reply To
- * Expiration
- * Message ID
- * Timestamp
- * Type
- * User ID
- * App ID
- * Cluster ID
+<table>
+  <thead>
+    <tr>
+      <td>Property</td>
+      <td>Type</td>
+      <td>Description</td>
+      <td>Required?</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Delivery mode</td>
+      <td>Enum (1 or 2)</td>
+      <td>
+        2 for "persistent", 1 for "transient". Some client libraries expose this property
+        as a boolean or enum.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>String</td>
+      <td>Application-specific message type, e.g. "orders.created"</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Headers</td>
+      <td>Map (string => any)</td>
+      <td>An arbitrary map of headers with string header names</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Content type</td>
+      <td>String</td>
+      <td>Content type, e.g. "application/json". Used by applications, not core RabbitMQ</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Content encoding</td>
+      <td>String</td>
+      <td>Content encoding, e.g. "gzip". Used by applications, not core RabbitMQ</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Message ID</td>
+      <td>String</td>
+      <td>Arbitrary message ID</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Correlation ID</td>
+      <td>String</td>
+      <td>Helps correlate requests with responses, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Reply To</td>
+      <td>String</td>
+      <td>Carries response queue name, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Expiration</td>
+      <td>String</td>
+      <td><a href="/ttl.html">Per-message TTL</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Timestamp</td>
+      <td>Timestamp</td>
+      <td>Application-provided timestamp</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>User ID</td>
+      <td>String</td>
+      <td>User ID, <a href="/validated-user-id.html">validated</a> if set</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>App ID</td>
+      <td>String</td>
+      <td>Application name</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## <a id="acknowledgement-modes" class="anchor" href="#acknowledgement-modes">Acknowledgement Modes</a>
