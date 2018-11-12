@@ -270,6 +270,35 @@ at the time of publishing:
   </tbody>
 </table>
 
+### Message Types
+
+The type property on messages is an arbitrary string that helps applications communicate what kind
+of message that is. It is set by the publishers at the time of publishing.
+The value can be any domain-specific string that publishers and consumers agree on.
+
+RabbitMQ does not validate or use this field, it exists for applications and plugins to use
+and interpret.
+
+Message types in practice naturally fall into groups, a dot-separated naming convention is
+common (but not required by RabbitMQ or clients), e.g. `orders.created` or `logs.line` or `profiles.image.changed`.
+
+If a consumer gets a delivery of an unknown type it is highly advised to log such events to make troubleshooting
+easier.
+
+
+### Content Type and Encoding
+
+The content (MIME media) type and content encoding fields allow publishers communicate how message payload
+should be deserialized and decoded by consumers.
+
+RabbitMQ does not validate or use these fields, it exists for applications and plugins to use
+and interpret.
+
+For example, messages with JSON payload [should use `application/json`](http://www.ietf.org/rfc/rfc4627.txt).
+If the payload is compressed with the LZ77 (GZip) algorithm, its content encoding should be `gzip`.
+
+Multiple encodings can be specified by separating them with commas.
+
 
 ## <a id="acknowledgement-modes" class="anchor" href="#acknowledgement-modes">Acknowledgement Modes</a>
 
