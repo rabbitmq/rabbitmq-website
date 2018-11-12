@@ -49,7 +49,7 @@ limitations under the License.
 
       <p>
         For any given exchange, an AE can be defined by clients using
-        <a href="parameters.html#policies">policies</a> or the exchange's client-provoided options arguments ("x-args").
+        <a href="parameters.html#policies">policies</a> or the exchange's client-provided options arguments ("x-args").
         In the case where both policy and arguments specify an AE, the one
         specified in arguments overrules the one specified in policy.
       </p>
