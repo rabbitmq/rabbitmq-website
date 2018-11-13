@@ -377,6 +377,16 @@ exist with the same high priority.
 Consumer priorities are covered in a [separate guide](/consumer-priority.html).
 
 
+## <a id="exceptions" class="anchor" href="#exceptions">Exception Handling</a>
+
+Consumers are expected to handle any exceptions that arise during handling of deliveries
+or any other consumer operations. Such exceptions should be logged, collected and ignored.
+
+If a consumer cannot process deliveries due to a dependency not being available or similar reasons
+it should clearly log so and cancel itself until it is capable of processing deliveries again.
+This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](/monitoring.html).
+
+
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations</a>
 
 Consumer concurrency is primarily a matter of client library implementation details and application
