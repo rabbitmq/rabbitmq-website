@@ -31,6 +31,7 @@ This guide covers various topics related to consumers:
  * [Fetching individual messages](#fetching) ("pull API")
  * [Consumer exclusivity](#exclusivity)
  * [Consumer priority](#priority)
+ * [Exception Handling](#exceptions)
  * [Concurrency Consideration](#concurrency)
 
 and more.
