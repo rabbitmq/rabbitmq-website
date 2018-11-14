@@ -1020,7 +1020,7 @@ factory.useSslProtocol("TLSv1.2");
             verification to succeed. To suppress verification, an applications can set
             the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
             and <code>System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
-            flags in <a href="&url-dotnet-apidoc;/RabbitMQ.client.SslOption.html">SslOptions</a>.
+            flags in <a href="&url-dotnet-apidoc;/RabbitMQ.Client.SslOption.html">SslOptions</a>.
           </p>
         </doc:subsection>
 
