@@ -17,10 +17,10 @@ limitations under the License.
 -->
 <!ENTITY version-java-client "5.5.0">
 <!ENTITY version-dotnet-client "5.1.0">
-<!ENTITY version-server "3.7.8">
+<!ENTITY version-server "3.7.9">
 <!ENTITY version-server-series "v3.7.x">
-<!ENTITY version-erlang-client "3.7.8">
-<!ENTITY version-server-tag "v3.7.8">
+<!ENTITY version-erlang-client "3.7.9">
+<!ENTITY version-server-tag "v3.7.9">
 <!ENTITY standalone-otp-version "21.0">
 
 <!ENTITY serverDebMinorVersion "1">
