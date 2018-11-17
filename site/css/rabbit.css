@@ -771,6 +771,53 @@ body#index #getstarted,
   }
 }
 
+/* Homepage hero: Webinar */
+
+#hero #hero-webinar {
+  background: url(../img/home/banner/webinar/home-banner-webinar-desktop.svg) no-repeat center center;
+  background-size: cover;
+  padding: 80px 0;
+  text-align: right;
+}
+
+#hero #hero-webinar .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-webinar h2 a {
+  font-weight: normal;
+}
+
+@media(max-width: 820px) {
+  #hero #hero-webinar {
+    background: url(../img/home/banner/webinar/home-banner-webinar-tablet.svg) no-repeat right;
+    background-size: cover;
+    background-position: left;
+    padding: 70px 0;
+  }
+  #hero #hero-webinar .text {
+    max-width: 340px;
+    float: right;
+  }
+  #hero #hero-webinar .container {
+    overflow: hidden;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-webinar {
+    background: url(../img/home/banner/webinar/home-banner-webinar-mobile.svg) no-repeat bottom right;
+    background-size: 100%;
+    text-align: center;
+    padding: 60px 0 80px;
+  }
+  #hero #hero-webinar .text {
+    max-width: 100%;
+    float: none;
+  }
+}
+
 /* Uberflip embed styles */
 .hubs-embedded {
   overflow: inherit !important;
