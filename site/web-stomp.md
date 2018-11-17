@@ -30,7 +30,7 @@ RabbitMQ Web STOMP plugin is rather simple. It takes the STOMP protocol,
 as provided by [RabbitMQ STOMP plugin](/stomp.html) and exposes it using
 WebSockets.
 
-Since version `3.7` support for SockJS websocket emulation was removed.
+RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](/stomp.html) plugin.
 
 ## Enabling the Plugin
 
@@ -126,7 +126,7 @@ For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
 <pre class="sourcecode ini">
-web_stomp.port = 12345
+web_stomp.tcp.port = 12345
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -180,43 +180,6 @@ for details about accepted parameters.
 
 A separate guide on [TLS Troubleshooting](/troubleshooting-ssl.html) is also available.
 
-## WebSocket Options and Content Encoding
-
-By default, the Web STOMP plugin will expect to handle messages
-encoded as UTF-8. You can switch the WebSocket endpoint to binary if needed.
-The `ws_frame` option serves this purpose:
-
-<pre class="sourcecode ini">
-web_stomp.ws_frame = binary
-</pre>
-
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbitmq_web_stomp, [{ws_frame, binary}]}
-].
-</pre>
-
-The Web STOMP plugin uses the Cowboy web server under the hood.
-Cowboy provides [a number of
-options](https://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
-that can be used to customize the behavior of the server
-w.r.t. WebSocket connection handling. You can specify those in the Web
-STOMP plugin configuration, in the `cowboy_opts` section:
-
-<pre class="sourcecode ini">
-web_stomp.cowboy_opts.max_keepalive = 10
-</pre>
-
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[
-  {rabbitmq_web_stomp,
-      [{cowboy_opts, [{max_keepalive, 10}]}]}
-].
-</pre>
 
 ## Basic HTTP Authentication
 
@@ -237,7 +200,88 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 ].
 </pre>
 
-## Missing features
 
-RabbitMQ Web STOMP is fully compatible with the
-[RabbitMQ STOMP](/stomp.html) plugin.
+## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
+
+The Web STOMP plugin uses the Cowboy HTTP and WebSocket server under the hood.  Cowboy
+provides [a number of options](https://ninenines.eu/docs/en/cowboy/2.4/manual/cowboy_http/)
+that can be used to customize the behavior of the server
+w.r.t. WebSocket connection handling.
+
+Some settings are generic HTTP ones, others are specific to WebSockets.
+
+### Content Encoding
+
+By default, the Web STOMP plugin will expect to handle messages
+encoded as UTF-8. The WebSocket endpoint exposed by this plugin can be switched to binary mode if needed
+using the `ws_frame` option:
+
+<pre class="sourcecode ini">
+web_stomp.ws_frame = binary
+</pre>
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_stomp, [{ws_frame, binary}]}
+].
+</pre>
+
+### HTTP Options
+
+Generic HTTP server settings can be specified using `web_stomp.cowboy_opts.*` keys,
+for example:
+
+<pre class="sourcecode ini">
+# connection inactivity timeout
+web_stomp.cowboy_opts.idle_timeout = 60000
+# max number of pending requests allowed on a connection
+web_stomp.cowboy_opts.max_keepalive = 200
+# max number of headers in a request
+web_stomp.cowboy_opts.max_headers   = 100
+# max number of empty lines before request body
+web_stomp.cowboy_opts.max_empty_lines = 5
+# max request line length allowed in requests
+web_stomp.cowboy_opts.max_request_line_length
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_stomp,
+      [
+        {cowboy_opts, [{max_keepalive, 200},
+                       {max_headers,   100}]}
+      ]
+  }
+].
+</pre>
+
+
+### WebSocket Options
+
+<pre class="sourcecode ini">
+# WebSocket traffic compression is enabled by default
+web_stomp.ws_opts.compress = true
+
+# WebSocket connection inactivity timeout
+web_stomp.ws_opts.idle_timeout
+
+web_stomp.ws_opts.max_frame_size = 50000
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_stomp,
+      [
+        {cowboy_ws_opts, [{compress,       true},
+                          {idle_timeout,   60000},
+                          {max_frame_size, 50000}]}
+      ]
+  }
+].
+</pre>

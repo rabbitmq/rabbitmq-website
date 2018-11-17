@@ -909,6 +909,36 @@ cluster_formation.consul.domain_suffix = example.local
         With this setup node names will be computed to <code>rabbit@192.168.100.1.node.example.local</code>
         instead of <code>rabbit@192.168.100.1</code>.
       </p>
+
+      <p>
+        When a node tries to acquire a lock on boot and the lock is already taken,
+        it will wait for the lock to become available for a limited amount of time. Default value is 300
+        seconds but it can be configured:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# lock acquisition timeout in seconds
+# default: 300
+# cluster_formation.consul.lock_wait_time is an alias
+cluster_formation.consul.lock_timeout = 60
+</pre>
+      </p>
+
+      <p>
+        Lock key prefix is <code>rabbitmq</code> by default. It can also be overridden:
+
+        <pre class="sourcecode ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+cluster_formation.consul.lock_timeout = 60
+# should the Consul key used for locking be prefixed with something
+# other than "rabbitmq"?
+cluster_formation.consul.lock_prefix = environments-qa
+</pre>
+      </p>
     </doc:section>
 
     <doc:section name="peer-discovery-etcd">
@@ -1017,7 +1047,7 @@ cluster_formation.etcd.node_ttl = 40
 
       <p>
         When a node tries to acquire a lock on boot and the lock is already taken,
-        it will wait for the lock to be come available with a timeout. Default value is 300
+        it will wait for the lock to become available for a limited amount of time. Default value is 300
         seconds but it can be configured:
 
         <pre class="sourcecode ini">
@@ -1026,7 +1056,8 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 cluster_formation.etcd.host = etcd.eng.example.local
 # lock acquisition timeout in seconds
 # default: 300
-cluster_formation.etcd.lock_wait_time = 60
+# cluster_formation.consul.lock_wait_time is an alias
+cluster_formation.etcd.lock_timeout = 60
 </pre>
       </p>
     </doc:section>
