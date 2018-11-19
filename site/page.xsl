@@ -134,8 +134,8 @@ limitations under the License.
       <script type="text/javascript" src="/js/highlight.pack.js"></script>
       <script type="text/javascript">
         // code highlighting
-        onDOMReady(function() {
-          document.querySelectorAll(".sourcecode").forEach(function(el) {
+        window.addEventListener("load", function() {
+          document.querySelectorAll("pre.sourcecode").forEach(function(el) {
             hljs.highlightBlock(el);
           });
         });
