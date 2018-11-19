@@ -53,12 +53,22 @@ limitations under the License.
         the peer TCP connection should be considered unreachable (down) by RabbitMQ
         and client libraries. This value is negotiated between the
         client and RabbitMQ server at the time of connection. The
-        client must be configured to request heartbeats. In RabbitMQ
-        versions 3.0 and higher, the broker will attempt to negotiate
-        heartbeats by default (although the client can still veto
-        them). The timeout is in seconds, and default value is <code>60</code>
-        (<code>580</code> prior to release 3.5.5).
+        client must be configured to request heartbeats.
       </p>
+      <p>
+        The broker and client will attempt to negotiate
+        heartbeats by default. When both values are non-0, the lower of the requested
+        values will be used. If one side uses a zero value (attempts to disable heartbeats)
+        but the other does not, the non-zero value will be used.
+      </p>
+      <p>
+        The timeout is in seconds, and default value is <code>60</code>.
+        Older releases used <code>580</code> seconds by default.
+      </p>
+    </doc:section>
+
+    <doc:section name="heartbeats-delivery">
+      <doc:heading>Heartbeat Frames</doc:heading>
       <p>
         Heartbeat frames are sent about every <code>heartbeat timeout / 2</code>
         seconds. This value is sometimes referred to as the <code>heartbeat interval</code>.
@@ -81,9 +91,17 @@ limitations under the License.
         regardless of whether there was any other traffic on the
         connection but some only do it when necessary.
       </p>
+    </doc:section>
+
+    <doc:section name="disabling">
+      <doc:heading>How to Disable Heartbeats</doc:heading>
+
       <p>
-        Heartbeats can be disabled by setting the timeout interval to <code>0</code>.
-        This is not a recommended practice.
+        Heartbeats can be disabled by setting the timeout interval to <code>0</code> on both client and server ends.
+      </p>
+      <p>
+        Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively disable heartbeats
+        as frame delivery will be too infrequent to make a practical difference.
       </p>
     </doc:section>
 
