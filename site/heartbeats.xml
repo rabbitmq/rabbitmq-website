@@ -67,7 +67,7 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="heartbeats-delivery">
+    <doc:section name="heartbeats-interval">
       <doc:heading>Heartbeat Frames</doc:heading>
       <p>
         Heartbeat frames are sent about every <code>heartbeat timeout / 2</code>
@@ -106,7 +106,7 @@ limitations under the License.
 
       <p>
         Neither practice is recommended unless <a href="#tcp-keepalives">TCP keepalives</a> are used
-        instead.
+        instead with an adequately low inactivity detection period.
       </p>
     </doc:section>
 
@@ -237,6 +237,13 @@ cf.RequestedHeartbeat = 60;
         and outgoing. This makes them useful in scenarios with a high outgoing
         connection churn, e.g. <a href="/shovel.html">Shovel</a> or <a href="/federation.html">Federation</a> plugin
         links that are often disabled and reenabled or interrupted.
+      </p>
+
+      <p>
+        TCP keepalives an also be used instead of heartbeats by configuring them to lower system-specific
+        values. In that case <a href="#disabling">heartbeats can be disabled</a>. The main benefit
+        of this approach is that all TCP connections on a machine will use identical values
+        regardless of the protocol and client library used.
       </p>
 
       <p>
