@@ -103,6 +103,11 @@ limitations under the License.
         Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively disable heartbeats
         as frame delivery will be too infrequent to make a practical difference.
       </p>
+
+      <p>
+        Neither practice is recommended unless <a href="#tcp-keepalives">TCP keepalives</a> are used
+        instead.
+      </p>
     </doc:section>
 
     <doc:section name="using-heartbeats-in-java">
