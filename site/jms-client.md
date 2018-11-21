@@ -552,6 +552,42 @@ JMS API classes in the JMS Client.
 Deviations from the specification are implemented to support common
 acknowledgement behaviours.
 
+## <a id="jms_topic_support"></a>JMS Topic Support
+
+JMS topics are implemented using an AMQP [topic exchange](tutorials/amqp-concepts.html#exchange-topic)
+and a dedicated AMQP queue for each JMS topic subscriber. The AMQP
+topic exchange is `jms.temp.topic` or `jms.durable.topic`, depending
+on whether the JMS topic is temporary or not, respectively. Let's
+take an example with a subscription to a durable `my.jms.topic` JMS topic:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * the `jms-cons-{UUID}` AMQP queue is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+If another subscriber subscribes to `my.jms.topic`, it will have
+its own AMQP queue and both subscribers will receive messages published
+to the `jms.durable.topic` exchange with the `my.jms.topic` routing key.
+
+The example above assumes no topic selector is used when declaring the
+subscribers. If a topic selector is in use, a `x-jms-topic`-typed exchange
+will sit between the `jms.durable.topic` topic exchange and the
+subscriber queue. So the topology is the following when subscribing to
+a durable `my.jms.topic` JMS topic with a selector:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * a `x-jms-topic`-typed exchange is bound to the subscriber AMQP queue with
+ the `my.jms.topic` binding key and some arguments related to the selector
+ expressions. Note this exchange is scoped to the JMS session and not only
+ to the subscriber.
+ * the `x-jms-topic`-typed exchange is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+Exchanges can be bound together thanks to a [RabbitMQ extension](e2e.html).
+Note the [topic selector plugin](#plugin) must be enabled for topic selectors
+to work.
+
 ## <a id="queue_browser_support"></a>QueueBrowser Support
 
 ### Overview of queue browsers
