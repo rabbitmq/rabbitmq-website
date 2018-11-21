@@ -104,6 +104,9 @@ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 
 You don't need to restart the broker to activate the plugin.
 
+***You need to enable this plugin only if you plan to use topic selectors
+in your JMS client applications***.
+
 ### <a id="java-container" class="anchor" href="#java-container">Enabling the JMS client in a Java container</a>
 
 To enable the JMS Client in a Java container (e.g. Java EE application
