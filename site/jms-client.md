@@ -198,7 +198,8 @@ The following table lists all of the attributes/properties that are available.
 ## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
 An interoperability feature allows you to define JMS 'amqp' destinations
-that read and/or write to non-JMS RabbitMQ resources.
+that read and/or write to non-JMS RabbitMQ resources. Note this feature
+does not support JMS topics.
 
 A JMS destination can be defined so that a JMS application can send
 `Message`s to a predefined RabbitMQ 'destination' (exchange/routing key)
