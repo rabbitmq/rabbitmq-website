@@ -182,7 +182,7 @@ limitations under the License.
           how you might build a simple plugin that acts like a metronome. Every second, it fires a message that has
           a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot; by default.
           Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals.
-          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
+          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To receive
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
