@@ -293,14 +293,14 @@ limitations under the License.
           </li>
 
           <li>
-            Queue, Routing, and Consumer Features:
+            Queue, routing, and consumer features:
 
             <ul>
               <li>
-                <a href="/queues.html">Queue Properties and Feature Overview</a>
+                <a href="/queues.html">Queues guide</a>
               </li>
               <li>
-                <a href="/consumers.html">Consumer Feature Overview</a>
+                <a href="/consumers.html">Consumers guide</a>
               </li>
               <li>
                 <a href="/ttl.html">Queue and Message TTL</a>

@@ -134,8 +134,8 @@ limitations under the License.
       <script type="text/javascript" src="/js/highlight.pack.js"></script>
       <script type="text/javascript">
         // code highlighting
-        onDOMReady(function() {
-          document.querySelectorAll(".sourcecode").forEach(function(el) {
+        window.addEventListener("load", function() {
+          document.querySelectorAll("pre.sourcecode").forEach(function(el) {
             hljs.highlightBlock(el);
           });
         });
@@ -190,7 +190,6 @@ limitations under the License.
           <a href="/trademark-guidelines.html">Trademark Guidelines</a>
           <br/>
           <a id='teconsent'></a>
-          <script async="async" src="//consent.trustarc.com/notice?domain=rabbitmq.com&amp;c=teconsent&amp;js=nj&amp;text=true&amp;pcookie" crossorigin=""></script>
         </p>
       </div>
     </div>

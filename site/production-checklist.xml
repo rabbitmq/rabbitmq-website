@@ -43,8 +43,8 @@ limitations under the License.
       </p>
 
       <p>
-        <a href="/monitoring.html">Monitoring</a> and metrics the foundation of a production-grade system.
-        Besides helping detect issues, it provides the oprator data that can be used
+        <a href="/monitoring.html">Monitoring</a> and metrics are the foundation of a production-grade system.
+        Besides helping detect issues, it provides the operator data that can be used
         to size and configure both RabbitMQ nodes and applications.
       </p>
     </doc:section>

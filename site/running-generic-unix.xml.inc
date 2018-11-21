@@ -48,7 +48,7 @@ limitations under the License.
 
     <h4>Stopping the Server</h4>
     <p>
-      To top a running node, use <code>sbin/rabbitmqctl shutdown</code>. The command
+      To stop a running node, use <code>sbin/rabbitmqctl shutdown</code>. The command
       will wait for the node process to stop. If the target node is not running,
       it will exit with an error.
     </p>

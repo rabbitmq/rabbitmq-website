@@ -76,7 +76,7 @@ get prometheus_rabbitmq_exporter-3.7.2.3.ez
 Verify that plugin archives are in place (output should be similar to this - note file sizes):
 
 <pre class="sourcecode sh">
-ls -la /user/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
+ls -la /usr/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
 
 -rw-r--r-- 1 root root  13397 Oct 23 10:22 /usr/lib/rabbitmq/plugins/accept-0.3.3.ez
 -rw-r--r-- 1 root root 200783 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus-3.5.1.ez

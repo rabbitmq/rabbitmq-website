@@ -25,11 +25,13 @@ This guide covers various topics related to consumers:
  * [Consumer lifecycle](#consumer-lifecycle)
  * [How to register a consumer](#subscribing) (subscribe, "push API")
  * [Acknowledgement modes](#acknowledgement-modes)
+ * [Message properties](#message-properties) and delivery metadata
  * [How to limit number of outstanding deliveries with prefetch](#prefetch)
  * [How to cancel a consumer](#unsubscribing)
  * [Fetching individual messages](#fetching) ("pull API")
  * [Consumer exclusivity](#exclusivity)
  * [Consumer priority](#priority)
+ * [Exception Handling](#exceptions)
  * [Concurrency Consideration](#concurrency)
 
 and more.
@@ -130,6 +132,175 @@ See [Java client guide](/api-guide.html#consuming) for examples.
 
 See [.NET client guide](/dotnet-api-guide.html#consuming) for examples.
 
+### <a id="message-properties" class="anchor" href="#message-properties">Message Properties and Delivery Metadata</a>
+
+Every delivery combintes message metadata and delivery information. Different client
+libraries use slightly different ways of providing access to those properties. Typically
+delivery handlers have access to a delivery data structure.
+
+The following properties are delivery and routing details; they are not message properties per se
+and set by RabbitMQ at routing and delivery time:
+
+<table>
+  <thead>
+    <tr>
+      <td>Property</td>
+      <td>Type</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Delivery tag</td>
+      <td>Positive integer</td>
+      <td>
+        Delivery identifier, see <a href="/confirms.html">Confirms</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>Redelivered</td>
+      <td>Boolean</td>
+      <td>Set to `true` if this message was previously <a href="/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+    </tr>
+    <tr>
+      <td>Exchange</td>
+      <td>String</td>
+      <td>Exchange which routed this message</td>
+    </tr>
+    <tr>
+      <td>Routing key</td>
+      <td>String</td>
+      <td>Routing key used by the publisher</td>
+    </tr>
+    <tr>
+      <td>Consumer tag</td>
+      <td>String</td>
+      <td>Consumer (subscription) identifier</td>
+    </tr>
+  </tbody>
+</table>
+
+The following are message properties. Most of them are optional. They are set by publishers
+at the time of publishing:
+
+<table>
+  <thead>
+    <tr>
+      <td>Property</td>
+      <td>Type</td>
+      <td>Description</td>
+      <td>Required?</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Delivery mode</td>
+      <td>Enum (1 or 2)</td>
+      <td>
+        2 for "persistent", 1 for "transient". Some client libraries expose this property
+        as a boolean or enum.
+      </td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>String</td>
+      <td>Application-specific message type, e.g. "orders.created"</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Headers</td>
+      <td>Map (string => any)</td>
+      <td>An arbitrary map of headers with string header names</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Content type</td>
+      <td>String</td>
+      <td>Content type, e.g. "application/json". Used by applications, not core RabbitMQ</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Content encoding</td>
+      <td>String</td>
+      <td>Content encoding, e.g. "gzip". Used by applications, not core RabbitMQ</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Message ID</td>
+      <td>String</td>
+      <td>Arbitrary message ID</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Correlation ID</td>
+      <td>String</td>
+      <td>Helps correlate requests with responses, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Reply To</td>
+      <td>String</td>
+      <td>Carries response queue name, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Expiration</td>
+      <td>String</td>
+      <td><a href="/ttl.html">Per-message TTL</a></td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Timestamp</td>
+      <td>Timestamp</td>
+      <td>Application-provided timestamp</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>User ID</td>
+      <td>String</td>
+      <td>User ID, <a href="/validated-user-id.html">validated</a> if set</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>App ID</td>
+      <td>String</td>
+      <td>Application name</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+### Message Types
+
+The type property on messages is an arbitrary string that helps applications communicate what kind
+of message that is. It is set by the publishers at the time of publishing.
+The value can be any domain-specific string that publishers and consumers agree on.
+
+RabbitMQ does not validate or use this field, it exists for applications and plugins to use
+and interpret.
+
+Message types in practice naturally fall into groups, a dot-separated naming convention is
+common (but not required by RabbitMQ or clients), e.g. `orders.created` or `logs.line` or `profiles.image.changed`.
+
+If a consumer gets a delivery of an unknown type it is highly advised to log such events to make troubleshooting
+easier.
+
+
+### Content Type and Encoding
+
+The content (MIME media) type and content encoding fields allow publishers communicate how message payload
+should be deserialized and decoded by consumers.
+
+RabbitMQ does not validate or use these fields, it exists for applications and plugins to use
+and interpret.
+
+For example, messages with JSON payload [should use `application/json`](http://www.ietf.org/rfc/rfc4627.txt).
+If the payload is compressed with the LZ77 (GZip) algorithm, its content encoding should be `gzip`.
+
+Multiple encodings can be specified by separating them with commas.
+
+
 ## <a id="acknowledgement-modes" class="anchor" href="#acknowledgement-modes">Acknowledgement Modes</a>
 
 When registering a consumer applications can choose one of two delivery modes:
@@ -205,6 +376,16 @@ When consumer priorities are in use, messages are delivered round-robin if multi
 exist with the same high priority.
 
 Consumer priorities are covered in a [separate guide](/consumer-priority.html).
+
+
+## <a id="exceptions" class="anchor" href="#exceptions">Exception Handling</a>
+
+Consumers are expected to handle any exceptions that arise during handling of deliveries
+or any other consumer operations. Such exceptions should be logged, collected and ignored.
+
+If a consumer cannot process deliveries due to a dependency not being available or similar reasons
+it should clearly log so and cancel itself until it is capable of processing deliveries again.
+This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](/monitoring.html).
 
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations</a>

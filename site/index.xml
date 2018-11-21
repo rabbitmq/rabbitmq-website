@@ -28,10 +28,13 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero" class='center'>
         <div class='container'>
-          <div id='hero-summit'>
+          <div id='hero-webinar'>
             <div class='container'>
-              <h1>RabbitMQ Summit 2018<br/>Nov 12 | London, UK</h1>
-              <h2><a href="https://rabbitmqsummit.com/?utm_source=rabbitmq-website&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-summit-2018" target="_blank" onclick="_gaq.push(['_trackEvent', 'RabbitMQ Summit Link', 'Click', 'Homepage Banner']);">Tickets on Sale through November 10</a></h2>
+              <div class='text'>
+                <h1>RabbitMQ Webinar</h1>
+                <h2>"Ten Things Every Developer Using RabbitMQ Should Know"<br/>December 12 | 
+                  <a href="https://content.pivotal.io/webinars/dec-12-10-things-every-developer-using-rabbitmq-should-know-webinar&amp;utm_source=rabbitmq-site&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-webinar-promotion" target="_blank">Register here</a></h2>
+              </div>
             </div>
           </div>
         </div>

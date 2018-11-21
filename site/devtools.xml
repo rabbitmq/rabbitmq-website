@@ -161,6 +161,9 @@ limitations under the License.
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
               </li>
+              <li>
+                <a href="https://github.com/queue-interop/queue-interop#amqp-interop">AMQP Interop</a> is a set of unified AMQP interfaces and their implementations
+              </li>
             </ul>
           </doc:section>
 
