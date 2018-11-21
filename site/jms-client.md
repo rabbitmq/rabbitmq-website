@@ -104,6 +104,9 @@ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 
 You don't need to restart the broker to activate the plugin.
 
+***You need to enable this plugin only if you plan to use topic selectors
+in your JMS client applications***.
+
 ### <a id="java-container" class="anchor" href="#java-container">Enabling the JMS client in a Java container</a>
 
 To enable the JMS Client in a Java container (e.g. Java EE application
@@ -345,22 +348,25 @@ available:
 ## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
-SLF4J delegates to a logging framework, such as Apache log4j or
-Logback. If no other logging framework is
+SLF4J delegates to a logging framework, such as Apache Logback.
+If no other logging framework is
 enabled, SLF4J defaults to a built-in, no-op, logger.
 See the [SLF4J](http://www.slf4j.org/docs.html) documentation for a
 list of the logging frameworks SLF4J supports.
 
 The target logging framework is configured at deployment time by adding
 an SLF4J binding for the framework to the classpath.
-For example, the log4j SLF4J binding is in the
-`slf4j-log4j12-{version}.jar` file, which is a part of the SLF4J
-distribution. To direct JMS client messages to log4j, for example,
+For example, the Logback SLF4J binding is in the
+`logback-classic-{version}.jar` file.
+To direct JMS client log messages to Logback, for example,
 add the following JARs to the classpath:
 
- * slf4j-api-1.7.21.jar
- * slf4j-log4j12-1.7.21.jar
- * log4j-1.2.17.jar
+ * [slf4j-api-1.7.25.jar](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar)
+ * [logback-core-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar)
+ * [logback-classic-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar)
+
+We highly recommend to use a dependency management tool like [Maven](http://maven.apache.org/)
+or [Gradle](https://gradle.org/) to manage dependencies.
 
 The SLF4J API is backwards compatible, so you can use use any version of
 SLF4J. Version 1.7.5 or higher is recommended. The SLF4J API and
@@ -545,6 +551,42 @@ JMS API classes in the JMS Client.
 
 Deviations from the specification are implemented to support common
 acknowledgement behaviours.
+
+## <a id="jms_topic_support"></a>JMS Topic Support
+
+JMS topics are implemented using an AMQP [topic exchange](tutorials/amqp-concepts.html#exchange-topic)
+and a dedicated AMQP queue for each JMS topic subscriber. The AMQP
+topic exchange is `jms.temp.topic` or `jms.durable.topic`, depending
+on whether the JMS topic is temporary or not, respectively. Let's
+take an example with a subscription to a durable `my.jms.topic` JMS topic:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * the `jms-cons-{UUID}` AMQP queue is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+If another subscriber subscribes to `my.jms.topic`, it will have
+its own AMQP queue and both subscribers will receive messages published
+to the `jms.durable.topic` exchange with the `my.jms.topic` routing key.
+
+The example above assumes no topic selector is used when declaring the
+subscribers. If a topic selector is in use, a `x-jms-topic`-typed exchange
+will sit between the `jms.durable.topic` topic exchange and the
+subscriber queue. So the topology is the following when subscribing to
+a durable `my.jms.topic` JMS topic with a selector:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * a `x-jms-topic`-typed exchange is bound to the subscriber AMQP queue with
+ the `my.jms.topic` binding key and some arguments related to the selector
+ expressions. Note this exchange is scoped to the JMS session and not only
+ to the subscriber.
+ * the `x-jms-topic`-typed exchange is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+Exchanges can be bound together thanks to a [RabbitMQ extension](e2e.html).
+Note the [topic selector plugin](#plugin) must be enabled for topic selectors
+to work.
 
 ## <a id="queue_browser_support"></a>QueueBrowser Support
 
