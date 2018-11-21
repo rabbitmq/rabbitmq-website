@@ -198,15 +198,28 @@ The following table lists all of the attributes/properties that are available.
 ## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
 An interoperability feature allows you to define JMS 'amqp' destinations
-that read and/or write to non-JMS RabbitMQ resources. Note this feature
-does not support JMS topics.
+that read and/or write to non-JMS RabbitMQ resources. ***Note this feature
+does not support JMS topics***.
+
+A single 'amqp' destination can be defined for both sending and consuming.
+
+### Sending JMS Messages to an AMQP Exchange
 
 A JMS destination can be defined so that a JMS application can send
 `Message`s to a predefined RabbitMQ 'destination' (exchange/routing key)
 using the JMS API in the normal way. The messages are written
 "in the clear," which means that any AMQP 0-9-1 client can read them without
 having to understand the internal format of Java JMS messages.
-Only `BytesMessage`s and `TextMessage`s can be written in this way.
+***Only `BytesMessage`s and `TextMessage`s can be written in this way***.
+
+When messages are sent to an 'amqp' Destination, JMS message properties
+are mapped onto AMQP 0-9-1 headers and properties as appropriate.
+For example, the `JMSPriority` property converts to the `priority` property
+for the AMQP 0-9-1 message. (It is also set as a header with the name
+"JMSPriority".) User-defined properties are set as named message header
+values, provided they are `boolean`, numeric or `String` types.
+
+### Consuming Messages From an AMQP Queue
 
 Similarly, a JMS destination can be defined that reads messages from a
 predefined RabbitMQ queue. A JMS application can then read these
@@ -216,15 +229,6 @@ JMS Messages automatically. Messages read in this way are, by default,
 (by adding an AMQP message header called "JMSType" whose value is
 "TextMessage"), which will interpret the byte-array payload as a UTF8
 encoded String and return them as `TextMessage`s.
-
-A single 'amqp' destination can be defined for both reading and writing.
-
-When messages are sent to an 'amqp' Destination, JMS message properties
-are mapped onto AMQP 0-9-1 headers and properties as appropriate.
-For example, the `JMSPriority` property converts to the `priority` property
-for the AMQP 0-9-1 message. (It is also set as a header with the name
-"JMSPriority".) User-defined properties are set as named message header
-values, provided they are `boolean`, numeric or `String` types.
 
 When reading from an 'amqp' Destination, values are mapped back to
 JMS message properties, except that any explicit JMS property set as
