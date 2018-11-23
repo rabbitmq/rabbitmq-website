@@ -25,7 +25,7 @@ entities. If you are familiar with [virtual hosts in Apache](https://httpd.apach
 or [server blocks in Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/), the idea is similar.
 There is, however, one important difference: virtual hosts in Apache are defined
 in the configuration file; that's not the case with RabbitMQ: virtual hosts are
-created using `rabbitmqctl` or HTTP API instead.
+[created](#creating) and [deleted](#deleting) using `rabbitmqctl` or HTTP API instead.
 
 ## Logical and Physical Separation
 
@@ -54,6 +54,83 @@ when an application connects to two vhosts at the same time. For example, an
 application can consume from one vhost then republishes into the other. This scenario
 can involve vhosts in different clusters or the same cluster (or a single node).
 [RabbitMQ Shovel plugin](/shovel.html) is one example of such application.
+
+
+## <a id="creating" class="anchor" href="#creating">Creating a Virtual Hosts</a>
+
+A virtual host can be created using CLI tools or an [HTTP API](/management.html) endpoint.
+
+A newly created vhost will have a default set of [exchanges](/tutorials/amqp-concepts.html)
+but no other entities and no [user permissions](/access-control.html). For a user to be able to connect
+and use the virtual host, permissions to it must be [granted]() to every user that will use the vhost,
+e.g. using [rabbitmqctl set_permissions](/rabbitmqctl.8.html#set_permissions).
+
+### Using CLI Tools
+
+A virtual host can be created using [rabbitmqctl](/cli.html)'s `add_vhost` command
+which accepts virtual host name as the only mandatory argument.
+
+Here's an example that creates a virtual host named `qa1`:
+
+<pre class="sourcecode bash">
+rabbitmqctl add_vhost qa1
+</pre>
+
+### Using HTTP API
+
+A virtual host can be created using the `PUT /api/vhosts/{name}` [HTTP API](/management.html) endpoint
+where `{name}` is the name of the virtual host
+
+Here's an example that uses [curl](https://curl.haxx.se/) to create a virtual host `vh1` by contacting
+a node at `rabbitmq.local:15672`:
+
+<pre class="sourcecode bash">
+curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/vh1
+</pre>
+
+
+### <a id="preprovisioning" class="anchor" href="#preprovisioning">Bulk Creation and Pre-provisioning</a>
+
+Virtual host creation involves a blocking cluster-wide transaction. Each node has to perform
+a number of setup steps which are moderately expensive. In practice it can take up to a few seconds
+for a virtual host to be created.
+
+When a number of virtual hosts is created in a loop, CLI and HTTP API clients can outpace the actual
+rate of virtual host creation and experience timeouts. If that's the case operation timeout should be increased
+and delays should be introduced between operations.
+
+Definition [export](/backup.html) and [import](/management.html#load-definitions) is the recommended
+way of pre-configuring many virtual hosts at deployment time.
+
+
+## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Hosts</a>
+
+A virtual host can be created using CLI tools or an [HTTP API](/management.html) endpoint.
+
+Deleting a virtual host will permanently delete all entities (queues, exchanges, bindings, policies, permissions, etc) in it.
+
+### Using CLI Tools
+
+A virtual host can be deleted using [rabbitmqctl](/cli.html)'s `delete_vhost` command
+which accepts virtual host name as the only mandatory argument.
+
+Here's an example that deletes a virtual host named `qa1`:
+
+<pre class="sourcecode bash">
+rabbitmqctl delete_vhost qa1
+</pre>
+
+### Using HTTP API
+
+A virtual host can be created using the `DELETE /api/vhosts/{name}` [HTTP API](/management.html) endpoint
+where `{name}` is the name of the virtual host
+
+Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
+a node at `rabbitmq.local:15672`:
+
+<pre class="sourcecode bash">
+curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
+</pre>
 
 
 ## Virtual Hosts and STOMP
