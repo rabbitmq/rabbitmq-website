@@ -154,7 +154,7 @@ limitations under the License.
           </li>
           <li>
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a> |
-            <a href="https://bintray.com/rabbitmq/debian/erlang">Erlang Debian packages</a>
+            <a href="https://bintray.com/rabbitmq-erlang/debian/erlang">Erlang Debian packages</a>
           </li>
           <li>
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
