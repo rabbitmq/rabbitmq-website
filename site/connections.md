@@ -39,7 +39,8 @@ different versions of the same protocol.
 This guide covers:
 
  * [The basics](#basics) of how clients use RabbitMQ
- *
+ * [Connection lifecycle](#lifecycle)
+ * [Monitoring](#monitoring) of connections
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
@@ -108,7 +109,7 @@ This flow doesn't change significantly from protocol to protocol but there are m
 
 TBD
 
-## Monitoring
+## <a id="monitoring" class="anchor" href="#monitoring">Monitoring</a>
 
 Number of currently open client connections and connection opening/closure rates are important metrics
 of the system that should be [monitored](/monitoring.html). Monitoring them will help detect a number of
@@ -125,18 +126,59 @@ A connection leak is a condition under which an application repeatedly opens con
 or at least closing only some of them.
 
 Connection leaks eventually exhaust the node (or multiple target nodes) of [file handles](/networking.html#open-file-handle-limit),
-which means any new inbound client, peer or CLI tool connection will be rejected.
+which means any new inbound client, peer or CLI tool connection will be rejected. A build-up in the number of concurrent
+connections also increases node's memory consumption.
 
-A build-up in the number of concurrent connections also increases node's memory consumption.
+#### Relevant Metrics
 
-A connection leak on monitoring charts can be identified as an ever-growing number of client connections.
+[Management UI](/management.html) provides a chart of the total number of connections opened cluster-wide:
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-global-connection-count.png" alt="Global connection count in management UI" title="Global connection count in management UI" />
+
+A connection leak on monitoring charts can be identified as an monotonically growing number of client connections.
+
+It is also possible to see how many file handles and sockets does a specific node have, which can be useful
+in determining connection leaks as well. The following chart demonstrates a very stable number of sockets
+open on a node:
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-socket-count.png" alt="Node file handle and socket count in management UI" title="Node file handle and socket count in management UI" />
+
+This chart demonstrates a monotonically growing number of connections after a drop:
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-socket-count-growth.png" alt="Node file handle and socket count growth in management UI" title="Node file handle and socket count growth in management UI" />
+
+If the number of sockets used by a node keeps growing and growing this may be an indication
+of a connection leak in one of the applications.
+
+Some client libraries, [such has the Java client](/api-guide.html#metrics), expose metrics including the number of currently
+opened connections. Charting and monitoring application metrics around connections is the best way
+to identify what app leaks connections or uses them in a suboptimal way.
+
+In many applications that use long-lived connections and do not leak them the number of connections
+grows on application start and then moderates (stays mostly stable with little fluctuation).
+
+[Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
+Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
+in the given period of time:
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
+
 
 ### High Connection Churn
 
 A system is said to have high connection churn when its rate of newly opened connections is consistently high and
 its rate of closed connection is consistently high. This usually means that an application
-uses short lived connections.
+uses short lived connections. While with some workloads this is a natural state of the system,
+long lived connections should be used instead when possible.
 
+[Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
+Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
+in the given period of time:
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
+
+Environments that experience high connection churn require TCP stack tuning to avoid resource exhaustion.
+This is covered [in the Networking guide](/networking.html#dealing-with-high-connection-churn).
 
 
 ## <a id="resource-usage" class="anchor" href="#resource-usage">Resource Usage</a>
