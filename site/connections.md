@@ -64,7 +64,7 @@ Since connections are meant to be long-lived, clients usually [consume messages]
 a subscription and having messages delivered (pushed) to them instead of polling.
 
 When a connection is no longer necessary, applications must close them to conserve resources.
-Apps that fail to do it run the risk of eventually exhausting its target node of resources.
+Apps that fail to do it run the risk of eventually exhausting their target node of resources.
 
 Operating systems have a [limit around how many TCP connections (sockets) a single process can have open](/networking.html#open-file-handle-limit)
 simultaneously. The limit is often sufficient for development and some QA environments.
@@ -88,7 +88,7 @@ on the channels.
 
 AMQP 1.0 provides a way for connections to multiplex over a single TCP connection. That means an application
 can open multiple "lightweight connections" called sessions on a single connection.
-Applications that set up one or more links to publish and consume messages.
+Applications then set up one or more links to publish and consume messages.
 
 
 ## <a id="lifecycle" class="anchor" href="#lifecycle">Connection Lifecycle</a>
@@ -137,7 +137,7 @@ connections also increases node's memory consumption.
 
 A connection leak on monitoring charts can be identified as an monotonically growing number of client connections.
 
-It is also possible to see how many file handles and sockets does a specific node have, which can be useful
+It is also possible to see how many file handles and sockets a specific node has, which can be useful
 in determining connection leaks as well. The following chart demonstrates a very stable number of sockets
 open on a node:
 
@@ -168,8 +168,8 @@ in the given period of time:
 
 A system is said to have high connection churn when its rate of newly opened connections is consistently high and
 its rate of closed connection is consistently high. This usually means that an application
-uses short lived connections. While with some workloads this is a natural state of the system,
-long lived connections should be used instead when possible.
+uses short-lived connections. While with some workloads this is a natural state of the system,
+long-lived connections should be used instead when possible.
 
 [Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
