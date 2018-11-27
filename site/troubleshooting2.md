@@ -52,3 +52,13 @@ What we actually care about is the following information:
 `rabbitmqctl report`
 
 _We need a better rabbitmqctl report command, the current output is too verbose_
+
+In case `rabbitmqctl list_queues` times out, running these commands will
+provide useful context for understanding the source of the problem:
+
+```
+rabbitmqctl eval 'rabbit_amqqueue:list().' 2>&1 | tee all_queues.txt
+# repeat for every vhost, I'm using / as the vhost example here
+rabbitmqctl eval 'rabbit_amqqueue:list_down(<<"/">>).' 2>&1 | tee down_queues.txt
+rabbitmqctl eval 'rabbit_amqqueue:info_all(<<"/">>).' 2>&1 | tee all_queues.txt
+```
