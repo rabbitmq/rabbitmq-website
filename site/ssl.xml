@@ -560,7 +560,7 @@ cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_
 
             When the <code>ssl_options.verify</code> option is set to <code>verify_peer</code>,
             the client does send us a certificate, the node must perform peer verification.
-            When set to <code>none</code>, peer verification will be disabled and certificate
+            When set to <code>verify_none</code>, peer verification will be disabled and certificate
             exchange won't be performed.
           </p>
           <p>
