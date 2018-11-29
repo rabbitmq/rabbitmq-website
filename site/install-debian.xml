@@ -471,7 +471,7 @@ echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/ap
          On Ubuntu 18.04 that can be done by modifying the command in the above example like so:
 
 <pre class="sourcecode bash">
-sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list <<EOF
+sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF
@@ -480,7 +480,7 @@ EOF
          and on Ubuntu 16.04 it would be
 
 <pre class="sourcecode bash">
-sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list <<EOF
+sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
 deb https://dl.bintray.com/rabbitmq-erlang/debian xenial erlang
 deb https://dl.bintray.com/rabbitmq/debian xenial main
 EOF
