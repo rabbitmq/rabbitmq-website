@@ -147,7 +147,7 @@ limitations under the License.
 
         <p>
           <a href="https://github.com/rabbitmq/erlang-rpm">Zero dependency Erlang RPM package for running RabbitMQ</a> can be
-          installed via Yum repositories <a href="https://bintray.com/rabbitmq/rpm/erlang">on Bintray</a> and <a href="https://packagecloud.io/rabbitmq/erlang">Package Cloud</a>
+          installed via Yum repositories <a href="https://bintray.com/rabbitmq-erlang/rpm/erlang">on Bintray</a> and <a href="https://packagecloud.io/rabbitmq/erlang">Package Cloud</a>
           as well as a direct download.
         </p>
         <p>
@@ -275,7 +275,7 @@ rpm --import https://packagecloud.io/gpg.key
           A Yum repository with RabbitMQ packages is <a href="https://bintray.com/rabbitmq/rpm/rabbitmq-server">available from Bintray</a>. The package page provides a repository
           setup help section.
 
-          Bintray also can be used to <a href="https://bintray.com/rabbitmq/rpm/erlang">install a recent Erlang version via yum</a>.
+          Bintray also can be used to <a href="https://bintray.com/rabbitmq-erlang/rpm/erlang">install a recent Erlang version via yum</a>.
         </p>
 
         <p>

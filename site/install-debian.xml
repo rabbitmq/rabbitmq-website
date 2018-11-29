@@ -173,7 +173,7 @@ limitations under the License.
 
      <p>
        Standard Debian and Ubuntu repositories tend to provide outdated versions of Erlang/OTP. Team RabbitMQ maintains
-       an apt repository that includes <a href="https://bintray.com/rabbitmq/debian/erlang/">packages of modern Erlang/OTP releases</a> for
+       an apt repository that includes <a href="https://bintray.com/rabbitmq-erlang/debian/erlang/">packages of modern Erlang/OTP releases</a> for
        a number of commonly used Debian and Ubuntu distributions:
 
        <ul>
@@ -228,6 +228,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          pattern:
 
 <pre class="sourcecode">
+# This repository provides RabbitMQ packages
 # See below for supported distribution and component values
 deb https://dl.bintray.com/rabbitmq/debian $distribution $component
 </pre>
@@ -261,7 +262,7 @@ deb https://dl.bintray.com/rabbitmq/debian $distribution $component
          Consider the following repository file at <code>/etc/apt/sources.list.d/bintray.erlang.list</code>:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq/debian bionic erlang
+deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
          It configures apt to install the most recent Erlang/OTP version available in the
@@ -272,14 +273,14 @@ deb http://dl.bintray.com/rabbitmq/debian bionic erlang
          For Debian Stretch the file would look like this:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq/debian stretch erlang
+deb http://dl.bintray.com/rabbitmq-erlang/debian stretch erlang
 </pre>
 
          To use the most recent <code>20.x</code> patch release available, switch the component
          to <code>erlang-20.x</code>:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq/debian bionic erlang-20.x
+deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 </pre>
 
          <code>erlang-21.x</code>, <code>erlang-19.x</code>, and <code>erlang-16.x</code> are the components for Erlang 21.x,
@@ -350,13 +351,13 @@ sudo apt-cache policy
        </p>
 
        <p>
-         The following preference file example will pin all <code>erlang-*</code> packages to <code>20.3.8.2</code>
+         The following preference file example will pin all <code>erlang-*</code> packages to <code>20.3.8.14</code>
          (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
 
 <pre class="sourcecode ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:20.3.8.2-1
+Pin: version 1:20.3.8.14-1
 Pin-Priority: 1000
 </pre>
 
@@ -408,7 +409,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 
        <h4>Source List File</h4>
        <p>
-         As with all 3rd party apt repositories, a file describing the repository
+         As with all 3rd party apt repositories, a file describing the Erlang package repository
          must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
          <code>/etc/apt/sources.list.d/bintray.rabbitmq.list</code> is the recommended location.
 
@@ -416,8 +417,9 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          pattern:
 
 <pre class="sourcecode">
+# This repository provides Erlang packages
 # See below for supported distribution and component values
-deb https://dl.bintray.com/rabbitmq/debian $distribution main
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution main
 </pre>
 
          The next couple of sections discusses what distribution and component values
@@ -467,18 +469,23 @@ echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/ap
        </p>
 
        <p>
-         It is possible to list multiple components per line, for example, the <code>main</code> component that provides
-         RabbitMQ packages and the <code>erlang</code> component that <a href="#erlang-repositories">provides Erlang/OTP packages</a>.
+         It is possible to list multiple repositories, for example, one that provides RabbitMQ and one that <a href="#erlang-repositories">provides Erlang/OTP packages</a>.
          On Ubuntu 18.04 that can be done by modifying the command in the above example like so:
 
 <pre class="sourcecode bash">
-echo "deb https://dl.bintray.com/rabbitmq/debian bionic main erlang" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
+deb https://dl.bintray.com/rabbitmq/debian bionic main
+EOF
 </pre>
 
          and on Ubuntu 16.04 it would be
 
 <pre class="sourcecode bash">
-echo "deb https://dl.bintray.com/rabbitmq/debian xenial main erlang" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
+deb https://dl.bintray.com/rabbitmq-erlang/debian xenial erlang
+deb https://dl.bintray.com/rabbitmq/debian xenial main
+EOF
 </pre>
        </p>
 

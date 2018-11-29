@@ -467,11 +467,10 @@ not be logged.
 Here's an example:
 
 <pre class="sourcecode ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-accepting AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672)
+2018-11-22 10:44:33.654 [info] &lt;0.620.0&gt; accepting AMQP connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672)
 </pre>
 
-The entry includes client IP address and port (<code>127.0.0.1:57919</code>) as well as the target
+The entry includes client IP address and port (<code>127.0.0.1:52771</code>) as well as the target
 IP address and port of the server (<code>127.0.0.1:5672</code>). This information can be useful
 when troubleshooting client connections.
 
@@ -479,14 +478,12 @@ Once a connection successfully authenticates and is granted access to a [virtual
 that is also logged:
 
 <pre class="sourcecode ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+2018-11-22 10:44:33.663 [info] &lt;0.620.0&gt; connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 </pre>
 
 The examples above include two values that can be used as connection identifiers
-in various scenarios: a connection PID (`&lt;0.24990.164&gt;`) and connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`).
-The former is used by [rabbitmqctl](./cli.html) and the latter is used
-by the [HTTP API](/management.html).
+in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
+The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](/management.html).
 
 A connection can be closed cleanly or abnormally. In the
 former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or

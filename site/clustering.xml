@@ -385,20 +385,21 @@ Cluster status of node rabbit@rabbit3 ...
             <code>rabbitmq-server</code> shell script is
             <code>rabbit@<i>shorthostname</i></code>, where the short
             node name is lower-case (as in <code>rabbit@rabbit1</code>,
-            above). If you use the <code>rabbitmq-server.bat</code>
-            batch file on Windows, the short node name is upper-case (as
+            above). On Windows, if <code>rabbitmq-server.bat</code>
+            batch file is used, the short node name is upper-case (as
             in <code>rabbit@RABBIT1</code>). When you type node names,
             case matters, and these strings must match exactly.
           </p>
         </doc:subsection>
 
         <doc:subsection name="creating">
-          <doc:heading>Creating the cluster</doc:heading>
+          <doc:heading>Creating the Cluster</doc:heading>
           <p>
             In order to link up our three nodes in a cluster, we tell
             two of the nodes, say <code>rabbit@rabbit2</code> and
             <code>rabbit@rabbit3</code>, to join the cluster of the
-            third, say <code>rabbit@rabbit1</code>.
+            third, say <code>rabbit@rabbit1</code>. Prior to that both
+            newly joining members must be <a href="/rabbitmqctl.8.html#reset">reset</a>.
           </p>
           <p>
             We first join <code>rabbit@rabbit2</code> in a cluster
@@ -406,13 +407,18 @@ Cluster status of node rabbit@rabbit3 ...
             <code>rabbit@rabbit2</code> we stop the RabbitMQ
             application and join the <code>rabbit@rabbit1</code>
             cluster, then restart the RabbitMQ application. Note that
-            joining a cluster implicitly resets the node, thus
-            removing all resources and data that were previously
-            present on that node.
+            a node must be <a href="/rabbitmqctl.8.html#reset">reset</a> before it can join an existing cluster.
+            Resetting the node <strong>removes all resources and data that were previously
+            present on that node</strong>. This means that a node cannot be made a member
+            of a cluster and keep its existing data at the same time. When that's desired,
+            using the <a href="/blue-green-upgrade.html">Blue/Green deploymentt strategy</a> or <a href="/backup.html">backup and restore</a>
+            are the avaialble options.
           </p>
           <pre class="sourcecode bash">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
+rabbit2$ <i>rabbitmqctl reset</i>
+Resetting node rabbit@rabbit2 ...
 rabbit2$ <i>rabbitmqctl join_cluster rabbit@rabbit1</i>
 Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
@@ -445,6 +451,8 @@ Cluster status of node rabbit@rabbit2 ...
           <pre class="sourcecode bash">
 rabbit3$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit3 ...done.
+rabbit3$ <i>rabbitmqctl reset</i>
+Resetting node rabbit@rabbit3 ...
 rabbit3$ <i>rabbitmqctl join_cluster rabbit@rabbit2</i>
 Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
 rabbit3$ <i>rabbitmqctl start_app</i>
@@ -480,10 +488,11 @@ Cluster status of node rabbit@rabbit3 ...
 
           <p>
             Nodes that have been joined to a cluster can be stopped at
-            any time. It is also ok for them to crash. In both cases
-            the rest of the cluster continues operating,
+            any time. They can also fail or be terminated by the OS. In all cases
+            the rest of the cluster can continue operating,
             and the nodes automatically "catch up" with (sync from) the other
-            cluster nodes when they start up again.
+            cluster nodes when they start up again. Note that some <a href="/partitions.html">partition handling strategies</a>
+            may work differently and affect other nodes.
           </p>
           <p>
             We shut down the nodes <code>rabbit@rabbit1</code> and
@@ -554,7 +563,8 @@ Cluster status of node rabbit@rabbit3 ...
             default, with 30 second response timeouts.  In case the
             peer becomes available in that time interval, the node
             successfully starts, syncs what it needs from the peer and
-            keeps going.
+            keeps going. If the peer does not become available, the restarted
+            node will <strong>give up and voluntarily stop</strong>.
           </p>
 
           <p>
@@ -565,8 +575,9 @@ Cluster status of node rabbit@rabbit3 ...
 
           <p>
             When the entire cluster is brought down therefore, the last node to go down
-            must be the first node to be brought online. However, since nodes will
-            try to contact a known peer for up to 5 minutes (by default), nodes
+            is the only one that didn't have any running peers at the time of shutdown.
+            That node can start without contacting any peers first.
+            Since nodes will try to contact a known peer for up to 5 minutes (by default), nodes
             can be restarted in any order in that period of time. In this case
             they will rejoin each other one by one successfully. This window of time
             can be adjusted using two configuration settings:
@@ -581,6 +592,13 @@ mnesia_table_loading_retry_limit = 15</pre>
             By adjusting these settings and tweaking the time window in which
             known peer has to come back it is possible to account for cluster-wide
             redeployment scenarios that can be longer than 5 minutes to complete.
+          </p>
+
+          <p>
+            During <a href="/upgrade.html">upgrades</a>, sometimes the last node to stop
+            must be the first node to be started after the upgrade. That node will be designated to perform
+            a cluster-wide schema migration that other nodes can sync from and apply when they
+            rejoin.
           </p>
 
           <p>
