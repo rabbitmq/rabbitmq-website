@@ -228,6 +228,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          pattern:
 
 <pre class="sourcecode">
+# This repository provides RabbitMQ packages
 # See below for supported distribution and component values
 deb https://dl.bintray.com/rabbitmq/debian $distribution $component
 </pre>
@@ -408,7 +409,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 
        <h4>Source List File</h4>
        <p>
-         As with all 3rd party apt repositories, a file describing the repository
+         As with all 3rd party apt repositories, a file describing the Erlang package repository
          must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
          <code>/etc/apt/sources.list.d/bintray.rabbitmq.list</code> is the recommended location.
 
@@ -416,8 +417,9 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          pattern:
 
 <pre class="sourcecode">
+# This repository provides Erlang packages
 # See below for supported distribution and component values
-deb https://dl.bintray.com/rabbitmq/debian $distribution main
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution main
 </pre>
 
          The next couple of sections discusses what distribution and component values
