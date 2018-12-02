@@ -89,6 +89,8 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.js`:
 
 <pre class="sourcecode javascript">
+var q = 'task_queue';
+
 ch.consume(q, function(msg) {
   var secs = msg.content.toString().split('.').length - 1;
 
