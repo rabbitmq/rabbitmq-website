@@ -91,7 +91,7 @@ Some features are not currently supported by quorum queues.
 | [Lazy behaviour](/lazy-queues.html) | yes | no |
 | [Priority](/queues.html) | yes | no |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
-| Adheres to [policies](/policies.html) | yes | no |
+| Adheres to [policies](/policies.html) | yes | partial (dlx only) |
 | Reacts to [memory alarms](/alarms.html) | yes | no |
 
 #### Non-durable Queues
