@@ -208,10 +208,13 @@ in the given period of time:
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
-While connection and disconnection rates are system-specific, rates above 100/second can indicate a suboptimal
+While connection and disconnection rates are system-specific, rates consistently above 100/second likely indicate a suboptimal
 connection management by one or more applications and usually are worth investigating.
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
+
+Note that some clients and runtimes (notably PHP) do not use long-lived connections and high connection
+churn rates are expected from them.
 
 Environments that experience high connection churn require TCP stack tuning to avoid resource exhaustion.
 This is covered [in the Networking guide](/networking.html#dealing-with-high-connection-churn).
