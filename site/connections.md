@@ -188,14 +188,13 @@ to identify what app leaks connections or uses them in a suboptimal way.
 In many applications that use long-lived connections and do not leak them the number of connections
 grows on application start and then moderates (stays mostly stable with little fluctuation).
 
-[Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
-Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
-in the given period of time:
+[Management UI](/management.html) provides a chart on the rate of newly opened connections as of [RabbitMQ 3.7.9](/changelog.html).
+Below is a chart that demonstrates a fairly low new connection rate:
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
 
-### High Connection Churn
+### <a id="high-connection-churn" class="anchor" href="#high-connection-churn">High Connection Churn</a>
 
 A system is said to have high connection churn when its rate of newly opened connections is consistently high and
 its rate of closed connection is consistently high. This usually means that an application
