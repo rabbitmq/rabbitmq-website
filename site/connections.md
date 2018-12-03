@@ -41,6 +41,11 @@ This guide covers:
  * [The basics](#basics) of how clients use RabbitMQ
  * [Connection lifecycle](#lifecycle)
  * [Monitoring](#monitoring) of connections
+ * Sustaining a [large number of concurrent connections](#large-number-of-connections)
+ * [TLS](#tls)
+ * [Flow control](#flow-control)
+
+and other topics related to connections.
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
@@ -64,7 +69,7 @@ Since connections are meant to be long-lived, clients usually [consume messages]
 a subscription and having messages delivered (pushed) to them instead of polling.
 
 When a connection is no longer necessary, applications must close them to conserve resources.
-Apps that fail to do it run the risk of eventually exhausting their target node of resources.
+Apps that fail to do it run the risk of eventually exhausting its target node of resources.
 
 Operating systems have a [limit around how many TCP connections (sockets) a single process can have open](/networking.html#open-file-handle-limit)
 simultaneously. The limit is often sufficient for development and some QA environments.
@@ -88,7 +93,7 @@ on the channels.
 
 AMQP 1.0 provides a way for connections to multiplex over a single TCP connection. That means an application
 can open multiple "lightweight connections" called sessions on a single connection.
-Applications then set up one or more links to publish and consume messages.
+Applications that set up one or more links to publish and consume messages.
 
 
 ## <a id="lifecycle" class="anchor" href="#lifecycle">Connection Lifecycle</a>
@@ -107,7 +112,33 @@ This flow doesn't change significantly from protocol to protocol but there are m
 
 ### Protocol Differences
 
-TBD
+#### AMQP 0-9-1
+
+AMQP 0-9-1 has a [model](/tutorials/amqp-concepts.html) that includes connections and channels. Channels allow for
+connection multiplexing (having multiple logical connections on a "physical" or TCP one).
+
+After successfully opening a connection and authenticating, applications open one or more channels and uses them
+to perform protocol operations, e.g. define topology, consume and publish messages.
+
+AMQP 0-9-1 supports different authentication mechanisms. While it's most common for applications
+to provide a pair of credentials, x509 certificates and PKI [can be used](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl)
+instead.
+
+#### AMQP 1.0
+
+AMQP 1.0 has a model that includes connections, sessions and links.
+
+After successfully opening a connection and authenticating, applications open one or more sessions. It then
+attaches links to the session in order to publish and consume messages.
+
+#### MQTT 3.1
+
+MQTT 3.1 connections follow the flow described above. MQTT supports optional authentication.
+When it is used, RabbitMQ uses a pre-configured set of credentials.
+
+#### STOMP
+
+STOMP connections follow the flow described above.
 
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring</a>
 
@@ -137,7 +168,7 @@ connections also increases node's memory consumption.
 
 A connection leak on monitoring charts can be identified as an monotonically growing number of client connections.
 
-It is also possible to see how many file handles and sockets a specific node has, which can be useful
+It is also possible to see how many file handles and sockets does a specific node have, which can be useful
 in determining connection leaks as well. The following chart demonstrates a very stable number of sockets
 open on a node:
 
@@ -168,8 +199,8 @@ in the given period of time:
 
 A system is said to have high connection churn when its rate of newly opened connections is consistently high and
 its rate of closed connection is consistently high. This usually means that an application
-uses short-lived connections. While with some workloads this is a natural state of the system,
-long-lived connections should be used instead when possible.
+uses short lived connections. While with some workloads this is a natural state of the system,
+long lived connections should be used instead when possible.
 
 [Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
@@ -177,24 +208,52 @@ in the given period of time:
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
+While connection and disconnection rates are system-specific, rates above 100/second can indicate a suboptimal
+connection management by one or more applications and usually are worth investigating.
+
+<img class="screenshot" src="img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
+
 Environments that experience high connection churn require TCP stack tuning to avoid resource exhaustion.
 This is covered [in the Networking guide](/networking.html#dealing-with-high-connection-churn).
 
 
 ## <a id="resource-usage" class="anchor" href="#resource-usage">Resource Usage</a>
 
-Memory and [file handles](/networking.html#open-file-handle-limit)
+Every connection consumes memory and one file handle on the target RabbitMQ node.
+
+Most of the memory is used by connection's TCP buffers. Their size can be [reduced](/networking.html#tuning-for-large-number-of-connections-tcp-buffer-size)
+significantly, which leads to significant per-connection memory consumption savings
+at the cost of a comparable reduction in connection throughput.
+
+The maximum number of file handles a RabbitMQ node can have open is [limited by the kernel](/networking.html#open-file-handle-limit) and must
+be raised in order to support a large number of connections.
 
 
-## Supporting a Large Number of Connections
+## <a id="large-number-of-connections" class="anchor" href="#large-number-of-connections">Supporting a Large Number of Connections</a>
 
-TBD
+In some environments it's natural to have a large number of concurrently connected clients. For example,
+systems that involve a large number of hardware clients (the Internet of Things a.k.a. IoT workloads)
+can have many thousands of clients from day one.
 
-## TLS
+Since connections [consume resources](#resource-usage), sustaining a large number of concurrent connections
+requires reducing resource consumption or provisioning more resources or nodes. In practice those
+two options are used in combination.
+
+The [Networking guide] has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
+
+
+## <a id="tls" class="anchor" href="#tls">TLS</a>
 
 Client connections can be encrypted with TLS. TLS also can be used as an additional
 or the primary way of authenticating clients. Learn more in the [TLS guide](/ssl.html).
 
-## Publisher Flow Control
 
-TBD
+## <a id="flow-control" class="anchor" href="#flow-control">Publisher Flow Control</a>
+
+Connections that publish messages can outpace other parts of the system, most likely busy queues and queues
+that perform replication. When that happens, [flow control](/flow-control.html) is applied to
+publishing connections. Connections that only consume messages are not affected.
+
+[Monitoring](/monitoring.html) systems can collect metrics on the number of connections in flow state.
+Applications that experience flow control regularly may consider to use separate connections
+to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management)
