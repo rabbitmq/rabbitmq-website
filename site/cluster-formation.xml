@@ -241,7 +241,13 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
         </ol>
 
         in this case node B will reject the clustering attempt from A with an appropriate error
-        message in the log. In this case B can be reset again and then will be able to join A, or A
+        message in the log:
+
+<pre class="sourcecode">
+Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
+</pre>
+
+        In this case B can be reset again and then will be able to join A, or A
         can be reset and will successfully join B.
       </p>
     </doc:section>
