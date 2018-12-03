@@ -205,7 +205,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
 </pre>
 
-In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [
@@ -279,6 +279,13 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
       </p>
       <p>
         The example below uses a range with a single port but a value different from default:
+
+<pre class="sourcecode erlang">
+inet_dist_listen_min = 33672
+inet_dist_listen_max = 33672
+</pre>
+
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [

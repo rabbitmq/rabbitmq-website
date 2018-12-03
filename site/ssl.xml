@@ -44,8 +44,8 @@ limitations under the license.
             <li>TLS configuration in <a href="#java-client">Java</a> and <a href="#dotnet-client">.NET</a> clients</li>
             <li><a href="#peer-verification">Peer (certificate chain) verification</a></li>
             <li><a href="#tls-versions">TLS version</a> and <a href="#cipher-suites">cipher suite</a> configuration</li>
-            <li>Tools that can be used to evaluate a TLS setup</li>
-            <li>Known vulnerabilities and their migration</li>
+            <li>Tools that can be used to <a href="#tls-evaluation-tools">evaluate a TLS setup</a></li>
+            <li>Known <a href="#major-vulnerabilities">attacks on TLS</a> and their migration</li>
             <li>How to use <a href="#private-key-passwords">private key passwords</a></li>
           </ul>
 
@@ -1712,8 +1712,38 @@ Or, in the classic config format:
           the most optimal set of cipher suites enabled; and so on.
         </p>
         <p>
-          The following example configuration (in the classic config format) passes key testssl tests on Erlang 19.3 or later
-          versions:
+          The following example configuration passes key testssl tests on Erlang 21.1:
+
+<pre class="sourcecode ini">
+listeners.ssl.default  = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+
+ssl_options.verify               = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+
+ssl_options.honor_cipher_order   = true
+ssl_options.honor_ecc_order      = true
+ssl_options.client_renegotiation = false
+ssl_options.secure_renegotiate   = true
+
+ssl_options.ciphers.1  = ECDHE-ECDSA-AES256-GCM-SHA384
+ssl_options.ciphers.2  = ECDHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.3  = ECDH-ECDSA-AES256-GCM-SHA384
+ssl_options.ciphers.4  = ECDH-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.5  = DHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.6  = DHE-DSS-AES256-GCM-SHA384
+ssl_options.ciphers.7  = ECDHE-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.8  = ECDHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.9  = ECDH-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.10 = ECDH-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.11 = DHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
+</pre>
+
+          The same example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [
@@ -1728,52 +1758,62 @@ Or, in the classic config format:
                           {keyfile,    "/path/to/server_key.pem"},
                           {versions, ['tlsv1.2']},
                           {ciphers,  [
-                                      {ecdhe_ecdsa,aes_256_gcm,null,sha384},
-                                      {ecdhe_rsa,aes_256_gcm,null,sha384},
-                                      {ecdh_ecdsa,aes_256_gcm,null,sha384},
-                                      {ecdh_rsa,aes_256_gcm,null,sha384},
-                                      {dhe_rsa,aes_256_gcm,null,sha384},
-                                      {rsa,aes_256_gcm,null,sha384},
-                                      {ecdhe_ecdsa,aes_128_gcm,null,sha256},
-                                      {ecdhe_rsa,aes_128_gcm,null,sha256},
-                                      {ecdh_ecdsa,aes_128_gcm,null,sha256},
-                                      {ecdh_rsa,aes_128_gcm,null,sha256},
-                                      {dhe_rsa,aes_128_gcm,null,sha256},
-                                      {ecdh_rsa,aes_128_gcm,null,sha256}
+                                       {ecdhe_ecdsa,aes_256_gcm,aead,sha384},
+                                       {ecdhe_rsa,aes_256_gcm,aead,sha384},
+                                       {ecdh_ecdsa,aes_256_gcm,aead,sha384},
+                                       {ecdh_rsa,aes_256_gcm,aead,sha384},
+                                       {dhe_rsa,aes_256_gcm,aead,sha384},
+                                       {dhe_dss,aes_256_gcm,aead,sha384},
+                                       {ecdhe_ecdsa,aes_128_gcm,aead,sha256},
+                                       {ecdhe_rsa,aes_128_gcm,aead,sha256},
+                                       {ecdh_ecdsa,aes_128_gcm,aead,sha256},
+                                       {ecdh_rsa,aes_128_gcm,aead,sha256},
+                                       {dhe_rsa,aes_128_gcm,aead,sha256},
+                                       {dhe_dss,aes_128_gcm,aead,sha256}
                                      ]},
                           {honor_cipher_order,   true},
                           {honor_ecc_order,      true},
+                          {client_renegotiation, false},
                           {secure_renegotiate,   true},
                           {verify,               verify_peer},
                           {fail_if_no_peer_cert, false}]}
           ]}
 ].
-        </pre>
+</pre>
 
-          For example, this setup is reported as not vulnerable to
-          a set of known high profile vulnerabilities:
+          This setup is reported as not vulnerable to a set of known
+          high profile vulnerabilities:
 
 <pre class="sourcecode ini">
- Testing vulnerabilities
+Testing robust (perfect) forward secrecy, (P)FS -- omitting Null Authentication/Encryption, 3DES, RC4
 
- Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
- CCS (CVE-2014-0224)                       not vulnerable (OK)
- Ticketbleed (CVE-2016-9244), experiment.  --   (applicable only for HTTPS)
- Secure Renegotiation (CVE-2009-3555)      not vulnerable (OK)
- Secure client-Initiated Renegotiation     not vulnerable (OK)
- CRIME, TLS (CVE-2012-4929)                not vulnerable (OK) (not using HTTP anyway)
- POODLE, SSL (CVE-2014-3566)               not vulnerable (OK)
- TLS_FALLBACK_SCSV (RFC 7507)              No fallback possible, TLS 1.2 is the only protocol (OK)
- SWEET32 (CVE-2016-2183, CVE-2016-6329)    not vulnerable (OK)
- FREAK (CVE-2015-0204)                     not vulnerable (OK)
- DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this port (OK)
-                                           make sure you don't use this certificate elsewhere with SSLv2 enabled services
-                                           https://censys.io/ipv4?q=D6D88C603E0212109EC14429DCBB4A6B73286F8B7F5C956FE53D1A94A34D88FB could help you to find out
- LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected
- BEAST (CVE-2011-3389)                     no SSL3 or TLS1 (OK)
- LUCKY13 (CVE-2013-0169)                   not vulnerable (OK)
- RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
-            </pre>
+PFS is offered (OK)          ECDHE-RSA-AES256-GCM-SHA384 DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256 DHE-RSA-AES128-GCM-SHA256
+Elliptic curves offered:     sect163k1 sect163r1 sect163r2 sect193r1 sect193r2 sect233k1 sect233r1 sect239k1 sect283k1 sect283r1 sect409k1
+                             sect409r1 sect571k1 sect571r1 secp160k1 secp160r1 secp160r2 secp192k1 prime192v1 secp224k1 secp224r1 secp256k1
+                             prime256v1 secp384r1 secp521r1 brainpoolP256r1 brainpoolP384r1 brainpoolP512r1
+
+
+Testing vulnerabilities
+
+Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
+CCS (CVE-2014-0224)                       not vulnerable (OK)
+Ticketbleed (CVE-2016-9244), experiment.  --   (applicable only for HTTPS)
+Secure Renegotiation (CVE-2009-3555)      not vulnerable (OK)
+Secure Client-Initiated Renegotiation     not vulnerable (OK)
+CRIME, TLS (CVE-2012-4929)                not vulnerable (OK) (not using HTTP anyway)
+POODLE, SSL (CVE-2014-3566)               not vulnerable (OK)
+TLS_FALLBACK_SCSV (RFC 7507)              No fallback possible, TLS 1.2 is the only protocol (OK)
+SWEET32 (CVE-2016-2183, CVE-2016-6329)    not vulnerable (OK)
+FREAK (CVE-2015-0204)                     not vulnerable (OK)
+DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
+                                          make sure you don't use this certificate elsewhere with SSLv2 enabled services
+                                          https://censys.io/ipv4?q=5E878E40541CC37F88A0A1BA395FA95EA1EC68373FAC512D54C329F031BA443D could help you to find out
+LOGJAM (CVE-2015-4000), experimental      Common prime with 2048 bits detected: RFC3526/Oakley Group 14,
+                                          but no DH EXPORT ciphers
+BEAST (CVE-2011-3389)                     no SSL3 or TLS1 (OK)
+LUCKY13 (CVE-2013-0169), experimental     not vulnerable (OK)
+RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
+</pre>
           </p>
         </doc:subsection>
       </doc:section>
