@@ -439,7 +439,7 @@ channel.basicPublish(exchangeName, routingKey,
                .deliveryMode(2)
                .priority(1)
                .userId("bob")
-               .build()),
+               .build(),
                messageBodyBytes);</pre>
 
       <p>
@@ -454,7 +454,7 @@ headers.put("longitude", -0.0905493);
 channel.basicPublish(exchangeName, routingKey,
              new AMQP.BasicProperties.Builder()
                .headers(headers)
-               .build()),
+               .build(),
                messageBodyBytes);</pre>
 
       <p>
@@ -465,7 +465,7 @@ channel.basicPublish(exchangeName, routingKey,
 channel.basicPublish(exchangeName, routingKey,
              new AMQP.BasicProperties.Builder()
                .expiration("60000")
-               .build()),
+               .build(),
                messageBodyBytes);</pre>
 
       <p>
