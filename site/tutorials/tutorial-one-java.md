@@ -46,9 +46,9 @@ on behalf of the consumer.
 > languages](http://rabbitmq.com/devtools.html). We'll
 > use the Java client provided by RabbitMQ.
 >
-> Download the [client library](http://central.maven.org/maven2/com/rabbitmq/amqp-client/4.0.2/amqp-client-4.0.2.jar)
-> and its dependencies ([SLF4J API](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar) and
-> [SLF4J Simple](http://central.maven.org/maven2/org/slf4j/slf4j-simple/1.7.22/slf4j-simple-1.7.22.jar)).
+> Download the [client library](http://central.maven.org/maven2/com/rabbitmq/amqp-client/5.5.1/amqp-client-5.5.1.jar)
+> and its dependencies ([SLF4J API](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar) and
+> [SLF4J Simple](http://central.maven.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar)).
 > Copy those files in your working directory, along the tutorials Java files.
 > 
 > Please note SLF4J Simple is enough for tutorials but you should use a full-blown
@@ -85,9 +85,7 @@ Set up the class and name the queue:
 <pre class="sourcecode java">
 public class Send {
   private final static String QUEUE_NAME = "hello";
-
-  public static void main(String[] argv)
-      throws java.io.IOException {
+  public static void main(String[] argv) throws Exception {
       ...
   }
 }    
@@ -98,8 +96,10 @@ then we can create a connection to the server:
 <pre class="sourcecode java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost("localhost");
-Connection connection = factory.newConnection();
-Channel channel = connection.createChannel();
+try (Connection connection = factory.newConnection();
+     Channel channel = connection.createChannel()) {
+
+}
 </pre>
 
 The connection abstracts the socket connection, and takes care of
@@ -109,10 +109,12 @@ _localhost_. If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address here.
 
 Next we create a channel, which is where most of the API for getting
-things done resides.
+things done resides. Note we can use a try-with-resources statement
+because both `Connection` and `Channel` implement `java.io.Closeable`.
+This way we don't need to close them explicitly in our code.
 
 To send, we must declare a queue for us to send to; then we can publish a message
-to the queue:
+to the queue, all of this in the try-with-resources statement:
 
 <pre class="sourcecode java">
 channel.queueDeclare(QUEUE_NAME, false, false, false, null);
@@ -124,13 +126,6 @@ System.out.println(" [x] Sent '" + message + "'");
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
-
-Lastly, we close the channel and the connection;
-
-<pre class="sourcecode java">
-channel.close();
-connection.close();
-</pre>
 
 [Here's the whole Send.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
@@ -160,11 +155,10 @@ keep it running to listen for messages and print them out.
 The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
 
 <pre class="sourcecode java">
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Consumer;
-import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
 </pre>
 
 The extra `DefaultConsumer` is a class implementing the `Consumer`
@@ -176,12 +170,10 @@ Note this matches up with the queue that `send` publishes to.
 
 <pre class="sourcecode java">
 public class Recv {
+
   private final static String QUEUE_NAME = "hello";
 
-  public static void main(String[] argv)
-      throws java.io.IOException,
-             java.lang.InterruptedException {
-             
+  public static void main(String[] argv) throws Exception {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost("localhost");
     Connection connection = factory.newConnection();
@@ -189,31 +181,33 @@ public class Recv {
 
     channel.queueDeclare(QUEUE_NAME, false, false, false, null);
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    ...
-    }
+
+  }
 }
+
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
 the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
+Why don't we use a try-with-resource statement to automatically close
+the channel and the connection? By doing so we would simply make the program
+move on, close everything, and exit! This would be awkward because
+we want the process to stay alive while the consumer is listening
+asynchronously for messages to arrive.
+
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
 callback in the form of an object that will buffer the messages until
-we're ready to use them. That is what a `DefaultConsumer` subclass does.
+we're ready to use them. That is what a `DeliverCallback` subclass does.
 
 <pre class="sourcecode java">
-Consumer consumer = new DefaultConsumer(channel) {
-  @Override
-  public void handleDelivery(String consumerTag, Envelope envelope,
-                             AMQP.BasicProperties properties, byte[] body)
-      throws IOException {
-    String message = new String(body, "UTF-8");
+DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+    String message = new String(delivery.getBody(), "UTF-8");
     System.out.println(" [x] Received '" + message + "'");
-  }
 };
-channel.basicConsume(QUEUE_NAME, true, consumer);
+channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
 </pre>
 
 [Here's the whole Recv.java
@@ -225,20 +219,20 @@ You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
 <pre class="sourcecode bash">
-javac -cp amqp-client-4.0.2.jar Send.java Recv.java
+javac -cp amqp-client-5.5.1.jar Send.java Recv.java
 </pre>
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the consumer (receiver):
 
 <pre class="sourcecode bash">
-java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv
+java -cp .:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar Recv
 </pre>
 
 then, run the publisher (sender):
 
 <pre class="sourcecode bash">
-java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
+java -cp .:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar Send
 </pre>
 
 On Windows, use a semicolon instead of a colon to separate items in the classpath.
@@ -268,13 +262,13 @@ Time to move on to [part 2](tutorial-two-java.html) and build a simple _work que
 > To save typing, you can set an environment variable for the classpath e.g.
 >
 > <pre class="sourcecode bash">
-> export CP=.:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar
+> export CP=.:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar
 > java -cp $CP Send
 > </pre>
 >
 > or on Windows:
 > <pre class="sourcecode powershell">
-> set CP=.;amqp-client-4.0.2.jar;slf4j-api-1.7.21.jar;slf4j-simple-1.7.22.jar
+> set CP=.;amqp-client-5.5.1.jar;slf4j-api-1.7.25.jar;slf4j-simple-1.7.25.jar
 > java -cp %CP% Send
 > </pre>
 

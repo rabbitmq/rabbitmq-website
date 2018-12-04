@@ -76,30 +76,10 @@ program will schedule tasks to our work queue, so let's name it
 `NewTask.java`:
 
 <pre class="sourcecode java">
-String message = getMessage(argv);
+String message = String.join(" ", argv);
 
 channel.basicPublish("", "hello", null, message.getBytes());
 System.out.println(" [x] Sent '" + message + "'");
-</pre>
-
-Some help to get the message from the command line argument:
-
-<pre class="sourcecode java">
-private static String getMessage(String[] strings){
-    if (strings.length &lt; 1)
-        return "Hello World!";
-    return joinStrings(strings, " ");
-}
-
-private static String joinStrings(String[] strings, String delimiter) {
-    int length = strings.length;
-    if (length == 0) return "";
-    StringBuilder words = new StringBuilder(strings[0]);
-    for (int i = 1; i &lt; length; i++) {
-        words.append(delimiter).append(strings[i]);
-    }
-    return words.toString();
-}
 </pre>
 
 Our old _Recv.java_ program also requires some changes: it needs to
@@ -107,21 +87,18 @@ fake a second of work for every dot in the message body. It will handle
 delivered messages and perform the task, so let's call it `Worker.java`:
 
 <pre class="sourcecode java">
-final Consumer consumer = new DefaultConsumer(channel) {
-  @Override
-  public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-    String message = new String(body, "UTF-8");
+DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+  String message = new String(delivery.getBody(), "UTF-8");
 
-    System.out.println(" [x] Received '" + message + "'");
-    try {
-      doWork(message);
-    } finally {
-      System.out.println(" [x] Done");
-    }
+  System.out.println(" [x] Received '" + message + "'");
+  try {
+    doWork(message);
+  } finally {
+    System.out.println(" [x] Done");
   }
 };
 boolean autoAck = true; // acknowledgment is covered below
-channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
 </pre>
 
 Our fake task to simulate execution time:
@@ -171,16 +148,16 @@ the consumers you can publish a few messages:
 
 <pre class="sourcecode bash">
 # shell 3
-java -cp $CP NewTask
-# => First message.
-java -cp $CP NewTask
-# => Second message..
-java -cp $CP NewTask
-# => Third message...
-java -cp $CP NewTask
-# => Fourth message....
-java -cp $CP NewTask
-# => Fifth message.....
+java -cp $CP NewTask First message.
+# => [x] Sent 'First message.'
+java -cp $CP NewTask Second message..
+# => [x] Sent 'Second message..'
+java -cp $CP NewTask Third message...
+# => [x] Sent 'Third message...'
+java -cp $CP NewTask Fourth message....
+# => [x] Sent 'Fourth message....'
+java -cp $CP NewTask Fifth message.....
+# => [x] Sent 'Fifth message.....'
 </pre>
 
 Let's see what is delivered to our workers:
@@ -244,22 +221,19 @@ from the worker, once we're done with a task.
 <pre class="sourcecode java">
 channel.basicQos(1); // accept only one unack-ed message at a time (see below)
 
-final Consumer consumer = new DefaultConsumer(channel) {
-  @Override
-  public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-    String message = new String(body, "UTF-8");
+DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+  String message = new String(delivery.getBody(), "UTF-8");
 
-    System.out.println(" [x] Received '" + message + "'");
-    try {
-      doWork(message);
-    } finally {
-      System.out.println(" [x] Done");
-      channel.basicAck(envelope.getDeliveryTag(), false);
-    }
+  System.out.println(" [x] Received '" + message + "'");
+  try {
+    doWork(message);
+  } finally {
+    System.out.println(" [x] Done");
+    channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
   }
 };
 boolean autoAck = false;
-channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
@@ -411,37 +385,31 @@ Putting it all together
 Final code of our `NewTask.java` class:
 
 <pre class="sourcecode java">
-import java.io.IOException;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
 
 public class NewTask {
 
   private static final String TASK_QUEUE_NAME = "task_queue";
 
-  public static void main(String[] argv)
-                      throws java.io.IOException {
-
+  public static void main(String[] argv) throws Exception {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost("localhost");
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
+    try (Connection connection = factory.newConnection();
+         Channel channel = connection.createChannel()) {
+        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
 
-    channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+        String message = String.join(" ", argv);
 
-    String message = getMessage(argv);
-
-    channel.basicPublish( "", TASK_QUEUE_NAME,
-            MessageProperties.PERSISTENT_TEXT_PLAIN,
-            message.getBytes());
-    System.out.println(" [x] Sent '" + message + "'");
-
-    channel.close();
-    connection.close();
+        channel.basicPublish("", TASK_QUEUE_NAME,
+                MessageProperties.PERSISTENT_TEXT_PLAIN,
+                message.getBytes("UTF-8"));
+        System.out.println(" [x] Sent '" + message + "'");
+    }
   }
-  //...
+
 }
 </pre>
 
@@ -450,11 +418,13 @@ public class NewTask {
 And our `Worker.java`:
 
 <pre class="sourcecode java">
-import com.rabbitmq.client.*;
-
-import java.io.IOException;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
 
 public class Worker {
+
   private static final String TASK_QUEUE_NAME = "task_queue";
 
   public static void main(String[] argv) throws Exception {
@@ -468,33 +438,29 @@ public class Worker {
 
     channel.basicQos(1);
 
-    final Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
+    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+        String message = new String(delivery.getBody(), "UTF-8");
 
         System.out.println(" [x] Received '" + message + "'");
         try {
-          doWork(message);
+            doWork(message);
         } finally {
-          System.out.println(" [x] Done");
-          channel.basicAck(envelope.getDeliveryTag(), false);
+            System.out.println(" [x] Done");
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         }
-      }
     };
-    boolean autoAck = false;
-    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
+    channel.basicConsume(TASK_QUEUE_NAME, false, deliverCallback, consumerTag -> { });
   }
 
   private static void doWork(String task) {
     for (char ch : task.toCharArray()) {
-      if (ch == '.') {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException _ignored) {
-          Thread.currentThread().interrupt();
+        if (ch == '.') {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException _ignored) {
+                Thread.currentThread().interrupt();
+            }
         }
-      }
     }
   }
 }
