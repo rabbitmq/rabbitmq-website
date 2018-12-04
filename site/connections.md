@@ -93,7 +93,7 @@ on the channels.
 
 AMQP 1.0 provides a way for connections to multiplex over a single TCP connection. That means an application
 can open multiple "lightweight connections" called sessions on a single connection.
-Applications that set up one or more links to publish and consume messages.
+Applications then set up one or more links to publish and consume messages.
 
 
 ## <a id="lifecycle" class="anchor" href="#lifecycle">Connection Lifecycle</a>
@@ -128,7 +128,7 @@ instead.
 
 AMQP 1.0 has a model that includes connections, sessions and links.
 
-After successfully opening a connection and authenticating, applications open one or more sessions. It then
+After successfully opening a connection and authenticating, an application opens one or more sessions. It then
 attaches links to the session in order to publish and consume messages.
 
 #### MQTT 3.1
