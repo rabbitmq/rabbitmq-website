@@ -171,6 +171,9 @@ limitations under the License.
 
             <ul>
               <li>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
                 <a href="networking.html">Networking</a>
               </li>
               <li>
@@ -343,6 +346,9 @@ limitations under the License.
 
             <ul>
               <li>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
                 <a href="/stomp.html">STOMP</a>
               </li>
               <li>
@@ -374,19 +380,19 @@ limitations under the License.
         <ul>
           <p>Client Documentation guides:</p>
           <li>
-            <a href="api-guide.html">Java client</a>
+            <a href="api-guide.html">Java Client</a>
           </li>
           <li>
-            <a href="dotnet-api-guide.html">.NET client</a>
+            <a href="dotnet-api-guide.html">.NET Client</a>
           </li>
           <li>
-            <a href="http://rubybunny.info">Ruby client</a>
+            <a href="http://rubybunny.info">Ruby Client</a>
           </li>
           <li>
-            <a href="jms-client.html">JMS library</a>
+            <a href="jms-client.html">JMS Client</a>
           </li>
           <li>
-            <a href="erlang-client-user-guide.html">Erlang client</a>
+            <a href="erlang-client-user-guide.html">Erlang Client</a>
           </li>
           <li>
             <a href="/extensions.html">RabbitMQ extensions to AMQP 0-9-1</a>
@@ -395,6 +401,9 @@ limitations under the License.
 
         <ul>
           <p>Client-driven Features:</p>
+          <li>
+            <a href="connections.html">Client Connections</a>
+          </li>
           <li>
             <a href="confirms.html">Publisher Confirms and Consumer Acknowledgements</a>
           </li>
