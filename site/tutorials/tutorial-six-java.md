@@ -236,7 +236,7 @@ The server code is rather straightforward:
     to spread the load equally over multiple servers we need to set the
     `prefetchCount` setting in channel.basicQos.
   * We use `basicConsume` to access the queue, where we provide a callback in the
-    form of an object (`DefaultConsumer`) that will do the work and send the response back.
+    form of an object (`DeliverCallback`) that will do the work and send the response back.
 
 
 The code for our RPC client can be found here: [`RPCClient.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java).
@@ -246,8 +246,8 @@ The client code is slightly more involved:
   * We establish a connection and channel.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
-    number and save it - our implementation of `handleDelivery`
-    in `RpcConsumer` will use this value to catch the appropriate response.
+    number and save it - our consumer callback will use this value to
+    match the appropriate response.
   * Then, we create a dedicated exclusive queue for the reply and subscribe to it.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
@@ -257,7 +257,7 @@ The client code is slightly more involved:
     we're going to need something to suspend the `main` thread before the response arrives.
     Usage of `BlockingQueue` is one possible solutions to do so. Here we are creating `ArrayBlockingQueue`
     with capacity set to 1 as we need to wait for only one response.
-  * The `handleDelivery` method is doing a very simple job,
+  * The consumer is doing a very simple job,
     for every consumed response message it checks if the `correlationId`
     is the one we're looking for. If so, it puts the response to `BlockingQueue`.
   * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
