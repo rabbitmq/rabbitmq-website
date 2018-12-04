@@ -241,7 +241,7 @@ Since connections [consume resources](#resource-usage), sustaining a large numbe
 requires reducing resource consumption or provisioning more resources or nodes. In practice those
 two options are used in combination.
 
-The [Networking guide] has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
+The [Networking guide](/networking.html) has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
 
 
 ## <a id="tls" class="anchor" href="#tls">TLS</a>
