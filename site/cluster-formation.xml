@@ -186,6 +186,8 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
       <p>
         A new node joining a cluster is just one possible case. Another common scenario
         is when an existing cluster member temporarily leaves and then rejoins the cluster.
+        While the peer discovery subsystem does not affect the behavior described in this section,
+        it important to understand how nodes behave when they rejoin their cluster after a restart or failure.
       </p>
 
       <p>
@@ -214,8 +216,39 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 
       <p>
         If a node was explicitly removed from the cluster by the operator and then reset,
-        it can rejoin the cluster. In this case it will behave exactly
+        it will be able to join the cluster as a new member. In this case it will behave exactly
         <a href="#peer-discovery-how-does-it-work">like a blank node</a> would.
+      </p>
+
+      <p>
+        A node rejoining after a node name or host name change can start as <a href="#peer-discovery-how-does-it-work">a blank node</a>
+        if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
+        While the node is offline, its peers can be reset or started with a blank data directory.
+        In that case the recovering node will fail to rejoin its peer as well since internal data store cluster
+        identity would no longer match.
+      </p>
+
+      <p>
+        Consider the following scenario:
+
+        <ol>
+          <li>A cluster of 3 nodes, A, B and C is formed</li>
+          <li>Node A is shut down</li>
+          <li>Node B is reset</li>
+          <li>Node A is started</li>
+          <li>Node A tries to rejoin B but B's cluster identity has changed</li>
+          <li>Node B doesn't recognise A as a known cluster member because it's been reset</li>
+        </ol>
+
+        in this case node B will reject the clustering attempt from A with an appropriate error
+        message in the log:
+
+<pre class="sourcecode">
+Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
+</pre>
+
+        In this case B can be reset again and then will be able to join A, or A
+        can be reset and will successfully join B.
       </p>
     </doc:section>
 

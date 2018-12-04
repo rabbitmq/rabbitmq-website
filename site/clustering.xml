@@ -30,13 +30,13 @@ limitations under the License.
           This guide covers fundamental topics related to RabbitMQ clustering:
 
           <ul>
-            <li>Requirements for clustering</li>
-            <li>What data is and isn't replicated between cluster nodes</li>
-            <li>What clustering means for clients</li>
-            <li>How clusters are formed</li>
-            <li>How nodes authenticate to each other</li>
-            <li>Node restarts and How nodes rejoin their cluster</li>
-            <li>How to remove a cluster node</li>
+            <li><a href="#cluster-formation-requirements">Requirements</a> for clustering</li>
+            <li>What data is and isn't <a href="#cluster-membership">replicated between cluster nodes</a></li>
+            <li>What clustering <a href="#clustering-and-clients">means for clients</a></li>
+            <li><a href="#cluster-formation">How clusters are formed</a></li>
+            <li>How nodes <a href="#erlang-cookie">authenticate to each other</a> (and with CLI tools)</li>
+            <li><a href="#restarting">Node restarts</a> and how nodes rejoin their cluster</li>
+            <li>How to <a href="#removing-nodes">remove a cluster node</a></li>
           </ul>
 
           and more. <a href="/cluster-formation.html">Cluster Formation and Peer Discovery</a> is a closely related guide
@@ -574,6 +574,37 @@ Cluster status of node rabbit@rabbit3 ...
           </p>
 
           <p>
+            A node rejoining after a node name or host name change can start as <a href="#peer-discovery-how-does-it-work">a blank node</a>
+            if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
+            While the node is offline, its peers can be reset or started with a blank data directory.
+            In that case the recovering node will fail to rejoin its peer as well since internal data store cluster
+            identity would no longer match.
+          </p>
+
+          <p>
+            Consider the following scenario:
+
+            <ol>
+              <li>A cluster of 3 nodes, A, B and C is formed</li>
+              <li>Node A is shut down</li>
+              <li>Node B is reset</li>
+              <li>Node A is started</li>
+              <li>Node A tries to rejoin B but B's cluster identity has changed</li>
+              <li>Node B doesn't recognise A as a known cluster member because it's been reset</li>
+            </ol>
+
+            in this case node B will reject the clustering attempt from A with an appropriate error
+            message in the log:
+
+<pre class="sourcecode">
+Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
+</pre>
+
+            In this case B can be reset again and then will be able to join A, or A
+            can be reset and will successfully join B.
+          </p>
+
+          <p>
             When the entire cluster is brought down therefore, the last node to go down
             is the only one that didn't have any running peers at the time of shutdown.
             That node can start without contacting any peers first.
@@ -616,7 +647,7 @@ mnesia_table_loading_retry_limit = 15</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection name="breakup">
+        <doc:subsection name="removing-nodes">
           <doc:heading>Breaking Up a Cluster</doc:heading>
           <p>
             Sometimes it is necessary to remove a node from a
