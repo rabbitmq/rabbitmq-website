@@ -401,7 +401,7 @@ cluster_formation.dns.hostname = discovery.eng.example.local
           backend and provides information about AWS region as well as a set of credentials:
 
           <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -452,7 +452,7 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
           to <code>true</code>:
 
           <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -479,7 +479,7 @@ cluster_formation.aws.use_autoscaling_group = true
           below uses three tags: <code>region</code>, <code>service</code>, and <code>environment</code>.
 
           <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -503,7 +503,7 @@ cluster_formation.aws.instance_tags.environment = staging
           the <code>cluster_formation.aws.aws_use_private_ip</code> key to <code>true</code>:
 
           <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -542,10 +542,10 @@ cluster_formation.aws.use_private_ip = true
 
       <p>
         To use Kubernetes for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
-        to <code>rabbit_peer_discovery_k8s</code>:
+        to <code>rabbitmq_peer_discovery_k8s</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 # Kubernetes API hostname (or IP address). Default value is kubernetes.default.svc.cluster.local
 cluster_formation.k8s.host = kubernetes.default.example.local
@@ -556,7 +556,7 @@ cluster_formation.k8s.host = kubernetes.default.example.local
         It is possible to configure Kubernetes API port and URI scheme:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # 443 is used by default
@@ -570,7 +570,7 @@ cluster_formation.k8s.scheme = https
         Kubernetes token file path is configurable via <code>cluster_formation.k8s.token_path</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # default value is /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -585,7 +585,7 @@ cluster_formation.k8s.token_path = /var/run/secrets/kubernetes.io/serviceaccount
         and <code>cluster_formation.k8s.namespace_path</code>, respectively:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # default value is /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -608,7 +608,7 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
         <code>cluster_formation.k8s.address_type</code> key:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -633,7 +633,7 @@ cluster_formation.k8s.address_type = hostname
         <code>cluster_formation.k8s.hostname_suffix</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -651,7 +651,7 @@ cluster_formation.k8s.hostname_suffix = rmq.eng.example.local
         <code>cluster_formation.k8s.service_name</code> key if needed:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -675,7 +675,7 @@ cluster_formation.k8s.service_name = rmq-qa
 cluster_formation.randomized_startup_delay_range.min = 0
 cluster_formation.randomized_startup_delay_range.max = 2
 
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -704,10 +704,10 @@ cluster_formation.k8s.host = kubernetes.default.example.local
 
       <p>
         To use Consul for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code> to
-        to <code>rabbit_peer_discovery_consul</code>:
+        to <code>rabbitmq_peer_discovery_consul</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 # Consul host (hostname or IP address). Default value is localhost
 cluster_formation.consul.host = consul.eng.example.local
@@ -717,7 +717,7 @@ cluster_formation.consul.host = consul.eng.example.local
         It is possible to configure Consul port and URI scheme:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # 8500 is used by default
@@ -732,7 +732,7 @@ cluster_formation.consul.scheme = http
         use :
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.acl_token = acl-token-value
@@ -743,7 +743,7 @@ cluster_formation.consul.acl_token = acl-token-value
         Service name (as registered in Consul) defaults to "rabbitmq" but can be overridden:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # rabbitmq is used by default
@@ -775,7 +775,7 @@ cluster_formation.consul.svc = rabbitmq
         from the environment:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -794,7 +794,7 @@ cluster_formation.consul.use_longname = true
         parsed from node name (the <code>rabbit@</code> prefix will be dropped):
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -817,7 +817,7 @@ cluster_formation.consul.use_longname = true
         computed using hostname as reported by the OS instead of node name:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -836,7 +836,7 @@ cluster_formation.consul.use_longname = true
         computed by taking the IP address of a provided NIC, <code>en0</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -857,7 +857,7 @@ cluster_formation.consul.use_longname = true
         for client (technically AMQP 0-9-1 and AMQP 1.0) connections since default value is 5672.
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # 5672 is used by default
@@ -871,7 +871,7 @@ cluster_formation.consul.svc_port = 6674
         is available. This interval can be configured:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -886,7 +886,7 @@ cluster_formation.consul.svc_ttl = 40
         the TTL above). The period cannot be less than 60 seconds.
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -906,7 +906,7 @@ cluster_formation.consul.deregister_after = 90
         <code>true</code>:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -924,7 +924,7 @@ cluster_formation.consul.include_nodes_with_warnings = true
         are organised in a separate subdomain. Here's an example:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -949,7 +949,7 @@ cluster_formation.consul.domain_suffix = example.local
         seconds but it can be configured:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # lock acquisition timeout in seconds
@@ -963,7 +963,7 @@ cluster_formation.consul.lock_timeout = 60
         Lock key prefix is <code>rabbitmq</code> by default. It can also be overridden:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_consul
 
 cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.lock_timeout = 60
@@ -1000,11 +1000,11 @@ cluster_formation.consul.lock_prefix = environments-qa
 
       <p>
         To use etcd for peer discovery, set the <code>cluster_formation.peer_discovery_backend</code>
-        to <code>rabbit_peer_discovery_etcd</code> and provide an etcd node hostname for the plugin
+        to <code>rabbitmq_peer_discovery_etcd</code> and provide an etcd node hostname for the plugin
         to connect to:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 # etcd host (hostname or IP address). This property is required or peer discovery won't be performed.
 cluster_formation.etcd.host = etcd.eng.example.local
@@ -1015,7 +1015,7 @@ cluster_formation.etcd.host = etcd.eng.example.local
         It is possible to configure etcd port and URI scheme:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
 # 2379 is used by default
@@ -1039,7 +1039,7 @@ cluster_formation.etcd.scheme = http
         supported:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
 # rabbitmq is used by default
@@ -1052,7 +1052,7 @@ cluster_formation.etcd.key_prefix = rabbitmq_discovery
         a unique name:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
 # default name: "default"
@@ -1065,7 +1065,7 @@ cluster_formation.etcd.cluster_name = staging
         will periodically refresh their key(s). The TTL value can be configured:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
 # node TTL in seconds
@@ -1084,7 +1084,7 @@ cluster_formation.etcd.node_ttl = 40
         seconds but it can be configured:
 
         <pre class="sourcecode ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = rabbitmq_peer_discovery_etcd
 
 cluster_formation.etcd.host = etcd.eng.example.local
 # lock acquisition timeout in seconds
