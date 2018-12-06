@@ -47,9 +47,10 @@ limitations under the License.
           <ul>
             <li><a href="#interfaces">Interfaces</a></li>
             <li><a href="#ports">Ports</a> used by clients, <a href="#epmd-inet-dist-port-range">inter-node traffic</a> in clusters and <a href="/cli.html">CLI tools</a></li>
-            <li><a href="#tls-support">TLS</a></li>
+            <li><a href="#tls-support">TLS</a> for client connections</li>
             <li>TCP buffer size (affects <a href="#tuning-for-throughput-tcp-buffers">throughput</a> and <a href="#tuning-for-large-number-of-connections-tcp-buffer-size">how much memory is used per connection</a>)</li>
             <li>Other TCP socket settings</li>
+            <li><a href="#proxy-protocol">Proxy protocol</a> support for client connections</li>
             <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
             <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
             <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
@@ -367,10 +368,10 @@ name rabbit at port 25672
       <doc:subsection name="proxy-protocol">
         <doc:heading>Proxy Protocol</doc:heading>
         <p>
-          RabbitMQ supports the
-          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>.
+          RabbitMQ supports
+          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">Proxy protocol</a>.
           The protocol makes servers such as RabbitMQ aware of the actual client IP address
-          when connections go over a proxy (e.g. HAproxy or AWS ELB).
+          when connections go over a proxy (e.g. <a href="http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#send-proxy">HAproxy</a> or <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a>).
           This makes it easier for the operator to inspect connection origins in the management UI
           or CLI tools.
         </p>
@@ -398,8 +399,9 @@ proxy_protocol = true
       When proxy protocol is enabled, clients won't be able to connect
       to RabbitMQ directly unless they themselves support the protocol.
       Therefore, when this option is enabled, all client connections must go through
-      a proxy that also supports the protocol, e.g. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
-      or <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS ELB</a>.
+      a proxy that also supports the protocol and is configured to send a Proxy protocol header. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
+      and <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a> documentation
+      explains how to do it.
     </p>
     <p>
       When proxy protocol is enabled and connections go through a compatible proxy, no action
