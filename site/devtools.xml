@@ -222,6 +222,9 @@ limitations under the License.
               <li>
                 <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
               </li>
+              <li>
+                <a href="https://github.com/nomnom-insights/nomnom.bunnicula">Bunnicula, Component based framework for Clojure. Built on top of official Java client</a>
+              </li>
             </ul>
             <h4>JRuby</h4>
             <ul class="plain">
