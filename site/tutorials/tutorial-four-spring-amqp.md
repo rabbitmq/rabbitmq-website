@@ -18,7 +18,7 @@ limitations under the License.
 
 ## Routing
 
-### (using the spring-amqp)
+### (using Spring AMQP)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -37,7 +37,7 @@ Bindings
 --------
 
 In previous examples we were already creating bindings. You may recall
-code like this in our Tut3Config file:
+code like this in our `Tut3Config` file:
 
 <pre class="sourcecode java">
 @Bean
@@ -51,10 +51,10 @@ A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
 exchange.
 
-Bindings can take an extra `routingKey` parameter. Spring-amqp uses
+Bindings can take an extra binding key parameter. Spring AMQP uses
 a fluent API to make this relationship very clear. We pass in
-the exchange and queue into the BindingBuilder and simply bind
-the queue "to" the exchange "with a routing key" as follows:
+the exchange and queue into the `BindingBuilder` and simply bind
+the queue "to" the exchange "with a binding key" as follows:
 
 <pre class="sourcecode java">
 @Bean
@@ -84,7 +84,7 @@ flexibility - it's only capable of mindless broadcasting.
 
 We will use a `direct` exchange instead. The routing algorithm behind
 a `direct` exchange is simple - a message goes to the queues whose
-`binding key` exactly matches the `routing key` of the message.
+binding key exactly matches the routing key of the message.
 
 To illustrate that, consider the following setup:
 
@@ -188,16 +188,16 @@ Publishing messages
 
 We'll use this model for our routing system. Instead of `fanout` we'll
 send messages to a `direct` exchange. We will supply the color as
-a `routing key`. That way the receiving program will be able to select
+a routing key. That way the receiving program will be able to select
 the color it wants to receive (or subscribe to). Let's focus on sending
 messages first.
 
-As always, we do some spring boot configuration in Tut4Config:
+As always, we do some spring boot configuration in `Tut4Config`:
 
 <pre class="sourcecode java">
 @Bean
-public FanoutExchange fanout() {
-    return new FanoutExchange("tut.fanout");
+public DirectExchange direct() {
+    return new DirectExchange("tut.direct");
 }
 </pre>
 
@@ -210,7 +210,7 @@ Subscribing
 
 Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each color
-we're interested in. This also goes into the Tut4Config
+we're interested in. This also goes into the `Tut4Config`:
 
 <pre class="sourcecode java">
 @Bean
@@ -272,7 +272,7 @@ Putting it all together
 
 
 As in the previous tutorials, create a new package for this tutorial called
-"tut4" and create the Tut4Config class. The code for `Tut4Config.java` class:
+`tut4` and create the `Tut4Config` class. The code for `Tut4Config.java` class:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.*;
@@ -351,10 +351,13 @@ public class Tut4Config {
 The code for our sender class is:
 
 <pre class="sourcecode java">
+package org.springframework.amqp.tutorials.tut4;
+
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Tut4Sender {
 
@@ -364,25 +367,26 @@ public class Tut4Sender {
 	@Autowired
 	private DirectExchange direct;
 
-	private int index;
+	AtomicInteger index = new AtomicInteger(0);
 
-	private int count;
+	AtomicInteger count = new AtomicInteger(0);
 
 	private final String[] keys = {"orange", "black", "green"};
 
 	@Scheduled(fixedDelay = 1000, initialDelay = 500)
 	public void send() {
 		StringBuilder builder = new StringBuilder("Hello to ");
-		if (++this.index == 3) {
-			this.index = 0;
+		if (this.index.incrementAndGet() == 3) {
+			this.index.set(0);
 		}
-		String key = keys[this.index];
+		String key = keys[this.index.get()];
 		builder.append(key).append(' ');
-		builder.append(Integer.toString(++this.count));
+		builder.append(this.count.get());
 		String message = builder.toString();
 		template.convertAndSend(direct.getName(), key, message);
 		System.out.println(" [x] Sent '" + message + "'");
 	}
+
 }
 </pre>
 
@@ -430,30 +434,29 @@ Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html)
 for maven compilation and executing the options from the jar.
 
 <pre class="sourcecode bash">
-mvn clean package
+./mvnw clean package
 </pre>
 
 In one terminal window you can run:
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=routing,receiver 
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=routing,receiver \
     --tutorial.client.duration=60000
 </pre>
 
 and in the other temrinal window run the sender
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=routing,sender 
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=routing,sender \
     --tutorial.client.duration=60000
 </pre>
 
 
 Full source code for [Tut4Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Receiver.java)
 and [Tut4Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Sender.java).
-The configuration is in [Tut4Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Config.java)
-. 
+The configuration is in [Tut4Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut4/Tut4Config.java).
 
 Move on to [tutorial 5](tutorial-five-spring-amqp.html) to find out how to listen
 for messages based on a pattern.

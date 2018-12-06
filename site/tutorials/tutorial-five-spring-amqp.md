@@ -18,7 +18,7 @@ limitations under the License.
 
 ## Topics
 
-### (using the spring-amqp)
+### (using Spring AMQP)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -156,15 +156,14 @@ advantage of both wildcards and a hash tag.
 The code is almost the same as in the
 [previous tutorial](tutorial-four-spring-amqp.html).
 
-First lets configure some profiles and beans in the `Tut5Config.java`
-of the tut5 package:
+First lets configure some profiles and beans in the `Tut5Config` class
+of the `tut5` package:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
 
 @Profile({"tut5","topics"})
 @Configuration
@@ -228,19 +227,18 @@ public class Tut5Config {
 }
 </pre>
 
-We setup our profiles for executing the topics as the choice of "tut5" or "topics". We
-then created the bean for our TopicExchange. The "receiver" profile is the ReceiverConfig
-defining our receiver, two AnonymousQueues as in the previous tutorial and the bindings 
-for the topics utilizing the topic syntax. We also create the "sender" profile as the
-creation of the Tut5Sender class. 
+We setup our profiles for executing the topics as the choice of `tut5` or `topics`. We
+then created the bean for our `TopicExchange`. The `receiver` profile is the `ReceiverConfig`
+class defining our receiver, two `AnonymousQueue`s as in the previous tutorial and the bindings
+for the topics utilizing the topic syntax. We also create the `sender` profile as the
+creation of the `Tut5Sender` class.
 
-The Tut5Sender again uses the @RabbitListener to receive messages from the respective
+The `Tut5Receiver` again uses the `@RabbitListener` annotation to receive messages from the respective
 topics. 
 
 <pre class="sourcecode java">
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;
-
 
 public class Tut5Receiver {
 
@@ -279,10 +277,13 @@ public class Tut5Receiver {
 The code for `Tut5Sender.java`:
 
 <pre class="sourcecode java">
+package org.springframework.amqp.tutorials.tut5;
+
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Tut5Sender {
 
@@ -292,24 +293,22 @@ public class Tut5Sender {
 	@Autowired
 	private TopicExchange topic;
 
+	AtomicInteger index = new AtomicInteger(0);
 
-	private int index;
+	AtomicInteger count = new AtomicInteger(0);
 
-	private int count;
-
-	private final String[] keys = {"quick.orange.rabbit", 
-	        "lazy.orange.elephant", "quick.orange.fox",
+	private final String[] keys = {"quick.orange.rabbit", "lazy.orange.elephant", "quick.orange.fox",
 			"lazy.brown.fox", "lazy.pink.rabbit", "quick.brown.fox"};
 
 	@Scheduled(fixedDelay = 1000, initialDelay = 500)
 	public void send() {
 		StringBuilder builder = new StringBuilder("Hello to ");
-		if (++this.index == keys.length) {
-			this.index = 0;
+		if (this.index.incrementAndGet() == keys.length) {
+			this.index.set(0);
 		}
-		String key = keys[this.index];
+		String key = keys[this.index.get()];
 		builder.append(key).append(' ');
-		builder.append(Integer.toString(++this.count));
+		builder.append(this.count.incrementAndGet());
 		String message = builder.toString();
 		template.convertAndSend(topic.getName(), key, message);
 		System.out.println(" [x] Sent '" + message + "'");
@@ -326,18 +325,20 @@ following:
 To build the project:
 
 <pre class="sourcecode bash">
-mvn clean package
+./mvnw clean package
 </pre>
 
 To execute the sender and receiver with the correct profiles 
 execute the jar with the correct parameters:
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=topics,receiver 
+# shell 1
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=topics,receiver \
     --tutorial.client.duration=60000
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=topics,sender 
+# shell 2
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=topics,sender \
     --tutorial.client.duration=60000
 </pre>
 

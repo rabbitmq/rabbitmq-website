@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using the spring-amqp client)
+### (using Spring AMQP)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -27,7 +27,7 @@ use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
 But what if we need to run a function on a remote computer and wait for
-the result?  Well, that's a different story. This pattern is commonly
+the result? Well, that's a different story. This pattern is commonly
 known as _Remote Procedure Call_ or _RPC_.
 
 In this tutorial we're going to use RabbitMQ to build an RPC system: a
@@ -74,9 +74,9 @@ System.out.println(" [.] Got '" + response + "'");
 In general doing RPC over RabbitMQ is easy. A client sends a request
 message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
-request. Spring-amqp's RabbitTemplate handles the callback queue for
-us when we use the above 'convertSendAndReceive()' method.  There is
-no need to do any other setup when using the RabbitTemplate. For
+request. Spring AMQP's `RabbitTemplate` handles the callback queue for
+us when we use the above `convertSendAndReceive()` method.  There is
+no need to do any other setup when using the `RabbitTemplate`. For
 a thorough explanation please see [Request/Reply Message](http://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
 
 > #### Message properties
@@ -96,27 +96,27 @@ a thorough explanation please see [Request/Reply Message](http://docs.spring.io/
 
 ### Correlation Id
 
-Spring-amqp allows you to focus on the message style you're working
+Spring AMQP allows you to focus on the message style you're working
 with and hide the details of message plumbing required to support
-this style.  For example, typically the native client would 
+this style. For example, typically the native client would
 create a callback queue for every RPC request. That's pretty
 inefficient so an alternative is to create a single callback
 queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
-`correlationId` property is used. Spring-amqp automatically sets
+`correlationId` property is used. Spring AMQP automatically sets
 a unique value for every request. In addition it handles the details
 of matching the response with the correct correlationID. 
 
-One reason that spring-amqp makes rpc style easier is that sometimes
+One reason that Spring AMQP makes RPC style easier is that sometimes
 you may want to ignore unknown messages in the callback
 queue, rather than failing with an error. It's due to a possibility of
 a race condition on the server side. Although unlikely, it is possible
 that the RPC server will die just after sending us the answer, but
 before sending an acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
-The spring-amqp client handles the duplicate responses gracefully,
+Spring AMQP client handles the duplicate responses gracefully,
 and the RPC should ideally be idempotent.
 
 ### Summary
@@ -181,22 +181,22 @@ and the RPC should ideally be idempotent.
 
 Our RPC will work like this:
 
-  * The Tut6Config will setup a new DirectExchange and a client
-  * The client will leverage the convertSendAndReceive passing the exchange
+  * The `Tut6Config` will setup a new `DirectExchange` and a client
+  * The client will leverage the `convertSendAndReceive` method, passing the exchange
     name, the routingKey, and the message. 
-  * The request is sent to an `rpc_queue` ("tut.rpc") queue.
+  * The request is sent to an RPC queue `tut.rpc`.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it performs the task and sends a message with the
-    result back to the Client, using the queue from the `replyTo` field.
+    result back to the client, using the queue from the `replyTo` field.
   * The client waits for data on the callback queue. When a message
     appears, it checks the `correlationId` property. If it matches
     the value from the request it returns the response to the
-    application. Again, this is done automagically via the RabbitTemplate.
+    application. Again, this is done automagically via the `RabbitTemplate`.
 
 Putting it all together
 -----------------------
 
-The Fibonacci task is a @RabbitListener and is defined as:
+The Fibonacci task is a `@RabbitListener` and is defined as:
 
 <pre class="sourcecode java">
 public int fib(int n) {
@@ -204,12 +204,12 @@ public int fib(int n) {
 }
 </pre>
 
-We declare our fibonacci function. It assumes only valid positive integer input.
+We declare our Fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our Tut6Config [Tut6Config](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
-looks like this: 
+The code for our [`Tut6Config`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
+class looks like this:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.Binding;
@@ -269,20 +269,20 @@ public class Tut6Config {
 }
 </pre>
 
-It setups up our profiles as "tut6" or "rpc". It also setups a "client" profile
-with two beans; 1) the DirectExchange we are using and 2) the Tut6Client itself.
-We also configure the "server" profile with three beans, the "tut.rpc.requests"
-queue, the DirextExchange, which matches the client's exchange, and the binding 
-from the queue to the exchange with the "rpc" routing-key. 
+It sets up our profiles as `tut6` or `rpc`. It also setups a `client` profile
+with 2 beans: the `DirectExchange` we are using and the `Tut6Client` itself.
+We also configure the `server` profile with 3 beans, the `tut.rpc.requests`
+queue, the `DirectExchange`, which matches the client's exchange, and the binding
+from the queue to the exchange with the `rpc` routing-key.
 
 The server code is rather straightforward:
 
-  * As usual we start annotating our receiver method with a @RabbitListener
+  * As usual we start annotating our receiver method with a `@RabbitListener`
     and defining the queue its listening on. 
-  * Our fibanacci method calls fib() with the payload parameter and returns 
+  * Our Fibonacci method calls fib() with the payload parameter and returns
     the result
   
-The code for our RPC client [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
+The code for our RPC server [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
 
 <pre class="sourcecode java">
 package org.springframework.amqp.tutorials.tut6;
@@ -313,13 +313,13 @@ public class Tut6Server {
 The client code [Tut6Client](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Client.java)
 is as easy as the server:
 
-  * We autowire the RabbitTemplate and the DirectExchange bean
-    as defined in the Tut6Config.
-  * We invoke template.convertSendAndReceive with the parameters
+  * We autowire the `RabbitTemplate` and the `DirectExchange` bean
+    as defined in the `Tut6Config`.
+  * We invoke `template.convertSendAndReceive` with the parameters
     exchange name, routing key and message.
   * We print the result
 
-Making the Client request is simply:
+Making the client request is simply:
 
 <pre class="sourcecode java">
 import org.springframework.amqp.core.DirectExchange;
@@ -352,24 +352,22 @@ with start.spring.io and SpringInitialzr the preparing the runtime is the same a
 other tutorials:
 
 <pre class="sourcecode bash">
-mvn clean package
+./mvnw clean package
 </pre>
 
 We can start the server with:
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=rpc,server 
-    --tutorial.client.duration=6000
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=rpc,server \
+    --tutorial.client.duration=60000
 </pre>
 
 To request a fibonacci number run the client:
 
 <pre class="sourcecode bash">
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar
-    --spring.profiles.active=rpc,server
-java -jar target/rabbit-tutorials-1.7.1.RELEASE.jar 
-    --spring.profiles.active=rpc,client    
+java -jar target/rabbitmq-tutorials.jar \
+    --spring.profiles.active=rpc,client
 </pre>
 
 The design presented here is not the only possible implementation of a RPC
@@ -392,9 +390,6 @@ complex (but important) problems, like:
  * Protecting against invalid incoming messages
    (eg checking bounds, type) before processing.
 
->
->If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
->
 
-There is one other nice feature of RabbitMQ.  It is featured as a supported
-tile on Pivotal Cloud Foundry (PCF) as a service. 
+>If you want to experiment, you may find the [management UI](/management.html)
+> useful for viewing the queues.
