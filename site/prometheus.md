@@ -69,7 +69,6 @@ get accept-0.3.3.ez
 get prometheus-3.5.1.ez
 get prometheus_cowboy-0.1.4.ez
 get prometheus_httpd-2.1.8.ez
-get prometheus_process_collector-1.3.1.ez
 get prometheus_rabbitmq_exporter-3.7.2.4.ez
 </pre>
 
@@ -82,7 +81,6 @@ ls -la /usr/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
 -rw-r--r-- 1 root root 200783 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus-3.5.1.ez
 -rw-r--r-- 1 root root  14343 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_cowboy-0.1.4.ez
 -rw-r--r-- 1 root root  22059 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_httpd-2.1.8.ez
--rw-r--r-- 1 root root  17313 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_process_collector-1.3.1.ez
 -rw-r--r-- 1 root root 219060 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-3.7.2.4.ez
 </pre>
 
