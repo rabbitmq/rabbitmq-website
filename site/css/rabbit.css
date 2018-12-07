@@ -233,10 +233,6 @@ p {
   clear:left;
 }
 
-.Pp, dt.It-tag {
-  margin-top: 16px;
-}
-
 .logos {
   text-align: center;
   margin-top: 3ex;
@@ -414,11 +410,64 @@ pre span.code {
   display: block;
 }
 
-/* Used in manpages. */
+/* START: used in manpages */
+
+.Pp, dt.It-tag {
+  margin-top: 16px;
+}
+
+dt {
+  margin-top: 16px;
+}
+
 .D1 span.code {
   color: inherit;
   white-space: nowrap;
 }
+
+div.Op {
+  display: inline;
+}
+
+div.Nd {
+  display: inline;
+}
+
+span.code.Cm {
+  font-size: normal;
+  font-weight: bold;
+}
+
+span.code.Fl {
+  font-weight: bold;
+}
+
+span.code.Li {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  white-space: normal;
+}
+
+pre.Li {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  white-space: normal;
+}
+
+span.Pa {
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+}
+
+var.Ar {
+  color: #333;
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+}
+
+/* END: used in manpages */
 
 span.envvar, span.Ev {
   color: black;

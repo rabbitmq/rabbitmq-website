@@ -82,22 +82,22 @@ The <code class="Cm" title="Cm">enable</code>,
     <div class="Pp"></div>
     For example, this command lists all plugins, on one line each
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins
       list</code></div>
     <div class="Pp"></div>
     This command lists all plugins:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins list
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list
       -v</code></div>
     <div class="Pp"></div>
     This command lists all plugins whose name contains &quot;management&quot;.
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins list -v
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -v
       management</code></div>
     <div class="Pp"></div>
     This command lists all implicitly or explicitly enabled RabbitMQ plugins.
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins list -e
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -e
       rabbit</code></div>
   </dd>
   <dt><a class="permalink" href="#enable"><code class="Cm" title="Cm" id="enable">enable</code></a>
@@ -119,7 +119,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command enables the &#x201C;shovel&#x201D; and
       &#x201C;management&#x201D; plugins and all their dependencies:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins enable
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins enable
       rabbitmq_shovel rabbitmq_management</code></div>
   </dd>
   <dt><a class="permalink" href="#disable"><code class="Cm" title="Cm" id="disable">disable</code></a>
@@ -141,7 +141,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command disables &#x201C;amqp_client&#x201D; and all
       plugins that depend on it:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins disable
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins disable
       amqp_client</code></div>
   </dd>
   <dt><a class="permalink" href="#set"><code class="Cm" title="Cm" id="set">set</code></a>
@@ -167,7 +167,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command enables the &#x201C;management&#x201D; plugin and
       its dependencies and disables everything else:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmq-plugins set
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins set
       rabbitmq_management</code></div>
   </dd>
 </dl>

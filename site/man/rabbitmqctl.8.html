@@ -103,7 +103,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, to reset the RabbitMQ node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       force_reset</code></div>
   </dd>
   <dt><a class="permalink" href="#hipe_compile"><code class="Cm" title="Cm" id="hipe_compile">hipe_compile</code></a>
@@ -123,7 +123,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     For example, to HiPE-compile modules and store them to
       <span class="Pa" title="Pa">/tmp/rabbit-hipe/ebin</span> directory:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl hipe_compile
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl hipe_compile
       /tmp/rabbit-hipe/ebin</code></div>
   </dd>
   <dt><a class="permalink" href="#reset"><code class="Cm" title="Cm" id="reset">reset</code></a></dt>
@@ -140,7 +140,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, to resets the RabbitMQ node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl reset</code></div>
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl reset</code></div>
   </dd>
   <dt><a class="permalink" href="#rotate_logs"><code class="Cm" title="Cm" id="rotate_logs">rotate_logs</code></a></dt>
   <dd>Instructs the RabbitMQ node to perform internal log rotation.
@@ -154,7 +154,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, this command starts internal log rotation process:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       rotate_logs</code></div>
     <div class="Pp"></div>
     Rotation is performed asynchronously, so there is no guarantee that it will
@@ -173,7 +173,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, to shut down the Erlang process on which RabbitMQ is running:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl shutdown</code></div>
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl shutdown</code></div>
   </dd>
   <dt><a class="permalink" href="#start_app"><code class="Cm" title="Cm" id="start_app">start_app</code></a></dt>
   <dd>Starts the RabbitMQ application.
@@ -185,7 +185,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     For example, to instruct the RabbitMQ node to start the RabbitMQ
       application:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       start_app</code></div>
   </dd>
   <dt><a class="permalink" href="#stop"><code class="Cm" title="Cm" id="stop">stop</code></a>
@@ -201,7 +201,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, to instruct the RabbitMQ node to terminate:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl stop</code></div>
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl stop</code></div>
   </dd>
   <dt><a class="permalink" href="#stop_app"><code class="Cm" title="Cm" id="stop_app">stop_app</code></a></dt>
   <dd>Stops the RabbitMQ application, leaving the Erlang node running.
@@ -212,7 +212,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, to instruct the RabbitMQ node to stop the RabbitMQ application:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl stop_app</code></div>
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl stop_app</code></div>
   </dd>
   <dt><a class="permalink" href="#wait"><code class="Cm" title="Cm" id="wait">wait</code></a>
     <var class="Ar" title="Ar">pid_file</var>,
@@ -241,7 +241,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, this command will return when the RabbitMQ node has started up:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl wait
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl wait
       /var/run/rabbitmq/pid</code></div>
   </dd>
 </dl>
@@ -293,7 +293,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     For example, this command instructs the RabbitMQ node to join the cluster
       that &#x201C;hare@elena&#x201D; is part of, as a ram node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl join_cluster
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl join_cluster
       hare@elena --ram</code></div>
   </dd>
   <dt><a class="permalink" href="#cluster_status"><code class="Cm" title="Cm" id="cluster_status">cluster_status</code></a></dt>
@@ -302,7 +302,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, this command displays the nodes in the cluster:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       cluster_status</code></div>
   </dd>
   <dt><a class="permalink" href="#change_cluster_node_type"><code class="Cm" title="Cm" id="change_cluster_node_type">change_cluster_node_type</code></a>
@@ -321,7 +321,7 @@ Diagnostic information is displayed if the broker was not running, could not be
     <div class="Pp"></div>
     For example, this command will turn a RAM node into a disc node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       change_cluster_node_type disc</code></div>
   </dd>
   <dt><a class="permalink" href="#forget_cluster_node"><code class="Cm" title="Cm" id="forget_cluster_node">forget_cluster_node</code></a>
@@ -353,7 +353,7 @@ Diagnostic information is displayed if the broker was not running, could not be
       &#x201C;rabbit@stringer&#x201D; from the node
       &#x201C;hare@mcnulty&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl -n hare@mcnulty
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl -n hare@mcnulty
       forget_cluster_node rabbit@stringer</code></div>
   </dd>
   <dt><a class="permalink" href="#rename_cluster_node"><code class="Cm" title="Cm" id="rename_cluster_node">rename_cluster_node</code></a>
@@ -382,7 +382,7 @@ Diagnostic information is displayed if the broker was not running, could not be
       &#x201C;rabbit@misshelpful&#x201D; to the node
       &#x201C;rabbit@cordelia&#x201D;
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl rename_cluster_node
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl rename_cluster_node
       rabbit@misshelpful rabbit@cordelia</code></div>
     <div class="Pp"></div>
     Note that this command only changes the local database. It may also be
@@ -392,20 +392,20 @@ Diagnostic information is displayed if the broker was not running, could not be
     <ol class="Bl-enum Bl-compact">
       <li>Stop the node:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl stop
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl stop
           rabbit@misshelpful</code></div>
         <div class="Pp"></div>
       </li>
       <li>Rename the node in the local database:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
           rename_cluster_node rabbit@misshelpful rabbit@cordelia</code></div>
         <div class="Pp"></div>
       </li>
       <li>Rename the local database directories (note, you do not need to do
           this if you have set the RABBITMQ_MNESIA_DIR environment variable):
         <div class="Pp"></div>
-        <div class="Bd Bd-indent">
+        <div class="Bd Bd-indent sourcecode bash hljs">
         <pre class="Li">
 mv \ 
   /var/lib/rabbitmq/mnesia/rabbit\@misshelpful \ 
@@ -454,7 +454,7 @@ mv \
       <var class="Va" title="Va">B</var> is not in the cluster anymore. The
       following command will solve this situation:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">update_cluster_nodes -n
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">update_cluster_nodes -n
       <var class="Va" title="Va">A</var>
       <var class="Va" title="Va">C</var></code></div>
   </dd>
@@ -482,7 +482,7 @@ mv \
     For example, this will force the node not to wait for other nodes next time
       it is started:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       force_boot</code></div>
   </dd>
   <dt><a class="permalink" href="#sync_queue"><code class="Cm" title="Cm" id="sync_queue">sync_queue</code></a>
@@ -535,7 +535,7 @@ mv \
     <div class="Pp"></div>
     For example, this sets the cluster name to &#x201C;london&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_cluster_name
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_cluster_name
       london</code></div>
   </dd>
 </dl>
@@ -560,7 +560,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       (non-administrative) user named &#x201C;tonyg&#x201D; with (initial)
       password &#x201C;changeit&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl add_user tonyg
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl add_user tonyg
       changeit</code></div>
   </dd>
   <dt><a class="permalink" href="#delete_user"><code class="Cm" title="Cm" id="delete_user">delete_user</code></a>
@@ -574,7 +574,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to delete the user
       named &#x201C;tonyg&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl delete_user
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl delete_user
       tonyg</code></div>
   </dd>
   <dt><a class="permalink" href="#change_password"><code class="Cm" title="Cm" id="change_password">change_password</code></a>
@@ -592,7 +592,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       password for the user named &#x201C;tonyg&#x201D; to
       &#x201C;newpass&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl change_password tonyg
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl change_password tonyg
       newpass</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_password"><code class="Cm" title="Cm" id="clear_password">clear_password</code></a>
@@ -606,7 +606,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to clear the
       password for the user named &#x201C;tonyg&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl clear_password
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl clear_password
       tonyg</code></div>
     <div class="Pp"></div>
     This user now cannot log in with a password (but may be able to through e.g.
@@ -625,7 +625,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to authenticate the
       user named &#x201C;tonyg&#x201D; with password &#x201C;verifyit&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl authenticate_user
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl authenticate_user
       tonyg verifyit</code></div>
   </dd>
   <dt><a class="permalink" href="#set_user_tags"><code class="Cm" title="Cm" id="set_user_tags">set_user_tags</code></a>
@@ -642,7 +642,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to ensure the user
       named &#x201C;tonyg&#x201D; is an administrator:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_user_tags tonyg
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_user_tags tonyg
       administrator</code></div>
     <div class="Pp"></div>
     This has no effect when the user logs in via AMQP, but can be used to permit
@@ -652,7 +652,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     This command instructs the RabbitMQ broker to remove any tags from the user
       named &#x201C;tonyg&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_user_tags
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_user_tags
       tonyg</code></div>
   </dd>
   <dt><a class="permalink" href="#list_users"><code class="Cm" title="Cm" id="list_users">list_users</code></a></dt>
@@ -661,7 +661,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to list all users:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_users</code></div>
   </dd>
 </dl>
@@ -685,7 +685,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to create a new
       virtual host called &#x201C;test&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl add_vhost
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl add_vhost
       test</code></div>
   </dd>
   <dt><a class="permalink" href="#delete_vhost"><code class="Cm" title="Cm" id="delete_vhost">delete_vhost</code></a>
@@ -704,7 +704,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to delete the
       virtual host called &#x201C;test&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl delete_vhost
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl delete_vhost
       test</code></div>
   </dd>
   <dt><a class="permalink" href="#list_vhosts"><code class="Cm" title="Cm" id="list_vhosts">list_vhosts</code></a>
@@ -731,7 +731,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to list all virtual
       hosts:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_vhosts name
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_vhosts name
       tracing</code></div>
   </dd>
   <dt><a class="permalink" href="#set_permissions"><code class="Cm" title="Cm" id="set_permissions">set_permissions</code></a>
@@ -767,7 +767,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       whose names starts with &#x201C;tonyg-&#x201D;, and write and read
       permissions on all resources:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_permissions -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_permissions -p
       /myvhost tonyg &#x201C;^tonyg-.*&#x201D; &#x201C;.*&#x201D;
       &#x201C;.*&#x201D;</code></div>
   </dd>
@@ -791,7 +791,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       named &#x201C;tonyg&#x201D; access to the virtual host called
       &#x201C;/myvhost&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl clear_permissions -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl clear_permissions -p
       /myvhost tonyg</code></div>
   </dd>
   <dt><a class="permalink" href="#list_permissions"><code class="Cm" title="Cm" id="list_permissions">list_permissions</code></a>
@@ -813,7 +813,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       resources in that virtual host. Note that an empty string means no
       permissions granted:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_permissions -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_permissions -p
       /myvhost</code></div>
   </dd>
   <dt><a class="permalink" href="#list_user_permissions"><code class="Cm" title="Cm" id="list_user_permissions">list_user_permissions</code></a>
@@ -831,7 +831,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       granted access, and the permissions the user has for operations on
       resources in these virtual hosts:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_user_permissions
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_user_permissions
       tonyg</code></div>
   </dd>
   <dt><a class="permalink" href="#set_topic_permissions"><code class="Cm" title="Cm" id="set_topic_permissions">set_topic_permissions</code></a>
@@ -867,7 +867,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       &#x201C;amp.topic&#x201D; exchange of the &#x201C;/myvhost&#x201D; virtual
       host with a routing key starting with &#x201C;tonyg-&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_topic_permissions
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_topic_permissions
       -p /myvhost tonyg amq.topic &#x201C;^tonyg-.*&#x201D;
       &#x201C;^tonyg-.*&#x201D;</code></div>
     <div class="Pp"></div>
@@ -876,7 +876,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       using MQTT. The previous example could be made more generic by using
       &#x201C;^{username}-.*&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_topic_permissions
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_topic_permissions
       -p /myvhost tonyg amq.topic &#x201C;^{username}-.*&#x201D;
       &#x201C;^{username}-.*&#x201D;</code></div>
   </dd>
@@ -906,7 +906,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       &#x201C;amq.topic&#x201D; in the virtual host called
       &#x201C;/myvhost&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       clear_topic_permissions -p /myvhost tonyg amq.topic</code></div>
   </dd>
   <dt><a class="permalink" href="#list_topic_permissions"><code class="Cm" title="Cm" id="list_topic_permissions">list_topic_permissions</code></a>
@@ -925,7 +925,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       users which have been granted topic permissions in the virtual host called
       &#x201C;/myvhost:&#x201D;
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_topic_permissions -p /myvhost</code></div>
   </dd>
   <dt><a class="permalink" href="#list_user_topic_permissions"><code class="Cm" title="Cm" id="list_user_topic_permissions">list_user_topic_permissions</code></a>
@@ -943,7 +943,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       granted access, and the topic permissions the user has in these virtual
       hosts:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_topic_user_permissions tonyg</code></div>
   </dd>
 </dl>
@@ -980,7 +980,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
       &#x201C;federation-upstream&#x201D; component in the default virtual host
       to the following JSON &#x201C;guest&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_parameter
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_parameter
       federation-upstream node01
       '{&quot;uri&quot;:&quot;amqp://user:password@server/%2F&quot;,&quot;ack-mode&quot;:&quot;on-publish&quot;}'</code></div>
   </dd>
@@ -1002,7 +1002,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
       the &#x201C;federation-upstream&#x201D; component in the default virtual
       host:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl clear_parameter
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl clear_parameter
       federation-upstream node01</code></div>
   </dd>
   <dt><a class="permalink" href="#list_parameters"><code class="Cm" title="Cm" id="list_parameters">list_parameters</code></a>
@@ -1012,7 +1012,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
     <div class="Pp"></div>
     For example, this command lists all parameters in the default virtual host:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_parameters</code></div>
   </dd>
   <dt><a class="permalink" href="#set_global_parameter"><code class="Cm" title="Cm" id="set_global_parameter">set_global_parameter</code></a>
@@ -1033,7 +1033,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
       &#x201C;mqtt_default_vhosts&#x201D; to the JSON term
       {&quot;O=client,CN=guest&quot;:&quot;/&quot;}:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_global_parameter
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_global_parameter
       mqtt_default_vhosts
       '{&quot;O=client,CN=guest&quot;:&quot;/&quot;}'</code></div>
   </dd>
@@ -1050,7 +1050,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
     For example, this command clears the global runtime parameter
       &#x201C;mqtt_default_vhosts&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       clear_global_parameter mqtt_default_vhosts</code></div>
   </dd>
   <dt><a class="permalink" href="#list_global_parameters"><code class="Cm" title="Cm" id="list_global_parameters">list_global_parameters</code></a></dt>
@@ -1060,7 +1060,7 @@ Certain features of RabbitMQ (such as the federation plugin) are controlled by
     <div class="Pp"></div>
     For example, this command lists all global parameters:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_global_parameters</code></div>
   </dd>
 </dl>
@@ -1108,7 +1108,7 @@ Policies are used to control and modify the behaviour of queues and exchanges on
     For example, this command sets the policy &#x201C;federate-me&#x201D; in the
       default virtual host so that built-in exchanges are federated:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_policy
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_policy
       federate-me ^amq.
       '{&quot;federation-upstream-set&quot;:&quot;all&quot;}'</code></div>
   </dd>
@@ -1125,7 +1125,7 @@ Policies are used to control and modify the behaviour of queues and exchanges on
     For example, this command clears the &#x201C;federate-me&#x201D; policy in
       the default virtual host:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl clear_policy
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl clear_policy
       federate-me</code></div>
   </dd>
   <dt><a class="permalink" href="#list_policies"><code class="Cm" title="Cm" id="list_policies">list_policies</code></a>
@@ -1135,7 +1135,7 @@ Policies are used to control and modify the behaviour of queues and exchanges on
     <div class="Pp"></div>
     For example, this command lists all policies in the default virtual host:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_policies</code></div>
   </dd>
   <dt><a class="permalink" href="#set_operator_policy"><code class="Cm" title="Cm" id="set_operator_policy">set_operator_policy</code></a>
@@ -1199,24 +1199,24 @@ It is possible to enforce certain limits on virtual hosts.
     For example, this command limits the max number of concurrent connections in
       vhost &#x201C;qa_env&#x201D; to 64:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_vhost_limits -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_vhost_limits -p
       qa_env '{&quot;max-connections&quot;: 64}'</code></div>
     <div class="Pp"></div>
     This command limits the max number of queues in vhost &#x201C;qa_env&#x201D;
       to 256:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_vhost_limits -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_vhost_limits -p
       qa_env '{&quot;max-queues&quot;: 256}'</code></div>
     <div class="Pp"></div>
     This command clears the max number of connections limit in vhost
       &#x201C;qa_env&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_vhost_limits -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_vhost_limits -p
       qa_env '{&quot;max-connections&quot;: -1}'</code></div>
     <div class="Pp"></div>
     This command disables client connections in vhost &#x201C;qa_env&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl set_vhost_limits -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl set_vhost_limits -p
       qa_env '{&quot;max-connections&quot;: 0}'</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_vhost_limits"><code class="Cm" title="Cm" id="clear_vhost_limits">clear_vhost_limits</code></a>
@@ -1227,7 +1227,7 @@ It is possible to enforce certain limits on virtual hosts.
     For example, this command clears vhost limits in vhost
       &#x201C;qa_env&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl clear_vhost_limits -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl clear_vhost_limits -p
       qa_env</code></div>
   </dd>
   <dt><a class="permalink" href="#list_vhost_limits"><code class="Cm" title="Cm" id="list_vhost_limits">list_vhost_limits</code></a>
@@ -1394,7 +1394,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command displays the depth and number of consumers for
       each queue of the virtual host named &#x201C;/myvhost&#x201D;
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_queues -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_queues -p
       /myvhost messages consumers</code></div>
   </dd>
   <dt><a class="permalink" href="#list_exchanges"><code class="Cm" title="Cm" id="list_exchanges">list_exchanges</code></a>
@@ -1445,7 +1445,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command displays the name and type for each exchange of
       the virtual host named &#x201C;/myvhost&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_exchanges -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_exchanges -p
       /myvhost name type</code></div>
   </dd>
   <dt><a class="permalink" href="#list_bindings"><code class="Cm" title="Cm" id="list_bindings">list_bindings</code></a>
@@ -1489,7 +1489,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command displays the exchange name and queue name of the
       bindings in the virtual host named &#x201C;/myvhost&#x201D;
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_bindings -p
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_bindings -p
       /myvhost exchange_name queue_name</code></div>
   </dd>
   <dt><a class="permalink" href="#list_connections"><code class="Cm" title="Cm" id="list_connections">list_connections</code></a>
@@ -1595,7 +1595,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command displays the send queue size and server port for
       each connection:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_connections
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_connections
       send_pend port</code></div>
   </dd>
   <dt><a class="permalink" href="#list_channels"><code class="Cm" title="Cm" id="list_channels">list_channels</code></a>
@@ -1656,7 +1656,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command displays the connection process and count of
       unacknowledged messages for each channel:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl list_channels
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl list_channels
       connection messages_unacknowledged</code></div>
   </dd>
   <dt><a class="permalink" href="#list_consumers"><code class="Cm" title="Cm" id="list_consumers">list_consumers</code></a>
@@ -1679,7 +1679,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     <div class="Pp"></div>
     For example, this command displays information about the RabbitMQ broker:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl status</code></div>
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl status</code></div>
   </dd>
   <dt><a class="permalink" href="#node_health_check"><code class="Cm" title="Cm" id="node_health_check">node_health_check</code></a></dt>
   <dd>Health check of the RabbitMQ node. Verifies the rabbit application is
@@ -1687,7 +1687,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     <div class="Pp"></div>
     For example, this command performs a health check on the RabbitMQ node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl node_health_check -n
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl node_health_check -n
       rabbit@stringer</code></div>
   </dd>
   <dt><a class="permalink" href="#environment"><code class="Cm" title="Cm" id="environment">environment</code></a></dt>
@@ -1701,7 +1701,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command creates a server report which may be attached to a
       support request email:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl report &gt;
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl report &gt;
       server_report.txt</code></div>
   </dd>
   <dt><a class="permalink" href="#eval"><code class="Cm" title="Cm" id="eval">eval</code></a>
@@ -1711,7 +1711,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command returns the name of the node to which
       <code class="Nm" title="Nm">rabbitmqctl</code> has connected:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl eval
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl eval
       &#x201C;node().&#x201D;</code></div>
   </dd>
 </dl>
@@ -1739,7 +1739,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
       &#x201C;&lt;rabbit@tanto.4262.0&gt;&#x201D;, passing the explanation
       &#x201C;go away&#x201D; to the connected client:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl close_connection
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl close_connection
       &#x201C;&lt;rabbit@tanto.4262.0&gt;&#x201D; &#x201C;go
       away&#x201D;</code></div>
   </dd>
@@ -1780,12 +1780,12 @@ The <code class="Cm" title="Cm">list_queues</code>,
       connections on &#x201C;qa_env&#x201D; vhost, passing the explanation
       &#x201C;Please close&#x201D;:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl close_all_connections
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl close_all_connections
       -p qa_env --limit 10 'Please close'</code></div>
     <div class="Pp"></div>
     This command instructs broker to close all connections to the node:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl close_all_connections
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl close_all_connections
       --global</code></div>
     <div class="Pp"></div>
   </dd>
@@ -1884,7 +1884,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
         <div class="Pp"></div>
         For example:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl encode
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl encode
           '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
       </dd>
       <dt><a class="permalink" href="#-cipher"><code class="Fl" title="Fl" id="-cipher">--cipher</code></a>
@@ -1898,7 +1898,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
         <div class="Pp"></div>
         For example:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl encode --cipher
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl encode --cipher
           blowfish_cfb64 --hash sha256 --iterations 10000
           '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
       </dd>
@@ -1921,7 +1921,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
         <div class="Pp"></div>
         For example:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl decode
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl decode
           '{encrypted, &lt;&lt;&quot;...&quot;&gt;&gt;}'
           mypassphrase</code></div>
       </dd>
@@ -1936,7 +1936,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
         <div class="Pp"></div>
         For example:
         <div class="Pp"></div>
-        <div class="Bd Bd-indent"><code class="Li">rabbitmqctl decode --cipher
+        <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl decode --cipher
           blowfish_cfb64 --hash sha256 --iterations 10000
           '{encrypted,&lt;&lt;&quot;...&quot;&gt;&gt;} mypassphrase</code></div>
       </dd>
@@ -1948,7 +1948,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command instructs the RabbitMQ broker to list all hash
       functions supported by encoding commands:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_hashes</code></div>
   </dd>
   <dt><a class="permalink" href="#list_ciphers"><code class="Cm" title="Cm" id="list_ciphers">list_ciphers</code></a></dt>
@@ -1957,7 +1957,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
     For example, this command instructs the RabbitMQ broker to list all cipher
       suites supported by encoding commands:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent"><code class="Li">rabbitmqctl
+    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmqctl
       list_ciphers</code></div>
   </dd>
 </dl>
