@@ -22,6 +22,7 @@ RabbitMQ comes with multiple command line tools:
  * [rabbitmqctl](/rabbitmqctl.8.html) for general administrative/operator tasks
  * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for plugin management
  * [rabbitmqadmin](/management-cli.html) for operator tasks over [HTTP API](/management.html)
+ * `rabbitmq-diagnostics` for diagnostics data collection 
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
@@ -159,11 +160,11 @@ a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
 <pre class="sourcecode ini">
-* epmd reports node 'rabbit' running on port 25672 
-* TCP connection succeeded but Erlang distribution failed 
-* suggestion: hostname mismatch? 
-* suggestion: is the cookie set correctly? 
-* suggestion: is the Erlang distribution using TLS? 
+* epmd reports node 'rabbit' running on port 25672
+* TCP connection succeeded but Erlang distribution failed
+* suggestion: hostname mismatch?
+* suggestion: is the cookie set correctly?
+* suggestion: is the Erlang distribution using TLS?
 </pre>
 
 This means that TCP connection from a CLI tool to a RabbitMQ node

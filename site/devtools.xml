@@ -180,7 +180,7 @@ limitations under the License.
               <a href="https://github.com/sozu-proxy/lapin">Lapin</a>, a Rust client
             </ul>
           </doc:section>
-          
+
           <doc:section name="alt-jvm-dev">
             <doc:heading>Other JVM Languages</doc:heading>
             <h4>Scala</h4>
@@ -220,7 +220,10 @@ limitations under the License.
             <h4>Clojure</h4>
             <ul class="plain">
               <li>
-                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
+                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client built on top of the official Java one</a>
+              </li>
+              <li>
+                <a href="https://github.com/nomnom-insights/nomnom.bunnicula">Bunnicula, Component based framework for Clojure built on top of the official Java one</a>
               </li>
             </ul>
             <h4>JRuby</h4>
