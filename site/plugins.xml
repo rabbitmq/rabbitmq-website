@@ -165,7 +165,7 @@ PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7
 
 <pre class="sourcecode sh">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"}
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"}
 </pre>
 
         The first directory in the example above is the 3rd party plugin directory.
