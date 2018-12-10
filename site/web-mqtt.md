@@ -163,11 +163,11 @@ to learn more about TLS support in RabbitMQ.
 TLS configuration parameters are provided in the `web_mqtt.ssl` section:
 
 <pre class="sourcecode ini">
-web_mqtt.ssl.port       = 12345
+web_mqtt.ssl.port       = 15673
 web_mqtt.ssl.backlog    = 1024
-web_mqtt.ssl.certfile   = path/to/certs/client/cert.pem
-web_mqtt.ssl.keyfile    = path/to/certs/client/key.pem
-web_mqtt.ssl.cacertfile = path/to/certs/testca/cacert.pem
+web_mqtt.ssl.certfile   = /path/to/server/certificate.pem
+web_mqtt.ssl.keyfile    = /path/to/server/private_key.pem
+web_mqtt.ssl.cacertfile = /path/to/testca/ca_certificate_bundle.pem
 # needed when private key has a passphrase
 # web_mqtt.ssl.password   = changeme
 </pre>
@@ -178,21 +178,23 @@ section is `rabbitmq_web_mqtt.ssl_config`:
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_mqtt,
-      [{ssl_config, [{port,       15671},
+      [{ssl_config, [{port,       15673},
                      {backlog,    1024},
-                     {certfile,   "path/to/certs/client/cert.pem"},
-                     {keyfile,    "path/to/certs/client/key.pem"},
-                     {cacertfile, "path/to/certs/testca/cacert.pem"}
+                     {certfile,   "/path/to/server/certificate.pem"},
+                     {keyfile,    "/path/to/server/private_key.pem"},
+                     {cacertfile, "/path/to/testca/ca_certificate_bundle.pem"}
                      %% needed when private key has a passphrase
                      %% , {password,   "changeme"}
                     ]}]}
 ].
 </pre>
 
-TLS listener port, server certificate file and private key file are mandatory options.
-An extended list of TLS settings is largely identical to those [for the core server](/ssl.html)
-but there are some minor differences. Full list of options accepted by this plugin
-can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.4/manual/ranch_ssl/).
+The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
+Password is also mandatory if the private key uses one.
+An extended list of TLS settings is largely identical to those [for the core server](/ssl.html).
+Full list of options accepted by this plugin can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.7/manual/ranch_ssl/).
+
+A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
 
 
 ### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
@@ -206,12 +208,11 @@ in the [advanced config format](/configure.html#advanced-config-file) that confi
 and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 
 <pre class="sourcecode erlang">
-
 {rabbitmq_web_mqtt,
   [{ssl_config,
-    [{cacertfile,           "/path/to/ca_certificate.pem"},
-     {certfile,             "/path/to/server_certificate.pem"},
-     {keyfile,              "/path/to/private_key.pem"},
+    [{cacertfile,           "/path/to/testca/ca_certificate_bundle.pem"},
+     {certfile,             "/path/to/server/certificate.pem"},
+     {keyfile,              "/path/to/server/private_key.pem"},
      {verify,               verify_peer},
      {fail_if_no_peer_cert, true},
      {versions,             ['tlsv1.2']},
