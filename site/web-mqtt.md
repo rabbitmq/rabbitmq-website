@@ -157,9 +157,10 @@ See [RabbitMQ Networking guide](/networking.html) for more information.
 
 ## <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
-The plugin supports WebSocket connections with TLS encryption (WSS connections).
+The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
+to learn more about TLS support in RabbitMQ.
 
-TLS configuration parameters for the plugin use the <code>web_mqtt.ssl</code> prefix:
+TLS configuration parameters are provided in the `web_mqtt.ssl` section:
 
 <pre class="sourcecode ini">
 web_mqtt.ssl.port       = 12345
@@ -171,7 +172,8 @@ web_mqtt.ssl.cacertfile = path/to/certs/testca/cacert.pem
 # web_mqtt.ssl.password   = changeme
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
+section is `rabbitmq_web_mqtt.ssl_config`:
 
 <pre class="sourcecode erlang">
 [

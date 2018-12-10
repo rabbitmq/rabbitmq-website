@@ -145,10 +145,10 @@ for details about accepted parameters.
 
 ### TLS (SSL)
 
-The plugin supports WebSockets with TLS (WSS) connections. That requires
-Erlang/OTP 17.5 or a later version.
+The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
+to learn more about TLS support in RabbitMQ.
 
-TLS (SSL) configuration parameters are provided in the `ssl_config` section:
+TLS configuration parameters are provided in the `web_stomp.ssl` section:
 
 <pre class="sourcecode ini">
 web_stomp.ssl.port       = 12345
@@ -159,7 +159,8 @@ web_stomp.ssl.cacertfile = path/to/certs/testca/cacert.pem
 web_stomp.ssl.password   = changeme
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
+section is `rabbitmq_web_stomp.ssl_config`:
 
 <pre class="sourcecode erlang">
 [
