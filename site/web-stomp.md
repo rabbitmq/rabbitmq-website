@@ -200,6 +200,25 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 ].
 </pre>
 
+## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
+
+The Web STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+This feature is disabled by default, to enable it for clients:
+
+<pre class="sourcecode ini">
+web_stomp.proxy_protocol = true
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_stomp, [{proxy_protocol, true}]}
+].
+</pre>
+
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
+about the proxy protocol.
 
 ## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
 
