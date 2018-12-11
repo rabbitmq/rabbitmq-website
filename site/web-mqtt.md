@@ -128,7 +128,7 @@ We encourage you to take a look [at the source code](https://github.com/rabbitmq
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 When no configuration is specified the Web MQTT plugin will listen on
-all interfaces on port 15674 and have a default user login and password of
+all interfaces on port 15675 and have a default user login and password of
 `guest`/`guest`. Note that this user is only [allowed to connect from localhost](/access-control.html) by default.
 We highly recommend creating a separate user production systems.
 
@@ -140,7 +140,7 @@ For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
 <pre class="sourcecode ini">
-web_mqtt.tcp.port = 15675
+web_mqtt.tcp.port = 12345
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -148,7 +148,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_mqtt,
-      [{tcp_config, [{port, 15675}]}]}
+      [{tcp_config, [{port, 12345}]}]}
 ].
 </pre>
 
