@@ -236,7 +236,7 @@ Implicit connect is *not* enabled by default.
 **Note:** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
 
-## <a id="proxy-protocol" class="anchor" href="#proxy-protocol"> Proxy Protocol</a>
+## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for STOMP clients:
