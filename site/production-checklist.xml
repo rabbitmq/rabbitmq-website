@@ -291,7 +291,7 @@ limitations under the License.
           Messaging protocols supported by RabbitMQ use a feature called <a href="/heartbeats.html">heartbeats</a> (the name
           may vary but the concept does not) to detect such connections quicker than the TCP stack.
           Developers should be careful about using heartbeat timeout that are too low (less than 5 seconds)
-          as that may producee false positives when network congestion or system load goes up.
+          as that may produce false positives when network congestion or system load goes up.
         </p>
 
         <p>
