@@ -87,6 +87,10 @@ rabbitmq-plugins enable rabbitmq_management
             Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
             <a href="/networking.html#ports">Separate ports</a> should be used by those clients.
           </p>
+
+          <p>
+            Users must be <a href="#permissions">granted permissions</a> for management UI access.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="usage-highlights">
@@ -158,7 +162,9 @@ rabbitmq-plugins enable rabbitmq_management
         <p>
           The management UI requires  <a
           href="access-control.html">authentication and authorisation</a>, much like RabbitMQ requires
-          it from connecting clients.
+          it from connecting clients. In addition to successful authentication, management UI access
+          is controlled by user tags. The tags are managed using <a href="/rabbitmqctl.8.html#set_user_tags">rabbitmqctl</a>.
+          Newly created users do not have any tags set on them by default.
         </p>
         <table>
           <tr>

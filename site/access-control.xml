@@ -244,6 +244,24 @@ loopback_users = none
           <a href="rabbitmqctl.8.html#Access_Control">Access Control section</a>
           of the <a href="rabbitmqctl.8.html">rabbitmqctl man page</a>.
         </p>
+
+
+        <doc:subsection name="user-tags">
+          <doc:heading>User Tags and Management UI Access</doc:heading>
+
+          <p>
+            In addition to the permissions covered above, users can have tags
+            associated with them. Currently only management UI access is  controlled by user tags.
+          </p>
+          <p>
+            The tags are managed using <a href="/rabbitmqctl.8.html#set_user_tags">rabbitmqctl</a>.
+            Newly created users do not have any tags set on them by default.
+          </p>
+          <p>
+            Please refer to the <a href="/management.html#permissions">management plugin guide</a> to learn
+            more about what tags are supported and how they limit management UI access.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="topic-authorisation">
