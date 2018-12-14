@@ -45,6 +45,10 @@ limitations under the License.
 
         and more.
       </p>
+
+      <p>
+        <a href="/plugin-development.html">Plugin development</a> is covered in a separate guide.
+      </p>
     </doc:section>
 
     <doc:section name="overview">
