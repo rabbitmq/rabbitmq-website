@@ -8,8 +8,8 @@
 Copyright (c) 2007-2018 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -32,8 +32,8 @@ limitations under the License.
             <div class='container'>
               <div class='text'>
                 <h1>RabbitMQ Webinar</h1>
-                <h2>"Ten Things Every Developer Using RabbitMQ Should Know"<br/>December 12 | 
-                  <a href="https://content.pivotal.io/webinars/dec-12-10-things-every-developer-using-rabbitmq-should-know-webinar&amp;utm_source=rabbitmq-site&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-webinar-promotion" target="_blank">Register here</a></h2>
+                <h2>"Ten Things Every Developer Using RabbitMQ Should Know"<br/>
+                  <a href="https://content.pivotal.io/webinars/dec-12-10-things-every-developer-using-rabbitmq-should-know-webinar&amp;utm_source=rabbitmq-site&amp;utm_medium=homepage-banner&amp;utm_campaign=rabbitmq-webinar-promotion" target="_blank">watch the replay</a></h2>
               </div>
             </div>
           </div>
@@ -204,9 +204,9 @@ limitations under the License.
               <img src="img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ: <a href="https://academy.pivotal.io/store-catalog" target="_blank">Pivotal Software</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>, <a href="https://www.netcomlearning.com/courses/18482/Pivotal-RabbitMQ-training.html" target="_blank">NetCom Learning</a>,
-              <a href="https://skillsmatter.com/courses/505-rabbitmq" target="_blank">Skills Matter</a>, 
+              <a href="https://skillsmatter.com/courses/505-rabbitmq" target="_blank">Skills Matter</a>,
               <a href="http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a> and <a href="http://www.opensourcearchitect.co/education/pivotal/rabbitmq/" target="_blank">Open Source Architect</a>.</p>
-              
+
             </div>
           </div>
         </div>
