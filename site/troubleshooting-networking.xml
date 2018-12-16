@@ -28,7 +28,10 @@ limitations under the License.
         <doc:heading>Introduction</doc:heading>
         <p>
           This guide accompanies the one <a href="/networking.html">on networking</a> and focuses on troublshooting of
-          network connections. For connections that use TLS there is a separate <a href="/troubleshooting-ssl.html">guide on troubleshooting TLS</a>.
+          network connections.
+        </p>
+        <p>
+          For connections that use TLS there is an additional <a href="/troubleshooting-ssl.html">guide on troubleshooting TLS</a>.
         </p>
       </doc:subsection>
 
@@ -36,7 +39,8 @@ limitations under the License.
         <doc:heading>Troubleshooting Client Connection Issues: the Methodology</doc:heading>
         <p>
           Troubleshooting of network connectivity issues is a broad topic. There are entire
-          books written about it. This guide provides some starting points for most common issues.
+          books written about it. This guide explains a methodology and widely available networking tools
+          that help narrow most common issues down efficiently.
         </p>
 
         <p>
@@ -47,16 +51,16 @@ limitations under the License.
           are often effective and sufficient:
 
           <ul>
-            <li>Verify client configuration</li>
+            <li><a href="#verify-client">Verify client configuration</a></li>
             <li>
-              Verify server configuration using <code><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
+              <a href="#verify-server">Verify server configuration</a> using <code><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> status</code> (specifically the <code>listeners</code> section)
               and <code>rabbitmqctl environment</code>
             </li>
-            <li>Inspect <a href="/logging.html">server logs</a></li>
-            <li>Verify hostname resolution</li>
-            <li>Verify TCP port connectivity</li>
-            <li>Verify IP routing</li>
-            <li>If needed, take and analyze a traffic dump (traffic capture)</li>
+            <li>Inspect <a href="#server-logs">server logs</a></li>
+            <li>Verify <a href="#hostname-resolution">hostname resolution</a></li>
+            <li>Verify what TCP <a href="#ports">port are used and their accessibility</a></li>
+            <li>Verify <a href="#ip-routing">IP routing</a></li>
+            <li>If needed, <a href="#traffic-capture">take and analyze a traffic dump</a> (traffic capture)</li>
           </ul>
 
           These steps, when performed in sequence, usually help identify the root cause of
@@ -64,9 +68,17 @@ limitations under the License.
           levels lower than the <a href="https://en.wikipedia.org/wiki/Internet_protocol_suite#Internet_layer">Internet (networking) layer</a>
           are outside of the scope of this guide.
         </p>
+
+        <p>
+          Certain problems only happen in environments with a <a href="#detecting-high-connection-churn">high degree of connection churn</a>.
+          Client connections can be inspected using the <a href="/management.html">management UI</a>.
+          It is also possible to <a href="#inspecting-connections">inspect all TCP connections of a node and their state</a>.
+          That information collected over time, combined with server logs, will help detect connection churn,
+          file descriptor exhaustion and related issues.
+        </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-verify-client">
+      <doc:subsection name="verify-client">
         <doc:heading>Verify Client Configuration</doc:heading>
 
         <p>
@@ -78,7 +90,7 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-verify-server">
+      <doc:subsection name="verify-server">
         <doc:heading>Verify Server Configuration</doc:heading>
 
         <p>
@@ -127,7 +139,7 @@ limitations under the License.
       </doc:subsection>
 <a href="/logging.html">server logs</a>
 
-      <doc:subsection name="troubleshooting-server-logs">
+      <doc:subsection name="server-logs">
         <doc:heading>Inspect Server Logs</doc:heading>
 
         <p>
@@ -141,7 +153,7 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-hostname-resolution">
+      <doc:subsection name="hostname-resolution">
         <doc:heading>Hostname Resolution</doc:heading>
 
         <p>
@@ -151,7 +163,7 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-port-access">
+      <doc:subsection name="ports">
         <doc:heading>Port Access</doc:heading>
 
         <p>
@@ -263,7 +275,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-ip-routing">
+      <doc:subsection name="ip-routing">
         <doc:heading>IP Routing</doc:heading>
 
         <p>
@@ -284,7 +296,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-traffic-captures">
+      <doc:subsection name="traffic-capture">
         <doc:heading>Capturing Traffic</doc:heading>
 
         <p>
@@ -298,7 +310,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
         </p>
       </doc:subsection>
 
-      <doc:subsection name="troubleshooting-tls">
+      <doc:subsection name="tls">
         <doc:heading>TLS Connections</doc:heading>
 
         <p>
@@ -323,7 +335,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
       </doc:subsection>
 
 
-      <doc:subsection name="troubleshooting-inspecting-connections">
+      <doc:subsection name="inspecting-connections">
         <doc:heading>Inspecting Connections</doc:heading>
         <p>
           Open ports, TCP and UDP connections of a node can be inspected using <a href="https://en.wikipedia.org/wiki/Netstat">netstat</a>,
@@ -384,7 +396,7 @@ sudo netstat --all --numeric --tcp --programs
 <pre class="sourcecode ini">
 2018-06-17 16:23:29.851 [info] &lt;0.634.0&gt; accepting AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672)
 2018-06-17 16:23:29.853 [info] &lt;0.634.0&gt; connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
-2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')            
+2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
         </p>
       </doc:subsection>
