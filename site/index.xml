@@ -198,15 +198,22 @@ limitations under the License.
               <h2>Support + Hosting</h2>
               <p>
                 Pivotal Software provides <a href="/services.html">support for open source RabbitMQ</a>. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
-                <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
-              <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>. RabbitMQ can also be deployed in <a href="/ec2.html">AWS</a>
-              and <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.rabbitmq?tab=Overview" target="_blank">Microsoft Azure</a>.</p>
+                <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>,
+                <a href="https://www.erlang-solutions.com/products/rabbitmq.html" target="_blank">Erlang Solutions</a>,
+                <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
+                <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>.
+                RabbitMQ can also be deployed in
+                <a href="/ec2.html">AWS</a> and
+                <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.rabbitmq?tab=Overview" target="_blank">Microsoft Azure</a>.
+              </p>
               <img src="img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
-              <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ: <a href="https://academy.pivotal.io/store-catalog" target="_blank">Pivotal Software</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>, <a href="https://www.netcomlearning.com/courses/18482/Pivotal-RabbitMQ-training.html" target="_blank">NetCom Learning</a>,
-              <a href="https://skillsmatter.com/courses/505-rabbitmq" target="_blank">Skills Matter</a>,
-              <a href="http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a> and <a href="http://www.opensourcearchitect.co/education/pivotal/rabbitmq/" target="_blank">Open Source Architect</a>.</p>
-
+              <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
+                <a href="https://academy.pivotal.io/store-catalog" target="_blank">Pivotal Software</a>,
+                <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
+                <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
+                <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a>.
+              </p>
             </div>
           </div>
         </div>
