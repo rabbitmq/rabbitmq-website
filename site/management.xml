@@ -619,11 +619,22 @@ management.http_log_dir = /path/to/folder
           <doc:heading>Sample Retention Policies</doc:heading>
           <p>
             The management plugin will retain samples of some data
-            such as message rates and queue lengths. You can
-            configure how long such data is retained.
+            such as message rates and queue lengths. Depending on how long the
+            data is retained, some time
+            range options on UI charts may be incomplete or unavailable.
           </p>
+          <p>
+            There are three policies:
 
-<pre class="sourcecode ini">
+            <ul>
+              <li><code>global</code>: how long to retain data for the overview and virtual host pages</li>
+              <li><code>basic</code>: how long to retain data for individual connections, channels, exchanges and queues</li>
+              <li><code>detailed</code>: how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
+            </ul>
+
+            Below is a configuration example:
+
+            <pre class="sourcecode ini">
 management.sample_retention_policies.global.minute  = 5
 management.sample_retention_policies.global.hour    = 60
 management.sample_retention_policies.global.day = 1200
@@ -632,22 +643,21 @@ management.sample_retention_policies.basic.minute = 5
 management.sample_retention_policies.basic.hour   = 60
 
 management.sample_retention_policies.detailed.10 = 5
-</pre>
-          <p>
-            There are three policies:
-            <ul>
-              <li><code>global</code> - how long to retain data for the overview and virtual host pages</li>
-              <li><code>basic</code> - how long to retain data for individual connections, channels, exchanges and queues</li>
-              <li><code>detailed</code> - how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
-            </ul>
+            </pre>
+          </p>
 
-            This configuration (which is the default) retains global
-            data at a 5 second resolution (sampling happens every 5 seconds) for 10 minutes and 5 seconds,
-            then at a 1 minute resolution for 1 hour and 1 minute, then at a 10 minute
-            resolution for about 8 hours. It retains basic data at a 5 second
-            resolution for 1 minute and 5 seconds, then at a 1 minute resolution for
-            1 hour, and detailed data only for 10 seconds. All three policies are mandatory, and must contain
-            at least one retention pair <code>{MaxAgeInSeconds, SampleEveryNSeconds}</code>.
+          <p>
+            The configuration in the example above retains global
+            data at a 5 second resolution (sampling happens every 5 seconds) for a minute,
+            then at a 1 minute (60 second) resolution for 1 hour, then at a 20 minute
+            resolution for one day. It retains basic data at a 5 second
+            resolution for 1 minute, at a 1 minute (60 second) resolution for
+            1 hour, and detailed data only for 10 seconds.
+          </p>
+
+          <p>
+            All three policies are mandatory, and must contain
+            at least one retention setting (period).
           </p>
         </doc:subsection>
 
