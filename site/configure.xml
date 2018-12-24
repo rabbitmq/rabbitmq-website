@@ -42,10 +42,14 @@ limitations under the License.
           <li><a href="#configuration-files">Configuration file(s)</a></li>
           <li><a href="#customise-environment">Environment variables</a></li>
           <li>Available <a href="#config-items">core server settings</a></li>
+          <li>Available <a href="#define-environment-variables">environment variables</a></li>
+          <li>How to <a href="#configuration-encryption">encrypt sensitive configuration values</a></li>
           <li>
             Troubleshooting: how to <a href="#verify-configuration-effective-configuration">verify config file location</a> and
             <a href="#verify-configuration-effective-configuration">effective configuration</a>
           </li>
+
+          and more.
         </ul>
 
         Since configuration affects many areas of the system, including plugins, individual <a href="/documentation.html">documentation guides</a>
@@ -230,8 +234,8 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
 
             <pre class="sourcecode">
 ssl_options.cacertfile           = /path/to/testca/cacert.pem
-ssl_options.certfile             = /path/to/server/cert.pem
-ssl_options.keyfile              = /path/to/server/key.pem
+ssl_options.certfile             = /path/to/server_certificate.pem
+ssl_options.keyfile              = /path/to/server_key.pem
 ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>
@@ -241,8 +245,8 @@ with
 <pre class="sourcecode">
   [
     {rabbit, [{ssl_options, [{cacertfile,           "/path/to/testca/cacert.pem"},
-                             {certfile,             "/path/to/server/cert.pem"},
-                             {keyfile,              "/path/to/server/key.pem"},
+                             {certfile,             "/path/to/server_certificate.pem"},
+                             {keyfile,              "/path/to/server_key.pem"},
                              {verify,               verify_peer},
                              {fail_if_no_peer_cert, true}]}]}
   ].
@@ -1104,7 +1108,7 @@ tcp_listen_options.exit_on_close = false
         </doc:subsection>
 
         <doc:subsection name="configuration-encryption">
-          <doc:heading>Configuration entry encryption</doc:heading>
+          <doc:heading>Configuration Value Encryption</doc:heading>
           <p>
             Sensitive configuration entries (e.g. password, URL containing
             credentials) can be encrypted in the RabbitMQ configuration file.
