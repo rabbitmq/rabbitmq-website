@@ -2,20 +2,26 @@
 
 ## Introduction
 
-This guide describes various aspects of logging in RabbitMQ:
+Logging is a critically important aspect of system observability, together with [monitoring](/monitoring.html).
+Both developers and operators are advised to consult logs when troubleshooting an issue or assessing the
+state of the system.
+
+RabbitMQ supports a number of features when it comes to logging.
+
+This guide covers topics such as:
 
  * [Log file location](#log-file-location)
  * [Log levels](#log-levels)
  * [Log categories](#log-message-categories)
  * Supported log outputs
  * [Connection lifecycle events](#logged-events) logged
+ * How to [inspect service logs](#service-logs) on systemd-based Linux systems
+ * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
  * [Debug logging](#debug-logging)
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
-As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
-under the hood. The library supports logging to a file, console or a number of other sources
-via 3rd party plugins and provides a fair amount of flexibility when it comes to configuration.
+and more.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
@@ -40,10 +46,13 @@ When in doubt, consider overriding log file location via the config file.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
+As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
+under the hood. The library supports logging to different sources
+and provides a fair amount of flexibility when it comes to configuration.
+
 RabbitMQ initializes its logging subsystem on node start.
 See the [Configuration guide](/configure.html) for a general overview
 of how RabbitMQ nodes are configured.
-
 
 ### <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
@@ -59,7 +68,6 @@ severity messages.
 
 
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
-
 
  * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](/configure.html).
  * `log.file.level`: log level for the file output. Default level is `info`.
@@ -109,8 +117,78 @@ It is possible to configure file logging using the [classic configuration format
     ]}].
 </pre>
 
+### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
+
+The broker always appends to the log files, so a complete log history is retained.
 Log file rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
-log rotation via `logrotate` after package installation.
+log [rotation via `logrotate`](#) after package installation.
+
+
+`log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
+for the file output.
+
+#### Periodic Rotation
+
+`log.file.rotation.date` is used to set up periodic (date and time-based) rotation.
+It uses [the same syntax as newsyslog.conf](https://github.com/basho/lager#internal-log-rotation):
+
+<pre class="sourcecode ini">
+# rotate every night at midnight
+log.file.rotation.date = $D0
+
+# keep up to 5 archived log files in addition to the current one
+log.file.rotation.count = 5
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every day at 23:00 (11:00 p.m.)
+log.file.rotation.date = $D23
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every hour at HH:00
+log.file.rotation.date = $H00
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every day at 12:30 (00:30 p.m.)
+log.file.rotation.date = $D12H30
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every week on Sunday at 00:00
+log.file.rotation.date = $W0D0H0
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every week on Friday at 16:00 (4:00 p.m.)
+log.file.rotation.date = $W5D16
+</pre>
+
+<pre class="sourcecode ini">
+# rotate every night at midnight
+log.file.rotation.date = $D0
+</pre>
+
+#### File Size-based Rotation
+
+`log.file.rotation.size` controls rotation based on the current log file size:
+
+<pre class="sourcecode ini">
+# rotate when the file reaches 10 MiB
+log.file.rotation.size = 10485760
+
+# keep up to 5 archived log files in addition to the current one
+log.file.rotation.count = 5
+</pre>
+
+#### <a id="logrotate" class="anchor" href="#logrotate">Rotation Using Logrotate</a>
+
+On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
+way of log file rotation and compression.
+
+RabbitMQ [Debian](/install-debian.html) and [RPM](/install-rpm.html) packages will set up `logrotate` to run weekly on files
+located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
 
 
 ### <a id="logging-to-console" class="anchor" href="#logging-to-console">Logging to Console (Standard Output)</a>
@@ -453,6 +531,38 @@ In the [classic config format](/configure.html#config-file-formats):
         ]}
     ]}]
 }].
+</pre>
+
+
+### <a id="service-logs" class="anchor" href="#service-logs">Service Logs</a>
+
+On `systemd`-based Linux distributions, system service logs can be
+inspected using `journalctl --system`
+
+<pre class="sourcecode bash">
+journalctl --system
+</pre>
+
+which requires superuser privileges.
+Its output can be filtered to narrow it down to RabbitMQ-specific entries:
+
+<pre class="sourcecode bash">
+sudo journalctl --system | grep rabbitmq
+</pre>
+
+Service logs will include standard output and standard error streams of the node.
+The output of <code>journalctl --system</code> will look similar to this:
+
+<pre class="sourcecode">
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (C) 2007-2018 Pivotal Software, Inc.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
+Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
+Dec 26 11:03:04 localhost rabbitmq-server[968]: Starting broker...
+Dec 26 11:03:05 localhost rabbitmq-server[968]: systemd unit for activation check: "rabbitmq-server.service"
+Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 </pre>
 
 
