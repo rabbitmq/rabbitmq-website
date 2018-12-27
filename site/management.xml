@@ -451,16 +451,6 @@ management.listener.server.compress = true
   ]}
 ].
 </pre>
-
-<pre class="sourcecode erlang">
-%% For versions older than 3.7.9
-[{rabbitmq_management,
-  [{tcp_config, [{port,        15672},
-                 {cowboy_opts, [{compress, true}]}
-                ]}
-  ]}
-].
-</pre>
           </p>
 
           <h4>Client Inactivity Timeouts</h4>
