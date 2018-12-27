@@ -446,7 +446,7 @@ management.listener.server.compress = true
 %% For RabbitMQ 3.7.9 and later versions
 [{rabbitmq_management,
   [{tcp_config, [{port,        15672},
-                 {cowboy_ws_opts, [{compress, true}]}
+                 {cowboy_opts, [{compress, true}]}
                 ]}
   ]}
 ].
