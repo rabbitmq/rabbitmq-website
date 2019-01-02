@@ -712,7 +712,7 @@ default_permissions.write = .*
               </td>
             </tr>
             <tr>
-              <td><code>cluster_nodes</code></td>
+              <td><code>cluster_formation.classic_config.nodes</code></td>
               <td>
                 Set this to cause clustering
                 to <a href="clustering.html#auto-config">happen automatically</a>
@@ -721,8 +721,8 @@ default_permissions.write = .*
                 For example, to cluster with nodes <code>rabbit@hostname1</code> and
                 <code>rabbit@hostname2</code>:
 <pre class="sourcecode ini">
-cluster_nodes.disc.1 = rabbit@hostname1
-cluster_nodes.disc.2 = rabbit@hostname2
+cluster_formation.classic_config.nodes.1 = rabbit@hostname1
+cluster_formation.classic_config.nodes.2 = rabbit@hostname2
 </pre>
                 <p>Default: <code>none</code></p>
               </td>
