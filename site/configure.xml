@@ -634,17 +634,12 @@ disk_free_limit.absolute = 2GB</pre>
             <tr>
               <td><code>heartbeat</code></td>
               <td>
-                Value representing the heartbeat delay, in seconds, that
-                the server sends in the <code>connection.tune</code>
-                frame. If set to 0, heartbeats are disabled. Clients
-                might not follow the server suggestion, see the <a
-                href="amqp-0-9-1-reference.html#connection.tune">AMQP
-                reference</a> for more detail. Disabling heartbeats
-                might improve performance in situations with a great
-                number of connections, but might lead to connections
-                dropping in the presence of network devices that close
-                inactive connections.  <p>Default: <code>heartbeat =
-                60</code></p>
+                Value representing the heartbeat timeout suggested by the server during
+                connection parameter negotiation.
+                If set to 0 on both ends, heartbeats are disabled (this is not recommended).
+                See the <a href="/heartbeats.html">Heartbeats guide</a> for details.
+
+                <p>Default: <code>heartbeat = 60</code></p>
               </td>
             </tr>
             <tr>
