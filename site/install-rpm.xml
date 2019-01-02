@@ -53,11 +53,13 @@ limitations under the License.
 
          <ul>
            <li>Package installation from Yum repositories on <a href="#package-cloud">Package Cloud</a> or <a href="#bintray">Bintray</a></li>
-           <li><a href="#install-erlang">Installation of recent Erlang/OTP versions</a></li>
+           <li>How to install a <a href="#install-erlang">latest supported Erlang/OTP version</a></li>
            <li><a href="#package-dependencies">Package dependencies</a></li>
            <li><a href="#supported-distributions">Supported distributions</a></li>
            <li><a href="#sudo-requirements">Privilege requirements</a></li>
            <li><a href="#downloads">Package downloads</a></li>
+           <li>How to <a href="#managing-service">manage the service</a></li>
+           <li>How to <a href="#server-logs">inspect node and service logs</a></li>
          </ul>
 
          and more.
@@ -454,5 +456,6 @@ chkconfig rabbitmq-server on
     </doc:section>
 
     <xi:include href="install-unix-manage.xml.inc"/>
+    <xi:include href="install-unix-logs.xml.inc"/>
   </body>
 </html>

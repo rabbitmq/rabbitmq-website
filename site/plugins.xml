@@ -32,6 +32,29 @@ limitations under the License.
       <doc:heading>Overview</doc:heading>
 
       <p>
+        This guide covers
+
+        <ul>
+          <li><a href="#overview">Plugin support</a> in RabbitMQ</li>
+          <li>How to <a href="#ways-to-enable-plugins">enable a plugin</a> using <a href="/cli.html">CLI tools</a></li>
+          <li><a href="#plugin-directories">Plugin directories</a></li>
+          <li>How to <a href="#enabled-plugins-file">preconfigure plugins</a> on a node at deployment time</li>
+          <li><a href="#troubleshooting">Troubleshooting</a> of a number of common issues</li>
+          <li><a href="#plugin-tiers">Plugin support tiers</a></li>
+        </ul>
+
+        and more.
+      </p>
+
+      <p>
+        <a href="/plugin-development.html">Plugin development</a> is covered in a separate guide.
+      </p>
+    </doc:section>
+
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+
+      <p>
         RabbitMQ supports plugins. Plugins extend core broker functionality in a variety of ways: with support
         for more protocols, system state <a href="/monitoring.html">monitoring</a>, additional AMQP 0-9-1 exchange types,
         node <a href="/federation.html">federation</a>, and more. A number of features are implemented as plugins
@@ -55,7 +78,7 @@ limitations under the License.
 
       <p>
         A list of plugins available locally (in the node's <a href="/relocate.html">plugins directory</a>) as well
-        as their status (enabled or disabled) can be obtained using <code></code>:
+        as their status (enabled or disabled) can be obtained using <code>rabbitmq-plugins list</code>:
 
         <pre class="sourcecode bash">rabbitmq-plugins list</pre>
       </p>
@@ -128,21 +151,21 @@ limitations under the License.
       <p>
         The built-in plugin directory is by definition version-independent: its contents will change
         from release to release. So will its exact path (by default) which contains version number,
-        e.g. <code>/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins</code>. Because of this
+        e.g. <code>/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins</code>. Because of this
         automated installation of 3rd party plugins into this directory is harder and more error-prone,
         and therefore not recommended. To solve this problem, the plugin directory can be a list
         of paths separated by a colon (on Linux, MacOS, BSD):
 
 <pre class="sourcecode sh">
 # Example rabbitmq-env.conf file that features a colon-separated list of plugin directories
-PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"
+PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"
 </pre>
 
         On Windows, a semicolon is used as path separator:
 
 <pre class="sourcecode powershell">
 # Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
-PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7.7\plugins"
+PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7.9\plugins"
 </pre>
       </p>
 
@@ -165,13 +188,45 @@ PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7
 
 <pre class="sourcecode sh">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"}
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"}
 </pre>
 
         The first directory in the example above is the 3rd party plugin directory.
         The second one contains plugins that ship with RabbitMQ and will change as
         installed RabbitMQ version changes between upgrades.
       </p>
+
+      <doc:subsection name="enabled-plugins-file">
+        <doc:heading>The Enabled Plugins File</doc:heading>
+        <p>
+          The list of currently enabled plugins on a node is stored in a file.
+          The file is commonly known as the enabled plugins file. Depending on the package type
+          it is usually located under the <code>etc</code> directory or under the node's
+          data directory. Its path can be <a href="/configure.html">overridden</a> using the <code>RABBITMQ_ENABLED_PLUGINS_FILE</code>
+          environment variable. As a user you don't usually have to think about that file as it is
+          managed by the node and <code>rabbitmq-plugins</code> (when used in <code>--offline</code> mode).
+        </p>
+
+        <p>
+          Deployment automation tools must make sure that the file is readable and writeable by the local RabbitMQ node.
+          In environments that need to preconfigure plugins the file can be machine-generated at deployment time.
+          The plugin names on the list are exactly the same as listed by <code>rabbitmq-plugins list</code>.
+        </p>
+
+        <p>
+          The file contents is an Erlang term file that contains a single list:
+
+<pre class="sourcecode erlang">
+[rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel,rabbitmq_shovel_management].
+</pre>
+
+          Note that the trailing comma is significant.
+        </p>
+
+        <p>
+
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="plugin-expansion">
         <doc:heading>Plugin Expansion (Extraction)</doc:heading>
@@ -184,6 +239,133 @@ rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
           need to be overridden, too. It can be done using the <code>RABBITMQ_PLUGINS_EXPAND_DIR</code>
           <a href="/configure.html#customise-environment">environment variable</a>. The directory
           must be readable and writable by the effective operating system user of the RabbitMQ node.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="plugin-expansion">
+        <doc:heading>Plugin Expansion (Extraction)</doc:heading>
+        <p>
+          Not every plugin can be loaded from an archive <code>.ez</code> file.
+          For this reason RabbitMQ will extracts plugin archives on boot into a separate
+          directory that is then added to its code path. This directory is known
+          as the expanded plugins directory. It is usually managed entirely by RabbitMQ
+          but if node directories are changed to non-standard ones, that directory will likely
+          need to be overridden, too. It can be done using the <code>RABBITMQ_PLUGINS_EXPAND_DIR</code>
+          <a href="/configure.html#customise-environment">environment variable</a>. The directory
+          must be readable and writable by the effective operating system user of the RabbitMQ node.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="troubleshooting">
+      <doc:heading>Troubleshooting</doc:heading>
+
+      <p>
+        If a 3rd party plugin was installed but cannot be found, the most likely reasons
+        are
+
+        <ul>
+          <li>Incorrect plugin directory</li>
+          <li><code>rabbitmq-plugins</code> and the server use different plugin directories</li>
+          <li><code>rabbitmq-plugins</code> and the server use different enable plugin file</li>
+          <li>The plugin doesn't declare a dependency on RabbitMQ core</li>
+          <li>Plugin version is incompatible with RabbitMQ core</li>
+        </ul>
+      </p>
+
+      <doc:subsection name="troubleshooting-plugin-not-found">
+        <doc:heading>3rd Party Plugin Not Found</doc:heading>
+
+        <p>
+          When a plugin is enabled but the server cannot locate it, it will report an error.
+          Since any plugin name can be given to <code>rabbitmq-plugins</code>, double checking
+          the name:
+
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_managemenr                                                                                                                                                                                          70 ↵
+# => Error:
+# => {:plugins_not_found, [:rabbitmq_managemenr]}
+</pre>
+        </p>
+
+        <p>
+          Another common reason is that plugin directory the plugin archive (the <code>.ez</code> file)
+          was downloaded to doesn't that match that of the server.
+
+          <p>
+            Plugin directory can be located by executing the following command on the host
+            with a running RabbitMQ node:
+
+<pre class="sourcecode sh">
+rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"}
+</pre>
+
+            The first directory in the example above is the 3rd party plugin directory.
+            The second one contains plugins that ship with RabbitMQ and will change as
+            installed RabbitMQ version changes between upgrades.
+          </p>
+        </p>
+
+        <p>
+          <code>which</code> and similar tools can be used to locate <code>rabbitmq-plugins</code> and
+          determine if it comes from the expected installation:
+
+<pre class="sourcecode bash">
+which rabbitmq-plugins
+# => /path/to/rabbitmq/installation/sbin/rabbitmq-plugins
+</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="troubleshooting-enabled-plugins-file-mismatch">
+        <doc:heading>Plugin Cannot be Enabled</doc:heading>
+
+        <p>
+          In some environments, in particular development ones, <code>rabbitmq-plugins</code>
+          comes from a different installation than the running server node. This can be the case
+          when a node is installed using a <a href="/install-generic-unix.html">binary build package</a>
+          but CLI tools come from the local package manager such as <code>apt</code> or Homebrew.
+
+          In that case CLI tools will have a different <a href="#enabled-plugins-file">enabled plugins file</a>
+          from the server and the operation will fail with an error:
+
+<pre class="sourcecode bash">
+rabbitmq-plugins enable rabbitmq_top
+Enabling plugins on node rabbit@warp10:
+# =>  rabbitmq_top
+# =>  The following plugins have been configured:
+# =>    rabbitmq_management
+# =>    rabbitmq_management_agent
+# =>    rabbitmq_shovel
+# =>    rabbitmq_shovel_management
+# =>    rabbitmq_top
+# =>    rabbitmq_web_dispatch
+# =>  Applying plugin configuration to rabbit@warp10...
+# =>  Error:
+# =>  {:enabled_plugins_mismatch, '/path/to/installation1/etc/rabbitmq/enabled_plugins', '/path/to/installation2/etc/rabbitmq/enabled_plugins'}
+</pre>
+
+          The first path in the error above corresponds to the enabled plugins file used by <code>rabbitmq-plugins</code>, the second
+          one is that used by the target RabbitMQ node.
+        </p>
+
+        <p>
+          <code>rabbitmqctl environment</code> can be used to inspect effective enabled plugins file path
+          used by the server:
+
+<pre class="sourcecode bash">
+rabbitmqctl environment | grep enabled_plugins                                                                                                                                                                                                  70 ↵
+# =>       {enabled_plugins_file,
+# =>         "/path/to/rabbitmq/etc/rabbitmq/enabled_plugins"}
+</pre>
+        </p>
+
+        <p>
+          Other common reasons that prevent plugins from being enabled can include <a href="#plugin-directories">plugin archive</a>
+          and/or <a href="#plugin-expansion">plugin expansion</a>
+          directories permissions not having sufficient privileges for the effective user of the server node. In other words,
+          the node cannot use those directories to complete plugin activation and loading.
         </p>
       </doc:subsection>
     </doc:section>

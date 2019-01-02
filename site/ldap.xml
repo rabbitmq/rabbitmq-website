@@ -281,8 +281,8 @@ auth_ldap.use_ssl   = true
 [
   {rabbitmq_auth_backend_ldap, [
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
-                    {certfile,"/path/to/server/cert.pem"},
-                    {keyfile,"/path/to/server/key.pem"},
+                    {certfile,"/path/to/server_certificate.pem"},
+                    {keyfile,"/path/to/server_key.pem"},
                     {verify, verify_peer},
                     {fail_if_no_peer_cert, true}]}
    ]}
@@ -297,8 +297,8 @@ auth_ldap.use_ssl   = true
   {rabbitmq_auth_backend_ldap, [
      {use_ssl,     true},
      {ssl_options, [{cacertfile, "/path/to/testca/cacert.pem"},
-                    {certfile,   "/path/to/server/cert.pem"},
-                    {keyfile,    "/path/to/server/key.pem"},
+                    {certfile,   "/path/to/server_certificate.pem"},
+                    {keyfile,    "/path/to/server_key.pem"},
                     {verify,               verify_peer},
                     {fail_if_no_peer_cert, true}]}
    ]}

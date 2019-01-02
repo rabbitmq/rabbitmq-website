@@ -52,11 +52,13 @@ limitations under the License.
 
          <ul>
            <li>Package installation from apt repositories <a href="#apt">on Bintray</a> or <a href="#package-cloud">Package Cloud</a></li>
-           <li>Installation of recent Erlang/OTP versions from <a href="#erlang-repositories">3rd party apt repositories</a></li>
+           <li>How to install a latest supported Erlang/OTP version from <a href="#erlang-repositories">3rd party apt repositories</a></li>
            <li><a href="#package-dependencies">Package dependencies</a></li>
            <li><a href="#supported-debian-distributions">Supported distributions</a></li>
            <li><a href="#sudo-requirements">Privilege requirements</a></li>
            <li><a href="#downloads">Package downloads</a></li>
+           <li>How to <a href="#managing-service">manage the service</a></li>
+           <li>How to <a href="#server-logs">inspect node and service logs</a></li>
          </ul>
 
          and more.
@@ -620,5 +622,6 @@ rpm --import https://packagecloud.io/gpg.key
     </doc:section>
 
     <xi:include href="install-unix-manage.xml.inc"/>
+    <xi:include href="install-unix-logs.xml.inc"/>
   </body>
 </html>

@@ -66,7 +66,7 @@ limitations under the license.
 
         <p>
           For an overview of common TLS troubleshooting techniques,
-          see <a href="troubleshooting-ssl.html">Troubleshooting TLS-related issues</a>.
+          see <a href="troubleshooting-ssl.html">Troubleshooting TLS-related issues</a> and <a href="troubleshooting-networking.html">Troubleshooting Networking</a>.
         </p>
 
         <doc:subsection name="tls-connectivity-options">
@@ -337,9 +337,9 @@ ls -l ./result
 <pre class="sourcecode ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/testca/ca_certificate_bundle.pem
-ssl_options.certfile   = /path/to/server/certificate.pem
-ssl_options.keyfile    = /path/to/server/private_key.pem
+ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = false
 </pre>
@@ -350,9 +350,9 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
 [
   {rabbit, [
      {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile, "/path/to/testca/ca_certificate_bundle.pem"},
-                    {certfile,   "/path/to/server/certificate.pem"},
-                    {keyfile,    "/path/to/server/private_key.pem"},
+     {ssl_options, [{cacertfile, "/path/to/ca_certificate_bundle.pem"},
+                    {certfile,   "/path/to/server_certificate.pem"},
+                    {keyfile,    "/path/to/server_key.pem"},
                     {verify,     verify_peer},
                     {fail_if_no_peer_cert, false}]}
    ]}
@@ -571,9 +571,9 @@ cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_
 <pre class="sourcecode ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/testca/ca_certificate_bundle.pem
-ssl_options.certfile = /path/to/server/certificate.pem
-ssl_options.keyfile = /path/to/server/private_key.pem
+ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.certfile = /path/to/server_certificate.pem
+ssl_options.keyfile = /path/to/server_key.pem
 ssl_options.verify = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>
@@ -584,9 +584,9 @@ ssl_options.fail_if_no_peer_cert = true
 [
 {rabbit, [
    {ssl_listeners, [5671]},
-   {ssl_options, [{cacertfile,"/path/to/testca/ca_certificate_bundle.pem"},
-                  {certfile,"/path/to/server/certificate.pem"},
-                  {keyfile,"/path/to/server/private_key.pem"},
+   {ssl_options, [{cacertfile,"/path/to/ca_certificate_bundle.pem"},
+                  {certfile,"/path/to/server_certificate.pem"},
+                  {keyfile,"/path/to/server_key.pem"},
                   {verify, verify_peer},
                   {fail_if_no_peer_cert, true}]}
  ]}
@@ -653,9 +653,9 @@ ssl_options.fail_if_no_peer_cert = true
 <pre class="sourcecode ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/testca/ca_certificate_bundle.pem
-ssl_options.certfile = /path/to/server/certificate.pem
-ssl_options.keyfile = /path/to/server/private_key.pem
+ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.certfile = /path/to/server_certificate.pem
+ssl_options.keyfile = /path/to/server_key.pem
 ssl_options.verify = verify_peer
 ssl_options.depth  = 2
 ssl_options.fail_if_no_peer_cert = false
@@ -667,9 +667,9 @@ ssl_options.fail_if_no_peer_cert = false
 [
   {rabbit, [
      {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile,"/path/to/testca/ca_certificate_bundle.pem"},
-                    {certfile,"/path/to/server/certificate.pem"},
-                    {keyfile,"/path/to/server/private_key.pem"},
+     {ssl_options, [{cacertfile,"/path/to/ca_certificate_bundle.pem"},
+                    {certfile,"/path/to/server_certificate.pem"},
+                    {keyfile,"/path/to/server_key.pem"},
                     {depth, 2},
                     {verify,verify_peer},
                     {fail_if_no_peer_cert,false}]}
@@ -793,7 +793,7 @@ public class Example1 {
             a store use <code>keytool -import</code>:
 
 <pre class="sourcecode bash">
-keytool -import -alias server1 -file /path/to/server/certificate.pem -keystore /path/to/rabbitstore
+keytool -import -alias server1 -file /path/to/server_certificate.pem -keystore /path/to/rabbitstore
 </pre>
 
           </p>
@@ -1856,7 +1856,7 @@ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
         <doc:subsection name="erlang-code-example">
           <doc:heading>Code Example</doc:heading>
 <pre class="sourcecode erlang">
-SslOpts = [{cacertfile, &quot;/path/to/testca/ca_certificate_bundle.pem&quot;},
+SslOpts = [{cacertfile, &quot;/path/to/ca_certificate_bundle.pem&quot;},
            {certfile, &quot;/path/to/client/certificate.pem&quot;},
            {keyfile, &quot;/path/to/client/private_key.pem&quot;},
 
@@ -1997,7 +1997,7 @@ openssl x509 -in ca_certificate_bundle.pem -out ca_certificate_bundle.cer -outfo
 
           <p>
             This is all that is needed to generate a test Certificate
-            Authority. The root certificate is in <code>testca/ca_certificate_bundle.pem</code>
+            Authority. The root certificate is in <code>ca_certificate_bundle.pem</code>
             and is also in <code>testca/ca_certificate_bundle.cer</code>. These two files contain the
             same information, but in different formats, PEM and DER.
             Most software uses the former but some tools require the latter.

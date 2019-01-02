@@ -27,6 +27,12 @@ limitations under the License.
       <doc:heading>Introduction</doc:heading>
 
       <p>
+        This guide covers two related features, consumer Acknowledgements
+        and publisher confirms, that are important for
+        data safety in applications that use messaging.
+      </p>
+
+      <p>
         Systems that use a messaging broker such as RabbitMQ are by
         definition distributed. Since protocol methods (messages) sent
         are not guaranteed to reach the peer or be successfully processed

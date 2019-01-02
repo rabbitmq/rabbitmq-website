@@ -60,7 +60,6 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="troubleshooting">
-
       <doc:subsection name="verify-config">
         <doc:heading>Check Effective Node Configuration</doc:heading>
         <p>
@@ -88,10 +87,15 @@ limitations under the License.
 </pre>
 
           If the node is configured to use TLS but a message similar to the above is not logged,
-          it is possible that your configuration file was placed at an incorrect location and was not read by
+          it is possible that the configuration file was placed at an incorrect location and was not read by
           the broker or the node was not restarted after config file changes.
           See the <a href="/configure.html#introduction">configuration page</a> for details
           on config file verification.
+        </p>
+
+        <p>
+          Tools such as <code>lsof</code> and <code>netstat</code> can be used to verify what ports
+          a node is listening on, as covered in the <a href="/troubleshooting-networking.html">Troubleshooting Networking</a> guide.
         </p>
       </doc:subsection>
 
@@ -122,26 +126,64 @@ limitations under the License.
         <p>
           Another key requirement for establishing TLS connections to the broker
           is TLS support in the broker. Confirm that the Erlang VM has support
-          for TLS by running the
-          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
-          entering <pre class="sourcecode erlang">ssl:versions().</pre>
+          for TLS by running
+
+<pre class="sourcecode bash">
+rabbitmqctl eval 'ssl:versions().'
+</pre>
+
+          Or, on Windows
+
+<pre class="sourcecode powershell">
+rabbitmqctl.bat eval 'ssl:versions().'
+</pre>
+
           The output should look similar to this (version number will likely differ):
 
 <pre class="sourcecode erlang">
-[{ssl_app,"9.0.2"},
-   {supported,['tlsv1.2','tlsv1.1',tlsv1]},
-   {supported_dtls,['dtlsv1.2',dtlsv1]},
-   {available,['tlsv1.2','tlsv1.1',tlsv1,sslv3]},
-   {available_dtls,['dtlsv1.2',dtlsv1]}]
+[{ssl_app,"9.1"},
+ {supported,['tlsv1.2','tlsv1.1',tlsv1]},
+ {supported_dtls,['dtlsv1.2',dtlsv1]},
+ {available,['tlsv1.2','tlsv1.1',tlsv1,sslv3]},
+ {available_dtls,['dtlsv1.2',dtlsv1]}]
 </pre>
-       </p>
-       <p>
-         If an error is reported instead, confirm that the Erlang/OTP installation <a href="/ssl.html#erlang-otp-requirements">includes TLS support</a>.
-       </p>
+         </p>
+         <p>
+           If an error is reported instead, confirm that the Erlang/OTP installation <a href="/ssl.html#erlang-otp-requirements">includes TLS support</a>.
+         </p>
+
+         <p>
+           It is also possible to list cipher suites available on a node:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics cipher_suites --openssl-format -q
+</pre>
+
+            Or, on Windows:
+
+<pre class="sourcecode powershell">
+rabbitmq-diagnostics.bat cipher_suites --openssl-format -q
+</pre>
+         </p>
+
+         <p>
+           It is also possible to inspect what TLS versions are supported by the local Erlang runtime.
+           To do so, run <code>erl</code> (or <code>werl.exe</code> on Windows) on the command line to open an Erlang shell and
+           enter
+
+<pre class="sourcecode erlang">
+%% the trailing dot is significant!
+ssl:versions().
+</pre>
+
+          Note that this will report supported versions on the local node (for the runtime found in <code>PATH</code>),
+          which may be different from that used by RabbitMQ node(s) inspected.
+         </p>
        </doc:subsection>
 
+
        <doc:subsection name="openssl-tools">
-         <doc:heading>Use OpenSSL Tools</doc:heading>
+         <doc:heading>Use OpenSSL Tools to Test TLS Connections</doc:heading>
          <p>
            OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
            and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>
@@ -161,7 +203,8 @@ limitations under the License.
          </p>
 
          <p>
-           The example will assume you have the following files:
+           The example will assume you have the following <a href="/ssl.html#certificates-and-keys">certficaite and key files</a>
+           (these filenames are used by <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a>):
 
            <table>
             <tr>
@@ -169,50 +212,75 @@ limitations under the License.
              <td>Location</td>
             </tr>
             <tr>
-             <td>CA certificate</td>
-             <td><code>testca/cacert.pem</code></td>
+             <td>CA certificate (public key)</td>
+             <td><code>ca_certificate.pem</code></td>
             </tr>
             <tr>
-             <td>Server certificate</td>
-             <td><code>server/cert.pem</code></td>
+             <td>Server certificate (public key)</td>
+             <td><code>server_certificate.pem</code></td>
             </tr>
             <tr>
-             <td>Server key</td>
-             <td><code>server/key.pem</code></td>
+             <td>Server private key</td>
+             <td><code>server_key.pem</code></td>
             </tr>
             <tr>
-             <td>Client certificate</td>
-             <td><code>client/cert.pem</code></td>
+             <td>Client certificate (public key)</td>
+             <td><code>client_certificate.pem</code></td>
             </tr>
             <tr>
-             <td>Client key</td>
-             <td><code>client/key.pem</code></td>
+             <td>Client private key</td>
+             <td><code>client_key.pem</code></td>
             </tr>
            </table>
          </p>
 
          <p>
-           In one terminal window execute the following command:
-           <pre class="sourcecode bash">
-openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
-  -CAfile testca/cacert.pem</pre>
-         In another terminal window execute
-         <pre class="sourcecode bash">
-openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
-  -CAfile testca/cacert.pem</pre>
-         If the certificates and keys have been correctly created, an TLS connection establishment
-         sequence will appear and the terminals will be linked. Input from either terminal will appear
-         on the other. If the trust chain could be established, the second terminal will display
-         this confirmation:
-         <pre class="sourcecode ini">
-Verify return code: 0 (ok)</pre>
-       </p>
-       <p>
-         If you receive an error, confirm that the certificates and keys were
-         generated correctly and that a matching certificate/key pair is used.
-         For environments where self-signed certificates are appropriate,
-         we recommend using <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a> for generation.
-       </p>
+           In one terminal window or tab execute the following command:
+
+<pre class="sourcecode bash">
+openssl s_server -accept 8443 \
+  -cert server_certificate.pem -key server_key.pem -CAfile ca_certificate.pem
+</pre>
+           It will start an OpenSSL <code>s_server</code> with that uses the provided
+           CA certificate bundler, server certificate and private key. It will be used
+           to sanity check the certificates with test TLS connections against this example server.
+         </p>
+
+         <p>
+           In another terminal window, run
+
+<pre class="sourcecode bash">
+openssl s_client -connect localhost:8443 \
+  -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem
+</pre>
+
+            It will open a new TLS connection to the example TLS server started above.
+
+            If the certificates and keys have been correctly created, an TLS connection output
+            will appear in both tabs. There is now a connection between the example client and the example
+            server, similar to <code>telnet</code>.
+
+            If the <a href="/ssl.html#peer-verification">trust chain</a> could be established, the second terminal will display
+            a verification confirmation with the code of <code>0</code>:
+
+<pre class="sourcecode ini">
+Verify return code: 0 (ok)
+</pre>
+
+            Just like with command line tools, a non-zero code communicates and error of some kind.
+         </p>
+         <p>
+           If an error is reported, confirm that the certificates and keys were
+           generated correctly and that a matching certificate/private key pair is used.
+           In addition, certificates can have their <a href="https://tools.ietf.org/html/rfc5280#section-4.2.1.3">usage scenarios restricted</a>
+           at generation time. This means a certificate meant to be used by clients to authenticate themselves
+           will be rejected by a server, such as a RabbitMQ node.
+         </p>
+
+         <p>
+           For environments where self-signed certificates are appropriate,
+           we recommend using <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a> for generation.
+         </p>
        </doc:subsection>
 
        <doc:subsection name="broker-listens-ssl">
@@ -225,7 +293,7 @@ Verify return code: 0 (ok)</pre>
            The example assumes a node running on <code>localhost</code> on <a href="networking.html#ports">default TLS port for AMQP 0-9-1 and AMQP 1.0</a>, 5671:
 
 <pre class="sourcecode bash">
-openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem -CAfile testca/cacert.pem
+openssl s_client -connect localhost:5671 -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem
 </pre>
 
          The output should appear similar to the case where port 8443 was used. The node log file
@@ -261,7 +329,7 @@ openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.p
          TLS connections from TLS-capable clients on port 5679:
 
 <pre  class="sourcecode">
-cat client/key.pem client/cert.pem > client/key-cert.pem
+cat client_key.pem client_certificate.pem > client/key-cert.pem
 stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
 </pre>
 

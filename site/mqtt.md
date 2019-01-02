@@ -307,8 +307,8 @@ just like AMQP 0-9-1 listeners do:
 
 <pre class="sourcecode ini">
 ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
-ssl_options.certfile   = /path/to/tls/server/cert.pem
-ssl_options.keyfile    = /path/to/tls/server/key.pem
+ssl_options.certfile   = /path/to/tls/server_certificate.pem
+ssl_options.keyfile    = /path/to/tls/server_key.pem
 ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert  = true
 
@@ -321,8 +321,8 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 <pre class="sourcecode erlang">
 [{rabbit,        [
                   {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
-                                 {certfile,   "/path/to/tls/server/cert.pem"},
-                                 {keyfile,    "/path/to/tls/server/key.pem"},
+                                 {certfile,   "/path/to/tls/server_certificate.pem"},
+                                 {keyfile,    "/path/to/tls/server_key.pem"},
                                  {verify,     verify_peer},
                                  {fail_if_no_peer_cert, true}]}
                  ]},
