@@ -630,8 +630,8 @@ disk_free_limit.absolute = 2GB</pre>
             <tr>
               <td><code>max_message_size</code></td>
               <td>
-                Limit in bytes of the message body. Bigger messages will cause
-                channel exception.
+                The largest allowed message payload size in bytes. Messages
+                of larger size will be rejected with a suitable channel exception.
                 <p>Default: <code>134217728</code></p>
                 <p>Max value: <code>536870912</code></p>
               </td>
