@@ -145,40 +145,42 @@ for details about accepted parameters.
 
 ### TLS (SSL)
 
-The plugin supports WebSockets with TLS (WSS) connections. That requires
-Erlang/OTP 17.5 or a later version.
+The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
+to learn more about TLS support in RabbitMQ.
 
-TLS (SSL) configuration parameters are provided in the `ssl_config` section:
+TLS configuration parameters are provided in the `web_stomp.ssl` section:
 
 <pre class="sourcecode ini">
-web_stomp.ssl.port       = 12345
+web_stomp.ssl.port       = 15673
 web_stomp.ssl.backlog    = 1024
-web_stomp.ssl.certfile   = path/to/certs/client/cert.pem
-web_stomp.ssl.keyfile    = path/to/certs/client/key.pem
-web_stomp.ssl.cacertfile = path/to/certs/testca/cacert.pem
+web_stomp.ssl.certfile   = /path/to/server/certificate.pem
+web_stomp.ssl.keyfile    = /path/to/server/private_key.pem
+web_stomp.ssl.cacertfile = /path/to/testca/ca_certificate_bundle.pem
 web_stomp.ssl.password   = changeme
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
+section is `rabbitmq_web_stomp.ssl_config`:
 
 <pre class="sourcecode erlang">
 [
   {rabbitmq_web_stomp,
-      [{ssl_config, [{port,       15671},
+      [{ssl_config, [{port,       15673},
                      {backlog,    1024},
-                     {certfile,   "path/to/certs/client/cert.pem"},
-                     {keyfile,    "path/to/certs/client/key.pem"},
-                     {cacertfile, "path/to/certs/testca/cacert.pem"},
+                     {certfile,   "/path/to/server/certificate.pem"},
+                     {keyfile,    "/path/to/server/private_key.pem"},
+                     {cacertfile, "/path/to/testca/ca_certificate_bundle.pem"},
                      %% needed when private key has a passphrase
                      {password,   "changeme"}]}]}
 ].
 </pre>
 
-Note that port, certfile, keyfile and password are all mandatory.
-See the [TLS guide](/ssl.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_ssl/)
-for details about accepted parameters.
+The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
+Password is also mandatory if the private key uses one.
+An extended list of TLS settings is largely identical to those [for the core server](/ssl.html).
+Full list of options accepted by this plugin can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.7/manual/ranch_ssl/).
 
-A separate guide on [TLS Troubleshooting](/troubleshooting-ssl.html) is also available.
+A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
 
 
 ## Basic HTTP Authentication

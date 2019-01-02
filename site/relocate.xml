@@ -104,7 +104,7 @@ limitations under the License.
           files.
         </td>
       </tr>
-              
+
       <tr>
         <td>RABBITMQ_MNESIA_BASE</td>
         <td>
@@ -120,26 +120,25 @@ limitations under the License.
       <tr>
         <td>RABBITMQ_MNESIA_DIR</td>
         <td>
-          The directory where this RabbitMQ node's Mnesia database
-          files are placed. (In addition to Mnesia files this location also
-          contains message storage and index files as well as schema and
-          cluster details.)
+          The directory where this RabbitMQ node's data is stored. This includes
+          a schema database, message stores, cluster member information and other
+          persistent node state.
         </td>
       </tr>
-              
+
       <tr>
         <td>RABBITMQ_SCHEMA_DIR</td>
         <td>
-          The directory where RabbitMQ generates its schema files.
+          The directory where RabbitMQ keeps its configuration schema used by
+          the <a href="/configure.html#configuration-files">new style configuration file</a>.
         </td>
       </tr>
 
       <tr>
         <td>RABBITMQ_LOG_BASE</td>
         <td>
-          This base directory contains the RabbitMQ server's log
-          files, unless <b>RABBITMQ_LOGS</b> or
-          <b>RABBITMQ_SASL_LOGS</b> are set explicitly.
+          This base directory contains the RabbitMQ server's <a href="/logging.html">log
+          files</a>, unless <b>RABBITMQ_LOGS</b> is set.
         </td>
       </tr>
 
@@ -152,19 +151,10 @@ limitations under the License.
       </tr>
 
       <tr>
-        <td>RABBITMQ_SASL_LOGS</td>
-        <td>
-          The path of the RabbitMQ server's Erlang SASL (System
-          Application Support Libraries) log file. This variable
-          cannot be overridden on Windows.
-        </td>
-      </tr>
-
-      <tr>
         <td>RABBITMQ_PLUGINS_DIR</td>
         <td>
           The list of directories where <a
-          href="plugins.html">plugins</a> are found and loaded
+          href="/plugins.html">plugin</a> archive files are located and extracted
           from. This is <code>PATH</code>-like variable, where
           different paths are separated by an OS-specific separator
           (<code>:</code> for Unix, <code>;</code> for Windows).
