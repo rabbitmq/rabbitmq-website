@@ -273,7 +273,7 @@ model.BasicPublish(exchangeName,
         <doc:heading>Define Queue TTL for Queues Using a Policy</doc:heading>
 
         <p>
-            The following policy makes all queues expirat after 30 minutes since last use:
+            The following policy makes all queues expire after 30 minutes since last use:
         </p>
 
         <table>
