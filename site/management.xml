@@ -180,7 +180,7 @@ rabbitmq-plugins enable rabbitmq_management
           <tr>
             <td>management</td>
             <td>
-              Anything the user could do via AMQP plus:
+              Anything the user could do via messaging protocols plus:
               <ul>
                 <li>List virtual hosts to which they can log in via AMQP</li>
                 <li>
@@ -215,7 +215,7 @@ rabbitmq-plugins enable rabbitmq_management
               <ul>
                 <li>
                   List all virtual hosts, including ones they could
-                  not log in to via AMQP
+                  not access using messaging protocols
                 </li>
                 <li>View other users's connections and channels</li>
                 <li>View node-level data such as memory use and clustering</li>
@@ -362,22 +362,21 @@ management.listener.port = 15672
         <doc:subsection name="single-listener-https">
           <doc:heading>HTTPS</doc:heading>
 
-
           <p>
-            The management plugin can be configured to use HTTPS:
+            The management plugin can be configured to use HTTPS. See the guide <a href="/ssl.html">on TLS</a>
+            to learn more about certificate authorities, certificates and private key files.
 
 <pre class="sourcecode ini">
-management.listener.port = 15671
-management.listener.ssl = true
-management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
-management.listener.ssl_opts.certfile = /path/to/cert.pem
-management.listener.ssl_opts.keyfile = /path/to/key.pem
+management.ssl.port       = 15671
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
 </pre>
           </p>
 
 
           <p>
-            Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+            HTTP listener can also be configured using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
 [{rabbitmq_management,
@@ -390,6 +389,79 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
   ]}
 ].</pre>
           </p>
+
+          <p>
+            More <a href="/ssl.html">TLS options</a> can be configured for the HTTPS listener. In new
+            style config format they are available as of RabbitMQ 3.7.10:
+
+<pre class="sourcecode ini">
+management.ssl.port       = 15671
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
+
+# For RabbitMQ 3.7.10 and later versions
+management.ssl.honor_cipher_order   = true
+management.ssl.honor_ecc_order      = true
+management.ssl.client_renegotiation = false
+management.ssl.secure_renegotiate   = true
+
+management.ssl.versions.1 = tlsv1.2
+management.ssl.versions.2 = tlsv1.1
+
+management.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+management.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+management.ssl.ciphers.3 = ECDHE-ECDSA-AES256-SHA384
+management.ssl.ciphers.4 = ECDHE-RSA-AES256-SHA384
+management.ssl.ciphers.5 = ECDH-ECDSA-AES256-GCM-SHA384
+management.ssl.ciphers.6 = ECDH-RSA-AES256-GCM-SHA384
+management.ssl.ciphers.7 = ECDH-ECDSA-AES256-SHA384
+management.ssl.ciphers.8 = ECDH-RSA-AES256-SHA384
+management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
+</pre>
+          </p>
+
+
+          <p>
+            The above example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+  [
+   {rabbitmq_management,
+    [
+     {listener, [{port,     15671},
+                 {ssl,      true},
+                 {ssl_opts, [{cacertfile, "/path/to/ca_certificate_bundle.pem"},
+                             {certfile,   "/path/to/server_certificate.pem"},
+                             {keyfile,    "/path/to/server_key.pem"},
+
+                             %% don't do peer verification to HTTPS clients
+                             {verify,               verify_none},
+                             {fail_if_no_peer_cert, false},
+
+                             {client_renegotiation, false},
+                             {secure_renegotiate,   true},
+                             {honor_ecc_order,      true},
+                             {honor_cipher_order,   true},
+
+                             {versions,['tlsv1.1', 'tlsv1.2']},
+                             {ciphers, ["ECDHE-ECDSA-AES256-GCM-SHA384",
+                                        "ECDHE-RSA-AES256-GCM-SHA384",
+                                        "ECDHE-ECDSA-AES256-SHA384",
+                                        "ECDHE-RSA-AES256-SHA384",
+                                        "ECDH-ECDSA-AES256-GCM-SHA384",
+                                        "ECDH-RSA-AES256-GCM-SHA384",
+                                        "ECDH-ECDSA-AES256-SHA384",
+                                        "ECDH-RSA-AES256-SHA384",
+                                        "DHE-RSA-AES256-GCM-SHA384"
+                                        ]}
+                             ]}
+                ]}
+    ]}
+  ].
+
+</pre>
+          </p>
         </doc:subsection>
 
 
@@ -400,12 +472,12 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
             As of RabbitMQ 3.7.9 it is possible to use both HTTP and HTTPS on different ports:
 
 <pre class="sourcecode ini">
-management.tcp.port = 15672
+management.tcp.port       = 15672
 
-management.ssl.port = 15671
+management.ssl.port       = 15671
 management.ssl.cacertfile = /path/to/cacert.pem
-management.ssl.certfile = /path/to/cert.pem
-management.ssl.keyfile = /path/to/key.pem
+management.ssl.certfile   = /path/to/cert.pem
+management.ssl.keyfile    = /path/to/key.pem
 </pre>
           </p>
 
