@@ -236,6 +236,25 @@ and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
 information.
 
+## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
+
+The Web MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+This feature is disabled by default, to enable it for MQTT clients:
+
+<pre class="sourcecode ini">
+web_mqtt.proxy_protocol = true
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_web_mqtt, [{proxy_protocol, true}]}
+].
+</pre>
+
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
+about the proxy protocol.
 
 ## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
 

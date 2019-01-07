@@ -26,31 +26,42 @@ limitations under the License.
     <doc:section name="intro">
       <doc:heading>Introduction</doc:heading>
       <p>
-        This guide covers Erlang/OTP requirements, recommendations, caveats and
-        commonly used installation sources.
+        This guide covers Erlang/OTP version requirements, support policy, a <a href="#compatibility-matrix">compatibility matrix</a>,
+        version-specific nodes and ways of provisioning recent Erlang/OTP releases.
       </p>
     </doc:section>
 
-
-    <doc:section name="unsupported versions">
+    <doc:section name="unsupported-versions">
       <doc:heading>Unsupported Versions</doc:heading>
         <p>Erlang/OTP versions <strong>older than 19.3 are not supported</strong> by currently maintained RabbitMQ release series.</p>
 
         <p>RabbitMQ <strong>versions prior to 3.7.7 do not support Erlang/OTP 21</strong> or newer.</p>
     </doc:section>
 
+    <doc:section name="supported-version-policy">
+      <doc:heading>Supported Erlang Version Policy</doc:heading>
+        <p>
+          Starting in <a href="https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ">January 2019</a>, RabbitMQ supports
+          two most recent Erlang release series. Currently the series are <code>20.3.x</code> and <code>21.x</code>. When Erlang <code>22.0</code> ships, after a 3 month transition period,
+          the supported versions will be <code>21.2.x</code> and <code>22.x</code>.
+        </p>
+        <p>
+          The table below provides a RabbitMQ and Erlang/OTP release compatibility matrix.
+        </p>
+    </doc:section>
 
-    <doc:section name="requirements-and-recommendations">
+    <doc:section name="compatibility-matrix">
       <doc:subsection name="rabbitmq-erlang-version-requirements">
-        <doc:heading>Requirements by Release Series</doc:heading>
+        <doc:heading>RabbitMQ and Erlang/OTP Compatibility Matrix</doc:heading>
         <table>
-          <th>RabbitMQ</th>
+          <th><a href="/changelog.html">RabbitMQ version</a></th>
           <th>Minimum required Erlang/OTP</th>
           <th>Maximum supported Erlang/OTP</th>
           <th>Notes</th>
           <tr>
             <td>
               <ul>
+                <li><strong>3.7.10</strong></li>
                 <li><strong>3.7.9</strong></li>
                 <li><strong>3.7.8</strong></li>
                 <li><strong>3.7.7</strong></li>

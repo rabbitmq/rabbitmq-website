@@ -410,7 +410,10 @@ proxy_protocol = true
     </p>
     <p>
         <a href="stomp.html#proxy-protocol">STOMP</a> and
-        <a href="mqtt.html#proxy-protocol">MQTT</a>
+        <a href="mqtt.html#proxy-protocol">MQTT</a>,
+        as well as
+        <a href="web-stomp.html#proxy-protocol">Web STOMP</a> and
+        <a href="web-mqtt.html#proxy-protocol">Web MQTT</a>
         have their own settings that enable support for the proxy protocol.
     </p>
       </doc:subsection>

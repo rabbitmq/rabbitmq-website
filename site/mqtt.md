@@ -17,14 +17,16 @@ limitations under the License.
 
 # MQTT Plugin NOSYNTAX
 
+## Overview
+
 RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
-## <a id="smf" class="anchor" href="#smf"> Supported MQTT 3.1.1 features</a>
+## <a id="features" class="anchor" href="#features"> Supported MQTT 3.1.1 features</a>
 
 * QoS0 and QoS1 publish & consume
 * QoS2 publish (downgraded to QoS1)
 * Last Will and Testament (LWT)
-* TLS/SSL
+* TLS
 * Session stickiness
 * Retained messages with pluggable storage backends
 
@@ -169,31 +171,30 @@ level).
 
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
-Here is a sample <a href="/configure.html#config-file">configuration</a> that sets (almost) every MQTT plugin setting provided:
+Here is a sample [configuration](/configure.html#config-file) that demonstrates a number of MQTT plugin setting:
 
 <pre class="sourcecode ini">
-listeners.tcp.default = 5672
+mqtt.listeners.tcp.default = 1883
+## Default MQTT with TLS port is 8883
+# mqtt.listeners.ssl.default = 8883
+
+# anonymous connections, if allowed, will use the default
+# credentials specified here
+mqtt.allow_anonymous  = true
 mqtt.default_user     = guest
 mqtt.default_pass     = guest
-mqtt.allow_anonymous  = true
+
 mqtt.vhost            = /
 mqtt.exchange         = amq.topic
 # 24 hours by default
 mqtt.subscription_ttl = 86400000
 mqtt.prefetch         = 10
-mqtt.listeners.ssl    = none
-## Default MQTT with TLS port is 8883
-# mqtt.listeners.ssl.default = 8883
-mqtt.listeners.tcp.default = 1883
-mqtt.tcp_listen_options.backlog = 128
-mqtt.tcp_listen_options.nodelay = true
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode erlang">
-[{rabbit,        [{tcp_listeners,    [5672]}]},
- {rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
+[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
                   {default_pass,     &lt;&lt;"guest"&gt;&gt;},
                   {allow_anonymous,  true},
                   {vhost,            &lt;&lt;"/"&gt;&gt;},
@@ -204,11 +205,117 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
                   %% Default MQTT with TLS port is 8883
                   %% {ssl_listeners,    [8883]}
                   {tcp_listeners,    [1883]},
-                  {tcp_listen_options, [{backlog,   128},
-                                        {nodelay,   true}]}]}
+                  {tcp_listen_options, [{backlog, 4096},
+                                        {nodelay, true}]}]}
 ].
 </pre>
 
+### TCP Listeners
+
+When no configuration is specified the STOMP Adapter will listen on
+all interfaces on port 61613 and have a default user login/passcode
+of `guest`/`guest`.
+
+To change this, edit your
+[Configuration file](/configure.html#configuration-file),
+to contain a `tcp_listeners` variable for the `rabbitmq_mqtt` application.
+
+For example, a minimalistic configuration file which changes the listener
+port to 12345 would look like:
+
+<pre class="sourcecode ini">
+mqtt.listeners.tcp.1 = 12345
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_mqtt, [{tcp_listeners, [12345]}]}
+].
+</pre>
+
+while one which changes the listener to listen only on localhost (for
+both IPv4 and IPv6) would look like:
+
+<pre class="sourcecode ini">
+mqtt.listeners.tcp.1 = 127.0.0.1:61613
+mqtt.listeners.tcp.2 = ::1:61613
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="sourcecode erlang">
+[
+  {rabbitmq_mqtt, [{tcp_listeners, [{"127.0.0.1", 61613},
+                                    {"::1",       61613}]}]}
+].
+</pre>
+
+### TCP Listener Options
+
+The plugin supports TCP listener option configuration.
+
+The settings use a common prefix, `mqtt.tcp_listen_options`, and control
+things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
+are enabled and so on. See the [Networking guide](/networking.html) for details.
+
+```
+mqtt.listeners.tcp.1 = 127.0.0.1:61613
+mqtt.listeners.tcp.2 = ::1:61613
+
+mqtt.tcp_listen_options.backlog = 4096
+mqtt.tcp_listen_options.recbuf  = 131072
+mqtt.tcp_listen_options.sndbuf  = 131072
+
+mqtt.tcp_listen_options.keepalive = true
+mqtt.tcp_listen_options.nodelay   = true
+
+mqtt.tcp_listen_options.exit_on_close = true
+mqtt.tcp_listen_options.send_timeout  = 120
+```
+
+### <a id="tls" class="anchor" href="#tls">TLS Support</a>
+
+To use TLS for MQTT connections, [TLS must be configured](/ssl.html) in the broker. To enable
+TLS-enabled MQTT connections, add a TLS listener for MQTT using the `mqtt.listeners.ssl.*` configuration keys.
+
+The plugin will use core RabbitMQ server
+certificates and key (just like AMQP 0-9-1 and AMQP 1.0 listeners do):
+
+<pre class="sourcecode ini">
+ssl_options.cacertfile = /path/to/tls/ca_certificate_bundle.pem
+ssl_options.certfile   = /path/to/tls/server_certificate.pem
+ssl_options.keyfile    = /path/to/tls/server_key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert  = true
+
+# default TLS-enabled port for MQTT connections
+mqtt.listeners.ssl.default = 8883
+mqtt.listeners.tcp.default = 1883
+</pre>
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="sourcecode erlang">
+[{rabbit,        [
+                  {ssl_options, [{cacertfile, "/path/to/tls/ca_certificate_bundle.pem"},
+                                 {certfile,   "/path/to/tls/server_certificate.pem"},
+                                 {keyfile,    "/path/to/tls/server_key.pem"},
+                                 {verify,     verify_peer},
+                                 {fail_if_no_peer_cert, true}]}
+                 ]},
+ {rabbitmq_mqtt, [
+                  {ssl_listeners,    [8883]},
+                  {tcp_listeners,    [1883]}
+                  ]}
+].
+</pre>
+
+Note that RabbitMQ rejects SSLv3 connections by default because that protocol
+is known to be compromised.
+
+See the [TLS configuration guide](http://www.rabbitmq.com/ssl.html) for details.
 
 ### <a id="virtual-hosts" class="anchor" href="#virtual-hosts"> Virtual Hosts</a>
 
@@ -291,63 +398,15 @@ means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 Specifying the virtual host in the username takes precedence over the port-to-vhost
 mapping specified with the `mqtt_port_to_vhost_mapping` global parameter.
 
-### <a id="host-and-port" class="anchor" href="#host-and-port">Host and Port</a>
 
-The `listeners.tcp` and `tcp_listen_options` options are interpreted in the same way
-as the corresponding options in the `rabbit` section, as explained in the
-[networking](/networking.html) and [broker configuration](/configure.html) doc guides.
+### <a id="tls-certificate-authentication" class="anchor" href="#tls-certificate-authentication">Authentication with TLS/x509 client certificates</a>
 
-### <a id="tls" class="anchor" href="#tls">TLS/SSL</a>
+The plugin can authenticate TLS-enabled connections by extracting
+a name from the client's TLS (x509) certificate, without using a password.
 
-The `listeners.ssl` option in the `rabbitmq_mqtt` config section controls the
-endpoint (if any) that the adapter accepts TLS connections on. The
-default MQTT TLS port is 8883. If this option is non-empty then the
-`ssl_options` configuration values must be provided. The plugin will use them
-just like AMQP 0-9-1 listeners do:
-
-<pre class="sourcecode ini">
-ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
-ssl_options.certfile   = /path/to/tls/server_certificate.pem
-ssl_options.keyfile    = /path/to/tls/server_key.pem
-ssl_options.verify     = verify_peer
-ssl_options.fail_if_no_peer_cert  = true
-
-mqtt.listeners.ssl.default = 8883
-mqtt.listeners.tcp.default = 1883
-</pre>
-
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="sourcecode erlang">
-[{rabbit,        [
-                  {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
-                                 {certfile,   "/path/to/tls/server_certificate.pem"},
-                                 {keyfile,    "/path/to/tls/server_key.pem"},
-                                 {verify,     verify_peer},
-                                 {fail_if_no_peer_cert, true}]}
-                 ]},
- {rabbitmq_mqtt, [
-                  {ssl_listeners,    [8883]},
-                  {tcp_listeners,    [1883]}
-                  ]}
-].
-</pre>
-
-Note that RabbitMQ rejects SSLv3 connections by default because that protocol
-is known to be compromised.
-
-See the [TLS/SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
-
-
-
-### <a id="cta.ssl" class="anchor" href="#cta.ssl">Authentication with SSL client certificates</a>
-
-The MQTT adapter can authenticate SSL-based connections by extracting
-a name from the client's SSL certificate, without using a password.
-
-For safety the server must be configured with the SSL options
+For safety the server must be [configured with the TLS options](#tls)
 `fail_if_no_peer_cert` set to `true` and `verify` set to `verify_peer`, to
-force all SSL clients to have a verifiable client certificate.
+force all TLS clients to have a verifiable client certificate.
 
 To switch this feature on, set `ssl_cert_login` to `true` for the
 `rabbitmq_mqtt` application. For example:
@@ -477,7 +536,7 @@ The `exchange` option determines which exchange messages from MQTT clients are p
 to. If a non-default exchange is chosen then it must be created before clients
 publish any messages. The exchange is expected to be a topic exchange.
 
-### <a id="proxy-protocol" class="anchor" href="#proxy-protocol"> Proxy Protocol</a>
+### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
