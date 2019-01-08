@@ -253,7 +253,7 @@ limitations under the License.
               <li>
                 <a href="https://github.com/guidesmiths/rascal">Rascal</a>
                 <br/>
-                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decription and channel pooling.
+                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
               </li>
             </ul>
           </doc:section>
