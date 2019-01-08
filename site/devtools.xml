@@ -250,6 +250,11 @@ limitations under the License.
                 <br/>
                 A node.js interface for RabbitMQ management statistics
               </li>
+              <li>
+                <a href="https://github.com/guidesmiths/rascal">Rascal</a>
+                <br/>
+                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decription and channel pooling.
+              </li>
             </ul>
           </doc:section>
           <doc:section name="c-dev">
