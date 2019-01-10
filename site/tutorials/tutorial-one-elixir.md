@@ -105,6 +105,8 @@ digraph G {
   </div>
 </div>
 
+Our first program `send.exs` will send a single message to a queue. The first thing we need to do is to establish a connection with RabbitMQ server.
+
 <pre class="sourcecode elixir">
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
@@ -147,64 +149,6 @@ can do it by gently closing the connection.
 <pre class="sourcecode elixir">
 AMQP.Connection.close(connection)
 </pre>
-
-> #### Sending doesn't work!
->
-> If this is your first time using RabbitMQ and you don't see the "Sent"
-> message then you may be left scratching your head wondering what could
-> be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 200 MB free) and is therefore refusing to
-> accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
-> file documentation</a> will show you how to set <code>disk_free_limit</code>.
-
-
-### Receiving
-
-<div class="diagram">
-  <img src="/img/tutorials/receiving.png" height="100" />
-  <div class="diagram_source">
-  digraph {
-      bgcolor=transparent;
-      truecolor=true;
-      rankdir=LR;
-      node [style="filled"];
-      //
-      subgraph cluster_Q1 {
-        label="hello";
-	color=transparent;
-	Q1 [label="{||||}", fillcolor="red", shape="record"];
-      };
-      C1 [label="C", fillcolor="#33ccff"];
-      //
-      Q1 -> C1;
-  }
-  </div>
-</div>
-
-
-Our second program `receive.exs` will receive messages from the queue and print
-them on the screen.
-
-Again, first we need to connect to RabbitMQ server. The code
-responsible for connecting to Rabbit is the same as previously.
-
-The next step, just like before, is to make sure that the queue
-exists. Creating a queue using `AMQP.Queue.declare` is idempotent &#8210; we
-can run the command as many times as we like, and only one will be
-created.
-
-<pre class="sourcecode elixir">
-AMQP.Queue.declare(channel, "hello")
-</pre>
-
-You may ask why we declare the queue again &#8210; we have already declared it
-in our previous code. We could avoid that if we were sure
-that the queue already exists. For example if `send.exs` program was
-run before. But we're not yet sure which
-program to run first. In such cases it's a good practice to repeat
-declaring the queue in both programs.
 
 [Here's the whole send.exs script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs).
 
@@ -252,6 +196,22 @@ and print them on the screen.
 
 Again, first we need to connect to RabbitMQ server. The code
 responsible for connecting to Rabbit is the same as previously.
+
+The next step, just like before, is to make sure that the queue
+exists. Creating a queue using `AMQP.Queue.declare` is idempotent &#8210; we
+can run the command as many times as we like, and only one will be
+created.
+
+<pre class="sourcecode elixir">
+AMQP.Queue.declare(channel, "hello")
+</pre>
+
+You may ask why we declare the queue again &#8210; we have already declared it
+in our previous code. We could avoid that if we were sure
+that the queue already exists. For example if `send.exs` program was
+run before. But we're not yet sure which
+program to run first. In such cases it's a good practice to repeat
+declaring the queue in both programs.
 
 Receiving messages from the queue is more complex. It works by sending
 Elixir messages to an Elixir process. Whenever the client library
