@@ -3,6 +3,12 @@
 This guide contains a curated set of posts, presentations and other materials
 that cover best practices recommended by the RabbitMQ community.
 
+<style>
+.hubs-embedded #collection-items .tile {
+  margin: 0 20px 20px 0 !important;
+}
+</style>
+
 <!-- Uberflip Embedded Hub Widget -->
 
 <div id="UfEmbeddedHub1544215098035"></div>
