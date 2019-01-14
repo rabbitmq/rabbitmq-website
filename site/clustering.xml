@@ -378,7 +378,7 @@ rabbitmqctl cluster_status
 # => ...done.
 
 # on rabbit2
-# => rabbitmqctl cluster_status
+rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit2 ...
 # => [{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
 # => ...done.
@@ -403,7 +403,7 @@ rabbitmqctl cluster_status
         </doc:subsection>
 
         <doc:subsection name="creating">
-          <doc:heading>Creating the Cluster</doc:heading>
+          <doc:heading>Creating a Cluster</doc:heading>
           <p>
             In order to link up our three nodes in a cluster, we tell
             two of the nodes, say <code>rabbit@rabbit2</code> and
