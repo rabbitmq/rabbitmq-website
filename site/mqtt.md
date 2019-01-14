@@ -171,7 +171,7 @@ level).
 
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
-Here is a sample [configuration](/configure.html#config-file) that demonstrates a number of MQTT plugin setting:
+Here is a sample [configuration](/configure.html#config-file) that demonstrates a number of MQTT plugin settings:
 
 <pre class="sourcecode ini">
 mqtt.listeners.tcp.default = 1883
@@ -212,8 +212,8 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 
 ### TCP Listeners
 
-When no configuration is specified the STOMP Adapter will listen on
-all interfaces on port 61613 and have a default user login/passcode
+When no configuration is specified the MQTT plugin will listen on
+all interfaces on port 1883 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change this, edit your
@@ -239,16 +239,16 @@ while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
 
 <pre class="sourcecode ini">
-mqtt.listeners.tcp.1 = 127.0.0.1:61613
-mqtt.listeners.tcp.2 = ::1:61613
+mqtt.listeners.tcp.1 = 127.0.0.1:1883
+mqtt.listeners.tcp.2 = ::1:1883
 </pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="sourcecode erlang">
 [
-  {rabbitmq_mqtt, [{tcp_listeners, [{"127.0.0.1", 61613},
-                                    {"::1",       61613}]}]}
+  {rabbitmq_mqtt, [{tcp_listeners, [{"127.0.0.1", 1883},
+                                    {"::1",       1883}]}]}
 ].
 </pre>
 
@@ -261,8 +261,8 @@ things such as TCP buffer sizes, inbound TCP connection queue length, whether [T
 are enabled and so on. See the [Networking guide](/networking.html) for details.
 
 ```
-mqtt.listeners.tcp.1 = 127.0.0.1:61613
-mqtt.listeners.tcp.2 = ::1:61613
+mqtt.listeners.tcp.1 = 127.0.0.1:1883
+mqtt.listeners.tcp.2 = ::1:1883
 
 mqtt.tcp_listen_options.backlog = 4096
 mqtt.tcp_listen_options.recbuf  = 131072
