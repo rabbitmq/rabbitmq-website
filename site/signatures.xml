@@ -62,7 +62,7 @@ limitations under the License.
           must be downloaded. This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
 
 <pre class="sourcecode bash">
-gpg --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+gpg --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
         </p>
 
@@ -85,7 +85,7 @@ gpg --import rabbitmq-release-signing-key.asc
           <code>apt-key</code> should be used to import the keys:
 
 <pre class="sourcecode bash">
-apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA
+apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 </pre>
         </p>
       </doc:subsection>
@@ -136,7 +136,7 @@ gpg: binary signature, digest algorithm SHA512
 	GnuPG by signing it using your own key (to create your private key run <code>gpg --gen-key</code>):
 
 <pre class="sourcecode bash">
-gpg --sign-key 0x6B73A36E6026DFCA
+gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 </pre>
       </p>
     </doc:section>
