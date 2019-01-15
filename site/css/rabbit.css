@@ -717,6 +717,10 @@ p.warning a {
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
 
+table.matrix thead td {
+  font-weight: bold;
+};
+
 table.plugins th { border-bottom: none; }
 table.plugins td { border-top: none; padding-left: 5em; }
 

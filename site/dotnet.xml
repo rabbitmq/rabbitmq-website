@@ -38,7 +38,7 @@ limitations under the License.
         4.x and later release series of this library require .NET 4.5.1+ or .NET Standard 1.5+ implementation (e.g. .NET Core 2.x).
         Below is a table that covers RabbitMQ .NET client
 
-        <table>
+        <table class="matrix">
           <thead>
             <td>Library Release Series</td>
             <td>Required .NET Framework/Standard/Flavor Versions</td>
