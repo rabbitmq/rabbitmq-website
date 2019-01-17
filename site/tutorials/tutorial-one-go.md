@@ -157,7 +157,7 @@ whatever you like there.
 
 ### Receiving
 
-That's it for our publisher.  Our consumer is pushed messages from
+That's it for our publisher.  Our consumer listening for messages from
 RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 

@@ -166,7 +166,7 @@ AMQP.Connection.close(connection)
 
 ### Receiving
 
-That's it for our producer. Our consumer is pushed messages from
+That's it for our producer. Our consumer listening for messages from
 RabbitMQ, so unlike the producer which publishes a single message,
 we'll keep it running to listen for messages and print them out.
 
