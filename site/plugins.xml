@@ -220,7 +220,7 @@ rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
 [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel,rabbitmq_shovel_management].
 </pre>
 
-          Note that the trailing comma is significant.
+          Note that the trailing dot is significant and cannot be left out.
         </p>
 
         <p>

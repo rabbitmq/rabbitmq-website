@@ -35,6 +35,19 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.10</td>
+        <td class="centre">7 January 2019</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>
+            <li>Last release to <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ">support Erlang/OTP 19.3</a></li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.10">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.7.9</td>
         <td class="centre">16 November 2018</td>
         <td>

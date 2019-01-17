@@ -215,7 +215,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Se
 
 ### Receiving
 
-As for the consumer, it is pushed messages from
+As for the consumer, it listening for messages from
 RabbitMQ. So unlike the publisher which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 

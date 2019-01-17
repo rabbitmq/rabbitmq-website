@@ -38,7 +38,7 @@ limitations under the License.
       </p>
 
       <p>
-        TCP keepalives is a TCP stack feature that serves a similar
+        <a href="#tcp-keepalives">TCP keepalives</a> is a TCP stack feature that serves a similar
         purpose and can be very useful (possibly in combination with heartbeats)
         but requires kernel tuning in order to be practical with most operating
         systems and distributions.

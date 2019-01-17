@@ -48,7 +48,7 @@ limitations under the License.
         </p>
 
         <p>
-          4.x and 5.x release series of this library require .NET 4.5.1+ or a .NET Standard 1.5+ implementation (e.g. .NET Core 2.x).
+          4.x and 5.x release series of this library <a href="/dotnet.html#overview">require .NET 4.5.1+ or a .NET Standard 1.5+ implementation</a> (e.g. .NET Core 2.x).
         </p>
 
         <p>

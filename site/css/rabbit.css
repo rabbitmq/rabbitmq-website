@@ -717,6 +717,10 @@ p.warning a {
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
 
+table.matrix thead td {
+  font-weight: bold;
+};
+
 table.plugins th { border-bottom: none; }
 table.plugins td { border-top: none; padding-left: 5em; }
 
@@ -867,6 +871,63 @@ body#index #getstarted,
   }
 }
 
+/* Homepage hero: Best Practices */
+
+#hero #hero-best-practices {
+  background: url(../img/home/banner/best-practices/hero-desktop.svg) no-repeat center center;
+  padding: 83px 0;
+}
+
+#hero #hero-best-practices .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-best-practices h1 a {
+  font-weight: normal;
+}
+
+#hero #hero-best-practices h2 {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+@media(max-width: 820px) {
+  #hero #hero-best-practices {
+    background: url(../img/home/banner/best-practices/hero-tablet.svg) no-repeat right;
+    background-size: cover;
+    background-position: left;
+    padding: 70px 0;
+  }
+  #hero #hero-best-practices .text {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  #hero #hero-best-practices .container {
+    overflow: hidden;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-best-practices {
+    background: url(../img/home/banner/best-practices/hero-phone.svg) no-repeat bottom right;
+    background-size: 100%;
+    padding: 60px 0 280px;
+  }
+}
+
+@media(max-width: 480px) {
+  #hero #hero-best-practices {
+    padding-bottom: 200px;
+  }
+}
+
+@media(max-width: 390px) {
+  #hero #hero-best-practices {
+    padding-bottom: 170px;
+  }
+}
+
 /* Uberflip embed styles */
 .hubs-embedded {
   overflow: inherit !important;
@@ -897,13 +958,13 @@ body#index #getstarted,
 .hubs-embedded #collection-items .tile.single .description .friendly-timestamp {
   margin: 20px 0 0 20px !important;
 }
-.hubs-embedded #collection-items .tile {
+/*.hubs-embedded #collection-items .tile {
   margin: 0 20px 20px 0 !important;
-}
+}*/
 .hubs-embedded #collection-items .tile:first-child {
   margin-left: 0 !important;
 }
-.hubs-embedded #collection-items .tile:nth-child(3) {
+body#index .hubs-embedded #collection-items .tile:nth-child(3) {
   margin-right: 0 !important;
 }
 .hubs-embedded  #collection-items {
@@ -1111,9 +1172,9 @@ img.screenshot {
 /* Responsive */
 
 @media(max-width: 1031px) {
-  .hubs-embedded #collection-items .tile:first-child,
-  .hubs-embedded #collection-items .tile:nth-child(2),
-  .hubs-embedded #collection-items .tile:nth-child(3) {
+  body#index .hubs-embedded #collection-items .tile:first-child,
+  body#index .hubs-embedded #collection-items .tile:nth-child(2),
+  body#index .hubs-embedded #collection-items .tile:nth-child(3) {
     margin-left: 0 !important;
     margin-right: 10px !important;
   }
