@@ -15,11 +15,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!ENTITY version-java-client "5.5.2">
+<!ENTITY version-java-client "5.5.3">
 <!ENTITY version-dotnet-client "5.1.0">
 <!ENTITY version-server "3.7.10">
 <!ENTITY version-server-series "v3.7.x">
-<!ENTITY version-erlang-client "3.7.10">
+<!ENTITY version-erlang-client "3.7.9">
 <!ENTITY version-server-tag "v3.7.10">
 <!ENTITY standalone-otp-version "21.2">
 
