@@ -80,3 +80,7 @@ preview: deps ## Preview docs
 
 browse: ## Open docs in browser
 	@$(OPEN) http://localhost:$(TCP_PORT)
+
+# noop, required by rabbitmq-public-umbrella clean-subrepos make target
+clean:
+	@
