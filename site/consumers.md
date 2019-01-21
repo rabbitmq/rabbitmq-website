@@ -30,9 +30,11 @@ This guide covers various topics related to consumers:
  * [How to cancel a consumer](#unsubscribing)
  * [Fetching individual messages](#fetching) ("pull API")
  * [Consumer exclusivity](#exclusivity)
+ * [Single active consumer](#single-active-consumer)
+ * [Consumer activity](#active-consumer)
  * [Consumer priority](#priority)
- * [Exception Handling](#exceptions)
- * [Concurrency Consideration](#concurrency)
+ * [Exception handling](#exceptions)
+ * [Concurrency consideration](#concurrency)
 
 and more.
 
@@ -402,6 +404,10 @@ Consumers just need to be registered and failover is handled automatically,
 there's no need to detect the active consumer failure and to register
 a new consumer.
 
+The [management UI](/management.html) and the
+[CLI](/rabbitmqctl.8.html) can [report](#active-consumer) which consumer is the current
+active one on a queue where the feature is enabled.
+
 Please note the following about single active consumer:
 
  * There's no guarantee on the selected active consumer, it is
@@ -416,6 +422,22 @@ Please note the following about single active consumer:
  unacknowledged messages it requested with `basic.qos`.
  In this case, the other consumers are ignored and
  messages are enqueued.
+
+## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
+
+The [management UI](/management.html) and the `list_consumers` 
+[CLI](/rabbitmqctl.8.html#list_consumers) command report an `active`
+flag for consumers. The value of this flag depends on several parameters.
+
+ * for classic queues, the flag is always `true`
+ when [single active consumer](#single-active-consumer) is not enabled.
+ * for quorum queues and when [single active consumer](#single-active-consumer) is not enabled,
+ the flag is `true` by default and is set to `false` if the node
+ the consumer is connected to is suspected to be down.
+ * if [single active consumer](#single-active-consumer) is enabled,
+ the flag is set to `true` only for the current single active consumer,
+ other consumers on the queue are waiting to be promoted if the active
+ one goes away, so their active is set to `false`.
 
 ## <a id="priority" class="anchor" href="#priority">Priority</a>
 
