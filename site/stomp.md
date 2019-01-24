@@ -89,7 +89,7 @@ The settings use a common prefix, `stomp.tcp_listen_options`, and control
 things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
 are enabled and so on. See the [Networking guide](/networking.html) for details.
 
-```
+<pre class="sourcecode ini">
 stomp.listeners.tcp.1 = 127.0.0.1:61613
 stomp.listeners.tcp.2 = ::1:61613
 
@@ -102,7 +102,7 @@ stomp.tcp_listen_options.nodelay   = true
 
 stomp.tcp_listen_options.exit_on_close = true
 stomp.tcp_listen_options.send_timeout  = 120
-```
+</pre>
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
@@ -442,6 +442,9 @@ For `SUBSCRIBE` frames, an autodeleted, non-durable queue is created and bound t
 `amq.topic` exchange with routing key `<name>`. A subscription is
 created against the queue.
 
+*Note:* a different default exchange than `amq.topic` can be specified
+using the `stomp.default_topic_exchange` configuration setting.
+
 ### <a id="d.dts" class="anchor" href="#d.dts">Durable Topic Subscriptions</a>
 
 The STOMP adapter supports durable topic subscriptions. Durable
@@ -481,6 +484,9 @@ For `SUBSCRIBE` frames, a *shared* queue is created for each distinct
 subscription ID x destination pair, and bound to the `amq.topic`
 exchange with routing key `<name>`. A subscription is created against
 the queue.
+
+*Note:* a different default exchange than `amq.topic` can be specified
+using the `stomp.default_topic_exchange` configuration setting.
 
 #### Deleting a Durable Subscription
 
