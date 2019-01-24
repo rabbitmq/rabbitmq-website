@@ -984,7 +984,7 @@ factory.useSslProtocol("TLSv1.2");
       <doc:section name="dotnet-client">
         <doc:heading>Using TLS in the .NET client</doc:heading>
         <p>
-          For a server certificate to be understood on the .NET platform, they
+          For a client certificate to be understood on the .NET platform, they
           can be in a number of formats including DER and PKCS#12 but
           not PEM. For the DER format, .NET expects them to
           be stored in files with <code>.cer</code> extension. <a href="#automated-certificate-generation">tls-gen</a>
