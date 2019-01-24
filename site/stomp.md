@@ -286,42 +286,8 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
-### <a id="cta.tta" class="anchor" href="#cta.tta">Testing the Adapter</a>
-
-If the default STOMP adapter is running, you should be able to connect to port 61613
-using a STOMP client of your choice. In a pinch, `telnet` or netcat
-(`nc`) will do nicely. For example:
-
-      $ nc localhost 61613
-      CONNECT
-
-      ^@
-    : CONNECTED
-    : session:session-QaDdyL5lg5dUx0vSWrnVNg==
-    : heart-beat:0,0
-    : version:1.0
-    :
-      DISCONNECT
-
-      ^@
-    :
-      $
-
-Here `$` is the command prompt; responses are prefixed with `:`
-(your session-id may vary);
-and Ctrl-@ (`^@`) inserts a zero byte into the stream.
-We connect as the default user (note the blank line
-after the `CONNECT` line) getting a `CONNECTED` response indicating
-that the STOMP adapter is listening and running.
-The `DISCONNECT` frame
-causes the connection to be dropped.
-
-The script `test.py` runs a suite of tests and this can be run
-using `make test` against a STOMP adapter built from source.
-See [Compiling and installing from source](#caifs) above.
 
 ## <a id="d" class="anchor" href="#d">Destinations</a>
-
 The STOMP specification does not prescribe what kinds of destinations
 a broker must support, instead the value of the `destination` header
 in `SEND` and `MESSAGE` frames is broker-specific. The RabbitMQ STOMP
@@ -442,8 +408,12 @@ For `SUBSCRIBE` frames, an autodeleted, non-durable queue is created and bound t
 `amq.topic` exchange with routing key `<name>`. A subscription is
 created against the queue.
 
-*Note:* a different default exchange than `amq.topic` can be specified
-using the `stomp.default_topic_exchange` configuration setting.
+A different default exchange than `amq.topic` can be specified
+using the `stomp.default_topic_exchange` configuration setting:
+
+<pre class="sourcecode ini">
+stomp.default_topic_exchange = some.exchange
+</pre>
 
 ### <a id="d.dts" class="anchor" href="#d.dts">Durable Topic Subscriptions</a>
 
@@ -469,11 +439,13 @@ subscription is not deleted when last subscriber disconnects.
 When creating a durable subscription,
 the `id` header must be specified. For example:
 
-    SUBSCRIBE
-    destination:/topic/my-durable
-    id:1234
-    durable:true
-    auto-delete:false
+<pre class="sourcecode ini">
+SUBSCRIBE
+destination:/topic/my-durable
+id:1234
+durable:true
+auto-delete:false
+</pre>
 
 #### AMQP 0-9-1 Semantics
 
