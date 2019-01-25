@@ -63,4 +63,8 @@ if __name__ == '__main__':
     addr = ("0.0.0.0", 8191)
     with socketserver.TCPServer(addr, ReqHandler) as httpd:
         print('Serving on {0}'.format(addr))
-        httpd.serve_forever()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nStopping...")
+            httpd.shutdown()
