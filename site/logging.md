@@ -304,7 +304,7 @@ In the classic config format:
 ].
 </pre>
 
-Syslog service IP address (note: hostnames are not supported) and port can be customised:
+Syslog service IP address and port can be customised:
 
 <pre class="sourcecode ini">
 log.syslog = true
@@ -317,6 +317,23 @@ In the classic config format:
 <pre class="sourcecode erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{dest_host, {10, 10, 10, 10}},
+           {dest_port, 1514}]}
+].
+</pre>
+
+If a hostname is to be used rather than an IP address:
+
+<pre class="sourcecode ini">
+log.syslog = true
+log.syslog.host = my.syslog-server.local
+log.syslog.port = 1514
+</pre>
+
+In the classic config format:
+
+<pre class="sourcecode erlang">
+[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
+ {syslog, [{dest_host, "my.syslog-server.local"},
            {dest_port, 1514}]}
 ].
 </pre>
