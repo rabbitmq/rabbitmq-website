@@ -87,11 +87,11 @@ Some features are not currently supported by quorum queues.
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [TTL](/ttl.html) | yes | no |
-| [Queue length limits](/maxlength.html) | yes | no |
+| [Queue length limits](/maxlength.html) | yes | yes (drop-head strategy only) |
 | [Lazy behaviour](/lazy-queues.html) | yes | no |
 | [Priority](/queues.html) | yes | no |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
-| Adheres to [policies](/policies.html) | yes | partial (dlx only) |
+| Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
 | Reacts to [memory alarms](/alarms.html) | yes | no |
 
 #### Non-durable Queues
@@ -110,7 +110,9 @@ Quorum queues do not currently support TTL, neither for queues nor messages.
 
 #### Length Limit
 
-Quorum queues do not currently support length limits.
+Quorum queues has partial support for [queue length limits](/maxlength.html).
+
+Currently only the `drop-head` overflow behaviour is implemented.
 
 #### Dead Lettering
 
