@@ -1,7 +1,7 @@
 <div class="manual-text">
 <h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
 <code class="Nm" title="Nm">rabbitmq-service.bat</code> &#x2014;
-<div class="Nd" title="Nd">manage RabbitMQ AMQP Windows service</div>
+<div class="Nd" title="Nd">tool for managing RabbitMQ Windows service</div>
 <h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
 <table class="Nm">
   <tr>
@@ -10,14 +10,12 @@
   </tr>
 </table>
 <h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
-RabbitMQ is an implementation of AMQP, the emerging standard for high
-  performance enterprise messaging. The RabbitMQ server is a robust and scalable
-  implementation of an AMQP broker.
+RabbitMQ is an open source multi-protocol messaging broker.
 <div class="Pp"></div>
 Running <code class="Nm" title="Nm">rabbitmq-service.bat</code> allows the
-  RabbitMQ broker to be run as a service on NT/2000/2003/XP/Vista&#x00AE;
-  environments. The RabbitMQ broker service can be started and stopped using the
-  Windows&#x00AE; services applet.
+  RabbitMQ broker to be run as a service in Windows&#x00AE; environments. The
+  RabbitMQ broker service can be started and stopped using the Windows&#x00AE;
+  services panel.
 <div class="Pp"></div>
 By default the service will run in the authentication context of the local
   system account. It is therefore necessary to synchronise Erlang cookies
@@ -62,23 +60,28 @@ By default the service will run in the authentication context of the local
   <dd>Note: Windows only. Defaults to the application data directory of the
       current user. This is the location of log and database directories.</dd>
   <dt><a class="permalink" href="#RABBITMQ_NODENAME"><code class="Ev" title="Ev" id="RABBITMQ_NODENAME">RABBITMQ_NODENAME</code></a></dt>
-  <dd>Defaults to &#x201C;rabbit&#x201D;. This can be useful if you want to run
-      more than one node per machine -
-      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> should be unique per
-      erlang-node-and-machine combination. See the
-      <a class="Lk" title="Lk" href="http://www.rabbitmq.com/clustering.html#single-machine">clustering
-      on a single machine guide</a> for details.</dd>
+  <dd>Defaults to &#x201C;rabbit@&#x201D;. followed by the computed hostname.
+      Can be used to run multiple nodes on the same host. Every node in a
+      cluster must have a unique
+      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> To learn more, see
+      the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+      Clustering guide</a></dd>
   <dt><a class="permalink" href="#RABBITMQ_NODE_IP_ADDRESS"><code class="Ev" title="Ev" id="RABBITMQ_NODE_IP_ADDRESS">RABBITMQ_NODE_IP_ADDRESS</code></a></dt>
-  <dd>By default RabbitMQ will bind to all interfaces, on IPv4 and IPv6 if
-      available. Set this if you only want to bind to one network interface or
-      address family.</dd>
+  <dd>By default RabbitMQ will bind to all IPv6 and IPv4 interfaces available.
+      This variable limits the node to one network interface or address family.
+      To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a></dd>
   <dt><a class="permalink" href="#RABBITMQ_NODE_PORT"><code class="Ev" title="Ev" id="RABBITMQ_NODE_PORT">RABBITMQ_NODE_PORT</code></a></dt>
-  <dd>Defaults to 5672.</dd>
+  <dd>AMQP 0-9-1 and AMQP 1.0 port. Defaults to 5672. To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a></dd>
   <dt><a class="permalink" href="#ERLANG_SERVICE_MANAGER_PATH"><code class="Ev" title="Ev" id="ERLANG_SERVICE_MANAGER_PATH">ERLANG_SERVICE_MANAGER_PATH</code></a></dt>
   <dd>Defaults to
-      <span class="Pa" title="Pa">C:\Program&#x00A0;Files\erl5.5.5\erts-5.5.5\bin</span>
+      <span class="Pa" title="Pa">C:\Program&#x00A0;Files\erl{version}\erts-{version}\bin</span>
       (or
-      <span class="Pa" title="Pa">C:\Program&#x00A0;Files&#x00A0;(x86)\erl5.5.5\erts-5.5.5\bin</span>
+      <span class="Pa" title="Pa">C:\Program&#x00A0;Files&#x00A0;(x86)\erl{version}\erts-{version}\bin</span>
       for 64-bit environments). This is the installation location of the Erlang
       service manager.</dd>
   <dt><a class="permalink" href="#RABBITMQ_CONSOLE_LOG"><code class="Ev" title="Ev" id="RABBITMQ_CONSOLE_LOG">RABBITMQ_CONSOLE_LOG</code></a></dt>
