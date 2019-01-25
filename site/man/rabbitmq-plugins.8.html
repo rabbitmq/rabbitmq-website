@@ -1,27 +1,36 @@
 <div class="manual-text">
 <h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
 <code class="Nm" title="Nm">rabbitmq-plugins</code> &#x2014;
-<div class="Nd" title="Nd">command line for managing RabbitMQ broker
-  plugins</div>
+<div class="Nd" title="Nd">command line for managing RabbitMQ plugins</div>
 <h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
 <table class="Nm">
   <tr>
     <td><code class="Nm" title="Nm">rabbitmq-plugins</code></td>
-    <td>[<div class="Op"><code class="Fl" title="Fl">-n</code>
+    <td>[<div class="Op"><code class="Fl" title="Fl">-q</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-s</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-l</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-n</code>
       <var class="Ar" title="Ar">node</var></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-t</code>
+      <var class="Ar" title="Ar">timeout</var></div>]
       <var class="Ar" title="Ar">command</var>
       [<div class="Op"><var class="Ar" title="Ar">command_options</var></div>]</td>
   </tr>
 </table>
 <h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
 <code class="Nm" title="Nm">rabbitmq-plugins</code> is a command line tool for
-  managing RabbitMQ broker plugins. It allows one to enable, disable and browse
-  plugins. It must be run by a user with write permissions to the RabbitMQ
-  configuration directory.
+  managing RabbitMQ plugins. See the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ
+  Plugins guide</a> for an overview of RabbitMQ plugins and how they are used.
 <div class="Pp"></div>
-Some plugins depend on others to work correctly.
-  <code class="Nm" title="Nm">rabbitmq-plugins</code> traverses these
-  dependencies and enables all required plugins. Plugins listed on the
+<code class="Nm" title="Nm">rabbitmq-plugins</code> allows the operator to
+  enable, disable and inspect plugins. It must be run by a user with write
+  permissions to the RabbitMQ configuration directory.
+<div class="Pp"></div>
+Plugins can depend on other plugins.
+  <code class="Nm" title="Nm">rabbitmq-plugins</code> resolves the dependencies
+  and enables or disables all dependencies so that the user doesn't have to
+  manage them explicitly. Plugins listed on the
   <code class="Nm" title="Nm">rabbitmq-plugins</code> command line are marked as
   explicitly enabled; dependent plugins are marked as implicitly enabled.
   Implicitly enabled plugins are automatically disabled again when they are no
@@ -32,9 +41,58 @@ The <code class="Cm" title="Cm">enable</code>,
   <code class="Cm" title="Cm">set</code> commands will update the plugins file
   and then attempt to connect to the broker and ensure it is running all enabled
   plugins. By default if it is not possible to connect to the running broker
-  (for example if it is stopped) then a warning is displayed. Specify
-  <code class="Fl" title="Fl">--online</code> or
-  <code class="Fl" title="Fl">--offline</code> to change this behaviour.
+  (for example if it is stopped) the operation will fail. If
+  <code class="Nm" title="Nm">rabbitmq-plugins</code> is used on the same host
+  as the target node, <code class="Fl" title="Fl">--offline</code> can be
+  specified to make <code class="Nm" title="Nm">rabbitmq-plugins</code> resolve
+  and update plugin state directly (without contacting the node). Such changes
+  will only have an effect on next node start. To learn more, see the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ
+  Plugins guide</a>
+<h2 class="Sh" title="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#n"><code class="Fl" title="Fl" id="n">-n</code></a>
+    <var class="Ar" title="Ar">node</var></dt>
+  <dd>Default node is
+      &#x201C;rabbit@<var class="Ar" title="Ar">target-hostname</var>&#x201D;,
+      where <var class="Ar" title="Ar">target-hostname</var> is the local host.
+      On a host named &#x201C;myserver.example.com&#x201D;, the node name will
+      usually be &#x201C;rabbit@myserver&#x201D; (unless
+      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> has been overridden).
+      The output of &#x201C;hostname -s&#x201D; is usually the correct suffix to
+      use after the &#x201C;@&#x201D; sign. See
+      <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>
+      for details of configuring a RabbitMQ node.</dd>
+  <dt><a class="permalink" href="#q"><code class="Fl" title="Fl" id="q">-q</code></a>,
+    <code class="Fl" title="Fl">--quiet</code></dt>
+  <dd>Quiet output mode is selected. Informational messages are reduced when
+      quiet mode is in effect.</dd>
+  <dt><a class="permalink" href="#s"><code class="Fl" title="Fl" id="s">-s</code></a>,
+    <code class="Fl" title="Fl">--silent</code></dt>
+  <dd>Silent output mode is selected. Informational messages are reduced and
+      table headers are suppressed when silent mode is in effect.</dd>
+  <dt><a class="permalink" href="#t"><code class="Fl" title="Fl" id="t">-t</code></a>
+    <var class="Ar" title="Ar">timeout</var>,
+    <code class="Fl" title="Fl">--timeout</code>
+    <var class="Ar" title="Ar">timeout</var></dt>
+  <dd>Operation timeout in seconds. Not all commands support timeouts. Default
+      is <code class="Cm" title="Cm">infinity</code>.</dd>
+  <dt><a class="permalink" href="#l"><code class="Fl" title="Fl" id="l">-l</code></a>,
+    <code class="Fl" title="Fl">--longnames</code></dt>
+  <dd>Must be specified when the cluster is configured to use long (FQDN) node
+      names. To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+      Clustering guide</a></dd>
+  <dt><a class="permalink" href="#-erlang-cookie"><code class="Fl" title="Fl" id="-erlang-cookie">--erlang-cookie</code></a>
+    <var class="Ar" title="Ar">cookie</var></dt>
+  <dd>Shared secret to use to authenticate to the target node. Prefer using a
+      local file or the
+      <code class="Ev" title="Ev">RABBITMQ_ERLANG_COOKIE</code> environment
+      variable instead of specifying this option on the command line. To learn
+      more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ
+      CLI Tools guide</a></dd>
+</dl>
 <h2 class="Sh" title="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h2>
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#list"><code class="Cm" title="Cm" id="list">list</code></a>
@@ -107,9 +165,10 @@ The <code class="Cm" title="Cm">enable</code>,
   <dd>
     <dl class="Bl-tag">
       <dt><a class="permalink" href="#-offline"><code class="Fl" title="Fl" id="-offline">--offline</code></a></dt>
-      <dd>Just modify the enabled plugins file.</dd>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
       <dt><a class="permalink" href="#-online"><code class="Fl" title="Fl" id="-online">--online</code></a></dt>
-      <dd>Treat failure to connect to the running broker as fatal.</dd>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
       <dt><var class="Ar" title="Ar">plugin</var></dt>
       <dd>One or more plugins to enable.</dd>
     </dl>
@@ -129,20 +188,21 @@ The <code class="Cm" title="Cm">enable</code>,
   <dd>
     <dl class="Bl-tag">
       <dt><a class="permalink" href="#-offline_2"><code class="Fl" title="Fl" id="-offline_2">--offline</code></a></dt>
-      <dd>Just modify the enabled plugins file.</dd>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
       <dt><a class="permalink" href="#-online_2"><code class="Fl" title="Fl" id="-online_2">--online</code></a></dt>
-      <dd>Treat failure to connect to the running broker as fatal.</dd>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
       <dt><var class="Ar" title="Ar">plugin</var></dt>
       <dd>One or more plugins to disable.</dd>
     </dl>
     <div class="Pp"></div>
     Disables the specified plugins and all their dependencies.
     <div class="Pp"></div>
-    For example, this command disables &#x201C;amqp_client&#x201D; and all
-      plugins that depend on it:
+    For example, this command disables &#x201C;rabbitmq_management&#x201D; and
+      all plugins that depend on it:
     <div class="Pp"></div>
     <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins disable
-      amqp_client</code></div>
+      rabbitmq_management</code></div>
   </dd>
   <dt><a class="permalink" href="#set"><code class="Cm" title="Cm" id="set">set</code></a>
     [<div class="Op"><code class="Fl" title="Fl">--offline</code></div>]
@@ -151,11 +211,12 @@ The <code class="Cm" title="Cm">enable</code>,
   <dd>
     <dl class="Bl-tag">
       <dt><a class="permalink" href="#-offline_3"><code class="Fl" title="Fl" id="-offline_3">--offline</code></a></dt>
-      <dd>Just modify the enabled plugins file.</dd>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
       <dt><a class="permalink" href="#-online_3"><code class="Fl" title="Fl" id="-online_3">--online</code></a></dt>
-      <dd>Treat failure to connect to the running broker as fatal.</dd>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
       <dt><var class="Ar" title="Ar">plugin</var></dt>
-      <dd>Zero or more plugins to enable.</dd>
+      <dd>Zero or more plugins to disable.</dd>
     </dl>
     <div class="Pp"></div>
     Enables the specified plugins and all their dependencies. Unlike
