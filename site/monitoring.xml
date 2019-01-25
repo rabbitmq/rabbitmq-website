@@ -39,18 +39,30 @@ limitations under the License.
         categories:
 
         <ul>
-          <li><a href="#system-metrics">Infrastructure and kernel metrics</a></li>
           <li>
-            <a href="#rabbitmq-metrics">RabbitMQ metrics</a> which can be further broken
-            down to
+            <a href="#approaches-to-monitoring">What is monitoring</a>, what common approaches to it
+            exist and why it is important.
+          </li>
+          <li>What <a href="#system-metrics">infrastructure and kernel metrics</a> are important to monitor</li>
+          <li>
+            What <a href="#rabbitmq-metrics">RabbitMQ metrics</a> are available:
 
             <ul>
-              <li><a href="#cluster-wide-metrics">Cluster-wide metrics</a></li>
               <li><a href="#node-metrics">Node metrics</a></li>
               <li><a href="#queue-metrics">Queue metrics</a></li>
+              <li><a href="#cluster-wide-metrics">Cluster-wide metrics</a></li>
             </ul>
           </li>
-          <li><a href="#app-metrics">Application-level metrics</a></li>
+          <li>
+            <a href="#monitoring-frequency">How frequently</a> should monitoring checks be performed?
+          </li>
+          <li>
+            <a href="#app-metrics">Application-level metrics</a>
+          </li>
+          <li>
+            How to check a <a href="#healch_checks">node's health</a> and why it's more involved than a single
+            CLI command.
+          </li>
         </ul>
       </p>
 
@@ -64,6 +76,103 @@ limitations under the License.
         can be used to monitor RabbitMQ.
       </p>
     </doc:section>
+
+
+    <doc:section name="approaches-to-monitoring">
+      <doc:heading>What is Monitoring?</doc:heading>
+
+      <p>
+        For the purpose of this guide we define monitoring as a continuous process of
+        capturing the behaviour of a system via health checks and metrics in order to
+        detect anomalies: when the system is unavailable, experiences an unusual load,
+        exhausted of certain resources or otherwise does not behave within its normal
+        (expected) parameters. Monitoring involves collecting and storing metrics for the long term,
+        which is critically important not just for anomaly detection
+        but also root cause analysis, trend detection and capacity planning.
+      </p>
+
+      <p>
+        Monitoring systems typically integrate with alerting systems.
+
+        When an anomaly is detected by a monitoring system an alarm of some sort is typically
+        passed to an alerting system, which notifies interested parties such as the technical operations team.
+      </p>
+
+      <p>
+        Having monitoring in place means that important deviations in system behavior,
+        from degraded service in some areas to complete unavailability, is easier
+        to detect and the root cause takes significantly less time to find.
+        Operating a distributed system is a bit like trying to get out of a forest
+        without a GPS navigator device or compass. It doesn't matter how brilliant or experienced
+        the person is, having relevant information is critically important for
+        a good outcome.
+      </p>
+
+      <p>
+        A <a href="#health-checks">Health check</a> is the most basic aspect of monitoring.
+        It involves a <a href="#monitoring-frequency">periodically executed</a> command
+        or set of commands that collect a few essential metrics of the monitored system
+        and evaluate them. For example, whether RabbitMQ's Erlang VM is running is one such
+        check. It involves a metric (is an OS process running?), an expected range
+        of normal operating parameters (the process is expected to be running, otherwise
+        it cannot possibly serve any clients) and an evaluation step. Of course,
+        there are more varieties of health checks. Which one is considered to be most appropriate
+        depends on the definition of a "healthy node" used, and thus is a system- and team-specific decision.
+        <a href="/cli.html">RabbitMQ CLI tools</a> provide a number of commands that can serve as useful health checks. They will
+        be covered <a href="#health-checks">later in this guide</a>.
+      </p>
+
+      <p>
+        While health checks are a useful tool, they only provide so much insight into
+        the state of the system because they are by design focused on just one or a handful
+        of metrics, usually check a single node and can only reason about the state of
+        that node at a particular moment in time. For a more comprehensive assessment
+        many more metrics have to be collected continuously at <a href="#monitoring-frequency">reasonable intervals</a>.
+        This allows more types of anomalies to be detected, as some can only be identified over longer periods
+        of time. This is usually done by tools commonly referred to as monitoring tools of
+        which there are a grand variety. This guides covers some tools commonly
+        used for RabbitMQ monitoring.
+      </p>
+
+      <p>
+        Some metrics are RabbitMQ-specific: they are <a href="#rabbitmq-metrics">collected and reported by RabbitMQ nodes</a>.
+        Rest of the guide refers to them as just "RabbitMQ metrics". Examples include the number of socket
+        descriptors used, total number of enqueued messages or inter-node communication traffic
+        rates. Others metrics are <a href="#system-metrics">collected and reported by the OS kernel</a>. Such
+        metrics are often called system metrics or infrastructure metrics.
+        System metrics are not RabbitMQ-specific: CPU utilisation rate, total amount of memory used by
+        a certain process or group of processes, network packet loss rate and so on.
+        Both types are important to monitor as individual metrics are not useful in
+        all scenarios but when analysed collectively, they can quickly provide a reasonably
+        complete insight into the state of the system, and help operators form a hypothesis
+        as to what's going on and needs further investigation and/or fixing.
+      </p>
+
+      <doc:subsection name="monitoring-frequency">
+        <doc:heading>Frequency of Monitoring</doc:heading>
+
+        <p>
+          Many monitoring systems poll their monitored services periodically. How often that's
+          done varies from tool to tool but usually can be configured by the operator.
+        </p>
+
+        <p>
+          Very frequent polling can have negative consequences on the system under monitoring.
+          For example, excessive load balancer checks that open a test TCP connection to a node
+          can lead to a <a href="/networking.html#dealing-with-high-connection-churn">high connection churn</a>.
+          Excessive checks of channels and queues in RabbitMQ will increase its CPU consumption, which
+          can be substantial when there are many (say, 10s of thousands) of them on a node.
+        </p>
+
+        <p>
+          It is recommended that metrics are collected at 60 second intervals (or at least 30 second
+          intervals if higher update rate is desired). More frequent collection will increase load and
+          the system and provide no practical benefits for monitoring systems.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
 
     <doc:section name="system-metrics">
       <doc:heading>Infrastructure and Kernel Metrics</doc:heading>
@@ -93,14 +202,13 @@ limitations under the License.
       </p>
     </doc:section>
 
+
     <doc:section name="rabbitmq-metrics">
       <doc:heading>RabbitMQ Metrics</doc:heading>
       <p>
         The RabbitMQ <a href="management.html">management plugin</a> provides an API for
         accessing RabbitMQ metrics. The plugin will store up to one day's worth of
         metric data. Longer term monitoring should be accomplished with an <a href="#monitoring-tools">external tool</a>.
-        Collecting and storing metrics for the long term is critically important for anomaly detection,
-        root cause analysis, trend detection and capacity planning.
       </p>
 
       <p>
@@ -135,22 +243,6 @@ limitations under the License.
         <p>
           Note that some endpoints (e.g. aliveness check) perform operations on the contacted node
           specifically; they are an exception, not the rule.
-        </p>
-      </doc:subsection>
-
-
-      <doc:subsection name="monitoring-frequency">
-        <doc:heading>Frequency of Monitoring</doc:heading>
-
-        <p>
-          Many monitoring systems poll their monitored services periodically. How often that's
-          done varies from tool to tool but usually can be configured by the operator.
-        </p>
-
-        <p>
-          It is recommended that metrics are collected at 60 second intervals (or at least 30 second
-          intervals if higher update rate is desired). More frequent collection will increase load and
-          the system and provide no practical benefits for monitoring systems.
         </p>
       </doc:subsection>
 
@@ -391,12 +483,318 @@ limitations under the License.
       </doc:subsection>
     </doc:section>
 
-    <doc:section name="monitoring-tools">
-      <doc:heading>Monitoring Tools</doc:heading>
+
+    <doc:section name="app-metrics">
+      <doc:heading>Application-level Metrics</doc:heading>
       <p>
-        The following is an alphabetised list of third-party tools to collect RabbitMQ metrics. These
-        tools have the capability to monitor the recommended system and RabbitMQ metrics. Note that this list is
-        by no means complete.
+        A system that uses RabbitMQ, or any messaging-based system, is almost always distributed or can
+        be treated as such. In such systems it is often not immediately obvious which component
+        is problematic. Every single one of them, including applications, should be monitored and
+        investigated.
+      </p>
+      <p>
+       Some infrastructure-level and RabbitMQ metrics can demonstrate
+       presence of an unusual system behaviour or issue but can't pin
+       point the root cause. For example, it is easy to tell that a
+       node is running out of disk space but not always easy to tell why.
+       This is where application metrics come in: they can help identify
+       a run-away publisher, a repeatedly failing consumer, a consumer that cannot
+       keep up with the rate, even a downstream service that's experiencing a slowdown
+       (e.g. a missing index in a database used by the consumers).
+      </p>
+      <p>
+        Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. Spring AMQP)
+        provide means of registering metrics collectors or collect metrics out of the box.
+        With others developers have to track metrics in their application code.
+      </p>
+      <p>
+        What metrics applications track can be system-specific but some are relevant
+        to most systems:
+
+        <ul>
+          <li>Connection opening rate</li>
+          <li>Channel opening rate</li>
+          <li>Connection failure (recovery) rate</li>
+          <li>Publishing rate</li>
+          <li>Delivery rate</li>
+          <li>Positive delivery acknowledgement rate</li>
+          <li>Negative delivery acknowledgement rate</li>
+          <li>Mean/95th percentile delivery processing latency</li>
+        </ul>
+      </p>
+    </doc:section>
+
+
+    <doc:section name="health-checks">
+      <doc:heading>Health Checks</doc:heading>
+      <p>
+        A health check is a <a href="#monitoring-frequency">periodically executed</a> command
+        or set of commands that collect a few essential metrics of a RabbitMQ node or cluster.
+        Just like with human or veterinary health checks, there's a variety of checks that
+        can be performed and some are more intrusive than others. Different checks also have
+        a different probability of reporting <a href="https://en.wikipedia.org/wiki/False_positives_and_false_negatives">false positives</a>
+        (a scenario when a node is reported as unhealthy even when it is).
+      </p>
+
+      <p>
+        Health checks therefore should be thought of as a range of options, starting with the most
+        basic and virtually never producing false positives to increasingly more comprehensive,
+        intrusive, and opinionated checks that have a probability of false positives that should be
+        taken into account. Health checks can verify the state of an individual node or the entire cluster. The former
+        kind is known as node health checks and the latter as cluster health checks.
+      </p>
+
+      <doc:subsection name="individual-checks">
+        <doc:heading>Individual Node Checks</doc:heading>
+        <p>
+          This section covers several examples of node health check. They are organised in stages.
+          Higher stages perform increasingly comprehensive and opinionated checks which have a higher probability of
+          false positives. Some stages have dedicated RabbitMQ CLI tool commands, others
+          can require additional tools.
+        </p>
+
+        <p>
+          Note that while the health checks are ordered, a greater number does not necessarily indicate
+          a "better" check.
+
+          The health checks can be used selectively and combined.
+          Unless noted otherwise, the checks should follow the same <a href="#monitoring-frequency">monitoring frequency</a> recommendation
+          as metric collection.
+        </p>
+
+        <h4>Stage 1</h4>
+        <p>
+          The most basic check ensures that the runtime is running
+          and (indirectly) that CLI tools can authenticate to it.
+
+          Except for the CLI tool authentication
+          part, the probability of false positives can be considered approaching 0
+          except for upgrades and maintenance windows.
+
+          <code>rabbitmq-diagnostics ping</code> performs this check:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics ping -q
+# => Ping succeeded
+</pre>
+
+          On Windows:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics.bat -q ping
+</pre>
+        </p>
+
+        <h4>Stage 2</h4>
+        <p>
+          A slightly more comprehensive check is executing
+
+<code>rabbitmq-diagnostics status</code>:
+
+          This effectively includes the stage 1 check plus retrieves some essential
+          system information which is useful for other checks and should always be
+          available if RabbitMQ is running on the node (see below).
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics -q status
+# => [output elided for brevity]
+</pre>
+
+          On Windows:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics.bat -q status
+# => [output elided for brevity]
+</pre>
+
+          This is a common way of sanity checking a node.
+          The probability of false positives can be considered approaching 0
+          except for upgrades and maintenance windows.
+        </p>
+
+        <h4>Stage 3</h4>
+        <p>
+          Includes previous checks and also verifies that the RabbitMQ application is running
+          (not stopped with <a href="/rabbitmqctl.8.html#stop_app"><code>rabbitmqctl stop_app</code></a>
+          or the <a href="/partitions.html">Pause Minority partition handling strategy</a>)
+          and there are no resource alarms:
+
+<pre class="sourcecode bash">
+rabbitmqctl eval 'rabbit_alarm:get_alarms() =:= [].' | grep -q "true" &amp; \
+rabbitmq-diagnostics status -q | grep -A 30 "running_applications" | grep -q "rabbit,\"RabbitMQ\""
+# if the check succeeded, exit code will be 0
+</pre>
+
+          The probability of false positives is low. Systems hovering around their
+          <a href="/alarms.html">high runtime memory watermark</a> will have a high probability of false positives.
+          During upgrades and maintenance windows can raise significantly.
+        </p>
+
+        <p>
+
+          Specifically for memory alarms, the <code>GET /api/nodes/{node}/memory</code> HTTP API endpoint can be used for additional checks:
+
+<pre class="sourcecode bash">
+curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | python -m json.tool
+# => {
+# =>     "memory": {
+# =>         "connection_readers": 24100480,
+# =>         "connection_writers": 1452000,
+# =>         "connection_channels": 3924000,
+# =>         "connection_other": 79830276,
+# =>         "queue_procs": 17642024,
+# =>         "queue_slave_procs": 0,
+# =>         "plugins": 63119396,
+# =>         "other_proc": 18043684,
+# =>         "metrics": 7272108,
+# =>         "mgmt_db": 21422904,
+# =>         "mnesia": 1650072,
+# =>         "other_ets": 5368160,
+# =>         "binary": 4933624,
+# =>         "msg_index": 31632,
+# =>         "code": 24006696,
+# =>         "atom": 1172689,
+# =>         "other_system": 26788975,
+# =>         "allocated_unused": 82315584,
+# =>         "reserved_unallocated": 0,
+# =>         "strategy": "rss",
+# =>         "total": {
+# =>             "erlang": 300758720,
+# =>             "rss": 342409216,
+# =>             "allocated": 383074304
+# =>         }
+# =>     }
+# => }
+</pre>
+
+          The <a href="/memory-use.html">breakdown information</a> it produces can be reduced down to a single value using <a href="https://stedolan.github.io/jq/manual/">jq</a>
+          or similar tools:
+
+<pre class="sourcecode bash">
+curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | jq ".memory.total.allocated"
+# => 397365248
+</pre>
+
+          <code>rabbitmq-diagnostics -q memory_breakdown</code> provides access to the same per category data
+          and supports various units:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics -q memory_breakdown --unit "MB"
+# => connection_other: 50.18 mb (22.1%)
+# => allocated_unused: 43.7058 mb (19.25%)
+# => other_proc: 26.1082 mb (11.5%)
+# => other_system: 26.0714 mb (11.48%)
+# => connection_readers: 22.34 mb (9.84%)
+# => code: 20.4311 mb (9.0%)
+# => queue_procs: 17.687 mb (7.79%)
+# => other_ets: 4.3429 mb (1.91%)
+# => connection_writers: 4.068 mb (1.79%)
+# => connection_channels: 4.012 mb (1.77%)
+# => metrics: 3.3802 mb (1.49%)
+# => binary: 1.992 mb (0.88%)
+# => mnesia: 1.6292 mb (0.72%)
+# => atom: 1.0826 mb (0.48%)
+# => msg_index: 0.0317 mb (0.01%)
+# => plugins: 0.0119 mb (0.01%)
+# => queue_slave_procs: 0.0 mb (0.0%)
+# => mgmt_db: 0.0 mb (0.0%)
+# => reserved_unallocated: 0.0 mb (0.0%)
+</pre>
+        </p>
+
+        <h4>Stage 4</h4>
+        <p>
+          Includes all checks in stage 3 plus checks that there are no failed <a href="/vhosts.html">virtual hosts</a>.
+
+          RabbitMQ CLI tools currently do not provide a dedicated command for this check.
+
+          The probability of false positives is generally low except for systems that are under
+          high CPU load.
+        </p>
+
+        <h4>Stage 5</h4>
+        <p>
+          Includes all checks in stage 4 plus a check on all enabled listeners
+          (using a temporary TCP connection).
+
+          RabbitMQ CLI tools currently do not provide a dedicated command for this check.
+
+          The probability of false positives is generally low but during upgrades and
+          maintenance windows can raise significantly.
+        </p>
+
+        <h4>Stage 6</h4>
+        <p>
+          Includes all checks in stage 5 plus checks all channel and queue processes
+          on the target queue for aliveness.
+
+          <code>rabbitmqctl node_health_check</code> is the closest command
+          currently available to this check. The command includes all checks
+          up to and including stage 3 and checks all channel and queue processes
+          on the target queue for aliveness:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics -q node_health_check
+# => Health check passed
+</pre>
+
+          On Windows:
+
+<pre class="sourcecode bash">
+rabbitmq-diagnostics.bat -q node_health_check
+# => Health check passed
+</pre>
+
+          The probability of false positives is moderate for systems under
+          above average load or with a large number of queues and channels
+          (starting with 10s of thousands).
+        </p>
+
+        <h4>Optional Check 1</h4>
+        <p>
+          This check verifies that an expected set of plugins is enabled. It is orthogonal to
+          the primary checks.
+
+          <a href="/rabbitmq-plugins.8.html#list">rabbitmq-plugins list --enabled</a> is the command that lists enabled plugins
+          on a node:
+
+<pre class="sourcecode bash">
+rabbitmq-plugins -q list --enabled
+# => Configured: E = explicitly enabled; e = implicitly enabled
+# => | Status: * = running on rabbit@mercurio
+# => |/
+# => [E*] rabbitmq_auth_mechanism_ssl       3.7.10
+# => [E*] rabbitmq_consistent_hash_exchange 3.7.10
+# => [E*] rabbitmq_management               3.7.10
+# => [E*] rabbitmq_management_agent         3.7.10
+# => [E*] rabbitmq_shovel                   3.7.10
+# => [E*] rabbitmq_shovel_management        3.7.10
+# => [E*] rabbitmq_top                      3.7.10
+# => [E*] rabbitmq_tracing                  3.7.10
+</pre>
+
+          A health check that verifies that a specific plugin, <a href="/shovel.html"><code>rabbitmq_shovel</code></a>
+          is enabled and running:
+
+<pre class="sourcecode bash">
+rabbitmq-plugins -q list --enabled | grep -i "\brabbitmq_shovel\b" -q
+# if the check succeeded, exit code will be 0
+</pre>
+
+          The probability of false positives is generally low but raises
+          in environments where environment variables that can affect <a href="/cli.html">rabbitmq-plugins</a>
+          are overridden.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="monitoring-tools">
+      <doc:heading>Popular Monitoring Tools</doc:heading>
+      <p>
+        The following is an alphabetised list of third-party tools commonly used to collect RabbitMQ metrics. These
+        tools vary in capabilities but usually can collect both <a href="system-metrics">infrastructure-level</a> and <a href="#rabbitmq-metrics">RabbitMQ metrics</a>.
+        Note that this list is by no means complete.
       </p>
       <p>
         <table>
@@ -453,45 +851,6 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="app-metrics">
-      <doc:heading>Application-level Metrics</doc:heading>
-      <p>
-        A system that uses RabbitMQ, or any messaging-based system, is almost always distributed or can
-        be treated as such. In such systems it is often not immediately obvious which component
-        is problematic. Every single one of them, including applications, should be monitored and
-        investigated.
-      </p>
-      <p>
-       Some infrastructure-level and RabbitMQ metrics can demonstrate
-       presence of an unusual system behaviour or issue but can't pin
-       point the root cause. For example, it is easy to tell that a
-       node is running out of disk space but not always easy to tell why.
-       This is where application metrics come in: they can help identify
-       a run-away publisher, a repeatedly failing consumer, a consumer that cannot
-       keep up with the rate, even a downstream service that's experiencing a slowdown
-       (e.g. a missing index in a database used by the consumers).
-      </p>
-      <p>
-        Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. Spring AMQP)
-        provide means of registering metrics collectors or collect metrics out of the box.
-        With others developers have to track metrics in their application code.
-      </p>
-      <p>
-        What metrics applications track can be system-specific but some are relevant
-        to most systems:
-
-        <ul>
-          <li>Connection opening rate</li>
-          <li>Channel opening rate</li>
-          <li>Connection failure (recovery) rate</li>
-          <li>Publishing rate</li>
-          <li>Delivery rate</li>
-          <li>Positive delivery acknowledgement rate</li>
-          <li>Negative delivery acknowledgement rate</li>
-          <li>Mean/95th percentile delivery processing latency</li>
-        </ul>
-      </p>
-    </doc:section>
 
     <doc:section name="log-collection">
       <doc:heading>Log Aggregation</doc:heading>
