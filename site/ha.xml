@@ -88,12 +88,11 @@ limitations under the License.
         There are multiple terms commonly used to identify primary
         and secondary replicas in a distributed system. This guide
         typically uses "master" to refer to the primary replica of a
-        queue and "mirror" for secondary replicas.  However, you
-        will find "slave" used here and there. This is because
+        queue and "mirror" for secondary replicas.  However,
         RabbitMQ CLI tools historically have been using the term
-        "slave" to refer to secondaries. Therefore both terms are
-        currently used interchangeably but we'd like to eventually
-        get rid of the legacy terminology.
+        "slave" to refer to secondaries. Therefore that term still appears
+        in column names in CLI tools for backwards compatibility but will
+        eventually be replaced.
       </p>
     </doc:section>
 

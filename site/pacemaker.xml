@@ -219,7 +219,7 @@ ha-node-2:~#
 
         <p>The first <code>configure</code> command here creates a
         resource <i>drbd</i>. That is then incorporated into a
-        master+slave resource called <i>drbd_ms</i> in the second
+        resource called <i>drbd_ms</i> in the second
         <code>configure</code>. We then create a <i>drbd_fs</i>
         resource which knows how to mount the DRBD device. We can only
         mount the DRBD resource on the node which is the master, so we

@@ -269,8 +269,8 @@ all mirrored queue masters it holds have at least one synchronised queue mirror.
 RabbitMQ will not promote unsynchronised queue mirrors on controlled
 queue master shutdown when
 [default promotion settings](ha.html#promotion-while-down) are used.
-However if a queue master encounters any errors during shutdown, an unsynchronised
-queue slave might still be promoted. It is generally safier option to synchronise
+However if a queue master encounters any errors during shutdown, an [unsynchronised queue mirror](/ha.html#unsynchronised-mirrors)
+might still be promoted. It is generally safer option to synchronise
 a queue first.
 
 This can be verified by listing queues in the management UI or using `rabbitmqctl`:
