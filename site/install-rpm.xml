@@ -196,23 +196,24 @@ yum install erlang
       <doc:subsection name="install-from-suse-repository">
         <doc:heading>Erlang packages from openSUSE</doc:heading>
         <p>
-          Install Erlang directly using zypper as root:
+          Install Erlang using zypper:
 <pre class="sourcecode bash">
-zypper in erlang
+sudo zypper in erlang
 </pre>
 
-          The version may be out-of-date, add the openSUSE 
-          factory <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/"> repositories</a> 
-          to get the last version. For example for leap 15:
+          Erlang versions distributed on the standard repositories are stable and meant for production uses. 
+          However, if you want to use the last version with the newest features you have to add the 
+          Factory <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/"> repositories.</a>
+          For example for leap 15:
 <pre class="sourcecode bash">
 # add the openSUSE erlang factory repository for leap 15
-zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+sudo zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
 
 # import the key and refresh the repository
-zypper --gpg-auto-import-keys refresh
+sudo zypper --gpg-auto-import-keys refresh
 
 # install the last erlang version
-zypper in erlang
+sudo zypper in erlang
 </pre>         
         </p>
       </doc:subsection>
