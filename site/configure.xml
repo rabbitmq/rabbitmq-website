@@ -42,7 +42,7 @@ limitations under the License.
           <li><a href="#configuration-files">Configuration file(s)</a></li>
           <li><a href="#customise-environment">Environment variables</a></li>
           <li>Available <a href="#config-items">core server settings</a></li>
-          <li>Available <a href="#define-environment-variables">environment variables</a></li>
+          <li>Available <a href="#supported-environment-variables">environment variables</a></li>
           <li>How to <a href="#configuration-encryption">encrypt sensitive configuration values</a></li>
           <li>
             Troubleshooting: how to <a href="#verify-configuration-effective-configuration">verify config file location</a> and
@@ -1300,7 +1300,7 @@ ADVANCED_CONFIG_FILE=/etc/rabbitmq/advanced.config
       </doc:section>
 
 
-      <doc:section name="define-environment-variables">
+      <doc:section name="supported-environment-variables">
         <doc:heading>RabbitMQ Environment Variables</doc:heading>
         <p>
           All environment variables used by RabbitMQ use the

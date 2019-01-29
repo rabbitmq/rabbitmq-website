@@ -117,7 +117,7 @@ limitations under the License.
             standard OS hostname resolution methods.
           </p>
           <p>
-            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#define-environment-variables">Configuration guide</a>.
+            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#supported-environment-variables">Configuration guide</a>.
           </p>
         </doc:subsection>
 
@@ -865,7 +865,7 @@ rabbitmqctl start_app
             used by plugins. See <code>RABBITMQ_NODENAME</code>,
             <code>RABBITMQ_NODE_PORT</code>, and
             <code>RABBITMQ_DIST_PORT</code> in the <a
-            href="/configure.html#define-environment-variables">Configuration
+            href="/configure.html#supported-environment-variables">Configuration
             guide</a>, as well as <code>RABBITMQ_MNESIA_DIR</code>,
             <code>RABBITMQ_CONFIG_FILE</code>, and
             <code>RABBITMQ_LOG_BASE</code> in the <a

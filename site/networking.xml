@@ -272,14 +272,25 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         The range used by RabbitMQ can also be controlled via two configuration keys:
 
         <ul>
-          <li><code>kernel.inet_dist_listen_min</code></li>
-          <li><code>kernel.inet_dist_listen_max</code></li>
+          <li>
+            <code>inet_dist_listen_min</code> (<code>kernel.inet_dist_listen_min</code> in the classic config format)
+          </li>
+          <li>
+            <code>inet_dist_listen_min</code> (<code>kernel.inet_dist_listen_max</code> in the classic config format)
+          </li>
         </ul>
 
         They define the range's lower and upper bounds, inclusive.
       </p>
       <p>
         The example below uses a range with a single port but a value different from default:
+
+<pre class="sourcecode erlang">
+inet_dist_listen_min = 33672
+inet_dist_listen_max = 33672
+</pre>
+
+        In the classic config format:
 
 <pre class="sourcecode erlang">
 [
@@ -318,6 +329,23 @@ name rabbit at port 25672
         See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
         man page</a> to learn more about <code>epmd</code>.
       </p>
+
+
+      <doc:subsection name="distribution-port-buffer-limit">
+        <doc:heading>Inter-node Communication Buffer Size Limit</doc:heading>
+        <p>
+          Inter-node connections use a buffer for data pending to be sent. Temporary
+          throttling on inter-node traffic is applied when the buffer is at max allowed
+          capacity. The limit is controlled via the <code>RABBITMQ_DISTRIBUTION_BUFFER_SIZE</code>
+          <a href="/configure.html#supported-environment-variables">environment variable</a>
+          in kilobytes. Default value is 128 MB (<code>128000</code> kB).
+        </p>
+        <p>
+          In clusters with heavy inter-node traffic increasing this value may
+          have a positive effect on throughput. Values lower than 64 MB are not
+          recommended.
+        </p>
+      </doc:subsection>
     </doc:section>
 
 
