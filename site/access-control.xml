@@ -483,8 +483,8 @@ auth_http.topic_path = http://my-authenticator-app/auth/topic
 </pre>
 
           <p>
-            The following example configures RabbitMQ to use internal
-            database for authentication and <a
+            The following example configures RabbitMQ to use the internal
+            database for authentication and the <a
             href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
             IP range backend</a> for authorisation:
           </p>
@@ -508,8 +508,8 @@ auth_backends.1.authz = rabbit_auth_backend_ip_range
 
 
       <p>
-        The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
-        for authentication and internal backend for authorisation:
+        The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
+        for authentication and the internal backend for authorisation:
       </p>
 
 <pre class="sourcecode ini">
