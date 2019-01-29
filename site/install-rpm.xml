@@ -142,6 +142,9 @@ limitations under the License.
           most official packages but tend to be out of date.
           The packages are split into many small pieces.
         </li>
+        <li>
+          <a href="https://www.opensuse.org/">openSUSE</a> produces Erlang packages for each distribution (openSUSE and SLES)
+        </li>
       </ul>
 
       <doc:subsection name="install-zero-dependency-rpm">
@@ -155,6 +158,34 @@ limitations under the License.
         <p>
           As the name suggests, the package strips off some Erlang modules and dependencies
           that are not essential for running RabbitMQ.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="install-from-suse-repository">
+        <doc:heading>Erlang packages from openSUSE</doc:heading>
+        <p>
+          openSUSE package repositories provide Erlang so it can be installed using Zypper:
+
+<pre class="sourcecode bash">
+sudo zypper in erlang
+</pre>
+
+          Erlang versions available in the standard repositories will in practice be behind the most recent version.
+          To use the last version with the newest features, add the
+          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>.
+
+          For example, for openSUSE Leap 15:
+
+<pre class="sourcecode bash">
+# add the openSUSE erlang factory repository for leap 15
+sudo zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+
+# import the signing key and refresh the repository
+sudo zypper --gpg-auto-import-keys refresh
+
+# install a recent Erlang version
+sudo zypper in erlang
+</pre>
         </p>
       </doc:subsection>
 
