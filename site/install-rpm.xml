@@ -142,6 +142,9 @@ limitations under the License.
           most official packages but tend to be out of date.
           The packages are split into many small pieces.
         </li>
+        <li>
+          <a href="https://www.opensuse.org/">openSUSE</a> produces Erlang packages for each distribution (openSUSE and SLES) 
+        </li> 
       </ul>
 
       <doc:subsection name="install-zero-dependency-rpm">
@@ -190,6 +193,29 @@ yum install erlang
         </p>
       </doc:subsection>
 
+      <doc:subsection name="install-from-suse-repository">
+        <doc:heading>Erlang packages from openSUSE</doc:heading>
+        <p>
+          Install Erlang directly using zypper as root:
+<pre class="sourcecode bash">
+zypper in erlang
+</pre>
+
+          The version may be out-of-date, add the openSUSE 
+          factory <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/"> repositories</a> 
+          to get the last version. For example for leap 15:
+<pre class="sourcecode bash">
+# add the openSUSE erlang factory repository for leap 15
+zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+
+# import the key and refresh the repository
+zypper --gpg-auto-import-keys refresh
+
+# install the last erlang version
+zypper in erlang
+</pre>         
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="rpm-version-locking">
         <doc:heading>Package Version Locking in Yum</doc:heading>
