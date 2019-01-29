@@ -509,7 +509,7 @@ auth_backends.1.authz = rabbit_auth_backend_ip_range
 
       <p>
         The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
-        for authentication and but internal backend for authorisation:
+        for authentication and internal backend for authorisation:
       </p>
 
 <pre class="sourcecode ini">
