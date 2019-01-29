@@ -1348,6 +1348,18 @@ ADVANCED_CONFIG_FILE=/etc/rabbitmq/advanced.config
             </tr>
 
             <tr>
+              <td>RABBITMQ_DISTRIBUTION_BUFFER_SIZE</td>
+              <td>128000</td>
+              <td>
+                <a href="https://erlang.org/doc/man/erl.html#+zdbbl">Outgoing data buffer size limit</a>
+                to use for inter-node communication connections, in kilobytes. Values lower than
+                64 MB are not recommended.
+              </td>
+            </tr>
+
+RABBITMQ_DISTRIBUTION_BUFFER_SIZE
+
+            <tr>
               <td>RABBITMQ_NODENAME</td>
               <td>
                 <ul>
