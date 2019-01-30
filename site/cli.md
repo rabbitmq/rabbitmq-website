@@ -19,19 +19,19 @@ limitations under the License.
 
 RabbitMQ comes with multiple command line tools:
 
- * [rabbitmqctl](/rabbitmqctl.8.html) for general administrative/operator tasks
- * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for plugin management
+ * [rabbitmqctl](/rabbitmqctl.8.html) for service management and general operator tasks
+  * `rabbitmq-diagnostics` for diagnostics and [health checking](/monitoring.html)
+ * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
  * [rabbitmqadmin](/management-cli.html) for operator tasks over [HTTP API](/management.html)
- * `rabbitmq-diagnostics` for diagnostics data collection 
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
 including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
-Most RabbitMQ tools use a shared secret (Erlang cookie) authentication mechanism. This
-implies that [inter-node and CLI communication ports](/networking.html) (by default) must be open
-for external connections on the target node.
+With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
+This requires that [inter-node and CLI communication ports](/networking.html) (by default)
+is open for external connections on the target node.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
