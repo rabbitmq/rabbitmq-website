@@ -267,9 +267,9 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
         event. They are
 
         <ul>
-          <li><code>x-original-death-reason</code></li>
-          <li><code>x-original-death-queue</code></li>
-          <li><code>x-original-death-exchange</code></li>
+          <li><code>x-first-death-reason</code></li>
+          <li><code>x-first-death-queue</code></li>
+          <li><code>x-first-death-exchange</code></li>
         </ul>
 
         They have the same values as the <code>reason</code>, <code>queue</code>,
