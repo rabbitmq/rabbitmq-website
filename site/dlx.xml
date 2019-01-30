@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
 Copyright (c) 2007-2019 Pivotal Software, Inc.
@@ -18,41 +17,46 @@ limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Dead Letter Exchanges</title>
   </head>
   <body>
-    <p>
-      Messages from a queue can be 'dead-lettered'; that is, republished to
-      another exchange when any of the following events occur:
-      <ul>
-        <li>The message is rejected (<code>basic.reject</code> or
-          <code>basic.nack</code>) with <code>requeue=false</code>,</li>
-        <li>The TTL for the message expires; or</li>
-        <li>The queue length limit is exceeded.</li>
-      </ul>
-    </p>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+      <p>
+        Messages from a queue can be "dead-lettered"; that is, republished to
+        an exchange when any of the following events occur:
 
-    <p>
-      Dead letter exchanges (DLXs) are normal exchanges.  They can be
-      any of the usual types and are declared as usual.
-    </p>
+        <ul>
+          <li>The message is <a href="/confirms.html">negatively acknowledged</a> by a consumer using <code>basic.reject</code> or
+            <code>basic.nack</code> with <code>requeue</code> parameter set to <code>false</code></li>
+          <li>The message expires due to <a href="/ttl.html">TTL</a>; or</li>
+          <li>The message is dropped because its queue exceeded a <a href="/maxlength.html">length limit</a></li>
+        </ul>
+      </p>
 
-    <p>
-      For any given queue, a DLX can be defined by clients using the
-      <a href="/queues.html#optional-arguments">queue's arguments</a>, or in the server
-      using <a href="parameters.html#policies">policies</a>. In the
-      case where both policy and arguments specify a DLX, the one
-      specified in arguments overrules the one specified in policy.
-    </p>
+      <p>
+        Dead letter exchanges (DLXs) are normal exchanges. They can be
+        any of the usual types and are declared as usual.
+      </p>
 
-    <p>
-      Configuration using policies is recommended as it allows for DLX
-      reconfiguration that does not involve application redeployment.
-    </p>
+      <p>
+        For any given queue, a DLX can be defined by clients using the
+        <a href="/queues.html#optional-arguments">queue's arguments</a>, or in the server
+        using <a href="parameters.html#policies">policies</a>. In the
+        case where both policy and arguments specify a DLX, the one
+        specified in arguments overrules the one specified in policy.
+      </p>
 
-    <doc:section>
+      <p>
+        Configuration using policies is recommended as it allows for DLX
+        reconfiguration that does not involve application redeployment.
+      </p>
+    </doc:section>
+
+    <doc:section name="using-policies">
       <doc:heading>Configuration Using a Policy</doc:heading>
 
       <p>
@@ -91,7 +95,7 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section>
+    <doc:section name="using-optional-queue-arguments">
       <doc:heading>Configuration Using Optional Queue Arguments</doc:heading>
       <p>
         To set the dead letter exchange for a queue, specify
@@ -137,7 +141,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
       </p>
     </doc:section>
 
-    <doc:section>
+    <doc:section name="routing">
       <doc:heading>Routing Dead-Lettered Messages</doc:heading>
       <p>
         Dead-lettered messages are routed to their dead letter
@@ -191,8 +195,9 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
         dropped <em>if there was no rejections in the entire cycle</em>.
       </p>
     </doc:section>
-    <doc:section>
-      <doc:heading>Dead-Lettered Messages</doc:heading>
+
+    <doc:section name="effects">
+      <doc:heading>Dead-Lettered Effects on Messages</doc:heading>
       <p>
         Dead-lettering a message modifies its headers:
         <ul>
@@ -256,6 +261,20 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
           <li><code>maxlen</code> - the maximum allowed queue
             length was exceeded.</li>
         </ul>
+      </p>
+      <p>
+        Three top-level headers are added for the very first dead-lettering
+        event. They are
+
+        <ul>
+          <li><code>x-original-death-reason</code></li>
+          <li><code>x-original-death-queue</code></li>
+          <li><code>x-original-death-exchange</code></li>
+        </ul>
+
+        They have the same values as the <code>reason</code>, <code>queue</code>,
+        and <code>exchange</code> fields of the original dead lettering event.
+        Once added, these headers are never modified.
       </p>
       <p>
         Note that the array is sorted most-recent-first, so the
