@@ -4,8 +4,8 @@
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -126,7 +126,7 @@ channel.basicConsume(queue, consumer);</pre>
           For example, the <code>server-properties</code> presented by
           the RabbitMQ broker to a client may look like:
 
-          <pre class="sourcecode haskell">
+<pre class="sourcecode haskell">
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
   "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
@@ -135,7 +135,8 @@ channel.basicConsume(queue, consumer);</pre>
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
                                "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "2.4.0" }</pre>
+  "version"      = (longstr) "3.7.10" }
+</pre>
         </p>
 
         <p>
