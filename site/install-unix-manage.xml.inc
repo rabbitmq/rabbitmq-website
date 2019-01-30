@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -58,7 +58,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.9. Copyright (C) 2007-2018 Pivotal Software, Inc.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

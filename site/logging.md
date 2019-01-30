@@ -572,7 +572,7 @@ The output of <code>journalctl --system</code> will look similar to this:
 
 <pre class="sourcecode">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (C) 2007-2018 Pivotal Software, Inc.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

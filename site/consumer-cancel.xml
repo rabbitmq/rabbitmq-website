@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
@@ -130,7 +130,7 @@ channel.basicConsume(queue, consumer);</pre>
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
   "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (C) 2007-2016 Pivotal Software, Inc.",
+  "copyright"    = (longstr) "Copyright (c) 2007-2019 Pivotal Software, Inc.",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
