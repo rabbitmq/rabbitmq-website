@@ -60,7 +60,7 @@ limitations under the License.
             <a href="#app-metrics">Application-level metrics</a>
           </li>
           <li>
-            How to check a <a href="#healch_checks">node's health</a> and why it's more involved than a single
+            How to check a <a href="#health-checks">node's health</a> and why it's more involved than a single
             CLI command.
           </li>
         </ul>
