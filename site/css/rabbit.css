@@ -393,7 +393,7 @@ pre span.code, pre.code, pre.example, span.code, span.path, i.Pa {
   font-family: monospace;
   font-size: medium;
   padding: 4px;
-  border-radius: 5px;
+  border-radius: 4px;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
@@ -447,27 +447,32 @@ span.code.Fl {
 
 span.code.Li {
   color: white;
-  font-family: "Courier New", Courier, monospace;
-  font-size: small;
+  background: none;
+  font-family: monospace;
+  font-size: medium;
   white-space: normal;
 }
 
 pre.Li {
   color: white;
-  font-family: "Courier New", Courier, monospace;
+  font-family: monospace;
   font-size: small;
   white-space: normal;
 }
 
 span.Pa {
-  font-family: "Courier New", Courier, monospace;
+  font-family: monospace;
   font-size: small;
 }
 
 var.Ar {
-  color: #333;
-  font-family: "Courier New", Courier, monospace;
-  font-size: small;
+  color: white;
+  background: #EE7600;
+  font-family: monospace;
+  font-size: medium;
+  font-weight: bold;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 span.path, i.Pa {
@@ -476,11 +481,11 @@ span.path, i.Pa {
 
 /* END: used in manpages */
 
-.sourcecode i {
+.hljs i {
   color: darkred;
 }
 
-.sourcecode b {
+.hljs b {
   color: darkcyan;
 }
 

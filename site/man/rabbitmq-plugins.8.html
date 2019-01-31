@@ -54,7 +54,7 @@ The <code class="Cm" title="Cm">enable</code>,
   <dt><a class="permalink" href="#n"><code class="Fl" title="Fl" id="n">-n</code></a>
     <var class="Ar" title="Ar">node</var></dt>
   <dd>Default node is
-      &#x201C;rabbit@<var class="Ar" title="Ar">target-hostname</var>&#x201D;,
+      &#x201C;<var class="Ar" title="Ar">rabbit@target-hostname</var>&#x201D;,
       where <var class="Ar" title="Ar">target-hostname</var> is the local host.
       On a host named &#x201C;myserver.example.com&#x201D;, the node name will
       usually be &#x201C;rabbit@myserver&#x201D; (unless
@@ -140,22 +140,22 @@ The <code class="Cm" title="Cm">enable</code>,
     <div class="Pp"></div>
     For example, this command lists all plugins, on one line each
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins
       list</code></div>
     <div class="Pp"></div>
     This command lists all plugins:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list
       -v</code></div>
     <div class="Pp"></div>
     This command lists all plugins whose name contains &quot;management&quot;.
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -v
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list -v
       management</code></div>
     <div class="Pp"></div>
     This command lists all implicitly or explicitly enabled RabbitMQ plugins.
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -e
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list -e
       rabbit</code></div>
   </dd>
   <dt><a class="permalink" href="#enable"><code class="Cm" title="Cm" id="enable">enable</code></a>
@@ -178,7 +178,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command enables the &#x201C;shovel&#x201D; and
       &#x201C;management&#x201D; plugins and all their dependencies:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins enable
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins enable
       rabbitmq_shovel rabbitmq_management</code></div>
   </dd>
   <dt><a class="permalink" href="#disable"><code class="Cm" title="Cm" id="disable">disable</code></a>
@@ -201,7 +201,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command disables &#x201C;rabbitmq_management&#x201D; and
       all plugins that depend on it:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins disable
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins disable
       rabbitmq_management</code></div>
   </dd>
   <dt><a class="permalink" href="#set"><code class="Cm" title="Cm" id="set">set</code></a>
@@ -228,7 +228,7 @@ The <code class="Cm" title="Cm">enable</code>,
     For example, this command enables the &#x201C;management&#x201D; plugin and
       its dependencies and disables everything else:
     <div class="Pp"></div>
-    <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">rabbitmq-plugins set
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins set
       rabbitmq_management</code></div>
   </dd>
 </dl>

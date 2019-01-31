@@ -140,7 +140,7 @@ limitations under the License.
                              pre.lang-java, pre.lang-csharp, pre.lang-xml, pre.lang-haskell,\
                              pre.lang-groovy, pre.lang-json, pre.lang-javascript,\
                              pre.lang-go, pre.lang-php, pre.lang-objectivec, pre.lang-swift,\
-                             pre.lang-ruby, pre.lang-python";
+                             pre.lang-ruby, pre.lang-python, div.lang-bash";
           document.querySelectorAll(selectors).forEach(function(el) {
             hljs.highlightBlock(el);
           });
