@@ -19,10 +19,10 @@ limitations under the License.
 
 RabbitMQ comes with multiple command line tools:
 
- * [rabbitmqctl](/rabbitmqctl.8.html) for service management and general operator tasks
+ * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
   * `rabbitmq-diagnostics` for diagnostics and [health checking](/monitoring.html)
- * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
- * [rabbitmqadmin](/management-cli.html) for operator tasks over [HTTP API](/management.html)
+ * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
+ * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
@@ -35,6 +35,8 @@ is open for external connections on the target node.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
+
+`rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support [command aliases](#aliases).
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
@@ -146,7 +148,7 @@ will be created in by the RabbitMQ service.
 As an alternative, you can add the option "`-setcookie <i>value</i>`"
 in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>:
 
-<pre class="lang-ini">
+<pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
@@ -191,7 +193,6 @@ rabbit@warp10:
 
   * Authentication failed (rejected by the remote node), please check the Erlang cookie
 
-
 current node details:
 - node name: 'rabbitmq-cli-63@warp10'
 - home dir: /home/username
@@ -217,7 +218,7 @@ Other reasons include a hostname mismatch in node name used by the target Rabbit
 to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
 as its name but `rabbitmqctl` is invoked as
 
-<pre class="lang-ini">
+<pre class="lang-bash">
 rabbitmqctl status -n rabbit@rmq-dev.eng.megacorp.local
 </pre>
 
@@ -248,9 +249,9 @@ current node details:
 
 Just like with any network connection, CLI-to-node connections can fail due to
 
- * Hostname resolution issues
- * IP routing issues
- * TCP port access (firewalls, etc) issues
+ * Hostname resolution failures
+ * Incorrect IP routing
+ * TCP port access blocked (firewalls, etc)
 
 and so on.
 
@@ -269,7 +270,7 @@ The tool requires Python 2.7.9 or a more recent version.
 downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-management/blob/stable/bin/rabbitmqadmin).
 
 
-## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Cluster-wide" Commands</a>
+## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Clusterwide" Commands</a>
 
 Client connections, channels and queues will be distributed across cluster nodes.
 Operators need to be able to inspect and [monitor](/monitoring.html) such resources
@@ -298,3 +299,85 @@ opened), two CLI commands executed against two different
 nodes one after another will produce identical or
 semantically identical results. "Node-local" commands, however, likely will not produce
 identical results since two nodes rarely have entirely identical state.
+
+
+## <a id="aliases" class="anchor" href="#aliases">Command Aliases</a>
+
+`rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support command aliases. Aliases provide
+a way to define abbreviated versions of certain commands and their arguments. For example,
+instead of typing `rabbitmqctl environment` it may be more convenient to define an alias,
+`rabbitmqctl env`, that would expand to `rabbitmqctl environment`.
+
+Aliases are loaded from a file specified via the `RABBITMQ_CLI_ALIASES_FILE` environment
+variable:
+
+<pre class="lang-bash">
+export RABBITMQ_CLI_ALIASES_FILE=/path/to/cli_aliases.conf
+</pre>
+
+The aliases file uses a vary minimalistic ini-style `alias = command` format, for
+example:
+
+<pre class="lang-ini">
+env = environment
+st  = status --quiet
+
+lp  = list_parameters --quiet
+lq  = list_queues --quiet
+lu  = list_users --quiet
+
+cs  = cipher_suites --openssl-format --quiet
+</pre>
+
+With this alias file in place it will be possible to use
+
+<pre class="lang-bash">
+rabbitmqctl env
+</pre>
+
+which would expand to
+
+<pre class="lang-bash">
+rabbitmqctl environment
+</pre>
+
+or
+
+<pre class="lang-bash">
+rabbitmqctl lq
+</pre>
+
+which would expand to
+
+<pre class="lang-bash">
+rabbitmqctl list_queues --quiet
+</pre>
+
+The last alias in the example above configures a `rabbitmq-diagnostics` command:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics cs
+</pre>
+
+would expand to
+
+<pre class="lang-bash">
+rabbitmq-diagnostics cipher_suites --openssl-format --quiet
+</pre>
+
+All tools process aliases the same way. As long as the expanded command is recognized,
+aliases can be used with any tool or even more than one. For example,
+both `rabbitmqctl` and `rabbitmq-diagnostics` both provide the `environment` command
+so the `env` alias works for both of them exactly the same way:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics env
+</pre>
+
+would expand to
+
+<pre class="lang-bash">
+rabbitmq-diagnostics environment
+</pre>
+
+The file will be consulted only if the command invoked is not provided by the tool.
