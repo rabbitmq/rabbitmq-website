@@ -49,7 +49,21 @@ limitations under the License.
         management plugin as either <code>blocking</code>, meaning they
         have not attempted to publish and can thus continue or
         <code>blocked</code>, meaning they have published and are now
-        paused.
+        paused. Compatible clients will be <a href="#client-notifications">notified</a>
+        when they are blocked.
+      </p>
+
+      <p>
+        Connections that only consume are not blocked by resource alarms; deliveries
+        to them continue as usual.
+      </p>
+    </doc:section>
+
+    <doc:section name="client-notifications">
+      <doc:heading>Client Notifications</doc:heading>
+      <p>
+        Modern client libraries should support <a href="/connection-blocked.html">connection.blocked notification</a>
+        (a protocol extension), so applications can monitor when they are blocked.
       </p>
     </doc:section>
 
