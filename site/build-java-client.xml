@@ -31,7 +31,7 @@ limitations under the License.
 
 
 	  <p>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-	  <pre class="sourcecode bash">
+	  <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
 git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 	  </p>
@@ -87,7 +87,7 @@ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 		the same directory. Change to
 		the <code>rabbitmq-java-client</code> directory and launch
 		the build:
-		<pre class="sourcecode bash">
+		<pre class="lang-bash">
 cd rabbitmq-java-client
 ./mvnw clean package -Ddeps.dir=../ -DskipTests</pre>
 		The generated JAR file will be in <code>target</code>.

@@ -140,7 +140,7 @@ The code is almost the same as in the
 
 The code for `emitLogTopic`:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 func emitLogTopic(_ msg: String, routingKey: String) {
     let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
     conn.start()
@@ -154,7 +154,7 @@ func emitLogTopic(_ msg: String, routingKey: String) {
 
 The code for `receiveLogsTopic`:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 func receiveLogsTopic(_ routingKeys: [Any]) {
     let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
     conn.start()
@@ -174,31 +174,31 @@ func receiveLogsTopic(_ routingKeys: [Any]) {
 
 To receive all the logs:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 self.receiveLogsTopic(["#"])
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 self.receiveLogsTopic(["kern.*"])
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 self.receiveLogsTopic(["*.critical"])
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 self.receiveLogsTopic(["kern.*", "*.critical"])
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 self.emitLogTopic("A critical kernel error", routingKey: "kern.critical")
 </pre>
 

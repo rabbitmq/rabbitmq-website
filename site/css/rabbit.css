@@ -381,24 +381,27 @@ div.nav-separator {
   margin-left: 0em;
 }
 
-pre span.code, pre.code, pre.example, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
+pre span.code, pre.code, pre.example, .docSection div.cmdsynopsis {
   background: #eee;
   padding: 5px;
   border: 1px solid #ddd;
 }
 
-pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path, i.Pa {
-  color: #333;
-  font-family: "Courier New", Courier, monospace;
-  font-size: small;
+pre span.code, pre.code, pre.example, span.code, span.path, i.Pa {
+  color: white;
+  background: #787878;
+  font-family: monospace;
+  font-size: medium;
+  padding: 4px;
+  border-radius: 5px;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
 
-pre.sourcecode {
+pre.hljs {
   font-size: medium;
+  word-wrap: break-word;
   white-space: pre-wrap;
-  word-break: break-word;
 }
 
 span.code {
@@ -467,16 +470,11 @@ var.Ar {
   font-size: small;
 }
 
-/* END: used in manpages */
-
-span.envvar, span.Ev {
-  color: black;
-  /*white-space: nowrap;*/
-}
 span.path, i.Pa {
   font-style: normal;
-  /*white-space: nowrap;*/
 }
+
+/* END: used in manpages */
 
 .sourcecode i {
   color: darkred;

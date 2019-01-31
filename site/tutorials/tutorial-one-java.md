@@ -74,7 +74,7 @@ In
 [`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
 we need some classes imported:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
@@ -82,7 +82,7 @@ import com.rabbitmq.client.Channel;
 
 Set up the class and name the queue:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 public class Send {
   private final static String QUEUE_NAME = "hello";
   public static void main(String[] argv) throws Exception {
@@ -93,7 +93,7 @@ public class Send {
 
 then we can create a connection to the server:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost("localhost");
 try (Connection connection = factory.newConnection();
@@ -116,7 +116,7 @@ This way we don't need to close them explicitly in our code.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue, all of this in the try-with-resources statement:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 String message = "Hello World!";
 channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
@@ -154,7 +154,7 @@ keep it running to listen for messages and print them out.
 
 The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -168,7 +168,7 @@ Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 public class Recv {
 
   private final static String QUEUE_NAME = "hello";
@@ -202,7 +202,7 @@ queue. Since it will push us messages asynchronously, we provide a
 callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what a `DeliverCallback` subclass does.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 DeliverCallback deliverCallback = (consumerTag, delivery) -> {
     String message = new String(delivery.getBody(), "UTF-8");
     System.out.println(" [x] Received '" + message + "'");
@@ -218,20 +218,20 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)
 You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 javac -cp amqp-client-5.5.1.jar Send.java Recv.java
 </pre>
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the consumer (receiver):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp .:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar Recv
 </pre>
 
 then, run the publisher (sender):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp .:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar Send
 </pre>
 
@@ -246,12 +246,12 @@ the publisher from another terminal.
 > You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues
 > </pre>
 >
 > On Windows, omit the sudo:
-> <pre class="sourcecode powershell">
+> <pre class="lang-powershell">
 > rabbitmqctl.bat list_queues
 > </pre>
 
@@ -261,13 +261,13 @@ Time to move on to [part 2](tutorial-two-java.html) and build a simple _work que
 > #### Hint
 > To save typing, you can set an environment variable for the classpath e.g.
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > export CP=.:amqp-client-5.5.1.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar
 > java -cp $CP Send
 > </pre>
 >
 > or on Windows:
-> <pre class="sourcecode powershell">
+> <pre class="lang-powershell">
 > set CP=.;amqp-client-5.5.1.jar;slf4j-api-1.7.25.jar;slf4j-simple-1.7.25.jar
 > java -cp %CP% Send
 > </pre>

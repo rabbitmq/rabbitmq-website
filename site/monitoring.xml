@@ -573,14 +573,14 @@ limitations under the License.
 
           <code>rabbitmq-diagnostics ping</code> performs this check:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics ping -q
 # => Ping succeeded
 </pre>
 
           On Windows:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics.bat -q ping
 </pre>
         </p>
@@ -595,14 +595,14 @@ rabbitmq-diagnostics.bat -q ping
           system information which is useful for other checks and should always be
           available if RabbitMQ is running on the node (see below).
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics -q status
 # => [output elided for brevity]
 </pre>
 
           On Windows:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics.bat -q status
 # => [output elided for brevity]
 </pre>
@@ -619,7 +619,7 @@ rabbitmq-diagnostics.bat -q status
           or the <a href="/partitions.html">Pause Minority partition handling strategy</a>)
           and there are no resource alarms:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'rabbit_alarm:get_alarms() =:= [].' | grep -q "true" &amp; \
 rabbitmq-diagnostics status -q | grep -A 30 "running_applications" | grep -q "rabbit,\"RabbitMQ\""
 # if the check succeeded, exit code will be 0
@@ -634,7 +634,7 @@ rabbitmq-diagnostics status -q | grep -A 30 "running_applications" | grep -q "ra
 
           Specifically for memory alarms, the <code>GET /api/nodes/{node}/memory</code> HTTP API endpoint can be used for additional checks:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | python -m json.tool
 # => {
 # =>     "memory": {
@@ -670,7 +670,7 @@ curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@host
           The <a href="/memory-use.html">breakdown information</a> it produces can be reduced down to a single value using <a href="https://stedolan.github.io/jq/manual/">jq</a>
           or similar tools:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@hostname/memory | jq ".memory.total.allocated"
 # => 397365248
 </pre>
@@ -678,7 +678,7 @@ curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@host
           <code>rabbitmq-diagnostics -q memory_breakdown</code> provides access to the same per category data
           and supports various units:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics -q memory_breakdown --unit "MB"
 # => connection_other: 50.18 mb (22.1%)
 # => allocated_unused: 43.7058 mb (19.25%)
@@ -733,14 +733,14 @@ rabbitmq-diagnostics -q memory_breakdown --unit "MB"
           up to and including stage 3 and checks all channel and queue processes
           on the target queue for aliveness:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics -q node_health_check
 # => Health check passed
 </pre>
 
           On Windows:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics.bat -q node_health_check
 # => Health check passed
 </pre>
@@ -758,7 +758,7 @@ rabbitmq-diagnostics.bat -q node_health_check
           <a href="/rabbitmq-plugins.8.html#list">rabbitmq-plugins list --enabled</a> is the command that lists enabled plugins
           on a node:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins -q list --enabled
 # => Configured: E = explicitly enabled; e = implicitly enabled
 # => | Status: * = running on rabbit@mercurio
@@ -776,7 +776,7 @@ rabbitmq-plugins -q list --enabled
           A health check that verifies that a specific plugin, <a href="/shovel.html"><code>rabbitmq_shovel</code></a>
           is enabled and running:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins -q list --enabled | grep -i "\brabbitmq_shovel\b" -q
 # if the check succeeded, exit code will be 0
 </pre>

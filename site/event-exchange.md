@@ -52,7 +52,7 @@ gets published, don't allow them access.
 
 The plugin requires no configuration, just activate it:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_event_exchange
 </pre>
 

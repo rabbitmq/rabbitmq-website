@@ -257,7 +257,7 @@ The following commands can be used to verify whether a node is experience the ab
 An affected node will not respond to CLI connections in a reasonable amount of time
 when performing the following basic commands:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl status
 rabbitmqctl eval "ok."
 </pre>
@@ -275,7 +275,7 @@ a queue first.
 
 This can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 # For queues with non-empty `slave_pids`, you must have at least one
 # `synchronised_slave_pids`.
 rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
@@ -299,7 +299,7 @@ A rolling upgrade of three nodes with two mirrors will also cause all queue mast
 You can move a queue master for a queue using a temporary [policy](/parameters.html) with
 `ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
 The policy can be created via management UI or rabbitmqctl command:
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queue&gt;$;' '{"ha-mode":"nodes", "ha-params":["&lt;new-master-node&gt;"]}'
 rabbitmqctl clear_policy move-my-queue
 </pre>

@@ -98,7 +98,7 @@ plugin, you need to enable the plugin in order to use it.
 
 Enable the plugin using the `rabbitmq-plugins` command:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 </pre>
 
@@ -125,7 +125,7 @@ framework like Spring.
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;Resource name="jms/ConnectionFactory"
             type="javax.jms.ConnectionFactory"
          factory="com.rabbitmq.jms.admin.RMQObjectFactory"
@@ -138,7 +138,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client 1.7.0):
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;object-factory name=&quot;java:global/jms/ConnectionFactory&quot;
                    module=&quot;org.jboss.genericjms.provider&quot;
                    class=&quot;com.rabbitmq.jms.admin.RMQObjectFactory&quot;&gt;
@@ -155,7 +155,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
 
 Here is the equivalent Spring bean example (Java configuration):
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public ConnectionFactory jmsConnectionFactory() {
   RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
@@ -170,7 +170,7 @@ public ConnectionFactory jmsConnectionFactory() {
 
 And here is the Spring XML configuration:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
   &lt;property name="username" value="guest" /&gt;
   &lt;property name="password" value="guest" /&gt;
@@ -245,7 +245,7 @@ The `com.rabbitmq.jms.admin` package contains the `RMQDestination` class,
 which implements `Destination` in the JMS interface. This is extended
 with a new constructor:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
     public RMQDestination(String destinationName, String amqpExchangeName,
                           String amqpRoutingKey, String amqpQueueName);
 </pre>
@@ -281,7 +281,7 @@ There are getters and setters for these fields, which means that a JNDI
  `<Resource/>` definition or an XML Spring bean definition can use them, for example
  JNDI with Tomcat:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
     &lt;Resource  name="jms/Queue"
                type="javax.jms.Queue"
             factory="com.rabbitmq.jms.admin.RMQObjectFactory"
@@ -293,7 +293,7 @@ There are getters and setters for these fields, which means that a JNDI
 
 This is the equivalent with WildFly (as of JMS Client 1.7.0):
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;bindings&gt;
     &lt;object-factory name="java:global/jms/Queue"
                     module="foo.bar"
@@ -310,7 +310,7 @@ This is the equivalent with WildFly (as of JMS Client 1.7.0):
 
 This is the equivalent Spring bean example (Java configuration):
 
-<pre class="sourcecode java">
+<pre class="lang-java">
     @Bean
     public Destination jmsDestination() {
         RMQDestination jmsDestination = new RMQDestination();
@@ -323,7 +323,7 @@ This is the equivalent Spring bean example (Java configuration):
 
 And here is the Spring XML configuration:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
     &lt;bean id="jmsDestination" class="com.rabbitmq.jms.admin.RMQDestination" &gt;
      &lt;property name="destinationName" value="myQueue" /&gt;
      &lt;property name="amqp"            value="true" /&gt;
@@ -387,7 +387,7 @@ This pattern is commonly known as *Remote Procedure Call* or *RPC*.
 
 An RPC client can be implemented in pure JMS like the following:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Message request = ... // create the request message
 // set up reply-to queue and start listening on it
 Destination replyQueue = session.createTemporaryQueue();
@@ -421,7 +421,7 @@ by default).
 
 The server part looks like the following:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this is necessary when using temporary reply-to destinations
 connectionFactory.setDeclareReplyToDestination(false);
 ...
@@ -453,7 +453,7 @@ for a full RPC example.
 The JMS client also supports [direct reply-to](direct-reply-to.html), which is faster as it doesn't imply
 creating a temporary reply destination:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Message request = ...
 // use direct reply-to
 RMQDestination replyQueue = new RMQDestination(
@@ -491,7 +491,7 @@ is a popular way to work with JMS as it avoids most of JMS boilerplate.
 The following sample shows how a client can perform RPC with the
 `JmsTemplate`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // NB: do not create a new JmsTemplate for each request
 JmsTemplate tpl = new JmsTemplate(connectionFactory);
 tpl.setReceiveTimeout(5000);
@@ -511,7 +511,7 @@ RPC with direct reply-to
 must be implemented with a `SessionCallback`, as the reply destination
 must be explicitly declared:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // NB: do not create a new JmsTemplate for each request
 JmsTemplate tpl = new JmsTemplate(connectionFactory);
 Message response = tpl.execute(session -> {

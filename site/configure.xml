@@ -179,7 +179,7 @@ limitations under the License.
             RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
             at the top, along with the other broker boot log entries. For example:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /etc/rabbitmq/advanced.config
@@ -189,7 +189,7 @@ config file(s) : /etc/rabbitmq/advanced.config
             If the configuration file cannot be found or read by RabbitMQ, the log entry
             will say so:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
@@ -284,13 +284,13 @@ with
             A minimalistic example configuration file follows:
           </p>
           <p>
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.default = 5673
 </pre>
 
             The same example in the <a href="#config-file-formats">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
       {tcp_listeners, [5673]}
@@ -465,7 +465,7 @@ listeners.tcp.default = 5673
                 (without TLS). See the <a href="/networking.html">Networking guide</a> for more
                 details and examples.
 
-                <p>Default: <pre class="sourcecode ini">listeners.tcp.default = 5672</pre></p>
+                <p>Default: <pre class="lang-ini">listeners.tcp.default = 5672</pre></p>
               </td>
             </tr>
             <tr>
@@ -523,15 +523,15 @@ listeners.tcp.default = 5673
                 triggered. Can be absolute or relative to the amount of RAM available
                 to the OS:
 
-<pre class="sourcecode ini">vm_memory_high_watermark.relative = 0.6</pre>
-<pre class="sourcecode ini">vm_memory_high_watermark.absolute = 2GB</pre>
+<pre class="lang-ini">vm_memory_high_watermark.relative = 0.6</pre>
+<pre class="lang-ini">vm_memory_high_watermark.absolute = 2GB</pre>
 
                 See the <a href="memory.html">memory-based flow
                 control</a> and <a href="alarms.html">alarms</a>
                 documentation.
 
                 <p>
-                  Default: <pre class="sourcecode ini">vm_memory_high_watermark.relative = 0.4</pre>
+                  Default: <pre class="lang-ini">vm_memory_high_watermark.relative = 0.4</pre>
                 </p>
               </td>
             </tr>
@@ -555,7 +555,7 @@ listeners.tcp.default = 5673
                 start to page messages out to disc to free up
                 memory. See the <a href="memory.html">memory-based flow
                 control</a> documentation.
-                <p>Default: <pre class="sourcecode ini">0.5</pre></p>
+                <p>Default: <pre class="lang-ini">0.5</pre></p>
               </td>
             </tr>
             <tr>
@@ -584,14 +584,14 @@ listeners.tcp.default = 5673
                 in bytes or, alternatively, in
                 information units (e.g <code>"50MB"</code> or <code>"5GB"</code>):
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 disk_free_limit.relative = 3.0</pre>
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 disk_free_limit.absolute = 2GB</pre>
 
                 By default free disk space must exceed 50MB. See the <a
                 href="disk-alarms.html">Disk Alarms</a> documentation.
-                <p>Default: <pre class="sourcecode ini">disk_free_limit.absolute = 50MB</pre></p>
+                <p>Default: <pre class="lang-ini">disk_free_limit.absolute = 50MB</pre></p>
               </td>
             </tr>
             <tr>
@@ -682,7 +682,7 @@ disk_free_limit.absolute = 2GB</pre>
                 <p>
                   Default:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 default_permissions.configure = .*
 default_permissions.read = .*
 default_permissions.write = .*
@@ -701,14 +701,14 @@ default_permissions.write = .*
                   If you wish to allow the default <code>guest</code>
                   user to connect remotely, you need to change this to
 
-                  <pre class="sourcecode ini">none</pre>.
+                  <pre class="lang-ini">none</pre>.
                 </p>
                 <p>
                   To restrict another user to localhost-only connections,
                   do it like so (<code>monitoring</code> is the name of the user):
-                  <pre class="sourcecode ini">loopback_users.monitoring = true</pre>.
+                  <pre class="lang-ini">loopback_users.monitoring = true</pre>.
                 </p>
-                <p>Default: <pre class="sourcecode ini">loopback_users.guest = true</pre></p>
+                <p>Default: <pre class="lang-ini">loopback_users.guest = true</pre></p>
               </td>
             </tr>
             <tr>
@@ -720,7 +720,7 @@ default_permissions.write = .*
 
                 For example, to cluster with nodes <code>rabbit@hostname1</code> and
                 <code>rabbit@hostname2</code>:
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 cluster_formation.classic_config.nodes.1 = rabbit@hostname1
 cluster_formation.classic_config.nodes.2 = rabbit@hostname2
 </pre>
@@ -768,7 +768,7 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2
                 mechanisms</a> to offer to clients.
                 <p>
                   Default:
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_mechanisms.1 = PLAIN
 auth_mechanisms.2 = AMQPLAIN
 </pre>
@@ -787,7 +787,7 @@ auth_mechanisms.2 = AMQPLAIN
                   than <code>rabbit_auth_backend_internal</code> are
                   available through <a href="plugins.html">plugins</a>.
                 </p>
-                <p>Default: <pre class="sourcecode ini">auth_backends.1 = internal</pre></p>
+                <p>Default: <pre class="lang-ini">auth_backends.1 = internal</pre></p>
               </td>
             </tr>
             <tr>
@@ -820,7 +820,7 @@ auth_mechanisms.2 = AMQPLAIN
                 <p>
                   Default:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on = true
@@ -1122,7 +1122,7 @@ tcp_listen_options.exit_on_close = false
             tuple: <code>{encrypted, ...}</code>.
             Here is an example of a configuration file with an encrypted password
             for the default user:
-            <pre class="sourcecode erlang">
+            <pre class="lang-erlang">
 [
   {rabbit, [
       {default_user, &lt;&lt;"guest"&gt;&gt;},
@@ -1143,7 +1143,7 @@ tcp_listen_options.exit_on_close = false
           <p>
             The passphrase doesn't have to be hardcoded in the configuration file,
             it can be in a separate file:
-            <pre class="sourcecode erlang">
+            <pre class="lang-erlang">
 [
   {rabbit, [
       ...
@@ -1159,7 +1159,7 @@ tcp_listen_options.exit_on_close = false
           <p>
             Use <code>rabbitmqctl</code> and the <code>encode</code>
             command to encrypt values:
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
 rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
@@ -1168,7 +1168,7 @@ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 
             Add the <code>decode</code> command if you want to decrypt values:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
 rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
@@ -1189,7 +1189,7 @@ rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 
           <p>
             These defaults can be changed in the configuration file:
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
       ...
@@ -1204,7 +1204,7 @@ rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 
             Or using <a href="/cli.html">CLI tools</a>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 </pre>
@@ -1236,7 +1236,7 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
              but without the <code>RABBITMQ_</code> prefix. For example, the <code>RABBITMQ_CONFIG_FILE</code> parameter appears
 	           below as <code>CONFIG_FILE</code> and <code>RABBITMQ_NODENAME</code> becomes <code>NODENAME</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Example rabbitmq-env.conf file entries. Note that the variables
 # do not have the RABBITMQ_ prefix.
 #

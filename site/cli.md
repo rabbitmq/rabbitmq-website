@@ -146,7 +146,7 @@ will be created in by the RabbitMQ service.
 As an alternative, you can add the option "`-setcookie <i>value</i>`"
 in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
@@ -159,7 +159,7 @@ such as "Connection attempt from disallowed node" and "Could not auto-cluster". 
 a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 * epmd reports node 'rabbit' running on port 25672
 * TCP connection succeeded but Erlang distribution failed
 * suggestion: hostname mismatch?
@@ -183,7 +183,7 @@ cookie hash value when they fail to authenticate with the target node.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and cookie mismatches can be identified better:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbit@warp10:
   * connected to epmd (port 4369) on warp10
   * epmd reports node 'rabbit' running on port 25672
@@ -217,7 +217,7 @@ Other reasons include a hostname mismatch in node name used by the target Rabbit
 to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
 as its name but `rabbitmqctl` is invoked as
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbitmqctl status -n rabbit@rmq-dev.eng.megacorp.local
 </pre>
 
@@ -228,7 +228,7 @@ rare.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and hostname mismatches can be identified better:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbit@localhost:
   * connected to epmd (port 4369) on localhost
   * epmd reports node 'rabbit' running on port 25672

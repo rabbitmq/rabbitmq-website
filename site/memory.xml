@@ -67,9 +67,9 @@ limitations under the License.
         href="configure.html#configuration-file">configuration
         file</a>.  The example below sets the threshold to the
         default value of 0.4:
-        <pre class="sourcecode ini">vm_memory_high_watermark.relative = 0.4</pre>
+        <pre class="lang-ini">vm_memory_high_watermark.relative = 0.4</pre>
         Same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-        <pre class="sourcecode erlang">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
+        <pre class="lang-erlang">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
       </p>
 
       <p>
@@ -85,13 +85,13 @@ limitations under the License.
         Alternatively, the memory threshold can be adjusted by setting
 	an absolute limit of RAM used by the node. The example below sets
 	the threshold to 1073741824 bytes (1024 MB):
-        <pre class="sourcecode ini">vm_memory_high_watermark.absolute = 1073741824</pre>
+        <pre class="lang-ini">vm_memory_high_watermark.absolute = 1073741824</pre>
         Same example, but using memory units:
-        <pre class="sourcecode ini">vm_memory_high_watermark.absolute = 1024MB</pre>
+        <pre class="lang-ini">vm_memory_high_watermark.absolute = 1024MB</pre>
         Same example using the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-        <pre class="sourcecode erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, 1073741824}}]}].</pre>
+        <pre class="lang-erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, 1073741824}}]}].</pre>
         Using memory units:
-        <pre class="sourcecode erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, "1024MiB"}}]}].</pre>
+        <pre class="lang-erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, "1024MiB"}}]}].</pre>
       </p>
 
       <p>
@@ -183,14 +183,14 @@ http://www.rabbitmq.com/memory.html#address-space</pre>
         configuration from its default value
         of <code>0.5</code>. For example:
       </p>
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 vm_memory_high_watermark_paging_ratio = 0.75
 vm_memory_high_watermark.relative = 0.4
 </pre>
 
       Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
  {vm_memory_high_watermark, 0.4}]}].
 </pre>

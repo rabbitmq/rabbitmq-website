@@ -743,7 +743,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           <code>ocf:rabbitmq:rabbitmq-server-ha</code> script. Note, that the parameters
           can be as well listed with either the <code>pcs</code> tool:
         </p>
-        <pre class="sourcecode bash">
+        <pre class="lang-bash">
 $ <i>pcs resource describe ocf:rabbitmq:rabbitmq-server-ha</i>
         </pre>
         <p>

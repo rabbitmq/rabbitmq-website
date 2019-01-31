@@ -156,7 +156,7 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.go`:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -232,7 +232,7 @@ func severityFrom(args []string) string {
 
 The code for `receive_logs_topic.go`:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -321,31 +321,31 @@ func main() {
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_topic.go "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_topic.go "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_topic.go "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_topic.go "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run emit_log_topic.go "kern.critical" "A critical kernel error"
 </pre>
 

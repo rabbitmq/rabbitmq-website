@@ -93,7 +93,7 @@ limitations under the License.
   <p>
     As an alternative, you can add the option "<code>-setcookie <i>value</i></code>" in the <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> <a href="/configure.html">environment variable value</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
@@ -106,7 +106,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
      a <a href="/cli.html">CLI tool</a> such as <code>rabbitmqctl</code> fails to authenticate with RabbitMQ,
      the message usually says
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 * epmd reports node 'rabbit' running on port 25672
 * TCP connection succeeded but Erlang distribution failed
 * suggestion: hostname mismatch?
@@ -119,7 +119,7 @@ An incorrectly placed cookie file or cookie value mismatch are most common scena
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and cookie mismatches can be identified better:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 * connected to epmd (port 4369) on warp10
 * epmd reports node 'rabbit' running on port 25672
 * TCP connection succeeded but Erlang distribution failed

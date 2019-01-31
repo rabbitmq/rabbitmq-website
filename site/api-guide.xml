@@ -114,7 +114,7 @@ limitations under the License.
       and <code>Channel</code>, representing an AMQP 0-9-1 connection and
       channel, respectively. They are typically imported before used:
     </p>
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 </pre>
@@ -124,7 +124,7 @@ import com.rabbitmq.client.Channel;
       The following code connects to a RabbitMQ node using the given parameters (host name, port number, etc):
     </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 // "guest"/"guest" by default, limited to localhost connections
 factory.setUsername(userName);
@@ -186,7 +186,7 @@ Connection conn = factory.newConnection();
       Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setUri("amqp://userName:password@hostName:portNumber/virtualHost");
 Connection conn = factory.newConnection();
@@ -206,7 +206,7 @@ Connection conn = factory.newConnection();
       The <code>Connection</code> interface can then be used to open a channel:
     </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Channel channel = conn.createChannel();
 </pre>
 
@@ -226,7 +226,7 @@ Channel channel = conn.createChannel();
         To disconnect, simply close the channel and the connection:
       </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.close();
 conn.close();</pre>
 
@@ -282,7 +282,7 @@ conn.close();</pre>
        then binds them together.
       </p>
 
-      <pre class="sourcecode java">channel.exchangeDeclare(exchangeName, "direct", true);
+      <pre class="lang-java">channel.exchangeDeclare(exchangeName, "direct", true);
 String queueName = channel.queueDeclare().getQueue();
 channel.queueBind(queueName, exchangeName, routingKey);</pre>
 
@@ -309,7 +309,7 @@ channel.queueBind(queueName, exchangeName, routingKey);</pre>
         with a well-known name, this code would be appropriate:
       </p>
 
-      <pre class="sourcecode java">channel.exchangeDeclare(exchangeName, "direct", true);
+      <pre class="lang-java">channel.exchangeDeclare(exchangeName, "direct", true);
 channel.queueDeclare(queueName, true, false, false, null);
 channel.queueBind(queueName, exchangeName, routingKey);</pre>
 
@@ -351,7 +351,7 @@ channel.queueBind(queueName, exchangeName, routingKey);</pre>
             <code>Channel#queueDeclarePassive</code> and <code>Channel#exchangeDeclarePassive</code> are the
             methods used for passive declaration. The following example demonstrates <code>Channel#queueDeclarePassive</code>:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Queue.DeclareOk response = channel.queueDeclarePassive("queue-name");
 // returns the number of messages in Ready state in the queue
 response.getMessageCount();
@@ -372,7 +372,7 @@ response.getConsumerCount();
             response. For example, to declare a queue and instruct the server to not send any
             response, use
 
-            <pre class="sourcecode java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
+            <pre class="lang-java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
 
             The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
             are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
@@ -387,21 +387,21 @@ response.getConsumerCount();
           <p>
             A queue or exchange can be explicitly deleted:
 
-            <pre class="sourcecode java">channel.queueDelete("queue-name")</pre>
+            <pre class="lang-java">channel.queueDelete("queue-name")</pre>
 
             It is possible to delete a queue only if it is empty:
 
-            <pre class="sourcecode java">channel.queueDelete("queue-name", false, true)</pre>
+            <pre class="lang-java">channel.queueDelete("queue-name", false, true)</pre>
 
             or if it is not used (does not have any consumers):
 
-            <pre class="sourcecode java">channel.queueDelete("queue-name", true, false)</pre>
+            <pre class="lang-java">channel.queueDelete("queue-name", true, false)</pre>
           </p>
 
           <p>
             A queue can be purged (all of its messages deleted):
 
-            <pre class="sourcecode java">channel.queuePurge("queue-name")</pre>
+            <pre class="lang-java">channel.queuePurge("queue-name")</pre>
           </p>
         </doc:subsection>
     </doc:section>
@@ -413,7 +413,7 @@ response.getConsumerCount();
         To publish a message to an exchange, use <code>Channel.basicPublish</code> as follows:
       </p>
 
-      <pre class="sourcecode java">byte[] messageBodyBytes = "Hello, world!".getBytes();
+      <pre class="lang-java">byte[] messageBodyBytes = "Hello, world!".getBytes();
 channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);</pre>
 
       <p>
@@ -421,7 +421,7 @@ channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);</pre>
         or send messages with pre-set message properties:
       </p>
 
-      <pre class="sourcecode java">channel.basicPublish(exchangeName, routingKey, mandatory,
+      <pre class="lang-java">channel.basicPublish(exchangeName, routingKey, mandatory,
                      MessageProperties.PERSISTENT_TEXT_PLAIN,
                      messageBodyBytes);</pre>
 
@@ -432,7 +432,7 @@ channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);</pre>
         mentioning as many properties as you like, for example:
       </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 channel.basicPublish(exchangeName, routingKey,
              new AMQP.BasicProperties.Builder()
                .contentType("text/plain")
@@ -446,7 +446,7 @@ channel.basicPublish(exchangeName, routingKey,
         This example publishes a message with custom headers:
       </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
 headers.put("latitude",  51.5252949);
 headers.put("longitude", -0.0905493);
@@ -461,7 +461,7 @@ channel.basicPublish(exchangeName, routingKey,
         This example publishes a message with expiration:
       </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 channel.basicPublish(exchangeName, routingKey,
              new AMQP.BasicProperties.Builder()
                .expiration("60000")
@@ -560,7 +560,7 @@ channel.basicPublish(exchangeName, routingKey,
     <doc:section name="consuming">
       <doc:heading>Receiving Messages by Subscription ("Push API")</doc:heading>
 
-      <pre class="sourcecode java">import com.rabbitmq.client.Consumer;
+      <pre class="lang-java">import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;</pre>
 
       <p>
@@ -597,7 +597,7 @@ import com.rabbitmq.client.DefaultConsumer;</pre>
         call to set up the subscription:
       </p>
 
-      <pre class="sourcecode java">boolean autoAck = false;
+      <pre class="lang-java">boolean autoAck = false;
 channel.basicConsume(queueName, autoAck, "myConsumerTag",
      new DefaultConsumer(channel) {
          @Override
@@ -642,7 +642,7 @@ channel.basicConsume(queueName, autoAck, "myConsumerTag",
         <code>Channel.basicCancel</code>:
       </p>
 
-      <pre class="sourcecode java">channel.basicCancel(consumerTag);</pre>
+      <pre class="lang-java">channel.basicCancel(consumerTag);</pre>
 
       <p>
         passing the consumer tag.
@@ -691,7 +691,7 @@ channel.basicConsume(queueName, autoAck, "myConsumerTag",
         header information (properties) and message body can be
         extracted:
       </p>
-<pre class="sourcecode java">
+<pre class="lang-java">
 boolean autoAck = false;
 GetResponse response = channel.basicGet(queueName, autoAck);
 if (response == null) {
@@ -707,7 +707,7 @@ if (response == null) {
         you must also call <code>Channel.basicAck</code> to
         acknowledge that you have successfully received the message:
       </p>
-<pre class="sourcecode java">
+<pre class="lang-java">
     ...
     channel.basicAck(method.deliveryTag, false); <i>// acknowledge receipt of the message</i>
 }</pre>
@@ -730,7 +730,7 @@ if (response == null) {
         then the associated returned messages will be silently dropped.
       </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.addReturnListener(new ReturnListener() {
     public void handleReturn(int replyCode,
                                   String replyText,
@@ -815,7 +815,7 @@ channel.addReturnListener(new ReturnListener() {
           <p>
             Simple usage of listeners would look like:
           </p>
-          <pre class="sourcecode java">import com.rabbitmq.client.ShutdownSignalException;
+          <pre class="lang-java">import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.client.ShutdownListener;
 
 connection.addShutdownListener(new ShutdownListener() {
@@ -850,7 +850,7 @@ connection.addShutdownListener(new ShutdownListener() {
             communication failure, in which case that exception can
             be retrieved with <code>getCause()</code>).
           </p>
-          <pre class="sourcecode java">public void shutdownCompleted(ShutdownSignalException cause)
+          <pre class="lang-java">public void shutdownCompleted(ShutdownSignalException cause)
 {
   if (cause.isHardError())
   {
@@ -877,7 +877,7 @@ connection.addShutdownListener(new ShutdownListener() {
            following code illustrates the possibility of race
            conditions:
         </p>
-        <pre class="sourcecode java">public void brokenMethod(Channel channel)
+        <pre class="lang-java">public void brokenMethod(Channel channel)
 {
     if (channel.isOpen())
     {
@@ -900,7 +900,7 @@ connection.addShutdownListener(new ShutdownListener() {
           <code>ShutdownSignalException</code>, when broker
           initiated clean close.
         </p>
-        <pre class="sourcecode java">public void validMethod(Channel channel)
+        <pre class="lang-java">public void validMethod(Channel channel)
 {
     try {
         ...
@@ -929,7 +929,7 @@ connection.addShutdownListener(new ShutdownListener() {
           <code>newConnection()</code> method, so that this pool of threads is
           used instead. Here is an example where a larger thread pool is
           supplied than is normally allocated:
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   ExecutorService es = Executors.newFixedThreadPool(20);
   Connection conn = factory.newConnection(es);
   </pre>
@@ -970,7 +970,7 @@ connection.addShutdownListener(new ShutdownListener() {
             in the <code>com.rabbitmq.client</code> package with <i>host</i>
             and <i>port</i> components.
             For example:
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   Address[] addrArr = new Address[]{ new Address(hostname1, portnumber1)
                                    , new Address(hostname2, portnumber2)};
   Connection conn = factory.newConnection(addrArr);
@@ -999,11 +999,11 @@ connection.addShutdownListener(new ShutdownListener() {
           <p>
             As of version 3.6.6, it is possible to let an implementation of
             <code>AddressResolver</code> choose where to connect when creating a connection:
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   Connection conn = factory.newConnection(addressResolver);
   </pre>
           The <code>AddressResolver</code> interface is like the following:
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   public interface AddressResolver {
 
     List&lt;Address&gt; getAddresses() throws IOException;
@@ -1066,7 +1066,7 @@ connection.addShutdownListener(new ShutdownListener() {
           Below is an example for Google App Engine.
         </p>
         <p>
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   import com.google.appengine.api.ThreadManager;
 
   ConnectionFactory cf = new ConnectionFactory();
@@ -1097,7 +1097,7 @@ connection.addShutdownListener(new ShutdownListener() {
           NIO must be enabled explicitly:
         </p>
         <p>
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   ConnectionFactory connectionFactory = new ConnectionFactory();
   connectionFactory.useNio();
   </pre>
@@ -1106,7 +1106,7 @@ connection.addShutdownListener(new ShutdownListener() {
           The NIO mode can be configured through the <code>NioParams</code> class:
         </p>
         <p>
-  <pre class="sourcecode java">
+  <pre class="lang-java">
   connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
   </pre>
         </p>
@@ -1163,7 +1163,7 @@ connection.addShutdownListener(new ShutdownListener() {
           the <code>factory.setAutomaticRecoveryEnabled(boolean)</code>
           method. The following snippet shows how to explicitly
           enable automatic recovery (e.g. for Java client prior 4.0.0):
-          <pre class="sourcecode java">
+          <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setUsername(userName);
 factory.setPassword(password);
@@ -1178,7 +1178,7 @@ Connection conn = factory.newConnection();</pre>
           still not reachable), it will be retried after a fixed time interval (default
           is 5 seconds). The interval can be configured:
 
-          <pre class="sourcecode java">
+          <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 // attempt recovery every 10 seconds
 factory.setNetworkRecoveryInterval(10000);</pre>
@@ -1186,7 +1186,7 @@ factory.setNetworkRecoveryInterval(10000);</pre>
           When a list of addresses is provided, the list is shuffled and
           all addresses are tried, one after the next:
 
-          <pre class="sourcecode java">
+          <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 
 Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
@@ -1213,7 +1213,7 @@ factory.newConnection(addresses);</pre>
               such connections, logging failed attempts, implementing a limit to the number
               of retries and so on. Here's a very basic example:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
@@ -1276,7 +1276,7 @@ try {
         </p>
         <p>
           Topology recovery can be disabled explicitly if needed:
-          <pre class="sourcecode java">
+          <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 
 Connection conn = factory.newConnection();
@@ -1413,7 +1413,7 @@ factory.setTopologyRecoveryEnabled(false);
         <code>ConnectionFactory#setExceptionHandler</code>. It will be
         used for all connections created by the factory:
 
-        <pre class="sourcecode java">
+        <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 cf.setExceptionHandler(customHandler);
         </pre>
@@ -1508,7 +1508,7 @@ cf.setExceptionHandler(customHandler);
              You can enable metrics collection with
              <a href="http://micrometer.io">Micrometer</a> the following way:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
 MicrometerMetricsCollector metrics = new MicrometerMetricsCollector();
 connectionFactory.setMetricsCollector(metrics);
@@ -1528,7 +1528,7 @@ metrics.getPublishedMessages(); // get Micrometer's Counter object
               to the <code>MicrometerMetricsCollector</code>. Here is an example
               with JMX:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 JmxMeterRegistry registry = new JmxMeterRegistry();
 MicrometerMetricsCollector metrics = new MicrometerMetricsCollector(registry);
 ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -1546,7 +1546,7 @@ connectionFactory.setMetricsCollector(metrics);
               You can enable metrics collection with
               <a href="http://metrics.dropwizard.io">Dropwizard</a> the following way:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
 StandardMetricsCollector metrics = new StandardMetricsCollector();
 connectionFactory.setMetricsCollector(metrics);
@@ -1566,7 +1566,7 @@ metrics.getPublishedMessages(); // get Metrics' Meter object
           to the <code>StandardMetricsCollector</code>. Here is an example
           with JMX:
 
-          <pre class="sourcecode java">
+          <pre class="lang-java">
 MetricRegistry registry = new MetricRegistry();
 StandardMetricsCollector metrics = new StandardMetricsCollector(registry);
 
@@ -1594,7 +1594,7 @@ reporter.start();
         In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
         into the low <code>InputStream</code> read timeouts on GAE:
 
-        <pre class="sourcecode java">
+        <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 cf.setRequestedHeartbeat(5);
         </pre>
@@ -1642,7 +1642,7 @@ cf.setRequestedHeartbeat(5);
         routing key, and waiting for a response on a reply queue.
       </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 import com.rabbitmq.client.RpcClient;
 
 RpcClient rpc = new RpcClient(channel, exchangeName, routingKey);</pre>
@@ -1657,7 +1657,7 @@ RpcClient rpc = new RpcClient(channel, exchangeName, routingKey);</pre>
         Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
       </p>
 
-      <pre class="sourcecode java">byte[] primitiveCall(byte[] message);
+      <pre class="lang-java">byte[] primitiveCall(byte[] message);
 String stringCall(String message)
 Map mapCall(Map message)
 Map mapCall(Object[] keyValuePairs)</pre>

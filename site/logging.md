@@ -75,25 +75,25 @@ severity messages.
 
 The following example overiddes log file name:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file = rabbit.log
 </pre>
 
 The following example overiddes log file directory:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.dir = /data/logs/rabbitmq
 </pre>
 
 The following example instructs RabbitMQ to log to a file at the `debug` level:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file.level = debug
 </pre>
 
 Logging to a file can be disabled with
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file = false
 </pre>
 
@@ -104,7 +104,7 @@ the list of acceptable log levels and other values.
 
 It is possible to configure file logging using the [classic configuration format](/configure.html):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
         {log, [
             {file, [{file, "/path/to/log/file.log"}, %% log.file
@@ -132,7 +132,7 @@ for the file output.
 `log.file.rotation.date` is used to set up periodic (date and time-based) rotation.
 It uses [the same syntax as newsyslog.conf](https://github.com/basho/lager#internal-log-rotation):
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every night at midnight
 log.file.rotation.date = $D0
 
@@ -140,32 +140,32 @@ log.file.rotation.date = $D0
 log.file.rotation.count = 5
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every day at 23:00 (11:00 p.m.)
 log.file.rotation.date = $D23
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every hour at HH:00
 log.file.rotation.date = $H00
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every day at 12:30 (00:30 p.m.)
 log.file.rotation.date = $D12H30
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every week on Sunday at 00:00
 log.file.rotation.date = $W0D0H0
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every week on Friday at 16:00 (4:00 p.m.)
 log.file.rotation.date = $W5D16
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate every night at midnight
 log.file.rotation.date = $D0
 </pre>
@@ -174,7 +174,7 @@ log.file.rotation.date = $D0
 
 `log.file.rotation.size` controls rotation based on the current log file size:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rotate when the file reaches 10 MiB
 log.file.rotation.size = 10485760
 
@@ -200,26 +200,26 @@ Here are the main settings that control console (standard output) logging:
 
 To enable console logging, use the following config snippet:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.console = true
 </pre>
 
 The following example disables console logging
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.console = false
 </pre>
 
 The following example instructs RabbitMQ to use the `debug` logging level when logging to console:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.console.level = debug
 </pre>
 
 
 It is possible to configure console logging using the [classic config format](/configure.html#config-file-formats):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
         {log, [
             {console, [{enabled, true}, %% log.console
@@ -242,13 +242,13 @@ and **requires Syslog service configuration**. TLS is also supported.
 
 Syslog output has to be explicitly configured:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 </pre>
 
 Or, in the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [
     {syslog, [{enabled, true}]}]}]
 }].
@@ -267,7 +267,7 @@ TLS support requires the RFC 5424 protocol.
 
 The following example uses TCP and the RFC 5424 protocol:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
@@ -275,7 +275,7 @@ log.syslog.protocol = rfc5424
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{protocol, {tcp, rfc5424}}]}
 ].
@@ -283,7 +283,7 @@ In the classic config format:
 
 To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 log.syslog.transport = tls
 log.syslog.protocol = rfc5424
@@ -295,7 +295,7 @@ log.syslog.ssl_options.keyfile = /path/to/tls/key.pem
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{protocol, {tls, rfc5424,
                         [{cacertfile,"/path/to/tls/cacert.pem"},
@@ -306,7 +306,7 @@ In the classic config format:
 
 Syslog service IP address and port can be customised:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 log.syslog.ip = 10.10.10.10
 log.syslog.port = 1514
@@ -314,7 +314,7 @@ log.syslog.port = 1514
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{dest_host, {10, 10, 10, 10}},
            {dest_port, 1514}]}
@@ -323,7 +323,7 @@ In the classic config format:
 
 If a hostname is to be used rather than an IP address:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 log.syslog.host = my.syslog-server.local
 log.syslog.port = 1514
@@ -331,7 +331,7 @@ log.syslog.port = 1514
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{dest_host, "my.syslog-server.local"},
            {dest_port, 1514}]}
@@ -344,7 +344,7 @@ and facility will be set to `daemon`.
 
 To set identity and facility of log messages:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.syslog = true
 log.syslog.identity = my_rabbitmq
 log.syslog.facility = user
@@ -352,7 +352,7 @@ log.syslog.facility = user
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{app_name, "my_rabbitmq"},
            {facility, user}]}
@@ -390,14 +390,14 @@ unless a category level is configured.
 For example, given debug level in the file output,
 the following will disable debug logging for connection events:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file.level = debug
 log.connection.level = info
 </pre>
 
 Or, using the [classic configuration format](/configure.html):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit,
     [{log,
         [{file, [{level, debug}]},
@@ -412,13 +412,13 @@ Or, using the [classic configuration format](/configure.html):
 
 To redirect all federation logs to the `rabbit_federation.log` file, use:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.federation.file = rabbit_federation.log
 </pre>
 
 Using the [classic configuration format](/configure.html):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit,
     [{log,
         [{categories,
@@ -433,13 +433,13 @@ Using the [classic configuration format](/configure.html):
 To disable a log type, you can use the `none` log level. For example, to disable
 upgrade logs:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.upgrade.level = none
 </pre>
 
 Using the [classic configuration format](/configure.html):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit,
     [{log,
         [{categories,
@@ -476,7 +476,7 @@ to outputs.
 
 To make the `default` category log only errors or higher severity messages, use
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.default.level = error
 </pre>
 
@@ -499,13 +499,13 @@ To enable debug messages, you should have a debug output.
 
 For example to log debug messages to a file:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file.level = debug
 </pre>
 
 In the [classic config format](/configure.html#config-file-formats):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [
     {file, [{level, debug}]}]
 }].
@@ -513,14 +513,14 @@ In the [classic config format](/configure.html#config-file-formats):
 
 To print log messages to standard out:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.console.enabled = true
 log.console.level = debug
 </pre>
 
 In the [classic config format](/configure.html#config-file-formats):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [
     {console, [{enabled, true},
                {level, debug}]}
@@ -530,7 +530,7 @@ In the [classic config format](/configure.html#config-file-formats):
 
 To disable debug logging for some categories:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.file.level = debug
 
 log.connection.level = info
@@ -539,7 +539,7 @@ log.channel.level = info
 
 In the [classic config format](/configure.html#config-file-formats):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [
     {file, [{level, debug}]},
     {categories, [
@@ -556,14 +556,14 @@ In the [classic config format](/configure.html#config-file-formats):
 On `systemd`-based Linux distributions, system service logs can be
 inspected using `journalctl --system`
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 journalctl --system
 </pre>
 
 which requires superuser privileges.
 Its output can be filtered to narrow it down to RabbitMQ-specific entries:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo journalctl --system | grep rabbitmq
 </pre>
 
@@ -593,7 +593,7 @@ not be logged.
 
 Here's an example:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-11-22 10:44:33.654 [info] &lt;0.620.0&gt; accepting AMQP connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672)
 </pre>
 
@@ -604,7 +604,7 @@ when troubleshooting client connections.
 Once a connection successfully authenticates and is granted access to a [virtual host](/vhosts.html),
 that is also logged:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-11-22 10:44:33.663 [info] &lt;0.620.0&gt; connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 </pre>
 
@@ -620,27 +620,27 @@ or TCP connection is lost. Both cases will be logged by the broker.
 щ
 Below is an example entry for a successfully closed connection:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-06-17 06:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
 
 Prior to RabbitMQ 3.7 the format was different:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 =INFO REPORT==== 30-Oct-2017::21:40:32 ===
 closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
 
 Abruptly closed connections will be logged as warnings:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-06-17 06:28:40.868 [warning] &lt;0.646.0&gt; closing AMQP connection &lt;0.646.0&gt; (127.0.0.1:58667 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
 </pre>
 
 In the pre-3.7 format:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 =WARNING REPORT==== 1-Nov-2017::16:58:58 ===
 closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
@@ -700,7 +700,7 @@ to log those messages separately from the rest.
 When RabbitMQ is started with default logging settings, a Lager handler is configured
 under the hood and it looks like this:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{lager, [
     {handlers,
        [{lager_file_backend,
@@ -750,14 +750,14 @@ a separate sink with its own log file.
 
 For instance, if console logging is enabled with
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.console = true
 log.console.level = warning
 </pre>
 
 then generated handlers configuration will look something like this:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{lager,
     [{handlers,
         [{lager_console_backend,
@@ -811,13 +811,13 @@ in that category will be written to **this file only** as well as non-file backe
 If having upgrade logs in the default log file is desired, or log files are configured in
 `handlers`, category-specific files should be disabled. This is done with
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 log.upgrade.file = false
 </pre>
 
 or
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].
 </pre>
 
@@ -844,7 +844,7 @@ To create an additional log file for errors only, create an
 additional handler with the `error` level. This has to be done using the
 [advanced config file](/configure.html):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{lager, [
     {handlers, [
         {lager_file_backend,
@@ -863,7 +863,7 @@ additional handler with the `error` level. This has to be done using the
 
 To use a custom lager backend and disable RabbitMQ default handlers:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{lager,
     [{handlers,
         [{lager_custom_backend,
@@ -879,7 +879,7 @@ To use a custom lager backend and disable RabbitMQ default handlers:
 
 To log direct Erlang AMQP 0-9-1 client messages to console instead of default output:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{lager,
     [{extra_sinks,
         [{rabbit_log_connection_lager_event,

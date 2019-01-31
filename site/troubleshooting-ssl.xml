@@ -128,19 +128,19 @@ limitations under the License.
           is TLS support in the broker. Confirm that the Erlang VM has support
           for TLS by running
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'ssl:versions().'
 </pre>
 
           Or, on Windows
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmqctl.bat eval 'ssl:versions().'
 </pre>
 
           The output should look similar to this (version number will likely differ):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{ssl_app,"9.1"},
  {supported,['tlsv1.2','tlsv1.1',tlsv1]},
  {supported_dtls,['dtlsv1.2',dtlsv1]},
@@ -155,13 +155,13 @@ rabbitmqctl.bat eval 'ssl:versions().'
          <p>
            It is also possible to list cipher suites available on a node:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-diagnostics cipher_suites --openssl-format -q
 </pre>
 
             Or, on Windows:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmq-diagnostics.bat cipher_suites --openssl-format -q
 </pre>
          </p>
@@ -171,7 +171,7 @@ rabbitmq-diagnostics.bat cipher_suites --openssl-format -q
            To do so, run <code>erl</code> (or <code>werl.exe</code> on Windows) on the command line to open an Erlang shell and
            enter
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 %% the trailing dot is significant!
 ssl:versions().
 </pre>
@@ -237,7 +237,7 @@ ssl:versions().
          <p>
            In one terminal window or tab execute the following command:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl s_server -accept 8443 \
   -cert server_certificate.pem -key server_key.pem -CAfile ca_certificate.pem
 </pre>
@@ -249,7 +249,7 @@ openssl s_server -accept 8443 \
          <p>
            In another terminal window, run
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl s_client -connect localhost:8443 \
   -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem
 </pre>
@@ -263,7 +263,7 @@ openssl s_client -connect localhost:8443 \
             If the <a href="/ssl.html#peer-verification">trust chain</a> could be established, the second terminal will display
             a verification confirmation with the code of <code>0</code>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 Verify return code: 0 (ok)
 </pre>
 
@@ -292,14 +292,14 @@ Verify return code: 0 (ok)
            to configure an RabbitMQ client. The tool can also be useful to compare the behaviour of different clients.
            The example assumes a node running on <code>localhost</code> on <a href="networking.html#ports">default TLS port for AMQP 0-9-1 and AMQP 1.0</a>, 5671:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl s_client -connect localhost:5671 -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem
 </pre>
 
          The output should appear similar to the case where port 8443 was used. The node log file
          should <a href="/logging.html#logged-events">contain a new entry when the connection is established</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; accepting AMQP connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671)
 2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671): user 'user' authenticated and granted access to vhost 'virtual_host'
 </pre>

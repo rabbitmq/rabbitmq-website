@@ -256,7 +256,7 @@ limitations under the license.
             Below is an example that generates a CA and uses it to produce two certificate/key pairs, one
             for the server and another for clients. This is the setup that is expected by the rest of this guide.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 git clone https://github.com/michaelklishin/tls-gen tls-gen
 cd tls-gen/basic
 # private key password
@@ -334,7 +334,7 @@ ls -l ./result
             on this hostname:
           </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.default = 5671
 
 ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
@@ -346,7 +346,7 @@ ssl_options.fail_if_no_peer_cert = false
 
 Below is the same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
      {ssl_listeners, [5671]},
@@ -397,7 +397,7 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
               Private keys can be optional protected by a password.
               To provide the password, use the <code>password</code> option:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.1 = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
@@ -407,7 +407,7 @@ ssl_options.password   = t0p$3kRe7
 
   The same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
  {rabbit, [
            {ssl_listeners, [5671]},
@@ -482,7 +482,7 @@ ssl_options.password   = t0p$3kRe7
             with an error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
             will be logged by the server with a message similar to this:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-09-10 18:10:46.502 [info] &lt;0.902.0&gt; TLS server generated SERVER ALERT: Fatal - Unknown CA
 </pre>
           </p>
@@ -491,7 +491,7 @@ ssl_options.password   = t0p$3kRe7
             or aren't yet valid will be rejected. The TLS alert in that case will look something
             like this:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
 </pre>
 
@@ -542,7 +542,7 @@ ssl_options.password   = t0p$3kRe7
             another and use in a single Certificate Authority bundle file
             is to simply concatenate them:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_cacerts.pem
 </pre>
           </p>
@@ -568,7 +568,7 @@ cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_
             config will perform peer verification and reject clients that do not provide
             a certificate:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.default = 5671
 
 ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
@@ -580,7 +580,7 @@ ssl_options.fail_if_no_peer_cert = true
 
               The same example in the <a href="/configure.html#config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
 {rabbit, [
    {ssl_listeners, [5671]},
@@ -650,7 +650,7 @@ ssl_options.fail_if_no_peer_cert = true
               The following example demonstrates how to configure certificate validation depth for
               RabbitMQ server:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.default = 5671
 
 ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
@@ -663,7 +663,7 @@ ssl_options.fail_if_no_peer_cert = false
 
               The same example in the <a href="/configure.html#config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
      {ssl_listeners, [5671]},
@@ -736,7 +736,7 @@ ssl_options.fail_if_no_peer_cert = false
               server over TLS without validating the server certificate, and
               without presenting any client certificate to the server.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import java.io.*;
 import java.security.*;
 
@@ -792,7 +792,7 @@ public class Example1 {
             The JDK ships with a tool called <code>keytool</code> that manages certificate stores. To import a certificate to
             a store use <code>keytool -import</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 keytool -import -alias server1 -file /path/to/server_certificate.pem -keystore /path/to/rabbitstore
 </pre>
 
@@ -815,7 +815,7 @@ keytool -import -alias server1 -file /path/to/server_certificate.pem -keystore /
             <a href="https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/KeyManager.html">Key Manager</a>
             and <a href="https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/TrustManager.html">Trust Manager</a>, respectively.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import java.io.*;
 import java.security.*;
 import javax.net.ssl.*;
@@ -880,7 +880,7 @@ public class Example2 {
             <code>ConnectionFactory#enableHostnameVerification()</code> method. This is done in the example
             above, for instance:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import java.io.*;
 import java.security.*;
 import javax.net.ssl.*;
@@ -931,7 +931,7 @@ public class Example2 {
             With JDK 6, it is necessary to add a dependency on
             <a href="https://hc.apache.org/">Apache Commons HttpClient</a> for hostname verification to work, e.g. with Maven:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;!-- Maven dependency to add for hostname verification on JDK 6 --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
@@ -942,7 +942,7 @@ public class Example2 {
 
             With Gradle:
 
-<pre class="sourcecode groovy">
+<pre class="lang-groovy">
 // Gradle dependency to add for hostname verification on JDK 6
 compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 </pre>
@@ -964,7 +964,7 @@ compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
             the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
             or a <code>SSLContext</code>:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost(&quot;localhost&quot;);
 factory.setPort(5671);
@@ -1035,12 +1035,12 @@ factory.useSslProtocol("TLSv1.2");
             The following example adds a certificate to the store of user <code>Root</code> (also known as <code>Trust</code> in some .NET implementation)
           </p>
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 # Windows
 certmgr -add -all \path\to\cacert.cer -s Root
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Linux with Mono
 certmgr -add -c Trust /path/to/cacert.cer
 </pre>
@@ -1050,12 +1050,12 @@ certmgr -add -c Trust /path/to/cacert.cer
             run
         </p>
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 # Windows
 certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 </pre>
 
-<pre class="sourcecode bash">=
+<pre class="lang-bash">=
 # Linux with Mono
 certmgr -add -c -m Trust /path/to/cacert.cer
 </pre>
@@ -1063,7 +1063,7 @@ certmgr -add -c -m Trust /path/to/cacert.cer
           <p>
             After adding to a store, we can view the contents of that store with the <code>-all</code> (<code>-list</code> with Mono) switch:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 certmgr -all -s Root
 
 # … snip …
@@ -1077,7 +1077,7 @@ Self-signed X.509 v3 Certificate
   Unique Hash:   1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 certmgr -list -c Trust
 
 # … snip …
@@ -1096,7 +1096,7 @@ Self-signed X.509 v3 Certificate
             trust store. The Unique Hash uniquely identifies this certificate in
             this store. To delete this certificate, use the unique hash:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Windows
 certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
 
@@ -1105,7 +1105,7 @@ certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
 Certificate removed from store.
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Linux with Mono
 certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
@@ -1174,7 +1174,7 @@ Certificate removed from store.
             to worry about manually cleaning up after ourselves
           </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using System.IO;
 using System.Text;
@@ -1299,7 +1299,7 @@ namespace RabbitMQ.client.Examples {
           <p>
             Using the <a href="/configure.html#config-file">classic config format</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.1        = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
@@ -1322,7 +1322,7 @@ ssl_options.versions.3 = tlsv1
 
           Using the <a href="/configure.html#config-file">standard config</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.1 = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
@@ -1347,7 +1347,7 @@ ssl_options.versions.2 = tlsv1.1
 
           Using <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 %% Disable SSLv3.0 and TLSv1.0 support.
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
@@ -1369,12 +1369,12 @@ ssl_options.versions.2 = tlsv1.1
 
           To verify provided TLS versions, use <code>openssl s_client</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # connect using SSLv3
 openssl s_client -connect 127.0.0.1:5671 -ssl3
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # connect using TLSv1.0 through v1.2
 openssl s_client -connect 127.0.0.1:5671 -tls1
 </pre>
@@ -1443,7 +1443,7 @@ Protocol  : TLSv1
         <p>
           To list cipher suites supported by the Erlang runtime of a running node, use <code>rabbitmq-diagnostics cipher_suites --openssl-format</code>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbitmq-diagnostics cipher_suites --openssl-format -q
 </pre>
 
@@ -1453,7 +1453,7 @@ rabbitmq-diagnostics cipher_suites --openssl-format -q
         <p>
           Note that if <code>--openssl-format</code> is set to <code>false</code>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbitmq-diagnostics cipher_suites -q --openssl-format=false
 </pre>
 
@@ -1477,7 +1477,7 @@ rabbitmq-diagnostics cipher_suites -q --openssl-format=false
           When using classic config format, the following formatter setting can be helpful as it will produce
           a list of cipher suites that can be used in that file format:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
 </pre>
         </p>
@@ -1492,7 +1492,7 @@ rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
 
           The below examples demonstrates how the option is used.
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.1 = 5671
 
 ssl_options.cacertfile = /path/to/ca_certificate.pem
@@ -1547,7 +1547,7 @@ ssl_options.honor_ecc_order    = true
 
           In the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 %% list allowed ciphers
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
@@ -1620,7 +1620,7 @@ ssl_options.honor_ecc_order    = true
           To do so, configure <code>honor_cipher_order</code>
           and <code>honor_ecc_order</code> to <code>true</code>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.1        = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
@@ -1634,7 +1634,7 @@ ssl_options.honor_ecc_order    = true
 
 Or, in the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 %% Enforce server-provided cipher suite order (preference)
 [
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
@@ -1714,7 +1714,7 @@ Or, in the classic config format:
         <p>
           The following example configuration passes key testssl tests on Erlang 21.1:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.ssl.default  = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
@@ -1745,7 +1745,7 @@ ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
 
           The same example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
  {ssl,    [
            {versions,           ['tlsv1.2']},
@@ -1784,7 +1784,7 @@ ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
           This setup is reported as not vulnerable to a set of known
           high profile vulnerabilities:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 Testing robust (perfect) forward secrecy, (P)FS -- omitting Null Authentication/Encryption, 3DES, RC4
 
 PFS is offered (OK)          ECDHE-RSA-AES256-GCM-SHA384 DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256 DHE-RSA-AES128-GCM-SHA256
@@ -1855,7 +1855,7 @@ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
 
         <doc:subsection name="erlang-code-example">
           <doc:heading>Code Example</doc:heading>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 SslOpts = [{cacertfile, &quot;/path/to/ca_certificate_bundle.pem&quot;},
            {certfile, &quot;/path/to/client/certificate.pem&quot;},
            {keyfile, &quot;/path/to/client/private_key.pem&quot;},
@@ -1912,7 +1912,7 @@ Params = #amqp_params_network{host = "my.rmq-server.net",
         <p>
           First let's create a directory for our test Certificate Authority:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mkdir testca
 cd testca
 mkdir certs private
@@ -1927,7 +1927,7 @@ touch index.txt
             directory:
           </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 [ ca ]
 default_ca = testca
 
@@ -1989,7 +1989,7 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
             directory:
           </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
     -out ca_certificate_bundle.pem -outform PEM -subj /CN=MyTestCA/ -nodes
 openssl x509 -in ca_certificate_bundle.pem -out ca_certificate_bundle.cer -outform DER
@@ -2018,7 +2018,7 @@ openssl x509 -in ca_certificate_bundle.pem -out ca_certificate_bundle.cer -outfo
             The process for creating server and client certificates is very
             similar. First the server:
           </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ..
 ls
 # => testca
@@ -2037,7 +2037,7 @@ openssl pkcs12 -export -out server_certificate.p12 -in server_certificate.pem -i
 
           <p>
           And now the client:
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ..
 ls
 # => server testca
@@ -2059,7 +2059,7 @@ openssl pkcs12 -export -out client_certificate.p12 -in client_certificate.pem -i
             It is possible to use longer (and thus more secure but also slower to generate)
             keys by providing a different value to <code>openssl genrsa</code>, e.g.:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl genrsa -out private_key.pem 4096
 </pre>
           </p>
@@ -2067,7 +2067,7 @@ openssl genrsa -out private_key.pem 4096
             Another option would be to generate a key using <a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-Elliptic-curve-cryptography/">Elliptic Curve Cryptography</a>. Instead of <code>openssl genrsa</code> use
             <code>openssl ecparam</code> like so:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 openssl ecparam -out private_key.pem -genkey -name prime256v1
 </pre>
 

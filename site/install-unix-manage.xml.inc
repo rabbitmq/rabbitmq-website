@@ -23,7 +23,7 @@ limitations under the License.
     To start and stop the server, use the <code>service</code> tool.
     The service name is <code>rabbitmq-server</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # stop the local node
 sudo service rabbitmq-server stop
 
@@ -34,7 +34,7 @@ sudo service rabbitmq-server start
     <code>service rabbitmq-server status</code> will report service status
     as observed by systemd (or similar service manager):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # check on service status as observed by service manager
 sudo service rabbitmq-server status
 </pre>
@@ -73,7 +73,7 @@ Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plu
     <code>rabbitmqctl</code>, <code>rabbitmq-diagnostics</code>,
     and other <a href="/cli.html">CLI tools</a> will be available in <code>PATH</code> and can be invoked by a <code>sudo</code>-enabled user:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # checks if the local node is running and CLI tools can successfully authenticate with it
 sudo rabbitmq-diagnostics ping
 

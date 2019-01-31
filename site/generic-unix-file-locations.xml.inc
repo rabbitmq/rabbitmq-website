@@ -36,7 +36,7 @@ limitations under the License.
     <p>
       In order to make the node use operating system defaults, locate the following line
 
-<pre class="sourcecode shell">
+<pre class="lang-shell">
 SYS_PREFIX=${RABBITMQ_HOME}
 </pre>
 

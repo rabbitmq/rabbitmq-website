@@ -156,7 +156,7 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -186,7 +186,7 @@ public class EmitLogTopic {
 
 The code for `ReceiveLogsTopic.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -231,37 +231,37 @@ on Windows, use %CP%.
 
 To compile:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 javac -cp $CP ReceiveLogsTopic.java EmitLogTopic.java
 </pre>
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP EmitLogTopic "kern.critical" "A critical kernel error"
 </pre>
 

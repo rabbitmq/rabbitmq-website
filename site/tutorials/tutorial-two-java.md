@@ -75,7 +75,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `NewTask.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 String message = String.join(" ", argv);
 
 channel.basicPublish("", "hello", null, message.getBytes());
@@ -86,7 +86,7 @@ Our old _Recv.java_ program also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will handle
 delivered messages and perform the task, so let's call it `Worker.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 DeliverCallback deliverCallback = (consumerTag, delivery) -> {
   String message = new String(delivery.getBody(), "UTF-8");
 
@@ -103,7 +103,7 @@ channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, consumerTag -> {
 
 Our fake task to simulate execution time:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 private static void doWork(String task) throws InterruptedException {
     for (char ch: task.toCharArray()) {
         if (ch == '.') Thread.sleep(1000);
@@ -114,7 +114,7 @@ private static void doWork(String task) throws InterruptedException {
 Compile them as in tutorial one (with the jar files in the working directory
 and the environment variable `CP`):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 javac -cp $CP NewTask.java Worker.java
 </pre>
 
@@ -131,13 +131,13 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the worker
 program. These consoles will be our two consumers - C1 and C2.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 java -cp $CP Worker
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 java -cp $CP Worker
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -146,7 +146,7 @@ java -cp $CP Worker
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 3
 java -cp $CP NewTask First message.
 # => [x] Sent 'First message.'
@@ -162,7 +162,7 @@ java -cp $CP NewTask Fifth message.....
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP Worker
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'First message.'
@@ -170,7 +170,7 @@ java -cp $CP Worker
 # => [x] Received 'Fifth message.....'
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP Worker
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'Second message..'
@@ -218,7 +218,7 @@ examples we explicitly turned them off via the `autoAck=true`
 flag. It's time to set this flag to `false` and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.basicQos(1); // accept only one unack-ed message at a time (see below)
 
 DeliverCallback deliverCallback = (consumerTag, delivery) -> {
@@ -255,12 +255,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -278,7 +278,7 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 boolean durable = true;
 channel.queueDeclare("hello", durable, false, false, null);
 </pre>
@@ -290,7 +290,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 boolean durable = true;
 channel.queueDeclare("task_queue", durable, false, false, null);
 </pre>
@@ -303,7 +303,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by setting `MessageProperties` (which implements `BasicProperties`)
 to the value `PERSISTENT_TEXT_PLAIN`.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.MessageProperties;
 
 channel.basicPublish("", "task_queue",
@@ -369,7 +369,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 int prefetchCount = 1;
 channel.basicQos(prefetchCount);
 </pre>
@@ -384,7 +384,7 @@ Putting it all together
 
 Final code of our `NewTask.java` class:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -417,7 +417,7 @@ public class NewTask {
 
 And our `Worker.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;

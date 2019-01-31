@@ -78,7 +78,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 import sys
 
 message = ' '.join(sys.argv[1:]) or "Hello World!"
@@ -92,7 +92,7 @@ Our old _receive.py_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 import time
 
 def callback(ch, method, properties, body):
@@ -114,7 +114,7 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.py`
 script. These consoles will be our two consumers - C1 and C2.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 python worker.py
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -122,7 +122,7 @@ python worker.py
 
 <div></div>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 python worker.py
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -131,7 +131,7 @@ python worker.py
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 3
 python new_task.py First message.
 python new_task.py Second message..
@@ -142,7 +142,7 @@ python new_task.py Fifth message.....
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 python worker.py
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -153,7 +153,7 @@ python worker.py
 
 <div></div>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 python worker.py
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -202,7 +202,7 @@ examples we explicitly turned them off via the `no_ack=True`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 def callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
     time.sleep( body.count('.') )
@@ -232,12 +232,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -258,7 +258,7 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_declare(queue='hello', durable=True)
 </pre>
 
@@ -269,7 +269,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_declare(queue='task_queue', durable=True)
 </pre>
 
@@ -280,7 +280,7 @@ At that point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `delivery_mode` property with a value `2`.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_publish(exchange='',
                       routing_key="task_queue",
                       body=message,
@@ -347,7 +347,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_qos(prefetch_count=1)
 </pre>
 
@@ -361,7 +361,7 @@ Putting it all together
 
 Final code of our `new_task.py` script:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
@@ -386,7 +386,7 @@ connection.close()
 
 And our worker:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import time

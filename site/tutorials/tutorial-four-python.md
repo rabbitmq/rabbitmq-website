@@ -45,7 +45,7 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_bind(exchange=exchange_name,
                    queue=queue_name)
 </pre>
@@ -58,7 +58,7 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_bind(exchange=exchange_name,
                    queue=queue_name,
                    routing_key='black')
@@ -192,14 +192,14 @@ first.
 
 Like always we need to create an exchange first:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.exchange_declare(exchange='direct_logs',
                          exchange_type='direct')
 </pre>
 
 And we're ready to send a message:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_publish(exchange='direct_logs',
                       routing_key=severity,
                       body=message)
@@ -217,7 +217,7 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
 
@@ -273,7 +273,7 @@ Putting it all together
 
 The code for `emit_log_direct.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
@@ -295,7 +295,7 @@ connection.close()
 
 The code for `receive_logs_direct.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
@@ -334,21 +334,21 @@ channel.start_consuming()
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs_direct.py warning error > logs_from_rabbit.log
 </pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs_direct.py info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
 </pre>
 
 And, for example, to emit an `error` log message just type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python emit_log_direct.py error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>

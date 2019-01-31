@@ -45,7 +45,7 @@ limitations under the License.
         indicating the maximum priority the queue should support. For example,
         using the Java client:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Channel ch = ...;
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-max-priority", 10);

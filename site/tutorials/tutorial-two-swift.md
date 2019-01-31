@@ -59,7 +59,7 @@ to allow an arbitrary string to be sent as a method parameter. This
 method will schedule tasks to our work queue, so let's rename it to `newTask`.
 The implementation remains the same apart from the new parameter:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 func newTask(_ msg: String) {
     let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
     conn.start()
@@ -77,7 +77,7 @@ fake a second of work for every dot in the message body. It will help us
 understand what's going on if each worker has a name, and each will need to pop
 messages from the queue and perform the task, so let's call it `workerNamed()`:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 q.subscribe({(_ message: RMQMessage) -> Void in
     let messageText = String(data: message.body, encoding: .utf8)
     print("\(name): Received \(messageText)")
@@ -92,7 +92,7 @@ Note that our fake task simulates execution time.
 
 Run them from `viewDidLoad` as in tutorial one:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 override func viewDidLoad() {
     super.viewDidLoad()
     self.newTask("Hello World...")
@@ -114,7 +114,7 @@ will both get messages from the queue, but how exactly? Let's see.
 
 Change viewDidLoad to send more messages and start two workers:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 override func viewDidLoad() {
     super.viewDidLoad()
     self.workerNamed("Jack")
@@ -129,7 +129,7 @@ override func viewDidLoad() {
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # => Jack: Waiting for messages
 # => Jill: Waiting for messages
 # => Sent Hello World...
@@ -190,7 +190,7 @@ AMQ protocol (the `RMQBasicConsumeOptions.noAck` option is automatically sent by
 explicitly setting an empty `RMQBasicConsumeOptions` and sending a proper
 acknowledgment from the worker once we're done with a task.
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 let manualAck = RMQBasicConsumeOptions()
 q.subscribe(manualAck, handler: {(_ message: RMQMessage) -> Void in
     let messageText = String(data: message.body, encoding: .utf8)
@@ -222,12 +222,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -246,7 +246,7 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 let q = ch.queue("hello", options: .durable)
 </pre>
 
@@ -257,7 +257,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 var q = ch.queue("task_queue", options: .durable)
 </pre>
 
@@ -268,7 +268,7 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option.
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 ch.defaultExchange().publish(msgData, routingKey: q.name, persistent: true)
 </pre>
 
@@ -330,7 +330,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 ch.basicQos(1, global: false)
 </pre>
 
@@ -344,7 +344,7 @@ Putting it all together
 
 Final code of our `newTask()` method:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 func newTask(_ msg: String) {
     let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
     conn.start()
@@ -359,7 +359,7 @@ func newTask(_ msg: String) {
 
 And our `workerNamed()`:
 
-<pre class="sourcecode swift">
+<pre class="lang-swift">
 func workerNamed(_ name: String) {
     let conn = RMQConnection(delegate: RMQConnectionDelegateLogger())
     conn.start()

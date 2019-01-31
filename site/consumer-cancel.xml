@@ -62,7 +62,7 @@ limitations under the License.
       client, the <code>Consumer</code> interface has a
       <code>handleCancel</code> callback, which can be overridden
       by sub-classing the <code>DefaultConsumer</code> class:
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 channel.queueDeclare(queue, false, true, false, null);
 Consumer consumer = new DefaultConsumer(channel) {
     @Override
@@ -126,7 +126,7 @@ channel.basicConsume(queue, consumer);</pre>
           For example, the <code>server-properties</code> presented by
           the RabbitMQ broker to a client may look like:
 
-<pre class="sourcecode haskell">
+<pre class="lang-haskell">
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
   "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",

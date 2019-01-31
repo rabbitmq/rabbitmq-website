@@ -204,13 +204,13 @@ limitations under the License.
        <p>
          In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo apt-key add -
 </pre>
 
@@ -334,7 +334,7 @@ sudo apt-get update
          The following preference file example will configure <code>apt</code> to install <code>erlang-*</code> packages from Bintray
          and not standard Debian or Ubuntu repository:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
 Pin: release o=Bintray
@@ -356,7 +356,7 @@ sudo apt-cache policy
          The following preference file example will pin all <code>erlang-*</code> packages to <code>20.3.8.14</code>
          (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
 Pin: version 1:20.3.8.14-1
@@ -366,7 +366,7 @@ Pin-Priority: 1000
          The following preference file example will pin <code>esl-erlang</code> package to to <code>20.3.6</code>
          (assuming <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">package epoch</a> for the package is 1):
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
 Pin: version 1:20.3.6
@@ -396,13 +396,13 @@ Pin-Priority: 1000
        <p>
         In order to use the repository, add <a href="/signatures.html">RabbitMQ signing key</a> to <code>apt-key</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo apt-key add -
 </pre>
 
@@ -450,7 +450,7 @@ deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution main
 
        <p>
          To add the apt repository to the source list directory (<code>/etc/apt/sources.list.d</code>), use:
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
@@ -459,13 +459,13 @@ echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee
        <p>
          So, on Ubuntu 18.04 the above command becomes
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
          and on Ubuntu 16.04 it would be
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
        </p>
@@ -474,7 +474,7 @@ echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/ap
          It is possible to list multiple repositories, for example, one that provides RabbitMQ and one that <a href="#erlang-repositories">provides Erlang/OTP packages</a>.
          On Ubuntu 18.04 that can be done by modifying the command in the above example like so:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 deb https://dl.bintray.com/rabbitmq/debian bionic main
@@ -483,7 +483,7 @@ EOF
 
          and on Ubuntu 16.04 it would be
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
 deb https://dl.bintray.com/rabbitmq-erlang/debian xenial erlang
 deb https://dl.bintray.com/rabbitmq/debian xenial main
@@ -535,7 +535,7 @@ sudo apt-get install rabbitmq-server
           projects will migrate to use repository-specific signing keys. Before the migration is completed,
           both old and new key must be imported for forward compatibility:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # import the new PackageCloud key that will be used starting December 1st, 2018 (GMT)
 rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 

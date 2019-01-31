@@ -24,7 +24,7 @@ limitations under the License.
     <a href="/logging.html">Server logs</a> can be found under the <a href="/relocate.html">configurable</a> directory, which usually
     defaults to
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 /var/log/rabbitmq
 </pre>
 
@@ -36,14 +36,14 @@ limitations under the License.
     Assuming a <code>systemd</code>-based distribution, system service logs can be
     inspected using
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 journalctl --system
 </pre>
 
     which requires superuser privileges.
     Its output can be filtered to narrow it down to RabbitMQ-specific entries:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo journalctl --system | grep rabbitmq
 </pre>
 

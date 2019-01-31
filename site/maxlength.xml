@@ -177,7 +177,7 @@ limitations under the License.
           of 10 messages:
         </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);

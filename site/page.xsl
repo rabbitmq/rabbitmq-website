@@ -135,7 +135,13 @@ limitations under the License.
       <script type="text/javascript">
         // code highlighting
         window.addEventListener("load", function() {
-          document.querySelectorAll("pre.sourcecode").forEach(function(el) {
+          const selectors = "pre.sourcecode, pre.lang-bash, pre.lang-ini,\
+                             pre.lang-powershell, pre.lang-erlang, pre.lang-elixir,\
+                             pre.lang-java, pre.lang-csharp, pre.lang-xml, pre.lang-haskell,\
+                             pre.lang-groovy, pre.lang-json, pre.lang-javascript,\
+                             pre.lang-go, pre.lang-php, pre.lang-objectivec, pre.lang-swift,\
+                             pre.lang-ruby, pre.lang-python";
+          document.querySelectorAll(selectors).forEach(function(el) {
             hljs.highlightBlock(el);
           });
         });

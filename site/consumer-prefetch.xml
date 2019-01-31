@@ -79,7 +79,7 @@ limitations under the License.
       unacknowledged messages at once:
     </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 Channel channel = ...;
 Consumer consumer = ...;
 channel.basicQos(10); // Per consumer limit
@@ -93,7 +93,7 @@ channel.basicConsume("my-queue", false, consumer);</pre>
       messages at once:
     </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 Channel channel = ...;
 Consumer consumer1 = ...;
 Consumer consumer2 = ...;
@@ -116,7 +116,7 @@ channel.basicConsume("my-queue2", false, consumer2);</pre>
       For example:
     </p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 Channel channel = ...;
 Consumer consumer1 = ...;
 Consumer consumer2 = ...;

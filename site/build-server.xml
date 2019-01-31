@@ -33,14 +33,14 @@ limitations under the License.
 
         <p>
         First, obtain the source code from <a href="github.html">our GitHub repositories</a>:
-	    <pre class="sourcecode bash">
+	    <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-server.git
 </pre>
         </p>
 
         <p>
           Then, use GNU Make to pull down dependencies and build the server:
-	<pre class="sourcecode bash">
+	<pre class="lang-bash">
 cd rabbitmq-server
 make</pre>
         </p>

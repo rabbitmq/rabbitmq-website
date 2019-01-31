@@ -75,7 +75,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.exs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 message =
   case System.argv do
     []    -> "Hello World!"
@@ -91,7 +91,7 @@ Our old _receive.exs_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.exs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule Worker do
   def wait_for_messages(channel) do
     receive do
@@ -123,12 +123,12 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.exs`
 script. These consoles will be our two consumers - C1 and C2.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run worker.exs
 # => [*] Waiting for messages. To exit press CTRL+C, CTRL+C
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run worker.exs
 # => [*] Waiting for messages. To exit press CTRL+C, CTRL+C
 </pre>
@@ -136,7 +136,7 @@ mix run worker.exs
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 3
 mix run new_task.exs First message.
 mix run new_task.exs Second message..
@@ -147,7 +147,7 @@ mix run new_task.exs Fifth message.....
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 mix run worker.exs
 # => [*] Waiting for messages. To exit press CTRL+C, CTRL+C
@@ -156,7 +156,7 @@ mix run worker.exs
 # => [x] Received 'Fifth message.....'
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 mix run worker.exs
 # => [*] Waiting for messages. To exit press CTRL+C, CTRL+C
@@ -205,7 +205,7 @@ examples we explicitly turned them off via the `no_ack: true`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule Worker do
   def wait_for_messages(channel) do
     receive do
@@ -246,12 +246,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -271,7 +271,7 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Queue.declare(channel, "hello", durable: true)
 </pre>
 
@@ -282,7 +282,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Queue.declare(channel, "task_queue", durable: true)
 </pre>
 
@@ -293,7 +293,7 @@ At that point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `persistent: true` property.
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Basic.publish(channel, "", "task_queue", message, persistent: true)
 </pre>
 
@@ -355,7 +355,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Basic.qos(channel, prefetch_count: 1)
 </pre>
 
@@ -369,7 +369,7 @@ Putting it all together
 
 Final code of our `new_task.exs` script:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
@@ -391,7 +391,7 @@ AMQP.Connection.close(connection)
 
 And our worker:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule Worker do
   def wait_for_messages(channel) do
     receive do

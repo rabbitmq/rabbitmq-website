@@ -176,7 +176,7 @@ limitations under the License.
           to perform a <code>basic.ack</code> and <code>basic.nack</code>, respectively. Here's a Java
           client examples that demonstrates a positive acknowledgement:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this example assumes an existing channel instance
 
 boolean autoAck = false;
@@ -202,7 +202,7 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
           In .NET client the methods are <code>IModel#BasicAck</code> and <code>IModel#BasicNack</code>, respectively.
           Here's an example that demonstrates a positive acknowledgement with that client:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // this example assumes an existing channel (IModel) instance
 
 var consumer = new EventingBasicConsumer(channel);
@@ -245,7 +245,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
           To acknowledge multiple deliveries with RabbitMQ Java client, pass <code>true</code> for the
           <code>multiple</code> parameter to <code>Channel#basicAck</code>:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this example assumes an existing channel instance
 
 boolean autoAck = false;
@@ -271,7 +271,7 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
         <p>
           The idea is very much the same with the .NET client:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // this example assumes an existing channel (IModel) instance
 
 var consumer = new EventingBasicConsumer(channel);
@@ -310,7 +310,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
           client users will use <code>Channel#basicReject</code> and <code>Channel#basicNack</code>
           to perform a <code>basic.reject</code> and <code>basic.nack</code>, respectively:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this example assumes an existing channel instance
 
 boolean autoAck = false;
@@ -331,7 +331,7 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
      });
 </pre>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this example assumes an existing channel instance
 
 boolean autoAck = false;
@@ -356,7 +356,7 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
           In .NET client the methods are <code>IModel#BasicReject</code> and <code>IModel#BasicNack</code>,
           respectively:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // this example assumes an existing channel (IModel) instance
 
 var consumer = new EventingBasicConsumer(channel);
@@ -370,7 +370,7 @@ consumer.Received += (ch, ea) =>
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // this example assumes an existing channel (IModel) instance
 
 var consumer = new EventingBasicConsumer(channel);
@@ -409,7 +409,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
           method. This is what differentiates it from <code>basic.reject</code>. It accepts an additional
           parameter, <code>multiple</code>. Here's a Java client example:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // this example assumes an existing channel instance
 
 boolean autoAck = false;
@@ -434,7 +434,7 @@ channel.basicConsume(queueName, autoAck, "a-consumer-tag",
         <p>
           Things work very similarly with .NET client:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // this example assumes an existing channel (IModel) instance
 
 var consumer = new EventingBasicConsumer(channel);

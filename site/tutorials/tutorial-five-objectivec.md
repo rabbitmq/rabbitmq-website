@@ -140,7 +140,7 @@ The code is almost the same as in the
 
 The code for `emitLogTopic`:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 - (void)emitLogTopic:(NSString *)msg routingKey:(NSString *)routingKey {
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
@@ -157,7 +157,7 @@ The code for `emitLogTopic`:
 
 The code for `receiveLogsTopic`:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 - (void)receiveLogsTopic:(NSArray *)routingKeys {
     RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
     [conn start];
@@ -180,31 +180,31 @@ The code for `receiveLogsTopic`:
 
 To receive all the logs:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [self receiveLogsTopic:@[@"#"]];
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [self receiveLogsTopic:@[@"kern.*"]];
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [self receiveLogsTopic:@[@"*.critical"]];
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [self receiveLogsTopic:@[@"kern.*", @"*.critical"]];
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [self emitLogTopic:@"A critical kernel error" routingKey:@"kern.critical"];
 </pre>
 

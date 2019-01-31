@@ -75,7 +75,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.rb`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 message = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
 
 queue.publish(message, persistent: true)
@@ -86,7 +86,7 @@ Our old _receive.rb_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.rb`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 queue.subscribe(block: true) do |delivery_info, _properties, body|
   puts " [x] Received #{body}"
   # imitate some work
@@ -99,12 +99,12 @@ Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 ruby worker.rb
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 ruby new_task.rb
 </pre>
@@ -122,13 +122,13 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.rb`
 script. These consoles will be our two consumers - C1 and C2.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -137,7 +137,7 @@ ruby worker.rb
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 3
 ruby new_task.rb First message.
 ruby new_task.rb Second message..
@@ -148,7 +148,7 @@ ruby new_task.rb Fifth message.....
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -157,7 +157,7 @@ ruby worker.rb
 # => [x] Received 'Fifth message.....'
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 ruby worker.rb
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -205,7 +205,7 @@ Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 queue.subscribe(manual_ack: true, block: true) do |delivery_info, _properties, body|
   puts " [x] Received '#{body}'"
   # imitate some work
@@ -234,12 +234,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -258,7 +258,7 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 channel.queue('hello', durable: true)
 </pre>
 
@@ -269,7 +269,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 channel.queue('task_queue', durable: true)
 </pre>
 
@@ -280,7 +280,7 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `:persistent` option `Bunny::Exchange#publish` takes.
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 exchange.publish(message, persistent: true)
 </pre>
 
@@ -342,7 +342,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 n = 1;
 channel.prefetch(n);
 </pre>
@@ -357,7 +357,7 @@ Putting it all together
 
 Final code of our `new_task.rb` class:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 #!/usr/bin/env ruby
 require 'bunny'
 
@@ -379,7 +379,7 @@ connection.close
 
 And our `worker.rb`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 #!/usr/bin/env ruby
 require 'bunny'
 

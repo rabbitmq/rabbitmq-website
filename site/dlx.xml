@@ -104,7 +104,7 @@ limitations under the License.
         the same virtual host:
       </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.exchangeDeclare("some.exchange.name", "direct");
 
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
@@ -127,7 +127,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
         dead-lettering messages.  If this is not set, the
         message's own routing keys will be used.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 args.put("x-dead-letter-routing-key", "some-routing-key");
 </pre>
       </p>

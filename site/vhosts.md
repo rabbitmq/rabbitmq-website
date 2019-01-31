@@ -72,7 +72,7 @@ which accepts virtual host name as the only mandatory argument.
 
 Here's an example that creates a virtual host named `qa1`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl add_vhost qa1
 </pre>
 
@@ -84,7 +84,7 @@ where `{name}` is the name of the virtual host
 Here's an example that uses [curl](https://curl.haxx.se/) to create a virtual host `vh1` by contacting
 a node at `rabbitmq.local:15672`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 
@@ -116,7 +116,7 @@ which accepts virtual host name as the only mandatory argument.
 
 Here's an example that deletes a virtual host named `qa1`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl delete_vhost qa1
 </pre>
 
@@ -128,7 +128,7 @@ where `{name}` is the name of the virtual host
 Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
 a node at `rabbitmq.local:15672`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 

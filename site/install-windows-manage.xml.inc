@@ -26,14 +26,14 @@ limitations under the License.
 
   <h4>Stopping the Node</h4>
   <p>
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmqctl.bat stop
 </pre>
   </p>
 
   <h4>Checking Node Status</h4>
   <p>
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmqctl.bat status
 </pre>
   </p>

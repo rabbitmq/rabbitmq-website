@@ -38,7 +38,7 @@ RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](/stomp.html) pl
 
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_stomp
 </pre>
 
@@ -64,12 +64,12 @@ some configuration is necessary in order to accept binary messages.
 In order to establish connection from the browser using WebSocket
 you may use code like:
 
-<pre class="sourcecode html">
+<pre class="lang-html">
 &lt;!-- include the client library --&gt;
 &lt;script src=stomp.js"&gt;&lt;/script&gt;
 </pre>
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 &lt;script&gt;
 var ws = new WebSocket('ws://127.0.0.1:15674/ws');
 var client = Stomp.over(ws);
@@ -80,7 +80,7 @@ Once you have the `client` object you can follow API's exposed by
 stomp.js library. The next step is usually to establish a STOMP
 connection with the broker:
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 [...]
 var on_connect = function() {
     console.log('connected');
@@ -99,7 +99,7 @@ A few simple Web STOMP examples are provided as a
 plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_stomp_examples
 </pre>
 
@@ -125,13 +125,13 @@ to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_s
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_stomp.tcp.port = 12345
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp,
       [{tcp_config, [{port, 12345}]}]}
@@ -150,7 +150,7 @@ to learn more about TLS support in RabbitMQ.
 
 TLS configuration parameters are provided in the `web_stomp.ssl` section:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_stomp.ssl.port       = 15673
 web_stomp.ssl.backlog    = 1024
 web_stomp.ssl.certfile   = /path/to/server/certificate.pem
@@ -162,7 +162,7 @@ web_stomp.ssl.password   = changeme
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
 section is `rabbitmq_web_stomp.ssl_config`:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp,
       [{ssl_config, [{port,       15673},
@@ -195,7 +195,7 @@ in the CONNECT frame, if any, are ignored.
 This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-file)
 or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp,
       [{use_http_auth, true}]}
@@ -207,13 +207,13 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 The Web STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for clients:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_stomp.proxy_protocol = true
 </pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp, [{proxy_protocol, true}]}
 ].
@@ -237,13 +237,13 @@ By default, the Web STOMP plugin will expect to handle messages
 encoded as UTF-8. The WebSocket endpoint exposed by this plugin can be switched to binary mode if needed
 using the `ws_frame` option:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_stomp.ws_frame = binary
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp, [{ws_frame, binary}]}
 ].
@@ -254,7 +254,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 Generic HTTP server settings can be specified using `web_stomp.cowboy_opts.*` keys,
 for example:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # connection inactivity timeout
 web_stomp.cowboy_opts.idle_timeout = 60000
 # max number of pending requests allowed on a connection
@@ -269,7 +269,7 @@ web_stomp.cowboy_opts.max_request_line_length
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp,
       [
@@ -283,7 +283,7 @@ In the classic config format:
 
 ### WebSocket Options
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # WebSocket traffic compression is enabled by default
 web_stomp.ws_opts.compress = true
 
@@ -295,7 +295,7 @@ web_stomp.ws_opts.max_frame_size = 50000
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_stomp,
       [

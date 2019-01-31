@@ -104,7 +104,7 @@ limitations under the License.
           <a href="ssl.html#cipher-suites">set cipher suites</a> used
           by RabbitMQ and restrict the list to RSA only.
         </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
  {rabbit, [
            {ssl_options, [{ciphers, [{rsa,aes_256_cbc,sha256},
