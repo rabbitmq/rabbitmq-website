@@ -568,7 +568,7 @@ listeners.tcp.default = 5673
                 that will be inferred by the node, e.g. due to containerization or similar
                 constraints the node cannot be aware of. The value may be
                 set to an integer number of bytes or, alternatively, in
-                information units (e.g <code>"8GB"</code>). For example,
+                information units (e.g <code>8GB</code>). For example,
                 when the value is set to 4 GB, the node will believe it is
                 running on a machine with 4 GB of RAM.
                 <p>Default: <code>undefined</code> (not used)</p>
@@ -582,7 +582,7 @@ listeners.tcp.default = 5673
                 this limit, flow control is triggered. The value can be
                 set relative to the total amount of RAM or as an absolute value
                 in bytes or, alternatively, in
-                information units (e.g <code>"50MB"</code> or <code>"5GB"</code>):
+                information units (e.g <code>50MB</code> or <code>5GB</code>):
 
 <pre class="lang-ini">
 disk_free_limit.relative = 3.0</pre>
