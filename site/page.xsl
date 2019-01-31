@@ -391,20 +391,6 @@ limitations under the License.
     </table>
   </xsl:template>
 
-  <xsl:template match="r:repository[@type = 'hg']">
-    <tr>
-      <td>
-    <a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
-      </td>
-      <td>
-    <code>hg clone <xsl:value-of select="@url"/></code>
-      </td>
-      <td>
-    <a class="arepo" href="{@url}">Browse source</a>
-      </td>
-    </tr>
-  </xsl:template>
-
   <xsl:template match="r:repository[@type = 'github']">
     <tr>
       <td>
