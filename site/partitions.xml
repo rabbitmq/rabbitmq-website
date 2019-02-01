@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -74,7 +74,7 @@ Mnesia(rabbit@hostname): ** ERROR ** mnesia_event got
         <code>rabbitmqctl cluster_status</code> will normally show an
         empty list for <code>partitions</code>:
       </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@smacmullen ...
 # => [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},
@@ -86,7 +86,7 @@ rabbitmqctl cluster_status
         However, if a network partition has occurred then information
         about partitions will appear there:
       </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@smacmullen ...
 # => [{nodes,[{disc,[hare@smacmullen,rabbit@smacmullen]}]},

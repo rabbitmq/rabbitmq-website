@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -37,7 +37,7 @@ WebSockets.
 
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_mqtt
 </pre>
 
@@ -58,12 +58,12 @@ http://127.0.0.1:15675/ws
 In order to establish connection from the browser using WebSocket
 you may use code like:
 
-<pre class="sourcecode html">
+<pre class="lang-html">
 &lt;!-- include the client library --&gt;
 &lt;script src="mqttws31.js"&gt;&lt;/script&gt;
 </pre>
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 &lt;script&gt;
 
     var wsbroker = location.hostname;  // mqtt websocket enabled broker
@@ -84,7 +84,7 @@ Once you have the `client` object you can follow API's exposed by
 [Paho JavaScript library](https://eclipse.org/paho/clients/js/). The next step is usually to establish a MQTT
 connection with the broker:
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 [...]
 
 var options = {
@@ -113,7 +113,7 @@ A few simple Web MQTT examples are provided as a
 plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_mqtt_examples
 </pre>
 
@@ -139,13 +139,13 @@ to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_mqtt.tcp.port = 12345
 </pre>
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_mqtt,
       [{tcp_config, [{port, 12345}]}]}
@@ -162,7 +162,7 @@ to learn more about TLS support in RabbitMQ.
 
 TLS configuration parameters are provided in the `web_mqtt.ssl` section:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_mqtt.ssl.port       = 15673
 web_mqtt.ssl.backlog    = 1024
 web_mqtt.ssl.certfile   = /path/to/server/certificate.pem
@@ -175,7 +175,7 @@ web_mqtt.ssl.cacertfile = /path/to/testca/ca_certificate_bundle.pem
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
 section is `rabbitmq_web_mqtt.ssl_config`:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_mqtt,
       [{ssl_config, [{port,       15673},
@@ -207,7 +207,7 @@ RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versi
 in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
 and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {rabbitmq_web_mqtt,
   [{ssl_config,
     [{cacertfile,           "/path/to/testca/ca_certificate_bundle.pem"},
@@ -241,13 +241,13 @@ information.
 The Web MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 web_mqtt.proxy_protocol = true
 </pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_mqtt, [{proxy_protocol, true}]}
 ].
@@ -270,7 +270,7 @@ Some settings are generic HTTP ones, others are specific to WebSockets.
 Generic HTTP server settings can be specified using `web_mqtt.cowboy_opts.*` keys,
 for example:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # connection inactivity timeout
 web_mqtt.cowboy_opts.idle_timeout = 60000
 # max number of pending requests allowed on a connection
@@ -285,7 +285,7 @@ web_mqtt.cowboy_opts.max_request_line_length
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_mqtt,
       [
@@ -299,7 +299,7 @@ In the classic config format:
 
 ### WebSocket Options
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # WebSocket traffic compression is enabled by default
 web_mqtt.ws_opts.compress = true
 
@@ -311,7 +311,7 @@ web_mqtt.ws_opts.max_frame_size = 50000
 
 In the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_web_mqtt,
       [

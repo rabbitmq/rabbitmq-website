@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -162,7 +162,7 @@ limitations under the License.
       <p>
         To clone the repo from GitHub:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-dotnet-client
 </pre>
       </p>
@@ -180,7 +180,7 @@ git clone https://github.com/rabbitmq/rabbitmq-dotnet-client
       <p>
         The client assembly is strong named. The public key token is 89e7d7c5feba84ce
         and the public part of the signing key is
-<pre class="sourcecode text">
+<pre class="lang-text">
 00240000048000009400000006020000002400005253413100040000010001008d20ec856aeeb8
 c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
 96c77329efdee4579b3814c0789e5a39b51df6edd75b602a33ceabdfcf19a3feb832f31d825416

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -155,7 +155,7 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -185,7 +185,7 @@ $connection->close();
 
 The code for `receive_logs_topic.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -226,31 +226,31 @@ $connection->close();
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs_topic.php "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs_topic.php "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs_topic.php "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs_topic.php "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php emit_log_topic.php "kern.critical" "A critical kernel error"
 </pre>
 

@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -48,13 +48,13 @@ limitations under the License.
       <p>
         Before installing make sure the taps are up-to-date:
 
-<pre class="sourcecode shell">
+<pre class="lang-shell">
 brew update
 </pre>
 
         Then, install RabbitMQ server with:
 
-<pre class="sourcecode shell">
+<pre class="lang-shell">
 brew install rabbitmq
 </pre>
       </p>
@@ -73,7 +73,7 @@ brew install rabbitmq
         In case that directory is not in <code>PATH</code> it's recommend to append
         it:
 
-<pre class="sourcecode shell">
+<pre class="lang-shell">
 export PATH=$PATH:/usr/local/sbin
 </pre>
 

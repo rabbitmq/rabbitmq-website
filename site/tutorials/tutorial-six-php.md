@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -41,7 +41,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $fibonacci_rpc = new FibonacciRpcClient();
 $response = $fibonacci_rpc->call(30);
 echo ' [.] Got ', $response, "\n";
@@ -75,7 +75,7 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
 $msg = new AMQPMessage(
@@ -208,7 +208,7 @@ Putting it all together
 
 The Fibonacci task:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 function fib($n)
 {
     if ($n == 0) {
@@ -227,7 +227,7 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_server.php) looks like this:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -295,7 +295,7 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_client.php):
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -378,14 +378,14 @@ Now is a good time to take a look at our full example source code for
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 php rpc_server.php
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 php rpc_client.php
 # => [x] Requesting fib(30)
 </pre>

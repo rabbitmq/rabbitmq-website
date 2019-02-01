@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -101,7 +101,7 @@ Disabling disk free space monitoring</pre>
         <a href="/relocate.html">file locations</a> for the default database location).
         This configuration file sets the disk free space limit to 1GB:
 
-<pre class="sourcecode init">
+<pre class="lang-init">
 disk_free_limit.absolute = 1000000000
 </pre>
 
@@ -113,7 +113,7 @@ disk_free_limit.absolute = 1GB
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{disk_free_limit, 1000000000}]}].
 </pre>
       </p>
@@ -122,13 +122,13 @@ disk_free_limit.absolute = 1GB
         This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
 
-<pre class="sourcecode init">
+<pre class="lang-init">
 disk_free_limit.relative = 1.0
 </pre>
         
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].
 </pre>
       </p>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -86,7 +86,7 @@ On Debian-derived
 systems, copy the file to `/etc/bash_completion.d` to make it
 available system-wide:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo sh -c 'rabbitmqadmin --bash-completion > /etc/bash_completion.d/rabbitmqadmin'
 </pre>
 
@@ -94,7 +94,7 @@ sudo sh -c 'rabbitmqadmin --bash-completion > /etc/bash_completion.d/rabbitmqadm
 
 ### Get a list of exchanges
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin -V test list exchanges
 # => +-------------+---------+-------+---------+-------------+
 # => |    name     | durable | vhost |  type   | auto_delete |
@@ -110,7 +110,7 @@ rabbitmqadmin -V test list exchanges
 
 ### Get a list of queues, with some columns specified
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
 # => +-------+----------------------------------+-------------------+----------+------------------------------------+
 # => | vhost |               name               |       node        | messages | message_stats.publish_details.rate |
@@ -122,7 +122,7 @@ rabbitmqadmin list queues vhost name node messages message_stats.publish_details
 
 ### Get a list of queues, with all the detail we can take
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin -f long -d 3 list queues
 # =>     --------------------------------------------------------------------------------
 # => 
@@ -137,7 +137,7 @@ rabbitmqadmin -f long -d 3 list queues
 
 ### Connect to another host as another user
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin -H myserver -u simon -p simon list vhosts
 # => +------+
 # => | name |
@@ -148,28 +148,28 @@ rabbitmqadmin -H myserver -u simon -p simon list vhosts
 
 ### Declare an exchange
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin declare exchange name=my-new-exchange type=fanout
 # => exchange declared
 </pre>
 
 ### Declare a queue, with optional parameters
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin declare queue name=my-new-queue durable=false
 # => queue declared
 </pre>
 
 ### Publish a message
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin publish exchange=amq.default routing_key=test payload="hello, world"
 # => Message published
 </pre>
 
 ### And get it back
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin get queue=test requeue=false
 # => +-------------+----------+---------------+--------------+------------------+-------------+
 # => | routing_key | exchange | message_count |   payload    | payload_encoding | redelivered |
@@ -180,19 +180,19 @@ rabbitmqadmin get queue=test requeue=false
 
 ### Export Configuration (Definitions)
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin export rabbit.definitions.json
 # => Exported configuration for localhost to "rabbit.config"
 </pre>
 
 ### Import Configuration (Definitions), quietly
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin -q import rabbit.definitions.json
 </pre>
 
 ### Close all connections
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
 </pre>

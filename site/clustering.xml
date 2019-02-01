@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -117,7 +117,7 @@ limitations under the License.
             standard OS hostname resolution methods.
           </p>
           <p>
-            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#define-environment-variables">Configuration guide</a>.
+            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#supported-environment-variables">Configuration guide</a>.
           </p>
         </doc:subsection>
 
@@ -357,7 +357,7 @@ limitations under the License.
             nodes into a cluster configuration. Hence the first step
             is to start RabbitMQ on all nodes in the normal way:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmq-server -detached
 # on rabbit2
@@ -370,7 +370,7 @@ rabbitmq-server -detached
             one on each node, as confirmed by the <i>cluster_status</i>
             command:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -424,7 +424,7 @@ rabbitmqctl cluster_status
             using the <a href="/blue-green-upgrade.html">Blue/Green deploymentt strategy</a> or <a href="/backup.html">backup and restore</a>
             are the avaialble options.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit2
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit2 ...done.
@@ -442,7 +442,7 @@ rabbitmqctl start_app
             We can see that the two nodes are joined in a cluster by
             running the <i>cluster_status</i> command on either of the nodes:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -466,7 +466,7 @@ rabbitmqctl cluster_status
             node will be clustered to the cluster that the specified
             node belongs to.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit3
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit3 ...done.
@@ -485,7 +485,7 @@ rabbitmqctl start_app
             We can see that the three nodes are joined in a cluster by
             running the <i>cluster_status</i> command on any of the nodes:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -529,7 +529,7 @@ rabbitmqctl cluster_status
             <code>rabbit@rabbit3</code> and check on the cluster
             status at each step:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl stop
 # => Stopping and halting node rabbit@rabbit1 ...done.
@@ -563,7 +563,7 @@ rabbitmqctl cluster_status
             Now we start the nodes again, checking on the cluster
             status as we go along:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmq-server -detached
 rabbitmqctl cluster_status
@@ -665,7 +665,7 @@ Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', 
             they will rejoin each other one by one successfully. This window of time
             can be adjusted using two configuration settings:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # wait for 60 seconds instead of 30
 mnesia_table_loading_retry_timeout = 60000
 
@@ -720,7 +720,7 @@ mnesia_table_loading_retry_limit = 15
             stop the RabbitMQ application, reset the node, and restart the
             RabbitMQ application.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit3
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit3 ...done.
@@ -739,7 +739,7 @@ rabbitmqctl start_app
             that <code>rabbit@rabbit3</code> now is no longer part of
             the cluster and operates independently:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -765,7 +765,7 @@ rabbitmqctl cluster_status
             having to deal with an unresponsive node. We can for example remove
             <code>rabbit@rabbi1</code> from <code>rabbit@rabbit2</code>.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit1 ...done.
@@ -780,7 +780,7 @@ rabbitmqctl forget_cluster_node rabbit@rabbit1
             <code>rabbit2</code>, and trying to start it will result in an
             error. We will need to reset it to be able to start it again.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl start_app
 # => Starting node rabbit@rabbit1 ...
@@ -797,7 +797,7 @@ rabbitmqctl start_app
             The <i>cluster_status</i> command now shows all three nodes
             operating as independent RabbitMQ brokers:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -824,7 +824,7 @@ rabbitmqctl cluster_status
             <code>rabbit@rabbit2</code> we follow the same steps as
             for the other nodes:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit2
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit2 ...done.
@@ -865,7 +865,7 @@ rabbitmqctl start_app
             used by plugins. See <code>RABBITMQ_NODENAME</code>,
             <code>RABBITMQ_NODE_PORT</code>, and
             <code>RABBITMQ_DIST_PORT</code> in the <a
-            href="/configure.html#define-environment-variables">Configuration
+            href="/configure.html#supported-environment-variables">Configuration
             guide</a>, as well as <code>RABBITMQ_MNESIA_DIR</code>,
             <code>RABBITMQ_CONFIG_FILE</code>, and
             <code>RABBITMQ_LOG_BASE</code> in the <a
@@ -877,7 +877,7 @@ rabbitmqctl start_app
             repeated invocation of <code>rabbitmq-server</code> (
             <code>rabbitmq-server.bat</code> on Windows). For example:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 rabbitmqctl -n hare stop_app
@@ -890,7 +890,7 @@ rabbitmqctl -n hare start_app
             than AMQP, you'll need to configure those not to clash as
             well. This can be done via command line:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15672}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached
 </pre>
@@ -966,7 +966,7 @@ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listene
             <code>rabbitmqctl join_cluster</code> as before, but passing the
             <code>--ram</code> flag:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit2
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit2 ...done.
@@ -980,7 +980,7 @@ rabbitmqctl start_app
           <p>
             RAM nodes are shown as such in the cluster status:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit1
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@rabbit1 ...
@@ -1008,7 +1008,7 @@ rabbitmqctl cluster_status
             <code>change_cluster_node_type</code> command. The node must be
             stopped first.
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 # on rabbit2
 rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit2 ...done.

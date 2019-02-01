@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -159,7 +159,7 @@ The code is almost the same as in the
 First lets configure some profiles and beans in the `Tut5Config` class
 of the `tut5` package:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -236,7 +236,7 @@ creation of the `Tut5Sender` class.
 The `Tut5Receiver` again uses the `@RabbitListener` annotation to receive messages from the respective
 topics. 
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;
 
@@ -276,7 +276,7 @@ public class Tut5Receiver {
 
 The code for `Tut5Sender.java`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut5;
 
 import org.springframework.amqp.core.TopicExchange;
@@ -324,14 +324,14 @@ following:
 
 To build the project:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./mvnw clean package
 </pre>
 
 To execute the sender and receiver with the correct profiles 
 execute the jar with the correct parameters:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 java -jar target/rabbitmq-tutorials.jar \
     --spring.profiles.active=topics,receiver \
@@ -344,7 +344,7 @@ java -jar target/rabbitmq-tutorials.jar \
 
 The output from the sender will look something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 Ready ... running for 60000ms
  [x] Sent 'Hello to lazy.orange.elephant 1'
  [x] Sent 'Hello to quick.orange.fox 2'
@@ -360,7 +360,7 @@ Ready ... running for 60000ms
 
 And the receiver will respond with the following output:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 instance 1 [x] Received 'Hello to lazy.orange.elephant 1'
 instance 2 [x] Received 'Hello to lazy.orange.elephant 1'
 instance 2 [x] Done in 2.005s

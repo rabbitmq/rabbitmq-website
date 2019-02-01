@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -63,7 +63,7 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default exchange.
 Let's try it:
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 ch.assertQueue('', {exclusive: true});
 
 ch.sendToQueue('rpc_queue',new Buffer('10'), { replyTo: queue_name });
@@ -191,7 +191,7 @@ Putting it all together
 
 The Fibonacci function:
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 function fibonacci(n) {
   if (n == 0 || n == 1)
     return n;
@@ -207,7 +207,7 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_server.js) looks like this:
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 #!/usr/bin/env node
 
 var amqp = require('amqplib/callback_api');
@@ -256,7 +256,7 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_client.js):
 
-<pre class="sourcecode javascript">
+<pre class="lang-javascript">
 #!/usr/bin/env node
 
 var amqp = require('amqplib/callback_api');
@@ -303,14 +303,14 @@ Now is a good time to take a look at our full example source code for
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./rpc_server.js
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./rpc_client.js 30
 # => [x] Requesting fib(30)
 </pre>

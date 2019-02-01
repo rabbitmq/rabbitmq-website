@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -26,14 +26,14 @@ limitations under the License.
 
   <h4>Stopping the Node</h4>
   <p>
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmqctl.bat stop
 </pre>
   </p>
 
   <h4>Checking Node Status</h4>
   <p>
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 rabbitmqctl.bat status
 </pre>
   </p>

@@ -40,7 +40,7 @@ installed and enabled. Plugin installation involves downloading a plugin archive
 [Plugin directories](/plugins.html#plugin-directories) can be located by executing the following command on the host
 with a running RabbitMQ node:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
 {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"}
 </pre>
@@ -50,7 +50,7 @@ such as Prometheus exporter. If the reported directory does not exist, it has to
 
 The following example shell script downloads the plugin and all of its dependencies:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 #!/bin/sh
 
 # make sure the directory exists
@@ -74,7 +74,7 @@ get prometheus_rabbitmq_exporter-3.7.2.4.ez
 
 Verify that plugin archives are in place (output should be similar to this - note file sizes):
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 ls -la /usr/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
 
 -rw-r--r-- 1 root root  13397 Oct 23 10:22 /usr/lib/rabbitmq/plugins/accept-0.3.3.ez
@@ -91,7 +91,7 @@ Once `prometheus_rabbitmq_exporter` plugin and all its dependencies are
 downloaded , use [rabbitmq-plugins](/cli.html) to ensure that it was
 successfully installed by listing all available plugins:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmq-plugins list
 
  Configured: E = explicitly enabled; e = implicitly enabled
@@ -106,7 +106,7 @@ rabbitmq-plugins list
 
 To enable the plugin:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmq-plugins enable prometheus_rabbitmq_exporter
 </pre>
 
@@ -118,7 +118,7 @@ the Prometheus text format (sometimes written as as `prometheus_text_format`).
 
 Here's an example of said format:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 # TYPE rabbitmq_consumers gauge
 # HELP rabbitmq_consumers RabbitMQ consumer count
 rabbitmq_consumers 0
@@ -136,7 +136,7 @@ is up and running.
 To confirm that RabbitMQ node provides a Prometheus target endpoint,
 use [curl](https://curl.haxx.se) or a similar tool:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 curl --verbose http://localhost:15672/api/metrics
 
 # => * Trying 127.0.0.1...
@@ -194,7 +194,7 @@ and, in fact, optimal.
 
 To find the stats collection interval on a node, use `rabbitmqctl environment`:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl environment | grep collect_statistics_interval
 # => {collect_statistics_interval,5000}
 </pre>
@@ -208,7 +208,7 @@ to 30 or 60 seconds instead of making Prometheus poll more frequently).
 
 Here's an example Prometheus config file:
 
-<pre class="sourcecode yaml">
+<pre class="lang-yaml">
 scrape_configs:
   - job_name: rabbitmq
     scrape_interval: 5s
@@ -220,7 +220,7 @@ scrape_configs:
 
 To run a Prometheus node with it on port `9090`, assuming a Prometheus binary in `PATH`.
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 prometheus --config.file=./rabbitmq.yml --web.external-url=http://localhost:9090/
 </pre>
 

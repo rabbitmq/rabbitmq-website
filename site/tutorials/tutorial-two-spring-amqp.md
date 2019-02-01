@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -82,7 +82,7 @@ to correspond to the workers in our diagram above; `receiver1` and
 `receiver2`. Finally, we define a profile for the sender and define the
 sender bean.  The configuration is now done.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -129,7 +129,7 @@ The documentation defines this as, "Convert a Java object to
 an AMQP Message and send it to a default exchange with a
 default routing key."
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut2;
 
 import org.springframework.amqp.core.Queue;
@@ -179,7 +179,7 @@ consuming the message is added to our monitor to show
 which instance, the message and the length of time to process
 the message.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;
@@ -219,7 +219,7 @@ public class Tut2Receiver {
 
 Compile them using mvn package and run with the following options
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./mvnw clean package
 
 # shell 1
@@ -230,7 +230,7 @@ java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=work-queues,sen
 
 The output of the sender should look something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 Ready ... running for 10000ms
  [x] Sent 'Hello.1'
  [x] Sent 'Hello..2'
@@ -246,7 +246,7 @@ Ready ... running for 10000ms
 
 And the output from the workers should look something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 Ready ... running for 10000ms
 instance 1 [x] Received 'Hello.1'
 instance 2 [x] Received 'Hello..2'
@@ -267,13 +267,13 @@ Spring AMQP by default takes a conservative approach to [message acknowledgement
 If the listener throws an exception the container
 calls:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.basicReject(deliveryTag, requeue)
 </pre>
 
 Requeue is true by default unless you explicitly set:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 defaultRequeueRejected=false
 </pre>
 
@@ -282,7 +282,7 @@ is typically the behavior you want from your listener. In this mode
 there is no need to worry about a forgotten acknowledgement.  After
 processing the message the listener calls:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 channel.basicAck()
 </pre>
 
@@ -304,12 +304,12 @@ that uses RabbitMQ Java client directly, this is something to keep in mind.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 

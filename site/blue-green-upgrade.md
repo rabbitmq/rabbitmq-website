@@ -32,14 +32,14 @@ is the upstream and the "green" one is the downstream.
 
 1. Define the upstream on "green" and point it to "blue":
 
-    <pre class="sourcecode sh">
+    <pre class="lang-sh">
     rabbitmqctl set_parameter federation-upstream blue \
       '{"uri":"amqp://node-in-blue-cluster"}'
     </pre>
 
 1. Define a policy matching all queues which configure `blue` as the upstream:
 
-    <pre class="sourcecode sh">
+    <pre class="lang-sh">
     rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
       '{"federation-upstream":"blue"}'
     </pre>
@@ -68,7 +68,7 @@ When you have a large backlog, you could setup the [shovel plugin](/shovel-dynam
 on "green" to really drain messages in "blue". Thus, you need to run the
 following command for each queue with a backlog:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl set_parameter shovel drain-blue \
 '{"src-protocol": "amqp091", "src-uri": "amqp://node-in-blue-cluster", \
 "src-queue": "queue1", "dest-protocol": "amqp091", \

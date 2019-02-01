@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -88,20 +88,20 @@ limitations under the License.
       <p>
         The following config example uses the <code>rss</code> strategy:
 
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 vm_memory_calculation_strategy = rss
 </pre>
 
         Similarly, for the <code>allocated</code> strategy, use:
 
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 vm_memory_calculation_strategy = allocated
 </pre>
       </p>
       <p>
         To configure the <code>rss</code> strategy using classic config format:
 
-        <pre class="sourcecode erlang">
+        <pre class="lang-erlang">
 [
   {rabbit, [{vm_memory_calculation_strategy, rss}]}
 ].
@@ -109,7 +109,7 @@ vm_memory_calculation_strategy = allocated
 
         Similarly, for the <code>allocated</code> strategy, use:
 
-        <pre class="sourcecode erlang">
+        <pre class="lang-erlang">
 [
   {rabbit, [{vm_memory_calculation_strategy, allocated}]}
 ].
@@ -160,7 +160,7 @@ vm_memory_calculation_strategy = allocated
         </p>
 
         <p>
-          <pre class="sourcecode erlang">
+          <pre class="lang-erlang">
 {memory,
     [{connection_readers,70896},
      {connection_writers,166752},
@@ -378,7 +378,7 @@ vm_memory_calculation_strategy = allocated
         </p>
 
         <p>
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
   python -m json.tool
 
@@ -416,7 +416,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
         </p>
 
         <p>
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative |
   python -m json.tool
 
@@ -468,7 +468,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
           can be decreased. It is possible to cap the max number of channels on a connection using
           the <code>channel_max</code> configuration setting:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 channel_max = 16
 </pre>
 
@@ -600,7 +600,7 @@ channel_max = 16
       <p>
         The plugin ships with RabbitMQ. Enable it with
 
-        <pre class="sourcecode bash">
+        <pre class="lang-bash">
 [sudo] rabbitmq-plugins enable rabbitmq_top
 </pre>
       </p>
@@ -705,7 +705,7 @@ channel_max = 16
           <p>
             The memory use of a single queue can be obtained via the HTTP API:
 
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
   python -m json.tool
 

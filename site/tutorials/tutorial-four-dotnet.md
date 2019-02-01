@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
@@ -38,7 +38,7 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.QueueBind(queue: queueName,
                   exchange: "logs",
                   routingKey: "");
@@ -52,7 +52,7 @@ Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with a `BasicPublish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.QueueBind(queue: queueName,
                   exchange: "direct_logs",
                   routingKey: "black");
@@ -186,13 +186,13 @@ first.
 
 As always, we need to create an exchange first:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.ExchangeDeclare(exchange: "direct_logs", type: "direct");
 </pre>
 
 And we're ready to send a message:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var body = Encoding.UTF8.GetBytes(message);
 channel.BasicPublish(exchange: "direct_logs",
                      routingKey: severity,
@@ -212,7 +212,7 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var queueName = channel.QueueDeclare().QueueName;
 
 foreach(var severity in args)
@@ -270,7 +270,7 @@ Putting it all together
 
 The code for `EmitLogDirect.cs` class:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using System.Linq;
 using RabbitMQ.Client;
@@ -307,7 +307,7 @@ class EmitLogDirect
 
 The code for `ReceiveLogsDirect.cs`:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -370,7 +370,7 @@ advice).
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsDirect
 dotnet run warning error > logs_from_rabbit.log
 </pre>
@@ -378,7 +378,7 @@ dotnet run warning error > logs_from_rabbit.log
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsDirect
 dotnet run info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
@@ -386,7 +386,7 @@ dotnet run info warning error
 
 And, for example, to emit an `error` log message just type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd EmitLogDirect
 dotnet run error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'

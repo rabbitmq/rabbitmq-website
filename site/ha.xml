@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -88,12 +88,11 @@ limitations under the License.
         There are multiple terms commonly used to identify primary
         and secondary replicas in a distributed system. This guide
         typically uses "master" to refer to the primary replica of a
-        queue and "mirror" for secondary replicas.  However, you
-        will find "slave" used here and there. This is because
+        queue and "mirror" for secondary replicas.  However,
         RabbitMQ CLI tools historically have been using the term
-        "slave" to refer to secondaries. Therefore both terms are
-        currently used interchangeably but we'd like to eventually
-        get rid of the legacy terminology.
+        "slave" to refer to secondaries. Therefore that term still appears
+        in column names in CLI tools for backwards compatibility but will
+        eventually be replaced.
       </p>
     </doc:section>
 
@@ -278,7 +277,7 @@ limitations under the License.
         It is possible to list queue master and mirrors using <code>rabbitmqctl list_queues</code>. In this
         example we also display queue policy since it's highly relevant:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl list_queues name policy pid slave_pids
 
 # =&gt; Timeout: 60.0 seconds ...
@@ -720,7 +719,7 @@ operation queue.declare caused a channel exception not_found: home node 'rabbit@
           For example (in Java):
         </p>
 
-        <pre class="sourcecode java">
+        <pre class="lang-java">
 Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
@@ -775,15 +774,15 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
         <p>
           To see mirror status (whether they are synchronised), use:
         </p>
-        <pre class="sourcecode bash">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <pre class="lang-bash">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
         <p>
           It is possible to manually synchronise a queue:
         </p>
-        <pre class="sourcecode bash">rabbitmqctl sync_queue <i>name</i></pre>
+        <pre class="lang-bash">rabbitmqctl sync_queue <i>name</i></pre>
         <p>
           Or cancel an in-progress synchronisation:
         </p>
-        <pre class="sourcecode bash">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <pre class="lang-bash">rabbitmqctl cancel_sync_queue <i>name</i></pre>
         <p>
           These features are also available through the management plugin.
         </p>

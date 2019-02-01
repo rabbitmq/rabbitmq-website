@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -109,7 +109,7 @@ limitations under the License.
         <p>
           The listeners sections will look something like this:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
  % ...
  {listeners,
      [{clustering,25672,"::"},
@@ -178,7 +178,7 @@ limitations under the License.
           the connection succeeds. <code>12345</code> is then entered for input followed by Enter. Since <code>12345</code> is not a correct AMQP protocol header,
           so the server closes TCP connection:
 
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 telnet localhost 5672
 # => Trying ::1...
 # => Connected to localhost.
@@ -193,7 +193,7 @@ telnet localhost 5672
           The following example connects to <code>localhost</code> on port <code>5673</code>.
           The connection fails (refused by the OS) since there is no process listening on that port.
 
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 telnet localhost 5673
 # => Trying ::1...
 # => telnet: connect to address ::1: Connection refused
@@ -224,23 +224,23 @@ telnet localhost 5673
         <p>
           The following example uses <code>lsof</code> to display OS processes that listen on port 5672 and use IPv4:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo lsof -n -i4TCP:5672 | grep LISTEN
 </pre>
 
           Similarly, for programs that use IPv6:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo lsof -n -i6TCP:5672 | grep LISTEN
 </pre>
 
           On port 1883:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo lsof -n -i4TCP:1883 | grep LISTEN
 </pre>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo lsof -n -i6TCP:1883 | grep LISTEN
 </pre>
 
@@ -250,13 +250,13 @@ sudo lsof -n -i6TCP:1883 | grep LISTEN
         <p>
           The following example uses <code>ss</code> to display listening TCP sockets that use IPv4 and their OS processes:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo ss --tcp -f inet --listening --numeric --processes
 </pre>
 
           Similarly, for TCP sockets that use IPv6:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 sudo ss --tcp -f inet6 --listening --numeric --processes
 </pre>
         </p>
@@ -347,7 +347,7 @@ sudo ss --tcp -f inet6 --listening --numeric --processes
           IP addresses will be displayed as numbers instead of being resolved to domain names. Program names will be printed next
           to numeric port values (as opposed to protocol names).
 
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 sudo netstat --all --numeric --tcp --programs
 </pre>
 
@@ -393,7 +393,7 @@ sudo netstat --all --numeric --tcp --programs
           Evidence of short lived connections can be found in RabbitMQ log files. E.g. here's an example
           of such connection that lasted only a few milliseconds:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 2018-06-17 16:23:29.851 [info] &lt;0.634.0&gt; accepting AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672)
 2018-06-17 16:23:29.853 [info] &lt;0.634.0&gt; connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')

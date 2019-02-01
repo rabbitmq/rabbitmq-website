@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -69,18 +69,18 @@ limitations under the License.
         is used. For a plugin to be activated at boot, it must be enabled. To enable a plugin, use
         the <a href="cli.html">rabbitmq-plugins</a>:
 
-        <pre class="sourcecode bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
+        <pre class="lang-bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
 
         And to disable a plugin, use:
 
-        <pre class="sourcecode bash">rabbitmq-plugins disable <i>plugin-name</i></pre>
+        <pre class="lang-bash">rabbitmq-plugins disable <i>plugin-name</i></pre>
       </p>
 
       <p>
         A list of plugins available locally (in the node's <a href="/relocate.html">plugins directory</a>) as well
         as their status (enabled or disabled) can be obtained using <code>rabbitmq-plugins list</code>:
 
-        <pre class="sourcecode bash">rabbitmq-plugins list</pre>
+        <pre class="lang-bash">rabbitmq-plugins list</pre>
       </p>
     </doc:section>
 
@@ -111,7 +111,7 @@ limitations under the License.
         the file contents will look like this:
 
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel].
 </pre>
 
@@ -156,14 +156,14 @@ limitations under the License.
         and therefore not recommended. To solve this problem, the plugin directory can be a list
         of paths separated by a colon (on Linux, MacOS, BSD):
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 # Example rabbitmq-env.conf file that features a colon-separated list of plugin directories
 PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"
 </pre>
 
         On Windows, a semicolon is used as path separator:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 # Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
 PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7.9\plugins"
 </pre>
@@ -186,7 +186,7 @@ PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.7
         Plugin directory can be located by executing the following command on the host
         with a running RabbitMQ node:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
 # => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"}
 </pre>
@@ -216,7 +216,7 @@ rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
         <p>
           The file contents is an Erlang term file that contains a single list:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel,rabbitmq_shovel_management].
 </pre>
 
@@ -281,7 +281,7 @@ rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
           Since any plugin name can be given to <code>rabbitmq-plugins</code>, double checking
           the name:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_managemenr                                                                                                                                                                                          70 ↵
 # => Error:
 # => {:plugins_not_found, [:rabbitmq_managemenr]}
@@ -296,7 +296,7 @@ rabbitmq-plugins enable rabbitmq_managemenr                                     
             Plugin directory can be located by executing the following command on the host
             with a running RabbitMQ node:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
 # => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.9/plugins"}
 </pre>
@@ -311,7 +311,7 @@ rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
           <code>which</code> and similar tools can be used to locate <code>rabbitmq-plugins</code> and
           determine if it comes from the expected installation:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 which rabbitmq-plugins
 # => /path/to/rabbitmq/installation/sbin/rabbitmq-plugins
 </pre>
@@ -330,7 +330,7 @@ which rabbitmq-plugins
           In that case CLI tools will have a different <a href="#enabled-plugins-file">enabled plugins file</a>
           from the server and the operation will fail with an error:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_top
 Enabling plugins on node rabbit@warp10:
 # =>  rabbitmq_top
@@ -354,7 +354,7 @@ Enabling plugins on node rabbit@warp10:
           <code>rabbitmqctl environment</code> can be used to inspect effective enabled plugins file path
           used by the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl environment | grep enabled_plugins                                                                                                                                                                                                  70 ↵
 # =>       {enabled_plugins_file,
 # =>         "/path/to/rabbitmq/etc/rabbitmq/enabled_plugins"}

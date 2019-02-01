@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -177,7 +177,7 @@ limitations under the License.
           of 10 messages:
         </p>
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);

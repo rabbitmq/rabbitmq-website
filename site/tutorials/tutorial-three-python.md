@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -97,7 +97,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of that type, and call it `logs`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.exchange_declare(exchange='logs',
                          exchange_type='fanout')
 </pre>
@@ -111,7 +111,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -128,7 +128,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode python">
+> <pre class="lang-python">
 > channel.basic_publish(exchange='',
 >                       routing_key='hello',
 >                       body=message)
@@ -140,7 +140,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_publish(exchange='logs',
                       routing_key='',
                       body=message)
@@ -165,7 +165,7 @@ do it we could create a queue with a random name, or, even better -
 let the server choose a random queue name for us. We can do this by not
 supplying the `queue` parameter to `queue_declare`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 result = channel.queue_declare()
 </pre>
 
@@ -175,7 +175,7 @@ it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 result = channel.queue_declare(exclusive=True)
 </pre>
 
@@ -211,7 +211,7 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_bind(exchange='logs',
                    queue=result.method.queue)
 </pre>
@@ -221,7 +221,7 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl list_bindings
 > </pre>
 
@@ -269,7 +269,7 @@ nameless one. We need to supply a `routing_key` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `emit_log.py` script:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
@@ -299,7 +299,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `receive_logs.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
@@ -332,19 +332,19 @@ channel.start_consuming()
 
 We're done. If you want to save logs to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs.py > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs.py
 </pre>
 
 And of course, to emit logs type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python emit_log.py
 </pre>
 
@@ -353,7 +353,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.py`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -23,7 +23,7 @@ limitations under the License.
     To start and stop the server, use the <code>service</code> tool.
     The service name is <code>rabbitmq-server</code>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # stop the local node
 sudo service rabbitmq-server stop
 
@@ -34,7 +34,7 @@ sudo service rabbitmq-server start
     <code>service rabbitmq-server status</code> will report service status
     as observed by systemd (or similar service manager):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # check on service status as observed by service manager
 sudo service rabbitmq-server status
 </pre>
@@ -58,7 +58,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.9. Copyright (C) 2007-2018 Pivotal Software, Inc.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -73,7 +73,7 @@ Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plu
     <code>rabbitmqctl</code>, <code>rabbitmq-diagnostics</code>,
     and other <a href="/cli.html">CLI tools</a> will be available in <code>PATH</code> and can be invoked by a <code>sudo</code>-enabled user:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # checks if the local node is running and CLI tools can successfully authenticate with it
 sudo rabbitmq-diagnostics ping
 

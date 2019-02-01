@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -63,7 +63,7 @@ on behalf of the consumer.
 
 First lets verify that you have .NET Core toolchain in `PATH`:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 dotnet --help
 </pre>
 
@@ -71,7 +71,7 @@ should produce a help message.
 
 Now let's generate two projects, one for the publisher and one for the consumer:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 dotnet new console --name Send
 mv Send/Program.cs Send/Send.cs
 dotnet new console --name Receive
@@ -82,7 +82,7 @@ This will create two new directories named `Send` and `Receive`.
 
 Then we add the client dependency.
 
-<pre class="sourcecode ps">
+<pre class="lang-powershell">
 cd Send
 dotnet add package RabbitMQ.Client
 dotnet restore
@@ -107,7 +107,7 @@ In
 [`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs),
 we need to use some namespaces:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using System.Text;
@@ -115,7 +115,7 @@ using System.Text;
 
 Set up the class:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 class Send
 {
     public static void Main()
@@ -127,7 +127,7 @@ class Send
 
 then we can create a connection to the server:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 class Send
 {
     public static void Main()
@@ -156,7 +156,7 @@ things done resides.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using System.Text;
@@ -225,7 +225,7 @@ keep the consumer running continuously to listen for messages and print them out
 
 The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -236,7 +236,7 @@ Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `Send` publishes to.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 class Receive
 {
     public static void Main()
@@ -267,7 +267,7 @@ queue. Since it will push us messages asynchronously, we provide a
 callback. That is what `EventingBasicConsumer.Received` event handler
 does.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -314,14 +314,14 @@ Open two terminals.
 
 Run the consumer:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 cd Receive
 dotnet run
 </pre>
 
 Then run the producer:
 
-<pre class="sourcecode powershell">
+<pre class="lang-powershell">
 cd Send
 dotnet run
 </pre>

@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -33,14 +33,14 @@ limitations under the License.
 
         <p>
         First, obtain the source code from <a href="github.html">our GitHub repositories</a>:
-	    <pre class="sourcecode bash">
+	    <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-server.git
 </pre>
         </p>
 
         <p>
           Then, use GNU Make to pull down dependencies and build the server:
-	<pre class="sourcecode bash">
+	<pre class="lang-bash">
 cd rabbitmq-server
 make</pre>
         </p>

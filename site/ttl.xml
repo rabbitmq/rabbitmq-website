@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -106,7 +106,7 @@ limitations under the License.
             This example in Java creates a queue in which messages may
             reside for at most 60 seconds:
         </p>
-<pre class="sourcecode java">
+<pre class="lang-java">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);
@@ -115,7 +115,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
         <p>
           The same example using .NET client:
         </p>
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var args = new Dictionary&lt;string, object&gt;();
 args.Add("x-message-ttl", 60000);
 model.QueueDeclare("myqueue", false, false, false, args);
@@ -172,7 +172,7 @@ model.QueueDeclare("myqueue", false, false, false, args);
         This example uses <a href="/api-guide.html">RabbitMQ Java client</a>
         to publishe a message which can reside in the queue for at most 60 seconds:
       </p>
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 byte[] messageBodyBytes = "Hello, world!".getBytes();
 AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
                                    .expiration("60000")
@@ -182,7 +182,7 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
       <p>
         The same example in .NET:
       </p>
-      <pre class="sourcecode csharp">
+      <pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
 IBasicProperties props = model.CreateBasicProperties();
@@ -299,7 +299,7 @@ model.BasicPublish(exchangeName,
           This example in Java creates a queue which expires after
           it has been unused for 30 minutes.
         </p>
-<pre class="sourcecode java">
+<pre class="lang-java">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-expires", 1800000);
 channel.queueDeclare("myqueue", false, false, false, args);

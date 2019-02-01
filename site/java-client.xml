@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -71,7 +71,7 @@ limitations under the License.
     </p>
     <p>
       If you're using Maven, add this dependency to the POM file of your project:
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
@@ -80,7 +80,7 @@ limitations under the License.
     </p>
     <p>
       Alternatively, if using Gradle:
-<pre class="sourcecode groovy">
+<pre class="lang-groovy">
 dependencies {
   compile 'com.rabbitmq:amqp-client:&version-java-client;'
 }

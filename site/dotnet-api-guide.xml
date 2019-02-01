@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -80,7 +80,7 @@ limitations under the License.
         <p>
             The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using RabbitMQ.Client;
 </pre>
 
@@ -138,7 +138,7 @@ using RabbitMQ.Client;
 
           The following two code snippets connect to a RabbitMQ node on <code>hostName</code>:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 // "guest"/"guest" by default, limited to localhost connections
 factory.UserName = user;
@@ -149,7 +149,7 @@ factory.HostName = hostName;
 IConnection conn = factory.CreateConnection();
 </pre>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 factory.Uri = "amqp://user:pass@hostName:port/vhost";
 
@@ -212,7 +212,7 @@ IConnection conn = factory.CreateConnection();
         <p>
           The <code>IConnection</code> interface can then be used to open a channel:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 IModel channel = conn.CreateModel();
 </pre>
 
@@ -230,7 +230,7 @@ IModel channel = conn.CreateModel();
         <p>
           To disconnect, simply close the channel and the connection:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.Close();
 conn.Close();
 </pre>
@@ -289,7 +289,7 @@ conn.Close();
           Continuing the previous example, the following code declares an
           exchange and a queue, then binds them together.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 model.ExchangeDeclare(exchangeName, ExchangeType.Direct);
 model.QueueDeclare(queueName, false, false, false, null);
 model.QueueBind(queueName, exchangeName, routingKey, null);
@@ -337,7 +337,7 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
             <code>IModel#QueueDeclarePassive</code> and <code>IModel#ExchangeDeclarePassive</code> are the
             methods used for passive declaration. The following example demonstrates <code>IModel#QueueDeclarePassive</code>:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var response = model.QueueDeclarePassive("queue-name");
 // returns the number of messages in Ready state in the queue
 response.MessageCount;
@@ -358,7 +358,7 @@ response.ConsumerCount;
             response. For example, to declare a queue and instruct the server to not send any
             response, use
 
-            <pre class="sourcecode csharp">model.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
+            <pre class="lang-csharp">model.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
 
             The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
             are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
@@ -374,21 +374,21 @@ response.ConsumerCount;
           <p>
             A queue or exchange can be explicitly deleted:
 
-            <pre class="sourcecode csharp">model.QueueDelete("queue-name", false, false)</pre>
+            <pre class="lang-csharp">model.QueueDelete("queue-name", false, false)</pre>
 
             It is possible to delete a queue only if it is empty:
 
-            <pre class="sourcecode csharp">model.QueueDelete("queue-name", false, true)</pre>
+            <pre class="lang-csharp">model.QueueDelete("queue-name", false, true)</pre>
 
             or if it is not used (does not have any consumers):
 
-            <pre class="sourcecode csharp">model.QueueDelete("queue-name", true, false)</pre>
+            <pre class="lang-csharp">model.QueueDelete("queue-name", true, false)</pre>
           </p>
 
           <p>
             A queue can be purged (all of its messages deleted):
 
-            <pre class="sourcecode csharp">model.QueuePurge("queue-name")</pre>
+            <pre class="lang-csharp">model.QueuePurge("queue-name")</pre>
           </p>
         </doc:subsection>
       </doc:section>
@@ -400,7 +400,7 @@ response.ConsumerCount;
           To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
           follows:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 </pre>
@@ -408,7 +408,7 @@ model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
           For fine control, you can use overloaded variants to specify the
           mandatory flag, or specify messages properties:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 IBasicProperties props = model.CreateBasicProperties();
 props.ContentType = "text/plain";
@@ -425,7 +425,7 @@ model.BasicPublish(exchangeName,
           <p>
             In the following example, we publish a message with custom headers:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
 IBasicProperties props = model.CreateBasicProperties();
@@ -444,7 +444,7 @@ model.BasicPublish(exchangeName,
           <p>
             Code sample below sets a message expiration:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
 IBasicProperties props = model.CreateBasicProperties();
@@ -472,7 +472,7 @@ model.BasicPublish(exchangeName,
             convenience class <code>EventingBasicConsumer</code>, which dispatches
             deliveries and other consumer lifecycle events as C# events:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
@@ -498,7 +498,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
 
             You can cancel an active consumer with <code>IModel.BasicCancel</code>:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.BasicCancel(consumerTag);
 </pre>
 
@@ -518,7 +518,7 @@ explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> docu
             returned value is an instance of BasicGetResult, from which the header
             information (properties) and message body can be extracted:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 bool noAck = false;
 BasicGetResult result = channel.BasicGet(queueName, noAck);
 if (result == null) {
@@ -533,7 +533,7 @@ if (result == null) {
             <code>IModel.BasicAck</code> to acknowledge that you have
             successfully received and processed the message:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
     ...
     // acknowledge receipt of the message
     channel.BasicAck(result.DeliveryTag, false);
@@ -605,7 +605,7 @@ if (result == null) {
             <p>
               It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 public class CustomTaskScheduler : TaskScheduler
 {
   // ...
@@ -632,7 +632,7 @@ cf.TaskScheduler = new CustomTaskScheduler();
               way of achieving this is for all users of an <code>IModel</code> to
               <code> lock</code> the instance itself:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 IModel ch = RetrieveSomeSharedIModelInstance();
 lock (ch) {
   ch.BasicPublish(...);
@@ -672,7 +672,7 @@ lock (ch) {
             <code> IModel.BasicReturn</code> event. If there are no listeners attached to the
             event, then returned messages will be silently dropped.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 model.BasicReturn +=
   new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
 </pre>
@@ -719,7 +719,7 @@ model.BasicReturn +=
               To enable automatic connection recovery, set
               <code>ConnectionFactory.AutomaticRecoveryEnabled</code> to true:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 factory.AutomaticRecoveryEnabled = true;
 // connection that will recover automatically
@@ -730,7 +730,7 @@ IConnection conn = factory.CreateConnection();
               still not reachable), it will be retried after a fixed time interval (default
               is 5 seconds). The interval can be configured:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 // attempt recovery every 10 seconds
 factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
@@ -757,7 +757,7 @@ factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
               such connections, logging failed attempts, implementing a limit to the number
               of retries and so on. Here's a very basic example:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
@@ -797,7 +797,7 @@ try {
               Topology recovery involves recovery of exchanges, queues, bindings
               and consumers. It is enabled by default but can be disabled:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 
 Connection conn = factory.CreateConnection();
@@ -1184,7 +1184,7 @@ factory.TopologyRecoveryEnabled  = false;
 
             The basic pattern for using <code>SimpleRpcClient</code> is as follows:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using (IConnection conn = new ConnectionFactory()
                                 .CreateConnection(args[0])) {
     using (IModel ch = conn.CreateModel()) {
@@ -1239,7 +1239,7 @@ using (IConnection conn = new ConnectionFactory()
           applications, other topic hierarchies will naturally arise. <code>topic</code> exchanges
           are commonly used. Then publish the message. For example:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using (IConnection conn = new ConnectionFactory()
                                 .CreateConnection(args[0])) {
     using (IModel ch = conn.CreateModel()) {
@@ -1266,7 +1266,7 @@ using (IConnection conn = new ConnectionFactory()
           declaration and management, but excluding queue and exchange
           declaration and queue binding. For example,
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // "IModel ch" in scope.
 Subscription sub = new Subscription(ch, "STOCK.IBM.#");
 foreach (BasicDeliverEventArgs e in sub) {
@@ -1299,7 +1299,7 @@ foreach (BasicDeliverEventArgs e in sub) {
           application wanted to retrieve all prices regarding IBM on queue
           "MyApplicationQueue":
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 // "IModel ch" in scope.
 ch.ExchangeDeclare("prices", "topic");
 ch.QueueDeclare("MyApplicationQueue", false, true, true, null);
@@ -1586,7 +1586,7 @@ ch.QueueBind("MyApplicationQueue", "prices",
             <p>
               The RabbitMQ binding to WCF and associated samples can be built automatically using Nant. For more information about Nant, visit http://nant.sourceforge.net/. To build the library and Sample Applications from a console window, change to the RabbitMQ.net drop location and execute:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 nant build-wcf
 nant wcf-examples
 </pre>
@@ -1627,7 +1627,7 @@ nant wcf-examples
               exists in an assembly that can be shared between client
               and server applications.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 [ServiceContract]
 public interface ICalculator
 {
@@ -1648,7 +1648,7 @@ public interface ICalculator
               class implementing the contract and optionally decorated
               with the <code>ServiceBehavior</code> attribute.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 [ServiceBehavior(InstanceContextMode=InstanceContextMode.PerCall)]
 public sealed class Calculator : ICalculator
 {
@@ -1690,7 +1690,7 @@ public sealed class Calculator : ICalculator
               <code>amq.direct</code> exchange is used. The service name must not
               be omitted.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 serviceAddress = “soap.amqp:///” serviceName
 </pre>
             </p>
@@ -1710,7 +1710,7 @@ serviceAddress = “soap.amqp:///” serviceName
               with <code>IsOneWay</code> set equal to true decorating them.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 [OperationContract(IsOneWay=true)]
 void Log(LogData entry);
 </pre>
@@ -1725,7 +1725,7 @@ void Log(LogData entry);
               the <code>oneWay</code> configuration attribute.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 &lt;rabbitMQBinding&gt;
   &lt;binding name="rabbitMQConfig"
            hostame="localhost"
@@ -1782,7 +1782,7 @@ void Log(LogData entry);
               <code>CallbackContract</code> type.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 [ServiceContract(CallbackContract=typeof(IOrderCallback))]
 public interface IOrderService
 </pre>
@@ -1808,7 +1808,7 @@ public interface IOrderService
               using the <code>RabbitMQBinding</code>.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var service = new ServiceHost(typeof(Calculator), new Uri("soap.amqp:///"));
 var binding = new RabbitMQBinding("localhost", 5672, "guest", "guest", "/",
                                   8192, Protocols.AMQP_0_9_1);
@@ -1839,7 +1839,7 @@ service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
               system.serviceModel section of the configuration file.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 &lt;extensions&gt;
   &lt;bindingExtensions&gt;
     &lt;add
@@ -1853,7 +1853,7 @@ service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
               With the extension imported, the <code>rabbitMQBinding</code> can be declared and configured:
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 &lt;bindings&gt;
   &lt;rabbitMQBinding&gt;
     &lt;binding
@@ -1873,7 +1873,7 @@ service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
               be specified in a single configuration file.
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 &lt;services&gt;
   &lt;service name="Calculator"&gt;
     &lt;host&gt;
@@ -1896,7 +1896,7 @@ service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
               in config).
             </p>
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 host = new ServiceHost(typeof(Calculator));
 host.Open();
 </pre>
@@ -1908,7 +1908,7 @@ host.Open();
               <code>ClientBase&lt;T&gt;</code> derived class calling the
               <code>ClientBase(string)</code>.
             </p>
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 public class CalculatorClient : ClientBase&lt;ICalculator&gt;, ICalculator
 {
 
@@ -1918,7 +1918,7 @@ public class CalculatorClient : ClientBase&lt;ICalculator&gt;, ICalculator
 </pre>
 
             <p>Construct the class passing the client endpoint name as specified in configuration.</p>
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 &lt;client&gt;
   &lt;endpoint address="soap.amq:///Calculator"
             binding="rabbitMQBinding"

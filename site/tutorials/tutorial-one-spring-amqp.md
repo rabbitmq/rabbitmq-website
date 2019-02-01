@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -77,7 +77,7 @@ an `application.properties` file in the generated project with nothing in it.
 Rename application.properties to `application.yml` file with the following
 properties:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 spring:
   profiles:
     active: usage_message
@@ -95,7 +95,7 @@ Create a new package `tut1` where we can put the tutorial code.
 We'll now create a Java configuration file `Tut1Config.java` to describe our
 Spring beans in the following manner:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut1;
 
 import org.springframework.amqp.core.Queue;
@@ -137,7 +137,7 @@ now by simply passing in which profiles we are using. To enable
 this we will modify the generated  `RabbitAmqpTutorialsApplication` class
 with the following:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -175,7 +175,7 @@ public class RabbitAmqpTutorialsApplication {
 
 and add the `RabbitAmqpTutorialsRunner` class as follows:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,7 +211,7 @@ sender and receiver classes.  Let's call them `Tut1Receiver`
 and `Tut1Sender`. The sender leverages our configuration and the `RabbitTemplate`
 to send the message.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 // Sender
 package org.springframework.amqp.tutorials.tut1;
 
@@ -265,7 +265,7 @@ class with `@RabbitListener` and pass in the name of the queue.
 We then annotate our `receive` method with `@RabbitHandler`
 passing in the payload that has been pushed to the queue.
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut1;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -285,21 +285,21 @@ public class Tut1Receiver {
 
 We must now build the JAR file:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./mvnw clean package
 </pre>
 
 The application uses Spring Profiles to control what tutorial it's running, and whether it's a
 sender or receiver. To run the receiver, execute the following command:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # consumer
 java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=hello-world,receiver
 </pre>
 
 Open another shell to run the sender:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # sender
 java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sender
 </pre>
@@ -310,12 +310,12 @@ java -jar target/rabbitmq-tutorials.jar --spring.profiles.active=hello-world,sen
 > You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues
 > </pre>
 >
 > On Windows, omit the sudo:
-> <pre class="sourcecode powershell">
+> <pre class="lang-powershell">
 > rabbitmqctl.bat list_queues
 > </pre>
 

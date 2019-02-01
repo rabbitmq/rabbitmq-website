@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -18,79 +17,47 @@ limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Dead Letter Exchanges</title>
   </head>
   <body>
-    <p>
-      Messages from a queue can be 'dead-lettered'; that is, republished to
-      another exchange when any of the following events occur:
-      <ul>
-        <li>The message is rejected (<code>basic.reject</code> or
-          <code>basic.nack</code>) with <code>requeue=false</code>,</li>
-        <li>The TTL for the message expires; or</li>
-        <li>The queue length limit is exceeded.</li>
-      </ul>
-    </p>
-
-    <p>
-      Dead letter exchanges (DLXs) are normal exchanges.  They can be
-      any of the usual types and are declared as usual.
-    </p>
-
-    <p>
-      For any given queue, a DLX can be defined by clients using the
-      queue's arguments, or in the server
-      using <a href="parameters.html#policies">policies</a>. In the
-      case where both policy and arguments specify a DLX, the one
-      specified in arguments overrules the one specified in policy.
-    </p>
-
-    <doc:section>
-      <doc:heading>Configuration using arguments</doc:heading>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
       <p>
-        To set the dead letter exchange for a queue, set
-        the <code>x-dead-letter-exchange</code> argument to the
-        name of the exchange:
-      </p>
+        Messages from a queue can be "dead-lettered"; that is, republished to
+        an exchange when any of the following events occur:
 
-      <pre class="sourcecode java">
-channel.exchangeDeclare("some.exchange.name", "direct");
-
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-dead-letter-exchange", "some.exchange.name");
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
-
-      <p>
-        The code above declares a new exchange called
-        <code>some.exchange.name</code> and sets this new exchange
-        as the dead letter exchange for a newly created queue.
-        Note that the exchange does not have to be declared when
-        the queue is declared, but it should exist by the time
-        messages need to be dead-lettered; if it is missing then,
-        the messages will be silently dropped.
+        <ul>
+          <li>The message is <a href="/confirms.html">negatively acknowledged</a> by a consumer using <code>basic.reject</code> or
+            <code>basic.nack</code> with <code>requeue</code> parameter set to <code>false</code></li>
+          <li>The message expires due to <a href="/ttl.html">TTL</a>; or</li>
+          <li>The message is dropped because its queue exceeded a <a href="/maxlength.html">length limit</a></li>
+        </ul>
       </p>
 
       <p>
-        You may also specify a routing key to be used when
-        dead-lettering messages.  If this is not set, the
-        message's own routing keys will be used.
-        <pre class="sourcecode java">
-args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
+        Dead letter exchanges (DLXs) are normal exchanges. They can be
+        any of the usual types and are declared as usual.
       </p>
 
       <p>
-        When a dead letter exchange has been specified, in addition to
-        the usual configure permissions on the declared queue, the user
-        needs to have read permissions on that queue and write
-        permissions on the dead letter exchange. Permissions are
-        verified at the time of queue declaration.
+        For any given queue, a DLX can be defined by clients using the
+        <a href="/queues.html#optional-arguments">queue's arguments</a>, or in the server
+        using <a href="parameters.html#policies">policies</a>. In the
+        case where both policy and arguments specify a DLX, the one
+        specified in arguments overrules the one specified in policy.
+      </p>
+
+      <p>
+        Configuration using policies is recommended as it allows for DLX
+        reconfiguration that does not involve application redeployment.
       </p>
     </doc:section>
 
-    <doc:section>
-      <doc:heading>Configuration using policy</doc:heading>
+    <doc:section name="using-policies">
+      <doc:heading>Configuration Using a Policy</doc:heading>
 
       <p>
         To specify a DLX using policy, add the key "dead-letter-exchange"
@@ -128,7 +95,53 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       </p>
     </doc:section>
 
-    <doc:section>
+    <doc:section name="using-optional-queue-arguments">
+      <doc:heading>Configuration Using Optional Queue Arguments</doc:heading>
+      <p>
+        To set the dead letter exchange for a queue, specify
+        the optional <code>x-dead-letter-exchange</code> argument when
+        declaring the queue. The value must be an exchange name in
+        the same virtual host:
+      </p>
+
+<pre class="lang-java">
+channel.exchangeDeclare("some.exchange.name", "direct");
+
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-dead-letter-exchange", "some.exchange.name");
+channel.queueDeclare("myqueue", false, false, false, args);
+</pre>
+
+      <p>
+        The code above declares a new exchange called
+        <code>some.exchange.name</code> and sets this new exchange
+        as the dead letter exchange for a newly created queue.
+        Note that the exchange does not have to be declared when
+        the queue is declared, but it should exist by the time
+        messages need to be dead-lettered; if it is missing then,
+        the messages will be silently dropped.
+      </p>
+
+      <p>
+        You may also specify a routing key to be used when
+        dead-lettering messages.  If this is not set, the
+        message's own routing keys will be used.
+
+<pre class="lang-java">
+args.put("x-dead-letter-routing-key", "some-routing-key");
+</pre>
+      </p>
+
+      <p>
+        When a dead letter exchange has been specified, in addition to
+        the usual configure permissions on the declared queue, the user
+        needs to have read permissions on that queue and write
+        permissions on the dead letter exchange. Permissions are
+        verified at the time of queue declaration.
+      </p>
+    </doc:section>
+
+    <doc:section name="routing">
       <doc:heading>Routing Dead-Lettered Messages</doc:heading>
       <p>
         Dead-lettered messages are routed to their dead letter
@@ -182,8 +195,9 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         dropped <em>if there was no rejections in the entire cycle</em>.
       </p>
     </doc:section>
-    <doc:section>
-      <doc:heading>Dead-Lettered Messages</doc:heading>
+
+    <doc:section name="effects">
+      <doc:heading>Dead-Lettered Effects on Messages</doc:heading>
       <p>
         Dead-lettering a message modifies its headers:
         <ul>
@@ -247,6 +261,20 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           <li><code>maxlen</code> - the maximum allowed queue
             length was exceeded.</li>
         </ul>
+      </p>
+      <p>
+        Three top-level headers are added for the very first dead-lettering
+        event. They are
+
+        <ul>
+          <li><code>x-first-death-reason</code></li>
+          <li><code>x-first-death-queue</code></li>
+          <li><code>x-first-death-exchange</code></li>
+        </ul>
+
+        They have the same values as the <code>reason</code>, <code>queue</code>,
+        and <code>exchange</code> fields of the original dead lettering event.
+        Once added, these headers are never modified.
       </p>
       <p>
         Note that the array is sorted most-recent-first, so the
