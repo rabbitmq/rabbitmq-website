@@ -63,6 +63,7 @@ limitations under the License.
         <tr>
           <td>
             <ul>
+              <li><strong>3.7.11</strong></li>
               <li><strong>3.7.10</strong></li>
               <li><strong>3.7.9</strong></li>
               <li><strong>3.7.8</strong></li>
@@ -81,9 +82,9 @@ limitations under the License.
           </td>
           <td>
             <ul class="plain">
-              <li>Erlang/OTP <code>19.3.x</code> support <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">is discontinued</a> as of Jan 1st, 2019</li>
+              <li>Erlang/OTP <code>19.3.x</code> support <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">was discontinued</a> as of Jan 1st, 2019</li>
               <li>For the best TLS support, the latest version of Erlang/OTP 21.x is recommended</li>
-              <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
+              <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html#erlang-cookie">default cookie file location</a></li>
             </ul>
           </td>
         </tr>
