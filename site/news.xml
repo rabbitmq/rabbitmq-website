@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -30,6 +30,38 @@ limitations under the License.
      $ echo `date +"%FT%T"``date +"%z" | cut -c 1-3`:`date +"%z" | cut -c 4-5`
      will give you a suitable RFC 3339 value.
     -->
+
+    <doc:item>
+      <doc:date iso="2019-01-31T17:00:00+00:00">31 January 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.11 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.11.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          This is the first RabbitMQ release to <a href="/which-erlang.html">require Erlang/OTP 20.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
 
     <doc:item>
       <doc:date iso="2019-01-07T17:00:00+00:00">7 January 2019</doc:date>
@@ -2518,7 +2550,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           new features</a>, making Rabbit easier to use and manage.
         </p>
         <ul>
-          <li>Eager synchronisation of mirror queue slaves</li>
+          <li>Eager synchronisation of mirror queue mirrors</li>
           <li>Automatic cluster partition healing</li>
           <li>Improved statistics</li>
         </ul>
@@ -2558,7 +2590,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </p>
         <p>
           This release introduces eager synchronisation of mirror queue
-          slaves, automatic cluster partition healing, and improved statistics
+          mirrors, automatic cluster partition healing, and improved statistics
           (including charts) in the management plugin. It also adds many
           smaller new features, bug fixes and performance improvements.
         </p>

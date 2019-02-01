@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -106,13 +106,13 @@ limitations under the License.
           which does this would look like:
         </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 loopback_users = none
 </pre>
 
         Or, in the <a href="/configure.html#erlang-term-config-file">classic config file format</a> (<code>rabbitmq.config</code>):
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [{loopback_users, []}]}].
 </pre>
       </doc:section>
@@ -375,7 +375,7 @@ loopback_users = none
             only (and is the default):
           </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rabbitmq.conf
 #
 # 1 here is a backend name. It can be anything.
@@ -388,7 +388,7 @@ auth_backends.1 = internal
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_internal]}
           ]
@@ -415,13 +415,13 @@ auth_backends.1 = internal
             for both authentication and authorisation. Internal database will not be consulted:
           </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_backends.1 = ldap
 </pre>
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap]}
           ]
@@ -433,14 +433,14 @@ auth_backends.1 = ldap
         database if the user cannot be authenticated through LDAP:
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
           ]
@@ -453,7 +453,7 @@ auth_backends.2 = internal
         instead:
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rabbitmq.conf
 #
 auth_backends.1 = ldap
@@ -469,7 +469,7 @@ auth_http.topic_path = http://my-authenticator-app/auth/topic
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
           ]
@@ -483,13 +483,13 @@ auth_http.topic_path = http://my-authenticator-app/auth/topic
 </pre>
 
           <p>
-            The following example configures RabbitMQ to use internal
-            database for authentication and <a
+            The following example configures RabbitMQ to use the internal
+            database for authentication and the <a
             href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
             IP range backend</a> for authorisation:
           </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rabbitmq.conf
 #
 auth_backends.1.authn = internal
@@ -499,7 +499,7 @@ auth_backends.1.authz = rabbit_auth_backend_ip_range
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
           ]
@@ -508,11 +508,11 @@ auth_backends.1.authz = rabbit_auth_backend_ip_range
 
 
       <p>
-        The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
-        for authentication and but internal backend for authorisation:
+        The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
+        for authentication and the internal backend for authorisation:
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rabbitmq.conf
 #
 auth_backends.1.authn = ldap
@@ -521,7 +521,7 @@ auth_backends.1.authz = internal
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
           ]}].
@@ -537,7 +537,7 @@ auth_backends.1.authz = internal
         a second attempt is made using only the internal database:
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # rabbitmq.conf
 #
 auth_backends.1.authn = ldap
@@ -547,7 +547,7 @@ auth_backends.2       = internal
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                              rabbit_auth_backend_internal]}

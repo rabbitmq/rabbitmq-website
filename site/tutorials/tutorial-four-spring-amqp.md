@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -39,7 +39,7 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like this in our `Tut3Config` file:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public Binding binding1(FanoutExchange fanout, 
     Queue autoDeleteQueue1) {
@@ -56,7 +56,7 @@ a fluent API to make this relationship very clear. We pass in
 the exchange and queue into the `BindingBuilder` and simply bind
 the queue "to" the exchange "with a binding key" as follows:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public Binding binding1a(DirectExchange direct, 
     Queue autoDeleteQueue1) {
@@ -194,7 +194,7 @@ messages first.
 
 As always, we do some spring boot configuration in `Tut4Config`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public DirectExchange direct() {
     return new DirectExchange("tut.direct");
@@ -212,7 +212,7 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each color
 we're interested in. This also goes into the `Tut4Config`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public DirectExchange direct() {
     return new DirectExchange("tut.direct");
@@ -274,7 +274,7 @@ Putting it all together
 As in the previous tutorials, create a new package for this tutorial called
 `tut4` and create the `Tut4Config` class. The code for `Tut4Config.java` class:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -350,7 +350,7 @@ public class Tut4Config {
 
 The code for our sender class is:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut4;
 
 import org.springframework.amqp.core.DirectExchange;
@@ -392,7 +392,7 @@ public class Tut4Sender {
 
 The code for `Tut4Receiver.java` is:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.util.StopWatch;
 
@@ -433,13 +433,13 @@ public class Tut4Receiver {
 Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html) 
 for maven compilation and executing the options from the jar.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./mvnw clean package
 </pre>
 
 In one terminal window you can run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
     --spring.profiles.active=routing,receiver \
     --tutorial.client.duration=60000
@@ -447,7 +447,7 @@ java -jar target/rabbitmq-tutorials.jar \
 
 and in the other temrinal window run the sender
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
     --spring.profiles.active=routing,sender \
     --tutorial.client.duration=60000

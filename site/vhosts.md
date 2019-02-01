@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -27,7 +27,7 @@ There is, however, one important difference: virtual hosts in Apache are defined
 in the configuration file; that's not the case with RabbitMQ: virtual hosts are
 [created](#creating) and [deleted](#deleting) using `rabbitmqctl` or HTTP API instead.
 
-## Logical and Physical Separation
+## <a id="logical-separation" class="anchor" href="#logical-separation">Logical and Physical Separation</a>
 
 Virtual hosts provide logical grouping and separation of
 resources. Separation of physical resources is not a goal of virtual
@@ -38,10 +38,10 @@ scoped per virtual host. A user doesn't have global permissions, only
 permissions in one or more virtual hosts. User tags can be considered
 global permissions but they are an exception to the rule.
 
-Therefore when talking about user permissions it is very Important
+Therefore when talking about user permissions it is very important
 to clarify what virtual host(s) they apply to.
 
-## Virtual Hosts and Client Connections
+## <a id="client-connections" class="anchor" href="#client-connections">Virtual Hosts and Client Connections</a>
 
 A virtual host has a name. When an AMQP 0-9-1 client connects to
 RabbitMQ, it specifies a vhost name to connect to. If authentication
@@ -72,7 +72,7 @@ which accepts virtual host name as the only mandatory argument.
 
 Here's an example that creates a virtual host named `qa1`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl add_vhost qa1
 </pre>
 
@@ -84,7 +84,7 @@ where `{name}` is the name of the virtual host
 Here's an example that uses [curl](https://curl.haxx.se/) to create a virtual host `vh1` by contacting
 a node at `rabbitmq.local:15672`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 
@@ -116,7 +116,7 @@ which accepts virtual host name as the only mandatory argument.
 
 Here's an example that deletes a virtual host named `qa1`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl delete_vhost qa1
 </pre>
 
@@ -128,7 +128,7 @@ where `{name}` is the name of the virtual host
 Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting
 a node at `rabbitmq.local:15672`:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 
@@ -148,7 +148,7 @@ clients to connect to a specific vhosts without any client library
 modifications. See the [MQTT guide](/mqtt.html) for details.
 
 
-## Limits
+## <a id="limits" class="anchor" href="#limits">Limits</a>
 
 In some cases it is desirable to limit the maximum allowed number of queues
 or concurrent client connections in a vhost. As of RabbitMQ 3.7.0,
@@ -166,23 +166,33 @@ It requires a vhost parameter and a JSON document of limit definitions.
 To limit the total number of concurrent client connections in vhost
 `vhost_name`, use the following limit definition:
 
-    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 256}'
+<pre class="lang-bash">
+rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 256}'
+</pre>
 
 To disable client connections to a vhost, set the limit to a zero:
 
-    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 0}'
+<pre class="lang-bash">
+rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 0}'
+</pre>
 
 To lift the limit, set it to a negative value:
 
-    rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": -1}'
+<pre class="lang-bash">
+rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": -1}'
+</pre>
 
 ### Configuring Max Number of Queues
 
 To limit the total number of queues in vhost
 `vhost_name`, use the following limit definition:
 
-    rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": 1024}'
+<pre class="lang-bash">
+rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": 1024}'
+</pre>
 
 To lift the limit, set it to a negative value:
 
-    rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": -1}'
+<pre class="lang-bash">
+rabbitmqctl set_vhost_limits -p vhost_name '{"max-queues": -1}'
+</pre>

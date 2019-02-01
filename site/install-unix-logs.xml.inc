@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -24,7 +24,7 @@ limitations under the License.
     <a href="/logging.html">Server logs</a> can be found under the <a href="/relocate.html">configurable</a> directory, which usually
     defaults to
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 /var/log/rabbitmq
 </pre>
 
@@ -36,14 +36,14 @@ limitations under the License.
     Assuming a <code>systemd</code>-based distribution, system service logs can be
     inspected using
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 journalctl --system
 </pre>
 
     which requires superuser privileges.
     Its output can be filtered to narrow it down to RabbitMQ-specific entries:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo journalctl --system | grep rabbitmq
 </pre>
 
@@ -51,7 +51,7 @@ sudo journalctl --system | grep rabbitmq
 
 <pre class="sourcecode">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (C) 2007-2018 Pivotal Software, Inc.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

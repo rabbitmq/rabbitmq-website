@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -36,7 +36,7 @@ limitations under the License.
     <p>
       In order to make the node use operating system defaults, locate the following line
 
-<pre class="sourcecode shell">
+<pre class="lang-shell">
 SYS_PREFIX=${RABBITMQ_HOME}
 </pre>
 

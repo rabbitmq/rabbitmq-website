@@ -4,7 +4,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -159,7 +159,7 @@ limitations under the License.
       If you choose to use EBS block device to store RabbitMQ node data directory, just
       link these directories to your EBS device. Stop RabbitMQ
       before making any changes to the data directory:
-      <pre class="sourcecode bash">sudo service rabbitmq-server stop</pre>
+      <pre class="lang-bash">sudo service rabbitmq-server stop</pre>
     </p>
     <p>
       Note that EBS volumes have an <a

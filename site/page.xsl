@@ -14,7 +14,7 @@
                 version="1.0">
 
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -135,7 +135,13 @@ limitations under the License.
       <script type="text/javascript">
         // code highlighting
         window.addEventListener("load", function() {
-          document.querySelectorAll("pre.sourcecode").forEach(function(el) {
+          const selectors = "pre.sourcecode, pre.lang-bash, pre.lang-ini,\
+                             pre.lang-powershell, pre.lang-erlang, pre.lang-elixir,\
+                             pre.lang-java, pre.lang-csharp, pre.lang-xml, pre.lang-haskell,\
+                             pre.lang-groovy, pre.lang-json, pre.lang-javascript,\
+                             pre.lang-go, pre.lang-php, pre.lang-objectivec, pre.lang-swift,\
+                             pre.lang-ruby, pre.lang-python, div.lang-bash";
+          document.querySelectorAll(selectors).forEach(function(el) {
             hljs.highlightBlock(el);
           });
         });
@@ -389,20 +395,6 @@ limitations under the License.
       </tr>
       <xsl:apply-templates/>
     </table>
-  </xsl:template>
-
-  <xsl:template match="r:repository[@type = 'hg']">
-    <tr>
-      <td>
-    <a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
-      </td>
-      <td>
-    <code>hg clone <xsl:value-of select="@url"/></code>
-      </td>
-      <td>
-    <a class="arepo" href="{@url}">Browse source</a>
-      </td>
-    </tr>
   </xsl:template>
 
   <xsl:template match="r:repository[@type = 'github']">

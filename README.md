@@ -68,7 +68,7 @@ To run a local copy manually on [localhost:8191](http://localhost:8191), use:
 On Debian and Ubuntu dependencies can be installed via `apt`:
 
 ```sh
-sudo apt-get install python-lxml python-markdown python-pygments
+sudo apt-get install python3-lxml python3-markdown python3-pygments
 ```
 
 To run a local copy manually on [localhost:8191](http://localhost:8191), use:

@@ -92,7 +92,7 @@ Definitions are stored in an internal database located in the node's data
 directory. To get the directory path, run the following
 command against a running RabbitMQ node:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl eval 'rabbit_mnesia:dir().'
 </pre>
 
@@ -110,7 +110,7 @@ copy the messages, skip copying the [message directories](#manual-messages-backu
 Internal node database stores node's name in certain records. Should node name change, the database must first
 be updated to reflect the change using the following [rabbitmqctl](/cli.html) command:
 
-<pre class="sourcecode sh">
+<pre class="lang-sh">
 rabbitmqctl rename_cluster_node &lt;oldnode&gt; &lt;newnode&gt;
 </pre>
 

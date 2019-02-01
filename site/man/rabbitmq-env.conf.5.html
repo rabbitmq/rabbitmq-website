@@ -1,10 +1,11 @@
 <div class="manual-text">
 <h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
 <code class="Nm" title="Nm">rabbitmq-env.conf</code> &#x2014;
-<div class="Nd" title="Nd">default settings for RabbitMQ AMQP server</div>
+<div class="Nd" title="Nd">environment variables used by RabbitMQ server</div>
 <h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
-<code class="Nm" title="Nm">rabbitmq-env.conf</code> contains variable settings
-  that override the defaults built in to the RabbitMQ startup scripts.
+<code class="Nm" title="Nm">rabbitmq-env.conf</code> contains environment
+  variables that override the defaults built in to the RabbitMQ scripts and CLI
+  tools.
 <div class="Pp"></div>
 The file is interpreted by the system shell, and so should consist of a sequence
   of shell environment variable definitions. Normal shell syntax is permitted
@@ -27,11 +28,11 @@ The variable names in <code class="Nm" title="Nm">rabbitmq-env.conf</code> are
   &#x201C;RABBITMQ_&#x201D; prefix removed:
   <code class="Ev" title="Ev">RABBITMQ_NODE_PORT</code> from the environment
   becomes <code class="Ev" title="Ev">NODE_PORT</code> in
-  <code class="Nm" title="Nm">rabbitmq-env.conf</code>, etc.
+  <code class="Nm" title="Nm">rabbitmq-env.conf</code>.
 <h2 class="Sh" title="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h2>
-Here is an example of a complete
+Below is an example of a minimalistic
   <code class="Nm" title="Nm">rabbitmq-env.conf</code> file that overrides the
-  default Erlang node name from &quot;rabbit&quot; to &quot;hare&quot;.
+  default node name prefix from &quot;rabbit&quot; to &quot;hare&quot;.
 <div class="Pp"></div>
 <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li"># I am a complete rabbitmq-env.conf
   file.</code></div>
@@ -40,6 +41,19 @@ Here is an example of a complete
 <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li"># This is a /bin/sh script file - use
   ordinary envt var syntax</code></div>
 <div class="Bd Bd-indent sourcecode bash hljs"><code class="Li">NODENAME=hare</code></div>
+<div class="Pp"></div>
+In the below <code class="Nm" title="Nm">rabbitmq-env.conf</code> file RabbitMQ
+  configuration file location is changed to
+  &quot;/data/services/rabbitmq/rabbitmq.conf&quot;.
+<div class="Pp"></div>
+<div class="Bd Bd-indent sourcecode bash hljs"><code class="Li"># I am a complete rabbitmq-env.conf
+  file.</code></div>
+<div class="Bd Bd-indent sourcecode bash hljs"><code class="Li"># Comment lines start with a hash
+  character.</code></div>
+<div class="Bd Bd-indent sourcecode bash hljs"><code class="Li"># This is a /bin/sh script file - use
+  ordinary envt var syntax</code></div>
+<div class="Bd
+  Bd-indent"><code class="Li">CONFIG_FILE=/data/services/rabbitmq/rabbitmq.conf</code></div>
 <h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
 <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>,

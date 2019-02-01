@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
@@ -96,7 +96,7 @@ node rabbit@cordelia down: net_tick_timeout
         60 to 120 seconds:
       </p>
       <p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {kernel, [{net_ticktime,  120}]}
 ].

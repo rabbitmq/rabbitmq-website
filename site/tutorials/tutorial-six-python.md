@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -47,7 +47,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 fibonacci_rpc = FibonacciRpcClient()
 result = fibonacci_rpc.call(4)
 print("fib(4) is %r" % result)
@@ -81,7 +81,7 @@ message and a server replies with a response message. In order to
 receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 result = channel.queue_declare(exclusive=True)
 callback_queue = result.method.queue
 
@@ -217,7 +217,7 @@ Putting it all together
 
 The code for `rpc_server.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
@@ -272,7 +272,7 @@ The server code is rather straightforward:
 
 The code for `rpc_client.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import uuid
@@ -337,14 +337,14 @@ The client code is slightly more involved:
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python rpc_server.py
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 python rpc_client.py
 # => [x] Requesting fib(30)
 </pre>

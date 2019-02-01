@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -90,7 +90,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.ExchangeDeclare(
   "logs",   // name
   "fanout", // type
@@ -111,7 +111,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -128,7 +128,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode go">
+> <pre class="lang-go">
 > err = ch.Publish(
 >   "",     // exchange
 >   q.Name, // routing key
@@ -144,7 +144,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.ExchangeDeclare(
   "logs",   // name
   "fanout", // type
@@ -192,7 +192,7 @@ automatically deleted.
 In the [amqp](http://godoc.org/github.com/streadway/amqp) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 q, err := ch.QueueDeclare(
   "",    // name
   false, // durable
@@ -242,7 +242,7 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.QueueBind(
   q.Name, // queue name
   "",     // routing key
@@ -257,7 +257,7 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl list_bindings
 > </pre>
 
@@ -305,7 +305,7 @@ nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `emit_log.go` script:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -380,7 +380,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `receive_logs.go`:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -463,19 +463,19 @@ func main() {
 
 If you want to save logs to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs.go > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs.go
 </pre>
 
 And of course, to emit logs type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run emit_log.go
 </pre>
 
@@ -483,7 +483,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.go`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []

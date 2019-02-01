@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -41,7 +41,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `Call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var rpcClient = new RPCClient();
 
 Console.WriteLine(" [x] Requesting fib(30)");
@@ -79,7 +79,7 @@ message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
 request:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var props = channel.CreateBasicProperties();
 props.ReplyTo = replyQueueName;
 
@@ -214,7 +214,7 @@ Putting it all together
 
 The Fibonacci task:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 private static int fib(int n)
 {
     if (n == 0 || n == 1) return n;
@@ -229,7 +229,7 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer/RPCServer.cs) looks like this:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -317,7 +317,7 @@ The server code is rather straightforward:
 
 The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient/RPCClient.cs):
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using System.Collections.Concurrent;
 using System.Text;
@@ -418,7 +418,7 @@ The client code is slightly more involved:
 
 Making the Client request:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var rpcClient = new RPCClient();
 
 Console.WriteLine(" [x] Requesting fib(30)");
@@ -436,7 +436,7 @@ Set up as usual (see [tutorial one](tutorial-one-dotnet.html)):
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd RPCServer
 dotnet run
 # => [x] Awaiting RPC requests
@@ -444,7 +444,7 @@ dotnet run
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd RPCClient
 dotnet run
 # => [x] Requesting fib(30)

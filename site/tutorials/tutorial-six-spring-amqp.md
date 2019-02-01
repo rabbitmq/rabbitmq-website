@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -42,7 +42,7 @@ change the names of our profiles from "Sender" and "Receiver
 to "Client" and "Server". When we call the server we will get
 back the fibonacci of the argument we call with. 
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 Integer response = (Integer) template.convertSendAndReceive
     (exchange.getName(), "rpc", start++);
 System.out.println(" [.] Got '" + response + "'");
@@ -198,7 +198,7 @@ Putting it all together
 
 The Fibonacci task is a `@RabbitListener` and is defined as:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 public int fib(int n) {
     return n == 0 ? 0 : n == 1 ? 1 : (fib(n - 1) + fib(n - 2));
 }
@@ -211,7 +211,7 @@ and it's probably the slowest recursive implementation possible).
 The code for our [`Tut6Config`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
 class looks like this:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -284,7 +284,7 @@ The server code is rather straightforward:
   
 The code for our RPC server [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 package org.springframework.amqp.tutorials.tut6;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -321,7 +321,7 @@ is as easy as the server:
 
 Making the client request is simply:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -351,13 +351,13 @@ Using the project setup as defined in (see [tutorial one](tutorial-one-spring-am
 with start.spring.io and SpringInitialzr the preparing the runtime is the same as the
 other tutorials:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ./mvnw clean package
 </pre>
 
 We can start the server with:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
     --spring.profiles.active=rpc,server \
     --tutorial.client.duration=60000
@@ -365,7 +365,7 @@ java -jar target/rabbitmq-tutorials.jar \
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
     --spring.profiles.active=rpc,client
 </pre>

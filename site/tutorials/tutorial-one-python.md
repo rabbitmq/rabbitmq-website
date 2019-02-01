@@ -83,7 +83,7 @@ Our first program `send.py` will send a single message to the queue.
 The first thing we need to do is to establish a connection with
 RabbitMQ server.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
@@ -100,7 +100,7 @@ exists. If we send a message to non-existing location, RabbitMQ will
 just drop the message. Let's create a _hello_ queue to which the message will
 be delivered:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_declare(queue='hello')
 </pre>
 
@@ -116,7 +116,7 @@ identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_publish(exchange='',
                       routing_key='hello',
                       body='Hello World!')
@@ -127,7 +127,7 @@ Before exiting the program we need to make sure the network buffers
 were flushed and our message was actually delivered to RabbitMQ. We
 can do it by gently closing the connection.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 connection.close()
 </pre>
 
@@ -178,7 +178,7 @@ exists. Creating a queue using `queue_declare` is idempotent &#8210; we
 can run the command as many times as we like, and only one will be
 created.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_declare(queue='hello')
 </pre>
 
@@ -194,12 +194,12 @@ declaring the queue in both programs.
 > You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues
 > </pre>
 >
 > On Windows, omit the sudo:
-> <pre class="sourcecode powershell">
+> <pre class="lang-powershell">
 > rabbitmqctl.bat list_queues
 > </pre>
 
@@ -209,7 +209,7 @@ a message, this `callback` function is called by the Pika library.
 In our case this function will print on the screen the contents of
 the message.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 </pre>
@@ -217,7 +217,7 @@ def callback(ch, method, properties, body):
 Next, we need to tell RabbitMQ that this particular callback function should
 receive messages from our _hello_ queue:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_consume(callback,
                       queue='hello',
                       no_ack=True)
@@ -232,7 +232,7 @@ The `no_ack` parameter will be described [later on](tutorial-two-python.html).
 And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary.
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 </pre>
@@ -242,7 +242,7 @@ channel.start_consuming()
 
 Full code for `send.py`:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
@@ -264,7 +264,7 @@ connection.close()
 
 Full `receive.py` code:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
@@ -290,7 +290,7 @@ channel.start_consuming()
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive.py
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'Hello World!'
@@ -298,7 +298,7 @@ python receive.py
 
 Now start the producer. The producer program will stop after every run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python send.py
 # => [x] Sent 'Hello World!'
 </pre>

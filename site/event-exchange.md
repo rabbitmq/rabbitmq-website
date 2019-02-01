@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
@@ -52,7 +52,7 @@ gets published, don't allow them access.
 
 The plugin requires no configuration, just activate it:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_event_exchange
 </pre>
 

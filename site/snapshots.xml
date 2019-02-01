@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -113,7 +113,7 @@ limitations under the License.
       </ul>
       <p>
         For instance, if you want to use RabbitMQ 3.6.x snapshots on a Debian Wheezy:
-        <pre class="sourcecode sh">
+        <pre class="lang-sh">
 wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add -
 cat >/etc/apt/sources.list.d/rabbitmq-dev.list &lt;&lt;EOF
 deb http://dl.bintray.com/rabbitmq/debian-dev wheezy rabbitmq-server-v3.6.x
@@ -135,7 +135,7 @@ apt-get install rabbitmq-server</pre>
       </ul>
       <p>
         For instance, if you want to use RabbitMQ 3.6.x snapshots on a CentOS 7:
-        <pre class="sourcecode sh">
+        <pre class="lang-sh">
 cat >/etc/yum.repos.d/rabbitmq-dev.repo &lt;&lt;EOF
 [rabbitmq-dev]
 name=rabbitmq-dev

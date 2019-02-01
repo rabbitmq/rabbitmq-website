@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
@@ -57,7 +57,7 @@ limitations under the License.
       <code>Connection</code> using the
       <code>Connection.addBlockedListener</code> method:</p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 Connection connection = factory.newConnection();
 connection.addBlockedListener(new BlockedListener() {
@@ -84,7 +84,7 @@ connection.addBlockedListener(new BlockedListener() {
       <code>IConnection.ConnectionBlocked</code> and
       <code>IConnection.ConnectionUnblocked</code> events:</p>
 
-      <pre class="sourcecode java">
+      <pre class="lang-java">
         public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
         {
             // Connection is now blocked
