@@ -261,7 +261,7 @@ vm_memory_calculation_strategy = allocated
               <td><a href="/management.html">Stats DB</a></td>
               <td>
                 Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
-                See <a href="/management.html">managemeng plugin guide</a> for more information.
+                See <a href="/management.html">management plugin guide</a> for more information.
               </td>
             </tr>
 
@@ -270,7 +270,7 @@ vm_memory_calculation_strategy = allocated
               <td>Stats DB</td>
               <td>
                 Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
-                See <a href="/management.html">managemeng plugin guide</a> for more information.
+                See <a href="/management.html">management plugin guide</a> for more information.
               </td>
             </tr>
 
