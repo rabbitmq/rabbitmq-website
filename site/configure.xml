@@ -285,6 +285,7 @@ with
           </p>
           <p>
 <pre class="lang-ini">
+# this is a comment
 listeners.tcp.default = 5673
 </pre>
 
@@ -461,11 +462,16 @@ listeners.tcp.default = 5673
                 <code>listeners</code>
               </td>
               <td>
-                Ports or hostname/pair on which to listen for AMQP connections
+                Ports or hostname/pair on which to listen for "plain" AMQP 0-9-1 and AMQP 1.0 connections
                 (without TLS). See the <a href="/networking.html">Networking guide</a> for more
                 details and examples.
 
-                <p>Default: <pre class="lang-ini">listeners.tcp.default = 5672</pre></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+listeners.tcp.default = 5672
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -473,7 +479,12 @@ listeners.tcp.default = 5673
               <td>
                 Number of Erlang processes that will accept connections for the TCP
                 listeners.
-                <p>Default: <code>10</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+num_acceptors.tcp = 10
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -481,23 +492,33 @@ listeners.tcp.default = 5673
               <td>
                 Maximum time for AMQP 0-9-1 handshake (after socket connection
                 and TLS handshake), in milliseconds.
-                <p>Default: <code>10000</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+handshake_timeout = 10000
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
               <td><code>listeners.ssl</code></td>
               <td>
-                Ports or hostname/pair on which to listen for AMQP connections
-                (without TLS). See the <a href="/networking.html">Networking guide</a> for more
+                Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
+                See the <a href="/ssl.html">TLS guide</a> for more
                 details and examples.
-                <p>Default: <code>none</code></p>
+                <p>Default: <code>none</code> (not set)</p>
               </td>
             </tr>
             <tr>
               <td><code>num_acceptors.ssl</code></td>
               <td>
                 Number of Erlang processes that will accept TLS connections from clients.
-                <p>Default: <code>1</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+num_acceptors.ssl = 10
+</pre>
+                </p>
               </td>
             </tr>
 
@@ -506,14 +527,24 @@ listeners.tcp.default = 5673
               <td>
                 TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS support
                 documentation</a>.
-                <p>Default: <code>none</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+ssl_options = none
+</pre>
+                  </p>
               </td>
             </tr>
             <tr>
               <td><code>ssl_handshake_timeout</code></td>
               <td>
                 TLS handshake timeout, in milliseconds.
-                <p>Default: <code>5000</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+ssl_handshake_timeout = 5000
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -523,15 +554,23 @@ listeners.tcp.default = 5673
                 triggered. Can be absolute or relative to the amount of RAM available
                 to the OS:
 
-<pre class="lang-ini">vm_memory_high_watermark.relative = 0.6</pre>
-<pre class="lang-ini">vm_memory_high_watermark.absolute = 2GB</pre>
+<pre class="lang-ini">
+vm_memory_high_watermark.relative = 0.6
+</pre>
+<pre class="lang-ini">
+vm_memory_high_watermark.absolute = 2GB
+</pre>
 
                 See the <a href="memory.html">memory-based flow
                 control</a> and <a href="alarms.html">alarms</a>
                 documentation.
 
                 <p>
-                  Default: <pre class="lang-ini">vm_memory_high_watermark.relative = 0.4</pre>
+                  Default:
+
+<pre class="lang-ini">
+vm_memory_high_watermark.relative = 0.4
+</pre>
                 </p>
               </td>
             </tr>
@@ -545,7 +584,12 @@ listeners.tcp.default = 5673
                   <li><code>legacy</code>: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
                   <li><code>erlang</code>: same as <code>legacy</code>, preserved for backwards compatibility</li>
                 </ul>
-                <p>Default: <code>allocated</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+vm_memory_calculation_strategy = allocated
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -555,7 +599,12 @@ listeners.tcp.default = 5673
                 start to page messages out to disc to free up
                 memory. See the <a href="memory.html">memory-based flow
                 control</a> documentation.
-                <p>Default: <pre class="lang-ini">0.5</pre></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+vm_memory_high_watermark_paging_ratio = 0.5
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -571,7 +620,9 @@ listeners.tcp.default = 5673
                 information units (e.g <code>8GB</code>). For example,
                 when the value is set to 4 GB, the node will believe it is
                 running on a machine with 4 GB of RAM.
-                <p>Default: <code>undefined</code> (not used)</p>
+                <p>
+                  Default: <code>undefined</code> (not set or used).
+                </p>
               </td>
             </tr>
             <tr>
@@ -591,7 +642,12 @@ disk_free_limit.absolute = 2GB</pre>
 
                 By default free disk space must exceed 50MB. See the <a
                 href="disk-alarms.html">Disk Alarms</a> documentation.
-                <p>Default: <pre class="lang-ini">disk_free_limit.absolute = 50MB</pre></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+disk_free_limit.absolute = 50MB
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -609,7 +665,12 @@ disk_free_limit.absolute = 2GB</pre>
                   logged).
                 </p>
 
-                <p>Default: <code>info</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+log.file.level = info
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -619,7 +680,12 @@ disk_free_limit.absolute = 2GB</pre>
                 negotiate with clients, not including a special channel number 0 used in the protocol.
                 Setting to 0 means "unlimited", a dangerous value since applications sometimes have channel leaks.
                 Using more channels increases memory footprint of the broker.
-                <p>Default: <code>2047</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+channel_max = 2047
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -628,7 +694,12 @@ disk_free_limit.absolute = 2GB</pre>
                 Channel operation timeout in milliseconds (used internally, not directly
                 exposed to clients due to messaging protocol differences and limitations).
 
-                <p>Default: <code>15000</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+channel_operation_timeout = 15000
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -639,7 +710,12 @@ disk_free_limit.absolute = 2GB</pre>
                 If set to 0 on both ends, heartbeats are disabled (this is not recommended).
                 See the <a href="/heartbeats.html">Heartbeats guide</a> for details.
 
-                <p>Default: <code>heartbeat = 60</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+heartbeat = 60
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -649,7 +725,12 @@ disk_free_limit.absolute = 2GB</pre>
                 database from scratch. The
                 exchange <code>amq.rabbitmq.log</code> will exist in
                 this virtual host.
-                <p>Default: <code>/</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+default_vhost = /
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -657,21 +738,36 @@ disk_free_limit.absolute = 2GB</pre>
               <td>
                 User name to create when RabbitMQ creates a new database
                 from scratch.
-                <p>Default: <code>default_user = guest</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+default_user = guest
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
               <td><code>default_pass</code></td>
               <td>
                 Password for the default user.
-                <p>Default: <code>default_pass = guest</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+default_pass = guest
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
               <td><code>default_user_tags</code></td>
               <td>
                 Tags for the default user.
-                <p>Default: <code>default_user_tags.administrator = true</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+default_user_tags.administrator = true
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -698,17 +794,34 @@ default_permissions.write = .*
                 (i.e. <code>localhost</code>).
 
                 <p>
-                  If you wish to allow the default <code>guest</code>
-                  user to connect remotely, you need to change this to
+                  To allow the default <code>guest</code>
+                  user to connect remotely (a security practice <a href="/production-checklist.html">unsuitable for production use</a>),
+                  set this to <code>none</code>:
 
-                  <pre class="lang-ini">none</pre>.
+<pre class="lang-ini">
+# awful security practice,
+# consider creating a new
+# user with secure generated credentials!
+loopback_users = none
+</pre>
                 </p>
                 <p>
                   To restrict another user to localhost-only connections,
                   do it like so (<code>monitoring</code> is the name of the user):
-                  <pre class="lang-ini">loopback_users.monitoring = true</pre>.
+<pre class="lang-ini">
+loopback_users.monitoring = true
+</pre>
                 </p>
-                <p>Default: <pre class="lang-ini">loopback_users.guest = true</pre></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+# guest uses well known
+# credentials and can only
+# log in from localhost
+# by default
+loopback_users.guest = true
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -724,7 +837,7 @@ default_permissions.write = .*
 cluster_formation.classic_config.nodes.1 = rabbit@hostname1
 cluster_formation.classic_config.nodes.2 = rabbit@hostname2
 </pre>
-                <p>Default: <code>none</code></p>
+                <p>Default: <code>none</code> (not set)</p>
               </td>
             </tr>
             <tr>
@@ -737,7 +850,12 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2
                   <li><code>coarse</code> (emit per-queue / per-channel / per-connection statistics)</li>
                   <li><code>fine</code> (also emit per-message statistics)</li>
                   </ul>
-                <p>Default: <code>none</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+collect_statistics = none
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -747,7 +865,12 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2
                 milliseconds. Primarily relevant for
                 the <a href="management.html#statistics-interval">management
                 plugin</a>.
-                <p>Default: <code>5000</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+collect_statistics_interval = 5000
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -758,7 +881,12 @@ cluster_formation.classic_config.nodes.2 = rabbit@hostname2
                 queue listings. The cache will multiply the elapsed time of
                 the last query by this value and cache the result for
                 this amount of time.
-                <p>Default: <code>5</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+management_db_cache_multiplier = 5
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -797,7 +925,7 @@ auth_mechanisms.2 = AMQPLAIN
                 reverse DNS lookup on client connections, and present
                 that information through <code>rabbitmqctl</code> and
                 the management plugin.
-                <p>Default: <code>false</code></p>
+                <p>Default: <pre class="lang-ini">reverse_dns_lookups = false</pre></p>
               </td>
             </tr>
             <tr>
@@ -807,7 +935,8 @@ auth_mechanisms.2 = AMQPLAIN
                 communication. On a machine which has a very large
                 number of cores and is also part of a cluster, you may
                 wish to increase this value.
-                <p>Default: <code>16</code></p>
+
+                <p>Default: <pre class="lang-ini">delegate_count = 16</pre></p>
               </td>
             </tr>
 
@@ -838,27 +967,26 @@ tcp_listen_options.exit_on_close = false
                   with HiPE, a just-in-time compiler for Erlang.
                 </p>
                 <p>
-                  Enabling HipE can improve throughput by double digit % at the cost of
+                  Enabling HiPE can improve throughput by double digit % at the cost of
                   a few minutes delay at startup. These
                   figures are highly workload- and hardware-dependent.
                 </p>
                 <p>
-                  HiPE support may not be compiled into your Erlang
-                  installation. If it is not, enabling this option will
-                  just cause a warning message to be displayed and
-                  startup will proceed as normal. For example, Debian /
-                  Ubuntu users will need to install
-                  the <code>erlang-base-hipe</code> package.
+                  The startup penalty can be avoided via precompilation.
+                  See <a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a>
+                  and <code>RABBITMQ_SERVER_CODE_PATH</code> environment variable documentation.
+                </p>
+                <p>
+                  The Erlang runtime must include HiPE support. If it is not, enabling this option will
+                  have no effect. One Debian and
+                  Ubuntu HiPE support requires an alternative base Erlang package,
+                  <code>erlang-base-hipe</code>, to be installed.
                 </p>
                 <p>
                   HiPE is not available at all on some platforms,
-                  notably including Windows.
+                  notably Windows.
                 </p>
-                <p>
-                  HiPE has known issues in Erlang/OTP versions prior to 17.5.
-                  Using a recent Erlang/OTP version is highly recommended for HiPE.
-                </p>
-                <p>Default: <code>false</code></p>
+                <p>Default: <pre class="lang-ini">hipe_compile = false</pre></p>
               </td>
             </tr>
             <tr>
@@ -879,7 +1007,8 @@ tcp_listen_options.exit_on_close = false
                 See the
                 <a href="partitions.html#automatic-handling">documentation
                 on partitions</a> for more information.
-                <p>Default: <code>ignore</code></p>
+
+                <p>Default: <pre class="lang-ini">cluster_partition_handling = ignore</pre></p>
               </td>
             </tr>
             <tr>
@@ -891,7 +1020,13 @@ tcp_listen_options.exit_on_close = false
                 href="nettick.html"><code>net_ticktime</code></a>;
                 missed keepalive messages will not cause nodes to be
                 considered down.
-                <p>Default: <code>10000</code></p>
+
+                <p>
+                  Default:
+<pre class="lang-ini">
+cluster_keepalive_interval = 10000
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -901,7 +1036,12 @@ tcp_listen_options.exit_on_close = false
                 be embedded directly in the queue index. You are advised
                 to read the <a href="persistence-conf.html">persister
                 tuning</a> documentation before changing this.
-                <p>Default: <code>queue_index_embed_msgs_below = 4096</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+queue_index_embed_msgs_below = 4096
+</pre>
+                </p>
               </td>
             </tr>
 
@@ -910,7 +1050,12 @@ tcp_listen_options.exit_on_close = false
               <td>
                 Timeout used when waiting for Mnesia tables in a cluster to
                 become available.
-                <p>Default: <code>30000</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+mnesia_table_loading_retry_timeout = 30000
+</pre>
+</p>
               </td>
             </tr>
 
@@ -919,7 +1064,25 @@ tcp_listen_options.exit_on_close = false
               <td>
                 Retries when waiting for Mnesia tables in the cluster startup. Note that
                 this setting is not applied to Mnesia upgrades or node deletions.
-                <p>Default: <code>10</code></p>
+                <p>Default:
+<pre class="lang-ini">
+mnesia_table_loading_retry_limit = 10
+</pre>
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td><code>mirroring_sync_batch_size</code></td>
+              <td>
+                Batch size of messages to synchronise between queue mirrors
+                See <a href="/ha.html#batch-sync" target="_blank">Batch Synchronization</a>
+                <p>
+                  Default:
+<pre class="lang-ini">
+mirroring_sync_batch_size = 4096
+</pre>
+                </p>
               </td>
             </tr>
 
@@ -933,13 +1096,20 @@ tcp_listen_options.exit_on_close = false
                   <li><code>random</code></li>
                 </ul>
                 See the
-                <a href="ha.html#queue-master-location">documentation
+                <a href="/ha.html#queue-master-location">documentation
                 on queue master location</a> for more information.
-                <p>Default: <code>client-local</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+queue_master_locator = client-local
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
-              <td><code>proxy_protocol</code></td>
+              <td>
+                <code>proxy_protocol</code>
+              </td>
               <td>
                 If set to <code>true</code>, RabbitMQ will expect a <a
                 href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy
@@ -958,7 +1128,12 @@ tcp_listen_options.exit_on_close = false
                   networking guide</a> for more information.
                 </p>
 
-                <p>Default: <code>false</code></p>
+                <p>
+                  Default:
+<pre class="lang-ini">
+proxy_protocol = false
+</pre>
+                </p>
               </td>
             </tr>
           </table>
@@ -979,25 +1154,49 @@ tcp_listen_options.exit_on_close = false
               <td>
                 Implementation module for queue indexing. You are
                 advised to read the <a
-                href="persistence-conf.html">persister tuning</a>
+                href="persistence-conf.html">message store tuning</a>
                 documentation before changing this.
-                <p>Default: <code>rabbit_msg_store_ets_index</code></p>
+                <p>
+                  Default: <code>rabbit_msg_store_ets_index</code>
+<pre class="lang-erlang">
+{rabbit, [
+  {msg_store_index_module, rabbit_msg_store_ets_index}
+]}
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
               <td><code>backing_queue_module</code></td>
               <td>
-                Implementation module for queue contents. You probably
-                don't want to change this.
-                <p>Default: <code>rabbit_variable_queue</code></p>
+                Implementation module for queue contents.
+                <p>
+                  Default:
+<pre class="lang-erlang">
+{rabbit, [
+  {backing_queue_module, rabbit_variable_queue}
+]}
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
               <td><code>msg_store_file_size_limit</code></td>
               <td>
-                Tunable value for the persister. You almost certainly
-                should not change this.
-                <p>Default: <code>16777216</code></p>
+                Message store segment file size. Changing this for a node
+                with an existing (initialised) database is dangerous can
+                lead to data loss!
+                <p>
+                  Default: <code>16777216</code>
+<pre class="lang-erlang">
+{rabbit, [
+  %% Changing this for a node
+  %% with an existing (initialised) database is dangerous can
+  %% lead to data loss!
+  {msg_store_file_size_limit, 16777216}
+]}
+</pre>
+                </p>
               </td>
             </tr>
               <tr>
@@ -1006,7 +1205,14 @@ tcp_listen_options.exit_on_close = false
                   Used internally by
                   the <a href="firehose.html">tracer</a>. You shouldn't
                   change this.
-                  <p>Default: <code>[]</code></p>
+                  <p>
+                    Default:
+<pre class="lang-erlang">
+{rabbit, [
+  {trace_vhosts, []}
+]}
+</pre>
+                  </p>
                 </td>
               </tr>
             <tr>
@@ -1026,23 +1232,14 @@ tcp_listen_options.exit_on_close = false
                   This value only takes effect when messages are persisted to the message store.
                   If messages are embedded on the queue index, then modifying this setting has no effect because credit_flow is NOT used when writing to the queue index.
                 </p>
-                <p>Default: <code>{4000, 800}</code></p>
-              </td>
-            </tr>
-            <tr>
-              <td><code>mnesia_table_loading_retry_limit</code></td>
-              <td>
-                Number of times to retry while waiting for Mnesia tables in a cluster to
-                become available.
-                <p>Default: <code>10</code></p>
-              </td>
-            </tr>
-            <tr>
-              <td><code>mnesia_table_loading_retry_timeout</code></td>
-              <td>
-                Time to wait per retry for Mnesia tables in a cluster to become
-                available.
-                <p>Default: <code>30000</code></p>
+                <p>
+                  Default:
+<pre class="lang-erlang">
+{rabbit, [
+  {msg_store_credit_disc_bound, {4000, 800}}
+]}
+</pre>
+                </p>
               </td>
             </tr>
             <tr>
@@ -1050,56 +1247,71 @@ tcp_listen_options.exit_on_close = false
               <td>
                 After how many queue index journal entries it will be
                 flushed to disk.
-                <p>Default: <code>32768</code></p>
+                <p>
+                  Default:
+<pre class="lang-erlang">
+{rabbit, [
+  {queue_index_max_journal_entries, 32768}
+]}
+</pre>
+                </p>
               </td>
             </tr>
+
             <tr>
-              <td><code>mirroring_sync_batch_size</code></td>
               <td>
-                Batch size of messages to synchronise between queue mirrors
-                See <a href="https://www.rabbitmq.com/ha.html#batch-sync" target="_blank">Batch Synchronization</a>
-                <p>Default: <code>4096</code></p>
+                <code>lazy_queue_explicit_gc_run_operation_threshold</code>
               </td>
-            </tr>
-            <tr>
-              <td><code>lazy_queue_explicit_</code>
-                <code>gc_run_operation_threshold</code></td>
               <td>
                Tunable value only for lazy queues when under memory pressure.
                This is the threshold at which the garbage collector and other memory reduction activities are triggered.
                A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
                You almost certainly should not change this.
-              <p>Default: <code>1000</code></p>
+              <p>
+                Default:
+<pre class="lang-ini">
+{rabbit, [
+  {lazy_queue_explicit_gc_run_operation_threshold, 1000}
+]}
+</pre>
+              </p>
               </td>
             </tr>
             <tr>
-              <td><code>queue_explicit_</code>
-                <code>gc_run_operation_threshold</code></td>
+              <td>
+                <code>queue_explicit_gc_run_operation_threshold</code>
+              </td>
               <td>
                Tunable value only for normal queues when under memory pressure.
                This is the threshold at which the garbage collector and other memory reduction activities are triggered.
                A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
                You almost certainly should not change this.
-              <p>Default: <code>1000</code></p>
+              <p>
+                Default:
+<pre class="lang-ini">
+{rabbit, [
+  {queue_explicit_gc_run_operation_threshold, 1000}
+]}
+</pre>
+              </p>
               </td>
             </tr>
           </table>
 
           <p>
-            In addition, many plugins can have sections in the
-            configuration file, with names of the
-            form <code>rabbitmq_<i>plugin</i></code>. Several plugins that ship with
-            RabbitMQ have dedicated documentation guides:
+            Several <a href="/plugins.html">plugins</a> that ship with RabbitMQ have
+            dedicated documentation guides that cover plugin configuration:
+
+            <ul>
+              <li><a href="management.html#configuration">rabbitmq_management</a></li>
+              <li><a href="management.html#configuration">rabbitmq_management_agent</a></li>
+              <li><a href="stomp.html">rabbitmq_stomp</a></li>
+              <li><a href="mqtt.html">rabbitmq_mqtt</a></li>
+              <li><a href="shovel.html">rabbitmq_shovel</a></li>
+              <li><a href="federation.html">rabbitmq_federation</a></li>
+              <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
+            </ul>
           </p>
-          <ul>
-            <li><a href="management.html#configuration">rabbitmq_management</a></li>
-            <li><a href="management.html#configuration">rabbitmq_management_agent</a></li>
-            <li><a href="stomp.html">rabbitmq_stomp</a></li>
-            <li><a href="mqtt.html">rabbitmq_mqtt</a></li>
-            <li><a href="shovel.html">rabbitmq_shovel</a></li>
-            <li><a href="federation.html">rabbitmq_federation</a></li>
-            <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
-          </ul>
         </doc:subsection>
 
         <doc:subsection name="configuration-encryption">
@@ -1494,12 +1706,20 @@ RABBITMQ_DISTRIBUTION_BUFFER_SIZE
               <td>RABBITMQ_SERVER_CODE_PATH</td>
               <td>None</td>
               <td>
-                Extra code path (a directory) to be specified when starting the runtime.
-                Will be passed to the <code>erl</code> command when a node is started.
-                Typically used in combination with <code><a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a></code>
-                to precompile key RabbitMQ modules with HiPE (a JIT runtime compile) and avoid the HiPE
-                startup penalty. When set to a directory with precompiled modules, the HiPE-compiled
-                versions will be detected, loaded and skipped for compilation.
+                <p>
+                  Extra code path (a directory) to be specified when starting the runtime.
+                  Will be passed to the <code>erl</code> command when a node is started.
+                </p>
+                <p>
+                  Typically used in combination with <a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a>
+                  to precompile key RabbitMQ modules with HiPE (a JIT runtime compile) and avoid the HiPE
+                  startup penalty. When set to a directory with precompiled modules, the HiPE-compiled
+                  versions will be detected, loaded and skipped for compilation.
+                </p>
+                <p>
+                  <code>hipe_compile</code> must be set to <code>true</code> in
+                  node cofiguration.
+                </p>
               </td>
             </tr>
 
