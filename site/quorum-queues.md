@@ -235,11 +235,15 @@ members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
 To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
 [command line tool](/cli.html).
 
-Two commands are provided:
+Two commands are provided, `add_member` and `delete_member`:
 
-`rabbitmq-queues add_member [-p <vhost>] <queue-name> <node>`
+<pre class="lang-bash">
+rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+</pre>
 
-`rabbitmq-queues delete_member [-p <vhost>] <queue-name> <node>`
+<pre class="lang-bash">
+rabbitmq-queues delete_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+</pre>
 
 To successfully add and remove members a quorum of replicas in the cluster must be available.
 
@@ -348,7 +352,7 @@ Default: 256
 
 Example:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
  {rabbit, [{quorum_cluster_size, 7},
            {quorum_commands_soft_limit, 512}]}
