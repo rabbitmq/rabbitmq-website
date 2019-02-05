@@ -511,10 +511,10 @@ In the [classic config format](/configure.html#config-file-formats):
 }].
 </pre>
 
-To print log messages to standard out:
+To print log messages to standard I/O streams:
 
 <pre class="lang-ini">
-log.console.enabled = true
+log.console = true
 log.console.level = debug
 </pre>
 

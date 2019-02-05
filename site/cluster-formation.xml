@@ -500,7 +500,7 @@ cluster_formation.aws.instance_tags.environment = staging
         <p>
           By default peer discovery will use private DNS hostnames to compute node names.
           It is possible to opt into using private IPs instead by setting
-          the <code>cluster_formation.aws.aws_use_private_ip</code> key to <code>true</code>:
+          the <code>cluster_formation.aws.use_private_ip</code> key to <code>true</code>:
 
           <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
