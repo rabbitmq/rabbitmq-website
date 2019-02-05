@@ -1491,6 +1491,19 @@ RABBITMQ_DISTRIBUTION_BUFFER_SIZE
             </tr>
 
             <tr>
+              <td>RABBITMQ_SERVER_CODE_PATH</td>
+              <td>None</td>
+              <td>
+                Extra code path (a directory) to be specified when starting the runtime.
+                Will be passed to the <code>erl</code> command when a node is started.
+                Typically used in combination with <code><a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a></code>
+                to precompile key RabbitMQ modules with HiPE (a JIT runtime compile) and avoid the HiPE
+                startup penalty. When set to a directory with precompiled modules, the HiPE-compiled
+                versions will be detected, loaded and skipped for compilation.
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_CTL_ERL_ARGS</td>
               <td>None</td>
               <td>
