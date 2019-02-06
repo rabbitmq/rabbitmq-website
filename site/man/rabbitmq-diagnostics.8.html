@@ -1,0 +1,465 @@
+<div class="manual-text">
+<h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
+<code class="Nm" title="Nm">rabbitmq-diagnostics</code> &#x2014;
+<div class="Nd" title="Nd">RabbitMQ diagnostics, monitoring and health checks
+  tools</div>
+<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm" title="Nm">rabbitmq-diagnostics</code></td>
+    <td>[<div class="Op"><code class="Fl" title="Fl">-q</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-s</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-l</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-n</code>
+      <var class="Ar" title="Ar">node</var></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-t</code>
+      <var class="Ar" title="Ar">timeout</var></div>]
+      <var class="Ar" title="Ar">command</var>
+      [<div class="Op"><var class="Ar" title="Ar">command_options</var></div>]</td>
+  </tr>
+</table>
+<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+<code class="Nm" title="Nm">rabbitmq-diagnostics</code> is a command line tool
+  that provides commands used for diagnostics, monitoring and health checks of
+  RabbitMQ nodes. See the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/documentation.html">RabbitMQ
+  documentation guides</a> to learn more about RabbitMQ diagnostics, monitoring
+  and health checks.
+<div class="Pp"></div>
+<code class="Nm" title="Nm">rabbitmq-diagnostics</code> allows the operator to
+  inspect node and cluster state. A number of health checks are available to be
+  used interactively and by monitoring tools.
+<div class="Pp"></div>
+<div class="Pp"></div>
+By default if it is not possible to connect to and authenticate with the target
+  node (for example if it is stopped), the operation will fail. To learn more,
+  see the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/monitoring.html">RabbitMQ
+  Monitoring guide</a>
+<h2 class="Sh" title="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#n"><code class="Fl" title="Fl" id="n">-n</code></a>
+    <var class="Ar" title="Ar">node</var></dt>
+  <dd>Default node is
+      &#x201C;rabbit@<var class="Ar" title="Ar">target-hostname</var>&#x201D;,
+      where <var class="Ar" title="Ar">target-hostname</var> is the local host.
+      On a host named &#x201C;myserver.example.com&#x201D;, the node name will
+      usually be &#x201C;rabbit@myserver&#x201D; (unless
+      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> has been overridden).
+      The output of &#x201C;hostname -s&#x201D; is usually the correct suffix to
+      use after the &#x201C;@&#x201D; sign. See
+      <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>
+      for details of configuring a RabbitMQ node.</dd>
+  <dt><a class="permalink" href="#q"><code class="Fl" title="Fl" id="q">-q</code></a>,
+    <code class="Fl" title="Fl">--quiet</code></dt>
+  <dd>Quiet output mode is selected. Informational messages are reduced when
+      quiet mode is in effect.</dd>
+  <dt><a class="permalink" href="#s"><code class="Fl" title="Fl" id="s">-s</code></a>,
+    <code class="Fl" title="Fl">--silent</code></dt>
+  <dd>Silent output mode is selected. Informational messages are reduced and
+      table headers are suppressed when silent mode is in effect.</dd>
+  <dt><a class="permalink" href="#t"><code class="Fl" title="Fl" id="t">-t</code></a>
+    <var class="Ar" title="Ar">timeout</var>,
+    <code class="Fl" title="Fl">--timeout</code>
+    <var class="Ar" title="Ar">timeout</var></dt>
+  <dd>Operation timeout in seconds. Not all commands support timeouts. Default
+      is <code class="Cm" title="Cm">infinity</code>.</dd>
+  <dt><a class="permalink" href="#l"><code class="Fl" title="Fl" id="l">-l</code></a>,
+    <code class="Fl" title="Fl">--longnames</code></dt>
+  <dd>Must be specified when the cluster is configured to use long (FQDN) node
+      names. To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+      Clustering guide</a></dd>
+  <dt><a class="permalink" href="#-erlang-cookie"><code class="Fl" title="Fl" id="-erlang-cookie">--erlang-cookie</code></a>
+    <var class="Ar" title="Ar">cookie</var></dt>
+  <dd>Shared secret to use to authenticate to the target node. Prefer using a
+      local file or the
+      <code class="Ev" title="Ev">RABBITMQ_ERLANG_COOKIE</code> environment
+      variable instead of specifying this option on the command line. To learn
+      more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ
+      CLI Tools guide</a></dd>
+</dl>
+<h2 class="Sh" title="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h2>
+<h3 class="Ss" title="Ss" id="Topology_Introspection"><a class="permalink" href="#Topology_Introspection">Topology
+  Introspection</a></h3>
+The topology introspection commands list topology entities (e.g. queues) with
+  tab-delimited columns. These commands and their arguments are delegated to
+  rabbitmqctl(8).
+<div class="Pp"></div>
+Some commands ( <code class="Cm" title="Cm">list_queues</code>,
+  <code class="Cm" title="Cm">list_exchanges</code>,
+  <code class="Cm" title="Cm">list_bindings</code> and
+  <code class="Cm" title="Cm">list_consumers</code>) accept an optional
+  <var class="Ar" title="Ar">vhost</var> parameter.
+<div class="Pp"></div>
+The <code class="Cm" title="Cm">list_queues</code>,
+  <code class="Cm" title="Cm">list_exchanges</code> and
+  <code class="Cm" title="Cm">list_bindings</code> commands accept an optional
+  virtual host parameter for which to display results. The default value is
+  &#x201C;/&#x201D;.
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#help"><code class="Cm" title="Cm" id="help">help</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Displays general help and commands supported by
+      <code class="Nm" title="Nm">rabbitmq-diagnostics</code>.</dd>
+  <dt><a class="permalink" href="#ping"><code class="Cm" title="Cm" id="ping">ping</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Most basic health check. Succeeds if target node (runtime) is running and
+      <code class="Nm" title="Nm">rabbitmq-diagnostics</code> can authenticate
+      with it successfully.</dd>
+  <dt><a class="permalink" href="#memory_breakdown"><code class="Cm" title="Cm" id="memory_breakdown">memory_breakdown</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">--unit</code>
+    <var class="Ar" title="Ar">memory_unit</var></div>]</dt>
+  <dd>
+    <div class="Pp"></div>
+    Displays node's memory usage by category. Supported memory units are:
+    <ul class="Bl-bullet">
+      <li>bytes</li>
+      <li>megabytes</li>
+      <li>gigabytes</li>
+      <li>terabytes</li>
+    </ul>
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/memory-use.html">RabbitMQ
+      Memory Use guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> memory_breakdown
+      --unit gigabytes</dd>
+  <dt><a class="permalink" href="#server_version"><code class="Cm" title="Cm" id="server_version">server_version</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Reports target node's version.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> server_version
+    -q</dd>
+  <dt><a class="permalink" href="#erlang_version"><code class="Cm" title="Cm" id="erlang_version">erlang_version</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Reports target node's Erlang/OTP version.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> erlang_version
+    -q</dd>
+  <dt><a class="permalink" href="#maybe_stuck"><code class="Cm" title="Cm" id="maybe_stuck">maybe_stuck</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Periodically samples stack traces of all Erlang processes (&quot;lightweight
+      threads&quot;) on the node. Reports the processes for which stack trace
+      samples are identical.
+    <div class="Pp"></div>
+    Identical samples may indicate that the process is not making any progress
+      but is not necessarily an indication of a problem.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> maybe_stuck -q</dd>
+  <dt><a class="permalink" href="#runtime_thread_stats"><code class="Cm" title="Cm" id="runtime_thread_stats">runtime_thread_stats</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">--sample-interval</code>
+    <var class="Ar" title="Ar">interval</var></div>]</dt>
+  <dd>
+    <div class="Pp"></div>
+    Performs sampling of runtime (kernel) threads' activity for
+      <var class="Ar" title="Ar">interval</var> seconds and reports it.
+    <div class="Pp"></div>
+    For this command to work, Erlang/OTP on the target node must be compiled
+      with microstate accounting support and have the runtime_tools package
+      available.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> runtime_thread_stats
+      --sample-interval 15</dd>
+  <dt><a class="permalink" href="#tls_versions"><code class="Cm" title="Cm" id="tls_versions">tls_versions</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Lists all TLS versions supported by the runtime on the target node. Note
+      that RabbitMQ can be configured to only accept a subset of those versions,
+      for example, SSLv3 is disabled by default.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/ssl.html">RabbitMQ
+      TLS guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> tls_versions -q</dd>
+  <dt><a class="permalink" href="#erlang_cookie_hash"><code class="Cm" title="Cm" id="erlang_cookie_hash">erlang_cookie_hash</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Outputs a hashed value of the shared secret used by the target node to
+      authenticate CLI tools and peers. The value can be compared with the hash
+      found in error messages of CLI tools.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html#erlang-cookie">RabbitMQ
+      Clustering guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> erlang_cookie_hash
+      -q</dd>
+  <dt><a class="permalink" href="#discover_peers"><code class="Cm" title="Cm" id="discover_peers">discover_peers</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Runs a peer discovery on the target node and prints the discovered nodes, if
+      any.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/cluster-formation.html">RabbitMQ
+      Cluster Formation guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> discover_peers
+      --timeout 60</dd>
+  <dt><a class="permalink" href="#list_channels"><code class="Cm" title="Cm" id="list_channels">list_channels</code></a>
+    [<div class="Op"><var class="Ar" title="Ar">channelinfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_channels</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_queues"><code class="Cm" title="Cm" id="list_queues">list_queues</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--offline</code> |
+    <code class="Fl" title="Fl">--online</code> |
+    <code class="Fl" title="Fl">--local</code></div>]
+    [<div class="Op"><var class="Ar" title="Ar">queueinfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_queues</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_exchanges"><code class="Cm" title="Cm" id="list_exchanges">list_exchanges</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><var class="Ar" title="Ar">exchangeinfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_exchanges</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_bindings"><code class="Cm" title="Cm" id="list_bindings">list_bindings</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><var class="Ar" title="Ar">bindinginfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_bindings</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_connections"><code class="Cm" title="Cm" id="list_connections">list_connections</code></a>
+    [<div class="Op"><var class="Ar" title="Ar">connectioninfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_connections</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_channels_2"><code class="Cm" title="Cm" id="list_channels_2">list_channels</code></a>
+    [<div class="Op"><var class="Ar" title="Ar">channelinfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_channels</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_consumers"><code class="Cm" title="Cm" id="list_consumers">list_consumers</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_consumers</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#alarms"><code class="Cm" title="Cm" id="alarms">alarms</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Lists resource alarms, if any, in the cluster.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/alarms.html">RabbitMQ
+      Resource Alarms guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> alarms</dd>
+  <dt><a class="permalink" href="#listeners"><code class="Cm" title="Cm" id="listeners">listeners</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Lists listeners (bound sockets) on this node. Use this to inspect what
+      protocols and ports the node is listening on for client, CLI tool and peer
+      connections.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> listeners</dd>
+  <dt><a class="permalink" href="#is_running"><code class="Cm" title="Cm" id="is_running">is_running</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Reports if RabbitMQ application is fully booted and running (that is, not
+      stopped) on the target node.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> is_running</dd>
+  <dt><a class="permalink" href="#is_booting"><code class="Cm" title="Cm" id="is_booting">is_booting</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Reports if RabbitMQ application is currently booting (not booted/running or
+      stopped) on the target node.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> is_booting
+    <div class="Pp"></div>
+    check_port_connectivity [-t &lt;timeout&gt;]</dd>
+  <dt><a class="permalink" href="#check_running"><code class="Cm" title="Cm" id="check_running">check_running</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if the RabbitMQ
+      application is not running on the target node.
+    <div class="Pp"></div>
+    If <code class="Cm" title="Cm">rabbitmqctl(8)</code> was used to stop the
+      application, this check will fail.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_running</dd>
+  <dt><a class="permalink" href="#check_local_alarms"><code class="Cm" title="Cm" id="check_local_alarms">check_local_alarms</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if there are alarms
+      in effect on the target node.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/alarms.html">RabbitMQ
+      Resource Alarms guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
+    check_local_alarms</dd>
+  <dt><a class="permalink" href="#check_alarms"><code class="Cm" title="Cm" id="check_alarms">check_alarms</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if there are alarms
+      in effect on any of the cluster nodes.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/alarms.html">RabbitMQ
+      Resource Alarms guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_alarms</dd>
+  <dt><a class="permalink" href="#check_port_connectivity"><code class="Cm" title="Cm" id="check_port_connectivity">check_port_connectivity</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if any listener ports
+      on the target node cannot accept a new TCP connection opened by The check
+      only validates if a new TCP connection is accepted. It does not perform
+      messaging protocol handshake or authenticate.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
+      check_port_connectivity</dd>
+  <dt><a class="permalink" href="#check_protocol_listener"><code class="Cm" title="Cm" id="check_protocol_listener">check_protocol_listener</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if the target node
+      does not have a listener for the specified protocol.
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
+      check_protocol_listener mqtt</dd>
+  <dt><a class="permalink" href="#check_port_listener"><code class="Cm" title="Cm" id="check_port_listener">check_port_listener</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Health check that fails (returns with a non-zero code) if the target node is
+      not listening on the specified port (there is no listener that uses that
+      port).
+    <div class="Pp"></div>
+    See
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/networking.html">RabbitMQ
+      Networking guide</a> to learn more.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_port_listener
+      5672</dd>
+  <dt><a class="permalink" href="#status"><code class="Cm" title="Cm" id="status">status</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">status</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#cluster_status"><code class="Cm" title="Cm" id="cluster_status">cluster_status</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">cluster_status</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#environment"><code class="Cm" title="Cm" id="environment">environment</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">environment</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#report"><code class="Cm" title="Cm" id="report">report</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">report</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_global_parameters"><code class="Cm" title="Cm" id="list_global_parameters">list_global_parameters</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">list_global_parameters</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_operator_policies"><code class="Cm" title="Cm" id="list_operator_policies">list_operator_policies</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_operator_policies</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_parameters"><code class="Cm" title="Cm" id="list_parameters">list_parameters</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_parameters</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_permissions"><code class="Cm" title="Cm" id="list_permissions">list_permissions</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_permissions</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_policies"><code class="Cm" title="Cm" id="list_policies">list_policies</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_policies</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_topic_permissions"><code class="Cm" title="Cm" id="list_topic_permissions">list_topic_permissions</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_topic_permissions</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_user_permissions"><code class="Cm" title="Cm" id="list_user_permissions">list_user_permissions</code></a>
+    <var class="Ar" title="Ar">username</var></dt>
+  <dd>See <code class="Cm" title="Cm">list_user_permissions</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_user_topic_permissions"><code class="Cm" title="Cm" id="list_user_topic_permissions">list_user_topic_permissions</code></a>
+    <var class="Ar" title="Ar">username</var></dt>
+  <dd>See <code class="Cm" title="Cm">list_user_topic_permissions</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_users"><code class="Cm" title="Cm" id="list_users">list_users</code></a></dt>
+  <dd>See <code class="Cm" title="Cm">list_users</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#list_vhosts"><code class="Cm" title="Cm" id="list_vhosts">list_vhosts</code></a>
+    [<div class="Op"><var class="Ar" title="Ar">vhostinfoitem
+    ...</var></div>]</dt>
+  <dd>See <code class="Cm" title="Cm">list_vhosts</code> in
+      <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
+  <dt><a class="permalink" href="#node_health_check"><code class="Cm" title="Cm" id="node_health_check">node_health_check</code></a></dt>
+  <dd>Performs several health checks of the target node.
+    <div class="Pp"></div>
+    Verifies the rabbit application is running and alarms are not set, then
+      checks that every queue and channel on the node can emit basic stats.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
+    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> node_health_check -n
+      rabbit@hostname</dd>
+</dl>
+</div>
