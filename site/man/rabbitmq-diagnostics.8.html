@@ -128,27 +128,28 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Memory Use guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> memory_breakdown
-      --unit gigabytes</dd>
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      memory_breakdown --unit gigabytes</code></div>
+  </dd>
   <dt><a class="permalink" href="#server_version"><code class="Cm" title="Cm" id="server_version">server_version</code></a></dt>
   <dd>
     <div class="Pp"></div>
     Reports target node's version.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> server_version
-    -q</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      server_version -q</code></div>
+  </dd>
   <dt><a class="permalink" href="#erlang_version"><code class="Cm" title="Cm" id="erlang_version">erlang_version</code></a></dt>
   <dd>
     <div class="Pp"></div>
     Reports target node's Erlang/OTP version.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> erlang_version
-    -q</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      erlang_version -q</code></div>
+  </dd>
   <dt><a class="permalink" href="#maybe_stuck"><code class="Cm" title="Cm" id="maybe_stuck">maybe_stuck</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -160,8 +161,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       but is not necessarily an indication of a problem.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> maybe_stuck -q</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics maybe_stuck
+      -q</code></div>
+  </dd>
   <dt><a class="permalink" href="#runtime_thread_stats"><code class="Cm" title="Cm" id="runtime_thread_stats">runtime_thread_stats</code></a>
     [<div class="Op"><code class="Fl" title="Fl">--sample-interval</code>
     <var class="Ar" title="Ar">interval</var></div>]</dt>
@@ -175,9 +177,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       available.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> runtime_thread_stats
-      --sample-interval 15</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      runtime_thread_stats --sample-interval 15</code></div>
+  </dd>
   <dt><a class="permalink" href="#tls_versions"><code class="Cm" title="Cm" id="tls_versions">tls_versions</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -190,8 +192,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       TLS guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> tls_versions -q</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics tls_versions
+      -q</code></div>
+  </dd>
   <dt><a class="permalink" href="#erlang_cookie_hash"><code class="Cm" title="Cm" id="erlang_cookie_hash">erlang_cookie_hash</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -204,9 +207,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Clustering guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> erlang_cookie_hash
-      -q</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      erlang_cookie_hash -q</code></div>
+  </dd>
   <dt><a class="permalink" href="#discover_peers"><code class="Cm" title="Cm" id="discover_peers">discover_peers</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -218,9 +221,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Cluster Formation guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> discover_peers
-      --timeout 60</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      discover_peers --timeout 60</code></div>
+  </dd>
   <dt><a class="permalink" href="#list_channels"><code class="Cm" title="Cm" id="list_channels">list_channels</code></a>
     [<div class="Op"><var class="Ar" title="Ar">channelinfoitem
     ...</var></div>]</dt>
@@ -275,8 +278,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Resource Alarms guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> alarms</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      alarms</code></div>
+  </dd>
   <dt><a class="permalink" href="#listeners"><code class="Cm" title="Cm" id="listeners">listeners</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -289,8 +293,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Networking guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> listeners</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      listeners</code></div>
+  </dd>
   <dt><a class="permalink" href="#is_running"><code class="Cm" title="Cm" id="is_running">is_running</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -298,8 +303,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       stopped) on the target node.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> is_running</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      is_running</code></div>
+  </dd>
   <dt><a class="permalink" href="#is_booting"><code class="Cm" title="Cm" id="is_booting">is_booting</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -307,8 +313,8 @@ The <code class="Cm" title="Cm">list_queues</code>,
       stopped) on the target node.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> is_booting
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      is_booting</code></div>
     <div class="Pp"></div>
     check_port_connectivity [-t &lt;timeout&gt;]</dd>
   <dt><a class="permalink" href="#check_running"><code class="Cm" title="Cm" id="check_running">check_running</code></a></dt>
@@ -321,8 +327,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       application, this check will fail.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_running</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_running</code></div>
+  </dd>
   <dt><a class="permalink" href="#check_local_alarms"><code class="Cm" title="Cm" id="check_local_alarms">check_local_alarms</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -334,9 +341,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Resource Alarms guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
-    check_local_alarms</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_local_alarms</code></div>
+  </dd>
   <dt><a class="permalink" href="#check_alarms"><code class="Cm" title="Cm" id="check_alarms">check_alarms</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -348,8 +355,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Resource Alarms guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_alarms</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_alarms</code></div>
+  </dd>
   <dt><a class="permalink" href="#check_port_connectivity"><code class="Cm" title="Cm" id="check_port_connectivity">check_port_connectivity</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -363,9 +371,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Networking guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
-      check_port_connectivity</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_port_connectivity</code></div>
+  </dd>
   <dt><a class="permalink" href="#check_protocol_listener"><code class="Cm" title="Cm" id="check_protocol_listener">check_protocol_listener</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -377,9 +385,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Networking guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code>
-      check_protocol_listener mqtt</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_protocol_listener mqtt</code></div>
+  </dd>
   <dt><a class="permalink" href="#check_port_listener"><code class="Cm" title="Cm" id="check_port_listener">check_port_listener</code></a></dt>
   <dd>
     <div class="Pp"></div>
@@ -392,9 +400,9 @@ The <code class="Cm" title="Cm">list_queues</code>,
       Networking guide</a> to learn more.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> check_port_listener
-      5672</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      check_port_listener 5672</code></div>
+  </dd>
   <dt><a class="permalink" href="#status"><code class="Cm" title="Cm" id="status">status</code></a></dt>
   <dd>See <code class="Cm" title="Cm">status</code> in
       <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
@@ -458,8 +466,8 @@ The <code class="Cm" title="Cm">list_queues</code>,
       checks that every queue and channel on the node can emit basic stats.
     <div class="Pp"></div>
     Example:
-    <div class="Bd Bd-indent lang-bash"><code class="Li"></code></div>
-    <code class="Nm" title="Nm">rabbitmq-diagnostics</code> node_health_check -n
-      rabbit@hostname</dd>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      node_health_check -n rabbit@hostname</code></div>
+  </dd>
 </dl>
 </div>
