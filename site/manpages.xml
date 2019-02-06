@@ -44,6 +44,7 @@ limitations under the License.
         <doc:heading>Section 8 - System Management Commands</doc:heading>
         <ul>
           <li><a href="rabbitmqctl.8.html">rabbitmqctl</a>: service management and <a href="/cli.html">general operator commands</a></li>
+          <li><a href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics</a>: for diagnostics and <a href="/monitoring.html">health checking</a></li>
           <li><a href="rabbitmq-plugins.8.html">rabbitmq-plugins</a>: <a href="/plugins.html">plugin management</a></li>
           <li><a href="rabbitmq-server.8.html">rabbitmq-server</a>: starts a RabbitMQ server node</li>
           <li><a href="rabbitmq-service.8.html">rabbitmq-service</a>: Windows service management</li>
