@@ -60,7 +60,7 @@ limitations under the License.
     <p>
       RabbitMQ will run on any Windows version that <a href="/which-erlang.html">supported Erlang/OTP</a>
       releases can run on, both desktop and server editions. This includes
-      Windows 7 through 10, Server 2008 through 2016.
+      Windows 7 through 10, Server 2008 through 2018.
     </p>
     <p>
       Windows XP, Vista, and Server 2003 may require using an older
