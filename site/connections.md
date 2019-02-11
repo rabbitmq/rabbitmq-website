@@ -19,8 +19,8 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers various topics related to connections. This guide
-does not cover network tuning or most networking-related topics. Those
+This guide covers various topics related to connections except for
+network tuning or most networking-related topics. Those
 are covered by the [Networking](/networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
 
 RabbitMQ supports several protocols:
