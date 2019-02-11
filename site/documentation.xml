@@ -101,8 +101,8 @@ limitations under the License.
 
             <ul>
               <li><a href="/cli.html">CLI Tools Overview</a></li>
-              <li><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
-              <li><a href="/man/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
+              <li><a href="/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
+              <li><a href="/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
               <li><a href="/management-cli.html">rabbitmqadmin</a> (requires <a href="/management.html">management plugin</a>)</li>
               <li><a href="/manpages.html">man pages</a></li>
             </ul>
@@ -205,6 +205,12 @@ limitations under the License.
                 <a href="monitoring.html">Monitoring</a>
               </li>
               <li>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
+                <a href="channels.html">AMQP 0-9-1 Channels</a>
+              </li>
+              <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
               <li>
@@ -266,7 +272,7 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="/memory-use.html">Memory Usage</a>
+                <a href="/memory-use.html">Memory Usage Analysis</a>
               </li>
               <li>
                 <a href="/memory.html">Memory Management</a>

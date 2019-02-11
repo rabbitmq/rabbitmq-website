@@ -1,7 +1,7 @@
 <div class="manual-text">
 <h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
 <code class="Nm" title="Nm">rabbitmq-plugins</code> &#x2014;
-<div class="Nd" title="Nd">command line for managing RabbitMQ plugins</div>
+<div class="Nd" title="Nd">command line tool for managing RabbitMQ plugins</div>
 <h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
 <table class="Nm">
   <tr>
@@ -40,8 +40,8 @@ The <code class="Cm" title="Cm">enable</code>,
   <code class="Cm" title="Cm">disable</code>, and
   <code class="Cm" title="Cm">set</code> commands will update the plugins file
   and then attempt to connect to the broker and ensure it is running all enabled
-  plugins. By default if it is not possible to connect to the running broker
-  (for example if it is stopped) the operation will fail. If
+  plugins. By default if it is not possible to connect to and authenticate with
+  the target node (for example if it is stopped), the operation will fail. If
   <code class="Nm" title="Nm">rabbitmq-plugins</code> is used on the same host
   as the target node, <code class="Fl" title="Fl">--offline</code> can be
   specified to make <code class="Nm" title="Nm">rabbitmq-plugins</code> resolve
@@ -234,11 +234,12 @@ The <code class="Cm" title="Cm">enable</code>,
 </dl>
 <h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
-<a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
-  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>,
+<a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
-  <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>
+  <a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>
 <h2 class="Sh" title="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h2>
 <span class="An" title="An">The RabbitMQ Team</span>
   &lt;<a class="Mt" title="Mt" href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>&gt;</div>

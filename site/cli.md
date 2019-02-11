@@ -20,7 +20,7 @@ limitations under the License.
 RabbitMQ comes with multiple command line tools:
 
  * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
-  * `rabbitmq-diagnostics` for diagnostics and [health checking](/monitoring.html)
+ * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)
  * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
  * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
 

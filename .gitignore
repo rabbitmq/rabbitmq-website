@@ -3,7 +3,6 @@
 .*.sw?
 *~
 *.pyc
-/site/man/*.xml
 /site/news.atom
 target/
 site/img/.DS_Store

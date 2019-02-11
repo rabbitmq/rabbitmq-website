@@ -3,8 +3,8 @@
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -58,7 +58,7 @@ limitations under the License.
                    messages are published to <em>exchanges</em>,
                    which are often compared to post offices or mailboxes. Exchanges then
                    distribute message copies to <em>queues</em> using rules called
-                   <em>bindings</em>. Then AMQP brokers either deliver messages to
+                   <em>bindings</em>. Then the broker either deliver messages to
                    consumers subscribed to queues, or consumers
                    fetch/pull messages from queues on demand.
                  </p>
@@ -76,7 +76,7 @@ limitations under the License.
                  </p>
                  <p>
                    Networks are unreliable and applications may fail to process
-                   messages therefore the AMQP model has a notion of
+                   messages therefore the AMQP 0-9-1 model has a notion of
                    <em>message acknowledgements</em>: when a message is delivered
                    to a consumer the consumer <em>notifies the broker</em>,
                    either automatically or as soon as the application
@@ -105,7 +105,7 @@ limitations under the License.
                   themselves, not a broker administrator. Accordingly,
                   provision is made for protocol operations that declare
                   queues and exchanges, define bindings between them,
-                  subscribe to queues and so on.
+                  subscribe to <a href="/queues.html">queues</a> and so on.
                 </p>
                 <p>
                   This gives application developers a lot of freedom but
@@ -124,7 +124,7 @@ limitations under the License.
           <doc:section name="exchanges">
           <doc:heading>Exchanges and Exchange Types</doc:heading>
             <p>
-              <em>Exchanges</em> are AMQP entities where messages are
+              <em>Exchanges</em> are AMQP 0-9-1 entities where messages are
               sent. Exchanges take a message and route it into zero or
               more queues. The routing algorithm used depends on the
               <em>exchange type</em> and rules called <em>bindings</em>.
@@ -167,7 +167,8 @@ limitations under the License.
                  For example, when you declare a queue with the name of
                  "search-indexing-online", the AMQP 0-9-1 broker will bind it
                  to the default exchange using "search-indexing-online" as
-                 the routing key. Therefore, a message published to the default
+                 the routing key (in this context sometimes referred to as the binding key).
+                 Therefore, a message published to the default
                  exchange with the routing key "search-indexing-online"
                  will be routed to the queue "search-indexing-online". In
                  other words, the default exchange makes it seem like it
@@ -664,19 +665,19 @@ limitations under the License.
           <doc:section name="amqp-connections">
           <doc:heading>Connections</doc:heading>
             <p>
-              AMQP connections are typically long-lived. AMQP is an
+              AMQP 0-9-1 connections are typically long-lived. AMQP 0-9-1 is an
               application level protocol that uses TCP for reliable
-              delivery. AMQP connections use authentication and can be
-              protected using TLS (SSL). When an application no longer needs
-              to be connected to an AMQP broker, it should gracefully close
-              the AMQP connection instead of abruptly closing the underlying
+              delivery. Connections use authentication and can be
+              protected using TLS. When an application no longer needs
+              to be connected to the server, it should gracefully close
+              its AMQP 0-9-1 connection instead of abruptly closing the underlying
               TCP connection.
             </p>
             </doc:section>
           <doc:section name="amqp-channels">
           <doc:heading>Channels</doc:heading>
             <p>
-              Some applications need multiple connections to an AMQP
+              Some applications need multiple connections to the
               broker. However, it is undesirable to keep many TCP
               connections open at the same time because doing so consumes
               system resources and makes it more difficult to configure
@@ -685,16 +686,21 @@ limitations under the License.
               connections that share a single TCP connection".
             </p>
             <p>
+              Every protocol operation performed by a client happens on a channel.
+              Every protocol operation performed by a client happens on a channel.
+              Communication on a particular channel is completely separate
+              from communication on another channel, therefore every protocol
+              method also carries a channel ID (a.k.a. channel number), an integer
+              that both the broker and clients use to figure out which channel the method is for.
+            </p>
+            <p>
+              A channel only exists in the context of a connection and never on its own.
+              When a connection is closed, so are all channels on it.
+            </p>
+            <p>
               For applications that use multiple threads/processes for
               processing, it is very common to open a new channel per thread/process
               and not share channels between them.
-            </p>
-            <p>
-              Communication on a particular channel is completely separate
-              from communication on another channel, therefore every AMQP
-              method also carries a channel number that clients use to
-              figure out which channel the method is for (and thus, which
-              event handler needs to be invoked, for example).
             </p>
             </doc:section>
            <doc:section name="amqp-vhosts">
@@ -755,4 +761,3 @@ limitations under the License.
          </doc:section>
   </body>
 </html>
-
