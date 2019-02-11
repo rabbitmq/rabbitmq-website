@@ -95,7 +95,8 @@ rabbitmq-plugins enable rabbitmq_management
           <doc:heading>Management UI Access</doc:heading>
           <p>
             The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
-            for a node running on the local machine with hostname of <code>warp10.local</code> it can be accessed at either <code>http://warp10.local:15672/</code>
+            for a node running on a machine with the hostname of <code>warp10.local</code>,
+            it can be accessed at either <code>http://warp10.local:15672/</code>
             or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
           </p>
 
