@@ -43,13 +43,26 @@ limitations under the License.
         </p>
 
         <p>
-          The plugin also provides extension points that other plugins, such as <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
-          <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a> use to extend the UI.
+          The plugin can be <a href="#configuration">configured</a> to <a href="#single-listener-https">use HTTPS</a>,
+          a non-standard port, path prefix, HTTP server options, custom <a href="#hsts">strict transport security</a> settings,
+          <a href="#cors">cross-origin resource sharing</a>, and more.
         </p>
 
         <p>
-          The plugin can be <a href="#configuration">configured</a> to use HTTPS, a non-standard port, path prefix,
-          HTTP server options, custom <a href="#hsts">strict transport security</a> settings, <a href="#cors">cross-origin resource sharing</a>, and more.
+          It also provides tools for <a href="#memory">analyse memory usage</a> of the node,
+          for <a href="#load-definitions">preconfiguring the node</a> using an exported schema definitions file, and a few
+          other features related to monitoring, metrics and node management.
+        </p>
+
+        <p>
+          In a multi-node cluster, management plugin is most commonly <a href="#clustering">enabled on every node</a>.
+        </p>
+
+        <p>
+          The plugin also provides extension points that other plugins, such as
+          <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
+          <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a>
+          use to extend the UI.
         </p>
       </doc:section>
 
@@ -58,17 +71,20 @@ limitations under the License.
 
         <p>
           The management plugin is included in the RabbitMQ
-          distribution. Like any other <a href="/plugins.html">plugin</a> it must
+          distribution. Like any other <a href="/plugins.html">plugin</a>, it must
           be enabled before it can be used. That's done using <a
           href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_management
 </pre>
+
+          Node restart is not required after plugin activation.
         </p>
 
         <p>
-          Node restart is not required after plugin activation.
+          During automated deployments, the plugin can be enabled via
+          <a href="/plugins.html#enabled-plugins-file">enabled plugin file</a>.
         </p>
       </doc:section>
 
@@ -678,7 +694,7 @@ management.http_log_dir = /path/to/folder
         </doc:subsection>
 
         <doc:subsection name="sample-retention">
-          <doc:heading>Sample Retention Policies</doc:heading>
+          <doc:heading>Sample (Data Point) Retention</doc:heading>
           <p>
             The management plugin will retain samples of some data
             such as message rates and queue lengths. Depending on how long the
@@ -863,17 +879,17 @@ management.cors.max_age         = 3600
           <p>
             The following example sets the session timeout to 1 hour:
           </p>
-          <pre class="lang-ini">
+<pre class="lang-ini">
 management.login_session_timeout = 60
 </pre>
 
           Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-          <pre class="lang-erlang">[
-  ...
+<pre class="lang-erlang">[
+  %% ...
   {rabbitmq_management,
     [{login_session_timeout, 60}]},
-  ...
+  %% ...
 ].</pre>
         </doc:subsection>
 
@@ -898,10 +914,10 @@ management.login_session_timeout = 60
             trailing slash is <em>required</em> in this case.
           </p>
           <pre class="lang-erlang">[
-  ...
+  %% ...
   {rabbitmq_management,
     [{path_prefix, "/my-prefix"}]},
-  ...
+  %% ...
 ].</pre>
         </doc:subsection>
 
@@ -910,7 +926,7 @@ management.login_session_timeout = 60
         <p>
           An example configuration file for RabbitMQ that switches
           on request logging, increases the statistics interval to
-          10000ms and explicitly sets some other relevant parameters
+          10 seconds and explicitly sets some other relevant parameters
           to their default values, would look like this:
         </p>
         <pre class="lang-ini">
@@ -1006,14 +1022,16 @@ management.sample_retention_policies.detailed.10 = 5
       <doc:section name="load-definitions">
         <doc:heading>Loading Definitions (Schema) at Startup</doc:heading>
         <p>
-          The management plugin lets you export a JSON file
-          containing definitions of all broker objects (queues,
+          It is possible to export a definitions file over HTTP API or in management UI.
+          A definition file contains definitions of all broker objects (queues,
           exchanges, bindings, users, virtual hosts, permissions and
-          parameters). In some scenarios it may be useful to ensure
-          the existence of these objects at every startup.
+          parameters). Then the file can be imported on node start, providing a way
+          to preconfigure the node with virtual hosts, users, permissions, policies, queues,
+          exchanges, bindings and so on.
         </p>
         <p>
-          To do this, set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
+          To import definitions from a local file on node boot,
+          set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
           in the classic config format) config key
           to the path of a previously exported JSON file containing
           the definitions you want:
@@ -1040,35 +1058,42 @@ management.load_definitions = /path/to/definitions/file.json
       </doc:section>
 
 
-      <doc:section name="memory-use-analysis">
-        <doc:heading>Memory Use Analysis</doc:heading>
-        <p>
-          Management UI can be used to inspect node's memory use, including displaying
-          a per-category breakdown. See the <a href="/memory-use.html">Memory Use Analysis</a> guide
-          for details.
-        </p>
-      </doc:section>
-
-
       <doc:section name="clustering">
-        <doc:heading>Note on clustering</doc:heading>
-        <p>
-          The management plugin is aware of clusters. You can enable
-          it on one or more nodes in a cluster, and see information
-          pertaining to the entire cluster no matter which node you
-          connect to.
-        </p>
-        <p>
-          If you want to deploy cluster nodes which do not have the
-          full management plugin enabled, you will still need to
-          enable the <code>rabbitmq-management-agent</code> plugin on
-          each node.
-        </p>
-        <p>
-          When clustered the management plugin performs cluster-wide queries
-          which means it can be affected by various network events such as
-          <a href="nettick.html">partitions</a>.
-        </p>
+        <doc:heading>Metrics Collection and HTTP API in Clusters</doc:heading>
+
+        <doc:subsection name="clustering-client-requests">
+          <doc:heading>Client Requests</doc:heading>
+
+          <p>
+            The management plugin is aware of clusters. It can be enabled
+            on one or more nodes in a cluster, and see information
+            pertaining to the entire cluster no matter which node you
+            connect to.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="clustering-subset-of-nodes">
+          <doc:heading>Running Management Plugin on a Subset of Nodes</doc:heading>
+
+          <p>
+            It is possible deploy management plugin only on a subset of cluster nodes.
+            In that case only the nodes running the plugin would be able to serve client HTTP API requests.
+            For every cluster node to have its metrics collected, it is still required that the
+            <code>rabbitmq-management-agent</code> plugin is enabled on each node, otherwise
+            the metrics from the node won't be available.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="clustering-inter-node-connectivity">
+          <doc:heading>Client Requests</doc:heading>
+
+          <p>
+            In cluster, HTTP API performs cluster-wide queries when handling client
+            requests, which means it can be affected by network partitions and slow downs.
+            Timeouts for inter-node aggregation queries are controlled via the
+            <a href="nettick.html">net tick mechanism</a>.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="proxy">
@@ -1109,13 +1134,6 @@ ProxyPassReverse /    http://localhost:15672/</pre>
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
 
-Starting with RabbitMQ 3.6.2 and up to 3.6.5, use
-<pre class="lang-bash">
-rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
-                  rabbit_mgmt_sup_sup:start_child().'
-</pre>
-          These commands must be executed on the node hosting the database.
-
 Starting with RabbitMQ 3.6.7, the database can be reset per node using
 <pre class="lang-bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
@@ -1140,51 +1158,71 @@ DELETE /api/reset/:node
         </p>
       </doc:section>
 
-      <doc:section name="memory-mgmt">
-        <doc:heading>Memory Management</doc:heading>
-        <div>
-          The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
-<pre class="lang-bash">
-rabbitmqctl status
-</pre>
-          or a GET request to /api/nodes/<i>name</i> via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
-          HTTP API</a>.
+      <doc:section name="memory">
+        <doc:heading>Memory Usage Analysis and Memory Management</doc:heading>
+        <p>
+          Management UI can be used to inspect node's memory use, including displaying
+          a per-category breakdown. See the <a href="/memory-use.html">Memory Use Analysis</a> guide
+          for details.
+        </p>
 
-          <p>
-          Stats are emitted periodically, regulated by the statistics
-          interval described above, or when certain components are
+        <p>
+          Management database builds around periodically emitted stats,
+          regulated by the statistics interval described above, or when certain components are
           created/declared (e.g. a new connection or channel is
           opened, or a queue declared) or closed/deleted.  Message
           rates do not directly affect management database memory
           usage.
-          </p>
-          <p>
+        </p>
+        <p>
           Total amount of memory consumed by the stats database
-          depends on the event emission interval, effective rates mode and
+          depends on the topology size (e.g. the number of queues), number of concurrent connections
+          and channels, event emission interval, effective rates mode and
           retention policies.
-          </p>
-          <p>
+        </p>
+        <p>
           Increasing the <code>rabbit.collect_statistics_interval</code> value to 30-60s (note: the value should
           be set in milliseconds, e.g. <code>30000</code>) will reduce memory
           comsuption for systems with large amounts of queues/channels/connections.
           Adjusting retention policies to retain less data will also help.
-          </p>
-          <p>
+        </p>
+        <p>
           The memory usage of the channel and stats collector processes can be limited
           by setting the maximum backlog queue size using the parameter
           <code>stats_event_max_backlog</code>. If the backlog queue is full, new channel
           and queue stats will be dropped until the previous ones have been processed.
-          </p>
-          <p>
+        </p>
+        <p>
           The statistics interval can also be changed at runtime. Doing so will have no
           effect on existing connections, channels or queues. Only new stats
           emitting entities are affected.
+
 <pre class="lang-bash">
 rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
 </pre>
-          </p>
+        </p>
+
+        <p>
           The statistics database can be restarted (see above) and thus forced to release all memory.
-        </div>
+          Management UI's Overview page contains buttons that reset stats database for individual nodes as well as
+          all nodes in the cluster.
+        </p>
+      </doc:section>
+
+
+      <doc:section name="publishing-consuming">
+        <doc:heading>Publishing and Consuming over HTTP API</doc:heading>
+        <p>
+          It is possible to publish and consume messages using the <a href="#http-api">HTTP API</a>.
+          This ways of messaging is discouraged: prefer one of the binary messaging protocols supported
+          by RabbitMQ. Publishing and consuming that way will be significantly more efficient and will
+          provide access to various messaging protocol features such as <a href="/confirms.html">confirmations</a>.
+        </p>
+
+        <p>
+          Publishing over HTTP API can be useful in environments where
+          <a href="/connections.html">long lived messaging protocol connections</a> is not an option.
+        </p>
       </doc:section>
   </body>
 </html>
