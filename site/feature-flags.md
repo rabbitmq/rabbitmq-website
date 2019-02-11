@@ -10,7 +10,7 @@ This subsystem was introduced in RabbitMQ 3.8.0 to allow **rolling
 upgrades of cluster members without shutting down the cluster**
 entirely.
 
-<p class="box-warning">Note that this subsystem does not guaranty that
+<p class="box-warning">Note that this subsystem does not guarantee that
 all future changes in RabbitMQ can be implemented as feature flag.
 Therefore, <strong>there might still be some versions of RabbitMQ which
 will require a cluster shutdown</strong>. Please read the release notes
@@ -21,7 +21,7 @@ RabbitMQ version without a cluster shutdown.</p>
 
 <ul class="plain">
 <li>A feature flag can only be enabled if all nodes in the cluster
-supports it.</li>
+support it.</li>
 <li>A node can join or re-join a cluster only if:
 <ol class="plain">
 <li>it supports all feature flags enabled in the cluster and</li>
