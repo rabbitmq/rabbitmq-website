@@ -22,6 +22,8 @@ limitations under the License.
 This guide covers various topics related to connections except for
 network tuning or most networking-related topics. Those
 are covered by the [Networking](/networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
+[Channels](/channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
+in a separate guide.
 
 RabbitMQ supports several protocols:
 

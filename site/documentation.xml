@@ -205,6 +205,12 @@ limitations under the License.
                 <a href="monitoring.html">Monitoring</a>
               </li>
               <li>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
+                <a href="channels.html">AMQP 0-9-1 Channels</a>
+              </li>
+              <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
               <li>
@@ -266,7 +272,7 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="/memory-use.html">Memory Usage</a>
+                <a href="/memory-use.html">Memory Usage Analysis</a>
               </li>
               <li>
                 <a href="/memory.html">Memory Management</a>
