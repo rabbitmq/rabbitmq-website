@@ -3,8 +3,8 @@
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -105,7 +105,7 @@ limitations under the License.
                   themselves, not a broker administrator. Accordingly,
                   provision is made for protocol operations that declare
                   queues and exchanges, define bindings between them,
-                  subscribe to queues and so on.
+                  subscribe to <a href="/queues.html">queues</a> and so on.
                 </p>
                 <p>
                   This gives application developers a lot of freedom but
@@ -124,7 +124,7 @@ limitations under the License.
           <doc:section name="exchanges">
           <doc:heading>Exchanges and Exchange Types</doc:heading>
             <p>
-              <em>Exchanges</em> are AMQP entities where messages are
+              <em>Exchanges</em> are AMQP 0-9-1 entities where messages are
               sent. Exchanges take a message and route it into zero or
               more queues. The routing algorithm used depends on the
               <em>exchange type</em> and rules called <em>bindings</em>.
@@ -167,7 +167,8 @@ limitations under the License.
                  For example, when you declare a queue with the name of
                  "search-indexing-online", the AMQP 0-9-1 broker will bind it
                  to the default exchange using "search-indexing-online" as
-                 the routing key. Therefore, a message published to the default
+                 the routing key (in this context sometimes referred to as the binding key).
+                 Therefore, a message published to the default
                  exchange with the routing key "search-indexing-online"
                  will be routed to the queue "search-indexing-online". In
                  other words, the default exchange makes it seem like it
@@ -755,4 +756,3 @@ limitations under the License.
          </doc:section>
   </body>
 </html>
-
