@@ -167,7 +167,7 @@ limitations under the License.
                  For example, when you declare a queue with the name of
                  "search-indexing-online", the AMQP 0-9-1 broker will bind it
                  to the default exchange using "search-indexing-online" as
-                 the routing key. Therefore, a message published to the default
+                 the binding key. Therefore, a message published to the default
                  exchange with the routing key "search-indexing-online"
                  will be routed to the queue "search-indexing-online". In
                  other words, the default exchange makes it seem like it
