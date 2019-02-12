@@ -425,7 +425,7 @@ or set of commands that collect a few essential metrics of a RabbitMQ node or cl
 Just like with human or veterinary health checks, there's a variety of checks that
 can be performed and some are more intrusive than others. Different checks also have
 a different probability of reporting [false positives](https://en.wikipedia.org/wiki/False_positives_and_false_negatives)
-(a scenario when a node is reported as unhealthy even when it is).
+(a scenario when a node is reported as unhealthy even when it is actually healthy).
 
 Health checks therefore should be thought of as a range of options, starting with the most
 basic and virtually never producing false positives to increasingly more comprehensive,
