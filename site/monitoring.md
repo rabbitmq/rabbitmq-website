@@ -621,8 +621,8 @@ Includes all checks in stage 5 plus checks all channel and queue processes
 on the target queue for aliveness.
 
 The combination of [`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) and
-[`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the option
-currently available.
+[`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the closest alternative
+to this check currently available.
 
 This combination of commands includes all checks up to and including stage 4 and also
 check all channel and queue processes on the target queue for aliveness:
