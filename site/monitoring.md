@@ -614,8 +614,8 @@ Includes all checks in stage 3 plus checks that there are no failed [virtual hos
 
 RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is an example that could be used in the meantime:
 <pre class="lang-bash">
-rabbitmqctl eval '[true = rabbit_vhost:is_running_on_all_nodes(VHost) || VHost <- rabbit_vhost:list()], all_vhosts_are_running_on_all_nodes.'
-all_vhosts_are_running_on_all_nodes
+rabbitmqctl eval 'true = lists:foldl(fun(VHost, Acc) -> Acc andalso rabbit_vhost:is_running_on_all_nodes(VHost) end, true, rabbit_vhost:list()).'
+# =&gt; true
 </pre>
 
 The probability of false positives is generally low except for systems that are under
