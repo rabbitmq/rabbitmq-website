@@ -126,6 +126,7 @@ limitations under the License.
        <x:page url="/firehose.html" text="Firehose (Message Tracing)"/>
        <x:page url="/manpages.html" text="Manual Pages">
          <x:page url="/rabbitmqctl.8.html" text="rabbitmqctl"/>
+         <x:page url="/rabbitmq-diagnostics.8.html" text="rabbitmq-diagnostics"/>
          <x:page url="/rabbitmq-plugins.8.html" text="rabbitmq-plugins"/>
          <x:page url="/rabbitmq-server.8.html" text="rabbitmq-server"/>
          <x:page url="/rabbitmq-service.8.html" text="rabbitmq-service"/>

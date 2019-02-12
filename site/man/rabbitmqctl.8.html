@@ -174,9 +174,9 @@ Diagnostic information is displayed if connection failed, the target node was
   <dd>Shuts down the node, both RabbitMQ and its runtime. The command is
       blocking and will return after the runtime process exits. If RabbitMQ
       fails to stop, it will return a non-zero exit code. This command infers
-      the process pid of the target node and therefore can only be used to shut
-      down nodes running on the same host (or broadly speaking, in the same
-      operating system, e.g. in the same VM or container)
+      the OS PID of the target node and therefore can only be used to shut down
+      nodes running on the same host (or broadly speaking, in the same operating
+      system, e.g. in the same VM or container)
     <div class="Pp"></div>
     Unlike the stop command, the shutdown command:
     <ul class="Bl-bullet">
@@ -784,12 +784,12 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to grant the user
       named &#x201C;janeway&#x201D; access to the virtual host called
-      &#x201C;/myvhost&#x201D;, with configure permissions on all resources
+      &#x201C;my-vhost&#x201D;, with configure permissions on all resources
       whose names starts with &#x201C;janeway-&#x201D;, and write and read
       permissions on all resources:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_permissions -p
-      /myvhost janeway &#x201C;^janeway-.*&#x201D; &#x201C;.*&#x201D;
+      my-vhost janeway &#x201C;^janeway-.*&#x201D; &#x201C;.*&#x201D;
       &#x201C;.*&#x201D;</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_permissions"><code class="Cm" title="Cm" id="clear_permissions">clear_permissions</code></a>
@@ -810,10 +810,10 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to deny the user
       named &#x201C;janeway&#x201D; access to the virtual host called
-      &#x201C;/myvhost&#x201D;:
+      &#x201C;my-vhost&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_permissions -p
-      /myvhost janeway</code></div>
+      my-vhost janeway</code></div>
   </dd>
   <dt><a class="permalink" href="#list_permissions"><code class="Cm" title="Cm" id="list_permissions">list_permissions</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -830,12 +830,12 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to list all the
       users which have been granted access to the virtual host called
-      &#x201C;/myvhost&#x201D;, and the permissions they have for operations on
+      &#x201C;my-vhost&#x201D;, and the permissions they have for operations on
       resources in that virtual host. Note that an empty string means no
       permissions granted:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_permissions -p
-      /myvhost</code></div>
+      my-vhost</code></div>
   </dd>
   <dt><a class="permalink" href="#list_user_permissions"><code class="Cm" title="Cm" id="list_user_permissions">list_user_permissions</code></a>
     <var class="Ar" title="Ar">username</var></dt>
@@ -885,11 +885,11 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to let the user
       named &#x201C;janeway&#x201D; publish and consume messages going through
-      the &#x201C;amp.topic&#x201D; exchange of the &#x201C;/myvhost&#x201D;
+      the &#x201C;amp.topic&#x201D; exchange of the &#x201C;my-vhost&#x201D;
       virtual host with a routing key starting with &#x201C;janeway-&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_topic_permissions
-      -p /myvhost janeway amq.topic &#x201C;^janeway-.*&#x201D;
+      -p my-vhost janeway amq.topic &#x201C;^janeway-.*&#x201D;
       &#x201C;^janeway-.*&#x201D;</code></div>
     <div class="Pp"></div>
     Topic permissions support variable expansion for the following variables:
@@ -898,7 +898,7 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       &#x201C;^{username}-.*&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_topic_permissions
-      -p /myvhost janeway amq.topic &#x201C;^{username}-.*&#x201D;
+      -p my-vhost janeway amq.topic &#x201C;^{username}-.*&#x201D;
       &#x201C;^{username}-.*&#x201D;</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_topic_permissions"><code class="Cm" title="Cm" id="clear_topic_permissions">clear_topic_permissions</code></a>
@@ -925,10 +925,10 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     For example, this command instructs the RabbitMQ broker to remove topic
       permissions for user named &#x201C;janeway&#x201D; for the topic exchange
       &#x201C;amq.topic&#x201D; in the virtual host called
-      &#x201C;/myvhost&#x201D;:
+      &#x201C;my-vhost&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      clear_topic_permissions -p /myvhost janeway amq.topic</code></div>
+      clear_topic_permissions -p my-vhost janeway amq.topic</code></div>
   </dd>
   <dt><a class="permalink" href="#list_topic_permissions"><code class="Cm" title="Cm" id="list_topic_permissions">list_topic_permissions</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -944,10 +944,10 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
     <div class="Pp"></div>
     For example, this command instructs the RabbitMQ broker to list all the
       users which have been granted topic permissions in the virtual host called
-      &#x201C;/myvhost:&#x201D;
+      &#x201C;my-vhost:&#x201D;
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_topic_permissions -p /myvhost</code></div>
+      list_topic_permissions -p my-vhost</code></div>
   </dd>
   <dt><a class="permalink" href="#list_user_topic_permissions"><code class="Cm" title="Cm" id="list_user_topic_permissions">list_user_topic_permissions</code></a>
     <var class="Ar" title="Ar">username</var></dt>
@@ -1263,16 +1263,15 @@ It is possible to enforce certain limits on virtual hosts.
     </dl>
   </dd>
 </dl>
-<h3 class="Ss" title="Ss" id="Server_Status"><a class="permalink" href="#Server_Status">Server
-  Status</a></h3>
-The server status queries interrogate the server and return a list of results
-  with tab-delimited columns. Some queries (
+<h3 class="Ss" title="Ss" id="Topology_Introspection"><a class="permalink" href="#Topology_Introspection">Topology
+  Introspection</a></h3>
+The topology introspection commands list topology entities (e.g. queues) with
+  tab-delimited columns. Some commands (
   <code class="Cm" title="Cm">list_queues</code>,
   <code class="Cm" title="Cm">list_exchanges</code>,
   <code class="Cm" title="Cm">list_bindings</code> and
   <code class="Cm" title="Cm">list_consumers</code>) accept an optional
-  <var class="Ar" title="Ar">vhost</var> parameter. This parameter, if present,
-  must be specified immediately after the query.
+  <var class="Ar" title="Ar">vhost</var> parameter.
 <div class="Pp"></div>
 The <code class="Cm" title="Cm">list_queues</code>,
   <code class="Cm" title="Cm">list_exchanges</code> and
@@ -1416,10 +1415,10 @@ The <code class="Cm" title="Cm">list_queues</code>,
       queue name and depth are displayed.
     <div class="Pp"></div>
     For example, this command displays the depth and number of consumers for
-      each queue of the virtual host named &#x201C;/myvhost&#x201D;
+      each queue of the virtual host named &#x201C;my-vhost&#x201D;
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_queues -p
-      /myvhost messages consumers</code></div>
+      my-vhost messages consumers</code></div>
   </dd>
   <dt><a class="permalink" href="#list_exchanges"><code class="Cm" title="Cm" id="list_exchanges">list_exchanges</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -1467,10 +1466,10 @@ The <code class="Cm" title="Cm">list_queues</code>,
       exchange name and type are displayed.
     <div class="Pp"></div>
     For example, this command displays the name and type for each exchange of
-      the virtual host named &#x201C;/myvhost&#x201D;:
+      the virtual host named &#x201C;my-vhost&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_exchanges -p
-      /myvhost name type</code></div>
+      my-vhost name type</code></div>
   </dd>
   <dt><a class="permalink" href="#list_bindings"><code class="Cm" title="Cm" id="list_bindings">list_bindings</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -1511,10 +1510,10 @@ The <code class="Cm" title="Cm">list_queues</code>,
       all above items are displayed.
     <div class="Pp"></div>
     For example, this command displays the exchange name and queue name of the
-      bindings in the virtual host named &#x201C;/myvhost&#x201D;
+      bindings in the virtual host named &#x201C;my-vhost&#x201D;
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_bindings -p
-      /myvhost exchange_name queue_name</code></div>
+      my-vhost exchange_name queue_name</code></div>
   </dd>
   <dt><a class="permalink" href="#list_connections"><code class="Cm" title="Cm" id="list_connections">list_connections</code></a>
     [<div class="Op"><var class="Ar" title="Ar">connectioninfoitem
@@ -1706,13 +1705,14 @@ The <code class="Cm" title="Cm">list_queues</code>,
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl status</code></div>
   </dd>
   <dt><a class="permalink" href="#node_health_check"><code class="Cm" title="Cm" id="node_health_check">node_health_check</code></a></dt>
-  <dd>Health check of the RabbitMQ node. Verifies the rabbit application is
-      running, list_queues and list_channels return, and alarms are not set.
+  <dd>Performs several health checks of the target node.
     <div class="Pp"></div>
-    For example, this command performs a health check on the RabbitMQ node:
+    Verifies the rabbit application is running and alarms are not set, then
+      checks that every queue and channel on the node can emit basic stats.
     <div class="Pp"></div>
+    Example:
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl node_health_check -n
-      rabbit@stringer</code></div>
+      rabbit@hostname</code></div>
   </dd>
   <dt><a class="permalink" href="#environment"><code class="Cm" title="Cm" id="environment">environment</code></a></dt>
   <dd>Displays the name and value of each variable in the application
@@ -2277,11 +2277,12 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
 </dl>
 <h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
-<a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
-  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>,
+<a class="Xr" title="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
-  <a class="Xr" title="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>
+  <a class="Xr" title="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>
 <h2 class="Sh" title="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h2>
 <span class="An" title="An">The RabbitMQ Team</span>
   &lt;<a class="Mt" title="Mt" href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>&gt;</div>

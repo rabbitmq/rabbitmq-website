@@ -19,9 +19,11 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers various topics related to connections. This guide
-does not cover network tuning or most networking-related topics. Those
+This guide covers various topics related to connections except for
+network tuning or most networking-related topics. Those
 are covered by the [Networking](/networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
+[Channels](/channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
+in a separate guide.
 
 RabbitMQ supports several protocols:
 
@@ -116,6 +118,10 @@ This flow doesn't change significantly from protocol to protocol but there are m
 
 AMQP 0-9-1 has a [model](/tutorials/amqp-concepts.html) that includes connections and channels. Channels allow for
 connection multiplexing (having multiple logical connections on a "physical" or TCP one).
+
+The maximum number of [channels](/channels.html) that can be open on a connection simultaneously
+is negotiated by client and server at connection time. The client cannot be configured to allow for
+more channels than the server configured maximum.
 
 After successfully opening a connection and authenticating, applications open one or more channels and uses them
 to perform protocol operations, e.g. define topology, consume and publish messages.
@@ -213,7 +219,7 @@ connection management by one or more applications and usually are worth investig
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
 
 Note that some clients and runtimes (notably PHP) do not use long-lived connections and high connection
-churn rates are expected from them.
+churn rates are expected from them unless a [specialized proxy is used](https://github.com/cloudamqp/amqproxy).
 
 Environments that experience high connection churn require TCP stack tuning to avoid resource exhaustion.
 This is covered [in the Networking guide](/networking.html#dealing-with-high-connection-churn).
@@ -250,12 +256,17 @@ Client connections can be encrypted with TLS. TLS also can be used as an additio
 or the primary way of authenticating clients. Learn more in the [TLS guide](/ssl.html).
 
 
-## <a id="flow-control" class="anchor" href="#flow-control">Publisher Flow Control</a>
+## <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
 Connections that publish messages can outpace other parts of the system, most likely busy queues and queues
 that perform replication. When that happens, [flow control](/flow-control.html) is applied to
-publishing connections. Connections that only consume messages are not affected.
+publishing connections. Connections that only consume messages are not affected by the flow control
+applied to publishers.
+
+With slower consumers that use [automatic acknowledgement mode](/confirms.html#acknowledgement-modes)
+it is very likely that connections and channels will experience flow control when writing to
+the TCP socket.
 
 [Monitoring](/monitoring.html) systems can collect metrics on the number of connections in flow state.
 Applications that experience flow control regularly may consider to use separate connections
-to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management)
+to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management).
