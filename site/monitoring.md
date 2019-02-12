@@ -420,18 +420,20 @@ to most systems:
 
 ## <a id="health-checks" class="anchor" href="#health-checks">Health Checks</a>
 
-A health check is a [periodically executed](#monitoring-frequency) command
-or set of commands that collect a few essential metrics of a RabbitMQ node or cluster.
-Just like with human or veterinary health checks, there's a variety of checks that
-can be performed and some are more intrusive than others. Different checks also have
-a different probability of reporting [false positives](https://en.wikipedia.org/wiki/False_positives_and_false_negatives)
-(a scenario when a node is reported as unhealthy even when it is actually healthy).
+A health check is a [periodically executed](#monitoring-frequency) command that
+tries to determine whether an aspect of the RabbitMQ service is operating
+normally.
 
-Health checks therefore should be thought of as a range of options, starting with the most
-basic and virtually never producing false positives to increasingly more comprehensive,
-intrusive, and opinionated checks that have a probability of false positives that should be
-taken into account. Health checks can verify the state of an individual node or the entire cluster. The former
-kind is known as node health checks and the latter as cluster health checks.
+There is a series of health checks that can be performed, starting
+with the most basic and virtually never producing [false
+positives](https://en.wikipedia.org/wiki/False_positives_and_false_negatives),
+to increasingly more comprehensive, intrusive, and opinionated that have a
+higher probability of false positives. In other words, the more comprehensive a
+health check is, the less conclusive the result will be.
+
+Health checks can verify the state of an
+individual node (node health checks), or the entire cluster (cluster health
+checks).
 
 ### <a id="individual-checks" class="anchor" href="#individual-checks">Individual Node Checks</a>
 
@@ -453,14 +455,14 @@ The most basic check ensures that the runtime is running
 and (indirectly) that CLI tools can authenticate to it.
 
 Except for the CLI tool authentication
-part, the probability of false positives can be considered approaching 0
+part, the probability of false positives can be considered approaching `0`
 except for upgrades and maintenance windows.
 
 [`rabbitmq-diganostics ping`](/rabbitmq-diagnostics.8.html) performs this check:
 
 <pre class="lang-bash">
 rabbitmq-diagnostics ping -q
-# =&gt; Ping succeeded
+# =&gt; Ping succeeded if exit code is 0
 </pre>
 
 #### Stage 2
@@ -477,7 +479,7 @@ rabbitmq-diagnostics -q status
 </pre>
 
 This is a common way of sanity checking a node.
-The probability of false positives can be considered approaching 0
+The probability of false positives can be considered approaching `0`
 except for upgrades and maintenance windows.
 
 #### Stage 3
@@ -610,7 +612,11 @@ maintenance windows can raise significantly.
 
 Includes all checks in stage 3 plus checks that there are no failed [virtual hosts](/vhosts.html).
 
-RabbitMQ CLI tools currently do not provide a dedicated command for this check.
+RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is an example that could be used in the meantime:
+<pre class="lang-bash">
+rabbitmqctl eval '[true = rabbit_vhost:is_running_on_all_nodes(VHost) || VHost <- rabbit_vhost:list()], all_vhosts_are_running_on_all_nodes.'
+all_vhosts_are_running_on_all_nodes
+</pre>
 
 The probability of false positives is generally low except for systems that are under
 high CPU load.
