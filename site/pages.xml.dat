@@ -89,6 +89,7 @@ limitations under the License.
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
          <x:related url="/clustering-ssl.html"/>
        </x:page>
+       <x:page url="/feature-flags.html" text="Feature Flags"/>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/reliability.html" text="Reliable Delivery">
          <x:related url="/heartbeats.html" text="Heartbeats"/>

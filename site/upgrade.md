@@ -161,10 +161,26 @@ prepared to handle this and reconnect.
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
-When upgrading from one major or minor version of RabbitMQ to another
-(i.e. from 3.0.x to 3.1.x, or from 2.x.x to 3.x.x),
-the whole cluster must be taken down for the upgrade.
-Clusters that include nodes that run different release series are not supported.
+###### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
+
+RabbitMQ 3.8.0 comes with a **feature flags** subsystem which is
+responsible for determining if two versions of RabbitMQ are compatible.
+If they are, then two nodes with different versions can live in the
+same cluster: this allows a rolling upgrade of cluster members without
+shutting down the cluster entirely.
+
+The upgrade from RabbitMQ 3.7.x to 3.8.x is also permitted, but not from
+older minor or major versions.
+
+To learn more, please read the [feature flags documentation](/feature-flags.html).
+
+###### <a id="rolling-upgrade-before-3.8" class="anchor" href="#rolling-upgrade-before-3.8">Before RabbitMQ 3.8</a>
+
+With RabbitMQ up-to and including 3.7.x, when upgrading from one major
+or minor version of RabbitMQ to another (i.e. from 3.0.x to 3.1.x, or
+from 2.x.x to 3.x.x), the whole cluster must be taken down for the
+upgrade. Clusters that include nodes that run different release series
+are not supported.
 
 Rolling upgrades from one patch version to
 another (i.e. from 3.6.x to 3.6.y) are supported except when indicated otherwise
@@ -517,3 +533,10 @@ The following libraries support host lists:
     Like you did before the upgrade, verify the health and data to
     make sure your RabbitMQ nodes are in good shape and the service is
     running again.
+
+1. Check new feature flags
+
+    If the new version provides new feature flags, you can
+    now enable them if you upgraded all nodes and you are
+    sure you do not want to rollback. See the [feature flags
+    documentation](/feature-flags.html).

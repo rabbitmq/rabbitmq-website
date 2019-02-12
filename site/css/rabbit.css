@@ -1433,3 +1433,42 @@ img.screenshot {
     max-width: 450px;
   }
 }
+
+table.feature-flag-lifecycle,
+table.feature-flag-lifecycle th,
+table.feature-flag-lifecycle td {
+  border: none;
+}
+
+table.feature-flag-lifecycle th {
+  text-align: right;
+  font-weight: normal;
+}
+
+.box-info,
+.box-warning,
+.box-error {
+  margin: 20px;
+  padding: 15px;
+  border-left: 4px solid #000;
+}
+
+/*
+ * Colors are taken from:
+ * https://mdbootstrap.com/docs/jquery/css/colors/#full-palette
+ */
+
+.box-info {
+  background: #e0f7fa;   /* cyan lighten-5 */
+  border-color: #26c6da; /* cyan lighten-1 */
+}
+
+.box-warning {
+  background: #fff8e1;   /* amber lighten-5 */
+  border-color: #ffca28; /* amber lighten-1 */
+}
+
+.box-error {
+  background: #ffebee;   /* red lighten-5 */
+  border-color: #ef5350; /* red lighten-1 */
+}
