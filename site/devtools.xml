@@ -255,6 +255,11 @@ limitations under the License.
                 <br/>
                 A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
               </li>
+              <li>
+                <a href="https://plexsystems.github.io/rabbit-viz/">Rabbit Viz</a>
+                <br/>
+                A tool for visualizing RabbitMQ broker definitions.
+              </li>
             </ul>
           </doc:section>
           <doc:section name="c-dev">
