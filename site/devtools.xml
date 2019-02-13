@@ -255,11 +255,6 @@ limitations under the License.
                 <br/>
                 A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
               </li>
-              <li>
-                <a href="https://plexsystems.github.io/rabbit-viz/">Rabbit Viz</a>
-                <br/>
-                A tool for visualizing RabbitMQ broker definitions.
-              </li>
             </ul>
           </doc:section>
           <doc:section name="c-dev">
@@ -293,6 +288,35 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+
+          <doc:section name="mobile">
+            <doc:heading>Mobile</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
+              </li>
+              <li>
+                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="monitoring-tools">
+            <doc:heading>Monitoring</doc:heading>
+            <p>
+              See <a href="/monitoring.html">RabbitMQ Monitoring guide</a>.
+            </p>
+          </doc:section>
+
+          <doc:section name="visualisation">
+            <doc:heading>Visualisation</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://plexsystems.github.io/rabbit-viz/">Rabbit Viz</a>, a tool for visualizing <a href="/backup.html#rabbitmq-definitions">exported definition files</a>.
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="unity-dev">
             <doc:heading>Unity 3D</doc:heading>
             <ul class="plain">
@@ -345,31 +369,7 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
-          <doc:section name="monitoring-tools">
-            <doc:heading>Monitoring</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension
-              </li>
-              <li>
-                <a href="https://docs.datadoghq.com/integrations/rabbitmq/">RabbitMQ Datadog</a> integration
-              </li>
-              <li>
-                <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">RabbitMQ Prometheus Exporter</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="mobile">
-            <doc:heading>Mobile</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
-              </li>
-              <li>
-                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
-              </li>
-            </ul>
-          </doc:section>
+
           <doc:section name="perl-dev">
             <doc:heading>Perl</doc:heading>
             <ul class="plain">
