@@ -421,8 +421,8 @@ rabbitmqctl cluster_status
             Resetting the node <strong>removes all resources and data that were previously
             present on that node</strong>. This means that a node cannot be made a member
             of a cluster and keep its existing data at the same time. When that's desired,
-            using the <a href="/blue-green-upgrade.html">Blue/Green deploymentt strategy</a> or <a href="/backup.html">backup and restore</a>
-            are the avaialble options.
+            using the <a href="/blue-green-upgrade.html">Blue/Green deployment strategy</a> or <a href="/backup.html">backup and restore</a>
+            are the available options.
           </p>
           <pre class="lang-bash">
 # on rabbit2
