@@ -218,6 +218,17 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
        </p>
      </doc:subsection>
 
+     <doc:subsection name="erlang-apt-https-transport">
+      <doc:heading>Enabling apt https transport</doc:heading>
+       <p>
+        In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
+
+<pre class="lang-bash">
+apt-get install apt-transport-https
+</pre>
+       </p>
+     </doc:subsection>
+         
      <doc:subsection name="erlang-source-list-file">
        <doc:heading>Source List File</doc:heading>
 
@@ -409,9 +420,17 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          This will instruct apt to trust packages signed by that key.
        </p>
 
+       <h4>Enabling apt https transport</h4>
+       <p>
+        In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
+
+<pre class="lang-bash">
+apt-get install apt-transport-https
+</pre>
+       </p>
        <h4>Source List File</h4>
        <p>
-         As with all 3rd party apt repositories, a file describing the Erlang package repository
+         As with all 3rd party apt repositories, a file describing the RabbitMQ and Erlang package repositories
          must be placed under the <code>/etc/apt/sources.list.d/</code> directory.
          <code>/etc/apt/sources.list.d/bintray.rabbitmq.list</code> is the recommended location.
 
@@ -419,9 +438,12 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
          pattern:
 
 <pre class="sourcecode">
+# Source repository definition example
+# See below for supported distribution and component values!
 # This repository provides Erlang packages
-# See below for supported distribution and component values
-deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution main
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution erlang
+# This repository provides RabbitMQ packages
+deb https://dl.bintray.com/rabbitmq/debian $distribution main
 </pre>
 
          The next couple of sections discusses what distribution and component values
