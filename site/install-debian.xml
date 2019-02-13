@@ -34,7 +34,7 @@ limitations under the License.
        <p>
          <code>rabbitmq-server</code> is included in standard Debian
          and Ubuntu repositories. However, the versions included are
-         usually months behind RabbitMQ releases.
+         usually months behind <a href="/changelog.html">RabbitMQ releases</a>.
        </p>
 
        <p>
