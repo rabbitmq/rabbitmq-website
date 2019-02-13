@@ -273,10 +273,10 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
         <ul>
           <li>
-            <code>inet_dist_listen_min</code> (<code>kernel.inet_dist_listen_min</code> in the classic config format)
+            <code>kernel.inet_dist_listen_min</code> in the <b>classic</b> config format <em>only</em>
           </li>
           <li>
-            <code>inet_dist_listen_min</code> (<code>kernel.inet_dist_listen_max</code> in the classic config format)
+            <code>kernel.inet_dist_listen_max</code> in the <b>classic</b> config format <em>only</em>
           </li>
         </ul>
 
@@ -284,13 +284,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
       </p>
       <p>
         The example below uses a range with a single port but a value different from default:
-
-<pre class="lang-ini">
-inet_dist_listen_min = 33672
-inet_dist_listen_max = 33672
-</pre>
-
-        In the classic config format:
 
 <pre class="lang-erlang">
 [
