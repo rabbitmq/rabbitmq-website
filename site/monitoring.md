@@ -612,9 +612,11 @@ maintenance windows can raise significantly.
 
 Includes all checks in stage 3 plus checks that there are no failed [virtual hosts](/vhosts.html).
 
-RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is an example that could be used in the meantime:
+RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is
+an example that could be used in the meantime:
+
 <pre class="lang-bash">
-rabbitmqctl eval 'true = lists:foldl(fun(VHost, Acc) -> Acc andalso rabbit_vhost:is_running_on_all_nodes(VHost) end, true, rabbit_vhost:list()).'
+rabbitmqctl eval 'true = lists:foldl(fun(VHost, Acc) -&gt; Acc andalso rabbit_vhost:is_running_on_all_nodes(VHost) end, true, rabbit_vhost:list()).'
 # =&gt; true
 </pre>
 
