@@ -167,6 +167,31 @@ limitations under the License.
             </ul>
           </doc:section>
 
+          <doc:section name="node-dev">
+            <doc:heading>JavaScript</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
+                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
+              </li>
+              <li>
+                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
+                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                these installation instructions</a> for rabbit.js on Ubuntu.
+              </li>
+              <li>
+                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
+                <br/>
+                A node.js interface for RabbitMQ management statistics
+              </li>
+              <li>
+                <a href="https://github.com/guidesmiths/rascal">Rascal</a>
+                <br/>
+                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="objc-swift-dev">
             <doc:heading>Objective-C and Swift</doc:heading>
             <ul class="plain">
@@ -230,30 +255,6 @@ limitations under the License.
             <ul class="plain">
               <li>
                 <a href="http://rubymarchhare.info">March Hare, a JRuby RabbitMQ client</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="node-dev">
-            <doc:heading>JavaScript</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
-                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
-              </li>
-              <li>
-                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
-                these installation instructions</a> for rabbit.js on Ubuntu.
-              </li>
-              <li>
-                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
-                <br/>
-                A node.js interface for RabbitMQ management statistics
-              </li>
-              <li>
-                <a href="https://github.com/guidesmiths/rascal">Rascal</a>
-                <br/>
-                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
               </li>
             </ul>
           </doc:section>
