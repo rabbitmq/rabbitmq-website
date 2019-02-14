@@ -31,7 +31,7 @@ limitations under the License.
         <th class="centre">Version</th>
         <th class="centre">Release Date</th>
         <th>Highlights</th>
-        <th class="centre">Changes</th>
+        <th class="centre">Release Notes</th>
       </tr>
 
       <tr>
@@ -44,7 +44,7 @@ limitations under the License.
             <li><a href="/which-erlang.html">Minimum required Erlang version</a> is now 20.3</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11">Release notes</a></td>
       </tr>
 
       <tr>
@@ -57,7 +57,7 @@ limitations under the License.
             <li>Last release to <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ">support Erlang/OTP 19.3</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.10">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.10">Release notes</a></td>
       </tr>
 
       <tr>
@@ -69,7 +69,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9">Release notes</a></td>
       </tr>
 
       <tr>
@@ -81,7 +81,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.8">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.8">Release notes</a></td>
       </tr>
 
       <tr>
@@ -94,7 +94,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.7">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.7">Release notes</a></td>
       </tr>
 
       <tr>
@@ -106,7 +106,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.6">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.6">Release notes</a></td>
       </tr>
 
       <tr>
@@ -118,7 +118,7 @@ limitations under the License.
             <li>RabbitMQ 3.6.x series <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ">reached end of life</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_16">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_16">Release notes</a></td>
       </tr>
 
       <tr>
@@ -130,7 +130,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.5">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.5">Release notes</a></td>
       </tr>
 
       <tr>
@@ -142,7 +142,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.4">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.4">Release notes</a></td>
       </tr>
 
       <tr>
@@ -154,7 +154,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.3">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.3">Release notes</a></td>
       </tr>
 
       <tr>
@@ -165,7 +165,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_15">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_15">Release notes</a></td>
       </tr>
 
       <tr>
@@ -176,7 +176,7 @@ limitations under the License.
             <li>Bug fix in the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP auth backend</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.2">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.2">Release notes</a></td>
       </tr>
 
       <tr>
@@ -187,7 +187,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.1">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.1">Release notes</a></td>
       </tr>
 
       <tr>
@@ -216,7 +216,7 @@ limitations under the License.
             <li><a href="https://github.com/rabbitmq/hop">Java client for RabbitMQ HTTP API</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0">Release notes</a></td>
       </tr>
 
       <tr>
@@ -227,7 +227,7 @@ limitations under the License.
             <li>package/systemd bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14">Release notes</a></td>
       </tr>
 
       <tr>
@@ -239,7 +239,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_13">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_13">Release notes</a></td>
       </tr>
 
       <tr>
@@ -250,7 +250,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12">Release notes</a></td>
       </tr>
 
       <tr>
@@ -263,7 +263,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_11">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_11">Release notes</a></td>
       </tr>
 
       <tr>
@@ -275,7 +275,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_10">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_10">Release notes</a></td>
       </tr>
 
       <tr>
@@ -287,7 +287,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_9">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_9">Release notes</a></td>
       </tr>
 
       <tr>
@@ -299,7 +299,7 @@ limitations under the License.
             <li>Minor bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_8">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_8">Release notes</a></td>
       </tr>
 
       <tr>
@@ -317,7 +317,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_7">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_7">Release notes</a></td>
       </tr>
 
       <tr>
@@ -329,7 +329,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6">Release notes</a></td>
       </tr>
 
       <tr>
@@ -340,7 +340,7 @@ limitations under the License.
             <li>Security vulnerability fix (<a href="https://pivotal.io/security/cve-2016-9877">CVE-2016-9877</a>)</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">Release notes</a></td>
       </tr>
 
       <tr>
@@ -351,7 +351,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_5">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_5">Release notes</a></td>
       </tr>
 
       <tr>
@@ -364,7 +364,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_4">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_4">Release notes</a></td>
       </tr>
 
       <tr>
@@ -379,7 +379,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_3">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_3">Release notes</a></td>
       </tr>
 
       <tr>
@@ -392,7 +392,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_2">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_2">Release notes</a></td>
       </tr>
 
       <tr>
@@ -405,7 +405,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_1">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_1">Release notes</a></td>
       </tr>
 
       <tr>
@@ -423,7 +423,7 @@ limitations under the License.
             <li>Development <a href="https://github.com/rabbitmq/">moved entirely to GitHub</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0">Release notes</a></td>
       </tr>
 
       <tr>
@@ -435,7 +435,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_7">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_7">Release notes</a></td>
       </tr>
 
       <tr>
@@ -447,7 +447,7 @@ limitations under the License.
             <li>Usability improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_6">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_6">Release notes</a></td>
       </tr>
 
       <tr>
@@ -459,7 +459,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_5">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_5">Release notes</a></td>
       </tr>
 
       <tr>
@@ -470,7 +470,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_4">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_4">Release notes</a></td>
       </tr>
 
       <tr>
@@ -482,7 +482,7 @@ limitations under the License.
             <li>Java client library <a href="https://groups.google.com/d/topic/rabbitmq-users/z41DX5ba0go/discussion">API breaking changes</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_3">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_3">Release notes</a></td>
       </tr>
 
       <tr>
@@ -493,7 +493,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_2">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_2">Release notes</a></td>
       </tr>
 
       <tr>
@@ -504,7 +504,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_1">(changes)</a></td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_1">Release notes</a></td>
       </tr>
 
       <tr>
@@ -518,7 +518,7 @@ limitations under the License.
             <li><a href="dotnet-api-guide.html">.NET client API</a> changes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.5.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.5.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -529,7 +529,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.4.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.4.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -541,7 +541,7 @@ limitations under the License.
             <li>Security fixes to the management plugin (CVE-2015-0862)</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.4.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.4.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -552,7 +552,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.4.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.4.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -564,7 +564,7 @@ limitations under the License.
             <li>Security fixes to the management plugin</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.4.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.4.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -577,7 +577,7 @@ limitations under the License.
             <li>Reconnecting .net client</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.4.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.4.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -588,7 +588,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.5.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.5.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -599,7 +599,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -610,7 +610,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -621,7 +621,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -633,7 +633,7 @@ limitations under the License.
             <li>Security fixes to MQTT and shovel</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -646,7 +646,7 @@ limitations under the License.
             <li><a href="consumer-prefetch.html">Consumer Prefetch</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.3.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.3.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -657,7 +657,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.2.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.2.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -668,7 +668,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.2.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.2.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -679,7 +679,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.2.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.2.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -690,7 +690,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.2.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.2.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -705,7 +705,7 @@ limitations under the License.
             <li><a href="auth-notification.html">Authentication failure notifications</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.2.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.2.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -716,7 +716,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.5.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.5.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -727,7 +727,7 @@ limitations under the License.
             <li>Security / bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -738,7 +738,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -749,7 +749,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -760,7 +760,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -774,7 +774,7 @@ limitations under the License.
             <li><a href="maxlength.html">Queue length limits</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.1.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.1.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -785,7 +785,7 @@ limitations under the License.
             <li>Fixes a security bug in federation</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.0.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.0.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -796,7 +796,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.0.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.0.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -807,7 +807,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.0.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.0.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -818,7 +818,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.0.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.0.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -832,7 +832,7 @@ limitations under the License.
             <li><a href="ttl.html#per-message-ttl">Per-message TTL</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-3.0.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-3.0.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -843,7 +843,7 @@ limitations under the License.
             <li>Miscellaneous bugfixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.7.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.7.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -854,7 +854,7 @@ limitations under the License.
             <li>Sundry bugfixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.6.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.6.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -865,7 +865,7 @@ limitations under the License.
             <li>Assorted bugfixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.5.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.5.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -877,7 +877,7 @@ limitations under the License.
             files to grow in size infinitely when being rotated</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -888,7 +888,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.3.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -900,7 +900,7 @@ limitations under the License.
             <li><a href="memory.html#diskfreesup">Disc space monitoring</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -912,7 +912,7 @@ limitations under the License.
             being upgraded</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -925,7 +925,7 @@ limitations under the License.
             control</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.8.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.8.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -938,7 +938,7 @@ limitations under the License.
             <li>Bug fixes and performance improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.7.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.7.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -953,7 +953,7 @@ limitations under the License.
             <li>Performance improvements</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.7.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.7.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -965,7 +965,7 @@ limitations under the License.
             restart on reboot on some operating systems</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.6.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.6.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -979,7 +979,7 @@ limitations under the License.
             <li><a href="federation.html">Federation plugin</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.6.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.6.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -990,7 +990,7 @@ limitations under the License.
             <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.5.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.5.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1003,7 +1003,7 @@ limitations under the License.
             <li>New rabbitmqctl commands</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.5.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.5.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1015,7 +1015,7 @@ limitations under the License.
             <li><a href="clustering.html#upgrading">Cluster upgrades</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.4.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.4.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1028,7 +1028,7 @@ limitations under the License.
             <li>Fast topic routing</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.4.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.4.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1040,7 +1040,7 @@ limitations under the License.
             to crash</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.3.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.3.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1053,7 +1053,7 @@ limitations under the License.
             <li>IPv6 support</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.3.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.3.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1065,7 +1065,7 @@ limitations under the License.
             <li>Automatic upgrades</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.2.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.2.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1076,7 +1076,7 @@ limitations under the License.
             <li><a href="e2e.html">Exchange to exchange bindings</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.1.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.1.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1087,7 +1087,7 @@ limitations under the License.
             <li><a href="management.html">Management plugin</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.1.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.1.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1101,7 +1101,7 @@ limitations under the License.
             <li>Binary Plugin releases</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-2.0.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-2.0.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1112,7 +1112,7 @@ limitations under the License.
             <li>Synchronous basic.recover</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.8.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.8.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1125,7 +1125,7 @@ limitations under the License.
             <li>Backing store plugins</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.8.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.8.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1140,7 +1140,7 @@ limitations under the License.
             <li>Enhanced rabbitmqctl</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.7.2.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.7.2.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1151,7 +1151,7 @@ limitations under the License.
             <li>Improved <a href="memory.html">producer throttling</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.7.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.7.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1164,7 +1164,7 @@ limitations under the License.
             <li>Configuration file</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.7.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.7.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1178,7 +1178,7 @@ limitations under the License.
             <li><a href="ae.html">Alternate exchanges</a></li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.6.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.6.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1189,7 +1189,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.5.5.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.5.5.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1200,7 +1200,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.5.4.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.5.4.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1211,7 +1211,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.5.3.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.5.3.txt">Release notes</a></td>
       </tr>
 
       <!-- There was no 1.5.2. -->
@@ -1225,7 +1225,7 @@ limitations under the License.
             <li>First release with "final" status</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.5.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.5.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1238,7 +1238,7 @@ limitations under the License.
             <li>Producer throttling</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.5.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.5.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1249,7 +1249,7 @@ limitations under the License.
             <li>Performance enhancements</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.4.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.4.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1260,7 +1260,7 @@ limitations under the License.
             <li>Performance enhancements</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.3.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.3.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1272,7 +1272,7 @@ limitations under the License.
             <li>Internal flow control</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.2.0.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.2.0.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1284,7 +1284,7 @@ limitations under the License.
             <li>First release with "beta" status</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.1.1.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.1.1.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1295,7 +1295,7 @@ limitations under the License.
             <li>Bug fixes</li>
           </ul>
         </td>
-        <td class="centre"><a href="release-notes/README-1.1.0-alpha.txt">(changes)</a></td>
+        <td class="centre"><a href="release-notes/README-1.1.0-alpha.txt">Release notes</a></td>
       </tr>
 
       <tr>
@@ -1306,7 +1306,7 @@ limitations under the License.
             <li>Initial release</li>
           </ul>
         </td>
-        <td class="centre"><a href="/resources/RabbitMQ_PressRelease_080207.pdf">(changes)</a><br/>(pdf)</td>
+        <td class="centre"><a href="/resources/RabbitMQ_PressRelease_080207.pdf">Release notes</a><br/>(pdf)</td>
       </tr>
     </table>
   </body>

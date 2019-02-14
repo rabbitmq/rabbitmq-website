@@ -25,17 +25,16 @@ PIPENV := /usr/local/bin/pipenv
 endif
 
 ifeq ($(PLATFORM),Linux)
-OPEN := xdg-open
+OPEN ?= xdg-open
 
-LIBXSLT := /usr/include/libxslt
+LIBXSLT ?= /usr/include/libxslt
 
-PYTHON := /usr/bin/python3
-PIPENV := /usr/bin/pipenv
+PYTHON ?= /usr/bin/python3
+PIPENV ?= /usr/bin/pipenv
 endif
 
 export LC_ALL := en_US.UTF-8
 export LANG := en_US.UTF-8
-
 
 TCP_PORT := 8191
 
@@ -50,16 +49,10 @@ $(LIBXSLT):
 ifeq ($(PLATFORM),Darwin)
 	@brew install libxslt
 endif
-ifeq ($(PLATFORM),Linux)
-	$(error Please install $(BOLD)libxslt$(NORMAL))
-endif
 
 $(PYTHON):
 ifeq ($(PLATFORM),Darwin)
 	@brew install python
-endif
-ifeq ($(PLATFORM),Linux)
-	$(error Please install $(BOLD)python3$(NORMAL))
 endif
 
 $(PIPENV): $(PYTHON)
@@ -67,9 +60,6 @@ ifeq ($(PLATFORM),Darwin)
   ifeq ($(wildcard $(PIPENV_BIN)),)
 	@brew install pipenv
   endif
-endif
-ifeq ($(PLATFORM),Linux)
-	$(error Please install $(BOLD)pipenv$(NORMAL))
 endif
 
 deps: $(LIBXSLT) $(PIPENV)
