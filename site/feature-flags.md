@@ -58,7 +58,7 @@ It is also possible to list and enable feature flags from the
 #### Example 1: Compatible Nodes
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/compatible-nodes.svg" style="max-width: 400px;"/>
+<img src="/img/feature-flags/compatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
 </div>
 
  * If nodes A and B are not clustered, they can be clustered.
@@ -69,7 +69,7 @@ It is also possible to list and enable feature flags from the
 #### Example 2: Incompatible Nodes
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/incompatible-nodes.svg" style="max-width: 400px;"/>
+<img src="/img/feature-flags/incompatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
 </div>
 
  * If nodes A and B are not clustered, they cannot be clustered because
@@ -88,7 +88,7 @@ in the release notes. Indeed, there are some changes which cannot be
 implemented as feature flags.
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="max-width: 647px;"/>
+<img src="/img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;"/>
 </div>
 
 It is also possible to upgrade from RabbitMQ 3.7.x to 3.8.x. Indeed,
