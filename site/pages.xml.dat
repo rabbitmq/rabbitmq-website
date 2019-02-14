@@ -84,17 +84,18 @@ limitations under the License.
          <x:page url="/networking.html" text="Networking"/>
          <x:page url="/parameters.html" text="Parameters and Policies"/>
        </x:page>
-       <x:page url="/ssl.html" text="TLS/SSL Support">
-         <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
+       <x:page url="/management.html" text="Management UI"/>
+       <x:page url="/monitoring.html" text="Monitoring"/>
+       <x:page url="/production-checklist.html" text="Production Checklist"/>
+       <x:page url="/ssl.html" text="TLS Support">
+         <x:page url="/troubleshooting-ssl.html" text="Troubleshooting TLS"/>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
          <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
-       <x:page url="/reliability.html" text="Reliable Delivery">
-         <x:related url="/heartbeats.html" text="Heartbeats"/>
-       </x:page>
        <x:page url="/clustering.html" text="Clustering">
          <x:page url="/cluster-formation.html" text="Cluster Formation"/>
+         <x:page url="/ha.html" text="High Availability"/>
          <x:page url="/partitions.html" text="Network Partitions">
            <x:related url="/heartbeats.html" text="Heartbeats"/>
          </x:page>
@@ -103,23 +104,27 @@ limitations under the License.
          </x:page>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
        </x:page>
-       <x:page url="/vhosts.html" text="Virtual Hosts"/>
-       <x:page url="/ha.html" text="High Availability"/>
-       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
-       <x:page url="/access-control.html" text="Access Control (Authorisation)"/>
-       <x:page url="/authentication.html" text="Authentication Mechanisms"/>
-       <x:page url="/ldap.html" text="LDAP"/>
-       <x:page url="/production-checklist.html" text="Production Checklist"/>
+       <x:page url="/reliability.html" text="Reliable Delivery">
+         <x:related url="/heartbeats.html" text="Heartbeats"/>
+       </x:page>
        <x:page url="/backup.html" text="Backup and restore"/>
        <x:page url="/alarms.html" text="Alarms">
          <x:page url="/memory.html" text="Memory Alarms"/>
          <x:page url="/disk-alarms.html" text="Disk Alarms"/>
+         <x:page url="/memory-use.html" text="Memory Use"/>
          <x:page url="/flow-control.html" text="Flow Control"/>
        </x:page>
-       <x:page url="/networking.html" text="Networking"/>
        <x:page url="/memory-use.html" text="Memory Use">
          <x:related url="/lazy-queues.html"/>
        </x:page>
+       <x:page url="/networking.html" text="Networking">
+         <x:page url="/troubleshooting-networking.html" text="Troubleshooting Networking"/>
+       </x:page>
+       <x:page url="/vhosts.html" text="Virtual Hosts"/>
+       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page url="/access-control.html" text="Access Control (Authorisation)"/>
+       <x:page url="/authentication.html" text="Authentication Mechanisms"/>
+       <x:page url="/ldap.html" text="LDAP"/>
        <x:page url="/lazy-queues.html" text="Lazy Queues"/>
        <x:page url="/event-exchange.html" text="Internal Event Exchange"/>
        <x:page url="/firehose.html" text="Firehose (Message Tracing)"/>
