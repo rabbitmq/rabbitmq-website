@@ -2,22 +2,27 @@
 
 ## Overview
 
-In a mixed version clusters (e.g. some versions are `3.7.x` and some are
-`3.8.x`) some nodes will support a different set of features, behave
+In a mixed version cluster (e.g. some versions are 3.7.x and some are
+3.8.x) some nodes will support a different set of features, behave
 differently in certain scenarios, and otherwise not act exactly the
 same: they are different versions after all.
+
+Feature flags are a mechanism that controls what features are considered
+to be enabled or available on all cluster nodes. If a feature flag is
+enabled, so is its associated feature (or behavior). If not then all
+nodes in the cluster will disable the feature (behavior).
 
 The feature flag subsystem allows RabbitMQ nodes with different versions
 to determine if they are compatible and then communicate together,
 regardless of their version.
 
-This subsystem was introduced in RabbitMQ 3.8.0 to allow rolling
-[upgrades](/upgrade.html) of cluster members without shutting down the
-entre cluster.
+This subsystem was introduced in RabbitMQ 3.8.0 to allow **[rolling
+upgrades](/upgrade.html#rolling-upgrades) of cluster members without
+shutting down the entire cluster**.
 
 <p class="box-warning">
 This subsystem does not guarantee that all future changes in
-RabbitMQ can be implemented as feature flag and entirely backwards
+RabbitMQ can be implemented as feature flags and entirely backwards
 compatible with older release series. Therefore, <strong>a future
 versio nfo RabbitMQ might still require a clusterwide shutdown for
 upgrading</strong>.
@@ -26,39 +31,51 @@ Please always read [release notes](/changelog.html) to see if a rolling
 upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
-## <a id="basics" class="anchor" href="#basics">The Basics</a>
+## <a id="tldr" class="anchor" href="#tldr">Quick summary (TL;DR)</a>
 
-Feature flags is a mechanism that controls what features are considered
-to be enabled or available on all cluster nodes. If a feature flag is
-enabled, so is its associated feature (or behavior). If not then all
-nodes in the cluster will disable the feature (behavior).
+### The Two Main Rules
 
-A node can join or re-join a cluster only if:
+ * A feature flag can be enabled only if all nodes in the cluster support it.
+ * A node can join or re-join a cluster only if:
+    1. it supports all feature flags enabled in the cluster and
+    2. if the cluster supports all the feature flags enabled on that node.
 
-<ol class="plain">
-  <li>it supports all feature flags enabled in the cluster and</li>
-  <li>if the cluster supports all the feature flags enabled on that
-  node.</li>
-</ol>
+RabbitMQ 3.7.x and 3.8.x nodes are compatible as long as no 3.8.x
+feature flags are enabled.
 
-A feature flag can only be enabled if all nodes in the cluster support
-it. See [Version Compatibility](#version-compatibility) for details.
+### The Two Main Commands
 
-To list feature flags, use [`rabbitmqctl
-list_feature_flags`](/rabbitmqctl.8.html):
+ *  To list feature flags:
+    <pre class="lang-bash">rabbitmqctl list_feature_flags</pre>
+ *  To enable a feature flag:
+    <pre class="lang-bash">rabbitmqctl enable_feature_flag &lt;name&gt;</pre>
 
-<pre class="lang-bash">
-rabbitmqctl list_feature_flags
-</pre>
+It is also possible to list and enable feature flags from the
+[Management plugin UI](/management.html), in "*Admin > Feature flags*".
 
-To enable a feature flag, use `rabbitmqctl enable_feature_flag`:
+### The Two Examples
 
-<pre class="lang-bash">
-rabbitmqctl enable_feature_flag &lt;name&gt;
-</pre>
+#### Example 1: Compatible Nodes
 
-Some operations might slow down, be blocked or temporarily unavailable
-while a feature flag is being enabled.
+<div style="text-align: center;">
+<img src="/img/feature-flags/compatible-nodes.svg" style="max-width: 400px;"/>
+</div>
+
+ * If nodes A and B are not clustered, they can be clustered.
+ * If nodes A and B are clustered:
+    * "*Coffee maker*" can be enabled.
+    * "*Juicer machine*" cannot be enabled because it is unsupported by node B.
+
+#### Example 2: Incompatible Nodes
+
+<div style="text-align: center;">
+<img src="/img/feature-flags/incompatible-nodes.svg" style="max-width: 400px;"/>
+</div>
+
+ * If nodes A and B are not clustered, they cannot be clustered because
+   "*Juicer machine*" is unsupported on node B.
+ * If nodes A and B are clustered and "*Juicer machine*" was enabled
+   while node B was stopped, node B cannot re-join the cluster on restart.
 
 ## <a id="version-compatibility" class="anchor" href="#version-compatibility">Feature Flags and RabbitMQ Versions</a>
 
@@ -70,7 +87,15 @@ next patch, minor or major release, except if it is stated otherwise
 in the release notes. Indeed, there are some changes which cannot be
 implemented as feature flags.
 
-It is also possible to upgrade from RabbitMQ `3.7.x` to `3.8.x`.
+<div style="text-align: center;">
+<img src="/img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="max-width: 647px;"/>
+</div>
+
+It is also possible to upgrade from RabbitMQ 3.7.x to 3.8.x. Indeed,
+RabbitMQ 3.7.x does not have the feature flags subsystem and RabbitMQ
+3.8.x considers that a 3.7.x node has an empty list of feature flags.
+Therefore, as long as the 3.8.x node has all its feature flags disabled,
+it is compatible with a 3.7.x node.
 
 However, note that only upgrading from one minor to the next minor
 or major is supported. To upgrade from e.g. 3.8.5 to 3.10.0, it is
@@ -82,7 +107,8 @@ release.
 
 When a node starts for the first time, all supported feature flags
 are enabled by default. When a node is upgraded to a newer version of
-RabbitMQ, new feature flags remain disabled by default.
+RabbitMQ, new feature flags are enabled by default if it is a single
+isolated node, or remain disabled by default if it belongs to a cluster.
 
 **To list the feature flags**, use `rabbitmqctl list_feature_flags`:
 
@@ -99,39 +125,37 @@ rabbitmqctl list_feature_flags
 For improved table readability, switch to the `pretty_table` formatter:
 
 <pre class="lang-bash">
-rabbitmqctl -q --formatter pretty_table list_feature_flags name state provided_by desc doc_url
+rabbitmqctl -q --formatter pretty_table list_feature_flags \
+  name state provided_by desc doc_url
 </pre>
 
 which would produce a table that looks like this:
 
 <pre class="lang-bash" style="line-height: 1.2em;">
-┌───────────────────────────┬─────────┬───────────────────────────┬─────────┬────────────┐
-│ name                      │ state   │ provided_by               │ desc    │ doc_url    │
-├───────────────────────────┼─────────┼───────────────────────────┼─────────┼────────────┤
-│ empty_basic_get_metric    │ enabled │ rabbitmq_management_agent │ (...)   │            │
-├───────────────────────────┼─────────┼───────────────────────────┼─────────┼────────────┤
-│ implicit_default_bindings │ enabled │ rabbit                    │ (...)   │            │
-├───────────────────────────┼─────────┼───────────────────────────┼─────────┼────────────┤
-│ quorum_queue              │ enabled │ rabbit                    │ (...)   │ http://... │
-└───────────────────────────┴─────────┴───────────────────────────┴─────────┴────────────┘
+┌───────────────────────────┬─────────┬───────────────────────────┬───────┬────────────┐
+│ name                      │ state   │ provided_by               │ desc  │ doc_url    │
+├───────────────────────────┼─────────┼───────────────────────────┼───────┼────────────┤
+│ empty_basic_get_metric    │ enabled │ rabbitmq_management_agent │ (...) │            │
+├───────────────────────────┼─────────┼───────────────────────────┼───────┼────────────┤
+│ implicit_default_bindings │ enabled │ rabbit                    │ (...) │            │
+├───────────────────────────┼─────────┼───────────────────────────┼───────┼────────────┤
+│ quorum_queue              │ enabled │ rabbit                    │ (...) │ http://... │
+└───────────────────────────┴─────────┴───────────────────────────┴───────┴────────────┘
 </pre>
 
-The available columns are:
+As shown in the example above, the `list_feature_flags` command accepts
+a list of columns to display. The available columns are:
 
-# FIXME
-
- * <code>name</code>: the name of the feature flag.
- * <code>state</code>: <em>enabled</em> or <em>disabled</em> if the
-   feature flag is enabled or disabled, <em>unsupported</em> if one or more
-   nodes in the cluster do not know this feature flag (and therefore it
-   cannot be enabled)
- * <code>provided_by</code>: the RabbitMQ component or plugin which
-   provides the feature flag
- * <code>desc</code>: the description of the feature flag.
- * <code>doc_url</code>: the URL to a webpage to learn more about the
+ * `name`: the name of the feature flag.
+ * `state`: *enabled* or *disabled* if the feature flag is enabled or
+   disabled, *unsupported* if one or more nodes in the cluster do not
+   know this feature flag (and therefore it cannot be enabled).
+ * `provided_by`: the RabbitMQ component or plugin which provides the
    feature flag.
- * <code>stability</code>: indicates if the feature flag is
-   <em>stable</em> or <em>experimental</em>
+ * `desc`: the description of the feature flag.
+ * `doc_url`: the URL to a webpage to learn more about the feature flag.
+ * `stability`: indicates if the feature flag is *stable* or
+   *experimental*.
 
 ## <a id="how-to-enable-feature-flags" class="anchor" href="#how-to-enable-feature-flags">How to Enable Feature Flags</a>
 
@@ -140,15 +164,15 @@ to enable new feature flags. Note that it will be impossible to roll
 back the version or add a cluster member using the old version once new
 feature flags are enabled.
 
-To enable a feature flag, use `rabbitmqctl enable_feature_flag`:
+**To enable a feature flag**, use `rabbitmqctl enable_feature_flag`:
 
 <pre class="lang-bash">
 rabbitmqctl enable_feature_flag &lt;name&gt;
 </pre>
 
-To verify the feature flags' states again with the `list_feature_flags`
-command. Assuming all feature flags were disabled initially, here is the
-state after enabling the `quorum_queue` feature flag:
+The `list_feature_flags` command can be used again to verify the feature
+flags' states. Assuming all feature flags were disabled initially, here
+is the state after enabling the `quorum_queue` feature flag:
 
 <pre class="lang-bash" style="line-height: 1.2em;">
 rabbitmqctl -q --formatter pretty_table list_feature_flags
@@ -164,11 +188,11 @@ rabbitmqctl -q --formatter pretty_table list_feature_flags
 └───────────────────────────┴──────────┘
 </pre>
 
-## <a id="disabling" class="anchor" href="#disabling">How to Disable Feature Flags</a>
+## <a id="how-to-disable-feature-flags" class="anchor" href="#how-to-disable-feature-flags">How to Disable Feature Flags</a>
 
 This is **impossible to disable a feature flag** once it is enabled.
 
-## <a id="core-flags" class="anchor" href="#core-flags">List of Core Feature Flags</a>
+## <a id="core-feature-flags" class="anchor" href="#core-feature-flags">List of Core Feature Flags</a>
 
 The feature flags listed below are those provided by RabbitMQ core or
 one of the tier-1 plugins bundled with RabbitMQ.
@@ -234,55 +258,80 @@ A node compares its own list of feature flags with remote nodes' list
 of feature flags to determine if it can join a cluster. The rules are
 defined as:
 
- * All feature flags enabled locally must be supported remotely
- * All feature flags enabled remotely must be supported locally
+ * All feature flags enabled locally must be supported remotely.
+ * All feature flags enabled remotely must be supported locally.
 
-It is important to understand the difference between <em>enabled</em>
-and <em>supported</em>:
+It is important to understand the difference between *enabled* and
+*supported*:
 
- * A <em>supported</em> feature flag is one which is known by the node.
-   It can be enabled or disabled, but its state is irrelevant at this
-   point
-
- * An <em>enabled</em> feature flag is one which is activated and
-   used by the node. Per the definition above, it is implicitely a
-   <em>supported</em> feature flag.
+ * A *supported* feature flag is one which is known by the node. It can
+   be enabled or disabled, but its state is irrelevant at this point.
+ * An *enabled* feature flag is one which is activated and used by the
+   node. Per the definition above, it is implicitely a *supported*
+   feature flag.
 
 If one of those two conditions is not verified, the node cannot join or
 re-join the cluster.
 
-However, if it can join the cluster, the state of
-<em>enabled</em>feature flags is synchronized between nodes: if a
-feature flag is enabled on one node, it is enabled on all other nodes.
+However, if it can join the cluster, the state of *enabled* feature
+flags is synchronized between nodes: if a feature flag is enabled on one
+node, it is enabled on all other nodes.
+
+#### Scope of the Feature Flags
+
+The feature flags subsystem covers inter-node communication only. This
+means the following scenarios are not covered and may not work as
+initially expected.
+
+##### Using `rabbitmqctl` on a remote node
+
+Controlling a remote node with `rabbitmqctl` is only supported if the
+remote node is running the same version of RabbitMQ than `rabbitmqctl`
+comes from.
+
+For instance, using RabbitMQ 3.7.x's `rabbitmqctl` on a remote RabbitMQ
+3.8.x node may not work. It may even crash the remote node.
+
+##### Load-balancing Requests to the HTTP API
+
+If a request sent to the HTTP API exposed by the [Management
+plugin](/management.html) goes through a load balancer, including one
+from the management plugin UI, the API's behavior and its response may
+be different, depending on the version of the node which handled the
+request. This is exactly the same if the domain name of the HTTP API
+resolves to multiply IP addresses.
+
+For example, if the management UI was loaded from a RabbitMQ 3.7.x node
+but it then queries a RabbitMQ 3.8.x node, the Javascript code running
+in the browser may crash (but not the RabbitMQ nodes).
 
 #### What Happens When a Feature Flag is Enabled
 
 When a feature flag is enabled with `rabbitmqctl`, here is what happens
 internally:
 
- * RabbitMQ verifies if the feature flag is already enabled. If yes, it
-   stops.
- * It verifies if the feature flag is supported. If no, it stops.
- * It marks the feature flag state as <code>state_changing</code>.
-   This is an internal transitional state to inform consumers of this
-   feature flag. Most of the time, it means that components depending on
-   this particular feature flag will be blocked until the state changes to
-   <code>enabled</code> or <code>disabled</code>.
- * It enables all feature flags this one depends on. Therefore for each
-   one of them, we go through this same procedure.
- * It executes the migration function, if there is one. This function
-   is responsible for preparing or converting various resources, such as
-   changing the schema of a database.
- * If all the steps above succeed, the feature flag state
-   becomes <code>enabled</code>. Otherwise, it is reverted back to
-   <code>disabled</code>
+ 1. RabbitMQ verifies if the feature flag is already enabled. If yes, it
+    stops.
+ 2. It verifies if the feature flag is supported. If no, it stops.
+ 3. It marks the feature flag state as *state_changing*. This is an
+    internal transitional state to inform consumers of this feature
+    flag. Most of the time, it means that components depending on this
+    particular feature flag will be blocked until the state changes to
+    *enabled* or *disabled*.
+ 4. It enables all feature flags this one depends on. Therefore for each
+    one of them, we go through this same procedure.
+ 5. It executes the migration function, if there is one. This function
+    is responsible for preparing or converting various resources, such as
+    changing the schema of a database.
+ 6. If all the steps above succeed, the feature flag state becomes
+    *enabled*. Otherwise, it is reverted back to *disabled*.
 
 <p class="box-info">
-  As an operator, the most important part of this procedure to remember
-  is that <strong>if the migration takes time</strong>, some components
-  and thus <strong>operations in RabbitMQ might be blocked</strong>.
+  As an operator, the most important part of this procedure to
+  remember is that <strong>if the migration takes time</strong>, some
+  components and thus <strong>some operations in RabbitMQ might be
+  blocked</strong> during the migration.
 </p>
-
 
 ### <a id="implementation-for-developers" class="anchor" href="#implementation-for-developers">From a Developer Point of View</a>
 
@@ -302,7 +351,8 @@ plugin has to be adapted to use the new `amqqueue` API which hides the
 previous record (which is private now). However, there is no need to
 query feature flags for that: the plugin will be ABI-compatible (i.e. no
 need to recompile it) with RabbitMQ 3.8.0 and later. It should also be
-ABI-compatible once the `amqqueue` appears in RabbitMQ 3.7.x.
+ABI-compatible with RabbitMQ 3.7.x once the `amqqueue` appears in that
+branch.
 
 However if the plugin targets quorum queues introduced in RabbitMQ
 3.8.0, it may have to query feature flags to determine what it can do.
@@ -311,20 +361,20 @@ fields added to `amqqueue` as part of the quorum queues implementation?
 
 If the plugin carefully checks feature flags to avoid any incorrect
 expectations, it will be compatible with many versions of RabbitMQ:
-the user will not have to recompile anything to download another
+the user will not have to recompile anything or download another
 version-specific copy of the plugin.
 
 #### When to Declare a Feature Flag
 
 If a plugin or core broker change modifies one of the following aspects:
 
- * Record definitions
- * Replicated database schemas
- * The format of Erlang messages passed between nodes
- * Modules and functions called from remote nodes
+ * record definitions
+ * replicated database schemas
+ * the format of Erlang messages passed between nodes
+ * modules and functions called from remote nodes
 
 Then compatibility with older versions of RabbitMQ becomes a concern.
-This is where new feature flag can help ensure a smoother upgrade
+This is where a new feature flag can help ensure a smoother upgrade
 experience.
 
 The two most important parts of a feature flag are:
@@ -359,8 +409,9 @@ quorum_queue_migration(_FeatureName, _FeatureProps, is_enabled) ->
     mnesia:table_info(rabbit_durable_queue, attributes) =:= Fields.
 </pre>
 
-More implementation docs can be found in the [`rabbit_feature_flags`
-module](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_feature_flags.erl).
+More implementation docs can be found in
+the [`rabbit_feature_flags` module source
+code](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_feature_flags.erl).
 
 Erlang's `edoc` reference can be generated locally from a RabbitMQ
 repository clone or source archive:
@@ -369,5 +420,5 @@ repository clone or source archive:
 gmake edoc
 # =>  ... Ignore warnings and errors...
 
-# now open doc/rabbit_feature_flags.html in the browser
+# Now open `doc/rabbit_feature_flags.html` in the browser.
 </pre>
