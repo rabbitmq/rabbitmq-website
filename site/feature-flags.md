@@ -188,6 +188,13 @@ rabbitmqctl -q --formatter pretty_table list_feature_flags
 └───────────────────────────┴──────────┘
 </pre>
 
+It is also possible to list and enable feature flags from the
+[Management plugin UI](/management.html), in "*Admin > Feature flags*":
+
+<div style="text-align: center;">
+<img src="/img/feature-flags/management-ui-ff-panel.png" style="width: 100%; border: solid 1px #75757f;"/>
+</div>
+
 ## <a id="how-to-disable-feature-flags" class="anchor" href="#how-to-disable-feature-flags">How to Disable Feature Flags</a>
 
 This is **impossible to disable a feature flag** once it is enabled.
