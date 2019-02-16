@@ -35,6 +35,18 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.7.12</td>
+        <td class="centre">15 February 2019</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.12">Release notes</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.7.11</td>
         <td class="centre">31 January 2019</td>
         <td>
