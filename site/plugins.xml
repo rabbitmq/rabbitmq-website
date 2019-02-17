@@ -140,7 +140,7 @@ limitations under the License.
       <p>
         RabbitMQ loads plugins from the local filesystem. Plugins are distributed as
         archives (<code>.ez</code> files) with compiled code modules and metadata.
-        Since some plugins <a href="/#plugin-tiers">ship with RabbitMQ</a>, every
+        Since some plugins <a href="#plugin-tiers">ship with RabbitMQ</a>, every
         node has at least one default plugin directory. The path varies between
         package types and can be <a href="/relocate.html">overridden</a> using the
         <code>RABBITMQ_PLUGINS_DIR</code> <a href="/configure.html#customise-environment">environment variable</a>.
