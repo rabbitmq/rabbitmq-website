@@ -101,16 +101,17 @@ However, note that only upgrading from one minor to the next minor
 or major is supported. To upgrade from e.g. 3.8.5 to 3.10.0, it is
 necessary to upgrade to 3.9.x first. Likewise if there is one or more
 minor release branches between the minor version used and the next
-major release. It may work (i.e. there will be nothing inside RabbitMQ
-preventing this), but this scenario is unsupported for the following two
-reasons:
+major release. That might work (i.e. there could be no incompatible
+changes between major releases), but this scenario is unsupported by design
+for the following reasons:
 
- * Skipping minor versions is untested in CI.
- * Old enough feature flags might be removed. If there were present
+ * Skipping minor versions is not tested in CI.
+ * Non-sequential releases may or may not support the same set of feature flags.
+   Support for older feature flags can be removed. Flag present
    for several minor branches, they are removed and their associated
    feature/behavior is now implicitly enabled by default, preventing
-   clustering with older nodes. They are kept around for enough versions
-   to allow the transition.
+   clustering with older nodes. Feature flags are kept around for a number (say, two) of
+   minor releases to allow for a transition period.
 
 The deprecation/removal policy of feature flags is yet to be defined.
 
@@ -312,9 +313,9 @@ Controlling a remote node with `rabbitmqctl` is only supported if the
 remote node is running the same version of RabbitMQ than `rabbitmqctl`
 comes from.
 
-If `rabbitmqctl` from a different minor/major version of RabbitMQ is
-used on a remote node, it may crash some processes on that node, perhaps
-even the entire node.
+If [CLI tools](/cli.html) from a different minor/major version of RabbitMQ is
+used on a remote node, they may fail to work as expected or even have unexpected
+side effects on the node.
 
 ##### Load-balancing Requests to the HTTP API
 
@@ -323,14 +324,14 @@ plugin](/management.html) goes through a load balancer, including one
 from the management plugin UI, the API's behavior and its response may
 be different, depending on the version of the node which handled the
 request. This is exactly the same if the domain name of the HTTP API
-resolves to multiply IP addresses.
-
-For example, if the management UI was loaded from a RabbitMQ 3.7.x node
-but it then queries a RabbitMQ 3.8.x node, the Javascript code running
-in the browser may crash (but not the RabbitMQ nodes).
+resolves to multiple IP addresses.
 
 This situation may happen during a rolling upgrade if the management UI
-is loaded in a browser with automatic refresh for instance.
+is open in a browser with periodic automatic refresh.
+
+For example, if the management UI was loaded from a RabbitMQ 3.7.x node
+but it then queries a RabbitMQ 3.8.x node, the JavaScript code running
+in the browser may fail with exceptions due to HTTP API changes.
 
 #### What Happens When a Feature Flag is Enabled
 
