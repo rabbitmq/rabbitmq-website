@@ -24,7 +24,7 @@ shutting down the entire cluster**.
 This subsystem does not guarantee that all future changes in
 RabbitMQ can be implemented as feature flags and entirely backwards
 compatible with older release series. Therefore, <strong>a future
-versio nfo RabbitMQ might still require a clusterwide shutdown for
+version of RabbitMQ might still require a cluster-wide shutdown for
 upgrading</strong>.
 
 Please always read [release notes](/changelog.html) to see if a rolling
@@ -100,8 +100,19 @@ it is compatible with a 3.7.x node.
 However, note that only upgrading from one minor to the next minor
 or major is supported. To upgrade from e.g. 3.8.5 to 3.10.0, it is
 necessary to upgrade to 3.9.x first. Likewise if there is one or more
-minor release branches between the minor version used and the next major
-release.
+minor release branches between the minor version used and the next
+major release. It may work (i.e. there will be nothing inside RabbitMQ
+preventing this), but this scenario is unsupported for the following two
+reasons:
+
+ * Skipping minor versions is untested in CI.
+ * Old enough feature flags might be removed. If there were present
+   for several minor branches, they are removed and their associated
+   feature/behavior is now implicitly enabled by default, preventing
+   clustering with older nodes. They are kept around for enough versions
+   to allow the transition.
+
+The deprecation/removal policy of feature flags is yet to be defined.
 
 ## <a id="how-to-list-feature-flags" class="anchor" href="#how-to-list-feature-flags">How to List Supported Feature Flags</a>
 
@@ -197,7 +208,7 @@ It is also possible to list and enable feature flags from the
 
 ## <a id="how-to-disable-feature-flags" class="anchor" href="#how-to-disable-feature-flags">How to Disable Feature Flags</a>
 
-This is **impossible to disable a feature flag** once it is enabled.
+It is **impossible to disable a feature flag** once it is enabled.
 
 ## <a id="core-feature-flags" class="anchor" href="#core-feature-flags">List of Core Feature Flags</a>
 
@@ -257,9 +268,14 @@ one of the tier-1 plugins bundled with RabbitMQ.
 
 #### Node and Version Compatibility
 
-Feature flags should be considered when extending an existing cluster by
-adding nodes using a different version of RabbitMQ, or when performing
-[an upgrade](/upgrade.html).
+There are two times when an operator has to consider feature flags:
+
+ * When [extending an existing cluster](/clustering.html) by adding
+   nodes using a different version of RabbitMQ (older or newer), the
+   operator needs to pay attention to feature flags: they might prevent
+   clustering.
+ * After [upgrading a cluster](/upgrade.html), the operator should take
+   a look at the new feature flags and perhaps enable them.
 
 A node compares its own list of feature flags with remote nodes' list
 of feature flags to determine if it can join a cluster. The rules are
@@ -296,8 +312,9 @@ Controlling a remote node with `rabbitmqctl` is only supported if the
 remote node is running the same version of RabbitMQ than `rabbitmqctl`
 comes from.
 
-For instance, using RabbitMQ 3.7.x's `rabbitmqctl` on a remote RabbitMQ
-3.8.x node may not work. It may even crash the remote node.
+If `rabbitmqctl` from a different minor/major version of RabbitMQ is
+used on a remote node, it may crash some processes on that node, perhaps
+even the entire node.
 
 ##### Load-balancing Requests to the HTTP API
 
@@ -311,6 +328,9 @@ resolves to multiply IP addresses.
 For example, if the management UI was loaded from a RabbitMQ 3.7.x node
 but it then queries a RabbitMQ 3.8.x node, the Javascript code running
 in the browser may crash (but not the RabbitMQ nodes).
+
+This situation may happen during a rolling upgrade if the management UI
+is loaded in a browser with automatic refresh for instance.
 
 #### What Happens When a Feature Flag is Enabled
 
