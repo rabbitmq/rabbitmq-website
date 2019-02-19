@@ -725,7 +725,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
               queue</li>
             <li>a client consumes the message from the queue (noting
               that the message is persistent and the queue
-              durable), but doesn't yet ack it,</li>
+              durable), but confirms are not active,</li>
             <li>the broker dies and is restarted, and</li>
             <li>the client reconnects and starts consuming messages.</li>
           </ol>
