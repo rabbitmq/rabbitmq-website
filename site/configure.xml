@@ -1569,7 +1569,14 @@ ADVANCED_CONFIG_FILE=/etc/rabbitmq/advanced.config
               </td>
             </tr>
 
-RABBITMQ_DISTRIBUTION_BUFFER_SIZE
+            <tr>
+              <td>RABBITMQ_IO_THREAD_POOL_SIZE</td>
+              <td>128 (Linux), 64 (Windows)</td>
+              <td>
+                <a href="/networking.html#tuning-for-throughput-async-thread-pool">Number of threads used by the runtime for I/O</a>. Values lower than
+                32 are not recommended.
+              </td>
+            </tr>
 
             <tr>
               <td>RABBITMQ_NODENAME</td>
