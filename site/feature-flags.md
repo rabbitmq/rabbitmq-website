@@ -450,3 +450,108 @@ gmake edoc
 
 # Now open `doc/rabbit_feature_flags.html` in the browser.
 </pre>
+
+#### How to Adapt and Run Testsuites with mixed-version clusters
+
+When a feature or behavior depends on a feature flag (either in the
+core broker or in a plugin), the associated testsuites must be adapted
+to take this feature flag into account. It means that before running
+the actual testcase, the setup code must verify if the feature flag is
+supported and either enable it if it is, or skip the testcase. This is
+the same for setup code running at the group or suite level.
+
+There are helper functions in `rabbitmq-ct-heleprs` to ease that check.
+Here is an example, taken from the `dynamic_qq_SUITE.erl` testsuite in
+rabbitmq-server:
+
+<pre class="lang-erlang">
+init_per_testcase(Testcase, Config) ->
+    % (...)
+
+    % 1.
+    % The broker or cluster is started: we rely on this to query feature
+    % flags.
+    Config1 = rabbit_ct_helpers:run_steps(
+                Config,
+                rabbit_ct_broker_helpers:setup_steps() ++
+                rabbit_ct_client_helpers:setup_steps()),
+
+    % 2.
+    % We try to enable the `quorum_queue` feature flag. The helper is
+    % responsible for checking if the feature flag is supported and
+    % enabling it.
+    case rabbit_ct_broker_helpers:enable_feature_flag(Config1, quorum_queue) of
+        ok ->
+            % The feature flag is enabled at this point. The setup can
+            % continue to play with `Config1` and the cluster.
+            Config1;
+        Skip ->
+            % The feature flag is unavailable/unsupported. The setup
+            % calls `end_per_testcase()` to stop the node/cluster and
+            % skips the testcase.
+            end_per_testcase(Testcase, Config1),
+            Skip
+    end.
+</pre>
+
+It it possible to run testsuites locally in the context of a
+mixed-version cluster. If configured to do so, `rabbitmq-ct-helpers`
+will use a second version of RabbitMQ to start half of the nodes when
+starting a cluster:
+
+ * Node 1 will be on the primary copy (the one used to start the testsuite)
+ * Node 2 will be on the secondary copy (the one provided explicitely to `rabbitmq-ct-helpers`)
+ * Node 3 will be on the primary copy
+ * Node 4 will be on the secondary copy
+ * ...
+
+To run a testsuite in the context of a mixed-version cluster:
+
+ 1. Clone the `rabbitmq-public-umbrella` repository and checkout the
+    appropriate branch or tag. This will be the **secondary Umbrella**.
+    In this example, the `v3.7.x` branch is used:
+
+    <pre class="lang-bash">
+    git clone https://github.com/rabbitmq/rabbitmq-public-umbrella.git secondary-umbrella
+    cd secondary-umbrella
+    git checkout v3.7.x
+    make co
+    </pre>
+
+    <p class="box-info">
+    Currently, when using the `v3.7.x` branch, `deps/rabbit_common` and
+    `deps/rabbit` must use the `v3.7.x-versions-compatibility` branch.
+    </p>
+
+ 2. Compile RabbitMQ or the plugin being tested in the secondary
+    Umbrella. The `rabbitmq-federation` plugin is used as an example:
+
+    <pre class="lang-bash">
+    cd seconary-umbrella/deps/rabbitmq_federation
+    make dist
+    </pre>
+
+ 3. Go to RabbitMQ or the same plugin in the primary copy:
+
+    <pre class="lang-bash">
+    cd /path/to/primary/rabbitmq_federation
+    </pre>
+
+ 4. Run the testsuite. Here, two environment variables are specified to
+    configure the "mixed-version cluster" mode:
+
+    <pre class="lang-bash">
+    SECONDARY_UMBRELLA=/path/to/secondary-umbrella \
+    RABBITMQ_FEATURE_FLAGS= \
+    make tests
+    </pre>
+
+    The first environment variable, `SECONDARY_UMBRELLA`, tells
+    `rabbitmq-ct-helpers` where to find the secondary Umbrella, as
+    the name suggests. This is how the mixed-version cluster mode is
+    enabled.
+
+    The secondary environment variable, `RABBITMQ_FEATURE_FLAGS`, is set
+    to the empty string and tells RabbitMQ to start with all feature
+    flags disabled: this is mandatory to have a newer node compatible
+    with an older one.
