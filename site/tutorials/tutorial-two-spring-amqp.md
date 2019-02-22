@@ -315,7 +315,7 @@ that uses RabbitMQ Java client directly, this is something to keep in mind.
 
 ### Message persistence
 
-Messages are persistent by default with Spring AMQP. Not the queue
+Messages are persistent by default with Spring AMQP. Note the queue
 the message will end up in needs to be durable as well, otherwise
 the message will not survive a broker restart as a non-durable queue does not
 itself survive a restart.
