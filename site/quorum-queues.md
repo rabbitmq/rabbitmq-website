@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -28,7 +28,7 @@ The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
 a top priority. This is covered in [Motivation](#motivation).
 
 Quorum queues also have important [differences in behaviour](#behaviour)
-and [limitations](#limitations) compared to classic mirrored queues.
+and some [limitations](#limitations) compared to classic mirrored queues.
 
 ### What is a Quorum?
 
@@ -93,6 +93,7 @@ Some features are not currently supported by quorum queues.
 | [Dead letter exchanges](/dlx.html) | yes | yes |
 | Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
 | Reacts to [memory alarms](/alarms.html) | yes | no |
+| Poison message handling | no | yes |
 
 #### Non-durable Queues
 
@@ -127,6 +128,20 @@ The [lazy mode](/lazy-queues.html) does not apply to them.
 
 Quorum queues do not currently support priorities.
 
+#### Poison Message Handling
+
+Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
+that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
+such that the message is never consumed completely and [positively acknowledged](/confirms.html) so that it can be marked for
+deletion by RabbitMQ.
+
+Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
+"x-delivery-count" header that is included with any redelivered message.
+
+It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) argument, `delivery-limit`.
+When a message has been returned more times than the limit the message will be dropped or
+[dead-lettered](/dlx.html) (if a DLX is configured).
+
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
@@ -150,6 +165,7 @@ within the context of the system.
 Consumers should use manual acknowledgements to ensure messages that aren't
 successfully processed are returned to the queue so that
 another consumer can re-attempt processing.
+
 
 ### When Not to Use Quorum Queues
 
