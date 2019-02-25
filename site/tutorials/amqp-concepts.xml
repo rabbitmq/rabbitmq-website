@@ -687,7 +687,6 @@ limitations under the License.
             </p>
             <p>
               Every protocol operation performed by a client happens on a channel.
-              Every protocol operation performed by a client happens on a channel.
               Communication on a particular channel is completely separate
               from communication on another channel, therefore every protocol
               method also carries a channel ID (a.k.a. channel number), an integer

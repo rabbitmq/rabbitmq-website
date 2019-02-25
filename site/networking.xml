@@ -554,8 +554,15 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         <p>
           Erlang runtime uses a pool of threads for performing I/O
           operations asynchronously. The size of the pool is <a href="/configure.html">configured</a> via
-          the <code>+A</code> VM command line flag, e.g. <code>+A 128</code>. We highly recommend
-          overriding the flag using the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
+          the <code>RABBITMQ_IO_THREAD_POOL_SIZE</code> environment variable. The variable
+          is a shortcut to setting the <code>+A</code> VM command line flag, e.g. <code>+A 128</code>.
+
+<pre class="lang-bash">
+# reduces number of I/O threads from 128 to 32
+RABBITMQ_IO_THREAD_POOL_SIZE=32
+</pre>
+
+          To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
           variable:
 
 <pre class="lang-bash">
