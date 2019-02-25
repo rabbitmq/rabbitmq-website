@@ -260,6 +260,8 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
             expired; or</li>
           <li><code>maxlen</code> - the maximum allowed queue
             length was exceeded.</li>
+          <li><code>delivery_limit</code> - the maximum number of unsuccessful
+            attempts was reached.</li>
         </ul>
       </p>
       <p>
