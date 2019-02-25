@@ -138,7 +138,7 @@ deletion by RabbitMQ.
 Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
 "x-delivery-count" header that is included with any redelivered message.
 
-It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) (`delivery-limit`).
+It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) argument, `delivery-limit`.
 When a message has been returned more times than the limit the message will be dropped or
 [dead-lettered](/dlx.html) (if a DLX is configured).
 
