@@ -268,7 +268,8 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channelwill result
-in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
+in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
+to learn more.
 
 > #### Forgotten acknowledgment
 >
