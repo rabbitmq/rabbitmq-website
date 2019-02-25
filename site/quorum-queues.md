@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -128,19 +128,19 @@ The [lazy mode](/lazy-queues.html) does not apply to them.
 
 Quorum queues do not currently support priorities.
 
-#### Poison message handling
+#### Poison Message Handling
 
-Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message).
-That is messages that cause a consumer to crash repeatedly such that the message is never
-consumed completely.
+Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
+that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
+such that the message is never consumed completely and [positively acknowledged](/confirms.html) so that it can be marked for
+deletion by RabbitMQ.
 
-Quorum queues keep track of the number of unsuccessful delivery attempts in the
+Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
 "x-delivery-count" header that is included with any redelivered message.
 
-It is possible to set a delivery limit for a queue using either a
-queue argument (`x-delivery-limit`) or a policy (`delivery-limit`). When a message
-has been returned more times than the limit the message will be dropped or
-dead-lettered (if configured).
+It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) (`delivery-limit`).
+When a message has been returned more times than the limit the message will be dropped or
+[dead-lettered](/dlx.html) (if a DLX is configured).
 
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
