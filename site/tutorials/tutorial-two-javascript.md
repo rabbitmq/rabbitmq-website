@@ -181,7 +181,7 @@ Message acknowledgment
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-With our current code, once RabbitMQ delivers a message to the customer it
+With our current code, once RabbitMQ delivers a message to the consumer it
 immediately marks it for deletion. In this case, if you kill a worker
 we will lose the message it was just processing. We'll also lose all
 the messages that were dispatched to this particular worker but were not
@@ -228,7 +228,7 @@ CTRL+C while it was processing a message, nothing will be lost. Soon
 after the worker dies all unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
-delivery. Attempts to acknowledge using a different channelwill result
+delivery. Attempts to acknowledge using a different channel will result
 in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
 to learn more.
 

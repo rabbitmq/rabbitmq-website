@@ -267,7 +267,7 @@ CTRL+C while it was processing a message, nothing will be lost. Soon
 after the worker dies all unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
-delivery. Attempts to acknowledge using a different channelwill result
+delivery. Attempts to acknowledge using a different channel will result
 in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
 to learn more.
 
