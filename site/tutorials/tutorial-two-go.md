@@ -266,8 +266,7 @@ Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
 after the worker dies all unacknowledged messages will be redelivered.
 
-Acknowledgement must be sent on the same channel the delivery it is for
-was received on. Attempts to acknowledge using a different channel
+Acknowledgement must be sent on the same channel the delivery was received on. Attempts to acknowledge using a different channel
 will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
 
 > #### Forgotten acknowledgment
