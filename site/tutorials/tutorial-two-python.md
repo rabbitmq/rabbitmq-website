@@ -172,7 +172,7 @@ Message acknowledgment
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-With our current code once RabbitMQ delivers message to the customer it
+With our current code once RabbitMQ delivers message to the consumer it
 immediately marks it for deletion. In this case, if you kill a worker
 we will lose the message it was just processing. We'll also lose all
 the messages that were dispatched to this particular worker but were not
