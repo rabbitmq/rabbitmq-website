@@ -121,7 +121,7 @@ It is possible to configure file logging using the [classic configuration format
 
 The broker always appends to the log files, so a complete log history is retained.
 Log file rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
-log [rotation via `logrotate`](#) after package installation.
+log [rotation via `logrotate`](#logrotate) after package installation.
 
 
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
