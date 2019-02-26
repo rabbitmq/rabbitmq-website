@@ -467,11 +467,12 @@ The following log levels are used by RabbitMQ:
 | `critical` | 4        |
 | `none`     | 0        |
 
+Default log level is `info`.
 
 When a message is logged, if the level number is higher than the category level,
 the message will be dropped and not sent to outputs.
 
-If a category level is not configured, it's messages will always be sent
+If a category level is not configured, its messages will always be sent
 to outputs.
 
 To make the `default` category log only errors or higher severity messages, use
@@ -487,13 +488,36 @@ level number is higher than the output level, the message will not be
 logged.
 
 For example if no outputs are configured to log
-`debug` messages, even if you set a category level to `debug`, the
+`debug` messages, even if the category level is set to `debug`, the
 debug messages will not be logged.
 
 Although, if an output is configured to log `debug` messages,
 it will get them from all categories, unless a category level is configured.
 
-### <a id="debug-logging" class="anchor" href="#debug-logging">Enabling Debug Logging</a>
+#### <a id="changing-log-level" class="anchor" href="#changing-log-level">Changing Log Level</a>
+
+There are two ways of changing effective log levels:
+
+ * Via [configuration file(s)](/configure.html): this is more flexible but requires
+   a node restart between changes
+ * Using `rabbitmqctl set_log_level &lt;level&gt;`: this option sets the same level for all
+   sinks, the changes are transient (will not survive node restart) but can be used to
+   enable e.g. [debug logging](#debug-logging) at runtime.
+
+To set log level of all sinks to `debug` on a running node:
+
+<pre class="lang-bash">
+rabbitmqctl -n rabbit@target-host set_log_level debug
+</pre>
+
+To set the level to `info`:
+
+<pre class="lang-bash">
+rabbitmqctl -n rabbit@target-host set_log_level info
+</pre>
+
+
+#### <a id="debug-logging" class="anchor" href="#debug-logging">Enabling Debug Logging</a>
 
 To enable debug messages, you should have a debug output.
 
@@ -528,7 +552,19 @@ In the [classic config format](/configure.html#config-file-formats):
 }].
 </pre>
 
-To disable debug logging for some categories:
+To switch to debug logging at runtime:
+
+<pre class="lang-bash">
+rabbitmqctl -n rabbit@target-host set_log_level debug
+</pre>
+
+To set the level back to `info`:
+
+<pre class="lang-bash">
+rabbitmqctl -n rabbit@target-host set_log_level info
+</pre>
+
+It is possible to disable debug logging for some categories:
 
 <pre class="lang-ini">
 log.file.level = debug
