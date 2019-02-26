@@ -205,7 +205,7 @@ limitations under the License.
          In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
 
 <pre class="lang-bash">
-apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
@@ -408,7 +408,7 @@ Pin-Priority: 1000
         In order to use the repository, add <a href="/signatures.html">RabbitMQ signing key</a> to <code>apt-key</code>:
 
 <pre class="lang-bash">
-apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
