@@ -224,7 +224,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
         In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
 
 <pre class="lang-bash">
-apt-get install apt-transport-https
+sudo apt-get install apt-transport-https
 </pre>
        </p>
      </doc:subsection>
@@ -425,7 +425,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
         In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
 
 <pre class="lang-bash">
-apt-get install apt-transport-https
+sudo apt-get install apt-transport-https
 </pre>
        </p>
        <h4>Source List File</h4>
