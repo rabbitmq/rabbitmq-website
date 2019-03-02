@@ -2,8 +2,10 @@
 
 ## Introduction
 
-Logging is a critically important aspect of system observability, together with [monitoring](/monitoring.html).
-Both developers and operators are advised to consult logs when troubleshooting an issue or assessing the
+Log files is a very important aspect of system observability,
+much like [monitoring](/monitoring.html).
+
+Developers and operators should inspect logs when troubleshooting an issue or assessing the
 state of the system.
 
 RabbitMQ supports a number of features when it comes to logging.
@@ -25,46 +27,38 @@ and more.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
-Prior to 3.7.0 there were two log files: for regular messages and unhandled
-exceptions. As of 3.7.0 a single log file is used for all messages
-by default.
+Before version 3.7.0 there were two log files: for regular messages and unhandled exceptions.
+Starting with 3.7.0, RabbitMQ uses a single log file by default.
 
-Default log file location is covered
-in the [File and Directory Location](/relocate.html) guide.
+Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
-You can modify the default location either by using a configuration file, or
-by setting the `RABBITMQ_LOGS` environment variable. Effective log
-file path can be discovered using [RabbitMQ management UI](/management.html) or
-CLI commands such as `rabbitmqctl environment`.
+There are two ways to configure log file location. One is the [configuration file](/configure.html). The other is the the `RABBITMQ_LOGS` environment variable. Use [RabbitMQ management UI](/management.html) or `[rabbitmqctl](/cli.html) environment` to find when a node stores its log file(s).
 
-`RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`), which means
-all log messages should be printed to standard output.
+The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`), which means all log
+messages will be printed to standard output.
 
-The environment variable takes precedence over the configuration file.
-When in doubt, consider overriding log file location via the config file.
+The environment variable takes precedence over the configuration file. When in doubt, consider
+overriding log file location via the config file.
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
-As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging library
-under the hood. The library supports logging to different sources
-and provides a fair amount of flexibility when it comes to configuration.
+As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging
+library under the hood. Lager supports logging to different sources and is highly configurable.
 
-RabbitMQ initializes its logging subsystem on node start.
-See the [Configuration guide](/configure.html) for a general overview
-of how RabbitMQ nodes are configured.
+RabbitMQ starts logging early on node start. See the [Configuration guide](/configure.html)
+for a general overview of how to configure RabbitMQ.
 
 ### <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
 Default RabbitMQ logging configuration will direct log messages to a log file. Standard output is
 another option available out of the box.
 
-Multiple outputs can be used at the same time. Log entries will be copied to all of them.
+Several outputs can be used at the same time. Log entries will be copied to all of them.
 
-Different outputs can have different log levels, for example, the
-console output can be configured to log all messages including debug
-information while the file output will log only error and higher
-severity messages.
+Different outputs can have different log levels. For example, the console output can log all
+messages including debug information  while the file output can only log error and higher severity
+messages.
 
 
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
@@ -97,8 +91,9 @@ Logging to a file can be disabled with
 log.file = false
 </pre>
 
-The rest of this guide, [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example), and [Lager configuration reference](https://github.com/erlang-lager/lager) cover
-the list of acceptable log levels and other values.
+Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example).
+
+The rest of this guide describes more options. [Lager configuration reference](https://github.com/erlang-lager/lager) is the most comprehensive reference.
 
 #### Classic Config Format
 
@@ -119,17 +114,16 @@ It is possible to configure file logging using the [classic configuration format
 
 ### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
 
-The broker always appends to the log files, so a complete log history is retained.
-Log file rotation via Lager is disabled by default. [Debian](/install-debian.html) and [RPM packages](/install-rpm.html) will set up
+RabbitMQ nodes always append to the log files, so a complete log history is preserved.
+Lager will not perform log file rotation by default. [Debian](/install-debian.html) and [RPM](/install-rpm.html) packages will set up
 log [rotation via `logrotate`](#logrotate) after package installation.
-
 
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
 for the file output.
 
 #### Periodic Rotation
 
-`log.file.rotation.date` is used to set up periodic (date and time-based) rotation.
+Use `log.file.rotation.date` to set up periodic (date and time-based) rotation.
 It uses [the same syntax as newsyslog.conf](https://github.com/basho/lager#internal-log-rotation):
 
 <pre class="lang-ini">
@@ -229,8 +223,8 @@ It is possible to configure console logging using the [classic config format](/c
     ]}].
 </pre>
 
-If you enable console output, the file output will still be enabled by
-default. To disable the file output, set `log.file` to `false`.
+When console output is enabled, the file output will also be enabled by default.
+To disable the file output, set `log.file` to `false`.
 
 Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
 even in `log.file` is configured.
@@ -339,7 +333,7 @@ In the classic config format:
 </pre>
 
 Syslog metadata identity and facility values also can be configured.
-By default identity will be set to the name part of the node name (for example `rabbitmq` for `rabbitmq@hostname`)
+By default identity will be set to the name part of the node name (for example, `rabbitmq` in `rabbitmq@hostname`)
 and facility will be set to `daemon`.
 
 To set identity and facility of log messages:
@@ -383,9 +377,9 @@ The categories are:
 It is possible to configure a different log level or file location for each message category
 using `log.<category>.level` and `log.<category>.file` configuration variables.
 
-By default each category will not filter by level. So if you have an output configured
-to log `debug` messages, the debug messages will be printed from all categories,
-unless a category level is configured.
+By default each category will not filter by level. If an is output configured to log `debug`
+messages, the debug messages will be printed for all categories. Configure a log level for a
+category to override.
 
 For example, given debug level in the file output,
 the following will disable debug logging for connection events:
@@ -469,11 +463,11 @@ The following log levels are used by RabbitMQ:
 
 Default log level is `info`.
 
-When a message is logged, if the level number is higher than the category level,
-the message will be dropped and not sent to outputs.
+If the level of a log message is higher than the category level,
+the message will be dropped and not sent to any output.
 
 If a category level is not configured, its messages will always be sent
-to outputs.
+to all outputs.
 
 To make the `default` category log only errors or higher severity messages, use
 
@@ -481,13 +475,12 @@ To make the `default` category log only errors or higher severity messages, use
 log.default.level = error
 </pre>
 
-The `none` level means that no messages will be logged.
+The `none` level means no logging.
 
-Levels can be configured separately for each output. If a message
-level number is higher than the output level, the message will not be
-logged.
+Each output can use its own log level. If a message
+level number is higher than the output level, the message will not be logged.
 
-For example if no outputs are configured to log
+For example, if no outputs are configured to log
 `debug` messages, even if the category level is set to `debug`, the
 debug messages will not be logged.
 
@@ -648,12 +641,12 @@ The examples above include two values that can be used as connection identifiers
 in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
 The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](/management.html).
 
-A connection can be closed cleanly or abnormally. In the
+A [client connection](/connections.html) can be closed cleanly or abnormally. In the
 former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
 MQTT) connection gracefully using a dedicated library function
 (method). In the latter case the client closes TCP connection
-or TCP connection is lost. Both cases will be logged by the broker.
-щ
+or TCP connection fails. RabbitMQ will log both cases.
+
 Below is an example entry for a successfully closed connection:
 
 <pre class="lang-ini">
@@ -682,9 +675,9 @@ closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhos
 client unexpectedly closed TCP connection
 </pre>
 
-Abruptly closed connections could be harmless (e.g. a short lived program has naturally terminated
-and didn't have a chance to close its connection properly) or indicate a genuine issue such as
-a failed application process or a proxy that eagerly closes TCP connections it considers to be idle.
+Abruptly closed connections can be harmless. For example, a short lived program can naturally stop
+and don't have a chance to close its connection. They can also hint at a genuine issue such as
+a failed application process or a proxy that closes TCP connections it considers to be idle.
 
 
 ## <a id="upgrading" class="anchor" href="#upgrading">Upgrading From pre-3.7 Versions</a>
@@ -701,8 +694,8 @@ Starting with 3.7.0 these two files were merged and all errors now can be found 
 the `<nodename>.log` file. So `RABBITMQ_SASL_LOGS` environment variable is not used
 anymore.
 
-Log levels in pre-3.7.0 versions were configured using the `log_levels` configuration key.
-Starting with 3.7 it's been replaced with [categories](#log-message-categories),
+Log levels in versions before `3.7.0` were configured using the `log_levels` configuration key.
+Starting with `3.7.0` it's been replaced with [categories](#log-message-categories),
 which are more descriptive and powerful.
 
 If the `log_levels` key is present in `rabbitmq.config` file, it should be updated to
@@ -714,8 +707,7 @@ use categories.
 ## <a id="advanced-configuration" class="anchor" href="#advanced-configuration">Advanced Configuration</a>
 
 This section describes the nitty gritty details of the logging
-subsystem. Most RabbitMQ installations won't require deep knowledge of
-this topic or any of the advanced configuration explained here.
+subsystem. Most RabbitMQ installations won't need the advanced configuration explained here.
 
 ### Lager Handlers and Sinks
 
@@ -723,15 +715,14 @@ RabbitMQ logging subsystem is built on top of [Lager](https://github.com/erlang-
 library with several advanced features. Some of them are accessible via
 the [log handler and sink abstractions](https://github.com/erlang-lager/lager#configuration).
 
-A sink is an "endpoint" where log entries are written by connections, queues and so on.
-A handler is stateful entity that consumes log entries and processes them, e.g.
-writes them to a file, sends them to a log collection endpoint or discards them.
+A sink is an "endpoint" where log entries are written by connections, queues and so on. A handler is
+stateful entity that consumes log entries and processes them. For example, a handler can write log
+entries to a file, send them to a log collection service or discards them.
 
 By default RabbitMQ creates one file backend handler and one sink per log category (see above).
-Changing RabbitMQ log configuration parameters changes log handler used under the hood.
-The number of sinks used by RabbitMQ is largely fixed, although 3rd party plugins can
-use custom sinks and with a certain amount of configuration it may be possible e.g.
-to log those messages separately from the rest.
+Changing RabbitMQ log configuration parameters changes log handler used under the hood. The number
+of sinks used by RabbitMQ core is fixed. 3rd party plugins can use custom sinks. With a certain
+amount of configuration it may be possible e.g. to log those messages separately from the rest.
 
 When RabbitMQ is started with default logging settings, a Lager handler is configured
 under the hood and it looks like this:
@@ -836,16 +827,13 @@ then generated handlers configuration will look something like this:
 }].
 </pre>
 
-In the above example, a new `lager_console_backend` handler is added to the `handlers` and
-`upgrade_lager_event` sink handlers.
-Because `upgrade` category defines a separate file by default, all default handlers
-are copied to the sink handlers and the `file` setting is modified.
+Here a new handler is added to the `handlers` and `upgrade_lager_event` sink handlers.
+Because the `upgrade` category uses a separate file by default, all default handlers are copied to the sink handlers.
 
 If a target log file is configured for a category via a `log.<category>.file` config entry, all log messages
 in that category will be written to **this file only** as well as non-file backends.
 
-If having upgrade logs in the default log file is desired, or log files are configured in
-`handlers`, category-specific files should be disabled. This is done with
+To include upgrade logs in the default log file, disable file logging for that category.
 
 <pre class="lang-ini">
 log.upgrade.file = false
@@ -859,19 +847,18 @@ or
 
 in the [classic configuration format](/configure.html#config-file-formats).
 
-You can add any additional handlers to default lager configuration or to sinks by
-setting `handlers` to `extra_sinks` in the `lager` application config.
+Logging settings must go into the `lager` application section. To add extra handlers to default
+configuration or sinks, use the `handlers` to `extra_sinks` keys.
 
-Handlers configured in the `lager` config will be **merged** with those generated
-by RabbitMQ. So messages will be logged by your custom handlers and by
-the generated ones.
+Handlers configured in the `lager` config will be **merged** with those generated by RabbitMQ. Log
+messages will be logged both by the custom handlers as well as the standard ones.
 
-If you set a sink with the same name as RabbitMQ category sinks, it's handlers
-will be **merged** with the generated category sink. So messages logged in the
-category will be logged in the configured handlers and redirected to default sink.
+If a sink uses a name of a known RabbitMQ category, its handlers will be **merged** with the
+generated category sink. Log messages in the category will be sent both to the custom handlers and
+the default sink.
 
-You can disable RabbitMQ handlers or sinks using RabbitMQ configuration. For example
-by setting `level` to `none` for handlers and categories.
+It is possible to disable RabbitMQ handlers and sinks. Setting a handler or category's `level` to
+`none` will disable them.
 
 
 ### Custom Handler Examples
