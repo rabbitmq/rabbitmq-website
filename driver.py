@@ -4,13 +4,15 @@ import socketserver
 import http.server
 import io
 import os
-
 import sys
+# see ./code
+import render
+
 sys.path.insert(0, 'code')
-import render ## from the ./code/ subdirectory
 render.SITE_DIR = './site/'
 global site_mode
 site_mode = 'www'
+
 
 class StubReq:
     def __init__(self, uri, queryPos):
@@ -26,9 +28,11 @@ class StubReq:
     def write(self, s):
         self.wfile.write(s)
 
+
 class ReqHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         self.do_GET()
+
     def do_GET(self):
         lowerpath = self.path.lower()
         queryPos = self.path.find("?")
@@ -55,6 +59,7 @@ class ReqHandler(http.server.SimpleHTTPRequestHandler):
             path = path[1:]
         result = os.path.join(render.SITE_DIR, path)
         return result
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
