@@ -5,10 +5,11 @@ import http.server
 import io
 import os
 import sys
+
+sys.path.insert(0, 'code')
 # see ./code
 import render
 
-sys.path.insert(0, 'code')
 render.SITE_DIR = './site/'
 global site_mode
 site_mode = 'www'
