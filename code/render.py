@@ -91,14 +91,14 @@ def preprocess_markdown(fpath):
     try:
         return etree.fromstring(s, parser=utf8_parser).getroottree()
     except Exception as e:
-        print("\n\nException rendering {0}".format(fpath))
+        print("\n\nFailed to render file {0} due to an exception. Problematic line(s) below.".format(fpath))
         all_lines = s.splitlines()
         m = re.search(re.compile("line\s(\d+)"), e.msg)
         n = int(m[1])
         relevant_lines = all_lines[n-2:n+2]
         print("\n\n")
         for l in relevant_lines:
-            print("Context: {0}".format(l))
+            print(l.decode("utf-8"))
         print("\n\n")
         raise e
 
