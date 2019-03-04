@@ -3,8 +3,7 @@ import re
 import os
 import os.path
 import markdown
-import codecs
-
+import re
 import sys
 import imp
 imp.reload(sys)
@@ -19,10 +18,11 @@ except ImportError:
             self.OK = 0
     apache = StubApache()
 
-SITE_DIR='define_me_before_use'
+SITE_DIR = 'define_me_before_use'
+
 
 def preprocess_markdown(fpath):
-    contents = open(fpath, encoding = 'utf-8').read()
+    contents = open(fpath, encoding='utf-8').read()
 
     ## Markdown will treat the whole file as markdown, whereas
     ## we want to only transform the body text.
@@ -31,7 +31,7 @@ def preprocess_markdown(fpath):
     contents = contents[0:title.start()] + contents[title.end():]
     title = title.group(1)
 
-    entities = open(os.path.join(SITE_DIR, 'rabbit.ent'), encoding = 'utf-8').read()
+    entities = open(os.path.join(SITE_DIR, 'rabbit.ent'), encoding='utf-8').read()
     entities = '\n'.join(entities.split('\n')[1:])
 
     nosyntax = re.search("NOSYNTAX", title)
@@ -66,8 +66,8 @@ def preprocess_markdown(fpath):
         extensionsArg = ["codehilite", "tables"]
         extensionsConfigArg = {
             'codehilite': {
-            'css_class': 'highlight'
-        }}
+                'css_class': 'highlight'
+                }}
 
     processed = markdown.markdown(contents, extensions=extensionsArg, extension_configs=extensionsConfigArg)
 
@@ -89,23 +89,30 @@ def preprocess_markdown(fpath):
     utf8_parser = etree.XMLParser(encoding='utf-8')
     s = (pre + head + processed + post).encode("utf-8")
     try:
-      return etree.fromstring(s, parser = utf8_parser).getroottree()
+        return etree.fromstring(s, parser=utf8_parser).getroottree()
     except Exception as e:
         print("\n\nException rendering {0}".format(fpath))
+        all_lines = s.splitlines()
+        m = re.search(re.compile("line\s(\d+)"), e.msg)
+        n = int(m[1])
+        relevant_lines = all_lines[n-2:n+2]
+        print("\n\n")
+        for l in relevant_lines:
+            print("Context: {0}".format(l))
+        print("\n\n")
         raise e
-
 
 
 def parse(fpath):
     class MissingFeedResolver(etree.Resolver):
         def resolve(self, url, id, context):
-            if not '://' in url and not os.path.exists(url):
+            if '://' not in url and not os.path.exists(url):
                 print("Ignoring missing file {}".format(url))
                 return self.resolve_empty(context)
-            return None # Defer to other resolvers
+            return None  # Defer to other resolvers
 
     # TODO cache the blog feed and revert to no_network = True
-    parser = etree.XMLParser(ns_clean = True, no_network = False)
+    parser = etree.XMLParser(ns_clean=True, no_network=False)
     parser.resolvers.add(MissingFeedResolver())
     try:
         return etree.parse(fpath, parser)
@@ -113,16 +120,20 @@ def parse(fpath):
         print("\n\nException rendering {0}".format(fpath))
         raise e
 
-MARKUPS={'.xml': parse,
-         '.md':  preprocess_markdown}
+
+MARKUPS = {'.xml': parse,
+           '.md':  preprocess_markdown}
+
 
 class Error404(Exception):
     pass
 
+
 class Error500(Exception):
     pass
 
-def render_page(page_name, site_mode, version = None):
+
+def render_page(page_name, site_mode, version=None):
     """
     look for the xml file with this name. if found,
     look inside the xml file for a stylesheet processing
@@ -163,6 +174,7 @@ def render_page(page_name, site_mode, version = None):
         result = xhtml_doc
     return str(result)
 
+
 def read_file(page_name):
     for ext in MARKUPS:
         preprocess = MARKUPS[ext]
@@ -171,6 +183,7 @@ def read_file(page_name):
         if os.path.exists(fpath):
             return preprocess(fpath)
     raise Error404(page_name)
+
 
 def handler(req, site_mode):
     req.content_type = "text/html; charset=utf-8"
