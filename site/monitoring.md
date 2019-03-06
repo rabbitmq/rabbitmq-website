@@ -224,7 +224,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html)">this document</a></td>
+      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td>
     </tr>
   </tbody>
 </table>
