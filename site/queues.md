@@ -77,7 +77,7 @@ with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 
 ### <a id="optional-arguments" class="anchor" href="#optional-arguments">Optional Arguments</a>
 
-Optional queue arguments, also know as "x-arguments" because of their
+Optional queue arguments, also known as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) that can
 be provided by clients when a queue is declared.  They are used by
 plugins and broker-specific features such as
