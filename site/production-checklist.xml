@@ -94,7 +94,7 @@ limitations under the License.
 
           For IoT applications that involve many clients performing the same or similar
           function and having fixed IP addresses, it may make sense to <a href="/ssl.html">authenticate
-          using x509 certificates</a> or <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source IP addresse ranges</a>.
+          using x509 certificates</a> or <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source IP address ranges</a>.
         </p>
       </doc:subsection>
     </doc:section>
