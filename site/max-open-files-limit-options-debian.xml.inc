@@ -27,7 +27,25 @@ limitations under the License.
 
 <pre class="sourcecode">
 [Service]
-LimitNOFILE=300000
+LimitNOFILE=64000
+</pre>
+  </p>
+
+  <h3>With Docker</h3>
+  <p>
+    To configure kernel limits for Docker contains, use the <code>"default-ulimits"</code> key in <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">Docker daemon configuration file</a>.
+    The file has to be installed on Docker hosts at <code>/etc/docker/daemon.json</code>:
+
+<pre class="lang-json">
+{
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 64000,
+      "Soft": 64000
+    }
+  }
+}
 </pre>
   </p>
 
