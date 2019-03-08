@@ -623,6 +623,10 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           including the <a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit">open file handle limit</a>.
         </p>
         <p>
+          With Docker, <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">Docker daemon configuration file</a>
+          in the host controls the limits.
+        </p>
+        <p>
           MacOS uses a <a href="https://superuser.com/questions/433746/is-there-a-fix-for-the-too-many-open-files-in-system-error-on-os-x-10-7-1">similar system</a>.
         </p>
         <p>
