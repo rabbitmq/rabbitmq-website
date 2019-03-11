@@ -299,6 +299,8 @@ limitations under the License.
                  hash (dictionary) for example.
                </p>
                <p>
+                 Note that headers beginning with the string <code>x-</code>
+                 will not be used to evaluate matches.
                </p>
                </doc:subsection>
             </doc:section>
