@@ -790,7 +790,7 @@ rabbitmqctl reset
 # => Resetting node rabbit@rabbit1 ...done.
 
 rabbitmqctl start_app
-# => Starting node rabbit@mcnulty ...
+# => Starting node rabbit@rabbit1 ...
 # => ...done.
 </pre>
           <p>
