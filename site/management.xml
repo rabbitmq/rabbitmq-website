@@ -113,7 +113,7 @@ rabbitmq-plugins enable rabbitmq_management
         <doc:subsection name="usage-highlights">
           <doc:heading>Notable Features</doc:heading>
           <p>
-            The management UI is implemented as a single page application which relies on the the <a href="#http-api">HTTP API</a>.
+            The management UI is implemented as a single page application which relies on the <a href="#http-api">HTTP API</a>.
             Some of the features include:
 
             <ul>

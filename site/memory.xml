@@ -88,7 +88,7 @@ limitations under the License.
         <pre class="lang-ini">vm_memory_high_watermark.absolute = 1073741824</pre>
         Same example, but using memory units:
         <pre class="lang-ini">vm_memory_high_watermark.absolute = 1024MB</pre>
-        Same example using the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+        Same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
         <pre class="lang-erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, 1073741824}}]}].</pre>
         Using memory units:
         <pre class="lang-erlang">[{rabbit, [{vm_memory_high_watermark, {absolute, "1024MiB"}}]}].</pre>
