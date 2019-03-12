@@ -1545,7 +1545,7 @@ ssl_options.honor_cipher_order = true
 ssl_options.honor_ecc_order    = true
 </pre>
 
-          In the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="lang-erlang">
 %% list allowed ciphers

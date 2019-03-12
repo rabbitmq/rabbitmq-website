@@ -124,7 +124,7 @@ queues it knows. And that's exactly what we need for our logger.
 >     AMQP.Basic.publish(channel, "", "hello", message)
 > </pre>
 >
-> The [second parameter](http://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the the name of the exchange.
+> The [second parameter](http://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 

@@ -498,7 +498,7 @@ limitations under the License.
     </li>
     <li>
       <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
-      The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
+      The blog of Chris Duncan, author of the Bunny AMQP client for Ruby. Good place
       to look if you're using AMQP with Ruby.
     </li>
     <li>
@@ -567,7 +567,7 @@ limitations under the License.
     <li>
       <a href="http://hpts.ws/papers/2009/session5/das.pdf">Advanced Message Queueing Protocol</a><br />
       Presentation from Pranta Das from Cisco giving a good background on AMQP, an
-      overview of the the new information model in AMQP 1.0 and some general use
+      overview of the new information model in AMQP 1.0 and some general use
       cases for AMQP messaging.
     </li>
     <li>

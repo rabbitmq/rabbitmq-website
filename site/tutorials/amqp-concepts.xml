@@ -23,7 +23,7 @@ limitations under the License.
         <doc:section name="about-this-guide">
         <doc:heading>About This Guide</doc:heading>
             <p>
-              This guide provides an overview of the the AMQP 0-9-1 protocol, one of the protocols
+              This guide provides an overview of the AMQP 0-9-1 protocol, one of the protocols
               supported by RabbitMQ.
             </p>
            </doc:section>
