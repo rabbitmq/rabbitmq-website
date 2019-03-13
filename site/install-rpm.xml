@@ -172,13 +172,11 @@ sudo zypper in erlang
 
           Erlang versions available in the standard repositories will in practice be behind the most recent version.
           To use the last version with the newest features, add the
-          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>.
-
-          For example, for openSUSE Leap 15:
+          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>:
 
 <pre class="sourcecode bash">
-# add the openSUSE erlang factory repository for leap 15
-sudo zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+# add the openSUSE erlang factory, obs:// extracts the http url for the matching distro.
+sudo zypper ar -f  obs://devel:languages:erlang:Factory openSUSE-Erlang-Factory
 
 # import the signing key and refresh the repository
 sudo zypper --gpg-auto-import-keys refresh
