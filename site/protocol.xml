@@ -32,6 +32,15 @@ limitations under the License.
       AMQP 0-9-1 is a binary messaging protocol and <a href="/tutorials/amqp-concepts.html">semantic framework</a>
       for microservices and enterprise messaging.
     </p>
+
+    <h2 id="amqp1.0">AMQP 0-9-1 and AMQP 1.0</h2>
+    <p>
+      Despite similar names and, to some extent, a common lineage, AMQP 0-9-1 and AMQP 1.0
+      are completely different messaging protocols and not a revision of the same idea.
+      AMQP 1.0 has a different scope and topology model. RabbitMQ supports AMQP 0-9-1, AMQP 1.0,
+      MQTT and STOMP. See <a href="/documentation.html">documentation ToC</a> for details.
+    </p>
+
     <h2 id="downloads">Downloads</h2>
     <p>
       All AMQP 0-9-1 specifications and protocol definitions are published under
