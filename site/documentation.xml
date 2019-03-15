@@ -62,7 +62,7 @@ limitations under the License.
         <p>
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
-          messaging, the protocol, RabbitMQ features, and some common usage scenarios.
+          messaging, one of the protocols RabbitMQ supports, key messaging features, and some common usage scenarios.
           <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 Overview</a> provides a brief overview
           for the original RabbitMQ protocol.
         </p>
@@ -553,7 +553,10 @@ limitations under the License.
             <a href="web-mqtt.html">MQTT over WebSockets</a>
           </li>
           <li>
-            Other <a href="protocol.html">protocol documentation</a>.
+            <a href="protocol.html">AMQP 0-9-1 implementation details</a>.
+          </li>
+          <li>
+            <a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata document</a>.
           </li>
         </ul>
       </div>

@@ -7,8 +7,8 @@
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -25,42 +25,16 @@ limitations under the License.
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Protocol Documentation</title>
+    <title>AMQP 0-9-1 Protocol Specification</title>
   </head>
   <body>
     <p>
-      AMQP is a standard wire-level protocol and semantic framework
-      for high performance enterprise messaging.
-    </p>
-    <p>
-      From the AMQP website:
-    </p>
-    <blockquote>
-      <p>
-        AMQP is an Open Standard for Messaging Middleware.
-      </p>
-      <p>
-        By complying to the AMQP standard, middleware products
-        written for different platforms and in different
-        languages can send messages to one another. AMQP
-        addresses the problem of transporting value-bearing
-        messages across and between organisations in a timely
-        manner.
-      </p>
-      <p>
-        AMQP enables complete interoperability for messaging
-        middleware; both the networking protocol and the
-        semantics of broker services are defined in AMQP.
-      </p>
-    </blockquote>
-    <p>
-      For more information on what AMQP is, please see
-        the <a href="http://amqp.org/about/what">AMQP
-        Working Group's overview page</a>.
+      AMQP 0-9-1 is a binary messaging protocol and <a href="/tutorials/amqp-concepts.html">semantic framework</a>
+      for microservices and enterprise messaging.
     </p>
     <h2 id="downloads">Downloads</h2>
     <p>
-      All AMQP specifications and protocol definitions are published under
+      All AMQP 0-9-1 specifications and protocol definitions are published under
       the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
       unless stated otherwise.
     </p>
