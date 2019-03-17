@@ -892,14 +892,13 @@ tcp_listen_options.exit_on_close = false
         and `RABBITMQ_SERVER_CODE_PATH` environment variable documentation.
       </p>
       <p>
-        The Erlang runtime must include HiPE support. If it is not, enabling this option will
-        have no effect. One Debian and
-        Ubuntu HiPE support requires an alternative base Erlang package,
-        <code>erlang-base-hipe</code>, to be installed.
+        <a href="/which-erlang.html">Erlang installations</a>
+        must be compiled with HiPE support. If it is not, enabling this option will
+        have no effect. Debian and Ubuntu provide both a HiPE-enabled
+        base Erlang package (<code>erlang-base-hipe</code>) and a regular one (<code>erlang-base</code>).
       </p>
       <p>
-        HiPE is not available at all on some platforms,
-        notably Windows.
+        HiPE is not supported on Windows.
       </p>
       <p>Default: <pre class="lang-ini">hipe_compile = false</pre></p>
     </td>
