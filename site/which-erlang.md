@@ -152,6 +152,16 @@ incompatible combination detected.
 It is highly recommended that all nodes use exactly the same
 version of Erlang.
 
+
+## <a id="hipe" class="anchor" href="#hipe">HiPE (JIT Compilation)</a>
+
+Erlang installations can optionally be built with support for HiPE, a JIT compiler,
+which RabbitMQ can be [configured](/configure.html) to use.
+
+For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
+package (<code>erlang-base-hipe</code>) must be installed instead of the regular one (<code>erlang-base</code>).
+
+
 ## <a id="building-from-source" class="anchor" href="#building-from-source">Building from Source</a>
 
 If a sufficiently recent Erlang package is not available for your system then you will need to
