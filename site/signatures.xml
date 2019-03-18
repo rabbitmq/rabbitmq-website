@@ -62,7 +62,17 @@ limitations under the License.
           must be downloaded. This can be done using the <a href="https://sks-keyservers.net/overview-of-pools.php">SKS keyservers pool</a>:
 
 <pre class="lang-bash">
-gpg --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+gpg --keyserver "sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+</pre>
+
+          In case SKS key servers are overloaded or unavailable, an alternative server can be used:
+
+<pre class="lang-bash">
+gpg --keyserver "pgp.surfnet.nl" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+</pre>
+
+<pre class="lang-bash">
+gpg --keyserver "pgp.mit.edu" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
         </p>
 
