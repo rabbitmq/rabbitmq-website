@@ -68,6 +68,10 @@ gpg --keyserver "sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73
           In case SKS key servers are overloaded or unavailable, an alternative server can be used:
 
 <pre class="lang-bash">
+gpg --keyserver "keyserver.ubuntu.com" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+</pre>
+
+<pre class="lang-bash">
 gpg --keyserver "pgp.surfnet.nl" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
 
