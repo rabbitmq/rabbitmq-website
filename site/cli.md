@@ -113,7 +113,13 @@ For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environmen
 to `true`.
 
 For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
-must be specified.
+must be specified:
+
+<pre class="lang-bash">
+# this example assumes that host1.messaging.eng.coolcorporation.banana is a hostname
+# that successfully resolves
+rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
+</pre>
 
 ## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 
