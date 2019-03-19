@@ -30,6 +30,7 @@ limitations under the License.
           This guide covers fundamental topics related to RabbitMQ clustering:
 
           <ul>
+            <li>How RabbitMQ nodes are identified: <a href="#node-names">node names</a></li>
             <li><a href="#cluster-formation-requirements">Requirements</a> for clustering</li>
             <li>What data is and isn't <a href="#cluster-membership">replicated between cluster nodes</a></li>
             <li>What clustering <a href="#clustering-and-clients">means for clients</a></li>
@@ -83,8 +84,45 @@ limitations under the License.
             subsequently turned back into individual brokers again.
           </p>
         </doc:subsection>
-      </doc:section>
 
+        <doc:subsection name="node-names">
+          <doc:heading>Node Names (Identifiers)</doc:heading>
+          <p>
+            RabbitMQ nodes are identified by node names. A node name consists of two parts,
+            a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local`
+            is a node name with the prefix of `rabbit` and hostname of `node1.messaging.svc.local`.
+          </p>
+
+          <p>
+            Node names in a cluster must be unique. If more than one node is running on a given host
+            (this is usually the case in development and QA environments), they must use
+            different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
+          </p>
+
+          <p>
+            In a cluster, nodes identify and contact each other using node names. This means
+            that the hostname part of every node name <a href="#hostname-resolution-requirement">must resolve</a>.
+            <a href="/cli.html">CLI tools</a> also identify and address nodes using node names.
+          </p>
+
+          <p>
+            When a node starts up, it checks whether it has been assigned a node name. This is done
+            via the `RABBITMQ_NODENAME` <a href="/configure.html#supported-environment-variables">environment variable</a>.
+            If no value was explicitly configured,
+            the node resolves its hostname and prepends `rabbit` to it to compute its node name.
+          </p>
+
+          <p>
+            If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
+            and CLI tools must be configured to use so called long node names.
+            For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` <a href="/configure.html#supported-environment-variables">environment variable</a>
+            to `true`.
+
+            For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
+            must be specified.
+          </p>
+        </doc:subsection>
+      </doc:section>
 
       <doc:section name="cluster-formation-requirements">
         <doc:subsection name="hostname-resolution-requirement">
@@ -118,6 +156,7 @@ limitations under the License.
           </p>
           <p>
             To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#supported-environment-variables">Configuration guide</a>.
+            See <a href="#node-names">Node Names</a> above.
           </p>
         </doc:subsection>
 

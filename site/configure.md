@@ -78,7 +78,7 @@ RabbitMQ provides three general ways to customise the server:
       <a href="#customise-environment">Environment Variables</a>
     </td>
     <td>
-      define node name, file and directory locations, runtime flags taken from the shell, or
+      define <a href="/cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or
       set in the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
       and <code>rabbitmq-env-conf.bat</code> (Windows)
     </td>
@@ -1328,8 +1328,8 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
 ## <a id="customise-environment" class="anchor" href="#customise-environment">Customise RabbitMQ Environment</a>
 
 Certain server parameters can be configured using environment variables:
-node name, RabbitMQ configuration file location, inter-node communication ports,
-Erlang VM flags, and so on.
+[node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
+[inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
 
 ### <a id="environment-env-file-unix" class="anchor" href="#environment-env-file-unix">Linux, MacOS, BSD</a>
 
