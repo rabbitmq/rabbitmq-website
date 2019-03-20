@@ -33,8 +33,8 @@ limitations under the License.
         before reading this guide, the reader has a basic understanding of the RabbitMQ
         plugin mechanism. Readers are also expected to have a basic
         understanding of Erlang OTP
-        <a href="http://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
-        <a href="http://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
+        <a href="https://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
+        <a href="https://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
       </p>
 
       <doc:section name="why">
@@ -89,7 +89,7 @@ limitations under the License.
         </p>
         <ul>
           <li>
-            Ensure that you have a working installation of <a href="http://git-scm.com/">Git</a>.
+            Ensure that you have a working installation of <a href="https://git-scm.com/">Git</a>.
           </li>
           <li>
             Ensure that the dependencies detailed in the <a href="build-server.html#prerequisites">Server Build</a>
@@ -98,7 +98,7 @@ limitations under the License.
         </ul>
 
         <p>
-          <a href="http://erlang.mk">Erlang.mk</a> is used to
+          <a href="https://erlang.mk">Erlang.mk</a> is used to
           build RabbitMQ and its plugins. The easiest way to start on
           a new plugin is probably to copy an existing plugin such as
           <tt>rabbitmq-metronome</tt>, <a href="#plugin-hello-world">used

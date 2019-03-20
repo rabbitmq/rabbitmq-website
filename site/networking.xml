@@ -319,7 +319,7 @@ name rabbit at port 25672
         to that list (in other words, <code>epmd</code> will always bind to the loopback interface).
       </p>
       <p>
-        See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+        See the <a href="https://www.erlang.org/doc/man/epmd.html">Erlang epmd
         man page</a> to learn more about <code>epmd</code>.
       </p>
 
@@ -390,9 +390,9 @@ name rabbit at port 25672
         <doc:heading>Proxy Protocol</doc:heading>
         <p>
           RabbitMQ supports
-          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">Proxy protocol</a>.
+          <a href="https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">Proxy protocol</a>.
           The protocol makes servers such as RabbitMQ aware of the actual client IP address
-          when connections go over a proxy (e.g. <a href="http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#send-proxy">HAproxy</a> or <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a>).
+          when connections go over a proxy (e.g. <a href="https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#send-proxy">HAproxy</a> or <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a>).
           This makes it easier for the operator to inspect connection origins in the management UI
           or CLI tools.
         </p>
@@ -420,7 +420,7 @@ proxy_protocol = true
       When proxy protocol is enabled, clients won't be able to connect
       to RabbitMQ directly unless they themselves support the protocol.
       Therefore, when this option is enabled, all client connections must go through
-      a proxy that also supports the protocol and is configured to send a Proxy protocol header. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
+      a proxy that also supports the protocol and is configured to send a Proxy protocol header. <a href="https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
       and <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a> documentation
       explains how to do it.
     </p>
@@ -742,7 +742,7 @@ channel_max = 16
         <doc:heading>Nagle's Algorithm ("nodelay")</doc:heading>
         <p>
           Disabling <a
-          href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
+          href="https://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
           algorithm</a> is primarily useful for reducing latency but
           can also improve
           throughput. <code>kernel.inet_default_connect_options</code>
@@ -867,7 +867,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           Depending on the OS and TCP stack configuration connections can spend minutes in this state,
           which on a busy system is guaranteed to lead to a connection build-up.
 
-          See <a href="http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">Coping with the TCP TIME_WAIT connections on busy servers</a> for details.
+          See <a href="https://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">Coping with the TCP TIME_WAIT connections on busy servers</a> for details.
         </p>
 
         <p>
@@ -1025,7 +1025,7 @@ net.ipv4.tcp_tw_reuse = 1
 
             <dt><code>net.ipv4.conf.default.rp_filter</code></dt>
             <dd>
-              Enabled reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
+              Enabled reverse path filtering. If <a href="https://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
               is not a concern for your system, disable it.
             </dd>
           </dl>
@@ -1073,7 +1073,7 @@ sysctl -w fs.file-max 200000
           <dt><code>tcp_listen_options.nodelay</code></dt>
           <dd>
             When set to <code>true</code>, disables
-            <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
+            <a href="https://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
             Default is true. Highly recommended for most users.
           </dd>
           <dt><code>tcp_listen_options.sndbuf</code></dt>

@@ -32,20 +32,20 @@ limitations under the License.
 
       <ul>
         <li><a href="previous.html">Documentation for previous release series</a></li>
-        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the snapshots</a> (master branch)</li>
+        <li><a href="https://next.rabbitmq.com/documentation.html">Documentation for the snapshots</a> (master branch)</li>
       </ul>
     </x:modal>
 
     <x:modal mode="next">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the current snapshots of the 'master' branch.
-        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        See <a href="https://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
     <x:modal mode="previous">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the historical release, &version-server;.
-        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        See <a href="https://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
 

@@ -48,7 +48,7 @@ limitations under the License.
               connection to the server (i.e. host address and port).</li>
 
               <li>Information to authenticate the client. AMQP 0-9-1 uses <a
-              href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
+              href="https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
               for authentication.  Typically the <code>PLAIN</code> mechanism is
               used, and so the authentication parameters consist of a
               username and password.</li>
@@ -80,7 +80,7 @@ limitations under the License.
           that convention, so that it may be implemented consistently
           by many AMQP 0-9-1 client libraries. An obvious basis for such a
           standard is the generic syntax for URIs defined in <a
-          href="http://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
+          href="https://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
       </p>
 
       <p>
@@ -95,7 +95,7 @@ limitations under the License.
           The syntax of an AMQP 0-9-1 URI is defined by the following ABNF
           rules.  All names in these rules not defined here are taken
           from <a
-          href="http://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
+          href="https://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
       </p>
 
 <pre>amqp_URI       = "amqp://" amqp_authority [ "/" vhost ] [ "?" query ]
@@ -270,7 +270,7 @@ vhost          = segment</pre>
 
       <p>
           In cases where the traffic must be secured, TLS (see <a
-          href="http://tools.ietf.org/rfc/rfc5246.txt">RFC5246</a>)
+          href="https://tools.ietf.org/rfc/rfc5246.txt">RFC5246</a>)
           can be used.  Current practice is simply to layer AMQP
           0-9-1 on top of TLS to form "AMQPS" (analogously to the
           way HTTPS layers HTTP on top of TLS).  AMQP 0-9-1 does

@@ -96,7 +96,7 @@ rabbitmq-plugins enable rabbitmq_management
           <p>
             The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
             for a node running on a machine with the hostname of <code>warp10.local</code>,
-            it can be accessed at either <code>http://warp10.local:15672/</code>
+            it can be accessed at either <code>https://warp10.local:15672/</code>
             or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
           </p>
 
@@ -546,7 +546,7 @@ management.listener.server.compress = true
           <p>
             Some HTTP API endpoints respond quickly, others may need to return or stream
             a sizeable data set to the client (e.g. many thousands of connections) or perform
-            an operation that takes time proportionally to the input (e.g. <a href="http://www.rabbitmq.com/management.html#load-definitions">import a large definitions file</a>).
+            an operation that takes time proportionally to the input (e.g. <a href="https://www.rabbitmq.com/management.html#load-definitions">import a large definitions file</a>).
             In those cases the amount of time it takes to process the request can exceed certain
             timeouts in the Web server as well as HTTP client.
 

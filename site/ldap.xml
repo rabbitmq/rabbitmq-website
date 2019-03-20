@@ -773,7 +773,7 @@ auth_ldap.other_bind.password = a-password</pre>
         <p>
           The terms configure, write and read for resource access have the
           same meanings that they do for the built-in RabbitMQ permissions
-          system, see http://www.rabbitmq.com/access-control.html. See
+          system, see https://www.rabbitmq.com/access-control.html. See
           also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
           for <code>topic_access_query</code>.
         </p>
@@ -1181,7 +1181,7 @@ auth_ldap.log        = false
       </p>
 
       <p>
-        <a href="http://bit.ly/2GPyTmq">ldapsearch</a> is a command line tool that ships with LDAP and makes it possible to execute arbitrary
+        <a href="https://bit.ly/2GPyTmq">ldapsearch</a> is a command line tool that ships with LDAP and makes it possible to execute arbitrary
         LDAP queries against an OpenLDAP installation. This can be useful when troubleshooting complex authorisation
         queries. <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772839(v=ws.10)">ldp.exe</a> is the Active Directory counterpart.
       </p>

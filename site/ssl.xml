@@ -76,7 +76,7 @@ limitations under the license.
             <ul>
               <li>Configure RabbitMQ to handle TLS connections</li>
               <li>
-                Use a proxy or load balancer (such as <a href="http://www.haproxy.org/">HAproxy</a>)
+                Use a proxy or load balancer (such as <a href="https://www.haproxy.org/">HAproxy</a>)
                 to perform <a href="https://en.wikipedia.org/wiki/TLS_termination_proxy">TLS termination</a> of client connections and use plain TCP connections
                 to RabbitMQ nodes.
               </li>
@@ -102,9 +102,9 @@ limitations under the license.
             The Erlang <code>asn1</code>, <code>crypto</code>,
             <code>public_key</code>, and <code>ssl</code> libraries
             (applications) must be installed and functional. On Debian and
-            Ubuntu this is provided by the <a href="http://packages.ubuntu.com/search?keywords=erlang-asn1">erlang-asn1</a>,
-            <a href="http://packages.ubuntu.com/search?keywords=erlang-crypto">erlang-crypto</a>, <a href="http://packages.ubuntu.com/search?keywords=erlang-public-key">erlang-public-key</a>, and
-            <a href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> packages, respectively. The <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency
+            Ubuntu this is provided by the <a href="https://packages.ubuntu.com/search?keywords=erlang-asn1">erlang-asn1</a>,
+            <a href="https://packages.ubuntu.com/search?keywords=erlang-crypto">erlang-crypto</a>, <a href="https://packages.ubuntu.com/search?keywords=erlang-public-key">erlang-public-key</a>, and
+            <a href="https://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> packages, respectively. The <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency
             Erlang RPM for RabbitMQ</a> includes the above modules.
           </p>
 
@@ -154,7 +154,7 @@ limitations under the license.
         <p>
           For a thorough understanding of
           TLS and how to get the most out of it, we would recommend the use
-          of other resources, for example <a class="extlink" href="http://oreilly.com/catalog/9780596002701/">Network Security with
+          of other resources, for example <a class="extlink" href="https://oreilly.com/catalog/9780596002701/">Network Security with
           OpenSSL</a>.
         </p>
 
@@ -419,7 +419,7 @@ ssl_options.password   = t0p$3kRe7
           ]}
 ].
 </pre>
-              Classic config file format allows for <a href="http://www.rabbitmq.com/configure.html#configuration-encryption">config value encryption</a>,
+              Classic config file format allows for <a href="https://www.rabbitmq.com/configure.html#configuration-encryption">config value encryption</a>,
               which is recommended for passwords.
             </p>
           </doc:subsection>
@@ -1235,13 +1235,13 @@ namespace RabbitMQ.client.Examples {
             </p>
 
             <p>
-              On the .NET platform, <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificatevalidationCallback</a>
+              On the .NET platform, <a href="https://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificatevalidationCallback</a>
               controls TLS verification behavior.
             </p>
 
             <p>
               In RabbitMQ .NET client, <code>RabbitMQ.client.SslOption.CertificatevalidationCallback</code>
-              can be used to provide a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificatevalidationCallback</a>
+              can be used to provide a <a href="https://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx">RemoteCertificatevalidationCallback</a>
               delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
               the applications.
 
@@ -1258,7 +1258,7 @@ namespace RabbitMQ.client.Examples {
             <p>
               <code>RabbitMQ.client.SslOption.CertificateSelectionCallback</code>
               can be used to provide
-              a <a href="http://msdn.microsoft.com/en-us/library/system.net.security.localcertificateselectioncallback(v=vs.110).aspx">LocalCertificateSelectionCallback</a>
+              a <a href="https://msdn.microsoft.com/en-us/library/system.net.security.localcertificateselectioncallback(v=vs.110).aspx">LocalCertificateSelectionCallback</a>
               that will select the local certificate used for peer verification.
             </p>
         </doc:subsection>
@@ -1408,21 +1408,21 @@ Protocol  : TLSv1
             </tr>
             <tr>
               <td>TLS 1.1</td>
-              <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
-              <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
+              <td>JDK 7 (see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+              <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
               <td>.NET 4.5</td>
             </tr>
             <tr>
               <td>TLS 1.2</td>
-              <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
-              <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
+              <td>JDK 7 (see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+              <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
               <td>.NET 4.5</td>
             </tr>
           </table>
 
           <ul>
-            <li><a href="http://msdn.microsoft.com/en-us/library/system.security.authentication.sslprotocols(v=vs.110).aspx">.NET versions source</a>.</li>
-            <li><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">JDK versions source</a>.</li>
+            <li><a href="https://msdn.microsoft.com/en-us/library/system.security.authentication.sslprotocols(v=vs.110).aspx">.NET versions source</a>.</li>
+            <li><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">JDK versions source</a>.</li>
           </ul>
         </doc:subsection>
     </doc:section>
@@ -1675,13 +1675,13 @@ Or, in the classic config format:
           Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
           the POODLE attack that affects TLSv1.0 was <a href="https://www.imperialviolet.org/2014/12/08/poodleagain.html">announced</a>.
           It is therefore recommended to either run Erlang 18.0 or later, which
-          <a href="http://www.erlang.org/news/88">etrminates TLS 1.0 implementation vulnerability to POODLE</a>,
+          <a href="https://www.erlang.org/news/88">etrminates TLS 1.0 implementation vulnerability to POODLE</a>,
           or <a href="#disabling-tls-versions">disable TLSv1.0 support</a>.
       </p>
 
       <h4>BEAST</h4>
       <p>
-          <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack">BEAST attack</a> is a known vulnerability that
+          <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack">BEAST attack</a> is a known vulnerability that
           affects TLSv1.0. To mitigate it, <a href="#disabling-tls-versions">disable TLSv1.0 support</a>.
       </p>
     </doc:section>

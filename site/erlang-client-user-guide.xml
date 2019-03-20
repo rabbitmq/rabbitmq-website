@@ -35,7 +35,7 @@ limitations under the License.
    </p>
    <p>
      This user guide assumes that the reader is familiar with <a
-     href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">basic
+     href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">basic
      concepts of AMQP 0-9-1</a> and understands exchanges, queues and
      bindings.
    </p>

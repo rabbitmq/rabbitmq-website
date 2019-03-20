@@ -147,7 +147,7 @@ Memory limit set to 2048MB.</pre>
       <pre class="sourcecode">=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
 Only 2048MB of 12037MB memory usable due to limited address space.
 Crashes due to memory exhaustion are possible - see
-http://www.rabbitmq.com/memory.html#address-space</pre>
+https://www.rabbitmq.com/memory.html#address-space</pre>
 
       <p>
         The memory alarm system is not perfect. While stopping publishing

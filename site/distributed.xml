@@ -162,12 +162,12 @@ limitations under the License.
       <tr>
         <td>
           Chooses Availability and Partition Tolerance (AP) from
-          the <a href="http://en.wikipedia.org/wiki/CAP_theorem">CAP
+          the <a href="https://en.wikipedia.org/wiki/CAP_theorem">CAP
           theorem</a>.
         </td>
         <td>
           Chooses Consistency and Partition Tolerance (CP)
-          from the <a href="http://en.wikipedia.org/wiki/CAP_theorem">CAP
+          from the <a href="https://en.wikipedia.org/wiki/CAP_theorem">CAP
           theorem</a>.
         </td>
       </tr>

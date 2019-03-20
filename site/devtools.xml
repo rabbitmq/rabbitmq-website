@@ -55,13 +55,13 @@ limitations under the License.
             <h4>Spring Framework</h4>
             <ul class="plain">
               <li>
-                <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a>
+                <a href="https://www.springsource.org/spring-amqp">Spring AMQP project for Java</a>
               </li>
               <li>
-                <a href="http://cloud.spring.io/spring-cloud-dataflow/">Spring Cloud Data Flow</a>
+                <a href="https://cloud.spring.io/spring-cloud-dataflow/">Spring Cloud Data Flow</a>
               </li>
               <li>
-                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">Spring Integration</a>
+                <a href="https://docs.spring.io/spring-integration/reference/html/amqp.html">Spring Integration</a>
               </li>
 
             </ul>
@@ -77,7 +77,7 @@ limitations under the License.
                 <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
               </li>
               <li>
-                <a href="http://particular.net/nservicebus">NServiceBus</a>, the most popular open-source service bus for .NET.
+                <a href="https://particular.net/nservicebus">NServiceBus</a>, the most popular open-source service bus for .NET.
               </li>
               <li>
                 <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
@@ -101,7 +101,7 @@ limitations under the License.
                 <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
               </li>
               <li>
-                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
+                <a href="https://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
               </li>
               <li>
                 <a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
@@ -113,7 +113,7 @@ limitations under the License.
                 <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
               </li>
               <li>
-                <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
+                <a href="https://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
               </li>
             </ul>
           </doc:section>
@@ -122,9 +122,9 @@ limitations under the License.
             <doc:heading>Python</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
+                <a href="https://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
                 (<a href="https://github.com/pika/pika">source code</a>,
-                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
+                <a href="https://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
               </li>
               <li>
                 <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
@@ -150,7 +150,7 @@ limitations under the License.
                 <a href="https://github.com/php-amqplib/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
               </li>
               <li>
-                <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
+                <a href="https://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
               </li>
               <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
@@ -159,7 +159,7 @@ limitations under the License.
                 <a href="https://github.com/php-amqplib/Thumper">Thumper</a> a library of messaging patterns
               </li>
               <li>
-                <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
+                <a href="https://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
               </li>
               <li>
                 <a href="https://github.com/queue-interop/queue-interop#amqp-interop">AMQP Interop</a> is a set of unified AMQP interfaces and their implementations
@@ -176,7 +176,7 @@ limitations under the License.
               </li>
               <li>
                 <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                Message patterns in node.js using RabbitMQ. See also <a href="https://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
                 these installation instructions</a> for rabbit.js on Ubuntu.
               </li>
               <li>
@@ -221,7 +221,7 @@ limitations under the License.
                 client for Scala.
               </li>
               <li>
-                <a href="http://typesafe.com/activator/template/rabbitmq-akka-stream">Processing RabbitMQ messages using Akka Streams</a>
+                <a href="https://typesafe.com/activator/template/rabbitmq-akka-stream">Processing RabbitMQ messages using Akka Streams</a>
               </li>
               <li>
                 <a href="https://www.playframework.com/modules/rabbitmq-0.0.9/home">RabbitMQ module for Play Framework</a>
@@ -233,7 +233,7 @@ limitations under the License.
             <h4>Groovy and Grails</h4>
             <ul class="plain">
               <li>
-                <a href="http://grails.org/plugin/rabbitmq-native">Grails RabbitMQ plugin</a>
+                <a href="https://grails.org/plugin/rabbitmq-native">Grails RabbitMQ plugin</a>
               </li>
               <li>
                 <a href="resources/grails-amqp.pdf">Grails with RabbitMQ for messaging</a> (PDF)
@@ -440,7 +440,7 @@ limitations under the License.
                 A web chat room implemented with RabbitMQ and Websockets
               </li>
               <li>
-                <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a>
+                <a href="https://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a>
                 <br/>
                 A port of as3-amqp to haXe
               </li>
@@ -523,7 +523,7 @@ limitations under the License.
             <doc:heading>COBOL</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
+                <a href="https://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
               </li>
             </ul>
           </doc:section>
@@ -544,17 +544,17 @@ limitations under the License.
                 <a href="https://github.com/ericliang/rabbitmq-xmpp">XMPP adaptor</a>
               </li>
               <li>
-                <a href="http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
+                <a href="https://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
               </li>
               <li>
-                <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>
+                <a href="https://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>
               </li>
               <li>
                 <a href="https://github.com/bkjones/bevis">bevis</a><br/>
                 A syslog listener that forwards messages over AMQP.
               </li>
               <li>
-                <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
+                <a href="https://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
                 <br />
                 A memcached adapter for RabbitMQ that allows you use the memcache protocol to
                 get or publish a message from or to RabbitMQ.
@@ -565,7 +565,7 @@ limitations under the License.
                 A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
               </li>
               <li>
-                <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
+                <a href="https://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
                 <br/>
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
               </li>

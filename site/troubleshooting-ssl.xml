@@ -185,8 +185,8 @@ ssl:versions().
        <doc:subsection name="openssl-tools">
          <doc:heading>Use OpenSSL Tools to Test TLS Connections</doc:heading>
          <p>
-           OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
-           and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>
+           OpenSSL <a href="https://www.openssl.org/docs/apps/s_client.html">s_client</a>
+           and <a href="https://www.openssl.org/docs/apps/s_server.html">s_server</a>
            are commonly used command line tools that can be used to test TLS connections
            and certificate/key pairs. They help narrow problems down by testing against
            alternative TLS client and server implementations. For example, if a certain TLS
@@ -314,7 +314,7 @@ openssl s_client -connect localhost:5671 -cert client_certificate.pem -key clien
       <doc:subsection name="validate-with-stunnel">
        <doc:heading>Validate Client Connections with Stunnel</doc:heading>
        <p>
-         <a href="http://www.stunnel.org/">stunnel</a> is a tool that can be used to validate TLS-enabled clients.
+         <a href="https://www.stunnel.org/">stunnel</a> is a tool that can be used to validate TLS-enabled clients.
          In this configuration clients will make a secure connection to stunnel,
          which will pass the decrypted data through to a "regular" port of the broker (say, 5672 for AMQP 0-9-1 and AMQP 1.0).
          This provides some confidence that the client TLS configuration is correct independently of the broker TLS configuration.
@@ -377,7 +377,7 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
         <dd>
           The <code>crypto</code> module is missing in the Erlang/OTP installation
           used or it is out of date. On Debian, Ubuntu, and other Debian-derived distributions
-          it usually means that the <a href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> package was not installed.
+          it usually means that the <a href="https://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> package was not installed.
         </dd>
           <dt>
              Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>

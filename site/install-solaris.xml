@@ -44,9 +44,9 @@ limitations under the License.
           The RabbitMQ shell scripts assume the existence of the
           "readlink" utility for resolving symbolic links. This can be
           obtained by installing the
-          <a href="http://www.sunfreeware.com/">Sunfreeware</a>
+          <a href="introduction.html">Sunfreeware</a>
           "coreutils" package or compiling
-          <a href="http://www.gnu.org/software/coreutils/">GNU
+          <a href="https://www.gnu.org/software/coreutils/">GNU
             coreutils</a>.
         </li>
       </ul>

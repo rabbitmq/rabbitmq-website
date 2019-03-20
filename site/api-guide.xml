@@ -28,7 +28,7 @@ limitations under the License.
 
         <p class="intro">
           This guide covers <a href="/java-client.html">RabbitMQ Java client</a> and its public API.
-          It assumes that the <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
+          It assumes that the <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22">most recent major version of the client</a> is used
           and the reader is familiar with <a href="/getstarted.html">the basics</a>.
 
           Key sections of the guide are:
@@ -57,7 +57,7 @@ limitations under the License.
           <ul>
             <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
             <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-            <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
           </ul>
 
           This means that the user can consider the library to be licensed under any of the licenses from the list above.
@@ -478,7 +478,7 @@ channel.basicPublish(exchangeName, routingKey,
 
       <p>
         Invocations of <code>Channel#basicPublish</code> will eventually block if a
-        <a href="http://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
+        <a href="https://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
       </p>
     </doc:section>
 
@@ -1434,8 +1434,8 @@ cf.setExceptionHandler(customHandler);
       </p>
       <p>
           The client supports
-          <a href="http://micrometer.io">Micrometer</a> (as of version 4.3) and
-          <a href="http://metrics.dropwizard.io">Dropwizard Metrics</a>
+          <a href="https://micrometer.io">Micrometer</a> (as of version 4.3) and
+          <a href="https://metrics.dropwizard.io">Dropwizard Metrics</a>
           out of the box.
       </p>
         <p>
@@ -1506,7 +1506,7 @@ cf.setExceptionHandler(customHandler);
 
           <p>
              You can enable metrics collection with
-             <a href="http://micrometer.io">Micrometer</a> the following way:
+             <a href="https://micrometer.io">Micrometer</a> the following way:
 
 <pre class="lang-java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -1519,7 +1519,7 @@ metrics.getPublishedMessages(); // get Micrometer's Counter object
           </p>
           <p>
               Micrometer supports
-              <a href="http://micrometer.io/docs">several reporting backends</a>:
+              <a href="https://micrometer.io/docs">several reporting backends</a>:
               Netflix Atlas, Prometheus, Datadog, Influx, JMX, etc.
           </p>
 
@@ -1544,7 +1544,7 @@ connectionFactory.setMetricsCollector(metrics);
 
           <p>
               You can enable metrics collection with
-              <a href="http://metrics.dropwizard.io">Dropwizard</a> the following way:
+              <a href="https://metrics.dropwizard.io">Dropwizard</a> the following way:
 
 <pre class="lang-java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -1557,7 +1557,7 @@ metrics.getPublishedMessages(); // get Metrics' Meter object
 
         <p>
           Dropwizard Metrics supports
-          <a href="http://metrics.dropwizard.io/3.2.3/getting-started.html">several reporting backends</a>:
+          <a href="https://metrics.dropwizard.io/3.2.3/getting-started.html">several reporting backends</a>:
           console, JMX, HTTP, Graphite, Ganglia, etc.
         </p>
 

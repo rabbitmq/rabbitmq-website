@@ -150,7 +150,7 @@ limitations under the License.
           <p>
             Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
             <code>rabbitmq.config</code> and used <a
-            href="http://www.erlang.org/doc/man/config.html">an Erlang term
+            href="https://www.erlang.org/doc/man/config.html">an Erlang term
             configuration format</a>. That format is <a href="#config-file-formats">still supported</a> for backwards compatibility.
             Those running 3.7.0 or later are recommended to consider the new sysctl format.
           </p>
@@ -224,7 +224,7 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
           <p>
             Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
             <code>rabbitmq.config</code> and used <a
-            href="http://www.erlang.org/doc/man/config.html">an Erlang term
+            href="https://www.erlang.org/doc/man/config.html">an Erlang term
             configuration format</a>. That format is still supported for backwards compatibility.
             Those running 3.7.0 or later are recommended to consider the new sysctl format.
           </p>
@@ -1121,13 +1121,13 @@ queue_master_locator = client-local
               </td>
               <td>
                 If set to <code>true</code>, RabbitMQ will expect a <a
-                href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy
+                href="https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy
                 protocol</a> header to be sent first when an AMQP
                 connection is opened.  This implies to set up a proxy
                 protocol-compliant reverse proxy (e.g. <a
-                href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
+                href="https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
                 or <a
-                href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS
+                href="https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS
                 ELB</a>) in front of RabbitMQ.  Clients can't directly
                 connect to RabbitMQ when proxy protocol is enabled, so
                 all connections must go through the reverse proxy.

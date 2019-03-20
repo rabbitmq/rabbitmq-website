@@ -55,13 +55,13 @@ limitations under the License.
     </blockquote>
     <p>
       For more information on what AMQP is, please see
-        the <a href="http://amqp.org/about/what">AMQP
+        the <a href="https://amqp.org/about/what">AMQP
         Working Group's overview page</a>.
     </p>
     <h2 id="downloads">Downloads</h2>
     <p>
       All AMQP specifications and protocol definitions are published under
-      the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
+      the <a href="https://www.amqp.org/legal/amqp-license">AMQP license</a>
       unless stated otherwise.
     </p>
     <xi:include href="amqp-proto-download-table.xml.inc"/>

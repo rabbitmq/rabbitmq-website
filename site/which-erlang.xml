@@ -198,7 +198,7 @@ limitations under the License.
 
       <p>
         If a sufficiently recent Erlang package is not available for your system then you will need to
-        <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
+        <a href="https://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
         This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
         <a href="https://github.com/kerl/kerl">kerl</a> is the recommended way of doing that.
       </p>

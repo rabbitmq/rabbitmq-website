@@ -122,8 +122,8 @@ limitations under the License.
             If the service fails to install, check the service account has full access permission for
             <b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
             <b>RABBITMQ_LOG_BASE</b> directories
-            [<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
-                <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
+            [<a href="https://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
+                <a href="https://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
             </p>
           </dd>
           <dt><strong>Windows Service fails to Start</strong></dt>

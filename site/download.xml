@@ -106,7 +106,7 @@ limitations under the License.
         <ul>
           <li><a href="ec2.html">Amazon EC2</a></li>
           <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
-          <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
+          <li><a href="https://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
           <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>
         </ul>
       </doc:section>
@@ -177,7 +177,7 @@ limitations under the License.
         <ul>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-server/releases">3.5.0 or later</a> |
-            <a href="http://www.rabbitmq.com/releases/rabbitmq-server/">Older than 3.5.0</a> |
+            <a href="https://www.rabbitmq.com/releases/rabbitmq-server/">Older than 3.5.0</a> |
             <a href="changelog.html">Changelog</a>
           </li>
         </ul>
@@ -194,13 +194,13 @@ limitations under the License.
           <ul>
             <li>
               On Maven Central:
-              <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22">RabbitMQ Java client</a>.
+              <a href="https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22">RabbitMQ Java client</a>.
             </li>
             <li>
               Quick download:
-              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Maven.org</a>
+              <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar">Maven.org</a>
               |
-              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
+              <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
             </li>
             <li>
               <a href="/api-guide.html">API guide</a>
@@ -212,7 +212,7 @@ limitations under the License.
               <a href="java-client.html">License and other information</a>
             </li>
             <li>
-              <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
+              <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
             </li>
           </ul>
         </doc:subsection>
@@ -223,7 +223,7 @@ limitations under the License.
           <ul>
             <li>
               On Maven Central:
-              <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
+              <a href="https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
             </li>
           </ul>
         </doc:subsection>
@@ -323,7 +323,7 @@ limitations under the License.
       <h2>Looking for RabbitMQ?</h2>
       <p>
         If you came to this site looking to install RabbitMQ, go
-        to <a href="http://www.rabbitmq.com/download.html">the main
+        to <a href="https://www.rabbitmq.com/download.html">the main
           RabbitMQ downloads page</a>.
       </p>
     </div>
@@ -331,7 +331,7 @@ limitations under the License.
       <h2>Snapshots</h2>
       <p>
         If you feel so inclined, you can
-        try <a href="http://www.rabbitmq.com/snapshots.html">snapshot builds</a>.
+        try <a href="https://www.rabbitmq.com/snapshots.html">snapshot builds</a>.
       </p>
     </div>
     </x:modal>
@@ -340,7 +340,7 @@ limitations under the License.
       <h2>Looking for RabbitMQ?</h2>
       <p>
         If you came to this site looking to install RabbitMQ, go
-        to <a href="http://www.rabbitmq.com/download.html">the main
+        to <a href="https://www.rabbitmq.com/download.html">the main
           RabbitMQ downloads page</a>.
       </p>
     </div>
@@ -348,7 +348,7 @@ limitations under the License.
       <h2>Previous releases</h2>
       <p>
         If you wish to download older releases of RabbitMQ, you can go
-        to <a href="http://www.rabbitmq.com/releases/rabbitmq-server/">the release archive</a>.
+        to <a href="https://www.rabbitmq.com/releases/rabbitmq-server/">the release archive</a>.
         Starting with 3.5.0, all releases are <a href="https://github.com/rabbitmq/rabbitmq-server/releases">published to GitHub</a>.
       </p>
     </div>

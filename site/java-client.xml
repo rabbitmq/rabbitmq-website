@@ -45,7 +45,7 @@ limitations under the License.
       <ul>
         <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
         <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-        <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+        <li><a href="https://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
       </ul>
 
       This means that the user can consider the library to be licensed under any of the licenses from the list above.
@@ -103,12 +103,12 @@ dependencies {
     </p>
 
     <r:downloads signature="yes">
-      <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar"
+      <r:download url="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar"
                   downloadfile="amqp-client-&version-java-client;.jar"
                   absolute="yes">
 	Binary, compiled for JDK 8 (Android 7.0) or newer
       </r:download>
-      <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar"
+      <r:download url="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar"
                   downloadfile="amqp-client-&version-java-client;-sources.jar"
                   absolute="yes">
 	Source code
@@ -133,7 +133,7 @@ dependencies {
     </p>
 
     <r:downloads signature="yes">
-      <r:download url="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-javadoc.jar"
+      <r:download url="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-javadoc.jar"
                   downloadfile="amqp-client-&version-java-client;-javadoc.jar"
                   absolute="yes">
 	A JAR file containing generated Javadoc documentation
@@ -145,7 +145,7 @@ dependencies {
     <h3>Other versions</h3>
 
     <p>
-      Consult <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">the
+      Consult <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">the
       archive</a> if you want to download a version of the RabbitMQ
       Java Client library or documentation other than the above.
     </p>

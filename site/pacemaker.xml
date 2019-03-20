@@ -61,9 +61,9 @@ limitations under the License.
 	<doc:heading>Requirements</doc:heading>
 
         <p>This guide assumes that you're going to use the <a
-        href="http://www.clusterlabs.org/">Pacemaker</a> HA stack to
+        href="https://www.clusterlabs.org/">Pacemaker</a> HA stack to
         do the resource management and monitoring. This guide will
-        also make use of <a href="http://www.drbd.org/">DRBD</a> to
+        also make use of <a href="https://www.linbit.com/en/drbd-community/drbd-download/">DRBD</a> to
         provide a shared storage area in which the active node will
         write messages. If you have a NAS or SAN or some other means
         of providing reliable shared storage to both nodes, then you
@@ -91,13 +91,13 @@ limitations under the License.
 
         <p><ul class="plain">
           <li><a
-          href="http://www.clusterlabs.org/wiki/Install">Pacemaker
+          href="https://www.clusterlabs.org/wiki/Install">Pacemaker
           install guide</a></li>
 	  <li>General <a
-	  href="http://www.clusterlabs.org/wiki/Documentation">Pacemaker
+	  href="https://www.clusterlabs.org/wiki/Documentation">Pacemaker
 	  documentation</a>: In particular, see the <i>Clusters from
 	  scratch</i> guides</li>
-          <li><a href="http://www.drbd.org/users-guide/">DRBD
+          <li><a href="https://www.linbit.com/en/drbd-community/drbd-download/">DRBD
           users guide</a></li>
         </ul></p>
 
@@ -192,7 +192,7 @@ rsc_defaults $id="rsc-options" \
         instructions here are adapted for our setup but are pretty
         much the same as from the <i>Clusters from scratch</i> guides
         and from the <a
-        href="http://www.drbd.org/users-guide/ch-pacemaker.html">DRBD
+        href="https://www.linbit.com/en/drbd-community/drbd-download/">DRBD
         Pacemaker documentation</a>. DRBD only allows one node at a
         time access to the shared device, so there is never any danger
         of multiple nodes writing over the same data. If you're using
@@ -573,7 +573,7 @@ ha-node-3:~#
         </p>
         <p>
           To start using this OCF agent, first create a
-          <a href="http://clusterlabs.org/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-resource-multistate.html">multi-state resource</a>
+          <a href="https://clusterlabs.org/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-resource-multistate.html">multi-state resource</a>
           in your running Pacemaker cluster of 3 or more nodes. Note, that a Pacemaker >= 1.1.14
           is recommended. With either the <code>pcs</code>
           or <code>crm</code> tools, the example commands may look like:

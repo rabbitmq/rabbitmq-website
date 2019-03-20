@@ -29,7 +29,7 @@ limitations under the License.
 
       <doc:section name="overview">
         <p>
-          <a href="http://git-scm.com/">Git</a> is a fast, powerful
+          <a href="https://git-scm.com/">Git</a> is a fast, powerful
           distributed source control management system.
         </p>
         <p>
@@ -38,7 +38,7 @@ limitations under the License.
         </p>
         <ul>
           <li>Git has numerous <a
-          href="http://git-scm.com/doc">tutorials</a>.</li>
+          href="https://git-scm.com/doc">tutorials</a>.</li>
 
           <li>
             <a href="https://github.com/rabbitmq">RabbitMQ's Git repositories</a> are hosted on GitHub.

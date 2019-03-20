@@ -89,7 +89,7 @@ limitations under the License.
       <p>
         Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
         they can connect to a specific vhost, use TLS, use multiple
-        <a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
+        <a href="https://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
       </p>
 
       <p>

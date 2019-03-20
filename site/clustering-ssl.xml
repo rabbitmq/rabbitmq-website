@@ -138,7 +138,7 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
 
       <doc:section name="how-to-linux-ssl_dist_optfile">
         <doc:heading>Linux (Erlang 20.2 and later)</doc:heading>
-        <p>Starting with <a href="http://www.erlang.org/news/116">version 20.2</a>,
+        <p>Starting with <a href="https://www.erlang.org/news/116">version 20.2</a>,
           Erlang supports the <code>-ssl_dist_optfile</code>
           argument that allows configuring TLS for distributed Erlang in a file. This greatly simplifies
           the arguments passed on the command line itself.

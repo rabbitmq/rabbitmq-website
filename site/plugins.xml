@@ -505,7 +505,7 @@ rabbitmqctl environment | grep enabled_plugins                                  
         </r:plugin>
 
         <r:plugin name="rabbitmq_stomp">
-          Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
+          Provides <a href="https://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
           <ul>
             <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
           </ul>

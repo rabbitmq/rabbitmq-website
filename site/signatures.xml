@@ -43,7 +43,7 @@ limitations under the License.
       <doc:heading>Signing Keys</doc:heading>
       <p>
         RabbitMQ release artifacts, both binary and source,
-        are signed using <a href="http://www.gnupg.org/">GnuPG</a> and <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">our release signing key</a>.
+        are signed using <a href="https://www.gnupg.org/">GnuPG</a> and <a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">our release signing key</a>.
       </p>
       <p>
         Services that distribute packages can do signing on behalf of the publisher. <a href="#package-cloud">Package Cloud</a> is one such

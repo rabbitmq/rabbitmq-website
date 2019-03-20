@@ -74,16 +74,16 @@ limitations under the License.
               <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">RabbitMQ Erlang client</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Network.AMQP</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="https://hackage.haskell.org/package/amqp">Network.AMQP</a>)
             </li>
             <li>
               <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
             </li>
               <li>
-              <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="http://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
+              <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="https://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala">Scala</a> (using <a href="http://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala">Scala</a> (using <a href="https://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
             </li>
           </ul>
         </p>

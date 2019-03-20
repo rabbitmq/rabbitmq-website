@@ -136,7 +136,7 @@ limitations under the License.
           date and involve installation of a potentially excessive list of dependencies.
         </li>
         <li>
-          <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> ("Extra Packages
+          <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> ("Extra Packages
           for Enterprise Linux"); part of the Red Hat/Fedora organisation,
           provides many additional packages, including Erlang. These are the
           most official packages but tend to be out of date.
@@ -172,13 +172,13 @@ sudo zypper in erlang
 
           Erlang versions available in the standard repositories will in practice be behind the most recent version.
           To use the last version with the newest features, add the
-          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>.
+          <a href="https://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>.
 
           For example, for openSUSE Leap 15:
 
 <pre class="sourcecode bash">
 # add the openSUSE erlang factory repository for leap 15
-sudo zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+sudo zypper addrepo https://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
 
 # import the signing key and refresh the repository
 sudo zypper --gpg-auto-import-keys refresh
@@ -213,7 +213,7 @@ sudo zypper in erlang
         <doc:heading>Erlang package from the EPEL Repository</doc:heading>
 
         <p>
-          Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on the target
+          Follow the steps in the <a href="https://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on the target
           machine, then run the following command as root:
 <pre class="lang-bash">
 yum install erlang

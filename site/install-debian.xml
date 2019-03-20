@@ -275,7 +275,7 @@ deb https://dl.bintray.com/rabbitmq/debian $distribution $component
          Consider the following repository file at <code>/etc/apt/sources.list.d/bintray.erlang.list</code>:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
          It configures apt to install the most recent Erlang/OTP version available in the
@@ -286,14 +286,14 @@ deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
          For Debian Stretch the file would look like this:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq-erlang/debian stretch erlang
+deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang
 </pre>
 
          To use the most recent <code>20.x</code> patch release available, switch the component
          to <code>erlang-20.x</code>:
 
 <pre class="sourcecode">
-deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 </pre>
 
          <code>erlang-21.x</code>, <code>erlang-19.x</code>, and <code>erlang-16.x</code> are the components for Erlang 21.x,

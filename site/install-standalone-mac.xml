@@ -63,7 +63,7 @@ limitations under the License.
       <doc:subsection name="erlang-provided">
         <doc:heading>Erlang Runtime is Included</doc:heading>
         <p>
-          This build of RabbitMQ <a href="http://www.erlang.org/doc/design_principles/release_structure.html">incudes</a> an Erlang runtime.
+          This build of RabbitMQ <a href="https://www.erlang.org/doc/design_principles/release_structure.html">incudes</a> an Erlang runtime.
           That means that there is no need to install Erlang separately to run RabbitMQ.
         </p>
       </doc:subsection>
@@ -72,7 +72,7 @@ limitations under the License.
         <doc:heading>Dependencies</doc:heading>
         <p>
           This package requires OpenSSL 1.1.x or 1.0.x installed. We strongly recommend
-          doing this via <a href="http://brew.sh/">Homebrew</a> to avoid possible
+          doing this via <a href="https://brew.sh/">Homebrew</a> to avoid possible
           issues with dynamic library paths.
         </p>
       </doc:subsection>

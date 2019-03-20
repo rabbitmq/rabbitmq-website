@@ -60,7 +60,7 @@ limitations under the License.
 
         <h3>STOMP</h3>
         <p>
-          <a href="http://stomp.github.io/">STOMP</a> is a text-based
+          <a href="https://stomp.github.io/">STOMP</a> is a text-based
           messaging protocol emphasising (protocol) simplicity. It
           defines little in the way of messaging semantics, but is
           easy to implement and very easy to implement partially (it's
@@ -74,7 +74,7 @@ limitations under the License.
 
         <h3>MQTT</h3>
         <p>
-          <a href="http://mqtt.org/">MQTT</a> is a binary protocol
+          <a href="https://mqtt.org/">MQTT</a> is a binary protocol
           emphasising lightweight publish / subscribe messaging,
           targetted towards clients in constrained devices. It has
           well defined messaging semantics for publish / subscribe,
@@ -120,7 +120,7 @@ limitations under the License.
           <li>
             The <a href="plugins.html">JSON-RPC channel plugin</a> supports
             AMQP 0-9-1 messaging
-            over <a href="http://json-rpc.org/">JSON-RPC</a> to the
+            over <a href="https://www.jsonrpc.org/">JSON-RPC</a> to the
             browser. Note that since JSON RPC is a synchronous protocol, some
             parts of AMQP that depend on asynchronous delivery to the client
             are emulated by polling.

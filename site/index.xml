@@ -199,7 +199,7 @@ limitations under the License.
                 Pivotal Software provides <a href="/services.html">support for open source RabbitMQ</a>. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html" target="_blank">Erlang Solutions</a>,
-                <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
+                <a href="https://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
                 <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>.
                 RabbitMQ can also be deployed in
                 <a href="/ec2.html">AWS</a> and
@@ -210,7 +210,7 @@ limitations under the License.
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
                 <a href="https://academy.pivotal.io/store-catalog" target="_blank">Pivotal Software</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
-                <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
+                <a href="https://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
                 <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a>.
               </p>
             </div>
@@ -258,10 +258,10 @@ limitations under the License.
         This website, <b>next.rabbitmq.com</b>, exists to document the
         features that will be available in the <b>next</b> feature
         release of RabbitMQ, and that are available in
-        the <a href="http://www.rabbitmq.com/snapshots.html">snapshots</a>.
+        the <a href="https://www.rabbitmq.com/snapshots.html">snapshots</a>.
       </p>
       <ul id="large-bullets">
-        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        <li>Visit <a href="https://www.rabbitmq.com/">www.rabbitmq.com</a>
         for information on the current release.</li>
       </ul>
      </div>
@@ -272,11 +272,11 @@ limitations under the License.
       <p>
         This website, <b>previous.rabbitmq.com</b>, exists to document
         a historical feature release of RabbitMQ (&version-server;).
-        Visit the <a href="http://previous.rabbitmq.com/">release index page</a>
+        Visit the <a href="https://previous.rabbitmq.com/">release index page</a>
         for documentation of other historical releases.
       </p>
       <ul id="large-bullets">
-        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        <li>Visit <a href="https://www.rabbitmq.com/">www.rabbitmq.com</a>
         for information on the current release.</li>
       </ul>
      </div>

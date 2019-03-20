@@ -65,7 +65,7 @@ limitations under the License.
       <h2>Documentation of the 'master' branch</h2>
       <p>
         Documentation for master branch of the broker is continuously published to
-        <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+        <a href="https://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
         Note that master documentation can lag behind code changes, sometimes
         intentionally so.
       </p>
@@ -76,7 +76,7 @@ limitations under the License.
       <p>
         As with our published live releases, we continue to digitally
         sign the snapshot artefacts using
-        <a href="http://www.gnupg.org/">GnuPG</a> and
+        <a href="https://www.gnupg.org/">GnuPG</a> and
         <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">
           our release public signing key</a>.
       </p>
@@ -116,7 +116,7 @@ limitations under the License.
         <pre class="lang-sh">
 wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add -
 cat >/etc/apt/sources.list.d/rabbitmq-dev.list &lt;&lt;EOF
-deb http://dl.bintray.com/rabbitmq/debian-dev wheezy rabbitmq-server-v3.6.x
+deb https://dl.bintray.com/rabbitmq/debian-dev wheezy rabbitmq-server-v3.6.x
 EOF
 apt-get update
 apt-get install rabbitmq-server</pre>

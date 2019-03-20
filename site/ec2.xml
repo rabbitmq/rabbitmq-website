@@ -106,7 +106,7 @@ limitations under the License.
       Ubuntu support for Amazon EC2 seems to be strongest, so that's the distribution this guide
       will use.
 
-      See <a href="http://uec-images.ubuntu.com/releases/">Ubuntu Cloud Images</a>
+      See <a href="https://uec-images.ubuntu.com/releases/">Ubuntu Cloud Images</a>
       and <a href="https://help.ubuntu.com/community/EC2StartersGuide">Ubuntu EC2 Starters Guide</a>.
     </p>
   </doc:subsection>
@@ -163,7 +163,7 @@ limitations under the License.
     </p>
     <p>
       Note that EBS volumes have an <a
-      href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">IOPS
+      href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">IOPS
       limits</a>, which can impact thoughput and RabbitMQ message
       store operations. If an EBS volume hits the limit, disk writes
       will worsen. It is also possible that the RabbitMQ message store
