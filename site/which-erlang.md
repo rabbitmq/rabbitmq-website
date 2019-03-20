@@ -119,10 +119,10 @@ is recommended.
 Most recent versions can be obtained from a number of sources:
 
  * [Debian Erlang packages](https://bintray.com/rabbitmq-erlang/) from team RabbitMQ.
- * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) for RabbitMQ
+ * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from team RabbitMQ
  * [Erlang Docker images](https://hub.docker.com/_/erlang/)
- * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repository
- * Built from source with [kerl](https://github.com/kerl/kerl)
+ * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repositories
+ * Building from source with [kerl](https://github.com/kerl/kerl)
 
 ## <a id="debian" class="anchor" href="#debian">Installing Erlang/OTP on Debian or Ubuntu</a>
 
