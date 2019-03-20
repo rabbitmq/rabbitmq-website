@@ -383,7 +383,7 @@ print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
+[(new_task.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
 
 And our worker:
 
@@ -411,7 +411,7 @@ channel.basic_consume(callback,
 channel.start_consuming()
 </pre>
 
-[(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
+[(worker.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 
 Using message acknowledgments and `prefetch_count` you can set up a

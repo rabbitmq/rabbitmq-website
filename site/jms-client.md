@@ -69,7 +69,7 @@ Because JMS Client for RabbitMQ is implemented using the RabbitMQ Java
 client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 
 You can download the JMS 1.1 specification and API documentation from
-the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
+the [Oracle Technology Network Web site](https://www.oracle.com/technetwork/java/docs-136352.html).
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
@@ -351,7 +351,7 @@ The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
 SLF4J delegates to a logging framework, such as Apache Logback.
 If no other logging framework is
 enabled, SLF4J defaults to a built-in, no-op, logger.
-See the [SLF4J](http://www.slf4j.org/docs.html) documentation for a
+See the [SLF4J](https://www.slf4j.org/docs.html) documentation for a
 list of the logging frameworks SLF4J supports.
 
 The target logging framework is configured at deployment time by adding
@@ -365,7 +365,7 @@ add the following JARs to the classpath:
  * [logback-core-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar)
  * [logback-classic-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar)
 
-We highly recommend to use a dependency management tool like [Maven](http://maven.apache.org/)
+We highly recommend to use a dependency management tool like [Maven](https://maven.apache.org/)
 or [Gradle](https://gradle.org/) to manage dependencies.
 
 The SLF4J API is backwards compatible, so you can use use any version of

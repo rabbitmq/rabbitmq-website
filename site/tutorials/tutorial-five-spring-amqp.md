@@ -34,7 +34,7 @@ In our messaging system we might want to subscribe to not only queues
 based on the routing key, but also based on the source which produced
 the message.
 You might know this concept from the
-[`syslog`](http://en.wikipedia.org/wiki/Syslog) unix tool, which
+[`syslog`](https://en.wikipedia.org/wiki/Syslog) unix tool, which
 routes logs based on both severity (info/warn/crit...) and facility
 (auth/cron/kern...). Our example is a little simpler than this.
 

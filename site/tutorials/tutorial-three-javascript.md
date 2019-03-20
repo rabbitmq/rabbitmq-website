@@ -158,7 +158,7 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the [amqp.node](http://www.squaremobius.net/amqp.node/) client, when we supply queue name
+In the [amqp.node](https://www.squaremobius.net/amqp.node/) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
 <pre class="lang-javascript">

@@ -415,7 +415,7 @@ The declaration is a module attribute which looks like this:
 -rabbit_feature_flag(
    {quorum_queue,
     #{desc          => "Support queues of type quorum",
-      doc_url       => "http://www.rabbitmq.com/quorum-queues.html",
+      doc_url       => "https://www.rabbitmq.com/quorum-queues.html",
       stability     => stable,
       migration_fun => {?MODULE, quorum_queue_migration}
      }}).

@@ -288,7 +288,7 @@ print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(emit_log.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
+[(emit_log.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -327,7 +327,7 @@ channel.basic_consume(callback,
 channel.start_consuming()
 </pre>
 
-[(receive_logs.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
+[(receive_logs.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
 
 
 We're done. If you want to save logs to a file, just open a console and type:

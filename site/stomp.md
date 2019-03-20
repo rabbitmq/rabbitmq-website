@@ -19,8 +19,8 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ supports [STOMP](http://stomp.github.com) via a plugin that ships
-in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](http://stomp.github.com/stomp-specification-1.2.html)
+RabbitMQ supports [STOMP](https://stomp.github.com) via a plugin that ships
+in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](https://stomp.github.com/stomp-specification-1.2.html)
 with some [extensions and restrictions](#extensions-and-restrictions).
 
 STOMP clients can interoperate with other protocols. All the functionality in
@@ -268,7 +268,7 @@ Implicit connect is *not* enabled by default.
 
 ## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
-The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+The STOMP plugin supports the [proxy protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for STOMP clients:
 
 <pre class="lang-ini">
@@ -603,7 +603,7 @@ are reserved for server use. The details are given below.
 ### <a id="pear.c" class="anchor" href="#pear.c">Connection and Virtual Hosts</a>
 
 The `CONNECT` (or `STOMP`) frame in
-[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
+[STOMP 1.1](https://stomp.github.com/stomp-specification-1.1.html) has a
 mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 

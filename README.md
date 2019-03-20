@@ -1,6 +1,6 @@
-# [rabbitmq.com](http://www.rabbitmq.com/)
+# [rabbitmq.com](https://www.rabbitmq.com/)
 
-This repository contains source code for [rabbitmq.com](http://www.rabbitmq.com/) content.
+This repository contains source code for [rabbitmq.com](https://www.rabbitmq.com/) content.
 
 All changes that need to be deployed right away need to be committed to the `live` branch.
 
@@ -17,9 +17,9 @@ repository:
 
 Branch        | Description
 :-------------|:--------------------
-`live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](http://www.rabbitmq.com/).
+`live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](https://www.rabbitmq.com/).
 `stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.7.x release occurs.
-master        | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
+master        | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](https://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
 
 
 ## Development environment
@@ -35,7 +35,7 @@ can be out-of-date.
 
 #### On MacOS
 
-On a recent MacOS version with [Homebrew](http://brew.sh/) it should be enough to run
+On a recent MacOS version with [Homebrew](https://brew.sh/) it should be enough to run
 
 ```sh
 make preview
@@ -93,8 +93,8 @@ modes are:
 Mode     | Description
 :--------|:------------
 www      | This is the "normal" mode. You would normally deploy from the live branch with this mode.
-next     | This is the mode for [next.rabbitmq.com](http://next.rabbitmq.com/). This mode has the home page and download page chopped down, no blog or search, and a watermark. You would normally deploy from the master branch with this mode.
-previous | For [previous.rabbitmq.com](http://previous.rabbitmq.com/). The website is reduced in the same way as "next", but this mode is meant for previous releases rather than future releases.
+next     | This is the mode for [next.rabbitmq.com](https://next.rabbitmq.com/). This mode has the home page and download page chopped down, no blog or search, and a watermark. You would normally deploy from the master branch with this mode.
+previous | For [previous.rabbitmq.com](https://previous.rabbitmq.com/). The website is reduced in the same way as "next", but this mode is meant for previous releases rather than future releases.
 
 You determine which mode you are using with an argument to the driver
 or deploy scripts. Modes are implemented with the `<x:modal/>` tag and

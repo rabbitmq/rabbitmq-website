@@ -9,7 +9,7 @@ bug fixes
 - fix a number of problems with memory monitoring under Windows,
   including compatibility issues with versions of Erlang/OTP older
   than R13, and 64-bit versions of Windows. See the updated
-  documentation at http://www.rabbitmq.com/extensions.html#memsup
+  documentation at https://www.rabbitmq.com/extensions.html#memsup
 - correct various path escaping bugs under Windows that could result
   in RabbitMQ failing to start
 - make 'rabbitmq-multi start_all <n>' work again for n>1
@@ -23,7 +23,7 @@ enhancements
   exclusivity information to list_queues. Also introduce a
   close_connection command to allow an administrator to selectively
   terminate client connections. See the updated admin guide at
-  http://www.rabbitmq.com/admin-guide.html for details on these new
+  https://www.rabbitmq.com/admin-guide.html for details on these new
   features.
 - remove the explicit setting of TCP buffer sizes in the server, thus
   allowing auto-(re)sizing to occur. This generally results in

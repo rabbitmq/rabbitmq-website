@@ -31,7 +31,7 @@
     </Directory>
 
     # /how appeared on some printed materials
-    Redirect permanent /how http://www.rabbitmq.com/how.html
+    Redirect permanent /how https://www.rabbitmq.com/how.html
 
     # From former versions of the website
     Redirect permanent /server.html /download.html
@@ -41,13 +41,13 @@
 
     # Redirects to assign some permanent URLs to cloudfoundry resources
     Redirect /cloudfoundry/samples https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples
-    Redirect /cloudfoundry/rails http://support.cloudfoundry.com/entries/20334591-getting-started-with-the-rabbitmq-service-from-a-rails-application
-    Redirect /cloudfoundry/spring http://support.cloudfoundry.com/entries/20322602-getting-started-with-the-rabbitmq-service-from-a-spring-application
+    Redirect /cloudfoundry/rails https://support.cloudfoundry.com/entries/20334591-getting-started-with-the-rabbitmq-service-from-a-rails-application
+    Redirect /cloudfoundry/spring https://support.cloudfoundry.com/entries/20322602-getting-started-with-the-rabbitmq-service-from-a-spring-application
     Redirect /cloudfoundry/sinatra https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/sinatra
     Redirect /cloudfoundry/nodejs https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/nodejs
-    Redirect /cloudfoundry/faq http://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq
+    Redirect /cloudfoundry/faq https://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq
     # Doesn't exist yet, but might do
-    #Redirect /cloudfoundry/railsvid http://www.youtube.com/watch?v=AId8RTG0eD8
+    #Redirect /cloudfoundry/railsvid https://www.youtube.com/watch?v=AId8RTG0eD8
 
     <Directory /home/rabbitmq/extras/releases/rabbitmq-server>
         Options +FollowSymLinks
@@ -117,7 +117,7 @@
       Require local
     </Location>
 
-      # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
+      # Via: https://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
       #
       # Drop the Range header when more than 5 ranges.
       # CVE-2011-3192

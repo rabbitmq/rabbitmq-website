@@ -27,7 +27,7 @@ limitations under the License.
 In this part of the tutorial we'll write two small programs in Go; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [Go RabbitMQ](http://godoc.org/github.com/streadway/amqp) API, concentrating on this very simple thing just to get
+the [Go RabbitMQ](https://godoc.org/github.com/streadway/amqp) API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](https://rabbitmq.com/devtools.html). We'll
 > use the Go amqp client in this tutorial.
 >
 > First, install amqp using `go get`:
@@ -151,7 +151,7 @@ whatever you like there.
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 

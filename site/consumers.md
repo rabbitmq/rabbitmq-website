@@ -297,7 +297,7 @@ should be deserialized and decoded by consumers.
 RabbitMQ does not validate or use these fields, it exists for applications and plugins to use
 and interpret.
 
-For example, messages with JSON payload [should use `application/json`](http://www.ietf.org/rfc/rfc4627.txt).
+For example, messages with JSON payload [should use `application/json`](https://www.ietf.org/rfc/rfc4627.txt).
 If the payload is compressed with the LZ77 (GZip) algorithm, its content encoding should be `gzip`.
 
 Multiple encodings can be specified by separating them with commas.

@@ -251,7 +251,7 @@ Storing metrics in Prometheus is a lot more useful when there's a way to visuali
 
 ### Further Configuration
 
-RabbitMQ's default [sample retention policies](http://www.rabbitmq.com/management.html#sample-retention) also
+RabbitMQ's default [sample retention policies](https://www.rabbitmq.com/management.html#sample-retention) also
 might need changing for environments that store metrics in
 Prometheus.
 

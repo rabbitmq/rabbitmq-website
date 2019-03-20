@@ -30,12 +30,12 @@ bug fixes
 
 enhancements
 - introduce active-active HA, with queues getting mirrored on nodes in
-  a cluster. See http://www.rabbitmq.com/ha.html
+  a cluster. See https://www.rabbitmq.com/ha.html
 - revamp the handling of AMQP's tx (transaction) class and clarify its
-  behaviour See http://www.rabbitmq.com/specification.html#tx
+  behaviour See https://www.rabbitmq.com/specification.html#tx
 - replace the 'administrator' flag, as used by the management plugin,
   with a more general 'user tags' mechanism. See
-  http://www.rabbitmq.com/man/rabbitmqctl.8.man.html#set_user_tags
+  https://www.rabbitmq.com/man/rabbitmqctl.8.man.html#set_user_tags
 - do not require 'configure' permissions for passive queue/exchange
   declaration
 - optimise of message delivery on channels with a basic.qos
@@ -79,13 +79,13 @@ enhancements
 - introduce a more advanced permissions model, allowing access to
   information for monitoring purposes without the user needing to be a
   rabbit administrator. See
-  http://www.rabbitmq.com/management.html#permissions
+  https://www.rabbitmq.com/management.html#permissions
 - simplify changing the URL; shorter default URL
 - make the stats collection interval configurable, providing a way to
   reduce the impact of stats collection on servers with many active
   connections/channels/queues, and adjust the rate calculation
   period. See
-  http://www.rabbitmq.com/management.html#statistics-interval
+  https://www.rabbitmq.com/management.html#statistics-interval
 - in a cluster, make the management stats db highly available; it
   automatically fails over to a different node
 - get the management stats db to 'catch up' when it is started in a
@@ -137,13 +137,13 @@ enhancements
 - optionally allow clients to omit the CONNECT frame altogether
 
 For more details on all the above see the STOMP plugin documentation
-at http://www.rabbitmq.com/stomp.html
+at https://www.rabbitmq.com/stomp.html
 
 federation plugin
 -----------------
 First release of this plugin, which offers scalable publish /
 subscribe messaging across WANs and administrative domains. See
-http://hg.rabbitmq.com/rabbitmq-federation/file/default/README
+https://hg.rabbitmq.com/rabbitmq-federation/file/default/README
 
 build and packaging
 -------------------
@@ -164,7 +164,7 @@ is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install
 the new version on all the nodes and follow these instructions:
-    http://www.rabbitmq.com/clustering.html#upgrading
+    https://www.rabbitmq.com/clustering.html#upgrading
 All configuration and persistent message data is retained.
 
 To upgrade a non-clustered RabbitMQ from release 2.1.0, first upgrade

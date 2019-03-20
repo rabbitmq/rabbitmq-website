@@ -85,7 +85,7 @@ Here's an example that uses [curl](https://curl.haxx.se/) to create a virtual ho
 a node at `rabbitmq.local:15672`:
 
 <pre class="lang-bash">
-curl -u userename:pa$sw0rD -X PUT http://rabbitmq.local:15672/api/vhosts/vh1
+curl -u userename:pa$sw0rD -X PUT https://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 
 
@@ -129,7 +129,7 @@ Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual ho
 a node at `rabbitmq.local:15672`:
 
 <pre class="lang-bash">
-curl -u userename:pa$sw0rD -X DELETE http://rabbitmq.local:15672/api/vhosts/vh1
+curl -u userename:pa$sw0rD -X DELETE https://rabbitmq.local:15672/api/vhosts/vh1
 </pre>
 
 

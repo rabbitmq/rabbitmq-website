@@ -77,7 +77,7 @@ receive a response we need to send a 'callback' queue address with the
 request. Spring AMQP's `RabbitTemplate` handles the callback queue for
 us when we use the above `convertSendAndReceive()` method.  There is
 no need to do any other setup when using the `RabbitTemplate`. For
-a thorough explanation please see [Request/Reply Message](http://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
+a thorough explanation please see [Request/Reply Message](https://docs.spring.io/spring-amqp/reference/htmlsingle/#request-reply).
 
 > #### Message properties
 >

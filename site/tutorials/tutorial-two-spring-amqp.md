@@ -402,7 +402,7 @@ for queues and persistence for messages provided by Spring AMQP
 allow the messages to survive even if RabbitMQ is restarted.
 
 For more information on `Channel` methods and `MessageProperties`,
-you can browse the [javadocs online](http://docs.spring.io/spring-amqp/docs/current/api/index.html?org/springframework/amqp/package-summary.html)
+you can browse the [javadocs online](https://docs.spring.io/spring-amqp/docs/current/api/index.html?org/springframework/amqp/package-summary.html)
 For understanding the underlying foundation for Spring AMQP you can find the
 [rabbitmq-java-client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/).
 

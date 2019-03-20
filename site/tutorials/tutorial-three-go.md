@@ -189,7 +189,7 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the [amqp](http://godoc.org/github.com/streadway/amqp) client, when we supply queue name
+In the [amqp](https://godoc.org/github.com/streadway/amqp) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
 <pre class="lang-go">
@@ -369,7 +369,7 @@ func bodyFrom(args []string) string {
 }
 </pre>
 
-[(emit_log.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log.go)
+[(emit_log.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log.go)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -458,7 +458,7 @@ func main() {
 }
 </pre>
 
-[(receive_logs.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs.go)
+[(receive_logs.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs.go)
 
 
 If you want to save logs to a file, just open a console and type:

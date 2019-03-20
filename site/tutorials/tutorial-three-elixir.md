@@ -124,7 +124,7 @@ queues it knows. And that's exactly what we need for our logger.
 >     AMQP.Basic.publish(channel, "", "hello", message)
 > </pre>
 >
-> The [second parameter](http://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the the name of the exchange.
+> The [second parameter](https://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 
@@ -151,7 +151,7 @@ ones. To solve that we need two things.
 Firstly, whenever we connect to Rabbit we need a fresh, empty queue. To
 do it we could create a queue with a random name, or, even better -
 let the server choose a random queue name for us. We can do this by not
-supplying the `queue` parameter to [`AMQP.Queue.declare`](http://hexdocs.pm/amqp/AMQP.Queue.html#declare/3):
+supplying the `queue` parameter to [`AMQP.Queue.declare`](https://hexdocs.pm/amqp/AMQP.Queue.html#declare/3):
 
 <pre class="lang-elixir">
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel)
@@ -273,7 +273,7 @@ IO.puts " [x] Sent '#{message}'"
 AMQP.Connection.close(connection)
 </pre>
 
-[(emit_log.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log.exs)
+[(emit_log.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log.exs)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -308,7 +308,7 @@ IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 ReceiveLogs.wait_for_messages(channel)
 </pre>
 
-[(receive_logs.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs.exs)
+[(receive_logs.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs.exs)
 
 
 We're done. If you want to save logs to a file, just open a console and type:

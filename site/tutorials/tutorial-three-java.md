@@ -277,7 +277,7 @@ public class EmitLog {
 }
 </pre>
 
-[(EmitLog.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
+[(EmitLog.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -318,7 +318,7 @@ public class ReceiveLogs {
 }
 </pre>
 
-[(ReceiveLogs.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
+[(ReceiveLogs.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
 
 
 Compile as before and we're done.

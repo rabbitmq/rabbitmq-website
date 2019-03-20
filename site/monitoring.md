@@ -401,7 +401,7 @@ a run-away publisher, a repeatedly failing consumer, a consumer that cannot
 keep up with the rate, even a downstream service that's experiencing a slowdown
 (e.g. a missing index in a database used by the consumers).
 
-Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. [Spring AMQP](http://spring.io/projects/spring-amqp))
+Some client libraries (e.g. RabbitMQ Java client) and frameworks (e.g. [Spring AMQP](https://spring.io/projects/spring-amqp))
 provide means of registering metrics collectors or collect metrics out of the box.
 With others developers have to track metrics in their application code.
 
@@ -717,7 +717,7 @@ Note that this list is by no means complete.
     </tr>
     <tr>
       <td>Graphite</td>
-      <td><a href="http://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td>
+      <td><a href="https://graphite.readthedocs.io/en/latest/tools.html">Tools that work with Graphite</a></td>
     </tr>
     <tr>
       <td>Munin</td>
@@ -752,7 +752,7 @@ Note that this list is by no means complete.
       <td>Zenoss</td>
       <td>
         <a href="https://www.zenoss.com/product/zenpacks/rabbitmq">RabbitMQ ZenPack</a>,
-        <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a>
+        <a href="https://www.youtube.com/watch?v=CAak2ayFcV0">Instructional Video</a>
         </td>
     </tr>
   </tbody>

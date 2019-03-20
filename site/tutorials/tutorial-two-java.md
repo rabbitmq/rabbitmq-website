@@ -414,7 +414,7 @@ public class NewTask {
 }
 </pre>
 
-[(NewTask.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/NewTask.java)
+[(NewTask.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/NewTask.java)
 
 And our `Worker.java`:
 
@@ -467,7 +467,7 @@ public class Worker {
 }
 </pre>
 
-[(Worker.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Worker.java)
+[(Worker.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Worker.java)
 
 Using message acknowledgments and `prefetchCount` you can set up a
 work queue. The durability options let the tasks survive even if

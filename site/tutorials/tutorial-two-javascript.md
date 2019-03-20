@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 ## Work Queues
-### (using the [amqp.node](http://www.squaremobius.net/amqp.node/) client)
+### (using the [amqp.node](https://www.squaremobius.net/amqp.node/) client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -419,7 +419,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `Channel` methods and message properties, you can browse the
-[amqplib docs](http://www.squaremobius.net/amqp.node/channel_api.html).
+[amqplib docs](https://www.squaremobius.net/amqp.node/channel_api.html).
 
 Now we can move on to [tutorial 3](tutorial-three-javascript.html) and learn how
 to deliver the same message to many consumers.

@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](https://rabbitmq.com/devtools.html). We'll
 > use the Java client provided by RabbitMQ.
 >
 > Download the [client library](http://central.maven.org/maven2/com/rabbitmq/amqp-client/5.5.1/amqp-client-5.5.1.jar)
@@ -71,7 +71,7 @@ We'll call our message publisher (sender) `Send` and our message consumer (recei
 then exit.
 
 In
-[`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
+[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
 we need some classes imported:
 
 <pre class="lang-java">
@@ -128,7 +128,7 @@ exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 [Here's the whole Send.java
-class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
 
 > #### Sending doesn't work!
 >
@@ -138,7 +138,7 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java)
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -152,7 +152,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
+The code (in [`Recv.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
 
 <pre class="lang-java">
 import com.rabbitmq.client.Channel;
@@ -211,7 +211,7 @@ channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
 </pre>
 
 [Here's the whole Recv.java
-class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
 
 ### Putting it all together
 

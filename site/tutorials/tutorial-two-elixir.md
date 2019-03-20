@@ -388,7 +388,7 @@ IO.puts " [x] Sent '#{message}'"
 AMQP.Connection.close(connection)
 </pre>
 
-[(new_task.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/new_task.exs)
+[(new_task.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/new_task.exs)
 
 And our worker:
 
@@ -423,7 +423,7 @@ IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 Worker.wait_for_messages(channel)
 </pre>
 
-[(worker.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/worker.exs)
+[(worker.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/worker.exs)
 
 
 Using message acknowledgments and `prefetch_count` you can set up a

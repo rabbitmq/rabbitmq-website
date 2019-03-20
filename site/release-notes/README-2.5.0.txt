@@ -20,7 +20,7 @@ bug fixes
 
 enhancements
 - tracing facility for incoming and outgoing messages - see
-  http://www.rabbitmq.com/firehose.html
+  https://www.rabbitmq.com/firehose.html
 - optionally serialise events for exchange types
 - detect available memory on OpenBSD
 - add Windows service description
@@ -38,7 +38,7 @@ bug fixes
 
 enhancements
 - experimental API employing command objects and builders. See
-  http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/client/test/AMQBuilderApiTest.java
+  https://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/client/test/AMQBuilderApiTest.java
   for some examples. Feedback welcome!
 
 .net client
@@ -82,7 +82,7 @@ rabbitmq-mochiweb
 enhancements
 - more flexible configuration permitting different services to run on
   different ports, SSL support and interface-based restrictions. See
-  http://www.rabbitmq.com/mochiweb.html for more details. Note that by
+  https://www.rabbitmq.com/mochiweb.html for more details. Note that by
   default the JSON-RPC channel plugin will now listen on port 55670.
 
 STOMP plugin
@@ -118,7 +118,7 @@ is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install
 the new version on all the nodes and follow these instructions:
-    http://www.rabbitmq.com/clustering.html#upgrading
+    https://www.rabbitmq.com/clustering.html#upgrading
 All configuration and persistent message data is retained.
 
 To upgrade a non-clustered RabbitMQ from release 2.1.0, first upgrade

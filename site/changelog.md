@@ -422,8 +422,8 @@ and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-clie
         <li><a href="/lazy-queues.html">Lazy Queues</a></li>
         <li>Batch (mirror) synchronisation</li>
         <li>Pagination in management UI</li>
-        <li><a href="http://www.rabbitmq.com/passwords.html">Password hashing</a> now uses SHA-256 by default:
-        please <a href="http://www.rabbitmq.com/passwords.html">read the docs</a> before importing definitions from 3.5.x!</li>
+        <li><a href="https://www.rabbitmq.com/passwords.html">Password hashing</a> now uses SHA-256 by default:
+        please <a href="https://www.rabbitmq.com/passwords.html">read the docs</a> before importing definitions from 3.5.x!</li>
         <li><a href="/web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
         <li><a href="/plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk</a></li>
         <li>Development <a href="https://github.com/rabbitmq/">moved entirely to GitHub</a></li>
@@ -1135,7 +1135,7 @@ and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-clie
   </tr>
 
   <tr>
-    <td colspan="4"><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-April/000024.html">RabbitMQ acquired by SpringSource</a></td>
+    <td colspan="4"><a href="https://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-April/000024.html">RabbitMQ acquired by SpringSource</a></td>
   </tr>
 
   <tr>

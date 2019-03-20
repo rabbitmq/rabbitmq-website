@@ -41,7 +41,7 @@ limitations under the License.
   <td id="tutorial-two">
     <h2><span class="tute-num">2</span> <a href="/tutorials/tutorial-two-python.html">Work queues</a></h2>
     <p>
-      Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
+      Distributing tasks among workers (the <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
     <p><img src="/img/tutorials/python-two.png" width="180" /></p>
     <ul>
@@ -127,7 +127,7 @@ limitations under the License.
   <td id="tutorial-six">
     <h2><span class="tute-num">6</span> <a href="/tutorials/tutorial-six-python.html">RPC</a></h2>
     <p>
-      <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
+      <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
     <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
     <ul>

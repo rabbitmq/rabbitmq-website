@@ -59,7 +59,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log

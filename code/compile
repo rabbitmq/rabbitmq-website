@@ -70,7 +70,7 @@ def html_ext(f):
 
 
 # os.path.relpath is not in 2.5. This is taken from
-# http://www.saltycrane.com/blog/2010/03/ospathrelpath-source-code-python-25/
+# https://www.saltycrane.com/blog/2010/03/ospathrelpath-source-code-python-25/
 
 import posixpath
 

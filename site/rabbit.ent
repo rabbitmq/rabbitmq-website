@@ -28,7 +28,7 @@ limitations under the License.
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
 
 <!ENTITY dir-dotnet-client "releases/rabbitmq-dotnet-client">
-<!ENTITY url-dotnet-apidoc-root "http://rabbitmq.github.io/rabbitmq-dotnet-client">
+<!ENTITY url-dotnet-apidoc-root "https://rabbitmq.github.io/rabbitmq-dotnet-client">
 <!ENTITY url-dotnet-apidoc "&url-dotnet-apidoc-root;/api">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">

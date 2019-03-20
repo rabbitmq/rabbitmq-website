@@ -272,7 +272,7 @@ puts " [x] Sent #{message}"
 connection.close
 </pre>
 
-[(emit_log.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log.rb)
+[(emit_log.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log.rb)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -308,7 +308,7 @@ rescue Interrupt => _
 end
 </pre>
 
-[(receive_logs.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive_logs.rb)
+[(receive_logs.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive_logs.rb)
 
 
 If you want to save logs to a file, just open a console and type:

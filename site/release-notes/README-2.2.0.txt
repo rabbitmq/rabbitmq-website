@@ -24,7 +24,7 @@ enhancements
 - automatic, lossless upgrade to new versions of RabbitMQ
   (when not clustered)
 - support per-queue message TTL. See:
-  http://www.rabbitmq.com/extensions.html#queue-ttl
+  https://www.rabbitmq.com/extensions.html#queue-ttl
 - the volume of pending acks is now bounded by disk space rather
   than by memory
 - store passwords as hashes

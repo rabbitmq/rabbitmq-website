@@ -376,7 +376,7 @@ puts " [x] Sent #{message}"
 connection.close
 </pre>
 
-[(new_task.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/new_task.rb)
+[(new_task.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/new_task.rb)
 
 And our `worker.rb`:
 
@@ -406,7 +406,7 @@ rescue Interrupt => _
 end
 </pre>
 
-[(worker.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/worker.rb)
+[(worker.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/worker.rb)
 
 Using message acknowledgments and `prefetch` you can set up a
 work queue. The durability options let the tasks survive even if

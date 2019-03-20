@@ -138,7 +138,7 @@ conn.close()
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -201,4 +201,4 @@ Time to move on to [part 2](tutorial-two-swift.html) and build a simple _work qu
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial1/tutorial1/ViewController.swift
-[devtools]:http://rabbitmq.com/devtools.html
+[devtools]:https://rabbitmq.com/devtools.html

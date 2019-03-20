@@ -497,7 +497,7 @@ func bodyFrom(args []string) string {
 }
 </pre>
 
-[(new_task.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/new_task.go)
+[(new_task.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/new_task.go)
 
 And our `worker.go`:
 
@@ -573,14 +573,14 @@ func main() {
 }
 </pre>
 
-[(worker.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/worker.go)
+[(worker.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/worker.go)
 
 Using message acknowledgments and prefetch count you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `amqp.Channel` methods and message properties, you can browse the
-[amqp API reference](http://godoc.org/github.com/streadway/amqp).
+[amqp API reference](https://godoc.org/github.com/streadway/amqp).
 
 Now we can move on to [tutorial 3](tutorial-three-go.html) and learn how
 to deliver the same message to many consumers.

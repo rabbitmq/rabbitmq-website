@@ -139,7 +139,7 @@ connection.close()
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -259,7 +259,7 @@ print(" [x] Sent 'Hello World!'")
 connection.close()
 </pre>
 
-[(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
+[(send.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
 
 Full `receive.py` code:
@@ -285,7 +285,7 @@ print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 </pre>
 
-[(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
+[(receive.py source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:

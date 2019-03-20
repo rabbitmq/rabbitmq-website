@@ -435,7 +435,7 @@ $channel->close();
 $connection->close();
 </pre>
 
-[(worker.php source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/worker.php)
+[(worker.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/worker.php)
 
 Using message acknowledgments and `prefetch` you can set up a
 work queue. The durability options let the tasks survive even if

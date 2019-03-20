@@ -43,7 +43,7 @@ enhancements
 - require clients to respond to channel.flow messages within 10
   seconds to avoid an exception being raised and more rigorously deal
   with clients that disobey channel.flow messages. See
-  http://www.rabbitmq.com/extensions.html#memsup
+  https://www.rabbitmq.com/extensions.html#memsup
 - the server now supports the client sending channel.flow messages to
   temporarily halt the flow of deliveries to the client.
 - optimise cross-node routing of messages in a cluster scenario whilst
@@ -59,7 +59,7 @@ enhancements
 - introduce a Pacemaker OCF script (and then fix it, thanks to patches
   by Florian Haas) to permit RabbitMQ to be used in basic
   active/passive HA scenarios (see
-  http://www.rabbitmq.com/pacemaker.html).
+  https://www.rabbitmq.com/pacemaker.html).
 
 
 java client

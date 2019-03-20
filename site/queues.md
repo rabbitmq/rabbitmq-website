@@ -164,7 +164,7 @@ It is common to make exclusive queues server-named.
 
 ## <a id="distributed" class="anchor" href="#distributed">Mirrored and Distributed Queues</a>
 
-Queues can be [replicated across cluster nodes](/ha.html) and [federated](http://www.rabbitmq.com/federated-queues.html)
+Queues can be [replicated across cluster nodes](/ha.html) and [federated](https://www.rabbitmq.com/federated-queues.html)
 across loosely coupled nodes or clusters. Note that mirroring and federation
 are orthogonal features and should not be considered direct alternatives.
 

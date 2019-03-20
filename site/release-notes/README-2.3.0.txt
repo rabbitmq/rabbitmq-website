@@ -34,11 +34,11 @@ enhancements
 - add confirm mode - an extension to the AMQP 0-9-1 spec allowing
   clients to receive streaming receipt confirmations for the messages
   they publish. See
-  http://www.rabbitmq.com/extensions.html#confirms for more information.
+  https://www.rabbitmq.com/extensions.html#confirms for more information.
 - add a basic.nack method. See
-  http://www.rabbitmq.com/extensions.html#negative-acknowledgements
+  https://www.rabbitmq.com/extensions.html#negative-acknowledgements
 - add an unforgeable user-id header. See
-  http://www.rabbitmq.com/extensions.html#validated-user-id
+  https://www.rabbitmq.com/extensions.html#validated-user-id
 - pluggable SASL authentication mechanisms, and a new plugin
   to authenticate using SSL (see below)
 - pluggable authentication / authorisation backends, and a new plugin

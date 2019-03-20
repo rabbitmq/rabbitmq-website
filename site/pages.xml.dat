@@ -241,5 +241,5 @@ limitations under the License.
    </x:page>
    <x:page url="/getstarted.html" text="Tutorials"/>
    <x:page url="/services.html" text="Support"/>
-   <x:page url="http://pivotal.io/careers/engineering" text="Pivotal is Hiring"/>
+   <x:page url="https://pivotal.io/careers/engineering" text="Pivotal is Hiring"/>
 </x:pages>

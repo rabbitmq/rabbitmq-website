@@ -16,8 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
-                xmlns:rss1="http://purl.org/rss/1.0/"
-                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:rss1="https://purl.org/rss/1.0/"
+                xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"

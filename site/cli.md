@@ -207,7 +207,7 @@ so should CLI tools via the same environment variable or the `--longnames` comma
 
 #### Possible Reason 3: Inter-node Connections Require TLS
 
-If RabbitMQ is set up to [encrypt inter-node and CLI connections using TLS](http://www.rabbitmq.com/clustering-ssl.html),
+If RabbitMQ is set up to [encrypt inter-node and CLI connections using TLS](https://www.rabbitmq.com/clustering-ssl.html),
 CLI tools also must use TLS and therefore require additional options.
 Non-TLS connections from other nodes and CLI tools will fail.
 

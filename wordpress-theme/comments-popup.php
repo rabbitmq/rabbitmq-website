@@ -3,7 +3,7 @@
 add_filter('comment_text', 'popuplinks');
 while ( have_posts()) : the_post();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
      <title><?php echo get_option('blogname'); ?> - Comments on <?php the_title(); ?></title>
@@ -102,7 +102,7 @@ endwhile;
 
 <!-- // this is just the end of the motor - don't touch that line either :) -->
 <?php //} ?>
-<p class="credit"><?php timer_stop(1); ?> <cite>Powered by <a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform"><strong>WordPress</strong></a></cite></p>
+<p class="credit"><?php timer_stop(1); ?> <cite>Powered by <a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform"><strong>WordPress</strong></a></cite></p>
 <?php // Seen at http://www.mijnkopthee.nl/log2/archive/2003/05/28/esc(18) ?>
 <script type="text/javascript">
 <!--

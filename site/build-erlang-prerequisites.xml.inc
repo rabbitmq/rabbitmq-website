@@ -25,9 +25,9 @@ limitations under the License.
 
   <p>
     RabbitMQ requires a recent version of <a
-    href="http://www.python.org/download/">Python 2</a> and <a
-    href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
-    (an implementation of a <a href="http://json.org">JSON</a> reader
+    href="https://www.python.org/download/">Python 2</a> and <a
+    href="https://pypi.python.org/pypi/simplejson">simplejson.py</a>
+    (an implementation of a <a href="https://json.org">JSON</a> reader
     and writer in Python), for generating AMQP 0-9-1 framing code.
     simplejson.py is included as a standard json library in the Python
     core since 2.6 release.
@@ -39,7 +39,7 @@ limitations under the License.
 
   <ul class="compact">
     <li>
-      the <a href="http://www.erlang.org/download.html">Erlang</a>
+      the <a href="https://www.erlang.org/download.html">Erlang</a>
       development and runtime tools<br/> If you are on a Debian-based
       system then you need the <i>erlang-nox</i>, <i>erlang-dev</i> and
       <i>erlang-src</i> packages installed. If you are building and
@@ -53,7 +53,7 @@ limitations under the License.
       
     <li>
       a recent version of <a
-      href="http://www.gnu.org/software/make/">GNU make</a>
+      href="https://www.gnu.org/software/make/">GNU make</a>
     </li>
 
     <li>
@@ -66,7 +66,7 @@ limitations under the License.
     </li>
 
     <li>
-      <a href="http://www.info-zip.org/Zip.html">zip</a> and <a href="http://www.info-zip.org/UnZip.html">unzip</a>
+      <a href="http://infozip.sourceforge.net/Zip.html">zip</a> and <a href="http://infozip.sourceforge.net/UnZip.html">unzip</a>
     </li>
   </ul>
 </doc:section>

@@ -23,7 +23,7 @@ limitations under the License.
                 version="1.0">
   <xsl:output method="xml"/>
 
-  <!-- Atom spec: http://tools.ietf.org/html/rfc4287 -->
+  <!-- Atom spec: https://tools.ietf.org/html/rfc4287 -->
 
   <xsl:param name="updated"/>
 
@@ -48,10 +48,10 @@ limitations under the License.
 
   <xsl:template match="xhtml:head">
     <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
-    See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
-    <id>http://www.rabbitmq.net/news.atom</id>
-    <link rel="self" href="http://www.rabbitmq.net/news.atom"/>
-    <link rel="alternate" type="text/html" href="http://www.rabbitmq.net/news.html"/>
+    See /UoPMZ/archives/2004/05/28/howto-atom-id -->
+    <id>https://www.rabbitmq.net/news.atom</id>
+    <link rel="self" href="https://www.rabbitmq.net/news.atom"/>
+    <link rel="alternate" type="text/html" href="https://www.rabbitmq.net/news.html"/>
     <title type="text"><xsl:value-of select="xhtml:title"/></title>
       <!--
           We transgressively omit the author, since there isn't a sensible value

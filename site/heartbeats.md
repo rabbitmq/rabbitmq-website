@@ -139,7 +139,7 @@ header when connecting. See [STOMP specification](https://stomp.github.io/stomp-
 
 ## <a id="mqtt" class="anchor" href="#mqtt">Heartbeats in MQTT</a>
 
-[MQTT 3.1.1 includes heartbeats](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/csprd02/mqtt-v3.1.1-csprd02.html#_Toc385349238) under a different name
+[MQTT 3.1.1 includes heartbeats](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/csprd02/mqtt-v3.1.1-csprd02.html#_Toc385349238) under a different name
 ("keepalives").  RabbitMQ MQTT plugin fully supports this
 feature.
 

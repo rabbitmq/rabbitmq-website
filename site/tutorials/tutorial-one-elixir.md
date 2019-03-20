@@ -46,9 +46,9 @@ digraph G {
 > RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
 > protocol for messaging. There are a number of clients for RabbitMQ
 > in [many different languages](/devtools.html).  In this tutorial
-> series we're going to use [amqp](http://github.com/pma/amqp).
+> series we're going to use [amqp](https://github.com/pma/amqp).
 >
-> To install it you can use the [`hex`](http://hex.pm/) package
+> To install it you can use the [`hex`](https://hex.pm/) package
 > management tool. Let's make a new project.
 >
 > <pre class="lang-bash">
@@ -112,7 +112,7 @@ Our first program `send.exs` will send a single message to a queue. The first th
 {:ok, channel} = AMQP.Channel.open(connection)
 </pre>
 
-We're connected now, to a broker on the local machine. By default, [AMQP.Connection.open](http://hexdocs.pm/amqp/AMQP.Connection.html#open/1)
+We're connected now, to a broker on the local machine. By default, [AMQP.Connection.open](https://hexdocs.pm/amqp/AMQP.Connection.html#open/1)
 connects to _localhost_. If we wanted to connect to a broker on a different
 machine we'd simply specify its name or IP address as the `host: ` option.
 
@@ -160,7 +160,7 @@ AMQP.Connection.close(connection)
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -283,7 +283,7 @@ IO.puts " [x] Sent 'Hello World!'"
 AMQP.Connection.close(connection)
 </pre>
 
-[(send.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs)
+[(send.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs)
 
 
 Full `receive.exs` code:
@@ -308,7 +308,7 @@ IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 Receive.wait_for_messages()
 </pre>
 
-[(receive.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive.exs)
+[(receive.exs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive.exs)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:

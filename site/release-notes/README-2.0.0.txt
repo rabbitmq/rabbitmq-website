@@ -31,22 +31,22 @@ enhancements
     version the rate at which queues could handle transactions
     involving persistent messages was fixed)
 - implement AMQP 0-9-1, in addition to 0-8 - see
-  http://www.rabbitmq.com/specification.html
+  https://www.rabbitmq.com/specification.html
 - instrumentation for asynchronous statistics events, emitting more
   stats than currently available and laying the foundation for
   monitoring a busy broker without crippling performance -
-  see http://www.rabbitmq.com/blog/2010/08/06/management-monitoring-and-statistics/
+  see https://www.rabbitmq.com/blog/2010/08/06/management-monitoring-and-statistics/
 - more effective flow control mechanism that does not require
   cooperation from clients and reacts quickly to prevent the broker
-  from exhausing memory - see http://www.rabbitmq.com/extensions.html#memsup
+  from exhausing memory - see https://www.rabbitmq.com/extensions.html#memsup
 - implement basic.reject - see
 http://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/
 - simplify plugin activation by moving it into the server startup
 - permit upgrades of Erlang w/o breaking rabbit servers with activated
   plugins
-- introduce support for queue leases - see http://www.rabbitmq.com/extensions.html#queue-leases
+- introduce support for queue leases - see https://www.rabbitmq.com/extensions.html#queue-leases
 - improve the setting of permissions, making it easer to use and
-  introducing a way to grant no permissions at all - see http://www.rabbitmq.com/admin-guide.html#management
+  introducing a way to grant no permissions at all - see https://www.rabbitmq.com/admin-guide.html#management
 - delete exclusive queues synchronously on server-initiated connection
   close (rather than just client-initiated)
 
@@ -58,7 +58,7 @@ bug fixes
 
 enhancements
 - switch to AMQP 0-9-1 - see
-  http://www.rabbitmq.com/specification.html
+  https://www.rabbitmq.com/specification.html
 
 .net client
 -----------
@@ -70,7 +70,7 @@ bug fixes
 
 enhancements
 - implement AMQP 0-9-1, in addition to 0-8 and 0-9 - see
-  http://www.rabbitmq.com/specification.html
+  https://www.rabbitmq.com/specification.html
 - simplify the Subscription class and make it more versatile
 - improve documentation
 
@@ -83,7 +83,7 @@ bug fixes
 
 enhancements
 - portable, binary plugin releases to simplify plugin installation -
-  see http://www.rabbitmq.com/plugins.html
+  see https://www.rabbitmq.com/plugins.html
 - automatically create plugin directory, to streamline plugin
   installation
 

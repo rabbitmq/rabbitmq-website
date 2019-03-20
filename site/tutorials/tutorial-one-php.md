@@ -43,7 +43,7 @@ on behalf of the consumer.
 > RabbitMQ speaks multiple protocols. This tutorial covers AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
+> languages](https://rabbitmq.com/devtools.html). We'll
 > use the php-amqplib in this tutorial, and [Composer](https://getcomposer.org/doc/00-intro.md)
 > for dependency management.
 >
@@ -139,7 +139,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 

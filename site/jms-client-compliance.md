@@ -21,7 +21,7 @@ This page annotates the [RabbitMQ JMS Client](/jms-client.html) implementation
 of the JMS 1.1 API.
 
 You can download the JMS 1.1 specification and API documentation
-from the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
+from the [Oracle Technology Network Web site](https://www.oracle.com/technetwork/java/docs-136352.html).
 
 The Compliance Test Suite the JMS Client uses is
 [available on GitHub](https://github.com/rabbitmq/rabbitmq-jms-cts).

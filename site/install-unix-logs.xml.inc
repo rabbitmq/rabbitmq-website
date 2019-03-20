@@ -52,7 +52,7 @@ sudo journalctl --system | grep rabbitmq
 <pre class="sourcecode">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.9. Copyright (c) 2007-2019 Pivotal Software, Inc.
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log

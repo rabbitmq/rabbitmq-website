@@ -24,7 +24,7 @@ pub   rsa4096/0x6B73A36E6026DFCA 2016-05-17 [SC]
       Key fingerprint = 0A9A F211 5F46 87BD 2980  3A20 6B73 A36E 6026 DFCA
 uid                              RabbitMQ Release Signing Key <info@rabbitmq.com>
 
-The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+The entire key may be downloaded from: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 
 To fetch the full new key from a public key server using GnuPG, run:
 

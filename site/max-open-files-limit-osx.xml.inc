@@ -35,7 +35,7 @@ limitations under the License.
           Invoke <code>ulimit -S -n 4096</code> before starting RabbitMQ in foreground.
         </li>
         <li>
-          Edit the <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a> to
+          Edit the <a href="https://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a> to
           invoke <code>ulimit</code> before the service is started.
         </li>
         <li>
