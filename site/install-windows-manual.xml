@@ -196,7 +196,9 @@ limitations under the License.
           </p>
           <p>
             A node can be <a href="/configure.html">configured</a> to use a <a href="/relocate.html">different data directory</a>
-            using an environment variable, <code></code>.
+            using one of these environment variables: <code>RABBITMQ_BASE</code>, <code>RABBITMQ_MNESIA_BASE</code> or
+            <code>RABBITMQ_MNESIA_DIR</code>. Please read <a href="/relocate.html">the relocation guide</a> for a description
+            of how each of these variables works.
           </p>
       </doc:subsection>
     </doc:section>
