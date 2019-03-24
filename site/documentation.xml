@@ -199,10 +199,13 @@ limitations under the License.
                 <a href="management.html">Management UI and HTTP API</a>
               </li>
               <li>
-                <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
+                <a href="monitoring.html">Monitoring</a>, metrics and health checks
               </li>
               <li>
-                <a href="monitoring.html">Monitoring</a>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
+              </li>
+              <li>
+                <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
               </li>
               <li>
                 <a href="connections.html">Client Connections</a>
@@ -250,7 +253,7 @@ limitations under the License.
           </li>
 
           <li>
-            Guidelines:
+            Guidance:
             <ul>
               <li>
                 <a href="monitoring.html">Monitoring</a>
@@ -260,6 +263,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="backup.html">Backup and Restore</a>
+              </li>
+              <li>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
               </li>
               <li>
                 <a href="/reliability.html">Reliable Message Delivery</a>
