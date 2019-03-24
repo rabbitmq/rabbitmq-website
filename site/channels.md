@@ -27,6 +27,7 @@ This guide covers:
 
  * [The basics](#basics) of channels
  * [Channel lifecycle](#lifecycle)
+ * [Channel exceptions](#error-handling) (errors) and what they mean
  * Channel [resource usage](#resource-usage)
  * [Monitoring](#monitoring) and metrics related to channels and how to identify common problems
  * [Flow control](#flow-control)
