@@ -24,9 +24,7 @@ network connections.
 
 For connections that use TLS there is an additional [guide on troubleshooting TLS](/troubleshooting-ssl.html).
 
-## <a id="methodology" class="anchor" href="#methodology">Methodology</a>
-
-Troubleshooting Client Connection Issues: the Methodology
+## <a id="methodology" class="anchor" href="#methodology">Troubleshooting Methodology</a>
 
 Troubleshooting of network connectivity issues is a broad topic. There are entire
 books written about it. This guide explains a methodology and widely available networking tools
