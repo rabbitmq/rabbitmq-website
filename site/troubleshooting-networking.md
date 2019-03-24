@@ -89,6 +89,14 @@ Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS
 Interface: [::], port: 1883, protocol: mqtt, purpose: MQTT
 </pre>
 
+In the above example, there are 6 TCP listeners on the node:
+
+ * Inter-node and CLI tool communication on port <code>25672</code>
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections on port <code>5672</code>
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port <code>5671</code>
+ * [HTTP API](/management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
+ * [MQTT](/mqtt.html) listener for non-TLS connections 1883
+
 With <code>rabbitmqctl status</code> it will look like so:
 
 <pre class="lang-erlang">
@@ -101,12 +109,12 @@ With <code>rabbitmqctl status</code> it will look like so:
 % ...
 </pre>
 
-In this example, there are 4 TCP listeners on the node:
+In second example, there are 4 TCP listeners on the node:
 
  * Inter-node and CLI tool communication port, <code>25672</code>
  * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections, <code>5672</code>
  * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections, <code>5671</code>
- * [HTTP API](/management.html), 15672
+ * [HTTP API](/management.html) listener on ports 15672 (HTTP only)
 
 All listeners are bound to all available interfaces.
 
