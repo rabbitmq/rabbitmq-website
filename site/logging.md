@@ -32,7 +32,7 @@ Starting with 3.7.0, RabbitMQ uses a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
-There are two ways to configure log file location. One is the [configuration file](/configure.html). The other is the `RABBITMQ_LOGS` environment variable. Use [RabbitMQ management UI](/management.html) or `[rabbitmqctl](/cli.html) environment` to find when a node stores its log file(s).
+There are two ways to configure log file location. One is the [configuration file](/configure.html). The other is the `RABBITMQ_LOGS` environment variable. Use [RabbitMQ management UI](/management.html) or [`rabbitmqctl` environment](/cli.html) to find when a node stores its log file(s).
 
 The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`), which means all log
 messages will be printed to standard output.
