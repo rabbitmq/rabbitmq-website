@@ -131,12 +131,11 @@ vm_memory_calculation_strategy = allocated
           Memory use breakdown reports allocated memory distribution by category:
 
           <ul class="plain">
-            <li>Connections (further split into three categories: readers, writers, other)</li>
-            <li>Channels</li>
+            <li><a href="#breakdown-connections">Connections</a> (further split into four categories: readers, writers, channels, other)</li>
             <li>Queue master replicas</li>
             <li>Queue mirror replicas</li>
             <li>Message Store and Indices</li>
-            <li>Binaries</li>
+            <li><a href="#breakdown-binaries">Binary heap references</a></li>
             <li>Node-local metrics (stats database)</li>
             <li>Internal database tables</li>
             <li>Plugins</li>
@@ -557,6 +556,27 @@ channel_max = 16
           Memory used by shared binary data in the runtime. Most of this
           memory is message bodies and metadata.
         </p>
+
+        <p>
+          With some workloads binary data heap can be garbage collected infrequently.
+          <code>rabbitmqctl force_gc</code> can be used force collection. The following
+          couple of commands forces collection and reports top processes that released most
+          binary heap references:
+
+<pre class="lang-bash">
+rabbitmqctl eval 'recon:bin_leak(10).'
+
+rabbitmqctl force_gc
+</pre>
+
+          With RabbitMQ versions that do not provide <code>rabbitmqctl force_gc</code>, use
+
+<pre class="lang-bash">
+rabbitmqctl eval 'recon:bin_leak(10).'
+
+rabbitmqctl eval '[garbage_collect(P) || P &lt;- processes()].'
+</pre>
+        </p>
       </doc:subsection>
 
       <doc:subsection name="breakdown-ets-tables">
@@ -653,13 +673,21 @@ channel_max = 16
         as well as unallocated but reserved by the OS. Both values depend on the OS and Erlang VM allocator
         settings and can fluctuate significantly.
       </p>
+
       <p>
-        Note that the sections depend on the <code>vm_memory_calculation_strategy</code> setting.
+        How the value in both sections is computed depend on the <code>vm_memory_calculation_strategy</code> setting.
         If the strategy is set to <code>erlang</code>, unused
         memory will not be reported.
         If memory calculation strategy is set to <code>allocated</code>, memory
         reserved by OS will not be reported. Therefore <code>rss</code> is the strategy
         that provides most information from both the kernel and the runtime.
+      </p>
+
+      <p>
+        When a node reports a large amount of allocated but unused memory on a long running node, it may be
+        an indicator of runtiime memory fragmentation. A different set of allocator settings can reduce fragmentation
+        and increase the percentage of efficiently used memory. The right set of settings depends on
+        the workload and message payload size distribution.
       </p>
 
       <p>
