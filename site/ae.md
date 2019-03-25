@@ -32,7 +32,7 @@ Alternate Exchange ("AE") is a feature addresses these use cases.
 ## <a id="define" class="anchor" href="#define">How to Define an Alternate Exchange</a>
 
 For any given exchange, an AE can be defined by clients using
-<a href="parameters.html#policies">policies</a> or the exchange's client-provided options arguments ("x-args").
+[policies](/parameters.html#policies) or the exchange's client-provided options arguments ("x-args").
 In the case where both policy and arguments specify an AE, the one
 specified in arguments overrules the one specified in policy.
 
@@ -56,7 +56,7 @@ rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}"
 
 This will apply an AE of "my-ae" to the exchange called
 "my-direct". Policies can also be defined using the management
-plugin, see the <a href="parameters.html#policies">policy documentation</a> for more details.
+plugin, see the [policy documentation](parameters.html#policies) for more details.
 
 ### <a id="define-using-arguments" class="anchor" href="#define-using-arguments">Configuration Using Client-provided Arguments</a>
 
