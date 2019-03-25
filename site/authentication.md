@@ -17,4 +17,4 @@ limitations under the License.
 
 # Authentication Mechanisms
 
-Authentication mechanisms are now documented in the <a href="">Access Control</a> guide.
+Authentication mechanisms are now documented in the <a href="/access-control.html">Access Control</a> guide.
