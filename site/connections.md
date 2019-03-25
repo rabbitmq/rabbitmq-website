@@ -42,10 +42,13 @@ This guide covers:
 
  * [The basics](#basics) of how clients use RabbitMQ
  * [Connection lifecycle](#lifecycle)
+ * Connection [event logging](#logging)
  * [Monitoring](#monitoring) of connections
  * Sustaining a [large number of concurrent connections](#large-number-of-connections)
  * [TLS](#tls)
  * [Flow control](#flow-control)
+ * [Connection exceptions](#error-handling) (protocol errors)
+ * [Network failure recovery](#automatic-recovery)
 
 and other topics related to connections.
 
@@ -145,6 +148,17 @@ When it is used, RabbitMQ uses a pre-configured set of credentials.
 #### STOMP
 
 STOMP connections follow the flow described above.
+
+## <a id="logging" class="anchor" href="#logging">Logging</a>
+
+RabbitMQ logs all inbound client connections that send at least 1 byte of data. Connections
+that are opened without any activity will not be logged. This is to prevent TCP load balancer health
+checks from flooding the logs.
+
+Successful authentication, clean and unexpected connection closure will also be logged.
+
+This topic is covered in more detail in the [Logging guide](/logging.html#logged-events).
+
 
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring</a>
 
@@ -270,3 +284,64 @@ the TCP socket.
 [Monitoring](/monitoring.html) systems can collect metrics on the number of connections in flow state.
 Applications that experience flow control regularly may consider to use separate connections
 to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management).
+
+## <a id="errors" class="anchor" href="#errors">Error Handling and Protocol Exceptions</a>
+
+A connection can fail or be unable to satisfy a client operation. Such scenarios are called errors
+or protocol exceptions. They can indicate a transient condition (e.g. a resource is locked),
+a semantic issue, or a protocol implementation (e.g. incorrect framing).
+
+Most errors in messaging protocols are considered to be unrecoverable. Note that protocol errors
+are different from [network connectivity failures](#automatic-recovery).
+
+### Protocol Differences
+
+#### AMQP 0-9-1
+
+In AMQP 0-9-1, connection errors are used to communicate unrecoverable ("hard") errors, such as incorrect
+framing or connection state violations. For example, if a channel with the same ID (number) is opened
+more than once. After sending an error to the client, the connection is closed.
+
+Errors that can be corrected and retried are communicated
+using [channel exceptions](/channels.html#error-handling) ("soft errors").
+
+#### AMQP 1.0
+
+In AMQP 1.0, most errors fall into either [session errors](http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp239696) or
+[link errors](http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html#doc-idp348080).
+A session error is unrecoverable and leads to all operations received by the peer that's detected the
+error to be discarded until session termination.
+
+A link error is limited to a particular link. Since links can be attached and reattached without
+affecting their session, in practice applications can retry an operation that's failed after
+correcting the root cause (if possible).
+
+#### STOMP
+
+In STOMP, the server communicates errors by sending an [ERROR frame](https://stomp.github.io/stomp-specification-1.2.html#ERROR)
+and closing TCP connection. The frame will contain an error message in the `message` field.
+
+#### MQTT 3.1
+
+In MQTT 3.1, servers have a limited number of ways to communicate an error to a client. The primary way
+is to close client's TCP connection. This provides little context and limited visibility for developers.
+This is a fundamental limitation of MQTT 3.1 design.
+
+Quite often MQTT clients are configured to automatically reconnect and retry operations, potentially
+creating loops of error triggering, connection storms and variations of the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem).
+
+With MQTT, inspecting [server logs](/logging.html) and [monitoring connections](#monitoring) is therefore of particular
+importance.
+
+
+## <a id="automatic-recovery" class="anchor" href="#automatic-recovery">Recovery from Network Connection Failures</a>
+
+Client's TCP connection can fail or experience serious packet loss that would make RabbitMQ nodes
+consider them [unavailable](/heartbeats.html).
+
+Some client libraries provide a mechanism for automatic recovery from network connection failures.
+[RabbitMQ Java client](/api-guide.html#recovery) and [RabbitMQ .NET client](/dotnet-api-guide.html#recovery) support such feature, for example.
+This feature is largely protocol- and client library-specific.
+
+Other clients may consider network failure recovery to be a responsibility of the application. In this
+case they usually provide examples that include connection and topology recovery.
