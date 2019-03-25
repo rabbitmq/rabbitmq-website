@@ -6,7 +6,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,7 @@ This guide covers:
 
  * [The basics](#basics) of channels
  * [Channel lifecycle](#lifecycle)
+ * [Channel exceptions](#error-handling) (errors) and what they mean
  * Channel [resource usage](#resource-usage)
  * [Monitoring](#monitoring) and metrics related to channels and how to identify common problems
  * [Flow control](#flow-control)

@@ -11,7 +11,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -71,7 +71,7 @@ limitations under the License.
        <p>
          Below is a list Debian-based distributions supported by RabbitMQ 3.7.x packages:
          <ul>
-           <li>Ubuntu 14.04 through 18.04</li>
+           <li>Ubuntu 14.04 through 18.10</li>
            <li>Debian Buster</li>
            <li>Debian Stretch</li>
            <li>Debian Jessie</li>
@@ -205,7 +205,7 @@ limitations under the License.
          In order to use the repository, add a key used to sign RabbitMQ releases to <code>apt-key</code>:
 
 <pre class="lang-bash">
-apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
@@ -224,7 +224,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
         In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
 
 <pre class="lang-bash">
-apt-get install apt-transport-https
+sudo apt-get install apt-transport-https
 </pre>
        </p>
      </doc:subsection>
@@ -408,7 +408,7 @@ Pin-Priority: 1000
         In order to use the repository, add <a href="/signatures.html">RabbitMQ signing key</a> to <code>apt-key</code>:
 
 <pre class="lang-bash">
-apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 </pre>
 
          The key can be downloaded and imported without involving a key server:
@@ -425,7 +425,7 @@ wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
         In order for apt to be able to download RabbitMQ and Erlang packages from Bintray, the <code>apt-transport-https</code> package must be installed:
 
 <pre class="lang-bash">
-apt-get install apt-transport-https
+sudo apt-get install apt-transport-https
 </pre>
        </p>
        <h4>Source List File</h4>

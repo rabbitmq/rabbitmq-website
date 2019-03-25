@@ -7,7 +7,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -621,6 +621,10 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           in our <a href="/install-debian.html#kernel-resource-limits">Debian</a> and <a href="/install-rpm.html#kernel-resource-limits">RPM</a>
           installation guides provides. Linux kernel limit management is covered by many resources on the Web,
           including the <a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit">open file handle limit</a>.
+        </p>
+        <p>
+          With Docker, <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">Docker daemon configuration file</a>
+          in the host controls the limits.
         </p>
         <p>
           MacOS uses a <a href="https://superuser.com/questions/433746/is-there-a-fix-for-the-too-many-open-files-in-system-error-on-os-x-10-7-1">similar system</a>.

@@ -11,7 +11,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -498,7 +498,7 @@ limitations under the License.
     </li>
     <li>
       <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
-      The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
+      The blog of Chris Duncan, author of the Bunny AMQP client for Ruby. Good place
       to look if you're using AMQP with Ruby.
     </li>
     <li>
@@ -567,7 +567,7 @@ limitations under the License.
     <li>
       <a href="http://hpts.ws/papers/2009/session5/das.pdf">Advanced Message Queueing Protocol</a><br />
       Presentation from Pranta Das from Cisco giving a good background on AMQP, an
-      overview of the the new information model in AMQP 1.0 and some general use
+      overview of the new information model in AMQP 1.0 and some general use
       cases for AMQP messaging.
     </li>
     <li>

@@ -11,7 +11,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -172,13 +172,11 @@ sudo zypper in erlang
 
           Erlang versions available in the standard repositories will in practice be behind the most recent version.
           To use the last version with the newest features, add the
-          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>.
-
-          For example, for openSUSE Leap 15:
+          <a href="http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/">openSUSE Factory repositories for Erlang</a>:
 
 <pre class="sourcecode bash">
-# add the openSUSE erlang factory repository for leap 15
-sudo zypper addrepo http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Leap_15.0/ openSUSE-Erlang-Factory
+# add the openSUSE erlang factory, obs:// extracts the http url for the matching distro.
+sudo zypper ar -f  obs://devel:languages:erlang:Factory openSUSE-Erlang-Factory
 
 # import the signing key and refresh the repository
 sudo zypper --gpg-auto-import-keys refresh

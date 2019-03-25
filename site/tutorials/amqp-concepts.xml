@@ -7,7 +7,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@ limitations under the License.
         <doc:section name="about-this-guide">
         <doc:heading>About This Guide</doc:heading>
             <p>
-              This guide provides an overview of the the AMQP 0-9-1 protocol, one of the protocols
+              This guide provides an overview of the AMQP 0-9-1 protocol, one of the protocols
               supported by RabbitMQ.
             </p>
            </doc:section>
@@ -299,6 +299,8 @@ limitations under the License.
                  hash (dictionary) for example.
                </p>
                <p>
+                 Note that headers beginning with the string <code>x-</code>
+                 will not be used to evaluate matches.
                </p>
                </doc:subsection>
             </doc:section>

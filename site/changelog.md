@@ -6,7 +6,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,8 +17,15 @@ limitations under the License.
 
 # RabbitMQ Changelog
 
-This is a change log for the RabbitMQ server distribution. [Java client release notes](https://github.com/rabbitmq/rabbitmq-java-client/releases)
-and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases) are available on GitHub.
+## Overview
+
+RabbitMQ release notes are [available on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
+
+[Java client release notes](https://github.com/rabbitmq/rabbitmq-java-client/releases)
+and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases) are
+published separately.
+
+## Releases
 
 <table id="changelog">
   <tr>
@@ -26,6 +33,18 @@ and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-clie
     <th class="centre">Release Date</th>
     <th>Highlights</th>
     <th class="centre">Release Notes</th>
+  </tr>
+
+  <tr>
+    <td class="centre">3.7.13</td>
+    <td class="centre">8 March 2019</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.13">Release notes</a></td>
   </tr>
 
   <tr>

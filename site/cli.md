@@ -6,7 +6,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -76,6 +76,50 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
+
+## <a id="node-names" class="anchor" href="#node-names">Node Names</a>
+
+RabbitMQ nodes are identified by node names. A node name consists of two parts,
+a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local`
+is a node name with the prefix of `rabbit` and hostname of `node1.messaging.svc.local`.
+
+Node names in a cluster must be unique. If more than one node is running on a given host
+(this is usually the case in development and QA environments), they must use
+different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
+
+CLI tools identify and address server nodes using node names.
+Most CLI commands are invoked against a node called target node. To specify a target node,
+use the `--node` (`-n`) option. For example, to run a [health check](/monitoring.html)
+on node `rabbit@warp10.local`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics -n rabbit@warp10 check_alarms
+</pre>
+
+Some commands accept both a target node and another node name. For example,
+`rabbitmqctl forget_cluster_node` accepts both a target node (that will perform the action)
+and a name of the node to be removed.
+
+In a cluster, nodes identify and contact each other using node names. See [Clustering guide](/clustering.html#node-names)
+for details.
+
+When a node starts up, it checks whether it has been assigned a node name. This is done
+via the `RABBITMQ_NODENAME` [environment variable](/configure.html#supported-environment-variables).
+If no value was explicitly configured, the node resolves its hostname and prepends `rabbit` to it to compute its node name.
+
+If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
+and CLI tools must be configured to use so called long node names.
+For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](/configure.html#supported-environment-variables)
+to `true`.
+
+For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
+must be specified:
+
+<pre class="lang-bash">
+# this example assumes that host1.messaging.eng.coolcorporation.banana is a hostname
+# that successfully resolves
+rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
+</pre>
 
 ## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 

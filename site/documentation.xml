@@ -7,7 +7,7 @@ are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,7 +62,7 @@ limitations under the License.
         <p>
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
-          messaging, the protocol, RabbitMQ features, and some common usage scenarios.
+          messaging, one of the protocols RabbitMQ supports, key messaging features, and some common usage scenarios.
           <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 Overview</a> provides a brief overview
           for the original RabbitMQ protocol.
         </p>
@@ -199,10 +199,13 @@ limitations under the License.
                 <a href="management.html">Management UI and HTTP API</a>
               </li>
               <li>
-                <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
+                <a href="monitoring.html">Monitoring</a>, metrics and health checks
               </li>
               <li>
-                <a href="monitoring.html">Monitoring</a>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
+              </li>
+              <li>
+                <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
               </li>
               <li>
                 <a href="connections.html">Client Connections</a>
@@ -250,7 +253,7 @@ limitations under the License.
           </li>
 
           <li>
-            Guidelines:
+            Guidance:
             <ul>
               <li>
                 <a href="monitoring.html">Monitoring</a>
@@ -260,6 +263,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="backup.html">Backup and Restore</a>
+              </li>
+              <li>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
               </li>
               <li>
                 <a href="/reliability.html">Reliable Message Delivery</a>
@@ -553,7 +559,10 @@ limitations under the License.
             <a href="web-mqtt.html">MQTT over WebSockets</a>
           </li>
           <li>
-            Other <a href="protocol.html">protocol documentation</a>.
+            <a href="protocol.html">AMQP 0-9-1 implementation details</a>.
+          </li>
+          <li>
+            <a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata document</a>.
           </li>
         </ul>
       </div>
