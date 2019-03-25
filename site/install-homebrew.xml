@@ -69,12 +69,12 @@ brew install rabbitmq
       <doc:heading>Operations</doc:heading>
 
       <p>
-        The RabbitMQ server scripts and <a href="/cli.html">CLI tools</a> are installed under <code>/usr/local/sbin</code>.
+        The RabbitMQ server scripts and <a href="/cli.html">CLI tools</a> are installed in <code>sbin</code> directory under <code>/usr/local/Cellar/rabbitmq</code>, which is accessible via <code>/usr/local/opt/rabbitmq/sbin</code>.
         In case that directory is not in <code>PATH</code> it's recommend to append
         it:
 
 <pre class="lang-shell">
-export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/opt/rabbitmq/sbin
 </pre>
 
         The server can then be started with <code>rabbitmq-server</code>.
