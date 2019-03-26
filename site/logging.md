@@ -20,6 +20,7 @@ This guide covers topics such as:
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
+ * Watching [internal events](#internal-events)
  * [Debug logging](#debug-logging)
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
@@ -702,6 +703,91 @@ If the `log_levels` key is present in `rabbitmq.config` file, it should be updat
 use categories.
 
 `rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined.
+
+
+## <a id="internal-events" class="anchor" href="#internal-events">Watching Internal Events</a>
+
+RabbitMQ nodes have an internal mechanism. Some of its events can be of interest for monitoring,
+audit and troubleshooting purposes. They can be exposed to applications for [consumption](/consumers.html)
+with a plugin, [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/).
+
+Events are published as messages with blank bodies. All event metadata is stored in
+message metadata (properties, headers).
+
+Below is a list of published events.
+
+### Core Broker
+
+[Queue](/queues.html), Exchange and Binding events:
+
+ * `queue.deleted`
+ * `queue.created`
+ * `exchange.created`
+ * `exchange.deleted`
+ * `binding.created`
+ * `binding.deleted`
+
+[Connection](/connections.html) and [Channel](/channels.html) events:
+
+ * `connection.created`
+ * `connection.closed`
+ * `channel.created`
+ * `channel.closed`
+
+[Consumer](/consumers.html) events:
+
+ * `consumer.created`
+ * `consumer.deleted`
+
+[Policy and Parameter](/parameters.html) events:
+
+ * `policy.set`
+ * `policy.cleared`
+ * `parameter.set`
+ * `parameter.cleared`
+
+[Virtual host](/vhosts.html) events:
+
+ * `vhost.created`
+ * `vhost.deleted`
+ * `vhost.limits.set`
+ * `vhost.limits.cleared`
+
+User management events:
+
+ * `user.authentication.success`
+ * `user.authentication.failure`
+ * `user.created`
+ * `user.deleted`
+ * `user.password.changed`
+ * `user.password.cleared`
+ * `user.tags.set`
+
+[Permission](/access-control.html) events:
+
+ * `permission.created`
+ * `permission.deleted`
+ * `topic.permission.created`
+ * `topic.permission.deleted`
+
+[Alarm](/alarms.html) events:
+
+ * `alarm.set`
+ * `alarm.cleared`
+
+### [Shovel Plugin](/shovel.html)
+
+Worker events:
+
+ * `shovel.worker.status`
+ * `shovel.worker.removed`
+
+### [Federation Plugin](/federation.html)
+
+Link events:
+
+ * `federation.link.status`
+ * `federation.link.removed`
 
 
 ## <a id="advanced-configuration" class="anchor" href="#advanced-configuration">Advanced Configuration</a>
