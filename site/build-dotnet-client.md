@@ -15,11 +15,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# .Net/C# RabbitMQ Client Library Build Instructions
+# Build RabbitMQ .NET Client from Source
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guides describes the process of building the .Net/C# client libraries from source.
+
+The repository is hosted on GitHub. Clone it with
 
 <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-dotnet-client.git
