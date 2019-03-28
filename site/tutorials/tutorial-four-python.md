@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 ### What This Tutorial Focuses On
 
@@ -230,8 +230,6 @@ for severity in severities:
 Putting it all together
 -----------------------
 
-
-
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
   <div class="diagram_source">
@@ -278,17 +276,16 @@ The code for `emit_log_direct.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='direct_logs',
-                         exchange_type='direct')
+channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
 severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
-channel.basic_publish(exchange='direct_logs',
-                      routing_key=severity,
-                      body=message)
+channel.basic_publish(
+    exchange='direct_logs', routing_key=severity, body=message)
 print(" [x] Sent %r:%r" % (severity, message))
 connection.close()
 </pre>
@@ -300,13 +297,13 @@ The code for `receive_logs_direct.py`:
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='direct_logs',
-                         exchange_type='direct')
+channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 queue_name = result.method.queue
 
 severities = sys.argv[1:]
@@ -315,18 +312,18 @@ if not severities:
     sys.exit(1)
 
 for severity in severities:
-    channel.queue_bind(exchange='direct_logs',
-                       queue=queue_name,
-                       routing_key=severity)
+    channel.queue_bind(
+        exchange='direct_logs', queue=queue_name, routing_key=severity)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
+
 
 def callback(ch, method, properties, body):
     print(" [x] %r:%r" % (method.routing_key, body))
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
+
+channel.basic_consume(
+    queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
 </pre>
@@ -353,7 +350,7 @@ python emit_log_direct.py error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+(Full source code for [`emit_log_direct.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [`receive_logs_direct.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
 Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
 for messages based on a pattern.

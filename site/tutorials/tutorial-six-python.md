@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 ### What This Tutorial Focuses On
 
@@ -214,18 +214,19 @@ Our RPC will work like this:
 Putting it all together
 -----------------------
 
-
 The code for `rpc_server.py`:
 
 <pre class="lang-python">
 #!/usr/bin/env python
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 
 channel = connection.channel()
 
 channel.queue_declare(queue='rpc_queue')
+
 
 def fib(n):
     if n == 0:
@@ -233,7 +234,8 @@ def fib(n):
     elif n == 1:
         return 1
     else:
-        return fib(n-1) + fib(n-2)
+        return fib(n - 1) + fib(n - 2)
+
 
 def on_request(ch, method, props, body):
     n = int(body)
@@ -246,10 +248,11 @@ def on_request(ch, method, props, body):
                      properties=pika.BasicProperties(correlation_id = \
                                                          props.correlation_id),
                      body=str(response))
-    ch.basic_ack(delivery_tag = method.delivery_tag)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='rpc_queue')
+channel.basic_consume(queue='rpc_queue', on_message_callback=on_request)
 
 print(" [x] Awaiting RPC requests")
 channel.start_consuming()
@@ -277,17 +280,22 @@ The code for `rpc_client.py`:
 import pika
 import uuid
 
+
 class FibonacciRpcClient(object):
+
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='localhost'))
 
         self.channel = self.connection.channel()
 
-        result = self.channel.queue_declare(exclusive=True)
+        result = self.channel.queue_declare('', exclusive=True)
         self.callback_queue = result.method.queue
 
-        self.channel.basic_consume(self.on_response, no_ack=True,
-                                   queue=self.callback_queue)
+        self.channel.basic_consume(
+            queue=self.callback_queue,
+            on_message_callback=self.on_response,
+            auto_ack=True)
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
@@ -296,16 +304,18 @@ class FibonacciRpcClient(object):
     def call(self, n):
         self.response = None
         self.corr_id = str(uuid.uuid4())
-        self.channel.basic_publish(exchange='',
-                                   routing_key='rpc_queue',
-                                   properties=pika.BasicProperties(
-                                         reply_to = self.callback_queue,
-                                         correlation_id = self.corr_id,
-                                         ),
-                                   body=str(n))
+        self.channel.basic_publish(
+            exchange='',
+            routing_key='rpc_queue',
+            properties=pika.BasicProperties(
+                reply_to=self.callback_queue,
+                correlation_id=self.corr_id,
+            ),
+            body=str(n))
         while self.response is None:
             self.connection.process_data_events()
         return int(self.response)
+
 
 fibonacci_rpc = FibonacciRpcClient()
 
@@ -373,4 +383,4 @@ complex (but important) problems, like:
 >If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
 
-(Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
+(Full source code for [`rpc_client.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [`rpc_server.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
