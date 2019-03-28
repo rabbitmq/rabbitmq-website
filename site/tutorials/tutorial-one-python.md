@@ -139,7 +139,7 @@ connection.close()
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
-> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
@@ -218,9 +218,9 @@ Next, we need to tell RabbitMQ that this particular callback function should
 receive messages from our _hello_ queue:
 
 <pre class="lang-python">
-channel.basic_consume(callback,
-                      queue='hello',
-                      no_ack=True)
+channel.basic_consume(queue='hello',
+                      auto_ack=True,
+                      on_message_callback=callback)
 </pre>
 
 For that command to succeed we must be sure that a queue which we want
@@ -239,53 +239,9 @@ channel.start_consuming()
 
 ### Putting it all together
 
+Full send code: [`send.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
-Full code for `send.py`:
-
-<pre class="lang-python">
-#!/usr/bin/env python
-import pika
-
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
-
-
-channel.queue_declare(queue='hello')
-
-channel.basic_publish(exchange='',
-                      routing_key='hello',
-                      body='Hello World!')
-print(" [x] Sent 'Hello World!'")
-connection.close()
-</pre>
-
-[(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
-
-
-Full `receive.py` code:
-
-<pre class="lang-python">
-#!/usr/bin/env python
-import pika
-
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
-
-
-channel.queue_declare(queue='hello')
-
-def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
-
-channel.basic_consume(callback,
-                      queue='hello',
-                      no_ack=True)
-
-print(' [*] Waiting for messages. To exit press CTRL+C')
-channel.start_consuming()
-</pre>
-
-[(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
+Full receive code: [`receive.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:
@@ -302,7 +258,6 @@ Now start the producer. The producer program will stop after every run:
 python send.py
 # => [x] Sent 'Hello World!'
 </pre>
-
 
 Hurray! We were able to send our first message through RabbitMQ. As you might
 have noticed, the `receive.py` program doesn't exit. It will stay ready to
