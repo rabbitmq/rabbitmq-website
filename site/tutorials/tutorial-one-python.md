@@ -46,15 +46,21 @@ Producer sends messages to the "hello" queue. The consumer receives
 messages from that queue.
 
 > #### RabbitMQ libraries
-
-> RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
+>
+> RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > protocol for messaging. There are a number of clients for RabbitMQ
 > in [many different languages](/devtools.html).  In this tutorial
 > series we're going to use [Pika 1.0.0](https://pika.readthedocs.org/en/stable/),
 > which is the Python client recommended
 > by the RabbitMQ team. To install it you can use the
-> [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool.
+> [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool:
+>
+> <pre class="lang-bash">
+> pip install pika --upgrade
+> </pre>
 
+Now we have Pika installed, we can write some
+code.
 
 ### Sending
 
