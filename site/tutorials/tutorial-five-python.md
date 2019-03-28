@@ -161,7 +161,7 @@ have two words: "`<facility>.<severity>`".
 The code is almost the same as in the
 [previous tutorial](tutorial-four-python.html).
 
-The code for `emit_log_topic.py`:
+`emit_log_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -182,7 +182,7 @@ print(" [x] Sent %r:%r" % (routing_key, message))
 connection.close()
 </pre>
 
-The code for `receive_logs_topic.py`:
+`receive_logs_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -253,8 +253,5 @@ python emit_log_topic.py "kern.critical" "A critical kernel error"
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
-
-(Full source code for [`emit_log_topic.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
-and [`receive_logs_topic.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
 Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.

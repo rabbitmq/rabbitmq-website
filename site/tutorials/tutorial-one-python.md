@@ -239,7 +239,7 @@ channel.start_consuming()
 
 ### Putting it all together
 
-`send.py`:
+`send.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -256,9 +256,7 @@ print(" [x] Sent 'Hello World!'")
 connection.close()
 </pre>
 
-[(`send.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
-
-`receive.py`:
+`receive.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -281,8 +279,6 @@ channel.basic_consume(
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 </pre>
-
-[(`receive.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:

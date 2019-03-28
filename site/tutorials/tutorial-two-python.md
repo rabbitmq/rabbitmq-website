@@ -359,7 +359,7 @@ channel.basic_qos(prefetch_count=1)
 Putting it all together
 -----------------------
 
-`new_task.py`:
+`new_task.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -384,9 +384,7 @@ print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(`new_task.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
-
-`worker.py`:
+`worker.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -413,8 +411,6 @@ channel.basic_consume(queue='task_queue', on_message_callback=callback)
 
 channel.start_consuming()
 </pre>
-
-[(`worker.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 Using message acknowledgments and `prefetch_count` you can set up a
 work queue. The durability options let the tasks survive even if

@@ -266,8 +266,9 @@ The producer program, which emits log messages, doesn't look much
 different from the previous tutorial. The most important change is that
 we now want to publish messages to our `logs` exchange instead of the
 nameless one. We need to supply a `routing_key` when sending, but its
-value is ignored for `fanout` exchanges. Here goes the code for
-`emit_log.py` script:
+value is ignored for `fanout` exchanges.
+
+`emit_log.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -286,8 +287,6 @@ print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(`emit_log.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
-
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
 exchange is forbidden.
@@ -295,7 +294,7 @@ exchange is forbidden.
 The messages will be lost if no queue is bound to the exchange yet,
 but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
-The code for `receive_logs.py`:
+`receive_logs.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -314,18 +313,14 @@ channel.queue_bind(exchange='logs', queue=queue_name)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
-
 def callback(ch, method, properties, body):
     print(" [x] %r" % body)
-
 
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
 </pre>
-
-[(`receive_logs.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
 
 We're done. If you want to save logs to a file, just open a console and type:
 

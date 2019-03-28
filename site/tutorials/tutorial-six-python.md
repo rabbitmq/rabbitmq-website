@@ -214,7 +214,7 @@ Our RPC will work like this:
 Putting it all together
 -----------------------
 
-The code for `rpc_server.py`:
+`rpc_server.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -227,7 +227,6 @@ channel = connection.channel()
 
 channel.queue_declare(queue='rpc_queue')
 
-
 def fib(n):
     if n == 0:
         return 0
@@ -235,7 +234,6 @@ def fib(n):
         return 1
     else:
         return fib(n - 1) + fib(n - 2)
-
 
 def on_request(ch, method, props, body):
     n = int(body)
@@ -249,7 +247,6 @@ def on_request(ch, method, props, body):
                                                          props.correlation_id),
                      body=str(response))
     ch.basic_ack(delivery_tag=method.delivery_tag)
-
 
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='rpc_queue', on_message_callback=on_request)
@@ -273,7 +270,7 @@ The server code is rather straightforward:
     `prefetch_count` setting.
 
 
-The code for `rpc_client.py`:
+`rpc_client.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -382,5 +379,3 @@ complex (but important) problems, like:
 >
 >If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
-
-(Full source code for [`rpc_client.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [`rpc_server.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))

@@ -269,7 +269,7 @@ Putting it all together
   </div>
 </div>
 
-The code for `emit_log_direct.py`:
+`emit_log_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -290,7 +290,7 @@ print(" [x] Sent %r:%r" % (severity, message))
 connection.close()
 </pre>
 
-The code for `receive_logs_direct.py`:
+`receive_logs_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -349,8 +349,6 @@ And, for example, to emit an `error` log message just type:
 python emit_log_direct.py error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
-
-(Full source code for [`emit_log_direct.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [`receive_logs_direct.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
 Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
 for messages based on a pattern.
