@@ -227,7 +227,7 @@ For that command to succeed we must be sure that a queue which we want
 to subscribe to exists. Fortunately we're confident about that &#8210; we've
 created a queue above &#8210; using `queue_declare`.
 
-The `no_ack` parameter will be described [later on](tutorial-two-python.html).
+The `auto_ack` parameter will be described [later on](tutorial-two-python.html).
 
 And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary.

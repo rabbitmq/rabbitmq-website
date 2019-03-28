@@ -198,7 +198,7 @@ the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
 [Manual message acknowledgments](/confirms.html) are turned on by default. In previous
-examples we explicitly turned them off via the `no_ack=True`
+examples we explicitly turned them off via the `auto_ack=True`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
