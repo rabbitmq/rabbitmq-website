@@ -39,6 +39,7 @@ on behalf of the consumer.
 </div>
 
 > #### The Bunny client library
+>
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different

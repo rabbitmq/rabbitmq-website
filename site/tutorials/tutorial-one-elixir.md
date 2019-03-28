@@ -43,7 +43,7 @@ digraph G {
 
 > #### RabbitMQ libraries
 >
-> RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
+> RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open, general-purpose
 > protocol for messaging. There are a number of clients for RabbitMQ
 > in [many different languages](/devtools.html).  In this tutorial
 > series we're going to use [amqp](http://github.com/pma/amqp).
