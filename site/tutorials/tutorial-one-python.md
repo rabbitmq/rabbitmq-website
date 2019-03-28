@@ -50,7 +50,7 @@ messages from that queue.
 > RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
 > protocol for messaging. There are a number of clients for RabbitMQ
 > in [many different languages](/devtools.html).  In this tutorial
-> series we're going to use [Pika 0.11.0](https://pika.readthedocs.org/en/0.11.0/#),
+> series we're going to use [Pika 1.0.0](https://pika.readthedocs.org/en/stable/),
 > which is the Python client recommended
 > by the RabbitMQ team. To install it you can use the
 > [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool.
