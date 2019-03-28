@@ -85,7 +85,7 @@ With this mechanism, any client-provided password will be ignored.
 By default, the <code>guest</code> user is prohibited from
 connecting from remote hosts; it can only connect over
 a loopback interface (i.e. <code>localhost</code>). This
-applies to [connectitons regardless of the protocol](/connections.html).
+applies to [connections regardless of the protocol](/connections.html).
 Any other users will not (by default) be restricted in this way.
 
 The recommended way to address this in production systems
