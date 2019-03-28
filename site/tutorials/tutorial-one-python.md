@@ -239,9 +239,50 @@ channel.start_consuming()
 
 ### Putting it all together
 
-Full send code: [`send.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
+`send.py`:
 
-Full receive code: [`receive.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
+<pre class="lang-python">
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+channel.basic_publish(exchange='', routing_key='hello', body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+connection.close()
+</pre>
+
+[(`send.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
+
+`receive.py`:
+
+<pre class="lang-python">
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+
+
+channel.basic_consume(
+    queue='hello', on_message_callback=callback, auto_ack=True)
+
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+</pre>
+
+[(`receive.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:

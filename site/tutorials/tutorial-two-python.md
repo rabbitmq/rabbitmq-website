@@ -359,9 +359,62 @@ channel.basic_qos(prefetch_count=1)
 Putting it all together
 -----------------------
 
-Full `new_task.py` code: [`new_task.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
+`new_task.py`:
 
-Full `worker.py` code: [`worker.py`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
+<pre class="lang-python">
+#!/usr/bin/env python
+import pika
+import sys
+
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+
+message = ' '.join(sys.argv[1:]) or "Hello World!"
+channel.basic_publish(
+    exchange='',
+    routing_key='task_queue',
+    body=message,
+    properties=pika.BasicProperties(
+        delivery_mode=2,  # make message persistent
+    ))
+print(" [x] Sent %r" % message)
+connection.close()
+</pre>
+
+[(`new_task.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
+
+`worker.py`:
+
+<pre class="lang-python">
+#!/usr/bin/env python
+import pika
+import time
+
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+print(' [*] Waiting for messages. To exit press CTRL+C')
+
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+    time.sleep(body.count(b'.'))
+    print(" [x] Done")
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
+
+channel.basic_qos(prefetch_count=1)
+channel.basic_consume(queue='task_queue', on_message_callback=callback)
+
+channel.start_consuming()
+</pre>
+
+[(`worker.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 Using message acknowledgments and `prefetch_count` you can set up a
 work queue. The durability options let the tasks survive even if

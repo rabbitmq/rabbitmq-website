@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 ### What This Tutorial Focuses On
 
@@ -274,21 +274,19 @@ value is ignored for `fanout` exchanges. Here goes the code for
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='logs',
-                         exchange_type='fanout')
+channel.exchange_declare(exchange='logs', exchange_type='fanout')
 
 message = ' '.join(sys.argv[1:]) or "info: Hello World!"
-channel.basic_publish(exchange='logs',
-                      routing_key='',
-                      body=message)
+channel.basic_publish(exchange='logs', routing_key='', body=message)
 print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(emit_log.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
+[(`emit_log.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -303,32 +301,31 @@ The code for `receive_logs.py`:
 #!/usr/bin/env python
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='logs',
-                         exchange_type='fanout')
+channel.exchange_declare(exchange='logs', exchange_type='fanout')
 
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 queue_name = result.method.queue
 
-channel.queue_bind(exchange='logs',
-                   queue=queue_name)
+channel.queue_bind(exchange='logs', queue=queue_name)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
+
 
 def callback(ch, method, properties, body):
     print(" [x] %r" % body)
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
+
+channel.basic_consume(
+    queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
 </pre>
 
-[(receive_logs.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
-
+[(`receive_logs.py` source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
 
 We're done. If you want to save logs to a file, just open a console and type:
 
@@ -347,7 +344,6 @@ And of course, to emit logs type:
 <pre class="lang-bash">
 python emit_log.py
 </pre>
-
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.py`
