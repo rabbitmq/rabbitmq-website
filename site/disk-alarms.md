@@ -17,7 +17,7 @@ limitations under the License.
 
 # Free Disk Space Alarms
 
-<a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 When free disk space drops below a configured limit (50 MB by default), an
 alarm will be triggered and all producers will be blocked.
@@ -25,7 +25,7 @@ alarm will be triggered and all producers will be blocked.
 The goal is to avoid filling up the entire disk which will lead all
 write operations on the node to fail and can lead to RabbitMQ termination.
 
-<a id="how-it-works" class="anchor" href="#how-it-works">How it Works</a>
+## <a id="how-it-works" class="anchor" href="#how-it-works">How it Works</a>
 
 To reduce the risk of filling up the disk, all incoming messages are
 blocked. Transient messages, which aren't normally persisted, are still paged out
