@@ -25,6 +25,8 @@ alarm will be triggered and all producers will be blocked.
 The goal is to avoid filling up the entire disk which will lead all
 write operations on the node to fail and can lead to RabbitMQ termination.
 
+<a id="how-it-works" class="anchor" href="#how-it-works">How it Works</a>
+
 To reduce the risk of filling up the disk, all incoming messages are
 blocked. Transient messages, which aren't normally persisted, are still paged out
 to disk when under memory pressure, and will use up the already limited
