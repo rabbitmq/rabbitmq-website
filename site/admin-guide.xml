@@ -58,6 +58,9 @@ limitations under the License.
           <a href="nettick.html">Inter-node Connection Heartbeats</a>
         </li>
         <li>
+          <a href="runtime.html">Runtime Tuning</a>
+        </li>
+        <li>
           <a href="ttl.html">Queue and Message TTL</a>
         </li>
       </ul>
