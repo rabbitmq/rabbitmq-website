@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,7 +63,7 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 q, err := ch.QueueDeclare(
   "",    // name
   false, // durable
@@ -207,7 +207,7 @@ Putting it all together
 
 The Fibonacci function:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 func fib(n int) int {
         if n == 0 {
                 return 0
@@ -225,7 +225,7 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go) looks like this:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -333,7 +333,7 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go):
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -453,14 +453,14 @@ Now is a good time to take a look at our full example source code for
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run rpc_server.go
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run rpc_client.go 30
 # => [x] Requesting fib(30)
 </pre>

@@ -74,7 +74,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 [ch fanout:@"logs"];
 </pre>
 
@@ -87,7 +87,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -104,7 +104,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode objectivec">
+> <pre class="lang-objectivec">
 > [ch.defaultExchange publish:@"hello" routingKey:@"hello" persistent:YES];
 > </pre>
 >
@@ -113,7 +113,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 RMQExchange *x = [ch fanout:@"logs"];
 [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding]];
 </pre>
@@ -121,8 +121,8 @@ RMQExchange *x = [ch fanout:@"logs"];
 Temporary queues
 ----------------
 
-As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+As you may remember previously we were using queues that had
+specific names (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
@@ -237,7 +237,7 @@ we now want to publish messages to our `logs` exchange instead of the
 nameless one. Here goes the code for
 `emitLog`:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
 [conn start];
 
@@ -261,7 +261,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `receiveLogs`:
 
-<pre class="sourcecode objectivec">
+<pre class="lang-objectivec">
 RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
 [conn start];
 
@@ -284,7 +284,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.rb`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []

@@ -4,13 +4,16 @@ import socketserver
 import http.server
 import io
 import os
-
 import sys
+
 sys.path.insert(0, 'code')
-import render ## from the ./code/ subdirectory
+# see ./code
+import render
+
 render.SITE_DIR = './site/'
 global site_mode
 site_mode = 'www'
+
 
 class StubReq:
     def __init__(self, uri, queryPos):
@@ -26,9 +29,11 @@ class StubReq:
     def write(self, s):
         self.wfile.write(s)
 
+
 class ReqHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         self.do_GET()
+
     def do_GET(self):
         lowerpath = self.path.lower()
         queryPos = self.path.find("?")
@@ -56,6 +61,7 @@ class ReqHandler(http.server.SimpleHTTPRequestHandler):
         result = os.path.join(render.SITE_DIR, path)
         return result
 
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         site_mode = sys.argv[1]
@@ -63,4 +69,8 @@ if __name__ == '__main__':
     addr = ("0.0.0.0", 8191)
     with socketserver.TCPServer(addr, ReqHandler) as httpd:
         print('Serving on {0}'.format(addr))
-        httpd.serve_forever()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nStopping...")
+            httpd.shutdown()

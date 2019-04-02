@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,25 @@ limitations under the License.
 
 <pre class="sourcecode">
 [Service]
-LimitNOFILE=300000
+LimitNOFILE=64000
+</pre>
+  </p>
+
+  <h3>With Docker</h3>
+  <p>
+    To configure kernel limits for Docker contains, use the <code>"default-ulimits"</code> key in <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">Docker daemon configuration file</a>.
+    The file has to be installed on Docker hosts at <code>/etc/docker/daemon.json</code>:
+
+<pre class="lang-json">
+{
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 64000,
+      "Soft": 64000
+    }
+  }
+}
 </pre>
   </p>
 

@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -90,7 +90,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->exchange_declare('logs', 'fanout', false, false, false);
 </pre>
 
@@ -102,7 +102,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -119,7 +119,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode php">
+> <pre class="lang-php">
 > $channel->basic_publish($msg, '', 'hello');
 > </pre>
 >
@@ -129,7 +129,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->exchange_declare('logs', 'fanout', false, false, false);
 $channel->basic_publish($msg, 'logs');
 </pre>
@@ -137,8 +137,8 @@ $channel->basic_publish($msg, 'logs');
 Temporary queues
 ----------------
 
-As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+As you may remember previously we were using queues that had
+specific names (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
@@ -158,7 +158,7 @@ automatically deleted.
 In the [php-amqplib](https://github.com/php-amqplib/php-amqplib) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 list($queue_name, ,) = $channel->queue_declare("");
 </pre>
 
@@ -198,7 +198,7 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->queue_bind($queue_name, 'logs');
 </pre>
 
@@ -207,7 +207,7 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl list_bindings
 > </pre>
 
@@ -254,7 +254,7 @@ we now want to publish messages to our `logs` exchange instead of the
 nameless one. Here goes the code for
 `emit_log.php` script:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -291,7 +291,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `receive_logs.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -327,19 +327,19 @@ $connection->close();
 
 If you want to save logs to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs.php > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php receive_logs.php
 </pre>
 
 And of course, to emit logs type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 php emit_log.php
 </pre>
 
@@ -347,7 +347,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.php`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []

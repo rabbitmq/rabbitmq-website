@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,8 +43,8 @@ limitations under the License.
       </p>
 
       <p>
-        <a href="/monitoring.html">Monitoring</a> and metrics the foundation of a production-grade system.
-        Besides helping detect issues, it provides the oprator data that can be used
+        <a href="/monitoring.html">Monitoring</a> and metrics are the foundation of a production-grade system.
+        Besides helping detect issues, it provides the operator data that can be used
         to size and configure both RabbitMQ nodes and applications.
       </p>
     </doc:section>
@@ -94,7 +94,7 @@ limitations under the License.
 
           For IoT applications that involve many clients performing the same or similar
           function and having fixed IP addresses, it may make sense to <a href="/ssl.html">authenticate
-          using x509 certificates</a> or <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source IP addresse ranges</a>.
+          using x509 certificates</a> or <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source IP address ranges</a>.
         </p>
       </doc:subsection>
     </doc:section>
@@ -291,7 +291,7 @@ limitations under the License.
           Messaging protocols supported by RabbitMQ use a feature called <a href="/heartbeats.html">heartbeats</a> (the name
           may vary but the concept does not) to detect such connections quicker than the TCP stack.
           Developers should be careful about using heartbeat timeout that are too low (less than 5 seconds)
-          as that may producee false positives when network congestion or system load goes up.
+          as that may produce false positives when network congestion or system load goes up.
         </p>
 
         <p>

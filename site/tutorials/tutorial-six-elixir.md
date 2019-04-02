@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client module. It's going to contain a function named `call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 result = FibonacciRpcClient.call(4)
 IO.puts("fib(4) is #{result}")
 </pre>
@@ -74,7 +74,7 @@ message and a server replies with a response message. In order to
 receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 {:ok, %{queue: callback_queue}} = AMQP.Queue.declare(channel,
                                                      "",
                                                      exclusive: true)
@@ -210,7 +210,7 @@ Putting it all together
 
 The code for `rpc_server.exs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule FibServer do
   def fib(0), do: 0
   def fib(1), do: 1
@@ -263,7 +263,7 @@ The server code is rather straightforward:
 
 The code for `rpc_client.exs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule FibonacciRpcClient do
   def wait_for_messages(_channel, correlation_id) do
     receive do
@@ -336,14 +336,14 @@ The client code is slightly more involved:
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run rpc_server.exs
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run rpc_client.exs
 # => [x] Requesting fib(30)
 </pre>

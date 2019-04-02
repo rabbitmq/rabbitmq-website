@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 FibonacciRpcClient fibonacciRpc = new FibonacciRpcClient();
 String result = fibonacciRpc.call("4");
 System.out.println( "fib(4) is " + result);
@@ -76,7 +76,7 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue (which is exclusive in the Java client).
 Let's try it:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 callbackQueueName = channel.queueDeclare().getQueue();
 
 BasicProperties props = new BasicProperties
@@ -106,7 +106,7 @@ channel.basicPublish("", "rpc_queue", props, message.getBytes());
 
 We need this new import:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 import com.rabbitmq.client.AMQP.BasicProperties;
 </pre>
 
@@ -214,7 +214,7 @@ Putting it all together
 
 The Fibonacci task:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 private static int fib(int n) {
     if (n == 0) return 0;
     if (n == 1) return 1;
@@ -236,7 +236,7 @@ The server code is rather straightforward:
     to spread the load equally over multiple servers we need to set the
     `prefetchCount` setting in channel.basicQos.
   * We use `basicConsume` to access the queue, where we provide a callback in the
-    form of an object (`DefaultConsumer`) that will do the work and send the response back.
+    form of an object (`DeliverCallback`) that will do the work and send the response back.
 
 
 The code for our RPC client can be found here: [`RPCClient.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java).
@@ -246,8 +246,8 @@ The client code is slightly more involved:
   * We establish a connection and channel.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
-    number and save it - our implementation of `handleDelivery`
-    in `RpcConsumer` will use this value to catch the appropriate response.
+    number and save it - our consumer callback will use this value to
+    match the appropriate response.
   * Then, we create a dedicated exclusive queue for the reply and subscribe to it.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
@@ -257,7 +257,7 @@ The client code is slightly more involved:
     we're going to need something to suspend the `main` thread before the response arrives.
     Usage of `BlockingQueue` is one possible solutions to do so. Here we are creating `ArrayBlockingQueue`
     with capacity set to 1 as we need to wait for only one response.
-  * The `handleDelivery` method is doing a very simple job,
+  * The consumer is doing a very simple job,
     for every consumed response message it checks if the `correlationId`
     is the one we're looking for. If so, it puts the response to `BlockingQueue`.
   * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
@@ -265,7 +265,7 @@ The client code is slightly more involved:
 
 Making the Client request:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 RPCClient fibonacciRpc = new RPCClient();
 
 System.out.println(" [x] Requesting fib(30)");
@@ -280,20 +280,20 @@ Now is a good time to take a look at our full example source code (which include
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 javac -cp $CP RPCClient.java RPCServer.java
 </pre>
 
 Our RPC service is now ready. We can start the server:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP RPCServer
 # => [x] Awaiting RPC requests
 </pre>
 
 To request a fibonacci number run the client:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP RPCClient
 # => [x] Requesting fib(30)
 </pre>

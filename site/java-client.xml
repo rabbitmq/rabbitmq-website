@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,7 +43,7 @@ limitations under the License.
       The library is <a href="https://github.com/rabbitmq/rabbitmq-java-client/">open-source</a>, and is triple-licensed under
 
       <ul>
-        <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+        <li><a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
         <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
         <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
       </ul>
@@ -71,7 +71,7 @@ limitations under the License.
     </p>
     <p>
       If you're using Maven, add this dependency to the POM file of your project:
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
@@ -80,7 +80,7 @@ limitations under the License.
     </p>
     <p>
       Alternatively, if using Gradle:
-<pre class="sourcecode groovy">
+<pre class="lang-groovy">
 dependencies {
   compile 'com.rabbitmq:amqp-client:&version-java-client;'
 }

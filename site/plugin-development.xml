@@ -5,14 +5,14 @@
 <!ENTITY metronome_repo "https://github.com/rabbitmq/rabbitmq-metronome/blob/master">
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -112,7 +112,7 @@ limitations under the License.
         <p>
           To test your plugin while you're working on it, you can start
           a broker with your plugin enabled:
-          <pre class="sourcecode bash">make run-broker</pre>
+          <pre class="lang-bash">make run-broker</pre>
         </p>
       </doc:section>
 
@@ -182,7 +182,7 @@ limitations under the License.
           how you might build a simple plugin that acts like a metronome. Every second, it fires a message that has
           a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot; by default.
           Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals.
-          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
+          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To receive
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
@@ -311,25 +311,25 @@ limitations under the License.
         <ul>
           <li>
             Run make to build your application:
-            <pre class="sourcecode bash">make</pre>
+            <pre class="lang-bash">make</pre>
           </li>
           <li>
             Start up your Rabbit broker:
-            <pre class="sourcecode bash">make run-broker</pre>
+            <pre class="lang-bash">make run-broker</pre>
           </li>
           <li>
             To ensure that your new plugin is up and running, run the following command:
-            <pre class="sourcecode bash">./deps/rabbit/scripts/rabbitmqctl status</pre>
+            <pre class="lang-bash">./deps/rabbit/scripts/rabbitmqctl status</pre>
             If your plugin has loaded successfully, you should see an entry in the returned list that looks
-            like: <pre class="sourcecode erlang">{rabbitmq_metronome,"Embedded Rabbit Metronome",[]}</pre>
+            like: <pre class="lang-erlang">{rabbitmq_metronome,"Embedded Rabbit Metronome",[]}</pre>
           </li>
           <li>
             You can run the automated tests by issuing:
-            <pre class="sourcecode bash">make tests</pre>
+            <pre class="lang-bash">make tests</pre>
           </li>
           <li>
             Finally, you can produce a <code>.ez</code> file, suitable for distribution with:
-            <pre class="sourcecode bash">make dist</pre>
+            <pre class="lang-bash">make dist</pre>
             The file appears in the <tt>plugins</tt> subdirectory.
           </li>
         </ul>

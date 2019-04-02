@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,19 +44,19 @@ limitations under the License.
         <p>
           To apply all upstreams:
         </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"all"}'
 </pre>
         <p>
           To apply a named set of upstreams:
         </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"my-set"}'
 </pre>
         <p>
           To apply a single upstream:
         </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream":"my-upstream"}'
 </pre>
         <p>
@@ -76,7 +76,7 @@ rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream":"my-upstream
           A <code>federation-upstream</code> parameter specifies how
           to connect to a broker. It takes the form:
         </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 </pre>
         <p>
@@ -246,7 +246,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <p>
           Each <code>upstream-set</code> list is a set of upstreams.
         </p>
-<pre class="sourcecode bash">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[<i>json-object</i>, <i>json-object</i>, ...]'
+<pre class="lang-bash">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[<i>json-object</i>, <i>json-object</i>, ...]'
 </pre>
         <p>
           The keys of the JSON objects can be:
@@ -293,7 +293,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           Example:
         </p>
 
-        <pre class="sourcecode bash">rabbitmqctl set_cluster_name '"my-name"'</pre>
+        <pre class="lang-bash">rabbitmqctl set_cluster_name '"my-name"'</pre>
       </doc:subsection>
     </doc:section>
 
@@ -309,7 +309,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       <h3>Using rabbitmqctl</h3>
       <p>Invoke:</p>
 
-      <pre class="sourcecode bash">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
+      <pre class="lang-bash">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
 
       <p>
         This will return a list of federation links running on the node you
@@ -355,7 +355,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       </dl>
       <p>Example:</p>
 
-      <pre class="sourcecode bash"># rabbitmqctl eval 'rabbit_federation_status:status().'
+      <pre class="lang-bash"># rabbitmqctl eval 'rabbit_federation_status:status().'
 # => [[{type,&lt;&lt;"exchange">>},
 # =>   {name,&lt;&lt;"my-exchange">>},
 # =>   {vhost,&lt;&lt;"/">>},

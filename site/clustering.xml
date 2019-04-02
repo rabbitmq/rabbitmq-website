@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,13 +30,14 @@ limitations under the License.
           This guide covers fundamental topics related to RabbitMQ clustering:
 
           <ul>
-            <li>Requirements for clustering</li>
-            <li>What data is and isn't replicated between cluster nodes</li>
-            <li>What clustering means for clients</li>
-            <li>How clusters are formed</li>
-            <li>How nodes authenticate to each other</li>
-            <li>Node restarts and How nodes rejoin their cluster</li>
-            <li>How to remove a cluster node</li>
+            <li>How RabbitMQ nodes are identified: <a href="#node-names">node names</a></li>
+            <li><a href="#cluster-formation-requirements">Requirements</a> for clustering</li>
+            <li>What data is and isn't <a href="#cluster-membership">replicated between cluster nodes</a></li>
+            <li>What clustering <a href="#clustering-and-clients">means for clients</a></li>
+            <li><a href="#cluster-formation">How clusters are formed</a></li>
+            <li>How nodes <a href="#erlang-cookie">authenticate to each other</a> (and with CLI tools)</li>
+            <li><a href="#restarting">Node restarts</a> and how nodes rejoin their cluster</li>
+            <li>How to <a href="#removing-nodes">remove a cluster node</a></li>
           </ul>
 
           and more. <a href="/cluster-formation.html">Cluster Formation and Peer Discovery</a> is a closely related guide
@@ -83,8 +84,45 @@ limitations under the License.
             subsequently turned back into individual brokers again.
           </p>
         </doc:subsection>
-      </doc:section>
 
+        <doc:subsection name="node-names">
+          <doc:heading>Node Names (Identifiers)</doc:heading>
+          <p>
+            RabbitMQ nodes are identified by node names. A node name consists of two parts,
+            a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local`
+            is a node name with the prefix of `rabbit` and hostname of `node1.messaging.svc.local`.
+          </p>
+
+          <p>
+            Node names in a cluster must be unique. If more than one node is running on a given host
+            (this is usually the case in development and QA environments), they must use
+            different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
+          </p>
+
+          <p>
+            In a cluster, nodes identify and contact each other using node names. This means
+            that the hostname part of every node name <a href="#hostname-resolution-requirement">must resolve</a>.
+            <a href="/cli.html">CLI tools</a> also identify and address nodes using node names.
+          </p>
+
+          <p>
+            When a node starts up, it checks whether it has been assigned a node name. This is done
+            via the `RABBITMQ_NODENAME` <a href="/configure.html#supported-environment-variables">environment variable</a>.
+            If no value was explicitly configured,
+            the node resolves its hostname and prepends `rabbit` to it to compute its node name.
+          </p>
+
+          <p>
+            If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
+            and CLI tools must be configured to use so called long node names.
+            For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` <a href="/configure.html#supported-environment-variables">environment variable</a>
+            to `true`.
+
+            For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
+            must be specified.
+          </p>
+        </doc:subsection>
+      </doc:section>
 
       <doc:section name="cluster-formation-requirements">
         <doc:subsection name="hostname-resolution-requirement">
@@ -117,7 +155,8 @@ limitations under the License.
             standard OS hostname resolution methods.
           </p>
           <p>
-            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#define-environment-variables">Configuration guide</a>.
+            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#supported-environment-variables">Configuration guide</a>.
+            See <a href="#node-names">Node Names</a> above.
           </p>
         </doc:subsection>
 
@@ -357,48 +396,59 @@ limitations under the License.
             nodes into a cluster configuration. Hence the first step
             is to start RabbitMQ on all nodes in the normal way:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmq-server -detached</i>
-rabbit2$ <i>rabbitmq-server -detached</i>
-rabbit3$ <i>rabbitmq-server -detached</i></pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmq-server -detached
+# on rabbit2
+rabbitmq-server -detached
+# on rabbit3
+rabbitmq-server -detached
+</pre>
           <p>
             This creates three <i>independent</i> RabbitMQ brokers,
             one on each node, as confirmed by the <i>cluster_status</i>
             command:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+# => ...done.
+</pre>
 
           <p>
             The node name of a RabbitMQ broker started from the
             <code>rabbitmq-server</code> shell script is
             <code>rabbit@<i>shorthostname</i></code>, where the short
             node name is lower-case (as in <code>rabbit@rabbit1</code>,
-            above). If you use the <code>rabbitmq-server.bat</code>
-            batch file on Windows, the short node name is upper-case (as
+            above). On Windows, if <code>rabbitmq-server.bat</code>
+            batch file is used, the short node name is upper-case (as
             in <code>rabbit@RABBIT1</code>). When you type node names,
             case matters, and these strings must match exactly.
           </p>
         </doc:subsection>
 
         <doc:subsection name="creating">
-          <doc:heading>Creating the cluster</doc:heading>
+          <doc:heading>Creating a Cluster</doc:heading>
           <p>
             In order to link up our three nodes in a cluster, we tell
             two of the nodes, say <code>rabbit@rabbit2</code> and
             <code>rabbit@rabbit3</code>, to join the cluster of the
-            third, say <code>rabbit@rabbit1</code>.
+            third, say <code>rabbit@rabbit1</code>. Prior to that both
+            newly joining members must be <a href="/rabbitmqctl.8.html#reset">reset</a>.
           </p>
           <p>
             We first join <code>rabbit@rabbit2</code> in a cluster
@@ -406,32 +456,45 @@ Cluster status of node rabbit@rabbit3 ...
             <code>rabbit@rabbit2</code> we stop the RabbitMQ
             application and join the <code>rabbit@rabbit1</code>
             cluster, then restart the RabbitMQ application. Note that
-            joining a cluster implicitly resets the node, thus
-            removing all resources and data that were previously
-            present on that node.
+            a node must be <a href="/rabbitmqctl.8.html#reset">reset</a> before it can join an existing cluster.
+            Resetting the node <strong>removes all resources and data that were previously
+            present on that node</strong>. This means that a node cannot be made a member
+            of a cluster and keep its existing data at the same time. When that's desired,
+            using the <a href="/blue-green-upgrade.html">Blue/Green deployment strategy</a> or <a href="/backup.html">backup and restore</a>
+            are the available options.
           </p>
-          <pre class="sourcecode bash">
-rabbit2$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl join_cluster rabbit@rabbit1</i>
-Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
-rabbit2$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit2 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit2 ...
+
+rabbitmqctl join_cluster rabbit@rabbit1
+# => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit2 ...done.
+</pre>
           <p>
             We can see that the two nodes are joined in a cluster by
             running the <i>cluster_status</i> command on either of the nodes:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-...done.
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
 </pre>
           <p>
             Now we join <code>rabbit@rabbit3</code> to the same
@@ -442,33 +505,47 @@ Cluster status of node rabbit@rabbit2 ...
             node will be clustered to the cluster that the specified
             node belongs to.
           </p>
-          <pre class="sourcecode bash">
-rabbit3$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl join_cluster rabbit@rabbit2</i>
-Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
-rabbit3$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit3 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit3
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit3 ...done.
+
+# on rabbit3
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit3 ...
+
+rabbitmqctl join_cluster rabbit@rabbit2
+# => Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit3 ...done.
+</pre>
           <p>
             We can see that the three nodes are joined in a cluster by
             running the <i>cluster_status</i> command on any of the nodes:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+</pre>
           <p>
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
@@ -480,68 +557,91 @@ Cluster status of node rabbit@rabbit3 ...
 
           <p>
             Nodes that have been joined to a cluster can be stopped at
-            any time. It is also ok for them to crash. In both cases
-            the rest of the cluster continues operating,
+            any time. They can also fail or be terminated by the OS. In all cases
+            the rest of the cluster can continue operating,
             and the nodes automatically "catch up" with (sync from) the other
-            cluster nodes when they start up again.
+            cluster nodes when they start up again. Note that some <a href="/partitions.html">partition handling strategies</a>
+            may work differently and affect other nodes.
           </p>
           <p>
             We shut down the nodes <code>rabbit@rabbit1</code> and
             <code>rabbit@rabbit3</code> and check on the cluster
             status at each step:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl stop</i>
-Stopping and halting node rabbit@rabbit1 ...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
-...done.
-rabbit3$ <i>rabbitmqctl stop</i>
-Stopping and halting node rabbit@rabbit3 ...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2]}]
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl stop
+# => Stopping and halting node rabbit@rabbit1 ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl stop
+# => Stopping and halting node rabbit@rabbit3 ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2]}]
+# => ...done.
+</pre>
           <p>
             Now we start the nodes again, checking on the cluster
             status as we go along:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmq-server -detached
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmq-server -detached
+
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+</pre>
           <p>
             It is important to understand the process node go through when
             they are stopped and restarted.
@@ -554,7 +654,8 @@ Cluster status of node rabbit@rabbit3 ...
             default, with 30 second response timeouts.  In case the
             peer becomes available in that time interval, the node
             successfully starts, syncs what it needs from the peer and
-            keeps going.
+            keeps going. If the peer does not become available, the restarted
+            node will <strong>give up and voluntarily stop</strong>.
           </p>
 
           <p>
@@ -564,23 +665,63 @@ Cluster status of node rabbit@rabbit3 ...
           </p>
 
           <p>
+            A node rejoining after a node name or host name change can start as <a href="#peer-discovery-how-does-it-work">a blank node</a>
+            if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
+            While the node is offline, its peers can be reset or started with a blank data directory.
+            In that case the recovering node will fail to rejoin its peer as well since internal data store cluster
+            identity would no longer match.
+          </p>
+
+          <p>
+            Consider the following scenario:
+
+            <ol>
+              <li>A cluster of 3 nodes, A, B and C is formed</li>
+              <li>Node A is shut down</li>
+              <li>Node B is reset</li>
+              <li>Node A is started</li>
+              <li>Node A tries to rejoin B but B's cluster identity has changed</li>
+              <li>Node B doesn't recognise A as a known cluster member because it's been reset</li>
+            </ol>
+
+            in this case node B will reject the clustering attempt from A with an appropriate error
+            message in the log:
+
+<pre class="sourcecode">
+Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
+</pre>
+
+            In this case B can be reset again and then will be able to join A, or A
+            can be reset and will successfully join B.
+          </p>
+
+          <p>
             When the entire cluster is brought down therefore, the last node to go down
-            must be the first node to be brought online. However, since nodes will
-            try to contact a known peer for up to 5 minutes (by default), nodes
+            is the only one that didn't have any running peers at the time of shutdown.
+            That node can start without contacting any peers first.
+            Since nodes will try to contact a known peer for up to 5 minutes (by default), nodes
             can be restarted in any order in that period of time. In this case
             they will rejoin each other one by one successfully. This window of time
             can be adjusted using two configuration settings:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 # wait for 60 seconds instead of 30
 mnesia_table_loading_retry_timeout = 60000
 
 # retry 15 times instead of 10
-mnesia_table_loading_retry_limit = 15</pre>
+mnesia_table_loading_retry_limit = 15
+</pre>
 
             By adjusting these settings and tweaking the time window in which
             known peer has to come back it is possible to account for cluster-wide
             redeployment scenarios that can be longer than 5 minutes to complete.
+          </p>
+
+          <p>
+            During <a href="/upgrade.html">upgrades</a>, sometimes the last node to stop
+            must be the first node to be started after the upgrade. That node will be designated to perform
+            a cluster-wide schema migration that other nodes can sync from and apply when they
+            rejoin.
           </p>
 
           <p>
@@ -598,7 +739,7 @@ mnesia_table_loading_retry_limit = 15</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection name="breakup">
+        <doc:subsection name="removing-nodes">
           <doc:heading>Breaking Up a Cluster</doc:heading>
           <p>
             Sometimes it is necessary to remove a node from a
@@ -618,13 +759,16 @@ mnesia_table_loading_retry_limit = 15</pre>
             stop the RabbitMQ application, reset the node, and restart the
             RabbitMQ application.
           </p>
-          <pre class="sourcecode bash">
-rabbit3$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl reset</i>
-Resetting node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit3 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit3
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit3 ...done.
+
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit3 ...done.
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit3 ...done.
+</pre>
           <p>
             Note that it would have been equally valid to list
             <code>rabbit@rabbit3</code> as a node.
@@ -634,64 +778,83 @@ Starting node rabbit@rabbit3 ...done.</pre>
             that <code>rabbit@rabbit3</code> now is no longer part of
             the cluster and operates independently:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
-...done.
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# => {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+# => ...done.
 </pre>
           <p>
             We can also remove nodes remotely. This is useful, for example, when
             having to deal with an unresponsive node. We can for example remove
             <code>rabbit@rabbi1</code> from <code>rabbit@rabbit2</code>.
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit1 ...done.
-rabbit2$ <i>rabbitmqctl forget_cluster_node rabbit@rabbit1</i>
-Removing node rabbit@rabbit1 from cluster ...
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit1 ...done.
+
+# on rabbit2
+rabbitmqctl forget_cluster_node rabbit@rabbit1
+# => Removing node rabbit@rabbit1 from cluster ...
+# => ...done.
+</pre>
           <p>
             Note that <code>rabbit1</code> still thinks its clustered with
             <code>rabbit2</code>, and trying to start it will result in an
             error. We will need to reset it to be able to start it again.
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit1 ...
-Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
-rabbit1$ <i>rabbitmqctl reset</i>
-Resetting node rabbit@rabbit1 ...done.
-rabbit1$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@mcnulty ...
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit1 ...
+# => Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
+
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit1 ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit1 ...
+# => ...done.
+</pre>
           <p>
             The <i>cluster_status</i> command now shows all three nodes
             operating as independent RabbitMQ brokers:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
-...done.
-rabbit3$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
-...done.</pre>
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+# => ...done.
+</pre>
           <p>
             Note that <code>rabbit@rabbit2</code> retains the residual
             state of the cluster, whereas <code>rabbit@rabbit1</code>
@@ -700,13 +863,15 @@ Cluster status of node rabbit@rabbit3 ...
             <code>rabbit@rabbit2</code> we follow the same steps as
             for the other nodes:
           </p>
-          <pre class="sourcecode bash">
-rabbit2$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl reset</i>
-Resetting node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl start_app</i>
-          Starting node rabbit@rabbit2 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit2 ...done.
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit2 ...done.
+        </pre>
 
           <p>
             Besides <code>rabbitmqctl forget_cluster_node</code> and the automatic cleanup of unknown nodes
@@ -739,7 +904,7 @@ rabbit2$ <i>rabbitmqctl start_app</i>
             used by plugins. See <code>RABBITMQ_NODENAME</code>,
             <code>RABBITMQ_NODE_PORT</code>, and
             <code>RABBITMQ_DIST_PORT</code> in the <a
-            href="/configure.html#define-environment-variables">Configuration
+            href="/configure.html#supported-environment-variables">Configuration
             guide</a>, as well as <code>RABBITMQ_MNESIA_DIR</code>,
             <code>RABBITMQ_CONFIG_FILE</code>, and
             <code>RABBITMQ_LOG_BASE</code> in the <a
@@ -751,21 +916,23 @@ rabbit2$ <i>rabbitmqctl start_app</i>
             repeated invocation of <code>rabbitmq-server</code> (
             <code>rabbitmq-server.bat</code> on Windows). For example:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 rabbitmqctl -n hare stop_app
 rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
-rabbitmqctl -n hare start_app</pre>
+rabbitmqctl -n hare start_app
+</pre>
           <p>
             will set up a two node cluster, both nodes as disc nodes.
             Note that if you have RabbitMQ opening any ports other
             than AMQP, you'll need to configure those not to clash as
             well. This can be done via command line:
           </p>
-          <pre class="sourcecode bash">
+          <pre class="lang-bash">
 RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15672}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached
+</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.
@@ -838,29 +1005,37 @@ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listene
             <code>rabbitmqctl join_cluster</code> as before, but passing the
             <code>--ram</code> flag:
           </p>
-          <pre class="sourcecode bash">
-rabbit2$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl join_cluster --ram rabbit@rabbit1</i>
-Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
-rabbit2$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit2 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl join_cluster --ram rabbit@rabbit1
+# => Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit2 ...done.
+</pre>
           <p>
             RAM nodes are shown as such in the cluster status:
           </p>
-          <pre class="sourcecode bash">
-rabbit1$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-...done.
-rabbit2$ <i>rabbitmqctl cluster_status</i>
-Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-...done.
+          <pre class="lang-bash">
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
 </pre>
         </doc:subsection>
+
         <doc:subsection name="change-type">
           <doc:heading>Changing node types</doc:heading>
           <p>
@@ -872,19 +1047,26 @@ Cluster status of node rabbit@rabbit2 ...
             <code>change_cluster_node_type</code> command. The node must be
             stopped first.
           </p>
-          <pre class="sourcecode bash">
-rabbit2$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl change_cluster_node_type disc</i>
-Turning rabbit@rabbit2 into a disc node ...
-...done.
-Starting node rabbit@rabbit2 ...done.
-rabbit1$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit1 ...done.
-rabbit1$ <i>rabbitmqctl change_cluster_node_type ram</i>
-Turning rabbit@rabbit1 into a ram node ...
-rabbit1$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit1 ...done.</pre>
+          <pre class="lang-bash">
+# on rabbit2
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit2 ...done.
+
+rabbitmqctl change_cluster_node_type disc
+# => Turning rabbit@rabbit2 into a disc node ...
+# => ...done.
+# => Starting node rabbit@rabbit2 ...done.
+
+# on rabbit1
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit1 ...done.
+
+rabbitmqctl change_cluster_node_type ram
+# => Turning rabbit@rabbit1 into a ram node ...
+
+rabbitmqctl start_app
+# => Starting node rabbit@rabbit1 ...done.
+</pre>
         </doc:subsection>
       </doc:section>
   </body>

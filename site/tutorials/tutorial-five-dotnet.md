@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
 Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -156,7 +156,7 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.cs`:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using System.Linq;
 using RabbitMQ.Client;
@@ -190,7 +190,7 @@ class EmitLogTopic
 
 The code for `ReceiveLogsTopic.cs`:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -251,35 +251,35 @@ Run the following examples:
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsTopic
 dotnet run "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsTopic
 dotnet run "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsTopic
 dotnet run "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogsTopic
 dotnet run "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd EmitLogTopic
 dotnet run "kern.critical" "A critical kernel error"
 </pre>

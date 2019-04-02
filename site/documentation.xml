@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,7 +62,7 @@ limitations under the License.
         <p>
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
-          messaging, the protocol, RabbitMQ features, and some common usage scenarios.
+          messaging, one of the protocols RabbitMQ supports, key messaging features, and some common usage scenarios.
           <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 Overview</a> provides a brief overview
           for the original RabbitMQ protocol.
         </p>
@@ -101,8 +101,8 @@ limitations under the License.
 
             <ul>
               <li><a href="/cli.html">CLI Tools Overview</a></li>
-              <li><a href="/man/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
-              <li><a href="/man/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
+              <li><a href="/rabbitmqctl.8.html">rabbitmqctl</a> (<code>rabbitmqctl.bat</code> on Windows)</li>
+              <li><a href="/rabbitmq-plugins.8.html">rabbitmq-plugins</a> (<code>rabbitmq-plugins.bat</code> on Windows)</li>
               <li><a href="/management-cli.html">rabbitmqadmin</a> (requires <a href="/management.html">management plugin</a>)</li>
               <li><a href="/manpages.html">man pages</a></li>
             </ul>
@@ -171,6 +171,9 @@ limitations under the License.
 
             <ul>
               <li>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
                 <a href="networking.html">Networking</a>
               </li>
               <li>
@@ -196,19 +199,25 @@ limitations under the License.
                 <a href="management.html">Management UI and HTTP API</a>
               </li>
               <li>
+                <a href="monitoring.html">Monitoring</a>, metrics and health checks
+              </li>
+              <li>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
+              </li>
+              <li>
                 <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
               </li>
               <li>
-                <a href="monitoring.html">Monitoring</a>
+                <a href="connections.html">Client Connections</a>
+              </li>
+              <li>
+                <a href="channels.html">AMQP 0-9-1 Channels</a>
               </li>
               <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
               <li>
                 <a href="vhosts.html">Per Virtual Host Limits</a>
-              </li>
-              <li>
-                <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
               </li>
               <li>
                 <a href="firehose.html">Message Tracing</a>
@@ -244,7 +253,7 @@ limitations under the License.
           </li>
 
           <li>
-            Guidelines:
+            Guidance:
             <ul>
               <li>
                 <a href="monitoring.html">Monitoring</a>
@@ -254,6 +263,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="backup.html">Backup and Restore</a>
+              </li>
+              <li>
+                <a href="troubleshooting.html">Troubleshooting guidance</a>
               </li>
               <li>
                 <a href="/reliability.html">Reliable Message Delivery</a>
@@ -266,50 +278,53 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="memory-use.html">Memory Usage</a>
+                <a href="/memory-use.html">Memory Usage Analysis</a>
               </li>
               <li>
-                <a href="memory.html">Memory Management</a>
+                <a href="/memory.html">Memory Management</a>
               </li>
               <li>
-                <a href="alarms.html">Resource Alarms</a>
+                <a href="/alarms.html">Resource Alarms</a>
               </li>
               <li>
-                <a href="disk-alarms.html">Free Disk Space Alarms</a>
+                <a href="/disk-alarms.html">Free Disk Space Alarms</a>
               </li>
               <li>
-                <a href="flow-control.html">Flow Control</a>
+                <a href="/flow-control.html">Flow Control</a>
               </li>
               <li>
-                <a href="persistence-conf.html">Message Store Configuration</a>
+                <a href="/persistence-conf.html">Message Store Configuration</a>
               </li>
               <li>
-                <a href="ttl.html">Queue and Message TTL</a>
+                <a href="/ttl.html">Queue and Message TTL</a>
               </li>
               <li>
-                <a href="maxlength.html">Queue Length Limits</a>
+                <a href="/maxlength.html">Queue Length Limits</a>
               </li>
               <li>
-                <a href="lazy-queues.html">Lazy Queues</a>
+                <a href="/lazy-queues.html">Lazy Queues</a>
               </li>
             </ul>
           </li>
 
           <li>
-            Queue, Routing, and Consumer Features:
+            Queue, routing, and consumer features:
 
             <ul>
               <li>
-                <a href="queues.html">Queue Properties and Feature Overview</a>
+                <a href="/queues.html">Queues guide</a>
               </li>
               <li>
-                <a href="ttl.html">Queue and Message TTL</a>
+                <a href="/consumers.html">Consumers guide</a>
               </li>
               <li>
-                <a href="maxlength.html">Queue Length Limits</a>
+                <a href="/ttl.html">Queue and Message TTL</a>
               </li>
               <li>
-                <a href="lazy-queues.html">Lazy Queues</a>
+                <a href="/maxlength.html">Queue Length Limits</a>
+              </li>
+              <li>
+                <a href="/lazy-queues.html">Lazy Queues</a>
               </li>
               <li>
                 <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
@@ -343,10 +358,13 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="stomp.html">STOMP</a>
+                <a href="connections.html">Client Connections</a>
               </li>
               <li>
-                <a href="mqtt.html">MQTT</a>
+                <a href="/stomp.html">STOMP</a>
+              </li>
+              <li>
+                <a href="/mqtt.html">MQTT</a>
               </li>
 
               <li>
@@ -374,19 +392,19 @@ limitations under the License.
         <ul>
           <p>Client Documentation guides:</p>
           <li>
-            <a href="api-guide.html">Java client</a>
+            <a href="api-guide.html">Java Client</a>
           </li>
           <li>
-            <a href="dotnet-api-guide.html">.NET client</a>
+            <a href="dotnet-api-guide.html">.NET Client</a>
           </li>
           <li>
-            <a href="http://rubybunny.info">Ruby client</a>
+            <a href="http://rubybunny.info">Ruby Client</a>
           </li>
           <li>
-            <a href="jms-client.html">JMS library</a>
+            <a href="jms-client.html">JMS Client</a>
           </li>
           <li>
-            <a href="erlang-client-user-guide.html">Erlang client</a>
+            <a href="erlang-client-user-guide.html">Erlang Client</a>
           </li>
           <li>
             <a href="/extensions.html">RabbitMQ extensions to AMQP 0-9-1</a>
@@ -395,6 +413,9 @@ limitations under the License.
 
         <ul>
           <p>Client-driven Features:</p>
+          <li>
+            <a href="connections.html">Client Connections</a>
+          </li>
           <li>
             <a href="confirms.html">Publisher Confirms and Consumer Acknowledgements</a>
           </li>
@@ -538,7 +559,10 @@ limitations under the License.
             <a href="web-mqtt.html">MQTT over WebSockets</a>
           </li>
           <li>
-            Other <a href="protocol.html">protocol documentation</a>.
+            <a href="protocol.html">AMQP 0-9-1 implementation details</a>.
+          </li>
+          <li>
+            <a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata document</a>.
           </li>
         </ul>
       </div>

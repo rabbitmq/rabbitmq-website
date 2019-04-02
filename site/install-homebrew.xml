@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,42 +25,70 @@ limitations under the License.
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Installing on Homebrew</title>
+    <title>The Homebrew RabbitMQ Formula</title>
   </head>
   <body>
-    <p>
-      <a href="https://brew.sh/">Homebrew</a> is a popular package manager for MacOS.
-    </p>
-    <p>
-      <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/rabbitmq.rb">RabbitMQ formula</a> is available from
-      <a href="https://brew.sh/">Homebrew</a>'s core tap (out of the box).
-      The formula will also install a reasonably recent Erlang/OTP version
-      as a dependency.
-    </p>
-    <h3>Install the Server</h3>
-    <p>
-      Before installing make sure you have the latest brews:
-      <pre>brew update</pre>
-      Then, install RabbitMQ server with:
-      <pre>brew install rabbitmq</pre>
-    </p>
-    <h3>Run RabbitMQ Server</h3>
-    <p>
-      The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
-      This is not automatically added to your path, so you may wish to add<br />
-      <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
-      or <code>.profile</code>.
-      The server can then be started with <code>rabbitmq-server</code>.
-    </p>
-    <p>
-      All scripts run under your own user account. Sudo is not required.
-    </p>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
 
-    <xi:include href="install-guest-localhost.xml.inc"/>
-    <xi:include href="max-open-files-limit-osx.xml.inc" />
+      <p>
+        <a href="https://brew.sh/">Homebrew</a> is a popular package manager for MacOS.
+      </p>
+      <p>
+        <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/rabbitmq.rb">RabbitMQ formula</a> is available from
+        <a href="https://brew.sh/">Homebrew</a>'s core tap (out of the box).
+        The formula will also install a reasonably recent <a href="/which-erlang.html">supported Erlang/OTP version</a>
+        as a dependency.
+      </p>
+    </doc:section>
 
-    <p>
-      See the <a href="install-generic-unix.html">Generic Unix or Linux</a> section for further information.
-    </p>
+    <doc:section name="installation">
+      <doc:heading>Installation</doc:heading>
+
+      <p>
+        Before installing make sure the taps are up-to-date:
+
+<pre class="lang-shell">
+brew update
+</pre>
+
+        Then, install RabbitMQ server with:
+
+<pre class="lang-shell">
+brew install rabbitmq
+</pre>
+      </p>
+
+      <p>
+        Installing the RabbitMQ formula will install key dependencies such
+        as a <a href="/which-erlang.html">supported Erlang/OTP version</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="operations">
+      <doc:heading>Operations</doc:heading>
+
+      <p>
+        The RabbitMQ server scripts and <a href="/cli.html">CLI tools</a> are installed in <code>sbin</code> directory under <code>/usr/local/Cellar/rabbitmq</code>, which is accessible via <code>/usr/local/opt/rabbitmq/sbin</code>.
+        In case that directory is not in <code>PATH</code> it's recommend to append
+        it:
+
+<pre class="lang-shell">
+export PATH=$PATH:/usr/local/opt/rabbitmq/sbin
+</pre>
+
+        The server can then be started with <code>rabbitmq-server</code>.
+      </p>
+      <p>
+        With Homebrew the node and CLI tools will use the logged in user account by default. Using <code>sudo</code>
+        is not required.
+      </p>
+
+      <p>
+        Otherwise operations are no different from the generic binary build.
+        Please refer to the <a href="install-generic-unix.html#operations">Operations section</a> of
+        the generic binary build guide section.
+      </p>
+    </doc:section>
   </body>
 </html>

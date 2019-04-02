@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -100,9 +100,9 @@ limitations under the License.
 
 
     <doc:section name="erlang-cookie">
-      <doc:heading>Synchronise Erlang Cookies </doc:heading>
+      <doc:heading>Synchronise Erlang Cookie</doc:heading>
         <p>
-          The Erlang cookie is a shared secret used for authentication between <a href="/cluster.html">RabbitMQ cluster nodes</a> and <a href="/cli.html">CLI tools</a>.
+          The Erlang cookie is a shared secret used for authentication between <a href="/clustering.html">RabbitMQ nodes</a> and <a href="/cli.html">CLI tools</a>.
           The value is stored in a file commonly referred to as the Erlang cookie file.
         </p>
 
@@ -114,52 +114,10 @@ limitations under the License.
         </p>
 
         <p>
-          When running a manually installed Windows service, making sure the cookie file is in sync is the
-          responsibility of the user.
-        </p>
-
-        <p>
-          On Windows, the cookie file location varies depending on Erlang
-          version used and whether the <code>HOMEDRIVE</code> or
-          <code>HOMEPATH</code> environment variables are both set.
-        </p>
-
-        <p>
-          With Erlang versions starting with 20.2, the cookie file locations are:
-          <ul>
-            <li>
-              <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
-            </li>
-            <li>
-              <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
-            </li>
-            <li>
-              For the RabbitMQ Windows service - <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\WINDOWS\system32\config\systemprofile</code>)
-            </li>
-          </ul>
-        </p>
-
-        <p>
-          On <a href="/which-erlang.html">Erlang versions</a> prior to 20.2 (e.g. 19.3 or 20.1), the cookie file locations are:
-          <ul>
-            <li>
-              <code>%HOMEDRIVE%%HOMEPATH%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code> for user <code>%USERNAME%</code>) if both the <code>HOMEDRIVE</code> and <code>HOMEPATH</code> environment variables are set
-            </li>
-            <li>
-              <code>%USERPROFILE%\.erlang.cookie</code> (usually <code>C:\Users\%USERNAME%\.erlang.cookie</code>) if <code>HOMEDRIVE</code> and <code>HOMEPATH</code> are not both set
-            </li>
-            <li>
-              For the RabbitMQ Windows service - <code>%WINDIR%\.erlang.cookie</code> (usually <code>C:\Windows\.erlang.cookie</code>)
-            </li>
-          </ul>
-        </p>
-
-        <p>
-          To ensure Erlang cookie files contain the same string,
-          copy the <code>.erlang.cookie</code> file from the Windows
-          service directory listed above to replace the user <code>.erlang.cookie</code>.
+          Please see <a href="/cli.html#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a> for details.
         </p>
     </doc:section>
+
 
     <doc:section name="locating-binaries-and-data">
       <doc:heading>Locating CLI Tools and App Data</doc:heading>
@@ -189,28 +147,33 @@ limitations under the License.
             in the <code>sbin</code> directory.
           </p>
           <p>
-            <em>Note: </em>On Windows Vista (and later) you will need to
+            <em>Note: </em>On Windows Vista (and later) it is necessary to
             <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
             (e.g. right-click on the icon to select Run as Administrator).
           </p>
 
           <p>
-            Set up the system path so you can find the server and
-          <code>sbin</code> directory easily.
-          <ul>
-            <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
-              <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
-              Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
-              or if you upgrade versions.</li>
-            <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
-              to your system path (aka %PATH%).</li>
-          </ul>
-            Now you can run rabbitmq commands from any (administrator) Command Prompt.
+            Set up the system path so RabbitMQ server and CLI tools from the <code>sbin</code> directory
+            can be executed without using fully qualified paths.
+            <ul>
+              <li>
+                Create a system environment variable (e.g. <code>RABBITMQ_SERVER</code>) for
+                <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
+                Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
+                or if you upgrade versions.
+              </li>
+              <li>
+                Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
+                to your system path (aka %PATH%).
+              </li>
+            </ul>
+
+            Now it should be possible to run rabbitmq commands from any (administrator) Command Prompt.
           </p>
 
           <p>
-            You will need to navigate to <code>rabbitmq_server-&version-server;\sbin</code>
-            to run commands if your system path does not contain the RabbitMQ <code>sbin</code>
+            Navigate to <code>rabbitmq_server-&version-server;\sbin</code>
+            to run commands if the system path does not contain the RabbitMQ <code>sbin</code>
             directory.
           </p>
       </doc:subsection>
@@ -231,6 +194,12 @@ limitations under the License.
             Start&#xA0;>&#xA0;Run&#xA0;<code>%APPDATA%</code>
             will open this folder.
           </p>
+          <p>
+            A node can be <a href="/configure.html">configured</a> to use a <a href="/relocate.html">different data directory</a>
+            using one of these environment variables: <code>RABBITMQ_BASE</code>, <code>RABBITMQ_MNESIA_BASE</code> or
+            <code>RABBITMQ_MNESIA_DIR</code>. Please read <a href="/relocate.html">the relocation guide</a> for a description
+            of how each of these variables works.
+          </p>
       </doc:subsection>
     </doc:section>
 
@@ -242,45 +211,41 @@ limitations under the License.
         script in <code>sbin</code>.
       </p>
 
-      <dl class="instructions">
-        <dt>Customise RabbitMQ Server Environment Variables</dt>
-        <dd>
-          Environment variable defaults are set within the
-          <code>rabbitmq-server.bat</code> file.
-          You may need to <a
-                             href="configure.html#customise-windows-environment">customise
-            environment variables</a>
-          for your installation.
-        </dd>
+      <doc:subsection id="customise-environment">
+        <doc:heading>Customise RabbitMQ Server Environment Variables</doc:heading>
 
-        <dt>Start the Broker as an Application</dt>
-        <dd>
-          <p>
-            Run the command <pre class="sourcecode bash">rabbitmq-server -detached</pre>
-            Alternatively, you can double-click the
-            <code>rabbitmq-server.bat</code> file in Windows Explorer.
-          </p>
-          <p>
-            If you start by double-clicking, a Command Prompt window opens,
-            displays a short banner message, concluding with the message
-            "completed with <i>[n]</i> plugins.", indicating that the RabbitMQ
-            broker has been started successfully.
-          </p>
-          <p>
-            If you started without the <code>-detached</code> option,
-            e.g. by double-clicking, you will need a second Command Prompt
-            window to control the application cleanly.
-            <em>Note: </em> Closing the original Command Prompt window
-            will forcefully shut down a server started this way.
-          </p>
-        </dd>
-        <dt>Stop or Manage the Broker</dt>
-        <dd>
-          <code>rabbitmq-server</code> only starts the broker.
-          To <a href="#managing-windows">manage the broker</a> use
-          <code>rabbitmqctl</code> commands.
-        </dd>
-      </dl>
+        <p>
+          Environment variables are used to configure certain parameters of a node,
+          e.g. directory paths. They can be <a href="configure.html#customise-windows-environment">customised</a>
+          as needed.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection id="start-as-application">
+        <doc:heading>Start the Broker as an Application</doc:heading>
+
+        <p>
+          Run the command <pre class="lang-bash">rabbitmq-server.bat -detached</pre>. This will start
+          a node in the background (not attached to the Command Prompt).
+        </p>
+        <p>
+          Alternatively, <code>rabbitmq-server.bat</code> can be executed in Windows Explorer
+          to start a node in foreground.
+        </p>
+        <p>
+          If you start by double-clicking, a Command Prompt window opens,
+          displays a short banner message, concluding with the message
+          "completed with <i>[n]</i> plugins.", indicating that the RabbitMQ
+          broker has been started successfully.
+        </p>
+        <p>
+          If the node was started without the <code>-detached</code> option,
+          e.g. using Windows Explorer, a second Command Prompt
+          window will be necessary to control the application using CLI tools.
+          <em>Note: </em> Closing the original Command Prompt window
+          will forcefully shut down a server started this way.
+        </p>
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="running-windows-service">
@@ -297,66 +262,68 @@ limitations under the License.
         script in <code>sbin</code>.
       </p>
 
-      <dl class="instructions">
-        <dt>Customise RabbitMQ Service Environment Variables</dt>
-        <dd>
-          <p>
-            <em>Note: </em>After setting environment variables,
-            you may need to install the service again.
-          </p>
-          <p>
-            The <code>rabbitmq-service.bat</code> script
-            recognises many of the same
-            <a href="configure.html#customise-windows-environment">environment variables</a>
-            as <code>rabbitmq-server.bat</code>, as well as a few additional
-            service environment variables.
-          </p>
-        </dd>
+      <doc:subsection>
+        <doc:heading>Customise RabbitMQ Service Environment Variables</doc:heading>
 
-        <dt>Install the Service</dt>
-        <dd>
-          <p>
-            Install the service by running
-            <pre class="sourcecode bash">rabbitmq-service install</pre>
-          </p>
-          <p>
-            A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
-            should now appear in the Windows Services control panel
-            (Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>).
-          </p>
-        </dd>
+        <p>
+          The <code>rabbitmq-service.bat</code> script
+          recognises many of the same
+          <a href="configure.html#customise-windows-environment">environment variables</a>
+          as <code>rabbitmq-server.bat</code>, as well as a few additional
+          service environment variables.
+        </p>
 
-        <dt>Managing the Service</dt>
-        <dd>
-          <p>
-            To manage the service (install, remove, start, stop,
-            enable, disable), use
-            <a href="man/rabbitmq-service.html"><code>rabbitmq-service.bat</code></a>
-            commands.  You can also use the Windows Services panel
-            (<code>services.msc</code>) to perform some of the
-            same functions as the service script.
-          </p>
-        </dd>
+        <p>
+          <em>Note: </em>After setting environment variables,
+          it is necessary to reinstall the service.
+        </p>
+      </doc:subsection>
 
-        <dt>Start the Broker as a Service</dt>
-        <dd>
-          <p>
-            To start the broker, execute
-            <pre class="sourcecode bash">rabbitmq-service start</pre>
-          </p>
-          <p>
-            If the output from this command is
-            "<code>Service <i>RABBITMQ_SERVICENAME</i>
-              started</code>", then the service was started
-            correctly.
-          </p>
-          <p>
-            Confirm the service named <b>RABBITMQ_SERVICENAME</b>
-            reports a "Started" status in Services: <br/>
-            Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>.
-          </p>
-        </dd>
-      </dl>
+      <doc:subsection>
+        <doc:heading>Install the Service</doc:heading>
+
+        <p>
+          Install the service by running
+          <pre class="lang-bash">rabbitmq-service.bat install</pre>
+        </p>
+        <p>
+          A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
+          should now appear in the Windows Services control panel
+          (Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>).
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Managing the Service</doc:heading>
+
+        <p>
+          To manage the service (install, remove, start, stop,
+          enable, disable), use
+          <a href="man/rabbitmq-service.html"><code>rabbitmq-service.bat</code></a>
+          commands.  Alternatively, the Windows Services panel
+          (<code>services.msc</code>) can be used to perform some of the
+          same functions as the service script.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Start the Broker as a Service</doc:heading>
+
+        <p>
+          To start the broker, execute
+          <pre class="lang-bash">rabbitmq-service.bat start</pre>
+        </p>
+        <p>
+          If the output from this command is
+          "<code>Service <em>RABBITMQ_SERVICENAME</em> started</code>", then the service was started
+          successfully.
+        </p>
+        <p>
+          Confirm the service named <em>RABBITMQ_SERVICENAME</em>
+          reports a "Started" status in Services: <br/>
+          Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>.
+        </p>
+      </doc:subsection>
     </doc:section>
     <xi:include href="install-windows-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>

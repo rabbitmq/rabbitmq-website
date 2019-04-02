@@ -1,12 +1,12 @@
 /*
-Copyright (c) 2007-2016 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -182,23 +182,37 @@ dd p {
   margin: 0 0 5px 0;
 }
 
-ul {
-  margin: 10px 0;
-  padding: 0;
-}
-
 div#right-nav ul { margin: 0; }
 table#changelog ul { margin: 0 0 10px 0; }
 table#changelog .centre { text-align: center; }
 table#changelog .centre a { font-size: 80%; }
 
-li {
+ul {
+  padding: 5px 0px 5px 30px;
   margin: 0;
-  padding: 3px 0 2px 10px;
 }
 
-ul li {
+li {
+  padding: 3px 0 2px 2px;
+  margin: 0;
+}
+
+ul#mainNav, div#right-nav ul {
+  padding: 5px 0 5px 0;
+  margin: 0 0 0 15px;
+}
+
+ul#mainNav li {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+div#right-nav ul li {
+  font-size: 0.95em;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 ol.plain, ul.plain {
@@ -231,10 +245,6 @@ ol.roman>li {
 
 p {
   clear:left;
-}
-
-.Pp, dt.It-tag {
-  margin-top: 16px;
 }
 
 .logos {
@@ -385,24 +395,27 @@ div.nav-separator {
   margin-left: 0em;
 }
 
-pre span.code, pre.code, pre.example, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
+pre span.code, pre.code, pre.example, .docSection div.cmdsynopsis {
   background: #eee;
   padding: 5px;
   border: 1px solid #ddd;
 }
 
-pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path, i.Pa {
-  color: #333;
-  font-family: "Courier New", Courier, monospace;
-  font-size: small;
+pre span.code, pre.code, pre.example, span.code, span.path, i.Pa {
+  color: white;
+  background: #787878;
+  font-family: monospace;
+  font-size: medium;
+  padding: 4px;
+  border-radius: 4px;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
 
-pre.sourcecode {
+pre.hljs {
   font-size: medium;
+  word-wrap: break-word;
   white-space: pre-wrap;
-  word-break: break-word;
 }
 
 span.code {
@@ -414,26 +427,79 @@ pre span.code {
   display: block;
 }
 
-/* Used in manpages. */
+/* START: used in manpages */
+
+.Pp, dt.It-tag {
+  margin-top: 16px;
+}
+
+dt {
+  margin-top: 16px;
+}
+
 .D1 span.code {
   color: inherit;
   white-space: nowrap;
 }
 
-span.envvar, span.Ev {
-  color: black;
-  /*white-space: nowrap;*/
-}
-span.path, i.Pa {
-  font-style: normal;
-  /*white-space: nowrap;*/
+div.Op {
+  display: inline;
 }
 
-.sourcecode i {
+div.Nd {
+  display: inline;
+}
+
+span.code.Cm {
+  font-size: normal;
+  font-weight: bold;
+}
+
+span.code.Fl {
+  font-weight: bold;
+}
+
+span.code.Li {
+  color: white;
+  background: none;
+  font-family: monospace;
+  font-size: medium;
+  white-space: normal;
+}
+
+pre.Li {
+  color: white;
+  font-family: monospace;
+  font-size: small;
+  white-space: normal;
+}
+
+span.Pa {
+  font-family: monospace;
+  font-size: small;
+}
+
+var.Ar {
+  color: white;
+  background: #EE7600;
+  font-family: monospace;
+  font-size: medium;
+  font-weight: bold;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+span.path, i.Pa {
+  font-style: normal;
+}
+
+/* END: used in manpages */
+
+.hljs i {
   color: darkred;
 }
 
-.sourcecode b {
+.hljs b {
   color: darkcyan;
 }
 
@@ -578,7 +644,9 @@ td.desc, th.desc {
   padding: 20px 0 0;
 }
 
-ol.feed {
+ul.feed {
+  list-style-type: none;
+
   margin: 0px;
   padding: 0px;
   clear: both;
@@ -587,7 +655,7 @@ ol.feed {
 .feed li {
   line-height: 17px;
   padding: 0px;
-  margin-bottom: 16px;
+  margin-bottom: 2em;
 }
 
 .feed li hr {
@@ -667,6 +735,10 @@ p.warning a {
 #changelog  { width: auto; clear: both; }
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
+
+table.matrix thead td {
+  font-weight: bold;
+};
 
 table.plugins th { border-bottom: none; }
 table.plugins td { border-top: none; padding-left: 5em; }
@@ -771,6 +843,110 @@ body#index #getstarted,
   }
 }
 
+/* Homepage hero: Webinar */
+
+#hero #hero-webinar {
+  background: url(../img/home/banner/webinar/home-banner-webinar-desktop.svg) no-repeat center center;
+  background-size: cover;
+  padding: 80px 0;
+  text-align: right;
+}
+
+#hero #hero-webinar .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-webinar h2 a {
+  font-weight: normal;
+}
+
+@media(max-width: 820px) {
+  #hero #hero-webinar {
+    background: url(../img/home/banner/webinar/home-banner-webinar-tablet.svg) no-repeat right;
+    background-size: cover;
+    background-position: left;
+    padding: 70px 0;
+  }
+  #hero #hero-webinar .text {
+    max-width: 340px;
+    float: right;
+  }
+  #hero #hero-webinar .container {
+    overflow: hidden;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-webinar {
+    background: url(../img/home/banner/webinar/home-banner-webinar-mobile.svg) no-repeat bottom right;
+    background-size: 100%;
+    text-align: center;
+    padding: 60px 0 80px;
+  }
+  #hero #hero-webinar .text {
+    max-width: 100%;
+    float: none;
+  }
+}
+
+/* Homepage hero: Best Practices */
+
+#hero #hero-best-practices {
+  background: url(../img/home/banner/best-practices/hero-desktop.svg) no-repeat center center;
+  padding: 83px 0;
+}
+
+#hero #hero-best-practices .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-best-practices h1 a {
+  font-weight: normal;
+}
+
+#hero #hero-best-practices h2 {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+@media(max-width: 820px) {
+  #hero #hero-best-practices {
+    background: url(../img/home/banner/best-practices/hero-tablet.svg) no-repeat right;
+    background-size: cover;
+    background-position: left;
+    padding: 70px 0;
+  }
+  #hero #hero-best-practices .text {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  #hero #hero-best-practices .container {
+    overflow: hidden;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-best-practices {
+    background: url(../img/home/banner/best-practices/hero-phone.svg) no-repeat bottom right;
+    background-size: 100%;
+    padding: 60px 0 280px;
+  }
+}
+
+@media(max-width: 480px) {
+  #hero #hero-best-practices {
+    padding-bottom: 200px;
+  }
+}
+
+@media(max-width: 390px) {
+  #hero #hero-best-practices {
+    padding-bottom: 170px;
+  }
+}
+
 /* Uberflip embed styles */
 .hubs-embedded {
   overflow: inherit !important;
@@ -801,13 +977,13 @@ body#index #getstarted,
 .hubs-embedded #collection-items .tile.single .description .friendly-timestamp {
   margin: 20px 0 0 20px !important;
 }
-.hubs-embedded #collection-items .tile {
+/*.hubs-embedded #collection-items .tile {
   margin: 0 20px 20px 0 !important;
-}
+}*/
 .hubs-embedded #collection-items .tile:first-child {
   margin-left: 0 !important;
 }
-.hubs-embedded #collection-items .tile:nth-child(3) {
+body#index .hubs-embedded #collection-items .tile:nth-child(3) {
   margin-right: 0 !important;
 }
 .hubs-embedded  #collection-items {
@@ -1015,9 +1191,9 @@ img.screenshot {
 /* Responsive */
 
 @media(max-width: 1031px) {
-  .hubs-embedded #collection-items .tile:first-child,
-  .hubs-embedded #collection-items .tile:nth-child(2),
-  .hubs-embedded #collection-items .tile:nth-child(3) {
+  body#index .hubs-embedded #collection-items .tile:first-child,
+  body#index .hubs-embedded #collection-items .tile:nth-child(2),
+  body#index .hubs-embedded #collection-items .tile:nth-child(3) {
     margin-left: 0 !important;
     margin-right: 10px !important;
   }

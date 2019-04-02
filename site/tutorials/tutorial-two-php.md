@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -75,7 +75,7 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $data = implode(' ', array_slice($argv, 1));
 if (empty($data)) {
     $data = "Hello World!";
@@ -91,7 +91,7 @@ Our old _receive.php_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $callback = function ($msg) {
   echo ' [x] Received ', $msg->body, "\n";
   sleep(substr_count($msg->body, '.'));
@@ -105,12 +105,12 @@ Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 php worker.php
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 php new_task.php "A very hard task which takes two seconds.."
 </pre>
@@ -128,13 +128,13 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.php`
 script. These consoles will be our two consumers - C1 and C2.
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 php worker.php
 # => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 php worker.php
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -143,7 +143,7 @@ php worker.php
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 3
 php new_task.php First message.
 php new_task.php Second message..
@@ -154,7 +154,7 @@ php new_task.php Fifth message.....
 
 Let's see what is delivered to our workers:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 1
 php worker.php
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -163,7 +163,7 @@ php worker.php
 # => [x] Received 'Fifth message.....'
 </pre>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # shell 2
 php worker.php
 # => [*] Waiting for messages. To exit press CTRL+C
@@ -182,7 +182,7 @@ Message acknowledgment
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-With our current code, once RabbitMQ delivers a message to the customer it
+With our current code, once RabbitMQ delivers a message to the consumer it
 immediately marks it for deletion. In this case, if you kill a worker
 we will lose the message it was just processing. We'll also lose all
 the messages that were dispatched to this particular worker but were not
@@ -212,7 +212,7 @@ It's time to turn them on by setting the fourth parameter to `basic_consume` to 
 (true means _no ack_) and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $callback = function ($msg) {
   echo ' [x] Received ', $msg->body, "\n";
   sleep(substr_count($msg->body, '.'));
@@ -227,9 +227,10 @@ Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
 after the worker dies all unacknowledged messages will be redelivered.
 
-Acknowledgement must be sent on the same channel the delivery it is for
-was received on. Attempts to acknowledge using a different channel
-will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
+Acknowledgement must be sent on the same channel that received the
+delivery. Attempts to acknowledge using a different channel will result
+in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
+to learn more.
 
 > #### Forgotten acknowledgment
 >
@@ -242,12 +243,12 @@ will result in a channel-level protocol exception. See the [doc guide on confirm
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -267,7 +268,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_.
 To do so we pass the third parameter to `queue_declare` as `true`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->queue_declare('hello', false, true, false, false);
 </pre>
 
@@ -278,7 +279,7 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->queue_declare('task_queue', false, true, false, false);
 </pre>
 
@@ -290,7 +291,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by setting the `delivery_mode = 2` message property which `AMQPMessage` takes
 as part of the property array.
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $msg = new AMQPMessage(
     $data,
     array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
@@ -355,7 +356,7 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 $channel->basic_qos(null, 1, null);
 </pre>
 
@@ -369,7 +370,7 @@ Putting it all together
 
 Final code of our `new_task.php` file:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -403,7 +404,7 @@ $connection->close();
 
 And our `worker.php`:
 
-<pre class="sourcecode php">
+<pre class="lang-php">
 &lt;?php
 
 require_once __DIR__ . '/vendor/autoload.php';

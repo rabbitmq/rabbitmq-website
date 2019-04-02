@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -219,7 +219,7 @@ ha-node-2:~#
 
         <p>The first <code>configure</code> command here creates a
         resource <i>drbd</i>. That is then incorporated into a
-        master+slave resource called <i>drbd_ms</i> in the second
+        resource called <i>drbd_ms</i> in the second
         <code>configure</code>. We then create a <i>drbd_fs</i>
         resource which knows how to mount the DRBD device. We can only
         mount the DRBD resource on the node which is the master, so we
@@ -743,7 +743,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           <code>ocf:rabbitmq:rabbitmq-server-ha</code> script. Note, that the parameters
           can be as well listed with either the <code>pcs</code> tool:
         </p>
-        <pre class="sourcecode bash">
+        <pre class="lang-bash">
 $ <i>pcs resource describe ocf:rabbitmq:rabbitmq-server-ha</i>
         </pre>
         <p>

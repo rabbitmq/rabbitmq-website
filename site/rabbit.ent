@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,13 +15,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!ENTITY version-java-client "5.4.3">
+<!ENTITY version-java-client "5.6.0">
 <!ENTITY version-dotnet-client "5.1.0">
-<!ENTITY version-server "3.7.8">
+<!ENTITY version-server "3.7.14">
 <!ENTITY version-server-series "v3.7.x">
-<!ENTITY version-erlang-client "3.7.8">
-<!ENTITY version-server-tag "v3.7.8">
-<!ENTITY standalone-otp-version "21.0">
+<!ENTITY version-erlang-client "3.7.14">
+<!ENTITY version-server-tag "v3.7.14">
+<!ENTITY standalone-otp-version "21.3">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">

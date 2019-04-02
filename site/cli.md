@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,21 +19,24 @@ limitations under the License.
 
 RabbitMQ comes with multiple command line tools:
 
- * [rabbitmqctl](/rabbitmqctl.8.html) for general administrative/operator tasks
- * [rabbitmq-plugins](/rabbitmq-plugins.8.html) for plugin management
- * [rabbitmqadmin](/management-cli.html) for operator tasks over [HTTP API](/management.html)
+ * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
+ * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)
+ * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
+ * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
 including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
-Most RabbitMQ tools use a shared secret (Erlang cookie) authentication mechanism. This
-implies that [inter-node and CLI communication ports](/networking.html) (by default) must be open
-for external connections on the target node.
+With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
+This requires that [inter-node and CLI communication ports](/networking.html) (by default)
+is open for external connections on the target node.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
+
+`rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support [command aliases](#aliases).
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
@@ -73,6 +76,50 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
+
+## <a id="node-names" class="anchor" href="#node-names">Node Names</a>
+
+RabbitMQ nodes are identified by node names. A node name consists of two parts,
+a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local`
+is a node name with the prefix of `rabbit` and hostname of `node1.messaging.svc.local`.
+
+Node names in a cluster must be unique. If more than one node is running on a given host
+(this is usually the case in development and QA environments), they must use
+different prefixes, e.g. `rabbit1@hostname` and `rabbit2@hostname`.
+
+CLI tools identify and address server nodes using node names.
+Most CLI commands are invoked against a node called target node. To specify a target node,
+use the `--node` (`-n`) option. For example, to run a [health check](/monitoring.html)
+on node `rabbit@warp10.local`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics -n rabbit@warp10 check_alarms
+</pre>
+
+Some commands accept both a target node and another node name. For example,
+`rabbitmqctl forget_cluster_node` accepts both a target node (that will perform the action)
+and a name of the node to be removed.
+
+In a cluster, nodes identify and contact each other using node names. See [Clustering guide](/clustering.html#node-names)
+for details.
+
+When a node starts up, it checks whether it has been assigned a node name. This is done
+via the `RABBITMQ_NODENAME` [environment variable](/configure.html#supported-environment-variables).
+If no value was explicitly configured, the node resolves its hostname and prepends `rabbit` to it to compute its node name.
+
+If a system uses fully qualified domain names (FQDNs) for hostnames, RabbitMQ nodes
+and CLI tools must be configured to use so called long node names.
+For server nodes this is done by setting the `RABBITMQ_USE_LONGNAME` [environment variable](/configure.html#supported-environment-variables)
+to `true`.
+
+For CLI tools, either `RABBITMQ_USE_LONGNAME` must be set or the `--longnames` option
+must be specified:
+
+<pre class="lang-bash">
+# this example assumes that host1.messaging.eng.coolcorporation.banana is a hostname
+# that successfully resolves
+rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
+</pre>
 
 ## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 
@@ -145,7 +192,7 @@ will be created in by the RabbitMQ service.
 As an alternative, you can add the option "`-setcookie <i>value</i>`"
 in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>:
 
-<pre class="sourcecode ini">
+<pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
@@ -158,12 +205,12 @@ such as "Connection attempt from disallowed node" and "Could not auto-cluster". 
 a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
-<pre class="sourcecode ini">
-* epmd reports node 'rabbit' running on port 25672 
-* TCP connection succeeded but Erlang distribution failed 
-* suggestion: hostname mismatch? 
-* suggestion: is the cookie set correctly? 
-* suggestion: is the Erlang distribution using TLS? 
+<pre class="lang-ini">
+* epmd reports node 'rabbit' running on port 25672
+* TCP connection succeeded but Erlang distribution failed
+* suggestion: hostname mismatch?
+* suggestion: is the cookie set correctly?
+* suggestion: is the Erlang distribution using TLS?
 </pre>
 
 This means that TCP connection from a CLI tool to a RabbitMQ node
@@ -182,14 +229,13 @@ cookie hash value when they fail to authenticate with the target node.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and cookie mismatches can be identified better:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbit@warp10:
   * connected to epmd (port 4369) on warp10
   * epmd reports node 'rabbit' running on port 25672
   * TCP connection succeeded but Erlang distribution failed
 
   * Authentication failed (rejected by the remote node), please check the Erlang cookie
-
 
 current node details:
 - node name: 'rabbitmq-cli-63@warp10'
@@ -216,7 +262,7 @@ Other reasons include a hostname mismatch in node name used by the target Rabbit
 to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rabbit@rmq1.eng.megacorp.local`
 as its name but `rabbitmqctl` is invoked as
 
-<pre class="sourcecode ini">
+<pre class="lang-bash">
 rabbitmqctl status -n rabbit@rmq-dev.eng.megacorp.local
 </pre>
 
@@ -227,7 +273,7 @@ rare.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and hostname mismatches can be identified better:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 rabbit@localhost:
   * connected to epmd (port 4369) on localhost
   * epmd reports node 'rabbit' running on port 25672
@@ -247,9 +293,9 @@ current node details:
 
 Just like with any network connection, CLI-to-node connections can fail due to
 
- * Hostname resolution issues
- * IP routing issues
- * TCP port access (firewalls, etc) issues
+ * Hostname resolution failures
+ * Incorrect IP routing
+ * TCP port access blocked (firewalls, etc)
 
 and so on.
 
@@ -268,7 +314,7 @@ The tool requires Python 2.7.9 or a more recent version.
 downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-management/blob/stable/bin/rabbitmqadmin).
 
 
-## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Cluster-wide" Commands</a>
+## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Clusterwide" Commands</a>
 
 Client connections, channels and queues will be distributed across cluster nodes.
 Operators need to be able to inspect and [monitor](/monitoring.html) such resources
@@ -297,3 +343,85 @@ opened), two CLI commands executed against two different
 nodes one after another will produce identical or
 semantically identical results. "Node-local" commands, however, likely will not produce
 identical results since two nodes rarely have entirely identical state.
+
+
+## <a id="aliases" class="anchor" href="#aliases">Command Aliases</a>
+
+`rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support command aliases. Aliases provide
+a way to define abbreviated versions of certain commands and their arguments. For example,
+instead of typing `rabbitmqctl environment` it may be more convenient to define an alias,
+`rabbitmqctl env`, that would expand to `rabbitmqctl environment`.
+
+Aliases are loaded from a file specified via the `RABBITMQ_CLI_ALIASES_FILE` environment
+variable:
+
+<pre class="lang-bash">
+export RABBITMQ_CLI_ALIASES_FILE=/path/to/cli_aliases.conf
+</pre>
+
+The aliases file uses a vary minimalistic ini-style `alias = command` format, for
+example:
+
+<pre class="lang-ini">
+env = environment
+st  = status --quiet
+
+lp  = list_parameters --quiet
+lq  = list_queues --quiet
+lu  = list_users --quiet
+
+cs  = cipher_suites --openssl-format --quiet
+</pre>
+
+With this alias file in place it will be possible to use
+
+<pre class="lang-bash">
+rabbitmqctl env
+</pre>
+
+which would expand to
+
+<pre class="lang-bash">
+rabbitmqctl environment
+</pre>
+
+or
+
+<pre class="lang-bash">
+rabbitmqctl lq
+</pre>
+
+which would expand to
+
+<pre class="lang-bash">
+rabbitmqctl list_queues --quiet
+</pre>
+
+The last alias in the example above configures a `rabbitmq-diagnostics` command:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics cs
+</pre>
+
+would expand to
+
+<pre class="lang-bash">
+rabbitmq-diagnostics cipher_suites --openssl-format --quiet
+</pre>
+
+All tools process aliases the same way. As long as the expanded command is recognized,
+aliases can be used with any tool or even more than one. For example,
+both `rabbitmqctl` and `rabbitmq-diagnostics` both provide the `environment` command
+so the `env` alias works for both of them exactly the same way:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics env
+</pre>
+
+would expand to
+
+<pre class="lang-bash">
+rabbitmq-diagnostics environment
+</pre>
+
+The file will be consulted only if the command invoked is not provided by the tool.

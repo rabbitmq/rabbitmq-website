@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,9 +47,10 @@ limitations under the License.
           <ul>
             <li><a href="#interfaces">Interfaces</a></li>
             <li><a href="#ports">Ports</a> used by clients, <a href="#epmd-inet-dist-port-range">inter-node traffic</a> in clusters and <a href="/cli.html">CLI tools</a></li>
-            <li><a href="#tls-support">TLS</a></li>
+            <li><a href="#tls-support">TLS</a> for client connections</li>
             <li>TCP buffer size (affects <a href="#tuning-for-throughput-tcp-buffers">throughput</a> and <a href="#tuning-for-large-number-of-connections-tcp-buffer-size">how much memory is used per connection</a>)</li>
             <li>Other TCP socket settings</li>
+            <li><a href="#proxy-protocol">Proxy protocol</a> support for client connections</li>
             <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
             <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
             <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
@@ -92,13 +93,13 @@ limitations under the License.
           TCP listeners configure both interface and port. The following example
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 Or using classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -114,14 +115,14 @@ Or using classic config format:
           The following example demonstrates how to configure RabbitMQ
           to listen on localhost only for both IPv4 and IPv6:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = 127.0.0.1:5672
 listeners.tcp.2 = ::1:5672
 </pre>
 
 Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"127.0.0.1", 5672},
@@ -136,20 +137,20 @@ Or, in the <a href="/configure.html#erlang-term-config-file">classic config form
           listen on all IPv6 addresses but IPv4 is not disabled
           explicitly, IPv4 address will be included, so
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = :::5672
 </pre>
 
 is equivalent to
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = 0.0.0.0:5672
 listeners.tcp.2 = :::5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"::",       5672}]}
@@ -159,7 +160,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
 is equivalent to
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"0.0.0.0", 5672},
@@ -175,13 +176,13 @@ is equivalent to
         <p>
           In this example RabbitMQ will listen on an IPv4 interface only:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -201,13 +202,13 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         <p>
           In this example RabbitMQ will listen on an IPv6 interface only:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listeners, [{"fe80::2acf:e9ff:fe17:f97b", 5672}]}
@@ -271,8 +272,12 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         The range used by RabbitMQ can also be controlled via two configuration keys:
 
         <ul>
-          <li><code>kernel.inet_dist_listen_min</code></li>
-          <li><code>kernel.inet_dist_listen_max</code></li>
+          <li>
+            <code>kernel.inet_dist_listen_min</code> in the <b>classic</b> config format <em>only</em>
+          </li>
+          <li>
+            <code>kernel.inet_dist_listen_max</code> in the <b>classic</b> config format <em>only</em>
+          </li>
         </ul>
 
         They define the range's lower and upper bounds, inclusive.
@@ -280,7 +285,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
       <p>
         The example below uses a range with a single port but a value different from default:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {kernel, [
     {inet_dist_listen_min, 33672},
@@ -296,13 +301,13 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         To verify what port is used by a node for inter-node and CLI tool communication,
         run
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 epmd -names
 </pre>
 
         on that node's host. It will produce output that looks like this:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 epmd: up and running on port 4369 with data:
 name rabbit at port 25672
 </pre>
@@ -317,6 +322,23 @@ name rabbit at port 25672
         See the <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
         man page</a> to learn more about <code>epmd</code>.
       </p>
+
+
+      <doc:subsection name="distribution-port-buffer-limit">
+        <doc:heading>Inter-node Communication Buffer Size Limit</doc:heading>
+        <p>
+          Inter-node connections use a buffer for data pending to be sent. Temporary
+          throttling on inter-node traffic is applied when the buffer is at max allowed
+          capacity. The limit is controlled via the <code>RABBITMQ_DISTRIBUTION_BUFFER_SIZE</code>
+          <a href="/configure.html#supported-environment-variables">environment variable</a>
+          in kilobytes. Default value is 128 MB (<code>128000</code> kB).
+        </p>
+        <p>
+          In clusters with heavy inter-node traffic increasing this value may
+          have a positive effect on throughput. Values lower than 64 MB are not
+          recommended.
+        </p>
+      </doc:subsection>
     </doc:section>
 
 
@@ -367,10 +389,10 @@ name rabbit at port 25672
       <doc:subsection name="proxy-protocol">
         <doc:heading>Proxy Protocol</doc:heading>
         <p>
-          RabbitMQ supports the
-          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>.
+          RabbitMQ supports
+          <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">Proxy protocol</a>.
           The protocol makes servers such as RabbitMQ aware of the actual client IP address
-          when connections go over a proxy (e.g. HAproxy or AWS ELB).
+          when connections go over a proxy (e.g. <a href="http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#send-proxy">HAproxy</a> or <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a>).
           This makes it easier for the operator to inspect connection origins in the management UI
           or CLI tools.
         </p>
@@ -380,13 +402,13 @@ name rabbit at port 25672
           security reasons, this feature is disabled by default and needs to be enabled
           for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and AMQP 1.0 clients:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 proxy_protocol = true
 </pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {proxy_protocol, true}
@@ -398,8 +420,9 @@ proxy_protocol = true
       When proxy protocol is enabled, clients won't be able to connect
       to RabbitMQ directly unless they themselves support the protocol.
       Therefore, when this option is enabled, all client connections must go through
-      a proxy that also supports the protocol, e.g. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
-      or <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">AWS ELB</a>.
+      a proxy that also supports the protocol and is configured to send a Proxy protocol header. <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">HAproxy</a>
+      and <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">AWS ELB</a> documentation
+      explains how to do it.
     </p>
     <p>
       When proxy protocol is enabled and connections go through a compatible proxy, no action
@@ -408,7 +431,10 @@ proxy_protocol = true
     </p>
     <p>
         <a href="stomp.html#proxy-protocol">STOMP</a> and
-        <a href="mqtt.html#proxy-protocol">MQTT</a>
+        <a href="mqtt.html#proxy-protocol">MQTT</a>,
+        as well as
+        <a href="web-stomp.html#proxy-protocol">Web STOMP</a> and
+        <a href="web-mqtt.html#proxy-protocol">Web MQTT</a>
         have their own settings that enable support for the proxy protocol.
     </p>
       </doc:subsection>
@@ -464,7 +490,7 @@ proxy_protocol = true
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
@@ -475,7 +501,7 @@ tcp_listen_options.recbuf = 196608
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -492,7 +518,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
           The same example for MQTT and STOMP connections:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -528,11 +554,18 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
         <p>
           Erlang runtime uses a pool of threads for performing I/O
           operations asynchronously. The size of the pool is <a href="/configure.html">configured</a> via
-          the <code>+A</code> VM command line flag, e.g. <code>+A 128</code>. We highly recommend
-          overriding the flag using the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
+          the <code>RABBITMQ_IO_THREAD_POOL_SIZE</code> environment variable. The variable
+          is a shortcut to setting the <code>+A</code> VM command line flag, e.g. <code>+A 128</code>.
+
+<pre class="lang-bash">
+# reduces number of I/O threads from 128 to 32
+RABBITMQ_IO_THREAD_POOL_SIZE=32
+</pre>
+
+          To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
           variable:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 </pre>
 
@@ -590,6 +623,10 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           including the <a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit">open file handle limit</a>.
         </p>
         <p>
+          With Docker, <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file">Docker daemon configuration file</a>
+          in the host controls the limits.
+        </p>
+        <p>
           MacOS uses a <a href="https://superuser.com/questions/433746/is-there-a-fix-for-the-too-many-open-files-in-system-error-on-os-x-10-7-1">similar system</a>.
         </p>
         <p>
@@ -625,7 +662,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         <p>
           The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
 tcp_listen_options.linger.on      = true
@@ -636,7 +673,7 @@ tcp_listen_options.recbuf  = 32768
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -653,7 +690,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
           The same example for MQTT and STOMP connections:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
@@ -695,7 +732,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           can be decreased. It is possible to cap the max number of channels on a connection using
           the <code>channel_max</code> configuration setting:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 channel_max = 16
 </pre>
 
@@ -724,14 +761,14 @@ channel_max = 16
 
 In <code>rabbitmq.conf</code>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
 together with the following bits in the <a href="/configure.html#advanced-config-file">advanced config file</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {kernel, [
     {inet_default_connect_options, [{nodelay, true}]},
@@ -742,7 +779,7 @@ together with the following bits in the <a href="/configure.html#advanced-config
 When using the <a href="/configure.html#erlang-term-config-file">classic config format</a>,
 everything is configured in a single file:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {kernel, [
     {inet_default_connect_options, [{nodelay, true}]},
@@ -781,14 +818,14 @@ everything is configured in a single file:
           This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
 In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -879,7 +916,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           TCP stack tuning can also reduce the amount of time connections spend in the <code>TIME_WAIT</code> state.
           The <code>net.ipv4.tcp_fin_timeout</code> setting specifically can help here:
 
-<pre class="sourcecode sysctl">
+<pre class="lang-ini">
 net.ipv4.tcp_fin_timeout = 30
 </pre>
           Note that like other settings prefixed with <code>net.ipv4.</code>, this one applies to both IPv4 and IPv6
@@ -899,7 +936,7 @@ net.ipv4.tcp_fin_timeout = 30
           values, for example:
 
 
-<pre class="sourcecode sysctl">
+<pre class="lang-ini">
 net.ipv4.tcp_fin_timeout = 30
 
 net.ipv4.tcp_keepalive_time=30
@@ -1008,7 +1045,7 @@ net.ipv4.tcp_tw_reuse = 1
           To configure a kernel parameter interactively, use <code>sysctl -w</code> (requires superuser
           privileges), for example:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sysctl -w fs.file-max 200000
 </pre>
 
@@ -1128,7 +1165,7 @@ sysctl -w fs.file-max 200000
         that considers TCP connections dead or unreachable after 70
         seconds (4 attempts every 10 seconds after connection idle for 30 seconds):
 
-<pre class="sourcecode sysctl">
+<pre class="lang-ini">
 net.ipv4.tcp_keepalive_time=30
 net.ipv4.tcp_keepalive_intvl=10
 net.ipv4.tcp_keepalive_probes=4
@@ -1148,13 +1185,13 @@ net.ipv4.tcp_keepalive_probes=4
         default. When clients run in heavily constrained environments,
         it may be necessary to increase the timeout. This can be done via
         the <code>rabbit.handshake_timeout</code> (in milliseconds):
-<pre class="sourcecode sysctl">
+<pre class="lang-ini">
 handshake_timeout = 20000
 </pre>
 
 Using the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     %% 20 seconds
@@ -1176,13 +1213,13 @@ Using the classic config format:
           handshake timeout. This can be done via
           the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 ssl_handshake_timeout = 10000
 </pre>
 
 Using the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [
     %% 10 seconds

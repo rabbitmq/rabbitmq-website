@@ -4,14 +4,14 @@
   %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -161,6 +161,34 @@ limitations under the License.
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
               </li>
+              <li>
+                <a href="https://github.com/queue-interop/queue-interop#amqp-interop">AMQP Interop</a> is a set of unified AMQP interfaces and their implementations
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="node-dev">
+            <doc:heading>JavaScript</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
+                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
+              </li>
+              <li>
+                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
+                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                these installation instructions</a> for rabbit.js on Ubuntu.
+              </li>
+              <li>
+                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
+                <br/>
+                A node.js interface for RabbitMQ management statistics
+              </li>
+              <li>
+                <a href="https://github.com/guidesmiths/rascal">Rascal</a>
+                <br/>
+                A config driven wrapper for <a href="https://github.com/squaremo/amqp.node">amqp.node</a> supporting multi-host connections, automatic error recovery, redelivery flood protection, transparent encryption / decryption and channel pooling.
+              </li>
             </ul>
           </doc:section>
 
@@ -168,6 +196,13 @@ limitations under the License.
             <doc:heading>Objective-C and Swift</doc:heading>
             <ul class="plain">
               <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
+            </ul>
+          </doc:section>
+
+          <doc:section name="rust-dev">
+            <doc:heading>Rust</doc:heading>
+            <ul class="plain">
+              <a href="https://github.com/sozu-proxy/lapin">Lapin</a>, a Rust client
             </ul>
           </doc:section>
 
@@ -182,7 +217,7 @@ limitations under the License.
                 <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
-                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, a new (mid-2015), optinionated Akka-based RabbitMQ
+                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, an optinionated Akka-based RabbitMQ
                 client for Scala.
               </li>
               <li>
@@ -210,32 +245,16 @@ limitations under the License.
             <h4>Clojure</h4>
             <ul class="plain">
               <li>
-                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
+                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client built on top of the official Java one</a>
+              </li>
+              <li>
+                <a href="https://github.com/nomnom-insights/nomnom.bunnicula">Bunnicula, Component based framework for Clojure built on top of the official Java one</a>
               </li>
             </ul>
             <h4>JRuby</h4>
             <ul class="plain">
               <li>
                 <a href="http://rubymarchhare.info">March Hare, a JRuby RabbitMQ client</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="node-dev">
-            <doc:heading>JavaScript</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
-                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
-              </li>
-              <li>
-                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
-                these installation instructions</a> for rabbit.js on Ubuntu.
-              </li>
-              <li>
-                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
-                <br/>
-                A node.js interface for RabbitMQ management statistics
               </li>
             </ul>
           </doc:section>
@@ -270,6 +289,35 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+
+          <doc:section name="mobile">
+            <doc:heading>Mobile</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
+              </li>
+              <li>
+                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="monitoring-tools">
+            <doc:heading>Monitoring</doc:heading>
+            <p>
+              See <a href="/monitoring.html">RabbitMQ Monitoring guide</a>.
+            </p>
+          </doc:section>
+
+          <doc:section name="visualisation">
+            <doc:heading>Visualisation</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://plexsystems.github.io/rabbit-viz/">Rabbit Viz</a>, a tool for visualizing <a href="/backup.html#rabbitmq-definitions">exported definition files</a>.
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="unity-dev">
             <doc:heading>Unity 3D</doc:heading>
             <ul class="plain">
@@ -322,31 +370,7 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
-          <doc:section name="monitoring-tools">
-            <doc:heading>Monitoring</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension
-              </li>
-              <li>
-                <a href="https://docs.datadoghq.com/integrations/rabbitmq/">RabbitMQ Datadog</a> integration
-              </li>
-              <li>
-                <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">RabbitMQ Prometheus Exporter</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="mobile">
-            <doc:heading>Mobile</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
-              </li>
-              <li>
-                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
-              </li>
-            </ul>
-          </doc:section>
+
           <doc:section name="perl-dev">
             <doc:heading>Perl</doc:heading>
             <ul class="plain">

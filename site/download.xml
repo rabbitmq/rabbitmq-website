@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,8 +45,8 @@ limitations under the License.
             </li>
             <li>
               Windows:
-                <a href="install-windows.html">With installer (recommended)</a> |
-                <a href="install-windows-manual.html">Manual</a>
+                <a href="install-windows.html">Installer (recommended)</a> |
+                <a href="install-windows-manual.html">Binary build</a>
             </li>
             <li>
               MacOS:
@@ -136,7 +136,7 @@ limitations under the License.
           <li><a href="https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc">Release Signing Key</a> <code>0x6B73A36E6026DFCA</code> (on GitHub)</li>
           <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
           <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on rabbitmq.com)</li>
-          <li><a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on Bintray)</li>
+          <li><a href="https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc">Release Signing Key</a> (alternative download location on Bintray)</li>
         </ul>
       </doc:section>
 
@@ -154,14 +154,14 @@ limitations under the License.
           </li>
           <li>
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian, Ubuntu</a> |
-            <a href="https://bintray.com/rabbitmq/debian/erlang">Erlang Debian packages</a>
+            <a href="https://bintray.com/rabbitmq-erlang/debian/erlang">Erlang Debian packages</a>
           </li>
           <li>
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">RHEL/CentOS 7.x</a> |
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">RHEL/CentOS 6.x</a> |
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm">OpenSUSE</a> |
             <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm">SLES 11.x</a> |
-            <a href="https://bintray.com/rabbitmq/rpm/erlang">Erlang RPM packages</a>
+            <a href="https://bintray.com/rabbitmq-erlang/rpm/erlang">Erlang RPM packages</a>
 
           </li>
           <li>
@@ -203,10 +203,13 @@ limitations under the License.
               <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
             </li>
             <li>
-              <a href="&dir-current-javadoc;">Javadoc</a>
+              <a href="/api-guide.html">API guide</a>
             </li>
             <li>
-              <a href="java-client.html">All Java client downloads</a>
+              <a href="&dir-current-javadoc;">API reference</a> (JavaDoc)
+            </li>
+            <li>
+              <a href="java-client.html">License and other information</a>
             </li>
             <li>
               <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
@@ -230,8 +233,16 @@ limitations under the License.
 
           <ul>
             <li>
-              On NuGet:
-              <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+              On NuGet: <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+            </li>
+            <li>
+              <a href="/dotnet-api-guide.html">API guide</a>
+            </li>
+            <li>
+              <a href="https://rabbitmq.github.io/rabbitmq-dotnet-client/">API reference</a>
+            </li>
+            <li>
+              <a href="dotnet.html">License and other information</a>
             </li>
             <li>
               <a href="releases/&dir-dotnet-client;">Older versions</a>

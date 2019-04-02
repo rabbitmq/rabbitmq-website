@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -88,20 +88,20 @@ limitations under the License.
       <p>
         The following config example uses the <code>rss</code> strategy:
 
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 vm_memory_calculation_strategy = rss
 </pre>
 
         Similarly, for the <code>allocated</code> strategy, use:
 
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 vm_memory_calculation_strategy = allocated
 </pre>
       </p>
       <p>
         To configure the <code>rss</code> strategy using classic config format:
 
-        <pre class="sourcecode erlang">
+        <pre class="lang-erlang">
 [
   {rabbit, [{vm_memory_calculation_strategy, rss}]}
 ].
@@ -109,7 +109,7 @@ vm_memory_calculation_strategy = allocated
 
         Similarly, for the <code>allocated</code> strategy, use:
 
-        <pre class="sourcecode erlang">
+        <pre class="lang-erlang">
 [
   {rabbit, [{vm_memory_calculation_strategy, allocated}]}
 ].
@@ -131,12 +131,11 @@ vm_memory_calculation_strategy = allocated
           Memory use breakdown reports allocated memory distribution by category:
 
           <ul class="plain">
-            <li>Connections (further split into three categories: readers, writers, other)</li>
-            <li>Channels</li>
+            <li><a href="#breakdown-connections">Connections</a> (further split into four categories: readers, writers, channels, other)</li>
             <li>Queue master replicas</li>
             <li>Queue mirror replicas</li>
             <li>Message Store and Indices</li>
-            <li>Binaries</li>
+            <li><a href="#breakdown-binaries">Binary heap references</a></li>
             <li>Node-local metrics (stats database)</li>
             <li>Internal database tables</li>
             <li>Plugins</li>
@@ -160,7 +159,7 @@ vm_memory_calculation_strategy = allocated
         </p>
 
         <p>
-          <pre class="sourcecode erlang">
+          <pre class="lang-erlang">
 {memory,
     [{connection_readers,70896},
      {connection_writers,166752},
@@ -261,7 +260,7 @@ vm_memory_calculation_strategy = allocated
               <td><a href="/management.html">Stats DB</a></td>
               <td>
                 Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
-                See <a href="/management.html">managemeng plugin guide</a> for more information.
+                See <a href="/management.html">management plugin guide</a> for more information.
               </td>
             </tr>
 
@@ -270,7 +269,7 @@ vm_memory_calculation_strategy = allocated
               <td>Stats DB</td>
               <td>
                 Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
-                See <a href="/management.html">managemeng plugin guide</a> for more information.
+                See <a href="/management.html">management plugin guide</a> for more information.
               </td>
             </tr>
 
@@ -378,7 +377,7 @@ vm_memory_calculation_strategy = allocated
         </p>
 
         <p>
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
   python -m json.tool
 
@@ -416,7 +415,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
         </p>
 
         <p>
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative |
   python -m json.tool
 
@@ -468,7 +467,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
           can be decreased. It is possible to cap the max number of channels on a connection using
           the <code>channel_max</code> configuration setting:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 channel_max = 16
 </pre>
 
@@ -557,6 +556,27 @@ channel_max = 16
           Memory used by shared binary data in the runtime. Most of this
           memory is message bodies and metadata.
         </p>
+
+        <p>
+          With some workloads binary data heap can be garbage collected infrequently.
+          <code>rabbitmqctl force_gc</code> can be used force collection. The following
+          couple of commands forces collection and reports top processes that released most
+          binary heap references:
+
+<pre class="lang-bash">
+rabbitmqctl eval 'recon:bin_leak(10).'
+
+rabbitmqctl force_gc
+</pre>
+
+          With RabbitMQ versions that do not provide <code>rabbitmqctl force_gc</code>, use
+
+<pre class="lang-bash">
+rabbitmqctl eval 'recon:bin_leak(10).'
+
+rabbitmqctl eval '[garbage_collect(P) || P &lt;- processes()].'
+</pre>
+        </p>
       </doc:subsection>
 
       <doc:subsection name="breakdown-ets-tables">
@@ -600,7 +620,7 @@ channel_max = 16
       <p>
         The plugin ships with RabbitMQ. Enable it with
 
-        <pre class="sourcecode bash">
+        <pre class="lang-bash">
 [sudo] rabbitmq-plugins enable rabbitmq_top
 </pre>
       </p>
@@ -653,13 +673,21 @@ channel_max = 16
         as well as unallocated but reserved by the OS. Both values depend on the OS and Erlang VM allocator
         settings and can fluctuate significantly.
       </p>
+
       <p>
-        Note that the sections depend on the <code>vm_memory_calculation_strategy</code> setting.
+        How the value in both sections is computed depend on the <code>vm_memory_calculation_strategy</code> setting.
         If the strategy is set to <code>erlang</code>, unused
         memory will not be reported.
         If memory calculation strategy is set to <code>allocated</code>, memory
         reserved by OS will not be reported. Therefore <code>rss</code> is the strategy
         that provides most information from both the kernel and the runtime.
+      </p>
+
+      <p>
+        When a node reports a large amount of allocated but unused memory on a long running node, it may be
+        an indicator of runtiime memory fragmentation. A different set of allocator settings can reduce fragmentation
+        and increase the percentage of efficiently used memory. The right set of settings depends on
+        the workload and message payload size distribution.
       </p>
 
       <p>
@@ -705,7 +733,7 @@ channel_max = 16
           <p>
             The memory use of a single queue can be obtained via the HTTP API:
 
-<pre class="sourcecode json">
+<pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
   python -m json.tool
 

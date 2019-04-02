@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,7 +38,7 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.QueueBind(
   q.Name, // queue name
   "",     // routing key
@@ -55,7 +55,7 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `Channel.Publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.QueueBind(
   q.Name,    // queue name
   "black",   // routing key
@@ -192,7 +192,7 @@ first.
 
 As always, we need to create an exchange first:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.ExchangeDeclare(
   "logs_direct", // name
   "direct",      // type
@@ -206,7 +206,7 @@ err = ch.ExchangeDeclare(
 
 And we're ready to send a message:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 err = ch.ExchangeDeclare(
   "logs_direct", // name
   "direct",      // type
@@ -241,7 +241,7 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 q, err := ch.QueueDeclare(
   "",    // name
   false, // durable
@@ -314,7 +314,7 @@ Putting it all together
 
 The code for `emit_log_direct.go` script:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -390,7 +390,7 @@ func severityFrom(args []string) string {
 
 The code for `receive_logs_direct.go`:
 
-<pre class="sourcecode go">
+<pre class="lang-go">
 package main
 
 import (
@@ -480,21 +480,21 @@ func main() {
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_direct.go warning error > logs_from_rabbit.log
 </pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run receive_logs_direct.go info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
 </pre>
 
 And, for example, to emit an `error` log message just type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 go run emit_log_direct.go error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>

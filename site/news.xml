@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,11 +25,292 @@ limitations under the License.
     <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
     <p>Also keep an eye on the <a href="changelog.html">change log</a> and <a href="http://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.</p>
     <doc:feed>
-      <!-- Please give news items a doc:date/@iso.  It is used in the
-       Atom feed, for the updated time and as a guide.
-       $ echo `date +"%FT%T"``date +"%z" | cut -c 1-3`:`date +"%z" | cut -c 4-5`
-       will give you a suitable RFC 3339 value.
-      -->
+    <!-- Please give news items a doc:date/@iso.  It is used in the
+     Atom feed, for the updated time and as a guide.
+     $ echo `date +"%FT%T"``date +"%z" | cut -c 1-3`:`date +"%z" | cut -c 4-5`
+     will give you a suitable RFC 3339 value.
+    -->
+
+    <doc:item>
+      <doc:date iso="2019-04-02T09:00:00+00:00">2 April 2019</doc:date>
+      <doc:title>Erlang Packages Move to a Separate Org on Bintray</doc:title>
+      <doc:link>https://groups.google.com/d/msg/rabbitmq-users/Gu55prdJ7uM/tftnTT_ZAwAJ</doc:link>
+      <doc:text>
+        <p>
+          Erlang packages produced by Team RabbitMQ will soon only be available from a separate organisation on Bintray.
+        </p>
+        <p>
+          Originally the packages we published to the <a href="https://bintray.com/rabbitmq/">main Bintray org</a>
+          (<a href="https://bintray.com/beta/#/rabbitmq/debian/erlang?tab=overview">Debian</a>, <a href="https://bintray.com/beta/#/rabbitmq/rpm/erlang?tab=overview">RPM</a>)
+          Erlang packages in those repositories stopped receiving updates
+          in November 2018 and will be removed from the main org on April 29, 2019.
+        </p>
+        <p>
+          Users who rely on them must migrate to the <a href="https://bintray.com/rabbitmq-erlang/">rabbitmq-erlang Bintray organisation</a>.
+          See <a href="https://www.rabbitmq.com/install-debian.html#apt-bintray-erlang">Debian</a> and <a href="https://www.rabbitmq.com/install-rpm.html#install-zero-dependency-rpm">RPM guides</a> for
+          up-to-date installation instructions.
+        </p>
+        <p>
+          As always, we welcome any questions on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-03-29T09:00:00+00:00">29 March 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.14 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.14.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-03-08T08:00:00+00:00">8 March 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.13 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.13</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.13.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-02-15T18:00:00+00:00">15 February 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.12 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.12</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.12.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-01-31T17:00:00+00:00">31 January 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.11 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.11.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          This is the first RabbitMQ release to <a href="/which-erlang.html">require Erlang/OTP 20.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-01-07T17:00:00+00:00">7 January 2019</doc:date>
+      <doc:title>New Erlang/OTP Support Policy Goes into Effect</doc:title>
+      <doc:link>https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ</doc:link>
+      <doc:text>
+        <p>
+          Starting this month, RabbitMQ support policy for Erlang/OTP <a href="https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ">changes</a>.
+        </p>
+        <p>
+          All RabbitMQ releases starting with January 2019 will support two most recent major Erlang release series,
+          starting with <code>20.3.x</code> and <code>21.x</code>. When Erlang <code>22.0</code> ships, after a transition period,
+          the supported versions will be <code>21.2.x</code> and <code>22.x</code>.
+        </p>
+        <p>
+          Latest Erlang releases can be provisioned from <a href="https://bintray.com/rabbitmq-erlang/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/erlang">PackageCloud</a>,
+          and built from source with <a href="https://github.com/kerl/kerl">kerl</a>. <a href="https://www.rabbitmq.com/install-debian.html">Debian</a>
+          and <a href="https://www.rabbitmq.com/install-rpm.html">RPM</a> installation guides provide more details.
+        </p>
+        <p>
+          The list of supported releases for a given RabbitMQ version can be found in the <a href="https://www.rabbitmq.com/which-erlang.html">Erlang/OTP compatibility guide</a>.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2019-01-07T17:00:00+00:00">7 January 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.10 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.10</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.10.
+        </p>
+        <p>
+          This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          This is the last RabbitMQ release to <a href="https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ">support Erlang/OTP 19.3</a>.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2018-11-16T17:00:00+00:00">16 November 2018</doc:date>
+      <doc:title>RabbitMQ 3.7.9 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.9</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.9.
+        </p>
+        <p>
+          This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+    <doc:item>
+      <doc:date iso="2018-10-16T12:00:00+00:00">16 October 2018</doc:date>
+      <doc:title>PackageCloud Signing Key Migration</doc:title>
+      <doc:link></doc:link>
+      <doc:text>
+        <p>
+          PackageCloud is one of the services used by the RabbitMQ team to distribute packages.
+          The service signs all packages uploaded to it with their own signing key. Recently PackageCloud
+          started migrating to per-repository signing keys instead of a single master key.
+        </p>
+        <p>
+          On December 1st, 2018 (GMT) all repositories under the RabbitMQ account on PackageCloud will be switched to use the new
+          signing keys.
+          RabbitMQ users who install packages from PackageCloud must import the new signing keys
+          before the migration. The recommended way of doing that is by re-running PackageCloud
+          setup scripts (<a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">RabbitMQ</a>, <a href="https://packagecloud.io/rabbitmq/erlang/install">Erlang</a>).
+          Signing keys can be downloaded and imported directly as well (<a href="https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey">RabbitMQ</a>, <a href="https://packagecloud.io/rabbitmq/erlang/gpgkey">Erlang</a>).
+          If the new keys are not imported, package installation will start failing with a signature verification
+          error.
+        </p>
+        <p>
+          Services and tools that do not use PackageCloud (and thus rely on RabbitMQ's own <a href="/signatures.html">release signing key</a> for signing)
+          are not affected by this transition.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
 
     <doc:item>
       <doc:date iso="2018-09-20T17:00:00+00:00">20 September 2018</doc:date>
@@ -2390,7 +2671,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           new features</a>, making Rabbit easier to use and manage.
         </p>
         <ul>
-          <li>Eager synchronisation of mirror queue slaves</li>
+          <li>Eager synchronisation of mirror queue mirrors</li>
           <li>Automatic cluster partition healing</li>
           <li>Improved statistics</li>
         </ul>
@@ -2430,7 +2711,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </p>
         <p>
           This release introduces eager synchronisation of mirror queue
-          slaves, automatic cluster partition healing, and improved statistics
+          mirrors, automatic cluster partition healing, and improved statistics
           (including charts) in the management plugin. It also adds many
           smaller new features, bug fixes and performance improvements.
         </p>

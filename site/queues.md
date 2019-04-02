@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -77,7 +77,7 @@ with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 
 ### <a id="optional-arguments" class="anchor" href="#optional-arguments">Optional Arguments</a>
 
-Optional queue arguments, also know as "x-arguments" because of their
+Optional queue arguments, also known as "x-arguments" because of their
 field name in the AMQP 0-9-1 protocol, is a map (dictionary) that can
 be provided by clients when a queue is declared.  They are used by
 plugins and broker-specific features such as

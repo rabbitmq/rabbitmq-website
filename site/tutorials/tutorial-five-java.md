@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -156,45 +156,44 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.java`:
 
-<pre class="sourcecode java">
-import com.rabbitmq.client.*;
-
-import java.io.IOException;
+<pre class="lang-java">
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 
 public class EmitLogTopic {
 
-    private static final String EXCHANGE_NAME = "topic_logs";
+  private static final String EXCHANGE_NAME = "topic_logs";
 
-    public static void main(String[] argv)
-                  throws Exception {
-
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+  public static void main(String[] argv) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    try (Connection connection = factory.newConnection();
+         Channel channel = connection.createChannel()) {
 
         channel.exchangeDeclare(EXCHANGE_NAME, "topic");
 
         String routingKey = getRouting(argv);
         String message = getMessage(argv);
 
-        channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
+        channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes("UTF-8"));
         System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
-
-        connection.close();
     }
-    //...
+  }
+  //..
 }
 </pre>
 
 The code for `ReceiveLogsTopic.java`:
 
-<pre class="sourcecode java">
-import com.rabbitmq.client.*;
-
-import java.io.IOException;
+<pre class="lang-java">
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
 
 public class ReceiveLogsTopic {
+
   private static final String EXCHANGE_NAME = "topic_logs";
 
   public static void main(String[] argv) throws Exception {
@@ -207,25 +206,22 @@ public class ReceiveLogsTopic {
     String queueName = channel.queueDeclare().getQueue();
 
     if (argv.length &lt; 1) {
-      System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
-      System.exit(1);
+        System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
+        System.exit(1);
     }
 
     for (String bindingKey : argv) {
-      channel.queueBind(queueName, EXCHANGE_NAME, bindingKey);
+        channel.queueBind(queueName, EXCHANGE_NAME, bindingKey);
     }
 
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
-    Consumer consumer = new DefaultConsumer(channel) {
-      @Override
-      public void handleDelivery(String consumerTag, Envelope envelope,
-                                 AMQP.BasicProperties properties, byte[] body) throws IOException {
-        String message = new String(body, "UTF-8");
-        System.out.println(" [x] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
-      }
+    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+        String message = new String(delivery.getBody(), "UTF-8");
+        System.out.println(" [x] Received '" +
+            delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
     };
-    channel.basicConsume(queueName, true, consumer);
+    channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
   }
 }
 </pre>
@@ -235,37 +231,37 @@ on Windows, use %CP%.
 
 To compile:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 javac -cp $CP ReceiveLogsTopic.java EmitLogTopic.java
 </pre>
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP ReceiveLogsTopic "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 java -cp $CP EmitLogTopic "kern.critical" "A critical kernel error"
 </pre>
 

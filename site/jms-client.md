@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -98,11 +98,14 @@ plugin, you need to enable the plugin in order to use it.
 
 Enable the plugin using the `rabbitmq-plugins` command:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 </pre>
 
 You don't need to restart the broker to activate the plugin.
+
+***You need to enable this plugin only if you plan to use topic selectors
+in your JMS client applications***.
 
 ### <a id="java-container" class="anchor" href="#java-container">Enabling the JMS client in a Java container</a>
 
@@ -122,7 +125,7 @@ framework like Spring.
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;Resource name="jms/ConnectionFactory"
             type="javax.jms.ConnectionFactory"
          factory="com.rabbitmq.jms.admin.RMQObjectFactory"
@@ -135,7 +138,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in Tomcat:
 
 To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client 1.7.0):
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;object-factory name=&quot;java:global/jms/ConnectionFactory&quot;
                    module=&quot;org.jboss.genericjms.provider&quot;
                    class=&quot;com.rabbitmq.jms.admin.RMQObjectFactory&quot;&gt;
@@ -152,7 +155,7 @@ To define the JMS `ConnectionFactory` in JNDI, e.g. in WildFly (as of JMS Client
 
 Here is the equivalent Spring bean example (Java configuration):
 
-<pre class="sourcecode java">
+<pre class="lang-java">
 @Bean
 public ConnectionFactory jmsConnectionFactory() {
   RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
@@ -167,7 +170,7 @@ public ConnectionFactory jmsConnectionFactory() {
 
 And here is the Spring XML configuration:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;bean id="jmsConnectionFactory" class="com.rabbitmq.jms.admin.RMQConnectionFactory" &gt;
   &lt;property name="username" value="guest" /&gt;
   &lt;property name="password" value="guest" /&gt;
@@ -198,14 +201,28 @@ The following table lists all of the attributes/properties that are available.
 ## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
 An interoperability feature allows you to define JMS 'amqp' destinations
-that read and/or write to non-JMS RabbitMQ resources.
+that read and/or write to non-JMS RabbitMQ resources. ***Note this feature
+does not support JMS topics***.
+
+A single 'amqp' destination can be defined for both sending and consuming.
+
+### Sending JMS Messages to an AMQP Exchange
 
 A JMS destination can be defined so that a JMS application can send
 `Message`s to a predefined RabbitMQ 'destination' (exchange/routing key)
 using the JMS API in the normal way. The messages are written
 "in the clear," which means that any AMQP 0-9-1 client can read them without
 having to understand the internal format of Java JMS messages.
-Only `BytesMessage`s and `TextMessage`s can be written in this way.
+***Only `BytesMessage`s and `TextMessage`s can be written in this way***.
+
+When messages are sent to an 'amqp' Destination, JMS message properties
+are mapped onto AMQP 0-9-1 headers and properties as appropriate.
+For example, the `JMSPriority` property converts to the `priority` property
+for the AMQP 0-9-1 message. (It is also set as a header with the name
+"JMSPriority".) User-defined properties are set as named message header
+values, provided they are `boolean`, numeric or `String` types.
+
+### Consuming Messages From an AMQP Queue
 
 Similarly, a JMS destination can be defined that reads messages from a
 predefined RabbitMQ queue. A JMS application can then read these
@@ -215,15 +232,6 @@ JMS Messages automatically. Messages read in this way are, by default,
 (by adding an AMQP message header called "JMSType" whose value is
 "TextMessage"), which will interpret the byte-array payload as a UTF8
 encoded String and return them as `TextMessage`s.
-
-A single 'amqp' destination can be defined for both reading and writing.
-
-When messages are sent to an 'amqp' Destination, JMS message properties
-are mapped onto AMQP 0-9-1 headers and properties as appropriate.
-For example, the `JMSPriority` property converts to the `priority` property
-for the AMQP 0-9-1 message. (It is also set as a header with the name
-"JMSPriority".) User-defined properties are set as named message header
-values, provided they are `boolean`, numeric or `String` types.
 
 When reading from an 'amqp' Destination, values are mapped back to
 JMS message properties, except that any explicit JMS property set as
@@ -237,7 +245,7 @@ The `com.rabbitmq.jms.admin` package contains the `RMQDestination` class,
 which implements `Destination` in the JMS interface. This is extended
 with a new constructor:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
     public RMQDestination(String destinationName, String amqpExchangeName,
                           String amqpRoutingKey, String amqpQueueName);
 </pre>
@@ -273,7 +281,7 @@ There are getters and setters for these fields, which means that a JNDI
  `<Resource/>` definition or an XML Spring bean definition can use them, for example
  JNDI with Tomcat:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
     &lt;Resource  name="jms/Queue"
                type="javax.jms.Queue"
             factory="com.rabbitmq.jms.admin.RMQObjectFactory"
@@ -285,7 +293,7 @@ There are getters and setters for these fields, which means that a JNDI
 
 This is the equivalent with WildFly (as of JMS Client 1.7.0):
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
 &lt;bindings&gt;
     &lt;object-factory name="java:global/jms/Queue"
                     module="foo.bar"
@@ -302,7 +310,7 @@ This is the equivalent with WildFly (as of JMS Client 1.7.0):
 
 This is the equivalent Spring bean example (Java configuration):
 
-<pre class="sourcecode java">
+<pre class="lang-java">
     @Bean
     public Destination jmsDestination() {
         RMQDestination jmsDestination = new RMQDestination();
@@ -315,7 +323,7 @@ This is the equivalent Spring bean example (Java configuration):
 
 And here is the Spring XML configuration:
 
-<pre class="sourcecode xml">
+<pre class="lang-xml">
     &lt;bean id="jmsDestination" class="com.rabbitmq.jms.admin.RMQDestination" &gt;
      &lt;property name="destinationName" value="myQueue" /&gt;
      &lt;property name="amqp"            value="true" /&gt;
@@ -340,22 +348,25 @@ available:
 ## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
-SLF4J delegates to a logging framework, such as Apache log4j or
-Logback. If no other logging framework is
+SLF4J delegates to a logging framework, such as Apache Logback.
+If no other logging framework is
 enabled, SLF4J defaults to a built-in, no-op, logger.
 See the [SLF4J](http://www.slf4j.org/docs.html) documentation for a
 list of the logging frameworks SLF4J supports.
 
 The target logging framework is configured at deployment time by adding
 an SLF4J binding for the framework to the classpath.
-For example, the log4j SLF4J binding is in the
-`slf4j-log4j12-{version}.jar` file, which is a part of the SLF4J
-distribution. To direct JMS client messages to log4j, for example,
+For example, the Logback SLF4J binding is in the
+`logback-classic-{version}.jar` file.
+To direct JMS client log messages to Logback, for example,
 add the following JARs to the classpath:
 
- * slf4j-api-1.7.21.jar
- * slf4j-log4j12-1.7.21.jar
- * log4j-1.2.17.jar
+ * [slf4j-api-1.7.25.jar](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar)
+ * [logback-core-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar)
+ * [logback-classic-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar)
+
+We highly recommend to use a dependency management tool like [Maven](http://maven.apache.org/)
+or [Gradle](https://gradle.org/) to manage dependencies.
 
 The SLF4J API is backwards compatible, so you can use use any version of
 SLF4J. Version 1.7.5 or higher is recommended. The SLF4J API and
@@ -367,6 +378,172 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
+## <a id="rpc-support" class="anchor" href="#rpc-support">Support for Request/Reply (a.k.a. RPC)</a>
+
+It is possible to use JMS for synchronous request/reply use cases.
+This pattern is commonly known as *Remote Procedure Call* or *RPC*.
+
+### With JMS API
+
+An RPC client can be implemented in pure JMS like the following:
+
+<pre class="lang-java">
+Message request = ... // create the request message
+// set up reply-to queue and start listening on it
+Destination replyQueue = session.createTemporaryQueue();
+message.setJMSReplyTo(replyQueue);
+MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+responseConsumer.setMessageListener(msg -> queue.add(msg));
+// send request message
+MessageProducer producer = session.createProducer("request.queue");
+producer.send(request);
+// wait response for 5 seconds
+Message response = queue.poll(5, TimeUnit.SECONDS);
+// close the response consumer
+responseConsumer.close();
+</pre>
+
+It's also possible to create a single reply-to destination instead of
+a temporary destination for each request. This is more efficient but requires
+to properly correlate the response with the request, by using e.g.
+a correlation ID header. RabbitMQ's [direct reply-to](direct-reply-to.html)
+is another alternative (see below).
+
+Note this sample uses a `MessageListener` and a `BlockingQueue` to wait
+for the response. This implies a network roundtrip to register an AMQP
+consumer and another one to close the consumer.
+`MessageConsumer#receive` could have been used as well, in this case the JMS
+client internally polls the reply destination to get the response, which can result in several
+network roundtrips if the response takes some time to come. The request
+call will also incur a constant penalty equals to the polling interval (100 milliseconds
+by default).
+
+The server part looks like the following:
+
+<pre class="lang-java">
+// this is necessary when using temporary reply-to destinations
+connectionFactory.setDeclareReplyToDestination(false);
+...
+MessageProducer replyProducer = session.createProducer(null);
+MessageConsumer consumer = session.createConsumer("request.queue");
+consumer.setMessageListener(message -> {
+    try {
+        Destination replyQueue = message.getJMSReplyTo();
+        if (replyQueue != null) {
+            // create response and send it
+            Message response = ...
+            replyProducer.send(replyQueue, response);
+        }
+    } catch (JMSException e) {
+        // deal with exception
+    }
+});
+</pre>
+
+Note the `connectionFactory.setDeclareReplyToDestination(false)`
+statement: it is necessary when using temporary reply-to destinations.
+If this flag is not set to `false` on the RPC server side, the JMS
+client will try to re-create the temporary reply-to destination, which will
+interfere with the client-side declaration.
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcIT.java)
+for a full RPC example.
+
+The JMS client also supports [direct reply-to](direct-reply-to.html), which is faster as it doesn't imply
+creating a temporary reply destination:
+
+<pre class="lang-java">
+Message request = ...
+// use direct reply-to
+RMQDestination replyQueue = new RMQDestination(
+    "amq.rabbitmq.reply-to", "", "amq.rabbitmq.reply-to", "amq.rabbitmq.reply-to"
+);
+replyQueue.setDeclared(true); // don't need to create this destination
+message.setJMSReplyTo(replyQueue);
+MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+responseConsumer.setMessageListener(msg -> queue.add(msg));
+// send request message
+MessageProducer producer = session.createProducer("request.queue");
+producer.send(request);
+// wait response for 5 seconds
+Message response = queue.poll(5, TimeUnit.SECONDS);
+// close the response consumer
+responseConsumer.close();
+</pre>
+
+Using direct reply-to for JMS-based RPC has the following implications:
+
+ * it uses automatically auto-acknowledgment
+ * the response must be a `BytesMessage` or a `TextMessage` as direct reply-to
+ is considered an [AMQP destination](#destination-interoperability). Use `response.setStringProperty("JMSType", "TextMessage")`
+ on the response message in the RPC server if you want to receive a `TextMessage`
+ on the client side.
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcWithAmqpDirectReplyIT.java) for a full RPC example using direct reply-to.
+
+### With Spring JMS
+
+[Spring JMS](https://docs.spring.io/spring/docs/5.1.0.RELEASE/spring-framework-reference/integration.html#jms)
+is a popular way to work with JMS as it avoids most of JMS boilerplate.
+
+The following sample shows how a client can perform RPC with the
+`JmsTemplate`:
+
+<pre class="lang-java">
+// NB: do not create a new JmsTemplate for each request
+JmsTemplate tpl = new JmsTemplate(connectionFactory);
+tpl.setReceiveTimeout(5000);
+Message response = tpl.sendAndReceive(
+    "request.queue",
+    session -> ... // create request message in MessageCreator
+);
+</pre>
+
+This is no different from any other JMS client.
+
+The `JmsTemplate` uses a temporary reply-to destination,
+so the call to `connectionFactory.setDeclareReplyToDestination(false)`
+on the RPC server side is necessary, just like with regular JMS.
+
+RPC with direct reply-to
+must be implemented with a `SessionCallback`, as the reply destination
+must be explicitly declared:
+
+<pre class="lang-java">
+// NB: do not create a new JmsTemplate for each request
+JmsTemplate tpl = new JmsTemplate(connectionFactory);
+Message response = tpl.execute(session -> {
+    Message request = ... // create request message
+    // setup direct reply-to as reply-to destination
+    RMQDestination replyQueue = new RMQDestination(
+        "amq.rabbitmq.reply-to", "", "amq.rabbitmq.reply-to", "amq.rabbitmq.reply-to"
+    );
+    replyQueue.setDeclared(true); // don't need to create this destination
+    message.setJMSReplyTo(replyQueue);
+    MessageConsumer responseConsumer = session.createConsumer(replyQueue);
+    BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
+    responseConsumer.setMessageListener(msg -> queue.add(msg));
+    // send request message
+    MessageProducer producer = session.createProducer(session.createQueue("request.queue"));
+    producer.send(message);
+    try {
+        // wait response for 5 seconds
+        Message response = queue.poll(2, TimeUnit.SECONDS);
+        // close the response consumer
+        responseConsumer.close();
+        return response;
+    } catch (InterruptedException e) {
+        // deal with exception
+    }
+});
+</pre>
+
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcSpringJmsIT.java)
+for a full example of RPC with Spring JMS, including using a `@JmsListener` bean
+for the server part.
+
 ## <a id="implementation-details" class="anchor" href="#implementation-details">Implementation Details</a>
 
 This section provides additional implementation details for specific
@@ -374,6 +551,42 @@ JMS API classes in the JMS Client.
 
 Deviations from the specification are implemented to support common
 acknowledgement behaviours.
+
+## <a id="jms_topic_support"></a>JMS Topic Support
+
+JMS topics are implemented using an AMQP [topic exchange](tutorials/amqp-concepts.html#exchange-topic)
+and a dedicated AMQP queue for each JMS topic subscriber. The AMQP
+topic exchange is `jms.temp.topic` or `jms.durable.topic`, depending
+on whether the JMS topic is temporary or not, respectively. Let's
+take an example with a subscription to a durable `my.jms.topic` JMS topic:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * the `jms-cons-{UUID}` AMQP queue is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+If another subscriber subscribes to `my.jms.topic`, it will have
+its own AMQP queue and both subscribers will receive messages published
+to the `jms.durable.topic` exchange with the `my.jms.topic` routing key.
+
+The example above assumes no topic selector is used when declaring the
+subscribers. If a topic selector is in use, a `x-jms-topic`-typed exchange
+will sit between the `jms.durable.topic` topic exchange and the
+subscriber queue. So the topology is the following when subscribing to
+a durable `my.jms.topic` JMS topic with a selector:
+
+ * a dedicated AMQP queue is created for this subscriber, its name
+ will follow the pattern `jms-cons-{UUID}`.
+ * a `x-jms-topic`-typed exchange is bound to the subscriber AMQP queue with
+ the `my.jms.topic` binding key and some arguments related to the selector
+ expressions. Note this exchange is scoped to the JMS session and not only
+ to the subscriber.
+ * the `x-jms-topic`-typed exchange is bound to the `jms.durable.topic`
+ exchange with the `my.jms.topic` binding key.
+
+Exchanges can be bound together thanks to a [RabbitMQ extension](e2e.html).
+Note the [topic selector plugin](#plugin) must be enabled for topic selectors
+to work.
 
 ## <a id="queue_browser_support"></a>QueueBrowser Support
 

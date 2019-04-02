@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -174,7 +174,7 @@ limitations under the License.
         distribution. To enable it, use
         <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
       </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_shovel
 </pre>
       <p>
@@ -347,7 +347,7 @@ rabbitmq-plugins enable rabbitmq_shovel
           plugin app. Issue the following <code>rabbitmqctl</code>
           command:
         </p>
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'rabbit_shovel_status:status().'
 </pre>
         <p>
@@ -395,13 +395,13 @@ rabbitmqctl eval 'rabbit_shovel_status:status().'
           <li>
             The shovel is starting up, connecting and creating
             resources:
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 'starting'
 </pre>
           </li>
           <li>
             The shovel is running normally:
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 { 'running', [{'src_protocol', <em>Protocol</em>},
               {'src_uri', <em>Source</em>},
               {'dest_protocol', <em>Protocol</em>},
@@ -416,7 +416,7 @@ rabbitmqctl eval 'rabbit_shovel_status:status().'
           </li>
           <li>
             The shovel has terminated:
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {'terminated', <em>Reason</em>}
 </pre>
               <p>

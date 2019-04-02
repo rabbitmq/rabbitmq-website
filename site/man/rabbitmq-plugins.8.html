@@ -1,184 +1,245 @@
 <div class="manual-text">
-<h2 class="Sh" title="Sh" id="NAME"><a class="selflink" href="#NAME">NAME</a></h2>
-<b class="Nm" title="Nm">rabbitmq-plugins</b> &#x2014;
-  <span class="Nd" title="Nd">command line for managing RabbitMQ broker
-  plugins</span>
-<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="selflink" href="#SYNOPSIS">SYNOPSIS</a></h2>
+<h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
+<code class="Nm" title="Nm">rabbitmq-plugins</code> &#x2014;
+<div class="Nd" title="Nd">command line tool for managing RabbitMQ plugins</div>
+<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
 <table class="Nm">
   <tr>
-    <td><b class="Nm" title="Nm">rabbitmq-plugins</b></td>
-    <td>[<span class="Op"><b class="Fl" title="Fl">-n</b>
-      <var class="Ar" title="Ar">node</var></span>]
+    <td><code class="Nm" title="Nm">rabbitmq-plugins</code></td>
+    <td>[<div class="Op"><code class="Fl" title="Fl">-q</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-s</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-l</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-n</code>
+      <var class="Ar" title="Ar">node</var></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-t</code>
+      <var class="Ar" title="Ar">timeout</var></div>]
       <var class="Ar" title="Ar">command</var>
-      [<span class="Op"><var class="Ar" title="Ar">command_options</var></span>]</td>
+      [<div class="Op"><var class="Ar" title="Ar">command_options</var></div>]</td>
   </tr>
 </table>
-<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="selflink" href="#DESCRIPTION">DESCRIPTION</a></h2>
-<b class="Nm" title="Nm">rabbitmq-plugins</b> is a command line tool for
-  managing RabbitMQ broker plugins. It allows one to enable, disable and browse
-  plugins. It must be run by a user with write permissions to the RabbitMQ
-  configuration directory.
+<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+<code class="Nm" title="Nm">rabbitmq-plugins</code> is a command line tool for
+  managing RabbitMQ plugins. See the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ
+  Plugins guide</a> for an overview of RabbitMQ plugins and how they are used.
 <div class="Pp"></div>
-Some plugins depend on others to work correctly.
-  <b class="Nm" title="Nm">rabbitmq-plugins</b> traverses these dependencies and
-  enables all required plugins. Plugins listed on the
-  <b class="Nm" title="Nm">rabbitmq-plugins</b> command line are marked as
+<code class="Nm" title="Nm">rabbitmq-plugins</code> allows the operator to
+  enable, disable and inspect plugins. It must be run by a user with write
+  permissions to the RabbitMQ configuration directory.
+<div class="Pp"></div>
+Plugins can depend on other plugins.
+  <code class="Nm" title="Nm">rabbitmq-plugins</code> resolves the dependencies
+  and enables or disables all dependencies so that the user doesn't have to
+  manage them explicitly. Plugins listed on the
+  <code class="Nm" title="Nm">rabbitmq-plugins</code> command line are marked as
   explicitly enabled; dependent plugins are marked as implicitly enabled.
   Implicitly enabled plugins are automatically disabled again when they are no
   longer required.
 <div class="Pp"></div>
-The <b class="Cm" title="Cm">enable</b>, <b class="Cm" title="Cm">disable</b>,
-  and <b class="Cm" title="Cm">set</b> commands will update the plugins file and
-  then attempt to connect to the broker and ensure it is running all enabled
-  plugins. By default if it is not possible to connect to the running broker
-  (for example if it is stopped) then a warning is displayed. Specify
-  <b class="Fl" title="Fl">--online</b> or
-  <b class="Fl" title="Fl">--offline</b> to change this behaviour.
-<h2 class="Sh" title="Sh" id="COMMANDS"><a class="selflink" href="#COMMANDS">COMMANDS</a></h2>
+The <code class="Cm" title="Cm">enable</code>,
+  <code class="Cm" title="Cm">disable</code>, and
+  <code class="Cm" title="Cm">set</code> commands will update the plugins file
+  and then attempt to connect to the broker and ensure it is running all enabled
+  plugins. By default if it is not possible to connect to and authenticate with
+  the target node (for example if it is stopped), the operation will fail. If
+  <code class="Nm" title="Nm">rabbitmq-plugins</code> is used on the same host
+  as the target node, <code class="Fl" title="Fl">--offline</code> can be
+  specified to make <code class="Nm" title="Nm">rabbitmq-plugins</code> resolve
+  and update plugin state directly (without contacting the node). Such changes
+  will only have an effect on next node start. To learn more, see the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/plugins.html">RabbitMQ
+  Plugins guide</a>
+<h2 class="Sh" title="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
 <dl class="Bl-tag">
-  <dt class="It-tag"><a class="selflink" href="#list"><b class="Cm" title="Cm" id="list">list</b></a>
-    [<span class="Op"><b class="Fl" title="Fl">-Eemv</b></span>]
-    [<span class="Op"><var class="Ar" title="Ar">pattern</var></span>]</dt>
-  <dd class="It-tag">
+  <dt><a class="permalink" href="#n"><code class="Fl" title="Fl" id="n">-n</code></a>
+    <var class="Ar" title="Ar">node</var></dt>
+  <dd>Default node is
+      &#x201C;<var class="Ar" title="Ar">rabbit@target-hostname</var>&#x201D;,
+      where <var class="Ar" title="Ar">target-hostname</var> is the local host.
+      On a host named &#x201C;myserver.example.com&#x201D;, the node name will
+      usually be &#x201C;rabbit@myserver&#x201D; (unless
+      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> has been overridden).
+      The output of &#x201C;hostname -s&#x201D; is usually the correct suffix to
+      use after the &#x201C;@&#x201D; sign. See
+      <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>
+      for details of configuring a RabbitMQ node.</dd>
+  <dt><a class="permalink" href="#q"><code class="Fl" title="Fl" id="q">-q</code></a>,
+    <code class="Fl" title="Fl">--quiet</code></dt>
+  <dd>Quiet output mode is selected. Informational messages are reduced when
+      quiet mode is in effect.</dd>
+  <dt><a class="permalink" href="#s"><code class="Fl" title="Fl" id="s">-s</code></a>,
+    <code class="Fl" title="Fl">--silent</code></dt>
+  <dd>Silent output mode is selected. Informational messages are reduced and
+      table headers are suppressed when silent mode is in effect.</dd>
+  <dt><a class="permalink" href="#t"><code class="Fl" title="Fl" id="t">-t</code></a>
+    <var class="Ar" title="Ar">timeout</var>,
+    <code class="Fl" title="Fl">--timeout</code>
+    <var class="Ar" title="Ar">timeout</var></dt>
+  <dd>Operation timeout in seconds. Not all commands support timeouts. Default
+      is <code class="Cm" title="Cm">infinity</code>.</dd>
+  <dt><a class="permalink" href="#l"><code class="Fl" title="Fl" id="l">-l</code></a>,
+    <code class="Fl" title="Fl">--longnames</code></dt>
+  <dd>Must be specified when the cluster is configured to use long (FQDN) node
+      names. To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+      Clustering guide</a></dd>
+  <dt><a class="permalink" href="#-erlang-cookie"><code class="Fl" title="Fl" id="-erlang-cookie">--erlang-cookie</code></a>
+    <var class="Ar" title="Ar">cookie</var></dt>
+  <dd>Shared secret to use to authenticate to the target node. Prefer using a
+      local file or the
+      <code class="Ev" title="Ev">RABBITMQ_ERLANG_COOKIE</code> environment
+      variable instead of specifying this option on the command line. To learn
+      more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ
+      CLI Tools guide</a></dd>
+</dl>
+<h2 class="Sh" title="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#list"><code class="Cm" title="Cm" id="list">list</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-Eemv</code></div>]
+    [<div class="Op"><var class="Ar" title="Ar">pattern</var></div>]</dt>
+  <dd>
     <dl class="Bl-tag">
-      <dt class="It-tag"><a class="selflink" href="#E"><b class="Fl" title="Fl" id="E">-E</b></a></dt>
-      <dd class="It-tag">Show only explicitly enabled plugins.</dd>
-      <dt class="It-tag"><a class="selflink" href="#e"><b class="Fl" title="Fl" id="e">-e</b></a></dt>
-      <dd class="It-tag">Show only explicitly or implicitly enabled
-        plugins.</dd>
-      <dt class="It-tag"><a class="selflink" href="#m"><b class="Fl" title="Fl" id="m">-m</b></a></dt>
-      <dd class="It-tag">Show only plugin names (minimal).</dd>
-      <dt class="It-tag"><a class="selflink" href="#v"><b class="Fl" title="Fl" id="v">-v</b></a></dt>
-      <dd class="It-tag">Show all plugin details (verbose).</dd>
-      <dt class="It-tag"><var class="Ar" title="Ar">pattern</var></dt>
-      <dd class="It-tag">Pattern to filter the plugin names by.</dd>
+      <dt><a class="permalink" href="#E"><code class="Fl" title="Fl" id="E">-E</code></a></dt>
+      <dd>Show only explicitly enabled plugins.</dd>
+      <dt><a class="permalink" href="#e"><code class="Fl" title="Fl" id="e">-e</code></a></dt>
+      <dd>Show only explicitly or implicitly enabled plugins.</dd>
+      <dt><a class="permalink" href="#m"><code class="Fl" title="Fl" id="m">-m</code></a></dt>
+      <dd>Show only plugin names (minimal).</dd>
+      <dt><a class="permalink" href="#v"><code class="Fl" title="Fl" id="v">-v</code></a></dt>
+      <dd>Show all plugin details (verbose).</dd>
+      <dt><var class="Ar" title="Ar">pattern</var></dt>
+      <dd>Pattern to filter the plugin names by.</dd>
     </dl>
     <div class="Pp"></div>
     Lists all plugins, their versions, dependencies and descriptions. Each
       plugin is prefixed with two status indicator characters inside [ ]. The
       first indicator can be:
-    <dl class="Bl-tag Bl-compact" style="margin-left: 11.40ex;">
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">&lt;space&gt;</b></dt>
-      <dd class="It-tag">to indicate that the plugin is not enabled</dd>
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">E</b></dt>
-      <dd class="It-tag">to indicate that it is explicitly enabled</dd>
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">e</b></dt>
-      <dd class="It-tag">to indicate that it is implicitly enabled</dd>
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">!</b></dt>
-      <dd class="It-tag">to indicate that it is enabled but missing and thus not
-          operational</dd>
+    <dl class="Bl-tag Bl-compact">
+      <dt><b class="Sy" title="Sy">&lt;space&gt;</b></dt>
+      <dd>to indicate that the plugin is not enabled</dd>
+      <dt><b class="Sy" title="Sy">E</b></dt>
+      <dd>to indicate that it is explicitly enabled</dd>
+      <dt><b class="Sy" title="Sy">e</b></dt>
+      <dd>to indicate that it is implicitly enabled</dd>
+      <dt><b class="Sy" title="Sy">!</b></dt>
+      <dd>to indicate that it is enabled but missing and thus not
+        operational</dd>
     </dl>
     <div class="Pp"></div>
     The second indicator can be:
-    <dl class="Bl-tag Bl-compact" style="margin-left: 11.40ex;">
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">&lt;space&gt;</b></dt>
-      <dd class="It-tag">to show that the plugin is not running</dd>
-      <dt class="It-tag" style="margin-left: -11.40ex;"><b class="Sy" title="Sy">*</b></dt>
-      <dd class="It-tag">to show that it is</dd>
+    <dl class="Bl-tag Bl-compact">
+      <dt><b class="Sy" title="Sy">&lt;space&gt;</b></dt>
+      <dd>to show that the plugin is not running</dd>
+      <dt><b class="Sy" title="Sy">*</b></dt>
+      <dd>to show that it is</dd>
     </dl>
     <div class="Pp"></div>
     If the optional pattern is given, only plugins whose name matches
       <var class="Ar" title="Ar">pattern</var> are shown.
     <div class="Pp"></div>
     For example, this command lists all plugins, on one line each
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins list</code></div>
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins
+      list</code></div>
     <div class="Pp"></div>
     This command lists all plugins:
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -v</code></div>
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list
+      -v</code></div>
     <div class="Pp"></div>
     This command lists all plugins whose name contains &quot;management&quot;.
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -v
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list -v
       management</code></div>
     <div class="Pp"></div>
     This command lists all implicitly or explicitly enabled RabbitMQ plugins.
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins list -e
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins list -e
       rabbit</code></div>
   </dd>
-  <dt class="It-tag"><a class="selflink" href="#enable"><b class="Cm" title="Cm" id="enable">enable</b></a>
-    [<span class="Op"><b class="Fl" title="Fl">--offline</b></span>]
-    [<span class="Op"><b class="Fl" title="Fl">--online</b></span>]
+  <dt><a class="permalink" href="#enable"><code class="Cm" title="Cm" id="enable">enable</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">--offline</code></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--online</code></div>]
     <var class="Ar" title="Ar">plugin ...</var></dt>
-  <dd class="It-tag">
+  <dd>
     <dl class="Bl-tag">
-      <dt class="It-tag"><a class="selflink" href="#-offline"><b class="Fl" title="Fl" id="-offline">--offline</b></a></dt>
-      <dd class="It-tag">Just modify the enabled plugins file.</dd>
-      <dt class="It-tag"><a class="selflink" href="#-online"><b class="Fl" title="Fl" id="-online">--online</b></a></dt>
-      <dd class="It-tag">Treat failure to connect to the running broker as
-          fatal.</dd>
-      <dt class="It-tag"><var class="Ar" title="Ar">plugin</var></dt>
-      <dd class="It-tag">One or more plugins to enable.</dd>
+      <dt><a class="permalink" href="#-offline"><code class="Fl" title="Fl" id="-offline">--offline</code></a></dt>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
+      <dt><a class="permalink" href="#-online"><code class="Fl" title="Fl" id="-online">--online</code></a></dt>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
+      <dt><var class="Ar" title="Ar">plugin</var></dt>
+      <dd>One or more plugins to enable.</dd>
     </dl>
     <div class="Pp"></div>
     Enables the specified plugins and all their dependencies.
     <div class="Pp"></div>
     For example, this command enables the &#x201C;shovel&#x201D; and
       &#x201C;management&#x201D; plugins and all their dependencies:
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins enable rabbitmq_shovel
-      rabbitmq_management</code></div>
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins enable
+      rabbitmq_shovel rabbitmq_management</code></div>
   </dd>
-  <dt class="It-tag"><a class="selflink" href="#disable"><b class="Cm" title="Cm" id="disable">disable</b></a>
-    [<span class="Op"><b class="Fl" title="Fl">--offline</b></span>]
-    [<span class="Op"><b class="Fl" title="Fl">--online</b></span>]
+  <dt><a class="permalink" href="#disable"><code class="Cm" title="Cm" id="disable">disable</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">--offline</code></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--online</code></div>]
     <var class="Ar" title="Ar">plugin ...</var></dt>
-  <dd class="It-tag">
+  <dd>
     <dl class="Bl-tag">
-      <dt class="It-tag"><a class="selflink" href="#-offline"><b class="Fl" title="Fl" id="-offline">--offline</b></a></dt>
-      <dd class="It-tag">Just modify the enabled plugins file.</dd>
-      <dt class="It-tag"><a class="selflink" href="#-online"><b class="Fl" title="Fl" id="-online">--online</b></a></dt>
-      <dd class="It-tag">Treat failure to connect to the running broker as
-          fatal.</dd>
-      <dt class="It-tag"><var class="Ar" title="Ar">plugin</var></dt>
-      <dd class="It-tag">One or more plugins to disable.</dd>
+      <dt><a class="permalink" href="#-offline_2"><code class="Fl" title="Fl" id="-offline_2">--offline</code></a></dt>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
+      <dt><a class="permalink" href="#-online_2"><code class="Fl" title="Fl" id="-online_2">--online</code></a></dt>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
+      <dt><var class="Ar" title="Ar">plugin</var></dt>
+      <dd>One or more plugins to disable.</dd>
     </dl>
     <div class="Pp"></div>
     Disables the specified plugins and all their dependencies.
     <div class="Pp"></div>
-    For example, this command disables &#x201C;amqp_client&#x201D; and all
-      plugins that depend on it:
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins disable
-      amqp_client</code></div>
+    For example, this command disables &#x201C;rabbitmq_management&#x201D; and
+      all plugins that depend on it:
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins disable
+      rabbitmq_management</code></div>
   </dd>
-  <dt class="It-tag"><a class="selflink" href="#set"><b class="Cm" title="Cm" id="set">set</b></a>
-    [<span class="Op"><b class="Fl" title="Fl">--offline</b></span>]
-    [<span class="Op"><b class="Fl" title="Fl">--online</b></span>]
-    [<span class="Op"><var class="Ar" title="Ar">plugin ...</var></span>]</dt>
-  <dd class="It-tag">
+  <dt><a class="permalink" href="#set"><code class="Cm" title="Cm" id="set">set</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">--offline</code></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--online</code></div>]
+    [<div class="Op"><var class="Ar" title="Ar">plugin ...</var></div>]</dt>
+  <dd>
     <dl class="Bl-tag">
-      <dt class="It-tag"><a class="selflink" href="#-offline"><b class="Fl" title="Fl" id="-offline">--offline</b></a></dt>
-      <dd class="It-tag">Just modify the enabled plugins file.</dd>
-      <dt class="It-tag"><a class="selflink" href="#-online"><b class="Fl" title="Fl" id="-online">--online</b></a></dt>
-      <dd class="It-tag">Treat failure to connect to the running broker as
-          fatal.</dd>
-      <dt class="It-tag"><var class="Ar" title="Ar">plugin</var></dt>
-      <dd class="It-tag">Zero or more plugins to enable.</dd>
+      <dt><a class="permalink" href="#-offline_3"><code class="Fl" title="Fl" id="-offline_3">--offline</code></a></dt>
+      <dd>Modify node's enabled plugin state directly without contacting the
+          node.</dd>
+      <dt><a class="permalink" href="#-online_3"><code class="Fl" title="Fl" id="-online_3">--online</code></a></dt>
+      <dd>Treat a failure to connect to the running broker as fatal.</dd>
+      <dt><var class="Ar" title="Ar">plugin</var></dt>
+      <dd>Zero or more plugins to disable.</dd>
     </dl>
     <div class="Pp"></div>
     Enables the specified plugins and all their dependencies. Unlike
-      <b class="Cm" title="Cm">enable</b>, this command ignores and overwrites
-      any existing enabled plugins. <b class="Cm" title="Cm">set</b> with no
-      plugin arguments is a legal command meaning &quot;disable all
-      plugins&quot;.
+      <code class="Cm" title="Cm">enable</code>, this command ignores and
+      overwrites any existing enabled plugins.
+      <code class="Cm" title="Cm">set</code> with no plugin arguments is a legal
+      command meaning &quot;disable all plugins&quot;.
     <div class="Pp"></div>
     For example, this command enables the &#x201C;management&#x201D; plugin and
       its dependencies and disables everything else:
-    <div style="height: 1.00em;">&#x00A0;</div>
-    <div class="D1 sourcecode bash hljs"><code class="Li">rabbitmq-plugins set
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-plugins set
       rabbitmq_management</code></div>
   </dd>
 </dl>
-<h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="selflink" href="#SEE_ALSO">SEE
+<h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
-<a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
-  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>,
+<a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
   <a class="Xr" title="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
-  <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>
-<h2 class="Sh" title="Sh" id="AUTHOR"><a class="selflink" href="#AUTHOR">AUTHOR</a></h2>
+  <a class="Xr" title="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
+  <a class="Xr" title="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>
+<h2 class="Sh" title="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h2>
 <span class="An" title="An">The RabbitMQ Team</span>
   &lt;<a class="Mt" title="Mt" href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>&gt;</div>

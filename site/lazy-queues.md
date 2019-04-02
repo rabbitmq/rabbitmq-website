@@ -62,7 +62,7 @@ so there are no breaking changes in this regard.
 
 This example in Java declares a queue with the queue mode set to `"lazy"`:
 
-<pre class="sourcecode java">
+<pre class="lang-java">
   Map&lt;String, Object> args = new HashMap&lt;String, Object>();
   args.put("x-queue-mode", "lazy");
   channel.queueDeclare("myqueue", false, false, false, args);
@@ -147,7 +147,7 @@ Both queues persisted 1,000,000 messages and used 1.2 GB of disk space.
 
 Below is a transcript of the test performed with a queue in the regular (default) mode:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Start a temporary RabbitMQ node:
 #
 #       export RABBITMQ_NODENAME=default-queue-test
@@ -179,7 +179,7 @@ rabbitmqctl status | grep rss,
 
 With a lazy queue the transcript is very similar:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # Use a different RABBITMQ_NODENAME
 # All other variables remain the same as the previous example
 #
@@ -249,7 +249,7 @@ It is important to overprovision disk space to account for such peaks.
 
 All messages in the message store are stored in 16MB files called segment files or segments.
 Each queue has its own file descriptor for each segment file it has to access.
-Foe example, if 100 queues store 10GB worth of messages, there will
+For example, if 100 queues store 10GB worth of messages, there will
 be 640 files in the message store and up to 64000 file descriptors.
 Make sure the nodes have a high enough [open file limit](/production-checklist.html#resource-limits-file-handle-limit)
 and overprovision it when in doubt (e.g. to 300K or 500K).

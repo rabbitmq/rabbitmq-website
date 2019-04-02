@@ -1,12 +1,12 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (c) 2007-2019 Pivotal Software, Inc. 
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
 Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -90,7 +90,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of that type, and call it `logs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Exchange.declare(channel, "logs", :fanout)
 </pre>
 
@@ -103,7 +103,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -120,25 +120,25 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode elixir">
+> <pre class="lang-elixir">
 >     AMQP.Basic.publish(channel, "", "hello", message)
 > </pre>
 >
-> The [second parameter](http://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the the name of the exchange.
+> The [second parameter](http://hexdocs.pm/amqp/AMQP.Basic.html#publish/5) is the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Basic.publish(channel, "logs", "", message)
 </pre>
 
 Temporary queues
 ----------------
 
-As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+As you may remember previously we were using queues that had
+specific names (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
@@ -153,7 +153,7 @@ do it we could create a queue with a random name, or, even better -
 let the server choose a random queue name for us. We can do this by not
 supplying the `queue` parameter to [`AMQP.Queue.declare`](http://hexdocs.pm/amqp/AMQP.Queue.html#declare/3):
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel)
 </pre>
 
@@ -163,7 +163,7 @@ it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
 </pre>
 
@@ -199,7 +199,7 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 AMQP.Queue.bind(channel, queue_name, "logs")
 </pre>
 
@@ -208,7 +208,7 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl list_bindings
 > </pre>
 
@@ -256,7 +256,7 @@ nameless one. We need to supply a `routing_key` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `emit_log.exs` script:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
@@ -284,7 +284,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `receive_logs.exs`:
 
-<pre class="sourcecode elixir">
+<pre class="lang-elixir">
 defmodule ReceiveLogs do
   def wait_for_messages(channel) do
     receive do
@@ -313,19 +313,19 @@ ReceiveLogs.wait_for_messages(channel)
 
 We're done. If you want to save logs to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run receive_logs.exs > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run receive_logs.exs
 </pre>
 
 And of course, to emit logs type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 mix run emit_log.exs
 </pre>
 
@@ -333,7 +333,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.exs`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []

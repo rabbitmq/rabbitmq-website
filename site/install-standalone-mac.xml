@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,19 +26,47 @@ limitations under the License.
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Installing on Mac</title>
+    <title>Standalone MacOS Build</title>
   </head>
   <body>
-    <doc:section name="standalone-mac">
-      <h3>Download the Server</h3>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+
+      <p>
+        RabbitMQ releases include a special binary package for MacOS.
+        It is minimalistic and not opinionated in how it is installed, configured and managed.
+        This package is recommended in environments where more opinionated installation options
+        (the <a href="/install-debian.html">Debian</a> or <a href="/install-rpm.html">RPM packages</a>, <a href="/install-homebrew.html">Homebrew</a>, BSD ports) cannot be used.
+        It is also the most convenient option for running multiple versions on the same machine
+        in development environments, e.g. <a href="">preview release</a> testing.
+      </p>
+
+      <p>
+        There are separate binary packages for <a href="/install-generic-unix.html">Linux, MacOS and BSD</a> as well as <a href="/install-windows-manually.html"> for Windows</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="downloads">
+      <doc:heading>Downloads</doc:heading>
+
       <r:downloads signature="yes">
         <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz"
                     downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.xz">
 	                   Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version; (from <a href="https://github.com/rabbitmq/rabbitmq-server/releases">GitHub</a>, recommended)
         </r:download>
       </r:downloads>
+    </doc:section>
 
-      <doc:heading>Standalone Mac</doc:heading>
+    <doc:section name="installation">
+      <doc:heading>Installation</doc:heading>
+
+      <doc:subsection name="erlang-provided">
+        <doc:heading>Erlang Runtime is Included</doc:heading>
+        <p>
+          This build of RabbitMQ <a href="http://www.erlang.org/doc/design_principles/release_structure.html">incudes</a> an Erlang runtime.
+          That means that there is no need to install Erlang separately to run RabbitMQ.
+        </p>
+      </doc:subsection>
 
       <doc:subsection name="dependencies">
         <doc:heading>Dependencies</doc:heading>
@@ -49,38 +77,20 @@ limitations under the License.
         </p>
       </doc:subsection>
 
-      <doc:subsection name="install-standalone">
+      <doc:subsection name="install">
         <doc:heading>Install the Server</doc:heading>
         <p>
-          This build of RabbitMQ includes an Erlang runtime. That means you
-          don't need to install Erlang to run RabbitMQ. The build is known to work
-          with <strong>OS X</strong> versions <strong>10.6.4</strong> and above.
-          If you are curious about how this works you can read more
-          <a href="http://www.erlang.org/doc/design_principles/release_structure.html">here</a>.
-        </p>
-        <p>
-          Download
-          <code>rabbitmq-server-mac-standalone-&version-server;.tar.xz</code>
-          from the link above.
+          <a href="#downloads">Download</a> a <code>rabbitmq-server-generic-unix-&version-server;.tar.xz</code>
+          archive and extract it.
         </p>
         <xi:include href="download-tarball.xml.inc"/>
       </doc:subsection>
+    </doc:section>
 
-      <doc:subsection name="install-homebrew">
-        <doc:heading>Installation with Homebrew</doc:heading>
-        <p>
-          Possibly the easiest way to use this package is via <a href="http://brew.sh/">Homebrew</a>. It
-          will automatically install the OpenSSL formula mentioned above:
-
-<pre class="sourcecode bash">
-brew install rabbitmq
-</pre>
-        </p>
-      </doc:subsection>
-
+    <doc:section name="operations">
+      <doc:heading>Operations</doc:heading>
       <xi:include href="running-generic-unix.xml.inc"/>
       <xi:include href="generic-unix-file-locations.xml.inc"/>
-
     </doc:section>
 
     <xi:include href="install-guest-localhost.xml.inc"/>

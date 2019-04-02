@@ -14,14 +14,14 @@
                 version="1.0">
 
 <!--
-Copyright (c) 2007-2017 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -73,8 +73,7 @@ limitations under the License.
       <![endif]]]></xsl:comment>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
-      <script type="text/javascript" src="/js/site.js"></script>
-      <!-- <script type="text/javascript" src="/js/ga-bootstrap.js"></script> -->
+      <script async="true" type="text/javascript" src="/js/site.js"></script>
 
       <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
       <xsl:apply-templates/>
@@ -135,8 +134,14 @@ limitations under the License.
       <script type="text/javascript" src="/js/highlight.pack.js"></script>
       <script type="text/javascript">
         // code highlighting
-        onDOMReady(function() {
-          document.querySelectorAll(".sourcecode").forEach(function(el) {
+        window.addEventListener("load", function() {
+          const selectors = "pre.sourcecode, pre.lang-bash, pre.lang-ini,\
+                             pre.lang-powershell, pre.lang-erlang, pre.lang-elixir,\
+                             pre.lang-java, pre.lang-csharp, pre.lang-xml, pre.lang-haskell,\
+                             pre.lang-groovy, pre.lang-json, pre.lang-javascript, pre.lang-html,\
+                             pre.lang-go, pre.lang-php, pre.lang-objectivec, pre.lang-swift,\
+                             pre.lang-ruby, pre.lang-python, div.lang-bash";
+          document.querySelectorAll(selectors).forEach(function(el) {
             hljs.highlightBlock(el);
           });
         });
@@ -191,7 +196,6 @@ limitations under the License.
           <a href="/trademark-guidelines.html">Trademark Guidelines</a>
           <br/>
           <a id='teconsent'></a>
-          <script async="async" src="//consent.trustarc.com/notice?domain=rabbitmq.com&amp;c=teconsent&amp;js=nj&amp;text=true&amp;pcookie" crossorigin=""></script>
         </p>
       </div>
     </div>
@@ -391,20 +395,6 @@ limitations under the License.
       </tr>
       <xsl:apply-templates/>
     </table>
-  </xsl:template>
-
-  <xsl:template match="r:repository[@type = 'hg']">
-    <tr>
-      <td>
-    <a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
-      </td>
-      <td>
-    <code>hg clone <xsl:value-of select="@url"/></code>
-      </td>
-      <td>
-    <a class="arepo" href="{@url}">Browse source</a>
-      </td>
-    </tr>
   </xsl:template>
 
   <xsl:template match="r:repository[@type = 'github']">

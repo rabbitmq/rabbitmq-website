@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -156,7 +156,7 @@ The code is almost the same as in the
 
 The code for `emit_log_topic.rb`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 #!/usr/bin/env ruby
 require 'bunny'
 
@@ -177,7 +177,7 @@ connection.close
 
 The code for `receive_logs_topic.rb`:
 
-<pre class="sourcecode ruby">
+<pre class="lang-ruby">
 #!/usr/bin/env ruby
 require 'bunny'
 
@@ -210,31 +210,31 @@ end
 
 To receive all the logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ruby receive_logs_topic.rb "#"
 </pre>
 
 To receive all logs from the facility "`kern`":
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ruby receive_logs_topic.rb "kern.*"
 </pre>
 
 Or if you want to hear only about "`critical`" logs:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ruby receive_logs_topic.rb "*.critical"
 </pre>
 
 You can create multiple bindings:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ruby receive_logs_topic.rb "kern.*" "*.critical"
 </pre>
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 ruby emit_log_topic.rb "kern.critical" "A critical kernel error"
 </pre>
 

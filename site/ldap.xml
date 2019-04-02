@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,13 +65,33 @@ limitations under the License.
       </p>
     </doc:section>
 
+    <doc:section name="prerequisites">
+      <doc:heading>Prerequisites</doc:heading>
+
+      <p>
+        RabbitMQ LDAP plugin depends on an LDAP client called <code>eldap</code>. The library
+        ships with <a href="/which-erlang.html">Erlang/OTP</a>. On some operating systems, some Erlang
+        components must be installed separately from the core runtime.
+      </p>
+
+      <p>
+        On Debian and Ubuntu, <code>eldap</code> is provided by the <code>erlang-eldap</code> package:
+
+<pre class="lang-bash">
+sudo apt-get install -y erlang-eldap
+</pre>
+
+        Please see the <a href="/which-erlang.html">Erlang compatibility guide</a> to learn more.
+      </p>
+    </doc:section>
+
     <doc:section name="enabling-the-plugin">
       <doc:heading>Enabling the Plugin</doc:heading>
       <p>
         The LDAP plugin ships with RabbitMQ. To
         enable it, use
         <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
-        <pre class="sourcecode erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
+        <pre class="lang-erlang">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
       </p>
     </doc:section>
 
@@ -90,13 +110,13 @@ limitations under the License.
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database:
 
-<pre class="sourcecode init">
+<pre class="lang-init">
 auth_backends.1 = ldap
 </pre>
 
         The same can be done using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {rabbit, [
   {auth_backends, [rabbit_auth_backend_ldap]}
 ]}
@@ -108,14 +128,14 @@ auth_backends.1 = ldap
         database if the user cannot be authenticated through LDAP:
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
           Same example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {rabbit,[
   {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
 ]}
@@ -130,7 +150,7 @@ auth_backends.2 = internal
         attempt is made using only the internal database.
       </p>
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
 auth_backends.2 = internal
@@ -138,7 +158,7 @@ auth_backends.2 = internal
 
           In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                            rabbit_auth_backend_internal]}]}
 </pre>
@@ -169,14 +189,14 @@ auth_backends.2 = internal
           example configures the plugin to use two LDAP servers. They will be tried
           in order until connection to one of them succeeds:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 </pre>
 
           The same examples using the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
     {servers, ["ldap.eng.megacorp.local", "192.168.0.100"]}
@@ -190,7 +210,7 @@ auth_ldap.servers.2 = 192.168.0.100
           LDAP plugin will use by default. <code>auth_ldap.port</code> can be used
           to override this:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
@@ -199,7 +219,7 @@ auth_ldap.port      = 6389
 
           The same examples using the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
     {servers, ["ldap.eng.megacorp.local", "192.168.0.100"]},
@@ -213,7 +233,7 @@ auth_ldap.port      = 6389
           TCP connections to LDAP servers can be given a timeout using the <code>auth_ldap.timeout</code>
           configuration key:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
@@ -229,7 +249,7 @@ auth_ldap.timeout   = 15000
           load. By default the pool has up to 64 connections. This can be controlled using the
           <code>auth_ldap.connection_pool_size</code> setting:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
@@ -240,7 +260,7 @@ auth_ldap.connection_pool_size = 256
           configurable via <code>auth_ldap.idle_timeout</code>, in milliseconds
           or `infinity`:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
@@ -270,19 +290,19 @@ auth_ldap.idle_timeout = 300000
           are very similar to <a href="/ssl.html">TLS settings elsewhere in RabbitMQ</a>.
           TLS settings for LDAP connections can only be configured via the advanced config file:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.servers.1 = ldap.eng.megacorp.local
 auth_ldap.servers.2 = 192.168.0.100
 
 auth_ldap.use_ssl   = true
 </pre>
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
-                    {certfile,"/path/to/server/cert.pem"},
-                    {keyfile,"/path/to/server/key.pem"},
+                    {certfile,"/path/to/server_certificate.pem"},
+                    {keyfile,"/path/to/server_key.pem"},
                     {verify, verify_peer},
                     {fail_if_no_peer_cert, true}]}
    ]}
@@ -292,13 +312,13 @@ auth_ldap.use_ssl   = true
 
           An example that uses both of the above and uses the <a href="/configure.html">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
      {use_ssl,     true},
      {ssl_options, [{cacertfile, "/path/to/testca/cacert.pem"},
-                    {certfile,   "/path/to/server/cert.pem"},
-                    {keyfile,    "/path/to/server/key.pem"},
+                    {certfile,   "/path/to/server_certificate.pem"},
+                    {keyfile,    "/path/to/server_key.pem"},
                     {verify,               verify_peer},
                     {fail_if_no_peer_cert, true}]}
    ]}
@@ -412,6 +432,17 @@ auth_ldap.use_ssl   = true
         <doc:heading>Usernames and Distinguished Names</doc:heading>
 
         <p>
+          During the simple bind phase, the <code>user_dn_pattern</code> pattern is used to translate
+          the provided username into a value to be used for the bind. By default, the pattern
+          passes the provided value as-is (i.e. the pattern is <code>${username}</code>). If
+          <code>user_bind_pattern</code> is specified, it takes precedence over
+          <code>user_dn_pattern</code>. This can be handy if a different <code>user_dn_pattern</code>
+          needs to be used during the distinguished name lookup phase. Note that the above does
+          not apply to anonymous binds, nor when <code>dn_lookup_bind</code> is not set to
+          <code>as_user</code>.
+        </p>
+
+        <p>
           Client connections provide usernames which are translated into Distinguished
           Names (DNs) in LDAP.
           There are two ways to do that. The simplest way is via string substitution
@@ -457,7 +488,7 @@ auth_ldap.use_ssl   = true
         <p>
           Consider the following example:
         </p>
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 auth_ldap.dn_lookup_attribute = userPrincipalName
 auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
         <p>
@@ -517,13 +548,13 @@ auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
         <p>
           The following examples sets LDAP logging level to <code></code>:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.log = network
 </pre>
 
           The same examples in the classic config format:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 [
   {rabbitmq_auth_backend_ldap, [
     %% ...
@@ -551,13 +582,13 @@ auth_ldap.log = network
           options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
           to bind with a specified username and password. For example:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 auth_ldap.other_bind.user_dn = a-username
 auth_ldap.other_bind.password = a-password</pre>
 
           Using the classic config format:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
     {other_bind, {"a-username", "a-password"}}
@@ -590,7 +621,7 @@ auth_ldap.other_bind.password = a-password</pre>
           In the following example <code>ou=groups,dc=example,dc=com</code> is the directory that contains all groups.
           Note that it uses the <a href="/configure.html">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_auth_backend_ldap, [
     %% ...
@@ -700,7 +731,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>vhost_access_query</code> support
+          The <code>vhost_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -710,7 +741,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>resource_access_query</code> supports
+          The <code>resource_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -723,7 +754,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          The <code>tag_queries</code> supports
+          The <code>tag_queries</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -732,7 +763,7 @@ auth_ldap.other_bind.password = a-password</pre>
         </p>
 
         <p>
-          Finally, the <code>topic_access_query</code> supports
+          The <code>topic_access_query</code> supports:
 
           <ul>
             <li><code>${username}</code> - the user name provided at authentication</li>
@@ -746,6 +777,16 @@ auth_ldap.other_bind.password = a-password</pre>
             <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
               or routing key of the topic exchange to queue/exchange binding ("read" permission)
             </li>
+          </ul>
+        </p>
+
+        <p>
+          Finally, if the user name provided at authentication is in the form
+          <code>Domain\User</code> (which is the case in some Active Directory environments),
+          two <i>additional</i> variables will be made available for each of the above queries:
+          <ul>
+            <li><code>${ad_domain}</code> - the domain part of <code>Domain\User</code></li>
+            <li><code>${ad_user}</code> - the user part of <code>Domain\User</code></li>
           </ul>
         </p>
 
@@ -812,7 +853,7 @@ auth_ldap.other_bind.password = a-password</pre>
           or denying access.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{tag_queries, [{administrator, {constant, false}},
+        <pre class="lang-erlang">{tag_queries, [{administrator, {constant, false}},
                {management,    {constant, true}}]}</pre>
         <p>
           This grants all users the ability to use the management
@@ -828,7 +869,7 @@ auth_ldap.other_bind.password = a-password</pre>
           there exists an object with the resulting DN.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="lang-erlang">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to all virtual hosts which exist as
           organisational units
@@ -848,7 +889,7 @@ auth_ldap.other_bind.password = a-password</pre>
           attribute, or any named attribute.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="lang-erlang">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to virtual hosts when the user is listed
           as a <code>member</code> attribute of an appropriately named
@@ -887,7 +928,7 @@ auth_ldap.other_bind.password = a-password</pre>
           about.
         </p>
         <p>Example:</p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {group_lookup_base, "ou=groups,dc=example,dc=com"},
   {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}
@@ -924,7 +965,7 @@ auth_ldap.other_bind.password = a-password</pre>
         <p>
           Example:
         </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 {resource_access_query,
  {for, [{resource, exchange, {for, [{permission, configure,
                                      {in_group, "cn=wheel,dc=example,dc=com"}
@@ -958,7 +999,7 @@ auth_ldap.other_bind.password = a-password</pre>
           configuration file, as above.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{resource_access_query,
+        <pre class="lang-erlang">{resource_access_query,
  {'or',
   [{'and',
     [{equals, "${name}", "test1"},
@@ -988,7 +1029,7 @@ auth_ldap.other_bind.password = a-password</pre>
           an attribute value, etc.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{resource_access_query,
+        <pre class="lang-erlang">{resource_access_query,
  {for, [{permission, configure, {equals, {attribute, "${user_dn}", "description"},
                                          {string, "can-declare-${resource}s"}
                                 }
@@ -1016,7 +1057,7 @@ auth_ldap.other_bind.password = a-password</pre>
           types below) in turn.
         </p>
         <p>Example:</p>
-        <pre class="sourcecode erlang">{resource_access_query, {match, {string, "${name}"},
+        <pre class="lang-erlang">{resource_access_query, {match, {string, "${name}"},
                                 {string, "^${username}-"}}
 }</pre>
         <p>
@@ -1081,7 +1122,7 @@ auth_ldap.log        = false
 
     <a href="/configure.html#advanced-config-file">Advanced config</a> is used to define LDAP queries:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbitmq_auth_backend_ldap,[
     {vhost_access_query,    {in_group,
                               "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
@@ -1109,7 +1150,7 @@ auth_ldap.log        = false
     to configure everything in a single file:
 
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,

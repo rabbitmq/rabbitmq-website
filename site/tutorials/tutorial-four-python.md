@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 ### What This Tutorial Focuses On
 
@@ -45,7 +45,7 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_bind(exchange=exchange_name,
                    queue=queue_name)
 </pre>
@@ -58,7 +58,7 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.queue_bind(exchange=exchange_name,
                    queue=queue_name,
                    routing_key='black')
@@ -192,14 +192,14 @@ first.
 
 Like always we need to create an exchange first:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.exchange_declare(exchange='direct_logs',
                          exchange_type='direct')
 </pre>
 
 And we're ready to send a message:
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 channel.basic_publish(exchange='direct_logs',
                       routing_key=severity,
                       body=message)
@@ -217,7 +217,7 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
 
@@ -229,8 +229,6 @@ for severity in severities:
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -271,42 +269,41 @@ Putting it all together
   </div>
 </div>
 
-The code for `emit_log_direct.py`:
+`emit_log_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py))
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='direct_logs',
-                         exchange_type='direct')
+channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
-severity = sys.argv[1] if len(sys.argv) > 2 else 'info'
+severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
-channel.basic_publish(exchange='direct_logs',
-                      routing_key=severity,
-                      body=message)
+channel.basic_publish(
+    exchange='direct_logs', routing_key=severity, body=message)
 print(" [x] Sent %r:%r" % (severity, message))
 connection.close()
 </pre>
 
-The code for `receive_logs_direct.py`:
+`receive_logs_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
-<pre class="sourcecode python">
+<pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='direct_logs',
-                         exchange_type='direct')
+channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 queue_name = result.method.queue
 
 severities = sys.argv[1:]
@@ -315,18 +312,18 @@ if not severities:
     sys.exit(1)
 
 for severity in severities:
-    channel.queue_bind(exchange='direct_logs',
-                       queue=queue_name,
-                       routing_key=severity)
+    channel.queue_bind(
+        exchange='direct_logs', queue=queue_name, routing_key=severity)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
+
 
 def callback(ch, method, properties, body):
     print(" [x] %r:%r" % (method.routing_key, body))
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
+
+channel.basic_consume(
+    queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
 </pre>
@@ -334,26 +331,24 @@ channel.start_consuming()
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs_direct.py warning error > logs_from_rabbit.log
 </pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python receive_logs_direct.py info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
 </pre>
 
 And, for example, to emit an `error` log message just type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 python emit_log_direct.py error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
-
-(Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
 Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
 for messages based on a pattern.

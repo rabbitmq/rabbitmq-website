@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,9 +24,9 @@ limitations under the License.
   <body>
     <p class="intro">
       Our goal is for RabbitMQ to run on as wide a range of platforms as
-      possible. RabbitMQ can potentially run on any platform that Erlang
-      supports, from embedded systems to multi-core clusters and cloud-based
-      servers.
+      possible. RabbitMQ can potentially run on any platform that provides
+      <a href="/which-erlang.html">a supported Erlang version</a>, from multi-core nodes and cloud-based
+      deployments to embedded systems.
     </p>
 
     <p id="erlang-supported">
@@ -35,7 +35,7 @@ limitations under the License.
       <ul class="compact">
         <li>Linux</li>
         <li>Windows, NT through 10</li>
-        <li>Windows Server 2008 through 2016</li>
+        <li>Windows Server 2008 through 2018</li>
         <li>MacOS</li>
         <li>Solaris</li>
         <li>FreeBSD</li>
@@ -60,7 +60,7 @@ limitations under the License.
     <p>
       RabbitMQ will run on any Windows version that <a href="/which-erlang.html">supported Erlang/OTP</a>
       releases can run on, both desktop and server editions. This includes
-      Windows 7 through 10, Server 2008 through 2016.
+      Windows 7 through 10, Server 2008 through 2018.
     </p>
     <p>
       Windows XP, Vista, and Server 2003 may require using an older

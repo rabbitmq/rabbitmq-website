@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,7 +44,7 @@ limitations under the License.
         files <code>server_certificate.pem</code> and
         <code>server_key.pem</code> we can do the following:</p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cat server_certificate.pem server_key.pem &gt; rabbit.pem
 </pre>
 
@@ -54,7 +54,7 @@ cat server_certificate.pem server_key.pem &gt; rabbit.pem
           this:
         </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # NOTE: these commands ensure that ERL_SSL_PATH is the first line in
 # /etc/rabbitmq/rabbitmq-env.conf and will preserve the existing
 # contents of that file if it already exists
@@ -79,7 +79,7 @@ mv -f /tmp/new-rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
         <code>ERL_SSL_PATH</code> line that the above commands added.
         Please note that the double quotes <b>must</b> be present:</p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/rabbit.pem \
@@ -93,7 +93,7 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
         the environment variable <code>CTL_ERL_ARGS</code>. Here is the complete
         <code>/etc/rabbitmq/rabbitmq-env.conf</code> file:</p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # NOTE: the following path is **system dependent** (will
 #       change depending on Erlang version, distribution used
 #       installation method used). Please double check it before
@@ -149,7 +149,7 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
           must be saved in a location readable by the <code>rabbitmq</code> user:
         </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # NOTE: the following path is **system dependent**
 ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-8.2.4/ebin"
 
@@ -166,7 +166,7 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH
           Here is an example <code>/etc/rabbitmq/ssl_dist.config</code> file:
         </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 [
   {server, [
     {cacertfile, "/full/path/to/ca_certificate.pem"},
@@ -203,7 +203,7 @@ CTL_ERL_ARGS="-pa $ERL_SSL_PATH
         inside the folder where you installed the standalone release, the
         commands will look like these:</p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 erl -boot releases/3.4.3/start_clean \
 -eval 'io:format("ERL_SSL_PATH=~s~n", [filename:dirname(code:which(inet_tls_dist))])' -s init stop
 "/path/to/erl/lib/ssl-5.3.5/ebin"
@@ -233,7 +233,7 @@ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
           different due to shell parsing rules:
         </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:which(inet_tls_dist))])" -s init stop
 </pre>
 
@@ -247,7 +247,7 @@ erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:whic
           Note the use of forward-slash directory delimiters.
         </p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 @echo off
 rem NOTE: If spaces are present in any of these paths,
 rem double quotes must be used.
@@ -277,7 +277,7 @@ rem https://github.com/rabbitmq/rabbitmq-server/pull/1666
           Note that, as with UNIX-like systems, more <a href="/ssl.html">TLS options</a> are available
           to be set if necessary.</p>
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 [
     {server, [
         {cacertfile, "C:/Path/To/ca_certificate.pem"},

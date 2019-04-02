@@ -1,13 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,10 +29,11 @@ limitations under the License.
     </p>
     <p>
       A flow-controlled connection will show a state of
-      <code>flow</code> in <code>rabbitmqctl</code> and the management
-      plugin HTTP API. This means the connection is being blocked and
-      unblocked several times per second, in order to keep the rate of
-      message ingress at one that the rest of the server can handle.
+      <code>flow</code> in <code>rabbitmqctl</code>, management UI
+      and HTTP API responses. This means the connection is experiencing
+      blocking and unblocking several times a second, in order to keep the rate of
+      message ingress at one that the rest of the server (e.g. queues those messages are route to)
+      can handle.
     </p>
     <p>
       In general, a connection which is in flow control should not see
@@ -44,10 +45,14 @@ limitations under the License.
     </p>
     <p>
       Other components than connections can be in the
-      <code>flow</code> state. <a
-      href="http://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">This
+      <code>flow</code> state. Channels, queues and other parts of the system
+      can apply flow control that eventually propagates back to publishing connections.
+    </p>
+    <p>
+      <a href="http://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">This
       blog post</a> goes into more detail in how to use this
-      information to find bottlenecks in your server.
+      information to see if consumers and <a href="/confirms.html">prefetch settings</a>
+      can be key limiting factors.
     </p>
   </body>
 </html>

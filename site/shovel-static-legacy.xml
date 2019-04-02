@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
 Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ limitations under the License.
         file</a> or using the <a href="configure.html#erlang-term-config-file">classic config format</a>.
         It is an Erlang term and consists of a single <code>shovels</code> clause:
       </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [ <em>...</em> ]}, <em>...</em> ]} ]}
 </pre>
       <p>
@@ -50,7 +50,7 @@ limitations under the License.
       <p>
         Each shovel definition looks like this:
       </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {<em>shovel_name</em>, [ {sources, [ <em>...</em> ]}
                 , {destinations, [ <em>...</em> ]}
                 , {queue, <em>queue_name</em>}
@@ -99,7 +99,7 @@ limitations under the License.
           <p>
             Both of these clauses are mandatory. They take the form:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {sources, [ {brokers, <em>broker_list</em>}
             , {declarations, <em>declaration_list</em>}
             ]}
@@ -116,14 +116,14 @@ limitations under the License.
                 This clause (or its variant <code>broker</code> clause,
                 see note below) is mandatory. In
               </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {brokers, <em>broker_list</em>}
 </pre>
               <p>
                 <code><em>broker_list</em></code> is a list of URI
                 broker <em>connections</em> (for the basic syntax, see
                 <a href="uri-spec.html">AMQP URI</a>), for example:
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   [ "amqp://fred:secret@host1.domain/my_vhost"
   , "amqp://john:secret@host2.domain/my_vhost"
   ]
@@ -146,7 +146,7 @@ limitations under the License.
                 <strong>Note</strong>: If the broker list consists of a
                 single connection URI, the variant form:
               </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {broker, <em>amqp_uri_string</em>}
 </pre>
               <p>
@@ -160,7 +160,7 @@ limitations under the License.
               <p>
                 This clause is optional. In
               </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {declarations, <em>declaration_list</em>}
 </pre>
               <p>
@@ -174,7 +174,7 @@ limitations under the License.
                 be configured, including the source queue and the
                 destination exchanges. For example:
               </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {declarations, [ 'queue.declare'
                  , {'queue.bind', [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
                                   , {queue,    &lt;&lt;&gt;&gt;}
@@ -206,7 +206,7 @@ limitations under the License.
               <p>
                 Here is another example:
               </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {'exchange.declare', [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
                        , {type, &lt;&lt;"direct"&gt;&gt;}
                        , durable
@@ -230,14 +230,14 @@ limitations under the License.
           <p>
             This clause is mandatory. In
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {queue, <em>queue_name</em>}
 </pre>
           <p>
             <code><em>queue_name</em></code> is the name of the queue
             (as a binary string) to shovel messages from. For example:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {queue, &lt;&lt;"my_work_queue"&gt;&gt;}
 </pre>
           <p>
@@ -257,7 +257,7 @@ limitations under the License.
           <p>
             This clause is optional. In
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {prefetch_count, <em>count</em>}
 </pre>
           <p>
@@ -265,7 +265,7 @@ limitations under the License.
             unacknowledged messages the shovel may hold at a time (a
             non-negative integer). For example:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {prefetch_count, 1}
 </pre>
           <p>
@@ -278,7 +278,7 @@ limitations under the License.
           <p>
             This clause is optional. In
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {ack_mode, <em>a_mode</em>}
 </pre>
           <p>
@@ -326,7 +326,7 @@ limitations under the License.
           <p>
             This clause is optional. It takes the form:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {publish_properties, <em>property_list</em>}
 </pre>
           <p>
@@ -336,7 +336,7 @@ limitations under the License.
           <p>
             For example:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {publish_properties, [ {delivery_mode, 2} ]}
 </pre>
           <p>
@@ -361,7 +361,7 @@ limitations under the License.
           <p>
             This clause is optional. It takes the form:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {add_forward_headers, <em>boolean</em>}
 </pre>
           <p>
@@ -399,7 +399,7 @@ limitations under the License.
           <p>
             This clause is optional. It takes the form:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {publish_fields, <em>property_list</em>}
 </pre>
           <p>
@@ -411,7 +411,7 @@ limitations under the License.
            By default the messages are re-published using the original
            exchange name and routing key, for example.  By specifying:
          </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {publish_fields, [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
                    , {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
                    ]}
@@ -427,7 +427,7 @@ limitations under the License.
           <p>
             This clause is optional. In
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {reconnect_delay, <em>reconn_delay</em>}
 </pre>
           <p>
@@ -435,7 +435,7 @@ limitations under the License.
             seconds to wait before reconnecting in the event of
             connection failure (a non-negative number). For example:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {reconnect_delay, 1.5}
 </pre>
           <p>
@@ -461,7 +461,7 @@ limitations under the License.
       <p>
         A verbose shovel configuration might look like this:
       </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
   {rabbitmq_shovel,
     [ {shovels, [ {my_first_shovel,
                     [ {sources,

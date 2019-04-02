@@ -4,14 +4,14 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
 Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ limitations under the License.
       <doc:section name="intro">
         <doc:heading>Introduction</doc:heading>
         <p>
-          The <code>rabbitmq-management</code> plugin provides an HTTP-based API
+          The RabbitMQ management plugin provides an HTTP-based API
           for management and monitoring of RabbitMQ nodes and clusters, along
           with a browser-based UI and a command line tool, <a
           href="management-cli.html">rabbitmqadmin</a>.
@@ -43,13 +43,26 @@ limitations under the License.
         </p>
 
         <p>
-          The plugin also provides extension points that other plugins, such as <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
-          <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a> use to extend the UI.
+          The plugin can be <a href="#configuration">configured</a> to <a href="#single-listener-https">use HTTPS</a>,
+          a non-standard port, path prefix, HTTP server options, custom <a href="#hsts">strict transport security</a> settings,
+          <a href="#cors">cross-origin resource sharing</a>, and more.
         </p>
 
         <p>
-          The plugin can be <a href="#configuration">configured</a> to use HTTPS, a non-standard port, path prefix,
-          HTTP server options and more.
+          It also provides tools for <a href="#memory">analyse memory usage</a> of the node,
+          for <a href="#load-definitions">preconfiguring the node</a> using an exported schema definitions file, and a few
+          other features related to monitoring, metrics and node management.
+        </p>
+
+        <p>
+          In a multi-node cluster, management plugin is most commonly <a href="#clustering">enabled on every node</a>.
+        </p>
+
+        <p>
+          The plugin also provides extension points that other plugins, such as
+          <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq-top</a> or
+          <a href="https://github.com/rabbitmq/rabbitmq-shovel-management">rabbitmq-shovel-management</a>
+          use to extend the UI.
         </p>
       </doc:section>
 
@@ -58,17 +71,20 @@ limitations under the License.
 
         <p>
           The management plugin is included in the RabbitMQ
-          distribution. Like any other <a href="/plugins.html">plugin</a> it must
+          distribution. Like any other <a href="/plugins.html">plugin</a>, it must
           be enabled before it can be used. That's done using <a
           href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_management
 </pre>
+
+          Node restart is not required after plugin activation.
         </p>
 
         <p>
-          Node restart is not required after plugin activation.
+          During automated deployments, the plugin can be enabled via
+          <a href="/plugins.html#enabled-plugins-file">enabled plugin file</a>.
         </p>
       </doc:section>
 
@@ -79,7 +95,8 @@ rabbitmq-plugins enable rabbitmq_management
           <doc:heading>Management UI Access</doc:heading>
           <p>
             The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
-            for a node running on the local machine with hostname of <code>warp10.local</code> it can be accessed at either <code>http://warp10.local:15672/</code>
+            for a node running on a machine with the hostname of <code>warp10.local</code>,
+            it can be accessed at either <code>http://warp10.local:15672/</code>
             or <code>http://localhost:15672/</code> (provided that <code>localhost</code> resolves correctly).
           </p>
 
@@ -87,12 +104,16 @@ rabbitmq-plugins enable rabbitmq_management
             Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
             <a href="/networking.html#ports">Separate ports</a> should be used by those clients.
           </p>
+
+          <p>
+            Users must be <a href="#permissions">granted permissions</a> for management UI access.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="usage-highlights">
           <doc:heading>Notable Features</doc:heading>
           <p>
-            The management UI is implemented as a single page application which relies on the the <a href="#http-api">HTTP API</a>.
+            The management UI is implemented as a single page application which relies on the <a href="#http-api">HTTP API</a>.
             Some of the features include:
 
             <ul>
@@ -158,7 +179,9 @@ rabbitmq-plugins enable rabbitmq_management
         <p>
           The management UI requires  <a
           href="access-control.html">authentication and authorisation</a>, much like RabbitMQ requires
-          it from connecting clients.
+          it from connecting clients. In addition to successful authentication, management UI access
+          is controlled by user tags. The tags are managed using <a href="/rabbitmqctl.8.html#set_user_tags">rabbitmqctl</a>.
+          Newly created users do not have any tags set on them by default.
         </p>
         <table>
           <tr>
@@ -174,7 +197,7 @@ rabbitmq-plugins enable rabbitmq_management
           <tr>
             <td>management</td>
             <td>
-              Anything the user could do via AMQP plus:
+              Anything the user could do via messaging protocols plus:
               <ul>
                 <li>List virtual hosts to which they can log in via AMQP</li>
                 <li>
@@ -209,7 +232,7 @@ rabbitmq-plugins enable rabbitmq_management
               <ul>
                 <li>
                   List all virtual hosts, including ones they could
-                  not log in to via AMQP
+                  not access using messaging protocols
                 </li>
                 <li>View other users's connections and channels</li>
                 <li>View node-level data such as memory use and clustering</li>
@@ -321,46 +344,58 @@ rabbitmq-plugins enable rabbitmq_management
           There are several configuration options which affect the
           management plugin. These are managed through the main
           RabbitMQ <a href="configure.html#configuration-file">configuration file</a>.
-          There are also <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
-          that affect all plugins that provide HTTP or WebSocket endpoints.
         </p>
 
-        <doc:subsection name="web-dispatch-config">
-          <doc:heading>Configuring the HTTP and HTTPS Listener</doc:heading>
-          <p>
-            It is possible to configure HTTP API and management UI to
-            use a different port or network interface, enable HTTPS
-            and so on.
+        <p>
+          It is possible to configure HTTP API and management UI to
+          use a different port or network interface, enable HTTPS
+          and so on.
+        </p>
 
+        <p>
+          While rarely needed, it is possible to configure multiple listeners (ports), e.g. to both enable HTTPS and
+          retain support for clients that can only use HTTP (without TLS). This uses an alternative
+          set of configuration keys and available starting with RabbitMQ 3.7.9.
+        </p>
+
+        <doc:subsection name="single-listener-port">
+          <doc:heading>Port</doc:heading>
+          <p>
             The port is configured using the <code>management.listener.port</code> key:
           </p>
-<pre class="sourcecode ini">
-management.listener.port = 12345
+<pre class="lang-ini">
+management.listener.port = 15672
 </pre>
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
-  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+  {rabbitmq_management, [{listener, [{port, 15672}]}]},
 ].
 </pre>
+        </doc:subsection>
+
+        <doc:subsection name="single-listener-https">
+          <doc:heading>HTTPS</doc:heading>
 
           <p>
-            or to make the management plugin use HTTPS:
+            The management plugin can be configured to use HTTPS. See the guide <a href="/ssl.html">on TLS</a>
+            to learn more about certificate authorities, certificates and private key files.
+
+<pre class="lang-ini">
+management.ssl.port       = 15671
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
+</pre>
           </p>
 
-<pre class="sourcecode ini">
-management.listener.port = 15671
-management.listener.ssl = true
-management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
-management.listener.ssl_opts.certfile = /path/to/cert.pem
-management.listener.ssl_opts.keyfile = /path/to/key.pem
-</pre>
 
-        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+          <p>
+            HTTP listener can also be configured using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [{rabbitmq_management,
   [{listener, [{port,     15671},
                {ssl,      true},
@@ -370,10 +405,209 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
               ]}
   ]}
 ].</pre>
-          <p>
-            There are many more <a href="/web-dispatch.html">configurable options of the embedded HTTP server</a>
-            that can be used to configure response body compression, limits, and so on.
           </p>
+
+          <p>
+            More <a href="/ssl.html">TLS options</a> can be configured for the HTTPS listener. In new
+            style config format they are available as of RabbitMQ 3.7.10:
+
+<pre class="lang-ini">
+management.ssl.port       = 15671
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
+
+# For RabbitMQ 3.7.10 and later versions
+management.ssl.honor_cipher_order   = true
+management.ssl.honor_ecc_order      = true
+management.ssl.client_renegotiation = false
+management.ssl.secure_renegotiate   = true
+
+management.ssl.versions.1 = tlsv1.2
+management.ssl.versions.2 = tlsv1.1
+
+management.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+management.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+management.ssl.ciphers.3 = ECDHE-ECDSA-AES256-SHA384
+management.ssl.ciphers.4 = ECDHE-RSA-AES256-SHA384
+management.ssl.ciphers.5 = ECDH-ECDSA-AES256-GCM-SHA384
+management.ssl.ciphers.6 = ECDH-RSA-AES256-GCM-SHA384
+management.ssl.ciphers.7 = ECDH-ECDSA-AES256-SHA384
+management.ssl.ciphers.8 = ECDH-RSA-AES256-SHA384
+management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
+</pre>
+          </p>
+
+
+          <p>
+            The above example in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
+  [
+   {rabbitmq_management,
+    [
+     {listener, [{port,     15671},
+                 {ssl,      true},
+                 {ssl_opts, [{cacertfile, "/path/to/ca_certificate_bundle.pem"},
+                             {certfile,   "/path/to/server_certificate.pem"},
+                             {keyfile,    "/path/to/server_key.pem"},
+
+                             %% don't do peer verification to HTTPS clients
+                             {verify,               verify_none},
+                             {fail_if_no_peer_cert, false},
+
+                             {client_renegotiation, false},
+                             {secure_renegotiate,   true},
+                             {honor_ecc_order,      true},
+                             {honor_cipher_order,   true},
+
+                             {versions,['tlsv1.1', 'tlsv1.2']},
+                             {ciphers, ["ECDHE-ECDSA-AES256-GCM-SHA384",
+                                        "ECDHE-RSA-AES256-GCM-SHA384",
+                                        "ECDHE-ECDSA-AES256-SHA384",
+                                        "ECDHE-RSA-AES256-SHA384",
+                                        "ECDH-ECDSA-AES256-GCM-SHA384",
+                                        "ECDH-RSA-AES256-GCM-SHA384",
+                                        "ECDH-ECDSA-AES256-SHA384",
+                                        "ECDH-RSA-AES256-SHA384",
+                                        "DHE-RSA-AES256-GCM-SHA384"
+                                        ]}
+                             ]}
+                ]}
+    ]}
+  ].
+
+</pre>
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="multiple-listeners">
+          <doc:heading>Using HTTP and HTTPS Together</doc:heading>
+
+          <p>
+            As of RabbitMQ 3.7.9 it is possible to use both HTTP and HTTPS on different ports:
+
+<pre class="lang-ini">
+management.tcp.port       = 15672
+
+management.ssl.port       = 15671
+management.ssl.cacertfile = /path/to/cacert.pem
+management.ssl.certfile   = /path/to/cert.pem
+management.ssl.keyfile    = /path/to/key.pem
+</pre>
+          </p>
+
+          <p>
+            The same configuration keys can be used to configure a single listener (just HTTP or HTTPS)
+            and match those used by the <a href="/web-stomp.html">Web STOMP</a> and <a href="/web-mqtt.html">Web MQTT</a>.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="advanced-options">
+          <doc:heading>Advanced HTTP Options</doc:heading>
+
+          <p>
+            <a href="https://github.com/ninenines/cowboy">Cowboy</a>, the embedded Web server used by
+            the management plugin, provides a number of options that can be used to customize the behavior of the server.
+            Most of the options were introduced in RabbitMQ 3.7.9.
+          </p>
+
+          <h4>Response Compression</h4>
+          <p>
+            Response compression is enabled by default. To enable it explicitly, use <code>management.tcp.compress</code>
+            (RabbitMQ 3.7.9 or later) or <code>management.listener.server.compress</code>:
+
+<pre class="lang-ini">
+# For RabbitMQ 3.7.9 and later versions
+management.tcp.compress = true
+</pre>
+
+<pre class="lang-ini">
+# For versions older than 3.7.9
+management.listener.server.compress = true
+</pre>
+
+            Using the classic config format:
+
+<pre class="lang-erlang">
+%% For RabbitMQ 3.7.9 and later versions
+[{rabbitmq_management,
+  [{tcp_config, [{port,        15672},
+                 {cowboy_opts, [{compress, true}]}
+                ]}
+  ]}
+].
+</pre>
+          </p>
+
+          <h4>Client Inactivity Timeouts</h4>
+          <p>
+            Some HTTP API endpoints respond quickly, others may need to return or stream
+            a sizeable data set to the client (e.g. many thousands of connections) or perform
+            an operation that takes time proportionally to the input (e.g. <a href="http://www.rabbitmq.com/management.html#load-definitions">import a large definitions file</a>).
+            In those cases the amount of time it takes to process the request can exceed certain
+            timeouts in the Web server as well as HTTP client.
+
+            It is possible to bump Cowboy timeouts using the <code>management.tcp.idle_timeout</code>,
+            <code>management.tcp.inactivity_timeout</code>, <code>management.tcp.request_timeout</code> options:
+
+<pre class="lang-ini">
+# For RabbitMQ 3.7.9 and later versions.
+#
+# Configures HTTP (non-encrypted) listener,
+# sets all types of timeouts to 120 seconds
+management.tcp.idle_timeout       = 120000
+management.tcp.inactivity_timeout = 120000
+management.tcp.request_timeout    = 120000
+</pre>
+
+<pre class="lang-ini">
+# For RabbitMQ 3.7.9 and later versions.
+#
+# Configures HTTPS (TLS-enabled) listener,
+# sets all types of timeouts to 120 seconds
+management.ssl.idle_timeout       = 120000
+management.ssl.inactivity_timeout = 120000
+management.ssl.request_timeout    = 120000
+</pre>
+
+            In the classic config format:
+
+<pre class="lang-erlang">
+%% For RabbitMQ 3.7.9 and later versions.
+%%
+%% Configures HTTP (non-encrypted) listener,
+%% sets all types of timeouts to 120 seconds
+[{rabbitmq_management,
+  [{tcp_config, [{port,        15672},
+                 {cowboy_opts, [{idle_timeout,      120000},
+                                {inactivity_timeout,120000},
+                                {request_timeout,   120000}]}
+                ]}
+  ]}
+].
+</pre>
+
+<pre class="lang-erlang">
+%% For RabbitMQ 3.7.9 and later versions.
+%%
+%% Configures HTTPS (TLS-enabled) listener,
+%% sets all types of timeouts to 120 seconds
+[{rabbitmq_management,
+  [{ssl_config, [{port,        15672},
+                 {cowboy_opts, [{idle_timeout,      120000},
+                                {inactivity_timeout,120000},
+                                {request_timeout,   120000}]}
+                ]}
+  ]}
+].
+</pre>
+
+          All values are in milliseconds and default to `60000` (1 minute). It is recommended that
+          if timeouts need to be changed, all of them are increased at the same time.
+        </p>
         </doc:subsection>
 
 
@@ -386,13 +620,13 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
             of a directory in which logs can be created and restart
             RabbitMQ.
           </p>
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 management.http_log_dir = /path/to/folder
 </pre>
           <p>
             Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
           </p>
-<pre class="sourcecode erlang">
+<pre class="lang-erlang">
 [
   {rabbitmq_management, [{http_log_dir, "/path/to/folder"}]}
 ].
@@ -461,14 +695,25 @@ management.http_log_dir = /path/to/folder
         </doc:subsection>
 
         <doc:subsection name="sample-retention">
-          <doc:heading>Sample Retention Policies</doc:heading>
+          <doc:heading>Sample (Data Point) Retention</doc:heading>
           <p>
             The management plugin will retain samples of some data
-            such as message rates and queue lengths. You can
-            configure how long such data is retained.
+            such as message rates and queue lengths. Depending on how long the
+            data is retained, some time
+            range options on UI charts may be incomplete or unavailable.
           </p>
+          <p>
+            There are three policies:
 
-<pre class="sourcecode ini">
+            <ul>
+              <li><code>global</code>: how long to retain data for the overview and virtual host pages</li>
+              <li><code>basic</code>: how long to retain data for individual connections, channels, exchanges and queues</li>
+              <li><code>detailed</code>: how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
+            </ul>
+
+            Below is a configuration example:
+
+            <pre class="lang-ini">
 management.sample_retention_policies.global.minute  = 5
 management.sample_retention_policies.global.hour    = 60
 management.sample_retention_policies.global.day = 1200
@@ -477,60 +722,149 @@ management.sample_retention_policies.basic.minute = 5
 management.sample_retention_policies.basic.hour   = 60
 
 management.sample_retention_policies.detailed.10 = 5
-</pre>
-          <p>
-            There are three policies:
-            <ul>
-              <li><code>global</code> - how long to retain data for the overview and virtual host pages</li>
-              <li><code>basic</code> - how long to retain data for individual connections, channels, exchanges and queues</li>
-              <li><code>detailed</code> - how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
-            </ul>
+            </pre>
+          </p>
 
-            This configuration (which is the default) retains global
-            data at a 5 second resolution (sampling happens every 5 seconds) for 10 minutes and 5 seconds,
-            then at a 1 minute resolution for 1 hour and 1 minute, then at a 10 minute
-            resolution for about 8 hours. It retains basic data at a 5 second
-            resolution for 1 minute and 5 seconds, then at a 1 minute resolution for
-            1 hour, and detailed data only for 10 seconds. All three policies are mandatory, and must contain
-            at least one retention pair <code>{MaxAgeInSeconds, SampleEveryNSeconds}</code>.
+          <p>
+            The configuration in the example above retains global
+            data at a 5 second resolution (sampling happens every 5 seconds) for a minute,
+            then at a 1 minute (60 second) resolution for 1 hour, then at a 20 minute
+            resolution for one day. It retains basic data at a 5 second
+            resolution for 1 minute, at a 1 minute (60 second) resolution for
+            1 hour, and detailed data only for 10 seconds.
+          </p>
+
+          <p>
+            All three policies are mandatory, and must contain
+            at least one retention setting (period).
           </p>
         </doc:subsection>
 
-      <doc:subsection name="cors">
-        <doc:heading>Cross-origin Resource Sharing (CORS)</doc:heading>
-        <p>
-          The management API will by default not allow access to
-          websites hosted on different origins. Allowed origins
-          must be explicitly white-listed in configuration.
+
+        <doc:subsection name="csp">
+          <doc:heading>Content Security Policy (CSP)</doc:heading>
+          <p>
+            It is possible to configure what <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP header</a> value
+            is used by HTTP API responses. The default value is <code>default-src 'self'</code>:
+
+<pre class="lang-ini">
+management.csp.policy = default-src 'self'
+</pre>
+          </p>
+
+          <p>
+            The value can be any valid CSP header string:
+
+<pre class="lang-ini">
+management.csp.policy = default-src https://rabbitmq.eng.example.local
+</pre>
+
+        In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
+{rabbitmq_management, [
+  {content_security_policy,
+    "management.csp.policy = default-src https://rabbitmq.eng.example.local"}
+]}.</pre>
         </p>
-<pre class="sourcecode erlang">
+
+        <p>
+          Wildcards are also allowed:
+
+<pre class="lang-ini">
+management.csp.policy = default-src 'self' *.eng.example.local
+</pre>
+
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
+{rabbitmq_management, [
+  {content_security_policy,
+    "management.csp.policy = default-src 'self' *.eng.example.local"}
+]}.</pre>
+        </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="hsts">
+          <doc:heading>Strict Transport Security (HSTS)</doc:heading>
+          <p>
+            It is possible to configure what <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security">Strict Transport Security header</a> value
+            is used by HTTP API responses:
+
+<pre class="lang-ini">
+management.hsts.policy = max-age=31536000; includeSubDomains
+</pre>
+
+            In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
+rabbitmq_management, [
+  {strict_transport_security, "max-age=31536000; includeSubDomains"}
+]}.</pre>
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="cors">
+          <doc:heading>Cross-origin Resource Sharing (CORS)</doc:heading>
+          <p>
+            The management UI application will by default refuse access to
+            websites hosted on origins different from its own using the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-Origin Resource Sharing</a> mechanism,
+            also known as CORS. It is possible to white list origins:
+          </p>
+
+<pre class="lang-ini">
+management.cors.allow_origins.1 = https://origin1.org
+management.cors.allow_origins.2 = https://origin2.org
+</pre>
+
+        In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
 [
   {rabbitmq_management,
-    [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]}]},
+    [{cors_allow_origins, ["https://origin1.org", "https://origin2.org"]}]},
 ].</pre>
         <p>
-          It is possible to allow any origin to use the API.
-          It is however not recommended if the API is reachable
-          from the outside world.
-        </p>
-<pre class="sourcecode erlang">
+          It is possible to allow any origin to use the API using a wildcard.
+          This is <strong>highly discouraged</strong> for deployments where the UI
+          application may be exposed to the public.
+
+<pre class="lang-ini">
+management.cors.allow_origins.1 = *
+</pre>
+
+        In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
 [
   {rabbitmq_management,
     [{cors_allow_origins, ["*"]}]},
 ].</pre>
+        </p>
+
         <p>
           The CORS pre-flight requests are cached by the browser.
           The management plugin defines a timeout of 30 minutes
-          by default. You can modify this value in the configuration.
-          It is defined in seconds.
-        </p>
-<pre class="sourcecode erlang">
+          by default. The value can be changes. It is configured in seconds:
+
+<pre class="lang-ini">
+management.cors.allow_origins.1 = https://origin1.org
+management.cors.allow_origins.2 = https://origin2.org
+management.cors.max_age         = 3600
+</pre>
+
+          In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="lang-erlang">
 [
   {rabbitmq_management,
-    [{cors_allow_origins, ["http://rabbitmq.com", "http://example.org"]},
+    [{cors_allow_origins, ["https://origin1.org", "https://origin2.org"]},
      {cors_max_age, 3600}]},
 ].</pre>
-        </doc:subsection>
+        </p>
+      </doc:subsection>
 
         <doc:subsection name="login-session-timeout">
           <doc:heading>Login Session Timeout</doc:heading>
@@ -546,17 +880,17 @@ management.sample_retention_policies.detailed.10 = 5
           <p>
             The following example sets the session timeout to 1 hour:
           </p>
-          <pre class="sourcecode ini">
+<pre class="lang-ini">
 management.login_session_timeout = 60
 </pre>
 
           Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-          <pre class="sourcecode erlang">[
-  ...
+<pre class="lang-erlang">[
+  %% ...
   {rabbitmq_management,
     [{login_session_timeout, 60}]},
-  ...
+  %% ...
 ].</pre>
         </doc:subsection>
 
@@ -580,11 +914,11 @@ management.login_session_timeout = 60
             <code>host:port/my-prefix/</code> - note that the
             trailing slash is <em>required</em> in this case.
           </p>
-          <pre class="sourcecode erlang">[
-  ...
+          <pre class="lang-erlang">[
+  %% ...
   {rabbitmq_management,
     [{path_prefix, "/my-prefix"}]},
-  ...
+  %% ...
 ].</pre>
         </doc:subsection>
 
@@ -593,10 +927,10 @@ management.login_session_timeout = 60
         <p>
           An example configuration file for RabbitMQ that switches
           on request logging, increases the statistics interval to
-          10000ms and explicitly sets some other relevant parameters
+          10 seconds and explicitly sets some other relevant parameters
           to their default values, would look like this:
         </p>
-        <pre class="sourcecode ini">
+        <pre class="lang-ini">
 listeners.tcp.default = 5672
 
 collect_statistics_interval = 10000
@@ -630,7 +964,7 @@ management.sample_retention_policies.detailed.10 = 5
 
         Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
-        <pre class="sourcecode erlang">[
+        <pre class="lang-erlang">[
 {rabbit, [{tcp_listeners,               [5672]},
           {collect_statistics_interval, 10000}]},
 
@@ -689,24 +1023,26 @@ management.sample_retention_policies.detailed.10 = 5
       <doc:section name="load-definitions">
         <doc:heading>Loading Definitions (Schema) at Startup</doc:heading>
         <p>
-          The management plugin lets you export a JSON file
-          containing definitions of all broker objects (queues,
+          It is possible to export a definitions file over HTTP API or in management UI.
+          A definition file contains definitions of all broker objects (queues,
           exchanges, bindings, users, virtual hosts, permissions and
-          parameters). In some scenarios it may be useful to ensure
-          the existence of these objects at every startup.
+          parameters). Then the file can be imported on node start, providing a way
+          to preconfigure the node with virtual hosts, users, permissions, policies, queues,
+          exchanges, bindings and so on.
         </p>
         <p>
-          To do this, set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
+          To import definitions from a local file on node boot,
+          set the <code>management.load_definitions</code> (<code>rabbitmq_management.load_definitions</code>
           in the classic config format) config key
           to the path of a previously exported JSON file containing
           the definitions you want:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 management.load_definitions = /path/to/definitions/file.json
 </pre>
 
             Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-          <pre class="sourcecode erlang">[
+          <pre class="lang-erlang">[
 {rabbitmq_management, [
   {load_definitions, "/path/to/definitions/file.json"}
   ]}
@@ -723,35 +1059,42 @@ management.load_definitions = /path/to/definitions/file.json
       </doc:section>
 
 
-      <doc:section name="memory-use-analysis">
-        <doc:heading>Memory Use Analysis</doc:heading>
-        <p>
-          Management UI can be used to inspect node's memory use, including displaying
-          a per-category breakdown. See the <a href="/memory-use.html">Memory Use Analysis</a> guide
-          for details.
-        </p>
-      </doc:section>
-
-
       <doc:section name="clustering">
-        <doc:heading>Note on clustering</doc:heading>
-        <p>
-          The management plugin is aware of clusters. You can enable
-          it on one or more nodes in a cluster, and see information
-          pertaining to the entire cluster no matter which node you
-          connect to.
-        </p>
-        <p>
-          If you want to deploy cluster nodes which do not have the
-          full management plugin enabled, you will still need to
-          enable the <code>rabbitmq-management-agent</code> plugin on
-          each node.
-        </p>
-        <p>
-          When clustered the management plugin performs cluster-wide queries
-          which means it can be affected by various network events such as
-          <a href="nettick.html">partitions</a>.
-        </p>
+        <doc:heading>Metrics Collection and HTTP API in Clusters</doc:heading>
+
+        <doc:subsection name="clustering-client-requests">
+          <doc:heading>Client Requests</doc:heading>
+
+          <p>
+            The management plugin is aware of clusters. It can be enabled
+            on one or more nodes in a cluster, and see information
+            pertaining to the entire cluster no matter which node you
+            connect to.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="clustering-subset-of-nodes">
+          <doc:heading>Running Management Plugin on a Subset of Nodes</doc:heading>
+
+          <p>
+            It is possible deploy management plugin only on a subset of cluster nodes.
+            In that case only the nodes running the plugin would be able to serve client HTTP API requests.
+            For every cluster node to have its metrics collected, it is still required that the
+            <code>rabbitmq-management-agent</code> plugin is enabled on each node, otherwise
+            the metrics from the node won't be available.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="clustering-inter-node-connectivity">
+          <doc:heading>Client Requests</doc:heading>
+
+          <p>
+            In cluster, HTTP API performs cluster-wide queries when handling client
+            requests, which means it can be affected by network partitions and slow downs.
+            Timeouts for inter-node aggregation queries are controlled via the
+            <a href="nettick.html">net tick mechanism</a>.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="proxy">
@@ -761,7 +1104,7 @@ management.load_definitions = /path/to/definitions/file.json
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
           conformance. It assumes a management web UI on the default port of 15672:
-          <pre class="sourcecode apache">
+          <pre class="lang-apache">
 AllowEncodedSlashes On
 ProxyPass        /api http://localhost:15672/api nocanon
 ProxyPass        /    http://localhost:15672/
@@ -788,24 +1131,17 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
           3.6.2. To restart the database with versions earlier than 3.6.2, use
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
 
-Starting with RabbitMQ 3.6.2 and up to 3.6.5, use
-<pre class="sourcecode bash">
-rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
-                  rabbit_mgmt_sup_sup:start_child().'
-</pre>
-          These commands must be executed on the node hosting the database.
-
 Starting with RabbitMQ 3.6.7, the database can be reset per node using
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
 
 To reset entire management database on all nodes
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 </pre>
 
@@ -823,51 +1159,71 @@ DELETE /api/reset/:node
         </p>
       </doc:section>
 
-      <doc:section name="memory-mgmt">
-        <doc:heading>Memory Management</doc:heading>
-        <div>
-          The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
-<pre class="sourcecode bash">
-rabbitmqctl status
-</pre>
-          or a GET request to /api/nodes/<i>name</i> via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
-          HTTP API</a>.
+      <doc:section name="memory">
+        <doc:heading>Memory Usage Analysis and Memory Management</doc:heading>
+        <p>
+          Management UI can be used to inspect node's memory use, including displaying
+          a per-category breakdown. See the <a href="/memory-use.html">Memory Use Analysis</a> guide
+          for details.
+        </p>
 
-          <p>
-          Stats are emitted periodically, regulated by the statistics
-          interval described above, or when certain components are
+        <p>
+          Management database builds around periodically emitted stats,
+          regulated by the statistics interval described above, or when certain components are
           created/declared (e.g. a new connection or channel is
           opened, or a queue declared) or closed/deleted.  Message
           rates do not directly affect management database memory
           usage.
-          </p>
-          <p>
+        </p>
+        <p>
           Total amount of memory consumed by the stats database
-          depends on the event emission interval, effective rates mode and
+          depends on the topology size (e.g. the number of queues), number of concurrent connections
+          and channels, event emission interval, effective rates mode and
           retention policies.
-          </p>
-          <p>
+        </p>
+        <p>
           Increasing the <code>rabbit.collect_statistics_interval</code> value to 30-60s (note: the value should
           be set in milliseconds, e.g. <code>30000</code>) will reduce memory
           comsuption for systems with large amounts of queues/channels/connections.
           Adjusting retention policies to retain less data will also help.
-          </p>
-          <p>
+        </p>
+        <p>
           The memory usage of the channel and stats collector processes can be limited
           by setting the maximum backlog queue size using the parameter
           <code>stats_event_max_backlog</code>. If the backlog queue is full, new channel
           and queue stats will be dropped until the previous ones have been processed.
-          </p>
-          <p>
+        </p>
+        <p>
           The statistics interval can also be changed at runtime. Doing so will have no
           effect on existing connections, channels or queues. Only new stats
           emitting entities are affected.
-<pre class="sourcecode bash">
+
+<pre class="lang-bash">
 rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
 </pre>
-          </p>
+        </p>
+
+        <p>
           The statistics database can be restarted (see above) and thus forced to release all memory.
-        </div>
+          Management UI's Overview page contains buttons that reset stats database for individual nodes as well as
+          all nodes in the cluster.
+        </p>
+      </doc:section>
+
+
+      <doc:section name="publishing-consuming">
+        <doc:heading>Publishing and Consuming over HTTP API</doc:heading>
+        <p>
+          It is possible to publish and consume messages using the <a href="#http-api">HTTP API</a>.
+          This ways of messaging is discouraged: prefer one of the binary messaging protocols supported
+          by RabbitMQ. Publishing and consuming that way will be significantly more efficient and will
+          provide access to various messaging protocol features such as <a href="/confirms.html">confirmations</a>.
+        </p>
+
+        <p>
+          Publishing over HTTP API can be useful in environments where
+          <a href="/connections.html">long lived messaging protocol connections</a> is not an option.
+        </p>
       </doc:section>
   </body>
 </html>

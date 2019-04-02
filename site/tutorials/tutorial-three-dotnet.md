@@ -1,12 +1,12 @@
 <!--
-Copyright (c) 2007-2018 Pivotal Software, Inc.
+Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License, 
 Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -91,7 +91,7 @@ and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.ExchangeDeclare("logs", "fanout");
 </pre>
 
@@ -104,7 +104,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > sudo rabbitmqctl list_exchanges
 > </pre>
 >
@@ -121,7 +121,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
-> <pre class="sourcecode csharp">
+> <pre class="lang-csharp">
 >     var message = GetMessage(args);
 >     var body = Encoding.UTF8.GetBytes(message);
 >     channel.BasicPublish(exchange: "",
@@ -130,13 +130,13 @@ queues it knows. And that's exactly what we need for our logger.
 >                          body: body);
 > </pre>
 >
-> The first parameter is the the name of the exchange.
+> The first parameter is the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routingKey`, if it exists.
 
 Now, we can publish to our named exchange instead:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var message = GetMessage(args);
 var body = Encoding.UTF8.GetBytes(message);
 channel.BasicPublish(exchange: "logs",
@@ -148,8 +148,8 @@ channel.BasicPublish(exchange: "logs",
 Temporary queues
 ----------------
 
-As you may remember previously we were using queues which had a
-specified name (remember `hello` and `task_queue`?). Being able to name
+As you may remember previously we were using queues that had
+specific names (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
@@ -169,7 +169,7 @@ automatically deleted.
 In the .NET client, when we supply no parameters to `QueueDeclare()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 var queueName = channel.QueueDeclare().QueueName;
 </pre>
 
@@ -209,7 +209,7 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 channel.QueueBind(queue: queueName,
                   exchange: "logs",
                   routingKey: "");
@@ -220,7 +220,7 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> <pre class="sourcecode bash">
+> <pre class="lang-bash">
 > rabbitmqctl list_bindings
 > </pre>
 
@@ -269,7 +269,7 @@ nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.cs` file:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using System.Text;
@@ -318,7 +318,7 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `ReceiveLogs.cs`:
 
-<pre class="sourcecode csharp">
+<pre class="lang-csharp">
 using System;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -366,21 +366,21 @@ generate the `EmitLogs` and `ReceiveLogs` projects.
 
 If you want to save logs to a file, just open a console and type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogs
 dotnet run > logs_from_rabbit.log
 </pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd ReceiveLogs
 dotnet run
 </pre>
 
 And of course, to emit logs type:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 cd EmitLog
 dotnet run
 </pre>
@@ -389,7 +389,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `ReceiveLogs.cs`
 programs running you should see something like:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo rabbitmqctl list_bindings
 # => Listing bindings ...
 # => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
