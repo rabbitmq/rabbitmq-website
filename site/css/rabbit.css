@@ -644,7 +644,9 @@ td.desc, th.desc {
   padding: 20px 0 0;
 }
 
-ol.feed {
+ul.feed {
+  list-style-type: none;
+
   margin: 0px;
   padding: 0px;
   clear: both;
@@ -653,7 +655,7 @@ ol.feed {
 .feed li {
   line-height: 17px;
   padding: 0px;
-  margin-bottom: 16px;
+  margin-bottom: 2em;
 }
 
 .feed li hr {
