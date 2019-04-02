@@ -128,7 +128,7 @@ will use in the following effective allocator settings:
 </pre>
 
 For some workloads a larger preallocated area reduce allocation rate and memory fragmentation.
-To configure the node to use a preallocated area of 1 GB, add `+MMscs 4096` to VM startup arguments
+To configure the node to use a preallocated area of 1 GB, add `+MMscs 1024` to VM startup arguments
 using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`:
 
 <pre class="lang-bash">
