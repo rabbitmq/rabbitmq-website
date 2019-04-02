@@ -32,6 +32,31 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2019-04-02T09:00:00+00:00">2 April 2019</doc:date>
+      <doc:title>Erlang Packages Move to a Separate Org on Bintray</doc:title>
+      <doc:link>https://groups.google.com/d/msg/rabbitmq-users/Gu55prdJ7uM/tftnTT_ZAwAJ</doc:link>
+      <doc:text>
+        <p>
+          Erlang packages produced by Team RabbitMQ will soon only be available from a separate organisation on Bintray.
+        </p>
+        <p>
+          Originally the packages we published to the <a href="https://bintray.com/rabbitmq/">main Bintray org</a>
+          (<a href="https://bintray.com/beta/#/rabbitmq/debian/erlang?tab=overview">Debian</a>, <a href="https://bintray.com/beta/#/rabbitmq/rpm/erlang?tab=overview">RPM</a>)
+          Erlang packages in those repositories stopped receiving updates
+          in November 2018 and will be removed from the main org on April 29, 2019.
+        </p>
+        <p>
+          Users who rely on them must migrate to the <a href="https://bintray.com/rabbitmq-erlang/">rabbitmq-erlang Bintray organisation</a>.
+          See <a href="https://www.rabbitmq.com/install-debian.html#apt-bintray-erlang">Debian</a> and <a href="https://www.rabbitmq.com/install-rpm.html#install-zero-dependency-rpm">RPM guides</a> for
+          up-to-date installation instructions.
+        </p>
+        <p>
+          As always, we welcome any questions on the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2019-03-29T09:00:00+00:00">29 March 2019</doc:date>
       <doc:title>RabbitMQ 3.7.14 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14</doc:link>
