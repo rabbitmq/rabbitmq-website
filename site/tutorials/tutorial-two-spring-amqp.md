@@ -126,7 +126,7 @@ whether its a longer running task by appending a dot to the
 message in a very contrived fashion using the same method
 on the `RabbitTemplate` to publish the message, `convertAndSend`.
 The documentation defines this as, "Convert a Java object to
-an AMQP Message and send it to a default exchange with a
+a message and send it to a default exchange with a
 default routing key."
 
 <pre class="lang-java">
@@ -357,7 +357,7 @@ to the n-th consumer.
 However, "Fair dispatch" is the default configuration for Spring AMQP. The
 `AbstractMessageListenerContainer` defines the value for
 `DEFAULT_PREFETCH_COUNT` to be 250.  If the `DEFAULT_PREFETCH_COUNT` were
-set to 1 the behavior would be round robin messaging as described above.
+set to 1 the behavior would be the round robin delivery as described above.
 
 <div class="diagram">
   <img src="/img/tutorials/prefetch-count.png" height="110" />
@@ -386,10 +386,11 @@ set to 1 the behavior would be round robin messaging as described above.
 
 > #### Note about `prefetchCount` = 1
 >
-> In most of the cases `prefetchCount` equal to 1 can lead to consumers underutilizing thus must be used only by purpose.
+> In most of the cases `prefetchCount` equal to 1 would be too conservative and severely
+> limit consumer throughput.
 > A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/#async-consumer)
-> 
-> For more details you can check [channel prefetch settings](/confirms.html#channel-qos-prefetch).
+>
+> For more details on prefetch, please refer to the [Consumer Acknowledgements guide](/confirms.html#channel-qos-prefetch).
 
 However, with the `prefetchCount` set to 250 by default,
 this tells RabbitMQ not to give more than 250 messages to a worker
@@ -397,7 +398,7 @@ at a time. Or, in other words, don't dispatch a new message to a
 worker while the number of unacked messages is 250.
 Instead, it will dispatch it to the next worker that is not still busy.
 
-`prefetchCount` value can be changed via 
+Desired `prefetchCount` value can be set via
 `AbstractMessageListenerContainer.setPrefetchCount(int prefetchCount)`.
 
 > #### Note about queue size
