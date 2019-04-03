@@ -355,9 +355,9 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 However, "Fair dispatch" is the default configuration for Spring AMQP. The
-`SimpleMessageListenerContainer` defines the value for
+`AbstractMessageListenerContainer` defines the value for
 `DEFAULT_PREFETCH_COUNT` to be 250.  If the `DEFAULT_PREFETCH_COUNT` were
-set to 0 the behavior would be round robin messaging as described above.
+set to 1 the behavior would be round robin messaging as described above.
 
 <div class="diagram">
   <img src="/img/tutorials/prefetch-count.png" height="110" />
@@ -384,17 +384,26 @@ set to 0 the behavior would be round robin messaging as described above.
   </div>
 </div>
 
-However, with the prefetchCount set to 250 by default,
+> #### Note about `prefetchCount` = 1
+>
+> In most of the cases `prefetchCount` equal to 1 can lead to consumers underutilizing thus must be used only by purpose.
+> A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/#async-consumer)
+> 
+> For more details you can check [channel prefetch settings](/confirms.html#channel-qos-prefetch).
+
+However, with the `prefetchCount` set to 250 by default,
 this tells RabbitMQ not to give more than 250 messages to a worker
 at a time. Or, in other words, don't dispatch a new message to a
 worker while the number of unacked messages is 250.
 Instead, it will dispatch it to the next worker that is not still busy.
 
+`prefetchCount` value can be changed via 
+`AbstractMessageListenerContainer.setPrefetchCount(int prefetchCount)`.
+
 > #### Note about queue size
 >
 > If all the workers are busy, your queue can fill up. You will want to keep an
 > eye on that, and maybe add more workers, or have some other strategy.
-
 
 By using Spring AMQP you get reasonable values configured for
 message acknowledgments and fair dispatching. The default durability
