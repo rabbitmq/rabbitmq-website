@@ -813,9 +813,7 @@ body#index #getstarted,
 
 #hero #hero-summit {
   background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
-  background-size: cover;
-  padding: 70px 0;
-  text-align: right;
+  padding: 70px 0 40px;
 }
 
 #hero #hero-summit .container {
@@ -840,6 +838,12 @@ body#index #getstarted,
     background-size: 100%;
     padding-bottom: 180px;
     text-align: center;
+  }
+  #hero #hero-summit h2 a {
+    display: block;
+  }
+  #hero #hero-summit #date {
+    display: none;
   }
 }
 
