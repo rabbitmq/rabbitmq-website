@@ -373,8 +373,8 @@ limitations under the License.
             Maps SMTP to AMQP 0-9-1 (to convert an incoming email to an AMQP 0-9-1
             message) and AMQP 0-9-1 to SMTP (to send an email from an AMQP 0-9-1 message).
             <ul>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_email">3.7.x</a></li>
-              <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_email">3.6.x</a></li>
+              <li>Download for <a href="https://github.com/gotthardp/rabbitmq-email/releases/tag/v0.3.0">3.7.x</a></li>
+              <li>Download for <a href="https://github.com/gotthardp/rabbitmq-email/releases/tag/v0.2.0">3.6.x</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
             </ul>
