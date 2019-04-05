@@ -131,6 +131,9 @@ limitations under the License.
                 <a href="nettick.html">Inter-node Connection Heartbeats</a>
               </li>
               <li>
+                <a href="runtime.html">Runtime Tuning</a>
+              </li>
+              <li>
                 <a href="ttl.html">Queue and Message TTL</a>
               </li>
             </ul>
@@ -288,6 +291,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="/disk-alarms.html">Free Disk Space Alarms</a>
+              </li>
+              <li>
+                <a href="runtime.html">Runtime Tuning</a>
               </li>
               <li>
                 <a href="/flow-control.html">Flow Control</a>

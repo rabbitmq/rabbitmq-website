@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -198,7 +198,7 @@ the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
 [Manual message acknowledgments](/confirms.html) are turned on by default. In previous
-examples we explicitly turned them off via the `no_ack=True`
+examples we explicitly turned them off via the `auto_ack=True`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
@@ -209,8 +209,7 @@ def callback(ch, method, properties, body):
     print " [x] Done"
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
-channel.basic_consume(callback,
-                      queue='hello')
+channel.basic_consume(queue='hello', on_message_callback=callback)
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
@@ -360,59 +359,58 @@ channel.basic_qos(prefetch_count=1)
 Putting it all together
 -----------------------
 
-Final code of our `new_task.py` script:
+`new_task.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
 
 message = ' '.join(sys.argv[1:]) or "Hello World!"
-channel.basic_publish(exchange='',
-                      routing_key='task_queue',
-                      body=message,
-                      properties=pika.BasicProperties(
-                         delivery_mode = 2, # make message persistent
-                      ))
+channel.basic_publish(
+    exchange='',
+    routing_key='task_queue',
+    body=message,
+    properties=pika.BasicProperties(
+        delivery_mode=2,  # make message persistent
+    ))
 print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-[(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
-
-And our worker:
+`worker.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import time
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')
 
+
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
     time.sleep(body.count(b'.'))
     print(" [x] Done")
-    ch.basic_ack(delivery_tag = method.delivery_tag)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(callback,
-                      queue='task_queue')
+channel.basic_consume(queue='task_queue', on_message_callback=callback)
 
 channel.start_consuming()
 </pre>
-
-[(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
-
 
 Using message acknowledgments and `prefetch_count` you can set up a
 work queue. The durability options let the tasks survive even if

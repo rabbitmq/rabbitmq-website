@@ -1630,7 +1630,7 @@ The table below describes the environment variables that can be used to configur
     <td>
       <ul>
         <li><b>Unix*:</b>
-          <code>+P 1048576 +t 5000000 +stbt db +zdbbl 32000</code>
+          <code>+P 1048576 +t 5000000 +stbt db +zdbbl 128000</code>
         </li>
         <li><b>Windows:</b> None</li>
       </ul>

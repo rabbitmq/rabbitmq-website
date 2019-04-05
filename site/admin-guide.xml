@@ -39,7 +39,7 @@ limitations under the License.
     </p>
 
     <div class="landing-box">
-      <h2>Configuring your Server</h2>
+      <h2>Configuration</h2>
       <ul>
         <li><a href="configure.html">Configuration</a></li>
         <li>
@@ -56,6 +56,9 @@ limitations under the License.
         </li>
         <li>
           <a href="nettick.html">Inter-node Connection Heartbeats</a>
+        </li>
+        <li>
+          <a href="runtime.html">Runtime Tuning</a>
         </li>
         <li>
           <a href="ttl.html">Queue and Message TTL</a>
@@ -127,10 +130,13 @@ limitations under the License.
 
       <ul>
         <li>
-          <a href="monitoring.html">Monitoring Best Practices</a>
+          <a href="monitoring.html">Monitoring, Metrics, Health Checks</a>
         </li>
         <li>
           <a href="management.html">Management UI and HTTP API</a>
+        </li>
+        <li>
+          <a href="troubleshooting.html">Troubleshooting guidance</a>
         </li>
         <li>
           <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool

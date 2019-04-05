@@ -1,0 +1,218 @@
+<!--
+Copyright (c) 2007-2018 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+# Runtime Tuning
+
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+RabbitMQ runs on the [Erlang virtual machine](https://erlang.org) and runtime.
+A [compatible version of Erlang](/which-erlang.html) must be installed in order to run RabbitMQ.
+
+The Erlang runtime includes a number of components used by RabbitMQ. The most important ones
+as far as this guide is concerned are
+
+ * The Erlang virtual machine executes the code
+ * `epmd` resolves node names on a host to an [inter-node communication port](/networking.html)
+
+This guide will focus on the virtual machine. For an overview of epmd, please refer to the
+[Networking guide](/networking.html#epmd-inet-dist-port-range).
+
+Topics covered include:
+
+ * How to [configure Erlang VM settings for RabbitMQ](#vm-settings) nodes
+ * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
+ * [Memory allocator](#allocators) settings
+ * Runtime [thread activity metrics](#thred-stats)
+ * [Inter-node communication buffer](#distribution-buffer) size
+ * [Asynchronous I/O thread pool](#io-threads) size
+
+
+## <a id="vm-settings" class="anchor" href="#vm-settings">VM Settings</a>
+
+The Erlang VM has a broad range of [options that can be configured](https://erlang.org/doc/man/erl.html)
+that cover process scheduler settings, memory allocation, garbage collection, I/O, and more.
+Tuning of those flags can significantly change runtime behavior of a node.
+
+### <a id="configure" class="anchor" href="#configure">Configuring Flags</a>
+
+Most of the settings can be configured using [environment variables](/configure.html#supported-environment-variables).
+A few settings have dedicated variables, others can only be changed using the following generic
+variables that control what flags are passed by RabbitMQ startup scripts to the Erlang virtual machine.
+
+The generic variables are
+
+ * `RABBITMQ_SERVER_ERL_ARGS` allows all VM flags to be overridden, including the defaults set by RabbitMQ scripts
+ * `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` allows a set of flags to be appended to the defaults set by RabbitMQ scripts
+ * `RABBITMQ_CTL_ERL_ARGS` controls [CLI tool](/cli.html) VM flags
+
+In most cases `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` is the recommended option. It can be used to override defaults
+in a safe manner. For example, if an important flag is omitted from `RABBITMQ_SERVER_ERL_ARGS`, runtime performance
+characteristics or system limits can be unintentionally affected.
+
+As with other environment variables used by RabbitMQ, `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`
+and friends can be [set using a separate environment variable file](/configure.html#customise-environment).
+
+
+## <a id="scheduling" class="anchor" href="#scheduling">Runtime Schedulers</a>
+
+Schedulers in the runtime assign work to kernel threads that perform it.
+They execute code, perform I/O, execute timers and so on. Schedulers have a number of settings
+that can affect overall system performance, CPU utilisation, latency and other runtime characteristics
+of a node.
+
+By default the runtime will start one scheduler for one CPU core it detects. This can be changed
+using the `+S` flag. The following example configures the node to start 4 schedulers even if it detects
+more:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+S 4:4"
+</pre>
+
+Most of the time the default behaviour works well. In shared or CPU constrained environments (including
+containerised ones), explicitly configuring scheduler count may be necessary.
+
+### CPU Resource Contention
+
+The runtime assumes that it does not share CPU resources with other tools or tenants. When that's the case,
+the scheduling mechanism used can become very inefficient and result in significant (up to several orders of magnitude)
+latency increase for certain operations.
+
+This means that in most cases colocating RabbitMQ nodes with other tools or applying CPU time slicing
+is highly discourage and will result in suboptimal performance.
+
+
+## <a id="allocators" class="anchor" href="#allocators">Memory Allocator Settings</a>
+
+The runtime manages (allocates and releases) memory. Runtime memory management is a complex topic with
+[many tunable parameters](http://erlang.org/doc/man/erts_alloc.html). This section
+only covers the basics.
+
+Memory is allocated in blocks from areas larger pre-allocated areas called carriers. Settings that control
+carrier size, block size, memory allocation strategy and so on are commonly referred to as allocator settings.
+
+Depending on the allocator settings used and the workload, RabbitMQ can experience [memory fragmentation](https://en.wikipedia.org/wiki/Fragmentation_(computing))
+of various degrees. Finding the best fit for your workload is a matter of trial, measurement (metric collection)
+and error. Note that some degree of fragmentation is inevitable.
+
+Here are the allocator arguments used by default:
+
+<pre class="lang-bash">
+RABBITMQ_DEFAULT_ALLOC_ARGS="+MBas ageffcbf +MHas ageffcbf +MBlmbcs 512 +MHlmbcs 512 +MMmcs 30"
+</pre>
+
+Instead of overriding `RABBITMQ_DEFAULT_ALLOC_ARGS`, add flags that should be overridden to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`. They
+will take precedence over the default ones. So a node started with the following `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` value
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MHlmbcs 8192"
+</pre>
+
+will use in the following effective allocator settings:
+
+<pre class="lang-bash">
+"+MBas ageffcbf +MHas ageffcbf +MBlmbcs 512 +MHlmbcs 8192 +MMmcs 30"
+</pre>
+
+For some workloads a larger preallocated area reduce allocation rate and memory fragmentation.
+To configure the node to use a preallocated area of 1 GB, add `+MMscs 1024` to VM startup arguments
+using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 1024"
+</pre>
+
+The value is in MB. The following example will preallocate a larger, 4 GB area:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 4096"
+</pre>
+
+To learn about other available settings, see [runtime documentation on allocators](http://erlang.org/doc/man/erts_alloc.html).
+
+
+## <a id="distribution-buffer" class="anchor" href="#distribution-buffer">Inter-node Communication Buffer Size</a>
+
+Inter-node traffic between a pair of nodes uses a TCP connection with a buffer known as the inter-node communication buffer.
+Its size is 128 MB by default. This is a reasonable default for most workloads. In some environments
+inter-node traffic can be very heavy and run into the buffer's capacity. Other workloads where the
+default is not a good fit involve transferring very large (say, in hundreds of megabytes) messages
+that do not fit into the buffer.
+
+In this case the value can be increased using the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE` environment variable.
+The value is in kilobytes:
+
+<pre class="lang-bash">
+RABBITMQ_DISTRIBUTION_BUFFER_SIZE=192000
+</pre>
+
+When the buffer is hovering around full capacity, nodes will [log](/logging.html) a warning
+mentioning a busy distribution port (`busy_dist_port`). Increasing buffer size may help
+increase thoughput and/or reduce latency.
+
+
+## <a id="io-threads" class="anchor" href="#io-threads">I/O Thread Pool Size</a>
+
+The runtime uses a pool of threads for performing I/O
+operations asynchronously. The size of the pool is [configured](/configure.html) via
+the `RABBITMQ_IO_THREAD_POOL_SIZE` environment variable. The variable
+is a shortcut to setting the `+A` VM command line flag, e.g. `+A 128`.
+
+<pre class="lang-bash">
+# reduces number of I/O threads from 128 to 32
+RABBITMQ_IO_THREAD_POOL_SIZE=32
+</pre>
+
+To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
+variable:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
+</pre>
+
+Default value in recent RabbitMQ releases is 128 (30 previously). Nodes that have 8 or more cores available are recommended
+to use values higher than 96, that is, 12 or more I/O threads for every core available.
+
+Note that higher values do not necessarily mean better throughput or lower CPU
+burn due to waiting on I/O. There are relevant [metrics](/monitoring.html) available about runtime
+thread activity. This is covered in [a separate section](#thread-stats)
+
+
+## <a id="thread-stats" class="anchor" href="#thread-stats">Thread Statistics</a>
+
+RabbitMQ CLI tools provide a number of [metrics](/monitoring.html) that make it easier to reason
+about runtime thread activity.
+
+<pre class="lang-bash">
+rabbitmq-diagnostics runtime_thread_stats
+</pre>
+
+is the command that produces a breakdown of how various threads spend their time.
+
+The command's output will produce a table with percentages by thread activity:
+
+ * `emulator`: general code execution
+ * `port`: external I/O activity (socket I/O, file I/O, subprocesses)
+ * `gc`: performing garbage collection
+ * `check_io`: checking for I/O events
+ * `other`, `aux`: busy waiting, managing timers, all other tasks
+ * `sleep`: sleeping (idle state)
+
+Significant percentage of activity in the external I/O state may indicate that the node
+and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
+
+Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
+runtime schduler configuration for the available hardware and workload.

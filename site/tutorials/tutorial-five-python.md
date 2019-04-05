@@ -24,7 +24,7 @@ limitations under the License.
 ### Prerequisites
 
 As with other Python tutorials, we will use the [Pika](https://pypi.python.org/pypi/pika) RabbitMQ client
-[version 0.11.0](https://pika.readthedocs.io/en/0.11.0/).
+[version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 ### What This Tutorial Focuses On
 
@@ -39,7 +39,7 @@ limitations - it can't do routing based on multiple criteria.
 In our logging system we might want to subscribe to not only logs
 based on severity, but also based on the source which emitted the log.
 You might know this concept from the
-[`syslog`](http://en.wikipedia.org/wiki/Syslog) unix tool, which
+[`syslog`](https://en.wikipedia.org/wiki/Syslog) unix tool, which
 routes logs based on both severity (info/warn/crit...) and facility
 (auth/cron/kern...).
 
@@ -161,42 +161,41 @@ have two words: "`<facility>.<severity>`".
 The code is almost the same as in the
 [previous tutorial](tutorial-four-python.html).
 
-The code for `emit_log_topic.py`:
+`emit_log_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='topic_logs',
-                         exchange_type='topic')
+channel.exchange_declare(exchange='topic_logs', exchange_type='topic')
 
 routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
-channel.basic_publish(exchange='topic_logs',
-                      routing_key=routing_key,
-                      body=message)
+channel.basic_publish(
+    exchange='topic_logs', routing_key=routing_key, body=message)
 print(" [x] Sent %r:%r" % (routing_key, message))
 connection.close()
 </pre>
 
-The code for `receive_logs_topic.py`:
+`receive_logs_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='topic_logs',
-                         exchange_type='topic')
+channel.exchange_declare(exchange='topic_logs', exchange_type='topic')
 
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 queue_name = result.method.queue
 
 binding_keys = sys.argv[1:]
@@ -205,18 +204,18 @@ if not binding_keys:
     sys.exit(1)
 
 for binding_key in binding_keys:
-    channel.queue_bind(exchange='topic_logs',
-                       queue=queue_name,
-                       routing_key=binding_key)
+    channel.queue_bind(
+        exchange='topic_logs', queue=queue_name, routing_key=binding_key)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
+
 
 def callback(ch, method, properties, body):
     print(" [x] %r:%r" % (method.routing_key, body))
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
+
+channel.basic_consume(
+    queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
 </pre>
@@ -254,8 +253,5 @@ python emit_log_topic.py "kern.critical" "A critical kernel error"
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
-
-(Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
-and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
 Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
