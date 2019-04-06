@@ -102,12 +102,18 @@ for example). As such the runtime has to decide how to bind scheduler binding to
 CPU cores and NUMA nodes.
 
 There are several binding strategies available. Desired strategy can be specified using the
-`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable, which is passed on as the [`-stbt` VM flag](http://erlang.org/doc/man/erl.html)
-value:
+`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable or using the [`+stbt` VM flag](http://erlang.org/doc/man/erl.html)
+value.
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+stbt nnts"
+</pre>
 
 <pre class="lang-bash">
 RABBITMQ_SCHEDULER_BIND_TYPE="nnts"
 </pre>
+
+Note that the strategy will only be effective if the runtime can detect CPU topology in the given environment.
 
 Valid values are:
 
@@ -124,10 +130,10 @@ See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detaile
 
 ### <a id="scheduler-wakeup-threshold" class="anchor" href="#scheduler-wakeup-threshold">Scheduler Wakeup Threshold</a>
 
-It is possible to make schedulers that currently do not have work to do using the `-swt` flag:
+It is possible to make schedulers that currently do not have work to do using the [`+sbwt` flag](http://erlang.org/doc/man/erl.html):
 
 <pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-swt none"
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none"
 </pre>
 
 The value of `none` can reduce CPU usage on systems that have a large number of mostly idle connections.
