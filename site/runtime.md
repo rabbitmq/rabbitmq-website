@@ -196,11 +196,16 @@ inter-node traffic can be very heavy and run into the buffer's capacity. Other w
 default is not a good fit involve transferring very large (say, in hundreds of megabytes) messages
 that do not fit into the buffer.
 
-In this case the value can be increased using the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE` environment variable.
+In this case the value can be increased using the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE` environment variable
+or the [`+zdbbl` VM flag](http://erlang.org/doc/man/erl.html).
 The value is in kilobytes:
 
 <pre class="lang-bash">
 RABBITMQ_DISTRIBUTION_BUFFER_SIZE=192000
+</pre>
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+zdbbl 192000"
 </pre>
 
 When the buffer is hovering around full capacity, nodes will [log](/logging.html) a warning
