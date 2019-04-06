@@ -128,7 +128,7 @@ will use in the following effective allocator settings:
 </pre>
 
 For some workloads a larger preallocated area reduce allocation rate and memory fragmentation.
-To configure the node to use a preallocated area of 1 GB, add `+MMscs 1024` to VM startup arguments
+To configure the node to use a preallocated area of 1 GB, add `+MMscs 4096` to VM startup arguments
 using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`:
 
 <pre class="lang-bash">
@@ -160,8 +160,13 @@ RABBITMQ_DISTRIBUTION_BUFFER_SIZE=192000
 </pre>
 
 When the buffer is hovering around full capacity, nodes will [log](/logging.html) a warning
-mentioning a busy distribution port (`busy_dist_port`). Increasing buffer size may help
-increase thoughput and/or reduce latency.
+mentioning a busy distribution port (`busy_dist_port`):
+
+<pre class="lang-ini">
+2019-04-06 22:48:19.031 [warning] &lt;0.242.0&gt; rabbit_sysmon_handler busy_dist_port &lt;0.1401.0&gt;
+</pre>
+
+Increasing buffer size may help increase thoughput and/or reduce latency.
 
 
 ## <a id="io-threads" class="anchor" href="#io-threads">I/O Thread Pool Size</a>
