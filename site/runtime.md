@@ -94,6 +94,44 @@ latency increase for certain operations.
 This means that in most cases colocating RabbitMQ nodes with other tools or applying CPU time slicing
 is highly discourage and will result in suboptimal performance.
 
+### <a id="scheduler-bind-type" class="anchor" href="#scheduler-bind-type">Scheduler-to-CPU Core Binding</a>
+
+The number of schedulers won't always match the number of CPU cores available and the number
+of CPU cores does not necessarily correlate to the number of hardware threads (due to hyperthreading,
+for example). As such the runtime has to decide how to bind scheduler binding to hardware threads,
+CPU cores and NUMA nodes.
+
+There are several binding strategies available. Desired strategy can be specified using the
+`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable, which is passed on as the [`-stbt` VM flag](http://erlang.org/doc/man/erl.html)
+value:
+
+<pre class="lang-bash">
+RABBITMQ_SCHEDULER_BIND_TYPE="nnts"
+</pre>
+
+Valid values are:
+
+ * `db` (used by default, alias for `tnnps` in current Erlang release series)
+ * `tnnps`
+ * `nnts`
+ * `nnps`
+ * `ts`
+ * `ps`
+ * `s`
+ * `ns`
+
+See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detailed descriptions.
+
+### <a id="scheduler-wakeup-threshold" class="anchor" href="#scheduler-wakeup-threshold">Scheduler Wakeup Threshold</a>
+
+It is possible to make schedulers that currently do not have work to do using the `-swt` flag:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-swt none"
+</pre>
+
+The value of `none` can reduce CPU usage on systems that have a large number of mostly idle connections.
+
 
 ## <a id="allocators" class="anchor" href="#allocators">Memory Allocator Settings</a>
 
