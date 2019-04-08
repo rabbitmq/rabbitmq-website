@@ -204,6 +204,9 @@ limitations under the License.
             <ul class="plain">
               <a href="https://github.com/sozu-proxy/lapin">Lapin</a>, a Rust client
             </ul>
+            <ul class="plain">
+              <a href="https://crates.io/crates/amiquip">amiquip</a>, a RabbitMQ client written in pure Rust
+            </ul>
           </doc:section>
 
           <doc:section name="alt-jvm-dev">
