@@ -94,6 +94,50 @@ latency increase for certain operations.
 This means that in most cases colocating RabbitMQ nodes with other tools or applying CPU time slicing
 is highly discourage and will result in suboptimal performance.
 
+### <a id="scheduler-bind-type" class="anchor" href="#scheduler-bind-type">Scheduler-to-CPU Core Binding</a>
+
+The number of schedulers won't always match the number of CPU cores available and the number
+of CPU cores does not necessarily correlate to the number of hardware threads (due to hyperthreading,
+for example). As such the runtime has to decide how to bind scheduler binding to hardware threads,
+CPU cores and NUMA nodes.
+
+There are several binding strategies available. Desired strategy can be specified using the
+`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable or using the [`+stbt` VM flag](http://erlang.org/doc/man/erl.html)
+value.
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+stbt nnts"
+</pre>
+
+<pre class="lang-bash">
+RABBITMQ_SCHEDULER_BIND_TYPE="nnts"
+</pre>
+
+Note that the strategy will only be effective if the runtime can detect CPU topology in the given environment.
+
+Valid values are:
+
+ * `db` (used by default, alias for `tnnps` in current Erlang release series)
+ * `tnnps`
+ * `nnts`
+ * `nnps`
+ * `ts`
+ * `ps`
+ * `s`
+ * `ns`
+
+See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detailed descriptions.
+
+### <a id="scheduler-wakeup-threshold" class="anchor" href="#scheduler-wakeup-threshold">Scheduler Wakeup Threshold</a>
+
+It is possible to make schedulers that currently do not have work to do using the [`+sbwt` flag](http://erlang.org/doc/man/erl.html):
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none"
+</pre>
+
+The value of `none` can reduce CPU usage on systems that have a large number of mostly idle connections.
+
 
 ## <a id="allocators" class="anchor" href="#allocators">Memory Allocator Settings</a>
 
@@ -128,7 +172,7 @@ will use in the following effective allocator settings:
 </pre>
 
 For some workloads a larger preallocated area reduce allocation rate and memory fragmentation.
-To configure the node to use a preallocated area of 1 GB, add `+MMscs 1024` to VM startup arguments
+To configure the node to use a preallocated area of 1 GB, add `+MMscs 4096` to VM startup arguments
 using `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`:
 
 <pre class="lang-bash">
@@ -152,16 +196,26 @@ inter-node traffic can be very heavy and run into the buffer's capacity. Other w
 default is not a good fit involve transferring very large (say, in hundreds of megabytes) messages
 that do not fit into the buffer.
 
-In this case the value can be increased using the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE` environment variable.
+In this case the value can be increased using the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE` environment variable
+or the [`+zdbbl` VM flag](http://erlang.org/doc/man/erl.html).
 The value is in kilobytes:
 
 <pre class="lang-bash">
 RABBITMQ_DISTRIBUTION_BUFFER_SIZE=192000
 </pre>
 
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+zdbbl 192000"
+</pre>
+
 When the buffer is hovering around full capacity, nodes will [log](/logging.html) a warning
-mentioning a busy distribution port (`busy_dist_port`). Increasing buffer size may help
-increase thoughput and/or reduce latency.
+mentioning a busy distribution port (`busy_dist_port`):
+
+<pre class="lang-ini">
+2019-04-06 22:48:19.031 [warning] &lt;0.242.0&gt; rabbit_sysmon_handler busy_dist_port &lt;0.1401.0&gt;
+</pre>
+
+Increasing buffer size may help increase thoughput and/or reduce latency.
 
 
 ## <a id="io-threads" class="anchor" href="#io-threads">I/O Thread Pool Size</a>

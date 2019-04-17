@@ -21,7 +21,7 @@ limitations under the License.
 
 It is sometimes desirable to let clients handle messages
 that an exchange was unable to route (i.e. either because
-there were no bound queues our no matching
+there were no bound queues or no matching
 bindings). Typical examples of this are
 
  * detecting when clients accidentally or maliciously publish messages that cannot be routed
