@@ -317,7 +317,7 @@ Then packages can be installed just like with the standard Debian repositories:
 
 <pre class="sourcecode ini">
 # or "erlang"
-sudo apt-get install -y erlang-base \
+sudo apt-get install -y erlang-base-hipe \
                         erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
                         erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
                         erlang-runtime-tools erlang-snmp erlang-ssl \
