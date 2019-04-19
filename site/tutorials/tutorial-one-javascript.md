@@ -77,15 +77,15 @@ var amqp = require('amqplib/callback_api');
 then connect to RabbitMQ server
 
 <pre class="lang-javascript">
-amqp.connect('amqp://localhost', function(err, conn) {});
+amqp.connect('amqp://localhost', function(error, connection) {});
 </pre>
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
 <pre class="lang-javascript">
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {});
+amqp.connect('amqp://localhost', function(error, connection) {
+  connection.createChannel(function(err, channel) {});
 });
 </pre>
 
@@ -93,14 +93,15 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 <pre class="lang-javascript">
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'hello';
+amqp.connect('amqp://localhost', function(error, connection) {
+  connection.createChannel(function(err, channel) {
+    var queue = 'hello';
+    var message = 'Hello world';
 
-    ch.assertQueue(q, {durable: false});
+    channel.assertQueue(queue, {durable: false});
     // Note: on Node 6 Buffer.from(msg) should be used
-    ch.sendToQueue(q, new Buffer('Hello World!'));
-    console.log(" [x] Sent 'Hello World!'");
+    ch.sendToQueue(q, Buffer.from(message));
+    console.log(" [x] Sent %s", message);
   });
 });
 </pre>
@@ -112,7 +113,7 @@ whatever you like there.
 Lastly, we close the connection and exit;
 
 <pre class="lang-javascript">
-setTimeout(function() { conn.close(); process.exit(0) }, 500);
+setTimeout(function() { connection.close(); process.exit(0) }, 500);
 </pre>
 
 [Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js).
@@ -152,11 +153,11 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `sendToQueue` publishes to.
 
 <pre class="lang-javascript">
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'hello';
+amqp.connect('amqp://localhost', function(error, connection) {
+  connection.createChannel(function(err, channel) {
+    var queue = 'hello';
 
-    ch.assertQueue(q, {durable: false});
+    channel.assertQueue(queue, {durable: false});
   });
 });
 </pre>
@@ -172,7 +173,7 @@ our consumer. This is what `Channel.consume` does.
 
 <pre class="lang-javascript">
 console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
-ch.consume(q, function(msg) {
+channel.consume(queue, function(msg) {
   console.log(" [x] Received %s", msg.content.toString());
 }, {noAck: true});
 </pre>
