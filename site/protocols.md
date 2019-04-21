@@ -21,7 +21,7 @@ RabbitMQ supports several messaging protocols, directly and through the
 use of plugins. This page describes the supported protocols and
 helps differentiate between them.
 
-## AMQP 0-9-1, 0-9 and 0-8, and extensions
+## <a id="amqp-091" class="anchor" href="#amqp-091">AMQP 0-9-1 and extensions</a>
 
 RabbitMQ was originally developed to [support AMQP 0-9-1](/protocol.html).
 As such this protocol is the "core" protocol supported by
@@ -39,7 +39,7 @@ many different programming languages and environments.
 AMQP 0-9-1 is the protocol used by [RabbitMQ tutorials](/getstarted.html).
 
 
-## STOMP
+## <a id="stomp" class="anchor" href="#stomp">STOMP</a>
 
 [STOMP](http://stomp.github.io/) is a text-based
 messaging protocol emphasising (protocol) simplicity. It
@@ -50,7 +50,8 @@ the only protocol that can be used by hand over telnet).
 RabbitMQ supports STOMP (all current versions) via
 a [plugin](stomp.html).
 
-## MQTT
+
+## <a id="mqtt" class="anchor" href="#mqtt">MQTT</a>
 
 [MQTT](http://mqtt.org/) is a binary protocol
 emphasising lightweight publish / subscribe messaging,
@@ -60,7 +61,8 @@ but not for other messaging idioms.
 
 RabbitMQ supports MQTT 3.1 via a [plugin](mqtt.html).
 
-## AMQP 1.0
+
+## <a id="amqp-10" class="anchor" href="#amqp-10">AMQP 1.0</a>
 
 Despite the name, AMQP 1.0 is a radically different protocol from
 AMQP 0-9-1 / 0-9 / 0-8, sharing essentially nothing at the wire
@@ -71,7 +73,8 @@ and there are fewer client implementations.
 
 RabbitMQ supports AMQP 1.0 via a [plugin](plugins.html).
 
-## HTTP and WebSockets
+
+## <a id="http-and-websockets" class="anchor" href="#http-and-websockets">HTTP and WebSockets</a>
 
 While HTTP is not really a messaging protocol. However,
 RabbitMQ can transmit messages over HTTP in three ways:
