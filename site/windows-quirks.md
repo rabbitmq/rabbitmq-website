@@ -95,3 +95,20 @@ This makes it impossible to use [CLI tools](/cli.html) and cluster nodes.
     to <code>%HOMEDRIVE%%HOMEPATH%</code>.
   </li>
 </ul>
+
+## <a id="computername-vs-hostname" class="anchor" href="#computername-vs-hostname">COMPUTERNAME is different from HOSTNAME</a>
+
+Older versions of RabbitMQ calculated the node name using the `COMPUTERNAME`
+environment variable, which is always upper-case. Later versions of RabbitMQ
+use `HOSTNAME` which may be lowercase. If you are upgrading from an old
+(pre-`3.6.0`) version of RabbitMQ to a current one and see [the issue described
+here](https://github.com/rabbitmq/rabbitmq-server/issues/1568), you should set
+a system-wide environment variable named `RABBITMO_NODENAME` with the following
+value:
+
+```
+rabbit@ALL_CAPS_HOSTNAME
+```
+
+Then, RabbitMQ will continue to use the all-caps hostname and your upgrade will
+succeed.

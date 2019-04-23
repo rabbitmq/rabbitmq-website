@@ -309,15 +309,19 @@ deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 
        After updating the list of <code>apt</code> sources it is necessary to run <code>apt-get update</code>:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 sudo apt-get update -y
 </pre>
 
 Then packages can be installed just like with the standard Debian repositories:
 
-<pre class="sourcecode">
+<pre class="sourcecode ini">
 # or "erlang"
-sudo apt-get install erlang-nox -y
+sudo apt-get install -y erlang-base-hipe \
+                        erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
+                        erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
+                        erlang-runtime-tools erlang-snmp erlang-ssl \
+                        erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
 </pre>
      </doc:subsection>
 

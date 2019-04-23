@@ -376,6 +376,14 @@ The following libraries support host lists:
 * [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs#L376)
 * [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
 
+
+## <a id="windows-upgrade-caveats" class="anchor" href="#windows-upgrade-caveats">Windows</a>
+
+If the value of the environment variable `COMPUTERNAME` does not equal
+`HOSTNAME` (upper vs lower case, or other differences) please see the [Windows
+Quirks guide](/windows-quirks.html#computername-vs-hostname) for instructions
+on how to upgrade RabbitMQ.
+
 ## <a id="recommended-upgrade-steps" class="anchor" href="#recommended-upgrade-steps">Recommended Upgrade Steps</a>
 
 1. Select a version to upgrade to.
