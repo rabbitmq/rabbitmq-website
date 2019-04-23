@@ -1,0 +1,191 @@
+<!--
+Copyright (c) 2007-2019 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+# Credentials and Passwords
+
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+This guide covers a variety of topics related to credentials
+and passwords used by the internal authentication backend. If
+a different authentication backend is used, most
+material in this guide will not be applicable.
+
+RabbitMQ supports multiple [authentication mechanisms](/access-control.html#mechanisms). Some of them use
+username/password pairs. These credential pairs are then handed over to an [authentication backends](/access-control.html#backends)
+that perform authentication. One of the backends, known as internal or built-in, uses internal RabbitMQ data store
+to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
+and hashed.
+
+As of version 3.6.0, RabbitMQ can be configured to use several password hashing functions:
+
+ * SHA-256
+ * SHA-512
+ * MD5 (only for backwards compatibility)
+
+SHA-256 is used by default. More algorithms can be provided by plugins.
+
+## <a id="changing-algorithm" class="anchor" href="#changing-algorithm">Configuring Algorithm to Use</a>
+
+It is possible to change what algorithm is used via [RabbitMQ configuration file](/configure.html#config-file),
+for example, to use SHA-512:
+
+<pre class="sourcecode">
+password_hashing_module = rabbit_password_hashing_sha512
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="lang-erlang">
+[
+  {rabbit, [{password_hashing_module, rabbit_password_hashing_sha512}]}
+].
+</pre>
+
+Out of the box, the following hashing modules are provided:
+
+ * `rabbit_password_hashing_sha256` (default)
+ * `rabbit_password_hashing_sha512`
+ * `rabbit_password_hashing_md5` (for backwards compatibility)
+
+Updated hashing algorithm will be applied to newly created users
+or when password is changed using [rabbitmqctl](/man/rabbitmqctl.8.html).
+
+## <a id="upgrading-to-3-6-x" class="anchor" href="#upgrading-to-3-6-x">Upgrading from pre-3.6.0 to 3.6.1 or Later Versions</a>
+
+When upgrading from a pre-3.6 version to RabbitMQ 3.6.1 or later,
+all existing users are marked as using the legacy password hashing function,
+therefore they will be able to authenticate. No upgrade steps are required.
+
+When importing definitions exported from versions earlier than
+3.6.0 into a 3.6.1 or later release, existing user records will use
+MD5 for password hashing. In order to migrate them to a more secure algorithm,
+use [rabbitmqctl](/man/rabbitmqctl.8.html) to update their passwords.
+
+## <a id="credential-validation" class="anchor" href="#credential-validation">Credential Validation</a>
+
+Starting with version `3.6.7` it is possible to define
+a `credential validator`. It only has effect on the internal
+authentication backend and kicks in when a new user is added or password
+of an existing user is changed.
+
+Validators are modules that implement a validation
+function. To use a validator, it is necessary to specify it
+and its additional settings in the [config file](/configure.html).
+There are three credential validators available out of the box:
+
+ * `rabbit_credential_validator_accept_everything`: unconditionally accepts all values. This validator is used by default for backwards compatibility.
+ * `rabbit_credential_validator_min_password_length`: validates password length
+ * `rabbit_credential_validator_password_regexp`: validates that password matches a regular expression
+
+The following example demonstrates how `rabbit_credential_validator_min_password_length` is used:
+
+<pre class="lang-ini">
+credential_validator.validation_backend = rabbit_credential_validator_min_password_length
+credential_validator.min_length = 30
+</pre>
+
+In the [classic config format](/configure.html) that would be
+
+<pre class="lang-erlang">
+[
+ {rabbit, [
+           {credential_validator, [{validation_backend,
+                                    rabbit_credential_validator_min_password_length},
+                                   {min_length, 30}]}
+          ]}
+].
+</pre>
+
+The following example demonstrates how `rabbit_credential_validator_password_regexp` is used:
+
+<pre class="lang-ini">
+credential_validator.validation_backend = rabbit_credential_validator_password_regexp
+credential_validator.regexp = ^[a-bA-Z0-9$]{20,100}
+</pre>
+
+which becomes
+
+<pre class="lang-erlang">
+[
+ {rabbit, [
+           {credential_validator, [{validation_backend,
+                                    rabbit_credential_validator_password_regexp},
+                                   {regexp, &lt;&lt;"^[a-bA-Z0-9$]{20,100}"&gt;&gt;}]}
+          ]}
+].
+</pre>
+
+in the [classic config format](/configure.html).
+
+### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
+
+Every credential validator is a module that implements a single function
+behaviour, [rabbit_credential_validator](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_credential_validator.erl).
+Plugins therefore can provide more implementations.
+
+Credential validators can also validate usernames or apply any other logic
+(e.g. make sure that provided username and password are not identical).
+
+
+## <a id="passwordless-users" class="anchor" href="#passwordless-users">Passwordless Users</a>
+
+[Internal authentication backend](/access-control.html) allows for users without a password
+or with a blank one (assuming credential validator also allows it). Such users are only mean to be used
+with passwordless [authentication mechanisms](/authentication.html) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+
+In order to create a passwordless user, create one with any password that passes validation and clear
+the password using [rabbitmqctl](/cli.html)'s `clear_password` command:
+
+<pre class="lang-bash">
+rabbitmqctl add_user passwordless-user "pa$$wordless"
+rabbitmqctl clear_password passwordless-user
+# don't forget to grant the user virtual host access permissions using set_permissions
+# ...
+</pre>
+
+Starting with versions `3.6.15` and `3.7.3`, authentication attempts that use a blank password
+will be unconditionally rejected by the [internal authentication backend](/access-control.html) with a distinctive error
+message in the [server log](/logging.html). Connections that authenticate using x509 certificates or use an external service
+for authentication (e.g. [LDAP](/ldap.html)) can use blank passwords.
+
+
+## <a id="x509-certificate-authentication" class="anchor" href="#x509-certificate-authentication">Authentication Using TLS (x509) Certificates</a>
+
+It is possible to [authenticate connections using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl) and avoid
+using passwords entirely. The authentication process then will rely on TLS [peer certificate chain validation](https://tools.ietf.org/html/rfc5280#section-6).
+
+To do so:
+
+ * Create a passwordless user (see above)
+ * Enable the [rabbitmq-auth-mechanism-ssl](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl) plugin
+ * Follow the plugin's configuration instructions
+ * Configure client connections to use TLS and the `EXTERNAL` authentication mechanism
+ * Configure client connections to provide a certificate/key pair and a CA certificate (or chain of certificates).
+   The chain of certificates will be verified by the server and thus at least one certificate in it must be trusted by the target node.
+
+
+## <a id="computing-password-hash" class="anchor" href="#computing-password-hash">Computing Password Hashes</a>
+
+In order to update a user's password hash via the [HTTP API](/management.html),
+the password hash must be generated using the following algorithm:
+
+ * Generate a random 32 bit salt: `908D C60A`
+ * Concatenate that with the UTF-8 representation of the password (in this case `test12`): `908D C60A 7465 7374 3132`
+ * Take the SHA-256 hash (assuming the hashing function wasn't modified): `A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
+ * Concatenate the salt again: `908D C60A A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
+ * Convert to base64 encoding: `kI3GCqW5JLMJa4iX1lo7X4D6XbYqlLgxIs30+P6tENUV2POR`
+ * Use the base64-encoded value as the `password_hash` value in the request JSON.
