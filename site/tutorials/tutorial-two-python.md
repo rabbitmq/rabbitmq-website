@@ -204,9 +204,9 @@ from the worker, once we're done with a task.
 
 <pre class="lang-python">
 def callback(ch, method, properties, body):
-    print " [x] Received %r" % (body,)
+    print(" [x] Received %r" % body)
     time.sleep( body.count('.') )
-    print " [x] Done"
+    print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_consume(queue='hello', on_message_callback=callback)
