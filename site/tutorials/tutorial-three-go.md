@@ -248,7 +248,7 @@ err = ch.QueueBind(
   "",     // routing key
   "logs", // exchange
   false,
-  nil
+  nil,
 )
 </pre>
 
