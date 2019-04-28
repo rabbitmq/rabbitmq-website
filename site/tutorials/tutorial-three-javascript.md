@@ -121,7 +121,7 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 > <pre class="lang-javascript">
-> ch.sendToQueue('hello', new Buffer('Hello World!'));
+> channel.sendToQueue('hello', Buffer.from('Hello World!'));
 > </pre>
 >
 > Here we use the default or _nameless_ exchange: messages are
@@ -130,7 +130,7 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
 <pre class="lang-javascript">
-ch.publish('logs', '', new Buffer('Hello World!'));
+channel.publish('logs', '', Buffer.from('Hello World!'));
 </pre>
 
 The empty string as second parameter means that we don't want to send 
@@ -162,7 +162,9 @@ In the [amqp.node](http://www.squaremobius.net/amqp.node/) client, when we suppl
 as an empty string, we create a non-durable queue with a generated name:
 
 <pre class="lang-javascript">
-ch.assertQueue('', {exclusive: true});
+channel.assertQueue('', {
+  exclusive: true
+});
 </pre>
 
 When the method returns, the queue instance contains a random queue name
@@ -264,17 +266,28 @@ value is ignored for `fanout` exchanges. Here goes the code for
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var ex = 'logs';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var exchange = 'logs';
     var msg = process.argv.slice(2).join(' ') || 'Hello World!';
 
-    ch.assertExchange(ex, 'fanout', {durable: false});
-    ch.publish(ex, '', new Buffer(msg));
+    channel.assertExchange(exchange, 'fanout', {
+      durable: false
+    });
+    channel.publish(exchange, '', Buffer.from(msg));
     console.log(" [x] Sent %s", msg);
   });
 
-  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+  setTimeout(function() { 
+    conn.close(); 
+    process.exit(0); 
+  }, 500);
 });
 </pre>
 
@@ -294,21 +307,36 @@ The code for `receive_logs.js`:
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var ex = 'logs';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var exchange = 'logs';
 
-    ch.assertExchange(ex, 'fanout', {durable: false});
+    channel.assertExchange(exchange, 'fanout', {
+      durable: false
+    });
 
-    ch.assertQueue('', {exclusive: true}, function(err, q) {
+    channel.assertQueue('', {
+      exclusive: true
+    }, function(error2, q) {
+      if (error2) {
+        throw error2;
+      }
       console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
       ch.bindQueue(q.queue, ex, '');
 
-      ch.consume(q.queue, function(msg) {
+      channel.consume(q.queue, function(msg) {
       	if(msg.content) {
-	    console.log(" [x] %s", msg.content.toString());
-	}
-      }, {noAck: true});
+	        console.log(" [x] %s", msg.content.toString());
+	      }
+      }, {
+        noAck: true
+      });
     });
   });
 });

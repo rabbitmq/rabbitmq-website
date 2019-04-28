@@ -39,7 +39,7 @@ In previous examples we were already creating bindings. You may recall
 code like:
 
 <pre class="lang-javascript">
-ch.bindQueue(q.queue, ex, '');
+channel.bindQueue(q.queue, exchange, '');
 </pre>
 
 A binding is a relationship between an exchange and a queue. This can
@@ -50,7 +50,7 @@ Bindings can take an extra binding key parameter (the empty string in the code a
 This is how we could create a binding with a key:
 
 <pre class="lang-javascript">
-ch.bindQueue(queue_name, exchange_name, 'black');
+channel.bindQueue(queue_name, exchange_name, 'black');
 </pre>
 
 The meaning of a binding key depends on the exchange type. The
@@ -182,18 +182,22 @@ first.
 As always, we need to create an exchange first:
 
 <pre class="lang-javascript">
-var ex = 'direct_logs';
+var exchange = 'direct_logs';
 
-ch.assertExchange(ex, 'direct', {durable: false});
+channel.assertExchange(exchange, 'direct', {
+  durable: false
+});
 </pre>
 
 And we're ready to send a message:
 
 <pre class="lang-javascript">
-var ex = 'direct_logs';
+var exchange = 'direct_logs';
 
-ch.assertExchange(ex, 'direct', {durable: false});
-ch.publish(ex, severity, new Buffer(msg));
+channel.assertExchange(exchange, 'direct', {
+  durable: false
+});
+channel.publish(exchange, severity, Buffer.from(msg));
 </pre>
 
 To simplify things we will assume that 'severity' can be one of
@@ -209,7 +213,7 @@ we're interested in.
 
 <pre class="lang-javascript">
 args.forEach(function(severity) {
-  ch.bindQueue(q.queue, ex, severity);
+  channel.bindQueue(q.queue, exchange, severity);
 });
 </pre>
 
@@ -265,19 +269,30 @@ The code for `emit_log_direct.js` script:
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var ex = 'direct_logs';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var exchange = 'direct_logs';
     var args = process.argv.slice(2);
     var msg = args.slice(1).join(' ') || 'Hello World!';
     var severity = (args.length > 0) ? args[0] : 'info';
 
-    ch.assertExchange(ex, 'direct', {durable: false});
-    ch.publish(ex, severity, new Buffer(msg));
+    channel.assertExchange(exchange, 'direct', {
+      durable: false
+    });
+    channel.publish(exchange, severity, Buffer.from(msg));
     console.log(" [x] Sent %s: '%s'", severity, msg);
   });
 
-  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+  setTimeout(function() { 
+    conn.close(); 
+    process.exit(0) 
+  }, 500);
 });
 </pre>
 
@@ -295,22 +310,37 @@ if (args.length == 0) {
   process.exit(1);
 }
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var ex = 'direct_logs';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var exchange = 'direct_logs';
 
-    ch.assertExchange(ex, 'direct', {durable: false});
+    channel.assertExchange(exchange, 'direct', {
+      durable: false
+    });
 
-    ch.assertQueue('', {exclusive: true}, function(err, q) {
+    channel.assertQueue('', {
+      exclusive: true
+      }, function(error2, q) {
+        if (error2) {
+          throw error2;
+        }
       console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
       args.forEach(function(severity) {
-        ch.bindQueue(q.queue, ex, severity);
+        channel.bindQueue(q.queue, exchange, severity);
       });
 
-      ch.consume(q.queue, function(msg) {
+      channel.consume(q.queue, function(msg) {
         console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-      }, {noAck: true});
+      }, {
+        noAck: true
+      });
     });
   });
 });
