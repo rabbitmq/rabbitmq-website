@@ -248,7 +248,7 @@ err = ch.QueueBind(
   "",     // routing key
   "logs", // exchange
   false,
-  nil
+  nil,
 )
 </pre>
 
@@ -431,7 +431,8 @@ func main() {
                 "",     // routing key
                 "logs", // exchange
                 false,
-                nil)
+                nil,
+        )
         failOnError(err, "Failed to bind a queue")
 
         msgs, err := ch.Consume(
