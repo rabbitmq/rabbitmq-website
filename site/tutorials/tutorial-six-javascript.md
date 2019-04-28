@@ -64,9 +64,13 @@ request. We can use the default exchange.
 Let's try it:
 
 <pre class="lang-javascript">
-ch.assertQueue('', {exclusive: true});
+channel.assertQueue('', {
+  exclusive: true
+});
 
-ch.sendToQueue('rpc_queue',new Buffer('10'), { replyTo: queue_name });
+channel.sendToQueue('rpc_queue', Buffer.from('10'), {
+   replyTo: queue_name 
+});
 
 # ... then code to read a response message from the callback queue ...
 </pre>
@@ -212,25 +216,34 @@ The code for our RPC server [rpc_server.js](https://github.com/rabbitmq/rabbitmq
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'rpc_queue';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var queue = 'rpc_queue';
 
-    ch.assertQueue(q, {durable: false});
-    ch.prefetch(1);
+    channel.assertQueue(queue, {
+      durable: false
+    });
+    channel.prefetch(1);
     console.log(' [x] Awaiting RPC requests');
-    ch.consume(q, function reply(msg) {
+    channel.consume(queue, function reply(msg) {
       var n = parseInt(msg.content.toString());
 
       console.log(" [.] fib(%d)", n);
 
       var r = fibonacci(n);
 
-      ch.sendToQueue(msg.properties.replyTo,
-        new Buffer(r.toString()),
-        {correlationId: msg.properties.correlationId});
+      channel.sendToQueue(msg.properties.replyTo,
+        Buffer.from(r.toString()), {
+          correlationId: msg.properties.correlationId
+        });
 
-      ch.ack(msg);
+      channel.ack(msg);
     });
   });
 });
@@ -268,24 +281,41 @@ if (args.length == 0) {
   process.exit(1);
 }
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    ch.assertQueue('', {exclusive: true}, function(err, q) {
-      var corr = generateUuid();
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    channel.assertQueue('', {
+      exclusive: true
+    }, function(error2, q) {
+      if (error2) {
+        throw error2;
+      }
+      var correlationId = generateUuid();
       var num = parseInt(args[0]);
 
       console.log(' [x] Requesting fib(%d)', num);
 
-      ch.consume(q.queue, function(msg) {
-        if (msg.properties.correlationId == corr) {
+      channel.consume(q.queue, function(msg) {
+        if (msg.properties.correlationId == correlationId) {
           console.log(' [.] Got %s', msg.content.toString());
-          setTimeout(function() { conn.close(); process.exit(0) }, 500);
+          setTimeout(function() { 
+            conn.close(); 
+            process.exit(0) 
+          }, 500);
         }
-      }, {noAck: true});
+      }, {
+        noAck: true
+      });
 
       ch.sendToQueue('rpc_queue',
-      new Buffer(num.toString()),
-      { correlationId: corr, replyTo: q.queue });
+        Buffer.from(num.toString()),{ 
+          correlationId: correrlationId, 
+          replyTo: q.queue });
     });
   });
 });
