@@ -238,6 +238,10 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             The name of the upstream queue. Default is to use the same
             name as the federated queue.
           </dd>
+          <dt><code>consumer-tag</code></dt>
+          <dd>
+            The consumer tag to use when consuming from upstream. Optional.
+          </dd>
         </dl>
       </doc:subsection>
 
