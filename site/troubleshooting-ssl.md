@@ -251,14 +251,18 @@ It will start an OpenSSL <code>s_server</code> with that uses the provided
 CA certificate bundler, server certificate and private key. It will be used
 to sanity check the certificates with test TLS connections against this example server.
 
-In another terminal window, run
+In another terminal window, run the following command, substituting <code>CN_NAME</code>
+with the expected hostname or <code>CN</code> name from the certificate:
 
 <pre class="lang-bash">
 openssl s_client -connect localhost:8443 \
-  -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem
+  -cert client_certificate.pem -key client_key.pem -CAfile ca_certificate.pem \
+  -verify 8 -verify_hostname CN_NAME
 </pre>
 
-It will open a new TLS connection to the example TLS server started above.
+It will open a new TLS connection to the example TLS server started above. You may leave
+off the <code>-verify_hostname</code> argument but OpenSSL will no longer perform that
+verification.
 
 If the certificates and keys have been correctly created, an TLS connection output
 will appear in both tabs. There is now a connection between the example client and the example
