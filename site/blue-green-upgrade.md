@@ -33,14 +33,14 @@ no consumers in "blue" (local consumers take precedence).
 Here is an example to federate all queues. In this example, the "blue" cluster
 is the upstream and the "green" one is the downstream.
 
-1. Define the upstream on "green" and point it to "blue":
+First define the upstream on "green" and point it to "blue":
 
 <pre class="lang-bash">
 rabbitmqctl set_parameter federation-upstream blue \
   '{"uri":"amqp://node-in-blue-cluster"}'
 </pre>
 
-2. Define a policy matching all queues which configure `blue` as the upstream:
+Then define a policy matching all queues which configure `blue` as the upstream:
 
 <pre class="lang-bash">
 rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
