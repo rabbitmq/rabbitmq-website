@@ -155,32 +155,37 @@ vm_memory_calculation_strategy = allocated
         <doc:heading>Producing Memory Use Breakdown Using rabbitmqctl</doc:heading>
 
         <p>
-          A common way of producing memory breakdown is via <code>rabbitmqctl status</code>:
+          A common way of producing memory breakdown is via <code>rabbitmq-diagnostics memory_breakdown</code>
+          or <code>rabbitmqctl status</code>:
         </p>
 
         <p>
-          <pre class="lang-erlang">
-{memory,
-    [{connection_readers,70896},
-     {connection_writers,166752},
-     {connection_channels,1239768},
-     {connection_other,233336},
-     {queue_procs,2941784},
-     {queue_slave_procs,0},
-     {plugins,4633344},
-     {other_proc,21878696},
-     {metrics,215544},
-     {mgmt_db,1244248},
-     {mnesia,79296},
-     {other_ets,2299848},
-     {binary,4660864},
-     {msg_index,47880},
-     {code,25423126},
-     {atom,1041593},
-     {other_system,22215713},
-     {allocated_unused,28552208},
-     {reserved_unallocated,0},
-     {total,90398720}]}
+<pre class="lang-ini">
+Memory
+
+Calculation strategy: rss
+Memory high watermark setting: 0.4 of available memory, computed to: 6871.9477 mb
+binary: 54.2347 mb (29.21 %)
+quorum_ets: 29.7413 mb (16.02 %)
+code: 24.8488 mb (13.38 %)
+other_system: 23.7576 mb (12.8 %)
+allocated_unused: 21.9908 mb (11.84 %)
+other_proc: 21.6501 mb (11.66 %)
+other_ets: 3.6976 mb (1.99 %)
+plugins: 2.8257 mb (1.52 %)
+atom: 1.2218 mb (0.66 %)
+mgmt_db: 0.4954 mb (0.27 %)
+connection_other: 0.3761 mb (0.2 %)
+metrics: 0.2323 mb (0.13 %)
+connection_channels: 0.149 mb (0.08 %)
+connection_readers: 0.1106 mb (0.06 %)
+quorum_queue_procs: 0.1098 mb (0.06 %)
+mnesia: 0.0809 mb (0.04 %)
+connection_writers: 0.0634 mb (0.03 %)
+queue_procs: 0.0367 mb (0.02 %)
+msg_index: 0.0327 mb (0.02 %)
+queue_slave_procs: 0.0 mb (0.0 %)
+reserved_unallocated: 0.0 mb (0.0 %)
 </pre>
         </p>
 
@@ -256,6 +261,17 @@ vm_memory_calculation_strategy = allocated
             </tr>
 
             <tr>
+              <td>quorum_queue_procs</td>
+              <td>Queues</td>
+              <td>
+                Quorum queue indices, <a href="http://github.com/rabbitmq/ra">Ra</a> state and messages kept in memory. The greater the number of messages enqueued,
+                the more memory will generally be attributed to this section.
+                See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/quorum-queues.html">Quorum Queues</a> guides
+                for more information.
+              </td>
+            </tr>
+
+            <tr>
               <td>metrics</td>
               <td><a href="/management.html">Stats DB</a></td>
               <td>
@@ -304,6 +320,12 @@ vm_memory_calculation_strategy = allocated
               <td>mnesia</td>
               <td>Internal Database</td>
               <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+            </tr>
+
+            <tr>
+              <td>quorum_ets</td>
+              <td>Internal Database</td>
+              <td>Quorum queues use ETS tables to store a subset of log entries.</td>
             </tr>
 
             <tr>
@@ -380,29 +402,37 @@ vm_memory_calculation_strategy = allocated
 <pre class="lang-json">
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
   python -m json.tool
-
 {
     "memory": {
-        "atom": 1041593,
-        "binary": 5133776,
-        "code": 25299059,
-        "connection_channels": 1823320,
-        "connection_other": 150168,
-        "connection_readers": 83760,
-        "connection_writers": 113112,
-        "metrics": 217816,
-        "mgmt_db": 266560,
-        "mnesia": 93344,
-        "msg_index": 48880,
-        "other_ets": 2294184,
-        "other_proc": 27131728,
-        "other_system": 21496756,
-        "plugins": 3103424,
-        "queue_procs": 2957624,
+        "allocated_unused": 38600520,
+        "atom": 1221849,
+        "binary": 40118328,
+        "code": 24848804,
+        "connection_channels": 161816,
+        "connection_other": 279052,
+        "connection_readers": 88048,
+        "connection_writers": 41416,
+        "metrics": 232292,
+        "mgmt_db": 407376,
+        "mnesia": 80928,
+        "msg_index": 32656,
+        "other_ets": 3210096,
+        "other_proc": 24078280,
+        "other_system": 23763107,
+        "plugins": 1827144,
+        "queue_procs": 36692,
         "queue_slave_procs": 0,
-        "total": 89870336
+        "quorum_ets": 380488,
+        "quorum_queue_procs": 109828,
+        "reserved_unallocated": 0,
+        "strategy": "rss",
+        "total": {
+             "allocated": 159518720,
+             "erlang": 120918200,
+             "rss": 151564288
+        }
     }
-}
+ }
 </pre>
         </p>
 
@@ -419,30 +449,31 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory |
 curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/relative |
   python -m json.tool
 
-{
-    "memory": {
-        "allocated_unused": 32,
-        "atom": 1,
-        "binary": 5,
-        "code": 22,
-        "connection_channels": 2,
-        "connection_other": 1,
-        "connection_readers": 1,
-        "connection_writers": 1,
-        "metrics": 1,
-        "mgmt_db": 1,
-        "mnesia": 1,
-        "msg_index": 1,
-        "other_ets": 2,
-        "other_proc": 21,
-        "other_system": 19,
-        "plugins": 3,
-        "queue_procs": 4,
-        "queue_slave_procs": 0,
-        "reserved_unallocated": 0,
-        "total": 100
-    }
-}
+  {
+  "memory": {
+      "allocated_unused": 10,
+      "atom": 1,
+      "binary": 31,
+      "code": 15,
+      "connection_channels": 1,
+      "connection_other": 1,
+      "connection_readers": 1,
+      "connection_writers": 1,
+      "metrics": 1,
+      "mgmt_db": 1,
+      "mnesia": 1,
+      "msg_index": 1,
+      "other_ets": 2,
+      "other_proc": 13,
+      "other_system": 14,
+      "plugins": 2,
+      "queue_procs": 1,
+      "queue_slave_procs": 0,
+      "quorum_ets": 15,
+      "quorum_queue_procs": 1,
+      "reserved_unallocated": 0,
+      "total": 100
+  }
 </pre>
         </p>
       </doc:subsection>
