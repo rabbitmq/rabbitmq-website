@@ -155,36 +155,37 @@ vm_memory_calculation_strategy = allocated
         <doc:heading>Producing Memory Use Breakdown Using rabbitmqctl</doc:heading>
 
         <p>
-          A common way of producing memory breakdown is via <code>rabbitmqctl status</code>:
+          A common way of producing memory breakdown is via <code>rabbitmq-diagnostics memory_breakdown</code>
+          or <code>rabbitmqctl status</code>:
         </p>
 
         <p>
-          <pre class="lang-erlang">
-  Memory
+<pre class="lang-ini">
+Memory
 
-  Calculation strategy: rss
-  Memory high watermark setting: 0.4 of available memory, computed to: 6871.9477 mb
-  binary: 54.2347 mb (29.21 %)
-  quorum_ets: 29.7413 mb (16.02 %)
-  code: 24.8488 mb (13.38 %)
-  other_system: 23.7576 mb (12.8 %)
-  allocated_unused: 21.9908 mb (11.84 %)
-  other_proc: 21.6501 mb (11.66 %)
-  other_ets: 3.6976 mb (1.99 %)
-  plugins: 2.8257 mb (1.52 %)
-  atom: 1.2218 mb (0.66 %)
-  mgmt_db: 0.4954 mb (0.27 %)
-  connection_other: 0.3761 mb (0.2 %)
-  metrics: 0.2323 mb (0.13 %)
-  connection_channels: 0.149 mb (0.08 %)
-  connection_readers: 0.1106 mb (0.06 %)
-  quorum_queue_procs: 0.1098 mb (0.06 %)
-  mnesia: 0.0809 mb (0.04 %)
-  connection_writers: 0.0634 mb (0.03 %)
-  queue_procs: 0.0367 mb (0.02 %)
-  msg_index: 0.0327 mb (0.02 %)
-  queue_slave_procs: 0.0 mb (0.0 %)
-  reserved_unallocated: 0.0 mb (0.0 %)
+Calculation strategy: rss
+Memory high watermark setting: 0.4 of available memory, computed to: 6871.9477 mb
+binary: 54.2347 mb (29.21 %)
+quorum_ets: 29.7413 mb (16.02 %)
+code: 24.8488 mb (13.38 %)
+other_system: 23.7576 mb (12.8 %)
+allocated_unused: 21.9908 mb (11.84 %)
+other_proc: 21.6501 mb (11.66 %)
+other_ets: 3.6976 mb (1.99 %)
+plugins: 2.8257 mb (1.52 %)
+atom: 1.2218 mb (0.66 %)
+mgmt_db: 0.4954 mb (0.27 %)
+connection_other: 0.3761 mb (0.2 %)
+metrics: 0.2323 mb (0.13 %)
+connection_channels: 0.149 mb (0.08 %)
+connection_readers: 0.1106 mb (0.06 %)
+quorum_queue_procs: 0.1098 mb (0.06 %)
+mnesia: 0.0809 mb (0.04 %)
+connection_writers: 0.0634 mb (0.03 %)
+queue_procs: 0.0367 mb (0.02 %)
+msg_index: 0.0327 mb (0.02 %)
+queue_slave_procs: 0.0 mb (0.0 %)
+reserved_unallocated: 0.0 mb (0.0 %)
 </pre>
         </p>
 
@@ -263,7 +264,7 @@ vm_memory_calculation_strategy = allocated
               <td>quorum_queue_procs</td>
               <td>Queues</td>
               <td>
-                Queue indices, Ra state and messages kept in memory. The greater the number of messages enqueued,
+                Quorum queue indices, [Ra](http://github.com/rabbitmq/ra) state and messages kept in memory. The greater the number of messages enqueued,
                 the more memory will generally be attributed to this section.
                 See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/quorum-queues.html">Quorum Queues</a> guides
                 for more information.
@@ -324,7 +325,7 @@ vm_memory_calculation_strategy = allocated
             <tr>
               <td>quorum_ets</td>
               <td>Internal Database</td>
-              <td>Quorum queues use ETS tables to store log entries.</td>
+              <td>Quorum queues use ETS tables to store a subset of log entries.</td>
             </tr>
 
             <tr>
