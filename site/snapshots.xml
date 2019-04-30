@@ -102,21 +102,21 @@ limitations under the License.
         <dd>Gives access to all snapshots we produce, not only the RabbitMQ server.</dd>
         <dt><tt>rabbitmq</tt></dt>
         <dd>Gives access to all snapshots of the RabbitMQ server, no matter the branch.</dd>
-        <dt><tt>rabbitmq-v3.6.x</tt></dt>
-        <dd>Gives access to snapshots of the 3.6.x line of the RabbitMQ server.</dd>
         <dt><tt>rabbitmq-v3.7.x</tt></dt>
         <dd>Gives access to snapshots of the 3.7.x line of the RabbitMQ server.</dd>
+        <dt><tt>rabbitmq-v3.8.x</tt></dt>
+        <dd>Gives access to snapshots of the 3.8.x line of the RabbitMQ server.</dd>
       </dl>
       <ul class="plain">
         <li><a href="https://bintray.com/rabbitmq/debian-dev/rabbitmq-server">Bintray webpage</a></li>
         <li><a href="https://dl.bintray.com/rabbitmq/debian-dev/">Bintray repository</a></li>
       </ul>
       <p>
-        For instance, if you want to use RabbitMQ 3.6.x snapshots on a Debian Wheezy:
+        For instance, if you want to use RabbitMQ 3.8.x snapshots on a Debian Stretch:
         <pre class="lang-sh">
 wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add -
 cat >/etc/apt/sources.list.d/rabbitmq-dev.list &lt;&lt;EOF
-deb http://dl.bintray.com/rabbitmq/debian-dev wheezy rabbitmq-server-v3.6.x
+deb http://dl.bintray.com/rabbitmq/debian-dev stretch rabbitmq-server-v3.8.x
 EOF
 apt-get update
 apt-get install rabbitmq-server</pre>
@@ -134,12 +134,12 @@ apt-get install rabbitmq-server</pre>
         <li><a href="https://dl.bintray.com/rabbitmq/rpm-dev/rabbitmq-server/">Bintray repository</a></li>
       </ul>
       <p>
-        For instance, if you want to use RabbitMQ 3.6.x snapshots on a CentOS 7:
+        For instance, if you want to use RabbitMQ 3.8.x snapshots on a CentOS 7:
         <pre class="lang-sh">
 cat >/etc/yum.repos.d/rabbitmq-dev.repo &lt;&lt;EOF
 [rabbitmq-dev]
 name=rabbitmq-dev
-baseurl=https://dl.bintray.com/rabbitmq/rpm-dev/rabbitmq-server/v3.6.x/el/7
+baseurl=https://dl.bintray.com/rabbitmq/rpm-dev/rabbitmq-server/v3.8.x/el/7
 gpgcheck=1
 gpgkey=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 repo_gpgcheck=0
@@ -159,8 +159,8 @@ yum install rabbitmq-server</pre>
 
         <ul>
           <li>Server log file(s)</li>
-          <li>A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations</li>          
-          <li><code>rabbitmqctl environment</code> output</li>          
+          <li>A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations</li>
+          <li><code>rabbitmqctl environment</code> output</li>
           <li><code>rabbitmqctl status</code> output</li>
           <li>OS and distribution version</li>
           <li>Erlang version used</li>
