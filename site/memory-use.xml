@@ -264,7 +264,7 @@ reserved_unallocated: 0.0 mb (0.0 %)
               <td>quorum_queue_procs</td>
               <td>Queues</td>
               <td>
-                Quorum queue indices, [Ra](http://github.com/rabbitmq/ra) state and messages kept in memory. The greater the number of messages enqueued,
+                Quorum queue indices, <a href="http://github.com/rabbitmq/ra">Ra</a> state and messages kept in memory. The greater the number of messages enqueued,
                 the more memory will generally be attributed to this section.
                 See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/quorum-queues.html">Quorum Queues</a> guides
                 for more information.
