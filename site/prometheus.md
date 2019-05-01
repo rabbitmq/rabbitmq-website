@@ -179,10 +179,11 @@ curl --verbose http://localhost:15672/api/metrics
 If the response is similar to that in the example above, the node is exposing metrics in a way that
 Prometheus can consume and store.
 
-If you get a HTTP 404 error message, the management plugin may have
-been configured to use a custom [path prefix](https://www.rabbitmq.com/management.html#path-prefix).
-For example, if the path prefix is set to `mgmt`, the metrics will be available via
-[http://localhost:15672/mgmt/api/metrics](http://localhost:15672/mgmt/api/metrics).
+If HTTP API has been configured to use a custom [path prefix](/management.html#path-prefix),
+it has to be included into the metrics endpoint path.
+
+For example, if the path prefix is set to `mgmt`, the metrics would be available at
+`http://{hostname}:15672/mgmt/api/metrics`.
 
 
 ## <a id="store-metrics-in-prometheus" class="anchor" href="#store-metrics-in-prometheus">Storing Metrics in Prometheus</a>
