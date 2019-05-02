@@ -891,7 +891,7 @@ rabbitmqctl start_app
 
           <p>
             Resetting a node will delete all of its data, cluster membership information, configured <a href="/parameters.html">runtime parameters</a>,
-            users, virtual hosts and any other node data. It will also permanently remove a node from its cluster.
+            users, virtual hosts and any other node data. It will also permanently remove the node from its cluster.
           </p>
 
           <p>
