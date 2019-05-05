@@ -686,7 +686,13 @@ Note that this list is by no means complete.
       </td>
     </tr>
     <tr>
-      <td>`collectd`</td>
+      <td>AWS CloudWatch</td>
+      <td>
+        <a href="https://github.com/noxdafox/rabbitmq-cloudwatch-exporter">GitHub</a>
+      </td>
+    </tr>
+    <tr>
+      <td>collectd</td>
       <td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td>
     </tr>
     <tr>
