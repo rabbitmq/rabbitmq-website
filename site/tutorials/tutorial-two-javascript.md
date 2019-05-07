@@ -219,13 +219,13 @@ options altogether) option and send a proper acknowledgment from the worker,
 once we're done with a task.
 
 <pre class="lang-javascript">
-ch.consume(q, function(msg) {
+channel.consume(queue, function(msg) {
   var secs = msg.content.toString().split('.').length - 1;
 
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
     console.log(" [x] Done");
-    ch.ack(msg);
+    channel.ack(msg);
   }, secs * 1000);
 }, {noAck: false});
 </pre>
@@ -275,7 +275,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
 <pre class="lang-javascript">
-ch.assertQueue('hello', {durable: true});
+channel.assertQueue('hello', {durable: true});
 </pre>
 
 Although this command is correct by itself, it won't work in our present
@@ -286,7 +286,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 <pre class="lang-javascript">
-ch.assertQueue('task_queue', {durable: true});
+channel.assertQueue('task_queue', {durable: true});
 </pre>
 
 This `durable` option change needs to be applied to both the producer
@@ -297,7 +297,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option `Channel.sendToQueue` takes.
 
 <pre class="lang-javascript">
-ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+channel.sendToQueue(q, Buffer.from(msg), {persistent: true});
 </pre>
 
 > #### Note on message persistence
@@ -359,7 +359,7 @@ a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
 <pre class="lang-javascript">
-ch.prefetch(1);
+channel.prefetch(1);
 </pre>
 
 > #### Note about queue size

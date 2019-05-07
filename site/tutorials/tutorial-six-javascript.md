@@ -304,7 +304,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         if (msg.properties.correlationId == correlationId) {
           console.log(' [.] Got %s', msg.content.toString());
           setTimeout(function() { 
-            conn.close(); 
+            connection.close(); 
             process.exit(0) 
           }, 500);
         }

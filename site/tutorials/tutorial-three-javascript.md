@@ -205,7 +205,7 @@ tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
 <pre class="lang-javascript">
-ch.bindQueue(queue_name, 'logs', '');
+channel.bindQueue(queue_name, 'logs', '');
 </pre>
 
 From now on the `logs` exchange will append messages to our queue.
@@ -285,7 +285,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
   });
 
   setTimeout(function() { 
-    conn.close(); 
+    connection.close(); 
     process.exit(0); 
   }, 500);
 });
