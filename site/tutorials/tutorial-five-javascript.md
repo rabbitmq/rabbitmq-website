@@ -182,7 +182,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
   });
 
   setTimeout(function() { 
-    conn.close(); 
+    connection.close(); 
     process.exit(0) 
   }, 500);
 });
