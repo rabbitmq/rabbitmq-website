@@ -478,8 +478,9 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
           not push any more deliveries on <code>Ch</code> unless at
           least one of the outstanding deliveries is acknowledged.
           When an acknowledgement frame arrives on that channel with
-          <code>delivery_tag</code> set to <code>5</code>, RabbitMQ
-          will notice and deliver one more message.
+          <code>delivery_tag</code> set to <code>5</code> (or <code>6</code>, <code>7</code>, or <code>8</code>),
+          RabbitMQ will notice and deliver one more message. Acknowledging <a href="#consumer-acks-multiple-parameter">multiple messages at once</a>
+          will make more than one message avaialble for delivery.
         </p>
         <p>
           It's worth reiterating that the flow of deliveries and
