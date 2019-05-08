@@ -229,7 +229,6 @@ The code for our RPC server [rpc_server.go](https://github.com/rabbitmq/rabbitmq
 package main
 
 import (
-        "fmt"
         "log"
         "strconv"
 
@@ -337,7 +336,6 @@ The code for our RPC client [rpc_client.go](https://github.com/rabbitmq/rabbitmq
 package main
 
 import (
-        "fmt"
         "log"
         "math/rand"
         "os"

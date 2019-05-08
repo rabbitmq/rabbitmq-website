@@ -318,7 +318,6 @@ The code for `emit_log_direct.go` script:
 package main
 
 import (
-        "fmt"
         "log"
         "os"
         "strings"
@@ -394,7 +393,6 @@ The code for `receive_logs_direct.go`:
 package main
 
 import (
-        "fmt"
         "log"
         "os"
 
