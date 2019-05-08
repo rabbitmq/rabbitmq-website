@@ -309,7 +309,6 @@ value is ignored for `fanout` exchanges. Here goes the code for
 package main
 
 import (
-        "fmt"
         "log"
         "os"
         "strings"
@@ -384,7 +383,6 @@ The code for `receive_logs.go`:
 package main
 
 import (
-        "fmt"
         "log"
 
         "github.com/streadway/amqp"
