@@ -405,14 +405,12 @@ The client code is slightly more involved:
     we can receive RPC responses.
   * Our `Call` method makes the actual RPC request.
   * Here, we first generate a unique `CorrelationId`
-    number and save it - the while loop will
-    use this value to catch the appropriate response.
+    number and save it to identify the appropriate response when it arrives.
   * Next, we publish the request message, with two properties:
     `ReplyTo` and `CorrelationId`.
   * At this point we can sit back and wait until the proper
     response arrives.
-  * The while loop is doing a very simple job,
-    for every response message it checks if the `CorrelationId`
+  * For every response message the client checks if the `CorrelationId`
     is the one we're looking for. If so, it saves the response.
   * Finally we return the response back to the user.
 

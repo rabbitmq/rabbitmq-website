@@ -1214,6 +1214,43 @@ cluster_formation.node_cleanup.only_log_warning = false
     </doc:section>
 
 
+    <doc:section name="http-proxy-settings">
+      <doc:heading>HTTP Proxy Settings</doc:heading>
+
+      <p>
+        Peer discovery mechanisms that use HTTP to interact with its dependencies (e.g. AWS, Consul
+        and etcd ones) can proxy their requests using an HTTP proxy.
+      </p>
+
+      <p>
+        There are separate proxy settings for HTTP and HTTPS:
+
+<pre class="lang-ini">
+# example HTTP and HTTPS proxy servers, values in your environment
+# will vary
+cluster_formation.proxy.http_proxy = 192.168.0.98
+cluster_formation.proxy.https_proxy = 192.168.0.98
+</pre>
+      </p>
+
+      <p>
+        Some hosts can be excluded from proxying, e.g. the link-local AWS instance metadata
+        IP address:
+
+<pre class="lang-ini">
+# example HTTP and HTTPS proxy servers, values in your environment
+# will vary
+cluster_formation.proxy.http_proxy = 192.168.0.98
+cluster_formation.proxy.https_proxy = 192.168.0.98
+
+# requests to these hosts won't go via proxy
+cluster_formation.proxy.proxy_exclusions.1 = 169.254.169.254
+cluster_formation.proxy.proxy_exclusions.2 = excluded.example.local
+</pre>
+      </p>
+    </doc:section>
+
+
     <doc:section name="troubleshooting-cluster-formation">
       <doc:heading>Troubleshooting</doc:heading>
 

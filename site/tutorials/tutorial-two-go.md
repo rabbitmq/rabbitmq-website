@@ -438,7 +438,6 @@ Final code of our `new_task.go` class:
 package main
 
 import (
-        "fmt"
         "log"
         "os"
         "strings"
@@ -506,7 +505,6 @@ package main
 
 import (
         "bytes"
-        "fmt"
         "github.com/streadway/amqp"
         "log"
         "time"

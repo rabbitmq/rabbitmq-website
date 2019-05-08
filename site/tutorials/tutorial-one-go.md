@@ -73,7 +73,6 @@ we need to import the library first:
 package main
 
 import (
-  "fmt"
   "log"
 
   "github.com/streadway/amqp"
@@ -171,7 +170,6 @@ The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 package main
 
 import (
-  "fmt"
   "log"
 
   "github.com/streadway/amqp"

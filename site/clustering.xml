@@ -38,6 +38,7 @@ limitations under the License.
             <li>How nodes <a href="#erlang-cookie">authenticate to each other</a> (and with CLI tools)</li>
             <li><a href="#restarting">Node restarts</a> and how nodes rejoin their cluster</li>
             <li>How to <a href="#removing-nodes">remove a cluster node</a></li>
+            <li>How to <a href="#resetting-nodes">reset a cluster node</a></li>
           </ul>
 
           and more. <a href="/cluster-formation.html">Cluster Formation and Peer Discovery</a> is a closely related guide
@@ -877,6 +878,52 @@ rabbitmqctl start_app
             Besides <code>rabbitmqctl forget_cluster_node</code> and the automatic cleanup of unknown nodes
             by some <a href="/cluster-formation">peer discovery</a> plugins, there are no scenarios
             in which a RabbitMQ node will permanently remove its peer node from a cluster.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="resetting-nodes">
+          <doc:heading>How to Reset a Node</doc:heading>
+          <p>
+            Sometimes it may be necessary to reset a node (wipe all of its data) and later make it rejoin the cluster.
+            Generally speaking, there are two possible scenarios: when the node is running, and when the node cannot start
+            or won't respond to CLI tool commands e.g. due to an issue such as <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>.
+          </p>
+
+          <p>
+            Resetting a node will delete all of its data, cluster membership information, configured <a href="/parameters.html">runtime parameters</a>,
+            users, virtual hosts and any other node data. It will also permanently remove the node from its cluster.
+          </p>
+
+          <p>
+            To reset a running and responsive node, first stop RabbitMQ on it using <code>rabbitmqctl stop_app</code>
+            and then reset it using <code>rabbitmqctl reset</code>:
+
+<pre class="lang-bash">
+# on rabbit1
+rabbitmqctl stop_app
+# => Stopping node rabbit@rabbit1 ...done.
+rabbitmqctl reset
+# => Resetting node rabbit@rabbit1 ...done.
+</pre>
+          </p>
+
+          <p>
+            In case of a non-responsive node, it must be stopped first using any means necessary.
+            For nodes that fail to start this is already the case. Then <a href="/relocate.html">override</a>
+            the node's data directory location or [re]move the existing data store. This will make the node
+            start as a blank one. It will have to be instructed to <a href="#cluster-formation">rejoin its original cluster</a>, if any.
+          </p>
+
+          <p>
+            A node that's been reset and rejoined its original cluster will sync all virtual hosts, users, permissions
+            and topology (queues, exchanges, bindings), runtime parameters and policies. It may sync <a href="/ha.html">mirrored
+            queue</a> contents if elected to host a replica. Non-mirrored queue contents on a reset node will be lost.
+          </p>
+
+          <p>
+            Restoring queue data directories on a reset node that has synchronised its schema from a peer
+            is not guaranteed to make that data available to clients because <a href="#master-migration-data-locality">queue master location</a>
+            might have changed for the affected queues.
           </p>
         </doc:subsection>
       </doc:section>

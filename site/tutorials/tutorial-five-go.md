@@ -160,7 +160,6 @@ The code for `emit_log_topic.go`:
 package main
 
 import (
-        "fmt"
         "log"
         "os"
         "strings"
@@ -236,7 +235,6 @@ The code for `receive_logs_topic.go`:
 package main
 
 import (
-        "fmt"
         "log"
         "os"
 

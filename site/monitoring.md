@@ -224,7 +224,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html">this document</a>)</td>
+      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.14/priv/www/doc/stats.html">this document</a>)</td>
     </tr>
   </tbody>
 </table>
@@ -668,7 +668,7 @@ are overridden.
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring Tools</a>
 
 The following is an alphabetised list of third-party tools commonly used to collect RabbitMQ metrics. These
-tools vary in capabilities but usually can collect both [infrastructure-level](system-metrics) and
+tools vary in capabilities but usually can collect both [infrastructure-level](#system-metrics) and
 [RabbitMQ metrics](#rabbitmq-metrics).
 
 Note that this list is by no means complete.
@@ -686,7 +686,13 @@ Note that this list is by no means complete.
       </td>
     </tr>
     <tr>
-      <td>`collectd`</td>
+      <td>AWS CloudWatch</td>
+      <td>
+        <a href="https://github.com/noxdafox/rabbitmq-cloudwatch-exporter">GitHub</a>
+      </td>
+    </tr>
+    <tr>
+      <td>collectd</td>
       <td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td>
     </tr>
     <tr>
