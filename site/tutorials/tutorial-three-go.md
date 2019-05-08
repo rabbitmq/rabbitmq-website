@@ -248,7 +248,7 @@ err = ch.QueueBind(
   "",     // routing key
   "logs", // exchange
   false,
-  nil
+  nil,
 )
 </pre>
 
@@ -309,7 +309,6 @@ value is ignored for `fanout` exchanges. Here goes the code for
 package main
 
 import (
-        "fmt"
         "log"
         "os"
         "strings"
@@ -384,7 +383,6 @@ The code for `receive_logs.go`:
 package main
 
 import (
-        "fmt"
         "log"
 
         "github.com/streadway/amqp"
@@ -431,7 +429,8 @@ func main() {
                 "",     // routing key
                 "logs", // exchange
                 false,
-                nil)
+                nil,
+        )
         failOnError(err, "Failed to bind a queue")
 
         msgs, err := ch.Consume(

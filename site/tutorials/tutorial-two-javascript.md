@@ -76,11 +76,15 @@ program will schedule tasks to our work queue, so let's name it
 `new_task.js`:
 
 <pre class="lang-javascript">
-var q = 'task_queue';
+var queue = 'task_queue';
 var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-ch.assertQueue(q, {durable: true});
-ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+channel.assertQueue(queue, {
+  durable: true
+});
+channel.sendToQueue(queue, new Buffer(msg), {
+  persistent: true
+});
 console.log(" [x] Sent '%s'", msg);
 </pre>
 
@@ -89,16 +93,19 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.js`:
 
 <pre class="lang-javascript">
-var q = 'task_queue';
+var queue = 'task_queue';
 
-ch.consume(q, function(msg) {
+channel.consume(queue, function(msg) {
   var secs = msg.content.toString().split('.').length - 1;
 
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
     console.log(" [x] Done");
+    channel.ack(msg)
   }, secs * 1000);
-}, {noAck: true});
+}, {
+  noAck: true
+});
 </pre>
 
 Note that our fake task simulates execution time.
@@ -212,13 +219,13 @@ options altogether) option and send a proper acknowledgment from the worker,
 once we're done with a task.
 
 <pre class="lang-javascript">
-ch.consume(q, function(msg) {
+channel.consume(queue, function(msg) {
   var secs = msg.content.toString().split('.').length - 1;
 
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
     console.log(" [x] Done");
-    ch.ack(msg);
+    channel.ack(msg);
   }, secs * 1000);
 }, {noAck: false});
 </pre>
@@ -268,7 +275,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
 <pre class="lang-javascript">
-ch.assertQueue('hello', {durable: true});
+channel.assertQueue('hello', {durable: true});
 </pre>
 
 Although this command is correct by itself, it won't work in our present
@@ -279,7 +286,7 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
 <pre class="lang-javascript">
-ch.assertQueue('task_queue', {durable: true});
+channel.assertQueue('task_queue', {durable: true});
 </pre>
 
 This `durable` option change needs to be applied to both the producer
@@ -290,7 +297,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option `Channel.sendToQueue` takes.
 
 <pre class="lang-javascript">
-ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+channel.sendToQueue(q, Buffer.from(msg), {persistent: true});
 </pre>
 
 > #### Note on message persistence
@@ -352,7 +359,7 @@ a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
 <pre class="lang-javascript">
-ch.prefetch(1);
+channel.prefetch(1);
 </pre>
 
 > #### Note about queue size
@@ -370,16 +377,29 @@ Final code of our `new_task.js` class:
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'task_queue';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var queue = 'task_queue';
     var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-    ch.assertQueue(q, {durable: true});
-    ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+    channel.assertQueue(queue, {
+      durable: true
+    });
+    channel.sendToQueue(queue, Buffer.from(msg), {
+      persistent: true
+    });
     console.log(" [x] Sent '%s'", msg);
   });
-  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+  setTimeout(function() { 
+    connection.close(); 
+    process.exit(0) 
+  }, 500);
 });
 </pre>
 
@@ -392,20 +412,28 @@ And our `worker.js`:
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'task_queue';
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) {
+    throw error0;
+  }
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var queue = 'task_queue';
 
-    ch.assertQueue(q, {durable: true});
-    ch.prefetch(1);
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
-    ch.consume(q, function(msg) {
+    channel.assertQueue(queue, {
+      durable: true
+    });
+    channel.prefetch(1);
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+    channel.consume(queue, function(msg) {
       var secs = msg.content.toString().split('.').length - 1;
 
       console.log(" [x] Received %s", msg.content.toString());
       setTimeout(function() {
         console.log(" [x] Done");
-        ch.ack(msg);
+        channel.ack(msg);
       }, secs * 1000);
     }, {noAck: false});
   });

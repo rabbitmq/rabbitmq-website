@@ -668,7 +668,7 @@ are overridden.
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring Tools</a>
 
 The following is an alphabetised list of third-party tools commonly used to collect RabbitMQ metrics. These
-tools vary in capabilities but usually can collect both [infrastructure-level](system-metrics) and
+tools vary in capabilities but usually can collect both [infrastructure-level](#system-metrics) and
 [RabbitMQ metrics](#rabbitmq-metrics).
 
 Note that this list is by no means complete.
@@ -686,7 +686,13 @@ Note that this list is by no means complete.
       </td>
     </tr>
     <tr>
-      <td>`collectd`</td>
+      <td>AWS CloudWatch</td>
+      <td>
+        <a href="https://github.com/noxdafox/rabbitmq-cloudwatch-exporter">GitHub</a>
+      </td>
+    </tr>
+    <tr>
+      <td>collectd</td>
       <td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td>
     </tr>
     <tr>
