@@ -685,7 +685,7 @@ rabbitmqctl eval '[garbage_collect(P) || P &lt;- processes()].'
 
       <p>
         When a node reports a large amount of allocated but unused memory on a long running node, it may be
-        an indicator of runtiime memory fragmentation. A different set of allocator settings can reduce fragmentation
+        an indicator of runtime memory fragmentation. A different set of allocator settings can reduce fragmentation
         and increase the percentage of efficiently used memory. The right set of settings depends on
         the workload and message payload size distribution.
       </p>
