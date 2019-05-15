@@ -46,7 +46,10 @@ limitations under the License.
         <doc:heading>Install the Server</doc:heading>
         <p>
           RabbitMQ requires a 64-bit <a href="/which-erlang.html">supported version of Erlang</a> for Windows to be installed.
-          There's a <a href="http://www.erlang.org/download.html">Windows installer for Erlang</a>.
+          Erlang releases include a <a href="http://www.erlang.org/download.html">Windows installer</a>. <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>
+          provide binary 64-bit builds of Erlang as well.
+        </p>
+        <p>
           <b>Important:</b> the Erlang installer <em>must</em> be run using an administrative account
           otherwise a registry key expected by the RabbitMQ installer will not be
           present.

@@ -316,7 +316,8 @@ sudo apt-get update -y
 Then packages can be installed just like with the standard Debian repositories:
 
 <pre class="sourcecode ini">
-# or "erlang"
+# This is recommended. Metapackages such as erlang and erlang-nox must only be used
+# with apt version pinning. They do not pin their dependency versions.
 sudo apt-get install -y erlang-base-hipe \
                         erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
                         erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
@@ -329,7 +330,7 @@ sudo apt-get install -y erlang-base-hipe \
        <doc:heading>Erlang Version and Repository Pinning</doc:heading>
 
        <p>
-         When the same package (e.g. <code>erlang-nox</code>) is available from multiple apt repositories operators need
+         When the same package (e.g. <code>erlang-base</code>) is available from multiple apt repositories operators need
          to have a way to indicate what repository should be preferred. It may also be desired to restrict Erlang version to avoid undesired upgrades.
          <a href="https://wiki.debian.org/AptPreferences">apt package pinning</a> can be used to address both problems.
        </p>
