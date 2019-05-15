@@ -50,6 +50,7 @@ limitations under the License.
            <li><a href="#installation-methods">Ways of installing</a> the latest RabbitMQ version on Debian and Ubuntu</li>
            <li>How to <a href="#apt">install RabbitMQ using apt</a> from <a href="#apt-bintray">Bintray</a> or <a href="#apt-packagecloud">Package Cloud</a></li>
            <li>How to <a href="#erlang-repositories">install a recent supported Erlang version using apt</a></li>
+           <li><a href="#apt-pinning">Version Pinning</a></li>
            <li><a href="#package-dependencies">Package dependencies</a></li>
            <li><a href="#supported-debian-distributions">Supported distributions</a></li>
            <li><a href="#sudo-requirements">Privilege requirements</a></li>
