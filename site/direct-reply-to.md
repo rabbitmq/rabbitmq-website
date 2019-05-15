@@ -88,7 +88,7 @@ or fail.
 
 <ul>
   <li>
-    The RPC client must consume in the [automatic acknowledgement mode](/confirms.html).
+    The RPC client must consume in the <a href="confirms.html">automatic acknowledgement mode</a>.
     This is because there is no queue for the reply message to be returned to if the
     client disconnects or rejects the reply message.
   </li>
