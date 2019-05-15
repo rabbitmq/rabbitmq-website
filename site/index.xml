@@ -28,11 +28,11 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero">
         <div class='container'>
-          <div id='hero-summit'>
+          <div id='hero-webinar'>
             <div class='container'>
               <div class='text'>
-                <h1>RabbitMQ Summit 2019<br/>Call for papers!</h1>
-                <h2><a href="https://rabbitmqsummit.com/">Submit your abstract</a> by May 10<br/><span id='date'>London, UK | November 2019</span></h2>
+                <h1>What’s new in<br/>RabbitMQ 3.8</h1>
+                <h2>Find out at this webinar<br/><span id='date'>May 23 | </span><a href="https://content.pivotal.io/webinars/may-23-what-s-new-in-rabbitmq-3-8-webinar?utm_campaign=oss-rabbitmq3.8&amp;utm_source=rabbitmq&amp;utm_medium=website">Register today</a></h2>
               </div>
             </div>
           </div>
