@@ -104,7 +104,7 @@ to client library but is usually an argument next to the <code>durable</code>,
 declares queues.
 
 
-## <a id="server-named-queues" class="anchor" href="#server-named-queues">Message Ordering</a>
+## <a id="message-ordering" class="anchor" href="#message-ordering">Message Ordering</a>
 
 Queues in RabbitMQ are ordered collections of messages. Messages
 are enqueued and dequeued (consumed) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)),
