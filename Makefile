@@ -70,3 +70,7 @@ preview: deps ## Preview docs
 
 browse: ## Open docs in browser
 	@$(OPEN) http://localhost:$(TCP_PORT)
+
+live:
+	@browser-sync start --proxy http://localhost:$(TCP_PORT) --files site --no-notify --no-open || \
+	  (echo "See $(BOLD)https://www.browsersync.io/$(NORMAL) for more info" && exit 1)
