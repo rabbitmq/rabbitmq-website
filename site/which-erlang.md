@@ -309,7 +309,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2017-09-11, we strongly discourage its use</li>
+        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2016-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -332,7 +332,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2017-05-31, we strongly discourage its use</li>
+        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2015-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
