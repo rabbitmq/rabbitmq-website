@@ -50,6 +50,33 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li><strong>3.7.15</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><strong>20.3.x</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><strong>22.0.x</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul class="plain">
+        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang 22.0 compatibility notes</a> on rabbitmq-users</li>
+        <li>RabbitMQ Debian packages <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/Pabuzu0jajE">will list Erlang 22 as supported starting with 3.7.15</a></li>
+        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22</li>
+        <li>Erlang/OTP <code>19.3.x</code> support <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">was discontinued</a> as of Jan 1st, 2019</li>
+        <li>On Windows, <a href="/cli.html#erlang-cookie">default cookie file location</a> has changed starting with Erlang/OTP 20.2</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
         <li><strong>3.7.14</strong></li>
         <li><strong>3.7.13</strong></li>
         <li><strong>3.7.12</strong></li>
