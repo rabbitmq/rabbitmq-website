@@ -1352,8 +1352,6 @@ below as `CONFIG_FILE` and
 #
 # Overrides node name
 NODENAME=bunny@myhost
-# Specifies new style config file location
-CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
 
 # Specifies new style config file location
 CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf

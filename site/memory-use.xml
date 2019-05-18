@@ -459,7 +459,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
           and channels, and outgoing ones (Shovels and Federation upstream links). Most of the memory
           is usually used by TCP buffers, which on Linux autotune to about 100 kB in size by default.
           TCP buffer size can be reduced at the cost of a proportional decrease in connection throughput.
-          See the <a href="/networking">Networking guide</a> for details.
+          See the <a href="/networking.html">Networking guide</a> for details.
         </p>
 
         <p>
