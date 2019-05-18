@@ -876,7 +876,7 @@ rabbitmqctl start_app
 
           <p>
             Besides <code>rabbitmqctl forget_cluster_node</code> and the automatic cleanup of unknown nodes
-            by some <a href="/cluster-formation">peer discovery</a> plugins, there are no scenarios
+            by some <a href="/cluster-formation.html">peer discovery</a> plugins, there are no scenarios
             in which a RabbitMQ node will permanently remove its peer node from a cluster.
           </p>
         </doc:subsection>
