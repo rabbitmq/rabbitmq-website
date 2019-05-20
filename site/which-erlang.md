@@ -32,9 +32,9 @@ RabbitMQ <strong>versions prior to 3.7.7 do not support Erlang/OTP 21</strong> o
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 Starting in [January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series. Currently the series are <code>20.3.x</code> and <code>21.x</code>.
-When Erlang <code>22.0</code> ships, after a 3 month transition period, the supported versions will
-be <code>21.2.x</code> and <code>22.x</code>.
+RabbitMQ supports two most recent Erlang release series. Currently the series are <code>20.3.x</code> and <code>21.3.x</code>.
+Erlang <code>22.0</code> shipped in May 2019, therefore after a 3 month transition period, starting in August 2019 the supported versions will
+be <code>21.3.x</code> and <code>22.x</code>.
 
 The table below provides an Erlang compatibility matrix of currently supported RabbitMQ release series.
 For RabbitMQ releases that have reached end of life, see [Unsupported Series Compatibility Matrix](#eol-series).
@@ -46,6 +46,32 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
+
+  <tr>
+    <td>
+      <ul>
+        <li><strong>3.7.15</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><strong>20.3.x</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><strong>22.0.x</strong></li>
+      </ul>
+    </td>
+    <td>
+      <ul class="plain">
+        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang 22.0 compatibility notes</a> on rabbitmq-users</li>
+        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22</li>
+        <li>Erlang/OTP <code>19.3.x</code> support <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">was discontinued</a> as of Jan 1st, 2019</li>
+        <li>On Windows, <a href="/cli.html#erlang-cookie">default cookie file location</a> has changed starting with Erlang/OTP 20.2</li>
+      </ul>
+    </td>
+  </tr>
 
   <tr>
     <td>

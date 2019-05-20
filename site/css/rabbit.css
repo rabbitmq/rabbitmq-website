@@ -852,13 +852,13 @@ body#index #getstarted,
 #hero #hero-webinar {
   background: url(../img/home/banner/webinar/home-banner-webinar-desktop.svg) no-repeat center center;
   background-size: cover;
-  padding: 80px 0;
-  text-align: right;
+  padding: 60px 0;
+  text-align: left;
 }
 
 #hero #hero-webinar .container {
   max-width: 840px;
-  padding: 0 20px;
+  padding: 0 60px;
 }
 
 #hero #hero-webinar h2 a {
@@ -870,30 +870,47 @@ body#index #getstarted,
     background: url(../img/home/banner/webinar/home-banner-webinar-tablet.svg) no-repeat right;
     background-size: cover;
     background-position: left;
-    padding: 70px 0;
+    padding: 60px 0;
   }
   #hero #hero-webinar .text {
     max-width: 340px;
-    float: right;
+    float: left;
   }
   #hero #hero-webinar .container {
     overflow: hidden;
   }
 }
 
-@media(max-width: 660px) {
+@media(max-width: 720px) {
+  #hero #hero-webinar .container {
+    padding: 0 20px;
+  }
   #hero #hero-webinar {
     background: url(../img/home/banner/webinar/home-banner-webinar-mobile.svg) no-repeat bottom right;
     background-size: 100%;
     text-align: center;
-    padding: 60px 0 80px;
+    padding: 30px 0 240px;
   }
   #hero #hero-webinar .text {
     max-width: 100%;
     float: none;
   }
 }
+@media(max-width: 580px) {
+  #hero #hero-webinar {
+    padding: 30px 0 200px;
+  }
+}
 
+@media(max-width:450px) {
+  #hero #hero-webinar h1 {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  #hero #hero-webinar {
+    padding: 30px 0 140px;
+  }
+}
 /* Homepage hero: Best Practices */
 
 #hero #hero-best-practices {

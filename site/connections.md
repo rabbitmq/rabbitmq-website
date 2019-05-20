@@ -63,7 +63,7 @@ Where the difference matters, a more specific term is used (e.g. "application").
 
 All protocols supported by RabbitMQ are TCP-based and assume long-lived connections (a new connection
 is not opened per protocol operation) for efficiency. One client library connection uses a single
-TCP connection. In for a client to successfully connect, target RabbitMQ node must allow for
+TCP connection. In order for a client to successfully connect, target RabbitMQ node must allow for
 connections on a [certain protocol-specific port](/networking.html).
 
 After a client [connects](#lifecycle) and successfully authenticates with a RabbitMQ node, it can
