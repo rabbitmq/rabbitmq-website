@@ -36,6 +36,19 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.7.15</td>
+    <td class="centre">20 May 2019</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+        <li>First release to <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">support Erlang 22</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.14</td>
     <td class="centre">29 March 2019</td>
     <td>
