@@ -16,7 +16,7 @@ limitations under the License.
 -->
 # RabbitMQ Web MQTT Plugin NOSYNTAX
 
-The Web STOMP plugin makes it possible to use
+The Web MQTT plugin makes it possible to use
 [MQTT](/mqtt.html) over a WebSocket connection.
 
 The goal of this plugin is to enable MQTT messaging in Web applications.
