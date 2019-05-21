@@ -38,7 +38,7 @@ categories:
  * How to check a [node's health](#health-checks) and why it's more involved than a single
    CLI command.
 
-[Log aggregation](#log-collection) across all nodes and applications is closely related to monitoring
+[Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
 and also covered in this guide.
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
