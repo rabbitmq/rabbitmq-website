@@ -32,7 +32,7 @@ RabbitMQ <strong>versions prior to 3.7.7 do not support Erlang/OTP 21</strong> o
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 Starting in [January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series. Currently the series are <code>20.3.x</code> and <code>21.3.x</code>.
+RabbitMQ supports two most recent Erlang release series. Currently the series are <code>22.0.x</code>, <code>21.3.x</code>, and <code>20.3.x</code>.
 Erlang <code>22.0</code> shipped in May 2019, therefore after a 3 month transition period, starting in August 2019 the supported versions will
 be <code>21.3.x</code> and <code>22.x</code>.
 
