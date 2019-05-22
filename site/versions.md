@@ -17,15 +17,13 @@ limitations under the License.
 
 # Supported Versions
 
-If you want to learn more about individual releases, please see the [changelog](/changelog.html).
-
 <table>
   <tr>
     <th>Version</th>
     <th>Current patch</th>
     <th>First Release</th>
     <th>End of Life</th>
-    <th>Release status</th>
+    <th>In service for</th>
   </tr>
 
   <tr>
@@ -33,7 +31,6 @@ If you want to learn more about individual releases, please see the [changelog](
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.4" target="_blank">3.8.0-beta.4</a></td>
     <td>2019</td>
     <td>TBD</td>
-    <td>Beta</td>
   </tr>
 
   <tr class="ga">
@@ -41,65 +38,67 @@ If you want to learn more about individual releases, please see the [changelog](
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15" target="_blank">3.7.15</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
     <td>Six months after 3.8.0 is released</td>
-    <td>GA</td>
+    <td></td>
   </tr>
 
   <tr>
     <td>3.6</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_16" target="_blank">3.6.16</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0" target="_blank">22 December 2015</a></td>
-    <td>31 May 2018 - 29 months</td>
-    <td>EOL</td>
+    <td>31 May 2018</td>
+    <td>29 months</td>
   </tr>
 
   <tr>
     <td>3.5</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8" target="_blank">3.5.8</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_0" target="_blank">11 March 2015</a></td>
-    <td>31 October 2016 - 20 months</td>
-    <td>EOL</td>
+    <td>31 October 2016</td>
+    <td>20 months</td>
   </tr>
 
   <tr>
     <td>3.4</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_4_4" target="_blank">3.4.4</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_4_0" target="_blank">21 October 2014</a></td>
-    <td>31 October 2015 - 12 months</td>
-    <td>EOL</td>
+    <td>31 October 2015</td>
+    <td>12 months</td>
   </tr>
 
   <tr>
     <td>3.3</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_3_5" target="_blank">3.3.5</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_3_0" target="_blank">2 April 2014</a></td>
-    <td>31 March 2015 - 12 months</td>
-    <td>EOL</td>
+    <td>31 March 2015</td>
+    <td>12 months</td>
   </tr>
 
   <tr>
     <td>3.2</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_2_4" target="_blank">3.2.4</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_2_0" target="_blank">23 October 2013</a></td>
-    <td>31 October 2014 - 12 months</td>
-    <td>EOL</td>
+    <td>31 October 2014</td>
+    <td>12 months</td>
   </tr>
 
   <tr>
     <td>3.1</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_1_5" target="_blank">3.1.5</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_1_0" target="_blank">1 May 2013</a></td>
-    <td>30 April 2014 - 12 months</td>
-    <td>EOL</td>
+    <td>30 April 2014</td>
+    <td>12 months</td>
   </tr>
 
   <tr>
     <td>3.0</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_0_4" target="_blank">3.0.4</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_0_0" target="_blank">19 November 2012</a></td>
-    <td>30 November 2013 - 12 months</td>
-    <td>LOL</td>
+    <td>30 November 2013</td>
+    <td>12 months</td>
   </tr>
 </table>
+
+If you want to learn more about individual releases, please see the [changelog](/changelog.html).
 
 ## Versions prior to v3.x
 
