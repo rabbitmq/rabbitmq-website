@@ -590,6 +590,10 @@ td.desc, th.desc {
   background: #f6fcb0;
 }
 
+.ga {
+  background: rgb(220, 233, 213);
+}
+
 .pageFooter {
   background: #b8b8b8;
   color: #a9b5af;

@@ -42,7 +42,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
 <table class="matrix">
-  <th><a href="/changelog.html">RabbitMQ version</a></th>
+  <th><a href="/versions.html">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
@@ -335,7 +335,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2017-09-11, we strongly discourage its use</li>
+        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2016-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -358,7 +358,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2017-05-31, we strongly discourage its use</li>
+        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2015-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
