@@ -38,6 +38,10 @@ limitations under the License.
       </p>
 
       <p>
+        Messages from <a href="/ttl.html#queue-ttl">an expiring queue</a> are not dead-lettered.
+      </p>
+
+      <p>
         Dead letter exchanges (DLXs) are normal exchanges. They can be
         any of the usual types and are declared as usual.
       </p>
