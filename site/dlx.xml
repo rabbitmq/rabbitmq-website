@@ -32,9 +32,11 @@ limitations under the License.
         <ul>
           <li>The message is <a href="/confirms.html">negatively acknowledged</a> by a consumer using <code>basic.reject</code> or
             <code>basic.nack</code> with <code>requeue</code> parameter set to <code>false</code></li>
-          <li>The message expires due to <a href="/ttl.html">TTL</a>; or</li>
+          <li>The message expires due to <a href="/ttl.html">per-message TTL</a>; or</li>
           <li>The message is dropped because its queue exceeded a <a href="/maxlength.html">length limit</a></li>
         </ul>
+
+        Note that expiration of a queue will not dead letter the messages in it.
       </p>
 
       <p>
