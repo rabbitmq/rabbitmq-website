@@ -243,13 +243,19 @@ limitations under the License.
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' --priority 1 --apply-to exchanges</pre>
+            <pre>rabbitmqctl set_policy federate-me \
+  "^amq\." '{"federation-upstream-set":"all"}' \
+  --priority 1 \
+  --apply-to exchanges</pre>
           </td>
         </tr>
         <tr>
           <th>rabbitmqctl (Windows)</th>
           <td>
-            <pre>rabbitmqctl.bat set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
+            <pre>rabbitmqctl.bat set_policy federate-me ^
+  "^amq\." "{""federation-upstream-set"":""all""}" ^
+  --priority 1 ^
+  --apply-to exchanges</pre>
           </td>
         </tr>
         <tr>
@@ -337,15 +343,19 @@ limitations under the License.
             <tr>
               <th>rabbitmqctl</th>
               <td>
-                <pre>rabbitmqctl set_policy ha-fed "^hf\." '{"federation-upstream-set":"all","ha-mode":"all"}' \
---priority 1 --apply-to queues</pre>
+                <pre>rabbitmqctl set_policy ha-fed \
+  "^hf\." '{"federation-upstream-set":"all","ha-mode":"all"}' \
+  --priority 1 \
+  --apply-to queues</pre>
               </td>
             </tr>
             <tr>
               <th>rabbitmqctl (Windows)</th>
               <td>
-                <pre>rabbitmqctl set_policy ha-fed "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""all""}" ^
---priority 1 --apply-to queues</pre>
+                <pre>rabbitmqctl set_policy ha-fed ^
+  "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""all""}" ^
+  --priority 1 ^
+  --apply-to queues</pre>
               </td>
             </tr>
             <tr>
@@ -456,13 +466,19 @@ limitations under the License.
             <tr>
                 <th>rabbitmqctl</th>
                 <td>
-                    <pre>rabbitmqctl set_operator_policy transient-queue-ttl "^amq\." '{"expires":1800000}' --priority 1 --apply-to queues</pre>
+                  <pre>rabbitmqctl set_operator_policy transient-queue-ttl \
+  "^amq\." '{"expires":1800000}' \
+  --priority 1 \
+  --apply-to queues</pre>
                 </td>
             </tr>
             <tr>
                 <th>rabbitmqctl (Windows)</th>
                 <td>
-                  <pre>rabbitmqctl.bat set_operator_policy transient-queue-ttl "^amq\." "{""expires"": 1800000}" --priority 1 --apply-to queues</pre>
+                  <pre>rabbitmqctl.bat set_operator_policy transient-queue-ttl ^
+  "^amq\." "{""expires"": 1800000}" ^
+  --priority 1 ^
+  --apply-to queues</pre>
                 </td>
             </tr>
             <tr>
