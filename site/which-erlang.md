@@ -32,7 +32,7 @@ RabbitMQ <strong>versions prior to 3.7.7 do not support Erlang/OTP 21</strong> o
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 Starting in [January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series. Currently the series are <code>20.3.x</code> and <code>21.3.x</code>.
+RabbitMQ supports two most recent Erlang release series. Currently the series are <code>22.0.x</code>, <code>21.3.x</code>, and <code>20.3.x</code>.
 Erlang <code>22.0</code> shipped in May 2019, therefore after a 3 month transition period, starting in August 2019 the supported versions will
 be <code>21.3.x</code> and <code>22.x</code>.
 
@@ -42,7 +42,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
 <table class="matrix">
-  <th><a href="/changelog.html">RabbitMQ version</a></th>
+  <th><a href="/versions.html">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
@@ -335,7 +335,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2017-09-11, we strongly discourage its use</li>
+        <li>RabbitMQ 3.5 was released on 2015-03-11, and reached end of life on 2016-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -358,7 +358,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="plain">
-        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2017-05-31, we strongly discourage its use</li>
+        <li>RabbitMQ 3.4 was released 2014-10-21, and reached end of life 2015-10-31, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
