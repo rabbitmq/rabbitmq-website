@@ -130,7 +130,7 @@ its dead letter exchange with routing key
 Note that, if a specific routing key was not set for the
 queue, messages on it are dead-lettered with <em>all</em>
 their original routing keys.  This includes routing keys
-added by the `CC</code> and <code>BCC` headers
+added by the `CC` and `BCC` headers
 (see [Sender-selected distribution](sender-selected.html) for details on these two headers).
 
 Dead-lettered messages are re-published with publisher
@@ -206,7 +206,7 @@ event. They are
  * `x-first-death-queue`
  * `x-first-death-exchange`
 
-They have the same values as the `reason</code>, <code>queue`,
+They have the same values as the `reason`, `queue`,
 and `exchange` fields of the original dead lettering event.
 Once added, these headers are never modified.
 
