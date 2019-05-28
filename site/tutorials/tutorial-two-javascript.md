@@ -227,7 +227,7 @@ channel.consume(queue, function(msg) {
     console.log(" [x] Done");
     channel.ack(msg);
   }, secs * 1000);
-}, {
+  }, {
     // manual acknowledgment mode,
     // see https://www.rabbitmq.com/confirms.html for details
     noAck: false
@@ -439,7 +439,11 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         console.log(" [x] Done");
         channel.ack(msg);
       }, secs * 1000);
-    }, {noAck: false});
+    }, {
+      // manual acknowledgment mode,
+      // see https://www.rabbitmq.com/confirms.html for details
+      noAck: false
+    });
   });
 });
 </pre>
