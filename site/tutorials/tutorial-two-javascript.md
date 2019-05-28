@@ -103,6 +103,8 @@ channel.consume(queue, function(msg) {
     console.log(" [x] Done");
   }, secs * 1000);
 }, {
+  // automatic acknowledgment mode,
+  // see https://www.rabbitmq.com/confirms.html for details
   noAck: true
 });
 </pre>
@@ -212,10 +214,9 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-Message acknowledgments have been turned off in previous examples.
-It's time to turn them on using the `{noAck: false}` (you may also remove the
-options altogether) option and send a proper acknowledgment from the worker,
-once we're done with a task.
+Manual consumer acknowledgments have been turned off in previous examples.
+It's time to turn them on using the `{noAck: false}` option and send a proper acknowledgment
+from the worker, once we're done with a task.
 
 <pre class="lang-javascript">
 channel.consume(queue, function(msg) {
@@ -226,7 +227,11 @@ channel.consume(queue, function(msg) {
     console.log(" [x] Done");
     channel.ack(msg);
   }, secs * 1000);
-}, {noAck: false});
+}, {
+    // manual acknowledgment mode,
+    // see https://www.rabbitmq.com/confirms.html for details
+    noAck: false
+  });
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
@@ -254,7 +259,7 @@ to learn more.
 > </pre>
 >
 > On Windows, drop the sudo:
-> <pre class="lang-bash">
+> <pre class="lang-powershell">
 > rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
 > </pre>
 
@@ -395,9 +400,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     });
     console.log(" [x] Sent '%s'", msg);
   });
-  setTimeout(function() { 
-    connection.close(); 
-    process.exit(0) 
+  setTimeout(function() {
+    connection.close();
+    process.exit(0)
   }, 500);
 });
 </pre>
@@ -450,4 +455,3 @@ For more information on `Channel` methods and message properties, you can browse
 
 Now we can move on to [tutorial 3](tutorial-three-javascript.html) and learn how
 to deliver the same message to many consumers.
-
