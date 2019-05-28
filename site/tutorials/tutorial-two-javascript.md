@@ -101,7 +101,6 @@ channel.consume(queue, function(msg) {
   console.log(" [x] Received %s", msg.content.toString());
   setTimeout(function() {
     console.log(" [x] Done");
-    channel.ack(msg)
   }, secs * 1000);
 }, {
   noAck: true
