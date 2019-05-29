@@ -72,14 +72,18 @@ limitations under the License.
         <doc:heading>Queue Overflow Behaviour</doc:heading>
         <p>
           Use the <code>overflow</code> setting to configure queue overflow
-          behaviour. If <code>overflow</code> is set to <code>reject-publish</code>,
+          behaviour. If <code>overflow</code> is set to
+          <code>reject-publish</code> or <code>reject-publish-dlx</code>,
           the most recently published messages will be discarded. In addition, if
           <a href="confirms.html#publisher-confirms">publisher confirms</a>
           are enabled, the publisher will be informed of the reject via a
           <code>basic.nack</code> message. If a message is routed to multiple
           queues and rejected by at least one of them, the channel will inform
           the publisher via <code>basic.nack</code>. The message will still be
-          published to all other queues which can enqueue it.
+          published to all other queues which can enqueue it. The difference
+          between <code>reject-publish</code> and <code>reject-publish-dlx</code>
+          is that <code>reject-publish-dlx</code> also <a href="dlx.html">dead-letters</a>
+          rejected messages.
         </p>
       </doc:subsection>
 
@@ -169,8 +173,8 @@ limitations under the License.
         <p>
           Overflow behaviour can be set by supplying the
           <code>x-overflow</code> queue declaration argument with a
-          string value. Possible values are <code>drop-head</code> (default) or
-          <code>reject-publish</code>
+          string value. Possible values are <code>drop-head</code> (default),
+          <code>reject-publish</code> or <code>reject-publish-dlx</code>.
         </p>
         <p>
           This example in Java declares a queue with a maximum length
