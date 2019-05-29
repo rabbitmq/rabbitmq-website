@@ -121,7 +121,7 @@ git tag
 
 It's important to make sure that all the repositories you
 are using are on the same tag as each other. Continuing with
-our example of server version 3.7.15, you could make sure
+our example of server version 3.7.15, make sure
 your checkout of <code>rabbitmq-stomp</code> was at the
 <code>v3.7.15</code> tag using
 <code>git checkout</code>:
