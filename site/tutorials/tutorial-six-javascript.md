@@ -312,9 +312,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         noAck: true
       });
 
-      ch.sendToQueue('rpc_queue',
+      channel.sendToQueue('rpc_queue',
         Buffer.from(num.toString()),{ 
-          correlationId: correrlationId, 
+          correlationId: correlationId, 
           replyTo: q.queue });
     });
   });
