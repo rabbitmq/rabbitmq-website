@@ -484,11 +484,15 @@ by RabbitMQ are of particular interest when it comes to publishers:
  * [Publisher confirmation](#data-safety) rate
  * [Connection churn](/connections.html#monitoring) rate
  * [Channel churn](/channels.html#monitoring) rate
- * Returned message rate
+ * Unroutabble dropped message rate
+ * Unrooutable returned message rate
 
 The publishing and confirmation rates are mostly self-explanatory. The churn rates are so important
 because they help detect applications that do not use connections or channels optimally and thus
 offer sub-optimal publishing rates and waste resources.
+
+Unroutable message rates can help detect applications that publish messages that cannot be
+routed to any queue. For example, this may suggest a misconfiguration.
 
 Client libraries may also collect metrics. [RabbitMQ Java client](/api-guide.html#metrics) is one
 example. These metrics can provide insight into application-specific architecture (e.g. what publishing
