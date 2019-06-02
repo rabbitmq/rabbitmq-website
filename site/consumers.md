@@ -33,8 +33,9 @@ This guide covers various topics related to consumers:
  * [Single active consumer](#single-active-consumer)
  * [Consumer activity](#active-consumer)
  * [Consumer priority](#priority)
- * [Exception handling](#exceptions)
- * [Concurrency consideration](#concurrency)
+ * [Connection failure recovery](#connection-recovery)
+ * [Exception Handling](#exceptions)
+ * [Concurrency Consideration](#concurrency)
 
 and more.
 
@@ -52,18 +53,9 @@ prefer the latter.
 In this sense a consumer is a subscription for message delivery that has to be
 registered before deliveries begin and can be cancelled by the application.
 
-### <a id="consumer-tags" class="anchor" href="#consumer-tags">Consumer Tags</a>
-
-Every consumer has an identifier that is used by client libraries to determine
-what handler to invoke for a given delivery. Their names vary from protocol to protocol.
-Consumer tags and subscription IDs are two most commonly used terms. RabbitMQ documentation
-tends to use the former.
-
-Consumer tags are also used to cancel consumers.
-
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
-RabbitMQ is a messaging broker. It accepts published messages, routes them
+RabbitMQ is a messaging broker. It accepts messages from publishers, routes them
 and, if there were queues to route to, stores them for consumption or immediately
 delivers to consumers, if any.
 
@@ -78,14 +70,23 @@ An attempt to consume from a non-existent queue will result in a channel-level
 exception with the code of `404 Not Found` and render the channel it was attempted
 on to be closed.
 
+### <a id="consumer-tags" class="anchor" href="#consumer-tags">Consumer Tags</a>
+
+Every consumer has an identifier that is used by client libraries to determine
+what handler to invoke for a given delivery. Their names vary from protocol to protocol.
+Consumer tags and subscription IDs are two most commonly used terms. RabbitMQ documentation
+tends to use the former.
+
+Consumer tags are also used to cancel consumers.
+
 ### <a id="consumer-lifecycle" class="anchor" href="#consumer-lifecycle">Consumer Lifecycle</a>
 
 Consumers are meant to be long lived: that is, throughout the lifetime of a consumer it receives
 multiple deliveries. Registering a consumer to consume a single message is not optimal.
 
 Consumers are typically registered during application
-startup. They often would live as long as their connections or even applications
-run.
+startup. They often would live as long as their connection or even application
+runs.
 
 Consumers can be more dynamic and register in reaction to a system event, unsubscribing
 when they are no longer necessary. This is common with WebSocket clients
@@ -425,7 +426,7 @@ Please note the following about single active consumer:
 
 ## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
 
-The [management UI](/management.html) and the `list_consumers` 
+The [management UI](/management.html) and the `list_consumers`
 [CLI](/rabbitmqctl.8.html#list_consumers) command report an `active`
 flag for consumers. The value of this flag depends on several parameters.
 
