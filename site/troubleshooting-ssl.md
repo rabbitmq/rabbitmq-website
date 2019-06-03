@@ -210,7 +210,7 @@ The example below seeks to confirm that the certificates and keys can be used to
 establish a TLS connection by connecting an <code>s_client</code> client to an <code>s_server</code> server
 in two separate shells (terminal windows).
 
-The example will assume you have the following [certficaite and key files](/ssl.html#certificates-and-keys)
+The example will assume you have the following [certificate and key files](/ssl.html#certificates-and-keys)
 (these filenames are used by [tls-gen](https://github.com/michaelklishin/tls-gen)):
 
 <table>
