@@ -181,6 +181,9 @@ before they can be used.
 Clients might attempt to publish messages to destinations (exchanges, topics, queues) that do not exist.
 This section covers on how different protocols different in handling of such cases.
 
+RabbitMQ collects and exposes [metrics](#metrics) that can be used to detect publishers that publish
+unroutable messages.
+
 ### AMQP 0-9-1
 
 When a published message cannot be routed to any queue (e.g. because there are no bindings defined for the
