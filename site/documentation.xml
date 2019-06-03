@@ -249,8 +249,7 @@ limitations under the License.
                 <a href="/reliability.html">Reliable Message Delivery</a>
               </li>
               <li>
-                Active-passive (standby) <a
-                href="pacemaker.html">highly available</a>
+                Active-passive (standby) <a href="pacemaker.html">highly available</a>
                 configuration with Pacemaker (legacy).
               </li>
             </ul>
@@ -315,7 +314,7 @@ limitations under the License.
           </li>
 
           <li>
-            Queue, routing, and consumer features:
+            Queue and consumer features:
 
             <ul>
               <li>
@@ -334,13 +333,7 @@ limitations under the License.
                 <a href="/lazy-queues.html">Lazy Queues</a>
               </li>
               <li>
-                <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
-              </li>
-              <li>
                 <a href="/dlx.html">Dead Lettering</a>
-              </li>
-              <li>
-                <a href="/sender-selected.html">Sender-Selected Distribution</a>
               </li>
               <li>
                 <a href="/priority.html">Priority Queues</a>
@@ -354,8 +347,24 @@ limitations under the License.
               <li>
                 <a href="/consumer-priority.html">Consumer Priorities</a>
               </li>
+            </ul>
+          </li>
+
+          <li>
+            Publisher features:
+
+            <ul>
+              <li>
+                <a href="/publishers.html">Publishers guide</a>
+              </li>
+              <li>
+                <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
+              </li>
               <li>
                 <a href="/ae.html">Alternate Exchanges</a>
+              </li>
+              <li>
+                <a href="/sender-selected.html">Sender-Selected Distribution</a>
               </li>
             </ul>
           </li>

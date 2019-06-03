@@ -28,6 +28,7 @@ This guide covers various topics related to publishers:
  * [Publisher-side data safety](#data-safety) topics (connection recovery, publisher confirms)
  * [Exception Handling](#exception-handling)
  * [Effects of Resource Alarms](#alarms)
+ * [Unroutable Message Handling](#unroutable)
  * [Metrics](#metrics) relevant for publishers
  * [Concurrency Consideration](#concurrency)
 
@@ -173,6 +174,45 @@ More exchange types can be provided by [plugins](/plugins.html).
 [internal event exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/) and [delayed message exchange](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/) are
 exchange plugins that ship with RabbitMQ. Like all plugins they must be enabled
 before they can be used.
+
+
+## <a id="unroutable" class="anchor" href="#unroutable">Unroutable Message Handling</a>
+
+Clients might attempt to publish messages to destinations (exchanges, topics, queues) that do not exist.
+This section covers on how different protocols different in handling of such cases.
+
+### AMQP 0-9-1
+
+When a published message cannot be routed to any queue (e.g. because there are no bindings defined for the
+target exchange), and the publisher set the `mandatory` message property to `false` (this is the default),
+the message is discarded or republished to an [alternate exchange](/ae.html), if any.
+
+When a published message cannot be routed to any queue, and the publisher set the `mandatory`
+message property to `true`, the message will be returned to it. The publisher must have a returned
+message handler set up in order to handle the return (e.g. by logging an error or retrying with
+a different exchange).
+
+[Alternate Exchanges](/ae.html) is an AMQP 0-9-1 exchange feature that lets clients handle messages
+that an exchange was unable to route (i.e. either because there were no bound queues or no matching bindings).
+Typical examples of this are detecting when clients accidentally or maliciously publish messages that
+cannot be routed "or else" routing semantics where some messages are handled specially and
+the rest by a generic handler.
+
+### MQTT
+
+Publishing to a new topic would set up a queue for it. Different topic/QoS level combinations will
+use different queues with different properties. Publishers and consumers therefore must use the same QoS level.
+
+### STOMP
+
+STOMP supports multiple different destinations, including those that assume pre-existing topology.
+
+ * `/topic`: publishing to a topic that has not had a consumer will result in dropped messages. First subscriber on
+   the topic will declare a queue for it.
+ * `/exchange`: target exchange must exist, otherwise the server would report an error
+ * `/amq/queue`: target queue must exist, otherwise the server would report an error
+ * `/queue`: publishing to a non-existent queue would set it up
+ * `/temp-queue`: publishing to a non-existent temporary queue would set it up
 
 
 ## <a id="message-properties" class="anchor" href="#message-properties">Message Properties</a>
@@ -343,7 +383,6 @@ For example, messages with JSON payload [should use `application/json`](http://w
 If the payload is compressed with the LZ77 (GZip) algorithm, its content encoding should be `gzip`.
 
 Multiple encodings can be specified by separating them with commas.
-
 
 ## <a id="data-safety" class="anchor" href="#data-safety">Publisher Acknowledgements (Confirms) and Data Safety</a>
 
