@@ -430,7 +430,16 @@ limitations under the License.
         <ul>
           <p>Client-driven Features:</p>
           <li>
-            <a href="connections.html">Client Connections</a>
+            <a href="/connections.html">Client Connections</a>
+          </li>
+          <li>
+            <a href="/consumers.html">Consumers</a>
+          </li>
+          <li>
+            <a href="/publishers.html">Publishers</a>
+          </li>
+          <li>
+            <a href="/channels.html">Channels</a>
           </li>
           <li>
             <a href="confirms.html">Publisher Confirms and Consumer Acknowledgements</a>
