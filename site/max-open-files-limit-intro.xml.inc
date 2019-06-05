@@ -3,8 +3,8 @@
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -23,9 +23,9 @@ limitations under the License.
     concurrent connections and queues. The main setting that needs adjustment
     is the max number of open files, also known as <code>ulimit -n</code>.
     The default value on many operating systems is too low for a messaging
-    broker (eg. 1024 on several Linux distributions). We recommend allowing
+    broker (<code>1024</code> on several Linux distributions). We recommend allowing
     for at least 65536 file descriptors for user <code>rabbitmq</code> in
-    production environments. 4096 should be sufficient for most development
+    production environments. 4096 should be sufficient for many development
     workloads.
   </p>
 </doc:subsection>
