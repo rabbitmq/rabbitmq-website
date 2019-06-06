@@ -45,7 +45,7 @@ limitations under the license.
             <li><a href="#peer-verification">Peer (certificate chain) verification</a></li>
             <li><a href="#tls-versions">TLS version</a> and <a href="#cipher-suites">cipher suite</a> configuration</li>
             <li>Tools that can be used to <a href="#tls-evaluation-tools">evaluate a TLS setup</a></li>
-            <li>Known <a href="#major-vulnerabilities">attacks on TLS</a> and their migration</li>
+            <li>Known <a href="#major-vulnerabilities">attacks on TLS</a> and their mitigation</li>
             <li>How to use <a href="#private-key-passwords">private key passwords</a></li>
           </ul>
 
