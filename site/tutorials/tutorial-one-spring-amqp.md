@@ -105,6 +105,7 @@ import org.springframework.context.annotation.Profile;
 
 @Profile({"tut1","hello-world"})
 @Configuration
+@EnableScheduling
 public class Tut1Config {
 
     @Bean
