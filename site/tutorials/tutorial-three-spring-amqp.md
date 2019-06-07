@@ -98,6 +98,7 @@ import org.springframework.context.annotation.Profile;
 
 @Profile({"tut3", "pub-sub", "publish-subscribe"})
 @Configuration
+@EnableScheduling
 public class Tut3Config {
 
 	@Bean
