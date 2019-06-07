@@ -218,7 +218,7 @@ we're interested in.
 
 
 <pre class="lang-python">
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare(queue='', exclusive=True)
 queue_name = result.method.queue
 
 for severity in severities:
@@ -303,7 +303,7 @@ channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
-result = channel.queue_declare('', exclusive=True)
+result = channel.queue_declare(queue='', exclusive=True)
 queue_name = result.method.queue
 
 severities = sys.argv[1:]
