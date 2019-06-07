@@ -166,7 +166,7 @@ let the server choose a random queue name for us. We can do this by not
 supplying the `queue` parameter to `queue_declare`:
 
 <pre class="lang-python">
-result = channel.queue_declare()
+result = channel.queue_declare('')
 </pre>
 
 At this point `result.method.queue` contains a random queue name. For example
@@ -176,7 +176,7 @@ Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
 <pre class="lang-python">
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 </pre>
 
 You can learn more about the `exclusive` flag and other queue

@@ -82,7 +82,7 @@ receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
 <pre class="lang-python">
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 callback_queue = result.method.queue
 
 channel.basic_publish(exchange='',

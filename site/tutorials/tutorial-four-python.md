@@ -218,7 +218,7 @@ we're interested in.
 
 
 <pre class="lang-python">
-result = channel.queue_declare(exclusive=True)
+result = channel.queue_declare('', exclusive=True)
 queue_name = result.method.queue
 
 for severity in severities:
