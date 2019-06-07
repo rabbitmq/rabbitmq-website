@@ -162,11 +162,11 @@ ones. To solve that we need two things.
 
 Firstly, whenever we connect to Rabbit we need a fresh, empty queue. To
 do it we could create a queue with a random name, or, even better -
-let the server choose a random queue name for us. We can do this by not
-supplying the `queue` parameter to `queue_declare`:
+let the server choose a random queue name for us. We can do this by
+supplying empty `queue` parameter to `queue_declare`:
 
 <pre class="lang-python">
-result = channel.queue_declare('')
+result = channel.queue_declare(queue='')
 </pre>
 
 At this point `result.method.queue` contains a random queue name. For example
@@ -176,7 +176,7 @@ Secondly, once the consumer connection is closed, the queue should be
 deleted. There's an `exclusive` flag for that:
 
 <pre class="lang-python">
-result = channel.queue_declare('', exclusive=True)
+result = channel.queue_declare(queue='', exclusive=True)
 </pre>
 
 You can learn more about the `exclusive` flag and other queue
@@ -306,7 +306,7 @@ channel = connection.channel()
 
 channel.exchange_declare(exchange='logs', exchange_type='fanout')
 
-result = channel.queue_declare('', exclusive=True)
+result = channel.queue_declare(queue='', exclusive=True)
 queue_name = result.method.queue
 
 channel.queue_bind(exchange='logs', queue=queue_name)
