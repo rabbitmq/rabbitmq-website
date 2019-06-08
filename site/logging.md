@@ -1,6 +1,6 @@
 # Logging
 
-## Introduction
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Log files is a very important aspect of system observability,
 much like [monitoring](/monitoring.html).
