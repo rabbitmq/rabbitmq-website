@@ -301,7 +301,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option `Channel.sendToQueue` takes.
 
 <pre class="lang-javascript">
-channel.sendToQueue(q, Buffer.from(msg), {persistent: true});
+channel.sendToQueue(queue, Buffer.from(msg), {persistent: true});
 </pre>
 
 > #### Note on message persistence
