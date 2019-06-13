@@ -31,6 +31,7 @@ This guide covers various topics related to publishers:
  * [Unroutable Message Handling](#unroutable)
  * [Metrics](#metrics) relevant for publishers
  * [Concurrency Consideration](#concurrency)
+ * How to [temporarily block all publishers](#disable-publishing)
 
 and more.
 
@@ -554,3 +555,12 @@ closure.
 With a small number of concurrent publishers in a single application using one thread (or similar)
 per publisher is the optimal solution. With a large number (say, hundreds or thousands),
 use a thread pool.
+
+## <a id="disable-publishing" class="anchor" href="#disable-publishing">Temporarily Blocking Publishing</a>
+
+It is possible to effectively disable all publishing in a cluster by setting the [memory high watermark](/memory.html)
+to `0`, thus making [a resource alarm](/alarms.html) to go off immediately:
+
+<pre class="lang-bash">
+rabbitmqctl set_vm_memory_high_watermark 0`
+</pre>

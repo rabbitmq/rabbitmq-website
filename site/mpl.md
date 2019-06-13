@@ -1,10 +1,9 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
 Copyright (c) 2007-2019 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -16,18 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
-  <head>
-    <title>Mozilla Public License</title>
-  </head>
-  <body>
-      <p class="intro">
-	This page contains the complete license text as used in the
-	RabbitMQ <a href="download.html">distributions</a>.
-      </p>
+# Mozilla Public License
 
-      <doc:section name="mpl-1.1">
-	<pre>                          MOZILLA PUBLIC LICENSE
+This page contains the complete license text as used in the
+RabbitMQ [distributions](/download.html).
+
+
+## The License
+
+<pre>                          MOZILLA PUBLIC LICENSE
                                 Version 1.1
 
                               ---------------
@@ -485,6 +481,3 @@ EXHIBIT A - Mozilla Public License.
 
 
 </pre>
-      </doc:section>
-  </body>
-</html>

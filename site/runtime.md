@@ -37,9 +37,10 @@ Topics covered include:
  * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
  * [Memory allocator](#allocators) settings
  * Runtime [thread activity metrics](#thred-stats)
+ * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Asynchronous I/O thread pool](#io-threads) size
-
+ * [Erlang process limit](#erlang-process-limit)
 
 ## <a id="vm-settings" class="anchor" href="#vm-settings">VM Settings</a>
 
@@ -187,6 +188,15 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 4096"
 
 To learn about other available settings, see [runtime documentation on allocators](http://erlang.org/doc/man/erts_alloc.html).
 
+## <a id="open-file-handle-limit" class="anchor" href="#open-file-handle-limit">Open File Handle Limit</a>
+
+Most operating systems limit the number of file handles that
+can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM) reaches
+the limit, it won't be able to open any new files or accept any more
+TCP connections.
+
+This limit is covered in detail in the [Networking guide](/networking.html#open-file-handle-limit).
+Note that it cannot be configured using Erlang VM flags.
 
 ## <a id="distribution-buffer" class="anchor" href="#distribution-buffer">Inter-node Communication Buffer Size</a>
 
@@ -270,3 +280,25 @@ and/or clients have maxed out network link capacity. This can be confirmed by [i
 
 Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
 runtime schduler configuration for the available hardware and workload.
+
+
+## <a id="erlang-process-limit" class="anchor" href="#erlang-process-limit">Erlang Process Limit</a>
+
+The runtime has a limit on the number of Erlang processes ("lightweight threads") that can exist on a node.
+The default is about 1 million. In most environments this is sufficient with a wide safety margin.
+
+Environments that have a particularly [high number of concurrent connectionse]() or a very large number
+of queues (say, hundreds of thousands) this limit might need adjusting. This is done using the
+`RABBITMQ_MAX_NUMBER_OF_PROCESSES` environment variable, which is a convenient way of
+setting the `+P` Erlang VM flag:
+
+<pre class="lang-bash">
+RABBITMQ_MAX_NUMBER_OF_PROCESSES=2000000
+</pre>
+
+To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
+variable:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 2000000"
+</pre>

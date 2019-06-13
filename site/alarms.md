@@ -87,7 +87,7 @@ accept their messages, they go into transient [flow control](/flow-control.html)
 
 ## <a id="related-topics" class="anchor" href="#related-topics">Relevant Topics</a>
 
- * [Reasoning about memory usage](/memory-use.html)
+ * [Determining what uses memory](/memory-use.html) on a running node
  * [Memory alarms](/memory.html)
  * [Free disk space alarms](/disk-alarms.html)
  * [How clients can determine if they are blocked](/connection-blocked.html)

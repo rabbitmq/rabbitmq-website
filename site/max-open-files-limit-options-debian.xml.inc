@@ -22,13 +22,16 @@ limitations under the License.
   <h3>With systemd (Recent Linux Distributions)</h3>
   <p>
     On distributions that use systemd, the OS limits are controlled via
-    a configuration file at <code>/etc/systemd/system/rabbitmq-server.service.d/limits.conf</code>,
-    for example:
+    a configuration file at <code>/etc/systemd/system/rabbitmq-server.service.d/limits.conf</code>.
+    For example, to set the max open file handle limit (<code>nofile</code>) to <code>64000</code>:
 
 <pre class="sourcecode">
 [Service]
 LimitNOFILE=64000
 </pre>
+
+    See <a href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html">systemd documentation</a> to learn about
+    the supported limits and other directives.
   </p>
 
   <h3>With Docker</h3>
