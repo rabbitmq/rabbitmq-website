@@ -579,7 +579,7 @@ disk_free_limit.absolute = 50MB
 				logged), <code>warning</code> (only errors and warning are
 				logged), <code>info</code> (errors, warnings and informational
 				messages are logged), or <code>debug</code> (errors, warnings,
-        informational messages and debugging messages are
+        informational messages and debugging m  essages are
         logged).
       </p>
 
@@ -1333,8 +1333,8 @@ Certain server parameters can be configured using environment variables:
 Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
 and so on). Those paths have must exclude a number of characters:
 
- * `*`
- * `?`
+ * `*` and `?` (on Linux, macOS, BSD and other UNIX-like systems)
+ * `^` and `!` (on Windows)
  * `[` and `]`
  * `{` and `}`
 
