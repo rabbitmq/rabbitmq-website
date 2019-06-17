@@ -425,7 +425,7 @@ handshake_timeout = 10000
       Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
       See the <a href="/ssl.html">TLS guide</a> for more
       details and examples.
-      <p>Default: `none` (not set)</p>
+      <p>Default: <code>none</code> (not set)</p>
     </td>
   </tr>
   <tr>
@@ -498,10 +498,10 @@ vm_memory_high_watermark.relative = 0.4
     <td>
       Strategy for memory usage reporting. Can be one of the following:
       <ul class="plain">
-        <li>`allocated`: uses Erlang memory allocator statistics</li>
-        <li>`rss`: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
-        <li>`legacy`: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
-        <li>`erlang`: same as `legacy`, preserved for backwards compatibility</li>
+        <li><code>allocated</code>: uses Erlang memory allocator statistics</li>
+        <li><code>rss</code>: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
+        <li><code>legacy</code>: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
+        <li><code>erlang</code>: same as <code>legacy</code>, preserved for backwards compatibility</li>
       </ul>
       <p>
         Default:
@@ -516,8 +516,7 @@ vm_memory_calculation_strategy = allocated
     <td>
       Fraction of the high watermark limit at which queues
       start to page messages out to disc to free up
-      memory. See the <a href="memory.html">memory-based flow
-      control</a> documentation.
+      memory. See the <a href="memory.html">memory-based flow control</a> documentation.
       <p>
         Default:
 <pre class="lang-ini">
@@ -576,10 +575,10 @@ disk_free_limit.absolute = 50MB
       of log event category and log level pairs.
 
       <p>
-				The level can be one of `error` (only errors are
-				logged), `warning` (only errors and warning are
-				logged), `info` (errors, warnings and informational
-				messages are logged), or `debug` (errors, warnings,
+				The level can be one of <code>error</code> (only errors are
+				logged), <code>warning</code> (only errors and warning are
+				logged), <code>info</code> (errors, warnings and informational
+				messages are logged), or <code>debug</code> (errors, warnings,
         informational messages and debugging messages are
         logged).
       </p>
