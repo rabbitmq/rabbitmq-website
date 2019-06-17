@@ -337,7 +337,7 @@ ls -l ./result
 <pre class="lang-ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
@@ -350,7 +350,7 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
 [
   {rabbit, [
      {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile, "/path/to/ca_certificate_bundle.pem"},
+     {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
                     {verify,     verify_peer},
@@ -372,8 +372,8 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
             <b>Note to Windows users:</b> backslashes ("\") in the
             configuration file are interpreted as escape sequences -
             so for example to specify the
-            path <code>c:\ca_certificate_bundle.pem</code> for the CA certificate you
-            would need to use <code>"c:\\ca_certificate_bundle.pem"</code> or <code>"c:/ca_certificate_bundle.pem"</code>.
+            path <code>c:\ca_certificate.pem</code> for the CA certificate you
+            would need to use <code>"c:\\ca_certificate.pem"</code> or <code>"c:/ca_certificate.pem"</code>.
           </p>
         </doc:subsection>
 
@@ -543,7 +543,7 @@ ssl_options.password   = t0p$3kRe7
             is to simply concatenate them:
 
 <pre class="lang-bash">
-cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_cacerts.pem
+cat rootca/ca_certificate_bundle.pem otherca/ca_certificate.pem &gt; all_cacerts.pem
 </pre>
           </p>
         </doc:subsection>
@@ -571,7 +571,7 @@ cat rootca/ca_certificate_bundle.pem otherca/ca_certificate_bundle.pem &gt; all_
 <pre class="lang-ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile = /path/to/server_certificate.pem
 ssl_options.keyfile = /path/to/server_key.pem
 ssl_options.verify = verify_peer
@@ -584,7 +584,7 @@ ssl_options.fail_if_no_peer_cert = true
 [
 {rabbit, [
    {ssl_listeners, [5671]},
-   {ssl_options, [{cacertfile,"/path/to/ca_certificate_bundle.pem"},
+   {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
                   {certfile,"/path/to/server_certificate.pem"},
                   {keyfile,"/path/to/server_key.pem"},
                   {verify, verify_peer},
@@ -653,7 +653,7 @@ ssl_options.fail_if_no_peer_cert = true
 <pre class="lang-ini">
 listeners.ssl.default = 5671
 
-ssl_options.cacertfile = /path/to/ca_certificate_bundle.pem
+ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile = /path/to/server_certificate.pem
 ssl_options.keyfile = /path/to/server_key.pem
 ssl_options.verify = verify_peer
@@ -667,7 +667,7 @@ ssl_options.fail_if_no_peer_cert = false
 [
   {rabbit, [
      {ssl_listeners, [5671]},
-     {ssl_options, [{cacertfile,"/path/to/ca_certificate_bundle.pem"},
+     {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
                     {certfile,"/path/to/server_certificate.pem"},
                     {keyfile,"/path/to/server_key.pem"},
                     {depth, 2},
@@ -1933,7 +1933,7 @@ default_ca = testca
 
 [ testca ]
 dir = .
-certificate = $dir/ca_certificate_bundle.pem
+certificate = $dir/ca_certificate.pem
 database = $dir/index.txt
 new_certs_dir = $dir/certs
 private_key = $dir/private/ca_private_key.pem
@@ -1992,12 +1992,12 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 <pre class="lang-bash">
 openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
     -out ca_certificate_bundle.pem -outform PEM -subj /CN=MyTestCA/ -nodes
-openssl x509 -in ca_certificate_bundle.pem -out ca_certificate_bundle.cer -outform DER
+openssl x509 -in ca_certificate.pem -out ca_certificate.cer -outform DER
 </pre>
 
           <p>
             This is all that is needed to generate a test Certificate
-            Authority. The root certificate is in <code>ca_certificate_bundle.pem</code>
+            Authority. The root certificate is in <code>ca_certificate.pem</code>
             and is also in <code>testca/ca_certificate_bundle.cer</code>. These two files contain the
             same information, but in different formats, PEM and DER.
             Most software uses the former but some tools require the latter.

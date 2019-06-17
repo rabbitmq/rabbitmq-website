@@ -113,7 +113,7 @@ The plugin will use core RabbitMQ server
 certificates and key (just like AMQP 0-9-1 and AMQP 1.0 listeners do):
 
 <pre class="lang-ini">
-ssl_options.cacertfile = /path/to/tls/ca_certificate_bundle.pem
+ssl_options.cacertfile = /path/to/tls/ca_certificate.pem
 ssl_options.certfile   = /path/to/tls/server_certificate.pem
 ssl_options.keyfile    = /path/to/tls/server_key.pem
 ssl_options.verify     =  verify_peer
@@ -128,7 +128,7 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [{rabbit,          [
-                    {ssl_options, [{cacertfile, "/path/to/tls/ca_certificate_bundle.pem"},
+                    {ssl_options, [{cacertfile, "/path/to/tls/ca_certificate.pem"},
                                    {certfile,   "/path/to/tls/server_certificate.pem"},
                                    {keyfile,    "/path/to/tls/server_key.pem"},
                                    {verify,     verify_peer},

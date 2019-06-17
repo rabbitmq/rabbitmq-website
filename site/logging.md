@@ -283,9 +283,9 @@ log.syslog = true
 log.syslog.transport = tls
 log.syslog.protocol = rfc5424
 
-log.syslog.ssl_options.cacertfile = /path/to/tls/cacert.pem
-log.syslog.ssl_options.certfile = /path/to/tls/cert.pem
-log.syslog.ssl_options.keyfile = /path/to/tls/key.pem
+log.syslog.ssl_options.cacertfile = /path/to/ca_certificate.pem
+log.syslog.ssl_options.certfile = /path/to/client_certificate.pem
+log.syslog.ssl_options.keyfile = /path/to/client_key.pem
 </pre>
 
 In the classic config format:
@@ -293,9 +293,9 @@ In the classic config format:
 <pre class="lang-erlang">
 [{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
  {syslog, [{protocol, {tls, rfc5424,
-                        [{cacertfile,"/path/to/tls/cacert.pem"},
-                         {certfile,"/path/to/tls/cert.pem"},
-                         {keyfile,"/path/to/tls/key.pem"}]}}]}
+                        [{cacertfile,"/path/to/ca_certificate.pem"},
+                         {certfile,"/path/to/client_certificate.pem"},
+                         {keyfile,"/path/to/client_key.pem"}]}}]}
 ].
 </pre>
 
