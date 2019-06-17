@@ -1328,7 +1328,7 @@ Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
 [inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
 
-### <a id="environment-env-restrictions" class="anchor" href="#environment-env-restrictions">Path Limitations</a>
+### <a id="environment-env-restrictions" class="anchor" href="#environment-env-restrictions">Path and Directory Name Restrictions</a>
 
 Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
 and so on). Those paths have must exclude a number of characters:
