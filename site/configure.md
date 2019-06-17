@@ -1329,6 +1329,18 @@ Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
 [inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
 
+### <a id="environment-env-restrictions" class="anchor" href="#environment-env-restrictions">Path Limitations</a>
+
+Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
+and so on). Those paths have must exclude a number of characters:
+
+ * `*`
+ * `?`
+ * `[` and `]`
+ * `{` and `}`
+
+The above characters will render the node unable to start or function as expected (e.g. expand plugins and load their metadata).
+
 ### <a id="environment-env-file-unix" class="anchor" href="#environment-env-file-unix">Linux, MacOS, BSD</a>
 
 On UNIX-based systems (Linux, MacOS and flavours of BSD) it is possible to
@@ -1545,6 +1557,37 @@ The table below describes the environment variables that can be used to configur
     <td>
       Location of the file that contains environment variable definitions (without the <code>RABBITMQ_</code>
       prefix). Note that the file name on Windows is different from other operating systems.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_PLUGINS_DIR</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>`$RABBITMQ_HOME`/plugins</code>
+        </li>
+        <li><b>Ubuntu and Debian</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/plugins</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+      </ul>
+    </td>
+    <td>
+      The directory the node will search for and load <a href="/plugins.html">plugins</a> from.
+      Must not contain any characters mentioned in the <a href="#environment-env-restrictions">path restriction section</a>.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+    <td>
+      <a href="/plugins.html">Plugin expansion</a> directory.
+    </td>
+    <td>
+      The directory the node expand (unpack) <a href="/plugins.html">plugins</a> to and use it as a code path location.
+      Must not contain any characters mentioned in the <a href="#environment-env-restrictions">path restriction section</a>.
     </td>
   </tr>
 
