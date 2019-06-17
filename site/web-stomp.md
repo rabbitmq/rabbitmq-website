@@ -153,9 +153,9 @@ TLS configuration parameters are provided in the `web_stomp.ssl` section:
 <pre class="lang-ini">
 web_stomp.ssl.port       = 15673
 web_stomp.ssl.backlog    = 1024
-web_stomp.ssl.certfile   = /path/to/server/certificate.pem
-web_stomp.ssl.keyfile    = /path/to/server/private_key.pem
-web_stomp.ssl.cacertfile = /path/to/testca/ca_certificate_bundle.pem
+web_stomp.ssl.cacertfile = /path/to/ca_certificate.pem
+web_stomp.ssl.certfile   = /path/to/server_certificate.pem
+web_stomp.ssl.keyfile    = /path/to/server_key.pem
 web_stomp.ssl.password   = changeme
 </pre>
 
@@ -167,9 +167,9 @@ section is `rabbitmq_web_stomp.ssl_config`:
   {rabbitmq_web_stomp,
       [{ssl_config, [{port,       15673},
                      {backlog,    1024},
-                     {certfile,   "/path/to/server/certificate.pem"},
-                     {keyfile,    "/path/to/server/private_key.pem"},
-                     {cacertfile, "/path/to/testca/ca_certificate_bundle.pem"},
+                     {cacertfile, "/path/to/ca_certificate.pem"},
+                     {certfile,   "/path/to/server_certificate.pem"},
+                     {keyfile,    "/path/to/server_key.pem"},
                      %% needed when private key has a passphrase
                      {password,   "changeme"}]}]}
 ].

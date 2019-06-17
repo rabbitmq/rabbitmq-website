@@ -65,9 +65,9 @@ limitations under the License.
       Example (encrypted):
     </p>
 
-    <pre>amqps://myhost?cacertfile=/certs/cacert.pem
-      &amp;certfile=/certs/cert.pem
-      &amp;keyfile=/certs/key.pem
+    <pre>amqps://myhost?cacertfile=/path/to/ca_certificate.pem
+      &amp;certfile=/path/to/client_certificate.pem
+      &amp;keyfile=/path/to/client_key.pem
       &amp;verify=verify_peer
       &amp;server_name_indication=myhost
     </pre>

@@ -399,9 +399,9 @@ management.ssl.keyfile    = /path/to/server_key.pem
 [{rabbitmq_management,
   [{listener, [{port,     15671},
                {ssl,      true},
-               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
-                           {certfile,   "/path/to/cert.pem"},
-                           {keyfile,    "/path/to/key.pem"}]}
+               {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
+                           {certfile,   "/path/to/server_certificate.pem"},
+                           {keyfile,    "/path/to/server_key.pem"}]}
               ]}
   ]}
 ].</pre>
@@ -448,7 +448,7 @@ management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
     [
      {listener, [{port,     15671},
                  {ssl,      true},
-                 {ssl_opts, [{cacertfile, "/path/to/ca_certificate_bundle.pem"},
+                 {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
                              {certfile,   "/path/to/server_certificate.pem"},
                              {keyfile,    "/path/to/server_key.pem"},
 
@@ -492,9 +492,9 @@ management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 management.tcp.port       = 15672
 
 management.ssl.port       = 15671
-management.ssl.cacertfile = /path/to/cacert.pem
-management.ssl.certfile   = /path/to/cert.pem
-management.ssl.keyfile    = /path/to/key.pem
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
 </pre>
           </p>
 
@@ -941,9 +941,9 @@ management.listener.port = 15672
 management.listener.ip   = 0.0.0.0
 management.listener.ssl  = true
 
-management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
-management.listener.ssl_opts.certfile   = /path/to/cert.pem
-management.listener.ssl_opts.keyfile    = /path/to/key.pem
+management.listener.ssl_opts.cacertfile = /path/to/ca_certificate.pem
+management.listener.ssl_opts.certfile   = /path/to/server_certificate.pem
+management.listener.ssl_opts.keyfile    = /path/to/server_key.pem
 
 management.http_log_dir = /path/to/rabbit/logs/http
 
@@ -985,9 +985,9 @@ management.sample_retention_policies.detailed.10 = 5
    %% {listener, [{port,     15672},
    %%             {ip,       "0.0.0.0"},
    %%             {ssl,      true},
-   %%             {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
-   %%                         {certfile,   "/path/to/cert.pem"},
-   %%                         {keyfile,    "/path/to/key.pem"}]}]},
+   %%             {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
+   %%                         {certfile,   "/path/to/server_certificate.pem"},
+   %%                         {keyfile,    "/path/to/server_key.pem"}]}]},
 
    %% One of 'basic', 'detailed' or 'none'.
    {rates_mode, basic},

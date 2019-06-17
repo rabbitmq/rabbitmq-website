@@ -210,7 +210,7 @@ The new format is easier to generate deployment automation tools.
 Compare
 
 <pre class="sourcecode">
-ssl_options.cacertfile           = /path/to/testca/cacert.pem
+ssl_options.cacertfile           = /path/to/ca_certificate.pem
 ssl_options.certfile             = /path/to/server_certificate.pem
 ssl_options.keyfile              = /path/to/server_key.pem
 ssl_options.verify               = verify_peer
@@ -221,7 +221,7 @@ with
 
 <pre class="sourcecode">
 [
-  {rabbit, [{ssl_options, [{cacertfile,           "/path/to/testca/cacert.pem"},
+  {rabbit, [{ssl_options, [{cacertfile,           "/path/to/ca_certificate.pem"},
                            {certfile,             "/path/to/server_certificate.pem"},
                            {keyfile,              "/path/to/server_key.pem"},
                            {verify,               verify_peer},

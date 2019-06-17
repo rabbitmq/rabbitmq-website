@@ -165,9 +165,9 @@ TLS configuration parameters are provided in the `web_mqtt.ssl` section:
 <pre class="lang-ini">
 web_mqtt.ssl.port       = 15673
 web_mqtt.ssl.backlog    = 1024
-web_mqtt.ssl.certfile   = /path/to/server/certificate.pem
-web_mqtt.ssl.keyfile    = /path/to/server/private_key.pem
-web_mqtt.ssl.cacertfile = /path/to/testca/ca_certificate_bundle.pem
+web_mqtt.ssl.cacertfile = /path/to/ca_certificate.pem
+web_mqtt.ssl.certfile   = /path/to/server_certificate.pem
+web_mqtt.ssl.keyfile    = /path/to/server_key.pem
 # needed when private key has a passphrase
 # web_mqtt.ssl.password   = changeme
 </pre>
@@ -180,9 +180,9 @@ section is `rabbitmq_web_mqtt.ssl_config`:
   {rabbitmq_web_mqtt,
       [{ssl_config, [{port,       15673},
                      {backlog,    1024},
-                     {certfile,   "/path/to/server/certificate.pem"},
-                     {keyfile,    "/path/to/server/private_key.pem"},
-                     {cacertfile, "/path/to/testca/ca_certificate_bundle.pem"}
+                     {cacertfile, "/path/to/ca_certificate.pem"}
+                     {certfile,   "/path/to/server_certificate.pem"},
+                     {keyfile,    "/path/to/server_key.pem"}
                      %% needed when private key has a passphrase
                      %% , {password,   "changeme"}
                     ]}]}
@@ -210,9 +210,9 @@ and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 <pre class="lang-erlang">
 {rabbitmq_web_mqtt,
   [{ssl_config,
-    [{cacertfile,           "/path/to/testca/ca_certificate_bundle.pem"},
-     {certfile,             "/path/to/server/certificate.pem"},
-     {keyfile,              "/path/to/server/private_key.pem"},
+    [{cacertfile,           "/path/to/ca_certificate.pem"},
+     {certfile,             "/path/to/server_certificate.pem"},
+     {keyfile,              "/path/to/server_key.pem"},
      {verify,               verify_peer},
      {fail_if_no_peer_cert, true},
      {versions,             ['tlsv1.2']},
