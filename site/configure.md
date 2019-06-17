@@ -1478,11 +1478,11 @@ The table below describes the environment variables that can be used to configur
       <ul>
         <li>
           <b>Unix*:</b>
-          <code>rabbit@`$HOSTNAME`</code>
+          <code>rabbit@$HOSTNAME</code>
         </li>
         <li>
           <b>Windows:</b>
-          <code>rabbit@`%COMPUTERNAME%`</code>
+          <code>rabbit@%COMPUTERNAME%</code>
         </li>
       </ul>
     </td>
@@ -1498,7 +1498,7 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_CONFIG_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX</b> - <code>`$RABBITMQ_HOME`/etc/rabbitmq/rabbitmq</code>
+        <li><b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq</code>
         </li>
         <li><b>Debian</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
         <li><b>RPM</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
@@ -1506,7 +1506,7 @@ The table below describes the environment variables that can be used to configur
           <b>MacOS(Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\rabbitmq</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq</code></li>
       </ul>
     </td>
     <td>
@@ -1521,7 +1521,8 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_ADVANCED_CONFIG_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
+        <li>
+          <b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
         </li>
         <li><b>Debian</b> - <code>/etc/rabbitmq/advanced</code></li>
         <li><b>RPM</b> - <code>/etc/rabbitmq/advanced</code></li>
@@ -1529,7 +1530,7 @@ The table below describes the environment variables that can be used to configur
           <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/advanced</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\advanced</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\advanced</code></li>
       </ul>
     </td>
     <td>
@@ -1543,15 +1544,14 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_CONF_ENV_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX package</b>: <code>`$RABBITMQ_HOME`/etc/rabbitmq/rabbitmq-env.conf</code>
-        </li>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li><b>Ubuntu and Debian</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li>
           <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq-env.conf</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\rabbitmq-env-conf.bat</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq-env-conf.bat</code></li>
       </ul>
     </td>
     <td>
@@ -1561,17 +1561,60 @@ The table below describes the environment variables that can be used to configur
   </tr>
 
   <tr>
+    <td>RABBITMQ_MNESIA_BASE</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/var/lib/rabbitmq/mnesia</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/mnesia/</code></li>
+        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ</code></li>
+      </ul>
+    </td>
+    <td>
+      Base directory for all node data directories on the host. Each node data directory stores
+      the schema database, message stores, and other node-local and replicated data.
+      This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_MNESIA_DIR</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\`$RABBITMQ_NODENAME`</code></li>
+      </ul>
+    </td>
+    <td>
+      Base directory for all node data directories on the host. Each node data directory stores
+      the schema database, message stores, and other node-local and replicated data.
+      This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+    </td>
+  </tr>
+
+  <tr>
     <td>RABBITMQ_PLUGINS_DIR</td>
     <td>
       <ul>
-        <li><b>Generic UNIX package</b>: <code>`$RABBITMQ_HOME`/plugins</code>
-        </li>
-        <li><b>Ubuntu and Debian</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/plugins</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/plugins</code></li>
         <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
         <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/plugins</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
+          <b>MacOS (Homebrew)</b> - <code>$RABBITMQ_HOME/plugins</code>,
+          with Homebrew $RABBITMQ_HOME is <code>${install_prefix}/Cellar/rabbitmq/${version}</code> and
+          installation prefix is usually <code>/usr/local</code>.
         </li>
+        <li><b>Windows</b>: <code>%RABBITMQ_HOME%\plugins</code></li>
       </ul>
     </td>
     <td>
@@ -1583,7 +1626,16 @@ The table below describes the environment variables that can be used to configur
   <tr>
     <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
     <td>
-      <a href="/plugins.html">Plugin expansion</a> directory.
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME-plugins-expand</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME-plugins-expand</code></li>
+      </ul>
     </td>
     <td>
       The directory the node expand (unpack) <a href="/plugins.html">plugins</a> to and use it as a code path location.
