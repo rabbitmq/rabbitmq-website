@@ -1328,7 +1328,7 @@ Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
 [inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
 
-### <a id="environment-env-restrictions" class="anchor" href="#environment-env-restrictions">Path and Directory Name Restrictions</a>
+### <a id="directory-and-path-restrictions" class="anchor" href="#directory-and-path-restrictions">Path and Directory Name Restrictions</a>
 
 Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
 and so on). Those paths have must exclude a number of characters:
@@ -1391,7 +1391,6 @@ using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 This can be done using the installer or on the command line
 with administrator permissions:
 
-
  * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
  * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin`)
  * Run `rabbitmq-service.bat remove`
@@ -1419,7 +1418,8 @@ in [rabbitmq-env.conf](#environment-env-file-unix) or
 [rabbitmq-env-conf.bat](#environment-env-file-windows), which in turn override
 RabbitMQ built-in defaults.
 
-The table below describes the environment variables that can be used to configure RabbitMQ.
+The table below describes key environment variables that can be used to configure RabbitMQ.
+More variables are covered in the [File and Directory Locations guide](/relocate.html).
 
 <table>
   <tr><th>Name</th><th>Default</th><th>Description</th></tr>
@@ -1574,8 +1574,12 @@ The table below describes the environment variables that can be used to configur
       </ul>
     </td>
     <td>
-      Base directory for all node data directories on the host. Each node data directory stores
-      the schema database, message stores, and other node-local and replicated data.
+      This base directory contains sub-directories for the RabbitMQ
+      server's node database, message store and cluster state files, one for each node,
+      unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
+      It is important that effective RabbitMQ user has sufficient permissions
+      to read, write and create files and subdirectories in this directory
+      at any time.
       This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
     </td>
   </tr>
@@ -1595,9 +1599,9 @@ The table below describes the environment variables that can be used to configur
       </ul>
     </td>
     <td>
-      Base directory for all node data directories on the host. Each node data directory stores
-      the schema database, message stores, and other node-local and replicated data.
-      This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+      The directory where this RabbitMQ node's data is stored. This s
+      a schema database, message stores, cluster member information and other
+      persistent node state.
     </td>
   </tr>
 
@@ -1617,8 +1621,14 @@ The table below describes the environment variables that can be used to configur
       </ul>
     </td>
     <td>
-      The directory the node will search for and load <a href="/plugins.html">plugins</a> from.
-      Must not contain any characters mentioned in the <a href="#environment-env-restrictions">path restriction section</a>.
+      The list of directories where <a
+      href="/plugins.html">plugin</a> archive files are located and extracted
+      from. This is <code>PATH</code>-like variable, where
+      different paths are separated by an OS-specific separator
+      (<code>:</code> for Unix, <code>;</code> for Windows).
+      Plugins can be <a href="plugins.html">installed</a> to any of the
+      directories listed here.
+      Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
     </td>
   </tr>
 
@@ -1638,7 +1648,7 @@ The table below describes the environment variables that can be used to configur
     </td>
     <td>
       The directory the node expand (unpack) <a href="/plugins.html">plugins</a> to and use it as a code path location.
-      Must not contain any characters mentioned in the <a href="#environment-env-restrictions">path restriction section</a>.
+      Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
     </td>
   </tr>
 
