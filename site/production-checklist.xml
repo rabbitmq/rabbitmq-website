@@ -30,8 +30,9 @@ limitations under the License.
         Data services such as RabbitMQ often have many tunable
         parameters. Some configurations make a lot of sense for
         development but are not really suitable for production.  No
-        single configuration fits every use case.  It is, therefore,
-        important to assess system configuration before going into production.
+        single configuration fits every use case. It is, therefore,
+        important to assess system configuration and have a plan for "day two operations"
+        activities such as <a href="/upgrade.html">upgrades</a> before going into production.
       </p>
 
       <p>
@@ -46,6 +47,11 @@ limitations under the License.
         <a href="/monitoring.html">Monitoring</a> and metrics are the foundation of a production-grade system.
         Besides helping detect issues, it provides the operator data that can be used
         to size and configure both RabbitMQ nodes and applications.
+      </p>
+
+      <p>
+        Operators also should keep <a href="/versions.html">RabbitMQ support timelines</a> in mind
+        when picking a version to deploy.
       </p>
     </doc:section>
 
