@@ -210,7 +210,7 @@ The new format is easier to generate deployment automation tools.
 Compare
 
 <pre class="sourcecode">
-ssl_options.cacertfile           = /path/to/testca/cacert.pem
+ssl_options.cacertfile           = /path/to/ca_certificate.pem
 ssl_options.certfile             = /path/to/server_certificate.pem
 ssl_options.keyfile              = /path/to/server_key.pem
 ssl_options.verify               = verify_peer
@@ -221,7 +221,7 @@ with
 
 <pre class="sourcecode">
 [
-  {rabbit, [{ssl_options, [{cacertfile,           "/path/to/testca/cacert.pem"},
+  {rabbit, [{ssl_options, [{cacertfile,           "/path/to/ca_certificate.pem"},
                            {certfile,             "/path/to/server_certificate.pem"},
                            {keyfile,              "/path/to/server_key.pem"},
                            {verify,               verify_peer},
@@ -425,7 +425,7 @@ handshake_timeout = 10000
       Ports or hostname/pair on which to listen for TLS-enabled AMQP 0-9-1 and AMQP 1.0 connections.
       See the <a href="/ssl.html">TLS guide</a> for more
       details and examples.
-      <p>Default: `none` (not set)</p>
+      <p>Default: <code>none</code> (not set)</p>
     </td>
   </tr>
   <tr>
@@ -498,10 +498,10 @@ vm_memory_high_watermark.relative = 0.4
     <td>
       Strategy for memory usage reporting. Can be one of the following:
       <ul class="plain">
-        <li>`allocated`: uses Erlang memory allocator statistics</li>
-        <li>`rss`: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
-        <li>`legacy`: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
-        <li>`erlang`: same as `legacy`, preserved for backwards compatibility</li>
+        <li><code>allocated</code>: uses Erlang memory allocator statistics</li>
+        <li><code>rss</code>: uses operating system RSS memory reporting. This uses OS-specific means and may start short lived child processes.</li>
+        <li><code>legacy</code>: uses legacy memory reporting (how much memory is considered to be used by the runtime). This strategy is fairly inaccurate.</li>
+        <li><code>erlang</code>: same as <code>legacy</code>, preserved for backwards compatibility</li>
       </ul>
       <p>
         Default:
@@ -516,8 +516,7 @@ vm_memory_calculation_strategy = allocated
     <td>
       Fraction of the high watermark limit at which queues
       start to page messages out to disc to free up
-      memory. See the <a href="memory.html">memory-based flow
-      control</a> documentation.
+      memory. See the <a href="memory.html">memory-based flow control</a> documentation.
       <p>
         Default:
 <pre class="lang-ini">
@@ -576,11 +575,11 @@ disk_free_limit.absolute = 50MB
       of log event category and log level pairs.
 
       <p>
-				The level can be one of `error` (only errors are
-				logged), `warning` (only errors and warning are
-				logged), `info` (errors, warnings and informational
-				messages are logged), or `debug` (errors, warnings,
-        informational messages and debugging messages are
+				The level can be one of <code>error</code> (only errors are
+				logged), <code>warning</code> (only errors and warning are
+				logged), <code>info</code> (errors, warnings and informational
+				messages are logged), or <code>debug</code> (errors, warnings,
+        informational messages and debugging m  essages are
         logged).
       </p>
 
@@ -1329,6 +1328,18 @@ Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
 [inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
 
+### <a id="directory-and-path-restrictions" class="anchor" href="#directory-and-path-restrictions">Path and Directory Name Restrictions</a>
+
+Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
+and so on). Those paths have must exclude a number of characters:
+
+ * `*` and `?` (on Linux, macOS, BSD and other UNIX-like systems)
+ * `^` and `!` (on Windows)
+ * `[` and `]`
+ * `{` and `}`
+
+The above characters will render the node unable to start or function as expected (e.g. expand plugins and load their metadata).
+
 ### <a id="environment-env-file-unix" class="anchor" href="#environment-env-file-unix">Linux, MacOS, BSD</a>
 
 On UNIX-based systems (Linux, MacOS and flavours of BSD) it is possible to
@@ -1380,7 +1391,6 @@ using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 This can be done using the installer or on the command line
 with administrator permissions:
 
-
  * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
  * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin`)
  * Run `rabbitmq-service.bat remove`
@@ -1408,7 +1418,8 @@ in [rabbitmq-env.conf](#environment-env-file-unix) or
 [rabbitmq-env-conf.bat](#environment-env-file-windows), which in turn override
 RabbitMQ built-in defaults.
 
-The table below describes the environment variables that can be used to configure RabbitMQ.
+The table below describes key environment variables that can be used to configure RabbitMQ.
+More variables are covered in the [File and Directory Locations guide](/relocate.html).
 
 <table>
   <tr><th>Name</th><th>Default</th><th>Description</th></tr>
@@ -1466,11 +1477,11 @@ The table below describes the environment variables that can be used to configur
       <ul>
         <li>
           <b>Unix*:</b>
-          <code>rabbit@`$HOSTNAME`</code>
+          <code>rabbit@$HOSTNAME</code>
         </li>
         <li>
           <b>Windows:</b>
-          <code>rabbit@`%COMPUTERNAME%`</code>
+          <code>rabbit@%COMPUTERNAME%</code>
         </li>
       </ul>
     </td>
@@ -1486,7 +1497,7 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_CONFIG_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX</b> - <code>`$RABBITMQ_HOME`/etc/rabbitmq/rabbitmq</code>
+        <li><b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq</code>
         </li>
         <li><b>Debian</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
         <li><b>RPM</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
@@ -1494,7 +1505,7 @@ The table below describes the environment variables that can be used to configur
           <b>MacOS(Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\rabbitmq</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq</code></li>
       </ul>
     </td>
     <td>
@@ -1509,7 +1520,8 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_ADVANCED_CONFIG_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
+        <li>
+          <b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
         </li>
         <li><b>Debian</b> - <code>/etc/rabbitmq/advanced</code></li>
         <li><b>RPM</b> - <code>/etc/rabbitmq/advanced</code></li>
@@ -1517,7 +1529,7 @@ The table below describes the environment variables that can be used to configur
           <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/advanced</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\advanced</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\advanced</code></li>
       </ul>
     </td>
     <td>
@@ -1531,20 +1543,112 @@ The table below describes the environment variables that can be used to configur
     <td>RABBITMQ_CONF_ENV_FILE</td>
     <td>
       <ul>
-        <li><b>Generic UNIX package</b>: <code>`$RABBITMQ_HOME`/etc/rabbitmq/rabbitmq-env.conf</code>
-        </li>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li><b>Ubuntu and Debian</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
         <li>
           <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq-env.conf</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b> - <code>`%APPDATA%`\RabbitMQ\rabbitmq-env-conf.bat</code></li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq-env-conf.bat</code></li>
       </ul>
     </td>
     <td>
       Location of the file that contains environment variable definitions (without the <code>RABBITMQ_</code>
       prefix). Note that the file name on Windows is different from other operating systems.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_MNESIA_BASE</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/var/lib/rabbitmq/mnesia</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/mnesia/</code></li>
+        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ</code></li>
+      </ul>
+    </td>
+    <td>
+      This base directory contains sub-directories for the RabbitMQ
+      server's node database, message store and cluster state files, one for each node,
+      unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
+      It is important that effective RabbitMQ user has sufficient permissions
+      to read, write and create files and subdirectories in this directory
+      at any time.
+      This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_MNESIA_DIR</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\`$RABBITMQ_NODENAME`</code></li>
+      </ul>
+    </td>
+    <td>
+      The directory where this RabbitMQ node's data is stored. This s
+      a schema database, message stores, cluster member information and other
+      persistent node state.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_PLUGINS_DIR</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/plugins</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>$RABBITMQ_HOME/plugins</code>,
+          with Homebrew $RABBITMQ_HOME is <code>${install_prefix}/Cellar/rabbitmq/${version}</code> and
+          installation prefix is usually <code>/usr/local</code>.
+        </li>
+        <li><b>Windows</b>: <code>%RABBITMQ_HOME%\plugins</code></li>
+      </ul>
+    </td>
+    <td>
+      The list of directories where <a
+      href="/plugins.html">plugin</a> archive files are located and extracted
+      from. This is <code>PATH</code>-like variable, where
+      different paths are separated by an OS-specific separator
+      (<code>:</code> for Unix, <code>;</code> for Windows).
+      Plugins can be <a href="plugins.html">installed</a> to any of the
+      directories listed here.
+      Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+    <td>
+      <ul>
+        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+        <li>
+          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME-plugins-expand</code>,
+          the Homebrew prefix is usually <code>/usr/local</code>
+        </li>
+        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME-plugins-expand</code></li>
+      </ul>
+    </td>
+    <td>
+      The directory the node expand (unpack) <a href="/plugins.html">plugins</a> to and use it as a code path location.
+      Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
     </td>
   </tr>
 

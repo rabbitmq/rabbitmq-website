@@ -20,6 +20,8 @@ limitations under the License.
 ## Overview
 
 RabbitMQ release notes are [available on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
+See <a href="/versions.html">RabbitMQ support timeline</a> to find out what release series
+are supported.
 
 [Java client release notes](https://github.com/rabbitmq/rabbitmq-java-client/releases)
 and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases) are

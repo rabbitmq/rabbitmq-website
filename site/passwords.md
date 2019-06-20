@@ -64,7 +64,7 @@ Out of the box, the following hashing modules are provided:
 Updated hashing algorithm will be applied to newly created users
 or when password is changed using [rabbitmqctl](/man/rabbitmqctl.8.html).
 
-## <a id="upgrading-to-3-6-x" class="anchor" href="#upgrading-to-3-6-x">Upgrading from pre-3.6.0 to 3.6.1 or Later Versions</a>
+## <a id="upgrading-to-3-6-x" class="anchor" href="#upgrading-to-3-6-x">Upgrading from pre-3.6.0 Versions</a>
 
 When upgrading from a pre-3.6 version to RabbitMQ 3.6.1 or later,
 all existing users are marked as using the legacy password hashing function,
@@ -77,19 +77,19 @@ use [rabbitmqctl](/man/rabbitmqctl.8.html) to update their passwords.
 
 ## <a id="credential-validation" class="anchor" href="#credential-validation">Credential Validation</a>
 
-Starting with version `3.6.7` it is possible to define
-a `credential validator`. It only has effect on the internal
+RabbitMQ supports credential validators. The validator only has an effect on the internal
 authentication backend and kicks in when a new user is added or password
 of an existing user is changed.
 
 Validators are modules that implement a validation
 function. To use a validator, it is necessary to specify it
 and its additional settings in the [config file](/configure.html).
+
 There are three credential validators available out of the box:
 
  * `rabbit_credential_validator_accept_everything`: unconditionally accepts all values. This validator is used by default for backwards compatibility.
  * `rabbit_credential_validator_min_password_length`: validates password length
- * `rabbit_credential_validator_password_regexp`: validates that password matches a regular expression
+ * `rabbit_credential_validator_password_regexp`: validates that password matches a regular expression (with some limitations, see below)
 
 The following example demonstrates how `rabbit_credential_validator_min_password_length` is used:
 
@@ -130,6 +130,26 @@ which becomes
 </pre>
 
 in the [classic config format](/configure.html).
+
+### <a id="credential-validation-limitations" class="anchor" href="#credential-validation-limitations">Credential Validator Limitations</a>
+
+Credential validators have limitations that have to do both with the config file grammar and shell interpretation of
+certain characters when credentials are specified on the command line.
+
+[New style configuration format](/configure.html) uses `#` as the comment character. This means that validation rules cannot
+use `#` in regular expression values. Leading and trailing spaces in values will also be stripped by the config file parser.
+
+Shells interpret certain characters (`!`, `?`, `&`, `^`, `"`, `'`, `*`, `~`, and others) as control characters. When a password is specified
+on the command line for `rabbitmqctl add_user` or `rabbitmqctl change_password`, such control characters must
+be escaped appropriately. With inappropriate escaping the command will fail or RabbitMQ CLI tools will receive a different value
+from the shell.
+
+When generating passwords that will be passed on the command line,
+long alphanumeric value with a very limited set of symbols (e.g. `:`, `=`) is the safest option.
+
+When users are created via [HTTP API](/management.html) without using a shell (e.g. `curl`),
+the control character limitation does not apply. However, different escaping rules may be necessary
+depending on the programming language used.
 
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
 

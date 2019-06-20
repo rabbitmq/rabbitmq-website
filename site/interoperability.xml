@@ -42,7 +42,7 @@ limitations under the License.
 	    <li>the RabbitMQ clients against Qpid's 0.6 Java broker</li>
 	    <li>
 	      Qpid's <a
-	      href="http://cwiki.apache.org/qpid/pythonbrokertest.html">Python
+	      href="https://cwiki.apache.org/confluence/display/qpid/PythonBrokerTest">Python
 	      test-suite</a> against the RabbitMQ  broker
 	    </li>
 	  </ul>

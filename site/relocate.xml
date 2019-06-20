@@ -47,150 +47,169 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="permissions">
-      <doc:heading>File System Permissions</doc:heading>
+    <doc:section name="locations">
+      <doc:heading>Overriding Locations</doc:heading>
 
       <p>
-        When changing file or directory locations, it is important to
-        make sure that they have sufficient permissions for RabbitMQ
-        node OS process to read and write from. It's best to assume
-        that most directories and files used by RabbitMQ require read,
-        write, and file creation permissions.  <a
-        href="/install-debian.html">Debian</a>, <a
-        href="/install-rpm.html">RPM</a> and <a href="/install-windows.html">Windows installer</a> scripts
-        will set up file system permissions suitable for most
-        environments, however, when strict default permissions are
-        used system-wide, it may be necessary to run additional
-        configuration steps after installation to make sure RabbitMQ node
-        file and directories have sufficient permissions
+        A number of [environment variables](/configure.html) specifies where
+        RabbitMQ should locate certain things. In most environments default
+        values should work just fine.
       </p>
-    </doc:section>
 
-    <doc:section name="locations">
-    <doc:heading>Specifying Locations</doc:heading>
 
-    <p>
-      You can set the following environment variables to specify where
-      RabbitMQ should locate certain things. In most environments default
-      values should work just fine.
-    </p>
-    <table>
-      <th>Name</th><th>Description</th>
-      <tr>
-        <td>RABBITMQ_BASE</td>
-        <td>
-          <b>Note:</b> Windows only. This base directory contains
-          sub-directories for the RabbitMQ server's database and
-          log files. Alternatively, set
-          <b>RABBITMQ_MNESIA_BASE</b> and
-          <b>RABBITMQ_LOG_BASE</b> individually.
-        </td>
-      </tr>
-      <tr>
-        <td>RABBITMQ_CONFIG_FILE</td>
-        <td>
-          The path to the configuration file, without
-          the <code>.config</code> extension. If
-          the <a href="configure.html#configuration-file">configuration
-          file</a> is present it is used by the server to configure
-          RabbitMQ components. See <a href="/configure.html">Configuration guide</a>
-          for more information.
-        </td>
-      </tr>
-      <tr>
-        <td>RABBITMQ_GENERATED_CONFIG_DIR</td>
-        <td>
-          The directory where RabbitMQ writes its generated configuration
-          files.
-        </td>
-      </tr>
+      <doc:subsection name="directory-and-path-restrictions">
+        <doc:heading>Path and Directory Name Restrictions</doc:heading>
 
-      <tr>
-        <td>RABBITMQ_MNESIA_BASE</td>
-        <td>
-          This base directory contains sub-directories for the RabbitMQ
-          server's node database, message store and cluster state files, one for each node,
-          unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
-          It is
-          important that effective RabbitMQ user has sufficient permissions
-          to read, write and create files and subdirectories in this directory
-          at any time.
-        </td>
-      </tr>
-      <tr>
-        <td>RABBITMQ_MNESIA_DIR</td>
-        <td>
-          The directory where this RabbitMQ node's data is stored. This includes
-          a schema database, message stores, cluster member information and other
-          persistent node state.
-        </td>
-      </tr>
+        <p>
+          Some of the environment variable configure paths and locations (node's base or data directory, <a href="/plugins.html">plugin source and expansion directories</a>,
+          and so on). Those paths have must exclude a number of characters:
 
-      <tr>
-        <td>RABBITMQ_SCHEMA_DIR</td>
-        <td>
-          The directory where RabbitMQ keeps its configuration schema used by
-          the <a href="/configure.html#configuration-files">new style configuration file</a>.
-        </td>
-      </tr>
+          <ul>
+            <li><code>*</code> and <code>?</code> (on Linux, macOS, BSD and other UNIX-like systems)</li>
+            <li><code>^</code> and <code>!</code></li>
+            <li><code>[</code> and <code>]</code></li>
+            <li><code>{}</code> and <code>}</code></li>
+          </ul>
 
-      <tr>
-        <td>RABBITMQ_LOG_BASE</td>
-        <td>
-          This base directory contains the RabbitMQ server's <a href="/logging.html">log
-          files</a>, unless <b>RABBITMQ_LOGS</b> is set.
-        </td>
-      </tr>
+          The above characters will render the node unable to start or function as expected (e.g. expand plugins and load their metadata).
+        </p>
 
-      <tr>
-        <td>RABBITMQ_LOGS</td>
-        <td>
-          The path of the RabbitMQ server's Erlang log file. This
-          variable cannot be overridden on Windows.
-        </td>
-      </tr>
+        <p>
+          When changing file or directory locations, it is important to
+          make sure that they have sufficient permissions for RabbitMQ
+          node OS process to read and write from. It's best to assume
+          that most directories and files used by RabbitMQ require read,
+          write, and file creation permissions. <a href="/install-debian.html">Debian</a>,
+          <a href="/install-rpm.html">RPM</a> and <a href="/install-windows.html">Windows installer</a> scripts
+          will set up file system permissions suitable for most
+          environments, however, when strict default permissions are
+          used system-wide, it may be necessary to run additional
+          configuration steps after installation to make sure RabbitMQ node
+          file and directories have sufficient permissions
+        </p>
+      </doc:subsection>
 
-      <tr>
-        <td>RABBITMQ_PLUGINS_DIR</td>
-        <td>
-          The list of directories where <a
-          href="/plugins.html">plugin</a> archive files are located and extracted
-          from. This is <code>PATH</code>-like variable, where
-          different paths are separated by an OS-specific separator
-          (<code>:</code> for Unix, <code>;</code> for Windows).
-          Plugins can be <a href="installing-plugins.html">installed</a> to any of the
-          directories listed here.
-        </td>
-      </tr>
+      <doc:subsection name="environment-variables">
+        <doc:heading>Environment Variables</doc:heading>
 
-      <tr>
-        <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-        <td>
-          Working directory used to expand enabled plugins when starting
-          the server. It is
-          important that effective RabbitMQ user has sufficient permissions
-          to read and create files and subdirectories in this directory.
-        </td>
-      </tr>
+        <table>
+          <th>Name</th><th>Description</th>
+          <tr>
+            <td>RABBITMQ_BASE</td>
+            <td>
+              <b>Note:</b> Windows only. This base directory contains
+              sub-directories for the RabbitMQ server's database and
+              log files. Alternatively, set
+              <b>RABBITMQ_MNESIA_BASE</b> and
+              <b>RABBITMQ_LOG_BASE</b> individually.
+            </td>
+          </tr>
+          <tr>
+            <td>RABBITMQ_CONFIG_FILE</td>
+            <td>
+              The path to the configuration file, without
+              the <code>.config</code> extension. If
+              the <a href="configure.html#configuration-file">configuration
+              file</a> is present it is used by the server to configure
+              RabbitMQ components. See <a href="/configure.html">Configuration guide</a>
+              for more information.
+            </td>
+          </tr>
+          <tr>
+            <td>RABBITMQ_GENERATED_CONFIG_DIR</td>
+            <td>
+              The directory where RabbitMQ writes its generated configuration
+              files.
+            </td>
+          </tr>
 
-      <tr>
-        <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
-        <td>
-          This file records explicitly enabled plugins. When a plugin
-          is enabled or disabled, this file will be recreated. It is
-          important that effective RabbitMQ user has sufficient permissions
-          to read, write and create this file at any time.
-        </td>
-      </tr>
+          <tr>
+            <td>RABBITMQ_MNESIA_BASE</td>
+            <td>
+              This base directory contains sub-directories for the RabbitMQ
+              server's node database, message store and cluster state files, one for each node,
+              unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
+              It is important that effective RabbitMQ user has sufficient permissions
+              to read, write and create files and subdirectories in this directory
+              at any time.
+              This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+            </td>
+          </tr>
+          <tr>
+            <td>RABBITMQ_MNESIA_DIR</td>
+            <td>
+              The directory where this RabbitMQ node's data is stored. This s
+              a schema database, message stores, cluster member information and other
+              persistent node state.
+            </td>
+          </tr>
 
-      <tr>
-        <td>RABBITMQ_PID_FILE</td>
-        <td>
-          File in which the process id is placed for use by
-          <code>rabbitmqctl wait</code>.
-        </td>
-      </tr>
-    </table>
+          <tr>
+            <td>RABBITMQ_SCHEMA_DIR</td>
+            <td>
+              The directory where RabbitMQ keeps its configuration schema used by
+              the <a href="/configure.html#configuration-files">new style configuration file</a>.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_LOG_BASE</td>
+            <td>
+              This base directory contains the RabbitMQ server's <a href="/logging.html">log
+              files</a>, unless <b>RABBITMQ_LOGS</b> is set.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_LOGS</td>
+            <td>
+              The path of the RabbitMQ server's Erlang log file. This
+              variable cannot be overridden on Windows.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_PLUGINS_DIR</td>
+            <td>
+              The list of directories where <a
+              href="/plugins.html">plugin</a> archive files are located and extracted
+              from. This is <code>PATH</code>-like variable, where
+              different paths are separated by an OS-specific separator
+              (<code>:</code> for Unix, <code>;</code> for Windows).
+              Plugins can be <a href="plugins.html#plugin-directories">installed</a> to any of the
+              directories listed here.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+            <td>
+              Working directory used to expand enabled plugins when starting
+              the server. It is
+              important that effective RabbitMQ user has sufficient permissions
+              to read and create files and subdirectories in this directory.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
+            <td>
+              This file records explicitly enabled plugins. When a plugin
+              is enabled or disabled, this file will be recreated. It is
+              important that effective RabbitMQ user has sufficient permissions
+              to read, write and create this file at any time.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RABBITMQ_PID_FILE</td>
+            <td>
+              File in which the process id is placed for use by
+              <code>rabbitmqctl wait</code>.
+            </td>
+          </tr>
+        </table>
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="unix">
@@ -202,7 +221,7 @@ limitations under the License.
         default this is <code>/usr/local</code>.
       </p>
       <p>
-        Deb / RPM package installations use an empty
+        Debian and RPM package installations use an empty
         <code>${install_prefix}</code>.
       </p>
       <table>
@@ -225,6 +244,7 @@ limitations under the License.
             <span class="path"><span class="envvar">${install_prefix}</span>/var/lib/rabbitmq/mnesia</span>
           </td>
         </tr>
+
         <tr>
           <td>RABBITMQ_MNESIA_DIR</td>
           <td>
@@ -247,13 +267,6 @@ limitations under the License.
         </tr>
 
         <tr>
-          <td>RABBITMQ_SASL_LOGS</td>
-          <td>
-            <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-sasl.log</span>
-          </td>
-        </tr>
-
-        <tr>
           <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
             <span class="path">/usr/lib/rabbitmq/plugins:<span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
@@ -264,6 +277,13 @@ limitations under the License.
                 into the standard (default) location.
               </small>
             </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
           </td>
         </tr>
 
@@ -328,16 +348,16 @@ limitations under the License.
         </tr>
 
         <tr>
-          <td>RABBITMQ_SASL_LOGS</td>
+          <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
-            <span class="path"><span class="envvar">%RABBITMQ_LOG_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-sasl.log</span>
+            <i>Installation-directory</i><span class="path">/plugins</span>
           </td>
         </tr>
 
         <tr>
-          <td>RABBITMQ_PLUGINS_DIR</td>
+          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
           <td>
-            <i>Installation-directory</i><span class="path">/plugins</span>
+            <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-plugins-expand</span>
           </td>
         </tr>
 
@@ -357,14 +377,12 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="generic-unix">
-      <doc:heading>Generic Unix Default Locations</doc:heading>
+      <doc:heading>Generic Binary Build Default Locations</doc:heading>
       <p>
         These are the defaults obtained when unpacking the Generic
         Unix tar-file and running the server without modification. In
         this table <span class="envvar">$RABBITMQ_HOME</span> refers
-        to the directory
-        <code>rabbitmq_server-&version-server;</code> produced when
-        unpacking the download.
+        to the directory produced when extracting the archive.
       </p>
       <table>
         <th>Name</th><th>Location</th>
@@ -386,6 +404,7 @@ limitations under the License.
             <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/var/lib/rabbitmq/mnesia</span>
           </td>
         </tr>
+
         <tr>
           <td>RABBITMQ_MNESIA_DIR</td>
           <td>
@@ -408,13 +427,6 @@ limitations under the License.
         </tr>
 
         <tr>
-          <td>RABBITMQ_SASL_LOGS</td>
-          <td>
-            <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-sasl.log</span>
-          </td>
-        </tr>
-
-        <tr>
           <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
             <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
@@ -422,9 +434,9 @@ limitations under the License.
         </tr>
 
         <tr>
-          <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
+          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
           <td>
-            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/enabled_plugins</span>
+            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
           </td>
         </tr>
 
