@@ -51,7 +51,7 @@ limitations under the License.
       <doc:heading>Overriding Locations</doc:heading>
 
       <p>
-        A number of [environment variables](/configure.html) specifies where
+        A number of <a href="/configure.html">environment variables</a> specifies where
         RabbitMQ should locate certain things. In most environments default
         values should work just fine.
       </p>
