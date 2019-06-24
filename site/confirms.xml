@@ -51,7 +51,7 @@ limitations under the License.
 
 
     <doc:section name="basics">
-      <doc:heading>Basics</doc:heading>
+      <doc:heading>The Basics</doc:heading>
 
       <p>
         Systems that use a messaging broker such as RabbitMQ are by
