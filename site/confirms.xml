@@ -23,14 +23,35 @@ limitations under the License.
     <title>Consumer Acknowledgements and Publisher Confirms</title>
   </head>
   <body>
-    <doc:section name="intro">
-      <doc:heading>Introduction</doc:heading>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
 
       <p>
         This guide covers two related features, consumer Acknowledgements
-        and publisher confirms, that are important for
+        and publisher confirms:
+
+        <ul>
+          <li><a href="#basics">Why acknowledgements exist</a></li>
+          <li><a href="#acknowledgement-modes">Manual and automatic</a> acknowledgement modes</li>
+          <li><a href="#consumer-acks-api-elements">Acknowledgement API</a>, including <a href="#consumer-acks-multiple-parameter">multi-acks</a> and <a href="#consumer-nacks-requeue">requeueing</a></li>
+          <li><a href="#automatic-requeueing">Automatic requeueing</a> on connection loss or channel closure</li>
+          <li><a href="#channel-qos-prefetch">Channel prefetch</a> and its <a href="#channel-qos-prefetch-throughput">effects on throughput</a></li>
+          <li>Most common <a href="#consumer-acks-double-acking">client errors</a></li>
+          <li><a href="#publisher-confirms">Publisher confirms</a> and related publisher data safety topics</li>
+        </ul>
+
+        and more. Acknowledgements on both consumer and publisher side are important for
         data safety in applications that use messaging.
       </p>
+
+      <p>
+        More related topics are covered in the <a href="/publishers.html">Publisher</a> and <a href="/consumers.html">Consumer</a> guides.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="basics">
+      <doc:heading>Basics</doc:heading>
 
       <p>
         Systems that use a messaging broker such as RabbitMQ are by
@@ -713,14 +734,9 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
         <doc:heading>Publisher Confirms and Guaranteed Delivery</doc:heading>
 
         <p>
-          The broker loses persistent messages if it crashes before
-          said messages are written to disk.  Under certain
-          conditions, this causes the broker to behave in surprising
-          ways.
-        </p>
+          A RabbitMQ node can lose persistent messages if it fails before
+          said messages are written to disk. For instance, consider this scenario:
 
-        <p>
-          For instance, consider this scenario:
           <ol>
             <li>a client publishes a persistent message to a durable
               queue</li>
