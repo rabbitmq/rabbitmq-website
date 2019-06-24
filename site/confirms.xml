@@ -61,18 +61,20 @@ limitations under the License.
         delivery and processing confirmation. Several messaging
         protocols supported by RabbitMQ provide such features.
         This guide covers the features in AMQP 0-9-1 but the idea
-        is largely the same in other protocols (STOMP, MQTT, et cetera).
+        is largely the same in other supported protocols.
       </p>
       <p>
         Delivery processing acknowledgements from consumers to RabbitMQ
         are known as acknowledgements in AMQP 0-9-1 parlance; broker
         acknowledgements to publishers are a protocol extension called
-        publisher confirms.
+        <a href="#publisher-confirms">publisher confirms</a>.
+        Both features build on the same idea and are inspired by TCP.
       </p>
       <p>
-        Both features build on the same idea and are inspired by TCP.
         They are essential for reliable delivery both from publishers
-        to RabbitMQ nodes and from RabbitMQ nodes to consumers.
+        to RabbitMQ nodes and from RabbitMQ nodes to consumers. In other words,
+        they are <strong>essential for data safety</strong>, for which applications are
+        responsible as much as RabbitMQ nodes are.
       </p>
     </doc:section>
 
