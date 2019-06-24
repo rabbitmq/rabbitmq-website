@@ -3,115 +3,89 @@
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers monitoring using [Prometheus](https://prometheus.io/),
-a monitoring and alerting tool. It explains how to expose node and cluster
-metrics to Prometheus, how to verify the endpoints used to Prometheus and
-what configurable Prometheus settings are relevant in the context of [RabbitMQ
-monitoring](/monitoring.html).
+a monitoring and alerting tool, and [Grafana](https://grafana.com/), a popular tool for metric visualisation.
 
-### <a id="what-is-prometheus" class="anchor" href="#what-is-prometheus">What is Prometheus?</a>
+It explains how to expose node and cluster metrics to Prometheus, how to verify the endpoints used to Prometheus and
+what configurable Prometheus settings are relevant in the context of [RabbitMQ monitoring](/monitoring.html).
+
+Together Prometheus and Grafana provide observability of individual nodes and cluster metrics
+using a number of dashboards that look like this:
+
+![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard-top.png)
+
+
+## <a id="what-is-prometheus" class="anchor" href="#what-is-prometheus">What are Prometheus and Grafana?</a>
 
 Prometheus is an open source monitoring and time series data store.
 It is based on a pull-based model, meaning that Prometheus pulls metrics from the
 systems it monitors. Tools that Prometheus monitors are expected to provide pre-configured HTTP
 endpoints, known as targets, that get queried periodically.
 
-RabbitMQ needs a plugin to expose its metrics as Prometheus targets.
-
-There are 2 options available:
-
-1. External system process that converts metrics exposed by RabbitMQ Management
-   API into `prometheus_text_format` and makes them available via HTTP on TCP
-   port 9090: [rabbitmq_exporter](https://github.com/kbudde/rabbitmq_exporter)
-1. RabbitMQ plugin that exposes a new HTTP endpoint `/api/metrics` in the
-   context of RabbitMQ Management API:
-   [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter)
-
-Both approaches have their own merits and neither is better. This guide focuses on the
-2nd approach and a community-maintained plugin called [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter).
-The plugin depends on the [management plugin](/management.html) and extends its HTTP API.
+[Grafana](https://grafana.com/) is an opeen source tool for metric visualisation. It visualises the metric
+data collected by Prometheus and makes it easier for operators to spot problems, inefficiencies and
+system behaviour trends.
 
 
-### <a id="installation" class="anchor" href="#installation">Installing and Enabling the Plugin</a>
+## <a id="installation" class="anchor" href="#installation">Installation</a>
 
-Just like any other [RabbitMQ plugin](./plugins.html), the Prometheus exporter plugin has to be
-installed and enabled. Plugin installation involves downloading a plugin archive and all of its dependencies
-(all `.ez` files).
+### <a id="installation-prometheus" class="anchor" href="#installation-prometheus">Enable the Plugin</a>
 
-[Plugin directories](/plugins.html#plugin-directories) can be located by executing the following command on the host
-with a running RabbitMQ node:
+As of version 3.8, RabbitMQ ships with built-in Prometheus & Grafana support.
+
+To use it, first enable the `rabbitmq_prometheus` plugin:
 
 <pre class="lang-bash">
-rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-{ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.7.7/plugins"}
+# might require using sudo
+rabbitmq-plugins enable rabbitmq_prometheus
 </pre>
 
-The first plugin dir (`/usr/lib/rabbitmq/plugins`) in the example above is ideal for third party plugins
-such as Prometheus exporter. If the reported directory does not exist, it has to be created.
+### <a id="installation-charts" class="anchor" href="#installation-charts">Installation of Grafana Dashboards</a>
 
-The following example shell script downloads the plugin and all of its dependencies:
+Grafana dashboards for RabbitMQ are distributed via grafana.com. TODO: links.
 
-<pre class="lang-bash">
-#!/bin/sh
+### <a id="installation-runtime-charts" class="anchor" href="#installation-runtime-charts">Runtime Monitoring</a>
 
-# make sure the directory exists
-mkdir -p /usr/lib/rabbitmq/plugins
-cd /usr/lib/rabbitmq/plugins
+Optionally [RabbitMQ's runtime](/runtime.html) metrics can be collected.
 
-# Downloads prometheus_rabbitmq_exporter and its dependencies with curl
-
-readonly base_url='https://github.com/deadtrickster/prometheus_rabbitmq_exporter/releases/download/v3.7.2.4'
-
-get() {
-  curl -LO "$base_url/$1"
-}
-
-get accept-0.3.3.ez
-get prometheus-3.5.1.ez
-get prometheus_cowboy-0.1.4.ez
-get prometheus_httpd-2.1.8.ez
-get prometheus_rabbitmq_exporter-3.7.2.4.ez
-</pre>
-
-Verify that plugin archives are in place (output should be similar to this - note file sizes):
-
-<pre class="lang-bash">
-ls -la /usr/lib/rabbitmq/plugins/accept* /usr/lib/rabbitmq/plugins/prometheus*
-
--rw-r--r-- 1 root root  13397 Oct 23 10:22 /usr/lib/rabbitmq/plugins/accept-0.3.3.ez
--rw-r--r-- 1 root root 200783 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus-3.5.1.ez
--rw-r--r-- 1 root root  14343 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_cowboy-0.1.4.ez
--rw-r--r-- 1 root root  22059 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_httpd-2.1.8.ez
--rw-r--r-- 1 root root 219060 Oct 23 10:22 /usr/lib/rabbitmq/plugins/prometheus_rabbitmq_exporter-3.7.2.4.ez
-</pre>
-
-RabbitMQ must be able to read the plugin files, so archive file permissions must allow
-for that.
-
-Once `prometheus_rabbitmq_exporter` plugin and all its dependencies are
-downloaded , use [rabbitmq-plugins](/cli.html) to ensure that it was
-successfully installed by listing all available plugins:
-
-<pre class="lang-bash">
-rabbitmq-plugins list
-
- Configured: E = explicitly enabled; e = implicitly enabled
- | Status: * = running on rabbit@0998e19c44ee
- |/
-[  ] prometheus_rabbitmq_exporter      3.7.2.4
-[  ] rabbitmq_amqp1_0                  3.7.7
-# … elided for brevity …
-[  ] rabbitmq_web_stomp                3.7.7
-[  ] rabbitmq_web_stomp_examples       3.7.7
-</pre>
-
-To enable the plugin:
-
-<pre class="lang-bash">
-rabbitmq-plugins enable prometheus_rabbitmq_exporter
-</pre>
+TODO
 
 
-### <a id="prometheus-data-format" class="anchor" href="#prometheus-data-format">Metrics Data Format</a>
+## <a id="rabbitmq-overview-dashboard" class="anchor" href="#rabbitmq-overview-dashboard">RabbitMQ Overview Dashboard</a>
+
+All metrics that are provided on the [Management UI](/management.html) Overview page are available on this dashboard.
+They are grouped by object type, with a focus on nodes and message flow. Some metrics are node-specific, others are cluster metrics.
+
+Each metric is represented as a separate graph (chart). Some metrics that are displayed as point-in-time numbers on the management UI overview page
+also use dedicated charts. This makes it easier to observe how the metrics (e.g. the number of connections or enqueued messages) changed
+over time.
+
+### <a id="metric-health-indicators" class="anchor" href="#metric-health-indicators">Metric Health Indicators</a>
+
+Boxes at the top of the dashboard capture the health of a single RabbitMQ cluster:
+
+ * Green means the metric is within its configured range of values (healthy).
+ * Blue means under-utilisation or some form of degradation.
+ * Orange areas in graph panels are meant to make users aware of capacity.
+ * Any node metrics in red areas signal service degradation. Depending on the metric, it may mean [blocked publishers](/alarms.html),
+   refusal to [accept new connections](/connections.html#monitoring) or service degradation of a different kind.
+
+Values that are close to the orange area represent a system which is working at optimum capacity.
+
+For example, the following screenshot demonstrates aptures a RabbitMQ cluster where all nodes are within their [configured memory use limit](/memory.html):
+![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard-top.png)
+
+The following screenshot demonstrates two problematic application behaviors that are reflected in the charts:
+dropped unroutable messages as well as usage of greatly inefficient [polling consumers](/consumers.html#fetching).
+
+![RabbitMQ Overview Dashboard - Reds & Hints](/img/rabbitmq-overview-dashboard-reds-hints.png)
+
+Many panels provide links to the relevant [RabbitMQ documentation guides](/documentation.html).
+
+TBD
+
+
+
+## <a id="prometheus-data-format" class="anchor" href="#prometheus-data-format">Metrics Data Format</a>
 
 The Prometheus target HTTP endpoints respond in a text format known as
 the Prometheus text format (sometimes written as as `prometheus_text_format`).
@@ -240,6 +214,7 @@ Prometheus supports queries, e.g. to query the number of exchanges, request
 
 ![Prometheus Graph - RabbitMQ Exchanges](/img/prometheus-rabbitmq-exchanges-graph.png)
 
+
 ## <a id="beyond-the-basics" class="anchor" href="#beyond-the-basics">Going Beyond the Basics</a>
 
 Setting up a Prometheus node locally was easy enough but going into production
@@ -250,19 +225,10 @@ requires some additional consideration.
 Querying many thousands of metrics every 5 seconds will put a lot
 of pressure on RabbitMQ, a more sensible default would be 60 (or at least 30) seconds.
 
-### Visualization of Stored Metrics
-
-Storing metrics in Prometheus is a lot more useful when there's a way to visualize them, e.g.
-[using Grafana](https://prometheus.io/docs/visualization/grafana/).
-
 ### Further Configuration
 
-RabbitMQ's default [sample retention policies](http://www.rabbitmq.com/management.html#sample-retention) also
-might need changing for environments that store metrics in
-Prometheus.
-
-[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter#configuration) provides
-a number of configuration options that might be useful.
+RabbitMQ's default [sample retention policies](/management.html#sample-retention) also
+might need changing for environments that store metrics in Prometheus.
 
 ### Collecting Runtime Metrics
 
@@ -273,3 +239,13 @@ code and does not support the same operating systems and architectures that Rabb
 
 Please check [compatibility and installation instructions](https://github.com/deadtrickster/prometheus_process_collector) before
 adopting that plugin.
+
+
+## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
+
+RabbitMQ versions prior to 3.8 can use a separate plugin,
+[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
+to expose metrics to Prometheus. The plugin uses [RabbitMQ HTTP API](/monitoring.html) internally
+and requires visualisation to be set up separately.
+
+The plugin was previously covered in a [separate guide](https://previous.rabbitmq.com/v3_7_x/prometheus.html).
