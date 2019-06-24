@@ -377,12 +377,18 @@ Example:
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
-Quorum queues are typically require more resources (disk and RAM)
+Quorum queues typically require more resources (disk and RAM)
 than classic mirrored queues. To enable fast election of a new leader and recovery, data safety as well as
 good throughput characteristics all members in a quorum queue
 "cluster" keep all messages in the queue in memory _and_ on disk.
-Quorum queues should not be used in memory constrained systems.
 
+Quorum queues use a write-ahead-log (WAL) for all operations.
+WAL operations are stored both in memory and written to disk.
+When the WAL file written to disk reaches a predefined limit, the system will begin to release memory.
+When this limit is reached, the system will also start moving operations that are still required to a long-term storage mechanism.
+The WAL file size limit at which memory and disk start being released defaults to 512MiB.
+Because the release of memory may take some time, we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
+More will be required in high-throughput systems - 4 times is a good starting point.
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
