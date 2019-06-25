@@ -1100,8 +1100,9 @@ rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit2 ...done.
 
 rabbitmqctl change_cluster_node_type disc
-# => Turning rabbit@rabbit2 into a disc node ...
-# => ...done.
+# => Turning rabbit@rabbit2 into a disc node ...done.
+              
+rabbitmqctl start_app
 # => Starting node rabbit@rabbit2 ...done.
 
 # on rabbit1
@@ -1109,7 +1110,7 @@ rabbitmqctl stop_app
 # => Stopping node rabbit@rabbit1 ...done.
 
 rabbitmqctl change_cluster_node_type ram
-# => Turning rabbit@rabbit1 into a ram node ...
+# => Turning rabbit@rabbit1 into a ram node ...done.
 
 rabbitmqctl start_app
 # => Starting node rabbit@rabbit1 ...done.
