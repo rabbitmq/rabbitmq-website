@@ -21,13 +21,23 @@ limitations under the License.
 
 This guides provides an overview features of
 RabbitMQ, AMQP 0-9-1 and other supported protocols related to data safety.
-They help application developers and operators achieve <i>reliable delivery</i>,
+They help application developers and operators achieve __reliable delivery__,
 that is, to ensure that messages are always delivered, even encountering failures
 of various kinds.
 
 Data safety is a joint responsibility of RabbitMQ nodes, [publishers](/publishers.html)
 and [consumers](/consumers.html). Therefore, this guide provides an overview of
 topics imported to each part of a messaging-based system.
+
+The following guides discuss data safety and resilience topics in more detail:
+
+ * [Acknowledgements and Confirms](/confirms.html)
+ * [Clustering](/clustering.html)
+ * [Queue Mirroring](/ha.html)
+ * [Publishers](/publishers.html)
+ * [Consumers](/consumers.html)
+ * [Alarms](/alarms.html)
+ * [Monitoring, Metrics and Health Checks](/monitoring.html)
 
 ## <a id="what-can-fail" class="anchor" href="#what-can-fail">What Can Fail?</a>
 
@@ -44,6 +54,11 @@ at any time. Additionally, even if client applications keep running,
 logic errors can cause [channel](/channels.html#error-handling) or [connection errors](/connections.html#error-handling) which force the
 client to establish a new channel or connection and recover from the
 problem.
+
+This list of failures, of course, is not at all exhastive. It does not cover more subtle failures
+such as omission failures (failure to respond in a predictable amount of time),
+performance degradations, malicious or buggy applications that exhaust the system of resources
+and so on. Those failures can be detected with [monitoring, metrics and health checks](#monitoring).
 
 ## <a id="connection-failures" class="anchor" href="#connection-failures">Connection Failures</a>
 
@@ -96,17 +111,19 @@ delivery. Without acknowledgements, message loss is possible
 during publish and consume operations and
 only **at most once** delivery is guaranteed.
 
+
 ## <a id="heartbeats" class="anchor" href="#heartbeats">Detecting Dead TCP Connections with Heartbeats</a>
 
 In some types of network failure, packet loss can mean that
 disrupted TCP connections take a moderately long time (about 11
 minutes with default configuration on Linux, for example) to be
 detected by the operating system. AMQP 0-9-1 offers a
-<i>heartbeat</i> feature to ensure that the application layer
+[heartbeat feature](/heartbeats.html) to ensure that the application layer
 promptly finds out about disrupted connections (and also
 completely unresponsive peers). Heartbeats also defend against
 certain network equipment which may terminate "idle" TCP
-connections. See <a href="heartbeats.html">Heartbeats</a> for details.
+connections. See the <a href="heartbeats.html">guide on heartbeats</a> for details.
+
 
 ## <a id="broker-side" class="anchor" href="#broker-side">Data Safety on the Broker Side</a>
 
@@ -121,6 +138,7 @@ requiring that a durable object or persistent message will survive a
 restart. More details about specific flags pertaining to durability
 and persistence can be found in the
 <a href="/queues.html">Queues guide</a>.
+
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering and Message Replication</a>
 
@@ -178,23 +196,29 @@ more details.
 ## <a id="consumer-side" class="anchor" href="#publisher-side">Data Safety on the Consumer Side</a>
 
 In the event of network failure (or a node failure), messages can be
-duplicated, and consumers must be prepared to handle them. If
-possible, the simplest way to handle this is to ensure that your
-consumers handle messages in an idempotent way rather than explicitly
-deal with deduplication.
+[redelivered](/consumers.html#message-properties), and consumers must be prepared to handle
+deliveries they have seen in the past. It is recommended that consumer implementation
+is designed to be idempotent rather than to explicitly
+perform deduplication.
 
-If a message is delivered to a consumer and then requeued (because it
-was not acknowledged before the consumer connection dropped, for
-example) then RabbitMQ will set the <code>redelivered</code> flag on
-it when it is delivered again (whether to the same consumer or a
-different one). This is a hint that a consumer <i>may</i> have seen
-this message before (although that's not guaranteed, the message may
-have made it out of the broker but not into a consumer before the
-connection dropped). Conversely if the <code>redelivered</code> flag
-is not set then it is guaranteed that the message has not been seen
+If a message is delivered to a consumer and then requeued, either [automatically](/confirms.html#automatic-requeueing) by
+RabbitMQ or by the same or different consumer, RabbitMQ will set the <code>redelivered</code> flag on
+it when it is delivered again. This is a hint that a consumer **may** have seen
+this message before. This is not guaranteed as the original delivery might have not made it to any consumers
+due to a network or consumer application failure.
+
+If the <code>redelivered</code> flag is not set then it is guaranteed that the message has not been seen
 before. Therefore if a consumer finds it more expensive to deduplicate
 messages or process them in an idempotent manner, it can do this only
 for messages with the <code>redelivered</code> flag set.
+
+### <a id="unprocessable-deliveries" class="anchor" href="#unprocessable-deliveries">Unprocessable Deliveries</a>
+
+If a consumer determines that it cannot handle a message then it
+can __reject__ it using <code>basic.reject</code>
+(or <code>basic.nack</code>), either asking the server to requeue it,
+or not (in which case the server might be configured
+to <a href="dlx.html">dead-letter</a> it instead.
 
 ### <a id="cancel-notification" class="anchor" href="#cancel-notification">Consumer Cancel Notification</a>
 
@@ -207,33 +231,36 @@ again which it has already seen.
 Note that consumer cancel notification is a RabbitMQ extension to
 AMQP 0-9-1, and as such may not be supported by all clients.
 
-### <a id="unprocessable-deliveries" class="anchor" href="#unprocessable-deliveries">Unprocessable Deliveries</a>
-
-If a consumer determines that it cannot handle a message then it
-can <i>reject</i> it using <code>basic.reject</code>
-(or <code>basic.nack</code>), either asking the server to requeue it,
-or not (in which case the server might be configured
-to <a href="dlx.html">dead-letter</a> it instead.
 
 ## <a id="consumer-side" class="anchor" href="#publisher-side">Federation and Shovel</a>
 
-Rabbit provides two plugins to assist with distributing nodes over
-unreliable networks: <a href="federation.html">Federation</a> and
-the <a href="shovel.html">Shovel</a>. Both are implemented as AMQP
-clients, so if you configure them to use confirms and
-acknowledgements, they will retransmit when necessary. Both will use
-confirms and acknowledgements by default.
+RabbitMQ provides two plugins to assist with distributing nodes over
+unreliable networks (such as wide-area networks): <a href="federation.html">Federation</a> and
+the <a href="shovel.html">Shovel</a>. Both will recover from network failures and retransmit messages when necessary.
+Both use confirms and acknowledgements by default.
 
 When connecting clusters with Federation or the Shovel, it is
-desirable to ensure that the federation links and shovels tolerate
-node failures. Federation will automatically distribute links across
-the downstream cluster and fail them over on failure of a downstream
-node. In order to connect to a new upstream when an upstream
-node fails, you can specify multiple redundant URIs for an upstream,
-or connect via a TCP load balancer.
+desirable to ensure that the federation links and Shovels can recover
+from node failures, including permanent (__fail-stop__) scenarios.
 
-When using the shovel, it is possible to specify redundant brokers in
-a source or destination clause; however it is not currently possible
-to make the shovel itself redundant. We hope to improve this situation
-in the future; in the mean time a new node can be brought up manually
-to run a shovel if the node it was originally running on fails.
+Federation will automatically distribute links across
+the downstream cluster and migrate them on failure of a downstream
+node. In order to connect to a new upstream when an upstream
+node fails, **multiple upstream URIs** must be specified for an upstream,
+or connection has to happen over a load balancer with sufficient availability characteristics.
+
+Shovels can use multiple source and destination endpoints; first reachable endpoint will be used.
+A failed Shovel will be restarted after a configurable delay and retry.
+
+## <a id="monitoring" class="anchor" href="#monitoring">Monitoring and Health Checks</a>
+
+Some failure scenarios are subtle and hard to observe or detect. For example, a slow [connection leak](/connections.html)
+can build up over time and like a chronic decease, go unnoticed for a period of time. [Monitoring and metrics](/monitoring.html)
+is the way to detect many types of failures. Longer-term metric data collected using tools such as [Prometheus](/prometheus.html)
+can help spot irregularities and problematic patterns in system behaviour.
+
+In addition to monitoring, [health checks](/monitoring.html#health-checks) is another tool that can be used to detect
+__point-in-time__ problems, that is, problems observable at the moment. Extensive health check coverage can suffer
+from false positives, so more checks isn't necessarily better.
+
+Both monitoring and health checks are covered in a [dedicated guide](/monitoring.html).
