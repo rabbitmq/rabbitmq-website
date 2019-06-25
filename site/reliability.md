@@ -122,7 +122,7 @@ detected by the operating system. AMQP 0-9-1 offers a
 promptly finds out about disrupted connections (and also
 completely unresponsive peers). Heartbeats also defend against
 certain network equipment which may terminate "idle" TCP
-connections. See the <a href="heartbeats.html">guide on heartbeats</a> for details.
+connections. See the [guide on heartbeats](heartbeats.html) for details.
 
 
 ## <a id="broker-side" class="anchor" href="#broker-side">Data Safety on the Broker Side</a>
@@ -137,26 +137,30 @@ of durability for exchanges, queues and of persistent messages,
 requiring that a durable object or persistent message will survive a
 restart. More details about specific flags pertaining to durability
 and persistence can be found in the
-<a href="/queues.html">Queues guide</a>.
+[Queues guide](/queues.html).
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering and Message Replication</a>
 
-If we need to ensure that our broker survives hardware failure, we can
-use RabbitMQ's clustering. In a RabbitMQ cluster, all definitions (of
-exchanges, bindings, users, etc) are mirrored across the entire
-cluster. Queues behave differently, by default residing only on a
-single node, but optionally being mirrored across several or all
+[Clusters of nodes](/clustering.html) offer redundancy and can tolerate failure of a single node.
+In a RabbitMQ cluster, all definitions (of exchanges, bindings, users, etc) are replicated across the entire
+cluster. [Queues](/queues.html) behave differently, by default residing only on a
+single node, but can be configured to be replicated (mirrored) across multiple
 nodes. Queues remain visible and reachable from all nodes regardless
-of where they are located.
+of what node their master replica is located.
 
-Mirrored queues replicate their contents across all configured cluster
-nodes, tolerating node failures seamlessly and without message loss
-(although see <a href="ha.html#unsynchronised-mirrors">this note on
-unsynchronised mirrors</a>). However, consuming applications need to be
-aware that when queues fail their consumers will be cancelled and they
-will need to reconsume - see <a href="ha.html#behaviour">the
-documentation</a> for more details.
+Mirrored queues replicate their contents across a number of configured cluster
+nodes. When a node fails, queues with master replica hosted on that node under go a promotion
+(new master election). Key reliability criteria in this scenario is whether there is a replica (queue mirror)
+[eligible for promotion](/ha.html#unsynchronised-mirrors).
+
+Exclusive queues are tied to the lifecycle of their connection and thus are never mirrored
+and by definition will not survive a node restart.
+
+Consumers connected to the failed node will have to recover as usual. Consumers that were
+connected to a different node will be automatically re-registered by RabbitMQ when a new master replica
+for the queue is elected. Those consumers do not need to perform recovery
+(e.g. reconnect or resubscribe).
 
 
 ## <a id="publisher-side" class="anchor" href="#publisher-side">Data Safety on the Publisher Side</a>
@@ -180,8 +184,8 @@ To ensure messages are routed to a single known queue, the producer
 can just declare a destination queue and publish directly to it. If
 messages may be routed in more complex ways but the producer still
 needs to know if they reached at least one queue, it can set the
-<code>mandatory</code> flag on a <code>basic.publish</code>, ensuring
-that a <code>basic.return</code> (containing a reply code and some
+`mandatory` flag on a `basic.publish`, ensuring
+that a `basic.return` (containing a reply code and some
 textual explanation) will be sent back to the client if no queues were
 appropriately bound. See the [Publishers guide](/publishers.html) for details.
 
@@ -189,7 +193,7 @@ Producers should also be aware that when publishing to a clustered node,
 if one or more destination queues that are bound to the exchange have
 mirrors in the cluster, it's possible to incur delays in the face of
 network failures between nodes, due to flow control between replicas
-and the queue master replica. See <a href="nettick.html">inter-node heartbeat guide</a> for
+and the queue master replica. See [inter-node heartbeat guide](nettick.html) for
 more details.
 
 
@@ -202,41 +206,35 @@ is designed to be idempotent rather than to explicitly
 perform deduplication.
 
 If a message is delivered to a consumer and then requeued, either [automatically](/confirms.html#automatic-requeueing) by
-RabbitMQ or by the same or different consumer, RabbitMQ will set the <code>redelivered</code> flag on
+RabbitMQ or by the same or different consumer, RabbitMQ will set the `redelivered` flag on
 it when it is delivered again. This is a hint that a consumer **may** have seen
 this message before. This is not guaranteed as the original delivery might have not made it to any consumers
 due to a network or consumer application failure.
 
-If the <code>redelivered</code> flag is not set then it is guaranteed that the message has not been seen
+If the `redelivered` flag is not set then it is guaranteed that the message has not been seen
 before. Therefore if a consumer finds it more expensive to deduplicate
 messages or process them in an idempotent manner, it can do this only
-for messages with the <code>redelivered</code> flag set.
+for messages with the `redelivered` flag set.
 
 ### <a id="unprocessable-deliveries" class="anchor" href="#unprocessable-deliveries">Unprocessable Deliveries</a>
 
 If a consumer determines that it cannot handle a message then it
-can __reject__ it using <code>basic.reject</code>
-(or <code>basic.nack</code>), either asking the server to requeue it,
+can reject it using the `basic.reject` or `basic.nack` method, either asking the server to requeue it,
 or not (in which case the server might be configured
-to <a href="dlx.html">dead-letter</a> it instead.
+to [dead-letter](dlx.html) it instead.
 
 ### <a id="cancel-notification" class="anchor" href="#cancel-notification">Consumer Cancel Notification</a>
 
-Under some circumstances the server needs to be able to cancel a
-consumer - since the queue it was consuming from has been deleted, or
-has <a href="ha.html#behaviour">a new queue master was promoted</a>. In this case the
-consumer should consume again but be aware that it may see messages
-again which it has already seen.
-
-Note that consumer cancel notification is a RabbitMQ extension to
-AMQP 0-9-1, and as such may not be supported by all clients.
+When the queue a consumer was consuming from has been deleted, RabbitMQ will [notify the consumer](/consumer-cancel.html).
+Such consumer must take action to recover, whether it is consuming from a different queue or redeclaring
+the one it was originally consuming from when this is safe and appropriate.
 
 
 ## <a id="consumer-side" class="anchor" href="#publisher-side">Federation and Shovel</a>
 
 RabbitMQ provides two plugins to assist with distributing nodes over
-unreliable networks (such as wide-area networks): <a href="federation.html">Federation</a> and
-the <a href="shovel.html">Shovel</a>. Both will recover from network failures and retransmit messages when necessary.
+unreliable networks (such as wide-area networks): [Federation](federation.html) and
+the [Shovel](shovel.html). Both will recover from network failures and retransmit messages when necessary.
 Both use confirms and acknowledgements by default.
 
 When connecting clusters with Federation or the Shovel, it is

@@ -119,7 +119,7 @@ the RabbitMQ broker to a client may look like:
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
                                "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "3.7.12" }
+  "version"      = (longstr) "3.7.15" }
 </pre>
 
 Note that it is optional for clients to present this
