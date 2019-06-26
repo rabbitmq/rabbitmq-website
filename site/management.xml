@@ -277,6 +277,13 @@ rabbitmq-plugins enable rabbitmq_management
           user the desired permissions and finally, <a href="/man/rabbitmqctl.8.html#set_user_tags">rabbitmqctl
           set_user_tags</a> should be used to give the user management UI access permissions.
         </p>
+        <p>
+          Administrator can be created in command line interface by running following commands:
+           <pre class="lang-bash">
+            rabbitmqctl add_user username password
+            rabbitmqctl set_user_tags username administrator
+           </pre>
+        </p>
       </doc:section>
 
       <doc:section name="http-api">
