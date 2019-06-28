@@ -70,7 +70,7 @@ All metrics that are provided on the [Management UI](/management.html) Overview
 page are available on this dashboard. They are grouped by object type, with a
 focus on nodes and message flow.
 
-All metrics are node-specific. This helps spot imabalances in the cluster,
+All metrics are node-specific. This helps spot imbalances in the cluster,
 where one node is using significantly more memory or disk than the rest. Some
 metrics, like those under **QUEUES MESSAGES**, are stacked to capture the state
 of the cluster as a whole.
