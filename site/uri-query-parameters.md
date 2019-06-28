@@ -24,8 +24,8 @@ href="uri-spec.html">URI specification</a>, documenting how the
 officially-supported clients interpret URI parameters. Currently
 only the Erlang client does so.
 
-The <a href="federation-reference.html#upstreams">Federation</a>
-and <a href="shovel.html#uris">Shovel</a> plugins specify
+The [Federation](federation-reference.html#upstreams)
+and [Shovel](shovel.html#uris) plugins specify
 connections to other brokers using URIs, and are implemented
 using the Erlang client, so they take all the parameters
 described here for it.
@@ -130,9 +130,9 @@ against the hostname `myhost`.
   </tr>
 </table>
 
-<a href="/ssl.html">TLS options</a> can also be specified globally using the
+[TLS options](/ssl.html) can also be specified globally using the
 `amqp_client.ssl_options` configuration key. They will be merged with
 the TLS parameters from the URI (the latter will take
 precedence) and affect all outgoing RabbitMQ Erlang client connections
 on the node, including plugins that use the client internally (Federation, Shovel, etc).
-Please see the <a href="/ssl.html">TLS guide</a> for details.
+Please see the [TLS guide](/ssl.html) for details.
