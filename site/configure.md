@@ -1322,7 +1322,7 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 </pre>
 
-## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Usiing Environment Variables</a>
+## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Using Environment Variables</a>
 
 Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
