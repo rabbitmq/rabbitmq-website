@@ -83,7 +83,7 @@ limitations under the License.
               <li><a href="/install-debian.html">Debian and Ubuntu</a></li>
               <li><a href="/install-rpm.html">RHEL, CentOS, Fedora</a></li>
               <li><a href="/install-windows.html">Windows Installer</a>, <a href="/windows-quirks.html">Windows-specific Issues</a></li>
-              <li><a href="/install-windows.html">Generic UNIX Binary Build</a></li>
+              <li><a href="/install-generic-unix.html">Generic UNIX Binary Build</a></li>
               <li><a href="/install-standalone-mac.html">MacOS via Standalone Binary Build</a></li>
               <li><a href="/install-homebrew.html">MacOS via Homebrew</a></li>
               <li><a href="/ec2.html">Amazon EC2</a></li>
