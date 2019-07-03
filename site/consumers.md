@@ -28,7 +28,6 @@ This guide covers various topics related to consumers:
  * [Message properties](#message-properties) and delivery metadata
  * [How to limit number of outstanding deliveries with prefetch](#prefetch)
  * [How to cancel a consumer](#unsubscribing)
- * [Fetching individual messages](#fetching) ("pull API")
  * [Consumer exclusivity](#exclusivity)
  * [Single active consumer](#single-active-consumer)
  * [Consumer activity](#active-consumer)
@@ -343,8 +342,12 @@ With AMQP 0-9-1 it is possible to fetch messages one by one using the `basic.get
 method. Messages are fetched in the FIFO order. It is possible to use automatic or manual acknowledgements,
 just like with consumers (subscriptions).
 
-Fetching messages one by one is not necessary in most cases as it is inefficient
-and has all the downsides of polling. When in doubt, prefer registering a consumer.
+Fetching messages one by one is **highly discouraged** as it is **very inefficient**
+compared to [regular long-lived consumers](#consuming). As with any polling-based algorithm,
+it will be **extremely wasteful** in systems where message publishing is sporadic and queues
+can stay empty for prolonged periods of time.
+
+When in doubt, prefer using a regular long-lived a consumer.
 
 ### Java Client
 

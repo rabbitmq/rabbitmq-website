@@ -334,7 +334,7 @@ are not created, but expect to be located in the following places on each platfo
 
 If `rabbitmq-env.conf` doesn't exist, it can be created manually
 in the location, specified by the `RABBITMQ_CONF_ENV_FILE` variable.
-On Windows systems, it is named `rabbitmq-env.bat`.
+On Windows systems, it is named `rabbitmq-env-conf.bat`.
 
 If `rabbitmq.conf` doesn't exist, it can be created manually.
 Set the <b>RABBITMQ_CONFIG_FILE</b> environment variable if you change the location.
@@ -1322,7 +1322,7 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
 </pre>
 
-## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Usiing Environment Variables</a>
+## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Using Environment Variables</a>
 
 Certain server parameters can be configured using environment variables:
 [node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),

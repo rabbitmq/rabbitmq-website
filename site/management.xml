@@ -277,6 +277,21 @@ rabbitmq-plugins enable rabbitmq_management
           user the desired permissions and finally, <a href="/man/rabbitmqctl.8.html#set_user_tags">rabbitmqctl
           set_user_tags</a> should be used to give the user management UI access permissions.
         </p>
+
+        <doc:subsection name="cli-examples">
+          <doc:heading>Command Line Examples</doc:heading>
+          <p>
+            The following example creates a user with complete access to the management UI/HTTP API (as in,
+            all virtual hosts and management features):
+
+<pre class="lang-bash">
+# create a user
+rabbitmqctl add_user full_access s3crEt
+# tag the user with "administrator" for full management UI and HTTP API access
+rabbitmqctl set_user_tags full_access administrator
+</pre>
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="http-api">

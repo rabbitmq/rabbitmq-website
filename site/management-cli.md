@@ -170,7 +170,7 @@ rabbitmqadmin publish exchange=amq.default routing_key=test payload="hello, worl
 ### And get it back
 
 <pre class="lang-bash">
-rabbitmqadmin get queue=test requeue=false
+rabbitmqadmin get queue=test ackmode=ack_requeue_false
 # => +-------------+----------+---------------+--------------+------------------+-------------+
 # => | routing_key | exchange | message_count |   payload    | payload_encoding | redelivered |
 # => +-------------+----------+---------------+--------------+------------------+-------------+

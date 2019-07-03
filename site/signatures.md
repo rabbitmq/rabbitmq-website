@@ -42,13 +42,30 @@ instead of those used by the RabbitMQ team.
 ### <a id="importing-gpg" class="anchor" href="#importing-gpg">With GPG</a>
 
 Before signatures can be verified, RabbitMQ [signing key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc)
-must be downloaded. This can be done using the [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php):
+must be downloaded. The key can be obtained directly or using the [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php).
+The direct download method is recommended because SKS servers are prone to overload.
+
+#### Direct Download
+
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
+[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+[rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
+
+<pre class="lang-bash">
+curl -L https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc --output rabbitmq-release-signing-key.asc
+gpg --import rabbitmq-release-signing-key.asc
+</pre>
+
+#### Using a Key Server
+
+The key can also be imported using an [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php):
 
 <pre class="lang-bash">
 gpg --keyserver "sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
 
-In case SKS key servers are overloaded or unavailable, an alternative server can be used:
+In case SKS key servers are overloaded, [under attack](https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f) or
+unavailable for any other reason, an alternative server can be used:
 
 <pre class="lang-bash">
 gpg --keyserver "keyserver.ubuntu.com" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
@@ -62,22 +79,40 @@ gpg --keyserver "pgp.surfnet.nl" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E
 gpg --keyserver "pgp.mit.edu" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
 
-Alternatively the key can be downloaded directly from [GitHub](https://github.com/rabbitmq/signing-keys/releases/)
-or [Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc)
-or [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
-
-<pre class="lang-bash">
-curl -L https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc --output rabbitmq-release-signing-key.asc
-gpg --import rabbitmq-release-signing-key.asc
-</pre>
-
 ### <a id="importing-apt" class="anchor" href="#importing-apt">With apt</a>
 
 On Debian and Ubuntu systems, assuming that [apt repositories](/install-debian.html) are used for installation,
-`apt-key` should be used to import the keys:
+`apt-key` should be used to import the key. The direct download method is recommended because SKS servers are prone to overload.
+
+#### Direct Download
+
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
+[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+[rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
+
+<pre class="lang-bash">
+curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
+</pre>
+
+#### Using a Key Server
 
 <pre class="lang-bash">
 apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
+</pre>
+
+### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
+
+On RPM-based systems (RHEL, Fedora, CentOS), assuming that [yum repositories](/install-rpm.html) are used for installation,
+`rpm --import` should be used to import the key.
+
+#### Direct Download
+
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
+[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+[rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
+
+<pre class="lang-bash">
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 </pre>
 
 

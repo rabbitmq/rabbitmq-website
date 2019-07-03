@@ -257,6 +257,11 @@ Channels, like connections, are meant to be long lived.
 
 Note that closing a connection automatically closes all channels on it.
 
+### <a id="apps-polling-consumers" class="anchor" href="#apps-polling-consumers">Polling Consumers</a>
+
+[Polling consumers](/consumers.html#fetching) (consumption with `basic.get`) is a feature that application developers
+should avoid in most cases as polling is inherently inefficient.
+
 
 ## <a id="security-considerations" class="anchor" href="#security-considerations">Security Considerations</a>
 
