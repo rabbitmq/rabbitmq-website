@@ -146,9 +146,9 @@ setTimeout(function() {
 
 ### Receiving
 
-That's it for our publisher.  Our consumer listening for messages from
+That's it for our publisher.  Our consumer listens for messages from
 RabbitMQ, so unlike the publisher which publishes a single message, we'll
-keep it running to listen for messages and print them out.
+keep the consumer running to listen for messages and print them out.
 
 <div class="diagram">
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
