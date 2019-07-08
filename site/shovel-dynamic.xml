@@ -297,9 +297,9 @@ limitations under the License.
           <p>
             The AMQP URI for the source. Mandatory. AMQP 1.0 URIs implement
             as subset of what is described in the <a href="uri-spec.html">AMQP URI reference</a>.
-            Direct connections are not supported for AMQP 1.0 endpoints and there
-            is no vhost concept.
-            The set of query parameters it supports are different from AMQP 0.9.1
+            Direct connections are not supported for AMQP 1.0 endpoints. There
+            is no <a href="/vhosts.html">virtual host</a> concept in AMQP 1.0, so URI path
+            segments are not supported. The set of query parameters it supports are different from AMQP 0.9.1
             URI(s):
           </p>
           <dl>
@@ -372,7 +372,7 @@ limitations under the License.
         <dt><code>dest-uri</code></dt>
         <dd>
           <p>
-            The AMQP URI for the destination. Mandatory.
+            The AMQP URI for the destination.
             See AMQP 1.0 <code>src-uri</code> above. Mandatory.
           </p>
         </dd>
