@@ -35,7 +35,7 @@ limitations under the License.
 
   <tr class="ga">
     <td>3.7</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15" target="_blank">3.7.15</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.16" target="_blank">3.7.16</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
     <td>Six months after 3.8.0 is released</td>
     <td></td>
