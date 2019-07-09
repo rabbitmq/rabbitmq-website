@@ -38,6 +38,18 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.7.16</td>
+    <td class="centre">8 July 2019</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.16">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.15</td>
     <td class="centre">20 May 2019</td>
     <td>

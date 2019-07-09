@@ -39,7 +39,7 @@ limitations under the License.
     <doc:heading>Overview</doc:heading>
     <p>
       Using RabbitMQ on EC2 is quite similar running it on other
-      platforms. However, the are certain minor aspects to EC2 that need
+      platforms. However, there are certain minor aspects to EC2 that need
       to be accounted for. They primarily have to do with hostnames and their resolution.
     </p>
 

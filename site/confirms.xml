@@ -322,7 +322,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
         </p>
 
         <p>
-          The methods are generally used to negatively acknowledge a delivery. Such deliveires can
+          The methods are generally used to negatively acknowledge a delivery. Such deliveries can
           be discarded by the broker or requeued. This behaviour is controlled by the <code>requeue</code> field.
           When the field is set to <code>true</code>, the broker will requeue the delivery (or multiple
           deliveries, as will be explained shortly) with the specified delivery tag.
@@ -503,7 +503,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
           When an acknowledgement frame arrives on that channel with
           <code>delivery_tag</code> set to <code>5</code> (or <code>6</code>, <code>7</code>, or <code>8</code>),
           RabbitMQ will notice and deliver one more message. Acknowledging <a href="#consumer-acks-multiple-parameter">multiple messages at once</a>
-          will make more than one message avaialble for delivery.
+          will make more than one message available for delivery.
         </p>
         <p>
           It's worth reiterating that the flow of deliveries and
