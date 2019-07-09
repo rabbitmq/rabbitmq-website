@@ -237,7 +237,7 @@ There are two  [HTTP API](management.html#http-api) endpoints that provide acces
  * `GET /api/nodes` returns stats for all cluster members
 
 The latter endpoint returns an array of objects. Monitoring tools that support (or can support) that
-as an input should prefer that endpoint since it redunces the number of requests. When that's not
+as an input should prefer that endpoint since it reduces the number of requests. When that's not
 the case, use the former endpoint to retrieve stats for every cluster member in turn. That implies
 that the monitoring system is aware of the list of cluster members.
 
