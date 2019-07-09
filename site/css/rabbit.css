@@ -813,7 +813,42 @@ body#index #getstarted,
   padding: 0;
 }
 
-/* Homepage hero: Summit */
+
+/* Homepage hero: Summit 1 */
+
+#hero #hero-summit-one {
+  background: url(../img/home/banner/summit-one/early-bird-desktop.svg) no-repeat center center;
+  background-size: cover;
+  padding: 70px 0;
+  text-align: right;
+}
+
+#hero #hero-summit-one .container {
+  max-width: 840px;
+  padding: 0 20px;
+}
+
+#hero #hero-summit-one h2 a {
+  font-weight: normal;
+}
+
+@media(max-width: 800px) {
+  #hero #hero-summit-one {
+    background: url(../img/home/banner/summit-one/early-bird-tablet.svg) no-repeat left;
+    background-size: cover;
+  }
+}
+
+@media(max-width: 660px) {
+  #hero #hero-summit-one {
+    background: url(../img/home/banner/summit-one/early-bird-phone.svg) no-repeat bottom right;
+    background-size: 100%;
+    padding-bottom: 180px;
+    text-align: center;
+  }
+}
+
+/* Homepage hero: Summit 2 */
 
 #hero #hero-summit {
   background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
