@@ -225,7 +225,7 @@ limitations under the License.
       The number of async threads is configured by the <code>+A</code>
       argument to the Erlang virtual machine as described <a
       href="http://www.erlang.org/doc/man/erl.html#async_thread_pool_size">here</a>,
-      and is typically configured through the envirnment variable
+      and is typically configured through the environment variable
       <code>RABBITMQ_SERVER_ERL_ARGS</code>. The default value is
       <code>+A 64</code>. It is likely to be a good idea to experiment
       with several different values before changing this.
