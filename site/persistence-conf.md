@@ -26,7 +26,7 @@ values that affect throughput, latency and I/O characteristics of a node.
 Consider reading the entire guide and get accustomed to [benchmarking with PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
 before drawing any conclusions.
 
-Other relevant guides include:
+Some related guides include:
 
  * [Main configuration guide](/configure.html)
  * [File and Directory Locations](/relocate.html)
