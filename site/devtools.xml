@@ -122,21 +122,17 @@ limitations under the License.
             <doc:heading>Python</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 sync client
+                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
                 (<a href="https://github.com/pika/pika">source code</a>,
                 <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
               </li>
               <li>
-                <a href="https://github.com/mosquito/aio-pika">aio-pika</a>, a pure-Python AMQP 0-9-1 async client
+                <a href="https://github.com/mosquito/aio-pika">aio-pika</a>, a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio
                 (<a href="https://github.com/mosquito/aio-pika">source code</a>,
                 <a href="https://aio-pika.readthedocs.org/">API reference</a>)
               </li>
               <li>
                 <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
-              </li>
-              <li>
-                <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
-                (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
               </li>
               <li>
                 <a href="https://pypi.org/project/aioamqp/">aioamqp</a>, a pure-Python AMQP 0-9-1 library using asyncio
@@ -167,7 +163,7 @@ limitations under the License.
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
               </li>
               <li>
-                <a href="https://github.com/queue-interop/queue-interop#amqp-interop">AMQP Interop</a> is a set of unified AMQP interfaces and their implementations
+                <a href="https://github.com/queue-interop/queue-interop#amqp-interop">AMQP Interop</a> is a set of unified AMQP 0-9-1 interfaces in PHP and their implementations
               </li>
             </ul>
           </doc:section>
@@ -415,54 +411,7 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
-          <doc:section name="web-messaging">
-            <doc:heading>Web Messaging</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="web-stomp.html">Web STOMP RabbitMQ plugin</a>
-              </li>
-              <li>
-                <a href="https://github.com/rabbitmq/rabbit-socks">rabbit-socks</a>
-                <br />
-                Websocket and Socket.IO support for RabbitMQ
-              </li>
-              <li>
-                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
-                <br />
-                An experimental driver (in PHP) for <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a> designed to
-                expedite single call HTTP delivery for Basic.Publish calls to RabbitMQ
-              </li>
-              <li>
-                <a href="https://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a>
-                <br />
-                A plugin for RabbitMQ that allows you to forward messages to configurable URLs
-              </li>
-              <li>
-                <a href="https://github.com/0x6e6562/as3-amqp/">as3-amqp</a>
-                <br />
-                A RabbitMQ client library in AS3 for Flex and Flash
-              </li>
-              <li>
-                <a href="https://github.com/videlalvaro/rabbitmq-chat">rabbitmq-chat</a>
-                <br />
-                A web chat room implemented with RabbitMQ and Websockets
-              </li>
-              <li>
-                <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a>
-                <br/>
-                A port of as3-amqp to haXe
-              </li>
-              <li>
-                <a href="https://github.com/tonyg/rabbithub">rabbithub</a>
-                <br />
-                an implementation of Google Pubsubhubbub for HTTP web push
-              </li>
-              <li>
-                We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
-                and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
-              </li>
-            </ul>
-          </doc:section>
+
           <doc:section name="rabbitmq-cli">
             <doc:heading>CLI</doc:heading>
             <ul class="plain">
@@ -480,6 +429,7 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+
           <doc:section name="community-plugins">
             <doc:heading>3rd party plugins</doc:heading>
             <ul class="plain">
@@ -495,12 +445,6 @@ limitations under the License.
                 such that newly bound queues receive a recent message history.
               </li>
               <li>
-                <a href="https://github.com/jbrisbin/random-exchange">RabbitMQ Random Exchange</a>
-                <br />
-                A custom exchange type that performs naive load-balancing by randomly selecting
-                which bound queue to route message to.
-              </li>
-              <li>
                 <a href="https://github.com/gotthardp/rabbitmq-email">SMTP gateway for RabbitMQ</a>
               </li>
               <li>
@@ -512,7 +456,7 @@ limitations under the License.
             </ul>
           </doc:section>
           <doc:section name="ocaml-dev">
-            <doc:heading>Ocaml</doc:heading>
+            <doc:heading>OCaml</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://projects.camlcity.org/projects/netamqp.html">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
@@ -536,7 +480,7 @@ limitations under the License.
             </ul>
           </doc:section>
           <doc:section name="protocol-analysis">
-            <doc:heading>AMQP Protocol Analysis</doc:heading>
+            <doc:heading>Traffic Capture and Protocol Analysis</doc:heading>
             <ul class="plain">
               <li>
                 <a href="amqp-wireshark.html">Wireshark</a> is the world's foremost
@@ -575,12 +519,12 @@ limitations under the License.
               <li>
                 <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
                 <br/>
-                Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
+                Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
               </li>
               <li>
                 <a href="http://qdb.io/">QDB: Persistent Message Queues with Replay</a>
                 <br/>
-                Queue backup and replay over AMQP. Includes REST API
+                Queue backup and replay over AMQP 0-9-1. Includes REST API
               </li>
             </ul>
           </doc:section>
