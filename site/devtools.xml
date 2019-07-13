@@ -122,9 +122,14 @@ limitations under the License.
             <doc:heading>Python</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
+                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 sync client
                 (<a href="https://github.com/pika/pika">source code</a>,
                 <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
+              </li>
+              <li>
+                <a href="https://github.com/mosquito/aio-pika">aio-pika</a>, a pure-Python AMQP 0-9-1 async client
+                (<a href="https://github.com/mosquito/aio-pika">source code</a>,
+                <a href="https://aio-pika.readthedocs.org/">API reference</a>)
               </li>
               <li>
                 <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
