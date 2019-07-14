@@ -26,7 +26,7 @@ server from source.
 
 ## <a id="git" class="anchor" href="#git">Build from Git</a>
 
-First, get the source code from <a href="github.html">our GitHub repositories</a>:
+First, get the source code from [our GitHub repositories](github.html):
 
 <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-server.git
@@ -46,52 +46,49 @@ In order to build RabbitMQ, a few tools must be installed.
 
 ### Python
 
-RabbitMQ requires a recent version of <a
-href="http://www.python.org/download/">Python 2</a> and <a
-href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
-(an implementation of a <a href="http://json.org">JSON</a> reader
+RabbitMQ requires a recent version of [Python](http://www.python.org/download/) and [simplejson.py](http://pypi.python.org/pypi/simplejson)
+(an implementation of a [JSON](http://json.org) reader
 and writer in Python), for generating AMQP 0-9-1 framing code.
 simplejson.py is included as a standard json library in the Python
 core since 2.6 release.
 
 ### Erlang/OTP Toolchain and Headers
 
-the <a href="http://www.erlang.org/download.html">Erlang</a>
-development and runtime tools<br/> If you are on a Debian-based
-system then you need the <i>erlang-nox</i>, <i>erlang-dev</i> and
-<i>erlang-src</i> packages installed. If you are building and
-installing Erlang from source then you must ensure that openssl is
-installed on your system.
+The [Erlang](http://www.erlang.org/download.html) development and runtime tools
+are needed to compile RabbitMQ server, tools and [tier 1 plugins](/plugins.html).
+
+On a Debian-based system, install the `erlang-nox`, `erlang-dev` and
+`erlang-src` packages.
+
+See [Erlang compatibility guide](/which-erlang.html) to learn more about supported versions of Erlang/OTP.
 
 ### Elixir
 
-A recent version of <a href="https://elixir-lang.org/">Elixir</a> is needed
+A recent version of [Elixir](https://elixir-lang.org/) is needed
 to build [RabbitMQ CLI tools](/cli.html).
-
 
 ### GNU Make
 
-<a href="http://www.gnu.org/software/make/">GNU make</a> is the primary build tool
+[GNU make](http://www.gnu.org/software/make/) is the primary build tool
 used by RabbitMQ.
-
 
 ### xsltproc and xmlto
 
-A recent version of <i>xsltproc</i>, which is part of <a href="http://xmlsoft.org/XSLT/">libxslt</a> and
+A recent version of <i>xsltproc</i>, which is part of [libxslt](http://xmlsoft.org/XSLT/) and
 <i>xmlto</i> must be available.
 
 ### zip and unzip
 
-<a href="http://www.info-zip.org/Zip.html">zip</a> and <a href="http://www.info-zip.org/UnZip.html">unzip</a>
+[zip](http://www.info-zip.org/Zip.html) and [unzip](http://www.info-zip.org/UnZip.html)
 would be necessary if source code is obtained avia an archive instead of a git repository clone.
 
 
 ## <a id="building-server" class="anchor" href="#building-server">Building the Server</a>
 
-Change to the <code>rabbitmq-server</code> directory, and
-type <code>make</code>.
+Change to the `rabbitmq-server` directory, and
+type `make`.
 
-Other interesting <code>Makefile</code> targets include
+Other interesting `Makefile` targets include
 
 <table>
   <thead>
@@ -165,8 +162,8 @@ In practice, building RabbitMQ server from source is of limited use
 unless an easy to deploy package (e.g. a Debian one) can be produced.
 
 Everything related to packaging
-the RabbitMQ server is in the <a href="https://github.com/rabbitmq/rabbitmq-server-release">rabbitmq-server-release</a>
+the RabbitMQ server is in the [rabbitmq-server-release](https://github.com/rabbitmq/rabbitmq-server-release)
 repository. The repository has the list of plugins
 shipped with the broker. Please refer to the
-<a href="https://github.com/rabbitmq/rabbitmq-server-release/blob/master/README.md">README.md</a>
+[README.md](https://github.com/rabbitmq/rabbitmq-server-release/blob/master/README.md)
 for instructions to create the source archive or any binary packages.
