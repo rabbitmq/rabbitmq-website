@@ -71,15 +71,15 @@ TLS is the most recent [supported Erlang release](/which-erlang.html).
 Earlier versions, even if they are supported, may work for most certificates
 but have known limitations (see below).
 
-The Erlang <code>asn1</code>, <code>crypto</code>,
-<code>public_key</code>, and <code>ssl</code> libraries
+The Erlang `asn1`, `crypto`,
+`public_key`, and `ssl` libraries
 (applications) must be installed and functional. On Debian and
 Ubuntu this is provided by the [erlang-asn1](http://packages.ubuntu.com/search?keywords=erlang-asn1),
 [erlang-crypto](http://packages.ubuntu.com/search?keywords=erlang-crypto), [erlang-public-key](http://packages.ubuntu.com/search?keywords=erlang-public-key), and
 [erlang-ssl](http://packages.ubuntu.com/search?keywords=erlang-ssl) packages, respectively. The [zero dependency
 Erlang RPM for RabbitMQ](https://github.com/rabbitmq/erlang-rpm) includes the above modules.
 
-If Erlang/OTP is compiled from source, it is necessary to ensure that <code>configure</code>
+If Erlang/OTP is compiled from source, it is necessary to ensure that `configure`
 finds OpenSSL and builds the above libraries.
 
 When investigating TLS connectivity issues, please keep in mind that in the vast majority
@@ -169,16 +169,16 @@ TLS-enabled port. The process of generating a Certificate Authority and two key 
 and can be error-prone. An easier way of generating all that
 stuff on MacOS or Linux is with <a
 href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
-you will need <code>Python 3.5+</code>, <code>make</code> and <code>openssl</code>
-in <code>PATH</code>.
+you will need `Python 3.5+`, `make` and `openssl`
+in `PATH`.
 
-Note that <code>tls-gen</code> and the certificate/key pairs
+Note that `tls-gen` and the certificate/key pairs
 it generates are self-signed and only suitable for development
 and test environments. The vast majority of production environments
 should use certificates and keys issued by a widely trusted commercial
 CA.
 
-<code>tls-gen</code> supports RSA and [Elliptic Curve Cryptography](https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-Elliptic-curve-cryptography/)
+`tls-gen` supports RSA and [Elliptic Curve Cryptography](https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-Elliptic-curve-cryptography/)
 algorithms for key generation.
 
 ### <a id="automated-certificate-generation-transcript" class="anchor" href="#automated-certificate-generation-transcript">Using tls-gen's Basic Profile</a>
@@ -288,8 +288,8 @@ accept TLS-enabled connections.
 <b>Note to Windows users:</b> backslashes ("\") in the
 configuration file are interpreted as escape sequences -
 so for example to specify the
-path <code>c:\ca_certificate.pem</code> for the CA certificate you
-would need to use <code>"c:\\ca_certificate.pem"</code> or <code>"c:/ca_certificate.pem"</code>.
+path `c:\ca_certificate.pem` for the CA certificate you
+would need to use `"c:\\ca_certificate.pem"` or `"c:/ca_certificate.pem"`.
 
 ### <a id="enabling-tls-verify-configuration" class="anchor" href="#enabling-tls-verify-configuration">How to Verify that TLS is Enabled</a>
 
@@ -304,7 +304,7 @@ It should contain an entry about a TLS listener being enabled, looking like this
 ### <a id="private-key-passwords" class="anchor" href="#private-key-passwords">Providing Private Key Password</a>
 
 Private keys can be optional protected by a password.
-To provide the password, use the <code>password</code> option:
+To provide the password, use the `password` option:
 
 <pre class="lang-ini">
 listeners.ssl.1 = 5671
@@ -359,7 +359,7 @@ Each peer provides a <em>chain of certificates</em> that begins with a "leaf"
 (client or server) certificate and continues with at least one Certificate Authority (CA) certificate. That
 CA issued (signed) the leaf CA. If there are multiple CA certificates, they usually form a chain of signatures,
 meaning that each CA certificate was signed by the next one. For example, if certificate B is signed by A and C is signed by B,
-the chain is <code>A, B, C</code> (commas here are used for clarify). The "topmost" (first or only) CA is often referred
+the chain is `A, B, C` (commas here are used for clarify). The "topmost" (first or only) CA is often referred
 to as the <em>root CA</em> for the chain. Root CAs can be issued by well-known Certifica Authorities
 (commercial vendors) or any other party ([self-signed](https://en.wikipedia.org/wiki/Self-signed_certificate)).
 
@@ -433,14 +433,14 @@ cat rootca/ca_certificate_bundle.pem otherca/ca_certificate.pem &gt; all_cacerts
 ### <a id="peer-verification-configuration" class="anchor" href="#peer-verification-configuration">Enabling Peer Verification</a>
 
 On the server end, peer verification is primarily controlled using two configuration
-options: <code>ssl_options.verify</code> and <code>ssl_options.fail_if_no_peer_cert</code>.
+options: `ssl_options.verify` and `ssl_options.fail_if_no_peer_cert`.
 
-Setting the <code>ssl_options.fail_if_no_peer_cert</code> option to <code>false</code> tells
+Setting the `ssl_options.fail_if_no_peer_cert` option to `false` tells
 the node to accept clients which don't present a certificate (for example, were not configured to use one).
 
-When the <code>ssl_options.verify</code> option is set to <code>verify_peer</code>,
+When the `ssl_options.verify` option is set to `verify_peer`,
 the client does send us a certificate, the node must perform peer verification.
-When set to <code>verify_none</code>, peer verification will be disabled and certificate
+When set to `verify_none`, peer verification will be disabled and certificate
 exchange won't be performed.
 
 For example, the following
@@ -495,11 +495,11 @@ verification performed by the client.
 
 Because of this it is important to know what SAN (Subject Alternative Name) or CN (Common Name) values
 were used when generating the certificate. If a certificate is generated on one host and used
-on a different host then the <code>$(hostname)</code> value should be replaced with the correct hostname of the target server.
+on a different host then the `$(hostname)` value should be replaced with the correct hostname of the target server.
 
 [tls-gen](#automatic-certificate-generation) will use local machine's hostname for both values.
 Likewise, in the [manual certificate/key pair generation section](#manual-certificate-generation) local machine's hostname is specified as
-<code>...-subj /CN=$(hostname)/...</code> to some OpenSSL CLI tool commands.
+`...-subj /CN=$(hostname)/...` to some OpenSSL CLI tool commands.
 
 ### <a id="peer-verification-depth" class="anchor" href="#peer-verification-depth">Certificate Chains and Verification Depth</a>
 
@@ -570,7 +570,7 @@ to implement any certificate chain verification logic
 A Key Store is a Java encapsulation of the certificate store concept. All
 certificates must either be stored into a Java-specific binary format (JKS)
 or to be in the PKCS#12 format. These formats are managed using the
-<code>KeyStore</code> class. In the below examples the JKS format is used to add the trusted (server) certificate(s)
+`KeyStore` class. In the below examples the JKS format is used to add the trusted (server) certificate(s)
 to the store, while for the client key/certificate pair, the PKCS#12
 key file generated by [tls-gen](#automated-certificate-generation) will be used.
 
@@ -630,22 +630,22 @@ after the connection is closed.
 
 For a Java client to trust a server, the server certificate must be added
 to a trust store which will be used to instantiate a [Trust Manager](https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/TrustManager.html).
-The JDK ships with a tool called <code>keytool</code> that manages certificate stores. To import a certificate to
-a store use <code>keytool -import</code>:
+The JDK ships with a tool called `keytool` that manages certificate stores. To import a certificate to
+a store use `keytool -import`:
 
 <pre class="lang-bash">
 keytool -import -alias server1 -file /path/to/server_certificate.pem -keystore /path/to/rabbitstore
 </pre>
 
-The above command will import <code>server/certificate.pem</code> into the <code>rabbitstore</code> file
-using the JKS format. The certificate will be referred to as <code>server1</code> in the trust store.
+The above command will import `server/certificate.pem` into the `rabbitstore` file
+using the JKS format. The certificate will be referred to as `server1` in the trust store.
 All certificates and keys must have distinct name in their store.
 
-<code>keytool</code> will confirm that the certificate is trusted and ask for a password.
+`keytool` will confirm that the certificate is trusted and ask for a password.
 The password protects the trust store from any tampering attempt.
 
-The client certificate and key in a <code>PKCS#12</code> file are then used. Note Java understands
-natively the <code>PKCS#12</code> format, no conversion is needed.
+The client certificate and key in a `PKCS#12` file are then used. Note Java understands
+natively the `PKCS#12` format, no conversion is needed.
 
 The below example demonstrates how the key store and the trust store are used with a
 [Key Manager](https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/KeyManager.html)
@@ -710,7 +710,7 @@ into the key store and watch the connection fail.
 #### <a class="anchor" href="#java-client-hostname-verification">Server Hostname Verification</a>
 
 Hostname verification must be enabled separately using the
-<code>ConnectionFactory#enableHostnameVerification()</code> method. This is done in the example
+`ConnectionFactory#enableHostnameVerification()` method. This is done in the example
 above, for instance:
 
 <pre class="lang-java">
@@ -779,15 +779,15 @@ compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 </pre>
 
 Alternatively with JDK 6
-<code>ConnectionFactory#enableHostnameVerification(HostnameVerifier)</code>
-can be provided a <code>HostnameVerifier</code> instance of choice.
+`ConnectionFactory#enableHostnameVerification(HostnameVerifier)`
+can be provided a `HostnameVerifier` instance of choice.
 
 ### <a id="tls-versions-java-client" class="anchor" href="#tls-versions-java-client">Configuring TLS Version in Java Client</a>
 
 Just like RabbitMQ server can be [configured to support only specific TLS versions](#tls-versions),
 it may be necessary to configure preferred TLS version in the Java client. This is done using
-the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
-or a <code>SSLContext</code>:
+the `ConnectionFactory#useSslProtocol` overloads that accept a protocol version name
+or a `SSLContext`:
 
 <pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
@@ -806,7 +806,7 @@ supported by the runtime.
 For a client certificate to be understood on the .NET platform, they
 can be in a number of formats including DER and PKCS#12 but
 not PEM. For the DER format, .NET expects them to
-be stored in files with <code>.cer</code> extension. [tls-gen](#automated-certificate-generation)
+be stored in files with `.cer` extension. [tls-gen](#automated-certificate-generation)
 generates both PEM and PKCS#12 files.
 
 ### <a id="dotnet-peer-verification" class="anchor" href="#dotnet-peer-verification">.NET Trust Store</a>
@@ -830,17 +830,17 @@ All certificates signed by any certificate in that store are automatically trust
 In contrast to the Java client, which is happy to use a
 TLS connection without performing peer verification, the .NET client by default requires this
 verification to succeed. To suppress verification, an applications can set
-the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
-and <code>System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
+the `System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable`
+and `System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors`
 flags in [SslOptions](&url-dotnet-apidoc;/RabbitMQ.Client.SslOption.html).
 
 ### <a id="certmgr" class="anchor" href="#certmgr">Certificate Management with Certmgr</a>
 
-<code>certmgr</code> is a command line tool that manages certificates in a specified store, for example,
+`certmgr` is a command line tool that manages certificates in a specified store, for example,
 adds and deletes them. These stores can be per-user stores, or
 system-wide. Only administrative users can have write access to the system-wide stores.
 
-The following example adds a certificate to the store of user <code>Root</code> (also known as <code>Trust</code> in some .NET implementation)
+The following example adds a certificate to the store of user `Root` (also known as `Trust` in some .NET implementation)
 
 <pre class="lang-powershell">
 # Windows
@@ -864,7 +864,7 @@ certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 certmgr -add -c -m Trust /path/to/cacert.cer
 </pre>
 
-After adding to a store, we can view the contents of that store with the <code>-all</code> (<code>-list</code> with Mono) switch:
+After adding to a store, we can view the contents of that store with the `-all` (`-list` with Mono) switch:
 
 <pre class="lang-bash">
 certmgr -all -s Root
@@ -1020,9 +1020,9 @@ and hostname matching in general.
 
 
 This is why the commands at the start of this guide specify
-<code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
+`...-subj /CN=$(hostname)/...` which dynamically looks up your
 hostname. If you're generating certificates on one machine, and using
-them on the other then be sure to swap out the <code>$(hostname)</code>
+them on the other then be sure to swap out the `$(hostname)`
 section, and replace it with the correct hostname for your server.
 
 
@@ -1030,7 +1030,7 @@ On the .NET platform, [RemoteCertificatevalidationCallback](http://msdn.microsof
 controls TLS verification behavior.
 
 
-In RabbitMQ .NET client, <code>RabbitMQ.client.SslOption.CertificatevalidationCallback</code>
+In RabbitMQ .NET client, `RabbitMQ.client.SslOption.CertificatevalidationCallback`
 can be used to provide a [RemoteCertificatevalidationCallback](http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx)
 delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
 the applications.
@@ -1040,12 +1040,12 @@ used in conjunction with the AcceptablePolicyErrors
 property to determine if the remote server certificate is
 valid.
 
-The <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
-flag in <code>RabbitMQ.client.SslOption.AcceptablePolicyErrors</code>
+The `System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch`
+flag in `RabbitMQ.client.SslOption.AcceptablePolicyErrors`
 can be used to disable peer verification (not recommended in production environments!).
 
 
-<code>RabbitMQ.client.SslOption.CertificateSelectionCallback</code>
+`RabbitMQ.client.SslOption.CertificateSelectionCallback`
 can be used to provide
 a [LocalCertificateSelectionCallback](http://msdn.microsoft.com/en-us/library/system.net.security.localcertificateselectioncallback(v=vs.110).aspx)
 that will select the local certificate used for peer verification.
@@ -1069,7 +1069,7 @@ TLS versions only](#tls-version-support-in-jdk-and-net) (e.g. JDK 6 or .NET 4.0)
 
 ### <a id="tls-versions-server" class="anchor" href="#tls-versions-server"></a>
 
-To limit enabled TLS protocol versions, use the <code>versions</code> option.
+To limit enabled TLS protocol versions, use the `versions` option.
 
 Using the [classic config format](/configure.html#config-file):
 
@@ -1136,7 +1136,7 @@ Using [classic config format](/configure.html#erlang-term-config-file):
 
 ### <a id="verifying-tls-versions" class="anchor" href="#verifying-tls-versions">Verifying Enabled TLS Versions</a>
 
-To verify provided TLS versions, use <code>openssl s_client</code>:
+To verify provided TLS versions, use `openssl s_client`:
 
 <pre class="lang-bash">
 # connect using SSLv3
@@ -1198,7 +1198,7 @@ the most recent [supported Erlang release](/which-erlang.html) is highly recomme
 
 ### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Available Cipher Suites</a>
 
-To list cipher suites supported by the Erlang runtime of a running node, use <code>rabbitmq-diagnostics cipher_suites --openssl-format</code>:
+To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --openssl-format`:
 
 <pre class="lang-ini">
 rabbitmq-diagnostics cipher_suites --openssl-format -q
@@ -1206,13 +1206,13 @@ rabbitmq-diagnostics cipher_suites --openssl-format -q
 
 This will produce a list of cipher suites in the OpenSSL format.
 
-Note that if <code>--openssl-format</code> is set to <code>false</code>:
+Note that if `--openssl-format` is set to `false`:
 
 <pre class="lang-ini">
 rabbitmq-diagnostics cipher_suites -q --openssl-format=false
 </pre>
 
-then <code>rabbitmq-diagnostics cipher_suites</code> will list cipher suites in the format
+then `rabbitmq-diagnostics cipher_suites` will list cipher suites in the format
 that's only accepted in the [classic config format](/configure.html#erlang-term-config-file). The OpenSSL format is accepted
 by both config formats. Note that cipher suites are not enquoted in the new style config format
 but double quotes are required in the classic format.
@@ -1232,7 +1232,7 @@ rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
 
 ### <a id="configuring-cipher-suites" class="anchor" href="#configuring-cipher-suites">Configuring Cipher Suites</a>
 
-Cipher suites are configured using the <code>ssl_options.ciphers</code> config option (<code>rabbit.ssl_options.ciphers</code>
+Cipher suites are configured using the `ssl_options.ciphers` config option (`rabbit.ssl_options.ciphers`
 in the classic config format).
 
 The below examples demonstrates how the option is used.
@@ -1357,8 +1357,8 @@ what cipher suite will be used. It is possible to force server's TLS
 implementation to dictate its preference (cipher suite order) to avoid
 malicious clients that intentionally negotiate weak cipher suites in
 preparation for running an attack on them.
-To do so, configure <code>honor_cipher_order</code>
-and <code>honor_ecc_order</code> to <code>true</code>:
+To do so, configure `honor_cipher_order`
+and `honor_ecc_order` to `true`:
 
 <pre class="lang-ini">
 listeners.ssl.1        = 5671
@@ -1548,31 +1548,31 @@ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
 ## <a id="erlang-client" class="anchor" href="#erlang-client">Using TLS in the Erlang Client</a>
 
 Enabling TLS in the RabbitMQ Erlang client is similar to configuring other
-settings related to networking. The <code>#amqp_params_network</code> record
-provides a field, <code>ssl_options</code>, for all the [standard Erlang TLS options](http://erlang.org/doc/man/ssl.html).
+settings related to networking. The `#amqp_params_network` record
+provides a field, `ssl_options`, for all the [standard Erlang TLS options](http://erlang.org/doc/man/ssl.html).
 
 ### <a id="erlang-ssl" class="anchor" href="#erlang-ssl">Erlang TLS Options</a>
 
 The three important options which must be supplied are:
 
- * The <code>cacertfile</code> option specifies the certificates of the root
+ * The `cacertfile` option specifies the certificates of the root
    Certificate Authorities that we wish to implicitly trust.
- * The <code>certfile</code> is the client's own certificate in PEM format
- * The <code>keyfile</code> is the client's private key file in PEM format
+ * The `certfile` is the client's own certificate in PEM format
+ * The `keyfile` is the client's private key file in PEM format
 
-<code>server_name_indication</code> - set this option to the host name of the server
+`server_name_indication` - set this option to the host name of the server
 to which a TLS connection will be made to enable "Server Name Indication" verification
 of the certificate presented by the server. This ensures that the server certificate's
-<code>CN=</code> value will be verified during TLS connection establishment. You can
-override this behavior by setting <code>server_name_indication</code> to a different
-host name or to the special value <code>disable</code> to disable this
+`CN=` value will be verified during TLS connection establishment. You can
+override this behavior by setting `server_name_indication` to a different
+host name or to the special value `disable` to disable this
 verification. Note that, by default, SNI is <b>not</b> enabled. This default
 will change in a future RabbitMQ Erlang client release.
 
-<code>verify</code> - set this option to <code>verify_peer</code> to enable X509
-certificate chain verification. The <code>depth</code> option configures certificate
-verification depth. Note that, by default, <code>verify</code> is set to
-<code>verify_none</code>, which disables certificate chain verification. This default
+`verify` - set this option to `verify_peer` to enable X509
+certificate chain verification. The `depth` option configures certificate
+verification depth. Note that, by default, `verify` is set to
+`verify_none`, which disables certificate chain verification. This default
 will change in a future RabbitMQ Erlang client release.
 
 ### <a id="erlang-code-example" class="anchor" href="#erlang-code-example">Code Example</a>
@@ -1622,7 +1622,7 @@ existing tools](#automated-certificate-generation), which is recommended. This s
 the process, OpenSSL command line tools and some important aspects OpenSSL configuration.
 
 This guide assumes a UNIX-like operating system (Linux, MacOS, a BSD variant and so on)
-and a recent version of OpenSSL available in <code>PATH</code>.
+and a recent version of OpenSSL available in `PATH`.
 
 First let's create a directory for our test Certificate Authority:
 
@@ -1635,7 +1635,7 @@ echo 01 &gt; serial
 touch index.txt
 </pre>
 
-Now add the following OpenSSL configuration file, <code>openssl.cnf</code>, within the newly created <code>testca</code>
+Now add the following OpenSSL configuration file, `openssl.cnf`, within the newly created `testca`
 directory:
 
 <pre class="lang-ini">
@@ -1696,7 +1696,7 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
 
 Next we need to generate the key and certificates that our test
-Certificate Authority will use. Still within the <code>testca</code>
+Certificate Authority will use. Still within the `testca`
 directory:
 
 <pre class="lang-bash">
@@ -1706,8 +1706,8 @@ openssl x509 -in ca_certificate.pem -out ca_certificate.cer -outform DER
 </pre>
 
 This is all that is needed to generate a test Certificate
-Authority. The root certificate is in <code>ca_certificate.pem</code>
-and is also in <code>testca/ca_certificate_bundle.cer</code>. These two files contain the
+Authority. The root certificate is in `ca_certificate.pem`
+and is also in `testca/ca_certificate_bundle.cer`. These two files contain the
 same information, but in different formats, PEM and DER.
 Most software uses the former but some tools require the latter.
 
@@ -1762,19 +1762,19 @@ openssl pkcs12 -export -out client_certificate.p12 -in client_certificate.pem -i
 
 The two examples above generate private keys that are 2048 bits in size.
 It is possible to use longer (and thus more secure but also slower to generate)
-keys by providing a different value to <code>openssl genrsa</code>, e.g.:
+keys by providing a different value to `openssl genrsa`, e.g.:
 
 <pre class="lang-bash">
 openssl genrsa -out private_key.pem 4096
 </pre>
 
-Another option would be to generate a key using [Elliptic Curve Cryptography](https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-Elliptic-curve-cryptography/). Instead of <code>openssl genrsa</code> use
-<code>openssl ecparam</code> like so:
+Another option would be to generate a key using [Elliptic Curve Cryptography](https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-Elliptic-curve-cryptography/). Instead of `openssl genrsa` use
+`openssl ecparam` like so:
 
 <pre class="lang-bash">
 openssl ecparam -out private_key.pem -genkey -name prime256v1
 </pre>
 
-<code>prime256v1</code> in the example above is an Elliptic curve name.
+`prime256v1` in the example above is an Elliptic curve name.
 Different versions of OpenSSL will have a different set of curves available,
-list them with <code>openssl ecparam -list_curves</code>.
+list them with `openssl ecparam -list_curves`.
