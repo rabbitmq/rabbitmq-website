@@ -54,6 +54,7 @@ limitations under the License.
             <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
             <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
             <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
+            <li>Configure the <a href="#ipv6-configuration">IPv6 distribution</a></li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
@@ -1299,6 +1300,37 @@ Using the classic config format:
       <p>
         A methodology for <a href="/troubleshooting-networking.html">troubleshooting of networking-related issues</a>
         is covered in a separate guide.
+      </p>
+    </doc:section>
+
+    <doc:section name="ipv6-configuration">
+      <doc:heading>IPv6 Distribution Configuration</doc:heading>
+
+      <p>
+        The <code>epmd.socket</code> service can be configured to listen only on the IPv6 intefaces, as:
+         <pre class="lang-bash">
+ListenStream=[::1]:4369
+         </pre> 
+
+        During the startup RabbitMQ, by default, uses the IPv4 interface and can't bind the <code>epmd</code> address/port, so it raises this error:
+         <pre class="lang-bash">
+Protocol 'inet_tcp': register/listen error: econnrefused
+         </pre>         
+         This is an Erlang distibution configuration between the node and the <code>epmd</code>, see the <a href="http://erlang.org/doc/reference_manual/distributed.html">official documentation</a> for more detail.
+       </p>
+       <p> 
+         It is possible to enable the <code>inet6_tcp</code> distribution configuration using the <a href="/configure.html#customise-environment">environment variables</a>: 
+         <pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/etc/rabbitmq/erl_inetrc'  -proto_dist inet6_tcp "
+RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp "
+         </pre>
+         The <code>erl_inetrc</code> content is:
+          <pre class="lang-bash">
+{inet6,true}.
+          </pre>
+
+          Note that this confuration is only about the RabbitMQ node and the EPMD service, not related with the <a href="#single-stack-ipv6">AMQP IPv6 listen port configuration</a>.
+
       </p>
     </doc:section>
   </body>
