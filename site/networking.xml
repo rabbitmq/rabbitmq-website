@@ -54,6 +54,7 @@ limitations under the License.
             <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
             <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
             <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
+            <li>Configure the <a href="#ipv6-configuration">IPv6 distribution</a></li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
@@ -339,6 +340,80 @@ name rabbit at port 25672
           recommended.
         </p>
       </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="epmd-ipv6">
+      <doc:heading>Using IPv6 for Inter-node Communication (and CLI Tools)</doc:heading>
+
+      <p>
+        Inter-node communication can be configured to use IPv6 exclusively. This requires a bit of
+        configuration of both the inter-node communication protocol (also known as <code>proto_dist</code>)
+        via a <a href="/runtime.html">runtime flag</a> and <code>epmd</code> settings.
+      </p>
+
+      <p>
+        On distributions that use systemd, the <code>epmd.socket</code> service controls network settings of <code>epmd</code>.
+        It is possible to configure <code>epmd</code> to only listen on IPv6 intefaces:
+
+<pre class="lang-ini">
+ListenStream=[::1]:4369
+</pre>
+
+        The service will need reloading after its unit file has been updated:
+
+<pre class="lang-bash">
+systemctl daemon-reload
+systemctl restart epmd.socket epmd.service
+</pre>
+
+        This is step one towards switching to IPv6 for inter-node communication.
+      </p>
+
+      <p>
+        Another necessary step is telling RabbitMQ nodes and CLi tools to use an IPv6-enabled inter-node communication transport (protocol).
+        By default RabbitMQ nodes will use an IPv4 interface when connecting to <code>epmd</code>.
+        When <code>epmd</code> is configured to use IPv6 exclusively, such as in the example above,
+        the connection will fail with an error message similar to this:
+
+<pre class="lang-bash">
+Protocol 'inet_tcp': register/listen error: econnrefused
+</pre>
+       </p>
+
+       <p>
+          Instructing RabbitMQ nodes to use IPv6 when connecting to <code>epmd</code> both locally and on
+          peer nodes will make connection succeed. This is done via a <a href="/runtime.html">runtime flag</a>,
+          <code>-proto_dist</code>, which must be set to <code>inet6_tcp</code>.
+          This is done using a couple of <a href="/configure.html#customise-environment">environment variables</a>:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/etc/rabbitmq/erl_inetrc'  -proto_dist inet6_tcp "
+RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp "
+</pre>
+
+         In the example above, <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> is used to configure two Erlang
+         distribution parameters. <code>-kernel inetrc</code> to configure an <a href="http://erlang.org/doc/apps/erts/inet_cfg.html">inetrc</a>
+         that contains lower-level settings related to IP communication. <code>-proto_dist inet6_tcp</code>
+         is used to tell the node to use an IPv6-enabled inter-node communication transport.
+
+         The <code>erl_inetrc</code> file must contain the following:
+
+<pre class="lang-bash">
+{inet6,true}.
+</pre>
+
+          Finally, the <code>RABBITMQ_CTL_ERL_ARGS</code> environment variable is used to tell
+          <a href="/cli.html">CLI tools</a> to use <code>-proto_dist inet6_tcp</code>, since they
+          must use the same inter-node communication transport as nodes do.
+      </p>
+
+      <p>
+        Note that the above confuration only affects node-to-node and CLI-to-node communication as well as the <code>epmd</code> service
+        which enables both. It and does not affect <a href="#single-stack-ipv6">client connection listener configuration</a>.
+        It is possible to use IPv6 for inter-node and CLI tool communication and use IPv4 for client connections or vice versa.
+        Of course, it is possible to use IPv6 across the board, too.
+      </p>
     </doc:section>
 
 
