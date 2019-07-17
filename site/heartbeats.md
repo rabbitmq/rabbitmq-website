@@ -177,7 +177,7 @@ and outgoing. This makes them useful in scenarios with a high outgoing
 connection churn, e.g. [Shovel](/shovel.html) or [Federation](/federation.html) plugin
 links that are often disabled and reenabled or interrupted.
 
-TCP keepalives an also be used instead of heartbeats by configuring them to lower system-specific
+TCP keepalives can also be used instead of heartbeats by configuring them to lower system-specific
 values. In that case [heartbeats can be disabled](#disabling). The main benefit
 of this approach is that all TCP connections on a machine will use identical values
 regardless of the protocol and client library used.
