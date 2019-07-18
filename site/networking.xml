@@ -54,7 +54,7 @@ limitations under the License.
             <li>Kernel TCP settings and limits (e.g. <a href="#tcp-keepalives">TCP keepalives</a> and <a href="#open-file-handle-limit">open file handle limit</a>)</li>
             <li>(AMQP 0-9-1, STOMP) <a href="#heartbeats">Heartbeats</a>, known as keepalives in MQTT</li>
             <li>Hostnames, <a href="#dns">hostname resolution and DNS</a></li>
-            <li>Configure the <a href="#ipv6-configuration">IPv6 distribution</a></li>
+            <li>Configure the <a href="#distribution-ipv6">IPv6 distribution</a></li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
@@ -343,7 +343,7 @@ name rabbit at port 25672
     </doc:section>
 
 
-    <doc:section name="epmd-ipv6">
+    <doc:section name="distribution-ipv6">
       <doc:heading>Using IPv6 for Inter-node Communication (and CLI Tools)</doc:heading>
 
       <p>
