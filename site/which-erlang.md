@@ -51,7 +51,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul>
         <li><strong>3.7.16</strong></li>
-        <li><strong>3.7.15</strong></li>
+        <li>3.7.15</li>
       </ul>
     </td>
     <td>
@@ -77,24 +77,24 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
-        <li><strong>3.7.14</strong></li>
-        <li><strong>3.7.13</strong></li>
-        <li><strong>3.7.12</strong></li>
-        <li><strong>3.7.11</strong></li>
-        <li><strong>3.7.10</strong></li>
-        <li><strong>3.7.9</strong></li>
-        <li><strong>3.7.8</strong></li>
-        <li><strong>3.7.7</strong></li>
+        <li>3.7.14</li>
+        <li>3.7.13</li>
+        <li>3.7.12</li>
+        <li>3.7.11</li>
+        <li>3.7.10</li>
+        <li>3.7.9</li>
+        <li>3.7.8</li>
+        <li>3.7.7</li>
       </ul>
     </td>
     <td>
       <ul>
-        <li><strong>20.3.x</strong></li>
+        <li>20.3.x</li>
       </ul>
     </td>
     <td>
       <ul>
-        <li><strong>21.3.x</strong></li>
+        <li>21.3.x</li>
       </ul>
     </td>
     <td>
