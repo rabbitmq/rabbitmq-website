@@ -278,7 +278,7 @@ begin
   server = FibonacciServer.new
 
   puts ' [x] Awaiting RPC requests'
-  server.start('rpc_queue
+  server.start('rpc_queue')
   server.loop_forever
 rescue Interrupt => _
   server.stop
