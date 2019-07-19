@@ -81,10 +81,10 @@ cookie file is, and most common reasons why CLI tools fail to perform operations
 [Troubleshooting Networking](/troubleshooting-networking.html) is a dedicated guide on the topic of networking and connectivity.
 
 
-## <a id="authentication" class="anchor" href="#authentication">Authentication and Authorisation</a>
+## <a id="authentication" class="anchor" href="#authentication">Authentication and Authorization</a>
 
 [Access Control guide](/access-control.html) contains sections on [troubleshooting client authentication](/access-control.html#troubleshooting-authn)
-and [troubleshooting authorisation](/access-control.html#troubleshooting-authz).
+and [troubleshooting authorization](/access-control.html#troubleshooting-authz).
 
 
 ## <a id="connections" class="anchor" href="#connections">Connections</a>

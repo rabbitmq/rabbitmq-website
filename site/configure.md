@@ -822,7 +822,7 @@ auth_mechanisms.2 = AMQPLAIN
     <td><code>auth_backends</code></td>
     <td>
       <p>
-        List of <a href="/access-control.html">authentication and authorisation backends</a> to
+        List of <a href="/access-control.html">authentication and authorization backends</a> to
         use. See the <a href="/access-control.html">access control guide</a> for details and examples.
       </p>
       <p>

@@ -320,7 +320,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_auth_backend_ldap</th>
       <td>
-        Authentication and authorisation plugin using an external
+        Authentication and authorization plugin using an external
         LDAP server.
         <ul>
           <li><a href="ldap.html">Documentation for the LDAP
@@ -332,7 +332,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_auth_backend_http</th>
       <td>
-        Authentication and authorisation plugin that uses an external HTTP API.
+        Authentication and authorization plugin that uses an external HTTP API.
 
         <ul>
           <li>

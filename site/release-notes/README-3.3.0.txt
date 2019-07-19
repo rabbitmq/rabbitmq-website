@@ -50,7 +50,7 @@ enhancements
       are being held back by low prefetch counts
 26039 ensure rabbitmqctl's formatting of process IDs is more shell-script
       friendly
-25654 allow use of separate modules for authentication and authorisation
+25654 allow use of separate modules for authentication and authorization
 25722 explicitly set Erlang distribution port in all circumstances
 25910 add process identification information to process dictionary to aid in
       debugging

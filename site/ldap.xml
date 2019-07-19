@@ -33,11 +33,11 @@ limitations under the License.
       <p>
         RabbitMQ can use LDAP to perform <a
         href="/access-control.html">authentication and
-        authorisation</a> by deferring to an external LDAP
+        authorization</a> by deferring to an external LDAP
         server. This functionality is provided by a
         plugin that ships with RabbitMQ but <a href="#enabling-the-plugin">has to be enabled</a>.
-        Authentication and authorisation operations are
-        translated into <a href="#authorisation">LDAP queries</a> configured
+        Authentication and authorization operations are
+        translated into <a href="#authorization">LDAP queries</a> configured
         by the user.
       </p>
 
@@ -60,7 +60,7 @@ limitations under the License.
 
       <p>
         This guide covers the <a href="#ldap-operation-flow">LDAP operation flow</a> used by RabbitMQ, how the LDAP model
-        <a href="#authorisation">maps to the RabbitMQ permission model</a> and what tools are available
+        <a href="#authorization">maps to the RabbitMQ permission model</a> and what tools are available
         for <a href="#troubleshooting">troubleshooting</a>.
       </p>
     </doc:section>
@@ -102,7 +102,7 @@ sudo apt-get install -y erlang-eldap
         After enabling the plugin it is necessary to configure the node to use it.
         To do so, add <code>rabbit_auth_backend_ldap</code> to the list of <code>auth_backends</code>.
         See the <a href="/access-control.html">Access Control</a> guide for an overview of authentication
-        and authorisation backends and how they are used.
+        and authorization backends and how they are used.
       </p>
 
       <p>
@@ -143,7 +143,7 @@ auth_backends.2 = internal
 
       <p>
         In example, LDAP will be used for authentication first. If the user is found in LDAP then the
-        password will be checked against LDAP and subsequent authorisation
+        password will be checked against LDAP and subsequent authorization
         checks will be performed against the internal database (therefore
         users in LDAP must exist in the internal database as well, but do not
         need a password there). If the user is not found in LDAP then a second
@@ -170,7 +170,7 @@ auth_backends.2 = internal
       <p>
         Once the plugin is enabled and its backends are wired in, a number of LDAP-specific
         settings must be configured. They include LDAP server list, authentication and
-        authorisation settings and more.
+        authorization settings and more.
       </p>
 
       <p>
@@ -392,7 +392,7 @@ auth_ldap.use_ssl   = true
                 compare attributes of and so on). An LDAP database
                 must have some entries (typically users, groups) in
                 order to be practically useful for RabbitMQ
-                authentication and authorisation.
+                authentication and authorization.
               </td>
             </tr>
           </table>
@@ -420,7 +420,7 @@ auth_ldap.use_ssl   = true
         <p>
           At this point the connection can be considered successfully negotiated and established.
           It should be possible to open a channel on it, for example. All further operations
-          performed on the connection will execute one of the authorisation queries. For example,
+          performed on the connection will execute one of the authorization queries. For example,
           declaring a queue will execute a resource access query (covered below). Publishing a
           message to a topic exchange will additionally execute a topic access query. Please refer
           to the <a href="/access-control.html">Access Control guide</a> to learn more.
@@ -567,12 +567,12 @@ auth_ldap.log = network
 
 
       <doc:subsection name="other-bind">
-        <doc:heading>Binding for Authorisation Queries</doc:heading>
+        <doc:heading>Binding for Authorization Queries</doc:heading>
 
         <p>
           For authentication this plugin binds to the LDAP server as the
           user it is trying to authenticate. The <code>other_bind</code> setting controls how to
-          bind for authorisation queries, and to retrieve the details of a
+          bind for authorization queries, and to retrieve the details of a
           user who is logging in without presenting a password (e.g. using the
           <a href="/authentication.html">EXTERNAL authentication mechanism</a>).
         </p>
@@ -637,10 +637,10 @@ auth_ldap.other_bind.password = a-password</pre>
     </doc:section>
 
 
-    <doc:section name="authorisation">
-      <doc:heading>Configuring Authorisation</doc:heading>
+    <doc:section name="authorization">
+      <doc:heading>Configuring Authorization</doc:heading>
 
-      <doc:subsection name="authorisation-overview">
+      <doc:subsection name="authorization-overview">
         <doc:heading>How RabbitMQ Permission Model Maps to LDAP</doc:heading>
 
         <p>
@@ -648,8 +648,8 @@ auth_ldap.other_bind.password = a-password</pre>
           is different from that of LDAP. In addition, the way LDAP
           schemas are used will vary from company to
           company. Therefore a mechanism that defines what LDAP
-          requests are used by the RabbitMQ authorisation functions is
-          needed. Authorisation is controlled by four configurable queries:
+          requests are used by the RabbitMQ authorization functions is
+          needed. Authorization is controlled by four configurable queries:
 
           <ul>
             <li><code>rabbitmq_auth_backend_ldap.vhost_access_query</code></li>
@@ -679,7 +679,7 @@ auth_ldap.other_bind.password = a-password</pre>
         <doc:heading>Queries and Their Types</doc:heading>
 
         <p>
-          Each query mentioned above is used at a different authorisation stage and must
+          Each query mentioned above is used at a different authorization stage and must
           evaluate to either <code>true</code> or false. Specific query types (expressions,
           e.g. value comparison or group membership check) are covered later
           in this guide.
@@ -794,7 +794,7 @@ auth_ldap.other_bind.password = a-password</pre>
           The terms configure, write and read for resource access have the
           same meanings that they do for the built-in RabbitMQ permissions
           system, see http://www.rabbitmq.com/access-control.html. See
-          also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
+          also <a href="/access-control.html#topic-authorization">topic authorization</a>
           for <code>topic_access_query</code>.
         </p>
 
@@ -809,7 +809,7 @@ auth_ldap.other_bind.password = a-password</pre>
       </doc:subsection>
 
 
-      <doc:subsection name="authorisation-vhost-access">
+      <doc:subsection name="authorization-vhost-access">
         <doc:heading>Virtual Host Access</doc:heading>
 
         <p>
@@ -828,7 +828,7 @@ auth_ldap.other_bind.password = a-password</pre>
       </doc:subsection>
 
 
-      <doc:subsection name="authorisation-tag-query">
+      <doc:subsection name="authorization-tag-query">
         <doc:heading>User Tags</doc:heading>
 
         <p>
@@ -843,7 +843,7 @@ auth_ldap.other_bind.password = a-password</pre>
 
 
     <doc:section name="query-reference">
-      <doc:heading>Authorisation Query Reference</doc:heading>
+      <doc:heading>Authorization Query Reference</doc:heading>
 
       <doc:subsection>
         <doc:heading>Constant Query</doc:heading>
@@ -1103,7 +1103,7 @@ auth_ldap.other_bind.password = a-password</pre>
         exchanges and declare from queues. Publishing to topic-typed
         exchanges is restricted to messages with a routing key
         beginning with "a" and consuming from topics isn't restricted
-        (topic authorisation).
+        (topic authorization).
       </p>
 
       The <a href="/configure.html#config-file">standard config</a>
@@ -1189,20 +1189,20 @@ auth_ldap.log        = false
       <doc:heading>Troubleshooting</doc:heading>
 
       <p>
-        Using LDAP for authentication and/or authorisation introduces another moving
+        Using LDAP for authentication and/or authorization introduces another moving
         part into the system. Since LDAP servers are accessed over the network,
         some topics covered in the <a href="/troubleshooting-networking.html">Network Troubleshooting</a>
         and <a href="/troubleshooting-ssl.html">TLS Troubleshooting</a> guides apply to LDAP.
       </p>
 
       <p>
-        In order to troubleshoot LDAP operations performed during the authentication and authorisation
+        In order to troubleshoot LDAP operations performed during the authentication and authorization
         stages, <a href="#logging">enabling LDAP traffic logging</a> is highly recommended.
       </p>
 
       <p>
         <a href="http://bit.ly/2GPyTmq">ldapsearch</a> is a command line tool that ships with LDAP and makes it possible to execute arbitrary
-        LDAP queries against an OpenLDAP installation. This can be useful when troubleshooting complex authorisation
+        LDAP queries against an OpenLDAP installation. This can be useful when troubleshooting complex authorization
         queries. <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772839(v=ws.10)">ldp.exe</a> is the Active Directory counterpart.
       </p>
     </doc:section>

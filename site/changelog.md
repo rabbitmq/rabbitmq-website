@@ -268,7 +268,7 @@ published separately.
         <li>Simpler, ini-style <a href="configure.html">configuration format</a></li>
         <li><a href="vhosts.html">Per-vhost limits</a></li>
         <li><a href="parameters.html">Operator policies</a></li>
-        <li><a href="access-control.html">Topic-based authorisation</a></li>
+        <li><a href="access-control.html">Topic-based authorization</a></li>
         <li>Cross-protocol <a href="shovel.html">Shovel</a> (currently supports AMQP 0.9.1 and AMQP 1.0)</li>
         <li><a href="cli.html">Command-line tools</a> are extensible via plugins</li>
         <li><a href="https://github.com/rabbitmq/rabbitmq-server/issues/567">Message store multi-tenancy</a></li>

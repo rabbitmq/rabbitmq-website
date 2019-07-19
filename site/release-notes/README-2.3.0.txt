@@ -41,7 +41,7 @@ enhancements
   http://www.rabbitmq.com/extensions.html#validated-user-id
 - pluggable SASL authentication mechanisms, and a new plugin
   to authenticate using SSL (see below)
-- pluggable authentication / authorisation backends, and a new plugin
+- pluggable authentication / authorization backends, and a new plugin
   to authenticate and authorise using LDAP (see below)
 - internal exchanges (cannot be published to directly,
   typically used with exchange-to-exchange bindings)
@@ -140,7 +140,7 @@ required.
 
 ldap authentication backend plugin
 ----------------------------------
-Experimental plugin allowing the authentication / authorisation
+Experimental plugin allowing the authentication / authorization
 database to be hosted in an LDAP server.
 
 

@@ -3700,7 +3700,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           <p>
             This release fixes a number of bugs and introduces some enhancements,
             including streaming publish confirmations, new plugin mechanisms for
-            authentication and authorisation, and a great deal more.
+            authentication and authorization, and a great deal more.
             For details see the <a
             href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-February/011019.html">
             release notes</a>.

@@ -231,7 +231,7 @@ to your configuration.
 
 Note that:
 
-* The authenticated user must exist in the configured authentication / authorisation backend(s).
+* The authenticated user must exist in the configured authentication / authorization backend(s).
 * Clients must **not** supply `login` and `passcode` headers.
 
 ### <a id="cta.ic" class="anchor" href="#cta.ic">Implicit Connect</a>

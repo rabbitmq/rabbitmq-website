@@ -443,7 +443,7 @@ to your configuration.
 
 Note that:
 
-* The authenticated user must exist in the configured authentication / authorisation backend(s).
+* The authenticated user must exist in the configured authentication / authorization backend(s).
 * Clients **must not** supply username and password.
 
 You can optionally specify a virtual host for a client certificate by using the `mqtt_default_vhosts`

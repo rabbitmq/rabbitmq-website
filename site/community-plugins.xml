@@ -139,7 +139,7 @@ limitations under the License.
       </doc:section>
 
       <doc:section name="auth">
-        <doc:heading>Authentication / Authorisation</doc:heading>
+        <doc:heading>Authentication / Authorization</doc:heading>
 
         <table class="plugins">
           <r:plugin name="rabbitmq_auth_backend_http">
@@ -149,7 +149,7 @@ limitations under the License.
             </i>
             Provides the ability for your RabbitMQ server to perform
             authentication (determining who can log in) and
-            authorisation (determining what permissions they have)
+            authorization (determining what permissions they have)
             by making requests to an HTTP server.
             <ul>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_http">3.6.x</a></li>
@@ -160,7 +160,7 @@ limitations under the License.
 
           <r:plugin name="rabbitmq_auth_backend_amqp">
             Provides the ability for your RabbitMQ server to perform
-            authentication and authorisation over AMQP itself.
+            authentication and authorization over AMQP itself.
             <ul>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_auth_backend_amqp">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_amqp">3.6.x</a></li>
@@ -174,7 +174,7 @@ limitations under the License.
 	      This plugin is not ported to RabbitMQ 3.7.x+ yet.
             </i>
             Provides the ability for your RabbitMQ server to perform
-            authorisation based on the client IP address.
+            authorization based on the client IP address.
             <ul>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_auth_backend_ip_range">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_ip_range">3.6.x</a></li>

@@ -132,7 +132,7 @@ This is covered in the [following section](#permissions).
 
 ## <a id="permissions" class="anchor" href="#permissions">Access and Permissions</a>
 
-The management UI requires [authentication and authorisation](access-control.html), much like RabbitMQ requires
+The management UI requires [authentication and authorization](access-control.html), much like RabbitMQ requires
 it from connecting clients. In addition to successful authentication, management UI access is controlled by user tags.
 The tags are managed using [rabbitmqctl](/rabbitmqctl.8.html#set_user_tags).
 Newly created users do not have any tags set on them by default.
