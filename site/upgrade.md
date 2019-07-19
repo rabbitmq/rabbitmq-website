@@ -119,7 +119,7 @@ frequent memory alarms and publishers will be blocked more often. On the upside
 this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
 of the OS.
 
-## <a id="rabbitmq-cluster-configuration" class="anchor" href="#rabbitmq-cluster-configuration">RabbitMQ Cluster Configuration</a>
+## <a id="clusters" class="anchor" href="#clusters">Single Node and Cluster Upgrades</a>
 
 ### <a id="single-node-upgrade" class="anchor" href="#single-node-upgrade">Upgrading a Single Node Installation</a>
 
@@ -155,9 +155,9 @@ stopped, then restarted. This is referred to as a full stop upgrade.
 Client (application) connections will be dropped when each node stops. Applications need to be
 prepared to handle this and reconnect.
 
-#### <a id="rolling-upgrades" class="anchor" href="#rolling-upgrades">Rolling Upgrades</a>
+### <a id="rolling-upgrades" class="anchor" href="#rolling-upgrades">Rolling Upgrades</a>
 
-##### <a id="rolling-upgrades-version-limitations" class="anchor" href="#rolling-upgrades-version-limitations">Version limitations</a>
+#### <a id="rolling-upgrades-version-limitations" class="anchor" href="#rolling-upgrades-version-limitations">Version limitations</a>
 
 Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
 
@@ -206,7 +206,7 @@ refuse to join its peer (cluster).
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
-##### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting nodes</a>
+#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting nodes</a>
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
@@ -221,7 +221,7 @@ This will put more load on the broker. This can impact performance
 and stability of the cluster. It's not recommended to perform rolling
 upgrades under high load.
 
-#### <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>
+### <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>
 
 When an entire cluster is stopped for upgrade, the order in which nodes are
 stopped and started is important.
@@ -273,7 +273,7 @@ The following commands can be used to verify whether a node is experience the ab
 An affected node will not respond to CLI connections in a reasonable amount of time
 when performing the following basic commands:
 
-<pre class="lang-sh">
+<pre class="lang-bash">
 rabbitmqctl status
 rabbitmqctl eval "ok."
 </pre>
@@ -291,7 +291,7 @@ a queue first.
 
 This can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
-<pre class="lang-sh">
+<pre class="lang-bash">
 # For queues with non-empty `slave_pids`, you must have at least one
 # `synchronised_slave_pids`.
 rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
@@ -315,7 +315,8 @@ A rolling upgrade of three nodes with two mirrors will also cause all queue mast
 You can move a queue master for a queue using a temporary [policy](/parameters.html) with
 `ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
 The policy can be created via management UI or rabbitmqctl command:
-<pre class="lang-sh">
+
+<pre class="lang-bash">
 rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queue&gt;$;' '{"ha-mode":"nodes", "ha-params":["&lt;new-master-node&gt;"]}'
 rabbitmqctl clear_policy move-my-queue
 </pre>
