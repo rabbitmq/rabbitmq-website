@@ -417,22 +417,35 @@ operation queue.declare caused a channel exception not_found: home node 'rabbit@
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <pre>rabbitmqctl set_policy ha-two "^two\." \
-   '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'</pre>
+<pre class="lang-bash">
+rabbitmqctl set_policy ha-two "^two\." \
+  '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'
+</pre>
           </td>
         </tr>
         <tr>
           <th>rabbitmqctl (Windows)</th>
           <td>
-            <pre>rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"</pre>
+<pre class="lang-bash">
+rabbitmqctl set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"
+ </pre>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
-            <pre>PUT /api/policies/%2f/ha-two
-{"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2,"ha-sync-mode":"automatic"}}</pre>
+<pre class="lang-ini">
+PUT /api/policies/%2f/ha-two
+{
+  "pattern":"^two\.",
+  "definition": {
+    "ha-mode":"exactly",
+    "ha-params":2,
+    "ha-sync-mode":"automatic"
+  }
+}
+</pre>
           </td>
         </tr>
         <tr>
