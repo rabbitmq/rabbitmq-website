@@ -13,8 +13,8 @@ The second part to understanding RabbitMQ is visualising the metrics that are
 collected by and stored in Prometheus. We have built Grafana dashboards that
 visualise these metrics in context-specific ways. For example, there is a
 RabbitMQ Overview dashboard, a RabbitMQ Raft dashboard, an Erlang Distribution
-dashboard, as well as others. They are each meant to give insights into specific parts
-of the system. When used together, they are able to explain any RabbitMQ
+dashboard, and many others. They are each meant to give insights into specific
+parts of the system. When used together, they are able to explain any RabbitMQ
 behaviour in great detail.
 
 When RabbitMQ is integrated with Prometheus and Grafana, this is what the
@@ -27,7 +27,7 @@ RabbitMQ Overview dashboard looks like:
 To discover what else RabbitMQ Overview Grafana dashboard has in store, let's
 get it up and running locally. We will take the quickest path of setting
 everything up so that you can better imagine how this will benefit your
-RabbitMQ deployment(s). You will be able to interact with RabbitMQ, Prometheus
+RabbitMQ deployments. You will be able to interact with RabbitMQ, Prometheus
 & Grafana locally, on your machine. You will also be able to try out different
 load profiles and understand how it all fits together.
 
@@ -39,9 +39,10 @@ machine. Next, you will need to install [Git](https://git-scm.com/) as well as
 pre-requisites are set up correctly when `git version`, `docker info` &amp;
 `docker-compose version` work in your terminal.
 
-We will now clone the **rabbitmq-prometheus** repository from GitHub
-and start all components required for a fully functional RabbitMQ Overview
-dashboard:
+We will now clone the
+[rabbitmq-prometheus](https://github.com/rabbitmq/rabbitmq-prometheus)
+repository from GitHub and start all components required for a fully functional
+RabbitMQ Overview dashboard:
 
 <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-prometheus.git
@@ -55,52 +56,87 @@ docker-compose -f docker-compose-overview.yml up -d
 When all the above commands succeed, open
 [http://localhost:3000/dashboards](http://localhost:3000/dashboards) in your
 browser and login with username `admin` and password `admin`. Feel free to skip
-the change password step, it's a local Grafana installation after all. Now navigate
-to the RabbitMQ-Overview dashboard.
+the change password step - this is a local Grafana installation after all. Now
+navigate to the **RabbitMQ-Overview** dashboard. This is what you should see:
+
+![RabbitMQ Overview Dashboard Localhost](/img/rabbitmq-overview-dashboard-localhost.png)
 
 Congratulations! You now have a 3-nodes RabbitMQ cluster integrated with
 Prometheus & Grafana running locally. This is a perfect time to learn more
-about the RabbitMQ Overview Grafana dashboard.
-
-![RabbitMQ Overview Dashboard Localhost](/img/rabbitmq-overview-dashboard-localhost.png)
+about the RabbitMQ Overview dashboard.
 
 ## <a id="rabbitmq-overview-dashboard" class="anchor" href="#rabbitmq-overview-dashboard">RabbitMQ Overview Dashboard</a>
 
 All metrics that are provided on the [Management UI](/management.html) Overview
-page are available on this dashboard. They are grouped by object type, with a
-focus on nodes and message flow.
+page are also available on this dashboard. They are grouped by object type,
+with a focus on RabbitMQ nodes and message flow.
 
-All metrics are node-specific. This helps spot imbalances in the cluster,
-where one node is using significantly more memory or disk than the rest. Some
-metrics, like those under **QUEUES MESSAGES**, are stacked to capture the state
-of the cluster as a whole.
+All metrics are node-specific. This helps spot imbalances in the cluster, where
+one node is using significantly more memory or disk than the rest. Some
+metrics, like the panels grouped under **CONNECTIONS**, are stacked to
+capture the state of the cluster as a whole.
+
+![RabbitMQ Overview Dashboard CONNECTIONS](/img/rabbitmq-overview-dashboard-connections.png)
 
 Some metrics that are displayed as point-in-time numbers on the Management UI
 Overview page also use dedicated graphs (charts). This makes it easy to observe
-how these values, such as the number of connections or queues, change over time.
+how these values change over time, such as the number of connections or queues.
+Because these metrics are node-specific, it makes it very easy to notice when
+one node serves a disproportionate amount of connections, or runs the majority
+of queue masters (or leaders in the case of Quorum Queues). We would refer to
+such a RabbitMQ cluster as **unbalanced**, meaning that a minority of nodes
+perform the majority of work.
 
 ### <a id="metric-health-indicators" class="anchor" href="#metric-health-indicators">Metric Health Indicators</a>
 
 Single-stat metrics at the top of the dashboard capture the health of a single
 RabbitMQ cluster. We use different colours to capture the following states:
 
-* Green means the metric is within a healthy range
-* Blue means under-utilisation or some form of degradation
-* Red means the metric is below or above the range that is considered healthy
+* **Green** means the metric is within a healthy range
+* **Blue** means under-utilisation or some form of degradation
+* **Red** means the metric is below or above the range that is considered healthy
+
+![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-single-stat.png)
 
 The default ranges for the single-stat metrics may not be optimal for all
-RabbitMQ deployments. For example, it may be perfectly fine ...
+RabbitMQ deployments. For example, in environments with many consumers and/or
+high prefetch values, it may be perfectly fine to have over 1,000
+unacknowledged messages. Feel free to adjust the default thresholds to suit
+your RabbitMQ workload.
+
+### <a id="metric-thresholds" class="anchor" href="#metric-thresholds">Metric Thresholds</a>
+
+Most graph metrics have pre-configured thresholds. They appear as
+semi-transpared orange or red areas, as seen in the example below.
+
+Metrics in the **orange** area signal that some pre-defined threshold has been
+exceeded. This may be OK, especially if the metric recovers. A metric that
+comes close to the orange area represents a system which is working at optimum
+capacity.
+
+Metrics in the **red** area signal some sort of service degradation. In the
+case of memory, it means that the memory alarm was triggered and publishers
+were blocked.
+
+![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-memory-threshold.png)
+
+For example, above is a RabbitMQ cluster that runs at optimimum memory capacity,
+just outside the warning threshold. There is a spike in incoming messages which
+exhausts all memory allocated to RabbitMQ. Because the system has more memory
+available, the only impact is publishers getting blocked. As the queued
+messages get consumed, memory is released and publishers are unblocked.
+Eventually, all queued messages are consumed, memory is released and the
+cluster returns to its optimum state.
+
+
+It is worth pointing out that these threshold defaults are highly
+workload-specific.
 
 # vvv WIP vvv
 
- * Orange areas in graph panels are meant to make users aware of capacity
  * Any node metrics in red areas signal service degradation. Depending on the metric, it may mean [blocked publishers](/alarms.html),
    refusal to [accept new connections](/connections.html#monitoring) or service degradation of a different kind.
 
-Values that are close to the orange area represent a system which is working at optimum capacity.
-
-For example, the following screenshot demonstrates aptures a RabbitMQ cluster where all nodes are within their [configured memory use limit](/memory.html):
-![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard-top.png)
 
 The following screenshot demonstrates two problematic application behaviors that are reflected in the charts:
 dropped unroutable messages as well as usage of greatly inefficient [polling consumers](/consumers.html#fetching).
