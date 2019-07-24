@@ -22,7 +22,7 @@ RabbitMQ Overview dashboard looks like:
 
 ![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard.png)
 
-> [Prometheus](https://prometheus.io/docs/introduction/overview/) is a monitoring toolkit. [Grafana](https://grafana.com/grafana) is a metrics visualisation system.
+> <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Prometheus</a> is a monitoring toolkit. <a href="https://grafana.com/grafana" target="_blank">Grafana</a> is a metrics visualisation system.
 
 To discover what else RabbitMQ Overview Grafana dashboard has in store, let's
 get it up and running locally. We will take the quickest path of setting
@@ -34,15 +34,15 @@ load profiles and understand how it all fits together.
 ### <a id="quick-start" class="anchor" href="#quick-start">Quick Start</a>
 
 To get started, you will need a browser and a terminal available on your
-machine. Next, you will need to install [Git](https://git-scm.com/) as well as
-[Docker Desktop](https://www.docker.com/products/docker-desktop). The
-pre-requisites are set up correctly when `git version`, `docker info` &amp;
-`docker-compose version` work in your terminal.
+machine. Next, you will need to install <a href="https://git-scm.com/"
+target="_blank">Git</a> as well as <a
+href="https://www.docker.com/products/docker-desktop" target="_blank">Docker
+Desktop</a>. The pre-requisites are set up correctly when `git version`,
+`docker info` &amp; `docker-compose version` work in your terminal.
 
-We will now clone the
-[rabbitmq-prometheus](https://github.com/rabbitmq/rabbitmq-prometheus)
-repository from GitHub and start all components required for a fully functional
-RabbitMQ Overview dashboard:
+We will now clone the <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
+target="_blank">rabbitmq-prometheus</a> repository from GitHub and start all
+components required for a fully functional RabbitMQ Overview dashboard:
 
 <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-prometheus.git
@@ -53,11 +53,12 @@ docker-compose -f docker-compose-overview.yml up -d
 
 > `make metrics overview` is the short version of the `docker-compose` commands above
 
-When the above commands succeed, open
-[http://localhost:3000/dashboards](http://localhost:3000/dashboards) in your
-browser, and login with username `admin` and password `admin`. Feel free to skip
-the change password step - this is a local Grafana installation after all. Now
-navigate to the **RabbitMQ-Overview** dashboard. This is what you should see:
+When the above commands succeed, open <a
+href="http://localhost:3000/dashboards"
+target="_blank">http://localhost:3000/dashboards</a> in your browser, and login
+with username `admin` and password `admin`. Feel free to skip the change
+password step - this is a local Grafana installation after all. Now navigate to
+the **RabbitMQ-Overview** dashboard. This is what you should see:
 
 ![RabbitMQ Overview Dashboard Localhost](/img/rabbitmq-overview-dashboard-localhost.png)
 
@@ -198,32 +199,55 @@ RabbitMQ clusters and PerfTest instances which are started and stopped the same
 as the Overview one. Please feel free to experiment with the other workloads
 that are included in the same `docker` directory.
 
-# vvv WIP vvv
-
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
 
-### <a id="installation-prometheus" class="anchor" href="#installation-prometheus">Enable the Plugin</a>
+After we experimented with RabbitMQ, Prometheus & Grafana in the [Quick
+Start](#quick-start), let us understand how to configure the entire setup from
+scratch. We assume that you have:
 
-To use it, first enable the `rabbitmq_prometheus` plugin:
+* a 3-node RabbitMQ 3.8 cluster running
+* Prometheus running and able to communicate with all RabbitMQ nodes
+* Grafana running and configured with the above Prometheus as one of the data sources
+
+### <a id="rabbitmq" class="anchor" href="#rabbitmq">RabbitMQ</a>
+
+We first need to ensure that the RabbitMQ cluster is using a descriptive name.
+To find the name that the cluster is currently using, run `rabbitmqctl cluster_status`
+from any node. If you are happy with this, skip this part. To change the name
+of the cluster, run the following command: `rabbitmqctl set-cluster-name testing-prometheus`.
+
+Next, enable the **rabbitmq_prometheus** plugin on all nodes by running the
+following command: `rabbitmq-plugins enable rabbitmq_prometheus`.
+
+To confirm that RabbitMQ now exposes metrics in Prometheus format, get the
+first couple of lines with `curl` or similar:
 
 <pre class="lang-bash">
-# might require using sudo
-rabbitmq-plugins enable rabbitmq_prometheus
+curl -s localhost:15692/metrics | head -n 3
+# TYPE erlang_mnesia_held_locks gauge
+# HELP erlang_mnesia_held_locks Number of held locks.
+erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa"} 0
 </pre>
+
+Notice that RabbitMQ exposes these new metrics on a dedicated TCP port, `15692` by
+default.
 
 ## <a id="prometheus" class="anchor" href="#prometheus">Prometheus</a>
 
-As explained previously, Prometheus periodically polls the systems it monitors.
-By default this happens once a minute but can be [changed](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
+Once RabbitMQ is configured for Prometheus, we need to provide Prometheus with
+the information it needs to know where to read RabbitMQ metrics from. There are
+a number of ways of doing this, please refer to the official <a
+href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/"
+target="_blank">Prometheus configuration</a> documentation. If this is your
+first time setting up Prometheus, you may want to start with the <a
+href="https://prometheus.io/docs/introduction/first_steps/"
+target="_blank">first steps</a> guide.
 
-RabbitMQ metrics are also updated periodically. The stats collection interval is controlled
-by a [configurable setting](/management.html#statistics-interval), `collect_statistics_interval`.
-
-For production environments it makes sense to synchronise the two values, or at least reduce the gap
-between them. For monitoring systems the precision of one minute is usually appropriate
-and, in fact, optimal.
-
-To find the stats collection interval on a node, use `rabbitmqctl environment`:
+Prometheus periodically reads metrics from the systems it monitors, every 60
+seconds by default. RabbitMQ metrics are updated periodically too, every 5
+seconds by default. Since [this value is
+configurable](/management.html#statistics-interval), check the metrics update
+interval on a node by running:
 
 <pre class="lang-bash">
 rabbitmqctl environment | grep collect_statistics_interval
@@ -232,31 +256,48 @@ rabbitmqctl environment | grep collect_statistics_interval
 
 The returned value will be in milliseconds.
 
-In this case, the interval is 5 seconds, which is a RabbitMQ default. Prometheus
-can be configured to use a matching interval (note: the 5 second interval is used here
-as an example; it is generally recommended to configure RabbitMQ stats collection interval
-to 30 or 60 seconds instead of making Prometheus poll more frequently).
+While a 5 second Prometheus polling interval may be too aggressive for
+production systems, it is a value that we use to match RabbitMQ's default
+`collect_statistics_interval`. This also happens to match the default refresh
+frequency of RabbitMQ Management UI.
 
-Here's an example Prometheus config file:
+Regardless what value you settle on - 15 or 30 seconds are good choices for
+production - ensure that it is the same for both RabbitMQ & Prometheus.
 
-<pre class="lang-yaml">
-scrape_configs:
-  - job_name: rabbitmq
-    scrape_interval: 5s
-    scrape_timeout: 4s
-    metrics_path: /api/metrics
-    static_configs:
-      - targets: ['localhost:15672']
-</pre>
+To confirm that Prometheus is reading RabbitMQ metrics from all nodes, ensure
+that all RabbitMQ endpoints are **UP** on the Prometheus Targets page, as shown
+below:
+
+![Prometheus RabbitMQ Targets](/img/prometheus-targets.png)
 
 ### <a id="grafana" class="anchor" href="#grafana">Grafana</a>
 
-Grafana dashboards for RabbitMQ are distributed via grafana.com. TODO: links.
+The last component in this setup is Grafana, an open-source tool for
+visualising metrics. If this is your first time integrating Grafana with
+Prometheus, please follow the <a
+href="https://prometheus.io/docs/visualization/grafana/"
+target="_blank">official integration guide</a>.
 
-### <a id="rabbitmq-configuration" class="anchor" href="#rabbitmq-configuration">Further Configuration</a>
+After Grafana is integrated with the Prometheus instance that reads and stores
+RabbitMQ metrics, it is time to import the Grafana dashboards that our team
+maintains. This is <a
+href="https://grafana.com/docs/reference/export_import/#importing-a-dashboard"
+target="_blank">the official tutorial</a> on importing dashboards in Grafana.
 
-RabbitMQ's default [sample retention policies](/management.html#sample-retention) also
-might need changing for environments that store metrics in Prometheus.
+Grafana dashboards that our team maintains for both RabbitMQ & Erlang are
+publicly available in the <a
+href="https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker/grafana/dashboards"
+target="_blank">rabbitmq-prometheus</a> GitHub repository. To import the
+**RabbitMQ-Overview** Grafana Dashboard from GitHub, navigate to the <a
+href="https://github.com/rabbitmq/rabbitmq-prometheus/raw/master/docker/grafana/dashboards/RabbitMQ-Overview.json"
+target="_blank">Raw version</a> and copy paste the file contents in Grafana & click **Load**, as seen below:
+
+![Grafana Import Dashboard](/img/grafana-import-dashboard.png)
+
+Repeat the process for all other Grafana dashboards that we maintain and you
+would like to use with your RabbitMQ deployments.
+
+**Well done! Your RabbitMQ is now integrated with Prometheus & Grafana!**
 
 ## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
 
