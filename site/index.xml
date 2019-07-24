@@ -126,7 +126,7 @@ limitations under the License.
                 <img src="img/clouds.svg" height="62" width="71" alt="Enterprise &amp; Cloud Ready" title="Enterprise &amp; Cloud Ready" />
                 <h2>Enterprise &amp; Cloud Ready</h2>
                 <p>
-                  Pluggable <a href='/authentication.html'>authentication</a>, <a href='/access-control.html'>authorization</a>, supports <a href='/ssl.html'>TLS</a> and <a href='/ldap.html'>LDAP</a>. Lightweight and easy to deploy in public and private clouds.
+                  Pluggable <a href='/authentication.html'>authentication</a>, <a href='/access-control.html'>authorisation</a>, supports <a href='/ssl.html'>TLS</a> and <a href='/ldap.html'>LDAP</a>. Lightweight and easy to deploy in public and private clouds.
                 </p>
               </div>
             </div>

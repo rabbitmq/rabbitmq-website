@@ -64,7 +64,7 @@ for different areas:
         <li><a href="/networking.html">TCP listeners and other networking-related settings</a></li>
         <li><a href="/ssl.html">TLS</a></li>
         <li><a href="/alarms.html">resource constraints (alarms)</a></li>
-        <li><a href="/access-control.html">authentication and authorization backends</a></li>
+        <li><a href="/access-control.html">authentication and authorisation backends</a></li>
         <li><a href="/persistence-conf.html">message store settings</a></li>
       </ul>
 
@@ -87,7 +87,7 @@ for different areas:
       <a href="/cli.html">rabbitmqctl</a>
     </td>
     <td>
-      When <a href="access-control.html">internal authentication/authorization backend</a> is used,
+      When <a href="access-control.html">internal authentication/authorisation backend</a> is used,
       <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions.
     </td>
   </tr>

@@ -36,7 +36,7 @@ enhancements
       in one operation
 26465 New "pause_if_all_down" partition handling mode
 26463 Ensure new mirrors are started when old ones go down when ha-mode=exactly
-26469 Support separate authentication/authorization backends
+26469 Support separate authentication/authorisation backends
 26475 Add "rabbitmqctl rename_cluster_node"
 25430 Further limit queue's journal size to avoid excessive memory use
 26545 Prohibit deletion of amq.* exchanges

@@ -79,11 +79,11 @@ limitations under the License.
     </div>
 
     <div class="landing-box">
-      <h2>Authentication and Authorization</h2>
+      <h2>Authentication and authorisation</h2>
 
       <ul>
         <li>
-          <a href="access-control.html">Authentication and Authorization Backends</a>:
+          <a href="access-control.html">Authentication and authorisation Backends</a>:
         </li>
         <li>
           <a href="authentication.html">Authentication Mechanisms</a>
