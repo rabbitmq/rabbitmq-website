@@ -19,15 +19,27 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Commercial Licensing, Support</a>
 
-Pivotal Software can help connect you to <strong>a full range of commercial support and services</strong> for
-RabbitMQ.
+Pivotal Software offers **a range of commercial support and services** for RabbitMQ:
 
-Pivotal Software offers <strong>commercial support agreements</strong> for the most
-recent open source release of RabbitMQ.
+ * **Commercial support** for the most recent open source release of RabbitMQ, available for a subscription fee.
+ * **Commercial releases** of RabbitMQ, available for a subscription fee.
 
-Pivotal Software also provides a <strong>commercial release</strong>
-of RabbitMQ. This includes all of the features of the open
-source version under a commercial license.
+### Commercial Releases of RabbitMQ
+
+Pivotal RabbitMQ includes all of the features of the open source version under a commercial license.
+
+### RabbitMQ for Pivotal CloudFoundry
+
+[RabbitMQ for PCF](https://pivotal.io/platform/services-marketplace/messaging-and-integration/rabbitmq) gives developers self-service access to on-demand RabbitMQ clusters
+running on Pivotal Cloud Foundry.
+
+### RabbitMQ for Kubernetes
+
+[RabbitMQ for Kubernetes](https://content.pivotal.io/blog/introducing-rabbitmq-for-kubernetes) will simplify
+the operational experience to make RabbitMQ available on a Kubernetes-based platform.
+
+[Preview release](https://pivotal.io/pivotal-rabbitmq-on-kubernetes) of RabbitMQ for Kubernetes will be available soon.
+
 
 ## <a id="training" class="anchor" href="#training">Training</a>
 

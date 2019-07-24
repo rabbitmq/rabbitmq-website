@@ -44,7 +44,8 @@ limitations under the License.
             <div class='inner'>
               <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
               <p>
-                With more than 35,000 production deployments of RabbitMQ world-wide at small startups and large enterprises, RabbitMQ is the most popular open source message broker.
+                With tens of thousands of users, RabbitMQ is one of the most popular open source message brokers. From <a href="https://www.youtube.com/watch?v=1qcTu2QUtrU">T-Mobile</a>
+                to <a href="https://medium.com/@runtastic/messagebus-handling-dead-letters-in-rabbitmq-using-a-dead-letter-exchange-f070699b952b">Runtastic</a>, RabbitMQ is used worldwide at small startups and large enterprises.
               </p>
               <p>
                 RabbitMQ is lightweight and easy to deploy on premises
@@ -196,7 +197,8 @@ limitations under the License.
               <img src="img/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                Pivotal Software provides <a href="/services.html">support for open source RabbitMQ</a>. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
+                Pivotal Software provides <a href="/services.html">support for open source RabbitMQ</a>, available for a subscription fee.
+                The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html" target="_blank">Erlang Solutions</a>,
                 <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
