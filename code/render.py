@@ -101,14 +101,14 @@ def preprocess_markdown(fpath):
         for l in relevant_lines:
             print(l.decode("utf-8"))
         print("\n\n")
-        write_to_debug_file(s)
+        write_to_debug_file(DEBUG_FILE_PATH, s)
         print("See {0} for a complete rendered file".format(DEBUG_FILE_PATH))
         print("\n\n")
         raise e
 
 
-def write_to_debug_file(contents):
-    f = open(DEBUG_FILE_PATH, "w+b")
+def write_to_debug_file(path, contents):
+    f = open(path, "w+b")
     f.truncate(0)
     f.write(contents)
     f.close()
