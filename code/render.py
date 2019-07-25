@@ -95,7 +95,7 @@ def preprocess_markdown(fpath):
         all_lines = s.splitlines()
         m = re.search(re.compile("line\s(\d+)"), e.msg)
         n = int(m[1])
-        relevant_lines = all_lines[n-2:n+2]
+        relevant_lines = all_lines[n-5:n+5]
         print("\n\n")
         for l in relevant_lines:
             print(l.decode("utf-8"))
