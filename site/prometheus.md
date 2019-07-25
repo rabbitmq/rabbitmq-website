@@ -57,8 +57,8 @@ When the above commands succeed, open <a
 href="http://localhost:3000/dashboards"
 target="_blank">http://localhost:3000/dashboards</a> in your browser, and login
 with username `admin` and password `admin`. Feel free to skip the change
-password step - this is a local Grafana installation after all. Now navigate to
-the **RabbitMQ-Overview** dashboard. This is what you should see:
+password step - this is a local Grafana installation after all. Navigate to
+the **RabbitMQ-Overview** dashboard and you will see this:
 
 ![RabbitMQ Overview Dashboard Localhost](/img/rabbitmq-overview-dashboard-localhost.png)
 
@@ -75,7 +75,11 @@ with a focus on RabbitMQ nodes and message flow.
 ### <a id="health-indicators" class="anchor" href="#health-indicators">Health Indicators</a>
 
 Single-stat metrics at the top of the dashboard capture the health of a single
-RabbitMQ cluster. We use different colours to capture the following states:
+RabbitMQ cluster. In this case, you have a single RabbitMQ cluster,
+**rabbitmq-overview**, as seen in the **Cluster** drop-down, just below the
+dashboard title.
+
+We use different colours to capture the following states:
 
 * **Green** means the metric is within a healthy range
 * **Blue** means under-utilisation or some form of degradation
@@ -87,15 +91,15 @@ The default ranges for the single-stat metrics may not be optimal for all
 RabbitMQ deployments. For example, in environments with many consumers and/or
 high prefetch values, it may be perfectly fine to have over 1,000
 unacknowledged messages. The default thresholds can be easily adjusted to suit
-your RabbitMQ workload.
+your RabbitMQ workloads.
 
 ### <a id="graphs" class="anchor" href="#graphs">Graphs</a>
 
 Most metrics are represented as graphs: value over time. This is the simplest &
-clearest way of visualising how some aspect of the system changes over time.
-It makes it easy to understand the change in message rates, or memory used by
-every node in the cluster, and even the number of connections. All metrics -
-except health indicators - are node-specific.
+clearest way of visualising how some aspect of the system changes. It makes it
+easy to understand the change in message rates, or memory used by every node in
+the cluster, and even the number of connections. All metrics - except health
+indicators - are node-specific.
 
 Some metrics, like the panels grouped under **CONNECTIONS**, are stacked to
 capture the state of the cluster as a whole. Since these metrics are
@@ -109,15 +113,16 @@ majority of work.
 
 ### <a id="colour-consistency" class="anchor" href="#colour-consistency">Colour consistency</a>
 
-All metrics across all graphs are linked to specific nodes. For example, all
-metrics in green are for the node that contains `0` in its name, e.g.
+All metrics across all graphs are linked to specific node names. For example,
+all metrics in green are for the node that contains `0` in its name, e.g.
 `rabbit@rmq0`. This makes is easy to correlate metrics across all graphs to a
 specific node. Metrics for the first node, which is assumed to contain `0` in
 its name, will always appear as green across all graphs.
 
 It is important to remember this aspect when using RabbitMQ Overview Dashboard
-with your RabbitMQ deployments, which may follow a different naming convention,
-and therefore result in inconsistent colours across graphs.
+with your RabbitMQ deployments. If you use a different naming convention,
+colours will appear inconsistent across graphs: green may represent e.g.
+`rabbit@foo` in one graph, and e.g. `rabbit@bar` in another graph.
 
 ### <a id="thresholds" class="anchor" href="#thresholds">Thresholds</a>
 
@@ -129,20 +134,20 @@ exceeded. This may be OK, especially if the metric recovers. A metric that
 comes close to the orange area represents a system which is working at optimal
 capacity.
 
-Metrics in the **red** area signal some sort of service degradation. In the
+Metrics in the **red** area signal some form of service degradation. In the
 case of memory, it means that the memory alarm was triggered and publishers
 were blocked.
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-memory-threshold.png)
 
 In the example above, we have a RabbitMQ cluster that runs at optimal memory
-capacity, which is just above the warning threshold. There is a spike in
-incoming messages which exhausts all memory allocated to RabbitMQ. Because the
-system has more memory available than is allocated to RabbitMQ, we notice a
-single dip below **0 B**. This emphasizes the importance of leaving spare
-memory available, and not allocating all memory to RabbitMQ. As you may know,
-when a RabbitMQ node exhausts all memory that it is allowed to use, the memory
-alarm is triggered and all publishers, across the entire cluster, get blocked.
+capacity, which is just above the warning threshold. There is an unexpected
+spike in incoming messages which exhausts all memory allocated to RabbitMQ.
+Because the system has more memory available than is allocated to RabbitMQ, we
+notice the dip below **0 B**. This emphasizes the importance of leaving spare
+memory available, and not allocating all memory to RabbitMQ. When a RabbitMQ
+node exhausts all memory that it is allowed to use, the memory alarm is
+triggered and all publishers, across the entire cluster, get blocked.
 
 In this example, we can see how memory is released which clears the memory
 alarm and, as a result, publishers become unblocked. Eventually, all queued
@@ -150,15 +155,15 @@ messages are consumed, memory is released and the cluster returns to its
 optimal state.
 
 It is worth pointing out that all thresholds use reasonable defaults which are
-not suitable for all types of workloads. Some use-cases may require higher
+not suitable for all types of workloads. Some workloads may require higher
 thresholds, others may require lower ones. While the defaults should be
-adequate for most scenarios, please feel free to change them for your specific
+adequate in most cases, please feel free to change them to suit your specific
 requirements.
 
 ### <a id="documentation" class="anchor" href="#documentation">Documentation</a>
 
 Most metrics have explanations in the top-left corner of the panel. Some, like
-the available disk space metric, link to specific pages from our official docs.
+the available disk space metric, link to specific pages in our official docs.
 These pages contain the information required to fully understand all aspects of
 the respective metric.
 
@@ -166,14 +171,15 @@ the respective metric.
 
 ### <a id="anti-patterns" class="anchor" href="#service-degradation">Anti-patterns</a>
 
-Any metric which shows in red hits to an anti-pattern. It is a new way in which
-we try to highlight sub-optimal uses of RabbitMQ. If you see any red graph with
-non-zero metrics, it's worth investigating. RabbitMQ, like any
-service, cannot be efficient if client applications abuse it.
+Any metric which shows in red hints to an anti-pattern. It is a new way in
+which we try to highlight sub-optimal uses of RabbitMQ. If you see any red
+graph with non-zero metrics, it is worth investigating. RabbitMQ, like any
+service, cannot be efficient if clients abuse it.
 
 In the example below we can see the usage of greatly inefficient [polling
-consumers](/consumers.html#fetching) that returns no messages (an empty
-operation):
+consumers](/consumers.html#fetching) that return no messages. This is the
+equivalent of asking _Are we there yet?_. It is a lot more and efficient to be
+notified when a new message is available (the equivalent of _We have arrived_ in our analogy):
 
 ![RabbitMQ Overview Dashboard Antipatterns](/img/rabbitmq-overview-dashboard-antipattern.png)
 
@@ -181,7 +187,7 @@ operation):
 
 In `docker/docker-compose-overview.yml` you will find different PerfTest
 configurations which test different aspects of RabbitMQ. Our goal was to
-exercise all metrics on the RabbitMQ Overview Dashboard. You may be interested
+exercise all metrics on the RabbitMQ Overview dashboard. You may be interested
 in editing these configurations, or adding your own, and observing how the
 metrics change.
 
@@ -199,11 +205,22 @@ RabbitMQ clusters and PerfTest instances which are started and stopped the same
 as the Overview one. Please feel free to experiment with the other workloads
 that are included in the same `docker` directory.
 
+To set the right expectations, `docker-compose-dist-tls.yml` was made to stress
+the Erlang Distribution. Expect high CPU usage when running this workload on
+your local host.
+
+When you are done experimenting with the workloads that we have shared, you can
+stop and delete all containers by running `docker-compose -f FILE down`.
+Replace `FILE` with the name of every file that you have used in
+`docker-compose -f FILE up -d` commands. If you have <a
+href="https://www.gnu.org/software/make/" target="_blank">Make</a> installed,
+the equivalent is `make down`.
+
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
 
-After we experimented with RabbitMQ, Prometheus & Grafana in the [Quick
-Start](#quick-start), let us understand how to configure the entire setup from
-scratch. We assume that you have:
+After we experimented with RabbitMQ, Prometheus & Grafana locally, let us
+understand how to configure the entire setup from scratch. We assume that you
+have:
 
 * a 3-node RabbitMQ 3.8 cluster running
 * Prometheus running and able to communicate with all RabbitMQ nodes
@@ -212,12 +229,31 @@ scratch. We assume that you have:
 ### <a id="rabbitmq" class="anchor" href="#rabbitmq">RabbitMQ</a>
 
 We first need to ensure that the RabbitMQ cluster is using a descriptive name.
-To find the name that the cluster is currently using, run `rabbitmqctl cluster_status`
-from any node. If you are happy with this, skip this part. To change the name
-of the cluster, run the following command: `rabbitmqctl set-cluster-name testing-prometheus`.
+To find the name that the cluster is currently using, run `rabbitmqctl cluster_status` 
+from any node. If you are happy with the cluster name, skip the rest of this paragraph. To
+change the name of the cluster, run the following command: `rabbitmqctl set-cluster-name testing-prometheus`.
 
 Next, enable the **rabbitmq_prometheus** plugin on all nodes by running the
-following command: `rabbitmq-plugins enable rabbitmq_prometheus`.
+following command: `rabbitmq-plugins enable rabbitmq_prometheus`. This is an
+example of the output that you should see on every node:
+
+<pre class="lang-bash">
+rabbitmq-plugins enable rabbitmq_prometheus
+
+Enabling plugins on node rabbit@ed9618ea17c9:
+rabbitmq_prometheus
+The following plugins have been configured:
+  rabbitmq_management_agent
+  rabbitmq_prometheus
+  rabbitmq_web_dispatch
+Applying plugin configuration to rabbit@ed9618ea17c9...
+The following plugins have been enabled:
+  rabbitmq_management_agent
+  rabbitmq_prometheus
+  rabbitmq_web_dispatch
+
+started 3 plugins.
+</pre>
 
 To confirm that RabbitMQ now exposes metrics in Prometheus format, get the
 first couple of lines with `curl` or similar:
@@ -247,7 +283,7 @@ Prometheus periodically reads metrics from the systems it monitors, every 60
 seconds by default. RabbitMQ metrics are updated periodically too, every 5
 seconds by default. Since [this value is
 configurable](/management.html#statistics-interval), check the metrics update
-interval on a node by running:
+interval by running the following command on any of the nodes:
 
 <pre class="lang-bash">
 rabbitmqctl environment | grep collect_statistics_interval
@@ -258,11 +294,11 @@ The returned value will be in milliseconds.
 
 While a 5 second Prometheus polling interval may be too aggressive for
 production systems, it is a value that we use to match RabbitMQ's default
-`collect_statistics_interval`. This also happens to match the default refresh
+`collect_statistics_interval`. 5 seconds also happens to match the default refresh
 frequency of RabbitMQ Management UI.
 
 Regardless what value you settle on - 15 or 30 seconds are good choices for
-production - ensure that it is the same for both RabbitMQ & Prometheus.
+production - ensure that this value is the same in both RabbitMQ & Prometheus.
 
 To confirm that Prometheus is reading RabbitMQ metrics from all nodes, ensure
 that all RabbitMQ endpoints are **UP** on the Prometheus Targets page, as shown
@@ -290,14 +326,15 @@ href="https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker/grafana
 target="_blank">rabbitmq-prometheus</a> GitHub repository. To import the
 **RabbitMQ-Overview** Grafana Dashboard from GitHub, navigate to the <a
 href="https://github.com/rabbitmq/rabbitmq-prometheus/raw/master/docker/grafana/dashboards/RabbitMQ-Overview.json"
-target="_blank">Raw version</a> and copy paste the file contents in Grafana & click **Load**, as seen below:
+target="_blank">Raw version</a> and copy paste the file contents in Grafana,
+then click **Load**, as seen below:
 
 ![Grafana Import Dashboard](/img/grafana-import-dashboard.png)
 
-Repeat the process for all other Grafana dashboards that we maintain and you
-would like to use with your RabbitMQ deployments.
+Repeat the process for all other Grafana dashboards that you would like to
+visualise your RabbitMQ deployments with.
 
-**Well done! Your RabbitMQ is now integrated with Prometheus & Grafana!**
+**Well done: your RabbitMQ is now integrated with Prometheus & Grafana!**
 
 ## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
 
