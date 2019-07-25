@@ -3,9 +3,9 @@ import re
 import os
 import os.path
 import markdown
-import re
 import sys
 import imp
+import tempfile
 imp.reload(sys)
 
 try:
@@ -20,14 +20,16 @@ except ImportError:
 
 SITE_DIR = 'define_me_before_use'
 
+DEBUG_FILE_PATH = os.path.join(tempfile.gettempdir(), "rabbitmq_site_last_rendered_page")
+
 
 def preprocess_markdown(fpath):
     contents = open(fpath, encoding='utf-8').read()
 
-    ## Markdown will treat the whole file as markdown, whereas
-    ## we want to only transform the body text.
+    # Markdown will treat the whole file as markdown, whereas
+    # we want to only transform the body text.
 
-    title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
+    title = re.search("^#\\s*(\\s.*\\s)\\s*$", contents, re.M)
     contents = contents[0:title.start()] + contents[title.end():]
     title = title.group(1)
 
@@ -50,9 +52,7 @@ def preprocess_markdown(fpath):
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:xi="http://www.w3.org/2003/XInclude">""" % entities
 
-    head = """<head>
-    <title>%s</title>
-  </head>
+    head = """<head><title>%s</title></head>
   <body%s>
 """ % (title, suppressRHS and ' suppress-rhs="true"' or '')
 
@@ -86,6 +86,7 @@ def preprocess_markdown(fpath):
    <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>""".format(tutorial.group(1))
         processed = tutorial_head + processed + tutorial_foot
+
     utf8_parser = etree.XMLParser(encoding='utf-8')
     s = (pre + head + processed + post).encode("utf-8")
     try:
@@ -93,14 +94,24 @@ def preprocess_markdown(fpath):
     except Exception as e:
         print("\n\nFailed to render file {0} due to an exception. Problematic line(s) below.".format(fpath))
         all_lines = s.splitlines()
-        m = re.search(re.compile("line\s(\d+)"), e.msg)
+        m = re.search(re.compile("line\\s(\\d+)"), e.msg)
         n = int(m[1])
         relevant_lines = all_lines[n-5:n+5]
         print("\n\n")
         for l in relevant_lines:
             print(l.decode("utf-8"))
         print("\n\n")
+        write_to_debug_file(s)
+        print("See {0} for a complete rendered file".format(DEBUG_FILE_PATH))
+        print("\n\n")
         raise e
+
+
+def write_to_debug_file(contents):
+    f = open(DEBUG_FILE_PATH, "w+b")
+    f.truncate(0)
+    f.write(contents)
+    f.close()
 
 
 def parse(fpath):
@@ -145,7 +156,7 @@ def render_page(page_name, site_mode, version=None):
     if page_name.find("../") != -1:
         raise Error404
 
-    match = re.match('/(.*?)(\.html)?$', page_name)
+    match = re.match('/(.*?)(\\.html)?$', page_name)
     if match:
         page_name = match.group(1)
         page_id = match.group(1)
