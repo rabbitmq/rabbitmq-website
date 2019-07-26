@@ -111,7 +111,7 @@ majority of work.
 ![RabbitMQ Overview Dashboard CONNECTIONS](/img/rabbitmq-overview-dashboard-connections.png)
 > In the example above, connections are spread out evenly across all nodes.
 
-### <a id="colour-consistency" class="anchor" href="#colour-consistency">Colour consistency</a>
+### <a id="colour-consistency-graphs" class="anchor" href="#colour-consistency-graphs">Colour consistency in graphs</a>
 
 All metrics across all graphs are linked to specific node names. For example,
 all metrics in green are for the node that contains `0` in its name, e.g.
@@ -124,7 +124,7 @@ with your RabbitMQ deployments. If you use a different naming convention,
 colours will appear inconsistent across graphs: green may represent e.g.
 `rabbit@foo` in one graph, and e.g. `rabbit@bar` in another graph.
 
-### <a id="thresholds" class="anchor" href="#thresholds">Thresholds</a>
+### <a id="thresholds-graphs" class="anchor" href="#thresholds-graphs">Thresholds in graphs</a>
 
 Most metrics have pre-configured thresholds. They appear as semi-transpared
 orange or red areas, as seen in the example below.
@@ -160,7 +160,7 @@ thresholds, others may require lower ones. While the defaults should be
 adequate in most cases, please feel free to change them to suit your specific
 requirements.
 
-### <a id="documentation" class="anchor" href="#documentation">Documentation</a>
+### <a id="documentation-graphs" class="anchor" href="#documentation-graphs">Documentation in graphs</a>
 
 Most metrics have explanations in the top-left corner of the panel. Some, like
 the available disk space metric, link to specific pages in our official docs.
@@ -169,7 +169,7 @@ the respective metric.
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-disk-documentation.png)
 
-### <a id="anti-patterns" class="anchor" href="#service-degradation">Anti-patterns</a>
+### <a id="spot-anti-patterns" class="anchor" href="#spot-anti-pattern">Spot anti-patterns</a>
 
 Any metric which shows in red hints to an anti-pattern. It is a new way in
 which we try to highlight sub-optimal uses of RabbitMQ. If you see any red
@@ -183,12 +183,12 @@ notified when a new message is available (the equivalent of _We have arrived_ in
 
 ![RabbitMQ Overview Dashboard Antipatterns](/img/rabbitmq-overview-dashboard-antipattern.png)
 
-### <a id="different-configurations" class="anchor" href="#different-configurations">Try different configurations</a>
+### <a id="example-workloads" class="anchor" href="#example-workloads">Example workloads</a>
 
 In `docker/docker-compose-overview.yml` you will find different PerfTest
 configurations which test different aspects of RabbitMQ. Our goal was to
 exercise all metrics on the RabbitMQ Overview dashboard. You may be interested
-in editing these configurations, or adding your own, and observing how the
+in editing these example workloads, or adding your own, and observing how the
 metrics change.
 
 To test your changes, run `docker-compose -f docker-compose-overview.yml up -d`.
@@ -207,14 +207,13 @@ that are included in the same `docker` directory.
 
 To set the right expectations, `docker-compose-dist-tls.yml` was made to stress
 the Erlang Distribution. Expect high CPU usage when running this workload on
-your local host.
+your local host. The same is true for `docker-compose-qq.yml`
 
-When you are done experimenting with the workloads that we have shared, you can
-stop and delete all containers by running `docker-compose -f FILE down`.
-Replace `FILE` with the name of every file that you have used in
-`docker-compose -f FILE up -d` commands. If you have <a
-href="https://www.gnu.org/software/make/" target="_blank">Make</a> installed,
-the equivalent is `make down`.
+When you are done experimenting with workloads, you can stop and delete all
+containers by running `docker-compose -f FILE down`.  Replace `FILE` with the
+name of every file that you have used in `docker-compose -f FILE up -d`
+commands. If you have <a href="https://www.gnu.org/software/make/"
+target="_blank">Make</a> installed, the equivalent is `make down`.
 
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
 
@@ -226,7 +225,7 @@ have:
 * Prometheus running and able to communicate with all RabbitMQ nodes
 * Grafana running and configured with the above Prometheus as one of the data sources
 
-### <a id="rabbitmq" class="anchor" href="#rabbitmq">RabbitMQ</a>
+### <a id="rabbitmq-configuration" class="anchor" href="#rabbitmq-configuration">RabbitMQ configuration</a>
 
 We first need to ensure that the RabbitMQ cluster is using a descriptive name.
 To find the name that the cluster is currently using, run `rabbitmqctl cluster_status` 
@@ -268,7 +267,7 @@ erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa
 Notice that RabbitMQ exposes these new metrics on a dedicated TCP port, `15692` by
 default.
 
-## <a id="prometheus" class="anchor" href="#prometheus">Prometheus</a>
+## <a id="prometheus-configuration" class="anchor" href="#prometheus">Prometheus configuration</a>
 
 Once RabbitMQ is configured for Prometheus, we need to provide Prometheus with
 the information it needs to know where to read RabbitMQ metrics from. There are
@@ -306,7 +305,7 @@ below:
 
 ![Prometheus RabbitMQ Targets](/img/prometheus-targets.png)
 
-### <a id="grafana" class="anchor" href="#grafana">Grafana</a>
+### <a id="grafana-configuration" class="anchor" href="#grafana-configuration">Grafana configuration</a>
 
 The last component in this setup is Grafana, an open-source tool for
 visualising metrics. If this is your first time integrating Grafana with
