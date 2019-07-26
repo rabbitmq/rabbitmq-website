@@ -231,7 +231,7 @@ have:
 We first need to ensure that the RabbitMQ cluster is using a descriptive name.
 To find the name that the cluster is currently using, run `rabbitmqctl cluster_status` 
 from any node. If you are happy with the cluster name, skip the rest of this paragraph. To
-change the name of the cluster, run the following command: `rabbitmqctl set-cluster-name testing-prometheus`.
+change the name of the cluster, run the following command: `rabbitmqctl set_cluster_name testing-prometheus`.
 
 Next, enable the **rabbitmq_prometheus** plugin on all nodes by running the
 following command: `rabbitmq-plugins enable rabbitmq_prometheus`. This is an
