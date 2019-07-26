@@ -559,5 +559,5 @@ It is possible to effectively disable all publishing in a cluster by setting the
 to `0`, thus making [a resource alarm](/alarms.html) to go off immediately:
 
 <pre class="lang-bash">
-rabbitmqctl set_vm_memory_high_watermark 0`
+rabbitmqctl set_vm_memory_high_watermark 0
 </pre>
