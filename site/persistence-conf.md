@@ -148,9 +148,8 @@ notably if given more file handles.
 ### <a id="async-threads" class="anchor" href="#async-threads">I/O Thread Pool Size</a>
 
 [The runtime](/runtime.html) uses a pool threads to handle
-long-running file I/O operations. They are known as These
-are shared among all virtual hosts and queues. Every active file I/O operation
-uses one async thread while it is occurring.
+long-running file I/O operations. These are shared among all virtual hosts and queues.
+Every active file I/O operation uses one async thread while it is occurring.
 Having too few async threads can therefore hurt performance.
 
 Note that the situation with async threads is not exactly
