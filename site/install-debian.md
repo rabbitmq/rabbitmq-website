@@ -21,9 +21,10 @@ limitations under the License.
 
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
-`rabbitmq-server` is included in standard Debian
-and Ubuntu repositories. However, the versions included are
-usually months or even years behind [latest RabbitMQ releases](/changelog.html).
+RabbitMQ is included in standard Debian and Ubuntu repositories. However, the versions included are
+usually months or even years behind [latest RabbitMQ releases](/changelog.html),
+and thus are [out of support](/versions.html).
+
 RabbitMQ release artifacts include a Debian package. Team RabbitMQ also maintains our own [apt repositories](#apt).
 
 Main topics covered in this guide are
@@ -504,6 +505,7 @@ Below is a download link.
   <thead>
     <th>Description</th>
     <th>Download</th>
+    <th>Signature</th>
   </thead>
 
   <tr>
@@ -512,6 +514,9 @@ Below is a download link.
     </td>
     <td>
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb</a>
+    </td>
+    <td>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb.asc">Signature</a>
     </td>
   </tr>
 </table>
@@ -561,7 +566,7 @@ server as usual for Debian-based systems:
 `service rabbitmq-server start`.
 
 
-## <a id="configuration-debian" class="anchor" href="#configuration-debian">Configuring RabbitMQ</a>
+## <a id="configuration" class="anchor" href="#configuration">Configuring RabbitMQ</a>
 
 On most systems, a node should be able to start and run with all defaults.
 Please refer to the [Configuration guide](configure.html) to learn more
@@ -808,7 +813,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.14. Copyright (c) 2007-2019 Pivotal Software, Inc.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.16. Copyright (c) 2007-2019 Pivotal Software, Inc.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
