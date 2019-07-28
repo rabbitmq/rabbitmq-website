@@ -638,7 +638,7 @@ There are two limits in play: the maximum number of open files the OS kernel
 allows (`fs.file-max`) and the per-user limit (`ulimit -n`).
 The former must be higher than the latter.
 
-### <a id="linux-max-open-files-limit-options-debian" class="anchor" href="#linux-max-open-files-limit-options-debian">With systemd (Recent Linux Distributions)</a>
+### <a id="max-open-files-limit" class="anchor" href="#max-open-files-limit">With systemd (Recent Linux Distributions)</a>
 
 On distributions that use systemd, the OS limits are controlled via
 a configuration file at `/etc/systemd/system/rabbitmq-server.service.d/limits.conf`.
