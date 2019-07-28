@@ -30,8 +30,11 @@ def preprocess_markdown(fpath):
     # we want to only transform the body text.
 
     title = re.search("^#\\s*(\\s.*\\s)\\s*$", contents, re.M)
-    contents = contents[0:title.start()] + contents[title.end():]
-    title = title.group(1)
+    if title is None:
+        title = "(Untitled)"
+    else:
+        contents = contents[0:title.start()] + contents[title.end():]
+        title = title.group(1)
 
     entities = open(os.path.join(SITE_DIR, 'rabbit.ent'), encoding='utf-8').read()
     entities = '\n'.join(entities.split('\n')[1:])
