@@ -130,7 +130,7 @@ before successful delivery, the message sent by the server will be lost.
 Therefore, automatic message acknowledgement <strong>should be considered unsafe</strong>
 and not suitable for all workloads.
 
-Another things that's important to consider when using
+Another thing that's important to consider when using
 automatic acknowledgement mode is that of consumer overload.
 Manual acknowledgement mode is typically used with a bounded
 channel prefetch which limits the number of outstanding ("in progress")
