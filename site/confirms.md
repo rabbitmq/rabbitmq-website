@@ -130,8 +130,8 @@ before successful delivery, the message sent by the server will be lost.
 Therefore, automatic message acknowledgement <strong>should be considered unsafe</strong>
 and not suitable for all workloads.
 
-Another things that's important to consider when using
-automatic acknowledgement mode is that of consumer overload.
+Another thing that's important to consider when using
+automatic acknowledgement mode is consumer overload.
 Manual acknowledgement mode is typically used with a bounded
 channel prefetch which limits the number of outstanding ("in progress")
 deliveries on a channel. With automatic acknowledgements, however, there is
@@ -140,7 +140,7 @@ the rate of deliveries, potentially accumulating a backlog in memory
 and running out of heap or getting their process terminated by the OS.
 Some client libraries will apply TCP back pressure (stop reading from the socket
 until the backlog of unprocessed deliveries drops beyond a certain limit).
-Automatic acknolwedgement mode is therefore only recommended for consumers
+Automatic acknowledgement mode is therefore only recommended for consumers
 that can process deliveries efficiently and at a steady rate.
 
 ### <a id="consumer-acks-api-elements" class="anchor" href="#consumer-acks-api-elements">Positively Acknowledging Deliveries</a>
@@ -339,7 +339,7 @@ multiple consumers share a queue), the message will be requeued
 to a position closer to queue head.
 
 Requeued messages may be immediately ready for redelivery depending
-on their position in the queue, the prefetch value used by the channels
+on their position in the queue and the prefetch value used by the channels
 with active consumers. This means that if all consumers requeue because
 they cannot process a delivery due to a transient condition, they will
 create a requeue/redelivery loop. Such loops can be costly in terms of
@@ -418,7 +418,7 @@ will make more than one message available for delivery.
 
 It's worth reiterating that the flow of deliveries and
 manual client acknowledgements is entirely
-asynchronous. Therefore if prefetch value is changed while
+asynchronous. Therefore if the prefetch value is changed while
 there already are deliveries in flight, a natural race
 condition arises and there can temporarily be more than
 prefetch count unacknowledged messages on a channel.
