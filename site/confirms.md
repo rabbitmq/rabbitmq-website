@@ -140,7 +140,7 @@ the rate of deliveries, potentially accumulating a backlog in memory
 and running out of heap or getting their process terminated by the OS.
 Some client libraries will apply TCP back pressure (stop reading from the socket
 until the backlog of unprocessed deliveries drops beyond a certain limit).
-Automatic acknolwedgement mode is therefore only recommended for consumers
+Automatic acknowledgement mode is therefore only recommended for consumers
 that can process deliveries efficiently and at a steady rate.
 
 ### <a id="consumer-acks-api-elements" class="anchor" href="#consumer-acks-api-elements">Positively Acknowledging Deliveries</a>
