@@ -50,7 +50,8 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
-        <li><strong>3.7.16</strong></li>
+        <li><strong>3.7.17</strong></li>
+        <li>3.7.16</li>
         <li>3.7.15</li>
       </ul>
     </td>
