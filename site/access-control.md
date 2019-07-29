@@ -275,7 +275,7 @@ and STOMP. In AMQP 0-9-1, for example, consumers consume from queues
 and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
 binding routing keys between an AMQP 0-9-1 topic exchange and
 a queue/exchange are checked against the topic permissions configured, if any.
-For more information about how RabbitMQ handles authorization for topics, please see
+For more information about how RabbitMQ handles authorisation for topics, please see
 the [STOMP](/stomp.html) and [MQTT](/mqtt.html)
 documentation guides.
 
@@ -670,7 +670,7 @@ rabbitmqctl list_permissions --vhost gw1
 # =&gt; user2	^user2	^user2	^user2
 </pre>
 
-[Server logs](/logging.html) will contain entries about operation authorization
+[Server logs](/logging.html) will contain entries about operation authorisation
 failures. For example, if a user does not have any permissions configured for a virtual host:
 
 <pre class="lang-ini">
@@ -680,7 +680,7 @@ access to vhost '/' refused for user 'user2'
 2019-03-25 12:26:16.310 [info] &lt;0.1594.0&gt; closing AMQP connection &lt;0.1594.0&gt; (127.0.0.1:63793 -&gt; 127.0.0.1:5672, vhost: 'none', user: 'user2')
 </pre>
 
-Authorization failures (permission violations) are also logged:
+authorisation failures (permission violations) are also logged:
 
 <pre class="lang-ini">
 2019-03-25 12:30:05.209 [error] &lt;0.1627.0&gt; Channel error on connection &lt;0.1618.0&gt; (127.0.0.1:63881 -&gt; 127.0.0.1:5672, vhost: 'gw1', user: 'user2'), channel 1:

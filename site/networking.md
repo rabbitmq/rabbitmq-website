@@ -19,8 +19,6 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-### <a id="intro" class="anchor" href="#intro"></a>
-
 Clients communicate with RabbitMQ over the network. All
 protocols supported by the broker are TCP-based. Both
 RabbitMQ and the operating system provide a number

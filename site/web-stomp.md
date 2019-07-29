@@ -187,7 +187,7 @@ A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also ava
 
 The `use_http_auth` option extends the authentication by
 allowing clients to send the login and passcode in the
-HTTP Authorization header (using HTTP Basic Auth). If
+HTTP authorisation header (using HTTP Basic Auth). If
 present, these credentials will be used. Otherwise, the
 default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.

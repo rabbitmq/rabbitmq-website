@@ -74,3 +74,4 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             print("\nStopping...")
             httpd.shutdown()
+            httpd.server_close()

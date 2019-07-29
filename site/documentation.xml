@@ -140,11 +140,11 @@ limitations under the License.
             </ul>
           </li>
           <li>
-            Authentication and Authorization:
+            Authentication and authorisation:
 
             <ul>
               <li>
-                <a href="access-control.html">Authentication and Authorization Backends</a>
+                <a href="access-control.html">Authentication and authorisation Backends</a>
               </li>
               <li>
                 <a href="authentication.html">Authentication Mechanisms</a>

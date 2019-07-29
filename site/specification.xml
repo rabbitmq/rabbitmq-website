@@ -1933,7 +1933,7 @@ limitations under the License.
 	    <actor>
 	    </actor>
 	    <text>
-         [The] authorization scheme used MAY be unique to each virtual host.
+         [The] authorisation scheme used MAY be unique to each virtual host.
 	    </text>
 	  </rule>
 

@@ -43,7 +43,7 @@ fi
 old_dir=`mktemp -d`
 build_dir=`mktemp -d`
 
-rm -rf $site_dir/site-src $site_dir/code ${build_dir}
+rm -rf $site_dir/site-src $site_dir/code $site_dir/site/release-notes ${build_dir}
 
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds

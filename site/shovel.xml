@@ -249,7 +249,7 @@ rabbitmq-plugins enable rabbitmq_shovel
 
 
     <doc:section name="authn-authz-for-shovels">
-      <doc:heading>Authentication and Authorization for Shovels</doc:heading>
+      <doc:heading>Authentication and authorisation for Shovels</doc:heading>
 
       <p>
         The plugin uses <a href="https://www.rabbitmq.com/erlang-client-user-guide.html">Erlang AMQP 0-9-1</a>
@@ -260,7 +260,7 @@ rabbitmq-plugins enable rabbitmq_shovel
         the vhost it is trying to connect to.
       </p>
       <p>
-        Authentication and authorization failures of Shovel connections will be
+        Authentication and authorisation failures of Shovel connections will be
         visible in the logs of the node that opens them.
       </p>
     </doc:section>

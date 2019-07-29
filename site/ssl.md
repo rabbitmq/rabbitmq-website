@@ -382,9 +382,9 @@ will be logged by the server with a message similar to this:
 2018-09-10 18:10:46.502 [info] &lt;0.902.0&gt; TLS server generated SERVER ALERT: Fatal - Unknown CA
 </pre>
 
-            Certificate validity is also checked at every step. Certificates that are expired
-            or aren't yet valid will be rejected. The TLS alert in that case will look something
-            like this:
+Certificate validity is also checked at every step. Certificates that are expired
+or aren't yet valid will be rejected. The TLS alert in that case will look something
+like this:
 
 <pre class="lang-ini">
 2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired

@@ -26,7 +26,7 @@ messaging-based systems:
  * [Logging](#logging)
  * [Node configuration](#configuration)
  * [Client connectivity](#networking)
- * [Client authentication](#authentication) and authorization
+ * [Client authentication](#authentication) and authorisation
  * [CLI tool connectivity](#cli) and authentication
  * [Cluster formation](#cluster-formation)
  * [Node memory usage](#memory-usage)

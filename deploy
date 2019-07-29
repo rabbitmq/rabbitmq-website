@@ -59,7 +59,7 @@ deploy() {
 
   # shellcheck disable=SC2029
   ssh "$REMOTE_HOST" mkdir -p "$TMP_DIR"
-  rsync -qcrz --delete --perms --chmod=a+rwX --exclude "*.pyc" --exclude "__pycache__" code conf site wordpress-theme "$REMOTE_HOST":"$TMP_DIR"
+  rsync -qcrz --delete --perms --chmod=a+rwX --exclude "*.pyc" --exclude "__pycache__" --exclude "release-notes/*.md" code conf site wordpress-theme "$REMOTE_HOST":"$TMP_DIR"
   # shellcheck disable=SC2029
   ssh -t "$REMOTE_HOST" sudo "$TMP_DIR/code/deploy-remote $VERSION"
 }

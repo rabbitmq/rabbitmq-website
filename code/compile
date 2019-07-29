@@ -6,10 +6,13 @@ import sys
 import os
 import os.path
 import shutil
+import posixpath
+
 
 def usage():
     print("Usage: compile <in-dir> <out-dir> <mode> <version> [<file>]")
     exit(1)
+
 
 def main():
     if len(sys.argv) < 4:
@@ -42,6 +45,7 @@ def main():
         usage()
     print("")
 
+
 def handle_file(in_dir, in_f, out_f, site_mode, version):
     ext = os.path.splitext(in_f)[1].lower()
     if (ext == '.xml' and not blacklist(in_f)) or ext == '.md':
@@ -52,8 +56,10 @@ def handle_file(in_dir, in_f, out_f, site_mode, version):
         shutil.copyfile(os.path.join(in_dir, in_f), out_f)
         sys.stdout.write(".")
 
+
 def blacklist(f):
     return f.startswith('resources/specs/')
+
 
 def render_file(in_f, out_f, site_mode, version):
     try:
@@ -65,14 +71,13 @@ def render_file(in_f, out_f, site_mode, version):
         f.write(rendered)
     sys.stdout.write("#")
 
+
 def html_ext(f):
     return os.path.splitext(f)[0] + '.html'
 
 
-# os.path.relpath is not in 2.5. This is taken from
+# This was necessary in the Python 2.x days and taken from
 # http://www.saltycrane.com/blog/2010/03/ospathrelpath-source-code-python-25/
-
-import posixpath
 
 def relpath(path, start):
     """Return a relative version of a path"""
@@ -86,7 +91,6 @@ def relpath(path, start):
     if not rel_list:
         return posixpath.curdir
     return posixpath.join(*rel_list)
-
 
 
 if __name__ == "__main__":

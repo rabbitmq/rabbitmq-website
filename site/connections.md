@@ -111,7 +111,7 @@ involves a number of steps:
  * The library opens a TCP connection to the target IP address and port
  * After the server has accepted the TCP connection, protocol-specific negotiation procedure is performed
  * The server then [authenticates](/access-control.html) the client
- * The client now can perform operations, each of which involves an [authorization check](/access-control.html) by the server.
+ * The client now can perform operations, each of which involves an [authorisation check](/access-control.html) by the server.
 
 This flow doesn't change significantly from protocol to protocol but there are minor differences.
 
