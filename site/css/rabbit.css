@@ -606,6 +606,46 @@ td.desc, th.desc {
   overflow: auto;
 }
 
+.pageFooter #s1p-promo {
+  background-color: #d0d0d0;
+  padding: 17px;
+  display: block;
+  width: 93%;
+  margin-bottom: 40px;
+}
+.pageFooter #s1p-promo div {
+  max-width: 715px;
+  margin: 0 auto;
+}
+.pageFooter #s1p-promo img {
+  display: inline-block;
+}
+.pageFooter #s1p-promo #tagline {
+  height: 13px;
+}
+.pageFooter #s1p-promo #s1plogo {
+  height: 35px;
+  margin: 0 17px;
+}
+.pageFooter #s1p-promo #date {
+  height: 13px;
+  width: 170px;
+}
+@media(max-width:800px) {
+  .pageFooter #s1p-promo img {
+    display: block;
+    margin: 0 auto;
+  }
+  .pageFooter #s1p-promo div {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .pageFooter #s1p-promo #s1plogo {
+    height: 35px;
+    margin: 14px auto 17px;
+  }
+}
+
 .pageFooter .rabbit-logo {
   margin-top: 0;
 }
@@ -637,16 +677,6 @@ td.desc, th.desc {
   text-decoration: underline;
 }
 
-#s1p-promo {
-  cursor:pointer;
-  float: right;
-}
-
-#s1p-promo img {
-  width: 100%;
-  max-width: 614px;
-  padding: 20px 0 0;
-}
 
 ul.feed {
   list-style-type: none;
@@ -1051,7 +1081,7 @@ body#index .hubs-embedded #collection-items .tile:nth-child(3) {
 }
 .hubs-embedded  .tile.single>a.view {
   background-color: white;
-  color: $newsmint;
+  color: #00b5a3;
   font-weight: 400;
   z-index: 0;
 }
@@ -1342,9 +1372,6 @@ img.screenshot {
   }
   .pageFooter #copyright {
     margin: 20px 0 0;
-    float: left;
-  }
-  #s1p-promo {
     float: left;
   }
 
