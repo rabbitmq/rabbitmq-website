@@ -13,6 +13,19 @@ design doesn't try to be a long term metric collection solution.
 Please read through the main [guide on monitoring](/monitoring.html) first. Monitoring principles and
 available metrics are mostly relevant when Prometheus and Grafana are used.
 
+Some key topics covered by this guide are
+
+ * [Prometheus support basics](#overview-prometheus)
+ * [Prometheus support basics](#overview-grafana)
+ * [Quick Start Guide](#quick-start)
+ * [RabbitMQ Overview Dashboard](#rabbitmq-overview-dashboard)
+ * [Health indicators](#health-indicators) on the Overview dashboard
+ * [Graph colour labelling](#graph-colour-labelling) conventions
+ * [Graph thresholds](#graph-thresholds)
+ * [Relevant documentation](#graph-documentation) for each graph (metric)
+ * [Spotting Anti-patterns](#spot-anti-patterns)
+ * [Other available dashboards](#other-dashboards)
+
 ### <a id="overview-prometheus" class="anchor" href="#overview-prometheus">Built-in Prometheus Support</a>
 
 As of 3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
@@ -38,6 +51,11 @@ There is a number of dashboards available:
 
 and others. Each is meant to provide an insight into a specific
 part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
+
+Note that the Grafana dashboards are opinionated and uses a number of conventions, for example, to
+[spot system health issues quicker](#health-indicators) or make [cross-graph referencing](#graph-colour-labelling) possible.
+Like all Grafana dashboards, they are also highly customizable. The conventions they assume are considered to be
+good practices and are thus recommended.
 
 ### <a id="overview-example" class="anchor" href="#overview-example">An Example</a>
 
@@ -131,63 +149,69 @@ about the available dashboards.
 
 ## <a id="rabbitmq-overview-dashboard" class="anchor" href="#rabbitmq-overview-dashboard">RabbitMQ Overview Dashboard</a>
 
-All metrics that are provided on the [Management UI](/management.html) Overview
-page are also available on this dashboard. They are grouped by object type,
-with a focus on RabbitMQ nodes and message flow.
+All metrics available in the [management UI](/management.html) Overview
+page are available in the Overview Grafana dashboard. They are grouped by object type,
+with a focus on RabbitMQ nodes and message rates.
 
 ### <a id="health-indicators" class="anchor" href="#health-indicators">Health Indicators</a>
 
-Single-stat metrics at the top of the dashboard capture the health of a single
-RabbitMQ cluster. In this case, you have a single RabbitMQ cluster,
-**rabbitmq-overview**, as seen in the **Cluster** drop-down, just below the
+[Single stat metrics](https://grafana.com/docs/features/panels/singlestat/) at the top of the dashboard capture the health of a single
+RabbitMQ cluster. In this case, there's a single RabbitMQ cluster,
+**rabbitmq-overview**, as seen in the **Cluster** drop-down menu just below the
 dashboard title.
 
-We use different colours to capture the following states:
+The panels on all RabbitMQ Grafana dashboards use different colours to capture the following
+metric states:
 
-* **Green** means the metric is within a healthy range
+* **Green** means the value of the metric is within a healthy range
 * **Blue** means under-utilisation or some form of degradation
-* **Red** means the metric is below or above the range that is considered healthy
+* **Red** means the value of the metric is below or above the range that is considered healthy
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-single-stat.png)
 
-The default ranges for the single-stat metrics may not be optimal for all
+Default ranges for the [single stat metrics](https://grafana.com/docs/features/panels/singlestat/) **will not be optimal for all**
 RabbitMQ deployments. For example, in environments with many consumers and/or
 high prefetch values, it may be perfectly fine to have over 1,000
 unacknowledged messages. The default thresholds can be easily adjusted to suit
-your RabbitMQ workloads.
+the workload and system at hand. The users are encouraged to revisit these ranges and tweak
+them as they see fit for their workloads, monitoring and operational practices, and tolerance
+for false positives.
 
-### <a id="graphs" class="anchor" href="#graphs">Graphs</a>
+### <a id="graphs" class="anchor" href="#graphs">Metrics and Graphs</a>
 
-Most metrics are represented as graphs: value over time. This is the simplest &
-clearest way of visualising how some aspect of the system changes. It makes it
-easy to understand the change in message rates, or memory used by every node in
-the cluster, and even the number of connections. All metrics - except health
-indicators - are node-specific.
+Most RabbitMQ and runtime metrics are represented as graphs in Grafana: they are values that change over time.
+This is the simplest and clearest way of visualising how some aspect of the system changes.
+Time-based charting makes it easy to understand the change in key metrics: message rates, memory used by every node in
+the cluster, or the number of concurrent connections. All metrics except for health
+indicators are **node-specific**, that is, they represent values of a metric on a single node.
 
-Some metrics, like the panels grouped under **CONNECTIONS**, are stacked to
-capture the state of the cluster as a whole. Since these metrics are
-node-specific, it makes it easy to notice when, for example, one node serves a
-disproportionate amount of connections. We would refer to such a RabbitMQ
-cluster as **unbalanced**, meaning that a minority of nodes perform the
-majority of work.
+Some metrics, such as the panels grouped under **CONNECTIONS**, are stacked to
+capture the state of the **cluster as a whole**. These metrics are
+collected on individual nodes and grouped visually, which makes it easy to notice when,
+for example, one node serves a disproportionate number of connections.
+
+We would refer to such a RabbitMQ cluster as **unbalanced**, meaning that at least in some ways,
+a minority of nodes perform the majority of work.
+
+In the example below, connections are spread out evenly across all nodes most of the time:
 
 ![RabbitMQ Overview Dashboard CONNECTIONS](/img/rabbitmq-overview-dashboard-connections.png)
-> In the example above, connections are spread out evenly across all nodes.
 
-### <a id="colour-consistency-graphs" class="anchor" href="#colour-consistency-graphs">Colour consistency in graphs</a>
+### <a id="graph-colour-labelling" class="anchor" href="#graph-colour-labelling">Colour Labelling in Graphs</a>
 
-All metrics across all graphs are linked to specific node names. For example,
-all metrics in green are for the node that contains `0` in its name, e.g.
-`rabbit@rmq0`. This makes is easy to correlate metrics across all graphs to a
-specific node. Metrics for the first node, which is assumed to contain `0` in
+All metrics on all graphs are associated with specific node names. For example,
+all metrics drawn in green are for the node that contains `0` in its name, e.g.
+`rabbit@rmq0`. This makes is easy to correlate metrics of a specific node across graphs.
+Metrics for the first node, which is assumed to contain `0` in
 its name, will always appear as green across all graphs.
 
-It is important to remember this aspect when using RabbitMQ Overview Dashboard
-with your RabbitMQ deployments. If you use a different naming convention,
-colours will appear inconsistent across graphs: green may represent e.g.
-`rabbit@foo` in one graph, and e.g. `rabbit@bar` in another graph.
+It is important to remember this aspect when using the RabbitMQ Overview dashboard.
+**If a different node naming convention is used, the colours will appear inconsistent across graphs**:
+green may represent e.g. `rabbit@foo` in one graph, and e.g. `rabbit@bar` in another graph.
 
-### <a id="thresholds-graphs" class="anchor" href="#thresholds-graphs">Thresholds in graphs</a>
+When this is the case, the panels must be updated to use a different node naming scheme.
+
+### <a id="graph-thresholds" class="anchor" href="#graph-thresholds">Thresholds in Graphs</a>
 
 Most metrics have pre-configured thresholds. They appear as semi-transpared
 orange or red areas, as seen in the example below.
@@ -223,7 +247,7 @@ thresholds, others may require lower ones. While the defaults should be
 adequate in most cases, please feel free to change them to suit your specific
 requirements.
 
-### <a id="documentation-graphs" class="anchor" href="#documentation-graphs">Documentation in graphs</a>
+### <a id="graph-documentation" class="anchor" href="#graph-documentation">Documentation in graphs</a>
 
 Most metrics have explanations in the top-left corner of the panel. Some, like
 the available disk space metric, link to specific pages in our official docs.
@@ -232,7 +256,7 @@ the respective metric.
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-disk-documentation.png)
 
-### <a id="spot-anti-patterns" class="anchor" href="#spot-anti-pattern">Spot anti-patterns</a>
+### <a id="spot-anti-patterns" class="anchor" href="#spot-anti-pattern">Spotting Anti-patterns</a>
 
 Any metric which shows in red hints to an anti-pattern. It is a new way in
 which we try to highlight sub-optimal uses of RabbitMQ. If you see any red
@@ -299,7 +323,7 @@ Next, enable the **rabbitmq_prometheus** plugin on all nodes by running the
 following command: `rabbitmq-plugins enable rabbitmq_prometheus`. This is an
 example of the output that you should see on every node:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 rabbitmq-plugins enable rabbitmq_prometheus
 
 Enabling plugins on node rabbit@ed9618ea17c9:
@@ -393,10 +417,11 @@ then click **Load**, as seen below:
 
 ![Grafana Import Dashboard](/img/grafana-import-dashboard.png)
 
-Repeat the process for all other Grafana dashboards that you would like to
-visualise your RabbitMQ deployments with.
+Repeat the process for all other Grafana dashboards that would like to use with
+your RabbitMQ deployment.
 
-**Well done: your RabbitMQ is now integrated with Prometheus & Grafana!**
+Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
+
 
 ## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
 
