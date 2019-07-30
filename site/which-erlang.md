@@ -25,27 +25,60 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 ## <a id="unsupported-versions" class="anchor" href="#unsupported-versions">Unsupported Versions</a>
 
-Erlang/OTP versions <strong>older than 20.3 are not supported</strong> by RabbitMQ versions released in 2019.
+Erlang/OTP versions **older than 20.3 are not supported** by RabbitMQ versions released in 2019.
 
 RabbitMQ <strong>versions prior to 3.7.7 do not support Erlang/OTP 21</strong> or newer.
 
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 Starting in [January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series. Currently the series are <code>22.0.x</code>, <code>21.3.x</code>, and <code>20.3.x</code>.
-Erlang <code>22.0</code> shipped in May 2019, therefore after a 3 month transition period, starting in August 2019 the supported versions will
-be <code>21.3.x</code> and <code>22.x</code>.
+RabbitMQ supports two most recent Erlang release series.
+
+### Currently Supported Series
+
+RabbitMQ supports Erlang `22.0.x`, `21.3.x`, and `20.3.x` release series.
+
+### Upcoming Erlang 20.3 Support Retirement
+
+Erlang `22.0` shipped in May 2019, therefore after a 3 month transition period (starting on September 1st, 2019), Erlang 20.3.x support will be
+retired. The supported versions will be `22.x` and `21.3.x`.
+
+
+## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
 The table below provides an Erlang compatibility matrix of currently supported RabbitMQ release series.
 For RabbitMQ releases that have reached end of life, see [Unsupported Series Compatibility Matrix](#eol-series).
-
-## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
 <table class="matrix">
   <th><a href="/versions.html">RabbitMQ version</a></th>
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.7.18 (under development)</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>21.3.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>22.0.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="plain">
+        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang 22.0 compatibility notes</a> on rabbitmq-users</li>
+        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22</li>
+        <li>Erlang/OTP <code>20.3.x</code> support <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">will be discontinued</a> as of October 1st, 2019</li>
+      </ul>
+    </td>
+  </tr>
 
   <tr>
     <td>
@@ -188,7 +221,7 @@ Erlang installations can optionally be built with support for HiPE, a JIT compil
 which RabbitMQ can be [configured](/configure.html) to use.
 
 For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
-package (<code>erlang-base-hipe</code>) must be installed instead of the regular one (<code>erlang-base</code>).
+package (`erlang-base-hipe`) must be installed instead of the regular one (`erlang-base`).
 
 
 ## <a id="building-from-source" class="anchor" href="#building-from-source">Building from Source</a>

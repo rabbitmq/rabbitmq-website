@@ -18,18 +18,49 @@ limitations under the License.
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>News</title>
+    <title>RabbitMQ Project Annoucements</title>
     <link rel="alternate" type="application/atom+xml" href="news.atom"/>
   </head>
   <body>
-    <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
-    <p>Also keep an eye on the <a href="changelog.html">change log</a> and <a href="http://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.</p>
+    <p>
+      <a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a>
+    </p>
+    <p>
+      Also keep an eye on the <a href="changelog.html">change log</a> and <a href="http://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+    </p>
     <doc:feed>
     <!-- Please give news items a doc:date/@iso.  It is used in the
      Atom feed, for the updated time and as a guide.
      $ echo `date +"%FT%T"``date +"%z" | cut -c 1-3`:`date +"%z" | cut -c 4-5`
      will give you a suitable RFC 3339 value.
     -->
+
+    <doc:item>
+      <doc:date iso="2019-07-30T17:00:00+00:00">30 July 2019</doc:date>
+      <doc:title>Erlang 20.3.x Support Retirement Schedule</doc:title>
+      <doc:link>https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ</doc:link>
+      <doc:text>
+        <p>
+          Starting on October 1st, 2019 <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">support for Erlang/OTP 20.3.x will be dropped</a>.
+          RabbitMQ 3.7.18 and future releases will require Erlang 21.3 or later.
+        </p>
+        <p>
+          Latest Erlang releases can be provisioned from <a href="https://bintray.com/rabbitmq-erlang/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/erlang">PackageCloud</a>,
+          and built from source with <a href="https://github.com/kerl/kerl">kerl</a>. <a href="https://www.rabbitmq.com/install-debian.html">Debian</a>
+          and <a href="https://www.rabbitmq.com/install-rpm.html">RPM</a> installation guides provide more details.
+        </p>
+        <p>
+          The list of supported releases for a given RabbitMQ version can be found in the <a href="https://www.rabbitmq.com/which-erlang.html">Erlang/OTP compatibility guide</a>.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
 
     <doc:item>
       <doc:date iso="2019-07-29T09:00:00+00:00">29 July 2019</doc:date>
