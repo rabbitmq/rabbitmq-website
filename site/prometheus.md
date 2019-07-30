@@ -13,7 +13,6 @@ design doesn't try to be a long term metric collection solution.
 Please read through the main [guide on monitoring](/monitoring.html) first. Monitoring principles and
 available metrics are mostly relevant when Prometheus and Grafana are used.
 
-
 ### <a id="overview-prometheus" class="anchor" href="#overview-prometheus">Built-in Prometheus Support</a>
 
 As of 3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
@@ -50,45 +49,85 @@ RabbitMQ Overview dashboard looks like:
 
 ## <a id="quick-start" class="anchor" href="#quick-start">Quick Start</a>
 
-To discover what else RabbitMQ Overview Grafana dashboard has in store, let's
-get it up and running locally. We will take the quickest path of setting
-everything up so that you can better imagine how this will benefit your
-RabbitMQ deployments. You will be able to interact with RabbitMQ, Prometheus
-& Grafana locally, on your machine. You will also be able to try out different
-load profiles and understand how it all fits together.
+### Before We Start
 
-To get started, you will need a browser and a terminal available on your
-machine. Next, you will need to install <a href="https://git-scm.com/"
-target="_blank">Git</a> as well as <a
-href="https://www.docker.com/products/docker-desktop" target="_blank">Docker
-Desktop</a>. The pre-requisites are set up correctly when `git version`,
-`docker info` &amp; `docker-compose version` work in your terminal.
+This section explains how to set up a RabbitMQ cluster with Prometheus and Grafana dashboards, as well
+as some applications that will produce some activity and meaningful metrics.
 
-We will now clone the <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
-target="_blank">rabbitmq-prometheus</a> repository from GitHub and start all
-components required for a fully functional RabbitMQ Overview dashboard:
+With this setup you will be able to interact with RabbitMQ, Prometheus
+& Grafana running locally. You will also be able to try out different
+load profiles to see how it all fits together, make sense of the dashboards,
+panels and so on.
+
+This is merely an example; the `rabbitmq_prometheus` plugin and our Grafana dashboards do not require
+the use of Docker Compose demonstrated below.
+
+### Prerequisites
+
+The instructions below assume a host machine that has a certain set of tools
+installed:
+
+ * A terminal to run the commands
+ * <a href="https://git-scm.com/" target="_blank">Git</a> to close the repository
+ * <a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> to use Docker Compose locally
+ * A Web browser to browse the dashboards
+
+Their installation is out of scope of this guide. Use
+
+<pre class="lang-bash">
+git version
+</pre>
+
+<pre class="lang-bash">
+docker info &amp;&amp; docker-compose version
+</pre>
+
+on the command line to verify that the necessary tools are available.
+
+### Clone a Repository with Manifests
+
+First step is to close a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
+target="_blank">rabbitmq-prometheus</a>, with the manifests and other components required to run
+a RabbitMQ cluster, Prometheus and a set of applications:
 
 <pre class="lang-bash">
 git clone https://github.com/rabbitmq/rabbitmq-prometheus.git
 cd rabbitmq-prometheus/docker
+</pre>
+
+### Run Docker Compose
+
+Next use Docker Compose manifests to run a pre-configured RabbitMQ cluster, a Prometheus instance and a basic
+workload that will produce the metrics displayed in the RabbitMQ overview dashboard:
+
+<pre class="lang-bash">
 docker-compose -f docker-compose-metrics.yml up -d
 docker-compose -f docker-compose-overview.yml up -d
 </pre>
 
-> `make metrics overview` is the short version of the `docker-compose` commands above
+The `docker-compose` commands above can also be executed with a `make` target:
 
-When the above commands succeed, open <a
-href="http://localhost:3000/dashboards"
-target="_blank">http://localhost:3000/dashboards</a> in your browser, and login
-with username `admin` and password `admin`. Feel free to skip the change
-password step - this is a local Grafana installation after all. Navigate to
-the **RabbitMQ-Overview** dashboard and you will see this:
+<pre class="lang-bash">
+make metrics overview
+</pre>
+
+When the above commands succeed, there will be a functional RabbitMQ cluster and a Prometheus
+instance collecting metrics from it running in a set of containers.
+
+### Access RabbitMQ Overview Grafana Dashboard
+
+Now navigate to <a href="http://localhost:3000/dashboards" target="_blank">http://localhost:3000/dashboards</a> in a Web browser.
+It will bring up a login page. Use `admin` for both the username and the password. On the very first login
+Grafana will suggest changing your password. For the sake of this example, we suggest that this step is skipped.
+
+Navigate to the **RabbitMQ-Overview** dashboard that will look like this:
 
 ![RabbitMQ Overview Dashboard Localhost](/img/rabbitmq-overview-dashboard-localhost.png)
 
 Congratulations! You now have a 3-nodes RabbitMQ cluster integrated with
 Prometheus & Grafana running locally. This is a perfect time to learn more
-about the RabbitMQ Overview dashboard.
+about the available dashboards.
+
 
 ## <a id="rabbitmq-overview-dashboard" class="anchor" href="#rabbitmq-overview-dashboard">RabbitMQ Overview Dashboard</a>
 
