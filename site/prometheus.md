@@ -2,27 +2,53 @@
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-As of v3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
-Enabling the **rabbitmq_prometheus** plugin exposes all RabbitMQ metrics on a
-dedicated TCP port, in Prometheus text format. These metrics give unprecedented
-insights into not just RabbitMQ, but also the runtime, Erlang. This is the
-first step towards understanding what is happening in a complex system such as
-RabbitMQ.
+This guide covers RabbitMQ monitoring with two popular tools:
+<a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Prometheus</a>, a monitoring toolkit;
+and <a href="https://grafana.com/grafana" target="_blank">Grafana</a>, a metrics visualisation system.
 
-The second part to understanding RabbitMQ is visualising the metrics that are
-collected by and stored in Prometheus. We have built Grafana dashboards that
-visualise these metrics in context-specific ways. For example, there is a
-RabbitMQ Overview dashboard, a RabbitMQ Raft dashboard, an Erlang Distribution
-dashboard, and many others. They are each meant to give insights into specific
-parts of the system. When used together, they are able to explain any RabbitMQ
-behaviour in great detail.
+These tools together form a powerful toolkit for long-term metric collection and monitoring of RabbitMQ clusters.
+While [RabbitMQ management UI](/management.html) also provides access to a subset of metrics, it by
+design doesn't try to be a long term metric collection solution.
+
+Please read through the main [guide on monitoring](/monitoring.html) first. Monitoring principles and
+available metrics are mostly relevant when Prometheus and Grafana are used.
+
+
+### <a id="overview-prometheus" class="anchor" href="#overview-prometheus">Built-in Prometheus Support</a>
+
+As of 3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
+
+Support for Prometheus metric collector ships in the `rabbitmq_prometheus` plugin.
+The plugin exposes all RabbitMQ metrics on a dedicated TCP port, in Prometheus text format.
+
+These metrics provide a deep insights into the state of RabbitMQ nodes and [the runtime](/runtime.html).
+They make reasoning about the behaviour of RabbitMQ, applications that use it and various infrastructure
+elements a lot more informed.
+
+### <a id="overview-grafana" class="anchor" href="#overview-grafana">Grafana Support</a>
+
+Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a prebuilt set of
+Grafana dashboards that visualise a large number of available RabbitMQ and runtime metrics in context-specific ways.
+
+There is a number of dashboards available:
+
+ * an overview dashboard
+ * a Raft metric dashboard
+ * an [inter-node communication](https://www.rabbitmq.com/clustering.html#cluster-membership)
+(Erlang distribution) dashboard
+
+and others. Each is meant to provide an insight into a specific
+part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
+
+### <a id="overview-example" class="anchor" href="#overview-example">An Example</a>
 
 When RabbitMQ is integrated with Prometheus and Grafana, this is what the
 RabbitMQ Overview dashboard looks like:
 
 ![RabbitMQ Overview Dashboard](/img/rabbitmq-overview-dashboard.png)
 
-> <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Prometheus</a> is a monitoring toolkit. <a href="https://grafana.com/grafana" target="_blank">Grafana</a> is a metrics visualisation system.
+
+## <a id="quick-start" class="anchor" href="#quick-start">Quick Start</a>
 
 To discover what else RabbitMQ Overview Grafana dashboard has in store, let's
 get it up and running locally. We will take the quickest path of setting
@@ -30,8 +56,6 @@ everything up so that you can better imagine how this will benefit your
 RabbitMQ deployments. You will be able to interact with RabbitMQ, Prometheus
 & Grafana locally, on your machine. You will also be able to try out different
 load profiles and understand how it all fits together.
-
-### <a id="quick-start" class="anchor" href="#quick-start">Quick Start</a>
 
 To get started, you will need a browser and a terminal available on your
 machine. Next, you will need to install <a href="https://git-scm.com/"
@@ -228,7 +252,7 @@ have:
 ### <a id="rabbitmq-configuration" class="anchor" href="#rabbitmq-configuration">RabbitMQ configuration</a>
 
 We first need to ensure that the RabbitMQ cluster is using a descriptive name.
-To find the name that the cluster is currently using, run `rabbitmqctl cluster_status` 
+To find the name that the cluster is currently using, run `rabbitmqctl cluster_status`
 from any node. If you are happy with the cluster name, skip the rest of this paragraph. To
 change the name of the cluster, run the following command: `rabbitmqctl set_cluster_name testing-prometheus`.
 
