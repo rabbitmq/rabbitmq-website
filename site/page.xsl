@@ -174,6 +174,15 @@ limitations under the License.
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
+    <div class='container'>
+      <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq-website-footer&amp;utm_medium=footer-link&amp;utm_campaign=s1p-promo-rabbitmq' target="_blank">
+        <div>
+          <img id='tagline' src='/img/promos/tagline.svg'/>
+          <img id='s1plogo' src='/img/promos/S1P.svg'/>
+          <img id='date' src='/img/promos/date-2019.svg'/>
+        </div>
+      </a>
+    </div>
       <div class='container'>
         <div class="rabbit-logo">
           <a href="/"><img src="/img/RabbitMQ-logo-white.svg" alt="RabbitMQ"/></a>
@@ -188,7 +197,6 @@ limitations under the License.
             <li><a href="/blog/">Blog</a></li>
           </xsl:if>
         </ul>
-        <!-- <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq&amp;utm_medium=banner-link&amp;utm_campaign=springone-platform-2018' target="_blank"><img src='/img/promos/S1P-Promo-RabbitMQ-2018.png'/></a> -->
         <p id="copyright">
           Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
           <a href="https://pivotal.io/legal">Terms of Use</a>,
