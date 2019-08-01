@@ -173,6 +173,7 @@ Make sure the following ports are accessible:
  * 1883, 8883: ([MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
  * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
+ * 15692: Prometheus exporter (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
 It is possible to [configure RabbitMQ](/configure.html)
 to use [different ports and specific network interfaces](/networking.html).
