@@ -17,7 +17,12 @@ Some key topics covered by this guide are
 
  * [Prometheus support basics](#overview-prometheus)
  * [Prometheus support basics](#overview-grafana)
- * [Quick Start Guide](#quick-start)
+ * A [Quick Start](#quick-start) for local experimentation
+ * [Installation steps](#installation) for production systems
+
+Grafana dashboards follow a number of conventions to make the system more observable
+and anti-patterns easier to spot. Its design decisions are explained in a number of sections:
+
  * [RabbitMQ Overview Dashboard](#rabbitmq-overview-dashboard)
  * [Health indicators](#health-indicators) on the Overview dashboard
  * [Graph colour labelling](#graph-colour-labelling) conventions
