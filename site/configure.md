@@ -1282,12 +1282,30 @@ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
 {encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
 </pre>
 
+Or, on Windows:
+
+<pre class="lang-powershell">
+rabbitmqctl encode "&lt;&lt;""guest""&gt;&gt;" mypassphrase
+{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
+{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+</pre>
+
 Add the `decode` command if you want to decrypt values:
 
 <pre class="lang-bash">
 rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
 rabbitmqctl decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
+"amqp://fred:secret@host1.domain/my_vhost"
+</pre>
+
+Or, on Windows:
+
+<pre class="lang-powershell">
+rabbitmqctl decode "{encrypted, &lt;&lt;""...""&gt;&gt;}" mypassphrase
+&lt;&lt;"guest"&gt;&gt;
+rabbitmqctl decode "{encrypted, &lt;&lt;""...""&gt;&gt;}" mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
 </pre>
 
@@ -1320,6 +1338,13 @@ Or using [CLI tools](/cli.html):
 <pre class="lang-bash">
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+</pre>
+
+Or, on Windows:
+
+<pre class="lang-powershell">
+rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+                     "&lt;&lt;""guest""&gt;&gt;" mypassphrase
 </pre>
 
 ## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Using Environment Variables</a>

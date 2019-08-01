@@ -395,7 +395,7 @@ limitations under the License.
 
           <r:plugin name="rabbitmq_web_mqtt">
             <i>
-              As of RabbitMQ 3.6.2 the Web-MQTT plugin is
+              As of RabbitMQ 3.6.7 the Web-MQTT plugin is
               provided with the broker's package.
             </i>
             Provides support for MQTT-over-WebSockets.
