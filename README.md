@@ -47,14 +47,14 @@ It is also possible to install the dependencies manually:
 
 ```sh
 brew install python
-pip install lxml markdown
+python -m pip install lxml markdown
 ```
 
 Using the system Python, dependencies must be installed differently:
 
 ```sh
-sudo easy_install pip
-sudo pip install lxml markdown
+sudo python -m ensurepip
+sudo python -m pip install lxml markdown
 ```
 
 To run a local copy manually on [localhost:8191](http://localhost:8191), use:
