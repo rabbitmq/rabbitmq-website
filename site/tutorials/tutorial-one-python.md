@@ -56,7 +56,7 @@ messages from that queue.
 > [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool:
 >
 > <pre class="lang-bash">
-> pip install pika --upgrade
+> python -m pip install pika --upgrade
 > </pre>
 
 Now we have Pika installed, we can write some
