@@ -16,8 +16,8 @@ available metrics are mostly relevant when Prometheus and Grafana are used.
 Some key topics covered by this guide are
 
  * [Prometheus support basics](#overview-prometheus)
- * [Prometheus support basics](#overview-grafana)
- * A [Quick Start](#quick-start) for local experimentation
+ * [Grafana support basics](#overview-grafana)
+ * [Quick Start](#quick-start) for local experimentation
  * [Installation steps](#installation) for production systems
 
 Grafana dashboards follow a number of conventions to make the system more observable
