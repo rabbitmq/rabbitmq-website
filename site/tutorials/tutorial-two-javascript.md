@@ -95,9 +95,9 @@ messages from the queue and perform the task, so let's call it `worker.js`:
 <pre class="lang-javascript">
 var queue = 'task_queue';
 
-//Make sure queue exists before attempting to consume messages from it 
+// This makes sure the queue is declared before attempting to consume from it
 channel.assertQueue(queue, {
-    {durable: true
+  durable: true
 });
 
 channel.consume(queue, function(msg) {
