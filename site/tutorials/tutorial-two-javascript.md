@@ -97,7 +97,7 @@ var queue = 'task_queue';
 
 //Make sure queue exists before attempting to consume messages from it 
 channel.assertQueue(queue, {
-    {durable: false
+    {durable: true
 });
 
 channel.consume(queue, function(msg) {
