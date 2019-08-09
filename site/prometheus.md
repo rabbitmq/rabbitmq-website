@@ -249,7 +249,7 @@ across cluster then should return to their optimal state.
 
 ### <a id="graph-thresholds-are-system-specific" class="anchor" href="#graph-thresholds-are-system-specific">There is No "Right" Threshold for Many Metrics</a>
 
-Noote that that the thresholds used by the Grafana dashboards have to have a default value. No matter
+Note that that the thresholds used by the Grafana dashboards have to have a default value. No matter
 what value is picked by dashboard developers, they **will not suitable for all environments and workloads**.
 
 Some workloads may require higher thresholds, others may choose to lower them. While the defaults should be
