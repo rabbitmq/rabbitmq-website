@@ -1060,7 +1060,10 @@ Each version builds on the shortcomings of previous versions. Most of the time
 the shortcomings resulted in [known attacks](#major-vulnerabilities) that affect specific
 versions of TLS (and SSL). disabling older TLS versions is a way to mitigate
 many of those attacks (another technique is to [disable affected cipher suites](#cipher-suites)).
-It is common for environments with highest security requirements to only support TLSv1.2, for example.
+
+For the above reasons, Erlang 22 only enables TLSv1.2 by default. Users of [older supported Erlang releases](/which-erlang.html)
+are encouraged to limit supported TLS versions to 1.2 and later versions only, if possible. Consider
+TLSv1.0 and TLSv1.1 to be deprecated by the industry.
 
 ### <a id="tls-versions-why-not-limit" class="anchor" href="#tls-versions-why-not-limit">Why Not Limit TLS Versions</a>
 
