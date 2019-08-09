@@ -36,5 +36,5 @@ limitations under the License.
   <li>1883, 8883: (<a href="http://mqtt.org/">MQTT clients</a> without and with TLS, if the <a href="/mqtt.html">MQTT plugin</a> is enabled</li>
   <li>15674: STOMP-over-WebSockets clients (only if the <a href="/web-stomp.html">Web STOMP plugin</a> is enabled)</li>
   <li>15675: MQTT-over-WebSockets clients (only if the <a href="/web-mqtt.html">Web MQTT plugin</a> is enabled)</li>
-  <li>15692: Prometheus exporter (only if the <a href="/prometheus.html">Prometheus plugin</a> is enabled)</li>
+  <li>15692: Prometheus metrics (only if the <a href="/prometheus.html">Prometheus plugin</a> is enabled)</li>
 </ul>
