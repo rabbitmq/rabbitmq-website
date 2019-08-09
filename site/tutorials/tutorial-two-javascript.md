@@ -95,6 +95,11 @@ messages from the queue and perform the task, so let's call it `worker.js`:
 <pre class="lang-javascript">
 var queue = 'task_queue';
 
+// This makes sure the queue is declared before attempting to consume from it
+channel.assertQueue(queue, {
+  durable: true
+});
+
 channel.consume(queue, function(msg) {
   var secs = msg.content.toString().split('.').length - 1;
 
