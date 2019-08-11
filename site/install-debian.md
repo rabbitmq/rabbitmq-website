@@ -588,7 +588,8 @@ CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP
 Firewalls can prevent nodes and CLI tools from communicating with each other.
 Make sure the following ports are accessible:
 
- * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
+ * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools
+ * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
@@ -617,8 +618,7 @@ used when connecting to the broker as localhost</strong> so you
 will need to take action before connecting from any other
 machine.
 
-See the documentation on [access
-control](access-control.html) for information on how to create more users and delete
+See the documentation on [access control](access-control.html) for information on how to create more users and delete
 the `guest` user.
 
 

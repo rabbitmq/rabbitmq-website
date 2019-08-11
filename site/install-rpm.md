@@ -379,7 +379,7 @@ If [location of the node database or the logs](/relocate.html) is changed,
 the files and directories must be owned by this user.
 
 
-## <a id="ports" class="anchor" href="#ports">Port Access</a>
+## <a id="ports" class="anchor" href="#ports"></a>
 
 RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client and CLI tool connections.
 Other processes and tools such as SELinux may prevent RabbitMQ from binding to a port. When that happens,
@@ -389,7 +389,8 @@ CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP
 Firewalls can prevent nodes and CLI tools from communicating with each other.
 Make sure the following ports are accessible:
 
- * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
+ * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools
+ * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
