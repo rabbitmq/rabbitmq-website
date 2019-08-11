@@ -101,6 +101,8 @@ It installs RabbitMQ as a Windows service and starts it using the default config
 The service will run fine using its default settings. It is possible to [customise the RabbitMQ environment](/configure.html#customise-windows-environment)
 or edit [configuration](/configure.html#configuration-file).
 
+**Important**: after setting environment variables, it is necessary to reinstall the service.
+
 ### Run RabbitMQ
 
 The RabbitMQ service starts automatically. You can
@@ -131,7 +133,7 @@ which has to be placed into the correct location for the user.
 ### Stopping a Node
 
 To stop the broker or check its status, use
-<code>rabbitmqctl.bat</code> in <code>sbin</code> (as an administrator).
+`rabbitmqctl.bat` in `sbin` (as an administrator).
 
 <pre class="lang-powershell">
 rabbitmqctl.bat stop
@@ -160,11 +162,10 @@ to learn about log file location, log rotation and more.
 In the event that the Erlang VM crashes whilst RabbitMQ is running
 as a service, rather than writing the crash dump to the current
 directory (which doesn't make sense for a service) it is written
-to an <code>erl_crash.dump</code> file in the base directory of
+to an `erl_crash.dump` file in the base directory of
 the RabbitMQ server (set by the <b>RABBITMQ_BASE</b> environment
-variable, defaulting
-to <code>%APPDATA%\%RABBITMQ_SERVICENAME%</code> -
-typically <code>%APPDATA%\RabbitMQ</code> otherwise).
+variable, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` -
+typically `%APPDATA%\RabbitMQ` otherwise).
 
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
