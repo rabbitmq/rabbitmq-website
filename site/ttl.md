@@ -128,7 +128,7 @@ When both a per-queue and a per-message TTL are specified, the
 lower value between the two will be chosen.
 
 This example uses [RabbitMQ Java client](/api-guide.html)
-to publishe a message which can reside in the queue for at most 60 seconds:
+to publish a message which can reside in the queue for at most 60 seconds:
 
 <pre class="lang-java">
 byte[] messageBodyBytes = "Hello, world!".getBytes();
