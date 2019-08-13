@@ -400,9 +400,10 @@ target="_blank">Prometheus configuration documentation</a> .
 There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
 for beginners.
 
-Prometheus will periodically scrape (read) metrics from the systems it monitors, every 60
-seconds by default. RabbitMQ metrics are updated periodically, too, every 5
-seconds by default. Since [this value is configurable](/management.html#statistics-interval), check the metrics update
+Prometheus will periodically scrape (read) metrics from the systems it
+monitors, every 60 seconds by default. RabbitMQ metrics are updated
+periodically, too, every 5 seconds by default. Since [this value is
+configurable](/management.html#statistics-interval), check the metrics update
 interval by running the following command on any of the nodes:
 
 <pre class="lang-bash">
@@ -412,14 +413,18 @@ rabbitmq-diagnostics environment | grep collect_statistics_interval
 
 The returned value will be **in milliseconds**.
 
-While a 5 second Prometheus polling interval is too aggressive for
-production systems, it is a value that the examples use to match RabbitMQ's default
-`collect_statistics_interval`. 5 seconds also happens to match the default refresh
-frequency of the RabbitMQ management UI.
+For production systems, we recommend a minimum value of `15s` for Prometheus
+scrape interval and a `10000` (10s) value for RabbitMQ's
+`collect_statistics_interval`.  With these values, Prometheus doesn't scrape
+RabbitMQ too frequently, and RabbitMQ doesn't update metrics unnecessarily. If
+you configure a different value for Prometheus scrape interval, remember to set an
+appropriate interval when visualising metrics in Grafana with `rate()` - <a
+href="https://www.robustperception.io/what-range-should-i-use-with-rate"
+target="_blank">4x the scrape interval is considered safe</a>.
 
-15 or 30 seconds are good choices for production environments. Regardless of the value chosen,
-ensure that this value is inconsistent between RabbitMQ & Prometheus to avoid confusion and wasting
-resources.
+If you are using RabbitMQ's Management UI default 5s auto-refresh, you may want
+to keep the default `collect_statistics_interval` setting, which is also `5000`
+(5s) for this reason.
 
 To confirm that Prometheus is reading RabbitMQ metrics from all nodes, ensure
 that all RabbitMQ endpoints are **UP** on the Prometheus Targets page, as shown
