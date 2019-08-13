@@ -157,11 +157,9 @@ prepared to handle this and reconnect.
 
 ### <a id="rolling-upgrades" class="anchor" href="#rolling-upgrades">Rolling Upgrades</a>
 
-#### <a id="rolling-upgrades-version-limitations" class="anchor" href="#rolling-upgrades-version-limitations">Version limitations</a>
+Rolling upgrades are possible only between compatible RabbitMQ and Erlang versions.
 
-Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
-
-###### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
+#### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
 
 RabbitMQ 3.8.0 comes with a **feature flags** subsystem which is
 responsible for determining if two versions of RabbitMQ are compatible.
@@ -174,7 +172,7 @@ older minor or major versions.
 
 To learn more, please read the [feature flags documentation](/feature-flags.html).
 
-###### <a id="rolling-upgrade-before-3.8" class="anchor" href="#rolling-upgrade-before-3.8">Before RabbitMQ 3.8</a>
+#### <a id="rolling-upgrade-before-3.8" class="anchor" href="#rolling-upgrade-before-3.8">Before RabbitMQ 3.8</a>
 
 With RabbitMQ up-to and including 3.7.x, when upgrading from one major
 or minor version of RabbitMQ to another (i.e. from 3.0.x to 3.1.x, or
@@ -193,7 +191,7 @@ Some patch releases known to require a cluster-wide restart:
 * 3.6.6 and later cannot be mixed with earlier versions from the 3.6.x series
 * 3.0.0 cannot be mixed with later versions from the 3.0.x series
 
-***A RabbitMQ node will fail to [re-]join a peer running an incompatible version***.
+**A RabbitMQ node will fail to [re-]join a peer running an incompatible version**.
 
 When upgrading Erlang it's advised to run all nodes on the same major series
 (e.g. 19.x or 20.x). Even though it is possible to run a cluster with mixed
@@ -206,7 +204,7 @@ refuse to join its peer (cluster).
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
-#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting nodes</a>
+#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting Nodes</a>
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
@@ -247,6 +245,7 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
 
 ## <a id="caveats" class="anchor" href="#caveats">Caveats</a>
 
