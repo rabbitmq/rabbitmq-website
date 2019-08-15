@@ -372,7 +372,7 @@ public RpcClient()
             queue: replyQueueName,
             autoAck: true);
 
-        return respQueue.Take(); ;
+        return respQueue.Take();
     }
 
     public void Close()
