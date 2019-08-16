@@ -369,7 +369,7 @@ In order to use a 3rd apt repository, it is necessary to
  * Update package metadata
  * Install the Erlang package
 
-Below is shell snippet that performs those steps. They are documented in moroe detail below.
+Below is shell snippet that performs those steps. They are documented in more detail below.
 
 <pre class="lang-bash">
 #!/bin/sh
