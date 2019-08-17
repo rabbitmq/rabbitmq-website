@@ -264,7 +264,7 @@ rabbitmqctl eval "ok."
 
 ### <a id="mirrored-queues-synchronisation" class="anchor" href="#mirrored-queues-synchronisation">Mirrored queues synchronisation</a>
 
-Before stopping a node, make ensure that
+Before stopping a node, make sure that
 all mirrored queue masters it holds have at least one synchronised queue mirror.
 RabbitMQ will not promote unsynchronised queue mirrors on controlled
 queue master shutdown when
@@ -381,7 +381,7 @@ on how to upgrade RabbitMQ.
     Minor version releases contain new features and bugfixes
     which do not fit a patch release.
 
-    As soon as a new minor version is released (e.g. 3.7.0), previous verison series (3.6)
+    As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
     will have patch releases for critical bugfixes only.
 
     There will be no new patch releases for versions after EOL.
