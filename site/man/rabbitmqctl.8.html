@@ -789,8 +789,8 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       permissions on all resources:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_permissions -p
-      my-vhost janeway &#x201C;^janeway-.*&#x201D; &#x201C;.*&#x201D;
-      &#x201C;.*&#x201D;</code></div>
+      my-vhost janeway &quot;^janeway-.*&quot; &quot;.*&quot;
+      &quot;.*&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_permissions"><code class="Cm" title="Cm" id="clear_permissions">clear_permissions</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -889,8 +889,8 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       virtual host with a routing key starting with &#x201C;janeway-&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_topic_permissions
-      -p my-vhost janeway amq.topic &#x201C;^janeway-.*&#x201D;
-      &#x201C;^janeway-.*&#x201D;</code></div>
+      -p my-vhost janeway amq.topic &quot;^janeway-.*&quot;
+      &quot;^janeway-.*&quot;</code></div>
     <div class="Pp"></div>
     Topic permissions support variable expansion for the following variables:
       username, vhost, and client_id. Note that client_id is expanded only when
@@ -898,8 +898,8 @@ Note that <code class="Nm" title="Nm">rabbitmqctl</code> manages the RabbitMQ
       &#x201C;^{username}-.*&#x201D;:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_topic_permissions
-      -p my-vhost janeway amq.topic &#x201C;^{username}-.*&#x201D;
-      &#x201C;^{username}-.*&#x201D;</code></div>
+      -p my-vhost janeway amq.topic &quot;^{username}-.*&quot;
+      &quot;^{username}-.*&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#clear_topic_permissions"><code class="Cm" title="Cm" id="clear_topic_permissions">clear_topic_permissions</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
@@ -1736,7 +1736,7 @@ The <code class="Cm" title="Cm">list_queues</code>,
       <code class="Nm" title="Nm">rabbitmqctl</code> has connected:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl eval
-      &#x201C;node().&#x201D;</code></div>
+      &quot;node().&quot;</code></div>
   </dd>
 </dl>
 <h3 class="Ss" title="Ss" id="Miscellaneous"><a class="permalink" href="#Miscellaneous">Miscellaneous</a></h3>
@@ -1764,8 +1764,8 @@ The <code class="Cm" title="Cm">list_queues</code>,
       &#x201C;go away&#x201D; to the connected client:
     <div class="Pp"></div>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl close_connection
-      &#x201C;&lt;rabbit@tanto.4262.0&gt;&#x201D; &#x201C;go
-      away&#x201D;</code></div>
+      &quot;&lt;rabbit@tanto.4262.0&gt;&quot; &quot;go
+      away&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#close_all_connections"><code class="Cm" title="Cm" id="close_all_connections">close_all_connections</code></a>
     [<div class="Op"><code class="Fl" title="Fl">-p</code>
