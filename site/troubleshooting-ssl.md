@@ -34,6 +34,7 @@ The steps recommended in this guide are:
  * Verify [file permissions](#verify-file-permissions)
  * Verify [TLS support in Erlang/OTP](#verify-tls-support-in-erlang)
  * Verify certificate/key pairs and test with alternative TLS client or server [using OpenSSL command line tools](#openssl-tools)
+ * Verify available and configured [cipher suites](#verify-cipher-suites) and certificate key usage options
  * Verify client connections [with a TLS-terminating proxy](#stunnel)
  * And finally, test a real client connection against a real server connection again
 
@@ -286,7 +287,25 @@ will be rejected by a server, such as a RabbitMQ node.
 For environments where self-signed certificates are appropriate,
 we recommend using [tls-gen](https://github.com/michaelklishin/tls-gen) for generation.
 
-## <a id="sclient-connection" class="anchor" href="#sclient-connection">Attempt TLS Connection to Broker</a>
+## <a id="verify-cipher-suites" class="anchor" href="#verify-cipher-suites">Validate Available Cipher Suites</a>
+
+RabbitMQ nodes and clients can be limited in what [cipher suites](/ssl.html#cipher-suite) they are allowed
+to use during TLS handshake. It is important to make sure that the two sides have
+some cipher suites in common or otherwise the handshake will fail.
+
+Certificate's key usage properties can also limit what cipher suites can be used.
+
+See [Configuring Cipher Suites](/ssl.html#cipher-suites) and [Public Key Usage Extensions](/ssl.html#key-usage) in the main TLS guide
+to learn more.
+
+<pre class="lang-bash">
+openssl ciphers -v
+</pre>
+
+will display all cipher suites supported by the local build of OpenSSL.
+
+
+## <a id="sclient-connection" class="anchor" href="#sclient-connection">Attempt TLS Connection to a RabbitMQ Node</a>
 
 Once a RabbitMQ node was configure to listen on an TLS port,
 the OpenSSL <code>s_client</code> can be used to test TLS connection establishment, this time against the node.
