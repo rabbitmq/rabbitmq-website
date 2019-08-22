@@ -31,6 +31,7 @@ This guide covers various topics related to TLS in RabbitMQ:
  * How to generate self-signed certificates for development and QA environments [with tls-gen](#automated-certificate-generation) or [manually](#manual-certificate-generation)
  * TLS configuration in [Java](#java-client) and [.NET](#dotnet-client) clients
  * [Peer (certificate chain) verification](#peer-verification)
+ * Public [key usage extensions](#key-usage) relevant to RabbitMQ
  * [TLS version](#tls-versions) and [cipher suite](#cipher-suites) configuration
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
@@ -1193,13 +1194,102 @@ explains what TLS versions are supported by what JDK and .NET releases.
  * [JDK versions source](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider)
 
 
+## <a id="key-usage" class="anchor" href="#key-usage">Public Key Usage Options</a>
+
+Public keys (certificates) have a number of fields that describes the intended usage scenarios for the key.
+The fields limit how the key is allowed to be used by various tools.
+For example, a public key can be used to verify certificate signatures (act as a [Certificate Authority](#certificates-and-keys) key).
+
+These fields also have effects on what [cipher suites](#cipher-suites) will be used by RabbitMQ nodes
+and clients during connection negotiation (more specifically, the TLS handshake),
+so it is important to explain what the effects are.
+
+This guide will cover them with some intentional oversimplification. Broadly speaking, the fields fall into one of three categories:
+
+ * [keyUsage](https://tools.ietf.org/html/rfc5280#section-4.2.1.3)
+ * [Basic Constraints](https://tools.ietf.org/html/rfc5280#section-4.2.1.9)
+ * [extendedKeyUsage](https://tools.ietf.org/html/rfc5280#section-4.2.1.12)
+
+Some fields are boolean values, others are of different types such as a set of options (bits) that can be set or unset.
+
+Data services are largely agnostic to the constraints and key usage options used. However, some are essential
+to the use cases described in this guide:
+
+ * Server authentication (provide server node's identity to the client)
+ * Client authenticatation (provide client's identity to the server)
+ * Verification of digital signatures
+ * Key encipherment
+
+The first two options are used for [peer verification](#peer-verification). They must be set for the server and client certificates,
+respectively, at public key generation time. A certificate can have both options set at the same time.
+
+[tls-gen](#automated-certificate-generation) will make sure that these constraints and extensions are correctly set.
+When [generating certificates manually](#manual-certificate-generation), this is a responsibility of
+the operator that generates the key pairs, or a key pair provider.
+
+### <a id="key-usage-effects-on-cipher-suites" class="anchor" href="#key-usage-effects-on-cipher-suites">Extensions and Their Effect on Accepted Cipher Suites (Cipher Suite Filtering)</a>
+
+Two key extensions are critically important for two major types of [cipher suites](#cipher-suites):
+
+ * `digitalSignature` for ECC (Elliptic Curve Cryptography)-based suites
+ * `keyEncipherment` for RSA-based suites
+
+It is highly recommended that both of the above options (bits) are set for certificates that will
+be used by both RabbitMQ nodes and client libraries. If those bits are not set, TLS implementations
+will leave out an entire class of cipher suites from consideration, potentially resulting in confusing
+"no suitable cipher suite found" alerts (error messages) at connection time.
+
+### Examining Certificate Extensions
+
+To see what constraints and extensions are set for a public key, use the `openssl x509` command:
+
+<pre class="lang-bash">
+openssl x509 -in /path/to/certificate.pem -text -noout
+</pre>
+
+Its output will include a nested list of extensions and constraints that looks similar to this:
+
+<pre class="lang-ini">
+X509v3 extensions:
+    X509v3 Basic Constraints:
+        CA:FALSE
+    X509v3 Key Usage:
+        Digital Signature, Key Encipherment
+    X509v3 Extended Key Usage:
+        TLS Web Client Authentication
+</pre>
+
+The above set of extensions says that this is a public key that can be used to authenticate
+a client (provide a client identity to a RabbitMQ node), cannot be used as a Certificate Authority
+certificate and can be used for key encipherment and digital signature.
+
+For the purpose of this guide, this is a suitable certificate (public key) to be used for client connections.
+
+Below is an example of a public key suitable certificate for server authentication (provides a RabbitMQ node identity)
+as well as client authentication (perhaps for the sake of usability):
+
+<pre class="lang-ini">
+X509v3 extensions:
+    X509v3 Basic Constraints:
+        CA:FALSE
+    X509v3 Key Usage:
+        Digital Signature, Key Encipherment
+    X509v3 Extended Key Usage:
+        TLS Web Server Authentication, TLS Web Client Authentication
+</pre>
+
+
 ## <a id="cipher-suites" class="anchor" href="#cipher-suites">Cipher Suites</a>
 
 It is possible to configure what cipher suites will be used by RabbitMQ. Note that not all
 suites will be available on all systems. For example, to use Elliptic curve ciphers,
-the most recent [supported Erlang release](/which-erlang.html) is highly recommended.
+a recent [supported Erlang release](/which-erlang.html) must be used.
 
-### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Available Cipher Suites</a>
+What cipher suites RabbitMQ nodes and clients used can also be effectively limited by the [public key usage fields](#key-usage)
+and their values. It is important to make sure that those key usage options are acceptable before proceeding
+with cipher suite configuration.
+
+### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Cipher Suites Available on RabbitMQ Node</a>
 
 To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --openssl-format`:
 
