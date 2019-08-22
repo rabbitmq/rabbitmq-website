@@ -1289,7 +1289,7 @@ What cipher suites RabbitMQ nodes and clients used can also be effectively limit
 and their values. It is important to make sure that those key usage options are acceptable before proceeding
 with cipher suite configuration.
 
-### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Cipher Suites Available on RabbitMQ Node</a>
+### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Cipher Suites Available on a RabbitMQ Node</a>
 
 To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --openssl-format`:
 
