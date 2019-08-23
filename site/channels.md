@@ -182,7 +182,7 @@ when metrics suggest that the original model is no longer sustainable, e.g. beca
 too much memory.
 
 See the [Monitoring, Metrics and Diagnostics](#monitoring) section to learn about how to inspect
-channels, the number of channels on a connectio, channel churn rate and so on.
+channels, the number of channels on a connection, channel churn rate and so on.
 
 ### <a id="channel-max" class="anchor" href="#channel-max">Maximum Number of Channels per Connection</a>
 

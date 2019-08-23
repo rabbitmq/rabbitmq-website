@@ -582,7 +582,7 @@ rabbitmq-diagnostics -q listeners
 # =&gt; Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 </pre>
 
-[`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) is a commend that
+[`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) is a command that
 performs the basic TCP connectivity check mentioned above:
 
 <pre class="lang-bash">
