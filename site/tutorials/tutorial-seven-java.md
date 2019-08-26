@@ -112,7 +112,7 @@ if (outstandingMessageCount > 0) {
 </pre>
 
 Waiting for a batch of messages to be confirmed improves throughput drastically over
-waiting for a confirm for individual message (up to 30 times with a remote RabbitMQ node).
+waiting for a confirm for individual message (up to 20-30 times with a remote RabbitMQ node).
 One drawback is that we do not know exactly what went wrong in case of failure,
 so we may have to keep a whole batch in memory to log something meaningul or
 to re-publish the messages. And this solution is still synchronous, so it
@@ -138,7 +138,7 @@ There are 2 callbacks: one for confirmed messages and one for nack-ed messages
 2 parameters:
 
  * sequence number: a number that identifies the confirmed
- or nack-ed message. We will see shortly how to correlate with the published message.
+ or nack-ed message. We will see shortly how to correlate it with the published message.
  * multiple: this is a boolean value. If false, only one message is confirmed/nack-ed, if
  true, all messages with a lower or equal sequence number are confirmed/nack-ed.
 
@@ -196,7 +196,7 @@ The previous sample contains a callback that cleans the map when
 confirms arrive. Note this callback handles both single and multiple
 confirms. This callback is used when confirms arrive (as the first argument of
 `Channel#addConfirmListener`). The callback for nack-ed messages
-retrieves the message body and issue a warning. It then re-use the
+retrieves the message body and issue a warning. It then re-uses the
 previous callback to clean the map of outstanding confirms (whether
 messages are confirmed or nack-ed, their corresponding entries in the map
 must be removed.)
