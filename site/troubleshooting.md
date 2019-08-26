@@ -88,7 +88,7 @@ cookie file is, and most common reasons why CLI tools fail to perform operations
 and [troubleshooting authorisation](/access-control.html#troubleshooting-authz).
 
 
-## <a id="crash-dumps" class="anchor" href="#crash-dumps">Crash Dumps</a>
+## <a id="crash-dumps" class="anchor" href="#crash-dumps">Runtime Crash Dump Files</a>
 
 When the Erlang runtime system exits abnormally, a file named `erl_crash.dump`
 is written to the directory where RabbitMQ was started from. This file contains
