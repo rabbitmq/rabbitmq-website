@@ -28,6 +28,7 @@ messaging-based systems:
  * [Client connectivity](#networking)
  * [Client authentication](#authentication) and authorisation
  * [CLI tool connectivity](#cli) and authentication
+ * [Runtime crash dumps](#crash-dumps)
  * [Cluster formation](#cluster-formation)
  * [Node memory usage](#memory-usage)
  * [Connections](#connections) and connection leaks
@@ -85,6 +86,42 @@ cookie file is, and most common reasons why CLI tools fail to perform operations
 
 [Access Control guide](/access-control.html) contains sections on [troubleshooting client authentication](/access-control.html#troubleshooting-authn)
 and [troubleshooting authorisation](/access-control.html#troubleshooting-authz).
+
+
+## <a id="crash-dumps" class="anchor" href="#crash-dumps">Runtime Crash Dump Files</a>
+
+When the Erlang runtime system exits abnormally, a file named `erl_crash.dump`
+is written to the directory where RabbitMQ was started from. This file contains
+the state of the runtime at the time of the abnormal exit. The termination
+reason will be available within the first few lines, starting with `Slogan`, e.g.:
+
+<pre class="lang-bash">
+head -n 3 ./erl_crash.dump
+# =&gt; =erl_crash_dump:0.5
+# =&gt; Sun Aug 25 00:57:34 2019
+# =&gt; Slogan: Kernel pid terminated (application_controller) ({application_start_failure,rabbit,{{timeout_waiting_for_tables,[rabbit_user,rabbit_user_permission,rabbit_topic_permission,rabbit_vhost,rabbit_durable_r
+</pre>
+
+In this specific example, the slogan (uncaught exception message) says that a started node
+timed out [syncing schema metadata from its peers](/clustering.html#restarting), likely because they did not come online
+in the configiured window of time.
+
+To better understand the state of the Erlang runtime from a <a href="http://erlang.org/doc/apps/erts/crash_dump.html" target="_blank">crash dump file</a>, it
+helps to visualise it. The Crash Dump Viewer tool, `cdv`, is part of the Erlang installation.
+The `cdv` binary path is dependent on the Erlang version and the location where it was installed.
+
+This is an example of how to invoke it:
+
+<pre class="lang-bash">
+/usr/local/lib/erlang/lib/observer-2.9.1/priv/bin/cdv ./erl_crash.dump
+</pre>
+
+A successful result of the above command will open a new application window similar to this:
+
+![Erlang Crash Dump Viewer](/img/erlang-crash-dump-viewer.png)
+
+For the above to work, the system must have a graphical user interface, and
+Erlang must have been complied with both observer & Wx support.
 
 
 ## <a id="connections" class="anchor" href="#connections">Connections</a>
