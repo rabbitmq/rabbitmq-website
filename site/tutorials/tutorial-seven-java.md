@@ -53,7 +53,7 @@ Let's start with the simplest techniques, that is publishing a message and waiti
 synchronously for its confirmation:
 
 <pre class="lang-java">
-while(thereAreMessagesToPublish()) {
+while (thereAreMessagesToPublish()) {
     byte[] body = ...;
     BasicProperties properties = ...;
     channel.basicPublish(exchange, queue, properties, body);
@@ -96,7 +96,7 @@ The following example uses a batch of 100:
 <pre class="lang-java">
 int batchSize = 100;
 int outstandingMessageCount = 0;
-while(thereAreMessagesToPublish()) {
+while (thereAreMessagesToPublish()) {
     byte[] body = ...;
     BasicProperties properties = ...;
     channel.basicPublish(exchange, queue, properties, body);
@@ -230,7 +230,7 @@ following steps:
 >
 > It can be tempting to re-publish a nack-ed message from the corresponding
 > callback but this should be avoided, as confirm callbacks are
-> dispatched in an I/O thread from within channels are not supposed
+> dispatched in an I/O thread where channels are not supposed
 > to do operations. A better solution consists in enqueuing the message in a in-memory
 > queue which is polled by a publishing thread. A class like `ConcurrentLinkedQueue`
 > would be a good candidate to transmit messages between the confirm callbacks
