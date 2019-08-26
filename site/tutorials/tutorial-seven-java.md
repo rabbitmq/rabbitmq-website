@@ -89,7 +89,7 @@ enough for some applications.
 
 ### Publishing Messages in Batch
 
-To improve on our previous example, we can publish a batch
+To improve upon our previous example, we can publish a batch
 of messages and wait for this whole batch to be confirmed.
 The following example uses a batch of 100:
 
@@ -216,7 +216,15 @@ must be removed.)
 > and a variable to track the lower bound of the publishing sequence, but
 > they are usually more involved and do not belong to a tutorial.
 
+To sum up, handling publisher confirms asynchronously usually requires the
+following steps:
 
+ * provide a way to correlate the publishing sequence number with a message.
+ * register a confirm listener on the channel to be notified when
+ publisher acks/nacks arrive to perform the appropriate actions, like
+ logging or re-publishing a nack-ed message. The sequence-number-to-message
+ correlation mechanism may also require some cleaning during this step.
+ * track the publishing sequence number before publishing a message.
 
 > #### Re-publishing nack-ed Messages?
 >
@@ -230,9 +238,74 @@ must be removed.)
 
 ### Summary
 
+Making sure published messages made it to the broker can be essential in some applications.
+Publisher confirms are a RabbitMQ feature that helps to meet this requirement. Publisher
+confirms are asynchronous in nature but it is also possible to handle them synchronously.
+There is no definitive way to implement publisher confirms, this usually comes down
+to the constraints in the application and in the overall system. Typical technics are:
 
+ * publishing messages individually, waiting for the confirmation synchronously: simple, but very
+ limited throughput.
+ * publishing messages in batch, waiting for the confirmation synchronously for a batch: simple, reasonable
+ throughput, but hard to reason about when something goes wrong.
+ * asynchronous handling: best performance and use of resources, good control in case of error, but
+ can be involved to implement correctly.
 
 Putting it all together
 -----------------------
 
-TODO
+The [`PublisherConfirms.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/PublisherConfirms.java)
+class contains code for the technics we covered. We can compile it, execute it as-is and
+see how they each perform:
+
+<pre class="lang-bash">
+javac -cp $CP PublisherConfirms.java
+java -cp $CP PublisherConfirms
+</pre>
+
+The output will look like the following:
+
+<pre class="lang-bash">
+Published 50,000 messages individually in 5,549 ms
+Published 50,000 messages in batch in 2,331 ms
+Published 50,000 messages and handled confirms asynchronously in 4,054 ms
+</pre>
+
+The output on your computer should look similar if the
+client and the server sit on the same machine. Publishing messages individually
+performs poorly as expected, but the results for asynchronously handling
+are a bit disappointing compared to batch publishing.
+
+Publisher confirms are very network-dependent, so we'd better off
+trying with a remote node, which is more realistic as clients
+and servers are usually not on the same machine in production.
+`PublisherConfirms.java` can easily be changed to use a non-local node:
+
+<pre class="lang-bash">
+static Connection createConnection() throws Exception {
+    ConnectionFactory cf = new ConnectionFactory();
+    cf.setHost("remote-host");
+    cf.setUsername("remote-user");
+    cf.setPassword("remote-password");
+    return cf.newConnection();
+}
+</pre>
+
+Recompile the class, execute it again, and wait for the results:
+
+<pre class="lang-bash">
+Published 50,000 messages individually in 231,541 ms
+Published 50,000 messages in batch in 7,232 ms
+Published 50,000 messages and handled confirms asynchronously in 6,332 ms
+</pre>
+
+We see publishing individually now performs terribly. But
+with the network between the client and the server, batch publishing and asynchronous handling
+now perform similarly, with a small advantage for asynchronous handling of the publisher confirms.
+
+Remember batch publishing is simple to implement, but do not make it easy to know
+which message(s) could not make it to the broker in case of negative publisher acknowledgment.
+Handling publisher confirms asynchronously is more involved to implement but provide
+better granularity and better control over actions to perform when published messages
+are nack-ed.
+
