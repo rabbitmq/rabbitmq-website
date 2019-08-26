@@ -31,7 +31,7 @@ side.
 
 In this tutorial we're going to use publisher confirms to make
 sure published messages have safely reached the broker. We will
-cover several technics, each with their pros and cons.
+cover several techniques, each with their pros and cons.
 
 ### Enabling Publisher Confirms on a Channel
 
@@ -49,7 +49,7 @@ confirms.
 
 ### Publishing Messages Individually
 
-Let's start with the simplest technics, that is publishing a message and waiting
+Let's start with the simplest techniques, that is publishing a message and waiting
 synchronously for its confirmation:
 
 <pre class="lang-java">
@@ -71,7 +71,7 @@ in logging an error message and/or retrying to send the message. Note clients
 have different ways to synchronously deal with publisher confirms, so make
 sure to read carefully the documentation of the client you are using.
 
-This technics is simple but has a major drawback: it is slow, 
+This techniques is simple but has a major drawback: it is slow, 
 as the confirmation of a message blocks the publishing
 of all subsequent messages. Do not expect to scale to more than a few
 hundreds of published messages per second. Nevertheless, this can be
@@ -242,7 +242,7 @@ Making sure published messages made it to the broker can be essential in some ap
 Publisher confirms are a RabbitMQ feature that helps to meet this requirement. Publisher
 confirms are asynchronous in nature but it is also possible to handle them synchronously.
 There is no definitive way to implement publisher confirms, this usually comes down
-to the constraints in the application and in the overall system. Typical technics are:
+to the constraints in the application and in the overall system. Typical techniques are:
 
  * publishing messages individually, waiting for the confirmation synchronously: simple, but very
  limited throughput.
@@ -255,7 +255,7 @@ Putting it all together
 -----------------------
 
 The [`PublisherConfirms.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/PublisherConfirms.java)
-class contains code for the technics we covered. We can compile it, execute it as-is and
+class contains code for the techniques we covered. We can compile it, execute it as-is and
 see how they each perform:
 
 <pre class="lang-bash">
