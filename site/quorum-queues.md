@@ -338,6 +338,12 @@ with no or little affect on availability. (NB: RabbitMQ may restart itself durin
 recovery and perform various actions that make this harder to ensure but in
 principle this should be true).
 
+Quorum queue members will drop messages that they cannot handle. Log entries
+that contain `received unhandled msg` are a manifestation of the Raft guarantee
+to keep data consitent. These log entries are warnings since they hint to a
+degraded system, which is most likely recovering. This is part of the normal
+operation and expected when nodes are restarted.
+
 If a quorum of nodes cannot be recovered (say if 2 out of 3 RabbitMQ nodes are
 permanently lost) the queue is permanently unavailable and
 will need to be force deleted and recreated.
