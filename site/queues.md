@@ -263,7 +263,7 @@ thumb, consider using manual acknowledgement mode first.
 
 Automatic acknowledgement mode can also overwhelm
 consumers which cannot process messages as quickly as they are delivered.
-This can result in permanetly growing memory usage and/or
+This can result in permanently growing memory usage and/or
 OS swapping for the consumer process.
 
 Manual acknowledgement mode provides a way to [set a limit on the number
