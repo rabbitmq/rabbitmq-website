@@ -58,6 +58,10 @@ table#tutorials td {
    min-height: 520px;
 }
 
+table#tutorials .tutorial-empty {
+    border-style: none;
+}
+
 #right-nav table#tutorials td {
   width: auto;
   min-height: auto;

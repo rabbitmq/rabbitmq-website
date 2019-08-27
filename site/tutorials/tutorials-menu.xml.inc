@@ -143,4 +143,17 @@ limitations under the License.
     </ul>
   </td>
   </tr>
+  <tr>
+  <td id="tutorial-seven">
+    <h2><span class="tute-num">7</span> <a href="/tutorials/tutorial-seven-java.html">Publisher Confirms</a></h2>
+    <p>
+      Reliable publishing with publisher confirms
+    </p>
+    <ul>
+      <li><a href="/tutorials/tutorial-seven-java.html">Java</a></li>
+    </ul>
+  </td>
+  <td class="tutorial-empty"></td>
+  <td class="tutorial-empty"></td>
+  </tr>
 </table>
