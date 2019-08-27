@@ -328,26 +328,32 @@ permanently made unavailable.
 Generally quorum queues favours data consistency over availability.
 
 *_No guarantees are provided for messages that have not been confirmed using
-the publisher confirm mechanism_*. They may never reach the queue.
+the publisher confirm mechanism_*. Such messages could be lost "mid-way", in an operating
+system buffer or otherwise fail to reach the queue leader.
 
 
 ### <a id="availability" class="anchor" href="#availability">Availability</a>
 
-Quorum queues should be able to tolerate a minority of queue members becoming unavailable
-with no or little affect on availability. (NB: RabbitMQ may restart itself during
-recovery and perform various actions that make this harder to ensure but in
-principle this should be true).
+A quorum queue should be able to tolerate a minority of queue members becoming unavailable
+with no or little affect on availability.
 
-Quorum queue members will drop messages that they cannot handle. Log entries
-that contain `received unhandled msg` are a manifestation of the Raft guarantee
-to keep data consitent. These log entries are warnings since they hint to a
-degraded system, which is most likely recovering. This is part of the normal
-operation and expected when nodes are restarted.
+Note that depending on the [partition handling strategy](/partitions.html)
+used RabbitMQ may restart itself during recovery and reset the node but as long as that
+does not happen, this availability guarantee should hold true.
+
+For example, a queue with three replicas can tolerate one node failure without losing availability.
+A queue with five replicas can tolerate two, and so on.
 
 If a quorum of nodes cannot be recovered (say if 2 out of 3 RabbitMQ nodes are
 permanently lost) the queue is permanently unavailable and
 will need to be force deleted and recreated.
 
+Quorum queue follower replicas that are disconnected from the leader or participating in a leader
+election will ignore queue operations sent to it until they become aware of a newly elected leader.
+There will be warnings in the log (`received unhandled msg` and similar) about such events.
+As soon as the replica discovers a newly elected leader, it will sync the queue operation
+log entries it does not have from the leader, including the dropped ones. Quorum queue state
+will therefore remain consistent.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
