@@ -197,7 +197,7 @@ and the queue master replica. See [inter-node heartbeat guide](nettick.html) for
 more details.
 
 
-## <a id="consumer-side" class="anchor" href="#publisher-side">Data Safety on the Consumer Side</a>
+## <a id="consumer-side" class="anchor" href="#consumer-side">Data Safety on the Consumer Side</a>
 
 In the event of network failure (or a node failure), messages can be
 [redelivered](/consumers.html#message-properties), and consumers must be prepared to handle
@@ -230,7 +230,7 @@ Such consumer must take action to recover, whether it is consuming from a differ
 the one it was originally consuming from when this is safe and appropriate.
 
 
-## <a id="consumer-side" class="anchor" href="#publisher-side">Federation and Shovel</a>
+## <a id="federation-and-shovel" class="anchor" href="#federation-and-shovel">Federation and Shovel</a>
 
 RabbitMQ provides two plugins to assist with distributing nodes over
 unreliable networks (such as wide-area networks): [Federation](federation.html) and

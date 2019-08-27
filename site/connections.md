@@ -285,7 +285,7 @@ the TCP socket.
 Applications that experience flow control regularly may consider to use separate connections
 to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management).
 
-## <a id="errors" class="anchor" href="#errors">Error Handling and Protocol Exceptions</a>
+## <a id="errors" class="anchor" href="#error-handling">Error Handling and Protocol Exceptions</a>
 
 A connection can fail or be unable to satisfy a client operation. Such scenarios are called errors
 or protocol exceptions. They can indicate a transient condition (e.g. a resource is locked),
