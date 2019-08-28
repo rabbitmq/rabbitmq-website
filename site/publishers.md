@@ -220,7 +220,7 @@ STOMP supports multiple different destinations, including those that assume pre-
 
 ### AMQP 0-9-1
 
-Every delivery combintes message metadata and delivery information. Different client
+Every delivery combines message metadata and delivery information. Different client
 libraries use slightly different ways of providing access to those properties. Typically
 delivery handlers have access to a delivery data structure.
 
