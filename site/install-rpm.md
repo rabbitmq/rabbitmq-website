@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
+This guide covers RabbitMQ installation on RPM-based Linux (RedHat Enterprise Linux, CentOS, Fedora, openSUSE).
 
 RabbitMQ is included in standard Fedora and RHEL repositories. However, the versions included are
 usually outdated and [out of support](/versions.html).
