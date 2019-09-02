@@ -378,6 +378,31 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
+## <a id="rpc-support" class="anchor" href="#rpc-support">Publisher Confirms</a>
+
+[Publisher confirms](/confirms.html#publisher-confirms) are a RabbitMQ extension to implement reliable
+publishing. This feature builds on top of the AMQP protocol, but the JMS client
+provides an API to use it. This allows to benefit from a reliability feature without
+diverging too much from the JMS API.
+
+Publisher confirms are disabled by default. They can be enabled by setting
+a `ConfirmListener` on the `RMQConnectionFactory`:
+
+<pre class="lang-java">
+RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+connectionFactory.setConfirmListener(context -> {
+    context.getMessage(); // the message that is confirmed/nack-ed
+    context.isAck(); // whether the message is confirmed or nack-ed
+});
+</pre>
+
+Note the `ConfirmListener` is not a good place to execute long-running
+tasks. Those should be executed in a dedicated thread, using e.g. an `ExecutorService`.
+
+Typical operations in a `ConfirmListener` are logging or message re-publishing (in case
+of nacks). The [publish confirms tutorial](/tutorials/tutorial-seven-java.html) provides more guidance. It aims for the
+AMQP Java client, but principles remain the same for the JMS client.
+
 ## <a id="rpc-support" class="anchor" href="#rpc-support">Support for Request/Reply (a.k.a. RPC)</a>
 
 It is possible to use JMS for synchronous request/reply use cases.
@@ -520,7 +545,7 @@ Message response = tpl.execute(session -> {
     RMQDestination replyQueue = new RMQDestination(
         "amq.rabbitmq.reply-to", "", "amq.rabbitmq.reply-to", "amq.rabbitmq.reply-to"
     );
-    replyQueue.setDeclared(true); // don't need to create this destination
+    replyQueue.setDeclared(true); // no need to create this destination
     message.setJMSReplyTo(replyQueue);
     MessageConsumer responseConsumer = session.createConsumer(replyQueue);
     BlockingQueue&lt;Message&gt; queue = new ArrayBlockingQueue&lt;&gt;(1);
@@ -530,7 +555,7 @@ Message response = tpl.execute(session -> {
     producer.send(message);
     try {
         // wait response for 5 seconds
-        Message response = queue.poll(2, TimeUnit.SECONDS);
+        Message response = queue.poll(5, TimeUnit.SECONDS);
         // close the response consumer
         responseConsumer.close();
         return response;
