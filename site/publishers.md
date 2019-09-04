@@ -159,7 +159,7 @@ See the [STOMP guide](/stomp.html), [STOMP-over-WebSockets](/web-stomp.html) and
 ### AMQP 0-9-1
 
 Routing in AMQP 0-9-1 is performed by exchanges. Exchanges are named routing tables. Table entries
-are called bindings. This is covered in more detail in the [AMQP 0-9-1 concepts guide](/amqp-concepts.html).
+are called bindings. This is covered in more detail in the [AMQP 0-9-1 concepts guide](/tutorials/amqp-concepts.html).
 
 There are several built-in exchange types:
 
