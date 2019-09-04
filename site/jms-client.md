@@ -579,7 +579,7 @@ acknowledgement behaviours.
 
 ## <a id="jms_topic_support"></a>JMS Topic Support
 
-JMS topics are implemented using an AMQP [topic exchange](tutorials/amqp-concepts.html#exchange-topic)
+JMS topics are implemented using an AMQP [topic exchange](/tutorials/amqp-concepts.html#exchange-topic)
 and a dedicated AMQP queue for each JMS topic subscriber. The AMQP
 topic exchange is `jms.temp.topic` or `jms.durable.topic`, depending
 on whether the JMS topic is temporary or not, respectively. Let's
@@ -766,6 +766,6 @@ normal case, when the message is an instance of
 
 To gain better understanding of AMQP 0-9-1 concepts and interoperability of
 the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
-[Introduction to RabbitMQ Concepts](tutorials/amqp-concepts.html)
+[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts.html)
 and browse our
 [AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
