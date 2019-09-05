@@ -378,7 +378,7 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
-## <a id="rpc-support" class="anchor" href="#rpc-support">Publisher Confirms</a>
+## <a id="publisher-confirms" class="anchor" href="#publisher-confirms">Publisher Confirms</a>
 
 [Publisher confirms](/confirms.html#publisher-confirms) are a RabbitMQ extension to implement reliable
 publishing. This feature builds on top of the AMQP protocol, but the JMS client

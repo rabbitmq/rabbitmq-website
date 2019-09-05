@@ -42,8 +42,9 @@ instead of those used by the RabbitMQ team.
 ### <a id="importing-gpg" class="anchor" href="#importing-gpg">With GPG</a>
 
 Before signatures can be verified, RabbitMQ [signing key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc)
-must be downloaded. The key can be obtained directly or using the [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php).
-The direct download method is recommended because SKS servers are prone to overload.
+must be downloaded. The key can be obtained directly or using [keys.openpgp.org](https://keys.openpgp.org/)
+or the [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php).
+The direct download method is recommended because most key servers are prone to overload, abuse and attacks.
 
 #### Direct Download
 
@@ -58,14 +59,18 @@ gpg --import rabbitmq-release-signing-key.asc
 
 #### Using a Key Server
 
-The key can also be imported using an [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php):
+The key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
+
+<pre class="lang-bash">
+gpg --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+</pre>
+
+In case the above key servers are overloaded, [under attack](https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f) or
+[unavailable](https://medium.com/@mdrahony/are-sks-keyservers-safe-do-we-need-them-7056b495101c) for [any other reason](https://en.wikipedia.org/wiki/Key_server_(cryptographic)#Problems_with_keyservers), an alternative server can be used:
 
 <pre class="lang-bash">
 gpg --keyserver "sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
-
-In case SKS key servers are overloaded, [under attack](https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f) or
-unavailable for any other reason, an alternative server can be used:
 
 <pre class="lang-bash">
 gpg --keyserver "keyserver.ubuntu.com" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
@@ -96,8 +101,16 @@ curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 
 #### Using a Key Server
 
+The key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
+
 <pre class="lang-bash">
-apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
+apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+</pre>
+
+or the SKS key server pool:
+
+<pre class="lang-bash">
+apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 </pre>
 
 ### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
