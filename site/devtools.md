@@ -45,11 +45,20 @@ would like to see added to this list.
 
 ## <a id="dotnet-dev" class="anchor" href="#dotnet-dev">.NET</a>
 
+Client libraries:
+
  * [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.5.1+)
+ * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
+
+Higher level frameworks:
+
  * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [NServiceBus](http://particular.net/nservicebus), the most popular open-source service bus for .NET.
- * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
+ * [Brighter](https://www.goparamore.io/), a Command Processor & Dispatcher implementation with support for task queues
  * [Restbus](http://restbus.org), a service-oriented framework for .NET
+
+Miscellaneous projects:
+
  * [RabbitMQTools](https://github.com/mariuszwojcik/RabbitMQTools), PowerShell module containing cmdlets to manage RabbitMQ
 
 
