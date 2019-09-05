@@ -51,6 +51,7 @@ would like to see added to this list.
  * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
  * [Restbus](http://restbus.org), a service-oriented framework for .NET
  * [RabbitMQTools](https://github.com/mariuszwojcik/RabbitMQTools), PowerShell module containing cmdlets to manage RabbitMQ
+ * [Brighter](https://www.goparamore.io/) This project is a Command Processor & Dispatcher implementation with support for task queues that can be used as a lightweight library.
 
 
 ## <a id="ruby-dev" class="anchor" href="#ruby-dev">Ruby</a>
