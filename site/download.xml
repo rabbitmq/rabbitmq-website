@@ -54,8 +54,7 @@ limitations under the License.
             <li>
               MacOS:
                 <a href="install-homebrew.html">Homebrew</a> |
-                <a href="install-generic-unix.html">Generic binary build</a> |
-                <a href="install-standalone-mac.html">Standalone</a>
+                <a href="install-generic-unix.html">Generic binary build</a>
             </li>
             <li>
               <a href="/which-erlang.html">Erlang/OTP for RabbitMQ</a>
@@ -83,9 +82,6 @@ limitations under the License.
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">Generic UNIX binary</a>
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-mac-standalone-&version-server;.tar.xz">Standalone MacOS binary</a>
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">Windows binary</a>
