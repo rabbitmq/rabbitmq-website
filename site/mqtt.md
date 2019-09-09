@@ -556,6 +556,30 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
+### <a id="sparkplug-support" class="anchor" href="#sparkplug-support">Sparkplug Support</a>
+
+[Sparkplug](https://www.cirrus-link.com/mqtt-sparkplug-tahu/) is a specification
+that provides guidance for the design of a MQTT system. In Sparkplug,
+MQTT topics must start with `spAvM.N` or `spBvM.N`, where `M` and `N` are integers.
+This unfortunately conflicts with the way the RabbitMQ MQTT plugin [translates MQTT
+topics into AMQP routing keys](#implementation).
+
+To solve this, the `sparkplug` configuration entry can be set to `true`:
+
+<pre class="lang-ini">
+mqtt.sparkplug = true
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="lang-erlang">
+[
+  {rabbitmq_mqtt, [{sparkplug, true}]}
+].
+</pre>
+
+When the Sparkplug support is enabled, the MQTT plugin will not translate the
+`spAvM.N`/`spBvM.N` part of the names of topics.
 
 ## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
 
