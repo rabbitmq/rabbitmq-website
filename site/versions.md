@@ -28,7 +28,7 @@ limitations under the License.
 
   <tr>
     <td>3.8</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-beta.7" target="_blank">3.8.0-beta.7</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-rc.1" target="_blank">3.8.0-rc.1</a></td>
     <td>2019</td>
     <td>TBD</td>
     <td></td>
