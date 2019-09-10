@@ -62,11 +62,20 @@ peer discovery plugins ship with RabbitMQ as of 3.7.0:
  * [Consul](#peer-discovery-consul)
  * [etcd](#peer-discovery-etcd)
 
-The above plugins do not need to be installed but like all [plugins](/plugins.html) they do need
-to be enabled before node start using [rabbitmq-plugins](/cli.html)' `--offline` mode:
+The above plugins do not need to be installed but like all [plugins](/plugins.html) they must be [enabled](/plugins.html#basics)
+or [preconfigured](/plugins.html#enabled-plugins-file) before they can be used.
 
-<pre class="lang-ini">
-rabbitmq-plugins --offline enable [plugin name]
+For peer discovery plugins, which must be available on node boot, this means they must be enabled before first node boot.
+The example below uses [rabbitmq-plugins](/cli.html)' `--offline` mode:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable &lt;plugin name&gt;
+</pre>
+
+A more specific example:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 </pre>
 
 A node with configuration settings that belong a non-enabled peer discovery plugin will fail
@@ -204,10 +213,18 @@ names are the same as used by `rabbitmq-autocluster`.
 
 ## <a id="peer-discovery-classic-config" class="anchor" href="#peer-discovery-classic-config">Config File Peer Discovery Backend</a>
 
-The most basic way for a node to discover its cluster peers is to read a list
-of nodes from the config file.
+### Config File Peer Discovery Overview
 
-This is done using the `cluster_formation.classic_config.nodes` config setting.
+The most basic way for a node to discover its cluster peers is to read a list
+of nodes from the config file. The set of cluster members is assumed to be known at deployment
+time.
+
+[Race condition during initial cluster formation](#initial-formation-race-condition) is addressed
+by using a randomized startup delay.
+
+### Configuration
+
+The peer nodes are listed using the `cluster_formation.classic_config.nodes` config setting:
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
@@ -233,6 +250,8 @@ nodes should be `disc` nodes.
 
 ## <a id="peer-discovery-dns" class="anchor" href="#peer-discovery-dns">DNS Peer Discovery Backend</a>
 
+### DNS Peer Discovery Overview
+
 Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
 It relies on a pre-configured hostname ("seed hostname") with DNS A (or AAAA) records and reverse DNS lookups
 to perform peer discovery. More specifically, this mechanism will perform the following steps:
@@ -253,6 +272,8 @@ set and defaults to `rabbit@$(hostname)`.
 The final list of nodes discovered will contain two nodes: `rabbit@node1.eng.example.local`
 and `rabbit@node2.eng.example.local`.
 
+### Configuration
+
 The seed hostname is set using the `cluster_formation.dns.hostname` config setting:
 
 <pre class="lang-ini">
@@ -264,8 +285,20 @@ cluster_formation.dns.hostname = discovery.eng.example.local
 
 ## <a id="peer-discovery-aws" class="anchor" href="#peer-discovery-aws">Peer Discovery on AWS (EC2)</a>
 
+### AWS Peer Discovery Overview
+
 An [AWS (EC2)-specific](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) discovery mechanism
-is available via a plugin. It provides two ways for a node to discover its peers:
+is available via a plugin.
+
+As with any [plugin](/plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
+or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable rabbitmq_peer_discovery_aws
+</pre>
+
+The plugin provides two ways for a node to discover its peers:
 
  * Using EC2 instance tags
  * Using AWS autoscaling group membership
@@ -292,6 +325,7 @@ The following example snippet configures RabbitMQ to use the AWS peer discovery
 backend and provides information about AWS region as well as a set of credentials:
 
 <pre class="lang-ini">
+# note: this value is slightly different from plugin name
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
@@ -385,22 +419,41 @@ cluster_formation.aws.use_private_ip = true
 
 ## <a id="peer-discovery-k8s" class="anchor" href="#peer-discovery-k8s">Peer Discovery on Kubernetes</a>
 
+### Kubernetes Peer Discovery Overview
+
 A [Kubernetes](https://kubernetes.io/)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s).
+
+As with any [plugin](/plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
+or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
+</pre>
+
+### Prerequisites
 
 With this mechanism, nodes fetch a list of their peers from
 the Kubernetes API endpoint using a set of configured values:
 a URI scheme, host, port, as as well as the token and
 certificate paths.
 
-It is highly recommended that RabbitMQ clusters are deployed using a [stateful set](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset). If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
+A RabbitMQ cluster deployed to Kubernetes will use a set of pods. The set must be a [stateful set](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset).
+A [headless service](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations) must be used to
+control network identity of the pods, which affects RabbitMQ node names.
+
+If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-[eager synchronisation](ha.html) of newly joining nodes. Stateless sets are also
-prone to the [natural race condition](#initial-formation-race-condition) during initial
+[eager synchronisation](ha.html) of newly joining nodes.
+
+Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
 
+### Configuration
+
 To use Kubernetes for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `rabbit_peer_discovery_k8s`:
+to `rabbit_peer_discovery_k8s` (note: this value is slightly different from plugin name):
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
@@ -528,9 +581,20 @@ cluster_formation.k8s.host = kubernetes.default.example.local
 
 ## <a id="peer-discovery-consul" class="anchor" href="#peer-discovery-consul">Peer Discovery Using Consul</a>
 
+### Consul Peer Discovery Overview
+
 A [Consul](https://www.consul.io)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-consul).
-Consul 0.8.0 and later versions are supported.
+
+As with any [plugin](/plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
+or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable rabbitmq_peer_discovery_consul
+</pre>
+
+The plugiin supports Consul 0.8.0 and later versions.
 
 Nodes register with Consul on boot and unregister when they
 leave. Prior to registration, nodes will attempt to acquire a
@@ -539,8 +603,10 @@ during initial cluster formation](#initial-formation-race-condition).
 When a node registers with Consul, it will set up a periodic [health
 check](https://www.consul.io/docs/agent/checks.html) for itself (more on this below).
 
+### Configuration
+
 To use Consul for peer discovery, set the `cluster_formation.peer_discovery_backend` to
-to `rabbit_peer_discovery_consul`:
+to `rabbit_peer_discovery_consul` (note: this value is slightly different from plugin name):
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
@@ -781,8 +847,20 @@ cluster_formation.consul.lock_prefix = environments-qa
 
 ## <a id="peer-discovery-etcd" class="anchor" href="#peer-discovery-etcd">Peer Discovery Using Etcd</a>
 
+### Etcd Peer Discovery Overview
+
 An [etcd](https://coreos.com/etcd)-based discovery mechanism
-is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd). etcd v3 and v2 are supported.
+is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd).
+
+As with any [plugin](/plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
+or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+
+<pre class="lang-bash">
+rabbitmq-plugins --offline enable rabbitmq_peer_discovery_etcd
+</pre>
+
+etcd v3 and v2 are supported.
 
 Nodes register with etcd on boot by creating a key in a conventionally named directory. The keys have
 a short (say, a minute) expiration period. The keys are deleted when nodes stop cleanly.
@@ -796,8 +874,11 @@ period of time (node TTL) are cleaned up from etcd.  If
 configured, such nodes can be forcefully removed from the
 cluster.
 
+### Configuration
+
 To use etcd for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `rabbit_peer_discovery_etcd` and provide an etcd node hostname for the plugin
+to `rabbit_peer_discovery_etcd` (note: this value is slightly different from plugin name).
+The plugin requires a configured etcd node hostname for the plugin
 to connect to:
 
 <pre class="lang-ini">
