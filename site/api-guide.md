@@ -36,6 +36,7 @@ Key sections of the guide are:
  * [Metrics and Monitoring](#metrics)
  * The [Request/Response Pattern](#rpc) ("RPC")
  * [TLS support](#tls)
+ * [OAuth 2 support](#oauth2-support)
 
 5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
@@ -1386,3 +1387,96 @@ To learn more about TLS support in RabbitMQ, see
 the [TLS guide](ssl.html). If you only want to configure
 the Java client (especially the peer verification and trust manager parts),
 read [the appropriate section](ssl.html#java-client) of the TLS guide.
+
+## <a id="oauth2-support" class="anchor" href="#oauth2-support">OAuth 2 Support</a>
+
+The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
+The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
+must be enabled on the server side and configured to use the same
+OAuth 2 server as the client.
+
+### <a id="oauth2-getting-token" class="anchor" href="#oauth2-getting-token">Getting the OAuth 2 Token</a>
+
+The Java client provides the `OAuth2ClientCredentialsGrantCredentialsProvider`
+class to get a JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
+The client will send the JWT token in the password field for each new AMQP connection.
+The broker will then check the JWT token signature, validity, and permissions
+before authorising the connection and granting access to the requested
+virtual host.
+
+Prefer the use of `OAuth2ClientCredentialsGrantCredentialsProviderBuilder`
+to create a `OAuth2ClientCredentialsGrantCredentialsProvider` instance and
+then set it up on the `ConnectionFactory`. The
+following snippet shows how to configure and create an instance of the OAuth 2 credentials provider
+for the [example setup of the OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#examples):
+
+
+<pre class="lang-java">
+import com.rabbitmq.client.impl.OAuth2ClientCredentialsGrantCredentialsProvider.
+        OAuth2ClientCredentialsGrantCredentialsProviderBuilder;
+...
+CredentialsProvider credentialsProvider =
+  new OAuth2ClientCredentialsGrantCredentialsProviderBuilder()
+    .tokenEndpointUri("http://localhost:8080/uaa/oauth/token/")
+    .clientId("rabbit_client").clientSecret("rabbit_secret")
+    .grantType("password")
+    .parameter("username", "rabbit_super")
+    .parameter("password", "rabbit_super")
+    .build();
+
+connectionFactory.setCredentialsProvider(credentialsProvider);
+</pre>
+
+In production, make sure to use HTTPS for the token endpoint URI and configure
+the `SSLContext` if necessary for the HTTPS requests (to verify and trust 
+the identity of the OAuth 2 server). The following snippet does
+so by using the `tls().sslContext()` method from
+`OAuth2ClientCredentialsGrantCredentialsProviderBuilder`:
+
+<pre class="lang-java">
+SSLContext sslContext = ... // create and initialise SSLContext
+
+CredentialsProvider credentialsProvider =
+  new OAuth2ClientCredentialsGrantCredentialsProviderBuilder()
+    .tokenEndpointUri("http://localhost:8080/uaa/oauth/token/")
+    .clientId("rabbit_client").clientSecret("rabbit_secret")
+    .grantType("password")
+    .parameter("username", "rabbit_super")
+    .parameter("password", "rabbit_super")
+    .tls()                    // configure TLS
+      .sslContext(sslContext) // set SSLContext
+      .builder()              // back to main configuration
+    .build();
+</pre>
+
+Please consult the [Javadoc](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/impl/OAuth2ClientCredentialsGrantCredentialsProvider.html)
+to see all the available options.
+
+### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
+
+Tokens expire and the broker will kick out connections whose tokens
+are no longer valid. To avoid this, it is possible to call
+`CredentialsProvider#refresh()` before expiration and send the new
+token to the server. This is cumbersome
+from an application point of view, so the Java client provides
+help with the `DefaultCredentialsRefreshService`. This utility
+tracks used tokens, refreshes them before they expire, and send
+the new tokens for the connections it is responsible for.
+
+The following snippet shows how to create a `DefaultCredentialsRefreshService`
+instance and set it up on the `ConnectionFactory`:
+
+<pre class="lang-java">
+import com.rabbitmq.client.impl.DefaultCredentialsRefreshService.
+        DefaultCredentialsRefreshServiceBuilder;
+...
+CredentialsRefreshService refreshService =
+  new DefaultCredentialsRefreshServiceBuilder().build();
+cf.setCredentialsRefreshService(refreshService);
+</pre>
+
+The `DefaultCredentialsRefreshService` schedules a refresh after 80 %
+of the token validity, e.g. if the token expires in 60 minutes,
+it will be refreshed after 48 minutes. This is the default behaviour,
+please consult the [Javadoc](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/impl/DefaultCredentialsRefreshService.html)
+for more information.
