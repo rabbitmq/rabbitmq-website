@@ -47,11 +47,19 @@ Plugins are activated when a node is started or at runtime when a [CLI tool](cli
 is used. For a plugin to be activated at boot, it must be enabled. To enable a plugin, use
 the [rabbitmq-plugins](cli.html):
 
-<pre class="lang-bash">rabbitmq-plugins enable <i>plugin-name</i></pre>
+<pre class="lang-bash">rabbitmq-plugins enable &lt;plugin-name&gt;</pre>
+
+For example, to enable the Kubernetes [peer discovery](/cluster-formation.html) plugin:
+
+<pre class="lang-bash">rabbitmq-plugins enable rabbitmq_peer_discovery_k8s</pre>
 
 And to disable a plugin, use:
 
-<pre class="lang-bash">rabbitmq-plugins disable <i>plugin-name</i></pre>
+<pre class="lang-bash">rabbitmq-plugins disable &lt;plugin-name&gt;</pre>
+
+For example, to disable the [`rabbitmq-top`](/memory-use.html#breakdown-top) plugin:
+
+<pre class="lang-bash">rabbitmq-plugins disable rabbitmq_top</pre>
 
 A list of plugins available locally (in the node's [plugins directory](/relocate.html)) as well
 as their status (enabled or disabled) can be obtained using `rabbitmq-plugins list`:
