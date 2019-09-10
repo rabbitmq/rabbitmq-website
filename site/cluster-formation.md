@@ -913,12 +913,10 @@ an unavailable node in the RabbitMQ cluster. With some peer discovery backends
 such unknown nodes can be logged or forcefully removed from the cluster.
 They are
 
-<ul class="plain">
-  <li>[AWS (EC2)](#peer-discovery-aws)</li>
-  <li>[Kubernetes](#peer-discovery-k8s)</li>
-  <li>[Consul](#peer-discovery-consul)</li>
-  <li>[etcd](#peer-discovery-etcd)</li>
-</ul>
+ * [AWS (EC2)](#peer-discovery-aws)
+ * [Kubernetes](#peer-discovery-k8s)
+ * [Consul](#peer-discovery-consul)
+ * [etcd](#peer-discovery-etcd)
 
 Forced node removal can be dangerous and should be carefully considered. For example,
 a node that's temporarily unavailable but will be rejoining (or recreated with its
