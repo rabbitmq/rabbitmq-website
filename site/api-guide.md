@@ -1454,8 +1454,8 @@ to see all the available options.
 
 ### <a id="oauth2-refreshing-token" class="anchor" href="#oauth2-refreshing-token">Refreshing the Token</a>
 
-Tokens expire and the broker will kick out connections whose tokens
-are no longer valid. To avoid this, it is possible to call
+Tokens expire and the broker will refuse operations on connections with
+expired tokens. To avoid this, it is possible to call
 `CredentialsProvider#refresh()` before expiration and send the new
 token to the server. This is cumbersome
 from an application point of view, so the Java client provides
@@ -1475,8 +1475,8 @@ CredentialsRefreshService refreshService =
 cf.setCredentialsRefreshService(refreshService);
 </pre>
 
-The `DefaultCredentialsRefreshService` schedules a refresh after 80 %
-of the token validity, e.g. if the token expires in 60 minutes,
+The `DefaultCredentialsRefreshService` schedules a refresh after 80%
+of the token validity time, e.g. if the token expires in 60 minutes,
 it will be refreshed after 48 minutes. This is the default behaviour,
 please consult the [Javadoc](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/impl/DefaultCredentialsRefreshService.html)
 for more information.
