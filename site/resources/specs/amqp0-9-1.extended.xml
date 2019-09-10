@@ -914,6 +914,37 @@
       <chassis name = "server" implement = "MUST"/>
       <chassis name = "client" implement = "MUST"/>
     </method>
+
+    <method name = "update-secret" synchronous = "1" index = "70" label = "update secret">
+      <doc>
+        This method updates the secret used to authenticate this connection. It is used
+        when secrets have an expiration date and need to be renewed, like OAuth 2 tokens.
+      </doc>
+
+      <chassis name = "client" implement = "MUST" />
+      <response name = "update-secret-ok" />
+
+      <field name = "new-secret" domain = "longstr" label = "new secret">
+        <doc>
+          The new secret.
+        </doc>
+      </field>
+
+      <field name = "reason" domain = "shortstr" label = "reason">
+        <doc>
+          The reason for the secret update.
+        </doc>
+      </field>
+    </method>
+
+    <method name = "update-secret-ok" synchronous = "1" index = "71" label = "update secret response">
+      <doc>
+        This method confirms the updated secret is valid.
+      </doc>
+
+      <chassis name = "server" implement = "MUST" />
+    </method>
+
   </class>
 
   <!-- ==  CHANNEL  ========================================================== -->
