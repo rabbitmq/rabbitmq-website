@@ -1399,8 +1399,8 @@ OAuth 2 server as the client.
 
 The Java client provides the `OAuth2ClientCredentialsGrantCredentialsProvider`
 class to get a JWT token using the [OAuth 2 Client Credentials flow](https://tools.ietf.org/html/rfc6749#section-4.4).
-The client will send the JWT token in the password field for each new AMQP connection.
-The broker will then check the JWT token signature, validity, and permissions
+The client will send the JWT token in the password field when opening a connection.
+The broker will then verify the JWT token signature, validity, and permissions
 before authorising the connection and granting access to the requested
 virtual host.
 
@@ -1428,7 +1428,7 @@ connectionFactory.setCredentialsProvider(credentialsProvider);
 </pre>
 
 In production, make sure to use HTTPS for the token endpoint URI and configure
-the `SSLContext` if necessary for the HTTPS requests (to verify and trust 
+the `SSLContext` if necessary for the HTTPS requests (to verify and trust
 the identity of the OAuth 2 server). The following snippet does
 so by using the `tls().sslContext()` method from
 `OAuth2ClientCredentialsGrantCredentialsProviderBuilder`:
