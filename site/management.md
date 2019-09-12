@@ -299,10 +299,10 @@ set of configuration keys and available starting with RabbitMQ 3.7.9.
 
 ### <a id="single-listener-port" class="anchor" href="#single-listener-port">Port</a>
 
-The port is configured using the `management.listener.port` key:
+The port is configured using the `management.tcp.port` key:
 
 <pre class="lang-ini">
-management.listener.port = 15672
+management.tcp.port = 15672
 </pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
@@ -434,11 +434,6 @@ Response compression is enabled by default. To enable it explicitly, use `manage
 <pre class="lang-ini">
 # For RabbitMQ 3.7.9 and later versions
 management.tcp.compress = true
-</pre>
-
-<pre class="lang-ini">
-# For versions older than 3.7.9
-management.listener.server.compress = true
 </pre>
 
 Using the classic config format:
@@ -808,13 +803,14 @@ collect_statistics_interval = 10000
 
 # management.load_definitions = /path/to/exported/definitions.json
 
-management.listener.port = 15672
-management.listener.ip   = 0.0.0.0
-management.listener.ssl  = true
+management.tcp.port = 15672
+management.tcp.ip   = 0.0.0.0
 
-management.listener.ssl_opts.cacertfile = /path/to/ca_certificate.pem
-management.listener.ssl_opts.certfile   = /path/to/server_certificate.pem
-management.listener.ssl_opts.keyfile    = /path/to/server_key.pem
+management.ssl.port       = 15671
+management.ssl.ip         = 0.0.0.0
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
 
 management.http_log_dir = /path/to/rabbit/logs/http
 
