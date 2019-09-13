@@ -299,10 +299,10 @@ set of configuration keys and available starting with RabbitMQ 3.7.9.
 
 ### <a id="single-listener-port" class="anchor" href="#single-listener-port">Port</a>
 
-The port is configured using the `management.listener.port` key:
+The port is configured using the `management.tcp.port` key:
 
 <pre class="lang-ini">
-management.listener.port = 15672
+management.tcp.port = 15672
 </pre>
 
 Or, using the [classic config format](/configure.html#erlang-term-config-file):
@@ -436,11 +436,6 @@ Response compression is enabled by default. To enable it explicitly, use `manage
 management.tcp.compress = true
 </pre>
 
-<pre class="lang-ini">
-# For versions older than 3.7.9
-management.listener.server.compress = true
-</pre>
-
 Using the classic config format:
 
 <pre class="lang-erlang">
@@ -462,26 +457,33 @@ In those cases the amount of time it takes to process the request can exceed cer
 timeouts in the Web server as well as HTTP client.
 
 It is possible to bump Cowboy timeouts using the `management.tcp.idle_timeout`,
-`management.tcp.inactivity_timeout`, `management.tcp.request_timeout` options:
+`management.tcp.inactivity_timeout`, `management.tcp.request_timeout` options.
+
+ * `management.tcp.inactivity_timeout` controls HTTP(S) client's TCP connection inactivity timeout.
+   When it is reached, the connection will be closed by the HTTP server
+ * `management.tcp.request_timeout` controls the window of time in which the client has to send an HTTP
+    request
+ * `management.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
+   within the context of an HTTP request
+
+Here are some example configuration snippets that modify the timeouts:
 
 <pre class="lang-ini">
 # For RabbitMQ 3.7.9 and later versions.
 #
-# Configures HTTP (non-encrypted) listener,
-# sets all types of timeouts to 120 seconds
+# Configures HTTP (non-encrypted) listener timeouts
 management.tcp.idle_timeout       = 120000
 management.tcp.inactivity_timeout = 120000
-management.tcp.request_timeout    = 120000
+management.tcp.request_timeout    = 10000
 </pre>
 
 <pre class="lang-ini">
 # For RabbitMQ 3.7.9 and later versions.
 #
-# Configures HTTPS (TLS-enabled) listener,
-# sets all types of timeouts to 120 seconds
+# Configures HTTPS (TLS-enabled) listener timeouts
 management.ssl.idle_timeout       = 120000
 management.ssl.inactivity_timeout = 120000
-management.ssl.request_timeout    = 120000
+management.ssl.request_timeout    = 10000
 </pre>
 
 In the classic config format:
@@ -489,13 +491,12 @@ In the classic config format:
 <pre class="lang-erlang">
 %% For RabbitMQ 3.7.9 and later versions.
 %%
-%% Configures HTTP (non-encrypted) listener,
-%% sets all types of timeouts to 120 seconds
+%% Configures HTTP (non-encrypted) listener timeouts
 [{rabbitmq_management,
   [{tcp_config, [{port,        15672},
                  {cowboy_opts, [{idle_timeout,      120000},
                                 {inactivity_timeout,120000},
-                                {request_timeout,   120000}]}
+                                {request_timeout,   10000}]}
                 ]}
   ]}
 ].
@@ -510,14 +511,25 @@ In the classic config format:
   [{ssl_config, [{port,        15672},
                  {cowboy_opts, [{idle_timeout,      120000},
                                 {inactivity_timeout,120000},
-                                {request_timeout,   120000}]}
+                                {request_timeout,   10000}]}
                 ]}
   ]}
 ].
 </pre>
 
-All values are in milliseconds and default to `60000` (1 minute). It is recommended that
-if timeouts need to be changed, all of them are increased at the same time.
+All values are in milliseconds. Their defaults vary:
+
+ * `management.tcp.inactivity_timeout` has the default of 300 seconds
+ * `management.tcp.request_timeout` has the default of 60 seconds
+ * `management.tcp.idle_timeout` has the default of 5 seconds
+
+It is recommended that if the inactivity or idle timeout need changing,
+`management.tcp.inactivity_timeout` value should match or be greater than that
+of `management.tcp.idle_timeout`.
+
+`management.tcp.request_timeout` typically does not need increasing as clients send a request
+shortly after establishing a TCP connection.
+
 
 ### <a id="http-logging" class="anchor" href="#http-logging">HTTP Request Logging</a>
 
@@ -791,13 +803,14 @@ collect_statistics_interval = 10000
 
 # management.load_definitions = /path/to/exported/definitions.json
 
-management.listener.port = 15672
-management.listener.ip   = 0.0.0.0
-management.listener.ssl  = true
+management.tcp.port = 15672
+management.tcp.ip   = 0.0.0.0
 
-management.listener.ssl_opts.cacertfile = /path/to/ca_certificate.pem
-management.listener.ssl_opts.certfile   = /path/to/server_certificate.pem
-management.listener.ssl_opts.keyfile    = /path/to/server_key.pem
+management.ssl.port       = 15671
+management.ssl.ip         = 0.0.0.0
+management.ssl.cacertfile = /path/to/ca_certificate.pem
+management.ssl.certfile   = /path/to/server_certificate.pem
+management.ssl.keyfile    = /path/to/server_key.pem
 
 management.http_log_dir = /path/to/rabbit/logs/http
 
