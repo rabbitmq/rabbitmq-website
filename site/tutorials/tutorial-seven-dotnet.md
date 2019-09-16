@@ -165,8 +165,8 @@ channel.BasicPublish(exchange, queue, properties, body);
 </pre>
 
 A simple way to correlate messages with sequence number consists
-in using a dictionary. Let's assume we want to publish strings (easy
-to turn into an array of bytes for publishing), here is a code
+in using a dictionary. Let's assume we want to publish strings because they are easy
+to turn into an array of bytes for publishing. Here is a code
 sample that uses a dictionary to correlate the publishing sequence number
 with the string body of the message:
 
