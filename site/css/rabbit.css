@@ -19,8 +19,8 @@ limitations under the License.
 /* a9b5af - 150 7 71 */
 /* old visited color: #c40; */
 html {
-  overflow-x:auto;
-  overflow-y:scroll;
+  overflow-x: auto;
+  overflow-y: scroll;
 }
 
 body, table {
@@ -50,7 +50,7 @@ div#outerContainer {
 }
 
 div#innerContainer {
-  overflow: hidden;
+  overflow: visible;
   clear: both;
   padding: 40px 20px 60px;
 }
