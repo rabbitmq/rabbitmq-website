@@ -1448,9 +1448,9 @@ More variables are covered in the [File and Directory Locations guide](/relocate
 
 <table class="name-default-description">
   <tr>
-    <th class="name">Name</th>
-    <th class="default">Default</th>
-    <th class="description">Description</th>
+    <th>Name</th>
+    <th>Default</th>
+    <th>Description</th>
   </tr>
 
   <tr>
