@@ -183,18 +183,22 @@ to clean this dictionary when confirms arrive and do something like logging a wa
 when messages are nack-ed:
 
 <pre class="lang-csharp">
-var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string>();
+var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string&gt;();
 
 void cleanOutstandingConfirms(ulong sequenceNumber, bool multiple)
 {
     if (multiple)
     {
-        var confirmed = outstandingConfirms.Where(k => k.Key <= sequenceNumber);
+        var confirmed = outstandingConfirms.Where(k =&gt; k.Key &lt;= sequenceNumber);
         foreach (var entry in confirmed)
+        {
             outstandingConfirms.TryRemove(entry.Key, out _);
+        }
     }
     else
+    {
         outstandingConfirms.TryRemove(sequenceNumber, out _);
+    }
 }
 
 channel.BasicAcks += (sender, ea) => cleanOutstandingConfirms(ea.DeliveryTag, ea.Multiple);
