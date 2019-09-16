@@ -158,11 +158,10 @@ int sequenceNumber = channel.getNextPublishSeqNo());
 ch.basicPublish(exchange, queue, properties, body);
 </pre>
 
-A simple way to correlate messages with sequence number consists
-in using a map. Let's assume we want to publish strings (easy
-to turn into an array of bytes for publishing), here is a code
-sample that uses a map to correlate the publishing sequence number
-with the string body of the message:
+A simple way to correlate messages with sequence number consists in using a
+map. Let's assume we want to publish strings because they are easy to turn into
+an array of bytes for publishing. Here is a code sample that uses a map to
+correlate the publishing sequence number with the string body of the message:
 
 <pre class="lang-java">
 ConcurrentNavigableMap&lt;Long, String> outstandingConfirms = new ConcurrentSkipListMap&lt;>();
