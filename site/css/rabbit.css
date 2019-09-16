@@ -43,6 +43,58 @@ table {
   border-collapse: collapse;
 }
 
+table.name-description {
+  table-layout: fixed;
+  width: 100%;
+  overflow: visible;
+}
+
+table.name-description th {
+  word-wrap: break-word;
+}
+
+table.name-description th:nth-child(1) {
+  width: 30%;
+  font-size: 0.7em;
+}
+
+table.name-description th:nth-child(2) {
+  width: 70%;
+}
+
+table.name-description td {
+  font-size: 0.8em;
+  word-wrap: break-word;
+}
+
+
+table.name-default-description {
+  table-layout: fixed;
+  width: 100%;
+  overflow: visible;
+}
+
+table.name-default-description tr td {
+  word-wrap: break-word;
+}
+
+table.name-default-description tr th:nth-child(1) {
+  width: 25%;
+}
+
+table.name-default-description tr th:nth-child(2) {
+  width: 40%;
+}
+
+table.name-default-description tr th:nth-child(3) {
+  width: 35%;
+}
+
+table.name-default-description tr td {
+  font-size: 0.8em;
+}
+
+
 div#outerContainer {
   text-align: left;
   clear: both;
@@ -50,15 +102,15 @@ div#outerContainer {
 }
 
 div#innerContainer {
-  overflow: hidden;
+  overflow: visible;
   clear: both;
-  padding: 40px 20px 60px;
+  padding: 40px 5px 60px;
 }
 
 .container {
   clear: both;
   margin: 0 auto;
-  max-width: 990px;
+  max-width: 1090px;
   padding: 0 20px;
 }
 
@@ -807,7 +859,9 @@ ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0e
 
 /* right hand navigation */
 
-div#left-content { float: left; max-width: 730px; }
+div#left-content {
+  float: left; max-width: 930px;
+}
 
 div#right-nav { float: right; max-width: 230px; margin-top: 20px; }
 div#right-nav div { margin: 0 0 20px 5px; padding: 20px; background: #f9fafb; border-radius: 3px; -moz-border-radius: 3px; }
