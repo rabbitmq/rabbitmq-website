@@ -1624,7 +1624,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
           <b>MacOS (Homebrew)</b>: <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME</code>,
           the Homebrew prefix is usually <code>/usr/local</code>
         </li>
-        <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\`$RABBITMQ_NODENAME`</code></li>
+        <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME</code></li>
       </ul>
     </td>
     <td>
