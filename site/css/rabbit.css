@@ -770,9 +770,18 @@ p.warning a {
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
 
-table.matrix thead td {
-  font-weight: bold;
-};
+table.matrix ul {
+  padding-left: 0px;
+}
+table.matrix ul.notes {
+  padding-left: 30px;
+}
+table.matrix ul li {
+  list-style-type: none;
+}
+table.matrix ul.notes li {
+  list-style-type: disc;
+}
 
 table.plugins th { border-bottom: none; }
 table.plugins td { border-top: none; padding-left: 5em; }

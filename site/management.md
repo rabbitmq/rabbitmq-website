@@ -249,8 +249,7 @@ rabbitmqctl set_user_tags full_access administrator
 When activated, the management plugin provides an HTTP API at
 <code>http://<i>server-name</i>:15672/api/</code> by default. Browse to that
 location for more information on the API. For convenience the same API reference is
-[
-available from GitHub](https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html).
+[available from GitHub](https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html).
 
 ### <a id="http-api-monitoring" class="anchor" href="#http-api-monitoring">HTTP API and Monitoring</a>
 
@@ -278,9 +277,7 @@ see [Developer Tools](/devtools.html).
 
 Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See
-[
-latest HTTP API documentation](https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html) for details.
-
+[latest HTTP API documentation](https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html) for details.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
