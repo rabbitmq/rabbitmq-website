@@ -151,7 +151,7 @@ channel.BasicNacks += (sender, ea) =>
 There are 2 callbacks: one for confirmed messages and one for nack-ed messages
 (messages that can be considered lost by the broker). Both callbacks have a corresponding `EventArgs` parameter (`ea`) containing a:
 
- * Delivery Tag: the sequence number identifying the confirmed
+ * delivery tag: the sequence number identifying the confirmed
  or nack-ed message. We will see shortly how to correlate it with the published message.
  * multiple: this is a boolean value. If false, only one message is confirmed/nack-ed, if
  true, all messages with a lower or equal sequence number are confirmed/nack-ed.
@@ -171,7 +171,7 @@ sample that uses a dictionary to correlate the publishing sequence number
 with the string body of the message:
 
 <pre class="lang-csharp">
-var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string>();
+var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string&gt;();
 // ... code for confirm callbacks will come later
 var body = "...";
 outstandingConfirms.TryAdd(channel.NextPublishSeqNo, body);
