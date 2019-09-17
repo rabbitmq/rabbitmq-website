@@ -94,6 +94,12 @@ table.name-default-description tr td {
   font-size: 0.8em;
 }
 
+.container {
+  clear: both;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 0 15px;
+}
 
 div#outerContainer {
   text-align: left;
@@ -107,12 +113,29 @@ div#innerContainer {
   padding: 40px 5px 60px;
 }
 
-.container {
-  clear: both;
-  margin: 0 auto;
-  max-width: 1090px;
-  padding: 0 20px;
+div#left-content {
+  float: left;
+  max-width: 80%;
 }
+
+div#right-nav {
+  float: right;
+  max-width: 20%;
+  margin-top: 20px;
+}
+div#right-nav div {
+  font-size: 0.95em;
+  margin: 0 0 15px 5px;
+  padding: 10px;
+  background: #f9fafb;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+div#right-nav h4 { margin: 0; }
+div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
+div#right-nav li.gap-after { padding-bottom: 10px; }
+div#right-nav a { font-weight: normal; }
+div#right-nav a.selected { font-weight: bold; }
 
 a {
   color: #FF6600;
@@ -129,6 +152,7 @@ h2 a,
 h3 a {
   font-weight: bold;
 }
+
 a.anchor {
   color: #808080;
   text-decoration: none;
@@ -865,20 +889,6 @@ ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0e
 
 .news-date { float: right; color: #888; margin-left: 20px;}
 .blog-author { display: block; color: #888; }
-
-/* right hand navigation */
-
-div#left-content {
-  float: left; max-width: 930px;
-}
-
-div#right-nav { float: right; max-width: 230px; margin-top: 20px; }
-div#right-nav div { margin: 0 0 20px 5px; padding: 20px; background: #f9fafb; border-radius: 3px; -moz-border-radius: 3px; }
-div#right-nav h4 { margin: 0; }
-div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
-div#right-nav li.gap-after { padding-bottom: 10px; }
-div#right-nav a { font-weight: normal; }
-div#right-nav a.selected { font-weight: bold; }
 
 /* landing box */
 
