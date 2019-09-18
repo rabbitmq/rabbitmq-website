@@ -29,7 +29,7 @@ This guide covers a number of topics related to configuration:
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
  * [Configuration file(s)](#configuration-files)
  * [Environment variables](#customise-environment)
- * [Operating system (kernel) limiis](#kernel-limits)
+ * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
  * Available [environment variables](#supported-environment-variables)
  * How to [encrypt sensitive configuration values](#configuration-encryption)
