@@ -78,22 +78,6 @@ table.name-default-description tr td {
   word-wrap: break-word;
 }
 
-table.name-default-description tr th:nth-child(1) {
-  width: 25%;
-}
-
-table.name-default-description tr th:nth-child(2) {
-  width: 40%;
-}
-
-table.name-default-description tr th:nth-child(3) {
-  width: 35%;
-}
-
-table.name-default-description tr td {
-  font-size: 0.8em;
-}
-
 .container {
   clear: both;
   margin: 0 auto;
