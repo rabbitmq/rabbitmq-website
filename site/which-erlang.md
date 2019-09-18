@@ -23,16 +23,17 @@ This guide covers Erlang/OTP version requirements, [Erlang version support polic
 a RabbitMQ/Erlang [compatibility matrix](#compatibility-matrix),
 version-specific notes and [ways of provisioning](#erlang-repositories) recent Erlang/OTP releases.
 
+
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 [Starting in January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series: `22.0.x` and `21.3.x`.
+RabbitMQ supports two most recent Erlang release series: `22.x` and `21.3.x`.
 
 ### Upcoming Erlang 20.3 Support Retirement
 
-Erlang/OTP release series `22.0.x` was made public in May 2019.
+Erlang/OTP release series `22.x` was released in May 2019.
+After a transition period, RabbitMQ will discontinue support for Erlang/OTP `20.3.x` in October 2019.
 
-As a result, RabbitMQ will discontinue support for Erlang/OTP `20.3.x` in October 2019.
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
@@ -48,7 +49,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
-        <li>3.7.19 (WIP)</li>
+        <li>3.7.19 (under development)</li>
       </ul>
     </td>
     <td>
@@ -58,12 +59,14 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>22.0.x</li>
+        <li>22.x</li>
       </ul>
     </td>
     <td>
       <ul class="notes">
-        <li><a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.3.x</code> support is discontinued</a></li>
+        <li>
+          <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.3.x</code> support is discontinued</a>
+        </li>
       </ul>
     </td>
   </tr>
@@ -84,13 +87,13 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>22.0.x</li>
+        <li>22.x</li>
       </ul>
     </td>
     <td>
       <ul class="notes">
         <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang/OTP <code>22.0</code> compatibility notes</a></li>
-        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22.0.x</li>
+        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22.x</li>
       </ul>
     </td>
   </tr>
