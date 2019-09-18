@@ -36,6 +36,39 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2019-09-18T09:00:00+00:00">18 September 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.18 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.18.
+        </p>
+        <p>
+          This is a maintenance release that addresses a <strong>security vulnerability</strong>
+          which will be announced shortly.
+        </p>
+        <p>
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2019-07-30T17:00:00+00:00">30 July 2019</doc:date>
       <doc:title>Erlang 20.3.x Support Retirement Schedule</doc:title>
       <doc:link>https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ</doc:link>
@@ -71,7 +104,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.17.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -103,7 +136,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.16.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -136,7 +169,7 @@ limitations under the License.
         </p>
         <p>
           This is a maintenance release that introduces <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang 22 support</a>.
-          Release notes can be found <a href="/changelog.html">in the changelog</a>.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -193,7 +226,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.14.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -225,7 +258,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.13.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -257,7 +290,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.12.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 20.3</a>.
@@ -289,7 +322,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.11.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a maintenance release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           This is the first RabbitMQ release to <a href="/which-erlang.html">require Erlang/OTP 20.3</a>.
@@ -352,7 +385,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.10.
         </p>
         <p>
-          This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a bug fix release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
@@ -384,7 +417,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.9.
         </p>
         <p>
-          This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a bug fix release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
@@ -449,7 +482,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.8.
         </p>
         <p>
-          This is a bug fix release. Release notes can be found <a href="changelog.html">in the changelog</a>.
+          This is a bug fix release. Release notes can be found <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
@@ -480,7 +513,7 @@ limitations under the License.
         </p>
         <p>
           This release introduces <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">Erlang 21 compatibility</a>
-          and bug fixes. You can view the changes <a href="changelog.html">in the changelog</a>.
+          and bug fixes. You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://bintray.com/rabbitmq/">Bintray</a>,
@@ -511,7 +544,7 @@ limitations under the License.
         </p>
         <p>
           This release primarily contains bug fixes.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -541,7 +574,7 @@ limitations under the License.
         </p>
         <p>
           This release primarily contains bug fixes.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -599,7 +632,7 @@ limitations under the License.
         </p>
         <p>
           This release primarily contains bug fixes.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -628,7 +661,7 @@ limitations under the License.
         </p>
         <p>
           This release has a few enhancements and bug fixes.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -684,7 +717,7 @@ limitations under the License.
         </p>
         <p>
           This is a bugfix release.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -746,7 +779,7 @@ limitations under the License.
         </p>
         <p>
           This is a bugfix release.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -775,7 +808,7 @@ limitations under the License.
         </p>
         <p>
           This is a bugfix release.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
@@ -804,7 +837,7 @@ limitations under the License.
         </p>
         <p>
           This release has new features, a few backwards-incompatible changes, as well as bug fixes.
-          You can view the changes <a href="changelog.html">in the changelog</a>.
+          You can view the changes <a href="changelog.html">in the change log</a>.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the

@@ -28,7 +28,7 @@ limitations under the License.
   <body>
     <x:modal mode="www">
     <p>
-      The latest release of RabbitMQ is <b>&version-server;</b>. See <a href="changelog.html">changelog</a> for release notes.
+      The latest release of RabbitMQ is <b>&version-server;</b>. See <a href="changelog.html">change log</a> for release notes.
       See <a href="/versions.html">RabbitMQ support timeline</a> to find out what release series are supported.
     </p>
     <div class="landing-box">
