@@ -450,6 +450,14 @@ This can lead to data loss and higher network traffic volume due to more frequen
 Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
 
+Peer discovery mechanism will filter out nodes whose pods are not yet ready
+(initialised) according to the Kubernetes API. For example, if [pod management policy](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy)
+of a stateful set is set to `Parallel`, some nodes can be discovered but will not be joined.
+
+It is therefore necessary to use `OrderedReady` pod management policy for the sets
+used by RabbitMQ nodes.
+
+
 ### Configuration
 
 To use Kubernetes for peer discovery, set the `cluster_formation.peer_discovery_backend`
