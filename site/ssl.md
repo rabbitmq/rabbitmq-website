@@ -1217,7 +1217,7 @@ Data services are largely agnostic to the constraints and key usage options used
 to the use cases described in this guide:
 
  * Server authentication (provide server node's identity to the client)
- * Client authenticatation (provide client's identity to the server)
+ * Client authentication (provide client's identity to the server)
  * Verification of digital signatures
  * Key encipherment
 
