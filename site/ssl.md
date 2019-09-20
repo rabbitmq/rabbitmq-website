@@ -1090,7 +1090,7 @@ ssl_options.versions.3 = tlsv1
 
 Using the [advanced config](/configure.html#advanced-config-file):
 
-<pre classic="sourcecode erlang">
+<pre class="lang-erlang">
 %% advanced config here is only used to configure TLS versions
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
 </pre>
@@ -1110,16 +1110,16 @@ ssl_options.versions.2 = tlsv1.1
 
 Using the [advanced config](/configure.html#advanced-config-file):
 
-<pre classic="sourcecode">
-  %% Disable SSLv3.0 and TLSv1.0 support.
-  [
-   {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
-   {rabbit, [
-             {ssl_options, [
-                            {versions, ['tlsv1.2', 'tlsv1.1']}
-                           ]}
-            ]}
-  ].
+<pre class="lang-erlang">
+%% Disable SSLv3.0 and TLSv1.0 support.
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
+ {rabbit, [
+           {ssl_options, [
+                          {versions, ['tlsv1.2', 'tlsv1.1']}
+                         ]}
+          ]}
+].
 </pre>
 
 Using [classic config format](/configure.html#erlang-term-config-file):
