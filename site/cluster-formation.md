@@ -455,7 +455,7 @@ Peer discovery mechanism will filter out nodes whose pods are not yet ready
 of a stateful set is set to `Parallel`, some nodes can be discovered but will not be joined.
 
 It is therefore necessary to use `OrderedReady` pod management policy for the sets
-used by RabbitMQ nodes.
+used by RabbitMQ nodes. This policy is used by default by Kubernetes.
 
 
 ### Configuration
