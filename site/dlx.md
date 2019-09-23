@@ -50,13 +50,17 @@ to a policy definition. For example:
   <tr>
     <th>rabbitmqctl</th>
     <td>
-      <pre>rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues</pre>
+<pre class="lang-bash">
+rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues
+</pre>
     </td>
   </tr>
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-      <pre>rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues</pre>
+<pre class="lang-powershell">
+rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues
+</pre>
     </td>
   </tr>
 </table>
