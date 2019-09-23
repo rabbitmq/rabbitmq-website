@@ -157,16 +157,10 @@ dropped <em>if there was no rejections in the entire cycle</em>.
 
 Dead-lettering a message modifies its headers:
 
-<ul>
-  <li>the exchange name is replaced with that of the
-    latest dead-letter exchange,</li>
-  <li>the routing key may be replaced with that specified
-    in a queue performing dead lettering,</li>
-  <li>if the above happens, the `CC` header
-    will also be removed, and</li>
-  <li>the `BCC` header will be removed as per
-    [Sender-selected distribution](sender-selected.html).</li>
-</ul>
+ * the exchange name is replaced with that of the latest dead-letter exchange,
+ * the routing key may be replaced with that specified in a queue performing dead lettering,
+ * if the above happens, the `CC` header will also be removed, and
+ * the `BCC` header will be removed as per [Sender-selected distribution](sender-selected.html)
 
 The dead-lettering process adds an array to the header of
 each dead-lettered message named `x-death`.
