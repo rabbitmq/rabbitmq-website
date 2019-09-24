@@ -327,6 +327,8 @@ The script has certain assumptions (e.g. the default node name) and can fail to 
 some installations. The script should be considered
 experimental. Run it in a non-production environment first.
 
+A [queue master rebalance command](https://www.rabbitmq.com/rabbitmq-queues.8.html) is available. It rebalances queue masters for all queues, or those that match the given name pattern. Queue masters for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](https://www.rabbitmq.com/rabbitmq-upgrade.8.html).
+
 There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
 that rebalances queue masters. The plugin has some additional configuration and reporting tools,
 but is not supported or verified by the RabbitMQ team. Use at your own risk.
