@@ -149,7 +149,7 @@ how to configure things to which the format isn't well-suited, where to find exa
 Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
 `rabbitmq.config` and used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html).
 That format is [still supported](#config-file-formats) for backwards compatibility.
-Those running 3.7.0 or later are recommended to consider the new sysctl format.
+Those running 3.7.0 or later versions are **highly recommended** to use the [new style format](#config-file).
 
 ### <a id="config-file-location" class="anchor" href="#config-file-location">Config File Locations</a>
 
