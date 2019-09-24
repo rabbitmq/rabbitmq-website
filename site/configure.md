@@ -28,12 +28,12 @@ This guide covers a number of topics related to configuration:
 
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
  * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
+ * Troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
  * [Environment variables](#customise-environment)
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
  * Available [environment variables](#supported-environment-variables)
  * How to [encrypt sensitive configuration values](#configuration-encryption)
- * Troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
 
 and more.
 
