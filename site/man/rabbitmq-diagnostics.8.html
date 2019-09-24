@@ -399,6 +399,13 @@ Most commands provided by <code class="Nm">rabbitmq-diagnostics</code> inspect
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
       node_health_check -n rabbit@hostname</code></div>
   </dd>
+  <dt><a class="permalink" href="#consume_event_stream"><code class="Cm" id="consume_event_stream">consume_event_stream</code></a></dt>
+  <dd>
+    <p class="Pp">Streams internal events from a running node. Output is jq-compatible.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      consume_event_stream -n rabbit@hostname --duration 20 --pattern "queue_.*" </code></div>
+  </dd>
 </dl>
 </section>
 </div>
