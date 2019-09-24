@@ -27,7 +27,7 @@ there is a way to configure many things in the broker as well as [plugins](/plug
 This guide covers a number of topics related to configuration:
 
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
- * [Configuration file(s)](#configuration-files)
+ * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
  * [Environment variables](#customise-environment)
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
