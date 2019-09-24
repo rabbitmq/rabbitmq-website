@@ -305,11 +305,13 @@ environment variable.
 
 ### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
 
-RabbitMQ 3.7.0 and later versions still support the
-classic configuration file format, known as
-`rabbitmq.config`. To use it, export
-`RABBITMQ_CONFIG_FILE` to point to the file with
-a `.config` extension to indicate that RabbitMQ should treat it as a classic config format.
+RabbitMQ 3.7.0 and later versions still support the classic configuration file format, known as
+`rabbitmq.config`. The classic format is  **deprecated**. Please prefer the new style config format
+accompanied `advanced.config` as needed.
+
+To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to point to the file with
+a `.config` extension. The extension will indicate to RabbitMQ  that it should treat the file as one
+in the classic config format.
 
 The RabbitMQ server source repository contains [an example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
 `rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
