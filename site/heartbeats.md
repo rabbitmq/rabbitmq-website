@@ -49,7 +49,6 @@ heartbeats by default. When both values are greater than zero, the lower of the 
 values will be used. A zero value disables heartbeats.
 
 The timeout is in seconds, and default value is `60`.
-Older releases used `580` seconds by default.
 
 
 ## <a id="heartbeats-interval" class="anchor" href="#heartbeats-interval">Heartbeat Frames</a>
