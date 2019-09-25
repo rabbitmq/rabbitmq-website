@@ -35,6 +35,7 @@ purpose and can be very useful (possibly in combination with heartbeats)
 but requires kernel tuning in order to be practical with most operating
 systems and distributions.
 
+
 ## <a id="heartbeats-timeout" class="anchor" href="#heartbeats-timeout">Heartbeat Timeout Value</a>
 
 The `heartbeat timeout` value defines after what period of time
@@ -44,12 +45,12 @@ client and RabbitMQ server at the time of connection. The
 client must be configured to request heartbeats.
 
 The broker and client will attempt to negotiate
-heartbeats by default. When both values are non-0, the lower of the requested
-values will be used. If one side uses a zero value (attempts to disable heartbeats)
-but the other does not, the non-zero value will be used.
+heartbeats by default. When both values are greater than zero, the lower of the requested
+values will be used. A zero value disables heartbeats.
 
 The timeout is in seconds, and default value is `60`.
 Older releases used `580` seconds by default.
+
 
 ## <a id="heartbeats-interval" class="anchor" href="#heartbeats-interval">Heartbeat Frames</a>
 
@@ -71,15 +72,18 @@ heartbeat. Clients may choose to send heartbeat frames
 regardless of whether there was any other traffic on the
 connection but some only do it when necessary.
 
+
 ## <a id="disabling" class="anchor" href="#disabling">How to Disable Heartbeats</a>
 
-Heartbeats can be disabled by setting the timeout interval to `0` on both client and server ends.
+Heartbeats can be disabled by setting the timeout interval to `0` on the client side at connection time.
 
 Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively disable heartbeats
 as frame delivery will be too infrequent to make a practical difference.
 
-Neither practice is recommended unless [TCP keepalives](#tcp-keepalives) are used
-instead with an adequately low inactivity detection period.
+Unless [TCP keepalives](#tcp-keepalives) are used instead with an adequately low inactivity detection period,
+*disabling heartbeats is highly discouraged*. If heartbeats are disabled, it will make timely peer unavailability
+detection much less likely. That *would pose a significant risk to data safety*, in particular for [publishers](/publishers.html).
+
 
 ## <a id="using-heartbeats-in-java" class="anchor" href="#using-heartbeats-in-java">Enabling Heartbeats with Java Client</a>
 
@@ -98,6 +102,7 @@ Note that in case RabbitMQ server has a non-zero heartbeat timeout
 configured (which is the default in versions starting with 3.6.x),
 the client can only lower the value but not increase it.
 
+
 ## <a id="using-heartbeats-in-dotnet" class="anchor" href="#using-heartbeats-in-dotnet">Enabling Heartbeats with .NET Client</a>
 
 To configure the heartbeat timeout in the .NET client, set it with
@@ -110,6 +115,7 @@ var cf = new ConnectionFactory();
 // set the heartbeat timeout to 60 seconds
 cf.RequestedHeartbeat = 60;
 </pre>
+
 
 ## <a id="false-positives" class="anchor" href="#false-positives">Low Timeout Values and False Positives</a>
 
@@ -126,6 +132,7 @@ library maintainers suggest that values lower than 5 seconds
 are fairly likely to cause false positives, and values of 1
 second or lower are very likely to do so. Values within the 5
 to 20 seconds range are optimal for most environments.
+
 
 ## <a id="stomp" class="anchor" href="#stomp">Heartbeats in STOMP</a>
 
