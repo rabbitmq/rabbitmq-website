@@ -340,6 +340,23 @@ Most commands provided by <code class="Nm">rabbitmq-diagnostics</code> inspect
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
       check_port_listener 5672</code></div>
   </dd>
+  <dt><a class="permalink" href="#consume_event_stream"><code class="Cm" id="consume_event_stream">consume_event_stream</code></a></dt>
+  <dd>
+    <p class="Pp">Streams internal events from a running node. Output is
+        jq-compatible.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      consume_event_stream -n rabbit@hostname --duration 20 --pattern
+      queue_.*</code></div>
+  </dd>
+  <dt><a class="permalink" href="#command_line_arguments"><code class="Cm" id="command_line_arguments">command_line_arguments</code></a></dt>
+  <dd>
+    <p class="Pp">Displays target node's command-line arguments and flags as
+        reported by the runtime.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
+      command_line_arguments -n rabbit@hostname</code></div>
+  </dd>
   <dt><a class="permalink" href="#status"><code class="Cm" id="status">status</code></a></dt>
   <dd>See <code class="Cm">status</code> in
       <a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a></dd>
