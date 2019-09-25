@@ -22,6 +22,9 @@ RabbitMQ comes with multiple command line tools:
  * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
  * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)
  * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
+ * [`rabbitmq-queues`](/rabbitmq-queues.8.html) for maintenance tasks on [queues](/queues.html),
+   in particular [quorum queues](/quorum-queues.html)
+ * [`rabbitmq-upgrade`](/rabbitmq-upgrade.8.html) for maintenance tasks related to upgrades
  * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
