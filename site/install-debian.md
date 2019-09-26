@@ -314,13 +314,13 @@ Pin: version 1:22.0.7-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `esl-erlang` package to to `21.3.8.6`
+The following preference file example will pin `esl-erlang` package to to `21.3.8.7`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:21.3.8.6
+Pin: version 1:21.3.8.7
 Pin-Priority: 1000
 </pre>
 
@@ -369,10 +369,21 @@ In order to use a 3rd apt repository, it is necessary to
  * Update package metadata
  * Install the Erlang package
 
+#### <a id="apt-bintray-quick-start" class="anchor" href="#apt-bintray-quick-start">Quick Start Example</a>
+
 Below is shell snippet that performs those steps. They are documented in more detail below.
 
 <pre class="lang-bash">
 #!/bin/sh
+
+## If sudo is not available on the system,
+## uncomment the line below to install it
+# apt-get install -y sudo
+
+sudo apt-get update -y
+
+## Install prerequisites
+sudo apt-get install curl gnupg -y
 
 ## Install RabbitMQ signing key
 curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
@@ -382,6 +393,8 @@ sudo apt-get install apt-transport-https
 
 ## Add Bintray repositories that provision latest RabbitMQ and Erlang 21.x releases
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
+## Installs the latest Erlang 21.x release.
+## Change component to "erlang" to install the latest version (22.x or later).
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF

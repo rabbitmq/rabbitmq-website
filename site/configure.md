@@ -27,13 +27,13 @@ there is a way to configure many things in the broker as well as [plugins](/plug
 This guide covers a number of topics related to configuration:
 
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
- * [Configuration file(s)](#configuration-files)
+ * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
+ * Troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
  * [Environment variables](#customise-environment)
- * [Operating system (kernel) limiis](#kernel-limits)
+ * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
  * Available [environment variables](#supported-environment-variables)
  * How to [encrypt sensitive configuration values](#configuration-encryption)
- * Troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
 
 and more.
 
@@ -149,7 +149,7 @@ how to configure things to which the format isn't well-suited, where to find exa
 Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
 `rabbitmq.config` and used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html).
 That format is [still supported](#config-file-formats) for backwards compatibility.
-Those running 3.7.0 or later are recommended to consider the new sysctl format.
+Those running 3.7.0 or later versions are **highly recommended** to use the [new style format](#config-file).
 
 ### <a id="config-file-location" class="anchor" href="#config-file-location">Config File Locations</a>
 
@@ -305,11 +305,13 @@ environment variable.
 
 ### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
 
-RabbitMQ 3.7.0 and later versions still support the
-classic configuration file format, known as
-`rabbitmq.config`. To use it, export
-`RABBITMQ_CONFIG_FILE` to point to the file with
-a `.config` extension to indicate that RabbitMQ should treat it as a classic config format.
+RabbitMQ 3.7.0 and later versions still support the classic configuration file format, known as
+`rabbitmq.config`. The classic format is  **deprecated**. Please prefer the new style config format
+accompanied `advanced.config` as needed.
+
+To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to point to the file with
+a `.config` extension. The extension will indicate to RabbitMQ  that it should treat the file as one
+in the classic config format.
 
 The RabbitMQ server source repository contains [an example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
 `rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
@@ -373,7 +375,7 @@ respectively.
 These variables are the most common. The list is not complete, as
 some settings are quite obscure.
 
-<table>
+<table class="name-description">
   <tr>
     <th>Key</th>
     <th>Documentation</th>
@@ -1053,7 +1055,7 @@ The following configuration settings can be set in
 the [advanced config file](#advanced-config-file) only,
 under the `rabbit` section.
 
-<table>
+<table class="name-description">
   <tr>
     <th>Key</th>
     <th>Documentation</th>
@@ -1446,262 +1448,305 @@ RabbitMQ built-in defaults.
 The table below describes key environment variables that can be used to configure RabbitMQ.
 More variables are covered in the [File and Directory Locations guide](/relocate.html).
 
-<table>
-  <tr><th>Name</th><th>Default</th><th>Description</th></tr>
+<table class="name-description">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
 
   <tr>
     <td>RABBITMQ_NODE_IP_ADDRESS</td>
     <td>
-      the empty string, meaning that it should bind to all network interfaces.
-    </td>
-    <td>
       Change this if you only want to bind to one network interface.
       Binding to two or more interfaces can be set up in the configuration file.
+
+      <p>
+        <strong>Default</strong>: an empty string, meaning "bind to all network interfaces".
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_NODE_PORT</td>
-    <td>5672</td>
-    <td></td>
+    <td>
+      See <a href="/networking.html">Networking guide</a> for more information on ports used by various
+      parts of RabbitMQ.
+
+      <p>
+        <strong>Default</strong>: 5672.
+      </p>
+    </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_DIST_PORT</td>
-    <td>RABBITMQ_NODE_PORT + 20000</td>
     <td>
       Port used for inter-node and CLI tool communication. Ignored if node config
       file sets <code>kernel.inet_dist_listen_min</code> or
       <code>kernel.inet_dist_listen_max</code> keys.
       See <a href="/networking.html">Networking</a> for details.
+
+      <p>
+        <strong>Default</strong>: <code>RABBITMQ_NODE_PORT + 20000</code>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_DISTRIBUTION_BUFFER_SIZE</td>
-    <td>128000</td>
     <td>
       <a href="https://erlang.org/doc/man/erl.html#+zdbbl">Outgoing data buffer size limit</a>
       to use for inter-node communication connections, in kilobytes. Values lower than
       64 MB are not recommended.
+
+      <p>
+        <strong>Default</strong>: 128000
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_IO_THREAD_POOL_SIZE</td>
-    <td>128 (Linux), 64 (Windows)</td>
     <td>
       <a href="/networking.html#tuning-for-throughput-async-thread-pool">Number of threads used by the runtime for I/O</a>. Values lower than
       32 are not recommended.
+
+      <p>
+        <strong>Default</strong>: 128 (Linux), 64 (Windows)
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_NODENAME</td>
     <td>
-      <ul>
-        <li>
-          <b>Unix*:</b>
-          <code>rabbit@$HOSTNAME</code>
-        </li>
-        <li>
-          <b>Windows:</b>
-          <code>rabbit@%COMPUTERNAME%</code>
-        </li>
-      </ul>
-    </td>
-    <td>
-      The node name should be unique per
-      erlang-node-and-machine combination. To run multiple nodes,
-      see the
-      <a href="clustering.html">clustering guide</a>.
+      The node name should be unique per Erlang-node-and-machine combination.
+      To run multiple nodes, see the <a href="/clustering.html">clustering guide</a>.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li>
+            <b>Unix*:</b>
+            <code>rabbit@$HOSTNAME</code>
+          </li>
+          <li>
+            <b>Windows:</b>
+            <code>rabbit@%COMPUTERNAME%</code>
+          </li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_CONFIG_FILE</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq</code>
-        </li>
-        <li><b>Debian</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
-        <li><b>RPM</b> - <code>/etc/rabbitmq/rabbitmq</code></li>
-        <li>
-          <b>MacOS(Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq</code></li>
-      </ul>
-    </td>
-    <td>
       Main RabbitMQ config file path without the <code>.conf</code>
       (or <code>.config</code>, for the classic format) extension.
       For example, it should be <code>/data/rabbitmq/rabbitmq</code>,
       not <code>/data/rabbitmq/rabbitmq.conf</code>.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq</code>
+          </li>
+          <li><b>Debian</b>: <code>/etc/rabbitmq/rabbitmq</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq</code></li>
+          <li>
+            <b>MacOS(Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/rabbitmq</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\rabbitmq</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_ADVANCED_CONFIG_FILE</td>
     <td>
-      <ul>
-        <li>
-          <b>Generic UNIX</b> - <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
-        </li>
-        <li><b>Debian</b> - <code>/etc/rabbitmq/advanced</code></li>
-        <li><b>RPM</b> - <code>/etc/rabbitmq/advanced</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/advanced</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\advanced</code></li>
-      </ul>
-    </td>
-    <td>
       "Advanced" (Erlang term-based) RabbitMQ config file path without the <code>.config</code> file extension.
       For example, it should be <code>/data/rabbitmq/advanced</code>,
       not <code>/data/rabbitmq/advanced.config</code>.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li>
+            <b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
+          </li>
+          <li><b>Debian</b>: <code>/etc/rabbitmq/advanced</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/advanced</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/advanced</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\advanced</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_CONF_ENV_FILE</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf</code></li>
-        <li><b>Ubuntu and Debian</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
-        <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/etc/rabbitmq/rabbitmq-env.conf</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\rabbitmq-env-conf.bat</code></li>
-      </ul>
-    </td>
-    <td>
       Location of the file that contains environment variable definitions (without the <code>RABBITMQ_</code>
       prefix). Note that the file name on Windows is different from other operating systems.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf</code></li>
+          <li><b>Ubuntu and Debian</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq-env.conf</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/rabbitmq-env.conf</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\rabbitmq-env-conf.bat</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_MNESIA_BASE</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/var/lib/rabbitmq/mnesia</code></li>
-        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/mnesia/</code></li>
-        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ</code></li>
-      </ul>
-    </td>
-    <td>
       This base directory contains sub-directories for the RabbitMQ
       server's node database, message store and cluster state files, one for each node,
       unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
       It is important that effective RabbitMQ user has sufficient permissions
       to read, write and create files and subdirectories in this directory
-      at any time.
-      This variable is typically not overridden. Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+      at any time. This variable is typically not overridden.
+      Usually <code>RABBITMQ_MNESIA_DIR</code> is overridden instead.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/var/lib/rabbitmq/mnesia</code></li>
+          <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/mnesia/</code></li>
+          <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/var/lib/rabbitmq/mnesia</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_MNESIA_DIR</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
-        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
-        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\`$RABBITMQ_NODENAME`</code></li>
-      </ul>
-    </td>
-    <td>
       The directory where this RabbitMQ node's data is stored. This s
       a schema database, message stores, cluster member information and other
       persistent node state.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+          <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+          <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_PLUGINS_DIR</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/plugins</code></li>
-        <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/plugins</code></li>
-        <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>$RABBITMQ_HOME/plugins</code>,
-          with Homebrew $RABBITMQ_HOME is <code>${install_prefix}/Cellar/rabbitmq/${version}</code> and
-          installation prefix is usually <code>/usr/local</code>.
-        </li>
-        <li><b>Windows</b>: <code>%RABBITMQ_HOME%\plugins</code></li>
-      </ul>
-    </td>
-    <td>
       The list of directories where <a
       href="/plugins.html">plugin</a> archive files are located and extracted
       from. This is <code>PATH</code>-like variable, where
       different paths are separated by an OS-specific separator
       (<code>:</code> for Unix, <code>;</code> for Windows).
-      Plugins can be <a href="plugins.html">installed</a> to any of the
-      directories listed here.
+      Plugins can be <a href="plugins.html">installed</a> to any of the directories listed here.
       Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX package</b>: <code>$RABBITMQ_HOME/plugins</code></li>
+          <li><b>Ubuntu and Debian</b> packages: <code>/var/lib/rabbitmq/plugins</code></li>
+          <li><b>RPM</b>: <code>/var/lib/rabbitmq/plugins</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/Cellar/rabbitmq/${version}/plugins</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%RABBITMQ_HOME%\plugins</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
     <td>
-      <ul>
-        <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
-        <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
-        <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
-        <li>
-          <b>MacOS (Homebrew)</b> - <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME-plugins-expand</code>,
-          the Homebrew prefix is usually <code>/usr/local</code>
-        </li>
-        <li><b>Windows</b> - <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME-plugins-expand</code></li>
-      </ul>
-    </td>
-    <td>
       The directory the node expand (unpack) <a href="/plugins.html">plugins</a> to and use it as a code path location.
       Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX package</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+          <li><b>Ubuntu and Debian</b> packages: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+          <li><b>RPM</b>: <code>$RABBITMQ_MNESIA_BASE/$RABBITMQ_NODENAME-plugins-expand</code></li>
+          <li>
+            <b>MacOS (Homebrew)</b>:
+              <code>${install_prefix}/var/lib/rabbitmq/mnesia/$RABBITMQ_NODENAME-plugins-expand</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\$RABBITMQ_NODENAME-plugins-expand</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_USE_LONGNAME</td>
-    <td></td>
     <td>
       When set to <code>true</code> this will cause RabbitMQ
       to use fully qualified names to identify nodes. This
-      may prove useful on EC2. Note that it is not possible
-      to switch between using short and long names without
+      may prove useful in environments that use fully-qualified domain names.
+      Note that it is not possible to switch between using short and long names without
       resetting the node.
+
+      <p>
+        <strong>Default</strong>: <code>false</code>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVICENAME</td>
-    <td><b>Windows Service:</b>
-      RabbitMQ</td>
     <td>
-      The name of the installed service. This will appear in
+      The name of the installed Windows ervice. This will appear in
       <code>services.msc</code>.
+
+      <p>
+        <strong>Default</strong>: RabbitMQ.
+      </p>
   </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_CONSOLE_LOG</td>
-    <td><b>Windows Service:</b></td>
     <td>
       Set this variable to <code>new</code> or <code>reuse</code>
       to redirect console output from the server to a file named
@@ -1712,12 +1757,15 @@ More variables are covered in the [File and Directory Locations guide](/relocate
         <li><code>new</code>: a new file will be created each time the service starts.</li>
         <li><code>reuse</code>: the file will be overwritten each time the service starts.</li>
       </ul>
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVER_CODE_PATH</td>
-    <td>None</td>
     <td>
       <p>
         Extra code path (a directory) to be specified when starting the runtime.
@@ -1733,61 +1781,77 @@ More variables are covered in the [File and Directory Locations guide](/relocate
         <code>hipe_compile</code> must be set to
         <code>true</code> in node cofiguration.
       </p>
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_CTL_ERL_ARGS</td>
-    <td>None</td>
     <td>
       Parameters for the <code>erl</code> command used when invoking
       <code>rabbitmqctl</code>. This could be set to specify a range
       of ports to use for Erlang distribution:<br/>
       <code>-kernel inet_dist_listen_min 35672</code><br/>
       <code>-kernel inet_dist_listen_max 35680</code>
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVER_ERL_ARGS</td>
     <td>
-      <ul>
-        <li><b>Unix*:</b>
-          <code>+P 1048576 +t 5000000 +stbt db +zdbbl 128000</code>
-        </li>
-        <li><b>Windows:</b> None</li>
-      </ul>
-    </td>
-    <td>
       Standard parameters for the <code>erl</code> command used when
       invoking the RabbitMQ Server. This should be overridden for
       debugging purposes only. Overriding this variable
       <em>replaces</em> the default value.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Unix*:</b>
+            <code>+P 1048576 +t 5000000 +stbt db +zdbbl 128000</code>
+          </li>
+          <li><b>Windows:</b> None</li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</td>
     <td>
-      <ul>
-        <li><b>Unix*:</b> None</li>
-        <li><b>Windows:</b> None</li>
-      </ul>
-    </td>
-    <td>
       Additional parameters for the <code>erl</code> command used when
       invoking the RabbitMQ Server. The value of this variable
       is appended to the default list of arguments (<code>RABBITMQ_SERVER_ERL_ARGS</code>).
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Unix*:</b> None</li>
+          <li><b>Windows:</b> None</li>
+        </ul>
+      </p>
     </td>
   </tr>
 
   <tr>
     <td>RABBITMQ_SERVER_START_ARGS</td>
-    <td>None</td>
     <td>
       Extra parameters for the <code>erl</code> command used when
       invoking the RabbitMQ Server. This will not override
       <code>RABBITMQ_SERVER_ERL_ARGS</code>.
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
     </td>
   </tr>
 </table>
@@ -1797,33 +1861,56 @@ tell RabbitMQ [where to locate its database, log files, plugins, configuration a
 
 Finally, some environment variables are operating system-specific.
 
-<table>
-  <th>Name</th><th>Default</th><th>Description</th>
+<table class="name-description">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
 
   <tr>
     <td>HOSTNAME</td>
-    <td><ul>
-        <li>Unix, Linux: <code>env hostname</code></li>
-        <li>MacOS: <code>env hostname -s</code></li>
-      </ul>
+    <td>
+      The name of the current machine.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li>Unix, Linux: <code>env hostname</code></li>
+          <li>MacOS: <code>env hostname -s</code></li>
+        </ul>
+      </p>
     </td>
-    <td>The name of the current machine</td>
   </tr>
 
   <tr>
     <td>COMPUTERNAME</td>
-    <td>Windows: localhost</td>
-    <td>The name of the current machine</td>
+    <td>
+      The name of the current machine.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li>Windows: <code>localhost</code></li>
+        </ul>
+      </p>
+    </td>
   </tr>
 
   <tr>
     <td>ERLANG_SERVICE_MANAGER_PATH</td>
-    <td>Windows Service:
-      <code>%ERLANG_HOME%\erts-<var>x.x.x</var>\bin</code>
-    </td>
     <td>
       This path is the location of <code>erlsrv.exe</code>,
       the Erlang service wrapper script.
+
+      <p>
+        <strong>Default</strong>:
+
+        <ul>
+          <li>Windows Service: <code>%ERLANG_HOME%\erts-<var>x.x.x</var>\bin</code></li>
+        </ul>
+      </p>
     </td>
   </tr>
 </table>

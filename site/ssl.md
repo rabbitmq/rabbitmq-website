@@ -428,7 +428,7 @@ another and use in a single Certificate Authority bundle file
 is to simply concatenate them:
 
 <pre class="lang-bash">
-cat rootca/ca_certificate_bundle.pem otherca/ca_certificate.pem &gt; all_cacerts.pem
+cat rootca/ca_certificate.pem otherca/ca_certificate.pem &gt; all_cacerts.pem
 </pre>
 
 ### <a id="peer-verification-configuration" class="anchor" href="#peer-verification-configuration">Enabling Peer Verification</a>
@@ -1090,7 +1090,7 @@ ssl_options.versions.3 = tlsv1
 
 Using the [advanced config](/configure.html#advanced-config-file):
 
-<pre classic="sourcecode erlang">
+<pre class="lang-erlang">
 %% advanced config here is only used to configure TLS versions
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
 </pre>
@@ -1110,16 +1110,16 @@ ssl_options.versions.2 = tlsv1.1
 
 Using the [advanced config](/configure.html#advanced-config-file):
 
-<pre classic="sourcecode">
-  %% Disable SSLv3.0 and TLSv1.0 support.
-  [
-   {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
-   {rabbit, [
-             {ssl_options, [
-                            {versions, ['tlsv1.2', 'tlsv1.1']}
-                           ]}
-            ]}
-  ].
+<pre class="lang-erlang">
+%% Disable SSLv3.0 and TLSv1.0 support.
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
+ {rabbit, [
+           {ssl_options, [
+                          {versions, ['tlsv1.2', 'tlsv1.1']}
+                         ]}
+          ]}
+].
 </pre>
 
 Using [classic config format](/configure.html#erlang-term-config-file):
@@ -1217,7 +1217,7 @@ Data services are largely agnostic to the constraints and key usage options used
 to the use cases described in this guide:
 
  * Server authentication (provide server node's identity to the client)
- * Client authenticatation (provide client's identity to the server)
+ * Client authentication (provide client's identity to the server)
  * Verification of digital signatures
  * Key encipherment
 
@@ -1672,7 +1672,7 @@ will change in a future RabbitMQ Erlang client release.
 ### <a id="erlang-code-example" class="anchor" href="#erlang-code-example">Code Example</a>
 
 <pre class="lang-erlang">
-SslOpts = [{cacertfile, &quot;/path/to/ca_certificate_bundle.pem&quot;},
+SslOpts = [{cacertfile, &quot;/path/to/ca_certificate.pem&quot;},
            {certfile, &quot;/path/to/client/certificate.pem&quot;},
            {keyfile, &quot;/path/to/client/private_key.pem&quot;},
 
@@ -1795,13 +1795,13 @@ directory:
 
 <pre class="lang-bash">
 openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
-    -out ca_certificate_bundle.pem -outform PEM -subj /CN=MyTestCA/ -nodes
+    -out ca_certificate.pem -outform PEM -subj /CN=MyTestCA/ -nodes
 openssl x509 -in ca_certificate.pem -out ca_certificate.cer -outform DER
 </pre>
 
 This is all that is needed to generate a test Certificate
 Authority. The root certificate is in `ca_certificate.pem`
-and is also in `testca/ca_certificate_bundle.cer`. These two files contain the
+and is also in `testca/ca_certificate.cer`. These two files contain the
 same information, but in different formats, PEM and DER.
 Most software uses the former but some tools require the latter.
 
