@@ -83,13 +83,20 @@
 <h3 class="Ss" id="Cluster"><a class="permalink" href="#Cluster">Cluster</a></h3>
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#grow"><code class="Cm" id="grow">grow</code></a>
-    <var class="Ar">node</var> <var class="Ar">&lt;all</var> |
-    <var class="Ar">even&gt;</var> <code class="Fl">--vhost-pattern</code>
-    <var class="Ar">pattern</var> <code class="Fl">--queue-pattern</code>
-    <var class="Ar">pattern</var> <code class="Fl">--errors-only</code></dt>
+    <var class="Ar">node</var> <var class="Ar">selector</var>
+    <code class="Fl">--vhost-pattern</code> <var class="Ar">pattern</var>
+    <code class="Fl">--queue-pattern</code> <var class="Ar">pattern</var>
+    <code class="Fl">--errors-only</code></dt>
   <dd>
     <p class="Pp">Adds a new replica on the given node for all or a half of
         matching quorum queues.</p>
+    <p class="Pp">Supported <var class="Ar">selector</var> values are:</p>
+    <dl class="Bl-tag">
+      <dt><a class="permalink" href="#all"><code class="Dv" id="all">all</code></a></dt>
+      <dd>Selects all quorum queues</dd>
+      <dt><a class="permalink" href="#even"><code class="Dv" id="even">even</code></a></dt>
+      <dd>Selects quorum queues with an even number of replicas</dd>
+    </dl>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues grow
       rabbit@newhost all --vhost-pattern a-vhost --queue-pattern .*</code></div>
@@ -100,6 +107,15 @@
     <var class="Ar">pattern</var></dt>
   <dd>
     <p class="Pp">Rebalances queue master replicas across cluster nodes.</p>
+    <p class="Pp">Supported <var class="Ar">type</var> values are:</p>
+    <dl class="Bl-tag">
+      <dt><a class="permalink" href="#all_2"><code class="Dv" id="all_2">all</code></a></dt>
+      <dd>All queue types</dd>
+      <dt><a class="permalink" href="#quorum"><code class="Dv" id="quorum">quorum</code></a></dt>
+      <dd>Only quorum queues</dd>
+      <dt><a class="permalink" href="#classic"><code class="Dv" id="classic">classic</code></a></dt>
+      <dd>Only classic queues</dd>
+    </dl>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues rebalance all
       --vhost-pattern a-vhost --queue-pattern .*</code></div>
