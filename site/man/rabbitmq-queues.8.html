@@ -22,10 +22,9 @@
 <code class="Nm">rabbitmq-queues</code> is a command line tool that provides
   commands used to manage queues, mainly member handling for quorum queues. See
   the <a class="Lk" href="https://www.rabbitmq.com/quorum-queues.html">RabbitMQ
-  quorum queue guide</a> and
-  <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ highly
-  available (mirrored) queues guide</a> to learn more about queue types in
-  RabbitMQ.
+  quorum queues guide</a> and
+  <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ classic
+  mirrored queues guide</a> to learn more about queue types in RabbitMQ.
 </section>
 <section class="Sh">
 <h2 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
@@ -83,45 +82,90 @@
 <section class="Ss">
 <h3 class="Ss" id="Cluster"><a class="permalink" href="#Cluster">Cluster</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#grow"><code class="Cm" id="grow">grow</code></a></dt>
+  <dt><a class="permalink" href="#grow"><code class="Cm" id="grow">grow</code></a>
+    <var class="Ar">node</var> <var class="Ar">&lt;all</var> |
+    <var class="Ar">even&gt;</var> <code class="Fl">--vhost-pattern</code>
+    <var class="Ar">pattern</var> <code class="Fl">--queue-pattern</code>
+    <var class="Ar">pattern</var> <code class="Fl">--errors-only</code></dt>
   <dd>
-    <p class="Pp">Grows quorum queue clusters by adding a member (replica) to
-        all or half of matching quorum queues on the given node.</p>
+    <p class="Pp">Adds a new replica on the given node for all or a half of
+        matching quorum queues.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues grow
+      rabbit@newhost all --vhost-pattern a-vhost --queue-pattern .*</code></div>
   </dd>
-  <dt><a class="permalink" href="#rebalance"><code class="Cm" id="rebalance">rebalance</code></a></dt>
+  <dt><a class="permalink" href="#rebalance"><code class="Cm" id="rebalance">rebalance</code></a>
+    <var class="Ar">type</var> <code class="Fl">--vhost-pattern</code>
+    <var class="Ar">pattern</var> <code class="Fl">--queue-pattern</code>
+    <var class="Ar">pattern</var></dt>
   <dd>
-    <p class="Pp">Rebalances queues.</p>
+    <p class="Pp">Rebalances queue master replicas across cluster nodes.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues rebalance all
+      --vhost-pattern a-vhost --queue-pattern .*</code></div>
   </dd>
-  <dt><a class="permalink" href="#shrink"><code class="Cm" id="shrink">shrink</code></a></dt>
+  <dt><a class="permalink" href="#shrink"><code class="Cm" id="shrink">shrink</code></a>
+    <var class="Ar">node</var></dt>
   <dd>
     <p class="Pp">Shrinks quorum queue clusters by removing any members
-        (replicas) on the given node.</p>
+        (replicas) on the given node. Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues shrink
+      rabbit@decomissioned-node</code></div>
   </dd>
 </dl>
 </section>
 <section class="Ss">
 <h3 class="Ss" id="Replication"><a class="permalink" href="#Replication">Replication</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#add_member"><code class="Cm" id="add_member">add_member</code></a></dt>
+  <dt><a class="permalink" href="#add_member"><code class="Cm" id="add_member">add_member</code></a>
+    <var class="Ar">queue</var> <var class="Ar">node</var>
+    <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var></dt>
   <dd>
-    <p class="Pp">Adds a quorum queue member (replica) for a queue on the given
-        node.</p>
+    <p class="Pp">Adds a quorum queue member (replica) on the given node.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues add_member
+      --vhost a-vhost a-queue rabbit@new-node</code></div>
   </dd>
-  <dt><a class="permalink" href="#delete_member"><code class="Cm" id="delete_member">delete_member</code></a></dt>
+  <dt><a class="permalink" href="#delete_member"><code class="Cm" id="delete_member">delete_member</code></a>
+    <var class="Ar">queue</var> <var class="Ar">node</var>
+    <code class="Fl">--vhost</code> <var class="Ar">virtual-host</var></dt>
   <dd>
-    <p class="Pp">Removes a quorum queue member (replica) for a queue on the
-        given node.</p>
+    <p class="Pp">Removes a quorum queue member (replica) on the given node.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues delete_member
+      --vhost a-vhost a-queue rabbit@decomissioned-node</code></div>
   </dd>
 </dl>
 </section>
 <section class="Ss">
 <h3 class="Ss" id="Queues"><a class="permalink" href="#Queues">Queues</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#quorum_status"><code class="Cm" id="quorum_status">quorum_status</code></a></dt>
+  <dt><a class="permalink" href="#quorum_status"><code class="Cm" id="quorum_status">quorum_status</code></a>
+    <var class="Ar">queue</var> <code class="Fl">--vhost</code>
+    <var class="Ar">virtual-host</var></dt>
   <dd>
     <p class="Pp">Displays quorum status of a quorum queue.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues quorum_status
+      --vhost a-vhost a-queue</code></div>
   </dd>
 </dl>
 </section>
+</section>
+<section class="Sh">
+<h2 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h2>
+<a class="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>,
+  <a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>,
+  <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
+  <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>,
+  <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
+  <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
+  <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>
+</section>
+<section class="Sh">
+<h2 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h2>
+<span class="An">The RabbitMQ Team</span>
+  &lt;<a class="Mt" href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>&gt;
 </section>
 </div>
