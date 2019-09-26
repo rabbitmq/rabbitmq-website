@@ -92,14 +92,15 @@
         matching quorum queues.</p>
     <p class="Pp">Supported <var class="Ar">selector</var> values are:</p>
     <dl class="Bl-tag">
-      <dt><a class="permalink" href="#all"><code class="Dv" id="all">all</code></a></dt>
+      <dt><b class="Sy">all</b></dt>
       <dd>Selects all quorum queues</dd>
-      <dt><a class="permalink" href="#even"><code class="Dv" id="even">even</code></a></dt>
+      <dt><b class="Sy">even</b></dt>
       <dd>Selects quorum queues with an even number of replicas</dd>
     </dl>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues grow
-      rabbit@newhost all --vhost-pattern a-vhost --queue-pattern .*</code></div>
+      &quot;rabbit@newhost&quot; &quot;all&quot; --vhost-pattern
+      &quot;a-vhost&quot; --queue-pattern &quot;.*&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#rebalance"><code class="Cm" id="rebalance">rebalance</code></a>
     <var class="Ar">type</var> <code class="Fl">--vhost-pattern</code>
@@ -109,24 +110,26 @@
     <p class="Pp">Rebalances queue master replicas across cluster nodes.</p>
     <p class="Pp">Supported <var class="Ar">type</var> values are:</p>
     <dl class="Bl-tag">
-      <dt><a class="permalink" href="#all_2"><code class="Dv" id="all_2">all</code></a></dt>
+      <dt><b class="Sy">all</b></dt>
       <dd>All queue types</dd>
-      <dt><a class="permalink" href="#quorum"><code class="Dv" id="quorum">quorum</code></a></dt>
+      <dt><b class="Sy">quorum</b></dt>
       <dd>Only quorum queues</dd>
-      <dt><a class="permalink" href="#classic"><code class="Dv" id="classic">classic</code></a></dt>
+      <dt><b class="Sy">classic</b></dt>
       <dd>Only classic queues</dd>
     </dl>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues rebalance all
-      --vhost-pattern a-vhost --queue-pattern .*</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues rebalance
+      &quot;all&quot; --vhost-pattern &quot;a-vhost&quot;
+      --queue-pattern &quot;.*&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#shrink"><code class="Cm" id="shrink">shrink</code></a>
     <var class="Ar">node</var></dt>
   <dd>
     <p class="Pp">Shrinks quorum queue clusters by removing any members
-        (replicas) on the given node. Example:</p>
+        (replicas) on the given node.</p>
+    <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues shrink
-      rabbit@decomissioned-node</code></div>
+      &quot;rabbit@decomissioned-node&quot;</code></div>
   </dd>
 </dl>
 </section>
@@ -140,7 +143,8 @@
     <p class="Pp">Adds a quorum queue member (replica) on the given node.</p>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues add_member
-      --vhost a-vhost a-queue rabbit@new-node</code></div>
+      --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
+      &quot;rabbit@new-node&quot;</code></div>
   </dd>
   <dt><a class="permalink" href="#delete_member"><code class="Cm" id="delete_member">delete_member</code></a>
     <var class="Ar">queue</var> <var class="Ar">node</var>
@@ -149,7 +153,8 @@
     <p class="Pp">Removes a quorum queue member (replica) on the given node.</p>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues delete_member
-      --vhost a-vhost a-queue rabbit@decomissioned-node</code></div>
+      --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
+      &quot;rabbit@decomissioned-node&quot;</code></div>
   </dd>
 </dl>
 </section>
@@ -163,7 +168,7 @@
     <p class="Pp">Displays quorum status of a quorum queue.</p>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues quorum_status
-      --vhost a-vhost a-queue</code></div>
+      --vhost &quot;a-vhost&quot; &quot;a-queue&quot;</code></div>
   </dd>
 </dl>
 </section>
