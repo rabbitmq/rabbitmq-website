@@ -28,9 +28,9 @@ limitations under the License.
 
   <tr>
     <td>3.8</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-rc.1" target="_blank">3.8.0-rc.1</a></td>
-    <td>2019</td>
-    <td>TBD</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0-rc.3" target="_blank">3.8.0-rc.3</a></td>
+    <td>1 October 2019</td>
+    <td></td>
     <td></td>
   </tr>
 
@@ -38,8 +38,8 @@ limitations under the License.
     <td>3.7</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18" target="_blank">3.7.18</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
-    <td>Six months after 3.8.0 is released</td>
-    <td></td>
+    <td>30 April 2020</td>
+    <td>29 months</td>
   </tr>
 
   <tr>
