@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Consumer prefetch is an extension to the [consumer prefetch mechanism](/confirms.html).
+Consumer prefetch is an extension to the [channel prefetch mechanism](/confirms.html).
 
 AMQP 0-9-1 specifies the `basic.qos` method to make it possible to
 [limit the number of unacknowledged messages](/confirms.html) on a channel (or
