@@ -130,9 +130,11 @@ excessive load balancer checks that open a test TCP connection to a node can lea
 Excessive checks of channels and queues in RabbitMQ will increase its CPU consumption. When there
 are many (say, 10s of thousands) of them on a node, the difference can be significant.
 
-The recommended metric collection interval is 60 second. To collect at a higher rate, use 30 second.
-A lower interval will increase load on the system and provide no practical benefits.
+The recommended metric collection interval is 15 second. To collect at an interval which is closer to real-time, use 5 second - but not lower.
+For rate metrics, use a time range that spans 4 metric collection intervals so that it can tolerate race-conditions and is resilient to scrape failures.
 
+For production systems with many channels and queues, it is recommended to collect metrics every 30 or even every 60 seconds, especially if using the Management API.
+The new, [Prometheus-based metrics system](/prometheus.html) is designed to be scraped every 15 seconds, even on busy production systems.
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
