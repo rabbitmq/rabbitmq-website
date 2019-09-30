@@ -759,21 +759,6 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
       list_topic_user_permissions janeway</code></div>
   </dd>
-</dl>
-</section>
-<section class="Ss">
-<h3 class="Ss" id="Parameter_Management"><a class="permalink" href="#Parameter_Management">Parameter
-  Management</a></h3>
-Certain features of RabbitMQ (such as the Federation plugin) are controlled by
-  dynamic, cluster-wide <i class="Em">parameters.</i> There are 2 kinds of
-  parameters: parameters scoped to a virtual host and global parameters. Each
-  vhost-scoped parameter consists of a component name, a name and a value. The
-  component name and name are strings, and the value is a valid JSON document. A
-  global parameter consists of a name and value. The name is a string and the
-  value is an arbitrary Erlang data structure. Parameters can be set, cleared
-  and listed. In general you should refer to the documentation for the feature
-  in question to see how to set parameters.
-<dl class="Bl-tag">
   <dt><a class="permalink" href="#list_vhosts"><code class="Cm" id="list_vhosts">list_vhosts</code></a>
     [<var class="Ar">vhostinfoitem ...</var>]</dt>
   <dd>
@@ -1367,12 +1352,20 @@ Certain features of RabbitMQ (such as the Federation plugin) are controlled by
 <section class="Ss">
 <h3 class="Ss" id="Runtime_Parameters_and_Policies"><a class="permalink" href="#Runtime_Parameters_and_Policies">Runtime
   Parameters and Policies</a></h3>
-Some settings must be identical on all cluster nodes and are likely to change at
-  runtime. They are controlled via a mechanism called runtime parameters.
-  Policies is a feature built on top of runtime parameters. Policies are used to
-  control and modify the behaviour of queues and exchanges on a cluster-wide
-  basis. Policies apply within a given vhost, and consist of a name, pattern,
-  definition and an optional priority. Policies can be set, cleared and listed.
+Certain features of RabbitMQ (such as the Federation plugin) are controlled by
+  dynamic, cluster-wide <i class="Em">parameters.</i> There are 2 kinds of
+  parameters: parameters scoped to a virtual host and global parameters. Each
+  vhost-scoped parameter consists of a component name, a name and a value. The
+  component name and name are strings, and the value is a valid JSON document. A
+  global parameter consists of a name and value. The name is a string and the
+  value is an arbitrary Erlang data structure. Parameters can be set, cleared
+  and listed. In general you should refer to the documentation for the feature
+  in question to see how to set parameters.
+<p class="Pp">Policies is a feature built on top of runtime parameters. Policies
+    are used to control and modify the behaviour of queues and exchanges on a
+    cluster-wide basis. Policies apply within a given vhost, and consist of a
+    name, pattern, definition and an optional priority. Policies can be set,
+    cleared and listed.</p>
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#clear_global_parameter"><code class="Cm" id="clear_global_parameter">clear_global_parameter</code></a>
     <var class="Ar">name</var></dt>

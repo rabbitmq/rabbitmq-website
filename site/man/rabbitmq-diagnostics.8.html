@@ -235,7 +235,8 @@ Most commands provided by <code class="Nm">rabbitmq-diagnostics</code> inspect
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
       check_port_connectivity</code></div>
   </dd>
-  <dt><a class="permalink" href="#check_port_listener"><code class="Cm" id="check_port_listener">check_port_listener</code></a></dt>
+  <dt><a class="permalink" href="#check_port_listener"><code class="Cm" id="check_port_listener">check_port_listener</code></a>
+    <var class="Ar">port</var></dt>
   <dd>
     <p class="Pp">Health check that fails (returns with a non-zero code) if the
         target node is not listening on the specified port (there is no listener
@@ -247,7 +248,8 @@ Most commands provided by <code class="Nm">rabbitmq-diagnostics</code> inspect
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
       check_port_listener 5672</code></div>
   </dd>
-  <dt><a class="permalink" href="#check_protocol_listener"><code class="Cm" id="check_protocol_listener">check_protocol_listener</code></a></dt>
+  <dt><a class="permalink" href="#check_protocol_listener"><code class="Cm" id="check_protocol_listener">check_protocol_listener</code></a>
+    <var class="Ar">protocol</var></dt>
   <dd>
     <p class="Pp">Health check that fails (returns with a non-zero code) if the
         target node does not have a listener for the specified protocol.</p>
@@ -292,7 +294,11 @@ Most commands provided by <code class="Nm">rabbitmq-diagnostics</code> inspect
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-diagnostics
       command_line_arguments -n rabbit@hostname</code></div>
   </dd>
-  <dt><a class="permalink" href="#consume_event_stream"><code class="Cm" id="consume_event_stream">consume_event_stream</code></a></dt>
+  <dt><a class="permalink" href="#consume_event_stream"><code class="Cm" id="consume_event_stream">consume_event_stream</code></a>
+    [<code class="Fl">--duration</code> <var class="Ar">seconds</var> |
+    <code class="Fl">-d</code> <var class="Ar">seconds</var>]
+    [<code class="Fl">--pattern</code> <var class="Ar">pattern</var>]
+    [<code class="Fl">--timeout</code> <var class="Ar">milliseconds</var>]</dt>
   <dd>
     <p class="Pp">Streams internal events from a running node. Output is
         jq-compatible.</p>
