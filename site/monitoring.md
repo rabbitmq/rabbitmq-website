@@ -134,7 +134,7 @@ The recommended metric collection interval is 60 second. To collect at a higher 
 A lower interval will increase load on the system and provide no practical benefits.
 
 
-## <a id="long-term" class="anchor" href="#long-term">Management UI and External Monitoring Systems</a>
+## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
 RabbitMQ comes with a [management UI and HTTP API](/monitoring.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
 for nodes, connections, queues, message rates and so on. This is a convenient option for development

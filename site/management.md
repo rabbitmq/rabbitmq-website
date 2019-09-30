@@ -46,7 +46,7 @@ While a monitoring option, management UI lacks certain features that external mo
 such as [Prometheus and Grafana](/prometheus.html) provide.
 
 
-## <a id="long-term" class="anchor" href="#long-term">Management UI and External Monitoring Systems</a>
+## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
 The [management UI and its HTTP API](/monitoring.html) is a built-in monitoring option for RabbitMQ.
 This is a convenient option for development and in environments where
