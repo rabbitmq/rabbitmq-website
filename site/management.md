@@ -23,29 +23,59 @@ The RabbitMQ management plugin provides an HTTP-based API
 for management and monitoring of RabbitMQ nodes and clusters, along
 with a browser-based UI and a command line tool, [rabbitmqadmin](management-cli.html).
 
-
 It periodically collects and aggregates data about many aspects of the system. Those metrics
 are exposed to both operators in the UI and [monitoring systems](/monitoring.html) for
 long term storage, alerting, visualisation, chart analysis and so on.
-
 
 The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https),
 a non-standard port, path prefix, HTTP server options, custom [strict transport security](#hsts) settings,
 [cross-origin resource sharing](#cors), and more.
 
-
 It also provides tools for [analyse memory usage](#memory) of the node,
 for [preconfiguring the node](#load-definitions) using an exported schema definitions file, and a few
 other features related to monitoring, metrics and node management.
 
-
 In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
-
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or
 [rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management)
 use to extend the UI.
+
+While a monitoring option, management UI lacks certain features that external monitoring solutions
+such as [Prometheus and Grafana](/prometheus.html) provide.
+
+
+## <a id="long-term" class="anchor" href="#long-term">Management UI and External Monitoring Systems</a>
+
+The [management UI and its HTTP API](/monitoring.html) is a built-in monitoring option for RabbitMQ.
+This is a convenient option for development and in environments where
+external monitoring is difficult or impossible to introduce.
+
+However, the management UI has a number of limitations:
+
+ * The monitoring system is intertwined with the system being monitored
+ * A certain amount of overhead
+ * It only stores recent data (think hours, not days or months)
+ * It has a basic user interface
+ * Its design [emphasizes ease of use over best possible availability](/management.html#clustering).
+ * Management UI access is controlled via the [RabbitMQ permission tags system](/access-control.html)
+   (or a convention on JWT token scopes)
+
+Long term metric storage and visualisation services such as [Prometheus and Grafana](/prometheus.html)
+or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
+
+ * Decoupling of the monitoring system from the system being monitored
+ * Lower overhead
+ * Long term metric storage
+ * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
+ * More powerful and customizable user interface
+ * Ease of metric data sharing: both metric state and dashbaords
+ * Metric access permissions are not specific to RabbitMQ
+ * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
+
+RabbitMQ provides first class support for [Prometheus and Grafana](/prometheus.html) as of 3.8.
+It is recommended for production environments.
 
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting Started</a>
@@ -935,7 +965,7 @@ For every cluster node to have its metrics collected, it is still required that 
 `rabbitmq-management-agent` plugin is enabled on each node, otherwise
 the metrics from the node won't be available.
 
-### <a id="clustering-inter-node-connectivity" class="anchor" href="#clustering-inter-node-connectivity">Client Requests</a>
+### <a id="clustering-inter-node-connectivity" class="anchor" href="#clustering-inter-node-connectivity">Aggregation Queries in Clusters</a>
 
 In cluster, HTTP API performs cluster-wide queries when handling client
 requests, which means it can be affected by network partitions and slow downs.
