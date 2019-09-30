@@ -26,13 +26,13 @@ limitations under the License.
   </head>
   <body suppress-rhs="true">
     <x:modal mode="www">
-      <div id="hero">
+      <div id="hero" class='center'>
         <div class='container'>
-          <div id='hero-summit-one'>
+          <div id='hero-best-practices'>
             <div class='container'>
               <div class='text'>
-                <h1>RabbitMQ Summit 2019<br/>Nov 4 | London, UK</h1>
-                <h2><a href="https://rabbitmqsummit.com/" target="_blank">Buy your early bird tickets by August 21</a></h2>
+                <h1>RabbitMQ <a href="/best-practices.html">Best Practices</a></h1>
+                <h2>Tap into community wisdom and avoid mistakes</h2>
               </div>
             </div>
           </div>
