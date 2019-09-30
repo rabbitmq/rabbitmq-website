@@ -20,8 +20,8 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This document provides an overview of topics related to RabbitMQ monitoring.
-Monitoring your RabbitMQ installation is an effective means to detect issues before they affect
-the rest of your environment and, eventually, your users.
+Monitoring RabbitMQ and applications that use it is critically important. Monitoring helps
+detect issues before they affect the rest of the environment and, eventually, the end users.
 
 Many aspects of the system can be monitored. This guide will group them into a handful of
 categories:
@@ -35,14 +35,15 @@ categories:
      * [Cluster-wide metrics](#cluster-wide-metrics)
  * [How frequently](#monitoring-frequency) should monitoring checks be performed?
  * [Application-level metrics](#app-metrics)
- * How to check a [node's health](#health-checks) and why it's more involved than a single
+ * How to approach [node health checking](#health-checks) and why it's more involved than a single
    CLI command.
 
 [Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
-and also covered in this guide.
+and also mentioned in this guide.
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
-can be used to monitor RabbitMQ.
+can be used to monitor RabbitMQ. [Prometheus and Grafana](/prometheus.html) are one highly
+recommended option.
 
 
 ## <a id="approaches-to-monitoring" class="anchor" href="#approaches-to-monitoring">What is Monitoring?</a>
