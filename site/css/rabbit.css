@@ -654,14 +654,6 @@ table.release-series {
   margin-bottom: 25px;
 }
 
-.supported-version {
-  background: #3CB371;
-}
-
-.unsupported-version {
-  background: #C0C0C0;
-}
-
 .pageFooter {
   background: #b8b8b8;
   color: #a9b5af;
