@@ -422,15 +422,15 @@ appropriate interval when visualising metrics in Grafana with `rate()` - <a
 href="https://www.robustperception.io/what-range-should-i-use-with-rate"
 target="_blank">4x the scrape interval is considered safe</a>.
 
-If you are using RabbitMQ's Management UI default 5s auto-refresh, you may want
-to keep the default `collect_statistics_interval` setting, which is also `5000`
-(5s) for this reason.
+If you are using RabbitMQ's Management UI default 5 second auto-refresh, you may want
+to keep the default `collect_statistics_interval` setting, which is also `5000` ms
+(5 seconds) for this reason.
 
-To confirm that Prometheus is reading RabbitMQ metrics from all nodes, ensure
+To confirm that Prometheus is scraping RabbitMQ metrics from all nodes, ensure
 that all RabbitMQ endpoints are **UP** on the Prometheus Targets page, as shown
 below:
 
-![Prometheus RabbitMQ Targets](/img/prometheus-targets.png)
+![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
 ### <a id="grafana-configuration" class="anchor" href="#grafana-configuration">Grafana Configuration</a>
 

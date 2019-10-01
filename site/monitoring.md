@@ -136,8 +136,9 @@ are many (say, 10s of thousands) of them on a node, the difference can be signif
 The recommended metric collection interval is 15 second. To collect at an interval which is closer to real-time, use 5 second - but not lower.
 For rate metrics, use a time range that spans 4 metric collection intervals so that it can tolerate race-conditions and is resilient to scrape failures.
 
-For production systems with many channels and queues, it is recommended to collect metrics every 30 or even every 60 seconds, especially if using the Management API.
-The new, [Prometheus-based metrics system](/prometheus.html) is designed to be scraped every 15 seconds, even on busy production systems.
+For production systems a collection interval of 30 or even 60 seconds is recommended.
+[Prometheus](/prometheus.html) exporter API is designed to be scraped every 15 seconds,
+including production systems.
 
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
