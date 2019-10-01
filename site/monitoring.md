@@ -719,7 +719,7 @@ access to many metrics, including detailed state of individual [runtime](/runtim
  * Memory allocation and usage stats
  * Top processes by CPU (reductions) and memory usage
  * Network link stats
- * Detailed process information, including network activity
+ * Detailed process information such as basic TCP socket stats
 
 and more, in an interactive [ncurses](https://en.wikipedia.org/wiki/Ncurses)-like command line interface with periodic updates.
 
