@@ -38,6 +38,23 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.0</td>
+    <td class="centre">1 October 2019</td>
+    <td>
+      <ul>
+        <li><a href="which-erlang.html">Minimum required Erlang version</a> is now 21.3</li>
+        <li><a href="/quorum-queues.html">Quorum Queues</a></li>
+        <li><a href="/monitoring.html">Monitoring</a> improvements: built-in <a href="/prometheus.html">Prometheus support</a> with a set of Grafana dashboards</li>
+        <li><a href="/feature-flags.html">Feature flags</a> and support for mixed version clusters <a href="/upgrade.html">during upgrades</a></li>
+        <li>New diagnostics CLI tools, new <a href="/monitoring.html#health-checks">health checks</a></li>
+        <li><a href="/consumers.html#single-active-consumer">Single Active Consumer</a></li>
+        <li>New <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2">authentication and authorisation backend</a> that uses OAuth 2.0 (JWT) tokens and scopes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.18</td>
     <td class="centre">18 September 2019</td>
     <td>

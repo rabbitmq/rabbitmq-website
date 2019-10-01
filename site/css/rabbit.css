@@ -650,8 +650,16 @@ td.desc, th.desc {
   background: #f6fcb0;
 }
 
-.ga {
-  background: #e4e4e4;
+table.release-series {
+  margin-bottom: 25px;
+}
+
+.supported-version {
+  background: #3CB371;
+}
+
+.unsupported-version {
+  background: #C0C0C0;
 }
 
 .pageFooter {
