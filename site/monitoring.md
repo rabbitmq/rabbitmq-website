@@ -28,6 +28,7 @@ categories:
 
  * [What is monitoring](#approaches-to-monitoring), what common approaches to it
    exist and why it is important.
+ * Built-in and [external monitoring](#external-monitoring) options
  * What [infrastructure and kernel metrics](#system-metrics) are important to monitor
  * What [RabbitMQ metrics](#rabbitmq-metrics) are available:
      * [Node metrics](#node-metrics)
@@ -37,6 +38,8 @@ categories:
  * [Application-level metrics](#app-metrics)
  * How to approach [node health checking](#health-checks) and why it's more involved than a single
    CLI command.
+ * [Log aggregation](#log-aggregation)
+ * [Command-line based observer](#diagnostics-observer) tool
 
 [Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
 and also mentioned in this guide.
@@ -135,6 +138,7 @@ For rate metrics, use a time range that spans 4 metric collection intervals so t
 
 For production systems with many channels and queues, it is recommended to collect metrics every 30 or even every 60 seconds, especially if using the Management API.
 The new, [Prometheus-based metrics system](/prometheus.html) is designed to be scraped every 15 seconds, even on busy production systems.
+
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
@@ -680,14 +684,14 @@ rabbitmq-plugins -q list --enabled
 # =&gt; Configured: E = explicitly enabled; e = implicitly enabled
 # =&gt; | Status: * = running on rabbit@mercurio
 # =&gt; |/
-# =&gt; [E*] rabbitmq_auth_mechanism_ssl       3.7.10
-# =&gt; [E*] rabbitmq_consistent_hash_exchange 3.7.10
-# =&gt; [E*] rabbitmq_management               3.7.10
-# =&gt; [E*] rabbitmq_management_agent         3.7.10
-# =&gt; [E*] rabbitmq_shovel                   3.7.10
-# =&gt; [E*] rabbitmq_shovel_management        3.7.10
-# =&gt; [E*] rabbitmq_top                      3.7.10
-# =&gt; [E*] rabbitmq_tracing                  3.7.10
+# =&gt; [E*] rabbitmq_auth_mechanism_ssl       3.8.0
+# =&gt; [E*] rabbitmq_consistent_hash_exchange 3.8.0
+# =&gt; [E*] rabbitmq_management               3.8.0
+# =&gt; [E*] rabbitmq_management_agent         3.8.0
+# =&gt; [E*] rabbitmq_shovel                   3.8.0
+# =&gt; [E*] rabbitmq_shovel_management        3.8.0
+# =&gt; [E*] rabbitmq_top                      3.8.0
+# =&gt; [E*] rabbitmq_tracing                  3.8.0
 </pre>
 
 A health check that verifies that a specific plugin, [`rabbitmq_shovel`](/shovel.html)
@@ -701,6 +705,44 @@ rabbitmq-plugins -q is_enabled rabbitmq_shovel
 The probability of false positives is generally low but raises
 in environments where environment variables that can affect [rabbitmq-plugins](/cli.html)
 are overridden.
+
+
+## <a id="diagnostics-observer" class="anchor" href="#diagnostics-observer">Command-line Based Observer Tool</a>
+
+`rabbitmq-diagnostics observer` is a command-line tool similar to `top`, `htop`, `vmstat`. It is a command line
+alternative to [Erlang's Observer application](http://erlang.org/doc/man/observer.html). It provides
+access to many metrics, including detailed state of individual [runtime](/runtime.html) processes:
+
+ * Runtime version information
+ * CPU and schedule stats
+ * Memory allocation and usage stats
+ * Top processes by CPU (reductions) and memory usage
+ * Network link stats
+ * Detailed process information, including network activity
+
+and more, in an interactive [ncurses](https://en.wikipedia.org/wiki/Ncurses)-like command line interface with periodic updates.
+
+Here are some screenshots that demonstrate what kind of information the
+tool provides.
+
+An overview page with key runtime metrics:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-overview.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-overview.png" alt="rabbitmq-diagnostics observer overview" title="rabbitmq-diagnostics observer overview" />
+</a>
+
+Memory allocator stats:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png" alt="rabbitmq-diagnostics memory breakdown" title="rabbitmq-diagnostics observer memory breakdown" />
+</a>
+
+A client connection process metrics:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-connection-process.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-connection-process.png" alt="rabbitmq-diagnostics connection process" title="rabbitmq-diagnostics observer connection process" />
+</a>
+
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring Tools</a>
 
@@ -785,6 +827,7 @@ Note that this list is by no means complete.
     </tr>
   </tbody>
 </table>
+
 
 ## <a id="log-aggregation" class="anchor" href="#log-aggregation">Log Aggregation</a>
 
