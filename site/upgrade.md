@@ -157,14 +157,28 @@ prepared to handle this and reconnect.
 
 ### <a id="rolling-upgrades" class="anchor" href="#rolling-upgrades">Rolling Upgrades</a>
 
-#### <a id="rolling-upgrades-version-limitations" class="anchor" href="#rolling-upgrades-version-limitations">Version limitations</a>
+Rolling upgrades are possible only between compatible RabbitMQ and Erlang versions.
 
-Rolling upgrades are possible only between some RabbitMQ and Erlang versions.
+#### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
 
-When upgrading from one major or minor version of RabbitMQ to another
-(i.e. from 3.0.x to 3.1.x, or from 2.x.x to 3.x.x),
-the whole cluster must be taken down for the upgrade.
-Clusters that include nodes that run different release series are not supported.
+RabbitMQ 3.8.0 comes with a **feature flags** subsystem which is
+responsible for determining if two versions of RabbitMQ are compatible.
+If they are, then two nodes with different versions can live in the
+same cluster: this allows a rolling upgrade of cluster members without
+shutting down the cluster entirely.
+
+The upgrade from RabbitMQ 3.7.x to 3.8.x is also permitted, but not from
+older minor or major versions.
+
+To learn more, please read the [feature flags documentation](/feature-flags.html).
+
+#### <a id="rolling-upgrade-before-3.8" class="anchor" href="#rolling-upgrade-before-3.8">Before RabbitMQ 3.8</a>
+
+With RabbitMQ up-to and including 3.7.x, when upgrading from one major
+or minor version of RabbitMQ to another (i.e. from 3.0.x to 3.1.x, or
+from 2.x.x to 3.x.x), the whole cluster must be taken down for the
+upgrade. Clusters that include nodes that run different release series
+are not supported.
 
 Rolling upgrades from one patch version to
 another (i.e. from 3.6.x to 3.6.y) are supported except when indicated otherwise
@@ -177,7 +191,7 @@ Some patch releases known to require a cluster-wide restart:
 * 3.6.6 and later cannot be mixed with earlier versions from the 3.6.x series
 * 3.0.0 cannot be mixed with later versions from the 3.0.x series
 
-***A RabbitMQ node will fail to [re-]join a peer running an incompatible version***.
+**A RabbitMQ node will fail to [re-]join a peer running an incompatible version**.
 
 When upgrading Erlang it's advised to run all nodes on the same major series
 (e.g. 19.x or 20.x). Even though it is possible to run a cluster with mixed
@@ -190,7 +204,7 @@ refuse to join its peer (cluster).
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
-#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting nodes</a>
+#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting Nodes</a>
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
@@ -231,6 +245,7 @@ upgrader node stopping and the last node stopping will be lost.
 
 Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
 If you have an earlier cluster, you will need to rebuild it to upgrade.
+
 
 ## <a id="caveats" class="anchor" href="#caveats">Caveats</a>
 
@@ -311,6 +326,8 @@ is available. It rebalances queue masters for all queues.
 The script has certain assumptions (e.g. the default node name) and can fail to run on
 some installations. The script should be considered
 experimental. Run it in a non-production environment first.
+
+A [queue master rebalance command](https://www.rabbitmq.com/rabbitmq-queues.8.html) is available. It rebalances queue masters for all queues, or those that match the given name pattern. Queue masters for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](https://www.rabbitmq.com/rabbitmq-upgrade.8.html).
 
 There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
 that rebalances queue masters. The plugin has some additional configuration and reporting tools,
@@ -526,3 +543,10 @@ on how to upgrade RabbitMQ.
     Like you did before the upgrade, verify the health and data to
     make sure your RabbitMQ nodes are in good shape and the service is
     running again.
+
+1. Check new feature flags
+
+    If the new version provides new feature flags, you can
+    now enable them if you upgraded all nodes and you are
+    sure you do not want to rollback. See the [feature flags
+    documentation](/feature-flags.html).

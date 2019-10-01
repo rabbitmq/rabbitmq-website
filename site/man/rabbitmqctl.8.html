@@ -85,7 +85,8 @@ RabbitMQ is an open source multi-protocol messaging broker.
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#help"><code class="Cm" id="help">help</code></a>
     [<code class="Fl">-l</code>] [<var class="Ar">command_name</var>]</dt>
-  <dd>Prints usage for all available commands.
+  <dd>
+    <p class="Pp">Prints usage for all available commands.</p>
     <dl class="Bl-tag">
       <dt><a class="permalink" href="#l_2"><code class="Fl" id="l_2">-l</code></a>,
         <code class="Fl">--list-commands</code></dt>
@@ -94,45 +95,27 @@ RabbitMQ is an open source multi-protocol messaging broker.
       <dd>Prints usage for the specified command.</dd>
     </dl>
   </dd>
+  <dt><a class="permalink" href="#version"><code class="Cm" id="version">version</code></a></dt>
+  <dd>
+    <p class="Pp">Displays CLI tools version</p>
+  </dd>
 </dl>
 <section class="Ss">
-<h3 class="Ss" id="Application_Management"><a class="permalink" href="#Application_Management">Application
-  Management</a></h3>
+<h3 class="Ss" id="Nodes"><a class="permalink" href="#Nodes">Nodes</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#force_reset"><code class="Cm" id="force_reset">force_reset</code></a></dt>
-  <dd>Forcefully returns a RabbitMQ node to its virgin state.
-    <p class="Pp">The <code class="Cm">force_reset</code> command differs from
-        <code class="Cm">reset</code> in that it resets the node
-        unconditionally, regardless of the current management database state and
-        cluster configuration. It should only be used as a last resort if the
-        database or cluster configuration has been corrupted.</p>
-    <p class="Pp">For <code class="Cm">reset</code> and
-        <code class="Cm">force_reset</code> to succeed the RabbitMQ application
-        must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
-    <p class="Pp">For example, to reset the RabbitMQ node:</p>
+  <dt><a class="permalink" href="#await_startup"><code class="Cm" id="await_startup">await_startup</code></a></dt>
+  <dd>
+    <p class="Pp">Waits for the RabbitMQ application to start on the target
+      node</p>
+    <p class="Pp">For example, to wait for the RabbitMQ application to
+      start:</p>
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      force_reset</code></div>
-  </dd>
-  <dt><a class="permalink" href="#hipe_compile"><code class="Cm" id="hipe_compile">hipe_compile</code></a>
-    <var class="Ar">directory</var></dt>
-  <dd>Performs HiPE-compilation and caches resulting
-      <span class="Pa">.beam</span>-files in the given directory.
-    <p class="Pp">Parent directories are created if necessary. Any existing
-        <span class="Pa">.beam</span> files from the directory are automatically
-        deleted prior to compilation.</p>
-    <p class="Pp">To use this precompiled files, you should set
-        <code class="Ev">RABBITMQ_SERVER_CODE_PATH</code> environment variable
-        to directory specified in <code class="Cm">hipe_compile</code>
-        invocation.</p>
-    <p class="Pp">For example, to HiPE-compile modules and store them to
-        <span class="Pa">/tmp/rabbit-hipe/ebin</span> directory:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl hipe_compile
-      /tmp/rabbit-hipe/ebin</code></div>
+      await_startup</code></div>
   </dd>
   <dt><a class="permalink" href="#reset"><code class="Cm" id="reset">reset</code></a></dt>
-  <dd>Returns a RabbitMQ node to its virgin state.
+  <dd>
+    <p class="Pp">Returns a RabbitMQ node to its virgin state.</p>
     <p class="Pp">Removes the node from any cluster it belongs to, removes all
         data from the management database, such as configured users and vhosts,
         and deletes all persistent messages.</p>
@@ -144,7 +127,9 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl reset</code></div>
   </dd>
   <dt><a class="permalink" href="#rotate_logs"><code class="Cm" id="rotate_logs">rotate_logs</code></a></dt>
-  <dd>Instructs the RabbitMQ node to perform internal log rotation.
+  <dd>
+    <p class="Pp">Instructs the RabbitMQ node to perform internal log
+      rotation.</p>
     <p class="Pp">Log rotation is performed according to lager settings
         specified in configuration file.</p>
     <p class="Pp">Note that there is no need to call this command in case of
@@ -159,12 +144,13 @@ RabbitMQ is an open source multi-protocol messaging broker.
         that it will be completed when this command returns.</p>
   </dd>
   <dt><a class="permalink" href="#shutdown"><code class="Cm" id="shutdown">shutdown</code></a></dt>
-  <dd>Shuts down the node, both RabbitMQ and its runtime. The command is
-      blocking and will return after the runtime process exits. If RabbitMQ
-      fails to stop, it will return a non-zero exit code. This command infers
-      the OS PID of the target node and therefore can only be used to shut down
-      nodes running on the same host (or broadly speaking, in the same operating
-      system, e.g. in the same VM or container)
+  <dd>
+    <p class="Pp">Shuts down the node, both RabbitMQ and its runtime. The
+        command is blocking and will return after the runtime process exits. If
+        RabbitMQ fails to stop, it will return a non-zero exit code. This
+        command infers the OS PID of the target node and therefore can only be
+        used to shut down nodes running on the same host (or broadly speaking,
+        in the same operating system, e.g. in the same VM or container)</p>
     <p class="Pp">Unlike the stop command, the shutdown command:</p>
     <ul class="Bl-bullet">
       <li>does not require a <var class="Ar">pid_file</var> to wait for the
@@ -177,7 +163,8 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl shutdown</code></div>
   </dd>
   <dt><a class="permalink" href="#start_app"><code class="Cm" id="start_app">start_app</code></a></dt>
-  <dd>Starts the RabbitMQ application.
+  <dd>
+    <p class="Pp">Starts the RabbitMQ application.</p>
     <p class="Pp">This command is typically run after performing other
         management actions that required the RabbitMQ application to be stopped,
         e.g. <code class="Cm">reset</code>.</p>
@@ -189,10 +176,12 @@ RabbitMQ is an open source multi-protocol messaging broker.
   </dd>
   <dt><a class="permalink" href="#stop"><code class="Cm" id="stop">stop</code></a>
     [<var class="Ar">pid_file</var>]</dt>
-  <dd>Stops the Erlang node on which RabbitMQ is running. To restart the node
-      follow the instructions for &quot;Running the Server&quot; in the
-      <a class="Lk" href="https://www.rabbitmq.com/download.html">installation
-      guide</a>.
+  <dd>
+    <p class="Pp">Stops the Erlang node on which RabbitMQ is running. To restart
+        the node follow the instructions for &quot;Running the Server&quot;
+        in the
+        <a class="Lk" href="https://rabbitmq.com/download.html">installation
+        guide</a>.</p>
     <p class="Pp">If a <var class="Ar">pid_file</var> is specified, also waits
         for the process specified there to terminate. See the description of the
         <code class="Cm">wait</code> command for details on this file.</p>
@@ -201,7 +190,9 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl stop</code></div>
   </dd>
   <dt><a class="permalink" href="#stop_app"><code class="Cm" id="stop_app">stop_app</code></a></dt>
-  <dd>Stops the RabbitMQ application, leaving the runtime (Erlang VM) running.
+  <dd>
+    <p class="Pp">Stops the RabbitMQ application, leaving the runtime (Erlang
+        VM) running.</p>
     <p class="Pp">This command is typically run prior to performing other
         management actions that require the RabbitMQ application to be stopped,
         e.g. <code class="Cm">reset</code>.</p>
@@ -213,7 +204,8 @@ RabbitMQ is an open source multi-protocol messaging broker.
   <dt><a class="permalink" href="#wait"><code class="Cm" id="wait">wait</code></a>
     <var class="Ar">pid_file</var>, <code class="Cm">wait</code>
     <code class="Fl">--pid</code> <var class="Ar">pid</var></dt>
-  <dd>Waits for the RabbitMQ application to start.
+  <dd>
+    <p class="Pp">Waits for the RabbitMQ application to start.</p>
     <p class="Pp">This command will wait for the RabbitMQ application to start
         at the node. It will wait for the pid file to be created if
         <var class="Ar">pidfile</var> is specified, then for a process with a
@@ -238,64 +230,23 @@ RabbitMQ is an open source multi-protocol messaging broker.
 </dl>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Cluster_Management"><a class="permalink" href="#Cluster_Management">Cluster
-  Management</a></h3>
+<h3 class="Ss" id="Cluster_management"><a class="permalink" href="#Cluster_management">Cluster
+  management</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#join_cluster"><code class="Cm" id="join_cluster">join_cluster</code></a>
-    <var class="Ar">clusternode</var> [<code class="Fl">--ram</code>]</dt>
+  <dt><a class="permalink" href="#await_online_nodes"><code class="Cm" id="await_online_nodes">await_online_nodes</code></a>
+    <var class="Ar">count</var></dt>
   <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">clusternode</var></dt>
-      <dd>Node to cluster with.</dd>
-      <dt><a class="permalink" href="#-ram"><code class="Fl" id="-ram">--ram</code></a></dt>
-      <dd>If provided, the node will join the cluster as a RAM node.</dd>
-    </dl>
-    <p class="Pp">Instructs the node to become a member of the cluster that the
-        specified node is in. Before clustering, the node is reset, so be
-        careful when using this command. For this command to succeed the
-        RabbitMQ application must have been stopped, e.g. with
-        <code class="Cm">stop_app</code>.</p>
-    <p class="Pp">Cluster nodes can be of two types: disc or RAM. Disc nodes
-        replicate data in RAM and on disc, thus providing redundancy in the
-        event of node failure and recovery from global events such as power
-        failure across all nodes. RAM nodes replicate data in RAM only (with the
-        exception of queue contents, which can reside on disc if the queue is
-        persistent or too big to fit in memory) and are mainly used for
-        scalability. RAM nodes are more performant only when managing resources
-        (e.g. adding/removing queues, exchanges, or bindings). A cluster must
-        always have at least one disc node, and usually should have more than
-        one.</p>
-    <p class="Pp">The node will be a disc node by default. If you wish to create
-        a RAM node, provide the <code class="Fl">--ram</code> flag.</p>
-    <p class="Pp">After executing the <code class="Cm">join_cluster</code>
-        command, whenever the RabbitMQ application is started on the current
-        node it will attempt to connect to the nodes that were in the cluster
-        when the node went down.</p>
-    <p class="Pp">To leave a cluster, <code class="Cm">reset</code> the node.
-        You can also remove nodes remotely with the
-        <code class="Cm">forget_cluster_node</code> command.</p>
-    <p class="Pp">For more details see the
-        <a class="Lk" href="https://www.rabbitmq.com/clustering.html">Clustering
-        guide</a>.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ node to join
-        the cluster that &quot;hare@elena&quot; is part of, as a ram
-      node:</p>
+    <p class="Pp">Waits for <var class="Ar">count</var> nodes to join the
+        cluster</p>
+    <p class="Pp">For example, to wait for two RabbitMQ nodes to start:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl join_cluster
-      hare@elena --ram</code></div>
-  </dd>
-  <dt><a class="permalink" href="#cluster_status"><code class="Cm" id="cluster_status">cluster_status</code></a></dt>
-  <dd>Displays all the nodes in the cluster grouped by node type, together with
-      the currently running nodes.
-    <p class="Pp">For example, this command displays the nodes in the
-      cluster:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      cluster_status</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl await_online_nodes
+      2</code></div>
   </dd>
   <dt><a class="permalink" href="#change_cluster_node_type"><code class="Cm" id="change_cluster_node_type">change_cluster_node_type</code></a>
     <var class="Ar">type</var></dt>
-  <dd>Changes the type of the cluster node.
+  <dd>
+    <p class="Pp">Changes the type of the cluster node.</p>
     <p class="Pp">The <var class="Ar">type</var> must be one of the
       following:</p>
     <ul class="Bl-bullet Bl-compact">
@@ -310,6 +261,57 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
       change_cluster_node_type disc</code></div>
+  </dd>
+  <dt><a class="permalink" href="#cluster_status"><code class="Cm" id="cluster_status">cluster_status</code></a></dt>
+  <dd>
+    <p class="Pp">Displays all the nodes in the cluster grouped by node type,
+        together with the currently running nodes.</p>
+    <p class="Pp">For example, this command displays the nodes in the
+      cluster:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      cluster_status</code></div>
+  </dd>
+  <dt><a class="permalink" href="#force_boot"><code class="Cm" id="force_boot">force_boot</code></a></dt>
+  <dd>
+    <p class="Pp">Ensures that the node will start next time, even if it was not
+        the last to shut down.</p>
+    <p class="Pp">Normally when you shut down a RabbitMQ cluster altogether, the
+        first node you restart should be the last one to go down, since it may
+        have seen things happen that other nodes did not. But sometimes that's
+        not possible: for instance if the entire cluster loses power then all
+        nodes may think they were not the last to shut down.</p>
+    <p class="Pp">In such a case you can invoke
+        <code class="Cm">force_boot</code> while the node is down. This will
+        tell the node to unconditionally start next time you ask it to. If any
+        changes happened to the cluster after this node shut down, they will be
+        lost.</p>
+    <p class="Pp">If the last node to go down is permanently lost then you
+        should use <code class="Cm">forget_cluster_node</code>
+        <code class="Fl">--offline</code> in preference to this command, as it
+        will ensure that mirrored queues which were mastered on the lost node
+        get promoted.</p>
+    <p class="Pp">For example, this will force the node not to wait for other
+        nodes next time it is started:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      force_boot</code></div>
+  </dd>
+  <dt><a class="permalink" href="#force_reset"><code class="Cm" id="force_reset">force_reset</code></a></dt>
+  <dd>
+    <p class="Pp">Forcefully returns a RabbitMQ node to its virgin state.</p>
+    <p class="Pp">The <code class="Cm">force_reset</code> command differs from
+        <code class="Cm">reset</code> in that it resets the node
+        unconditionally, regardless of the current management database state and
+        cluster configuration. It should only be used as a last resort if the
+        database or cluster configuration has been corrupted.</p>
+    <p class="Pp">For <code class="Cm">reset</code> and
+        <code class="Cm">force_reset</code> to succeed the RabbitMQ application
+        must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
+    <p class="Pp">For example, to reset the RabbitMQ node:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      force_reset</code></div>
   </dd>
   <dt><a class="permalink" href="#forget_cluster_node"><code class="Cm" id="forget_cluster_node">forget_cluster_node</code></a>
     [<code class="Fl">--offline</code>]</dt>
@@ -341,10 +343,56 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl -n hare@mcnulty
       forget_cluster_node rabbit@stringer</code></div>
   </dd>
+  <dt><a class="permalink" href="#join_cluster"><code class="Cm" id="join_cluster">join_cluster</code></a>
+    <var class="Ar">seed-node</var> [<code class="Fl">--ram</code>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">seed-node</var></dt>
+      <dd>Existing cluster member (seed node) to cluster with.</dd>
+      <dt><a class="permalink" href="#-ram"><code class="Fl" id="-ram">--ram</code></a></dt>
+      <dd>If provided, the node will join the cluster as a RAM node. RAM node
+          use is discouraged. Use only if you understand why exactly you need to
+          use them.</dd>
+    </dl>
+    <p class="Pp">Instructs the node to become a member of the cluster that the
+        specified node is in. Before clustering, the node is reset, so be
+        careful when using this command. For this command to succeed the
+        RabbitMQ application must have been stopped, e.g. with
+        <code class="Cm">stop_app</code>.</p>
+    <p class="Pp">Cluster nodes can be of two types: disc or RAM. Disc nodes
+        replicate data in RAM and on disc, thus providing redundancy in the
+        event of node failure and recovery from global events such as power
+        failure across all nodes. RAM nodes replicate data in RAM only (with the
+        exception of queue contents, which can reside on disc if the queue is
+        persistent or too big to fit in memory) and are mainly used for
+        scalability. RAM nodes are more performant only when managing resources
+        (e.g. adding/removing queues, exchanges, or bindings). A cluster must
+        always have at least one disc node, and usually should have more than
+        one.</p>
+    <p class="Pp">The node will be a disc node by default. If you wish to create
+        a RAM node, provide the <code class="Fl">--ram</code> flag.</p>
+    <p class="Pp">After executing the <code class="Cm">join_cluster</code>
+        command, whenever the RabbitMQ application is started on the current
+        node it will attempt to connect to the nodes that were in the cluster
+        when the node went down.</p>
+    <p class="Pp">To leave a cluster, <code class="Cm">reset</code> the node.
+        You can also remove nodes remotely with the
+        <code class="Cm">forget_cluster_node</code> command.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ node to join
+        the cluster that &quot;hare@elena&quot; is part of, as a ram
+      node:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl join_cluster
+      hare@elena --ram</code></div>
+    <p class="Pp">To learn more, see the
+        <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+        Clustering guide</a>.</p>
+  </dd>
   <dt><a class="permalink" href="#rename_cluster_node"><code class="Cm" id="rename_cluster_node">rename_cluster_node</code></a>
     <var class="Ar">oldnode1</var> <var class="Ar">newnode1</var>
     [<var class="Ar">oldnode2</var> <var class="Ar">newnode2 ...</var>]</dt>
-  <dd>Supports renaming of cluster nodes in the local database.
+  <dd>
+    <p class="Pp">Supports renaming of cluster nodes in the local database.</p>
     <p class="Pp">This subcommand causes <code class="Nm">rabbitmqctl</code> to
         temporarily become the node in order to make the change. The local
         cluster node must therefore be completely stopped; other nodes can be
@@ -398,8 +446,9 @@ mv \
         </div>
         <p class="Pp"></p>
       </li>
-      <li>If you have <var class="Ar">/etc/rabbitmq/rabbitmq-env.conf</var> and
-          configured the node name there, update this configuration.
+      <li>If node name is configured e.g. using
+          <var class="Ar">/etc/rabbitmq/rabbitmq-env.conf</var> it has also be
+          updated there.
         <p class="Pp"></p>
       </li>
       <li>Start the node when ready</li>
@@ -413,47 +462,34 @@ mv \
       <dd>The node to consult for up-to-date information.</dd>
     </dl>
     <p class="Pp">Instructs an already clustered node to contact
-        <var class="Ar">clusternode</var> to cluster when waking up. This is
+        <var class="Ar">clusternode</var> to cluster when booting up. This is
         different from <code class="Cm">join_cluster</code> since it does not
         join any cluster - it checks that the node is already in a cluster with
         <var class="Ar">clusternode</var>.</p>
     <p class="Pp">The need for this command is motivated by the fact that
-        clusters can change while a node is offline. Consider the situation in
-        which node <var class="Va">A</var> and <var class="Va">B</var> are
-        clustered. <var class="Va">A</var> goes down, <var class="Va">C</var>
-        clusters with <var class="Va">B</var>, and then <var class="Va">B</var>
-        leaves the cluster. When <var class="Va">A</var> wakes up, it'll try to
-        contact <var class="Va">B</var>, but this will fail since
-        <var class="Va">B</var> is not in the cluster anymore. The following
-        command will solve this situation:</p>
+        clusters can change while a node is offline. Consider a situation where
+        node <var class="Va">rabbit@A</var> and <var class="Va">rabbit@B</var>
+        are clustered. <var class="Va">rabbit@A</var> goes down,
+        <var class="Va">rabbit@C</var> clusters with
+        <var class="Va">rabbit@B</var>, and then <var class="Va">rabbit@B</var>
+        leaves the cluster. When <var class="Va">rabbit@A</var> starts back up,
+        it'll try to contact <var class="Va">rabbit@B</var>, but this will fail
+        since <var class="Va">rabbit@B</var> is not in the cluster anymore. The
+        following command will rename node <var class="Va">rabbit@B</var> to
+        <var class="Va">rabbit@C</var> on node <var class="Va">rabbitA</var></p>
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">update_cluster_nodes -n
-      <var class="Va">A</var> <var class="Va">C</var></code></div>
+      <var class="Va">rabbit@A</var> <var class="Va">rabbit@B</var>
+      <var class="Va">rabbit@C</var></code></div>
+    <p class="Pp">To learn more, see the
+        <a class="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+        Clustering guide</a></p>
   </dd>
-  <dt><a class="permalink" href="#force_boot"><code class="Cm" id="force_boot">force_boot</code></a></dt>
-  <dd>Ensures that the node will start next time, even if it was not the last to
-      shut down.
-    <p class="Pp">Normally when you shut down a RabbitMQ cluster altogether, the
-        first node you restart should be the last one to go down, since it may
-        have seen things happen that other nodes did not. But sometimes that's
-        not possible: for instance if the entire cluster loses power then all
-        nodes may think they were not the last to shut down.</p>
-    <p class="Pp">In such a case you can invoke
-        <code class="Cm">force_boot</code> while the node is down. This will
-        tell the node to unconditionally start next time you ask it to. If any
-        changes happened to the cluster after this node shut down, they will be
-        lost.</p>
-    <p class="Pp">If the last node to go down is permanently lost then you
-        should use <code class="Cm">forget_cluster_node</code>
-        <code class="Fl">--offline</code> in preference to this command, as it
-        will ensure that mirrored queues which were mastered on the lost node
-        get promoted.</p>
-    <p class="Pp">For example, this will force the node not to wait for other
-        nodes next time it is started:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      force_boot</code></div>
-  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Replication"><a class="permalink" href="#Replication">Replication</a></h3>
+<dl class="Bl-tag">
   <dt><a class="permalink" href="#sync_queue"><code class="Cm" id="sync_queue">sync_queue</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     <var class="Ar">queue</var></dt>
@@ -485,29 +521,6 @@ mv \
     <p class="Pp">Instructs a synchronising mirrored queue to stop synchronising
         itself.</p>
   </dd>
-  <dt><a class="permalink" href="#purge_queue"><code class="Cm" id="purge_queue">purge_queue</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">queue</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">queue</var></dt>
-      <dd>The name of the queue to purge.</dd>
-    </dl>
-    <p class="Pp">Purges a queue (removes all messages in it).</p>
-  </dd>
-  <dt><a class="permalink" href="#set_cluster_name"><code class="Cm" id="set_cluster_name">set_cluster_name</code></a>
-    <var class="Ar">name</var></dt>
-  <dd>Sets the cluster name to <var class="Ar">name</var>. The cluster name is
-      announced to clients on connection, and used by the federation and shovel
-      plugins to record where a message has been. The cluster name is by default
-      derived from the hostname of the first node in the cluster, but can be
-      changed.
-    <p class="Pp">For example, this sets the cluster name to
-        &quot;london&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_cluster_name
-      london</code></div>
-  </dd>
 </dl>
 </section>
 <section class="Ss">
@@ -534,18 +547,21 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl add_user janeway
       changeit</code></div>
   </dd>
-  <dt><a class="permalink" href="#delete_user"><code class="Cm" id="delete_user">delete_user</code></a>
-    <var class="Ar">username</var></dt>
+  <dt><a class="permalink" href="#authenticate_user"><code class="Cm" id="authenticate_user">authenticate_user</code></a>
+    <var class="Ar">username</var> <var class="Ar">password</var></dt>
   <dd>
     <dl class="Bl-tag">
       <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user to delete.</dd>
+      <dd>The name of the user.</dd>
+      <dt><var class="Ar">password</var></dt>
+      <dd>The password of the user.</dd>
     </dl>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        delete the user named &quot;janeway&quot;:</p>
+        authenticate the user named &quot;janeway&quot; with password
+        &quot;verifyit&quot;:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl delete_user
-      janeway</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl authenticate_user
+      janeway verifyit</code></div>
   </dd>
   <dt><a class="permalink" href="#change_password"><code class="Cm" id="change_password">change_password</code></a>
     <var class="Ar">username</var> <var class="Ar">newpassword</var></dt>
@@ -578,21 +594,28 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <p class="Pp">This user now cannot log in with a password (but may be able
         to through e.g. SASL EXTERNAL if configured).</p>
   </dd>
-  <dt><a class="permalink" href="#authenticate_user"><code class="Cm" id="authenticate_user">authenticate_user</code></a>
-    <var class="Ar">username</var> <var class="Ar">password</var></dt>
+  <dt><a class="permalink" href="#delete_user"><code class="Cm" id="delete_user">delete_user</code></a>
+    <var class="Ar">username</var></dt>
   <dd>
     <dl class="Bl-tag">
       <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user.</dd>
-      <dt><var class="Ar">password</var></dt>
-      <dd>The password of the user.</dd>
+      <dd>The name of the user to delete.</dd>
     </dl>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        authenticate the user named &quot;janeway&quot; with password
-        &quot;verifyit&quot;:</p>
+        delete the user named &quot;janeway&quot;:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl authenticate_user
-      janeway verifyit</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl delete_user
+      janeway</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_users"><code class="Cm" id="list_users">list_users</code></a></dt>
+  <dd>
+    <p class="Pp">Lists users. Each result row will contain the user name
+        followed by a list of the tags set for that user.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all users:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_users</code></div>
   </dd>
   <dt><a class="permalink" href="#set_user_tags"><code class="Cm" id="set_user_tags">set_user_tags</code></a>
     <var class="Ar">username</var> [<var class="Ar">tag ...</var>]</dt>
@@ -618,57 +641,128 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_user_tags
       janeway</code></div>
   </dd>
-  <dt><a class="permalink" href="#list_users"><code class="Cm" id="list_users">list_users</code></a></dt>
-  <dd>Lists users. Each result row will contain the user name followed by a list
-      of the tags set for that user.
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all users:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_users</code></div>
-  </dd>
 </dl>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Access_Control"><a class="permalink" href="#Access_Control">Access
-  Control</a></h3>
-Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
-  database. Permissions for users from any alternative authorisation backend
-  will not be visible to <code class="Nm">rabbitmqctl</code>.
+<h3 class="Ss" id="Access_control"><a class="permalink" href="#Access_control">Access
+  control</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#add_vhost"><code class="Cm" id="add_vhost">add_vhost</code></a>
-    <var class="Ar">vhost</var></dt>
+  <dt><a class="permalink" href="#clear_permissions"><code class="Cm" id="clear_permissions">clear_permissions</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">username</var></dt>
   <dd>
     <dl class="Bl-tag">
       <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host entry to create.</dd>
+      <dd>The name of the virtual host to which to deny the user access,
+          defaulting to &quot;/&quot;.</dd>
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user to deny access to the specified virtual
+        host.</dd>
     </dl>
-    <p class="Pp">Creates a virtual host.</p>
+    <p class="Pp">Sets user permissions.</p>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        create a new virtual host called &quot;test&quot;:</p>
+        deny the user named &quot;janeway&quot; access to the virtual host
+        called &quot;my-vhost&quot;:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl add_vhost
-      test</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_permissions -p
+      my-vhost janeway</code></div>
   </dd>
-  <dt><a class="permalink" href="#delete_vhost"><code class="Cm" id="delete_vhost">delete_vhost</code></a>
-    <var class="Ar">vhost</var></dt>
+  <dt><a class="permalink" href="#clear_topic_permissions"><code class="Cm" id="clear_topic_permissions">clear_topic_permissions</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">username</var> [<var class="Ar">exchange</var>]</dt>
   <dd>
     <dl class="Bl-tag">
       <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host entry to delete.</dd>
+      <dd>The name of the virtual host to which to clear the topic permissions,
+          defaulting to &quot;/&quot;.</dd>
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user to clear topic permissions to the specified
+          virtual host.</dd>
+      <dt><var class="Ar">exchange</var></dt>
+      <dd>The name of the topic exchange to clear topic permissions, defaulting
+          to all the topic exchanges the given user has topic permissions
+        for.</dd>
     </dl>
-    <p class="Pp">Deletes a virtual host.</p>
-    <p class="Pp">Deleting a virtual host deletes all its exchanges, queues,
-        bindings, user permissions, parameters and policies.</p>
+    <p class="Pp">Clear user topic permissions.</p>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        delete the virtual host called &quot;test&quot;:</p>
+        remove topic permissions for user named &quot;janeway&quot; for the
+        topic exchange &quot;amq.topic&quot; in the virtual host called
+        &quot;my-vhost&quot;:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl delete_vhost
-      test</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      clear_topic_permissions -p my-vhost janeway amq.topic</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_permissions"><code class="Cm" id="list_permissions">list_permissions</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host for which to list the users that have
+          been granted access to it, and their permissions. Defaults to
+          &quot;/&quot;.</dd>
+    </dl>
+    <p class="Pp">Lists permissions in a virtual host.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all the users which have been granted access to the virtual host
+        called &quot;my-vhost&quot;, and the permissions they have for
+        operations on resources in that virtual host. Note that an empty string
+        means no permissions granted:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_permissions -p
+      my-vhost</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_topic_permissions"><code class="Cm" id="list_topic_permissions">list_topic_permissions</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host for which to list the users topic
+          permissions. Defaults to &quot;/&quot;.</dd>
+    </dl>
+    <p class="Pp">Lists topic permissions in a virtual host.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all the users which have been granted topic permissions in the
+        virtual host called &quot;my-vhost:&quot;</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_topic_permissions -p my-vhost</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_user_permissions"><code class="Cm" id="list_user_permissions">list_user_permissions</code></a>
+    <var class="Ar">username</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user for which to list the permissions.</dd>
+    </dl>
+    <p class="Pp">Lists user permissions.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all the virtual hosts to which the user named
+        &quot;janeway&quot; has been granted access, and the permissions the
+        user has for operations on resources in these virtual hosts:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_user_permissions
+      janeway</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_user_topic_permissions"><code class="Cm" id="list_user_topic_permissions">list_user_topic_permissions</code></a>
+    <var class="Ar">username</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user for which to list the topic permissions.</dd>
+    </dl>
+    <p class="Pp">Lists user topic permissions.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all the virtual hosts to which the user named
+        &quot;janeway&quot; has been granted access, and the topic
+        permissions the user has in these virtual hosts:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_topic_user_permissions janeway</code></div>
   </dd>
   <dt><a class="permalink" href="#list_vhosts"><code class="Cm" id="list_vhosts">list_vhosts</code></a>
     [<var class="Ar">vhostinfoitem ...</var>]</dt>
-  <dd>Lists virtual hosts.
+  <dd>
+    <p class="Pp">Lists virtual hosts.</p>
     <p class="Pp">The <var class="Ar">vhostinfoitem</var> parameter is used to
         indicate which virtual host information items to include in the results.
         The column order in the results will match the order of the parameters.
@@ -722,61 +816,6 @@ Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
       my-vhost janeway &quot;^janeway-.*&quot; &quot;.*&quot;
       &quot;.*&quot;</code></div>
   </dd>
-  <dt><a class="permalink" href="#clear_permissions"><code class="Cm" id="clear_permissions">clear_permissions</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">username</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host to which to deny the user access,
-          defaulting to &quot;/&quot;.</dd>
-      <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user to deny access to the specified virtual
-        host.</dd>
-    </dl>
-    <p class="Pp">Sets user permissions.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        deny the user named &quot;janeway&quot; access to the virtual host
-        called &quot;my-vhost&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_permissions -p
-      my-vhost janeway</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_permissions"><code class="Cm" id="list_permissions">list_permissions</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host for which to list the users that have
-          been granted access to it, and their permissions. Defaults to
-          &quot;/&quot;.</dd>
-    </dl>
-    <p class="Pp">Lists permissions in a virtual host.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all the users which have been granted access to the virtual host
-        called &quot;my-vhost&quot;, and the permissions they have for
-        operations on resources in that virtual host. Note that an empty string
-        means no permissions granted:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_permissions -p
-      my-vhost</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_user_permissions"><code class="Cm" id="list_user_permissions">list_user_permissions</code></a>
-    <var class="Ar">username</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user for which to list the permissions.</dd>
-    </dl>
-    <p class="Pp">Lists user permissions.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all the virtual hosts to which the user named
-        &quot;janeway&quot; has been granted access, and the permissions the
-        user has for operations on resources in these virtual hosts:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_user_permissions
-      janeway</code></div>
-  </dd>
   <dt><a class="permalink" href="#set_topic_permissions"><code class="Cm" id="set_topic_permissions">set_topic_permissions</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     <var class="Ar">user</var> <var class="Ar">exchange</var>
@@ -818,355 +857,308 @@ Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
       -p my-vhost janeway amq.topic &quot;^{username}-.*&quot;
       &quot;^{username}-.*&quot;</code></div>
   </dd>
-  <dt><a class="permalink" href="#clear_topic_permissions"><code class="Cm" id="clear_topic_permissions">clear_topic_permissions</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">username</var> [<var class="Ar">exchange</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host to which to clear the topic permissions,
-          defaulting to &quot;/&quot;.</dd>
-      <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user to clear topic permissions to the specified
-          virtual host.</dd>
-      <dt><var class="Ar">exchange</var></dt>
-      <dd>The name of the topic exchange to clear topic permissions, defaulting
-          to all the topic exchanges the given user has topic permissions
-        for.</dd>
-    </dl>
-    <p class="Pp">Clear user topic permissions.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        remove topic permissions for user named &quot;janeway&quot; for the
-        topic exchange &quot;amq.topic&quot; in the virtual host called
-        &quot;my-vhost&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      clear_topic_permissions -p my-vhost janeway amq.topic</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_topic_permissions"><code class="Cm" id="list_topic_permissions">list_topic_permissions</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host for which to list the users topic
-          permissions. Defaults to &quot;/&quot;.</dd>
-    </dl>
-    <p class="Pp">Lists topic permissions in a virtual host.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all the users which have been granted topic permissions in the
-        virtual host called &quot;my-vhost:&quot;</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_topic_permissions -p my-vhost</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_user_topic_permissions"><code class="Cm" id="list_user_topic_permissions">list_user_topic_permissions</code></a>
-    <var class="Ar">username</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">username</var></dt>
-      <dd>The name of the user for which to list the topic permissions.</dd>
-    </dl>
-    <p class="Pp">Lists user topic permissions.</p>
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all the virtual hosts to which the user named
-        &quot;janeway&quot; has been granted access, and the topic
-        permissions the user has in these virtual hosts:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_topic_user_permissions janeway</code></div>
-  </dd>
 </dl>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Parameter_Management"><a class="permalink" href="#Parameter_Management">Parameter
-  Management</a></h3>
-Certain features of RabbitMQ (such as the Federation plugin) are controlled by
-  dynamic, cluster-wide <i class="Em">parameters.</i> There are 2 kinds of
-  parameters: parameters scoped to a virtual host and global parameters. Each
-  vhost-scoped parameter consists of a component name, a name and a value. The
-  component name and name are strings, and the value is a valid JSON document. A
-  global parameter consists of a name and value. The name is a string and the
-  value is an arbitrary Erlang data structure. Parameters can be set, cleared
-  and listed. In general you should refer to the documentation for the feature
-  in question to see how to set parameters.
+<h3 class="Ss" id="Monitoring,_observability_and_health_checks"><a class="permalink" href="#Monitoring,_observability_and_health_checks">Monitoring,
+  observability and health checks</a></h3>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#set_parameter"><code class="Cm" id="set_parameter">set_parameter</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">component_name</var> <var class="Ar">name</var>
-    <var class="Ar">value</var></dt>
-  <dd>Sets a parameter.
-    <dl class="Bl-tag">
-      <dt><var class="Ar">component_name</var></dt>
-      <dd>The name of the component for which the parameter is being set.</dd>
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the parameter being set.</dd>
-      <dt><var class="Ar">value</var></dt>
-      <dd>The value for the parameter, as a JSON term. In most shells you are
-          very likely to need to quote this.</dd>
-    </dl>
-    <p class="Pp">For example, this command sets the parameter
-        &quot;node01&quot; for the &quot;federation-upstream&quot;
-        component in the default virtual host to the following JSON
-        &quot;guest&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_parameter
-      federation-upstream node01
-      '{&quot;uri&quot;:&quot;amqp://user:password@server/%2F&quot;,&quot;ack-mode&quot;:&quot;on-publish&quot;}'</code></div>
+  <dt><a class="permalink" href="#environment"><code class="Cm" id="environment">environment</code></a></dt>
+  <dd>
+    <p class="Pp">Displays the name and value of each variable in the
+        application environment for each running application.</p>
   </dd>
-  <dt><a class="permalink" href="#clear_parameter"><code class="Cm" id="clear_parameter">clear_parameter</code></a>
+  <dt><a class="permalink" href="#list_bindings"><code class="Cm" id="list_bindings">list_bindings</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">component_name</var> <var class="Ar">key</var></dt>
-  <dd>Clears a parameter.
+    [<var class="Ar">bindinginfoitem ...</var>]</dt>
+  <dd>
+    <p class="Pp">Returns binding details. By default the bindings for the
+        &quot;/&quot; virtual host are returned. The
+        <code class="Fl">-p</code> flag can be used to override this
+      default.</p>
+    <p class="Pp">The <var class="Ar">bindinginfoitem</var> parameter is used to
+        indicate which binding information items to include in the results. The
+        column order in the results will match the order of the parameters.
+        <var class="Ar">bindinginfoitem</var> can take any value from the list
+        that follows:</p>
     <dl class="Bl-tag">
-      <dt><var class="Ar">component_name</var></dt>
-      <dd>The name of the component for which the parameter is being
-        cleared.</dd>
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the parameter being cleared.</dd>
+      <dt><a class="permalink" href="#source_name"><code class="Cm" id="source_name">source_name</code></a></dt>
+      <dd>The name of the source of messages to which the binding is attached.
+          With non-ASCII characters escaped as in C.</dd>
+      <dt><a class="permalink" href="#source_kind"><code class="Cm" id="source_kind">source_kind</code></a></dt>
+      <dd>The kind of the source of messages to which the binding is attached.
+          Currently always exchange. With non-ASCII characters escaped as in
+        C.</dd>
+      <dt><a class="permalink" href="#destination_name"><code class="Cm" id="destination_name">destination_name</code></a></dt>
+      <dd>The name of the destination of messages to which the binding is
+          attached. With non-ASCII characters escaped as in C.</dd>
+      <dt><a class="permalink" href="#destination_kind"><code class="Cm" id="destination_kind">destination_kind</code></a></dt>
+      <dd>The kind of the destination of messages to which the binding is
+          attached. With non-ASCII characters escaped as in C.</dd>
+      <dt><a class="permalink" href="#routing_key"><code class="Cm" id="routing_key">routing_key</code></a></dt>
+      <dd>The binding's routing key, with non-ASCII characters escaped as in
+        C.</dd>
+      <dt><a class="permalink" href="#arguments"><code class="Cm" id="arguments">arguments</code></a></dt>
+      <dd>The binding's arguments.</dd>
     </dl>
-    <p class="Pp">For example, this command clears the parameter
-        &quot;node01&quot; for the &quot;federation-upstream&quot;
-        component in the default virtual host:</p>
+    <p class="Pp">If no <var class="Ar">bindinginfoitem</var> are specified then
+        all above items are displayed.</p>
+    <p class="Pp">For example, this command displays the exchange name and queue
+        name of the bindings in the virtual host named
+      &quot;my-vhost&quot;</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_parameter
-      federation-upstream node01</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_bindings -p
+      my-vhost exchange_name queue_name</code></div>
   </dd>
-  <dt><a class="permalink" href="#list_parameters"><code class="Cm" id="list_parameters">list_parameters</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>Lists all parameters for a virtual host.
-    <p class="Pp">For example, this command lists all parameters in the default
-        virtual host:</p>
+  <dt><a class="permalink" href="#list_channels"><code class="Cm" id="list_channels">list_channels</code></a>
+    [<var class="Ar">channelinfoitem ...</var>]</dt>
+  <dd>
+    <p class="Pp">Returns information on all current channels, the logical
+        containers executing most AMQP commands. This includes channels that are
+        part of ordinary AMQP connections, and channels created by various
+        plug-ins and other extensions.</p>
+    <p class="Pp">The <var class="Ar">channelinfoitem</var> parameter is used to
+        indicate which channel information items to include in the results. The
+        column order in the results will match the order of the parameters.
+        <var class="Ar">channelinfoitem</var> can take any value from the list
+        that follows:</p>
+    <dl class="Bl-tag">
+      <dt><a class="permalink" href="#pid"><code class="Cm" id="pid">pid</code></a></dt>
+      <dd>Id of the Erlang process associated with the connection.</dd>
+      <dt><a class="permalink" href="#connection"><code class="Cm" id="connection">connection</code></a></dt>
+      <dd>Id of the Erlang process associated with the connection to which the
+          channel belongs.</dd>
+      <dt><a class="permalink" href="#name_2"><code class="Cm" id="name_2">name</code></a></dt>
+      <dd>Readable name for the channel.</dd>
+      <dt><a class="permalink" href="#number"><code class="Cm" id="number">number</code></a></dt>
+      <dd>The number of the channel, which uniquely identifies it within a
+          connection.</dd>
+      <dt><a class="permalink" href="#user"><code class="Cm" id="user">user</code></a></dt>
+      <dd>Username associated with the channel.</dd>
+      <dt><a class="permalink" href="#vhost"><code class="Cm" id="vhost">vhost</code></a></dt>
+      <dd>Virtual host in which the channel operates.</dd>
+      <dt><a class="permalink" href="#transactional"><code class="Cm" id="transactional">transactional</code></a></dt>
+      <dd>True if the channel is in transactional mode, false otherwise.</dd>
+      <dt><a class="permalink" href="#confirm"><code class="Cm" id="confirm">confirm</code></a></dt>
+      <dd>True if the channel is in confirm mode, false otherwise.</dd>
+      <dt><a class="permalink" href="#consumer_count"><code class="Cm" id="consumer_count">consumer_count</code></a></dt>
+      <dd>Number of logical AMQP consumers retrieving messages via the
+        channel.</dd>
+      <dt><a class="permalink" href="#messages_unacknowledged"><code class="Cm" id="messages_unacknowledged">messages_unacknowledged</code></a></dt>
+      <dd>Number of messages delivered via this channel but not yet
+          acknowledged.</dd>
+      <dt><a class="permalink" href="#messages_uncommitted"><code class="Cm" id="messages_uncommitted">messages_uncommitted</code></a></dt>
+      <dd>Number of messages received in an as yet uncommitted transaction.</dd>
+      <dt><a class="permalink" href="#acks_uncommitted"><code class="Cm" id="acks_uncommitted">acks_uncommitted</code></a></dt>
+      <dd>Number of acknowledgements received in an as yet uncommitted
+          transaction.</dd>
+      <dt><a class="permalink" href="#messages_unconfirmed"><code class="Cm" id="messages_unconfirmed">messages_unconfirmed</code></a></dt>
+      <dd>Number of published messages not yet confirmed. On channels not in
+          confirm mode, this remains 0.</dd>
+      <dt><a class="permalink" href="#prefetch_count"><code class="Cm" id="prefetch_count">prefetch_count</code></a></dt>
+      <dd>QoS prefetch limit for new consumers, 0 if unlimited.</dd>
+      <dt><a class="permalink" href="#global_prefetch_count"><code class="Cm" id="global_prefetch_count">global_prefetch_count</code></a></dt>
+      <dd>QoS prefetch limit for the entire channel, 0 if unlimited.</dd>
+    </dl>
+    <p class="Pp">If no <var class="Ar">channelinfoitem</var> are specified then
+        pid, user, consumer_count, and messages_unacknowledged are assumed.</p>
+    <p class="Pp">For example, this command displays the connection process and
+        count of unacknowledged messages for each channel:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_channels
+      connection messages_unacknowledged</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_ciphers"><code class="Cm" id="list_ciphers">list_ciphers</code></a></dt>
+  <dd>
+    <p class="Pp">Lists cipher suites supported by encoding commands.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all cipher suites supported by encoding commands:</p>
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_parameters</code></div>
+      list_ciphers</code></div>
   </dd>
-  <dt><a class="permalink" href="#set_global_parameter"><code class="Cm" id="set_global_parameter">set_global_parameter</code></a>
-    <var class="Ar">name</var> <var class="Ar">value</var></dt>
-  <dd>Sets a global runtime parameter. This is similar to
-      <code class="Cm">set_parameter</code> but the key-value pair isn't tied to
-      a virtual host.
+  <dt><a class="permalink" href="#list_connections"><code class="Cm" id="list_connections">list_connections</code></a>
+    [<var class="Ar">connectioninfoitem ...</var>]</dt>
+  <dd>
+    <p class="Pp">Returns TCP/IP connection statistics.</p>
+    <p class="Pp">The <var class="Ar">connectioninfoitem</var> parameter is used
+        to indicate which connection information items to include in the
+        results. The column order in the results will match the order of the
+        parameters. <var class="Ar">connectioninfoitem</var> can take any value
+        from the list that follows:</p>
     <dl class="Bl-tag">
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the global runtime parameter being set.</dd>
-      <dt><var class="Ar">value</var></dt>
-      <dd>The value for the global runtime parameter, as a JSON term. In most
-          shells you are very likely to need to quote this.</dd>
-    </dl>
-    <p class="Pp">For example, this command sets the global runtime parameter
-        &quot;mqtt_default_vhosts&quot; to the JSON term
-        {&quot;O=client,CN=guest&quot;:&quot;/&quot;}:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_global_parameter
-      mqtt_default_vhosts
-      '{&quot;O=client,CN=guest&quot;:&quot;/&quot;}'</code></div>
-  </dd>
-  <dt><a class="permalink" href="#clear_global_parameter"><code class="Cm" id="clear_global_parameter">clear_global_parameter</code></a>
-    <var class="Ar">name</var></dt>
-  <dd>Clears a global runtime parameter. This is similar to
-      <code class="Cm">clear_parameter</code> but the key-value pair isn't tied
-      to a virtual host.
-    <dl class="Bl-tag">
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the global runtime parameter being cleared.</dd>
-    </dl>
-    <p class="Pp">For example, this command clears the global runtime parameter
-        &quot;mqtt_default_vhosts&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      clear_global_parameter mqtt_default_vhosts</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_global_parameters"><code class="Cm" id="list_global_parameters">list_global_parameters</code></a></dt>
-  <dd>Lists all global runtime parameters. This is similar to
-      <code class="Cm">list_parameters</code> but the global runtime parameters
-      are not tied to any virtual host.
-    <p class="Pp">For example, this command lists all global parameters:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_global_parameters</code></div>
-  </dd>
-</dl>
-</section>
-<section class="Ss">
-<h3 class="Ss" id="Policy_Management"><a class="permalink" href="#Policy_Management">Policy
-  Management</a></h3>
-Policies are used to control and modify the behaviour of queues and exchanges on
-  a cluster-wide basis. Policies apply within a given vhost, and consist of a
-  name, pattern, definition and an optional priority. Policies can be set,
-  cleared and listed.
-<dl class="Bl-tag">
-  <dt><a class="permalink" href="#set_policy"><code class="Cm" id="set_policy">set_policy</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    [<code class="Fl">--priority</code> <var class="Ar">priority</var>]
-    [<code class="Fl">--apply-to</code> <var class="Ar">apply-to</var>]
-    <var class="Ar">name</var> <var class="Ar">pattern</var>
-    <var class="Ar">definition</var></dt>
-  <dd>Sets a policy.
-    <dl class="Bl-tag">
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the policy.</dd>
-      <dt><var class="Ar">pattern</var></dt>
-      <dd>The regular expression, which when matches on a given resources causes
-          the policy to apply.</dd>
-      <dt><var class="Ar">definition</var></dt>
-      <dd>The definition of the policy, as a JSON term. In most shells you are
-          very likely to need to quote this.</dd>
-      <dt><var class="Ar">priority</var></dt>
-      <dd>The priority of the policy as an integer. Higher numbers indicate
-          greater precedence. The default is 0.</dd>
-      <dt><var class="Ar">apply-to</var></dt>
-      <dd>Which types of object this policy should apply to. Possible values
-          are:
+      <dt><a class="permalink" href="#pid_2"><code class="Cm" id="pid_2">pid</code></a></dt>
+      <dd>Id of the Erlang process associated with the connection.</dd>
+      <dt><a class="permalink" href="#name_3"><code class="Cm" id="name_3">name</code></a></dt>
+      <dd>Readable name for the connection.</dd>
+      <dt><a class="permalink" href="#port"><code class="Cm" id="port">port</code></a></dt>
+      <dd>Server port.</dd>
+      <dt><a class="permalink" href="#host"><code class="Cm" id="host">host</code></a></dt>
+      <dd>Server hostname obtained via reverse DNS, or its IP address if reverse
+          DNS failed or was disabled.</dd>
+      <dt><a class="permalink" href="#peer_port"><code class="Cm" id="peer_port">peer_port</code></a></dt>
+      <dd>Peer port.</dd>
+      <dt><a class="permalink" href="#peer_host"><code class="Cm" id="peer_host">peer_host</code></a></dt>
+      <dd>Peer hostname obtained via reverse DNS, or its IP address if reverse
+          DNS failed or was not enabled.</dd>
+      <dt><a class="permalink" href="#ssl"><code class="Cm" id="ssl">ssl</code></a></dt>
+      <dd>Boolean indicating whether the connection is secured with SSL.</dd>
+      <dt><a class="permalink" href="#ssl_protocol"><code class="Cm" id="ssl_protocol">ssl_protocol</code></a></dt>
+      <dd>SSL protocol (e.g. &quot;tlsv1&quot;).</dd>
+      <dt><a class="permalink" href="#ssl_key_exchange"><code class="Cm" id="ssl_key_exchange">ssl_key_exchange</code></a></dt>
+      <dd>SSL key exchange algorithm (e.g. &quot;rsa&quot;).</dd>
+      <dt><a class="permalink" href="#ssl_cipher"><code class="Cm" id="ssl_cipher">ssl_cipher</code></a></dt>
+      <dd>SSL cipher algorithm (e.g. &quot;aes_256_cbc&quot;).</dd>
+      <dt><a class="permalink" href="#ssl_hash"><code class="Cm" id="ssl_hash">ssl_hash</code></a></dt>
+      <dd>SSL hash function (e.g. &quot;sha&quot;).</dd>
+      <dt><a class="permalink" href="#peer_cert_subject"><code class="Cm" id="peer_cert_subject">peer_cert_subject</code></a></dt>
+      <dd>The subject of the peer's SSL certificate, in RFC4514 form.</dd>
+      <dt><a class="permalink" href="#peer_cert_issuer"><code class="Cm" id="peer_cert_issuer">peer_cert_issuer</code></a></dt>
+      <dd>The issuer of the peer's SSL certificate, in RFC4514 form.</dd>
+      <dt><a class="permalink" href="#peer_cert_validity"><code class="Cm" id="peer_cert_validity">peer_cert_validity</code></a></dt>
+      <dd>The period for which the peer's SSL certificate is valid.</dd>
+      <dt><a class="permalink" href="#state"><code class="Cm" id="state">state</code></a></dt>
+      <dd>Connection state; one of:
         <ul class="Bl-bullet Bl-compact">
-          <li><a class="permalink" href="#queues"><code class="Cm" id="queues">queues</code></a></li>
-          <li><a class="permalink" href="#exchanges"><code class="Cm" id="exchanges">exchanges</code></a></li>
-          <li><a class="permalink" href="#all"><code class="Cm" id="all">all</code></a></li>
+          <li>starting</li>
+          <li>tuning</li>
+          <li>opening</li>
+          <li>running</li>
+          <li>flow</li>
+          <li>blocking</li>
+          <li>blocked</li>
+          <li>closing</li>
+          <li>closed</li>
         </ul>
-        The default is <code class="Cm">all ..</code></dd>
-    </dl>
-    <p class="Pp">For example, this command sets the policy
-        &quot;federate-me&quot; in the default virtual host so that built-in
-        exchanges are federated:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_policy
-      federate-me ^amq.
-      '{&quot;federation-upstream-set&quot;:&quot;all&quot;}'</code></div>
-  </dd>
-  <dt><a class="permalink" href="#clear_policy"><code class="Cm" id="clear_policy">clear_policy</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">name</var></dt>
-  <dd>Clears a policy.
-    <dl class="Bl-tag">
-      <dt><var class="Ar">name</var></dt>
-      <dd>The name of the policy being cleared.</dd>
-    </dl>
-    <p class="Pp">For example, this command clears the
-        &quot;federate-me&quot; policy in the default virtual host:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_policy
-      federate-me</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_policies"><code class="Cm" id="list_policies">list_policies</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>Lists all policies for a virtual host.
-    <p class="Pp">For example, this command lists all policies in the default
-        virtual host:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_policies</code></div>
-  </dd>
-  <dt><a class="permalink" href="#set_operator_policy"><code class="Cm" id="set_operator_policy">set_operator_policy</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    [<code class="Fl">--priority</code> <var class="Ar">priority</var>]
-    [<code class="Fl">--apply-to</code> <var class="Ar">apply-to</var>]
-    <var class="Ar">name</var> <var class="Ar">pattern</var>
-    <var class="Ar">definition</var></dt>
-  <dd>Sets an operator policy that overrides a subset of arguments in user
-      policies. Arguments are identical to those of
-      <code class="Cm">set_policy</code>.
-    <p class="Pp">Supported arguments are:</p>
-    <ul class="Bl-bullet Bl-compact">
-      <li>expires</li>
-      <li>message-ttl</li>
-      <li>max-length</li>
-      <li>max-length-bytes</li>
-    </ul>
-  </dd>
-  <dt><a class="permalink" href="#clear_operator_policy"><code class="Cm" id="clear_operator_policy">clear_operator_policy</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">name</var></dt>
-  <dd>Clears an operator policy. Arguments are identical to those of
-      <code class="Cm">clear_policy</code>.</dd>
-  <dt><a class="permalink" href="#list_operator_policies"><code class="Cm" id="list_operator_policies">list_operator_policies</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>Lists operator policy overrides for a virtual host. Arguments are
-      identical to those of <code class="Cm">list_policies</code>.</dd>
-</dl>
-</section>
-<section class="Ss">
-<h3 class="Ss" id="Virtual_Host_Limits"><a class="permalink" href="#Virtual_Host_Limits">Virtual
-  Host Limits</a></h3>
-It is possible to enforce certain limits on virtual hosts.
-<dl class="Bl-tag">
-  <dt><a class="permalink" href="#set_vhost_limits"><code class="Cm" id="set_vhost_limits">set_vhost_limits</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    <var class="Ar">definition</var></dt>
-  <dd>Sets virtual host limits.
-    <dl class="Bl-tag">
-      <dt><var class="Ar">definition</var></dt>
-      <dd>The definition of the limits, as a JSON term. In most shells you are
-          very likely to need to quote this.
-        <p class="Pp">Recognised limits are:</p>
-        <ul class="Bl-bullet Bl-compact">
-          <li>max-connections</li>
-          <li>max-queues</li>
-        </ul>
-        <p class="Pp">Use a negative value to specify &quot;no limit&quot;.</p>
       </dd>
+      <dt><a class="permalink" href="#channels"><code class="Cm" id="channels">channels</code></a></dt>
+      <dd>Number of channels using the connection.</dd>
+      <dt><a class="permalink" href="#protocol"><code class="Cm" id="protocol">protocol</code></a></dt>
+      <dd>Version of the AMQP protocol in use; currently one of:
+        <ul class="Bl-bullet Bl-compact">
+          <li>{0,9,1}</li>
+          <li>{0,8,0}</li>
+        </ul>
+        <p class="Pp">Note that if a client requests an AMQP 0-9 connection, we
+            treat it as AMQP 0-9-1.</p>
+      </dd>
+      <dt><a class="permalink" href="#auth_mechanism"><code class="Cm" id="auth_mechanism">auth_mechanism</code></a></dt>
+      <dd>SASL authentication mechanism used, such as
+        &quot;PLAIN&quot;.</dd>
+      <dt><a class="permalink" href="#user_2"><code class="Cm" id="user_2">user</code></a></dt>
+      <dd>Username associated with the connection.</dd>
+      <dt><a class="permalink" href="#vhost_2"><code class="Cm" id="vhost_2">vhost</code></a></dt>
+      <dd>Virtual host name with non-ASCII characters escaped as in C.</dd>
+      <dt><a class="permalink" href="#timeout"><code class="Cm" id="timeout">timeout</code></a></dt>
+      <dd>Connection timeout / negotiated heartbeat interval, in seconds.</dd>
+      <dt><a class="permalink" href="#frame_max"><code class="Cm" id="frame_max">frame_max</code></a></dt>
+      <dd>Maximum frame size (bytes).</dd>
+      <dt><a class="permalink" href="#channel_max"><code class="Cm" id="channel_max">channel_max</code></a></dt>
+      <dd>Maximum number of channels on this connection.</dd>
+      <dt><a class="permalink" href="#client_properties"><code class="Cm" id="client_properties">client_properties</code></a></dt>
+      <dd>Informational properties transmitted by the client during connection
+          establishment.</dd>
+      <dt><a class="permalink" href="#recv_oct"><code class="Cm" id="recv_oct">recv_oct</code></a></dt>
+      <dd>Octets received.</dd>
+      <dt><a class="permalink" href="#recv_cnt"><code class="Cm" id="recv_cnt">recv_cnt</code></a></dt>
+      <dd>Packets received.</dd>
+      <dt><a class="permalink" href="#send_oct"><code class="Cm" id="send_oct">send_oct</code></a></dt>
+      <dd>Octets send.</dd>
+      <dt><a class="permalink" href="#send_cnt"><code class="Cm" id="send_cnt">send_cnt</code></a></dt>
+      <dd>Packets sent.</dd>
+      <dt><a class="permalink" href="#send_pend"><code class="Cm" id="send_pend">send_pend</code></a></dt>
+      <dd>Send queue size.</dd>
+      <dt><a class="permalink" href="#connected_at"><code class="Cm" id="connected_at">connected_at</code></a></dt>
+      <dd>Date and time this connection was established, as timestamp.</dd>
     </dl>
-    <p class="Pp">For example, this command limits the max number of concurrent
-        connections in vhost &quot;qa_env&quot; to 64:</p>
+    <p class="Pp">If no <var class="Ar">connectioninfoitem</var> are specified
+        then user, peer host, peer port, time since flow control and memory
+        block state are displayed.</p>
+    <p class="Pp">For example, this command displays the send queue size and
+        server port for each connection:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
-      qa_env '{&quot;max-connections&quot;: 64}'</code></div>
-    <p class="Pp">This command limits the max number of queues in vhost
-        &quot;qa_env&quot; to 256:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
-      qa_env '{&quot;max-queues&quot;: 256}'</code></div>
-    <p class="Pp">This command clears the max number of connections limit in
-        vhost &quot;qa_env&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
-      qa_env '{&quot;max-connections&quot;: -1}'</code></div>
-    <p class="Pp">This command disables client connections in vhost
-        &quot;qa_env&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
-      qa_env '{&quot;max-connections&quot;: 0}'</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_connections
+      send_pend port</code></div>
   </dd>
-  <dt><a class="permalink" href="#clear_vhost_limits"><code class="Cm" id="clear_vhost_limits">clear_vhost_limits</code></a>
+  <dt><a class="permalink" href="#list_consumers"><code class="Cm" id="list_consumers">list_consumers</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>Clears virtual host limits.
-    <p class="Pp">For example, this command clears vhost limits in vhost
-        &quot;qa_env&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_vhost_limits -p
-      qa_env</code></div>
+  <dd>
+    <p class="Pp">Lists consumers, i.e. subscriptions to a queue&#x00B4;s
+        message stream. Each line printed shows, separated by tab characters,
+        the name of the queue subscribed to, the id of the channel process via
+        which the subscription was created and is managed, the consumer tag
+        which uniquely identifies the subscription within a channel, a boolean
+        indicating whether acknowledgements are expected for messages delivered
+        to this consumer, an integer indicating the prefetch limit (with 0
+        meaning &quot;none&quot;), and any arguments for this consumer.</p>
   </dd>
-  <dt><a class="permalink" href="#list_vhost_limits"><code class="Cm" id="list_vhost_limits">list_vhost_limits</code></a>
+  <dt><a class="permalink" href="#list_exchanges"><code class="Cm" id="list_exchanges">list_exchanges</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    [<code class="Fl">--global</code>]</dt>
-  <dd>Displays configured virtual host limits.
+    [<var class="Ar">exchangeinfoitem ...</var>]</dt>
+  <dd>
+    <p class="Pp">Returns exchange details. Exchange details of the
+        &quot;/&quot; virtual host are returned if the
+        <code class="Fl">-p</code> flag is absent. The
+        <code class="Fl">-p</code> flag can be used to override this
+      default.</p>
+    <p class="Pp">The <var class="Ar">exchangeinfoitem</var> parameter is used
+        to indicate which exchange information items to include in the results.
+        The column order in the results will match the order of the parameters.
+        <var class="Ar">exchangeinfoitem</var> can take any value from the list
+        that follows:</p>
     <dl class="Bl-tag">
-      <dt><a class="permalink" href="#-global"><code class="Fl" id="-global">--global</code></a></dt>
-      <dd>Show limits for all vhosts. Suppresses the <code class="Fl">-p</code>
-          parameter.</dd>
+      <dt><a class="permalink" href="#name_4"><code class="Cm" id="name_4">name</code></a></dt>
+      <dd>The name of the exchange with non-ASCII characters escaped as in
+        C.</dd>
+      <dt><a class="permalink" href="#type"><code class="Cm" id="type">type</code></a></dt>
+      <dd>The exchange type, such as:
+        <ul class="Bl-bullet Bl-compact">
+          <li>direct</li>
+          <li>topic</li>
+          <li>headers</li>
+          <li>fanout</li>
+        </ul>
+      </dd>
+      <dt><a class="permalink" href="#durable"><code class="Cm" id="durable">durable</code></a></dt>
+      <dd>Whether or not the exchange survives server restarts.</dd>
+      <dt><a class="permalink" href="#auto_delete"><code class="Cm" id="auto_delete">auto_delete</code></a></dt>
+      <dd>Whether the exchange will be deleted automatically when no longer
+          used.</dd>
+      <dt><a class="permalink" href="#internal"><code class="Cm" id="internal">internal</code></a></dt>
+      <dd>Whether the exchange is internal, i.e. cannot be directly published to
+          by a client.</dd>
+      <dt><a class="permalink" href="#arguments_2"><code class="Cm" id="arguments_2">arguments</code></a></dt>
+      <dd>Exchange arguments.</dd>
+      <dt><a class="permalink" href="#policy"><code class="Cm" id="policy">policy</code></a></dt>
+      <dd>Policy name for applying to the exchange.</dd>
     </dl>
+    <p class="Pp">If no <var class="Ar">exchangeinfoitem</var> are specified
+        then exchange name and type are displayed.</p>
+    <p class="Pp">For example, this command displays the name and type for each
+        exchange of the virtual host named &quot;my-vhost&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_exchanges -p
+      my-vhost name type</code></div>
   </dd>
-</dl>
-</section>
-<section class="Ss">
-<h3 class="Ss" id="Topology_Introspection"><a class="permalink" href="#Topology_Introspection">Topology
-  Introspection</a></h3>
-The topology introspection commands list topology entities (e.g. queues) with
-  tab-delimited columns. Some commands ( <code class="Cm">list_queues</code>,
-  <code class="Cm">list_exchanges</code>, <code class="Cm">list_bindings</code>
-  and <code class="Cm">list_consumers</code>) accept an optional
-  <var class="Ar">vhost</var> parameter.
-<p class="Pp">The <code class="Cm">list_queues</code>,
-    <code class="Cm">list_exchanges</code> and
-    <code class="Cm">list_bindings</code> commands accept an optional virtual
-    host parameter for which to display results. The default value is
-    &quot;/&quot;.</p>
-<dl class="Bl-tag">
+  <dt><a class="permalink" href="#list_hashes"><code class="Cm" id="list_hashes">list_hashes</code></a></dt>
+  <dd>
+    <p class="Pp">Lists hash functions supported by encoding commands.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        list all hash functions supported by encoding commands:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_hashes</code></div>
+  </dd>
   <dt><a class="permalink" href="#list_queues"><code class="Cm" id="list_queues">list_queues</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     [<code class="Fl">--offline</code> | <code class="Fl">--online</code> |
     <code class="Fl">--local</code>] [<var class="Ar">queueinfoitem
     ...</var>]</dt>
-  <dd>Returns queue details. Queue details of the &quot;/&quot; virtual host
-      are returned if the <code class="Fl">-p</code> flag is absent. The
-      <code class="Fl">-p</code> flag can be used to override this default.
+  <dd>
+    <p class="Pp">Returns queue details. Queue details of the &quot;/&quot;
+        virtual host are returned if the <code class="Fl">-p</code> flag is
+        absent. The <code class="Fl">-p</code> flag can be used to override this
+        default.</p>
     <p class="Pp">Displayed queues can be filtered by their status or location
         using one of the following mutually exclusive options:</p>
     <dl class="Bl-tag">
@@ -1185,18 +1177,18 @@ The topology introspection commands list topology entities (e.g. queues) with
         <var class="Ar">queueinfoitem</var> can take any value from the list
         that follows:</p>
     <dl class="Bl-tag">
-      <dt><a class="permalink" href="#name_2"><code class="Cm" id="name_2">name</code></a></dt>
+      <dt><a class="permalink" href="#name_5"><code class="Cm" id="name_5">name</code></a></dt>
       <dd>The name of the queue with non-ASCII characters escaped as in C.</dd>
-      <dt><a class="permalink" href="#durable"><code class="Cm" id="durable">durable</code></a></dt>
+      <dt><a class="permalink" href="#durable_2"><code class="Cm" id="durable_2">durable</code></a></dt>
       <dd>Whether or not the queue survives server restarts.</dd>
-      <dt><a class="permalink" href="#auto_delete"><code class="Cm" id="auto_delete">auto_delete</code></a></dt>
+      <dt><a class="permalink" href="#auto_delete_2"><code class="Cm" id="auto_delete_2">auto_delete</code></a></dt>
       <dd>Whether the queue will be deleted automatically when no longer
         used.</dd>
-      <dt><a class="permalink" href="#arguments"><code class="Cm" id="arguments">arguments</code></a></dt>
+      <dt><a class="permalink" href="#arguments_3"><code class="Cm" id="arguments_3">arguments</code></a></dt>
       <dd>Queue arguments.</dd>
-      <dt><a class="permalink" href="#policy"><code class="Cm" id="policy">policy</code></a></dt>
+      <dt><a class="permalink" href="#policy_2"><code class="Cm" id="policy_2">policy</code></a></dt>
       <dd>Effective policy name for the queue.</dd>
-      <dt><a class="permalink" href="#pid"><code class="Cm" id="pid">pid</code></a></dt>
+      <dt><a class="permalink" href="#pid_3"><code class="Cm" id="pid_3">pid</code></a></dt>
       <dd>Erlang process identifier of the queue.</dd>
       <dt><a class="permalink" href="#owner_pid"><code class="Cm" id="owner_pid">owner_pid</code></a></dt>
       <dd>Id of the Erlang process of the connection which is the exclusive
@@ -1212,7 +1204,7 @@ The topology introspection commands list topology entities (e.g. queues) with
           if there is no exclusive consumer.</dd>
       <dt><a class="permalink" href="#messages_ready"><code class="Cm" id="messages_ready">messages_ready</code></a></dt>
       <dd>Number of messages ready to be delivered to clients.</dd>
-      <dt><a class="permalink" href="#messages_unacknowledged"><code class="Cm" id="messages_unacknowledged">messages_unacknowledged</code></a></dt>
+      <dt><a class="permalink" href="#messages_unacknowledged_2"><code class="Cm" id="messages_unacknowledged_2">messages_unacknowledged</code></a></dt>
       <dd>Number of messages delivered to clients but not yet acknowledged.</dd>
       <dt><a class="permalink" href="#messages"><code class="Cm" id="messages">messages</code></a></dt>
       <dd>Sum of ready and unacknowledged messages (queue depth).</dd>
@@ -1272,7 +1264,7 @@ The topology introspection commands list topology entities (e.g. queues) with
           more, see the
           <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ
           Mirroring guide</a></dd>
-      <dt><a class="permalink" href="#state"><code class="Cm" id="state">state</code></a></dt>
+      <dt><a class="permalink" href="#state_2"><code class="Cm" id="state_2">state</code></a></dt>
       <dd>The state of the queue. Normally &quot;running&quot;, but may be
           &quot;{syncing, <var class="Ar">message_count</var>}&quot; if the
           queue is synchronising.
@@ -1291,274 +1283,21 @@ The topology introspection commands list topology entities (e.g. queues) with
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_queues -p
       my-vhost messages consumers</code></div>
   </dd>
-  <dt><a class="permalink" href="#list_exchanges"><code class="Cm" id="list_exchanges">list_exchanges</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    [<var class="Ar">exchangeinfoitem ...</var>]</dt>
-  <dd>Returns exchange details. Exchange details of the &quot;/&quot;
-      virtual host are returned if the <code class="Fl">-p</code> flag is
-      absent. The <code class="Fl">-p</code> flag can be used to override this
-      default.
-    <p class="Pp">The <var class="Ar">exchangeinfoitem</var> parameter is used
-        to indicate which exchange information items to include in the results.
-        The column order in the results will match the order of the parameters.
-        <var class="Ar">exchangeinfoitem</var> can take any value from the list
-        that follows:</p>
-    <dl class="Bl-tag">
-      <dt><a class="permalink" href="#name_3"><code class="Cm" id="name_3">name</code></a></dt>
-      <dd>The name of the exchange with non-ASCII characters escaped as in
-        C.</dd>
-      <dt><a class="permalink" href="#type"><code class="Cm" id="type">type</code></a></dt>
-      <dd>The exchange type, such as:
-        <ul class="Bl-bullet Bl-compact">
-          <li>direct</li>
-          <li>topic</li>
-          <li>headers</li>
-          <li>fanout</li>
-        </ul>
-      </dd>
-      <dt><a class="permalink" href="#durable_2"><code class="Cm" id="durable_2">durable</code></a></dt>
-      <dd>Whether or not the exchange survives server restarts.</dd>
-      <dt><a class="permalink" href="#auto_delete_2"><code class="Cm" id="auto_delete_2">auto_delete</code></a></dt>
-      <dd>Whether the exchange will be deleted automatically when no longer
-          used.</dd>
-      <dt><a class="permalink" href="#internal"><code class="Cm" id="internal">internal</code></a></dt>
-      <dd>Whether the exchange is internal, i.e. cannot be directly published to
-          by a client.</dd>
-      <dt><a class="permalink" href="#arguments_2"><code class="Cm" id="arguments_2">arguments</code></a></dt>
-      <dd>Exchange arguments.</dd>
-      <dt><a class="permalink" href="#policy_2"><code class="Cm" id="policy_2">policy</code></a></dt>
-      <dd>Policy name for applying to the exchange.</dd>
-    </dl>
-    <p class="Pp">If no <var class="Ar">exchangeinfoitem</var> are specified
-        then exchange name and type are displayed.</p>
-    <p class="Pp">For example, this command displays the name and type for each
-        exchange of the virtual host named &quot;my-vhost&quot;:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_exchanges -p
-      my-vhost name type</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_bindings"><code class="Cm" id="list_bindings">list_bindings</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
-    [<var class="Ar">bindinginfoitem ...</var>]</dt>
-  <dd>Returns binding details. By default the bindings for the &quot;/&quot;
-      virtual host are returned. The <code class="Fl">-p</code> flag can be used
-      to override this default.
-    <p class="Pp">The <var class="Ar">bindinginfoitem</var> parameter is used to
-        indicate which binding information items to include in the results. The
-        column order in the results will match the order of the parameters.
-        <var class="Ar">bindinginfoitem</var> can take any value from the list
-        that follows:</p>
-    <dl class="Bl-tag">
-      <dt><a class="permalink" href="#source_name"><code class="Cm" id="source_name">source_name</code></a></dt>
-      <dd>The name of the source of messages to which the binding is attached.
-          With non-ASCII characters escaped as in C.</dd>
-      <dt><a class="permalink" href="#source_kind"><code class="Cm" id="source_kind">source_kind</code></a></dt>
-      <dd>The kind of the source of messages to which the binding is attached.
-          Currently always exchange. With non-ASCII characters escaped as in
-        C.</dd>
-      <dt><a class="permalink" href="#destination_name"><code class="Cm" id="destination_name">destination_name</code></a></dt>
-      <dd>The name of the destination of messages to which the binding is
-          attached. With non-ASCII characters escaped as in C.</dd>
-      <dt><a class="permalink" href="#destination_kind"><code class="Cm" id="destination_kind">destination_kind</code></a></dt>
-      <dd>The kind of the destination of messages to which the binding is
-          attached. With non-ASCII characters escaped as in C.</dd>
-      <dt><a class="permalink" href="#routing_key"><code class="Cm" id="routing_key">routing_key</code></a></dt>
-      <dd>The binding's routing key, with non-ASCII characters escaped as in
-        C.</dd>
-      <dt><a class="permalink" href="#arguments_3"><code class="Cm" id="arguments_3">arguments</code></a></dt>
-      <dd>The binding's arguments.</dd>
-    </dl>
-    <p class="Pp">If no <var class="Ar">bindinginfoitem</var> are specified then
-        all above items are displayed.</p>
-    <p class="Pp">For example, this command displays the exchange name and queue
-        name of the bindings in the virtual host named
-      &quot;my-vhost&quot;</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_bindings -p
-      my-vhost exchange_name queue_name</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_connections"><code class="Cm" id="list_connections">list_connections</code></a>
-    [<var class="Ar">connectioninfoitem ...</var>]</dt>
-  <dd>Returns TCP/IP connection statistics.
-    <p class="Pp">The <var class="Ar">connectioninfoitem</var> parameter is used
-        to indicate which connection information items to include in the
-        results. The column order in the results will match the order of the
-        parameters. <var class="Ar">connectioninfoitem</var> can take any value
-        from the list that follows:</p>
-    <dl class="Bl-tag">
-      <dt><a class="permalink" href="#pid_2"><code class="Cm" id="pid_2">pid</code></a></dt>
-      <dd>Id of the Erlang process associated with the connection.</dd>
-      <dt><a class="permalink" href="#name_4"><code class="Cm" id="name_4">name</code></a></dt>
-      <dd>Readable name for the connection.</dd>
-      <dt><a class="permalink" href="#port"><code class="Cm" id="port">port</code></a></dt>
-      <dd>Server port.</dd>
-      <dt><a class="permalink" href="#host"><code class="Cm" id="host">host</code></a></dt>
-      <dd>Server hostname obtained via reverse DNS, or its IP address if reverse
-          DNS failed or was disabled.</dd>
-      <dt><a class="permalink" href="#peer_port"><code class="Cm" id="peer_port">peer_port</code></a></dt>
-      <dd>Peer port.</dd>
-      <dt><a class="permalink" href="#peer_host"><code class="Cm" id="peer_host">peer_host</code></a></dt>
-      <dd>Peer hostname obtained via reverse DNS, or its IP address if reverse
-          DNS failed or was not enabled.</dd>
-      <dt><a class="permalink" href="#ssl"><code class="Cm" id="ssl">ssl</code></a></dt>
-      <dd>Boolean indicating whether the connection is secured with SSL.</dd>
-      <dt><a class="permalink" href="#ssl_protocol"><code class="Cm" id="ssl_protocol">ssl_protocol</code></a></dt>
-      <dd>SSL protocol (e.g. &quot;tlsv1&quot;).</dd>
-      <dt><a class="permalink" href="#ssl_key_exchange"><code class="Cm" id="ssl_key_exchange">ssl_key_exchange</code></a></dt>
-      <dd>SSL key exchange algorithm (e.g. &quot;rsa&quot;).</dd>
-      <dt><a class="permalink" href="#ssl_cipher"><code class="Cm" id="ssl_cipher">ssl_cipher</code></a></dt>
-      <dd>SSL cipher algorithm (e.g. &quot;aes_256_cbc&quot;).</dd>
-      <dt><a class="permalink" href="#ssl_hash"><code class="Cm" id="ssl_hash">ssl_hash</code></a></dt>
-      <dd>SSL hash function (e.g. &quot;sha&quot;).</dd>
-      <dt><a class="permalink" href="#peer_cert_subject"><code class="Cm" id="peer_cert_subject">peer_cert_subject</code></a></dt>
-      <dd>The subject of the peer's SSL certificate, in RFC4514 form.</dd>
-      <dt><a class="permalink" href="#peer_cert_issuer"><code class="Cm" id="peer_cert_issuer">peer_cert_issuer</code></a></dt>
-      <dd>The issuer of the peer's SSL certificate, in RFC4514 form.</dd>
-      <dt><a class="permalink" href="#peer_cert_validity"><code class="Cm" id="peer_cert_validity">peer_cert_validity</code></a></dt>
-      <dd>The period for which the peer's SSL certificate is valid.</dd>
-      <dt><a class="permalink" href="#state_2"><code class="Cm" id="state_2">state</code></a></dt>
-      <dd>Connection state; one of:
-        <ul class="Bl-bullet Bl-compact">
-          <li>starting</li>
-          <li>tuning</li>
-          <li>opening</li>
-          <li>running</li>
-          <li>flow</li>
-          <li>blocking</li>
-          <li>blocked</li>
-          <li>closing</li>
-          <li>closed</li>
-        </ul>
-      </dd>
-      <dt><a class="permalink" href="#channels"><code class="Cm" id="channels">channels</code></a></dt>
-      <dd>Number of channels using the connection.</dd>
-      <dt><a class="permalink" href="#protocol"><code class="Cm" id="protocol">protocol</code></a></dt>
-      <dd>Version of the AMQP protocol in use; currently one of:
-        <ul class="Bl-bullet Bl-compact">
-          <li>{0,9,1}</li>
-          <li>{0,8,0}</li>
-        </ul>
-        <p class="Pp">Note that if a client requests an AMQP 0-9 connection, we
-            treat it as AMQP 0-9-1.</p>
-      </dd>
-      <dt><a class="permalink" href="#auth_mechanism"><code class="Cm" id="auth_mechanism">auth_mechanism</code></a></dt>
-      <dd>SASL authentication mechanism used, such as
-        &quot;PLAIN&quot;.</dd>
-      <dt><a class="permalink" href="#user"><code class="Cm" id="user">user</code></a></dt>
-      <dd>Username associated with the connection.</dd>
-      <dt><a class="permalink" href="#vhost"><code class="Cm" id="vhost">vhost</code></a></dt>
-      <dd>Virtual host name with non-ASCII characters escaped as in C.</dd>
-      <dt><a class="permalink" href="#timeout"><code class="Cm" id="timeout">timeout</code></a></dt>
-      <dd>Connection timeout / negotiated heartbeat interval, in seconds.</dd>
-      <dt><a class="permalink" href="#frame_max"><code class="Cm" id="frame_max">frame_max</code></a></dt>
-      <dd>Maximum frame size (bytes).</dd>
-      <dt><a class="permalink" href="#channel_max"><code class="Cm" id="channel_max">channel_max</code></a></dt>
-      <dd>Maximum number of channels on this connection.</dd>
-      <dt><a class="permalink" href="#client_properties"><code class="Cm" id="client_properties">client_properties</code></a></dt>
-      <dd>Informational properties transmitted by the client during connection
-          establishment.</dd>
-      <dt><a class="permalink" href="#recv_oct"><code class="Cm" id="recv_oct">recv_oct</code></a></dt>
-      <dd>Octets received.</dd>
-      <dt><a class="permalink" href="#recv_cnt"><code class="Cm" id="recv_cnt">recv_cnt</code></a></dt>
-      <dd>Packets received.</dd>
-      <dt><a class="permalink" href="#send_oct"><code class="Cm" id="send_oct">send_oct</code></a></dt>
-      <dd>Octets send.</dd>
-      <dt><a class="permalink" href="#send_cnt"><code class="Cm" id="send_cnt">send_cnt</code></a></dt>
-      <dd>Packets sent.</dd>
-      <dt><a class="permalink" href="#send_pend"><code class="Cm" id="send_pend">send_pend</code></a></dt>
-      <dd>Send queue size.</dd>
-      <dt><a class="permalink" href="#connected_at"><code class="Cm" id="connected_at">connected_at</code></a></dt>
-      <dd>Date and time this connection was established, as timestamp.</dd>
-    </dl>
-    <p class="Pp">If no <var class="Ar">connectioninfoitem</var> are specified
-        then user, peer host, peer port, time since flow control and memory
-        block state are displayed.</p>
-    <p class="Pp">For example, this command displays the send queue size and
-        server port for each connection:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_connections
-      send_pend port</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_channels"><code class="Cm" id="list_channels">list_channels</code></a>
-    [<var class="Ar">channelinfoitem ...</var>]</dt>
-  <dd>Returns information on all current channels, the logical containers
-      executing most AMQP commands. This includes channels that are part of
-      ordinary AMQP connections, and channels created by various plug-ins and
-      other extensions.
-    <p class="Pp">The <var class="Ar">channelinfoitem</var> parameter is used to
-        indicate which channel information items to include in the results. The
-        column order in the results will match the order of the parameters.
-        <var class="Ar">channelinfoitem</var> can take any value from the list
-        that follows:</p>
-    <dl class="Bl-tag">
-      <dt><a class="permalink" href="#pid_3"><code class="Cm" id="pid_3">pid</code></a></dt>
-      <dd>Id of the Erlang process associated with the connection.</dd>
-      <dt><a class="permalink" href="#connection"><code class="Cm" id="connection">connection</code></a></dt>
-      <dd>Id of the Erlang process associated with the connection to which the
-          channel belongs.</dd>
-      <dt><a class="permalink" href="#name_5"><code class="Cm" id="name_5">name</code></a></dt>
-      <dd>Readable name for the channel.</dd>
-      <dt><a class="permalink" href="#number"><code class="Cm" id="number">number</code></a></dt>
-      <dd>The number of the channel, which uniquely identifies it within a
-          connection.</dd>
-      <dt><a class="permalink" href="#user_2"><code class="Cm" id="user_2">user</code></a></dt>
-      <dd>Username associated with the channel.</dd>
-      <dt><a class="permalink" href="#vhost_2"><code class="Cm" id="vhost_2">vhost</code></a></dt>
-      <dd>Virtual host in which the channel operates.</dd>
-      <dt><a class="permalink" href="#transactional"><code class="Cm" id="transactional">transactional</code></a></dt>
-      <dd>True if the channel is in transactional mode, false otherwise.</dd>
-      <dt><a class="permalink" href="#confirm"><code class="Cm" id="confirm">confirm</code></a></dt>
-      <dd>True if the channel is in confirm mode, false otherwise.</dd>
-      <dt><a class="permalink" href="#consumer_count"><code class="Cm" id="consumer_count">consumer_count</code></a></dt>
-      <dd>Number of logical AMQP consumers retrieving messages via the
-        channel.</dd>
-      <dt><a class="permalink" href="#messages_unacknowledged_2"><code class="Cm" id="messages_unacknowledged_2">messages_unacknowledged</code></a></dt>
-      <dd>Number of messages delivered via this channel but not yet
-          acknowledged.</dd>
-      <dt><a class="permalink" href="#messages_uncommitted"><code class="Cm" id="messages_uncommitted">messages_uncommitted</code></a></dt>
-      <dd>Number of messages received in an as yet uncommitted transaction.</dd>
-      <dt><a class="permalink" href="#acks_uncommitted"><code class="Cm" id="acks_uncommitted">acks_uncommitted</code></a></dt>
-      <dd>Number of acknowledgements received in an as yet uncommitted
-          transaction.</dd>
-      <dt><a class="permalink" href="#messages_unconfirmed"><code class="Cm" id="messages_unconfirmed">messages_unconfirmed</code></a></dt>
-      <dd>Number of published messages not yet confirmed. On channels not in
-          confirm mode, this remains 0.</dd>
-      <dt><a class="permalink" href="#prefetch_count"><code class="Cm" id="prefetch_count">prefetch_count</code></a></dt>
-      <dd>QoS prefetch limit for new consumers, 0 if unlimited.</dd>
-      <dt><a class="permalink" href="#global_prefetch_count"><code class="Cm" id="global_prefetch_count">global_prefetch_count</code></a></dt>
-      <dd>QoS prefetch limit for the entire channel, 0 if unlimited.</dd>
-    </dl>
-    <p class="Pp">If no <var class="Ar">channelinfoitem</var> are specified then
-        pid, user, consumer_count, and messages_unacknowledged are assumed.</p>
-    <p class="Pp">For example, this command displays the connection process and
-        count of unacknowledged messages for each channel:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_channels
-      connection messages_unacknowledged</code></div>
-  </dd>
-  <dt><a class="permalink" href="#list_consumers"><code class="Cm" id="list_consumers">list_consumers</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>Lists consumers, i.e. subscriptions to a queue&#x00B4;s message stream.
-      Each line printed shows, separated by tab characters, the name of the
-      queue subscribed to, the id of the channel process via which the
-      subscription was created and is managed, the consumer tag which uniquely
-      identifies the subscription within a channel, a boolean indicating whether
-      acknowledgements are expected for messages delivered to this consumer, an
-      integer indicating the prefetch limit (with 0 meaning
-      &quot;none&quot;), and any arguments for this consumer.</dd>
-  <dt><a class="permalink" href="#status"><code class="Cm" id="status">status</code></a></dt>
-  <dd>Displays broker status information such as the running applications on the
-      current Erlang node, RabbitMQ and Erlang versions, OS name, memory and
-      file descriptor statistics. (See the
-      <code class="Cm">cluster_status</code> command to find out which nodes are
-      clustered and running.)
-    <p class="Pp">For example, this command displays information about the
-        RabbitMQ broker:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl status</code></div>
+  <dt><a class="permalink" href="#list_unresponsive_queues"><code class="Cm" id="list_unresponsive_queues">list_unresponsive_queues</code></a>
+    [<code class="Fl">--local</code>] [<code class="Fl">--queue_timeout</code>
+    <var class="Ar">milliseconds</var>] [<var class="Ar">column ...</var>]
+    [<code class="Fl">--no-table-headers</code>]</dt>
+  <dd>
+    <p class="Pp">Tests queues to respond within timeout. Lists those which did
+        not respond</p>
+    <p class="Pp">For example, this command lists only those unresponsive queues
+        whose master process is located on the current node.</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_unresponsive_queues --local name</code></div>
   </dd>
   <dt><a class="permalink" href="#node_health_check"><code class="Cm" id="node_health_check">node_health_check</code></a></dt>
-  <dd>Performs several health checks of the target node.
+  <dd>
+    <p class="Pp">Performs several health checks of the target node.</p>
     <p class="Pp">Verifies the rabbit application is running and alarms are not
         set, then checks that every queue and channel on the node can emit basic
         stats.</p>
@@ -1566,56 +1305,580 @@ The topology introspection commands list topology entities (e.g. queues) with
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl node_health_check -n
       rabbit@hostname</code></div>
   </dd>
-  <dt><a class="permalink" href="#environment"><code class="Cm" id="environment">environment</code></a></dt>
-  <dd>Displays the name and value of each variable in the application
-      environment for each running application.</dd>
+  <dt><a class="permalink" href="#ping"><code class="Cm" id="ping">ping</code></a></dt>
+  <dd>
+    <p class="Pp">Checks that the node OS process is up, registered with EPMD
+        and CLI tools can authenticate with it</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl ping -n
+      rabbit@hostname</code></div>
+  </dd>
   <dt><a class="permalink" href="#report"><code class="Cm" id="report">report</code></a></dt>
-  <dd>Generate a server status report containing a concatenation of all server
-      status information for support purposes. The output should be redirected
-      to a file when accompanying a support request.
+  <dd>
+    <p class="Pp">Generate a server status report containing a concatenation of
+        all server status information for support purposes. The output should be
+        redirected to a file when accompanying a support request.</p>
     <p class="Pp">For example, this command creates a server report which may be
         attached to a support request email:</p>
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl report &gt;
       server_report.txt</code></div>
   </dd>
-  <dt><a class="permalink" href="#eval"><code class="Cm" id="eval">eval</code></a>
-    <var class="Ar">expr</var></dt>
-  <dd>Evaluate an arbitrary Erlang expression.
-    <p class="Pp">For example, this command returns the name of the node to
-        which <code class="Nm">rabbitmqctl</code> has connected:</p>
+  <dt><a class="permalink" href="#schema_info"><code class="Cm" id="schema_info">schema_info</code></a>
+    [<code class="Fl">--no-table-headers</code>] [<var class="Ar">column
+    ...</var>]</dt>
+  <dd>
+    <p class="Pp">Lists schema database tables and their properties</p>
+    <p class="Pp">For example, this command lists the table names and their
+        active replicas:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl eval
-      &quot;node().&quot;</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl schema_info name
+      active_replicas</code></div>
+  </dd>
+  <dt><a class="permalink" href="#status"><code class="Cm" id="status">status</code></a></dt>
+  <dd>
+    <p class="Pp">Displays broker status information such as the running
+        applications on the current Erlang node, RabbitMQ and Erlang versions,
+        OS name, memory and file descriptor statistics. (See the
+        <code class="Cm">cluster_status</code> command to find out which nodes
+        are clustered and running.)</p>
+    <p class="Pp">For example, this command displays information about the
+        RabbitMQ broker:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl status</code></div>
   </dd>
 </dl>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Miscellaneous"><a class="permalink" href="#Miscellaneous">Miscellaneous</a></h3>
+<h3 class="Ss" id="Runtime_Parameters_and_Policies"><a class="permalink" href="#Runtime_Parameters_and_Policies">Runtime
+  Parameters and Policies</a></h3>
+Certain features of RabbitMQ (such as the Federation plugin) are controlled by
+  dynamic, cluster-wide <i class="Em">parameters.</i> There are 2 kinds of
+  parameters: parameters scoped to a virtual host and global parameters. Each
+  vhost-scoped parameter consists of a component name, a name and a value. The
+  component name and name are strings, and the value is a valid JSON document. A
+  global parameter consists of a name and value. The name is a string and the
+  value is an arbitrary Erlang data structure. Parameters can be set, cleared
+  and listed. In general you should refer to the documentation for the feature
+  in question to see how to set parameters.
+<p class="Pp">Policies is a feature built on top of runtime parameters. Policies
+    are used to control and modify the behaviour of queues and exchanges on a
+    cluster-wide basis. Policies apply within a given vhost, and consist of a
+    name, pattern, definition and an optional priority. Policies can be set,
+    cleared and listed.</p>
 <dl class="Bl-tag">
-  <dt><a class="permalink" href="#close_connection"><code class="Cm" id="close_connection">close_connection</code></a>
-    <var class="Ar">connectionpid</var> <var class="Ar">explanation</var></dt>
+  <dt><a class="permalink" href="#clear_global_parameter"><code class="Cm" id="clear_global_parameter">clear_global_parameter</code></a>
+    <var class="Ar">name</var></dt>
+  <dd>
+    <p class="Pp">Clears a global runtime parameter. This is similar to
+        <code class="Cm">clear_parameter</code> but the key-value pair isn't
+        tied to a virtual host.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the global runtime parameter being cleared.</dd>
+    </dl>
+    <p class="Pp">For example, this command clears the global runtime parameter
+        &quot;mqtt_default_vhosts&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      clear_global_parameter mqtt_default_vhosts</code></div>
+  </dd>
+  <dt><a class="permalink" href="#clear_parameter"><code class="Cm" id="clear_parameter">clear_parameter</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">component_name</var> <var class="Ar">key</var></dt>
+  <dd>
+    <p class="Pp">Clears a parameter.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">component_name</var></dt>
+      <dd>The name of the component for which the parameter is being
+        cleared.</dd>
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the parameter being cleared.</dd>
+    </dl>
+    <p class="Pp">For example, this command clears the parameter
+        &quot;node01&quot; for the &quot;federation-upstream&quot;
+        component in the default virtual host:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_parameter
+      federation-upstream node01</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_global_parameters"><code class="Cm" id="list_global_parameters">list_global_parameters</code></a></dt>
+  <dd>
+    <p class="Pp">Lists all global runtime parameters. This is similar to
+        <code class="Cm">list_parameters</code> but the global runtime
+        parameters are not tied to any virtual host.</p>
+    <p class="Pp">For example, this command lists all global parameters:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_global_parameters</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_parameters"><code class="Cm" id="list_parameters">list_parameters</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <p class="Pp">Lists all parameters for a virtual host.</p>
+    <p class="Pp">For example, this command lists all parameters in the default
+        virtual host:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_parameters</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_global_parameter"><code class="Cm" id="set_global_parameter">set_global_parameter</code></a>
+    <var class="Ar">name</var> <var class="Ar">value</var></dt>
+  <dd>
+    <p class="Pp">Sets a global runtime parameter. This is similar to
+        <code class="Cm">set_parameter</code> but the key-value pair isn't tied
+        to a virtual host.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the global runtime parameter being set.</dd>
+      <dt><var class="Ar">value</var></dt>
+      <dd>The value for the global runtime parameter, as a JSON term. In most
+          shells you are very likely to need to quote this.</dd>
+    </dl>
+    <p class="Pp">For example, this command sets the global runtime parameter
+        &quot;mqtt_default_vhosts&quot; to the JSON term
+        {&quot;O=client,CN=guest&quot;:&quot;/&quot;}:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_global_parameter
+      mqtt_default_vhosts
+      '{&quot;O=client,CN=guest&quot;:&quot;/&quot;}'</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_parameter"><code class="Cm" id="set_parameter">set_parameter</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">component_name</var> <var class="Ar">name</var>
+    <var class="Ar">value</var></dt>
+  <dd>
+    <p class="Pp">Sets a parameter.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">component_name</var></dt>
+      <dd>The name of the component for which the parameter is being set.</dd>
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the parameter being set.</dd>
+      <dt><var class="Ar">value</var></dt>
+      <dd>The value for the parameter, as a JSON term. In most shells you are
+          very likely to need to quote this.</dd>
+    </dl>
+    <p class="Pp">For example, this command sets the parameter
+        &quot;node01&quot; for the &quot;federation-upstream&quot;
+        component in the default virtual host to the following JSON
+        &quot;guest&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_parameter
+      federation-upstream node01
+      '{&quot;uri&quot;:&quot;amqp://user:password@server/%2F&quot;,&quot;ack-mode&quot;:&quot;on-publish&quot;}'</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_policies"><code class="Cm" id="list_policies">list_policies</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <p class="Pp">Lists all policies for a virtual host.</p>
+    <p class="Pp">For example, this command lists all policies in the default
+        virtual host:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
+      list_policies</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_operator_policy"><code class="Cm" id="set_operator_policy">set_operator_policy</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    [<code class="Fl">--priority</code> <var class="Ar">priority</var>]
+    [<code class="Fl">--apply-to</code> <var class="Ar">apply-to</var>]
+    <var class="Ar">name</var> <var class="Ar">pattern</var>
+    <var class="Ar">definition</var></dt>
+  <dd>
+    <p class="Pp">Sets an operator policy that overrides a subset of arguments
+        in user policies. Arguments are identical to those of
+        <code class="Cm">set_policy</code>.</p>
+    <p class="Pp">Supported arguments are:</p>
+    <ul class="Bl-bullet Bl-compact">
+      <li>expires</li>
+      <li>message-ttl</li>
+      <li>max-length</li>
+      <li>max-length-bytes</li>
+    </ul>
+  </dd>
+  <dt><a class="permalink" href="#set_policy"><code class="Cm" id="set_policy">set_policy</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    [<code class="Fl">--priority</code> <var class="Ar">priority</var>]
+    [<code class="Fl">--apply-to</code> <var class="Ar">apply-to</var>]
+    <var class="Ar">name</var> <var class="Ar">pattern</var>
+    <var class="Ar">definition</var></dt>
+  <dd>
+    <p class="Pp">Sets a policy.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the policy.</dd>
+      <dt><var class="Ar">pattern</var></dt>
+      <dd>The regular expression, which when matches on a given resources causes
+          the policy to apply.</dd>
+      <dt><var class="Ar">definition</var></dt>
+      <dd>The definition of the policy, as a JSON term. In most shells you are
+          very likely to need to quote this.</dd>
+      <dt><var class="Ar">priority</var></dt>
+      <dd>The priority of the policy as an integer. Higher numbers indicate
+          greater precedence. The default is 0.</dd>
+      <dt><var class="Ar">apply-to</var></dt>
+      <dd>Which types of object this policy should apply to. Possible values
+          are:
+        <ul class="Bl-bullet Bl-compact">
+          <li>queues</li>
+          <li>exchanges</li>
+          <li>all</li>
+        </ul>
+        The default is <code class="Cm">all ..</code></dd>
+    </dl>
+    <p class="Pp">For example, this command sets the policy
+        &quot;federate-me&quot; in the default virtual host so that built-in
+        exchanges are federated:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_policy
+      federate-me ^amq.
+      '{&quot;federation-upstream-set&quot;:&quot;all&quot;}'</code></div>
+  </dd>
+  <dt><a class="permalink" href="#clear_policy"><code class="Cm" id="clear_policy">clear_policy</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">name</var></dt>
+  <dd>
+    <p class="Pp">Clears a policy.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">name</var></dt>
+      <dd>The name of the policy being cleared.</dd>
+    </dl>
+    <p class="Pp">For example, this command clears the
+        &quot;federate-me&quot; policy in the default virtual host:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_policy
+      federate-me</code></div>
+  </dd>
+  <dt><a class="permalink" href="#clear_operator_policy"><code class="Cm" id="clear_operator_policy">clear_operator_policy</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">name</var></dt>
+  <dd>
+    <p class="Pp">Clears an operator policy. Arguments are identical to those of
+        <code class="Cm">clear_policy</code>.</p>
+  </dd>
+  <dt><a class="permalink" href="#list_operator_policies"><code class="Cm" id="list_operator_policies">list_operator_policies</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <p class="Pp">Lists operator policy overrides for a virtual host. Arguments
+        are identical to those of <code class="Cm">list_policies</code>.</p>
+  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Virtual_hosts"><a class="permalink" href="#Virtual_hosts">Virtual
+  hosts</a></h3>
+Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
+  database. Permissions for users from any alternative authorisation backend
+  will not be visible to <code class="Nm">rabbitmqctl</code>.
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#add_vhost"><code class="Cm" id="add_vhost">add_vhost</code></a>
+    <var class="Ar">vhost</var></dt>
   <dd>
     <dl class="Bl-tag">
-      <dt><var class="Ar">connectionpid</var></dt>
-      <dd>Id of the Erlang process associated with the connection to close.</dd>
-      <dt><var class="Ar">explanation</var></dt>
-      <dd>Explanation string.</dd>
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host entry to create.</dd>
     </dl>
-    <p class="Pp">Instructs the broker to close the connection associated with
-        the Erlang process id <var class="Ar">connectionpid</var> (see also the
-        <code class="Cm">list_connections</code> command), passing the
-        <var class="Ar">explanation</var> string to the connected client as part
-        of the AMQP connection shutdown protocol.</p>
+    <p class="Pp">Creates a virtual host.</p>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        close the connection associated with the Erlang process id
-        &quot;&lt;rabbit@tanto.4262.0&gt;&quot;, passing the explanation
-        &quot;go away&quot; to the connected client:</p>
+        create a new virtual host called &quot;test&quot;:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl close_connection
-      &quot;&lt;rabbit@tanto.4262.0&gt;&quot; &quot;go
-      away&quot;</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl add_vhost
+      test</code></div>
   </dd>
+  <dt><a class="permalink" href="#clear_vhost_limits"><code class="Cm" id="clear_vhost_limits">clear_vhost_limits</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <p class="Pp">Clears virtual host limits.</p>
+    <p class="Pp">For example, this command clears vhost limits in vhost
+        &quot;qa_env&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_vhost_limits -p
+      qa_env</code></div>
+  </dd>
+  <dt><a class="permalink" href="#delete_vhost"><code class="Cm" id="delete_vhost">delete_vhost</code></a>
+    <var class="Ar">vhost</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host entry to delete.</dd>
+    </dl>
+    <p class="Pp">Deletes a virtual host.</p>
+    <p class="Pp">Deleting a virtual host deletes all its exchanges, queues,
+        bindings, user permissions, parameters and policies.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        delete the virtual host called &quot;test&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl delete_vhost
+      a-vhost</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_vhost_limits"><code class="Cm" id="list_vhost_limits">list_vhost_limits</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    [<code class="Fl">--global</code>]
+    [<code class="Fl">--no-table-headers</code>]</dt>
+  <dd>
+    <p class="Pp">Displays configured virtual host limits.</p>
+    <dl class="Bl-tag">
+      <dt><a class="permalink" href="#-global"><code class="Fl" id="-global">--global</code></a></dt>
+      <dd>Show limits for all vhosts. Suppresses the <code class="Fl">-p</code>
+          parameter.</dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#restart_vhost"><code class="Cm" id="restart_vhost">restart_vhost</code></a>
+    <var class="Ar">vhost</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host entry to restart.</dd>
+    </dl>
+    <p class="Pp">Restarts a failed vhost data stores and queues.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        restart a virtual host called &quot;test&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl restart_vhost
+      test</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_vhost_limits"><code class="Cm" id="set_vhost_limits">set_vhost_limits</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">definition</var></dt>
+  <dd>
+    <p class="Pp">Sets virtual host limits.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">definition</var></dt>
+      <dd>The definition of the limits, as a JSON term. In most shells you are
+          very likely to need to quote this.
+        <p class="Pp">Recognised limits are:</p>
+        <ul class="Bl-bullet Bl-compact">
+          <li>max-connections</li>
+          <li>max-queues</li>
+        </ul>
+        <p class="Pp">Use a negative value to specify &quot;no limit&quot;.</p>
+      </dd>
+    </dl>
+    <p class="Pp">For example, this command limits the max number of concurrent
+        connections in vhost &quot;qa_env&quot; to 64:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
+      qa_env '{&quot;max-connections&quot;: 64}'</code></div>
+    <p class="Pp">This command limits the max number of queues in vhost
+        &quot;qa_env&quot; to 256:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
+      qa_env '{&quot;max-queues&quot;: 256}'</code></div>
+    <p class="Pp">This command clears the max number of connections limit in
+        vhost &quot;qa_env&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
+      qa_env '{&quot;max-connections&quot;: -1}'</code></div>
+    <p class="Pp">This command disables client connections in vhost
+        &quot;qa_env&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_vhost_limits -p
+      qa_env '{&quot;max-connections&quot;: 0}'</code></div>
+  </dd>
+  <dt><a class="permalink" href="#trace_off"><code class="Cm" id="trace_off">trace_off</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host for which to stop tracing.</dd>
+    </dl>
+    <p class="Pp">Stops tracing.</p>
+  </dd>
+  <dt><a class="permalink" href="#trace_on"><code class="Cm" id="trace_on">trace_on</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">vhost</var></dt>
+      <dd>The name of the virtual host for which to start tracing.</dd>
+    </dl>
+    <p class="Pp">Starts tracing. Note that the trace state is not persistent;
+        it will revert to being off if the node is restarted.</p>
+  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Configuration"><a class="permalink" href="#Configuration">Configuration</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#decode"><code class="Cm" id="decode">decode</code></a>
+    <var class="Ar">value</var> <var class="Ar">passphrase</var>
+    [<code class="Fl">--cipher</code> <var class="Ar">cipher</var>]
+    [<code class="Fl">--hash</code> <var class="Ar">hash</var>]
+    [<code class="Fl">--iterations</code> <var class="Ar">iterations</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">value</var> <var class="Ar">passphrase</var></dt>
+      <dd>Value to decrypt (as produced by the encode command) and passphrase.
+        <p class="Pp">For example:</p>
+        <p class="Pp"></p>
+        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl decode
+          '{encrypted, &lt;&lt;&quot;...&quot;&gt;&gt;}'
+          mypassphrase</code></div>
+      </dd>
+      <dt><a class="permalink" href="#-cipher"><code class="Fl" id="-cipher">--cipher</code></a>
+        <var class="Ar">cipher</var> <code class="Fl">--hash</code>
+        <var class="Ar">hash</var> <code class="Fl">--iterations</code>
+        <var class="Ar">iterations</var></dt>
+      <dd>Options to specify the decryption settings. They can be used
+          independently.
+        <p class="Pp">For example:</p>
+        <p class="Pp"></p>
+        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl decode --cipher
+          blowfish_cfb64 --hash sha256 --iterations 10000
+          '{encrypted,&lt;&lt;&quot;...&quot;&gt;&gt;} mypassphrase</code></div>
+      </dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#encode"><code class="Cm" id="encode">encode</code></a>
+    <var class="Ar">value</var> <var class="Ar">passphrase</var>
+    [<code class="Fl">--cipher</code> <var class="Ar">cipher</var>]
+    [<code class="Fl">--hash</code> <var class="Ar">hash</var>]
+    [<code class="Fl">--iterations</code> <var class="Ar">iterations</var>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">value</var> <var class="Ar">passphrase</var></dt>
+      <dd>Value to encrypt and passphrase.
+        <p class="Pp">For example:</p>
+        <p class="Pp"></p>
+        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl encode
+          '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
+      </dd>
+      <dt><a class="permalink" href="#-cipher_2"><code class="Fl" id="-cipher_2">--cipher</code></a>
+        <var class="Ar">cipher</var> <code class="Fl">--hash</code>
+        <var class="Ar">hash</var> <code class="Fl">--iterations</code>
+        <var class="Ar">iterations</var></dt>
+      <dd>Options to specify the encryption settings. They can be used
+          independently.
+        <p class="Pp">For example:</p>
+        <p class="Pp"></p>
+        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl encode --cipher
+          blowfish_cfb64 --hash sha256 --iterations 10000
+          '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
+      </dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#set_cluster_name"><code class="Cm" id="set_cluster_name">set_cluster_name</code></a>
+    <var class="Ar">name</var></dt>
+  <dd>
+    <p class="Pp">Sets the cluster name to <var class="Ar">name</var>. The
+        cluster name is announced to clients on connection, and used by the
+        federation and shovel plugins to record where a message has been. The
+        cluster name is by default derived from the hostname of the first node
+        in the cluster, but can be changed.</p>
+    <p class="Pp">For example, this sets the cluster name to
+        &quot;london&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_cluster_name
+      london</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_disk_free_limit"><code class="Cm" id="set_disk_free_limit">set_disk_free_limit</code></a>
+    <var class="Ar">disk_limit</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">disk_limit</var></dt>
+      <dd>Lower bound limit as an integer in bytes or a string with memory unit
+          symbols (see vm_memory_high_watermark), e.g. 512M or 1G. Once free
+          disk space reaches the limit, a disk alarm will be set.</dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#set_disk_free_limit_mem_relative"><code class="Cm" id="set_disk_free_limit_mem_relative">set_disk_free_limit
+    mem_relative</code></a> <var class="Ar">fraction</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">fraction</var></dt>
+      <dd>Limit relative to the total amount available RAM as a non-negative
+          floating point number. Values lower than 1.0 can be dangerous and
+          should be used carefully.</dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#set_log_level"><code class="Cm" id="set_log_level">set_log_level</code></a>
+    [<var class="Ar">log_level</var>]</dt>
+  <dd>
+    <p class="Pp">Sets log level in the running node</p>
+    <p class="Pp">Supported <var class="Ar">type</var> values are:</p>
+    <ul class="Bl-bullet Bl-compact">
+      <li>debug</li>
+      <li>info</li>
+      <li>warning</li>
+      <li>error</li>
+      <li>none</li>
+    </ul>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl log_level
+      debug</code></div>
+  </dd>
+  <dt><a class="permalink" href="#set_vm_memory_high_watermark"><code class="Cm" id="set_vm_memory_high_watermark">set_vm_memory_high_watermark</code></a>
+    <var class="Ar">fraction</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">fraction</var></dt>
+      <dd>The new memory threshold fraction at which flow control is triggered,
+          as a floating point number greater than or equal to 0.</dd>
+    </dl>
+  </dd>
+  <dt><a class="permalink" href="#set_vm_memory_high_watermark_2"><code class="Cm" id="set_vm_memory_high_watermark_2">set_vm_memory_high_watermark</code></a>
+    [absolute] <var class="Ar">memory_limit</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">memory_limit</var></dt>
+      <dd>The new memory limit at which flow control is triggered, expressed in
+          bytes as an integer number greater than or equal to 0 or as a string
+          with memory unit symbol(e.g. 512M or 1G). Available unit symbols are:
+        <dl class="Bl-tag">
+          <dt><a class="permalink" href="#k"><code class="Cm" id="k">k</code></a>,
+            <code class="Cm">kiB</code></dt>
+          <dd>kibibytes (2^10 bytes)</dd>
+          <dt><a class="permalink" href="#M"><code class="Cm" id="M">M</code></a>,
+            <code class="Cm">MiB</code></dt>
+          <dd>mebibytes (2^20 bytes)</dd>
+          <dt><a class="permalink" href="#G"><code class="Cm" id="G">G</code></a>,
+            <code class="Cm">GiB</code></dt>
+          <dd>gibibytes (2^30 bytes)</dd>
+          <dt><a class="permalink" href="#kB"><code class="Cm" id="kB">kB</code></a></dt>
+          <dd>kilobytes (10^3 bytes)</dd>
+          <dt><a class="permalink" href="#MB"><code class="Cm" id="MB">MB</code></a></dt>
+          <dd>megabytes (10^6 bytes)</dd>
+          <dt><a class="permalink" href="#GB"><code class="Cm" id="GB">GB</code></a></dt>
+          <dd>gigabytes (10^9 bytes)</dd>
+        </dl>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Feature_flags"><a class="permalink" href="#Feature_flags">Feature
+  flags</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#enable_feature_flag"><code class="Cm" id="enable_feature_flag">enable_feature_flag</code></a>
+    <var class="Ar">feature_flag</var></dt>
+  <dd>
+    <p class="Pp">Enables a feature flag on the target node.</p>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl enable_feature_flag
+      quorum_queue</code></div>
+  </dd>
+  <dt><a class="permalink" href="#list_feature_flags"><code class="Cm" id="list_feature_flags">list_feature_flags</code></a>
+    [<var class="Ar">column ...</var>]</dt>
+  <dd>
+    <p class="Pp">Lists feature flags</p>
+    <p class="Pp">Supported <var class="Ar">column</var> values are:</p>
+    <ul class="Bl-bullet Bl-compact">
+      <li>name</li>
+      <li>state</li>
+      <li>stability</li>
+      <li>provided_by</li>
+      <li>desc</li>
+      <li>doc_url</li>
+    </ul>
+    <p class="Pp">Example:</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl list_feature_flags
+      name state</code></div>
+  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Connection_Operations"><a class="permalink" href="#Connection_Operations">Connection
+  Operations</a></h3>
+<dl class="Bl-tag">
   <dt><a class="permalink" href="#close_all_connections"><code class="Cm" id="close_all_connections">close_all_connections</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     [<code class="Fl">--global</code>]
@@ -1656,154 +1919,88 @@ The topology introspection commands list topology entities (e.g. queues) with
       --global</code></div>
     <p class="Pp"></p>
   </dd>
-  <dt><a class="permalink" href="#trace_on"><code class="Cm" id="trace_on">trace_on</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
+  <dt><a class="permalink" href="#close_connection"><code class="Cm" id="close_connection">close_connection</code></a>
+    <var class="Ar">connectionpid</var> <var class="Ar">explanation</var></dt>
   <dd>
     <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host for which to start tracing.</dd>
+      <dt><var class="Ar">connectionpid</var></dt>
+      <dd>Id of the Erlang process associated with the connection to close.</dd>
+      <dt><var class="Ar">explanation</var></dt>
+      <dd>Explanation string.</dd>
     </dl>
-    <p class="Pp">Starts tracing. Note that the trace state is not persistent;
-        it will revert to being off if the server is restarted.</p>
-  </dd>
-  <dt><a class="permalink" href="#trace_off"><code class="Cm" id="trace_off">trace_off</code></a>
-    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">vhost</var></dt>
-      <dd>The name of the virtual host for which to stop tracing.</dd>
-    </dl>
-    <p class="Pp">Stops tracing.</p>
-  </dd>
-  <dt><a class="permalink" href="#set_vm_memory_high_watermark"><code class="Cm" id="set_vm_memory_high_watermark">set_vm_memory_high_watermark</code></a>
-    <var class="Ar">fraction</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">fraction</var></dt>
-      <dd>The new memory threshold fraction at which flow control is triggered,
-          as a floating point number greater than or equal to 0.</dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#set_vm_memory_high_watermark_absolute"><code class="Cm" id="set_vm_memory_high_watermark_absolute">set_vm_memory_high_watermark
-    absolute</code></a> <var class="Ar">memory_limit</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">memory_limit</var></dt>
-      <dd>The new memory limit at which flow control is triggered, expressed in
-          bytes as an integer number greater than or equal to 0 or as a string
-          with memory unit symbol(e.g. 512M or 1G). Available unit symbols are:
-        <dl class="Bl-tag">
-          <dt><a class="permalink" href="#k"><code class="Cm" id="k">k</code></a>,
-            <code class="Cm">kiB</code></dt>
-          <dd>kibibytes (2^10 bytes)</dd>
-          <dt><a class="permalink" href="#M"><code class="Cm" id="M">M</code></a>,
-            <code class="Cm">MiB</code></dt>
-          <dd>mebibytes (2^20 bytes)</dd>
-          <dt><a class="permalink" href="#G"><code class="Cm" id="G">G</code></a>,
-            <code class="Cm">GiB</code></dt>
-          <dd>gibibytes (2^30 bytes)</dd>
-          <dt><a class="permalink" href="#kB"><code class="Cm" id="kB">kB</code></a></dt>
-          <dd>kilobytes (10^3 bytes)</dd>
-          <dt><a class="permalink" href="#MB"><code class="Cm" id="MB">MB</code></a></dt>
-          <dd>megabytes (10^6 bytes)</dd>
-          <dt><a class="permalink" href="#GB"><code class="Cm" id="GB">GB</code></a></dt>
-          <dd>gigabytes (10^9 bytes)</dd>
-        </dl>
-      </dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#set_disk_free_limit"><code class="Cm" id="set_disk_free_limit">set_disk_free_limit</code></a>
-    <var class="Ar">disk_limit</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">disk_limit</var></dt>
-      <dd>Lower bound limit as an integer in bytes or a string with memory unit
-          symbols (see vm_memory_high_watermark), e.g. 512M or 1G. Once free
-          disk space reaches the limit, a disk alarm will be set.</dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#set_disk_free_limit_mem_relative"><code class="Cm" id="set_disk_free_limit_mem_relative">set_disk_free_limit
-    mem_relative</code></a> <var class="Ar">fraction</var></dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">fraction</var></dt>
-      <dd>Limit relative to the total amount available RAM as a non-negative
-          floating point number. Values lower than 1.0 can be dangerous and
-          should be used carefully.</dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#encode"><code class="Cm" id="encode">encode</code></a>
-    <var class="Ar">value</var> <var class="Ar">passphrase</var>
-    [<code class="Fl">--cipher</code> <var class="Ar">cipher</var>]
-    [<code class="Fl">--hash</code> <var class="Ar">hash</var>]
-    [<code class="Fl">--iterations</code> <var class="Ar">iterations</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">value</var> <var class="Ar">passphrase</var></dt>
-      <dd>Value to encrypt and passphrase.
-        <p class="Pp">For example:</p>
-        <p class="Pp"></p>
-        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl encode
-          '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
-      </dd>
-      <dt><a class="permalink" href="#-cipher"><code class="Fl" id="-cipher">--cipher</code></a>
-        <var class="Ar">cipher</var> <code class="Fl">--hash</code>
-        <var class="Ar">hash</var> <code class="Fl">--iterations</code>
-        <var class="Ar">iterations</var></dt>
-      <dd>Options to specify the encryption settings. They can be used
-          independently.
-        <p class="Pp">For example:</p>
-        <p class="Pp"></p>
-        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl encode --cipher
-          blowfish_cfb64 --hash sha256 --iterations 10000
-          '&lt;&lt;&quot;guest&quot;&gt;&gt;' mypassphrase</code></div>
-      </dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#decode"><code class="Cm" id="decode">decode</code></a>
-    <var class="Ar">value</var> <var class="Ar">passphrase</var>
-    [<code class="Fl">--cipher</code> <var class="Ar">cipher</var>]
-    [<code class="Fl">--hash</code> <var class="Ar">hash</var>]
-    [<code class="Fl">--iterations</code> <var class="Ar">iterations</var>]</dt>
-  <dd>
-    <dl class="Bl-tag">
-      <dt><var class="Ar">value</var> <var class="Ar">passphrase</var></dt>
-      <dd>Value to decrypt (as produced by the encode command) and passphrase.
-        <p class="Pp">For example:</p>
-        <p class="Pp"></p>
-        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl decode
-          '{encrypted, &lt;&lt;&quot;...&quot;&gt;&gt;}'
-          mypassphrase</code></div>
-      </dd>
-      <dt><a class="permalink" href="#-cipher_2"><code class="Fl" id="-cipher_2">--cipher</code></a>
-        <var class="Ar">cipher</var> <code class="Fl">--hash</code>
-        <var class="Ar">hash</var> <code class="Fl">--iterations</code>
-        <var class="Ar">iterations</var></dt>
-      <dd>Options to specify the decryption settings. They can be used
-          independently.
-        <p class="Pp">For example:</p>
-        <p class="Pp"></p>
-        <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl decode --cipher
-          blowfish_cfb64 --hash sha256 --iterations 10000
-          '{encrypted,&lt;&lt;&quot;...&quot;&gt;&gt;} mypassphrase</code></div>
-      </dd>
-    </dl>
-  </dd>
-  <dt><a class="permalink" href="#list_hashes"><code class="Cm" id="list_hashes">list_hashes</code></a></dt>
-  <dd>Lists hash functions supported by encoding commands.
+    <p class="Pp">Instructs the broker to close the connection associated with
+        the Erlang process id <var class="Ar">connectionpid</var> (see also the
+        <code class="Cm">list_connections</code> command), passing the
+        <var class="Ar">explanation</var> string to the connected client as part
+        of the AMQP connection shutdown protocol.</p>
     <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all hash functions supported by encoding commands:</p>
+        close the connection associated with the Erlang process id
+        &quot;&lt;rabbit@tanto.4262.0&gt;&quot;, passing the explanation
+        &quot;go away&quot; to the connected client:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_hashes</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl close_connection
+      &quot;&lt;rabbit@tanto.4262.0&gt;&quot; &quot;go
+      away&quot;</code></div>
   </dd>
-  <dt><a class="permalink" href="#list_ciphers"><code class="Cm" id="list_ciphers">list_ciphers</code></a></dt>
-  <dd>Lists cipher suites supported by encoding commands.
-    <p class="Pp">For example, this command instructs the RabbitMQ broker to
-        list all cipher suites supported by encoding commands:</p>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Misc"><a class="permalink" href="#Misc">Misc</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#eval"><code class="Cm" id="eval">eval</code></a>
+    <var class="Ar">expression</var></dt>
+  <dd>
+    <p class="Pp">Evaluates an Erlang expression on the target node</p>
+  </dd>
+  <dt><a class="permalink" href="#hipe_compile"><code class="Cm" id="hipe_compile">hipe_compile</code></a>
+    <var class="Ar">directory</var></dt>
+  <dd>
+    <p class="Pp">Performs HiPE-compilation and caches resulting
+        <span class="Pa">.beam</span>-files in the given directory.</p>
+    <p class="Pp">Parent directories are created if necessary. Any existing
+        <span class="Pa">.beam</span> files from the directory are automatically
+        deleted prior to compilation.</p>
+    <p class="Pp">To use this precompiled files, you should set
+        <code class="Ev">RABBITMQ_SERVER_CODE_PATH</code> environment variable
+        to directory specified in <code class="Cm">hipe_compile</code>
+        invocation.</p>
+    <p class="Pp">For example, to HiPE-compile modules and store them to
+        <span class="Pa">/tmp/rabbit-hipe/ebin</span> directory:</p>
     <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
-      list_ciphers</code></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl hipe_compile
+      /tmp/rabbit-hipe/ebin</code></div>
+  </dd>
+</dl>
+</section>
+<section class="Ss">
+<h3 class="Ss" id="Queue_Operations"><a class="permalink" href="#Queue_Operations">Queue
+  Operations</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#delete_queue"><code class="Cm" id="delete_queue">delete_queue</code></a>
+    <var class="Ar">queue_name</var> [<code class="Fl">--if-empty</code> |
+    <code class="Fl">-e</code>] [<code class="Fl">--if-unused</code> |
+    <code class="Fl">-u</code>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">queue_name</var></dt>
+      <dd>The name of the queue to delete.</dd>
+      <dt><var class="Ar">--if-empty</var></dt>
+      <dd>Delete the queue if it is empty (has no messages ready for
+        delivery)</dd>
+      <dt><var class="Ar">--if-unused</var></dt>
+      <dd>Delete the queue only if it has no consumers</dd>
+    </dl>
+    <p class="Pp">Deletes a queue.</p>
+  </dd>
+  <dt><a class="permalink" href="#purge_queue"><code class="Cm" id="purge_queue">purge_queue</code></a>
+    [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
+    <var class="Ar">queue</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">queue</var></dt>
+      <dd>The name of the queue to purge.</dd>
+    </dl>
+    <p class="Pp">Purges a queue (removes all messages in it).</p>
   </dd>
 </dl>
 </section>
@@ -1820,7 +2017,7 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
   plugin</a></h3>
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#shovel_status"><code class="Cm" id="shovel_status">shovel_status</code></a></dt>
-  <dd>Prints a list of configured shovels</dd>
+  <dd>Prints a list of configured Shovels</dd>
   <dt><a class="permalink" href="#delete_shovel"><code class="Cm" id="delete_shovel">delete_shovel</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     <var class="Ar">name</var></dt>
@@ -1847,8 +2044,8 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
 </dl>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="AMQP-1.0_plugin"><a class="permalink" href="#AMQP-1.0_plugin">AMQP-1.0
-  plugin</a></h3>
+<h3 class="Ss" id="AMQP_1.0_plugin"><a class="permalink" href="#AMQP_1.0_plugin">AMQP
+  1.0 plugin</a></h3>
 <dl class="Bl-tag">
   <dt><a class="permalink" href="#list_amqp10_connections"><code class="Cm" id="list_amqp10_connections">list_amqp10_connections</code></a>
     [<var class="Ar">amqp10_connectioninfoitem ...</var>]</dt>
@@ -2039,7 +2236,7 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
       <dd>STOMP protocol session identifier</dd>
       <dt><a class="permalink" href="#channel"><code class="Cm" id="channel">channel</code></a></dt>
       <dd>AMQP channel associated with the connection</dd>
-      <dt><a class="permalink" href="#version"><code class="Cm" id="version">version</code></a></dt>
+      <dt><a class="permalink" href="#version_2"><code class="Cm" id="version_2">version</code></a></dt>
       <dd>Negotiated STOMP protocol version for the connection.</dd>
       <dt><a class="permalink" href="#implicit_connect"><code class="Cm" id="implicit_connect">implicit_connect</code></a></dt>
       <dd>Indicates if the connection was established using implicit connect
@@ -2084,11 +2281,11 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
       <dt><a class="permalink" href="#ssl_4"><code class="Cm" id="ssl_4">ssl</code></a></dt>
       <dd>Boolean indicating whether the connection is secured with SSL.</dd>
       <dt><a class="permalink" href="#ssl_protocol_4"><code class="Cm" id="ssl_protocol_4">ssl_protocol</code></a></dt>
-      <dd>SSL protocol (e.g. &quot;tlsv1&quot;).</dd>
+      <dd>TLS protocol (e.g. &quot;tlsv1&quot;).</dd>
       <dt><a class="permalink" href="#ssl_key_exchange_4"><code class="Cm" id="ssl_key_exchange_4">ssl_key_exchange</code></a></dt>
-      <dd>SSL key exchange algorithm (e.g. &quot;rsa&quot;).</dd>
+      <dd>TLS key exchange algorithm (e.g. &quot;rsa&quot;).</dd>
       <dt><a class="permalink" href="#ssl_cipher_4"><code class="Cm" id="ssl_cipher_4">ssl_cipher</code></a></dt>
-      <dd>SSL cipher algorithm (e.g. &quot;aes_256_cbc&quot;).</dd>
+      <dd>TLS cipher algorithm (e.g. &quot;aes_256_cbc&quot;).</dd>
       <dt><a class="permalink" href="#ssl_hash_4"><code class="Cm" id="ssl_hash_4">ssl_hash</code></a></dt>
       <dd>SSL hash function (e.g. &quot;sha&quot;).</dd>
     </dl>
@@ -2116,6 +2313,8 @@ RabbitMQ plugins can extend rabbitmqctl tool to add new commands when enabled.
 <a class="Xr" href="rabbitmq-diagnostics.8.html">rabbitmq-diagnostics(8)</a>,
   <a class="Xr" href="rabbitmq-plugins.8.html">rabbitmq-plugins(8)</a>,
   <a class="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>,
+  <a class="Xr" href="rabbitmq-queues.8.html">rabbitmq-queues(8)</a>,
+  <a class="Xr" href="rabbitmq-upgrade.8.html">rabbitmq-upgrade(8)</a>,
   <a class="Xr" href="rabbitmq-service.8.html">rabbitmq-service(8)</a>,
   <a class="Xr" href="rabbitmq-env.conf.5.html">rabbitmq-env.conf(5)</a>,
   <a class="Xr" href="rabbitmq-echopid.8.html">rabbitmq-echopid(8)</a>

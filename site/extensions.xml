@@ -136,6 +136,12 @@ limitations under the License.
           explicit <a href="auth-notification.html">authentication failure notifications</a>
           from the broker.
         </li>
+
+        <li>
+          <a href="amqp-0-9-1-reference.html#connection.update-secret"><code>update-secret</code></a>
+          to be able to renew credentials for an active connection, when those
+          credentials can expire.
+        </li>
       </ul>
     </div>
 

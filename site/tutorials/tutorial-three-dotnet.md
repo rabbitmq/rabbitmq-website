@@ -92,7 +92,7 @@ an exchange of this type, and call it `logs`:
 
 
 <pre class="lang-csharp">
-channel.ExchangeDeclare("logs", "fanout");
+channel.ExchangeDeclare("logs", ExchangeType.Fanout);
 </pre>
 
 The fanout exchange is very simple. As you can probably guess from the
@@ -282,7 +282,7 @@ class EmitLog
         using(var connection = factory.CreateConnection())
         using(var channel = connection.CreateModel())
         {
-            channel.ExchangeDeclare(exchange: "logs", type: "fanout");
+            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
 
             var message = GetMessage(args);
             var body = Encoding.UTF8.GetBytes(message);
@@ -332,7 +332,7 @@ class ReceiveLogs
         using(var connection = factory.CreateConnection())
         using(var channel = connection.CreateModel())
         {
-            channel.ExchangeDeclare(exchange: "logs", type: "fanout");
+            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
 
             var queueName = channel.QueueDeclare().QueueName;
             channel.QueueBind(queue: queueName,

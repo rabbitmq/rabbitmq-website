@@ -29,11 +29,6 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 [Starting in January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
 RabbitMQ supports two most recent Erlang release series: `22.x` and `21.3.x`.
 
-### Upcoming Erlang 20.3 Support Retirement
-
-Erlang/OTP release series `22.x` was released in May 2019.
-After a transition period, RabbitMQ will discontinue support for Erlang/OTP `20.3.x` in October 2019.
-
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
 
@@ -45,6 +40,29 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>21.3.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>22.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>Erlang 22.1 is recommended.</li>
+      </ul>
+    </td>
+  </tr>
 
   <tr>
     <td>

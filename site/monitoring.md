@@ -20,14 +20,15 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This document provides an overview of topics related to RabbitMQ monitoring.
-Monitoring your RabbitMQ installation is an effective means to detect issues before they affect
-the rest of your environment and, eventually, your users.
+Monitoring RabbitMQ and applications that use it is critically important. Monitoring helps
+detect issues before they affect the rest of the environment and, eventually, the end users.
 
 Many aspects of the system can be monitored. This guide will group them into a handful of
 categories:
 
  * [What is monitoring](#approaches-to-monitoring), what common approaches to it
    exist and why it is important.
+ * Built-in and [external monitoring](#external-monitoring) options
  * What [infrastructure and kernel metrics](#system-metrics) are important to monitor
  * What [RabbitMQ metrics](#rabbitmq-metrics) are available:
      * [Node metrics](#node-metrics)
@@ -35,14 +36,17 @@ categories:
      * [Cluster-wide metrics](#cluster-wide-metrics)
  * [How frequently](#monitoring-frequency) should monitoring checks be performed?
  * [Application-level metrics](#app-metrics)
- * How to check a [node's health](#health-checks) and why it's more involved than a single
+ * How to approach [node health checking](#health-checks) and why it's more involved than a single
    CLI command.
+ * [Log aggregation](#log-aggregation)
+ * [Command-line based observer](#diagnostics-observer) tool
 
 [Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
-and also covered in this guide.
+and also mentioned in this guide.
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
-can be used to monitor RabbitMQ.
+can be used to monitor RabbitMQ. [Prometheus and Grafana](/prometheus.html) are one highly
+recommended option.
 
 
 ## <a id="approaches-to-monitoring" class="anchor" href="#approaches-to-monitoring">What is Monitoring?</a>
@@ -56,7 +60,6 @@ which is important for more than anomaly detection
 but also root cause analysis, trend detection and capacity planning.
 
 Monitoring systems typically integrate with alerting systems.
-
 When an anomaly is detected by a monitoring system an alarm of some sort is typically
 passed to an alerting system, which notifies interested parties such as the technical operations team.
 
@@ -67,6 +70,8 @@ Operating a distributed system is a bit like trying to get out of a forest
 without a GPS navigator device or compass. It doesn't matter how brilliant or experienced
 the person is, having relevant information is very important for
 a good outcome.
+
+### Health Checks' Role in Monitoring
 
 A [Health check](#health-checks) is the most basic aspect of monitoring. It involves a command or
 set of commands that collect a few essential metrics of the monitored system [over
@@ -87,8 +92,10 @@ types of anomalies as some can only be identified over longer periods of time. T
 by tools known as monitoring tools of which there are a grand variety. This guides covers some tools
 used for RabbitMQ monitoring.
 
+### System and RabbitMQ Metrics
+
 Some metrics are RabbitMQ-specific: they are [collected and reported by RabbitMQ
-nodes](#rabbitmq-metrics). Rest of the guide refers to them as "RabbitMQ metrics". Examples include
+nodes](#rabbitmq-metrics). In this guide we refer to them as "RabbitMQ metrics". Examples include
 the number of socket descriptors used, total number of enqueued messages or inter-node communication
 traffic rates. Others metrics are [collected and reported by the OS kernel](#system-metrics). Such
 metrics are often called system metrics or infrastructure metrics. System metrics are not specific
@@ -96,19 +103,6 @@ to RabbitMQ. Examples include CPU utilisation rate, amount of memory used by pro
 packet loss rate, et cetera. Both types are important to track. Individual metrics are not always
 useful but when analysed together, they can provide a more complete insight into the state of the
 system. Then operators can form a hypothesis about what's going on and needs addressing.
-
-### <a id="monitoring-frequency" class="anchor" href="#monitoring-frequency">Frequency of Monitoring</a>
-
-Many monitoring systems poll their monitored services periodically. How often that's
-done varies from tool to tool but usually can be configured by the operator.
-
-Very frequent polling can have negative consequences on the system under monitoring. For example,
-excessive load balancer checks that open a test TCP connection to a node can lead to a [high connection churn](/networking.html#dealing-with-high-connection-churn).
-Excessive checks of channels and queues in RabbitMQ will increase its CPU consumption. When there
-are many (say, 10s of thousands) of them on a node, the difference can be significant.
-
-The recommended metric collection interval is 60 second. To collect at a higher rate, use 30 second.
-A lower interval will increase load on the system and provide no practical benefits.
 
 ### <a id="system-metrics" class="anchor" href="#system-metrics">Infrastructure and Kernel Metrics</a>
 
@@ -122,12 +116,60 @@ Collect the following metrics on all hosts that run RabbitMQ nodes or applicatio
  * Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)
  * Free disk space on the mount used for the [node data directory](/relocate.html)
  * File descriptors used by `beam.smp` vs. [max system limit](/networking.html#open-file-handle-limit)
- * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, TIME_WAIT`)
+ * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, `TIME_WAIT`)
  * Network throughput (bytes received, bytes sent) & maximum network throughput)
  * Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)
 
 There is no shortage of existing tools (such as Prometheus or Datadog) that collect infrastructure
 and kernel metrics, store and visualise them over periods of time.
+
+### <a id="monitoring-frequency" class="anchor" href="#monitoring-frequency">Frequency of Monitoring</a>
+
+Many monitoring systems poll their monitored services periodically. How often that's
+done varies from tool to tool but usually can be configured by the operator.
+
+Very frequent polling can have negative consequences on the system under monitoring. For example,
+excessive load balancer checks that open a test TCP connection to a node can lead to a [high connection churn](/networking.html#dealing-with-high-connection-churn).
+Excessive checks of channels and queues in RabbitMQ will increase its CPU consumption. When there
+are many (say, 10s of thousands) of them on a node, the difference can be significant.
+
+The recommended metric collection interval is 15 second. To collect at an interval which is closer to real-time, use 5 second - but not lower.
+For rate metrics, use a time range that spans 4 metric collection intervals so that it can tolerate race-conditions and is resilient to scrape failures.
+
+For production systems a collection interval of 30 or even 60 seconds is recommended.
+[Prometheus](/prometheus.html) exporter API is designed to be scraped every 15 seconds,
+including production systems.
+
+
+## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
+
+RabbitMQ comes with a [management UI and HTTP API](/monitoring.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
+for nodes, connections, queues, message rates and so on. This is a convenient option for development
+and in environments where external monitoring is difficult or impossible to introduce.
+
+However, the management UI has a number of limitations:
+
+ * The monitoring system is intertwined with the system being monitored
+ * A certain amount of overhead
+ * It only stores recent data (think hours, not days or months)
+ * It has a basic user interface
+ * Its design [emphasizes ease of use over best possible availability](/management.html#clustering).
+ * Management UI access is controlled via the [RabbitMQ permission tags system](/access-control.html)
+   (or a convention on JWT token scopes)
+
+Long term metric storage and visualisation services such as [Prometheus and Grafana](/prometheus.html) or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
+
+ * Decoupling of the monitoring system from the system being monitored
+ * Lower overhead
+ * Long term metric storage
+ * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
+ * More powerful and customizable user interface
+ * Ease of metric data sharing: both metric state and dashbaords
+ * Metric access permissions are not specific to RabbitMQ
+ * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
+
+RabbitMQ provides first class support for [Prometheus and Grafana](/prometheus.html) as of 3.8.
+It is recommended for production environments.
 
 
 ## <a id="rabbitmq-metrics" class="anchor" href="#rabbitmq-metrics">RabbitMQ Metrics</a>
@@ -643,14 +685,14 @@ rabbitmq-plugins -q list --enabled
 # =&gt; Configured: E = explicitly enabled; e = implicitly enabled
 # =&gt; | Status: * = running on rabbit@mercurio
 # =&gt; |/
-# =&gt; [E*] rabbitmq_auth_mechanism_ssl       3.7.10
-# =&gt; [E*] rabbitmq_consistent_hash_exchange 3.7.10
-# =&gt; [E*] rabbitmq_management               3.7.10
-# =&gt; [E*] rabbitmq_management_agent         3.7.10
-# =&gt; [E*] rabbitmq_shovel                   3.7.10
-# =&gt; [E*] rabbitmq_shovel_management        3.7.10
-# =&gt; [E*] rabbitmq_top                      3.7.10
-# =&gt; [E*] rabbitmq_tracing                  3.7.10
+# =&gt; [E*] rabbitmq_auth_mechanism_ssl       3.8.0
+# =&gt; [E*] rabbitmq_consistent_hash_exchange 3.8.0
+# =&gt; [E*] rabbitmq_management               3.8.0
+# =&gt; [E*] rabbitmq_management_agent         3.8.0
+# =&gt; [E*] rabbitmq_shovel                   3.8.0
+# =&gt; [E*] rabbitmq_shovel_management        3.8.0
+# =&gt; [E*] rabbitmq_top                      3.8.0
+# =&gt; [E*] rabbitmq_tracing                  3.8.0
 </pre>
 
 A health check that verifies that a specific plugin, [`rabbitmq_shovel`](/shovel.html)
@@ -664,6 +706,44 @@ rabbitmq-plugins -q is_enabled rabbitmq_shovel
 The probability of false positives is generally low but raises
 in environments where environment variables that can affect [rabbitmq-plugins](/cli.html)
 are overridden.
+
+
+## <a id="diagnostics-observer" class="anchor" href="#diagnostics-observer">Command-line Based Observer Tool</a>
+
+`rabbitmq-diagnostics observer` is a command-line tool similar to `top`, `htop`, `vmstat`. It is a command line
+alternative to [Erlang's Observer application](http://erlang.org/doc/man/observer.html). It provides
+access to many metrics, including detailed state of individual [runtime](/runtime.html) processes:
+
+ * Runtime version information
+ * CPU and schedule stats
+ * Memory allocation and usage stats
+ * Top processes by CPU (reductions) and memory usage
+ * Network link stats
+ * Detailed process information such as basic TCP socket stats
+
+and more, in an interactive [ncurses](https://en.wikipedia.org/wiki/Ncurses)-like command line interface with periodic updates.
+
+Here are some screenshots that demonstrate what kind of information the
+tool provides.
+
+An overview page with key runtime metrics:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-overview.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-overview.png" alt="rabbitmq-diagnostics observer overview" title="rabbitmq-diagnostics observer overview" />
+</a>
+
+Memory allocator stats:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-heap-inspector.png" alt="rabbitmq-diagnostics memory breakdown" title="rabbitmq-diagnostics observer memory breakdown" />
+</a>
+
+A client connection process metrics:
+
+<a href="img/monitoring/observer_cli/diagnostics-observer-connection-process.png">
+  <img class="screenshot" src="img/monitoring/observer_cli/diagnostics-observer-connection-process.png" alt="rabbitmq-diagnostics connection process" title="rabbitmq-diagnostics observer connection process" />
+</a>
+
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring Tools</a>
 
@@ -748,6 +828,7 @@ Note that this list is by no means complete.
     </tr>
   </tbody>
 </table>
+
 
 ## <a id="log-aggregation" class="anchor" href="#log-aggregation">Log Aggregation</a>
 
