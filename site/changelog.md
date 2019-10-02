@@ -38,6 +38,18 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.7.19</td>
+    <td class="centre">2 October 2019</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>First <code>3.7.x</code> release to <a href="/which-erlang.html">require Erlang/OTP 21.3</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.19">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.0</td>
     <td class="centre">1 October 2019</td>
     <td>
