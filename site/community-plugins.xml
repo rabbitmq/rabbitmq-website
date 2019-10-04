@@ -121,6 +121,7 @@ limitations under the License.
             A plugin that stamps a message with the node who first
             received it.
             <ul>
+              <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_routing_node_stamp">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_routing_node_stamp">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
