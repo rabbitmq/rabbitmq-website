@@ -26,7 +26,7 @@ When an upgrade jumps multiple release series (e.g. goes from `3.4.x` to `3.6.x`
 an intermediate upgrade first. For example, when upgrading from `3.2.x` to `3.7.x`, it would be necessary to
 first upgrade to 3.6.x and then upgrade to 3.7.0.
 
-Please note that a [full cluster stop](#full-stop-upgrades) is required for feature version upgrades.
+A [full cluster stop](#full-stop-upgrades) may be required for feature version upgrades.
 
 Current release series upgrade compatibility with full stop upgrade:
 
@@ -35,6 +35,9 @@ Current release series upgrade compatibility with full stop upgrade:
 | 3.6.x    | 3.7.x  |
 | 3.5.x    | 3.7.x  |
 | =< 3.4.x | 3.6.16 |
+
+`3.7.18` and later `3.7.x` versions support [rolling upgrades](#rolling-upgrades) to `3.8.x` using [feature flags](/feature-flags.html).
+
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" href="#rabbitmq-erlang-version-requirement">Erlang Version Requirements</a>
 
@@ -119,6 +122,7 @@ frequent memory alarms and publishers will be blocked more often. On the upside
 this means that RabbitMQ nodes are less likely to be killed by the out-of-memory (OOM) mechanism
 of the OS.
 
+
 ## <a id="clusters" class="anchor" href="#clusters">Single Node and Cluster Upgrades</a>
 
 ### <a id="single-node-upgrade" class="anchor" href="#single-node-upgrade">Upgrading a Single Node Installation</a>
@@ -161,7 +165,7 @@ Rolling upgrades are possible only between compatible RabbitMQ and Erlang versio
 
 #### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
 
-RabbitMQ 3.8.0 comes with a **feature flags** subsystem which is
+RabbitMQ 3.8.0 comes with a [feature flag](/feature-flags.html) subsystem which is
 responsible for determining if two versions of RabbitMQ are compatible.
 If they are, then two nodes with different versions can live in the
 same cluster: this allows a rolling upgrade of cluster members without
@@ -399,9 +403,9 @@ on how to upgrade RabbitMQ.
     which do not fit a patch release.
 
     As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
-    will have patch releases for critical bugfixes only.
+    will have patch releases for critical bug fixes only.
 
-    There will be no new patch releases for versions after EOL.
+    There will be no new patch releases for [versions after EOL](/versions.html).
 
     Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
     It's recommended to always upgrade at least to the latest patch release in a series.
