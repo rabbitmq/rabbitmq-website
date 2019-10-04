@@ -90,6 +90,7 @@ limitations under the License.
             routing patterns at publishing time, instead of at
             binding time.
             <ul>
+              <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_rtopic_exchange">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_rtopic_exchange">3.6.x</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
