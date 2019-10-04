@@ -77,6 +77,7 @@ limitations under the License.
             each routing key, and when a queue is bound, it
             automatically enqueues the last value for the binding key.
             <ul>
+              <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_lvc_exchange">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_lvc_exchange">3.6.x</a></li>
               <li>Maintainer: <b>Team RabbitMQ</b></li>
