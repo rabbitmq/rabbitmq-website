@@ -224,6 +224,7 @@ limitations under the License.
             Adds an exchange type which allows you to connect to the
             management API using AMQP rather than HTTP.
             <ul>
+              <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-management-exchange/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_management_exchange">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_management_exchange">3.6.x</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
