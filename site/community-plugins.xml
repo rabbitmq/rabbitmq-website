@@ -109,6 +109,7 @@ limitations under the License.
             A plugin that adds delayed-messaging (or
             scheduled-messaging) to RabbitMQ.
             <ul>
+              <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_delayed_message_exchange">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_delayed_message_exchange">3.6.x</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
