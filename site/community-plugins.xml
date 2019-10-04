@@ -176,12 +176,9 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_backend_ip_range">
-            <i>
-	      This plugin is not ported to RabbitMQ 3.7.x+ yet.
-            </i>
-            Provides the ability for your RabbitMQ server to perform
-            authorisation based on the client IP address.
+            Provides the ability for your RabbitMQ server to perform authorisation based on the client IP address.
             <ul>
+              <li>Download for <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range/releases/tag/v3.8.0">3.8.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_auth_backend_ip_range">3.7.x</a></li>
               <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_ip_range">3.6.x</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
