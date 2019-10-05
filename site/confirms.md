@@ -47,9 +47,9 @@ protocols supported by RabbitMQ provide such features.
 This guide covers the features in AMQP 0-9-1 but the idea
 is largely the same in other supported protocols.
 
-Delivery processing acknowledgements from consumers to RabbitMQ
-are known as acknowledgements in AMQP 0-9-1 parlance; broker
-acknowledgements to publishers are a protocol extension called
+Delivery processing acknowledgements from [consumers](/consumers.html) to RabbitMQ
+are known as acknowledgements in messaging protocols; broker
+acknowledgements to [publishers](/publishers.html) are a protocol extension called
 [publisher confirms](#publisher-confirms).
 Both features build on the same idea and are inspired by TCP.
 
