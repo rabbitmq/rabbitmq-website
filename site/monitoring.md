@@ -645,6 +645,7 @@ virtual hosts.
 
 <pre class="lang-bash">
 rabbitmq-diagnostics -q check_virtual_hosts
+# if the check succeeded, exit code will be 0
 </pre>
 
 The probability of false positives is generally low except for systems that are under
@@ -681,7 +682,7 @@ the primary checks.
 on a node:
 
 <pre class="lang-bash">
-rabbitmq-plugins -q list --enabled
+rabbitmq-plugins -q list --enabled --minimal
 # =&gt; Configured: E = explicitly enabled; e = implicitly enabled
 # =&gt; | Status: * = running on rabbit@mercurio
 # =&gt; |/
