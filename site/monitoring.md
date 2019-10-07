@@ -639,12 +639,12 @@ maintenance windows can raise significantly.
 
 Includes all checks in stage 3 plus checks that there are no failed [virtual hosts](/vhosts.html).
 
-RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is
-an example that could be used in the meantime:
+[`rabbitmq-diagnostics check_virtual_hosts`](/rabbitmq-diagnostics.8.html) is a command
+checks whether any virtual host dependencies may have failed. This is done for all
+virtual hosts.
 
 <pre class="lang-bash">
-rabbitmqctl eval 'true = lists:foldl(fun(VHost, Acc) -&gt; Acc andalso rabbit_vhost:is_running_on_all_nodes(VHost) end, true, rabbit_vhost:list()).'
-# =&gt; true
+rabbitmq-diagnostics -q check_virtual_hosts
 </pre>
 
 The probability of false positives is generally low except for systems that are under
