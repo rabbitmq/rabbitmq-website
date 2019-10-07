@@ -624,7 +624,7 @@ See [Recovery from Network Connection Failures](/connections.html#automatic-reco
 ### Routing Issues
 
 A publisher can be successfully connected, authenticated and granted the permissions to publish
-to an exchange (topic, destination). However, it is possible that such messages would not
+to an exchange (topic, destination). However, it is possible that such messages would not be
 routed to any queues or consumers. This can be due to
 
  * A configuration mismatch between applications, e.g. topics used by the publishers and consumers do not match
