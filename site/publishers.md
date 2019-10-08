@@ -678,3 +678,9 @@ an exchange to an non-existent exchange will result in a [channel exception](/ch
 and will render the channel closed. Publishing is not possible on a closed channel. Such events
 are logged by the RabbitMQ node the publisher was connected to. Failed publishing attempts
 will also result in client-side exceptions or errors returned, depending on the client library used.
+
+
+### Concurrent Publishing on a Shared Channel
+
+Concurrent publishing on a shared channel is not supported by client libraries. Learn more in the
+[Concurrency Considerations](#concurrency) section.
