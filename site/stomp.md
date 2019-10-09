@@ -556,6 +556,7 @@ queue and message TTL, queue limits, etc:
  * `x-max-length-bytes`
  * `x-overflow`
  * `x-max-priority`
+ * `x-queue-type` (to be able to [declare](/quorum-queues.html#declaring) [quorum queues](/quorum-queues.html))
 
 The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
 Please consult the rest of the documentation for details.
