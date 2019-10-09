@@ -266,7 +266,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.14/priv/www/doc/stats.html">this document</a>)</td>
+      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.19/priv/www/doc/stats.html">this document</a>)</td>
     </tr>
   </tbody>
 </table>
@@ -411,7 +411,7 @@ via the `GET /api/queues/{vhost}/{qname}` endpoint.
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/master/priv/www/doc/stats.html)">this document</a></td>
+      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.19/priv/www/doc/stats.html">this document</a>)</td>
     </tr>
   </tbody>
 </table>
@@ -639,12 +639,13 @@ maintenance windows can raise significantly.
 
 Includes all checks in stage 3 plus checks that there are no failed [virtual hosts](/vhosts.html).
 
-RabbitMQ CLI tools currently do not provide a dedicated command for this check, but here is
-an example that could be used in the meantime:
+[`rabbitmq-diagnostics check_virtual_hosts`](/rabbitmq-diagnostics.8.html) is a command
+checks whether any virtual host dependencies may have failed. This is done for all
+virtual hosts.
 
 <pre class="lang-bash">
-rabbitmqctl eval 'true = lists:foldl(fun(VHost, Acc) -&gt; Acc andalso rabbit_vhost:is_running_on_all_nodes(VHost) end, true, rabbit_vhost:list()).'
-# =&gt; true
+rabbitmq-diagnostics -q check_virtual_hosts
+# if the check succeeded, exit code will be 0
 </pre>
 
 The probability of false positives is generally low except for systems that are under
@@ -681,7 +682,7 @@ the primary checks.
 on a node:
 
 <pre class="lang-bash">
-rabbitmq-plugins -q list --enabled
+rabbitmq-plugins -q list --enabled --minimal
 # =&gt; Configured: E = explicitly enabled; e = implicitly enabled
 # =&gt; | Status: * = running on rabbit@mercurio
 # =&gt; |/
