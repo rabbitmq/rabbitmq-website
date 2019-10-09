@@ -192,7 +192,7 @@ pattern:
 <pre class="lang-bash">
 # This repository provides RabbitMQ packages
 # See below for supported distribution and component values
-deb https://dl.bintray.com/rabbitmq/debian $distribution $component
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution $component
 </pre>
 
 The next couple of sections discuss what distribution and component values
