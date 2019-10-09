@@ -67,7 +67,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
-        <li>3.7.19 (under development)</li>
+        <li>3.7.19</li>
       </ul>
     </td>
     <td>
