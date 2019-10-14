@@ -385,11 +385,17 @@ look up its DN. In order for this to work the LDAP server
 needs to be configured to allow binding with the plain
 username (Microsoft Active Directory typically does this).
 
-To do the lookup before binding,
-set `auth_ldap.dn_lookup_bind` to a tuple
-`{UserDN, Password}`. The LDAP plugin will then bind with
-these credentials first to do the lookup, then bind with
-the user's DN and password to do the login.
+To do the lookup before binding, set `dn_lookup_bind`, `dn_lookup_base` and
+`dn_lookup_attribute` as follows. The LDAP plugin will then bind with these
+credentials first to do the lookup, then bind with the user's DN and password
+to do the login.
+
+<pre class="lang-ini">
+auth_ldap.dn_lookup_bind.user_dn = CN=myuser,OU=users,DC=gopivotal,DC=com
+auth_ldap.dn_lookup_bind.password = test1234
+auth_ldap.dn_lookup_attribute = userPrincipalName
+auth_ldap.dn_lookup_base = DC=gopivotal,DC=com
+</pre>
 
 Consider the following example:
 
