@@ -19,9 +19,13 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers queue mirroring (queue contents replication):
+This guide covers mirroring (queue contents replication) of classic queues.
+[Quorum queues](/quorum-queues.html) is an alternative queue type that offers replication.
+We highly recommend the reader to also read the quorum queues guide.
 
- * [What is mirroring](#what-is-mirroring) and how it works
+Topics covered in this guide include
+
+ * [Classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
  * What [replication factor](#replication-factor) is recommended

@@ -27,7 +27,7 @@ compatible with older release series. Therefore, <strong>a future
 version of RabbitMQ might still require a cluster-wide shutdown for
 upgrading</strong>.
 
-Please always read [release notes](/changelog.html) to see if a rolling
+Please always read <a href="/changelog.html">release notes</a> to see if a rolling
 upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
