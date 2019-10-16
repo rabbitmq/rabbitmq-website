@@ -174,7 +174,7 @@ limitations under the License.
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
-    <div class='container'>
+    <!-- <div class='container'>
       <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq-website-footer&amp;utm_medium=footer-link&amp;utm_campaign=s1p-promo-rabbitmq' target="_blank">
         <div>
           <img id='tagline' src='/img/promos/tagline.svg'/>
@@ -182,7 +182,7 @@ limitations under the License.
           <img id='date' src='/img/promos/date-2019.svg'/>
         </div>
       </a>
-    </div>
+    </div> -->
       <div class='container'>
         <div class="rabbit-logo">
           <a href="/"><img src="/img/RabbitMQ-logo-white.svg" alt="RabbitMQ"/></a>
