@@ -30,10 +30,10 @@ RabbitMQ release artifacts include a Debian package. Team RabbitMQ also maintain
 Main topics covered in this guide are
 
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
- * How to [install RabbitMQ using apt](#apt) from [Bintray](#apt-bintray) or [Package Cloud](#apt-packagecloud)
+ * [Supported Ubuntu and Debian distributions](#supported-debian-distributions)
+ * How to [install RabbitMQ using apt](#apt) from [Bintray](#apt-bintray) or [Package Cloud](#apt-packagecloud), including a [quick start snippet](#apt-bintray-quick-start)
  * How to [install a recent supported Erlang version using apt](#erlang-repositories)
  * [Version Pinning](#apt-pinning)
- * [Supported distributions](#supported-debian-distributions)
  * [Privilege requirements](#sudo-requirements)
  * [Direct download](#manual-installation) from GitHub
  * How to [manage the service](#managing-service)
