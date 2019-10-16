@@ -236,15 +236,16 @@ For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
 package (`erlang-base-hipe`) must be installed instead of the regular one (`erlang-base`).
 
 
-## <a id="building-from-source" class="anchor" href="#building-from-source">Building from Source</a>
+## <a id="building-from-source" class="anchor" href="#building-from-source">Building Erlang from Source</a>
 
-If a sufficiently recent Erlang package is not available for your system then you will need to
-[build Erlang from source](http://www.erlang.org/doc/installation_guide/INSTALL.html).
-This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
-[kerl](https://github.com/kerl/kerl) is the recommended way of doing that.
+If a sufficiently recent Erlang package is not available for a given operating system,
+Erlang/OTP can be [built from source](http://www.erlang.org/doc/installation_guide/INSTALL.html).
+This requires a build environment that satisfies the Erlang build dependencies, such as a
+modern OpenSSL version.
 
 [kerl](https://github.com/kerl/kerl) makes building Erlang/OTP releases from
 source, including specific tags from GitHub, a much more pleasant experience.
+
 
 ## <a id="old-timers" class="anchor" href="#old-timers">Older RabbitMQ and Erlang Releases</a>
 
