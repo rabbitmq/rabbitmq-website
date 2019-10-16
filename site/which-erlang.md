@@ -228,7 +228,9 @@ recommended that all nodes use exactly the same version of Erlang.
 ## <a id="hipe" class="anchor" href="#hipe">HiPE (JIT Compilation)</a>
 
 Erlang installations can optionally be built with support for HiPE, a JIT compiler,
-which RabbitMQ can be [configured](/configure.html) to use.
+which RabbitMQ can be [configured](/configure.html) to use.  HiPE support, however,
+lags behind the core [Erlang runtime](/runtime.html) and its may eventually be dropped
+by the Erlang/OTP maintainer community.
 
 For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
 package (`erlang-base-hipe`) must be installed instead of the regular one (`erlang-base`).
