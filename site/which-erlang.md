@@ -203,23 +203,26 @@ more information on the essential packages, dependencies, and alternative apt re
 
 ## <a id="redhat" class="anchor" href="#redhat">Installing Erlang/OTP on RHEL, CentOS and Fedora</a>
 
-There are multiple RPM packages for Erlang/OTP, including a
-[zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
+There are multiple RPM packages available for Erlang/OTP. The recommended option is
+the [zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
+It closely follows the latest Erlang/OTP patch release schedule.
+
 See [CentOS, RHEL and Fedora installation guide](/install-rpm.html) for more information on the available options.
 
 
 ## <a id="clusters" class="anchor" href="#clusters">Erlang Versions in Clusters</a>
 
-RabbitMQ requires that the same major and minor version of
-Erlang is used across all
-[cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
-(e.g. 20.3.x). RabbitMQ will check for protocol versions of
+It is **highly recommended** that the same major version of
+Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
+(e.g. `22.x`).
+
+RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
 cluster, refusing to cluster if there's a potentially
 incompatible combination detected.
 
-It is highly recommended that all nodes use exactly the same
-version of Erlang.
+Outside of a reasonably long upgrade time wiindow, it is
+recommended that all nodes use exactly the same version of Erlang.
 
 
 ## <a id="hipe" class="anchor" href="#hipe">HiPE (JIT Compilation)</a>
