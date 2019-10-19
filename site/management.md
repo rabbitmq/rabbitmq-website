@@ -98,9 +98,10 @@ During automated deployments, the plugin can be enabled via
 
 ### <a id="usage-ui" class="anchor" href="#usage-ui">Management UI Access</a>
 
-The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>. For example,
-for a node running on a machine with the hostname of `warp10.local`,
-it can be accessed at either `http://warp10.local:15672/`
+The management UI can be accessed using a Web browser at <code>http://<i>{node-hostname}</i>:15672/</code>.
+
+For example, for a node running on a machine with the hostname of `warp10.local`,
+it can be accessed by users with [sufficient privileges](#permissions) at either `http://warp10.local:15672/`
 or `http://localhost:15672/` (provided that `localhost` resolves correctly).
 
 Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
@@ -166,6 +167,9 @@ The management UI requires [authentication and authorisation](access-control.htm
 it from connecting clients. In addition to successful authentication, management UI access is controlled by user tags.
 The tags are managed using [rabbitmqctl](/rabbitmqctl.8.html#set_user_tags).
 Newly created users do not have any tags set on them by default.
+
+See [Production Checklist](/production-checklist.html) for general recommendations on user and credential
+management.
 
 <table>
   <tr>
