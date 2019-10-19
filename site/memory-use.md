@@ -509,7 +509,8 @@ the amount of memory used or number of rows:
 
 <img class="screenshot" src="img/memory/rabbitmq-top-ets-tables.jpg" alt="Top ETS tables in rabbitmq-top" title="Top ETS tables in rabbitmq-top" />
 
-### <a id="breakdown-preallocated-memory" class="anchor" href="#breakdown-preallocated-memory">Preallocated Memory</a>
+
+## <a id="preallocated-memory" class="anchor" href="#breakdown-preallocated-memory">Preallocated Memory</a>
 
 Erlang memory breakdown reports only memory is currently being used, and not
 the memory that has been allocated for later use or reserved by the operating system.

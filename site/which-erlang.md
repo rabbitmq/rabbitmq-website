@@ -203,43 +203,49 @@ more information on the essential packages, dependencies, and alternative apt re
 
 ## <a id="redhat" class="anchor" href="#redhat">Installing Erlang/OTP on RHEL, CentOS and Fedora</a>
 
-There are multiple RPM packages for Erlang/OTP, including a
-[zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
+There are multiple RPM packages available for Erlang/OTP. The recommended option is
+the [zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
+It closely follows the latest Erlang/OTP patch release schedule.
+
 See [CentOS, RHEL and Fedora installation guide](/install-rpm.html) for more information on the available options.
 
 
 ## <a id="clusters" class="anchor" href="#clusters">Erlang Versions in Clusters</a>
 
-RabbitMQ requires that the same major and minor version of
-Erlang is used across all
-[cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
-(e.g. 20.3.x). RabbitMQ will check for protocol versions of
+It is **highly recommended** that the same major version of
+Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
+(e.g. `22.x`).
+
+RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
 cluster, refusing to cluster if there's a potentially
 incompatible combination detected.
 
-It is highly recommended that all nodes use exactly the same
-version of Erlang.
+Outside of a reasonably long upgrade time wiindow, it is
+recommended that all nodes use exactly the same version of Erlang.
 
 
 ## <a id="hipe" class="anchor" href="#hipe">HiPE (JIT Compilation)</a>
 
 Erlang installations can optionally be built with support for HiPE, a JIT compiler,
-which RabbitMQ can be [configured](/configure.html) to use.
+which RabbitMQ can be [configured](/configure.html) to use.  HiPE support, however,
+lags behind the core [Erlang runtime](/runtime.html) and its may eventually be dropped
+by the Erlang/OTP maintainer community.
 
 For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
 package (`erlang-base-hipe`) must be installed instead of the regular one (`erlang-base`).
 
 
-## <a id="building-from-source" class="anchor" href="#building-from-source">Building from Source</a>
+## <a id="building-from-source" class="anchor" href="#building-from-source">Building Erlang from Source</a>
 
-If a sufficiently recent Erlang package is not available for your system then you will need to
-[build Erlang from source](http://www.erlang.org/doc/installation_guide/INSTALL.html).
-This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
-[kerl](https://github.com/kerl/kerl) is the recommended way of doing that.
+If a sufficiently recent Erlang package is not available for a given operating system,
+Erlang/OTP can be [built from source](http://www.erlang.org/doc/installation_guide/INSTALL.html).
+This requires a build environment that satisfies the Erlang build dependencies, such as a
+modern OpenSSL version.
 
 [kerl](https://github.com/kerl/kerl) makes building Erlang/OTP releases from
 source, including specific tags from GitHub, a much more pleasant experience.
+
 
 ## <a id="old-timers" class="anchor" href="#old-timers">Older RabbitMQ and Erlang Releases</a>
 

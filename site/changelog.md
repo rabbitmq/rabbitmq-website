@@ -71,7 +71,7 @@ published separately.
     <td class="centre">18 September 2019</td>
     <td>
       <ul>
-        <li>Security vulnerability fixes (TBA)</li>
+        <li>Security vulnerability (<a href="https://pivotal.io/security/cve-2019-11281">CVE-2019-11281</a>) fix</li>
         <li>Bug fixes</li>
         <li>Last release to <a href="/which-erlang.html">support Erlang/OTP 20.3</a></li>
       </ul>

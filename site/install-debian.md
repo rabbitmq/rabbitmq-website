@@ -30,10 +30,10 @@ RabbitMQ release artifacts include a Debian package. Team RabbitMQ also maintain
 Main topics covered in this guide are
 
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
- * How to [install RabbitMQ using apt](#apt) from [Bintray](#apt-bintray) or [Package Cloud](#apt-packagecloud)
+ * [Supported Ubuntu and Debian distributions](#supported-debian-distributions)
+ * How to [install RabbitMQ using apt](#apt) from [Bintray](#apt-bintray) or [Package Cloud](#apt-packagecloud), including a [quick start snippet](#apt-bintray-quick-start)
  * How to [install a recent supported Erlang version using apt](#erlang-repositories)
  * [Version Pinning](#apt-pinning)
- * [Supported distributions](#supported-debian-distributions)
  * [Privilege requirements](#sudo-requirements)
  * [Direct download](#manual-installation) from GitHub
  * How to [manage the service](#managing-service)
@@ -58,9 +58,8 @@ On Debian and Ubuntu, the easiest way to do that is [via apt](#erlang-repositori
 
 Below is a list Debian-based distributions supported by recent RabbitMQ releases:
 
- * Ubuntu 14.04 through 18.10
- * Debian Buster
- * Debian Stretch
+ * Ubuntu 14.04 through 19.04
+ * Debian Stretch (9), Buster (10) and Sid ("unstable")
 
 The package may work on other Debian-based distributions
 if [dependencies](#manual-installation) are satisfied (e.g. using the Wheezy backports repository)
@@ -134,8 +133,7 @@ a number of commonly used Debian and Ubuntu distributions:
 
  * Ubuntu 18.04 (Bionic)
  * Ubuntu 16.04 (Xenial)
- * Debian Buster
- * Debian Stretch
+ * Debian Stretch and Buster
 
 The repo provides most recent patch releases in the following Erlang series:
 
@@ -201,13 +199,33 @@ are supported.
 #### Distribution
 
 In order to set up an apt repository that provides the correct package, a few
-decisions have to be made. One is determining the distribution name. It comes
-from the Debian or Ubuntu release used:
+decisions have to be made. One is determining the distribution name. It typically matches
+the Debian or Ubuntu release used but only a handful of distributions are
+supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
 
  * `bionic` for Ubuntu 18.04
  * `xenial` for Ubuntu 16.04
  * `buster` for Debian Buster
  * `stretch` for Debian Stretch
+
+However, not all distributions are covered (indexed) on Bintray.
+But there are good news: since the package indexed for these distributions is identical,
+any reasonably recent distribution name would suffice
+in practice. For example, users of Debian Buster, Debian Sid, Ubuntu Disco and Ubuntu Eoan
+can use both `stretch` and `bionic` for distribution name.
+
+Below is a table of OS release and distribution names that should be used on Bintray.
+
+| Release        | Distribution Name to Use on Bintray |
+|----------------|-----------|
+| Ubuntu 18.04   | `bionic`  |
+| Ubuntu 19.04   | `bionic`  |
+| Ubuntu 19.10   | `bionic`  |
+| Ubuntu 16.04   | `xenial`  |
+| Debian Buster  | `buster`  |
+| Debian Stretch | `stretch` |
+| Debian Sid     | `buster`  |
+
 
 #### Erlang/OTP Version
 
@@ -218,17 +236,28 @@ determines what Debian repository `component` will be configured.
 Consider the following repository file at `/etc/apt/sources.list.d/bintray.erlang.list`:
 
 <pre class="lang-ini">
-# Installs the latest 21.x version available in the repository.
+## Installs the latest 21.x version available in the repository.
+## Please see the distribution name table above.
 deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
 </pre>
 
 It configures apt to install the most recent Erlang `21.x` version available in the
-repository and use packages for Ubuntu 18.04 (Bionic).
+repository and use packages for Ubuntu 18.04 (Bionic). More recent Ubuntu releases
+should also use this distribution name.
 
-For Debian Stretch the file would look like this:
+For Debian Buster the file would look like this:
 
 <pre class="lang-ini">
-# Installs the latest 21.x version available in the repository.
+## Installs the latest 21.x version available in the repository.
+## Please see the distribution name table above.
+deb http://dl.bintray.com/rabbitmq-erlang/debian buster erlang-21.x
+</pre>
+
+For Debian Stretch:
+
+<pre class="lang-ini">
+## Installs the latest 21.x version available in the repository.
+## Please see the distribution name table above.
 deb http://dl.bintray.com/rabbitmq-erlang/debian stretch erlang-21.x
 </pre>
 
@@ -236,7 +265,8 @@ To use the most recent `20.x` patch release available, switch the component
 to `erlang-20.x`:
 
 <pre class="lang-ini">
-# Installs the latest 20.x version available in the repository.
+## Installs the latest 20.x version available in the repository.
+## Please see the distribution name table above.
 deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 </pre>
 
@@ -246,8 +276,9 @@ deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 The `erlang` component installs the most recent version available:
 
 <pre class="lang-ini">
-# Installs the latest version available in the repository.
-# Consider using version pinning.
+## Installs the latest version available in the repository.
+## Consider using version pinning.
+## Please see the distribution name table above.
 deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
@@ -304,23 +335,23 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 </pre>
 
-The following preference file example will pin all `erlang-*` packages to `22.0.7`
+The following preference file example will pin all `erlang-*` packages to `22.1.3`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:22.0.7-1
+Pin: version 1:22.1.3-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `esl-erlang` package to to `21.3.8.7`
+The following preference file example will pin `esl-erlang` package to to `21.3.8.8`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:21.3.8.7
+Pin: version 1:21.3.8.8
 Pin-Priority: 1000
 </pre>
 
@@ -395,6 +426,8 @@ sudo apt-get install apt-transport-https
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
 ## Installs the latest Erlang 21.x release.
 ## Change component to "erlang" to install the latest version (22.x or later).
+## "bionic" as distribution name should work for any later Ubuntu or Debian release.
+## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF
@@ -443,18 +476,31 @@ are supported.
 #### Distribution
 
 In order to set up an apt repository that provides the correct package, a few
-decisions have to be made. One is determining the distribution name. It comes
-from the Debian or Ubuntu release used:
+decisions have to be made. One is determining the distribution name. It typically matches
+the Debian or Ubuntu release used:
 
- * bionic (Ubuntu 18.04)
- * artful
- * trusty
- * sid
- * buster
- * stretch
- * xenial (Ubuntu 16.04)
- * yakkety
- * zesty
+ * `bionic` for Ubuntu 18.04
+ * `xenial` for Ubuntu 16.04
+ * `stretch` for Debian Stretch
+
+However, not all distributions are covered (indexed) on Bintray.
+But there are good news: since the package indexed for these distributions is identical,
+any reasonably recent distribution name would suffice
+in practice. For example, users of Debian Buster, Debian Sid, Ubuntu Disco and Ubuntu Eoan
+can use both `stretch` and `bionic` for distribution name.
+
+Below is a table of OS release and distribution names that should be used on Bintray.
+
+| Release        | Distribution Name to Use on Bintray |
+|----------------|-----------|
+| Ubuntu 18.04   | `bionic`  |
+| Ubuntu 19.04   | `bionic`  |
+| Ubuntu 19.10   | `bionic`  |
+| Ubuntu 16.04   | `xenial`  |
+| Debian Buster  | `stretch` |
+| Debian Stretch | `stretch` |
+| Debian Sid     | `stretch` |
+
 
 To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
 
@@ -462,15 +508,25 @@ To add the apt repository to the source list directory (`/etc/apt/sources.list.d
 echo "deb https://dl.bintray.com/rabbitmq/debian {distribution} main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
-where `{distribution}` is the name of the Debian or Ubuntu distribution used (see above).
+where `{distribution}` is the name of the Debian or Ubuntu distribution used (see the table above).
 
-So, on Ubuntu 18.04 the above command becomes
+So, on Ubuntu 18.04 and later releases the above command becomes
 
 <pre class="lang-bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 </pre>
 
-and on Ubuntu 16.04 it would be
+`bionic` for distribution name would also work on Debian Buster and Debian Sid.
+
+On Debian Stretch it would be
+
+<pre class="lang-bash">
+echo "deb https://dl.bintray.com/rabbitmq/debian stretch main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+</pre>
+
+`stretch` for distribution name would also work on Debian Buster.
+
+On Ubuntu 16.04 it would be
 
 <pre class="lang-bash">
 echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
