@@ -103,6 +103,8 @@ for a node running on a machine with the hostname of `warp10.local`,
 it can be accessed at either `http://warp10.local:15672/`
 or `http://localhost:15672/` (provided that `localhost` resolves correctly).
 
+The default account information is provided in [Access Control](https://www.rabbitmq.com/access-control.html#default-state), but it is highly recommended to create other accounts for production usage. You can create accounts and grant permissions using `rabbitmqctl`.
+
 Note that the UI and HTTP API port — typically 15672 — does not support AMQP 0-9-1, AMQP 1.0, STOMP or MQTT connections.
 [Separate ports](/networking.html#ports) should be used by those clients.
 
