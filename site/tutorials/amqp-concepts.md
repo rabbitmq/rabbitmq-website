@@ -106,7 +106,7 @@ AMQP 0-9-1 brokers provide four exchange types:
 
 <table>
   <thead>
-    <th>Name</th>
+    <th>Exchange type</th>
     <th>Default pre-declared names</th>
   </thead>
   <tr>
