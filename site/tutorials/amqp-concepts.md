@@ -413,7 +413,7 @@ with acknowledgements. However, if you are using RabbitMQ,
 then there is a solution. RabbitMQ provides an AMQP 0-9-1
 extension known as _negative acknowledgements_ or _nacks_. For
 more information, please refer to the [Confirmations](/confirms.html)
-and <a href="">basic.nack extension</a> guides.
+and [basic.nack extension](/nack.html) guides.
 
 ### <a id="messages-prefetch" class="anchor" href="#messages-prefetch">Prefetching Messages</a>
 
