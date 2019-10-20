@@ -458,7 +458,7 @@ for messages to contain only attributes and no payload. It
 is common to use serialisation formats like JSON, Thrift,
 Protocol Buffers and MessagePack to serialize structured data
 in order to publish it as the message payload. Protocol peers
-typically use the "content-type" and "content-encoding" fields to
+typically use the "content-type" and "content-encoding" attributes to
 communicate this information,  but this is by convention only.
 
 Messages may be published as persistent, which makes the broker persist them to disk.
