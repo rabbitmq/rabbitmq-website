@@ -754,8 +754,19 @@ cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.svc_port = 6674
 </pre>
 
-When a node registers with Consul, it will set up a periodic [health
-check](https://www.consul.io/docs/agent/checks.html) for itself. Online nodes will periodically send a health check update to Consul to indicate the service
+It is possible to provide [Consul service tags](https://www.consul.io/docs/agent/services.html):
+
+<pre class="lang-ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+# Define tags for the RabbitMQ service: "qa" and "3.8"
+cluster_formation.consul.svc_tags.1 = qa
+cluster_formation.consul.svc_tags.2 = 3.8
+</pre>
+
+When a node registers with Consul, it will set up a periodic [health check](https://www.consul.io/docs/agent/checks.html)
+for itself. Online nodes will periodically send a health check update to Consul to indicate the service
 is available. This interval can be configured:
 
 <pre class="lang-ini">
@@ -767,8 +778,8 @@ cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.svc_ttl = 40
 </pre>
 
-A node that failed its [health
-check](https://www.consul.io/docs/agent/checks.html) is considered to be in the warning state by Consul.
+A node that failed its [health check](https://www.consul.io/docs/agent/checks.html) is considered
+to be in the warning state by Consul.
 Such nodes can be automatically unregistered by Consul after a
 period of time (note: this is a separate interval value from
 the TTL above). The period cannot be less than 60 seconds.
