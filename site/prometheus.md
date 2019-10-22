@@ -91,7 +91,7 @@ The instructions below assume a host machine that has a certain set of tools
 installed:
 
  * A terminal to run the commands
- * <a href="https://git-scm.com/" target="_blank">Git</a> to close the repository
+ * <a href="https://git-scm.com/" target="_blank">Git</a> to clone the repository
  * <a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> to use Docker Compose locally
  * A Web browser to browse the dashboards
 
@@ -109,7 +109,7 @@ on the command line to verify that the necessary tools are available.
 
 ### Clone a Repository with Manifests
 
-First step is to close a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
+First step is to clone a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
 target="_blank">rabbitmq-prometheus</a>, with the manifests and other components required to run
 a RabbitMQ cluster, Prometheus and a set of applications:
 
