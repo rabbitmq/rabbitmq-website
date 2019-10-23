@@ -623,6 +623,8 @@ cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
 cluster_formation.consul.host = consul.eng.example.local
 </pre>
 
+#### Consul Endpoint
+
 It is possible to configure Consul port and URI scheme:
 
 <pre class="lang-ini">
@@ -635,8 +637,10 @@ cluster_formation.consul.port = 8500
 cluster_formation.consul.scheme = http
 </pre>
 
+#### Consul ACL Token
+
 To configure [Consul ACL](https://www.consul.io/docs/guides/acl.html) token,
-use :
+use `cluster_formation.consul.acl_token`:
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
@@ -654,6 +658,8 @@ cluster_formation.consul.host = consul.eng.example.local
 # rabbitmq is used by default
 cluster_formation.consul.svc = rabbitmq
 </pre>
+
+#### Service Address
 
 Service hostname (address) as registered in Consul will be fetched by peers
 and therefore must resolve on all nodes.
@@ -742,6 +748,8 @@ cluster_formation.consul.svc_addr_use_nodename = false
 cluster_formation.consul.use_longname = true
 </pre>
 
+#### Service Port
+
 Service port as registered in Consul can be overridden. This is only
 necessary if RabbitMQ uses a [non-standard port](/networking.html)
 for client (technically AMQP 0-9-1 and AMQP 1.0) connections since default value is 5672.
@@ -754,6 +762,8 @@ cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.svc_port = 6674
 </pre>
 
+#### Service Tags and Metadata
+
 It is possible to provide [Consul service tags](https://www.consul.io/docs/agent/services.html):
 
 <pre class="lang-ini">
@@ -764,6 +774,25 @@ cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.svc_tags.1 = qa
 cluster_formation.consul.svc_tags.2 = 3.8
 </pre>
+
+It is possible to configure [Consul service metadata](https://www.consul.io/docs/agent/services.html),
+which is a map of string keys to string values with certain restrictions
+(see Consul documentation to learn more):
+
+<pre class="lang-ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+
+cluster_formation.consul.host = consul.eng.example.local
+
+# Define metadata for the RabbitMQ service. Both keys and values have a
+# maximum length limit enforced by Consul. This can be used to provide additional
+# context about the service (RabbitMQ cluster) for operators or other tools.
+cluster_formation.consul.svc_meta.owner = team-xyz
+cluster_formation.consul.svc_meta.service = service-one
+cluster_formation.consul.svc_meta.stats_url = https://service-one.eng.megacorp.local/stats/
+</pre>
+
+#### Service Health Checks
 
 When a node registers with Consul, it will set up a periodic [health check](https://www.consul.io/docs/agent/checks.html)
 for itself. Online nodes will periodically send a health check update to Consul to indicate the service
@@ -812,6 +841,8 @@ cluster_formation.consul.svc_ttl = 30
 cluster_formation.consul.include_nodes_with_warnings = true
 </pre>
 
+#### Node Name Suffixes
+
 If node name is computed and long node names are used, it is possible to
 append a suffix to node names retrieved from Consul. The format is
 <em>.node.{domain_suffix}</em>. This can be useful in environments with
@@ -836,6 +867,8 @@ cluster_formation.consul.domain_suffix = example.local
 
 With this setup node names will be computed to `rabbit@192.168.100.1.node.example.local`
 instead of `rabbit@192.168.100.1`.
+
+#### Distributed Lock Acquisition
 
 When a node tries to acquire a lock on boot and the lock is already taken,
 it will wait for the lock to become available for a limited amount of time. Default value is 300
