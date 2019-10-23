@@ -39,7 +39,7 @@ LDAP primers are available elsewhere on the Web, for example, [one](https://www.
 
 This guide covers the [LDAP operation flow](#ldap-operation-flow) used by RabbitMQ, how the LDAP model
 [maps to the RabbitMQ permission model](#authorisation) and what tools are available
-for [troubleshooting](#troubleshooting).
+for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP requests.
 
 
 ## <a id="prerequisites" class="anchor" href="#prerequisites">Prerequisites</a>
@@ -980,3 +980,11 @@ stages, [enabling LDAP traffic logging](#logging) is highly recommended.
 [ldapsearch](http://bit.ly/2GPyTmq) is a command line tool that ships with LDAP and makes it possible to execute arbitrary
 LDAP queries against an OpenLDAP installation. This can be useful when troubleshooting complex authorisation
 queries. [ldp.exe](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772839(v=ws.10)) is the Active Directory counterpart.
+
+
+## <a id="proxies" class="anchor" href="#proxies">LDAP Proxies</a>
+
+An LDAP proxy can be used to modify LDAP requests performed by this plugin. [ldaptor](https://ldaptor.readthedocs.io/en/latest/)
+is a library that can be used to build custom logic into the proxy.
+
+Operators should recognise that using a proxy will make [troubleshooting](#troubleshooting) of LDAP requests more difficult.
