@@ -1493,6 +1493,28 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   </tr>
 
   <tr>
+    <td>ERL_EPMD_ADDRESS</td>
+    <td>
+      Interface(s) used by <a href="/networking.html#epmd">epmd</a>, a component in inter-node and CLI tool communication.
+
+      <p>
+        <strong>Default</strong>: all available interfaces, both IPv6 and IPv4.
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>ERL_EPMD_PORT</td>
+    <td>
+      Port used by <a href="/networking.html#epmd">epmd</a>, a component in inter-node and CLI tool communication.
+
+      <p>
+        <strong>Default</strong>: <code>4369</code>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
     <td>RABBITMQ_DISTRIBUTION_BUFFER_SIZE</td>
     <td>
       <a href="https://erlang.org/doc/man/erl.html#+zdbbl">Outgoing data buffer size limit</a>
