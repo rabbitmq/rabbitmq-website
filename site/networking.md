@@ -40,6 +40,7 @@ There are several areas which can be configured or tuned. Each has a section in 
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
+ * The interface and port used by [epmd](#epmd)
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
@@ -186,18 +187,76 @@ It is possible to [configure RabbitMQ](/configure.html)
 to use [different ports and specific network interfaces](/networking.html).
 
 
-## <a id="epmd-inet-dist-port-range" class="anchor" href="#epmd-inet-dist-port-range">EPMD and Inter-node Communication Port(s)</a>
+## <a id="epmd" class="anchor" href="#epmd">EPMD and Inter-node Communication</a>
 
-Erlang makes use of a Port Mapper Daemon (epmd) for
-resolution of node names in a cluster. The default epmd
-port is 4369, but this can be changed using the <span
-class="envvar">ERL_EPMD_PORT</span> environment
-variable. All nodes must use the same port.
+### What is EPMD and How is It Used?
 
-Once a distributed Erlang node address has been resolved
-via `epmd`, other nodes will attempt to communicate directly
-with that address using the Erlang distribution
-protocol.
+[epmd](http://www.erlang.org/doc/man/epmd.html) (for Erlang Port Mapping Daemon)
+is a small additional daemon that runs alongside every RabbitMQ node and is used by
+the [runtime](/runtime.html) to discover what port a particular node listens on.
+The port is then used by peer nodes and [CLI tools](/cli.html).
+
+When a node or CLI tool needs to contact node `rabbit@hostname2` it will do the following:
+
+ * Resolve `hostname2` to an IP4 or IPv6 address using the standard OS resolver or a custom one specified in the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
+ * Contact `epmd` running on `hostname2` using the above address
+ * Ask `epmd` for the port used by node `rabbit` on it
+ * Contact the node using the resolved IP address and discovered port
+ * Proceed with communication
+
+### <a id="epmd-interface" class="anchor" href="#epmd-interface">EPMD Interface</a>
+
+`epmd` will listen on all interfaces by default. It can
+be limited to a number of interfaces using the `ERL_EPMD_ADDRESS`
+environment variable:
+
+<pre class="lang-bash">
+# makes epmd listen on loopback IPv6 and IPv4 interfaces
+export ERL_EPMD_ADDRESS="::1"
+</pre>
+
+When `ERL_EPMD_ADDRESS` is changed, both RabbitMQ node and `epmd` on the host must be stopped.
+For `epmd`, use
+
+<pre class="lang-bash">
+# Stops local epmd process.
+# Use after shutting down RabbitMQ.
+epmd -kill
+</pre>
+
+to terminate it. The service will be started by the local RabbitMQ node automatically on boot.
+
+The loopback interface will be implicitly added
+to that list (in other words, `epmd` will always bind to the loopback interface).
+
+### <a id="epmd-port" class="anchor" href="#epmd-port">EPMD Port</a>
+
+The default epmd port is 4369, but this can be changed using the `ERL_EPMD_PORT` environment
+variable:
+
+<pre class="lang-bash">
+# makes epmd bind to port 4369
+export ERL_EPMD_PORT="4369"
+</pre>
+
+All hosts in a [cluster](/clustering.html) must use the same port.
+
+When `ERL_EPMD_PORT` is changed, both RabbitMQ node and `epmd` on the host must be stopped.
+For `epmd`, use
+
+<pre class="lang-bash">
+# Stops local epmd process.
+# Use after shutting down RabbitMQ.
+epmd -kill
+</pre>
+
+to terminate it. The service will be started by the local RabbitMQ node automatically on boot.
+
+### <a id="epmd-inet-dist-port-range" class="anchor" href="#epmd-inet-dist-port-range">Inter-node Communication Port Range</a>
+
+RabbitMQ nodes will use a port from a certain range known as the inter-node communication port range.
+The same port is used by CLI tools when they need to contact the node.
+The range can be modified.
 
 RabbitMQ nodes communicate with CLI tools and other nodes using a port known as
 the <em>distribution port</em>. It is dynamically allocated from a range of values.
@@ -256,14 +315,6 @@ epmd: up and running on port 4369 with data:
 name rabbit at port 25672
 </pre>
 
-`epmd` will listen on all interfaces by default. It can
-be limited to a number of interfaces using the `ERL_EPMD_ADDRESS`
-environment variable. The loopback interface will be implicitly added
-to that list (in other words, `epmd` will always bind to the loopback interface).
-
-See the [Erlang epmd
-man page](http://www.erlang.org/doc/man/epmd.html) to learn more about `epmd`.
-
 ### <a id="distribution-port-buffer-limit" class="anchor" href="#distribution-port-buffer-limit">Inter-node Communication Buffer Size Limit</a>
 
 Inter-node connections use a buffer for data pending to be sent. Temporary
@@ -282,8 +333,78 @@ recommended.
 In addition to [exclusive IPv6 use for client connections](#single-stack-ipv6) for client connections,
 a node can also be configured to use IPv6 exclusively for inter-node and CLI tool connectivity.
 
-This requires a bit of configuration of both the inter-node communication protocol (also known as `proto_dist`)
-via a [runtime flag](/runtime.html) and `epmd` settings.
+This involves configuration in a few places:
+
+ * Inter-node communication protocol setting in the [runtime](./runtime.html)
+ * Configuring IPv6 to be used by CLI tools
+ * [epmd](#epmd), a service involved in inter-node communication (discovery)
+
+It is possible to use IPv6 for inter-node and CLI tool communication but use IPv4 for client
+connections or vice versa. Such configurations can be hard to troubleshoot and reason about,
+so using the same IP version (e.g. IPv6) across the board or a dual stack setup is recommended.
+
+### Inter-node Communication Protocol
+
+To instruct the runtime to use IPv6 for inter-node communication and related tasks, use
+the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment variable to pass a couple of flags:
+
+<pre class="lang-bash">
+# these flags will be used by RabbitMQ nodes
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/etc/rabbitmq/erl_inetrc' -proto_dist inet6_tcp"
+# these flags will be used by CLI tools
+RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp"
+</pre>
+
+`RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` above uses two closely related flags:
+
+ * `-kernel inetrc` to configure a path to an [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
+   that controls hostname resolution
+ * `-proto_dist inet6_tcp` to tell the node to use IPv6 when connecting to peer nodes and
+   listening for CLI tool connections
+
+The `erl_inetrc` file at `/etc/rabbitmq/erl_inetrc` will control hostname resolution settings.
+For IPv6-only environments, it must include the following line:
+
+<pre class="lang-bash">
+%% Tells DNS client on RabbitMQ nodes and CLI tools to resolve hostnames to IPv6 addresses.
+%% The trailing dot is not optional.
+{inet6,true}.
+</pre>
+
+### CLI Tools
+
+With CLI tools, use the same runtime flag as used for RabbitMQ nodes above but provide it
+using a different environment variable, `RABBITMQ_CTL_ERL_ARGS`:
+
+<pre class="lang-bash">
+RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp"
+</pre>
+
+Note that once instructed to use IPv6, CLI tools won't be able to connect to nodes that
+do not use IPv6 for inter-node communication. This involves the `epmd` service running on the same
+host as target RabbitMQ node.
+
+### epmd
+
+`epmd` is a small helper daemon that runs next to a RabbitMQ node and lets its peers and CLI
+tools discover what port they should use to communicate to it. It can be configured to bind
+to a specific interface, much like RabbitMQ listeners. This is done using the `ERL_EPMD_ADDRESS`
+environment variable:
+
+export ERL_EPMD_ADDRESS="::1"
+
+By default RabbitMQ nodes will use an IPv4 interface when connecting to `epmd`.
+Nodes that are configured to use IPv6 for inter-node communication ([see above](#distribution-ipv6))
+will also use IPv6 to connect to `epmd`.
+
+When `epmd` is configured to use IPv6 exclusively but RabbitMQ nodes are not,
+RabbitMQ will log an error message similar to this:
+
+<pre class="lang-bash">
+Protocol 'inet_tcp': register/listen error: econnrefused
+</pre>
+
+#### systemd Unit File
 
 On distributions that use systemd, the `epmd.socket` service controls network settings of `epmd`.
 It is possible to configure `epmd` to only listen on IPv6 intefaces:
@@ -298,47 +419,6 @@ The service will need reloading after its unit file has been updated:
 systemctl daemon-reload
 systemctl restart epmd.socket epmd.service
 </pre>
-
-This is step one towards switching to IPv6 for inter-node communication.
-
-Another necessary step is telling RabbitMQ nodes and CLi tools to use an IPv6-enabled inter-node communication transport (protocol).
-By default RabbitMQ nodes will use an IPv4 interface when connecting to `epmd`.
-When `epmd` is configured to use IPv6 exclusively, such as in the example above,
-the connection will fail with an error message similar to this:
-
-<pre class="lang-bash">
-Protocol 'inet_tcp': register/listen error: econnrefused
-</pre>
-
-Instructing RabbitMQ nodes to use IPv6 when connecting to `epmd` both locally and on
-peer nodes will make connection succeed. This is done via a [runtime flag](/runtime.html),
-`-proto_dist`, which must be set to `inet6_tcp`.
-This is done using a couple of [environment variables](/configure.html#customise-environment):
-
-<pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-kernel inetrc '/etc/rabbitmq/erl_inetrc'  -proto_dist inet6_tcp "
-RABBITMQ_CTL_ERL_ARGS="-proto_dist inet6_tcp "
-</pre>
-
-In the example above, `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` is used to configure two Erlang
-distribution parameters. `-kernel inetrc` to configure an [inetrc](http://erlang.org/doc/apps/erts/inet_cfg.html)
-that contains lower-level settings related to IP communication. `-proto_dist inet6_tcp`
-is used to tell the node to use an IPv6-enabled inter-node communication transport.
-
-The `erl_inetrc` file must contain the following:
-
-<pre class="lang-bash">
-{inet6,true}.
-</pre>
-
-Finally, the `RABBITMQ_CTL_ERL_ARGS` environment variable is used to tell
-[CLI tools](/cli.html) to use `-proto_dist inet6_tcp`, since they
-must use the same inter-node communication transport as nodes do.
-
-Note that the above confuration only affects node-to-node and CLI-to-node communication as well as the `epmd` service
-which enables both. It and does not affect [client connection listener configuration](#single-stack-ipv6).
-It is possible to use IPv6 for inter-node and CLI tool communication and use IPv4 for client connections or vice versa.
-Of course, it is possible to use IPv6 across the board, too.
 
 ## <a id="intermediaries" class="anchor" href="#intermediaries">Intermediaries: Proxies and Load Balancers</a>
 
