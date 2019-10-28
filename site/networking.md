@@ -32,18 +32,19 @@ discussed are OS-specific. This guide focuses on Linux when
 covering OS-specific subjects, as it is the most common
 platform RabbitMQ is deployed on.
 
-There are several areas which can be configured or tuned:
+There are several areas which can be configured or tuned. Each has a section in this guide:
 
- * [Interfaces](#interfaces)
+ * [Interfaces](#interfaces) the node listens on for client connections
+ * IP version preferences: [dual stack](#dual-stack), [IPv6-only](#single-stack-ipv6) and [IPv4-only](#single-stack-ipv4)
  * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](/cli.html)
+ * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
- * (AMQP 0-9-1, STOMP) [Heartbeats](#heartbeats), known as keepalives in MQTT
- * Hostnames, [hostname resolution and DNS](#dns)
- * Configure the [IPv6 distribution](#distribution-ipv6)
+
+This guide also covers a few topics closely related to networking:
 
 Except for OS kernel parameters and DNS, all RabbitMQ settings
 are [configured via RabbitMQ configuration file(s)](/configure.html).
@@ -55,28 +56,34 @@ offer an index of key tunable parameters and serve as a starting
 point.
 
 In addition, this guide touches on a few topics closely related to networking,
-such as [connection lifecycle logging](#logging), [proxies and load balancers](#intermediaries), [high connection churn](#dealing-with-high-connection-churn) and resource exhaustion, and more.
+such as
+
+ * Hostnames, [hostname resolution and DNS](#dns)
+ * [connection lifecycle logging](#logging)
+ * [Heartbeats](#heartbeats) (a.k.a. keepalives)
+ * [proxies and load balancers](#intermediaries)
+ * [high connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
+
+and more.
+
 A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.
 
 
-## <a id="interfaces" class="anchor" href="#interfaces">Network Interfaces</a>
-
-### <a id="multiple-interfaces" class="anchor" href="#multiple-interfaces"></a>
+## <a id="interfaces" class="anchor" href="#interfaces">Network Interfaces for Client Connections</a>
 
 For RabbitMQ to accept client connections, it needs to bind to one or more
-interfaces and listen on (protocol-specific) ports. The interfaces are
-configured using the `rabbit.tcp_listeners` config option.
-By default, RabbitMQ will listen on port 5672 on all available interfaces.
+interfaces and listen on (protocol-specific) ports. One such interface/port pair is called a listener
+in RabbitMQ parlance. Listeners are configured using the `listeners.tcp.*` configuration option(s).
 
-TCP listeners configure both interface and port. The following example
-demonstrates how to configure RabbitMQ on a specific IP and standard port:
+TCP listeners configure both an interface and port. The following example
+demonstrates how to configure AMQP 0-9-1 and AMQP 1.0 listener to use a specific IP and the standard port:
 
 <pre class="lang-ini">
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
-Or using classic config format:
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
@@ -85,6 +92,10 @@ Or using classic config format:
   ]}
 ].
 </pre>
+
+By default, RabbitMQ will listen on port 5672 on **all available interfaces**. It is possible to
+limit client connections to a subset of the interfaces or even just one, for example, IPv6-only
+interfaces. The following few sections demonstrate how to do it.
 
 ### <a id="dual-stack" class="anchor" href="#dual-stack">Listening on Dual Stack (Both IPv4 and IPv6) Interfaces</a>
 
@@ -107,7 +118,7 @@ Or, in the [classic config format](/configure.html#erlang-term-config-file):
 ].
 </pre>
 
-With modern Linux kernels and Windows versions after Vista,
+With modern Linux kernels and Windows releases,
 when a port is specified and RabbitMQ is configured to
 listen on all IPv6 addresses but IPv4 is not disabled
 explicitly, IPv4 address will be included, so
@@ -123,49 +134,6 @@ listeners.tcp.1 = 0.0.0.0:5672
 listeners.tcp.2 = :::5672
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"::",       5672}]}
-  ]}
-].
-</pre>
-
-is equivalent to
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"0.0.0.0", 5672},
-                     {"::",      5672}]}
-  ]}
-].
-</pre>
-
-### <a id="single-stack-ipv4" class="anchor" href="#single-stack-ipv4">Listening on IPv4 Interfaces Only</a>
-
-In this example RabbitMQ will listen on an IPv4 interface only:
-
-<pre class="lang-ini">
-listeners.tcp.1 = 192.168.1.99:5672
-</pre>
-
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"192.168.1.99", 5672}]}
-  ]}
-].
-</pre>
-
-Alternatively, if a single stack setup is desired, the interface can be
-configured using the `RABBITMQ_NODE_IP` environment variable.
-See our [Configuration guide](/configure.html) for detalis.
-
 ### <a id="single-stack-ipv6" class="anchor" href="#single-stack-ipv6">Listening on IPv6 Interfaces Only</a>
 
 In this example RabbitMQ will listen on an IPv6 interface only:
@@ -174,19 +142,16 @@ In this example RabbitMQ will listen on an IPv6 interface only:
 listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
+In IPv6-only environments the node must also be configured
+to [use IPv6 for inter-node communication and CLI tool connections](#distribution-ipv6).
 
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"fe80::2acf:e9ff:fe17:f97b", 5672}]}
-  ]}
-].
+### <a id="single-stack-ipv4" class="anchor" href="#single-stack-ipv4">Listening on IPv4 Interfaces Only</a>
+
+In this example RabbitMQ will listen on an IPv4 interface only:
+
+<pre class="lang-ini">
+listeners.tcp.1 = 192.168.1.99:5672
 </pre>
-
-Alternatively, if a single stack setup is desired, the interface can be
-configured using the `RABBITMQ_NODE_IP` environment variable.
-See our [Configuration guide](/configure.html) for detalis.
 
 
 ## <a id="ports" class="anchor" href="#ports">Port Access</a>
@@ -314,8 +279,10 @@ recommended.
 
 ## <a id="distribution-ipv6" class="anchor" href="#distribution-ipv6">Using IPv6 for Inter-node Communication (and CLI Tools)</a>
 
-Inter-node communication can be configured to use IPv6 exclusively. This requires a bit of
-configuration of both the inter-node communication protocol (also known as `proto_dist`)
+In addition to [exclusive IPv6 use for client connections](#single-stack-ipv6) for client connections,
+a node can also be configured to use IPv6 exclusively for inter-node and CLI tool connectivity.
+
+This requires a bit of configuration of both the inter-node communication protocol (also known as `proto_dist`)
 via a [runtime flag](/runtime.html) and `epmd` settings.
 
 On distributions that use systemd, the `epmd.socket` service controls network settings of `epmd`.
@@ -421,23 +388,12 @@ for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and 
 proxy_protocol = true
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {proxy_protocol, true}
-  ]}
-].
-</pre>
-
-When proxy protocol is enabled, clients won't be able to connect
-to RabbitMQ directly unless they themselves support the protocol.
+When proxy protocol is enabled, clients won't be able to connect to RabbitMQ directly unless
+they themselves support the protocol.
 Therefore, when this option is enabled, all client connections must go through
 a proxy that also supports the protocol and is configured to send a Proxy protocol header. [HAproxy](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
 and [AWS ELB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol) documentation
 explains how to do it.
-
 
 When proxy protocol is enabled and connections go through a compatible proxy, no action
 or modifications are required from client libraries. The communication is entirely
@@ -474,13 +430,15 @@ This is one of the key tunable parameters. Every TCP connection has buffers
 allocated for it. Generally speaking, the larger these buffers are, the more RAM
 is used per connection and better the throughput. On Linux, the OS will automatically
 tune TCP buffer size by default, typically settling on a value between 80 and 120 KB.
-For maximum throughput, it is possible to
-increase buffer size using the
-`rabbit.tcp_listen_options`,
-`rabbitmq_mqtt.tcp_listen_options`,
-`rabbitmq_amqp1_0.tcp_listen_options`, and
-related config keys. Note that increasing TCP buffer size will directly translate
-into higher [RAM use of the node](/memory-use.html).
+
+For maximum throughput, it is possible to increase buffer size using a group of config options:
+
+ * `tcp_listen_options` for AMQP 0-9-1 and AMQP 1.0
+ * `mqtt.tcp_listen_options` for MQTT
+ * `stomp.tcp_listen_options` for STOMP
+
+Note that increasing TCP buffer size will increase how much [RAM the node uses](/memory-use.html)
+for every client connection.
 
 The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
 
@@ -493,52 +451,30 @@ tcp_listen_options.sndbuf = 196608
 tcp_listen_options.recbuf = 196608
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
+The same example for MQTT:
 
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false},
-                          {sndbuf,        196608},
-                          {recbuf,        196608}
-                         ]}
-  ]}
-].
+<pre class="lang-ini">
+mqtt.tcp_listen_options.backlog = 128
+mqtt.tcp_listen_options.nodelay = true
+mqtt.tcp_listen_options.linger.on      = true
+mqtt.tcp_listen_options.linger.timeout = 0
+mqtt.tcp_listen_options.sndbuf = 196608
+mqtt.tcp_listen_options.recbuf = 196608
 </pre>
 
-The same example for MQTT and STOMP connections:
+and STOMP:
 
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false},
-                          {sndbuf,        196608},
-                          {recbuf,        196608}
-                         ]}
-                         ]},
-  {rabbitmq_stomp, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false}
-                          {sndbuf,        196608},
-                          {recbuf,        196608}
-                         ]}
-  ]}
-].
+<pre class="lang-ini">
+stomp.tcp_listen_options.backlog = 128
+stomp.tcp_listen_options.nodelay = true
+stomp.tcp_listen_options.linger.on      = true
+stomp.tcp_listen_options.linger.timeout = 0
+stomp.tcp_listen_options.sndbuf = 196608
+stomp.tcp_listen_options.recbuf = 196608
 </pre>
 
-Note that setting send and receive buffer sizes to different values is dangerous
-and is not recommended.
+Note that setting send and receive buffer sizes to different values
+can be dangerous and **not recommended**.
 
 ### <a id="tuning-for-throughput-async-thread-pool" class="anchor" href="#tuning-for-throughput-async-thread-pool">Erlang VM I/O Thread Pool</a>
 
@@ -615,14 +551,19 @@ RAM idle machine uses but this is a reasonable trade-off.
 
 ### <a id="tuning-for-large-number-of-connections-tcp-buffer-size" class="anchor" href="#tuning-for-large-number-of-connections-tcp-buffer-size">Per Connection Memory Consumption: TCP Buffer Size</a>
 
-See the section above for an overview. It is possible to
-decrease buffer size using the
-`rabbit.tcp_listen_options`,
-`rabbitmq_mqtt.tcp_listen_options`,
-`rabbitmq_amqp1_0.tcp_listen_options`, and
-related config keys to reduce the amount of RAM by the
-server used per connection. This is often necessary in
-environments where the number of concurrent connections
+See the section above for an overview.
+
+For maximum number of concurrent client connections, it is possible to decrease TCP buffer size
+using a group of config options:
+
+ * `tcp_listen_options` for AMQP 0-9-1 and AMQP 1.0
+ * `mqtt.tcp_listen_options` for MQTT
+ * `stomp.tcp_listen_options` for STOMP
+
+Decreasing TCP buffer size will decrease how much [RAM the node uses](/memory-use.html)
+for every client connection.
+
+This is often necessary in environments where the number of concurrent connections
 sustained per node is more important than throughput.
 
 The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
@@ -636,48 +577,26 @@ tcp_listen_options.sndbuf  = 32768
 tcp_listen_options.recbuf  = 32768
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
+The same example for MQTT:
 
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false},
-                          {sndbuf,        32768},
-                          {recbuf,        32768}
-                         ]}
-  ]}
-].
+<pre class="lang-ini">
+mqtt.tcp_listen_options.backlog = 128
+mqtt.tcp_listen_options.nodelay = true
+mqtt.tcp_listen_options.linger.on      = true
+mqtt.tcp_listen_options.linger.timeout = 0
+mqtt.tcp_listen_options.sndbuf  = 32768
+mqtt.tcp_listen_options.recbuf  = 32768
 </pre>
 
-The same example for MQTT and STOMP connections:
+and for STOMP:
 
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false},
-                          {sndbuf,        32768},
-                          {recbuf,        32768}
-                         ]}
-                         ]},
-  {rabbitmq_stomp, [
-    {tcp_listen_options, [
-                          {backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true,0}},
-                          {exit_on_close, false},
-                          {sndbuf,        32768},
-                          {recbuf,        32768}
-                         ]}
-  ]}
-].
+<pre class="lang-ini">
+stomp.tcp_listen_options.backlog = 128
+stomp.tcp_listen_options.nodelay = true
+stomp.tcp_listen_options.linger.on      = true
+stomp.tcp_listen_options.linger.timeout = 0
+stomp.tcp_listen_options.sndbuf  = 32768
+stomp.tcp_listen_options.recbuf  = 32768
 </pre>
 
 Note that lowering TCP buffer sizes will result in a proportional throughput drop,
@@ -706,25 +625,22 @@ Finding an optimal value is usually a matter of trial and error.
 Disabling <a
 href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
 algorithm</a> is primarily useful for reducing latency but
-can also improve
-throughput. `kernel.inet_default_connect_options`
-and `kernel.inet_default_listen_options` must
-include `{nodelay, true}` to disable Nagle's
-algorithm for inter-node connections.  When configuring
-sockets that serve client connections,
-`rabbit.tcp_listen_options` must include the same
-option. This is the default.
+can also improve throughput.
 
-The following example demonstrates that:
+`kernel.inet_default_connect_options` and `kernel.inet_default_listen_options` must
+include `{nodelay, true}` to disable Nagle's algorithm for inter-node connections.
 
-In `rabbitmq.conf`
+When configuring sockets that serve client connections,
+`tcp_listen_options` must include the same option. This is the default.
+
+The following example demonstrates that. First, `rabbitmq.conf`:
 
 <pre class="lang-ini">
 tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
-together with the following bits in the [advanced config file](/configure.html#advanced-config-file):
+which should be used together with the following bits in the [advanced config file](/configure.html#advanced-config-file):
 
 <pre class="lang-erlang">
 [
@@ -767,7 +683,7 @@ or more, it is important to make sure that the server can accept inbound connect
 Unaccepted TCP connections are put into a queue with bounded length. This length has to be
 sufficient to account for peak load hours and possible spikes, for instance, when many clients
 disconnect due to a network interruption or choose to reconnect.
-This is configured using the `rabbit.tcp_listen_options.backlog`
+This is configured using the `tcp_listen_options.backlog`
 option:
 
 <pre class="lang-ini">
@@ -1036,7 +952,7 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
       <td><code>tcp_listen_options.recbuf</code></td>
       <td>
         See TCP buffers discussion earlier in this guide. Default value effects
-        are similar to that of <code>rabbit.tcp_listen_options.sndbuf</code> but
+        are similar to that of <code>tcp_listen_options.sndbuf</code> but
         for publishers and protocol operations in general.
       </td>
     </tr>
