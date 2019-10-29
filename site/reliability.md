@@ -55,7 +55,7 @@ logic errors can cause [channel](/channels.html#error-handling) or [connection e
 client to establish a new channel or connection and recover from the
 problem.
 
-This list of failures, of course, is not at all exhastive. It does not cover more subtle failures
+This list of failures, of course, is not at all exhaustive. It does not cover more subtle failures
 such as omission failures (failure to respond in a predictable amount of time),
 performance degradations, malicious or buggy applications that exhaust the system of resources
 and so on. Those failures can be detected with [monitoring, metrics and health checks](#monitoring).
