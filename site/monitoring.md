@@ -610,7 +610,7 @@ rabbitmq-diagnostics -q memory_breakdown --unit "MB"
 
 #### Stage 4
 
-Includes all checks in stage 4 plus a check on all enabled listeners
+Includes all checks in stage 3 plus a check on all enabled listeners
 (using a temporary TCP connection).
 
 To inspect all listeners enabled on a node, use [`rabbitmq-diganostics listeners`](/rabbitmq-diagnostics.8.html):
@@ -637,7 +637,7 @@ maintenance windows can raise significantly.
 
 #### Stage 5
 
-Includes all checks in stage 3 plus checks that there are no failed [virtual hosts](/vhosts.html).
+Includes all checks in stage 4 plus checks that there are no failed [virtual hosts](/vhosts.html).
 
 [`rabbitmq-diagnostics check_virtual_hosts`](/rabbitmq-diagnostics.8.html) is a command
 checks whether any virtual host dependencies may have failed. This is done for all
@@ -654,7 +654,7 @@ high CPU load.
 #### Stage 6
 
 Includes all checks in stage 5 plus checks all channel and queue processes
-on the target queue for aliveness.
+on the target node for aliveness.
 
 The combination of [`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) and
 [`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the closest alternative
