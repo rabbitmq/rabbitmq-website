@@ -337,6 +337,8 @@ There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-
 that rebalances queue masters. The plugin has some additional configuration and reporting tools,
 but is not supported or verified by the RabbitMQ team. Use at your own risk.
 
+### <a id="priority-issues" class="anchor" href="#priority-issues">Known issues with priority queues</a>
+Upgrading from 3.5.x and 3.6.x to 3.7.x will rewrite the message store into a per-vhost message store. This conversion doesn't currently support priority queues, and might stop the conversation or erase the priority messages.
 
 ## <a id="rabbitmq-restart-handling" class="anchor" href="#rabbitmq-restart-handling">Handling Node Restarts in Applications</a>
 
