@@ -880,8 +880,12 @@ tcp_listen_options.exit_on_close = false
     <td><code>hipe_compile</code></td>
     <td>
       <p>
-        Set to `true` to precompile parts of RabbitMQ
-        with HiPE, a just-in-time compiler for Erlang.
+        <b>NOTE</b>: Do <i>not</i> use HiPE with Erlang version 22 or later
+        (<a href="http://erlang.org/doc/apps/hipe/notes.html#improvements-and-new-features">link</a>).
+        In addition, HiPE is not supported on Windows.
+      </p>
+      <p>
+        Set to `true` to precompile parts of RabbitMQ with HiPE, a just-in-time compiler for Erlang.
       </p>
       <p>
         Enabling HiPE can improve throughput by double digit % at the cost of
@@ -898,9 +902,6 @@ tcp_listen_options.exit_on_close = false
         must be compiled with HiPE support. If it is not, enabling this option will
         have no effect. Debian and Ubuntu provide both a HiPE-enabled
         base Erlang package (<code>erlang-base-hipe</code>) and a regular one (<code>erlang-base</code>).
-      </p>
-      <p>
-        HiPE is not supported on Windows.
       </p>
       <p>Default: <pre class="lang-ini">hipe_compile = false</pre></p>
     </td>

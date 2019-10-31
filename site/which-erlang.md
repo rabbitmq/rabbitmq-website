@@ -235,6 +235,7 @@ by the Erlang/OTP maintainer community.
 For HiPE support on Debian and Ubuntu, a special HiPE-enabled base
 package (`erlang-base-hipe`) must be installed instead of the regular one (`erlang-base`).
 
+**NOTE**: Do _not_ use HiPE with Erlang version 22 or later ([link](http://erlang.org/doc/apps/hipe/notes.html#improvements-and-new-features)).
 
 ## <a id="building-from-source" class="anchor" href="#building-from-source">Building Erlang from Source</a>
 
