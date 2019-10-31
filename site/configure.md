@@ -880,27 +880,8 @@ tcp_listen_options.exit_on_close = false
     <td><code>hipe_compile</code></td>
     <td>
       <p>
-        Set to `true` to precompile parts of RabbitMQ
-        with HiPE, a just-in-time compiler for Erlang.
-      </p>
-      <p>
-        Enabling HiPE can improve throughput by double digit % at the cost of
-        a few minutes delay at startup. These
-        figures are highly workload- and hardware-dependent.
-      </p>
-      <p>
-        The startup penalty can be avoided via precompilation.
-        See <a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a>
-        and `RABBITMQ_SERVER_CODE_PATH` environment variable documentation.
-      </p>
-      <p>
-        <a href="/which-erlang.html">Erlang installations</a>
-        must be compiled with HiPE support. If it is not, enabling this option will
-        have no effect. Debian and Ubuntu provide both a HiPE-enabled
-        base Erlang package (<code>erlang-base-hipe</code>) and a regular one (<code>erlang-base</code>).
-      </p>
-      <p>
-        HiPE is not supported on Windows.
+        Do not use. This option is no longer supported. HiPE supported has been
+        dropped starting with Erlang 22.
       </p>
       <p>Default: <pre class="lang-ini">hipe_compile = false</pre></p>
     </td>
@@ -1792,16 +1773,6 @@ More variables are covered in the [File and Directory Locations guide](/relocate
       <p>
         Extra code path (a directory) to be specified when starting the runtime.
         Will be passed to the <code>erl</code> command when a node is started.
-      </p>
-      <p>
-        Typically used in combination with <a href="/rabbitmqctl.8.html#hipe_compile">rabbitmqctl hipe_compile</a>
-        to precompile key RabbitMQ modules with HiPE (a JIT runtime compile) and avoid the HiPE
-        startup penalty. When set to a directory with precompiled modules, the HiPE-compiled
-        versions will be detected, loaded and skipped for compilation.
-      </p>
-      <p>
-        <code>hipe_compile</code> must be set to
-        <code>true</code> in node cofiguration.
       </p>
 
       <p>
