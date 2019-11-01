@@ -63,9 +63,9 @@ available for which versions of the distribution.
 
 Below is a list of supported RPM-based distributions as of RabbitMQ 3.6.3:
 
- * CentOS 8.x, 7.x and 6.x (there are two separate RPM packages: one for `7.x` and `8.x` series and one for `6.x` series)
+ * CentOS 8.x, 7.x and 6.x (there are three separate RPM packages: one for `8.x` series, one for `7.x` and one for `6.x`)
  * RedHat Enterprise Linux 8.x, 7.x and 6.x (same packages as for CentOS)
- * Fedora 28 through 30 (use the CentOS 7.x package)
+ * Fedora 28 through 30 (use the CentOS 8.x or 7.x package)
 
 The packages may work on other RPM-based distributions
 if [dependencies](#package-dependencies) are satisfied but their testing and support
@@ -221,7 +221,18 @@ In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
 between distributions (e.g. CentOS 7 and 8 vs. CentOS 6 vs. OpenSUSE).
 
-The following example sets up a repository that will installRabbitMQ 3.8 and targets CentOS 8 and 7:
+The following example sets up a repository that will installRabbitMQ 3.8 and targets CentOS 8:
+
+<pre class="lang-bash">
+[bintray-rabbitmq-server]
+name=bintray-rabbitmq-rpm
+baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/8/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
+</pre>
+
+On CentOS 7 the `baseurl` line would be slightly different:
 
 <pre class="lang-bash">
 [bintray-rabbitmq-server]
@@ -232,7 +243,7 @@ repo_gpgcheck=0
 enabled=1
 </pre>
 
-On CentOS 6 the `baseurl` line would be slightly different:
+Same for CentOS 6:
 
 <pre class="lang-bash">
 [bintray-rabbitmq-server]
@@ -265,7 +276,7 @@ repo_gpgcheck=0
 enabled=1
 </pre>
 
-The following example sets up a repository that will install RabbitMQ 3.7 on CentOS 8 and 7.
+The following example sets up a repository that will install RabbitMQ 3.7 on CentOS 7.
 Note that RabbitMQ 3.7 [goes out of support](/versions.html) in 2020.
 
 <pre class="lang-bash">
@@ -284,16 +295,18 @@ After downloading the server package, issue the following command as
 
 <pre class="lang-bash">
 rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-# this example assumes the CentOS 8 and 7 version of the package
-yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+# This example assumes the CentOS 8 version of the package.
+# For CentOS 7, replace "el8" with "el7".
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 </pre>
 
 [RabbitMQ public signing key](/signatures.html) can also be [downloaded from rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
 rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-# this example assumes the CentOS 8 and 7 version of the package
-yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm
+# This example assumes the CentOS 8 version of the package.
+# For CentOS 7, replace "el8" with "el7".
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 </pre>
 
 ## <a id="downloads" class="anchor" href="#downloads">Download the Server</a>
@@ -310,7 +323,19 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
   <tr>
     <td>
-      RPM for RHEL Linux 8.x and 7.x, CentOS 8.x and 7.x, Fedora 19+ (supports systemd)
+      RPM for RHEL Linux 8.x, CentOS 8.x, Fedora 28+ (supports systemd)
+    </td>
+    <td>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm">rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm</a>
+    </td>
+    <td>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm.asc">Signature</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 24+ (supports systemd)
     </td>
     <td>
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm</a>
