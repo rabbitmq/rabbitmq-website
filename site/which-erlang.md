@@ -44,6 +44,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.8.1</li>
         <li>3.8.0</li>
       </ul>
     </td>
@@ -60,6 +61,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>Erlang 22.1 is recommended.</li>
+        <li>Erlang 22.x dropped support for HiPE</li>
       </ul>
     </td>
   </tr>
@@ -67,6 +69,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.7.20</li>
         <li>3.7.19</li>
       </ul>
     </td>
@@ -85,6 +88,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <li>
           <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.3.x</code> support is discontinued</a>
         </li>
+        <li>Erlang 22.x dropped support for HiPE</li>
       </ul>
     </td>
   </tr>
