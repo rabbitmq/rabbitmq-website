@@ -20,7 +20,7 @@ limitations under the License.
 
 This guide covers a back pressure mechanism applied by RabbitMQ nodes
 to publishing connections in order to avoid runaway [memory usage](/memory-use.html) growth.
-It is necessary because some compoonents in a node can fall behind particularly fast publishers
+It is necessary because some components in a node can fall behind particularly fast publishers
 as they have to do significantly more work than publishing clients (e.g. replicate data to N
 peer nodes or store it on disk).
 
