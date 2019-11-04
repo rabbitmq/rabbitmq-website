@@ -91,6 +91,20 @@ failOnError(err, "Failed to publish a message")
 log.Printf(" [x] Sent %s", body)
 </pre>
 
+We need to also add the `bodyFrom` function:
+
+<pre class="lang-go">
+func bodyFrom(args []string) string {
+	var s string
+	if (len(args) < 2) || os.Args[1] == "" {
+		s = "hello"
+	} else {
+		s = strings.Join(args[1:], " ")
+	}
+	return s
+}
+</pre>
+
 Our old _receive.go_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.go`:
