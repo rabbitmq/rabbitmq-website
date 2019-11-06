@@ -98,12 +98,12 @@ Some features are not currently supported by quorum queues.
 #### Non-durable Queues
 
 Regular queues can be [non-durable](/queues.html). Quorum queues are always durable per their
-assumed [use cases](/use-cases).
+assumed [use cases](#use-cases).
 
 #### Exclusivity
 
 Regular queues can be [exlusive](/queues.html#exclusive-queues). Quorum queues are always durable per their
-assumed [use cases](/use-cases). They are not meant to be used as [temporary queues](/queues#temporary-queues.html).
+assumed [use cases](#use-cases). They are not meant to be used as [temporary queues](/queues#temporary-queues.html).
 
 #### TTL
 
