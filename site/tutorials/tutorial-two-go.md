@@ -91,12 +91,12 @@ failOnError(err, "Failed to publish a message")
 log.Printf(" [x] Sent %s", body)
 </pre>
 
-We need to also add the `bodyFrom` function:
+Here is the `bodyFrom` function:
 
 <pre class="lang-go">
 func bodyFrom(args []string) string {
 	var s string
-	if (len(args) < 2) || os.Args[1] == "" {
+	if (len(args) &lt; 2) || os.Args[1] == "" {
 		s = "hello"
 	} else {
 		s = strings.Join(args[1:], " ")
@@ -596,4 +596,3 @@ For more information on `amqp.Channel` methods and message properties, you can b
 
 Now we can move on to [tutorial 3](tutorial-three-go.html) and learn how
 to deliver the same message to many consumers.
-
