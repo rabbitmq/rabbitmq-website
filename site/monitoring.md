@@ -803,6 +803,10 @@ Note that this list is by no means complete.
       <td><a href="https://github.com/nagios-plugins-rabbitmq/nagios-plugins-rabbitmq">GitHub</a></td>
     </tr>
     <tr>
+      <td>Nastel AutoPilot</td>
+      <td><a href="https://www.nastel.com/rabbitmq/">Nastel RabbitMQ Solutions</a></td>
+    </tr>
+    <tr>
       <td>New Relic</td>
       <td>
         <a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>,
