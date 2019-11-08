@@ -25,6 +25,8 @@ and the reader is familiar with [the basics](/getstarted.html).
 
 Key sections of the guide are:
 
+ * [Licensing](#license)
+ * [JDK and Android versions](#versions) supported
  * [Connecting to RabbitMQ](#connecting)
  * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
  * [Using Exchanges and Queues](#exchanges-and-queues)
@@ -38,10 +40,18 @@ Key sections of the guide are:
  * [TLS support](#tls)
  * [OAuth 2 support](#oauth2-support)
 
+An [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc) is available separately.
+
+
+## <a id="jdk-versions" class="anchor" href="#jdk-versions">JDK and Android Version Support</a>
+
 5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
 
 4.x release series support JDK 6 and Android versions prior to 7.0.
+
+
+## <a id="license" class="anchor" href="#license">License</a>
 
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-java-client/), and is triple-licensed under
 
@@ -49,20 +59,15 @@ The library is open source, developed [on GitHub](https://github.com/rabbitmq/ra
  * [Mozilla Public License](https://www.mozilla.org/MPL/1.1/)
  * [GPL 2.0](http://www.gnu.org/licenses/gpl-2.0.html)
 
-This means that the user can consider the library to be licensed under any of the licenses from the list above.
+This means that the user can consider the library to be licensed under **any of the licenses from the list above**.
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
 
-There are also [command line tools](java-tools.html)
-that used to be shipped with the Java client.
-
-The client API is closely modelled on the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
-with additional abstractions for ease of use.
-
-An [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc) is available separately.
-
 
 ## <a id="classoverview" class="anchor" href="#classoverview">Overview</a>
+
+The client API exposes key entities in the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
+with additional abstractions for ease of use.
 
 RabbitMQ Java client uses `com.rabbitmq.client` as its top-level package.
 The key classes and interfaces are:
