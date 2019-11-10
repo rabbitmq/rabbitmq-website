@@ -424,11 +424,11 @@ sudo apt-get install apt-transport-https
 
 ## Add Bintray repositories that provision latest RabbitMQ and Erlang 21.x releases
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
-## Installs the latest Erlang 21.x release.
-## Change component to "erlang" to install the latest version (22.x or later).
+## Installs the latest Erlang 22.x release.
+## Change component to "erlang-21.x" to install the latest 21.x version.
 ## "bionic" as distribution name should work for any later Ubuntu or Debian release.
 ## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
-deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF
 
@@ -481,6 +481,7 @@ the Debian or Ubuntu release used:
 
  * `bionic` for Ubuntu 18.04
  * `xenial` for Ubuntu 16.04
+ * `buster` for Debian Buster
  * `stretch` for Debian Stretch
 
 However, not all distributions are covered (indexed) on Bintray.
@@ -537,7 +538,7 @@ On Ubuntu 18.04 that can be done by modifying the command in the above example l
 
 <pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
-deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF
 </pre>
@@ -546,7 +547,7 @@ and on Ubuntu 16.04 it would be
 
 <pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
-deb https://dl.bintray.com/rabbitmq-erlang/debian xenial erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian xenial erlang
 deb https://dl.bintray.com/rabbitmq/debian xenial main
 EOF
 </pre>
