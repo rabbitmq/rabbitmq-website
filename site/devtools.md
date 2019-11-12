@@ -33,6 +33,8 @@ would like to see added to this list.
 
  * [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
  * [RabbitMQ JMS client](jms-client.html)
+ * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on [Reactor](https://projectreactor.io/)
+ and [RabbitMQ Java Client](java-client.html)
  * [camel-rabbitmq](https://github.com/lshift/camel-rabbitmq), an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
  * [Banyan](https://github.com/yanghua/banyan), a RabbitMQ-backed message bus with a tree topology.
 
