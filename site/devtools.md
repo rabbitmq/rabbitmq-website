@@ -40,8 +40,8 @@ would like to see added to this list.
 
 ### Spring Framework
 
- * [Spring AMQP project for Java](http://www.springsource.org/spring-amqp)
- * [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/)
+ * [Spring AMQP project for Java](https://spring.io/projects/spring-amqp)
+ * [Spring Cloud Data Flow](https://dataflow.spring.io/)
  * [Spring Integration](http://docs.spring.io/spring-integration/reference/html/amqp.html)
 
 
