@@ -124,8 +124,7 @@ Quorum queues do support [dead letter exchanges](/dlx.html) (DLXs).
 Quorum queues store their content on disk (per Raft requirements) as well as in memory.
 The [lazy mode](/lazy-queues.html) does not apply to them.
 
-It is possible to [limit how much memory a quorum queue uses](#memory-limit) for its log and book keeping
-tables using a policy.
+It is possible to [limit how much memory a quorum queue uses](#memory-limit) using a policy.
 
 #### Priorities
 
@@ -409,12 +408,12 @@ More will be required in high-throughput systems. 4 times is a good starting poi
 
 ### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
 
-It is possible to limit the amount of memory each quorum queue will use for its log
-and related book keeping tables. This is done using a couple of [optional queue arguments](/queues.html#optional-arguments)
+It is possible to limit the amount of memory each quorum queue will use for the part of its log that
+is kept in memory. This is done using a couple of [optional queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies).
 
- * `x-max-in-memory-length` can be used to specify a limit as a number of messages. Must be a positive integer.
- * `x-max-in-memory-bytes`: can be used to specify a limit in bytes. Must be a positive integer.
+ * `x-max-in-memory-length` sets a limit as a number of messages. Must be a positive integer.
+ * `x-max-in-memory-bytes`: sets a limit as the total size of message bodies (payloads), in bytes. Must be a positive integer.
 
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
