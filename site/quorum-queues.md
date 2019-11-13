@@ -124,6 +124,9 @@ Quorum queues do support [dead letter exchanges](/dlx.html) (DLXs).
 Quorum queues store their content on disk (per Raft requirements) as well as in memory.
 The [lazy mode](/lazy-queues.html) does not apply to them.
 
+It is possible to [limit how much memory a quorum queue uses](#memory-limit) for its log and book keeping
+tables using a policy.
+
 #### Priorities
 
 Quorum queues do not currently support priorities.
@@ -174,7 +177,7 @@ In some cases quorum queues should not be used. They typically involve:
  * Temporary nature of queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
  * Low latency: the underlying consensus algorithm
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](/confirms.html) are not used)
- * Very long queue backlogs (quorum queues currently keep all messages in memory at all times)
+ * Very long queue backlogs (quorum queues currently keep all messages in memory at all times, up to a [limit](#memory-limit))
 
 
 
@@ -399,8 +402,20 @@ WAL operations are stored both in memory and written to disk.
 When the WAL file written to disk reaches a predefined limit, the system will begin to release memory.
 When this limit is reached, the system will also start moving operations that are still required to a long-term storage mechanism.
 The WAL file size limit at which memory and disk start being released defaults to 512MiB.
-Because the release of memory may take some time, we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
-More will be required in high-throughput systems - 4 times is a good starting point.
+
+Because memory deallocation may take some time,
+we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
+More will be required in high-throughput systems. 4 times is a good starting point for those.
+
+### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
+
+It is possible to limit the amount of memory each quorum queue will use for its log
+and related book keeping tables. This is done using a couple of [optional queue arguments](/queues.html#optional-arguments)
+that are best configured using a [policy](/parameters.html#policies).
+
+ * `x-max-in-memory-length` can be used to specify a limit as a number of messages. Must be a positive integer.
+ * `x-max-in-memory-bytes`: can be used to specify a limit in bytes. Must be a positive integer.
+
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
