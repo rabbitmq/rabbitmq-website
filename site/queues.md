@@ -92,7 +92,12 @@ The map is used by various features and plugins such as
 
 and so on.
 
-Optional arguments can be provided in two ways:
+Most optional arguments can be dynamically changed after queue declaration but there are
+exceptions. For example, [queue type](/quorum-queues.html) (`x-queue-type`) and max number
+of [queue priorities](/priority.html) (`x-max-priority`) must be set at queue declaration time
+and cannot be changed after that.
+
+Optional queue arguments can be set in a couple of ways:
 
  * To groups of queues using [policies](/parameters.html#policies) (recommended)
  * On a per-queue basis when a queue is declared by a client

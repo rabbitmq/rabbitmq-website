@@ -28,7 +28,8 @@ The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
 a top priority. This is covered in [Motivation](#motivation).
 
 Quorum queues also have important [differences in behaviour](#behaviour)
-and some [limitations](#limitations) compared to classic mirrored queues.
+and some [limitations](#feature-comparison) compared to classic mirrored queues,
+including workload-specific ones, e.g. when consumers [repeatedly requeue the same message](#repeated-requeues).
 
 ### What is a Quorum?
 
@@ -78,22 +79,23 @@ With some queue operations there are minor differences:
 
 Some features are not currently supported by quorum queues.
 
-### Feature Matrix
+### <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Matrix</a>
 
-| Feature | Classic / HA | Quorum |
+| Feature | Classic Mirrored | Quorum |
 | :-------- | :------- | ------ |
 | [Non-durable queues](/queues.html) | yes | no |
 | [Exclusivity](/queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [TTL](/ttl.html) | yes | no |
-| [Queue length limits](/maxlength.html) | yes | yes (drop-head strategy only) |
-| [Lazy behaviour](/lazy-queues.html) | yes | no |
+| [Queue length limits](/maxlength.html) | yes | partial (drop-head strategy only) |
+| [Lazy behaviour](/lazy-queues.html) | yes | partial (see [Memory Limit](#memory-limit)) |
 | [Priority](/queues.html) | yes | no |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
 | Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
-| Reacts to [memory alarms](/alarms.html) | yes | no |
+| Reacts to [memory alarms](/alarms.html) | yes | partial (truncates log) |
 | Poison message handling | no | yes |
+| Global [QoS Prefetch](#global-qos) | yes | no |
 
 #### Non-durable Queues
 
@@ -125,6 +127,15 @@ Quorum queues store their content on disk (per Raft requirements) as well as in 
 The [lazy mode](/lazy-queues.html) does not apply to them.
 
 It is possible to [limit how much memory a quorum queue uses](#memory-limit) using a policy.
+
+#### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
+
+Quorum queues do not support global [QoS prefetch](/confirms.html#channel-qos-prefetch) where a channel sets a single
+prefetch limit for all consumers using that channel. If an attempt
+is made to consume from a quorum queue from a channel with global QoS enabled
+a channel error will be returned.
+
+Use [per-consumer QoS prefetch](/consumer-prefetch.html), which is the default in several popular clients.
 
 #### Priorities
 
@@ -205,55 +216,79 @@ be since more work has to be done to replicate data and achieve consensus.
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
 
 As stated earlier, quorum queues share most of the fundamentals with other [queue](/queues.html) types.
-A client library that can use regular mirrored queues will be able to use quorum queues.
+A client library that can specify [optional queue arguments](/queues.html#optional-arguments) will be able to use quorum queues.
 
-The following operations works the same way for quorum queues as they do for regular queues:
+First we will cover how to declare a quorum queue.
 
- * Consumption (subscription)
- * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](#global-qos))
- * Cancelling consumers
- * Purging
- * Deletion
+### <a id="declaring" class="anchor" href="#declaring">Declaring</a>
+
+To declare a quorum queue set the `x-queue-type` queue argument to `quorum`
+(the default is `classic`). This argument must be provided by a client
+at queue declaration time; it cannot be set or changed using a [policy](/parameters.html#policies).
+This is because policy definition or applicable policy can be changed dynamically but
+queue type cannot. It must be specified at the time of declaration.
+
+Declaring a queue with an `x-queue-type` argument set to `quorum` will declare a quorum queue with
+up to five replicas (default [replication factor](#replication-factor)), one per each [cluster node](/clustering.html).
+
+For example, a cluster of three nodes will have three replicas, one on each node.
+In a cluster of seven nodes, five nodes will have one replica each but two nodes won't host any replicas.
+
+After declaration a quorum queue can be bound to any exchange just as any other
+RabbitMQ queue.
+
+If declaring using [management UI](/management.html), queue type must be specified using
+the queue type drop down menu.
+
+### Client Operations
+
+The following operations work the same way for quorum queues as they do for classic queues:
+
+ * [Consumption](/consumers.html) (subscription)
+ * [Consumer acknowledgements](/confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
+ * Cancelation of consumers
+ * Purging of queue messages
+ * Queue deletion
 
 With some queue operations there are minor differences:
 
- * [Declaration](#declaring)
- * Setting prefetch for consumers
+ * [Declaration](#declaring) (covered above)
+ * Setting [QoS prefetch](#global-qos) for consumers
 
 
-#### <a id="declaring" class="anchor" href="#declaring">Declaring</a>
+### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
 
-To declare a quorum queue set the `x-queue-type` queue argument to `quorum`
-(the default is `classic`). This will declare a quorum queue with a member on
-every currently configured [cluster node](/clustering.html).
-After that the queue can be bound to any exchange just as any other
-RabbitMQ queues.
+By default a quorum queue will start up to five replicas (Raft group members), one per RabbitMQ node in the cluster.
 
-It can also be created through the management UI using the queue type drop down
-menu.
+For example, a cluster of three nodes will have three replicas, one on each node.
+In a cluster of seven nodes, five nodes will have one replica each but two nodes won't host any replicas.
 
-#### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
+Like with mirrored queues, the replication factor (number of replicas a queue has) can be configured for quorum queues.
 
-Like mirrored queues, quorum queues have a configurable replication factor
-(number of replicas).
+The minimum factor value that makes practical sense is three.
+It is highly recommended for the factor to be an odd number.
+This way a clear quorum (majority) of nodes can be computed. For example, there is no "majority" of
+nodes in a two node cluster. This is covered with more examples below in the [Fault Tolerance and Minimum Number of Replicas Online](#quorum-requirements)
+section.
 
-By default a quorum queue will start a replica (Raft group member) on
-every RabbitMQ node in the cluster. This may not be desirable for
-larger clusters or for cluster with an even number of
+This may not be desirable for larger clusters or for cluster with an even number of
 nodes. To control the number of quorum queue members set the
 `x-quorum-initial-group-size` queue argument when declaring the queue. The
 group size argument provided should be an integer that is greater than zero and smaller or
 equal to the current RabbitMQ cluster size. The quorum queue will be
 launched to run on a random subset of the RabbitMQ cluster.
 
-#### <a id="rebalancing-replicas" class="anchor" href="#rebalancing-replicas">Managing Replicas</a> (Quorum Group Members)
+### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Quorum Group Members)
 
-Once declared the RabbitMQ nodes a quorum queue resides on won't change even if the
-members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
-To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
-[command line tool](/cli.html).
+Replicas of a quorum queue are explicitly managed by the operator. When a new node is added
+to the cluster, it will host no quorum queue replicas unless the operator explicitly adds it
+to a member (replica) list of a quorum queue or a set of quorum queues.
 
-Two commands are provided, `add_member` and `delete_member`:
+When a node has to be decomissioned (permanently removed from the cluster), it must be explicitly
+removed from the member list of all quorum queues it currently hosts replicas for.
+
+Two [CLI commands](/cli.html) are provided to perform the above operations,
+`rabbitmq-queues add_member` and `rabbitmq-queues delete_member`:
 
 <pre class="lang-bash">
 rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
@@ -263,52 +298,76 @@ rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
 rabbitmq-queues delete_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
 </pre>
 
-To successfully add and remove members a quorum of replicas in the cluster must be available.
+To successfully add and remove members a quorum of replicas in the cluster must be available
+because cluster membership changes are treated as queue state changes.
 
 Care needs to be taken not to accidentally make a queue unavailable by losing
-the quorum whilst performing membership changes.
+the quorum whilst performing maintenance operations that involve membership changes.
+
+When replacing a cluster node, it is safer to first add a new node and then decomission the node
+it replaces.
+
+### <a id="replica-rebalancing" class="anchor" href="#replica-rebalancing">Rebalancing Replicas</a>
+
+Once declared the RabbitMQ nodes a quorum queue resides on won't change even if the
+members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
+To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
+[command line tool](/cli.html).
+
 
 
 ## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
 
-A quorum queue is quorum-based system that relies on a consensus protocol
-to ensure data consistency.
+A quorum queue relies on a consensus protocol called Raft to ensure data consistency and safety.
+
+Every quorum queue has a primary replica (a *leader* in Raft parlance) and zero or more
+secondary replicas (called *followers*).
+
+A leader is elected when the cluster is first formed and later if the leader
+becomes unavailable.
 
 ### <a id="leader-election" class="anchor" href="#leader-election">Leader Election and Failure Handling</a>
 
 A quorum queue requires a quorum of the declared nodes to be available
-to function. When a RabbitMQ node hosting a current quorum queue
-"leader" (in Raft parlance) fails or is stopped another node hosting a
-quorum queue (a "follower") will be elected leader and resume
+to function. When a RabbitMQ node hosting a quorum queue's
+*leader* fails or is stopped another node hosting one of that
+quorum queue's *follower* will be elected leader and resume
 operations.
 
-In contrast with classic mirrored queues there is no eager
-synchronization of "followers" (mirrors) following a leader change. A
-new leader should be elected and queue availability should be resumed
-very shortly after the failure event even when the queue has a
-significant backlog.
+Failed and rejoining followers will re-synchronise ("catch up") with the leader.
+In contrast to classic mirrored queues, a temporary replica failure
+does not require a full re-synchronization from the currently elected leader. Only the delta
+will be transferred if a re-joining replica is behind the leader. This "catching up" process
+does not affect leader availability.
+
+Replicas must be explicitly added to
+When a new replica is [added](#replica-management), it will synchronise the entire queue state
+from the leader, similarly to classic mirrored queues.
 
 ### <a id="quorum-requirements" class="anchor" href="#quorum-requirements">Fault Tolerance and Minimum Number of Replicas Online</a>
 
 Consensus systems can provide certain guarantees with regard to data safety.
 These guarantees do mean that certain conditions need to be met before they
-become relevant such as requiring a minimum of 3 RabbitMQ nodes to provide
+become relevant such as requiring a minimum of three cluster nodes to provide
 fault tolerance and requiring more than half of members to be available to
 work at all.
 
-*Failure tolerance table*:
+Failure tolerance characteristics of clusters of various size can be described
+in a table:
 
-| Node count | Tolerated no. of failures |
-| :--------: | :------: |
-| 1          | 0        |
-| 2          | 0        |
-| 3          | 1        |
-| 4          | 1        |
-| 5          | 2        |
-| 6          | 2        |
-| 7          | 3        |
+| Cluster node count | Tolerated number of node failures | Tolerant to a network partition |
+| :------------------: | :-----------------------------: | :-----------------------------: |
+| 1                    | 0                               | not applicable |
+| 2                    | 0                               | no |
+| 3                    | 1                               | yes |
+| 4                    | 1                               | yes if a majority exists on one side |
+| 5                    | 2                               | yes |
+| 6                    | 2                               | yes if a majority exists on one side |
+| 7                    | 3                               | yes |
+| 8                    | 3                               | yes if a majority exists on one side |
+| 9                    | 4                               | yes |
 
-As the table above shows RabbitMQ clusters with fewer than 3 nodes do not
+As the table above shows RabbitMQ clusters with fewer than three nodes do not
 benefit fully from the quorum queue guarantees. RabbitMQ clusters with an even
 number of RabbitMQ nodes do not benefit from having quorum queue members spread
 over all nodes. For these systems the quorum queue size should be constrained to a
@@ -357,6 +416,7 @@ As soon as the replica discovers a newly elected leader, it will sync the queue 
 log entries it does not have from the leader, including the dropped ones. Quorum queue state
 will therefore remain consistent.
 
+
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 There are a few new configuration parameters that can be tweaked using
@@ -387,6 +447,7 @@ Example:
 ]
 </pre>
 
+
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
 Quorum queues typically require more resources (disk and RAM)
@@ -410,32 +471,10 @@ It is possible to limit the amount of memory each quorum queue will use for the 
 is kept in memory. This is done using a couple of [optional queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies).
 
- * `x-max-in-memory-length` sets a limit as a number of messages. Must be a positive integer.
- * `x-max-in-memory-bytes`: sets a limit as the total size of message bodies (payloads), in bytes. Must be a positive integer.
+ * `x-max-in-memory-length` sets a limit as a number of messages. Must be a non-negative integer.
+ * `x-max-in-memory-bytes` sets a limit as the total size of message bodies (payloads), in bytes. Must be a non-negative integer.
 
-
-## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
-
-### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
-
-Quorum queues do not support global [QoS prefetch](/confirms.html#channel-qos-prefetch) where a channel sets a single
-prefetch limit for all consumers using that channel. If an attempt
-is made to consume from a quorum queue from a channel with global QoS enabled
-a channel error will be returned.
-
-Use per-consumer QoS prefetch, which is the default in several popular clients.
-
-#### Increased Atom Use
-
-The internal implementation of quorum queues converts the queue name
-into an Erlang atom. If queues with arbitrary names are continuously
-created and deleted it _may_ threaten the long term stability of the
-RabbitMQ system (if the size of the atom table reaches the maximum limit,
-about 1M by default). It is not recommended to use quorum queues in this manner
-at this point.
-
-
-#### <a id="requeue" class="anchor" href="#requeue">Sustained Requeues</a>
+### <a id="repeated-requeues" class="anchor" href="#repeated-requeues">Repeated Requeues</a>
 
 Internally quorum queues are implemented using a log where all operations including
 messages are persisted. To avoid this log growing too large it needs to be
@@ -444,3 +483,12 @@ in that section needs to be acknowledged. Usage patterns that continuously
 [reject or nack](/nack.html) the same message with the `requeue` flag set to true
 could cause the log to grow in an unbounded fashion and eventually fill
 up the disks.
+
+### <a id="atom-use" class="anchor" href="#atom-use">Increased Atom Use</a>
+
+The internal implementation of quorum queues converts the queue name
+into an Erlang atom. If queues with arbitrary names are continuously
+created and deleted it _may_ threaten the long term stability of the
+RabbitMQ system (if the size of the atom table reaches the maximum limit,
+about 1M by default). It is not recommended to use quorum queues in this manner
+at this point.
