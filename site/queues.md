@@ -78,15 +78,17 @@ with code 406 (<code>PRECONDITION_FAILED</code>) will be raised.
 ### <a id="optional-arguments" class="anchor" href="#optional-arguments">Optional Arguments</a>
 
 Optional queue arguments, also known as "x-arguments" because of their
-field name in the AMQP 0-9-1 protocol, is a map (dictionary) that can
-be provided by clients when a queue is declared.  They are used by
-plugins and broker-specific features such as
+field name in the AMQP 0-9-1 protocol, is a map (dictionary) of arbitrary key/value
+pairs that can be provided by clients when a queue is declared.
 
- * Message and queue TTL
- * Queue length limit
- * Mirroring settings
- * Max number of priorities
- * Consumer priorities
+The map is used by various features and plugins such as
+
+ * Queue type (e.g. [quorum](/quorum-queues.html) or classic)
+ * [Message and queue TTL](/ttl.html)
+ * [Queue length limit](/maxlength.html)
+ * [Classic mirrored queue](/ha.html) settings
+ * Max number of [priorities](/priority.html)
+ * [Consumer priorities](/consumer-priority.html)
 
 and so on.
 
@@ -97,6 +99,9 @@ Optional arguments can be provided in two ways:
 
 The former option is more flexible, non-intrusive, does not require application
 modifications and redeployments. Therefore it is highly recommended for most users.
+Note that some optional arguments such as queue type or max number of priorities can
+only be provided by clients because they cannot be dynamically changed and must be known
+at declaration time.
 
 The way optional arguments are provided by clients varies from client library
 to client library but is usually an argument next to the <code>durable</code>,
