@@ -6,6 +6,7 @@ This guide covers topics related to RabbitMQ installation upgrades.
 
 It is important to consider a number of things before upgrading RabbitMQ.
 
+1. [An overview](#basics) of how RabbitMQ can be upgraded
 1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from &amp; version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
@@ -17,9 +18,40 @@ It is important to consider a number of things before upgrading RabbitMQ.
 
 Changes between RabbitMQ versions are documented in the [change log](/changelog.html).
 
-Instead of a regular ("in place") upgrade, a strategy known as [blue-green deployment](blue-green-upgrade.html)
-can be used. It has the benefit of making the upgrade process safier at the cost of having
-to spawn an entire new RabbitMQ cluster.
+
+## <a id="basics" class="anchor" href="#basics">Basics</a>
+
+There are two major upgrade scenarios that are covered in this guide: a [single node](#single-node-upgrade) and a [cluster](#multiple-nodes-upgrade),
+and two most commonly used strategies:
+
+ * In-place upgrade where each node is upgraded with its existing on disk data
+ * [Blue-green deployment](blue-green-upgrade.html) where a new cluster is created and existing data is migrated to it
+
+### In-place Upgrades
+
+An in-place upgrade usually involves the following steps performed by a deployment tool or manually
+by an operator. Each step is covered in more detail later in this guide. An intentionally oversimplified
+list of steps would include:
+
+ * Investigate if the current and target versions have an in-place upgrade path: check [version upgradability](#rabbitmq-version-upgradability), [Erlang version requirements](#rabbitmq-erlang-version-requirement), release notes, [features that do not support in-place upgrades](#unsupported-inplace-upgrade), and [known caveats](#caveats)
+ * Check that the node or cluster is in a good state in order to be upgraded: no [alarms](/alarms.html) are in effect, no ongoing queue synchronisation operations
+   and the system is otherwise under a reasonable load
+ * Stop the node
+ * Upgrade RabbitMQ and, if applicable, Erlang
+ * Start the node
+ * Watch [monitoring and health check](/monitoring.html) data to assess the health and recovery of the upgraded node or cluster
+
+[Rolling upgrades](#rolling-upgrades) between certain versions are not supported. [Full Stop Upgrades](#full-stop-upgrades) covers
+the process for those cases.
+
+### Blue-Green Deployment Upgrades
+
+The Blue/Green deployment strategy offers the benefit of making the upgrade process safier at the cost of
+temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
+can abort an upgrade by switching applications back to the existing cluster.
+
+The rest of the guide covers each upgrade step in more details.
+
 
 ## <a id="rabbitmq-version-upgradability" class="anchor" href="#rabbitmq-version-upgradability">RabbitMQ Version Upgradability</a>
 
