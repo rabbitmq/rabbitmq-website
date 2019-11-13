@@ -55,7 +55,7 @@ best practice design and architecture.
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[Visual Integrator](http://www.visualintegrator.com/rmq/) and others provide <strong>professional consulting services</strong>
+[AceMQ](https://acemq.com/rabbitmq/) and others provide <strong>professional consulting services</strong>
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.
