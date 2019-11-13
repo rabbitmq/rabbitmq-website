@@ -9,6 +9,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from &amp; version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
+1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
 1. [Caveats](#caveats)
@@ -43,6 +44,16 @@ Current release series upgrade compatibility with full stop upgrade:
 
 We recommended that you upgrade Erlang together with RabbitMQ.
 Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
+
+
+## <a id="unsupported-inplace-upgrade" class="anchor" href="#unsupported-inplace-upgrade">Features that Do Not Support In-place Upgrades</a>
+
+[Priority queue](/priority.html) on disk data currently cannot be migrated in place between 3.6 and 3.7 (a later series).
+If an upgrade is performed in place, such queues would start empty (without any messages) after node restart.
+
+To migrate an environment with priority queues and preserve their content (messages),
+a [blue-green upgrade](blue-green-upgrade.html) strategy should be used.
+
 
 ## <a id="rabbitmq-plugins-compatibility" class="anchor" href="#rabbitmq-plugins-compatibility">Plugin Compatibility Between Versions</a>
 
