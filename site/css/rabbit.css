@@ -1041,7 +1041,7 @@ body#index #getstarted,
 
 #hero #hero-best-practices {
   background: url(../img/home/banner/best-practices/hero-desktop.svg) no-repeat center center;
-  padding: 83px 0;
+  padding: 83px 0 55px;
 }
 
 #hero #hero-best-practices .container {
