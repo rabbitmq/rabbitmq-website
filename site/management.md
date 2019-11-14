@@ -275,6 +275,58 @@ rabbitmqctl set_user_tags full_access administrator
 </pre>
 
 
+## <a id="http-api" class="anchor" href="#http-api">Authenticating with OAuth 2</a>
+
+RabbitMQ can be configured to validate [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
+to authenticate client applications. When doing so, the management UI does
+not automatically redirects users to authenticate
+against the OAuth 2 server, this must be configured separately. Currently,
+only [UAA](https://github.com/cloudfoundry/uaa) is supported.
+
+To redirect users to the UAA server to authenticate, use the following configuration:
+
+<pre class="lang-ini">
+management.enable_uaa = true
+management.uaa_client_id = rabbit_user_client
+management.uaa_location = https://my-uaa-server-host:8443/uaa
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="lang-erlang">
+[
+  {rabbitmq_management, [
+    {enable_uaa, true},
+    {uaa_client_id, "rabbit_user_client"},
+    {uaa_location, "https://my-uaa-server-host:8443/uaa"}
+  ]}
+].
+</pre>
+
+When using `enable_uaa = true`, it is still possible to authenticate
+using HTTP basic authentication. If you want OAuth 2 to be the only
+way to authenticate against the management plugin, set the
+`disable_basic_auth` configuration key to `true`:
+
+<pre class="lang-ini">
+management.disable_basic_auth = true
+management.enable_uaa = true
+management.uaa_client_id = rabbit_user_client
+management.uaa_location = https://my-uaa-server-host:8443/uaa
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+<pre class="lang-erlang">
+[
+  {rabbitmq_management, [
+    {disable_basic_auth, true},
+    {enable_uaa, true},
+    {uaa_client_id, "rabbit_user_client"},
+    {uaa_location, "https://my-uaa-server-host:8443/uaa"}
+  ]}
+].
+</pre>
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
