@@ -198,6 +198,7 @@ limitations under the License.
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
+                <a href="https://acemq.com/rabbitmq/">AceMQ</a>,
                 <a href="http://www.visualintegrator.com/rmq/">Visual Integrator, Inc</a> and
                 <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq">Google Cloud Platform</a>.
                 RabbitMQ can also be deployed in AWS and Microsoft Azure.
