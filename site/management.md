@@ -275,7 +275,7 @@ rabbitmqctl set_user_tags full_access administrator
 </pre>
 
 
-## <a id="http-api" class="anchor" href="#http-api">Authenticating with OAuth 2</a>
+## <a id="oauth2-authentication" class="anchor" href="#oauth2-authentication">Authenticating with OAuth 2</a>
 
 RabbitMQ can be configured to validate [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
 to authenticate client applications. When doing so, the management UI does
