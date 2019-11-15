@@ -304,8 +304,22 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 </pre>
 
 When using `enable_uaa = true`, it is still possible to authenticate
-using HTTP basic authentication. If you want OAuth 2 to be the only
-way to authenticate against the management plugin, set the
+with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
+against the HTTP API. This means the following:
+
+<pre class="lang-bash">
+curl -i -u ignored:&lt;token&gt; http://localhost:15672/api/vhosts
+</pre>
+
+which translates to:
+
+<pre class="lang-bash">
+curl -i --header "authorization: Basic &lt;encoded credentials&gt;" http://localhost:15672/api/vhosts
+</pre>
+
+will still work.
+
+If you want an OAuth 2 token to be the only way to authenticate against the management plugin, set the
 `disable_basic_auth` configuration key to `true`:
 
 <pre class="lang-ini">
@@ -327,6 +341,16 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
   ]}
 ].
 </pre>
+
+When settings `disable_basic_auth` to `true`, only the `Bearer` authorization method will
+work, as in the following command:
+
+<pre class="lang-bash">
+curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/api/vhosts
+</pre>
+
+Note this is valid for all endpoints, except the `/definitions` one, which
+requires the token to be in a `token` parameter in the query string.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
