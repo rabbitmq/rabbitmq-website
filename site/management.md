@@ -27,7 +27,7 @@ It periodically collects and aggregates data about many aspects of the system. T
 are exposed to both operators in the UI and [monitoring systems](/monitoring.html) for
 long term storage, alerting, visualisation, chart analysis and so on.
 
-The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https),
+The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https), [OAuth 2](#oauth2-authentication),
 a non-standard port, path prefix, HTTP server options, custom [strict transport security](#hsts) settings,
 [cross-origin resource sharing](#cors), and more.
 
@@ -274,6 +274,58 @@ rabbitmqctl add_user full_access s3crEt
 rabbitmqctl set_user_tags full_access administrator
 </pre>
 
+
+## <a id="oauth2-authentication" class="anchor" href="#oauth2-authentication">Authenticating with OAuth 2</a>
+
+RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
+to authenticate client applications and management UI users. When doing so, the management UI does
+not automatically redirects users to authenticate
+against the OAuth 2 server, this must be configured separately. Currently,
+only [UAA](https://github.com/cloudfoundry/uaa) is supported authorization server.
+
+To redirect users to the UAA server to authenticate, use the following configuration:
+
+<pre class="lang-ini">
+management.enable_uaa = true
+management.uaa_client_id = rabbit_user_client
+management.uaa_location = https://my-uaa-server-host:8443/uaa
+</pre>
+
+When using `management.enable_uaa = true`, it is still possible to authenticate
+with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
+against the HTTP API. This means both of the following examples will work:
+
+<pre class="lang-bash">
+# swap &lt;token&gt; for an actual token
+curl -i -u ignored:&lt;token&gt; http://localhost:15672/api/vhosts
+</pre>
+
+as well as
+
+<pre class="lang-bash">
+curl -i --header "authorization: Basic &lt;encoded credentials&gt;" http://localhost:15672/api/vhosts
+</pre>
+
+To switch to authenticate using OAuth 2 exclusively for management UI access, set the
+`management.disable_basic_auth` configuration key to `true`:
+
+<pre class="lang-ini">
+management.disable_basic_auth = true
+management.enable_uaa = true
+management.uaa_client_id = rabbit_user_client
+management.uaa_location = https://my-uaa-server-host:8443/uaa
+</pre>
+
+When settings `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
+work, for example:
+
+<pre class="lang-bash">
+# swap &lt;token&gt; for an actual token
+curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/api/vhosts
+</pre>
+
+This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those
+endpoints requires the token to be passed in the `token` query string parameter.
 
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
