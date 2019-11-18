@@ -291,21 +291,20 @@ management.uaa_client_id = rabbit_user_client
 management.uaa_location = https://my-uaa-server-host:8443/uaa
 </pre>
 
-When using `enable_uaa = true`, it is still possible to authenticate
+When using `management.enable_uaa = true`, it is still possible to authenticate
 with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
-against the HTTP API. This means the following:
+against the HTTP API. This means both of the following examples will work:
 
 <pre class="lang-bash">
+# swap &lt;token&gt; for an actual token
 curl -i -u ignored:&lt;token&gt; http://localhost:15672/api/vhosts
 </pre>
 
-which translates to:
+as well as
 
 <pre class="lang-bash">
 curl -i --header "authorization: Basic &lt;encoded credentials&gt;" http://localhost:15672/api/vhosts
 </pre>
-
-will still work.
 
 To switch to authenticate using OAuth 2 exclusively for management UI access, set the
 `management.disable_basic_auth` configuration key to `true`:
