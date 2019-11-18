@@ -27,7 +27,7 @@ It periodically collects and aggregates data about many aspects of the system. T
 are exposed to both operators in the UI and [monitoring systems](/monitoring.html) for
 long term storage, alerting, visualisation, chart analysis and so on.
 
-The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https),
+The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https), [OAuth 2](#oauth2-authentication),
 a non-standard port, path prefix, HTTP server options, custom [strict transport security](#hsts) settings,
 [cross-origin resource sharing](#cors), and more.
 
@@ -277,11 +277,11 @@ rabbitmqctl set_user_tags full_access administrator
 
 ## <a id="oauth2-authentication" class="anchor" href="#oauth2-authentication">Authenticating with OAuth 2</a>
 
-RabbitMQ can be configured to validate [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
-to authenticate client applications. When doing so, the management UI does
+RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
+to authenticate client applications and management UI users. When doing so, the management UI does
 not automatically redirects users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
-only [UAA](https://github.com/cloudfoundry/uaa) is supported.
+only [UAA](https://github.com/cloudfoundry/uaa) is supported authorization server.
 
 To redirect users to the UAA server to authenticate, use the following configuration:
 
@@ -289,18 +289,6 @@ To redirect users to the UAA server to authenticate, use the following configura
 management.enable_uaa = true
 management.uaa_client_id = rabbit_user_client
 management.uaa_location = https://my-uaa-server-host:8443/uaa
-</pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {enable_uaa, true},
-    {uaa_client_id, "rabbit_user_client"},
-    {uaa_location, "https://my-uaa-server-host:8443/uaa"}
-  ]}
-].
 </pre>
 
 When using `enable_uaa = true`, it is still possible to authenticate
@@ -319,8 +307,8 @@ curl -i --header "authorization: Basic &lt;encoded credentials&gt;" http://local
 
 will still work.
 
-If you want an OAuth 2 token to be the only way to authenticate against the management plugin, set the
-`disable_basic_auth` configuration key to `true`:
+To switch to authenticate using OAuth 2 exclusively for management UI access, set the
+`management.disable_basic_auth` configuration key to `true`:
 
 <pre class="lang-ini">
 management.disable_basic_auth = true
@@ -329,28 +317,17 @@ management.uaa_client_id = rabbit_user_client
 management.uaa_location = https://my-uaa-server-host:8443/uaa
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {disable_basic_auth, true},
-    {enable_uaa, true},
-    {uaa_client_id, "rabbit_user_client"},
-    {uaa_location, "https://my-uaa-server-host:8443/uaa"}
-  ]}
-].
-</pre>
-
-When settings `disable_basic_auth` to `true`, only the `Bearer` authorization method will
-work, as in the following command:
+When settings `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
+work, for example:
 
 <pre class="lang-bash">
+# swap &lt;token&gt; for an actual token
 curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/api/vhosts
 </pre>
 
-Note this is valid for all endpoints, except the `/definitions` one, which
-requires the token to be in a `token` parameter in the query string.
+This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those
+endpoints requires the token to be passed in the `token` query string parameter.
+
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
