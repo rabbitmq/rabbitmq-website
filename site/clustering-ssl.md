@@ -146,7 +146,7 @@ value is multi-line:
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
-# 
+#
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem
@@ -178,7 +178,7 @@ the environment variable is `CTL_ERL_ARGS`. It controls runtime flags used by CL
 Here is the complete `/etc/rabbitmq/rabbitmq-env.conf` file:
 
 <pre class="lang-bash">
-# IMPORTANT: 
+# IMPORTANT:
 # the following path is system dependent (will
 # change depending on the Erlang version, distribution,
 # and installation method used). Please double check it before proceeding!
@@ -325,4 +325,3 @@ to be set if necessary.
     ]}
 ].
 </pre>
-
