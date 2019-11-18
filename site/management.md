@@ -718,6 +718,27 @@ resolution for 1 minute, at a 1 minute (60 second) resolution for
 All three policies are mandatory, and must contain
 at least one retention setting (period).
 
+### <a id="disable-stats" class="anchor" href="#disable-stats">Disable statistics and metrics collection</a>
+
+It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be an useful feature if external monitoring solutions such as [Prometheus and Grafana](/prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
+
+In order to completely disable the internal metrics collection, the `disable_metrics_collection` flag must be set in the `rabbitmq_management_agent` plugin. The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
+
+<pre class="lang-ini">
+management_agent.disable_metrics_collection  = true
+</pre>
+
+Disabling the metrics collection is the preferred option if it is being used with an external monitoring system, as this reduced the overhead that statistics collection and aggregation causes in the broker. If the statistics are only temporary disabled, or are not required in some [HTTP API](#http-api) queries, the aggregation of the stats can be disabled in the `rabbitmq_management` plugin. The disable flag can be also passed as part of the query string in the URI.
+
+As at the moment the [Prometheus plugin](/prometheus.html) can not report individual queue totals, there is a configuration option that allows to list `messages`, `messages_ready` and `messages_unacknowledged` in the `queues` endpoint.
+
+Below is a configuration example that disables the statistics but returns individual queue totals in the `queues` page:
+
+<pre class="lang-ini">
+management.disable_management_stats  = true
+management.enable_queue_totals       = true
+</pre>
+
 ### <a id="csp" class="anchor" href="#csp">Content Security Policy (CSP)</a>
 
 It is possible to configure what [CSP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) value
