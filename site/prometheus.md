@@ -453,6 +453,8 @@ and copy paste the file contents in Grafana, then click **Load**, as seen below:
 Repeat the process for all other Grafana dashboards that you would like to use with
 this RabbitMQ deployment.
 
+One note: if after all steps you see random data instead real - go to datasources, mark 'prometheus' as default, remove dashboard and import again.
+
 Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
 
 
