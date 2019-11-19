@@ -1,4 +1,4 @@
-©# Monitoring with Prometheus &amp; Grafana
+# Monitoring with Prometheus &amp; Grafana
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
