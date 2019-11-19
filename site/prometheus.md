@@ -398,7 +398,7 @@ aware of where it should scrape RabbitMQ metrics from. There are a number of way
 Please refer to the official <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/"
 target="_blank">Prometheus configuration documentation</a> .
 There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
-for beginners.
+for beginners. And <a href="https://github.com/rabbitmq/rabbitmq-prometheus/blob/master/docker/prometheus.yml" target="_blank">here</a> example of docker prometheus config file on github.
 
 Prometheus will periodically scrape (read) metrics from the systems it
 monitors, every 60 seconds by default. RabbitMQ metrics are updated
