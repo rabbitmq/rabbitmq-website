@@ -31,6 +31,13 @@ limitations under the License.
       The latest release of RabbitMQ is <b>&version-server;</b>. See <a href="changelog.html">change log</a> for release notes.
       See <a href="/versions.html">RabbitMQ support timeline</a> to find out what release series are supported.
     </p>
+    <p>
+      Experimenting with RabbitMQ on your workstation? Try the <a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a>:
+    </p>
+<pre class="lang-bash">
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+</pre>
+
     <div class="landing-box">
       <doc:section name="server-installation-guides">
         <doc:heading>RabbitMQ Server</doc:heading>
@@ -100,6 +107,12 @@ limitations under the License.
         </ul>
       </doc:section>
 
+      <doc:section name="docker">
+        <doc:heading>Docker</doc:heading>
+        <ul>
+          <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> from the Docker community (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>).</li>
+        </ul>
+      </doc:section>
 
       <doc:section name="cloud">
         <doc:heading>Cloud</doc:heading>
@@ -110,15 +123,6 @@ limitations under the License.
           <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>
         </ul>
       </doc:section>
-
-
-      <doc:section name="docker">
-        <doc:heading>Docker</doc:heading>
-        <ul>
-          <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a> from the Docker community (<a href="https://github.com/docker-library/rabbitmq/">on GitHub</a>).</li>
-        </ul>
-      </doc:section>
-
 
       <doc:section name="provisioning-automation-tools">
         <doc:heading>Provisioning Tools (Chef, Puppet, etc)</doc:heading>
