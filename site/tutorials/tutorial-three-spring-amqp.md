@@ -211,16 +211,16 @@ want to share the queue between producers and consumers.
 
 But that's not the case for our fanout example. We want to hear about
 all messages, not just a subset of them. We're
-also interested only in currently flowing messages not in the old
+also interested only in currently flowing messages, not in the old
 ones. To solve that we need two things.
 
-Firstly, whenever we connect to Rabbit we need a fresh, empty queue.
-To do this we could create a queue with a random name, or,
-even better - let the server choose a random queue name for us.
+Firstly, whenever we connect to Rabbit, we need a fresh, empty queue.
+To do this, we could create a queue with a random name, or --
+even better -- let the server choose a random queue name for us.
 
-Secondly, once we disconnect the consumer the queue should be
+Secondly, once we disconnect the consumer, the queue should be
 automatically deleted. To do this with the Spring AMQP client,
-we defined and _AnonymousQueue_, which creates a non-durable,
+we defined an _AnonymousQueue_, which creates a non-durable,
 exclusive, auto-delete queue with a generated name:
 
 <pre class="lang-java">
@@ -235,7 +235,7 @@ public Queue autoDeleteQueue2() {
 }
 </pre>
 
-At this point our queue names contain a random queue names. For example
+At this point, our queues have random queue names. For example,
 it may look like `spring.gen-1Rx9HOqvTAaHeeZrQWu8Pg`.
 
 Bindings
