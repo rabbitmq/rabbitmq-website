@@ -29,7 +29,7 @@ limitations under the License.
 
         You need to have the RabbitMQ server installed to go through
         the tutorials, please see the <a
-        href="download.html">installation guide.</a>
+        href="download.html">installation guide</a> or use the <a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a>.
 
         Code examples of these tutorials <a href="https://github.com/rabbitmq/rabbitmq-tutorials">are open source</a>,
         as is <a href="https://github.com/rabbitmq/rabbitmq-website">RabbitMQ website</a>.
