@@ -106,7 +106,7 @@ stomp.tcp_listen_options.send_timeout  = 120
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
-To use TLS for MQTT connections, [TLS must be configured](/ssl.html) in the broker. To enable
+To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
 TLS-enabled STOMP connections, add a TLS listener for STOMP using the `stomp.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server
