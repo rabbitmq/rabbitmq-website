@@ -54,6 +54,7 @@ published separately.
     <td class="centre">31 October 2019</td>
     <td>
       <ul>
+        <li>Security vulnerability (<a href="https://pivotal.io/security/cve-2019-11287">CVE-2019-11287</a>) fix</li>
         <li>Bug fixes</li>
         <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
