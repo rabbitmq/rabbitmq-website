@@ -462,6 +462,10 @@ used by RabbitMQ nodes. This policy is used by default by Kubernetes.
 Other stateful set aspects such as how [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 is orthogonal to peer discovery.
 
+### Examples
+
+A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples)
+mechanism can be found on GitHub.
 
 ### Configuration
 
