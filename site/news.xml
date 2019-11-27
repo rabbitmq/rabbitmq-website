@@ -36,6 +36,40 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2019-11-27T12:00:00+00:00">27 November 2019</doc:date>
+      <doc:title>RabbitMQ 3.7.22 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.22.
+        </p>
+        <p>
+          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the change log</a>.
+          RabbitMQ 3.7 series will <a href="/versions.html">go out of support</a> on March 31, 2020.
+        </p>
+        <p>
+          This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+    <doc:item>
       <doc:date iso="2019-10-31T12:00:00+00:00">31 October 2019</doc:date>
       <doc:title>RabbitMQ 3.8.1 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.1</doc:link>
@@ -76,7 +110,8 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.21.
         </p>
         <p>
-          This is a maintenance release. Release notes can be found <a href="/changelog.html">in the change log</a>.
+          This is a maintenance release that includes a security patch for <a href="https://pivotal.io/security/cve-2019-11287">CVE-2019-11287</a>.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
           This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a>.
