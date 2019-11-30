@@ -59,8 +59,8 @@ process. 64-bit Windows further limits this to 8TB. However,
 note that even under 64-bit OSes, a 32-bit process frequently
 only has a maximum address space of 2GB.
 
-## <a id="configuring-threshold" class="anchor" href="#configuring-threshold">Configuring the Memory Threshold</a>
 
+## <a id="configuring-threshold" class="anchor" href="#configuring-threshold">Configuring the Memory Threshold</a>
 
 The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration
@@ -70,15 +70,6 @@ The example below sets the threshold to the default value of 0.4:
 <pre class="lang-ini">
 \# new style config format, recommended
 vm_memory_high_watermark.relative = 0.4
-</pre>
-
-Same example using the [classic config format](/configure.html#erlang-term-config-file):
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {vm_memory_high_watermark, 0.4}
-  ]}
-].
 </pre>
 
 The default value of 0.4 stands for 40% of availalbe (detected) RAM or
@@ -100,26 +91,6 @@ Same example, but using memory units:
 
 <pre class="lang-ini">
 vm_memory_high_watermark.absolute = 1024MiB
-</pre>
-
-Same example using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {vm_memory_high_watermark, {absolute, 1073741824}}
-  ]}
-].
-</pre>
-
-Using memory units:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {vm_memory_high_watermark, {absolute, "1024MiB"}}
-   ]}
-].
 </pre>
 
 If the absolute limit is larger than the installed RAM or available virtual
@@ -226,17 +197,6 @@ of `0.5`. For example:
 <pre class="lang-ini">
 vm_memory_high_watermark_paging_ratio = 0.75
 vm_memory_high_watermark.relative = 0.4
-</pre>
-
-Using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {vm_memory_high_watermark_paging_ratio, 0.75},
-    {vm_memory_high_watermark, 0.4}
-  ]}
-].
 </pre>
 
 The above configuration starts paging at 30% of memory used, and
