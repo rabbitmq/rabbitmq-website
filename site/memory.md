@@ -133,7 +133,7 @@ starts:
 </pre>
 
 The memory limit may also be queried using the
-`rabbitmqctl status` command.
+`rabbitmq-diagnostics memory_breakdown` and `rabbitmqctl status` commands.
 
 The threshold can be changed while the broker is running
 using the
@@ -148,9 +148,26 @@ command or
 rabbitmqctl set_vm_memory_high_watermark absolute <em>&lt;memory_limit&gt;</em>
 </pre>
 
-Memory units can also be used in this command.
+For example:
 
-This command will take effect until the broker shuts down. To make the setting survive node restart,
+<pre class="lang-bash">
+rabbitmqctl set_vm_memory_high_watermark 0.6
+</pre>
+
+and
+
+<pre class="lang-bash">
+rabbitmqctl set_vm_memory_high_watermark absolute "4G"
+</pre>
+
+When using the absolute mode, it is possible to use one of the following memory units:
+
+ * `M`, `MiB` for mebibytes (`2^20` bytes)
+ * `MB` for megabytes (`10^6` bytes)
+ * `G`, `GiB` for gibibytes (`2^30` bytes)
+ * `GB` for gigabytes (`10^9` bytes)
+
+Both commands will have an effect until the node stops. To make the setting survive node restart,
 use the configuration setting instead.
 
 The memory limit may change on systems with hot-swappable RAM when this command is executed without altering
