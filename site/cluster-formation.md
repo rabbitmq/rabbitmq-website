@@ -441,22 +441,31 @@ certificate paths.
 
 A RabbitMQ cluster deployed to Kubernetes will use a set of pods. The set must be a [stateful set](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset).
 A [headless service](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations) must be used to
-control network identity of the pods, which affects RabbitMQ node names.
+control [network identity of the pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+(their hostnames), which in turn affect RabbitMQ node names.
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-[eager synchronisation](ha.html) of newly joining nodes.
+[eager synchronisation](ha.html) of mirrors on newly joining nodes.
 
 Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
 
 Peer discovery mechanism will filter out nodes whose pods are not yet ready
-(initialised) according to the Kubernetes API. For example, if [pod management policy](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy)
+(initialised) according to their readiness probe as reported by the Kubernetes API.
+For example, if [pod management policy](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy)
 of a stateful set is set to `Parallel`, some nodes can be discovered but will not be joined.
 
 It is therefore necessary to use `OrderedReady` pod management policy for the sets
 used by RabbitMQ nodes. This policy is used by default by Kubernetes.
 
+Other stateful set aspects such as how [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+is orthogonal to peer discovery.
+
+### Examples
+
+A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples)
+mechanism can be found on GitHub.
 
 ### Configuration
 
