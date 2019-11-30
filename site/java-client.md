@@ -19,8 +19,8 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The RabbitMQ Java client library allows Java code to interface
-with RabbitMQ.
+The RabbitMQ Java client library allows Java and JVM-based applications
+to connect to and interact with RabbitMQ nodes.
 
 5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
@@ -28,7 +28,7 @@ this means only [Android 7.0 or later](https://developer.android.com/guide/platf
 4.x release series support JDK 6 and Android versions prior to 7.0.
 
 
-## <a id="licensing" class="anchor" href="#licensing">Licensing</a>
+### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-java-client/), and is triple-licensed under
 
@@ -166,7 +166,7 @@ This means it is no longer necessary to <i>bundleise</i> or
 ## GitHub Repositories
 
 The RabbitMQ Java client depends on the code generation library module.
-Please see the <a href="build-java-client.html">build page</a> for instructions on
+Please see the <a href="/build-java-client.html">build page</a> for instructions on
 compiling from source code.
 
 <table>
@@ -178,7 +178,7 @@ compiling from source code.
 
   <tr>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-java-client/archives/master">Java client</a>
+      <a href="https://github.com/rabbitmq/rabbitmq-java-client/archives/master.zip">Java client</a>
     </td>
     <td>
 <pre class="lang-bash">
@@ -192,7 +192,7 @@ git clone https://github.com/rabbitmq/rabbitmq-java-client.git
 
   <tr>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-codegen/archives/master">RabbitMQ Code Generator</a>
+      <a href="https://github.com/rabbitmq/rabbitmq-codegen/archives/master.zip">RabbitMQ Code Generator</a>
     </td>
     <td>
 <pre class="lang-bash">
