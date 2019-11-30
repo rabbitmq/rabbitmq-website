@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guides describes the process of building the .Net/C# client libraries from source.
+This guides describes the process of building the Java client library from source.
 
 The repository is hosted on GitHub. Clone two repositories with
 
