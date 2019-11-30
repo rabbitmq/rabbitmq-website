@@ -164,7 +164,7 @@ immediately and thus eventually blocks all publishing connections. This may be
 useful if you wish to disable publishing globally:
 
 <pre class="lang-bash">
-rabbitmqctl set_vm_memory_high_watermark 0`
+rabbitmqctl set_vm_memory_high_watermark 0
 </pre>
 
 ## <a id="address-space" class="anchor" href="#address-space">Limited Address Space</a>
