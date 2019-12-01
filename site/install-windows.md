@@ -32,7 +32,7 @@ The guide also covers some Windows-specific aspects of [managing the service](#m
 
 RabbitMQ packagese are [distributed via Chocolatey](https://chocolatey.org/packages/rabbitmq).
 New releases can take a while (sometimes weeks) to get through approvals, so this option is not guaranteed
-to provide the latest release. It does, however, management the required dependencies.
+to provide the latest release. It does, however, manage the required dependencies.
 
 To install RabbitMQ, run the following command from the command line or from PowerShell:
 
