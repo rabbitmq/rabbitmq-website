@@ -38,6 +38,19 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.2</td>
+    <td class="centre">2 December 2019</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+        <li>Minor usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.22</td>
     <td class="centre">27 November 2019</td>
     <td>
@@ -55,7 +68,6 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.1">Release notes</a></td>
