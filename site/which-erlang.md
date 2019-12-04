@@ -128,10 +128,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <li>3.7.13</li>
         <li>3.7.12</li>
         <li>3.7.11</li>
-        <li>3.7.10</li>
-        <li>3.7.9</li>
-        <li>3.7.8</li>
-        <li>3.7.7</li>
       </ul>
     </td>
     <td>
@@ -148,6 +144,32 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <ul class="notes">
         <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">Erlang/OTP <code>19.3.x</code> support is discontinued</a></li>
         <li>For the best TLS support, the latest version of Erlang/OTP 21.3.x is recommended</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.7.10</li>
+        <li>3.7.9</li>
+        <li>3.7.8</li>
+        <li>3.7.7</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>19.3.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>21.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/EuRwfeTGA_o">Erlang/OTP <code>21.0</code> compatibility notes</a></li>
       </ul>
     </td>
   </tr>
