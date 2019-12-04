@@ -549,9 +549,9 @@ It is possible to bump Cowboy timeouts using the `management.tcp.idle_timeout`,
  * `management.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
    within the context of an HTTP request.
 
-If a load balancer is used between HTTP clients and the management HTTP server,
-you should adjust the `inactivity_timeout` and `idle_timeout` to be greater
-than various connection timeout values for your load balancer.
+If a load balancer or proxy is used between HTTP clients and the management HTTP server,
+the `inactivity_timeout` and `idle_timeout` values should be at least as large, and often greater than,
+the timeout and inactivity values used by the load balancer.
 
 Here are some example configuration snippets that modify the timeouts:
 
