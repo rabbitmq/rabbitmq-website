@@ -543,11 +543,15 @@ It is possible to bump Cowboy timeouts using the `management.tcp.idle_timeout`,
 `management.tcp.inactivity_timeout`, `management.tcp.request_timeout` options.
 
  * `management.tcp.inactivity_timeout` controls HTTP(S) client's TCP connection inactivity timeout.
-   When it is reached, the connection will be closed by the HTTP server
+   When it is reached, the connection will be closed by the HTTP server.
  * `management.tcp.request_timeout` controls the window of time in which the client has to send an HTTP
-    request
+    request.
  * `management.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
-   within the context of an HTTP request
+   within the context of an HTTP request.
+
+If a load balancer is used between HTTP clients and the management HTTP server,
+you should adjust the `inactivity_timeout` and `idle_timeout` to be greater
+than various connection timeout values for your load balancer.
 
 Here are some example configuration snippets that modify the timeouts:
 
