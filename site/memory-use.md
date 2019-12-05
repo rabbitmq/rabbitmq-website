@@ -25,7 +25,9 @@ important aspect of [system monitoring](/monitoring.html).
 
 RabbitMQ provides tools that report and help analyse node memory use:
 
- * `rabbitmqctl status` provides a memory breakdown section
+ * [`rabbitmq-diagnostics memory_breakdown`](/cli.html)
+ * [`rabbitmqctl status`](/cli.html) includes the above breakdown as a section
+ * [Prometheus and Grafana](/prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
  * [management UI](/management.html) provides the same breakdown on the node page as `rabbitmqctl status`
  * [HTTP API](/management.html#http-api) provides the same information as the management UI, useful [for monitoring](/monitoring.html)
  * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top), a plugin inspired by the [top](https://en.wikipedia.org/wiki/Top_(software)) utility
@@ -72,22 +74,6 @@ Similarly, for the `allocated` strategy, use:
 vm_memory_calculation_strategy = allocated
 </pre>
 
-To configure the `rss` strategy using classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [{vm_memory_calculation_strategy, rss}]}
-].
-</pre>
-
-Similarly, for the <code>allocated</code> strategy, use:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [{vm_memory_calculation_strategy, allocated}]}
-].
-</pre>
-
 To find out what strategy a node uses, see its [effective configuration](/configure.html).
 
 ## <a id="breakdown" class="anchor" href="#breakdown">Memory Use Breakdown</a>
@@ -115,30 +101,30 @@ Plugins and runtime versions may affect this.
 
 ### <a id="breakdown-cli" class="anchor" href="#breakdown-cli">Producing Memory Use Breakdown Using CLI Tools</a>
 
-A common way of producing memory breakdown is via `rabbitmqctl status`:
+A common way of producing memory breakdown is via `rabbitmq-diagnostics memory_breakdown`:
 
-<pre class="lang-erlang">
-{memory,
-    [{connection_readers,70896},
-     {connection_writers,166752},
-     {connection_channels,1239768},
-     {connection_other,233336},
-     {queue_procs,2941784},
-     {queue_slave_procs,0},
-     {plugins,4633344},
-     {other_proc,21878696},
-     {metrics,215544},
-     {mgmt_db,1244248},
-     {mnesia,79296},
-     {other_ets,2299848},
-     {binary,4660864},
-     {msg_index,47880},
-     {code,25423126},
-     {atom,1041593},
-     {other_system,22215713},
-     {allocated_unused,28552208},
-     {reserved_unallocated,0},
-     {total,90398720}]}
+<pre class="lang-ini">
+quorum_queue_procs: 0.4181 gb (28.8%)
+binary: 0.4129 gb (28.44%)
+allocated_unused: 0.1959 gb (13.49%)
+connection_other: 0.1894 gb (13.05%)
+plugins: 0.0373 gb (2.57%)
+other_proc: 0.0325 gb (2.24%)
+code: 0.0305 gb (2.1%)
+quorum_ets: 0.0303 gb (2.09%)
+connection_readers: 0.0222 gb (1.53%)
+other_system: 0.0209 gb (1.44%)
+connection_channels: 0.017 gb (1.17%)
+mgmt_db: 0.017 gb (1.17%)
+metrics: 0.0109 gb (0.75%)
+other_ets: 0.0073 gb (0.5%)
+connection_writers: 0.007 gb (0.48%)
+atom: 0.0015 gb (0.11%)
+mnesia: 0.0006 gb (0.04%)
+msg_index: 0.0002 gb (0.01%)
+queue_procs: 0.0002 gb (0.01%)
+queue_slave_procs: 0.0 gb (0.0%)
+reserved_unallocated: 0.0 gb (0.0%)
 </pre>
 
 <table>
