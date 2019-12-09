@@ -67,7 +67,7 @@ Let's try it:
 q, err := ch.QueueDeclare(
   "",    // name
   false, // durable
-  false, // delete when usused
+  false, // delete when unused
   true,  // exclusive
   false, // noWait
   nil,   // arguments
@@ -263,7 +263,7 @@ func main() {
         q, err := ch.QueueDeclare(
                 "rpc_queue", // name
                 false,       // durable
-                false,       // delete when usused
+                false,       // delete when unused
                 false,       // exclusive
                 false,       // no-wait
                 nil,         // arguments
@@ -376,7 +376,7 @@ func fibonacciRPC(n int) (res int, err error) {
         q, err := ch.QueueDeclare(
                 "",    // name
                 false, // durable
-                false, // delete when usused
+                false, // delete when unused
                 true,  // exclusive
                 false, // noWait
                 nil,   // arguments

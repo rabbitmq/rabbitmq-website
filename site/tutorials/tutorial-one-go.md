@@ -198,7 +198,7 @@ defer ch.Close()
 q, err := ch.QueueDeclare(
   "hello", // name
   false,   // durable
-  false,   // delete when usused
+  false,   // delete when unused
   false,   // exclusive
   false,   // no-wait
   nil,     // arguments

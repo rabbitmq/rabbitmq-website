@@ -245,7 +245,7 @@ we're interested in.
 q, err := ch.QueueDeclare(
   "",    // name
   false, // durable
-  false, // delete when usused
+  false, // delete when unused
   true,  // exclusive
   false, // no-wait
   nil,   // arguments
@@ -428,7 +428,7 @@ func main() {
         q, err := ch.QueueDeclare(
                 "",    // name
                 false, // durable
-                false, // delete when usused
+                false, // delete when unused
                 true,  // exclusive
                 false, // no-wait
                 nil,   // arguments
