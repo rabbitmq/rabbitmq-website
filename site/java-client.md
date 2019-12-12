@@ -49,7 +49,7 @@ library.
 
 ### Latest Version
 
-The current release of the RabbitMQ Java client is `5.7.3`.
+The current release of the RabbitMQ Java client is `5.8.0`.
 
 ### Adding Library Dependency
 
@@ -62,7 +62,7 @@ If you're using Maven, add this dependency to the POM file of your project:
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
-  &lt;version&gt;5.7.3&lt;/version&gt;
+  &lt;version&gt;5.8.0&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 
@@ -70,7 +70,7 @@ If using Gradle:
 
 <pre class="lang-groovy">
 dependencies {
-  compile 'com.rabbitmq:amqp-client:5.7.3'
+  compile 'com.rabbitmq:amqp-client:5.8.0'
 }
 </pre>
 
@@ -98,20 +98,20 @@ source.
   <tr>
     <td>Binary, compiled for JDK 8 (Android 7.0) or newer</td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3.jar">amqp-client-5.7.3.jar</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0.jar">amqp-client-5.8.0.jar</a>
     </td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3.jar.asc">Signature file</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0.jar.asc">Signature file</a>
     </td>
   </tr>
 
   <tr>
     <td>Source code</td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3-sources.jar">amqp-client-5.7.3-sources.jar</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0-sources.jar">amqp-client-5.8.0-sources.jar</a>
     </td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3-sources.jar.asc">Signature file</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0-sources.jar.asc">Signature file</a>
     </td>
   </tr>
 </table>
@@ -137,10 +137,10 @@ download it for off-line use:
   <tr>
     <td> A JAR file containing generated Javadoc documentation </td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3-javadoc.jar">amqp-client-5.7.3-javadoc.jar</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0-javadoc.jar">amqp-client-5.8.0-javadoc.jar</a>
     </td>
     <td>
-      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.3/amqp-client-5.7.3-javadoc.jar.asc">Signature file</a>
+      <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0-javadoc.jar.asc">Signature file</a>
     </td>
   </tr>
 </table>

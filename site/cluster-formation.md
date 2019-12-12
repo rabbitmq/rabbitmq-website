@@ -43,9 +43,8 @@ in the config file), others are dynamic (nodes can come and go).
 All peer discovery mechanisms assume that newly joining nodes will be able to
 contact their peers in the cluster and authenticate with them successfully.
 The mechanisms that rely on an external service (e.g. DNS or Consul) or API (e.g. AWS or Kubernetes)
-require the service(s) to be available and reachable over HTTP(S) on their standard ports.
-Inability to reach the service will lead to node's inability to join the cluster.
-
+require the service(s) or API(s) to be available and reachable on their standard ports.
+Inability to reach the services will lead to node's inability to join the cluster.
 
 ### <a id="peer-discovery-plugins" class="anchor" href="#peer-discovery-plugins">Available Discovery Mechanisms</a>
 
@@ -157,7 +156,7 @@ time to start it is recommended that the number of retries is increased.
 If a node is reset since losing contact with the cluster, it will behave [like a blank node](#peer-discovery-how-does-it-work).
 Note that other cluster members might still consider it to be a cluster member, in which case
 there two sides will disagree and the node will fail to join. Such reset nodes must also be
-removed from the cluster using [rabbitmqctl forget_cluster_node](/cli.html) executed against
+removed from the cluster using [`rabbitmqctl forget_cluster_node`](/cli.html) executed against
 an existing cluster member.
 
 If a node was explicitly removed from the cluster by the operator and then reset,
@@ -435,7 +434,7 @@ rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 ### Prerequisites
 
 With this mechanism, nodes fetch a list of their peers from
-the Kubernetes API endpoint using a set of configured values:
+a Kubernetes API endpoint using a set of configured values:
 a URI scheme, host, port, as as well as the token and
 certificate paths.
 
@@ -446,7 +445,7 @@ control [network identity of the pods](https://kubernetes.io/docs/concepts/servi
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-[eager synchronisation](ha.html) of mirrors on newly joining nodes.
+[eager synchronisation](/ha.html) of classic queue mirrors on newly joining nodes.
 
 Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
