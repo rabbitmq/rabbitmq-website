@@ -207,7 +207,8 @@ Since any plugin name can be given to `rabbitmq-plugins`, double checking
 the name:
 
 <pre class="lang-bash">
-rabbitmq-plugins enable rabbitmq_managemenr                                                                                                                                                                                          70 ↵
+# note the typo
+rabbitmq-plugins enable rabbitmq_managemenr
 # => Error:
 # => {:plugins_not_found, [:rabbitmq_managemenr]}
 </pre>
