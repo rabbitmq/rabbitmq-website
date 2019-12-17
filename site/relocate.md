@@ -87,14 +87,6 @@ file and directories have sufficient permissions
     </td>
   </tr>
   <tr>
-    <td>RABBITMQ_GENERATED_CONFIG_DIR</td>
-    <td>
-      The directory where RabbitMQ writes its generated configuration
-      files.
-    </td>
-  </tr>
-
-  <tr>
     <td>RABBITMQ_MNESIA_BASE</td>
     <td>
       This base directory contains sub-directories for the RabbitMQ
