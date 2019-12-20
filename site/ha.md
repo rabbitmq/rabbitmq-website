@@ -700,7 +700,7 @@ but makes queue availability dependent on its master's availability.
 In the event of queue master node failure the queue will become unavailable until queue master
 recovers. In case of a permanent loss of queue master the queue won't be available
 unless it is deleted and redeclared. Deleting a queue deletes all of its contents,
-which means a permanent master with this promotion strategy equates to losing all
+which means permanent loss of a master with this promotion strategy equates to losing all
 queue contents.
 
 Systems that use the `when-synced` promotion strategy must use
