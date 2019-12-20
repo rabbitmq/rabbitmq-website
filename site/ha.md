@@ -519,7 +519,7 @@ master as follows:
    master, messages that only existed on master will be lost.
 2. The mirror considers all previous consumers to have been abruptly
    disconnected. It requeues all messages that have been delivered
-   to clients but are pending acknowledgement. This can
+   to clients but are pending acknowledgement. This can include
    messages for which a client has issued acknowledgements, say, if
    an acknowledgement was either lost on the wire before reaching the
    node hosting queue master, or it was lost when broadcast from the master to the
@@ -700,7 +700,7 @@ but makes queue availability dependent on its master's availability.
 In the event of queue master node failure the queue will become unavailable until queue master
 recovers. In case of a permanent loss of queue master the queue won't be available
 unless it is deleted and redeclared. Deleting a queue deletes all of its contents,
-which means a permanent master with this promotion strategy equates to losing all
+which means permanent loss of a master with this promotion strategy equates to losing all
 queue contents.
 
 Systems that use the `when-synced` promotion strategy must use
