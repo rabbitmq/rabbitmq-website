@@ -290,9 +290,9 @@ conn.Close();
           exchange and a queue, then binds them together.
 
 <pre class="lang-csharp">
-model.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-model.QueueDeclare(queueName, false, false, false, null);
-model.QueueBind(queueName, exchangeName, routingKey, null);
+channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
+channel.QueueDeclare(queueName, false, false, false, null);
+channel.QueueBind(queueName, exchangeName, routingKey, null);
 </pre>
 
           This will actively declare the following objects:
@@ -338,7 +338,7 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
             methods used for passive declaration. The following example demonstrates <code>IModel#QueueDeclarePassive</code>:
 
 <pre class="lang-csharp">
-var response = model.QueueDeclarePassive("queue-name");
+var response = channel.QueueDeclarePassive("queue-name");
 // returns the number of messages in Ready state in the queue
 response.MessageCount;
 // returns the number of consumers the queue has
@@ -358,7 +358,7 @@ response.ConsumerCount;
             response. For example, to declare a queue and instruct the server to not send any
             response, use
 
-            <pre class="lang-csharp">model.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
+            <pre class="lang-csharp">channel.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
 
             The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
             are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
@@ -374,21 +374,21 @@ response.ConsumerCount;
           <p>
             A queue or exchange can be explicitly deleted:
 
-            <pre class="lang-csharp">model.QueueDelete("queue-name", false, false)</pre>
+            <pre class="lang-csharp">channel.QueueDelete("queue-name", false, false)</pre>
 
             It is possible to delete a queue only if it is empty:
 
-            <pre class="lang-csharp">model.QueueDelete("queue-name", false, true)</pre>
+            <pre class="lang-csharp">channel.QueueDelete("queue-name", false, true)</pre>
 
             or if it is not used (does not have any consumers):
 
-            <pre class="lang-csharp">model.QueueDelete("queue-name", true, false)</pre>
+            <pre class="lang-csharp">channel.QueueDelete("queue-name", true, false)</pre>
           </p>
 
           <p>
             A queue can be purged (all of its messages deleted):
 
-            <pre class="lang-csharp">model.QueuePurge("queue-name")</pre>
+            <pre class="lang-csharp">channel.QueuePurge("queue-name")</pre>
           </p>
         </doc:subsection>
       </doc:section>
@@ -402,7 +402,7 @@ response.ConsumerCount;
 
 <pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 </pre>
 
           For fine control, you can use overloaded variants to specify the
@@ -410,10 +410,10 @@ model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 
 <pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-IBasicProperties props = model.CreateBasicProperties();
+IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-model.BasicPublish(exchangeName,
+channel.BasicPublish(exchangeName,
                    routingKey, props,
                    messageBodyBytes);
 </pre>
@@ -428,14 +428,14 @@ model.BasicPublish(exchangeName,
 <pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
-IBasicProperties props = model.CreateBasicProperties();
+IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Headers = new Dictionary&lt;string, object&gt;();
 props.Headers.Add("latitude",  51.5252949);
 props.Headers.Add("longitude", -0.0905493);
 
-model.BasicPublish(exchangeName,
+channel.BasicPublish(exchangeName,
                    routingKey, props,
                    messageBodyBytes);
 </pre>
@@ -447,12 +447,12 @@ model.BasicPublish(exchangeName,
 <pre class="lang-csharp">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 
-IBasicProperties props = model.CreateBasicProperties();
+IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 props.Expiration = "36000000"
 
-model.BasicPublish(exchangeName,
+channel.BasicPublish(exchangeName,
                   routingKey, props,
                   messageBodyBytes);
 </pre>
