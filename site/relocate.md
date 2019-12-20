@@ -139,7 +139,7 @@ file and directories have sufficient permissions
       from. This is <code>PATH</code>-like variable, where
       different paths are separated by an OS-specific separator
       (<code>:</code> for Unix, <code>;</code> for Windows).
-      Plugins can be <a href="plugins.html#plugin-directories">installed</a> to any of the
+      Plugins can be <a href="/plugins.html#plugin-directories">installed</a> to any of the
       directories listed here.
     </td>
   </tr>
@@ -147,7 +147,7 @@ file and directories have sufficient permissions
   <tr>
     <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
     <td>
-      Working directory used to expand enabled plugins when starting
+      Working directory used to <a href="/plugins.html#plugin-expansion">expand enabled plugins</a> when starting
       the server. It is
       important that effective RabbitMQ user has sufficient permissions
       to read and create files and subdirectories in this directory.

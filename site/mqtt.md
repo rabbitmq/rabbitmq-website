@@ -75,6 +75,15 @@ rabbitmqctl set_user_tags mqtt-test management
 Note that colons may not appear in usernames.
 
 
+## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
+
+Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [rabbitmq-plugins](/cli.html):
+
+<pre class="lang-bash">
+rabbitmqctl decommission_mqtt_node &lt;node&gt;
+</pre>
+
+
 ## <a id="local-vs-remote" class="anchor" href="#local-vs-remote">Local vs. Remote Client Connections</a>
 
 When an MQTT client provides no login credentials, the plugin uses the
