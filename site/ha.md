@@ -519,7 +519,7 @@ master as follows:
    master, messages that only existed on master will be lost.
 2. The mirror considers all previous consumers to have been abruptly
    disconnected. It requeues all messages that have been delivered
-   to clients but are pending acknowledgement. This can
+   to clients but are pending acknowledgement. This can include
    messages for which a client has issued acknowledgements, say, if
    an acknowledgement was either lost on the wire before reaching the
    node hosting queue master, or it was lost when broadcast from the master to the
