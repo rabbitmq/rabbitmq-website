@@ -106,7 +106,7 @@ it will exit with an error.
 
 #### Configuring the Server
 
-[RabbitMQ configuration file](configure.html#configuration-file) located at `$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.conf`
+[RabbitMQ configuration file](configure.html#configuration-file) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
 is the primary way of configuring the node.
 
 It is possible to [use environment variables](configure.html#customise-general-unix-environment) to control certain settings.
