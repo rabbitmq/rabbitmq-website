@@ -1037,59 +1037,59 @@ body#index #getstarted,
     padding: 30px 0 140px;
   }
 }
-/* Homepage hero: Best Practices */
+/* Homepage hero: Laika Case Study */
 
-#hero #hero-best-practices {
-  background: url(../img/home/banner/best-practices/hero-desktop.svg) no-repeat center center;
+#hero #hero-laika-case-study {
+  background: url(../img/laika-mock-pc.png) no-repeat center center;
   padding: 83px 0 55px;
 }
 
-#hero #hero-best-practices .container {
+#hero #hero-laika-case-study .container {
   max-width: 840px;
   padding: 0 20px;
 }
 
-#hero #hero-best-practices h1 a {
+#hero #hero-laika-case-study h1 a {
   font-weight: normal;
 }
 
-#hero #hero-best-practices h2 {
+#hero #hero-laika-case-study h2 {
   max-width: 300px;
   margin: 0 auto;
 }
 
 @media(max-width: 820px) {
-  #hero #hero-best-practices {
-    background: url(../img/home/banner/best-practices/hero-tablet.svg) no-repeat right;
+  #hero #hero-laika-case-study {
+    background: url(../img/laika-mock-tab.png) no-repeat right;
     background-size: cover;
     background-position: left;
     padding: 70px 0;
   }
-  #hero #hero-best-practices .text {
+  #hero #hero-laika-case-study .text {
     max-width: 260px;
     margin: 0 auto;
   }
-  #hero #hero-best-practices .container {
+  #hero #hero-laika-case-study .container {
     overflow: hidden;
   }
 }
 
 @media(max-width: 660px) {
-  #hero #hero-best-practices {
-    background: url(../img/home/banner/best-practices/hero-phone.svg) no-repeat bottom right;
+  #hero #hero-laika-case-study {
+    background: url(../img/laika-mock-iphone.png) no-repeat bottom right;
     background-size: 100%;
     padding: 60px 0 280px;
   }
 }
 
 @media(max-width: 480px) {
-  #hero #hero-best-practices {
+  #hero #hero-laika-case-study {
     padding-bottom: 200px;
   }
 }
 
 @media(max-width: 390px) {
-  #hero #hero-best-practices {
+  #hero #hero-laika-case-study {
     padding-bottom: 170px;
   }
 }

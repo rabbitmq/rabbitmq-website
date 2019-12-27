@@ -28,11 +28,10 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero">
         <div class='container'>
-          <div id='hero-best-practices' class='center'>
+          <div id='hero-laika-case-study' class='center'>
             <div class='container'>
               <div class='text'>
-                <h1>Understanding RabbitMQ</h1>
-                <h2>A webinar on new observability tooling in RabbitMQ 3.8<br/><span id='date'>Dec 12 | </span><a href="https://content.pivotal.io/webinars/dec-12-understand-rabbitmq-for-developers-and-operators-webinar?utm_campaign=oss-rabbitmq3.8&amp;utm_source=rabbitmq&amp;utm_medium=website">Register today</a></h2>
+                <h1><a href="https://www.rabbitmq.com/blog/2019/12/16/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system">LAIKA Gets Creative with RabbitMQ As the Animation Company’s IT Nervous System</a></h1>
               </div>
             </div>
           </div>
