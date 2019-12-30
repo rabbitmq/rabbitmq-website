@@ -422,15 +422,46 @@ appropriate interval when visualising metrics in Grafana with `rate()` - <a
 href="https://www.robustperception.io/what-range-should-i-use-with-rate"
 target="_blank">4x the scrape interval is considered safe</a>.
 
-If you are using RabbitMQ's Management UI default 5 second auto-refresh, you may want
-to keep the default `collect_statistics_interval` setting, which is also `5000` ms
-(5 seconds) for this reason.
+When using RabbitMQ's Management UI default 5 second auto-refresh, keeping
+the default `collect_statistics_interval` setting is optimal. Both intervals are `5000` ms
+(5 seconds) by default for this reason.
 
 To confirm that Prometheus is scraping RabbitMQ metrics from all nodes, ensure
-that all RabbitMQ endpoints are **UP** on the Prometheus Targets page, as shown
+that all RabbitMQ endpoints are **Up** on the Prometheus Targets page, as shown
 below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
+
+
+### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scarping Endpoint Timeouts</a>
+
+In some environments there aren't many stats-emitting entities (queues, connections, channels), in others
+the scraping HTTP endpoint may have to return a sizeable data set to the client (e.g. many thousands of rows).
+In those cases the amount of time it takes to process the request can exceed certain
+timeouts in the embedded HTTP server and the HTTP client used by Prometheus.
+
+It is possible to bump plugin side HTTP request timeouts using the `prometheus.tcp.idle_timeout`,
+`prometheus.tcp.inactivity_timeout`, `prometheus.tcp.request_timeout` settings.
+
+ * `prometheus.tcp.inactivity_timeout` controls HTTP(S) client's TCP connection inactivity timeout.
+   When it is reached, the connection will be closed by the HTTP server.
+ * `prometheus.tcp.request_timeout` controls the window of time in which the client has to send an HTTP
+    request.
+ * `prometheus.tcp.idle_timeout` controls the window of time in which the client has to send more data (if any)
+   within the context of an HTTP request.
+
+If a load balancer or proxy is used between the Prometheus node and the RabbitMQ nodes it scrapes,
+the `inactivity_timeout` and `idle_timeout` values should be at least as large, and often greater than,
+the timeout and inactivity values used by the load balancer.
+
+Here is an example configuration snippet that modifies the timeouts:
+
+<pre class="lang-ini">
+prometheus.tcp.idle_timeout = 120000
+prometheus.tcp.inactivity_timeout = 120000
+prometheus.tcp.request_timeout = 120000
+</pre>
+
 
 ### <a id="grafana-configuration" class="anchor" href="#grafana-configuration">Grafana Configuration</a>
 
