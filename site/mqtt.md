@@ -77,7 +77,7 @@ Note that colons may not appear in usernames.
 
 ## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
 
-Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [rabbitmq-plugins](/cli.html):
+Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](/cli.html):
 
 <pre class="lang-bash">
 rabbitmqctl decommission_mqtt_node &lt;node&gt;
