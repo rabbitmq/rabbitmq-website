@@ -75,7 +75,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
         <doc:heading>Kubernetes</doc:heading>
         <ul>
           <li><a href="https://pivotal.io/pivotal-rabbitmq-on-kubernetes">Pivotal RabbitMQ on Kubernetes</a> (currently in beta)</li>
-          <li><a href="/cluster-formation.html#peer-discovery-k8s">Peer Discovery on Kubernetes</a> </li>
+          <li>A <a href="/cluster-formation.html">peer discovery</a> mechanism <a href="/cluster-formation.html#peer-discovery-k8s">for Kubernetes</a></li>
           <li><a href="https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples">Examples</a> that use Minikube and Kind</li>
         </ul>
       </doc:section>
