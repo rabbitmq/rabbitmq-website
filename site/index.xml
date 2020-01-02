@@ -28,10 +28,12 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero">
         <div class='container'>
-          <div id='hero-laika-case-study' class='center'>
+          <div id='hero-laika-case-study'>
             <div class='container'>
               <div class='text'>
-                <h1><a href="https://www.rabbitmq.com/blog/2019/12/16/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system">LAIKA Gets Creative with RabbitMQ As the Animation Company’s IT Nervous System</a></h1>
+                <h1>LAIKA Gets Creative with RabbitMQ</h1>
+                <h2>Animation Company Uses RabbitMQ As the IT Nervous System</h2>
+                <h2><a href="/blog/2019/12/16/laika-gets-creative-with-rabbitmq-as-the-animation-companys-it-nervous-system">Read the case study</a></h2>
               </div>
             </div>
           </div>
