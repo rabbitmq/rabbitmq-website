@@ -1037,61 +1037,76 @@ body#index #getstarted,
     padding: 30px 0 140px;
   }
 }
-/* Homepage hero: Best Practices */
+/* Homepage hero: Laika Case Study */
 
-#hero #hero-best-practices {
-  background: url(../img/home/banner/best-practices/hero-desktop.svg) no-repeat center center;
+#hero #hero-laika-case-study {
+  background: url(../img/home/banner/laika/Laika-pc.svg) no-repeat bottom right;
   padding: 83px 0 55px;
 }
 
-#hero #hero-best-practices .container {
-  max-width: 840px;
+#hero #hero-laika-case-study .container {
+  /*max-width: 400px;*/
   padding: 0 20px;
 }
 
-#hero #hero-best-practices h1 a {
+#hero #hero-laika-case-study .text {
+  max-width: 400px;
+}
+
+#hero #hero-laika-case-study h1,
+#hero #hero-laika-case-study h2 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #585859; 
+  line-height: 1.2em;
+}
+
+#hero #hero-laika-case-study h1 a,
+#hero #hero-laika-case-study h2 a {
   font-weight: normal;
 }
 
-#hero #hero-best-practices h2 {
-  max-width: 300px;
-  margin: 0 auto;
+#hero #hero-laika-case-study h2 {
+  max-width: 350px;
+}
+
+#hero #hero-laika-case-study h2:last-child {
+  margin-top: 0;
 }
 
 @media(max-width: 820px) {
-  #hero #hero-best-practices {
-    background: url(../img/home/banner/best-practices/hero-tablet.svg) no-repeat right;
-    background-size: cover;
-    background-position: left;
+  #hero #hero-laika-case-study {
+    background: url(../img/home/banner/laika/Laika-tab.svg) no-repeat bottom right;
     padding: 70px 0;
   }
-  #hero #hero-best-practices .text {
-    max-width: 260px;
-    margin: 0 auto;
-  }
-  #hero #hero-best-practices .container {
+  #hero #hero-laika-case-study .container {
     overflow: hidden;
   }
 }
 
 @media(max-width: 660px) {
-  #hero #hero-best-practices {
-    background: url(../img/home/banner/best-practices/hero-phone.svg) no-repeat bottom right;
+  #hero #hero-laika-case-study {
+    background: url(../img/home/banner/laika/Laika-iphone.svg) no-repeat bottom right;
+    padding: 60px 0 150px;
     background-size: 100%;
-    padding: 60px 0 280px;
+  }
+  #hero #hero-laika-case-study .text {
+    max-width: 260px;
+    margin: 0 auto;
+    text-align: center;
   }
 }
 
-@media(max-width: 480px) {
-  #hero #hero-best-practices {
+/*@media(max-width: 480px) {
+  #hero #hero-laika-case-study {
     padding-bottom: 200px;
   }
-}
+}*/
 
-@media(max-width: 390px) {
-  #hero #hero-best-practices {
+/*@media(max-width: 390px) {
+  #hero #hero-laika-case-study {
     padding-bottom: 170px;
-  }
+  }*/
 }
 
 /* Uberflip embed styles */
