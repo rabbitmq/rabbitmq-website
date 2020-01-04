@@ -189,6 +189,13 @@
     </doc>
   </constant>
 
+  <constant name = "no-route" value = "312" class = "soft-error">
+      <doc>
+          Returned when RabbitMQ sends back with 'basic.return' when a
+          'mandatory' message cannot be delivered to any queue.
+      </doc>
+  </constant>
+
   <constant name = "no-consumers" value = "313" class = "soft-error">
     <doc>
       When the exchange cannot deliver to a consumer when the immediate flag is
@@ -904,7 +911,12 @@
       </doc>
       <chassis name = "server" implement = "MUST"/>
       <chassis name = "client" implement = "MUST"/>
-      <field name = "reason" domain = "shortstr" />
+      <field name="reason" domain="shortstr" label="Block reason" requred="0">
+          <doc>
+              The reason the connection was blocked.
+          </doc>
+      </field>
+
     </method>
     <method name = "unblocked" index = "61" label = "indicate that connection is unblocked">
       <doc>
@@ -3355,14 +3367,7 @@
       </doc>
       <chassis name="server" implement="MUST"/>
       <response name="select-ok"/>
-      <field name = "nowait" type = "bit">
-        do not send a reply method
-        <doc>
-          If set, the server will not respond to the method. The client should
-          not wait for a reply method.  If the server could not complete the
-          method it will raise a channel or connection exception.
-        </doc>
-      </field>
+      <field name = "nowait" domain = "no-wait" />
     </method>
 
     <method name="select-ok" synchronous="1" index="11">
