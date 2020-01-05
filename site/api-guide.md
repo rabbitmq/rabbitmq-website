@@ -26,7 +26,7 @@ and the reader is familiar with [the basics](/getstarted.html).
 Key sections of the guide are:
 
  * [Licensing](#license)
- * [JDK and Android versions](#versions) supported
+ * [JDK and Android versions](#jdk-versions) supported
  * [Connecting to RabbitMQ](#connecting)
  * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
  * [Using Exchanges and Queues](#exchanges-and-queues)
