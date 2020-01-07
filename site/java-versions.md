@@ -21,11 +21,11 @@ This page lists support and compatibility information for the Java libraries
 maintained by the RabbitMQ team.
 
 <table class="release-series">
-  <caption>RabbitMQ Java Libraries</caption>
+  <caption>RabbitMQ Java Libraries Support Timeline</caption>
   <tr>
     <th>Library and Branch</th>
-    <th>Supported Until <sup>1</sup></th>
-    <th>End of Life <sup>2</sup></th>
+    <th>General Support Until <sup>1</sup></th>
+    <th>Extended Support <sup>2</sup></th>
     <th>JDK Version Range  <sup>3</sup></th>
   </tr>
 
@@ -38,8 +38,8 @@ maintained by the RabbitMQ team.
 
   <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank">Java Client</a> 4.x</td>
-    <td>July 2020</td>
-    <td>December 2020</td>
+    <td>31 July 2020</td>
+    <td>31 December 2020</td>
     <td>6-8</td>
   </tr>
 
@@ -52,8 +52,8 @@ maintained by the RabbitMQ team.
 
   <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank">JMS Client</a> 1.x</td>
-    <td>July 2020</td>
-    <td>December 2020</td>
+    <td>31 July 2020</td>
+    <td>31 December 2020</td>
     <td>6-8</td>
   </tr>
 
@@ -72,7 +72,7 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank">Reactor RabbitMQ 1.x</a></td>
+    <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank">Reactor RabbitMQ</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
     <td>8-15</td>
@@ -82,7 +82,7 @@ maintained by the RabbitMQ team.
 
 (1) Includes backport of features (if possible), bug and security fixes for non-latest production branches.
 
-(2) Includes only security patches between end of support and end of life.
+(2) Includes only security patches. The library reaches end of life (EOL) once the extended support period ends.
 
 (3) Long-Term Support (LTS) releases of the JDK are fully supported (currently JDK 8 and 11). Intermediate releases
 (e.g. 9 and 10) are supported on a best-effort basis, meaning bug reports are accepted and addressed as far as technically
