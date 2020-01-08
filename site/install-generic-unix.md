@@ -106,7 +106,7 @@ it will exit with an error.
 
 #### Configuring the Server
 
-[RabbitMQ configuration file](configure.html#configuration-file) located at `$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.conf`
+[RabbitMQ configuration file](configure.html#configuration-file) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
 is the primary way of configuring the node.
 
 It is possible to [use environment variables](configure.html#customise-general-unix-environment) to control certain settings.
@@ -164,7 +164,8 @@ CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP
 Firewalls can prevent nodes and CLI tools from communicating with each other.
 Make sure the following ports are accessible:
 
- * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
+ * 4369: [epmd](http://erlang.org/doc/man/epmd.html), a peer discovery service used by RabbitMQ nodes and CLI tools
+ * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.

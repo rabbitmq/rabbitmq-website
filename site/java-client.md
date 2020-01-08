@@ -22,11 +22,12 @@ limitations under the License.
 The RabbitMQ Java client library allows Java and JVM-based applications
 to connect to and interact with RabbitMQ nodes.
 
-5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
+5.x release series of this library [require JDK 8](/java-versions.html), both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
 
-4.x release series support JDK 6 and Android versions prior to 7.0.
+4.x release series [support JDK 6](/java-versions.html) and Android versions prior to 7.0.
 
+See the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline.
 
 ### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
 

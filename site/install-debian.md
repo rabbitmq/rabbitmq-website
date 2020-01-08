@@ -162,10 +162,10 @@ are prone to overload:
 curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
 </pre>
 
- Using a key server:
+Using a key server:
 
 <pre class="lang-bash">
-sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
+sudo apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
 
 See the [guide on signatures](/signatures.html) to learn more.
@@ -188,9 +188,9 @@ The file should have a source (repository) definition line that uses the followi
 pattern:
 
 <pre class="lang-bash">
-# This repository provides RabbitMQ packages
+# This repository provides Erlang packages produced by the RabbitMQ team
 # See below for supported distribution and component values
-deb https://dl.bintray.com/rabbitmq/debian $distribution $component
+deb http://dl.bintray.com/rabbitmq-erlang/debian $distribution $component
 </pre>
 
 The next couple of sections discuss what distribution and component values

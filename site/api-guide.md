@@ -26,7 +26,8 @@ and the reader is familiar with [the basics](/getstarted.html).
 Key sections of the guide are:
 
  * [Licensing](#license)
- * [JDK and Android versions](#versions) supported
+ * [JDK and Android versions](#jdk-versions) supported
+ * [Support Timeline](#support-timeline)
  * [Connecting to RabbitMQ](#connecting)
  * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
  * [Using Exchanges and Queues](#exchanges-and-queues)
@@ -43,12 +44,16 @@ Key sections of the guide are:
 An [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc) is available separately.
 
 
+## <a id="support-timeline" class="anchor" href="#support-timeline">Support Timeline</a>
+
+Please see the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline.
+
 ## <a id="jdk-versions" class="anchor" href="#jdk-versions">JDK and Android Version Support</a>
 
-5.x release series of this library require JDK 8, both for compilation and at runtime. On Android,
+5.x release series of this library [require JDK 8](/java-versions.html), both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
 
-4.x release series support JDK 6 and Android versions prior to 7.0.
+4.x release series [support JDK 6](/java-versions.html) and Android versions prior to 7.0.
 
 
 ## <a id="license" class="anchor" href="#license">License</a>

@@ -29,6 +29,9 @@ existing JMS applications to connect to RabbitMQ.
 
 The plugin and the JMS client are meant to work and be used together.
 
+See the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline
+of the RabbitMQ JMS Client library.
+
 ## <a id="components" class="anchor" href="#components">Components</a>
 
 To fully leverage JMS with RabbitMQ, you need the following components:
