@@ -134,7 +134,7 @@ Different commands take different arguments. Some are named options such as `--n
 others are positional arguments, such as the username and password arguments in
 
 <pre class="lang-bash">
-rabbitmqctl add_user &lt;username&gt; &gt;password&lt;
+rabbitmqctl add_user &lt;username&gt; &lt;password&gt;
 </pre>
 
 A specific example:
@@ -161,8 +161,8 @@ hyphen (such as generated passwords), to make sure they are not parsed as option
 rabbitmqctl add_user --node rabbit@node1.rabbitmq.eng.local -- "a-user" "--!a-pa$$w0rd"
 </pre>
 
-Option values can be passed as `--option <value>` or `--option=value`. The latter varient must be used
-when the value begins with a hyphen (`-`):
+Option values can be passed as `--option <value>` or `--option=<value>`. The latter varient must be used
+when the value begins with a hyphen (`-`), otherwise it would be treated as an option:
 
 <pre class="lang-bash">
 # an alternative way of providing an option value
