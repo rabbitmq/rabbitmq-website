@@ -149,7 +149,7 @@ that follows a double hyphen (`--`) will be treated as positional arguments:
 <pre class="lang-bash">
 # all values after the double hyphen (--) will be treated as positional arguments,
 # even if they begin with a hyphen or a double hyphen
-rabbitmqctl add_user --node rabbit@node1.rabbitmq.eng.local -- "a-user" "a-pa$$w0rd"
+rabbitmqctl add_user --node rabbit@host1.messaging.eng.coolcorporation.banana -- "a-user" "a-pa$$w0rd"
 </pre>
 
 The explicit positional argument separator must be used when positional arguments begin with a hyphen or a double
@@ -158,7 +158,7 @@ hyphen (such as generated passwords), to make sure they are not parsed as option
 <pre class="lang-bash">
 # Since "--!a-pa$$w0rd" is explicitly provided as a positional argument, it won't
 # be mistakenly considered for an unsupported option, even though it starts with a double hyphen
-rabbitmqctl add_user --node rabbit@node1.rabbitmq.eng.local -- "a-user" "--!a-pa$$w0rd"
+rabbitmqctl add_user --node rabbit@host1.messaging.eng.coolcorporation.banana -- "a-user" "--!a-pa$$w0rd"
 </pre>
 
 Option values can be passed as `--option <value>` or `--option=<value>`. The latter varient must be used
@@ -166,7 +166,7 @@ when the value begins with a hyphen (`-`), otherwise it would be treated as an o
 
 <pre class="lang-bash">
 # an alternative way of providing an option value
-rabbitmqctl add_user --node=rabbit@node1.rabbitmq.eng.local -- "a-user" "a-pa$$w0rd"
+rabbitmqctl add_user --node=rabbit@host1.messaging.eng.coolcorporation.banana -- "a-user" "a-pa$$w0rd"
 </pre>
 
 
