@@ -124,6 +124,52 @@ must be specified:
 rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
 </pre>
 
+
+## <a id="passing-arguments" class="anchor" href="#passing-arguments">Options and Positional Arguments</a>
+
+RabbitMQ CLI tools largely follow existing, long established command line argument parsing conventions.
+This section provides some examples and focuses on edge cases and lesser known features.
+
+Different commands take different arguments. Some are named options such as `--node` (aliased as `-n`),
+others are positional arguments, such as the username and password arguments in
+
+<pre class="lang-bash">
+rabbitmqctl add_user &lt;username&gt; &gt;password&lt;
+</pre>
+
+A specific example:
+
+<pre class="lang-bash">
+rabbitmqctl add_user "a-user" "a-pa$$w0rd"
+</pre>
+
+Options can be provided before or after positional arguments with one exception: anything
+that follows a double hyphen (`--`) will be treated as positional arguments:
+
+<pre class="lang-bash">
+# all values after the double hyphen (--) will be treated as positional arguments,
+# even if they begin with a hyphen or a double hyphen
+rabbitmqctl add_user --node rabbit@node1.rabbitmq.eng.local -- "a-user" "a-pa$$w0rd"
+</pre>
+
+The explicit positional argument separator must be used when positional arguments begin with a hyphen or a double
+hyphen (such as generated passwords), to make sure they are not parsed as options:
+
+<pre class="lang-bash">
+# Since "--!a-pa$$w0rd" is explicitly provided as a positional argument, it won't
+# be mistakenly considered for an unsupported option, even though it starts with a double hyphen
+rabbitmqctl add_user --node rabbit@node1.rabbitmq.eng.local -- "a-user" "--!a-pa$$w0rd"
+</pre>
+
+Option values can be passed as `--option <value>` or `--option=value`. The latter varient must be used
+when the value begins with a hyphen (`-`):
+
+<pre class="lang-bash">
+# an alternative way of providing an option value
+rabbitmqctl add_user --node=rabbit@node1.rabbitmq.eng.local -- "a-user" "a-pa$$w0rd"
+</pre>
+
+
 ## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
 
 RabbitMQ nodes and CLI tools (with the exception of `rabbitmqadmin`) use a
