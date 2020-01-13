@@ -670,3 +670,7 @@ need to account for this.
 
 See Retained Messages above. Different retained message stores have
 different benefits, trade-offs, and limitations.
+
+### Quorum of Nodes Required
+
+Since version 3.8 of RabbitMQ cluster-aware MQTT client ID tracking is used and this feature requires a qourum.
