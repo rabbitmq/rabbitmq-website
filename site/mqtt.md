@@ -659,6 +659,12 @@ Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> be
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
+### Node Quorum Requirement
+
+As of RabbitMQ 3.8, this plugin uses a consensus-based algorithm to keep track of connected
+client IDs across all cluster nodes. This means that a quorum (majority) of cluster nodes
+must be online for client connections to be accepted.
+
 ### Overlapping Subscriptions
 
 Overlapping subscriptions from the same client
