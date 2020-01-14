@@ -728,7 +728,7 @@ Search scope can be set to either `subtree` or `single_level`.
  * `subtree` searches all objects contained under the lookup base
  * `single_level` searches for groups directly contained within the lookup base
 
-Default value for scope is `subrtee` The query is
+Default value for scope is `subtree` The query is
 using in-depth search up from user to target group.  Search
 process will detect and skip cyclic paths.  This query can
 be time and memory consuming if users are members of many
