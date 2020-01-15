@@ -21,6 +21,11 @@ limitations under the License.
 
 RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
+As of 3.8, the plugin [requires a quorum of cluster nodes](#limitations) to be present.
+This means two nodes out of three, three out of five and so on.
+
+The plugin can also be used on a single node but **does not support** clusters of two nodes.
+
 ## <a id="features" class="anchor" href="#features"> Supported MQTT 3.1.1 features</a>
 
 * QoS0 and QoS1 publish & consume
