@@ -1037,22 +1037,32 @@ body#index #getstarted,
     padding: 30px 0 140px;
   }
 }
-/* Homepage hero: Laika Case Study */
+/* Homepage hero: Laika Case Study, Pipeline webinar */
 
+#hero #hero-pipeline-webinar,
 #hero #hero-laika-case-study {
   background: url(../img/home/banner/laika/Laika-pc.svg) no-repeat bottom right;
   padding: 83px 0 55px;
 }
 
+#hero #hero-pipeline-webinar {
+  background: url(../img/home/banner/pipeline/pipeline-desktop.svg) no-repeat bottom right;
+  background-size: cover;
+}
+
+#hero #hero-pipeline-webinar .container,
 #hero #hero-laika-case-study .container {
   /*max-width: 400px;*/
   padding: 0 20px;
 }
 
+#hero #hero-pipeline-webinar .text,
 #hero #hero-laika-case-study .text {
   max-width: 400px;
 }
 
+#hero #hero-pipeline-webinar h1,
+#hero #hero-pipeline-webinar h2,
 #hero #hero-laika-case-study h1,
 #hero #hero-laika-case-study h2 {
   -webkit-font-smoothing: antialiased;
@@ -1061,6 +1071,8 @@ body#index #getstarted,
   line-height: 1.2em;
 }
 
+#hero #hero-pipeline-webinar h1 a,
+#hero #hero-pipeline-webinar h2 a,
 #hero #hero-laika-case-study h1 a,
 #hero #hero-laika-case-study h2 a {
   font-weight: normal;
@@ -1070,43 +1082,61 @@ body#index #getstarted,
   max-width: 350px;
 }
 
+#hero #hero-pipeline-webinar h2 {
+  max-width: 300px;
+}
+
+#hero #hero-pipeline-webinar h2:last-child,
 #hero #hero-laika-case-study h2:last-child {
   margin-top: 0;
 }
 
-@media(max-width: 820px) {
+@media(max-width: 909px) {
+  #hero #hero-pipeline-webinar,
   #hero #hero-laika-case-study {
     background: url(../img/home/banner/laika/Laika-tab.svg) no-repeat bottom right;
     padding: 70px 0;
   }
+  #hero #hero-pipeline-webinar .container,
   #hero #hero-laika-case-study .container {
     overflow: hidden;
+  }
+  #hero #hero-pipeline-webinar {
+    background: url(../img/home/banner/pipeline/pipeline-tab.svg) no-repeat bottom right;
+    background-size: cover;
   }
 }
 
 @media(max-width: 660px) {
+  #hero #hero-pipeline-webinar,
   #hero #hero-laika-case-study {
     background: url(../img/home/banner/laika/Laika-iphone.svg) no-repeat bottom right;
     padding: 60px 0 150px;
     background-size: 100%;
   }
+  #hero #hero-pipeline-webinar .text,
   #hero #hero-laika-case-study .text {
     max-width: 260px;
     margin: 0 auto;
     text-align: center;
   }
+  #hero #hero-pipeline-webinar {
+    background: url(../img/home/banner/pipeline/pipeline-phone.svg) no-repeat bottom right;
+    background-size: 100%;
+    padding-bottom: 300px;
+  }
 }
 
-/*@media(max-width: 480px) {
-  #hero #hero-laika-case-study {
-    padding-bottom: 200px;
+@media(max-width: 500px) {
+  #hero #hero-pipeline-webinar {
+    padding-bottom: 220px;
   }
-}*/
+}
 
-/*@media(max-width: 390px) {
-  #hero #hero-laika-case-study {
+@media(max-width: 390px) {
+  #hero #hero-pipeline-webinar {
     padding-bottom: 170px;
-  }*/
+  }
 }
 
 /* Uberflip embed styles */
