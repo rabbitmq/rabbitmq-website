@@ -161,7 +161,7 @@ hyphen (such as generated passwords), to make sure they are not parsed as option
 rabbitmqctl add_user --node rabbit@host1.messaging.eng.coolcorporation.banana -- "a-user" "--!a-pa$$w0rd"
 </pre>
 
-Option values can be passed as `--option <value>` or `--option=<value>`. The latter varient must be used
+Option values can be passed as `--option <value>` or `--option=<value>`. The latter variant must be used
 when the value begins with a hyphen (`-`), otherwise it would be treated as an option:
 
 <pre class="lang-bash">
