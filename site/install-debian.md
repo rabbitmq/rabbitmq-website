@@ -33,7 +33,7 @@ Main topics covered in this guide are
  * [Supported Ubuntu and Debian distributions](#supported-debian-distributions)
  * How to [install RabbitMQ using apt](#apt) from [Bintray](#apt-bintray) or [Package Cloud](#apt-packagecloud), including a [quick start snippet](#apt-bintray-quick-start)
  * How to [install a recent supported Erlang version using apt](#erlang-repositories)
- * [Version Pinning](#apt-pinning)
+ * [Version Pinning](#apt-pinning) of apt packages
  * [Privilege requirements](#sudo-requirements)
  * [Direct download](#manual-installation) from GitHub
  * How to [manage the service](#managing-service)
@@ -282,7 +282,7 @@ The `erlang` component installs the most recent version available:
 deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
-That version may or may not be supported by RabbitMQ, so [version pinning](#apt-pinning) is highly recommended.
+That version may or may not be supported by RabbitMQ, so [package version pinning](#apt-pinning) is highly recommended.
 
 ### <a id="installing-erlang-package" class="anchor" href="#installing-erlang-package">Install Erlang Packages</a>
 
@@ -304,11 +304,11 @@ sudo apt-get install -y erlang-base \
                         erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
 </pre>
 
-### <a id="apt-pinning" class="anchor" href="#apt-pinning">Erlang Version and Repository Pinning</a>
+### <a id="apt-pinning" class="anchor" href="#apt-pinning">Package Version and Repository Pinning</a>
 
 When the same package (e.g. `erlang-base`) is available from multiple apt repositories operators need
 to have a way to indicate what repository should be preferred. It may also be desired to restrict Erlang version to avoid undesired upgrades.
-[apt package pinning](https://wiki.debian.org/AptPreferences) can be used to address both problems.
+[apt package pinning](https://wiki.debian.org/AptPreferences) feature can be used to address both problems.
 
 Package pinning is configured with a file placed under the `/etc/apt/preferences.d/` directory, e.g. `/etc/apt/preferences.d/erlang`.
 After updating apt preferences it is necessary to run `apt-get update`:
@@ -335,23 +335,34 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 </pre>
 
-The following preference file example will pin all `erlang-*` packages to `22.1.3`
+The following preference file example will pin all `erlang-*` packages to `22.2.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:22.1.3-1
+Pin: version 1:22.2.1-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `esl-erlang` package to to `21.3.8.8`
+The following preference file example will pin `rabbitmq-server` package to to `3.8.2`
+(assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
+
+<pre class="lang-ini">
+# /etc/apt/preferences.d/rabbitmq
+Package: rabbitmq-server
+Pin: version 1:3.8.2
+Pin-Priority: 1000
+</pre>
+
+
+In the example below, the `esl-erlang` package is pinned to to to `22.2.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:21.3.8.8
+Pin: version 1:22.2.1
 Pin-Priority: 1000
 </pre>
 

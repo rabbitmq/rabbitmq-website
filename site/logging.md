@@ -35,8 +35,9 @@ Please see the [File and Directory Location](/relocate.html) guide to find defau
 
 There are two ways to configure log file location. One is the [configuration file](/configure.html). The other is the `RABBITMQ_LOGS` environment variable. Use [RabbitMQ management UI](/management.html) or [`rabbitmqctl` environment](/cli.html) to find when a node stores its log file(s).
 
-The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`), which means all log
-messages will be printed to standard output.
+The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
+`RABBITMQ_LOGS=-` will result in all log messages being sent to standard output.
+See [Logging to Console (Standard Output)](#logging-to-console).
 
 The environment variable takes precedence over the configuration file. When in doubt, consider
 overriding log file location via the config file.
@@ -227,7 +228,7 @@ It is possible to configure console logging using the [classic config format](/c
 When console output is enabled, the file output will also be enabled by default.
 To disable the file output, set `log.file` to `false`.
 
-Please note that `RABBITMQ_LOGS` set to `-` will disable the file output
+Please note that `RABBITMQ_LOGS=-` will disable the file output
 even in `log.file` is configured.
 
 ### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to Syslog</a>
