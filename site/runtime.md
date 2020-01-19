@@ -36,7 +36,7 @@ Topics covered include:
  * How to [configure Erlang VM settings for RabbitMQ](#vm-settings) nodes
  * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
  * [Memory allocator](#allocators) settings
- * Runtime [thread activity metrics](#thred-stats)
+ * Runtime [thread activity metrics](#thread-stats)
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Asynchronous I/O thread pool](#io-threads) size
