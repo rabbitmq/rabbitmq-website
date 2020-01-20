@@ -621,7 +621,7 @@ check](https://www.consul.io/docs/agent/checks.html) for itself (more on this be
 
 ### Configuration
 
-To use Consul for peer discovery, set the `cluster_formation.peer_discovery_backend` to
+To use Consul for peer discovery, set the `cluster_formation.peer_discovery_backend`
 to `rabbit_peer_discovery_consul` (note: this value is slightly different from plugin name):
 
 <pre class="lang-ini">
