@@ -279,7 +279,7 @@ Significant percentage of activity in the external I/O state may indicate that t
 and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
 
 Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
-runtime schduler configuration for the available hardware and workload.
+runtime scheduler configuration for the available hardware and workload.
 
 
 ## <a id="erlang-process-limit" class="anchor" href="#erlang-process-limit">Erlang Process Limit</a>
