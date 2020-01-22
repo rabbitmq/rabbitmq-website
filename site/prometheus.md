@@ -433,7 +433,7 @@ below:
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
 
-### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scarping Endpoint Timeouts</a>
+### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scraping Endpoint Timeouts</a>
 
 In some environments there aren't many stats-emitting entities (queues, connections, channels), in others
 the scraping HTTP endpoint may have to return a sizeable data set to the client (e.g. many thousands of rows).
