@@ -34,7 +34,7 @@ RabbitMQ cluster nodes and CLI tools.
 
 Nodes and connected CLI tools periodically send each other small data frames.
 If no data was received from a peer in a given period of time,
-that peer is considered to be unavilable ("down").
+that peer is considered to be unavailable ("down").
 
 When one RabbitMQ node determines that another node has gone
 down it will log a message giving the other node's name and
