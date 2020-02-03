@@ -63,8 +63,8 @@ If no communication is received from a node within `net_ticktime`
 of the cluster.
 
 Increasing the `net_ticktime` across all nodes in a cluster will
-make the cluster more resilient to short network outtages, but it will take
-longer for remaing nodes to detect crashed nodes. Conversely, reducing the
+make the cluster more resilient to short network outages, but it will take
+longer for remaining nodes to detect crashed nodes. Conversely, reducing the
 `net_ticktime` across all nodes in a cluster will reduce detection
 latency, but increases the risk of detecting spurious
 [partitions](partitions.html).
