@@ -485,7 +485,7 @@ Except for the CLI tool authentication
 part, the probability of false positives can be considered approaching `0`
 except for upgrades and maintenance windows.
 
-[`rabbitmq-diganostics ping`](/rabbitmq-diagnostics.8.html) performs this check:
+[`rabbitmq-diagnostics ping`](/rabbitmq-diagnostics.8.html) performs this check:
 
 <pre class="lang-bash">
 rabbitmq-diagnostics ping -q
@@ -494,7 +494,7 @@ rabbitmq-diagnostics ping -q
 
 #### Stage 2
 
-A slightly more comprehensive check is executing [`rabbitmq-diganostics status`](/rabbitmq-diagnostics.8.html) status:
+A slightly more comprehensive check is executing [`rabbitmq-diagnostics status`](/rabbitmq-diagnostics.8.html) status:
 
 This includes the stage 1 check plus retrieves some essential
 system information which is useful for other checks and should always be
@@ -613,7 +613,7 @@ rabbitmq-diagnostics -q memory_breakdown --unit "MB"
 Includes all checks in stage 3 plus a check on all enabled listeners
 (using a temporary TCP connection).
 
-To inspect all listeners enabled on a node, use [`rabbitmq-diganostics listeners`](/rabbitmq-diagnostics.8.html):
+To inspect all listeners enabled on a node, use [`rabbitmq-diagnostics listeners`](/rabbitmq-diagnostics.8.html):
 
 <pre class="lang-bash">
 rabbitmq-diagnostics -q listeners
