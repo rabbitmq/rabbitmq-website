@@ -583,7 +583,7 @@ If message payloads are large, they will not be reflected in the queue process m
 
 ### <a id="queue-memory-usage-dynamics" class="anchor" href="#queue-memory-usage-dynamics">Why does the queue memory grow and shrink when publishing/consuming?</a>
 
-Erlang uses [generational garbage collection](https://www.erlang-solutions.com/blog/erlang-19-0-garbage-collector.html" target="_blank) for each Erlang process.
+Erlang uses [generational garbage collection](https://www.erlang-solutions.com/blog/erlang-19-0-garbage-collector.html) for each Erlang process.
 Garbage collection is done per queue, independently of all other Erlang processes.
 
 When garbage collection runs, it will copy used process memory before deallocating unused memory.
