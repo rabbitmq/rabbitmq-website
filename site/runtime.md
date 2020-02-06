@@ -36,7 +36,7 @@ Topics covered include:
  * How to [configure Erlang VM settings for RabbitMQ](#vm-settings) nodes
  * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
  * [Memory allocator](#allocators) settings
- * Runtime [thread activity metrics](#thred-stats)
+ * Runtime [thread activity metrics](#thread-stats)
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Asynchronous I/O thread pool](#io-threads) size
@@ -279,7 +279,7 @@ Significant percentage of activity in the external I/O state may indicate that t
 and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
 
 Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
-runtime schduler configuration for the available hardware and workload.
+runtime scheduler configuration for the available hardware and workload.
 
 
 ## <a id="erlang-process-limit" class="anchor" href="#erlang-process-limit">Erlang Process Limit</a>

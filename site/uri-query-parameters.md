@@ -131,8 +131,22 @@ against the hostname `myhost`.
 </table>
 
 [TLS options](/ssl.html) can also be specified globally using the
-`amqp_client.ssl_options` configuration key. They will be merged with
-the TLS parameters from the URI (the latter will take
-precedence) and affect all outgoing RabbitMQ Erlang client connections
-on the node, including plugins that use the client internally (Federation, Shovel, etc).
-Please see the [TLS guide](/ssl.html) for details.
+`amqp_client.ssl_options` configuration key in the `rabbitmq.config` or
+`advanced.config` file in this manner:
+
+<pre class="lang-erlang">
+{amqp_client, [
+    {ssl_options, [
+        {cacertfile, "path-to-ca-certificate"},
+        {certfile, "path-to-certificate"},
+        {keyfile, "path-to-keyfile"},
+        {verify, verify_peer},
+        {fail_if_no_peer_cert, true}
+    ]}
+]}
+</pre>
+
+They will be merged with the TLS parameters from the URI (the latter will take
+precedence) and affect all outgoing RabbitMQ Erlang client connections on the
+node, including plugins that use the client internally (Federation, Shovel,
+etc). Please see the [TLS guide](/ssl.html) for details.

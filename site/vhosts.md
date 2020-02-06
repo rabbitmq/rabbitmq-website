@@ -122,7 +122,7 @@ rabbitmqctl delete_vhost qa1
 
 ### Using HTTP API
 
-A virtual host can be created using the `DELETE /api/vhosts/{name}` [HTTP API](/management.html) endpoint
+A virtual host can be deleted using the `DELETE /api/vhosts/{name}` [HTTP API](/management.html) endpoint
 where `{name}` is the name of the virtual host
 
 Here's an example that uses [curl](https://curl.haxx.se/) to delete a virtual host `vh1` by contacting

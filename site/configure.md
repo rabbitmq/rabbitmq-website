@@ -623,6 +623,15 @@ channel_operation_timeout = 15000
     </td>
   </tr>
   <tr>
+    <td><code>max_message_size</code></td>
+    <td>
+        The largest allowed message payload size in bytes. Messages
+        of larger size will be rejected with a suitable channel exception.
+        <p>Default: <code>134217728</code></p>
+        <p>Max value: <code>536870912</code></p>
+    </td>
+  </tr>
+  <tr>
     <td><code>heartbeat</code></td>
     <td>
       Value representing the heartbeat timeout suggested by the server during

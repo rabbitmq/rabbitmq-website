@@ -86,12 +86,12 @@ delegate. `IConnection` provides
 `IConnection.ConnectionUnblocked` events:
 
 <pre class="lang-csharp">
-  public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
+  public void HandleBlocked(object sender, ConnectionBlockedEventArgs args)
   {
       // Connection is now blocked
   }
 
-  public void HandleUnblocked(IConnection sender)
+  public void HandleUnblocked(object sender, EventArgs args)
   {
       // Connection is now unblocked
   }

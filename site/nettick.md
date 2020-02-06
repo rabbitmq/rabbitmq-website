@@ -34,7 +34,7 @@ RabbitMQ cluster nodes and CLI tools.
 
 Nodes and connected CLI tools periodically send each other small data frames.
 If no data was received from a peer in a given period of time,
-that peer is considered to be unavilable ("down").
+that peer is considered to be unavailable ("down").
 
 When one RabbitMQ node determines that another node has gone
 down it will log a message giving the other node's name and
@@ -63,8 +63,8 @@ If no communication is received from a node within `net_ticktime`
 of the cluster.
 
 Increasing the `net_ticktime` across all nodes in a cluster will
-make the cluster more resilient to short network outtages, but it will take
-longer for remaing nodes to detect crashed nodes. Conversely, reducing the
+make the cluster more resilient to short network outages, but it will take
+longer for remaining nodes to detect crashed nodes. Conversely, reducing the
 `net_ticktime` across all nodes in a cluster will reduce detection
 latency, but increases the risk of detecting spurious
 [partitions](partitions.html).

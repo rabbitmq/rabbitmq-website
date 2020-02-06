@@ -27,6 +27,7 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * What clustering [means for clients](#clustering-and-clients)
  * [How clusters are formed](#cluster-formation)
  * How nodes [authenticate to each other](#erlang-cookie) (and with CLI tools)
+ * Why [two cluster nodes are highly recommended against](#node-count)
  * [Node restarts](#restarting) and how nodes rejoin their cluster
  * How to [remove a cluster node](#removing-nodes)
  * How to [reset a cluster node](#resetting-nodes)
@@ -287,6 +288,22 @@ more information and cookie mismatches can be identified better:
 </pre>
 
 See the [CLI Tools guide](/cli.html) for more information.
+
+### <a id="node-count" class="anchor" href="#node-count">Node Counts and Quorum</a>
+
+Because several features (e.g. [quorum queues](/quorum-queues.html), [client tracking in MQTT](/mqtt.html))
+require a consensus between cluster members, odd numbers of cluster nodes are highly recommended:
+1, 3, 5, 7 and so on.
+
+Two node clusters are *highly recommended against* since it's impossible for cluster nodes to identify
+a majority and form a consensus in case of connectivity loss. For example, when the two nodes lose connectivity
+MQTT client connections won't be accepted, quorum queues would lose their availability, and so on.
+
+From the consensus point of view, Four or six node clusters would have the same availability
+characteristics as three and five node clusters.
+
+The [Quorum queue guide](/quorum-queues.html) covers this topic in more detail.
+
 
 ### <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
 
