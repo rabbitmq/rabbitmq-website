@@ -327,7 +327,7 @@ The server code is rather straightforward:
     to spread the load equally over multiple servers we need to set the
     `prefetch` setting on channel.
   * We use `Channel.Consume` to get the go channel where we receive messages
-    from the queue. Then we enter the goroutine where do the work and send the response back.
+    from the queue. Then we enter the goroutine where we do the work and send the response back.
 
 
 The code for our RPC client [rpc_client.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go):
