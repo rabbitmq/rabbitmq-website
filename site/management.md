@@ -878,17 +878,23 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 Some environments require the use of a custom prefix for
 all HTTP requests to the management plugin. The
-`path_prefix` setting allows an arbitrary
+`management.path_prefix` setting allows an arbitrary
 prefix to be set for all HTTP request handlers in the
 management plugin.
 
-Setting `path_prefix` to `/my-prefix`
+Setting `management.path_prefix` to `/my-prefix`
 specifies all API requests to use the URI
 `host:port/my-prefix/api/[...]`
 
 The management UI login page will have the URI
 `host:port/my-prefix/` - note that the
 trailing slash is <em>required</em> in this case.
+
+<pre class="lang-ini">
+management.path_prefix = /my-prefix
+</pre>
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">[
   %% ...
