@@ -51,7 +51,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>21.3.x</li>
+        <li>21.3</li>
       </ul>
     </td>
     <td>
@@ -80,7 +80,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>21.3.x</li>
+        <li>21.3</li>
       </ul>
     </td>
     <td>
@@ -109,7 +109,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>20.3.x</li>
+        <li>20.3</li>
       </ul>
     </td>
     <td>
@@ -136,7 +136,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>20.3.x</li>
+        <li>20.3</li>
       </ul>
     </td>
     <td>
@@ -163,7 +163,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>19.3.x</li>
+        <li>19.3</li>
       </ul>
     </td>
     <td>
@@ -192,7 +192,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>19.3.x</li>
+        <li>19.3</li>
       </ul>
     </td>
     <td>
