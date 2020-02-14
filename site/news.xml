@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ Project Annoucements</title>
     <link rel="alternate" type="application/atom+xml" href="news.atom"/>
@@ -813,7 +813,7 @@ limitations under the License.
         <p>
           Binary builds and packages of the new release can be found on <a href="https://bintray.com/rabbitmq/">Bintray</a>,
           <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>.
-          See <a href="http://www.rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
+          See <a href="https://www.rabbitmq.com/download.html">RabbitMQ downloads</a> page for installation guides.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -843,7 +843,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -873,7 +873,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -931,7 +931,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -960,7 +960,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -1016,7 +1016,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -1078,7 +1078,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -1107,7 +1107,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -1136,7 +1136,7 @@ limitations under the License.
         </p>
         <p>
           Binary and source distributions of the new release can be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
@@ -1162,7 +1162,7 @@ limitations under the License.
 
         <p>
           List of installation options for modern Erlang releases can be found in
-          the <a href="http://www.rabbitmq.com/which-erlang.html">RabbitMQ Erlang compatibility guide</a>.
+          the <a href="https://www.rabbitmq.com/which-erlang.html">RabbitMQ Erlang compatibility guide</a>.
         </p>
 
         <p>
@@ -1189,7 +1189,7 @@ limitations under the License.
         </p>
 
         <p>
-          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          All artifacts in this release <a href="https://www.rabbitmq.com/signatures.html">are signed</a>.
           Please refer to the <a href="/install-debian.html">Debian/Ubuntu</a>, <a href="/install-rpm.html">RHEL/CentOS/SUSE</a>, and <a href="/download.html">other installation guides</a>
           for installation instructions.
         </p>
@@ -1199,7 +1199,7 @@ limitations under the License.
           be found on
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14">GitHub</a>,
           <a href="https://bintray.com/rabbitmq/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>,
-          as well as <a href="http://www.rabbitmq.com/download.html">rabbitmq.com</a>.
+          as well as <a href="https://www.rabbitmq.com/download.html">rabbitmq.com</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1229,7 +1229,7 @@ limitations under the License.
         </p>
 
         <p>
-          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          All artifacts in this release <a href="https://www.rabbitmq.com/signatures.html">are signed</a>.
           Please refer to the <a href="/install-debian.html">Debian/Ubuntu</a>, <a href="/install-rpm.html">RHEL/CentOS/SUSE</a>, and <a href="/download.html">other installation guides</a>
           for installation instructions.
         </p>
@@ -1239,7 +1239,7 @@ limitations under the License.
           be found on
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_13">GitHub</a>,
           <a href="https://bintray.com/rabbitmq/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>,
-          as well as <a href="http://www.rabbitmq.com/download.html">rabbitmq.com</a>.
+          as well as <a href="https://www.rabbitmq.com/download.html">rabbitmq.com</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1269,7 +1269,7 @@ limitations under the License.
         </p>
 
         <p>
-          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          All artifacts in this release <a href="https://www.rabbitmq.com/signatures.html">are signed</a>.
           Please refer to the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM installation guides</a> for Debian/Ubuntu and RHEL/CentOS installation instructions.
         </p>
 
@@ -1278,7 +1278,7 @@ limitations under the License.
           be found on
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_12">GitHub</a>,
           <a href="https://bintray.com/rabbitmq/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>,
-          as well as <a href="http://www.rabbitmq.com/download.html">rabbitmq.com</a>.
+          as well as <a href="https://www.rabbitmq.com/download.html">rabbitmq.com</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1308,7 +1308,7 @@ limitations under the License.
         </p>
 
         <p>
-          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          All artifacts in this release <a href="https://www.rabbitmq.com/signatures.html">are signed</a>.
           Please refer to the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM installation guides</a> for Debian/Ubuntu and RHEL/CentOS installation instructions.
         </p>
 
@@ -1317,7 +1317,7 @@ limitations under the License.
           be found on
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_11">GitHub</a>,
           <a href="https://bintray.com/rabbitmq/">Bintray</a>, <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>,
-          as well as <a href="http://www.rabbitmq.com/download.html">rabbitmq.com</a>.
+          as well as <a href="https://www.rabbitmq.com/download.html">rabbitmq.com</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1347,14 +1347,14 @@ limitations under the License.
         </p>
 
         <p>
-          All artifacts in this release <a href="http://www.rabbitmq.com/signatures.html">are signed</a>.
+          All artifacts in this release <a href="https://www.rabbitmq.com/signatures.html">are signed</a>.
           Please refer to the <a href="/install-debian.html">Debian</a> and <a href="/install-rpm.html">RPM installation guides</a> for Debian/Ubuntu and RHEL/CentOS installation instructions.
         </p>
 
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>,
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_10">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
@@ -1401,7 +1401,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">RabbitMQ site</a>,
+          <a href="https://www.rabbitmq.com/download.html">RabbitMQ site</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_9">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
@@ -1442,7 +1442,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>,
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_8">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
@@ -1483,7 +1483,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>,
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_7">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
@@ -1524,7 +1524,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>,
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
@@ -1605,7 +1605,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1644,7 +1644,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1685,7 +1685,7 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="https://www.rabbitmq.com/download.html">downloads page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1712,8 +1712,8 @@ limitations under the License.
          available at the following locations:
        </p>
        <ul>
-         <li><a href="http://www.rabbitmq.com/rabbitmq-release-signing-key.asc">Release signing key</a></li>
-         <li><a href="http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc">Nightly signing key</a></li>
+         <li><a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">Release signing key</a></li>
+         <li><a href="https://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc">Nightly signing key</a></li>
        </ul>
 
        <p>
@@ -1761,7 +1761,7 @@ pub   rsa4096/0x6B73A36E6026DFCA 2016-05-17 [SC]
       Key fingerprint = 0A9A F211 5F46 87BD 2980  3A20 6B73 A36E 6026 DFCA
 uid                              RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;
 
-The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+The entire key may be downloaded from: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 
 To fetch the full new key from a public key server using GnuPG, run:
 
@@ -1826,7 +1826,7 @@ pub   rsa4096/0xD441A9DDBA058EF7 2016-05-17 [SC]
       Key fingerprint = C77F 043E C632 A405 91D2  158B D441 A9DD BA05 8EF7
 uid                              RabbitMQ Nightly Signing Key &lt;info@rabbitmq.com&gt;
 
-The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
+The entire key may be downloaded from: https://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
 
 To fetch the full new key from a public key server using GnuPG, run:
 
@@ -1886,7 +1886,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1923,7 +1923,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1956,7 +1956,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -1990,7 +1990,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2024,7 +2024,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2059,7 +2059,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2092,7 +2092,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2138,7 +2138,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2172,7 +2172,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2220,7 +2220,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2248,13 +2248,13 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
 
         <p>
           This release adds support for
-          <a href="http://www.rabbitmq.com/priority.html">priority queues</a>
+          <a href="https://www.rabbitmq.com/priority.html">priority queues</a>
           which were available as a plugin before. Performance is improved;
           in particular messages smaller than configurable size are
-          <a href="http://www.rabbitmq.com/persistence-conf.html">embedded in the queue index</a>
+          <a href="https://www.rabbitmq.com/persistence-conf.html">embedded in the queue index</a>
           to reduce I/O and memory consumption. Stability of clustering and
           autoheal partition handling is improved as well. A new
-          <a href="http://www.rabbitmq.com/partitions.html#automatic-handling">pause_if_all_down</a>
+          <a href="https://www.rabbitmq.com/partitions.html#automatic-handling">pause_if_all_down</a>
           partition handling mode is added. The management web UI now shows
           many more I/O statistics.
         </p>
@@ -2262,7 +2262,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           The .NET client receives many improvements leading to
           <a href="https://groups.google.com/d/topic/rabbitmq-users/sPSP3ulG6sg/discussion">backward-incompatible changes</a>
-          to the <a href="http://www.rabbitmq.com/dotnet-api-guide.html">API</a>.
+          to the <a href="https://www.rabbitmq.com/dotnet-api-guide.html">API</a>.
           In the future, NuGet will become the primary distribution method
           for the .NET client.
         </p>
@@ -2276,7 +2276,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2310,7 +2310,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2428,7 +2428,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2462,7 +2462,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2497,7 +2497,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2541,7 +2541,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2574,7 +2574,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2610,7 +2610,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2646,7 +2646,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2680,7 +2680,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2715,7 +2715,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2758,7 +2758,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2792,7 +2792,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2826,7 +2826,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2859,7 +2859,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2892,7 +2892,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2934,7 +2934,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -2974,7 +2974,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3011,7 +3011,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3042,7 +3042,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3072,7 +3072,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3102,7 +3102,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3142,10 +3142,10 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </p>
         <p>
           RabbitMQ will continue to be available under the open source
-          <a href="http://www.rabbitmq.com/mpl.html">Mozilla Public License</a>
+          <a href="https://www.rabbitmq.com/mpl.html">Mozilla Public License</a>
           or commercial terms. Commercial support, consulting and both self-paced and
           instructor-led training courses are still available worldwide.
-          The <a href="http://www.rabbitmq.com/contact.html">rabbitmq-discuss mailing list</a>
+          The <a href="https://www.rabbitmq.com/contact.html">rabbitmq-discuss mailing list</a>
           will continue to be the primary channel of communication about open-source RabbitMQ.
           The release cycle is not expected to change as a result of the change of ownership.
         </p>
@@ -3174,7 +3174,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3208,7 +3208,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3240,7 +3240,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3272,7 +3272,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3304,7 +3304,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3340,7 +3340,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3372,7 +3372,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3405,7 +3405,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3436,7 +3436,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </p>
         <p>
           The new release can be downloaded from the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           As always, we welcome any questions, bug reports, and other feedback
@@ -3473,7 +3473,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3507,7 +3507,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3542,7 +3542,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3576,7 +3576,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3619,7 +3619,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
@@ -3657,7 +3657,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
           We encourage all users of earlier versions of
@@ -3699,7 +3699,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+          <a href="https://www.rabbitmq.com/download.html">download page</a>.
         </p>
 
         <p>
@@ -3740,7 +3740,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           <p>
             Binary and source distributions of the new release can
             be found in the <a
-            href="http://www.rabbitmq.com/download.html">usual
+            href="https://www.rabbitmq.com/download.html">usual
             place</a>.
           </p>
 
@@ -3779,7 +3779,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
             available in beta.  You can read about it on <a
             href="http://blog.heroku.com/archives/2011/8/31/rabbitmq_add_on_now_available_on_heroku/">on
             the Heroku blog</a> and on <a
-            href="http://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
+            href="https://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
             RabbitMQ blog</a>.  And there is more information and
             links to sample code on <a
             href="http://heroku.srs.rabbitmq.com">this page</a>.
@@ -3813,7 +3813,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           <p>
             Binary and source distributions of the new release can
             be found in the <a
-            href="http://www.rabbitmq.com/download.html">usual
+            href="https://www.rabbitmq.com/download.html">usual
             place</a>.
           </p>
 
@@ -3920,7 +3920,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
             New features include:
             <ul>
               <li>tracing facility for debugging incoming and outgoing messages,
-     (see <a href="http://www.rabbitmq.com/firehose.html">firehose</a>)</li>
+     (see <a href="https://www.rabbitmq.com/firehose.html">firehose</a>)</li>
               <li>improved inbound network performance</li>
               <li>improved routing performance</li>
               <li>new rabbitmqctl commands ('report', 'environment', and
@@ -4246,12 +4246,12 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
           <p>
             Binary and source distributions of the new release can be
             found in <a
-            href="http://www.rabbitmq.com/download.html">the usual
+            href="https://www.rabbitmq.com/download.html">the usual
             place</a>.
           </p>
           <p>
             This now includes <a
-            href="http://www.rabbitmq.com/plugins.html">binary
+            href="https://www.rabbitmq.com/plugins.html">binary
             packages of plugins</a>.  Please note the caveats there.
           </p>
           <p>
@@ -4305,7 +4305,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
       <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html">the release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+      <a href="https://www.rabbitmq.com/download.html">usual place</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>
@@ -4343,7 +4343,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
       <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html">the release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+      <a href="https://www.rabbitmq.com/download.html">usual place</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>
@@ -4457,7 +4457,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
       <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-February/006353.html">the release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+      <a href="https://www.rabbitmq.com/download.html">usual place</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>
@@ -4500,7 +4500,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
       <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html">the release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+      <a href="https://www.rabbitmq.com/download.html">usual place</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>
@@ -4557,7 +4557,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
    Rabbit Technologies and Canonical announce teaming agreement
     </doc:title>
 
-    <doc:link>http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf</doc:link>
+    <doc:link>https://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf</doc:link>
 
     <doc:text>
     <p>Rabbit Technologies Limited, the company behind RabbitMQ, today
@@ -4574,7 +4574,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
     without dependency upon a proprietary solution. It will play a significant
     role in the future of cloud switching."</p>
 
-    <p>For details see <a href="http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf">the
+    <p>For details see <a href="https://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf">the
     full press release</a>.</p>
 
     </doc:text>
@@ -4588,7 +4588,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
    RabbitMQ 1.7.0 release
     </doc:title>
 
-    <doc:link>http://www.rabbitmq.com/download.html</doc:link>
+    <doc:link>https://www.rabbitmq.com/download.html</doc:link>
 
     <doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.7.0.</p>
@@ -4603,7 +4603,7 @@ configuration. Finally, there are a number of small bug fixes.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20091007/3aaed239/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
+<p>Binary and source distributions of the new release can be found in  <a href="https://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
 <p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
@@ -4693,7 +4693,7 @@ on <a href="how.html">this page</a> for a summary of who is doing what, and how,
    RabbitMQ 1.6.0 release
     </doc:title>
 
-    <doc:link>http://www.rabbitmq.com/download.html</doc:link>
+    <doc:link>https://www.rabbitmq.com/download.html</doc:link>
 
     <doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.6.0.</p>
@@ -4707,7 +4707,7 @@ bug fixes.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090617/c0781ab0/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
+<p>Binary and source distributions of the new release can be found in  <a href="https://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
 <p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
@@ -4754,7 +4754,7 @@ for inclusion.</p>
    RabbitMQ 1.5.5 release
     </doc:title>
 
-    <doc:link>http://www.rabbitmq.com/download.html</doc:link>
+    <doc:link>https://www.rabbitmq.com/download.html</doc:link>
 
     <doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.5</p>
@@ -4765,7 +4765,7 @@ included are some minor enhancements to the way the server can be configured. Th
 RabbitMQ clients have remained unchanged.</p>
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090520/dbf9c694/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
+<p>Binary and source distributions of the new release can be found in  <a href="https://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
 <p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
@@ -4813,7 +4813,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
    RabbitMQ 1.5.4 release
     </doc:title>
 
-    <doc:link>http://www.rabbitmq.com/download.html</doc:link>
+    <doc:link>https://www.rabbitmq.com/download.html</doc:link>
 
     <doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.4.</p>
@@ -4825,7 +4825,7 @@ RabbitMQ clients have remained unchanged.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090406/fffcc5a0/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
+<p>Binary and source distributions of the new release can be found in  <a href="https://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
 <p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
@@ -4875,7 +4875,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
     <doc:text>
       <p>The LShift/RabbitMQ team is pleased to announce its second visit to Qcon London, please do come and say hello.</p>
-      <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="http://www.rabbitmq.com/how">how to use RabbitMQ</a>.</p>
+      <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="https://www.rabbitmq.com/how">how to use RabbitMQ</a>.</p>
 
     </doc:text>
       </doc:item>
@@ -4895,7 +4895,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003089.html">release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+      usual place, at <a href="download.html">https://www.rabbitmq.com/download.html</a>.</p>
 
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
@@ -4926,7 +4926,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-January/002668.html">release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+      usual place, at <a href="download.html">https://www.rabbitmq.com/download.html</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>
@@ -4967,7 +4967,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20081218/35c6c574/attachment.txt">release notes</a>.</p>
 
       <p>Binary and source distributions of the new release can be found in the
-      usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+      usual place, at <a href="download.html">https://www.rabbitmq.com/download.html</a>.</p>
 
       <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
       this latest release.</p>

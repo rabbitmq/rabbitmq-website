@@ -18,7 +18,7 @@ limitations under the License.
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                xmlns:x="https://www.rabbitmq.com/2011/extensions"
                 exclude-result-prefixes="x">
 
   <xsl:import href="page.xsl" />

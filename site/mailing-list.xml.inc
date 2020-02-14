@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+<doc:section xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
              name="getting-help">
   <doc:heading>Getting Help</doc:heading>
   <p>

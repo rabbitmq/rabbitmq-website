@@ -19,7 +19,7 @@ limitations under the License.
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:html="http://www.w3.org/1999/xhtml"
-                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 version="1.0">
 
 <!--

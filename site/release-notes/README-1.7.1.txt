@@ -36,7 +36,7 @@ bug fixes
 enhancements
 - make the various scripts work with complete short node names
 - improve memory monitoring and producer throttling. See the updated
-  documentation at http://www.rabbitmq.com/extensions.html#memsup.
+  documentation at https://www.rabbitmq.com/extensions.html#memsup.
 - make tcp_listeners configurable via the rabbitmq.config file
 - use the base64 module instead of ssl_base64 if we can, since the
   latter is sometimes missing from Erlang installations
@@ -104,7 +104,7 @@ enhancements
 - make MacPorts package work on Snow Leopard
 - streamline dependencies in MacPorts package
 - automate generation of MacPorts package and create a RabbitMQ
-  MacPorts repository - see http://www.rabbitmq.com/macports.html
+  MacPorts repository - see https://www.rabbitmq.com/macports.html
 - mirror downloads onto Amazon Cloudfront, for better availability and
   download speed
 - allow 'rabbitmq' user to execute the various wrapper scripts

@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>AMQP 0-9-1 Complete Reference Guide</title>
     <link rel="stylesheet" rev="stylesheet" href="/css/amqp-0-9-1-reference.css" type="text/css"/>

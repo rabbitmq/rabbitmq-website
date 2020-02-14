@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>How To</title>
   </head>
@@ -184,7 +184,7 @@ limitations under the License.
     Walk through of how to set up Ubuntu for use with RabbitMQ on AWS.
     </li>
     <li>
-    <a href="http://www.rabbitmq.com/ec2.html">Run RabbitMQ on EC2</a><br/>
+    <a href="https://www.rabbitmq.com/ec2.html">Run RabbitMQ on EC2</a><br/>
     Describes how to get started with RabbitMQ on Amazon's EC2.
     </li>
     <li>

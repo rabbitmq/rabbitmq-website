@@ -20,7 +20,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Messaging that just works</title>
   </head>
@@ -257,10 +257,10 @@ limitations under the License.
         This website, <b>next.rabbitmq.com</b>, exists to document the
         features that will be available in the <b>next</b> feature
         release of RabbitMQ, and that are available in
-        the <a href="http://www.rabbitmq.com/snapshots.html">snapshots</a>.
+        the <a href="https://www.rabbitmq.com/snapshots.html">snapshots</a>.
       </p>
       <ul id="large-bullets">
-        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        <li>Visit <a href="https://www.rabbitmq.com/">www.rabbitmq.com</a>
         for information on the current release.</li>
       </ul>
      </div>
@@ -275,7 +275,7 @@ limitations under the License.
         for documentation of other historical releases.
       </p>
       <ul id="large-bullets">
-        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        <li>Visit <a href="https://www.rabbitmq.com/">www.rabbitmq.com</a>
         for information on the current release.</li>
       </ul>
      </div>

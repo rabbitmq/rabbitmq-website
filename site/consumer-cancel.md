@@ -113,7 +113,7 @@ the RabbitMQ broker to a client may look like:
 <pre class="lang-haskell">
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
-  "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
+  "information"  = (longstr) "Licensed under the MPL.  See https://www.rabbitmq.com/",
   "copyright"    = (longstr) "Copyright (c) 2007-2019 Pivotal Software, Inc.",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,

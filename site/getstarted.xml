@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Getting started with RabbitMQ</title>
@@ -83,7 +83,7 @@ limitations under the License.
               <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="http://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala">Scala</a> (using <a href="http://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala">Scala</a> (using <a href="https://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
             </li>
           </ul>
         </p>

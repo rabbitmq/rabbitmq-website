@@ -330,7 +330,7 @@ The same example using the [classic config format](/configure.html#erlang-term-c
 ].
 </pre>
 
-Classic config file format allows for [config value encryption](http://www.rabbitmq.com/configure.html#configuration-encryption),
+Classic config file format allows for [config value encryption](https://www.rabbitmq.com/configure.html#configuration-encryption),
 which is recommended for passwords.
 
 ## <a id="peer-verification" class="anchor" href="#peer-verification">TLS Peer Verification: Who Do You Say You Are?</a>

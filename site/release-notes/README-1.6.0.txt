@@ -23,10 +23,10 @@ enhancements
 - implement AMQP 0-9/0-9-1's headers exchange type
 - introduce a permissions system which allows fine-grained access
   control on resources involved in AMQP operations. See
-  http://www.rabbitmq.com/admin-guide.html#access-control for details
+  https://www.rabbitmq.com/admin-guide.html#access-control for details
 - introduce 'alternate exchanges' to handle messages which are
   otherwise unroutable. See
-  http://www.rabbitmq.com/extensions.html#alternate-exchange for
+  https://www.rabbitmq.com/extensions.html#alternate-exchange for
   details
 - improve performance and stability under high load
 - reduce memory consumption
@@ -53,7 +53,7 @@ enhancements
 - suppress inclusion of spec comments in generated code due to
   licensing issues
 - generate strong named (i.e. signed) assemblies. See the bottom of
-  http://www.rabbitmq.com/dotnet.html for details
+  https://www.rabbitmq.com/dotnet.html for details
 
 building & packaging
 --------------------

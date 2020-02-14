@@ -20,9 +20,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:r="https://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Community Plugins</title>
   </head>

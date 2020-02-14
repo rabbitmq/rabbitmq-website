@@ -20,7 +20,7 @@ limitations under the License.
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Documentation: Table of Contents</title>
   </head>
@@ -39,13 +39,13 @@ limitations under the License.
     <x:modal mode="next">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the current snapshots of the 'master' branch.
-        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        See <a href="https://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
     <x:modal mode="previous">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the historical release, &version-server;.
-        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        See <a href="https://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
 

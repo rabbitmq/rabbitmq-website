@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="erlang-cookie">
+<doc:subsection xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc" name="erlang-cookie">
   <doc:heading>How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</doc:heading>
   <p>
     RabbitMQ nodes and CLI tools (e.g. <code>rabbitmqctl</code>) use a

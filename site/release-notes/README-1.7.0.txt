@@ -16,13 +16,13 @@ bug fixes
   error log entries and causing considerable CPU and memory pressure
 
 enhancements
-- support SSL natively - see <http://www.rabbitmq.com/ssl.html>
+- support SSL natively - see <https://www.rabbitmq.com/ssl.html>
 - add a plugin mechanism to provide a framework for developing rabbit
   extensions and managing their installation - see 
-  <http://www.rabbitmq.com/plugin-development.html>
+  <https://www.rabbitmq.com/plugin-development.html>
 - support configuration via erlang config file, which has fewer
   escaping and formatting requirements than the other configuration
-  mechanisms - see <http://www.rabbitmq.com/install.html#configfile>
+  mechanisms - see <https://www.rabbitmq.com/install.html#configfile>
 - display diagnostics when rabbitmqctl fails with a badrpc error,
   making it easier to track down the cause
 - improve queue hibernation logic to reduce system load in

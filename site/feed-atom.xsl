@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns="http://www.w3.org/2005/Atom"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
                 exclude-result-prefixes="xhtml doc"
@@ -49,9 +49,9 @@ limitations under the License.
   <xsl:template match="xhtml:head">
     <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
     See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
-    <id>http://www.rabbitmq.com/news.atom</id>
-    <link rel="self" href="http://www.rabbitmq.com/news.atom"/>
-    <link rel="alternate" type="text/html" href="http://www.rabbitmq.com/news.html"/>
+    <id>https://www.rabbitmq.com/news.atom</id>
+    <link rel="self" href="https://www.rabbitmq.com/news.atom"/>
+    <link rel="alternate" type="text/html" href="https://www.rabbitmq.com/news.html"/>
     <title type="text"><xsl:value-of select="xhtml:title"/></title>
       <!--
           We transgressively omit the author, since there isn't a sensible value

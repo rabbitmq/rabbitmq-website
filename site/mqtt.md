@@ -342,7 +342,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
 Note that RabbitMQ rejects SSLv3 connections by default because that protocol
 is known to be compromised.
 
-See the [TLS configuration guide](http://www.rabbitmq.com/ssl.html) for details.
+See the [TLS configuration guide](https://www.rabbitmq.com/ssl.html) for details.
 
 ### <a id="virtual-hosts" class="anchor" href="#virtual-hosts"> Virtual Hosts</a>
 
@@ -516,7 +516,7 @@ global parameter and so takes precedence over it.
 ### <a id="stickiness" class="anchor" href="#stickiness">Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL</a>
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
-option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
+option is interpreted in the same way as the [queue TTL](https://www.rabbitmq.com/ttl.html#queue-ttl)
 parameter, so the value `86400000` means 24 hours. To disable the TTL feature, just set
 the `subscription_ttl`  to `undefined` in the configuration file:
 
@@ -552,7 +552,7 @@ can leave queues and messages behind, which will consume resources and require m
 cleanup.
 
 The `prefetch` option controls the maximum number of unacknowledged messages that
-will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
+will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](https://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
 field, so a value of `0` means "no limit".
 
 

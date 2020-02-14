@@ -26,7 +26,7 @@ bug fixes
 topology visualiser
 -------------------
 First official release. See
-http://www.rabbitmq.com/plugins.html#rabbitmq_management_visualiser
+https://www.rabbitmq.com/plugins.html#rabbitmq_management_visualiser
 
 STOMP plugin
 ------------
@@ -42,7 +42,7 @@ is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install
 the new version on all the nodes and follow these instructions:
-    http://www.rabbitmq.com/clustering.html#upgrading
+    https://www.rabbitmq.com/clustering.html#upgrading
 All configuration and persistent message data is retained.
 
 To upgrade a non-clustered RabbitMQ from release 2.1.0, first upgrade

@@ -514,7 +514,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 
 The most straightforward way to adjust the per-user limit for
 RabbitMQ on distributions that do not use systemd is to edit the `/etc/default/rabbitmq-server`
-(provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](http://www.rabbitmq.com/configure.html)
+(provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](https://www.rabbitmq.com/configure.html)
 to invoke `ulimit` before the service is started.
 
 <pre class="lang-bash">
@@ -596,7 +596,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.16. Copyright (c) 2007-2019 Pivotal Software, Inc.
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
@@ -655,7 +655,7 @@ The output will look similar to this:
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.16. Copyright (c) 2007-2019 Pivotal Software, Inc.
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See http://www.rabbitmq.com/
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log

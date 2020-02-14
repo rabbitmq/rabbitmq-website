@@ -24,7 +24,7 @@ pub   rsa4096/0xD441A9DDBA058EF7 2016-05-17 [SC]
       Key fingerprint = C77F 043E C632 A405 91D2  158B D441 A9DD BA05 8EF7
 uid                              RabbitMQ Nightly Signing Key <info@rabbitmq.com>
 
-The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
+The entire key may be downloaded from: https://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
 
 To fetch the full new key from a public key server using GnuPG, run:
 

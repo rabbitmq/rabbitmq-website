@@ -535,7 +535,7 @@ Using the classic config format:
 
 Some HTTP API endpoints respond quickly, others may need to return or stream
 a sizeable data set to the client (e.g. many thousands of connections) or perform
-an operation that takes time proportionally to the input (e.g. [import a large definitions file](http://www.rabbitmq.com/management.html#load-definitions)).
+an operation that takes time proportionally to the input (e.g. [import a large definitions file](https://www.rabbitmq.com/management.html#load-definitions)).
 In those cases the amount of time it takes to process the request can exceed certain
 timeouts in the Web server as well as HTTP client.
 

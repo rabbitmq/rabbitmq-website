@@ -57,7 +57,7 @@ queue lets a local consumer receive messages from an upstream queue.
 
 Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
 they can connect to a specific vhost, use TLS, use multiple
-<a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
+<a href="https://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
 
 For more details, see the documentation on <a href="federated-exchanges.html">federated
 exchanges</a> and <a href="federated-queues.html">federated queues</a>.

@@ -6,10 +6,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:html="http://www.w3.org/1999/xhtml"
-                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:r="https://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                xmlns:x="https://www.rabbitmq.com/2011/extensions"
                 exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 

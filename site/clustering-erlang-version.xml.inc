@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <doc:section name="erlang"
-  xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <doc:heading>Erlang Versions Across the Cluster</doc:heading>
   <p>
   All nodes in a cluster must run the same minor <a href="/which-erlang.html">version of Erlang</a>: <code>19.3.4</code>

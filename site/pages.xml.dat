@@ -19,7 +19,7 @@ limitations under the License.
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
+<x:pages xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <!--
      ~~~ Using this file ~~~
 

@@ -20,8 +20,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>What can RabbitMQ do for you?</title>
   </head>

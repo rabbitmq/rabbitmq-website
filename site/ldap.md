@@ -629,7 +629,7 @@ two <i>additional</i> variables will be made available for each of the above que
 
 The terms configure, write and read for resource access have the
 same meanings that they do for the built-in RabbitMQ permissions
-system, see http://www.rabbitmq.com/access-control.html. See
+system, see https://www.rabbitmq.com/access-control.html. See
 also [topic authorisation](/access-control.html#topic-authorisation)
 for `topic_access_query`.
 

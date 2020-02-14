@@ -24,7 +24,7 @@ enhancements
   retained in memory
 - on platforms which support the High Performance Erlang Compiler (HiPE), the
   server can optionally (re)compile selected modules on startup for increased
-  run-time performance; see http://www.rabbitmq.com/configure.html
+  run-time performance; see https://www.rabbitmq.com/configure.html
 - the server automatically adapts to changes to virtual memory resources, and to
   the memory high-watermark
 - the rabbit logs are appended to on restart; log rotation is simplified
@@ -50,7 +50,7 @@ bug fixes
 enhancements
 - clients accept a new "amqp" URI scheme, which can describe all of the
   information required to connect to an AMQP server in one URI; see
-  http://www.rabbitmq.com/uri-spec.html
+  https://www.rabbitmq.com/uri-spec.html
 
 erlang client
 -------------
@@ -84,7 +84,7 @@ bug fixes
 enhancements
 - plugins are included in the main rabbitmq-server release, simplifying server
   configuration and upgrades; a new tool, rabbitmq-plugins, enables and
-  disables plugins; see http://www.rabbitmq.com/plugins.html
+  disables plugins; see https://www.rabbitmq.com/plugins.html
 - rabbitmq_federation is no longer considered experimental
 - new experimental plugin: rabbitmq_consistent_hash_exchange, useful for load
   balancing very high message rates across multiple queues
@@ -130,7 +130,7 @@ the new version. All configuration and persistent message data is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install the new
 version on all the nodes and follow the instructions at
-http://www.rabbitmq.com/clustering.html#upgrading .
+https://www.rabbitmq.com/clustering.html#upgrading .
 
 To upgrade RabbitMQ from release 2.1.0, first upgrade to 2.1.1 (all data will be
 retained), and then to the current version as described above.

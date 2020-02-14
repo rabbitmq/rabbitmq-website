@@ -21,8 +21,8 @@ limitations under the License.
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Interoperability</title>
   </head>
@@ -158,7 +158,7 @@ limitations under the License.
             The following table details the results of running the 0-8
             and 0-9 tests against the RabbitMQ broker.
           </p>
-	  <qpid-tests xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <qpid-tests xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
             <qpid-test name="tests_0-8.basic.BasicTests.test_ack">
               <status value="ok"/>
             </qpid-test>

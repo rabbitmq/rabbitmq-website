@@ -1,6 +1,6 @@
-# [rabbitmq.com](http://www.rabbitmq.com/)
+# [rabbitmq.com](https://www.rabbitmq.com/)
 
-This repository contains source code for [rabbitmq.com](http://www.rabbitmq.com/) content.
+This repository contains source code for [rabbitmq.com](https://www.rabbitmq.com/) content.
 
 All changes that need to be deployed right away need to be committed to the `live` branch.
 
@@ -17,7 +17,7 @@ repository:
 
 Branch        | Description
 :-------------|:--------------------
-`live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](http://www.rabbitmq.com/).
+`live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](https://www.rabbitmq.com/).
 `stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.7.x release occurs.
 `master`       | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
 

@@ -22,14 +22,14 @@ enhancements
   memory pressure on individual nodes.
 - sender-selected distribution (i.e. add support for the CC and BCC
   headers).  See
-    http://www.rabbitmq.com/extensions.html#sender-selected-distribution
+    https://www.rabbitmq.com/extensions.html#sender-selected-distribution
   for more information.
 - server-side consumer cancellation notifications.  See
-    http://www.rabbitmq.com/extensions.html#consumer-cancel-notify
+    https://www.rabbitmq.com/extensions.html#consumer-cancel-notify
   for more information.
 - have the server present its AMQP extensions in a "capabilities"
   field in server-properties.  See
-    http://www.rabbitmq.com/extensions.html#capabilities
+    https://www.rabbitmq.com/extensions.html#capabilities
   for more information.
 - determine file descriptor limits accurately on Windows, usually
   resulting in much higher limits than previously, which allows more
@@ -99,7 +99,7 @@ bug fixes
   *not* occurred
 
 enhancements
-- add documentation. See http://www.rabbitmq.com/stomp.html
+- add documentation. See https://www.rabbitmq.com/stomp.html
 - significant performance improvements
 - extend flow-control on back pressure through the STOMP gateway
   preventing the STOMP from overloading the server

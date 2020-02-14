@@ -255,7 +255,7 @@ we defined and the message we just created.
 > (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The [configuration file documentation](<a>
-> href="http://www.rabbitmq.com/configure.html#config-items"</a>) will
+> href="https://www.rabbitmq.com/configure.html#config-items"</a>) will
 > show you how to set <code>disk_free_limit</code>.
 
 ### Receiving

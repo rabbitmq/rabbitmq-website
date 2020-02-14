@@ -55,7 +55,7 @@ enhancements
 21446 allow crashing queue processes to recover, using persistent data
       if present
 25813 provide fast direct route for RPC replies
-        (see http://www.rabbitmq.com/direct-reply-to.html)
+        (see https://www.rabbitmq.com/direct-reply-to.html)
 24926 allow plugins to be enabled / disabled without restarting the server
 25884 add argument and policy to limit queue length in bytes
 26150 prevent clean master shutdown from promoting unsynchronised
@@ -257,7 +257,7 @@ the new version. All configuration and persistent message data is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install the new
 version on all the nodes and follow the instructions at
-http://www.rabbitmq.com/clustering.html#upgrading .
+https://www.rabbitmq.com/clustering.html#upgrading .
 
 To upgrade RabbitMQ from release 2.1.0, first upgrade to 2.1.1 (all data will be
 retained), and then to the current version as described above.

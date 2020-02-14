@@ -20,8 +20,8 @@ limitations under the License.
 %entities;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Server Documentation</title>
   </head>

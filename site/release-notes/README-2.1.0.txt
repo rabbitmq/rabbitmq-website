@@ -8,7 +8,7 @@ server
 enhancements
  - detects incorrect nodename in rabbitmq_multi
  - extend supported timeout types for queue lease, see
-   http://www.rabbitmq.com/extensions.html#queue-leases
+   https://www.rabbitmq.com/extensions.html#queue-leases
  - print plugin versions on startup
  - extend permissions system - add 'is_admin' field; useful for
    the management plugin

@@ -17,8 +17,8 @@ limitations under the License.
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="https://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Compatibility and Conformance</title>
@@ -127,7 +127,7 @@ limitations under the License.
 	  The following table describes the current implementation status
 	  of the various AMQP protocol message classes.
 	</p>
-	<classes xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	<classes xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <class name="connection" handler="connection" index="10"><status value="ok"/></class>
 	  <class name="channel" handler="channel" index="20"><status value="ok"/></class>
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
@@ -143,7 +143,7 @@ limitations under the License.
 	  The following table describes the current implementation status
 	  of the various AMQP protocol methods in each class.
 	</p>
-	<methods xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	<methods xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <method name="connection.start"><status value="ok"/></method>
 	  <method name="connection.start-ok"><status value="ok"/></method>
 	  <method name="connection.secure"><status value="ok"/></method>
@@ -255,7 +255,7 @@ limitations under the License.
 	  The Reference column contains the class or domain, method, field and
       rule name where present.
     </p>
-	<rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	<rules xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
           <rule>
             <status value="ok"/>
             <type>MUST NOT</type>
@@ -1718,7 +1718,7 @@ limitations under the License.
           The rules listed below are from the PDF version of the 0-9-1 specification,
           wherever MUST, SHOULD or MAY appear in the text.
         </p>
-        <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+        <rules xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <rule>
 	    <status value="ok">does, doesn't</status>
         <notes>
@@ -2505,7 +2505,7 @@ limitations under the License.
           The rules listed below relate to features supported by RabbitMQ that
           have been deprecated.
         </p>
-        <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+        <rules xmlns="https://www.rabbitmq.com/namespaces/ad-hoc/conformance">
           <rule>
             <status value="ok">doesn't</status>
             <xref>

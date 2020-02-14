@@ -20,8 +20,8 @@ limitations under the License.
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:x="https://www.rabbitmq.com/2011/extensions"
                 xmlns="http://www.w3.org/1999/xhtml"
                 exclude-result-prefixes="rss1 rdf atom dc x"
                 >

@@ -21,8 +21,8 @@ limitations under the License.
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                               xmlns="http://www.w3.org/1999/xhtml"
-                              xmlns:x="http://www.rabbitmq.com/2011/extensions"
-                              xmlns:c="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                              xmlns:x="https://www.rabbitmq.com/2011/extensions"
+                              xmlns:c="https://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                               exclude-result-prefixes="x c">
 
   <xsl:import href="page.xsl" />
@@ -290,7 +290,7 @@ limitations under the License.
     </x:decorate>
     <x:decorate target="method" name="basic.nack">
       <x:amqp-extension />
-      <x:url href="http://www.rabbitmq.com/nack.html" label="RabbitMQ Documentation"/>
+      <x:url href="https://www.rabbitmq.com/nack.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#basicNack(long, boolean, boolean)"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicNack_System_UInt64_System_Boolean_System_Boolean_"/>
     </x:decorate>
@@ -311,7 +311,7 @@ limitations under the License.
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicRecoverAsync_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.reject">
-      <x:url href="http://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
+      <x:url href="https://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#basicReject(long, boolean)"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicReject_System_UInt64_System_Boolean_"/>
     </x:decorate>
@@ -331,14 +331,14 @@ limitations under the License.
       <x:amqp-extension />
     </x:decorate>
     <x:decorate target="method" name="confirm.select">
-      <x:url href="http://www.rabbitmq.com/confirms.html" label="RabbitMQ Documentation"/>
+      <x:url href="https://www.rabbitmq.com/confirms.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#confirmSelect()"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ConfirmSelect"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
-      <x:url href="http://www.rabbitmq.com/e2e.html" label="RabbitMQ Documentation"/>
-      <x:url href="http://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
+      <x:url href="https://www.rabbitmq.com/e2e.html" label="RabbitMQ Documentation"/>
+      <x:url href="https://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#exchangeBind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeBind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__"/>
     </x:decorate>
@@ -353,7 +353,7 @@ limitations under the License.
           some messages are handled specifically and the remainder are processed by a generic handler.
         </p>
       </x:doc>
-      <x:url href="http://www.rabbitmq.com/ae.html" label="AE documentation" />
+      <x:url href="https://www.rabbitmq.com/ae.html" label="AE documentation" />
       <x:javadoc href="Channel.html#exchangeDeclare(java.lang.String, java.lang.String, boolean, boolean, java.util.Map)" />
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeDeclare_System_String_System_String_System_Boolean_System_Boolean_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>
@@ -389,8 +389,8 @@ limitations under the License.
           as an <em>x-expires</em> argument in the arguments parameter to this method.
         </p>
       </x:doc>
-      <x:url href="http://www.rabbitmq.com/ttl.html#per-queue-message-ttl" label="x-message-ttl documentation"/>
-      <x:url href="http://www.rabbitmq.com/ttl.html#queue-ttl" label="x-expires documentation"/>
+      <x:url href="https://www.rabbitmq.com/ttl.html#per-queue-message-ttl" label="x-message-ttl documentation"/>
+      <x:url href="https://www.rabbitmq.com/ttl.html#queue-ttl" label="x-expires documentation"/>
       <x:javadoc href="Channel.html#queueDeclare(java.lang.String, boolean, boolean, boolean, java.util.Map)" />
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_QueueDeclare_System_String_System_Boolean_System_Boolean_System_Boolean_System_Collections_Generic_IDictionary_System_String_System_Object__" />
     </x:decorate>

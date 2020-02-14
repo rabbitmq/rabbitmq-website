@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<doc:section name="issues-hostname" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<doc:section name="issues-hostname" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <doc:heading>Hostname Changes</doc:heading>
   <p>
     RabbitMQ nodes use hostnames to communicate with each other. Therefore,

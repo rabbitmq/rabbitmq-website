@@ -68,7 +68,7 @@ enhancements
 performance improvements
 25957 change semantics of basic.qos global flag in order to allow for
       greatly enhanced prefetch performance
-      (see http://www.rabbitmq.com/consumer-prefetch.html)
+      (see https://www.rabbitmq.com/consumer-prefetch.html)
 25827,25853 substantially improve performance stopping and starting brokers
       with many durable queues
 26001 improve performance of persistent confirmed messages on spinning disks
@@ -129,7 +129,7 @@ shovel plugin
 -------------
 enhancements
 24851 introduce "dynamic" shovels, controlled by parameters in a similar way
-      to federation (see http://www.rabbitmq.com/shovel-dynamic.html)
+      to federation (see https://www.rabbitmq.com/shovel-dynamic.html)
 25890 make shovel status rather more informative
 25894 introduce "auto-delete" dynamic shovels
 25935 allow dynamic shovels to record routing information similarly to
@@ -232,7 +232,7 @@ the new version. All configuration and persistent message data is retained.
 
 To upgrade a clustered RabbitMQ from release 2.1.1 or later, install the new
 version on all the nodes and follow the instructions at
-http://www.rabbitmq.com/clustering.html#upgrading .
+https://www.rabbitmq.com/clustering.html#upgrading .
 
 To upgrade RabbitMQ from release 2.1.0, first upgrade to 2.1.1 (all data will be
 retained), and then to the current version as described above.
