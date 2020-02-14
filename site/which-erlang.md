@@ -61,7 +61,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul class="notes">
-        <li>Erlang 22.1 is recommended.</li>
+        <li>Erlang 22.2 is recommended.</li>
         <li>Erlang 22.x dropped support for HiPE</li>
       </ul>
     </td>
