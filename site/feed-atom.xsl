@@ -49,9 +49,9 @@ limitations under the License.
   <xsl:template match="xhtml:head">
     <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
     See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
-    <id>http://www.rabbitmq.net/news.atom</id>
-    <link rel="self" href="http://www.rabbitmq.net/news.atom"/>
-    <link rel="alternate" type="text/html" href="http://www.rabbitmq.net/news.html"/>
+    <id>http://www.rabbitmq.com/news.atom</id>
+    <link rel="self" href="http://www.rabbitmq.com/news.atom"/>
+    <link rel="alternate" type="text/html" href="http://www.rabbitmq.com/news.html"/>
     <title type="text"><xsl:value-of select="xhtml:title"/></title>
       <!--
           We transgressively omit the author, since there isn't a sensible value
@@ -63,7 +63,7 @@ limitations under the License.
   <xsl:template match="doc:item">
     <entry>
       <!-- For entry IDs, there's no good candidate.  But we use the date anyway.  -->
-      <id>tag:rabbitmq.net,2007:<xsl:value-of select="doc:date/@iso"/></id>
+      <id>tag:rabbitmq.com,2007:<xsl:value-of select="doc:date/@iso"/></id>
       <title type="text"><xsl:value-of select="doc:title"/></title>
       <updated><xsl:value-of select="doc:date/@iso"/></updated>
       <author>
