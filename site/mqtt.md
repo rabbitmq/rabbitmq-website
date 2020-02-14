@@ -22,7 +22,9 @@ limitations under the License.
 RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
 
-## <a id="requirements" class="anchor" href="#requirements">Cluster Size Requirements</a>
+## <a id="requirements" class="anchor" href="#requirements">Clustering Requirements</a>
+
+### The Quorum Requirement
 
 As of 3.8, the plugin [requires a quorum of cluster nodes](#limitations) to be present.
 This means two nodes out of three, three out of five and so on.
@@ -31,6 +33,10 @@ The plugin can also be used on a single node but **does not support** clusters o
 
 In case the majority of cluster nodes is down, remaining cluster nodes would not be able to
 accept new MQTT client connections.
+
+### Enabled on All Nodes
+
+The plugin must be enabled on all cluster nodes.
 
 
 ## <a id="features" class="anchor" href="#features"> Supported MQTT 3.1.1 features</a>
