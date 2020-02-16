@@ -19,37 +19,12 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-<p class="intro">
-  This section provides links to the build instructions
-  of the RabbitMQ server and available client libraries.
-</p>
+This section provides links to the build instructions
+of the RabbitMQ server and available client libraries:
 
-<div class="landing-box">
-  <h2>RabbitMQ Server</h2>
-  <p>
-    See <a href="build-server.html">server build instructions</a>.
-  </p>
-</div>
+## RabbitMQ Server
 
-<div class="landing-box">
-  <h2>RabbitMQ Java AMQP client library</h2>
-  <p>
-    See <a href="build-java-client.html">Java client library build
-      instructions</a>.
-  </p>
-</div>
-
-<div class="landing-box">
-  <h2>RabbitMQ .NET/C# client library</h2>
-  <p>
-    See <a href="build-dotnet-client.html">.NET client library build instructions</a>.
-  </p>
-</div>
-
-<div class="landing-box">
-  <h2>RabbitMQ Erlang client library</h2>
-  <p>
-    See <a href="build-erlang-client.html">Erlang client
-      library build instructions</a>.
-  </p>
-</div>
+ * [RabbitMQ server](/build-server.html)
+ * [Java client library](/build-java-client.html)
+ * [.NET client library](/build-dotnet-client.html)
+ * [Erlang client library](/build-erlang-client.html)
