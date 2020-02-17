@@ -142,7 +142,7 @@ times. Most common examples are:
    with a `403 ACCESS_REFUSED` error
  * Binding a non-existing queue or a non-existing exchange will fail with a `404 NOT_FOUND` error
  * Consuming from a queue that does not exist will fail with a `404 NOT_FOUND` error
- * Publishing to an exchange that does not exit will fail with a `404 NOT_FOUND` error
+ * Publishing to an exchange that does not exist will fail with a `404 NOT_FOUND` error
  * Accessing an [exclusive queue](/queues.html#exclusive-queues) from a connection other than its declaring one will
    fail with a `405 RESOURCE_LOCKED`
 
