@@ -39,6 +39,7 @@ There are several areas which can be configured or tuned. Each has a section in 
  * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](/cli.html)
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
+ * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
  * The interface and port used by [epmd](#epmd)
  * Other TCP socket settings
@@ -1192,9 +1193,35 @@ e.g. `rmq1.dev.megacorp.local`.
 
 ### <a id="dns-reverse-dns-lookups" class="anchor" href="#dns-reverse-dns-lookups">Reverse DNS Lookups</a>
 
-If the `rabbit.reverse_dns_lookups` configuration option is set to `true`,
+If the `reverse_dns_lookups` configuration option is set to `true`,
 RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
 in connection information (e.g. in the [Management UI](/management.html)).
+
+Reverse DNS lookups can potentially take a long time if node's hostname resolution is not
+optimally configured. This can increase latency when accepting client connections.
+
+To explicitly enable reverse DNS lookups:
+
+<pre class="lang-ini">
+reverse_dns_lookups = true
+</pre>
+
+To disable reverse DNS lookups:
+
+<pre class="lang-ini">
+reverse_dns_lookups = false
+</pre>
+
+Using the classic config format:
+
+<pre class="lang-erlang">
+[
+  {rabbit, [
+    {reverse_dns_lookups, false}
+  ]}
+].
+</pre>
+
 
 ## <a id="logging" class="anchor" href="#logging">Connection Event Logging</a>
 
