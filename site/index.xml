@@ -28,12 +28,11 @@ limitations under the License.
     <x:modal mode="www">
       <div id="hero">
         <div class='container'>
-          <div id='hero-pipeline-webinar'>
+          <div id='hero-summit'>
             <div class='container'>
               <div class='text'>
-                <h1>Streaming Pipelines</h1>
-                <h2>A webinar on using RabbitMQ and Project Reactor</h2>
-                <h2>Feb 13 | <a href="https://content.pivotal.io/rabbitmq/feb-13-how-to-build-reliable-streaming-pipelines-with-rabbitmq-and-project-reactor-webinar?utm_campaign=reactor-streaming-webinar-banner&amp;utm_source=rabbitmq&amp;utm_medium=website">Register today</a></h2>
+                <h1>Call for proposals!<br/>RabbitMQ Summit 2020 Berlin</h1>
+                <h2><a href="https://eventil.com/events/rabbitmq-summit-2020/cfp">Submit your abstract</a> by March 8</h2>
               </div>
             </div>
           </div>
