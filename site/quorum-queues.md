@@ -429,8 +429,8 @@ The `rabbit` application has a couple of quorum queue related configuration item
 
  * `quorum_cluster_size`
 
-Sets the default quorum queue cluster size (can be over-ridden by the `x-quorum-cluster-size` queue argument at declaration time.
-Default value is 5.
+Sets the default quorum queue cluster size (can be over-ridden by the `x-quorum-initial-group-size`
+queue argument at declaration time. Default value is 5.
 
  * `quorum_commands_soft_limit`
 
