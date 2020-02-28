@@ -100,7 +100,10 @@ as machines on which command line tools such as `rabbitmqctl`
 might be used.
 
 Hostname resolution can use any of the standard OS-provided
-methods: * DNS records * Local host files (e.g. `/etc/hosts`)
+methods:
+
+ * DNS records
+ * Local host files (e.g. `/etc/hosts`)
 
 In more restrictive environments, where DNS record or
 hosts file modification is restricted, impossible or
