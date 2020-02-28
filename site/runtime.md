@@ -36,6 +36,7 @@ Topics covered include:
  * How to [configure Erlang VM settings for RabbitMQ](#vm-settings) nodes
  * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
  * [Memory allocator](#allocators) settings
+ * Runtime features that affect [CPU utilisation](#cpu)
  * Runtime [thread activity metrics](#thread-stats)
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
@@ -67,8 +68,15 @@ characteristics or system limits can be unintentionally affected.
 As with other environment variables used by RabbitMQ, `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`
 and friends can be [set using a separate environment variable file](/configure.html#customise-environment).
 
+## <a id="cpu" class="anchor" href="#cpu">CPU Utilisation</a>
 
-## <a id="scheduling" class="anchor" href="#scheduling">Runtime Schedulers</a>
+CPU utilisation is a workload-specific topic. Generally speaking, when a workload involves more queues, connections
+and channels than CPU cores, all cores will be used without any configuration necessary.
+
+The runtime provides several features that control how the cores are used.
+
+
+### <a id="scheduling" class="anchor" href="#scheduling">Runtime Schedulers</a>
 
 Schedulers in the runtime assign work to kernel threads that perform it.
 They execute code, perform I/O, execute timers and so on. Schedulers have a number of settings
@@ -86,7 +94,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+S 4:4"
 Most of the time the default behaviour works well. In shared or CPU constrained environments (including
 containerised ones), explicitly configuring scheduler count may be necessary.
 
-### CPU Resource Contention
+### <a id="cpu-contention" class="anchor" href="#cpu-contention">CPU Resource Contention</a>
 
 The runtime assumes that it does not share CPU resources with other tools or tenants. When that's the case,
 the scheduling mechanism used can become very inefficient and result in significant (up to several orders of magnitude)
@@ -94,6 +102,37 @@ latency increase for certain operations.
 
 This means that in most cases colocating RabbitMQ nodes with other tools or applying CPU time slicing
 is highly discourage and will result in suboptimal performance.
+
+### <a id="busy-waiting" class="anchor" href="#busy-waiting">Scheduler Busy Waiting</a>
+
+The runtime can put schedulers to sleep when they run out of work to execute. There's a certain cost
+to bringing them back online, so with some workloads it may be beneficial to not do that.
+
+This cam be compared to a factory with multiple conveyor belts. When one belt runs out of items,
+it can be stopped. However, once more work is there for it to do, restarting it will take time.
+Alternatively the conveyor can be speculatively kept running for a period of time.
+
+By default, RabbitMQ nodes configure runtime schedulers to speculatively wait for a short period
+of time before going to sleep. Workloads where there can be prolonged periods of inactivity
+can choose to disable this speculative busy waiting using the [`+sbwt` and related flags](https://erlang.org/doc/man/erl.html):
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
+</pre>
+
+This can also reduce CPU usage on systems with limited or burstable CPU resources.
+
+In order to use the minimum amount of busy waiting, use:
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt very_short +sbwtdcpu very_short +sbwtdio very_short"
+</pre>
+
+Disabling busy waiting can result in higher latency and lower throughput but generally
+does reduce CPU usage of the node that can go idle for periods of time.
+
+In order to determine how much time schedulers spend in busy wait, consult [thread activity metrics](#thread-stats).
+Busy waiting will usually be accounted as system time in the output of tools such as `top` and `pidstat`.
 
 ### <a id="scheduler-bind-type" class="anchor" href="#scheduler-bind-type">Scheduler-to-CPU Core Binding</a>
 
@@ -128,16 +167,6 @@ Valid values are:
  * `ns`
 
 See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detailed descriptions.
-
-### <a id="scheduler-wakeup-threshold" class="anchor" href="#scheduler-wakeup-threshold">Scheduler Wakeup Threshold</a>
-
-It is possible to make schedulers that currently do not have work to do using the [`+sbwt` flag](http://erlang.org/doc/man/erl.html):
-
-<pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none"
-</pre>
-
-The value of `none` can reduce CPU usage on systems that have a large number of mostly idle connections.
 
 
 ## <a id="allocators" class="anchor" href="#allocators">Memory Allocator Settings</a>
