@@ -811,8 +811,9 @@ In the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
-  {rabbitmq_management,
-    [{cors_allow_origins, ["https://origin1.org", "https://origin2.org"]}]},
+  {rabbitmq_management, [
+    {cors_allow_origins, ["https://origin1.org", "https://origin2.org"]}
+  ]}
 ].</pre>
 
 It is possible to allow any origin to use the API using a wildcard.
@@ -827,8 +828,9 @@ In the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
-  {rabbitmq_management,
-    [{cors_allow_origins, ["*"]}]},
+  {rabbitmq_management, [
+    {cors_allow_origins, ["*"]}
+  ]}
 ].</pre>
 
 The CORS pre-flight requests are cached by the browser.
@@ -845,9 +847,10 @@ In the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
-  {rabbitmq_management,
-    [{cors_allow_origins, ["https://origin1.org", "https://origin2.org"]},
-     {cors_max_age, 3600}]},
+  {rabbitmq_management, [
+    {cors_allow_origins, ["https://origin1.org", "https://origin2.org"]},
+    {cors_max_age, 3600}
+  ]}
 ].</pre>
 
 ### <a id="login-session-timeout" class="anchor" href="#login-session-timeout">Login Session Timeout</a>
