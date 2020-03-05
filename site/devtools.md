@@ -84,7 +84,7 @@ Miscellaneous projects:
  * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
- * [aio-amqp](https://pypi.org/project/aio-amqp/), a asynchronous AMQP client for 0.9.1 protocol version ([source code](https://github.com/NotJustAToy/aio-amqp))
+ * [aio-amqp](https://pypi.org/project/aio-amqp/), another asynchronous Python client built around asyncio ([source code](https://github.com/NotJustAToy/aio-amqp))
 
 
 ## <a id="php-dev" class="anchor" href="#php-dev">PHP</a>
