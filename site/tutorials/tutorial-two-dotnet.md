@@ -255,7 +255,9 @@ consumer.Received += (model, ea) =>
 
     Console.WriteLine(" [x] Done");
 
-    model.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    // Note: it is possible to acknowledge using a captured channel
+    //       reference, too. Model refers to the
+    ((IModel)model).BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
 channel.BasicConsume(queue: "task_queue", autoAck: false, consumer: consumer);
 </pre>
@@ -495,7 +497,7 @@ class Worker
 
                 Console.WriteLine(" [x] Done");
 
-                model.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                ((IModel)model).BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
             channel.BasicConsume(queue: "task_queue",
                                  autoAck: false,
