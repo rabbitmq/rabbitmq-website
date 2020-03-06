@@ -1008,7 +1008,7 @@ Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Netwo
 
 ## <a id="erlang" class="anchor" href="#erlang">Erlang Versions Across the Cluster</a>
 
-All nodes in a cluster must run the same minor [version of Erlang](/which-erlang.html): `21.3.4`
+All nodes in a cluster are *highly recommended* to run the same minor [version of Erlang](/which-erlang.html): `21.3.4`
 and `21.3.6` can be mixed but `21.0.1` and `21.3.6` (or `20.3` and `22.0.6`) cannot.
 Compatibility between individual Erlang/OTP patch versions
 can vary between releases but that's generally rare.
