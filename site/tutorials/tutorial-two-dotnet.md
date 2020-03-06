@@ -497,6 +497,8 @@ class Worker
 
                 Console.WriteLine(" [x] Done");
 
+                // Note: it is possible to acknowledge using a captured channel
+                //       reference, too. Model refers to the
                 ((IModel)model).BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
             channel.BasicConsume(queue: "task_queue",
