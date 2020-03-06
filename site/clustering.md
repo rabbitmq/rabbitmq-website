@@ -1020,20 +1020,25 @@ A client can connect as normal to any node within a
 cluster. If that node should fail, and the rest of the
 cluster survives, then the client should notice the closed
 connection, and should be able to reconnect to some
-surviving member of the cluster. Generally, it's not
-advisable to bake in node hostnames or IP addresses into
+surviving member of the cluster.
+
+Many clients support lists of hostnames that will be tried in order
+at connection time.
+
+Generally it is not recommended to hardcode IP addresses into
 client applications: this introduces inflexibility and will
 require client applications to be edited, recompiled and
 redeployed should the configuration of the cluster change or
-the number of nodes in the cluster change. Instead, we
-recommend a more abstracted approach: this could be a
+the number of nodes in the cluster change.
+
+Instead, consider a more abstracted approach: this could be a
 dynamic DNS service which has a very short TTL
-configuration, or a plain TCP load balancer, or some sort of
-mobile IP achieved with pacemaker or similar
-technologies. In general, this aspect of managing the
+configuration, or a plain TCP load balancer, or a combination of them.
+
+In general, this aspect of managing the
 connection to nodes within a cluster is beyond the scope of
-RabbitMQ itself, and we recommend the use of other
-technologies designed specifically to solve these problems.
+this guide, and we recommend the use of other
+technologies designed specifically to address these problems.
 
 
 ## <a id="ram-nodes" class="anchor" href="#ram-nodes">Clusters with RAM nodes</a>
