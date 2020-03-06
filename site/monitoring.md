@@ -488,7 +488,7 @@ except for upgrades and maintenance windows.
 [`rabbitmq-diagnostics ping`](/rabbitmq-diagnostics.8.html) performs this check:
 
 <pre class="lang-bash">
-rabbitmq-diagnostics ping -q
+rabbitmq-diagnostics -q ping
 # =&gt; Ping succeeded if exit code is 0
 </pre>
 
