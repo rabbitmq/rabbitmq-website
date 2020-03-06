@@ -109,11 +109,10 @@ OS swapping, and can even result in RabbitMQ process termination.
 A few recommendations when adjusting the default
 `vm_memory_high_watermark`:
 
- * Nodes hosting RabbitMQ should have at least <strong>128MB</strong> of
-   memory available at all times.
- * The recommended `vm_memory_high_watermark` range is
-   `0.40 to 0.66`
- * Values above `0.7` are not recommended. The OS and
+ * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
+   memory available at all times. Deployments that use [quorum queues](/quorum-queues.html), [Shovel](/shovel.html) and [Federation](/federation.html) may need more.
+ * The recommended `vm_memory_high_watermark` range is `0.40 to 0.7`
+ * Values above `0.7` should be used with care and with solid [kernel metric monitoring](/monitoring.html) in place. The OS and
    file system must be left with at least 30% of the memory,
    otherwise performance may degrade severely due to paging.
 
