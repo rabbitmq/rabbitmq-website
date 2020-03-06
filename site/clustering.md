@@ -996,14 +996,14 @@ you may want to investigate setting the environment variable
 See the section on [hostname resolution](/clustering.html#overview-hostname-requirements) for more information.
 
 
-## <a id="firewall" class="anchor" href="#firewall">Firewalled nodes</a>
+## <a id="firewall" class="anchor" href="#firewall">Firewalled Nodes</a>
 
-The case for firewalled clustered nodes exists when nodes
-are in a data center or on a reliable network, but separated
-by firewalls. Again, clustering is not recommended over a WAN or
-when network links between nodes are unreliable.
+Nodes can have a firewall enabled on them. In such case, traffic on certain ports must be
+allowed by the firewall in both directions, or nodes won't be able to join each other and
+perform all the operations they expect to be available on cluster peers.
 
 Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Networking guide](/networking.html).
+
 
 
 ## <a id="erlang" class="anchor" href="#erlang">Erlang Versions Across the Cluster</a>
