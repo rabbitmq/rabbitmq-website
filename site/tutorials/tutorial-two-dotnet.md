@@ -244,7 +244,7 @@ worker, once we're done with a task.
 
 <pre class="lang-csharp">
 var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
+consumer.Received += (sender, ea) =>
 {
     var body = ea.Body;
     var message = Encoding.UTF8.GetString(body);
@@ -255,9 +255,9 @@ consumer.Received += (model, ea) =>
 
     Console.WriteLine(" [x] Done");
 
-    // Note: it is possible to acknowledge using a captured channel
-    //       reference, too. Model refers to the
-    ((IModel)model).BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    // Note: it is possible to access the channel via
+    //       ((EventingBasicConsumer)sender).Model here
+    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
 channel.BasicConsume(queue: "task_queue", autoAck: false, consumer: consumer);
 </pre>
@@ -486,7 +486,7 @@ class Worker
             Console.WriteLine(" [*] Waiting for messages.");
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
+            consumer.Received += (sender, ea) =>
             {
                 var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
@@ -497,9 +497,9 @@ class Worker
 
                 Console.WriteLine(" [x] Done");
 
-                // Note: it is possible to acknowledge using a captured channel
-                //       reference, too. Model refers to the
-                ((IModel)model).BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                // Note: it is possible to access the channel via
+                //       ((EventingBasicConsumer)sender).Model here
+                channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
             channel.BasicConsume(queue: "task_queue",
                                  autoAck: false,
