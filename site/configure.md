@@ -1658,7 +1658,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_MNESIA_DIR</td>
     <td>
-      The directory where this RabbitMQ node's data is stored. This s
+      The directory where this RabbitMQ node's data is stored. This includes
       a schema database, message stores, cluster member information and other
       persistent node state.
 
