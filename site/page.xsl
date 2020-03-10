@@ -14,7 +14,7 @@
                 version="1.0">
 
 <!--
-Copyright (c) 2007-2020 Pivotal Software, Inc.
+Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -198,7 +198,7 @@ limitations under the License.
           </xsl:if>
         </ul>
         <p id="copyright">
-          Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
+          Copyright &#169; 2007-2020 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
           <a href="https://pivotal.io/legal">Terms of Use</a>,
           <a href="https://pivotal.io/privacy-policy">Privacy</a> and
           <a href="/trademark-guidelines.html">Trademark Guidelines</a>
