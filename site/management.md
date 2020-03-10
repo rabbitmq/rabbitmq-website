@@ -726,7 +726,7 @@ at least one retention setting (period).
 
 It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be an useful feature if external monitoring solutions such as [Prometheus and Grafana](/prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
 
-In order to completely disable the internal metrics collection, the `disable_metrics_collection` flag must be set in the `rabbitmq_management_agent` plugin. The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
+In order to completely disable the internal metrics collection, the `disable_metrics_collector` flag must be set in the `rabbitmq_management_agent` plugin. The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
 
 <pre class="lang-ini">
 management_agent.disable_metrics_collector = true
