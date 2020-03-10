@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2020 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -114,7 +114,7 @@ the RabbitMQ broker to a client may look like:
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
   "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (c) 2007-2020 VMware, Inc. or its affiliates.",
+  "copyright"    = (longstr) "Copyright (c) 2007-2020 Pivotal Software, Inc.",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
