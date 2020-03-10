@@ -38,6 +38,19 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.3</td>
+    <td class="centre">10 March 2020</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+        <li>Minor usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.24</td>
     <td class="centre">13 February 2020</td>
     <td>

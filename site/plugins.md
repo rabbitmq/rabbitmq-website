@@ -117,21 +117,21 @@ value on various platforms.
 
 The built-in plugin directory is by definition version-independent: its contents will change
 from release to release. So will its exact path (by default) which contains version number,
-e.g. `/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.2/plugins`. Because of this
+e.g. `/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.3/plugins`. Because of this
 automated installation of 3rd party plugins into this directory is harder and more error-prone,
 and therefore not recommended. To solve this problem, the plugin directory can be a list
 of paths separated by a colon (on Linux, MacOS, BSD):
 
 <pre class="lang-bash">
 # Example rabbitmq-env.conf file that features a colon-separated list of plugin directories
-PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.2/plugins"
+PLUGINS_DIR="/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.3/plugins"
 </pre>
 
 On Windows, a semicolon is used as path separator:
 
 <pre class="lang-powershell">
 # Example rabbitmq-env-conf.bat file that features a colon-separated list of plugin directories
-PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.8.2\plugins"
+PLUGINS_DIR="C:\Example\RabbitMQ\plugins;C:\Example\RabbitMQ\rabbitmq_server-3.8.3\plugins"
 </pre>
 
 Plugin directory paths that don't have a version-specific component and are not updated
@@ -148,7 +148,7 @@ with a running RabbitMQ node:
 
 <pre class="lang-bash">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.2/plugins"}
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.3/plugins"}
 </pre>
 
 The first directory in the example above is the 3rd party plugin directory.
@@ -221,7 +221,7 @@ with a running RabbitMQ node:
 
 <pre class="lang-bash">
 rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.2/plugins"}
+# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.3/plugins"}
 </pre>
 
 The first directory in the example above is the 3rd party plugin directory.

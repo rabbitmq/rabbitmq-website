@@ -335,34 +335,34 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 </pre>
 
-The following preference file example will pin all `erlang-*` packages to `22.2.1`
+The following preference file example will pin all `erlang-*` packages to `22.2.8`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:22.2.1-1
+Pin: version 1:22.2.8-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `rabbitmq-server` package to to `3.8.2`
+The following preference file example will pin `rabbitmq-server` package to to `3.8.3`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/rabbitmq
 Package: rabbitmq-server
-Pin: version 1:3.8.2
+Pin: version 1:3.8.3
 Pin-Priority: 1000
 </pre>
 
 
-In the example below, the `esl-erlang` package is pinned to to to `22.2.1`
+In the example below, the `esl-erlang` package is pinned to to to `22.2.8`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:22.2.1
+Pin: version 1:22.2.8
 Pin-Priority: 1000
 </pre>
 
