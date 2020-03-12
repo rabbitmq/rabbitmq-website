@@ -938,9 +938,8 @@ body#index #getstarted,
 /* Homepage hero: Summit 2 */
 
 #hero #hero-summit {
-  background: url(../img/home/banner/cfp/Rabbit-MQ-CFP-2020-PC.svg) no-repeat center center;
-  padding: 70px 0px;
-  background-size: cover;
+  background: url(../img/home/banner/home-banner-summit-promo-desktop.svg) no-repeat center center;
+  padding: 70px 0 40px;
 }
 
 #hero #hero-summit .container {
@@ -952,9 +951,9 @@ body#index #getstarted,
 #hero #hero-summit h2 a {
   font-weight: normal;
 }
-@media(max-width: 800px) {
+@media(max-width: 880px) {
   #hero #hero-summit {
-    background: url(../img/home/banner/cfp/Rabbit-MQ-CFP-2020-Tablet.svg) no-repeat right;
+    background: url(../img/home/banner/home-banner-summit-promo-tablet.svg) no-repeat right;
     background-size: cover;
   }
   #hero #hero-summit .container {
@@ -962,9 +961,9 @@ body#index #getstarted,
   }
 }
 
-@media(max-width:680px) {
+@media(max-width: 740px) {
   #hero #hero-summit {
-    background: url(../img/home/banner/cfp/Rabbit-MQ-CFP-2020-phone.svg) no-repeat bottom right;
+    background: url(../img/home/banner/home-banner-summit-promo-smartphone.svg) no-repeat bottom right;
     background-size: 100%;
     padding-bottom: 180px;
     text-align: center;
