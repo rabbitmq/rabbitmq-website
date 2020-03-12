@@ -945,23 +945,20 @@ body#index #getstarted,
 #hero #hero-summit .container {
   max-width: 840px;
   padding: 0 20px;
-  margin: 0;
 }
 
 #hero #hero-summit h2 a {
   font-weight: normal;
 }
-@media(max-width: 880px) {
+
+@media(max-width: 800px) {
   #hero #hero-summit {
     background: url(../img/home/banner/home-banner-summit-promo-tablet.svg) no-repeat right;
     background-size: cover;
   }
-  #hero #hero-summit .container {
-    max-width: 440px;
-  }
 }
 
-@media(max-width: 740px) {
+@media(max-width: 660px) {
   #hero #hero-summit {
     background: url(../img/home/banner/home-banner-summit-promo-smartphone.svg) no-repeat bottom right;
     background-size: 100%;
@@ -973,10 +970,6 @@ body#index #getstarted,
   }
   #hero #hero-summit #date {
     display: none;
-  }
-  #hero #hero-summit .container {
-    max-width: 100%;
-    margin: 0 auto;
   }
 }
 
