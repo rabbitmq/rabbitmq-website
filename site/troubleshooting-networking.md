@@ -38,7 +38,7 @@ are often effective and sufficient:
 
  * [Verify client configuration](#verify-client)
  * [Verify server configuration](#verify-server) using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>,
-   <code>[rabbitmqctl](rabbitmqctl.8.html) status</code>, <code>rabbitmqctl environment</code>
+   <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>, <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) environment</code>
  * Inspect [server logs](#server-logs)
  * Verify [hostname resolution](#hostname-resolution)
  * Verify what TCP [port are used and their accessibility](#ports)
@@ -70,11 +70,18 @@ Verifying server configuration helps prove that RabbitMQ is running
 with the expected set of settings related to networking. It also verifies
 that the node is actually running. Here are the recommended steps:
 
- * Make sure the node is running using <code>[rabbitmqctl](/rabbitmqctl.8.html) status</code>
+ * Make sure the node is running using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>
  * Verify [config file is correctly placed and has correct syntax/structure](/configure.html#configuration-files)
  * Inspect listeners using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>
-   or the <code>listeners</code> section in <code>[rabbitmqctl](/rabbitmqctl.8.html) status</code>
- * Inspect effective configuration using <code>[rabbitmqctl](/rabbitmqctl.8.html) environment</code>
+   or the `listeners` section in <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>
+ * Inspect effective configuration using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) environment</code>
+
+Note that in older RabbitMQ versions, the `status` and `environment` commands
+were only available as part of [rabbitmqctl](/rabbitmqctl.8.html):
+<code>[rabbitmqctl](/rabbitmqctl.8.html) status</code> and so on.
+In modern versions either tool can be used to run those commands but
+[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) is what most documentation guides
+will typically recommend.
 
 The listeners sections will look something like this:
 
@@ -89,29 +96,17 @@ Interface: [::], port: 1883, protocol: mqtt, purpose: MQTT
 
 In the above example, there are 6 TCP listeners on the node:
 
- * Inter-node and CLI tool communication on port <code>25672</code>
- * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections on port <code>5672</code>
- * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port <code>5671</code>
+ * [Inter-node](/clustering.html) and [CLI tool](/cli.html) communication on port `25672`
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections on port `5672`
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port `5671`
  * [HTTP API](/management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
  * [MQTT](/mqtt.html) listener for non-TLS connections 1883
 
-With <code>rabbitmqctl status</code> it will look like so:
-
-<pre class="lang-erlang">
-% ...
-{listeners,
-   [{clustering,25672,"::"},
-    {amqp,5672,"::"},
-    {'amqp/ssl',5671,"::"},
-    {http,15672,"::"}]}
-% ...
-</pre>
-
 In second example, there are 4 TCP listeners on the node:
 
- * Inter-node and CLI tool communication port, <code>25672</code>
- * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections, <code>5672</code>
- * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections, <code>5671</code>
+ * [Inter-node](/clustering.html) and [CLI tool](/cli.html) communication on port `25672`
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections, `5672`
+ * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections, `5671`
  * [HTTP API](/management.html) listener on ports 15672 (HTTP only)
 
 All listeners are bound to all available interfaces.
@@ -126,10 +121,13 @@ listener list it means the node cannot accept any connections on it.
 RabbitMQ nodes will [log](/logging.html) key
 client [connection lifecycle events](/logging.html#connection-lifecycle-events).
 A TCP connection must be successfully established and at least 1 byte of data must be
-sent by the peer for a connection to be considered (and
-logged as) accepted. If no events are logged, this means
-that either there were no successful TCP connections or they
-sent no data.
+sent by the peer for a connection to be considered (and logged as) accepted.
+
+From this point, connection handshake and negotiation proceeds as defined by the specification
+of the messaging protocol used, e.g. AMQP 0-9-1, AMQP 1.0 or MQTT.
+
+If no events are logged, this means that either there were no successful inbound TCP connections
+or they sent no data.
 
 ## <a id="hostname-resolution" class="anchor" href="#hostname-resolution">Hostname Resolution</a>
 
@@ -144,9 +142,12 @@ TCP port inaccessibility for outside connections is a common reason for
 failing client connections. [telnet](https://en.wikipedia.org/wiki/Telnet) is a commonly
 used, very minimalistic tool for testing TCP connections to a particular hostname and port.
 
-The following example uses <code>telnet</code> to connect to host <code>localhost</code> on port <code>5672</code>.
-There is a running node with stock defaults running on <code>localhost</code> and nothing blocks access to the port, so
-the connection succeeds. <code>12345</code> is then entered for input followed by Enter. Since <code>12345</code> is not a correct AMQP protocol header,
+The following example uses `telnet` to connect to host `localhost` on port `5672`.
+There is a running node with stock defaults running on `localhost` and nothing blocks access to the port, so
+the connection succeeds. `12345` is then entered for input followed by an Enter.
+This data will be sent to the node on the opened connection.
+
+Since `12345` is not a correct AMQP 0-9-1 or AMQP 1.0 protocol header,
 so the server closes TCP connection:
 
 <pre class="lang-bash">
@@ -158,10 +159,10 @@ telnet localhost 5672
 # => AMQP	Connection closed by foreign host.
 </pre>
 
-After <code>telnet</code> connection succeeds, use <code>Control + ]</code> and then <code>Control + D</code> to
+After `telnet` connection succeeds, use `Control + ]` and then `Control + D` to
 quit it.
 
-The following example connects to <code>localhost</code> on port <code>5673</code>.
+The following example connects to `localhost` on port `5673`.
 The connection fails (refused by the OS) since there is no process listening on that port.
 
 <pre class="lang-bash">
@@ -173,7 +174,7 @@ telnet localhost 5673
 # => telnet: Unable to connect to remote host
 </pre>
 
-Failed or timing out <code>telnet</code> connections
+Failed or timing out `telnet` connections
 strongly suggest there's a proxy, load balancer or firewall
 that blocks incoming connections on the target port. It
 could also be due to RabbitMQ process not running on the
@@ -183,13 +184,13 @@ listener configuration.
 
 There's a great number of firewall, proxy and load balancer tools and products.
 [iptables](https://en.wikipedia.org/wiki/Iptables) is a commonly used
-firewall on Linux and other UNIX-like systems. There is no shortage of <code>iptables</code>
+firewall on Linux and other UNIX-like systems. There is no shortage of `iptables`
 tutorials on the Web.
 
 Open ports, TCP and UDP connections of a node can be inspected using [netstat](https://en.wikipedia.org/wiki/Netstat),
 [ss](https://linux.die.net/man/8/ss), [lsof](https://en.wikipedia.org/wiki/Lsof).
 
-The following example uses <code>lsof</code> to display OS processes that listen on port 5672 and use IPv4:
+The following example uses `lsof` to display OS processes that listen on port 5672 and use IPv4:
 
 <pre class="lang-ini">
 sudo lsof -n -i4TCP:5672 | grep LISTEN
@@ -214,7 +215,7 @@ sudo lsof -n -i6TCP:1883 | grep LISTEN
 
 If the above commands produce no output then no local OS processes listen on the given port.
 
-The following example uses <code>ss</code> to display listening TCP sockets that use IPv4 and their OS processes:
+The following example uses `ss` to display listening TCP sockets that use IPv4 and their OS processes:
 
 <pre class="lang-ini">
 sudo ss --tcp -f inet --listening --numeric --processes
@@ -230,7 +231,7 @@ For the list of ports used by RabbitMQ and its various
 plugins, see above. Generally all ports used for external
 connections must be allowed by the firewalls and proxies.
 
-<code>rabbitmq-diagnostics listeners</code> and <code>rabbitmqctl status</code> can be
+`rabbitmq-diagnostics listeners` and `rabbitmqctl status` can be
 used to list enabled listeners and their ports on a RabbitMQ node.
 
 ## <a id="ip-routing" class="anchor" href="#ip-routing">IP Routing</a>
@@ -240,11 +241,11 @@ clients and RabbitMQ hosts to be functional. There are several tools and techniq
 that can be used to verify IP routing between two hosts. [traceroute](https://en.wikipedia.org/wiki/Traceroute) and [ping](https://en.wikipedia.org/wiki/Ping_(networking_utility))
 are two common options available for many operating systems. Most routing table inspection tools are OS-specific.
 
-Note that both <code>traceroute</code> and <code>ping</code> use [ICMP](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)
+Note that both `traceroute` and `ping` use [ICMP](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)
 while RabbitMQ client libraries and inter-node connections use TCP.
-Therefore a successful <code>ping</code> run alone does not guarantee successful client connectivity.
+Therefore a successful `ping` run alone does not guarantee successful client connectivity.
 
-Both <code>traceroute</code> and <code>ping</code> have Web-based and GUI tools built on top.
+Both `traceroute` and `ping` have Web-based and GUI tools built on top.
 
 ## <a id="traffic-capture" class="anchor" href="#traffic-capture">Capturing Traffic</a>
 
@@ -275,7 +276,7 @@ triggering a protocol parser exception. Such exceptions will be logged by the se
 Open ports, TCP and UDP connections of a node can be inspected using [netstat](https://en.wikipedia.org/wiki/Netstat),
 [ss](https://linux.die.net/man/8/ss), [lsof](https://en.wikipedia.org/wiki/Lsof).
 
-The following example uses <code>netstat</code> to list all TCP connection sockets regardless of their state and interface.
+The following example uses `netstat` to list all TCP connection sockets regardless of their state and interface.
 IP addresses will be displayed as numbers instead of being resolved to domain names. Program names will be printed next
 to numeric port values (as opposed to protocol names).
 
@@ -286,7 +287,7 @@ sudo netstat --all --numeric --tcp --programs
 Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
 Federation links and Shovels) connections can be inspected this way.
 
-<code>rabbitmqctl list_connections</code> and management UI can be used to inspect
+`rabbitmqctl list_connections` and management UI can be used to inspect
 more connection properties, some of which are RabbitMQ- or messaging protocol-specific:
 
  * Network traffic flow, both inbound and outbound
@@ -299,17 +300,17 @@ more connection properties, some of which are RabbitMQ- or messaging protocol-sp
  * Effective heartbeat timeout
  * TLS details
 
-Combining connection information from management UI or CLI tools with those of <code>netstat</code> or <code>ss</code>
+Combining connection information from management UI or CLI tools with those of `netstat` or `ss`
 can help troubleshoot misbehaving applications, application instances and client libraries.
 
 ## <a id="detecting-high-connection-churn" class="anchor" href="#detecting-high-connection-churn">Detecting High Connection Churn</a>
 
 High connection churn (lots of connections opened and closed after a brief
 period of time) [can lead to resource exhaustion](/networking.html#dealing-with-high-connection-churn).
-It is therefore important to be able to identify such scenarios. <code>netstat</code> and <code>ss</code>
+It is therefore important to be able to identify such scenarios. `netstat` and `ss`
 are most popular options for [inspecting TCP connections](troubleshooting-inspecting-connections).
-A lot of connections in the <code>TIME_WAIT</code> state is a likely symptom of high connection churn.
-Lots of connections in states other than <code>ESTABLISHED</code> also might be a symptom worth investigating.
+A lot of connections in the `TIME_WAIT` state is a likely symptom of high connection churn.
+Lots of connections in states other than `ESTABLISHED` also might be a symptom worth investigating.
 
 Evidence of short lived connections can be found in RabbitMQ log files. E.g. here's an example
 of such connection that lasted only a few milliseconds:
