@@ -37,8 +37,9 @@ starting at higher levels. Specifically for messaging technologies, the followin
 are often effective and sufficient:
 
  * [Verify client configuration](#verify-client)
- * [Verify server configuration](#verify-server) using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>,
-   <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>, <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) environment</code>
+ * [Verify server configuration](#verify-server) using <code>[rabbitmq-diagnostics][2] listeners</code>,
+   <code>[rabbitmq-diagnostics][2] status</code>,
+   <code>[rabbitmq-diagnostics][2] environment</code>
  * Inspect [server logs](#server-logs)
  * Verify [hostname resolution](#hostname-resolution)
  * Verify what TCP [port are used and their accessibility](#ports)
@@ -70,17 +71,17 @@ Verifying server configuration helps prove that RabbitMQ is running
 with the expected set of settings related to networking. It also verifies
 that the node is actually running. Here are the recommended steps:
 
- * Make sure the node is running using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>
+ * Make sure the node is running using <code>[rabbitmq-diagnostics][2] status</code>
  * Verify [config file is correctly placed and has correct syntax/structure](/configure.html#configuration-files)
- * Inspect listeners using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>
-   or the `listeners` section in <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>
- * Inspect effective configuration using <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) environment</code>
+ * Inspect listeners using <code>[rabbitmq-diagnostics][2] listeners</code>
+   or the `listeners` section in <code>[rabbitmq-diagnostics][2] status</code>
+ * Inspect effective configuration using <code>[rabbitmq-diagnostics][2] environment</code>
 
 Note that in older RabbitMQ versions, the `status` and `environment` commands
-were only available as part of [rabbitmqctl](/rabbitmqctl.8.html):
-<code>[rabbitmqctl](/rabbitmqctl.8.html) status</code> and so on.
+were only available as part of [rabbitmqctl][1]:
+<code>[rabbitmqctl][1] status</code> and so on.
 In modern versions either tool can be used to run those commands but
-[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) is what most documentation guides
+[rabbitmq-diagnostics][2] is what most documentation guides
 will typically recommend.
 
 The listeners sections will look something like this:
@@ -287,8 +288,9 @@ sudo netstat --all --numeric --tcp --programs
 Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
 Federation links and Shovels) connections can be inspected this way.
 
-`rabbitmqctl list_connections` and management UI can be used to inspect
-more connection properties, some of which are RabbitMQ- or messaging protocol-specific:
+<code>[rabbitmqctl][1] list_connections</code>, [management UI](/management.html)
+can be used to inspect more connection properties, some of which are RabbitMQ- or
+messaging protocol-specific:
 
  * Network traffic flow, both inbound and outbound
  * Messaging (application-level) protocol used
@@ -302,6 +304,10 @@ more connection properties, some of which are RabbitMQ- or messaging protocol-sp
 
 Combining connection information from management UI or CLI tools with those of `netstat` or `ss`
 can help troubleshoot misbehaving applications, application instances and client libraries.
+
+Most relevant connection metrics can be collected, aggregated and [monitored](/monitoring.html)
+using [Prometheus and Grafana](/prometheus.html). 
+
 
 ## <a id="detecting-high-connection-churn" class="anchor" href="#detecting-high-connection-churn">Detecting High Connection Churn</a>
 
@@ -320,3 +326,6 @@ of such connection that lasted only a few milliseconds:
 2018-06-17 16:23:29.853 [info] &lt;0.634.0&gt; connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 2018-06-17 16:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
+
+[1]: /rabbitmqctl.8.html
+[2]: /rabbitmq-diagnostics.8.html
