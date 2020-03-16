@@ -23,8 +23,8 @@ limitations under the License.
     <th>Version</th>
     <th>Latest patch</th>
     <th>First Release</th>
-    <th>End of Free Support</th>
-    <th>End of Extended Support</th>
+    <th>End of General Support</th>
+    <th>End of Extended Support*</th>
     <th>In service for</th>
   </tr>
 
@@ -46,6 +46,8 @@ limitations under the License.
     <td>28 months + 6 months</td>
   </tr>
 </table>
+
+**Extended Support**: *security fixes* &amp; *high-severity issues* reported by users with a support contract.
 
 <table class="release-series">
   <caption>Release series that are out of support</caption>
