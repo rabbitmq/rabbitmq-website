@@ -57,6 +57,9 @@ provide binary 64-bit builds of Erlang as well.
 otherwise a registry key expected by the RabbitMQ installer will not be
 present.
 
+**Important:** your system should only have one version of Erlang installed.
+Please consult the [Windows-specific Issues](windows-quirks.html) page.
+
 Once a supported version of Erlang is installed, download the RabbitMQ installer (<code><span class="path">rabbitmq-server-&version-server;.exe</span></code>) and run it.
 It installs RabbitMQ as a Windows service and starts it using the default configuration.
 

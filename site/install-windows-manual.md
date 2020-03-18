@@ -32,6 +32,9 @@ and <code>\erl<var>x.x.x</var>\bin\erl.exe</code> will be in
 `&dir-win32-apps;` or `&dir-win-apps;`, depending on
 your platform and whether you chose a 32bit or 64bit version of Erlang.
 
+**Important:** your system should only have one version of Erlang installed.
+Please consult the [Windows-specific Issues](windows-quirks.html) page.
+
 ### <a id="set-erlang-home-variable" class="anchor" href="#set-erlang-home-variable">Make Sure ERLANG_HOME is Set</a>
 
 In case there's an existing RabbitMQ installation with the broker running as a service and

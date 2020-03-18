@@ -22,6 +22,23 @@ Windows. However, sometimes there are circumstances beyond our
 control that can introduce quirky behaviour. This page documents
 them.
 
+## Multiple versions of Erlang may cause installation issues
+
+Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed - the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
+
+<ul>
+  <li>Stop the RabbitMQ windows service</li>
+  <li>Un-install Erlang</li>
+  <li>Install the new version of Erlang</li>
+  <li>Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run these commands:
+    <pre class="lang-text">
+    .\rabbitmq-service.bat remove
+    .\rabbitmq-service.bat install
+    .\rabbitmq-service.bat start
+    </pre>
+  </li>
+</ul>
+
 ## Cannot install to a path with non-ASCII characters
 
 RabbitMQ will fail to start with the error that reads
@@ -76,9 +93,7 @@ country-specific encoding.
   </li>
 </ul>
 
-## Installing as a non-administrator user leaves <a href="/clustering.html#erlang-cookie">.erlang.cookie</a>
-in the wrong place
-
+## Installing as a non-administrator user leaves `.erlang.cookie` in the wrong place
 
 This makes it impossible to use [CLI tools](/cli.html) and cluster nodes.
 
@@ -95,6 +110,8 @@ This makes it impossible to use [CLI tools](/cli.html) and cluster nodes.
     to <code>%HOMEDRIVE%%HOMEPATH%</code>.
   </li>
 </ul>
+
+Please also refer to the `.erlang.cookie` [documentation](/clustering.html#erlang-cookie).
 
 ## <a id="computername-vs-hostname" class="anchor" href="#computername-vs-hostname">COMPUTERNAME is different from HOSTNAME</a>
 
