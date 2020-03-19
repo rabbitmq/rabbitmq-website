@@ -17,7 +17,7 @@ limitations under the License.
 
 # .NET/C# RabbitMQ Client Library
 
-    ## <a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
 library for C# (and, implicitly, other .NET languages).
