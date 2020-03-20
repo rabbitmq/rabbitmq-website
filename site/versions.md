@@ -17,8 +17,10 @@ limitations under the License.
 
 # Release Series
 
+
+## <a id="currently-supported" class="anchor" href="#currently-supported">Currently supported release series</a>
+
 <table class="release-series">
-  <caption>Currently supported release series</caption>
   <tr>
     <th>Version</th>
     <th>Latest patch</th>
@@ -49,8 +51,10 @@ limitations under the License.
 
 **Extended Support**: *security fixes* &amp; *high-severity issues* reported by users with a support contract.
 
+
+## <a id="out-of-support" class="anchor" href="#out-of-support">Release series that are out of support</a>
+
 <table class="release-series">
-  <caption>Release series that are out of support</caption>
   <tr>
     <th>Version</th>
     <th>Last patch</th>
@@ -118,7 +122,8 @@ limitations under the License.
 
 If you want to learn more about individual releases, please see the [change log](/changelog.html).
 
-## Versions prior to v3.x
+
+## <a id="prior-to-v3x" class="anchor" href="#prior-to-v3x">Versions prior to v3.x</a>
 
 RabbitMQ <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v2_0_0" target="_blank">v2.0.0</a> was released on 24 August 2010.
 <br />It reached end of life on 31 December 2012 as <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v2_8_7" target="_blank">v2.8.7</a>.
