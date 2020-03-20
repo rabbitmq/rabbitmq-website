@@ -27,7 +27,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 [Starting in January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series: `22.x` and `21.3.x`.
+RabbitMQ supports two most recent Erlang release series: `22.x` and `21.x`.
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
@@ -92,7 +92,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>
-          <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.3.x</code> support is discontinued</a>
+          <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.x</code> support is discontinued</a>
         </li>
         <li>Erlang 22.x dropped support for HiPE</li>
       </ul>
@@ -142,13 +142,13 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>21.3.x</li>
+        <li>21.x</li>
       </ul>
     </td>
     <td>
       <ul class="notes">
-        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">Erlang/OTP <code>19.3.x</code> support is discontinued</a></li>
-        <li>For the best TLS support, the latest version of Erlang/OTP 21.3.x is recommended</li>
+        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">Erlang/OTP <code>19.x</code> support is discontinued</a></li>
+        <li>For the best TLS support, the latest version of Erlang/OTP 21.x is recommended</li>
       </ul>
     </td>
   </tr>
@@ -198,12 +198,12 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>20.3.x</li>
+        <li>20.x</li>
       </ul>
     </td>
     <td>
       <ul class="notes">
-        <li>For the best TLS support, the latest version of Erlang/OTP 20.3.x is recommended</li>
+        <li>For the best TLS support, the latest version of Erlang/OTP 20.x is recommended</li>
         <li>Erlang versions prior to 19.3.6.4 have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
         <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
         <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
@@ -212,7 +212,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   </tr>
 </table>
 
-As a rule of thumb, most recent patch versions of each supported Erlang/OTP series
+As a rule of thumb, most recent minor & patch versions of each supported Erlang/OTP series
 is recommended.
 
 ## <a id="erlang-repositories" class="anchor" href="#erlang-repositories">Provisioning Latest Erlang Releases</a>
