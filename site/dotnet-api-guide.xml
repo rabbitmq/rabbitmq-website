@@ -194,7 +194,7 @@ IConnection conn = factory.CreateConnection();
             </tr>
 
             <tr>
-              <td>port</td>
+              <td>Port</td>
 
               <td>
                 <code>5672</code> for regular connections,
