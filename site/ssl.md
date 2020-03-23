@@ -482,7 +482,7 @@ disabling it can make sense in certain environments (e.g. development).
 
 ### <a id="peer-verification-clients" class="anchor" href="#peer-verification-clients"></a>
 
-Thus it is possible to create an encrypted TLS connection <em class="">without</em> having to
+Thus it is possible to create an encrypted TLS connection _without_ having to
 verify certificates. Client libraries usually support both modes of operation.
 
 When peer verification is enabled, it is common for clients to also check whether the
@@ -813,8 +813,8 @@ generates both PEM and PKCS#12 files.
 
 ### <a id="dotnet-peer-verification" class="anchor" href="#dotnet-peer-verification">.NET Trust Store</a>
 
-On the .NET platform, remote certificates are managed by putting them
-into any of a number of Stores. All management of these stores is done
+On the .NET platform, [trusted certificates](#peer-verification-trusted-certificates) are managed by putting them
+into any of a number of stores. All management of these stores is done
 with the 'certmgr' tool.
 
 N.B.: on some flavours of Windows there are two versions of
@@ -919,7 +919,7 @@ certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 Certificate removed from store.
 </pre>
 
-### <a id="dotnet-connection-params" class="anchor" href="#dotnet-connection-params">Creating The Connection</a>
+### <a id="dotnet-connection-params" class="anchor" href="#dotnet-connection-params">Connection TLS Settings</a>
 
 To create a TLS-enabled connection to RabbitMQ, we need to set some new
 fields in the ConnectionFactory's Parameters field.
@@ -962,6 +962,45 @@ for all the other fields that we need to set. The fields are:
 </tr>
 </table>
 
+### <a id="dotnet-tls-versions-dotnet-client" class="anchor" href="#dotnet-tls-versions-dotnet-client">TLS Versions</a>
+
+Just like RabbitMQ server can be [configured to support only specific TLS versions](#tls-versions),
+it may be necessary to configure preferred TLS version in the .NET client. This is done using
+the TLS options accessible via `ConnectionFactory#Ssl`.
+
+Supported TLS version values are those of the [System.Security.Authentication.SslProtocols enum](https://docs.microsoft.com/en-us/dotnet/api/system.security.authentication.sslprotocols?view=netframework-4.8):
+
+<pre class="lang-csharp">
+using System.Security.Authentication;
+
+// ...
+
+ConnectionFactory cf = new ConnectionFactory();
+
+cf.Ssl.Enabled = true;
+cf.Ssl.ServerName = System.Net.Dns.GetHostName();
+cf.Ssl.CertPath = "/path/to/client_key.p12";
+cf.Ssl.CertPassphrase = "MySecretPassword";
+
+// Use TLSv1.2 for this connection
+cf.Ssl.Version = SslProtocols.Tls12;
+</pre>
+
+RabbitMQ .NET client 5.x series uses TLSv1.0 by default.
+
+Starting with RabbitMQ .NET client 6.0
+the default changes to [`SslProtocols.None`](https://docs.microsoft.com/en-us/dotnet/api/system.security.authentication.sslprotocols?view=netframework-4.8#System_Security_Authentication_SslProtocols_None),
+which means the default is [picked by the .NET framework or the operating system](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls?view=netframework-4.6.2) depending on [app context switches](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls?view=netframework-4.6.2#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
+
+If a connection that uses `SslProtocols.None` to pick a suitable TLS version fails, the client
+will retry with TLSv1.2 enabled explicitly. This reduces the need for explicit configuration
+on the application developer's end in environments where automatic TLS version selection is
+disabled, not available or otherwise cannot be relied on.
+
+Modern .NET frameworks versions [default to TLSv1.2](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls?view=netframework-4.6.2).
+
+
+
 ### <a id="dotnet-example" class="anchor" href="#dotnet-example">Code Example</a>
 
 This is a more or less direct port of the [Java client example](#java-client-connecting). It
@@ -984,10 +1023,10 @@ namespace RabbitMQ.client.Examples {
     public static int Main(string[] args) {
       ConnectionFactory cf = new ConnectionFactory();
 
+      cf.Ssl.Enabled = true;
       cf.Ssl.ServerName = System.Net.Dns.GetHostName();
       cf.Ssl.CertPath = "/path/to/client_key.p12";
-      cf.Ssl.CertPassphrase = "MySecretPassword";
-      cf.Ssl.Enabled = true;
+      cf.Ssl.CertPassphrase = "MySecretPassword";      
 
       using (IConnection conn = cf.CreateConnection()) {
         using (IModel ch = conn.CreateModel()) {
@@ -1047,9 +1086,9 @@ a [LocalCertificateSelectionCallback](http://msdn.microsoft.com/en-us/library/sy
 that will select the local certificate used for peer verification.
 
 
-## <a id="tls-versions" class="anchor" href="#tls-versions">Limiting TLS Versions Used</a>
+## <a id="tls-versions" class="anchor" href="#tls-versions">Limiting TLS Versions Used by the Server</a>
 
-### <a id="tls-versions-why-limit" class="anchor" href="#tls-versions-why-limit">Why limit TLS Versions</a>
+### <a id="tls-versions-why-limit" class="anchor" href="#tls-versions-why-limit">Why Limit TLS Versions</a>
 
 TLS (née SSL) has evolved over time and has multiple versions in use.
 Each version builds on the shortcomings of previous versions. Most of the time
@@ -1068,9 +1107,7 @@ TLS versions only](#tls-version-support-in-jdk-and-net) (e.g. JDK 6 or .NET 4.0)
 
 ### <a id="tls-versions-server" class="anchor" href="#tls-versions-server"></a>
 
-To limit enabled TLS protocol versions, use the `versions` option.
-
-Using the [classic config format](/configure.html#config-file):
+To limit enabled TLS protocol versions, use the `ssl_options.versions` setting:
 
 <pre class="lang-ini">
 listeners.ssl.1        = 5671
@@ -1082,16 +1119,7 @@ ssl_options.versions.2 = tlsv1.1
 ssl_options.versions.3 = tlsv1
 </pre>
 
-Using the [advanced config](/configure.html#advanced-config-file):
-
-<pre class="lang-erlang">
-%% advanced config here is only used to configure TLS versions
-[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
-</pre>
-
-The examples below disable versions older than TLSv1.1.
-
-Using the [standard config](/configure.html#config-file):
+The examples below disable versions older than TLSv1.1:
 
 <pre class="lang-ini">
 listeners.ssl.1 = 5671
@@ -1102,7 +1130,7 @@ ssl_options.versions.1 = tlsv1.2
 ssl_options.versions.2 = tlsv1.1
 </pre>
 
-Using the [advanced config](/configure.html#advanced-config-file):
+The same example using the [advanced config](/configure.html#advanced-config-file) format:
 
 <pre class="lang-erlang">
 %% Disable SSLv3.0 and TLSv1.0 support.
@@ -1110,23 +1138,6 @@ Using the [advanced config](/configure.html#advanced-config-file):
  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
  {rabbit, [
            {ssl_options, [
-                          {versions, ['tlsv1.2', 'tlsv1.1']}
-                         ]}
-          ]}
-].
-</pre>
-
-Using [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-%% Disable SSLv3.0 and TLSv1.0 support.
-[
- {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
- {rabbit, [
-           {ssl_listeners, [5671]},
-           {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
-                          {certfile,  "/path/to/server_certificate.pem"},
-                          {keyfile,   "/path/to/server_key.pem"},
                           {versions, ['tlsv1.2', 'tlsv1.1']}
                          ]}
           ]}
