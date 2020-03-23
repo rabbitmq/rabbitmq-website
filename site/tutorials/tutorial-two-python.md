@@ -255,8 +255,8 @@ unless you tell it not to. Two things are required to make sure that
 messages aren't lost: we need to mark both the queue and messages as
 durable.
 
-First, we need to make sure that RabbitMQ will never lose our
-queue. In order to do so, we need to declare it as _durable_:
+First, we need to make sure that the queue will survive a RabbitMQ node restart.
+In order to do so, we need to declare it as _durable_:
 
 <pre class="lang-python">
 channel.queue_declare(queue='hello', durable=True)
