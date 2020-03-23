@@ -341,9 +341,9 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to defeat that we can use the `basic.qos` method with the
-`prefetch_count=1` setting. This tells RabbitMQ not to give more than
-one message to a worker at a time. Or, in other words, don't dispatch
+In order to defeat that we can use the `Channel#basic_qos` channel method with the
+`prefetch_count=1` setting. This uses the `basic.qos` protocol method to tell RabbitMQ
+not to give more than one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
