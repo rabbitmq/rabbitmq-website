@@ -991,17 +991,11 @@ namespace RabbitMQ.client.Examples {
 
       using (IConnection conn = cf.CreateConnection()) {
         using (IModel ch = conn.CreateModel()) {
+          Console.WriteLine("Successfully connected and opened a channel");
           ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
-          ch.Basicpublish("", "rabbitmq-dotnet-test", null,
-                          Encoding.UTF8.GetBytes("Hello, World"));
-          BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
-          if (result == null) {
-            Console.Writeline("No message received.");
-          } else {
-            Console.Writeline("Received:");
-            DebugUtil.DumpProperties(result, Console.Out, 0);
-          }
+          Console.WriteLine("Successfully declared a queue");
           ch.QueueDelete("rabbitmq-dotnet-test");
+          Console.WriteLine("Successfully deleted the queue");
         }
       }
       return 0;
