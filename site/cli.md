@@ -17,29 +17,30 @@ limitations under the License.
 
 # Command Line Tools NOSYNTAX
 
-RabbitMQ comes with multiple command line tools:
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+RabbitMQ ships with multiple command line tools:
 
  * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
  * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)
  * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
- * [`rabbitmq-queues`](/rabbitmq-queues.8.html) for maintenance tasks on [queues](/queues.html),
-   in particular [quorum queues](/quorum-queues.html)
- * [`rabbitmq-upgrade`](/rabbitmq-upgrade.8.html) for maintenance tasks related to upgrades
+ * [`rabbitmq-queues`](/rabbitmq-queues.8.html) for maintenance tasks on [queues](/queues.html), in particular [quorum queues](/quorum-queues.html)
+ * [`rabbitmq-upgrade`](/rabbitmq-upgrade.8.html) for maintenance tasks related to [upgrades](/upgrade.html)
+
+they can be found under the `sbin` directory in installation root.
+
+Additional tools are optional and can be obtained from GitHub:
+
  * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
+ * [`rabbitmq-collect-env`](https://github.com/rabbitmq/support-tools) which collects relevant cluster and environment information as well as logs
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
 including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
-With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
-This requires that [inter-node and CLI communication ports](/networking.html) (by default)
-is open for external connections on the target node.
-
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 HTTP API port open.
-
-`rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support [command aliases](#aliases).
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
@@ -49,6 +50,54 @@ RabbitMQ CLI tools require a [compatible Erlang/OTP](/which-erlang.html) version
 The tools assume that system locale is a UTF-8 one (e.g. `en_GB.UTF-8` or `en_US.UTF-8`). If that's
 not the case, the tools may still function correctly but it cannot be guaranteed.
 A warning will be emitted in non-UTF-8 locales.
+
+
+## <a id="installation" class="anchor" href="#installation">installation</a>
+
+Except for `rabbitmqadmin`, all of the tools above ship with RabbitMQ and can be found under the `sbin`
+directory in installation root. With most package types that directory is added to `PATH` at installation time.
+This means that for core tools such as `rabbitmq-diagnostics` and `rabbitmqctl`, there is nothing to download
+or install.
+
+[Generic UNIX package](/install-generic-unix.html) users have to make sure that the `sbin` directory under installation
+root is added to `PATH` for simpler interactive use. Non-interactive use cases can use full or relative paths without
+modifications to the `PATH` environment variable.
+
+[`rabbitqadmin`](/management-cli.html) is a standalone tool (no dependencies other than Python 3)
+that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-management/blob/v3.8.x/bin/rabbitmqadmin).
+
+Besides [authentication](#authentication), all configuration for core CLI tools is optional.
+
+Commands that require specific arguments list them in the usage section and will report
+any missing arguments when executed.
+
+To find out what commands are available, use the `help` command:
+
+<pre class="lang-bash">
+rabbitmqctl help
+</pre>
+
+<pre class="lang-bash">
+rabbitmq-diagnostics help
+</pre>
+
+The command can display usage information for a particular command:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics help status
+</pre>
+
+Alternatively a `--help` option can be used:
+
+<pre class="lang-bash">
+rabbitmqctl --help
+</pre>
+
+including for individual commands:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status --help
+</pre>
 
 
 ## <a id="rabbitmqctl" class="anchor" href="#rabbitmqctl">rabbitmqctl</a>
@@ -68,7 +117,7 @@ This includes
 
 and more.
 
-`rabbitmqctl` uses shared secret authentication (described below) with server nodes.
+`rabbitmqctl` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
 ## <a id="rabbitmq-plugins" class="anchor" href="#rabbitmq-plugins">rabbitmq-plugins</a>
 
@@ -79,6 +128,13 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
+
+## ## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
+
+With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
+This requires that [inter-node and CLI communication ports](/networking.html) (by default)
+is open for external connections on the target node.
+
 
 ## <a id="node-names" class="anchor" href="#node-names">Node Names</a>
 
@@ -124,7 +180,6 @@ must be specified:
 rabbitmq-diagnostics -n rabbit@host1.messaging.eng.coolcorporation.banana check_alarms --longnames
 </pre>
 
-
 ## <a id="passing-arguments" class="anchor" href="#passing-arguments">Options and Positional Arguments</a>
 
 RabbitMQ CLI tools largely follow existing, long established command line argument parsing conventions.
@@ -168,6 +223,8 @@ when the value begins with a hyphen (`-`), otherwise it would be treated as an o
 # an alternative way of providing an option value
 rabbitmqctl add_user --node=rabbit@host1.messaging.eng.coolcorporation.banana -- "a-user" "a-pa$$w0rd"
 </pre>
+
+`rabbitmqctl`, `rabbitmq-diagnostics`, `rabbitmq-plugins`, and `rabbitmq-queues` support [command aliases](#aliases).
 
 
 ## <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
