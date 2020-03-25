@@ -23,9 +23,10 @@ RabbitMQ has inbuilt support for TLS. This includes client connections and popul
 such as [Federation links](federation.html). It is also possible to use TLS
 to [encrypt inter-node connections in clusters](clustering-ssl.html).
 
-This guide covers various topics related to TLS in RabbitMQ:
+This guide covers various topics related to TLS in RabbitMQ, with a focus on client
+connections:
 
- * Two [ways of using TLS](#tls-connectivity-options): direct or via a TLS terminating proxy
+ * Two [ways of using TLS](#tls-connectivity-options) for client connections: direct or via a TLS terminating proxy
  * [Erlang/OTP requirements](#erlang-otp-requirements) for TLS support
  * [Enabling TLS](#enabling-tls) in RabbitMQ
  * How to generate self-signed certificates for development and QA environments [with tls-gen](#automated-certificate-generation) or [manually](#manual-certificate-generation)
