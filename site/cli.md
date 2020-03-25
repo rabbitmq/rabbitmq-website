@@ -29,10 +29,14 @@ RabbitMQ ships with multiple command line tools:
 
 they can be found under the `sbin` directory in installation root.
 
+On Windows, the above tools will end with `.bat`, e.g. `rabbitmqctl` in a Windows installation will
+be named `rabbitmqctl.bat`.
+
 Additional tools are optional and can be obtained from GitHub:
 
  * [`rabbitmqadmin`](/management-cli.html) for operator tasks over [HTTP API](/management.html)
- * [`rabbitmq-collect-env`](https://github.com/rabbitmq/support-tools) which collects relevant cluster and environment information as well as logs
+ * [`rabbitmq-collect-env`](https://github.com/rabbitmq/support-tools) which collects relevant cluster and environment information
+    as well as server logs. This tool is specific to Linux and UNIX-like operating systems.
 
 Different tools cover different usage scenarios. For example, `rabbitmqctl` is usually
 only available to RabbitMQ administrator given that it provides full control over a node,
@@ -40,7 +44,7 @@ including virtual host, user and permission management, destructive operations
 on node's data and so on.
 
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
-HTTP API port open.
+requires that the [HTTP API](/management.html) port is open for outside connections.
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
@@ -56,8 +60,8 @@ A warning will be emitted in non-UTF-8 locales.
 
 Except for `rabbitmqadmin`, all of the tools above ship with RabbitMQ and can be found under the `sbin`
 directory in installation root. With most package types that directory is added to `PATH` at installation time.
-This means that for core tools such as `rabbitmq-diagnostics` and `rabbitmqctl`, there is nothing to download
-or install.
+This means that core tools such as `rabbitmq-diagnostics` and `rabbitmqctl` are available on every node
+that has RabbitMQ installed.
 
 [Generic UNIX package](/install-generic-unix.html) users have to make sure that the `sbin` directory under installation
 root is added to `PATH` for simpler interactive use. Non-interactive use cases can use full or relative paths without
@@ -66,10 +70,15 @@ modifications to the `PATH` environment variable.
 [`rabbitqadmin`](/management-cli.html) is a standalone tool (no dependencies other than Python 3)
 that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-management/blob/v3.8.x/bin/rabbitmqadmin).
 
+If interaction from a remote node is required, download and extract the [generic UNIX package](/install-generic-unix.html)
+or use the [Windows installer](/install-windows.html).
+
 Besides [authentication](#authentication), all configuration for core CLI tools is optional.
 
 Commands that require specific arguments list them in the usage section and will report
 any missing arguments when executed.
+
+## <a id="help" class="anchor" href="#help">Discovering Commands Using the Help Command</a>
 
 To find out what commands are available, use the `help` command:
 
@@ -119,6 +128,7 @@ and more.
 
 `rabbitmqctl` uses a [shared secret authentication mechanism](#erlang-cookie) (described below) with server nodes.
 
+
 ## <a id="rabbitmq-plugins" class="anchor" href="#rabbitmq-plugins">rabbitmq-plugins</a>
 
 [rabbitmq-plugins](/rabbitmq-plugins.8.html) is a tool that manages plugins:
@@ -129,14 +139,50 @@ take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
 
-## ## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
+
+## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
 
 With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
 This requires that [inter-node and CLI communication ports](/networking.html) (by default)
 is open for external connections on the target node.
 
 
-## <a id="node-names" class="anchor" href="#node-names">Node Names</a>
+## <a id="remote-nodes" class="anchor" href="#remote-nodes">Using CLI Tools against Remote Server Nodes</a>
+
+CLI tools can be used to talk to remote nodes as we as the local ones. Nodes are identified by [node names](#node-names).
+If no node name is specified, `rabbit@{local hostname}` is assumed to be the target. When contacting remote nodes,
+the same [authentication requirementes](#authentication) apply.
+
+To contact a remote node, use the `--node` (`-n`) option that `rabbitmqctl`, `rabbitmq-diagnostics` and other core CLI tools
+accept. The following example contact nodes `rabbit@remote-host.local` to find out its status:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status -n rabbit@remote-host.local
+</pre>
+
+Some commands, such as
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status
+</pre>
+
+can be used against any node. Others, such as
+
+<pre class="lang-bash">
+rabbitmqctl shutdown
+</pre>
+
+or
+
+<pre class="lang-bash">
+rabbitmqctl wait
+</pre>
+
+can only be run on the same host or in the same container as their target node. These commands typically
+rely on or modify something in the local environment, e.g. the local [enabled plugins file](/plugins.html).
+
+
+### <a id="node-names" class="anchor" href="#node-names">Node Names</a>
 
 RabbitMQ nodes are identified by node names. A node name consists of two parts,
 a prefix (usually `rabbit`) and hostname. For example, `rabbit@node1.messaging.svc.local`
