@@ -29,7 +29,7 @@ RabbitMQ ships with multiple command line tools:
 
 they can be found under the `sbin` directory in installation root.
 
-On Windows, the above tools will end with `.bat`, e.g. `rabbitmqctl` in a Windows installation will
+On Windows, the above tool names will end with `.bat`, e.g. `rabbitmqctl` in a Windows installation will
 be named `rabbitmqctl.bat`.
 
 Additional tools are optional and can be obtained from GitHub:
@@ -46,6 +46,8 @@ on node's data and so on.
 `rabbitmqadmin` is built on top of the HTTP API and uses a different mechanism, and only
 requires that the [HTTP API](/management.html) port is open for outside connections.
 
+Even though CLI tools ship with the server, most commands [can be used to operate on remote nodes](#remote-nodes).
+
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
 
@@ -56,7 +58,7 @@ not the case, the tools may still function correctly but it cannot be guaranteed
 A warning will be emitted in non-UTF-8 locales.
 
 
-## <a id="installation" class="anchor" href="#installation">installation</a>
+## <a id="installation" class="anchor" href="#installation">Installation</a>
 
 Except for `rabbitmqadmin`, all of the tools above ship with RabbitMQ and can be found under the `sbin`
 directory in installation root. With most package types that directory is added to `PATH` at installation time.
