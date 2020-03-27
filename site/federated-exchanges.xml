@@ -26,156 +26,259 @@ limitations under the License.
     <title>Federated Exchanges</title>
   </head>
   <body show-in-this-page="true">
-    <doc:section name="what-does-it-do">
-      <dl>
-        <dt>
-          <b>What does a federated exchange do?</b>
-        </dt>
-        <dd>
-          <p>
-            A federated exchange links to other exchanges (called
-            <i>upstream</i> exchanges). Logically (see next item), messages
-            published to the upstream exchanges are copied to the federated
-            exchange, as though they were published directly to it. The upstream
-            exchanges do not need to be reconfigured and they do not have to be
-            on the same broker or in the same cluster.
-          </p>
-          <p>
-            Here is a diagram showing a single federated exchange in one
-            broker linking to a set of two upstream exchanges in other
-            brokers.
-          </p>
-          <img src="img/federation00.png" height="250" alt="Basic federated exchange" title="Basic federated exchange"/>
-          <p>
-            All of the configuration needed to establish the upstream
-            links and the federated exchange is in the broker with the
-            federated exchange.
-          </p>
-        </dd>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
 
-        <dt>
-          <b>Are <i>all</i> messages copied?</b>
-        </dt>
-        <dd>
-          <p>
-            Only those messages that need to be copied are propagated.
-            This is an optimisation arranged dynamically by the federation
-            plugin. (See <a href="#details">below</a>.)
-          </p>
-        </dd>
+      This guide covers federated exchanges, a subset of functionality offered by the <a href="/federation.html">Federation plugin</a>.
 
-        <dt>
-          <b>How does a federated exchange link to its upstream exchanges?</b>
-        </dt>
-        <dd>
-          <p>
-            The federated exchange will connect to all its upstream
-            exchanges using AMQP. When declaring or configuring the
-            federated exchange each upstream exchange is listed with
-            the connection properties to be used to establish the
-            link.
-          </p>
-        </dd>
+      Some covered topics include:
 
-        <dt>
-          <b>Can I federate a federated exchange?</b>
-        </dt>
-        <dd>
-          <p>
-            There is nothing to prevent a federated exchange being 'upstream'
-            from another federated exchange. One can even form 'loops', for
-            example, exchange A declares exchange B to be upstream from it, and
-            exchange B declares exchange A to be upstream from it. More complex
-            multiply-connected arrangements are allowed.
-          </p>
-          <p>
-            To prevent messages being continually copied and re-routed (in a
-            never-ending cycle) there is a limit placed on the number of times a
-            message can be copied over a link (see
-            <a href="#upstream-sets"><code>max-hops</code></a> below). It is
-            recommended that all the exchanges linked by federation are of the
-            same type. Mixing types will lead to strange
-            routing behaviour.
-          </p>
-        </dd>
+      <ul>
+        <li>An overview of exchange federation</li>
+        <li>Common <a href="#use-cases">use cases</a></li>
+        <li><a href="#usage">Usage and configuration</a></li>
+        <li><a href="#limitations">Limitations</a> of exchange federation</li>
+        <li><a href="#topology-diagrams">Example topologies</a></li>
+        <li><a href="#details">Implementation details</a></li>
+      </ul>
 
-        <dt>
-          <b>Can I federate any exchange?</b>
-        </dt>
-        <dd>
-          <p>
-            Nearly. You can't federate the default exchange (named ''), since
-            that is really just a way to directly address queues. You also
-            can't federate exchanges that are marked as internal (since
-            exchanges federate messages that are published directly to them,
-            and you can't publish directly to an internal exchange).
-          </p>
-        </dd>
+      <p>
+        A separate <a href="/federation-reference.html">Federation plugin reference</a> guide is available.
+      </p>
 
-        <dt>
-          <b>What are typical uses for federated exchanges?</b>
-        </dt>
-        <dd>
-          <p>
-            One typical use would be to have the same "logical" exchange
-            distributed over many brokers. Each broker would declare a federated
-            exchange with all the other federated exchanges upstream. (The links
-            would form a complete bi-directional graph on <i>n</i> exchanges.)
-          </p>
-          <p>
-            Another use would be to implement massive fanout - a single "root"
-            exchange in one broker (which need not be federated) can be declared
-            as upstream by many other federated exchanges in other brokers. In
-            turn, each of these can be upstream for many more exchanges, and so
-            on.
-          </p>
-          <p>
-            See the <a href="#topology-diagrams">example diagrams
-            below</a> for some possible arrangements.
-          </p>
-        </dd>
-      </dl>
+      <p>
+        Exchange federation is a mechanism that allows a flow of messages through an exchange
+        in one location (called the <i>upstream</i> or the source) be replicated to exchanges in other
+        locations (<i>downstreams</i>). The downstreams are independent nodes or clusters that can span
+        wide area networks (geo regions). The replication process is asynchronous and tolerates
+        connectivity failures.
+      </p>
+
+      <p>
+        A federated exchange links to other exchanges. Conceptually, messages
+        published to the upstream exchanges are copied to the federated
+        exchange, as though they were published directly to the federated exchange.
+        The upstream exchanges do not need to be reconfigured. They are assumed
+        to be located on a separate node or in a separate cluster.
+      </p>
+
+      <p>
+        An upstream definition is a URI with certain recognised query parameters that
+        control link connection parameters. Upstreams can be managed using <a href="/cli.html">CLI tools</a>
+        or the HTTP API with <a href="https://github.com/rabbitmq/rabbitmq-federation-management">an additional plugin</a>.
+      </p>
+
+      <p>
+        Here is a diagram showing a single upstream exchange (the source exchange) in one
+        node linking to a set of two downstream exchanges in two other nodes:
+
+        <img src="img/federation/federated-exchange.svg" alt="Basic federated exchange" title="Basic federated exchange"/>
+      </p>
+
+      <p>
+        When exchange federation is used, usually only a subset of exchanges in a cluster is federated.
+        Some exchanges can be inherently local to the "site" (cluster) and its uses.
+      </p>
+
+      <p>
+        Exchange federation will propagate <a href="/tutorials/amqp-concepts.html">bindings</a>
+        from the downstream to the upstreams when possible. It will also apply optimizations and propagate messages selectively if needed.
+        This is covered in <a href="#details">future sections</a>.
+      </p>
     </doc:section>
 
-      <doc:section name="details">
-        <doc:heading>Implementation</doc:heading>
-          <p>
-            Inter-broker communication is implemented using AMQP (optionally
-            secured with SSL). Bindings are grouped together and bind / unbind
-            commands are sent to the upstream exchange. Therefore the federated
-            exchange only receives messages for which it has a subscription. The
-            bindings are sent upstream asynchronously - so the effect of adding
-            or removing a binding is only guaranteed to be seen eventually.
-          </p>
-          <p>
-            The messages are buffered in a queue created in the upstream
-            exchange's broker. This is called the <i>upstream queue</i>.
-            It is the upstream queue which is bound to the upstream
-            exchange with the grouped bindings. It is possible to tailor
-            some of the properties of this queue in the <a
-            href="federation-reference.html#upstreams">upstream
-            configuration</a>.
-          </p>
-          <p>
-            Here is a detailed diagram showing a single federated
-            exchange linking to a single upstream exchange including the
-            upstream queue and bindings created by the federation plugin
-            shown in grey. The fat arrow on the upstream link indicates
-            messages republished by the federated exchange. Some
-            potential publisher clients are shown publishing to both
-            exchanges.
-          </p>
-          <img src="img/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
-          <p>
-            Publications to either exchange may be received by queues bound to
-            the federated exchange, but publications directly to the federated
-            exchange cannot be received by queues bound to the upstream
-            exchange.
-          </p>
+    <doc:section name="use-cases">
+      <doc:heading>Use Cases</doc:heading>
+      <p>
+        Federated exchanges can be used to replicate a flow of certain message types to remote locations.
+        Combined with continuous <a href="/backup.html#definitions-backup">schema synchronisation</a> and
+        <a href="/ttl.html">queue and message TTL</a>, this can be used to maintain a hot standby
+        with reasonably up-to-date data within a controlled time window.
+      </p>
+      <p>
+        Another use would be to implement massive fanout with a single "source"
+        exchange in one cluster (which acts as the source and need not be federated) can be declared
+        as upstream by many other federated exchanges in other brokers. In
+        turn, each of these can be upstream for many more exchanges, and so
+        on.
+      </p>
+      <p>
+        See the <a href="#topology-diagrams">example diagrams below</a> for some possible arrangements.
+      </p>
+    </doc:section>
+
+    <doc:section name="limitations">
+      <doc:heading>Limitations</doc:heading>
+      <p>
+        Exchange federation supports all built-in exchange types.
+        3rd party exchange types might work depending on their semantics.
+      </p>
+      
+      <p>
+        The default exchange (with the blank name) cannot be federated as it is not a typical
+        exchange and relies on node-local optimizations other exchange types do not use.
+      </p>
+
+      <p>
+        Exchanges with the internal property set to <code>true</code> are declared and internally used
+        by RabbitMQ and cannot be federated.
+      </p>
+    </doc:section>
+
+    <doc:section name="usage">
+      <doc:heading>Usage and Configuration</doc:heading>
+
+      <p>
+        Federation configuration uses <a href="/parameters.html">runtime parameters and policies</a>, which means it can be configured
+        and reconfigured on the fly as system topology changes. There are two key pieces of configuration involved:
+
+        <ol>
+          <li>Upstreams: these are remote endpoints in a federated system</li>
+          <li>Federation policies: these control what exchanges are federated and what upstreams they will connect to</li>
+        </ol>
+
+        Both of those are configured on the upstream nodes or clusters.
+      </p>
+
+      <p>
+        To add an upstream, use the <code>rabbitmqctl set_parameter</code> command. It accepts three parameters:
+
+        <ol>
+          <li>Parameter type, <code>federation-upstream</code></li>
+          <li>An upstream name that federation policies will refer to</li>
+          <li>An upstream definition JSON document with at least one mandatory key, <code>uri</code></li>
+        </ol>
+      </p>
+      
+      <p>
+        The following example configures an upstream named "source" which can be contacted at <code>remote-host.local:5672</code>:
+
+<pre class="lang-bash">
+# Adds a federation upstream named "origin"
+rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://localhost:5673"}'
+</pre>
+
+        On Windows, use <code>rabbitmqctl.bat</code> and suitable PowerShell quoting:
+
+<pre class="lang-powershell">
+# Adds a federation upstream named "origin"
+rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5673""}"
+</pre>
+      </p>
+
+      <p>
+        More upstream definition parameters are covered in the <a href="/federation-reference.html">Federation Reference guide</a>.
+      </p>
+
+      <p>
+        Once an upstream has been specified, a policy that controls federation can be added. It is added just like
+        any other <a href="/parameters.html#policies">policy</a>, using <code></code>:
+
+<pre class="lang-bash">
+# Adds a policy named "exchange-federation"
+rabbitmqctl set_policy exchange-federation \
+    "^federated\." \
+    '{"federation-upstream-set":"all"}' \
+    --priority 10 \
+    --apply-to exchanges
+</pre>
+
+      Here's a Windows version of the above example:
+
+<pre class="lang-powershell">
+# Adds a policy named "exchange-federation"
+rabbitmqctl.bat set_policy exchange-federation ^
+    "^federated\." ^
+    "{""federation-upstream-set"":""all""}" ^
+    --priority 10 ^
+    --apply-to exchanges
+</pre>
+      </p>
+
+      <p>
+        In the example above, the policy will match exchanges whose name begins with a <code>federated.</code> prefix
+        in the default virtual host. Those exchanges will set up federation links for all declared upstreams.
+        The name of the policy is <code>exchange-federation</code>. As with any policy, if multiple policies match an exchange,
+        the one with the highest priority will be used. Multiple policy definitions will not be combined, even if their
+        priorities are equal.
+      </p>
+
+      <p>
+        Once configured, a federation link (connection) will be opened for every matching exchange and upstream pair.
+        By "matching exchange" here we mean an exchange that is matched by the <a href="/parameters.html#policies">federation policy pattern</a>.
+        If no exchanges matched, no links will be started.
+      </p>
+
+      <p>
+        To disable federation for the matching exchanges, delete the policy using its name:
+
+<pre class="lang-bash">
+rabbitmqctl clear_policy exchange-federation
+</pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="loops">
+      <doc:heading>Complex Topologies and Loop Handling</doc:heading>
+
+      <p>
+        A federated exchange can be "upstream" from another federated exchange. One can even form "loops", for
+        example, exchange A declares exchange B to be upstream from it, and exchange B declares exchange A to be upstream from it.
+        More complex multiply-connected arrangements are allowed.
+        
+        Such complex topologies will be increasingly difficult to reason about and troubleshoot, however.
+      </p>
+
+      <p>
+        To prevent messages being continually copied and re-routed (in a never-ending cycle) there is a limit placed
+        on the number of times a message can be copied over a link (see <a href="#upstream-sets"><code>max-hops</code></a> below).
+        
+        It is recommended that all the exchanges linked by federation are of the
+        same type. Mixing types can and likely will lead to confusing routing behaviours.
+      </p>
+    </doc:section>
+
+    <doc:section name="details">
+      <doc:heading>Implementation</doc:heading>
+        <p>
+          Inter-broker communication is implemented using AMQP 0-9-1 (optionally
+          secured with TLS). Bindings are grouped together and binding operations such as
+          <code>queue.bind</code> and <code>queue.unbind</code>
+          commands are sent to the upstream side of the link when bindings change in the downstream.
+          
+          Therefore the  exchange only receives messages for which it has bindings. The
+          bindings are replicated with the upstream asynchronously so the effect of adding
+          or removing a binding is only guaranteed to be seen eventually.
+        </p>
+        <p>
+          The messages are buffered in an internally declared queue created in the upstream
+          exchange's cluster. This is called the <i>upstream queue</i>.
+          It is the upstream queue which is bound to the upstream
+          exchange with the grouped bindings. It is possible to tailor
+          some of the properties of this queue in the <a
+          href="/federation-reference.html#upstreams">upstream
+          configuration</a>.
+        </p>
+        <p>
+          Here is a detailed diagram showing a single federated
+          exchange linking to a single upstream exchange including the
+          upstream queue and bindings created by the federation plugin
+          shown in grey. The fat arrow on the upstream link indicates
+          messages republished by the federated exchange. Some
+          potential publisher clients are shown publishing to both
+          exchanges.
+        </p>
+        <img src="img/federation/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
+        <p>
+          Publications to either exchange may be received by queues bound to
+          the federated exchange, but publications directly to the federated
+          exchange cannot be received by queues bound to the upstream
+          exchange.
+        </p>
     </doc:section>
 
     <doc:section name="topology-diagrams">
-      <doc:heading>Example topologies</doc:heading>
+      <doc:heading>Example Topologies</doc:heading>
       <p>
         We illustrate some example federation topologies. Where RabbitMQ
         brokers are shown in these diagrams (indicated by a <img
@@ -190,7 +293,7 @@ limitations under the License.
             publisher and consumer connected to each broker are illustrated.
             Both consumers can receive messages published by either publisher.
           </p>
-          <img src="img/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
+          <img src="img/federation/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
           <p>
             Both links are declared with <code>max-hops=1</code> so that
             messages are copied only once, otherwise the consumers will see
@@ -205,7 +308,7 @@ limitations under the License.
             This arrangement is the analogue of the pair of federated exchanges
             but for three exchanges. Each exchange links to both the others.
           </p>
-          <img src="img/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
+          <img src="img/federation/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
           <p>
             Again <code>max-hops=1</code> because the "hop distance" to any
             other exchange is exactly one. This will be the case in any complete
@@ -221,7 +324,7 @@ limitations under the License.
             In this case messages published to the master exchange can be
             received by any consumer connected to any broker in the tree.
           </p>
-          <img src="img/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
+          <img src="img/federation/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
           <p>
             Because there are no loops it is not as crucial to get the
             <code>max-hops</code> value right, but it must be at least
@@ -238,7 +341,7 @@ limitations under the License.
             to 5 so that every exchange in the ring sees the message exactly
             once.
           </p>
-          <img src="img/federation05.png" height="300" alt="Ring" title="Ring" />
+          <img src="img/federation/federation05.png" height="300" alt="Ring" title="Ring" />
           <p>
             This topology, though relatively cheap in queues and connections, is
             rather fragile compared to a completely connected graph. One broker
@@ -248,6 +351,5 @@ limitations under the License.
 
       </dl>
     </doc:section>
-
   </body>
 </html>

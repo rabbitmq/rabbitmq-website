@@ -178,11 +178,11 @@ queue is created, not just when the policy is created.
 
 Policies can be used to configure
 the [federation plugin](federation.html),
-[mirrored queues](ha.html),
-[alternate exchanges](ae.html),
-[dead lettering](dlx.html),
-[per-queue TTLs](ttl.html),
-and [maximum queue length](maxlength.html).
+[mirroring of classic queues](/ha.html),
+[alternate exchanges](/ae.html),
+[dead lettering](/dlx.html),
+[per-queue TTLs](/ttl.html),
+and [queue length limit](/maxlength.html).
 
 An example of defining a policy looks like:
 
@@ -192,7 +192,7 @@ An example of defining a policy looks like:
     <td>
 <pre class="lang-bash">
 rabbitmqctl set_policy federate-me \
-    "^amq\." '{"federation-upstream-set":"all"}' \
+    "^federated\." '{"federation-upstream-set":"all"}' \
     --priority 1 \
     --apply-to exchanges
 </pre>
@@ -203,7 +203,7 @@ rabbitmqctl set_policy federate-me \
     <td>
 <pre class="lang-powershell">
 rabbitmqctl.bat set_policy federate-me ^
-    "^amq\." "{""federation-upstream-set"":""all""}" ^
+    "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 1 ^
     --apply-to exchanges
 </pre>
@@ -214,7 +214,7 @@ rabbitmqctl.bat set_policy federate-me ^
     <td>
 <pre class="lang-ini">
 PUT /api/policies/%2f/federate-me
-    {"pattern": "^amq\.",
+    {"pattern": "^federated\.",
      "definition": {"federation-upstream-set":"all"},
      "priority": 1,
     "apply-to": "exchanges"}

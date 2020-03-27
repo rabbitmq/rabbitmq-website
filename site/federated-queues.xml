@@ -30,25 +30,34 @@ limitations under the License.
       <p>
         In addition to <a href="federated-exchanges.html">federated
         exchanges</a>, RabbitMQ supports federated queues. This
-        feature provides a way of balancing the load of a single queue
-        across nodes or clusters.
+        feature provides a way of balancing the load of a single logical queue
+        across nodes or clusters. It does so by moving messages to other federation
+        peers (nodes or clusters) when the local queue has no consumers.
       </p>
 
       <p>
-        A federated queue links to other
-        queues (called <i>upstream</i> queues). It will retrieve
-        messages from upstream queues in order to satisfy demand for
-        messages from local consumers. The upstream queues do not
-        need to be reconfigured and they do not have to be on the same
-        broker or in the same cluster.
+        While federated exchanges replicate their stream of messages from the upstream
+        to one or more downstreams, federated queues move data where the consumers are,
+        always preferring local consumers to remote ones.
       </p>
 
-      <p>The following diagram demonstrates several federated and unfederated
-      queues in two RabbitMQ nodes connected using queue federation.</p>
+      <p>
+        A federated queue links to other its federated peers (called <i>upstream</i> queues).
+        It will retrieve messages from upstream queues in order to satisfy demand for
+        messages from local consumers. The upstream queues do not
+        need to be reconfigured. They are assumed to be located on a separate node or in a separate
+        cluster.
+      </p>
 
-      <img src="/img/federated_queues00.png"
-           width="700"
-           alt="Overview of federated queues" />
+      <p>
+        
+      </p>
+
+      <p>
+        The following diagram demonstrates several federated and unfederated
+        queues in two RabbitMQ nodes connected using queue federation.</p>
+
+      <img src="/img/federation/federated_queues00.png" width="700" alt="Overview of federated queues" />
 
       <p>
         All of the configuration needed to establish the upstream links
@@ -91,9 +100,7 @@ limitations under the License.
         <i>priority</i> is applied.  When two policies have the same
         priority, the matching one is chosen non-deterministically.
 
-        <img src="/img/federated_queues01.png"
-             width="700"
-             alt="Federated queue policies" />
+        <img src="/img/federation/federated_queues01.png" width="700" alt="Federated queue policies" />
       </p>
 
       <p>
