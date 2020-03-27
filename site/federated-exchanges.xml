@@ -134,7 +134,7 @@ limitations under the License.
 
         <ol>
           <li>Upstreams: these are remote endpoints in a federated system</li>
-          <li>Federation policies: these control what exchanges are federated and what upstreams they will connect to</li>
+          <li>Federation policies: these control what exchanges are federated and what upstreams (sources) they will connect to</li>
         </ol>
 
         Both of those are configured on the upstream nodes or clusters.
