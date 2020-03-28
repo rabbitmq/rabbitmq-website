@@ -31,9 +31,8 @@ Some covered topics include:
 
 A separate [Federation plugin reference](/federation-reference.html) guide is available.
 
-In addition to <a href="federated-exchanges.html">federated
-exchanges</a>, RabbitMQ supports federated queues. This
-feature provides a way of balancing the load of a single logical queue
+In addition to [federated exchanges](federated-exchanges.html), RabbitMQ supports federated queues.
+This feature provides a way of balancing the load of a single logical queue
 across nodes or clusters. It does so by moving messages to other federation
 peers (nodes or clusters) when the local queue has no consumers.
 
@@ -82,8 +81,7 @@ around in order to perform load balancing.
 Federated queues include a number of limitations or differences compared to their non-federated peers
 as well as federated exchanges.
 
-Queue federation will not
-propagate [bindings](/tutorials/amqp-concepts.html) from the downstream to the upstreams.
+Queue federation will not propagate [bindings](/tutorials/amqp-concepts.html) from the downstream to the upstreams.
 
 Applications that use <code>basic.get</code> (consume via polling, a highly discouraged practice)
 cannot retrieve messages over federation if there aren't any in a local queue (on the node the client is connected to).
@@ -198,7 +196,7 @@ across all nodes and "wrap around".
 ## <a id="details" class="anchor" href="#details">Implementation</a>
 
 The federated queue will connect to all its upstream queues
-using AMQP 0-9-1 (optionally <a href="ssl.html">secured with TLS</a>).
+using AMQP 0-9-1 (optionally [secured with TLS](ssl.html)).
 
 The federated queue will only retrieve messages when it has run
 out of messages locally, it has consumers that need messages, and
