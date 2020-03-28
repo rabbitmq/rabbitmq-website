@@ -85,7 +85,7 @@ Exchange federation supports all built-in exchange types.
 The default exchange (with the blank name) cannot be federated as it is not a typical
 exchange and relies on node-local optimizations other exchange types do not use.
 
-Exchanges with the internal property set to <code>true</code> are declared and internally used
+Exchanges with the internal property set to `true` are declared and internally used
 by RabbitMQ and cannot be federated.
   
 
@@ -99,11 +99,11 @@ and reconfigured on the fly as system topology changes. There are two key pieces
 
 Both of those are configured on the upstream nodes or clusters.
 
-To add an upstream, use the <code>rabbitmqctl set_parameter</code> command. It accepts three parameters:
+To add an upstream, use the `rabbitmqctl set_parameter` command. It accepts three parameters:
 
-* Parameter type, <code>federation-upstream</code>
+* Parameter type, `federation-upstream`
 * An upstream name that federation policies will refer to
-* An upstream definition JSON document with at least one mandatory key, <code>uri</code>
+* An upstream definition JSON document with at least one mandatory key, `uri`
 
 The following example configures an upstream named "source" which can be contacted at <code>remote-host.local:5672</code>:
 
@@ -112,7 +112,7 @@ The following example configures an upstream named "source" which can be contact
 rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://localhost:5673"}'
 </pre>
 
-On Windows, use <code>rabbitmqctl.bat</code> and suitable PowerShell quoting:
+On Windows, use `rabbitmqctl.bat` and suitable PowerShell quoting:
 
 <pre class="lang-powershell">
 # Adds a federation upstream named "origin"
@@ -144,9 +144,9 @@ rabbitmqctl.bat set_policy exchange-federation ^
 --apply-to exchanges
 </pre>
   
-In the example above, the policy will match exchanges whose name begins with a <code>federated.</code> prefix
+In the example above, the policy will match exchanges whose name begins with a `federated.` prefix
 in the default virtual host. Those exchanges will set up federation links for all declared upstreams.
-The name of the policy is <code>exchange-federation</code>. As with any policy, if multiple policies match an exchange,
+The name of the policy is `exchange-federation`. As with any policy, if multiple policies match an exchange,
 the one with the highest priority will be used. Multiple policy definitions will not be combined, even if their
 priorities are equal.
 
@@ -164,13 +164,13 @@ rabbitmqctl clear_policy exchange-federation
 ## <a id="loops" class="anchor" href="#loops">Complex Topologies and Loop Handling</a>
 
 A federated exchange can be "upstream" from another federated exchange. One can even form "loops", for
-example, exchange A declares exchange B to be upstream from it, and exchange B declares exchange A to be upstream from it.
-More complex multiply-connected arrangements are allowed.
+example, exchange A declares exchange B to be upstream from it, and exchange B declares exchange A
+to be upstream from it. More complex multiply-connected arrangements are allowed.
 
 Such complex topologies will be increasingly difficult to reason about and troubleshoot, however.
 
 To prevent messages being continually copied and re-routed (in a never-ending cycle) there is a limit placed
-on the number of times a message can be copied over a link (see <a href="#upstream-sets"><code>max-hops</code></a> below).
+on the number of times a message can be copied over a link [`max-hops`](#upstream-sets) below).
 
 It is recommended that all the exchanges linked by federation are of the
 same type. Mixing types can and likely will lead to confusing routing behaviours.
@@ -179,9 +179,9 @@ same type. Mixing types can and likely will lead to confusing routing behaviours
 ## <a id="details" class="anchor" href="#details">Implementation</a>
     
 Inter-broker communication is implemented using AMQP 0-9-1 (optionally
-secured with TLS). Bindings are grouped together and binding operations such as
-<code>queue.bind</code> and <code>queue.unbind</code>
-commands are sent to the upstream side of the link when bindings change in the downstream.
+[secured with TLS](/ssl.html)). Bindings are grouped together and binding operations such as
+`queue.bind` and `queue.unbind` commands are sent to the upstream side of
+the link when bindings change in the downstream.
 
 Therefore the  exchange only receives messages for which it has bindings. The
 bindings are replicated with the upstream asynchronously so the effect of adding
@@ -191,9 +191,7 @@ The messages are buffered in an internally declared queue created in the upstrea
 exchange's cluster. This is called the _upstream queue_.
 It is the upstream queue which is bound to the upstream
 exchange with the grouped bindings. It is possible to tailor
-some of the properties of this queue in the <a
-href="/federation-reference.html#upstreams">upstream
-configuration</a>.
+some of the properties of this queue in the [upstream configuration](/federation-reference.html#upstreams).
 
 
 Here is a detailed diagram showing a single federated
@@ -242,9 +240,9 @@ it can be a cluster of nodes or a standalone node.
         <img src="img/federation/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
 
         <p>
-          Both links are declared with <code>max-hops=1</code> so that
+          Both links are declared with `max-hops=1` so that
           messages are copied only once, otherwise the consumers will see
-          multiple copies of the same message (up to the <code>max-hops</code> limit).
+          multiple copies of the same message (up to the `max-hops` limit).
         </p>
       </td>
     </tr>
@@ -260,7 +258,7 @@ it can be a cluster of nodes or a standalone node.
         <img src="img/federation/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
       
         <p>
-          Again <code>max-hops=1</code> because the "hop distance" to any
+          Again `max-hops=1` because the "hop distance" to any
           other exchange is exactly one. This will be the case in any complete
           graph of federated exchanges.
         </p>
@@ -281,7 +279,7 @@ it can be a cluster of nodes or a standalone node.
       
         <p>
           Because there are no loops it is not as crucial to get the
-          <code>max-hops</code> value right, but it must be at least
+          `max-hops` value right, but it must be at least
           as large as the longest connecting path. For a tree this is
           the number of levels minus one.
         </p>
@@ -293,7 +291,7 @@ it can be a cluster of nodes or a standalone node.
       <td>
         <p>
           In this ring of six brokers each federated exchange links to just
-          one other in the ring. The <code>"max-hops"</code> property is set
+          one other in the ring. The `"max-hops"` property is set
           to 5 so that every exchange in the ring sees the message exactly
           once.
         </p>

@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The high-level goal of the federation plugin is to transmit messages between brokers without
+The high-level goal of the Federation plugin is to transmit messages between brokers without
 requiring clustering. This is useful for a number of reasons.
 
 ### Loose Coupling of Nodes or Clusters
@@ -57,28 +57,28 @@ queue lets a local consumer receive messages from an upstream queue.
 
 Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
 they can connect to a specific vhost, use TLS, use multiple
-<a href="https://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
+[authentication mechanisms](https://www.rabbitmq.com/authentication.html).
 
 For more details, see the documentation on <a href="federated-exchanges.html">federated
-exchanges</a> and <a href="federated-queues.html">federated queues</a>.
+exchanges</a> and [federated queues](federated-queues.html).
 
 
 ## <a id="how-is-it-configured" class="anchor" href="#how-is-it-configured">How is Federation Set Up?</a>
 
 To use federation, one needs to configure two things
 
- * One or more upstreams that define federation connections
-   to other nodes. This can be done via <a href="/parameters.html">runtime parameters</a>
-   or the <a href="https://github.com/rabbitmq/rabbitmq-federation-management">federation management plugin</a> which
-   adds a federation management tab to the <a href="/management.html">management UI</a>.
- * One or more [policies](/parameters.html#policies) that match exchanges/queues and makes them
-   federated.
+* One or more upstreams that define federation connections
+  to other nodes. This can be done via [runtime parameters](/parameters.html)
+  or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
+  adds a federation management tab to the [management UI](/management.html).
+* One or more [policies](/parameters.html#policies) that match exchanges/queues and makes them
+  federated.
 
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting Started</a>
 
 The federation plugin is included in the RabbitMQ distribution. To
-enable it, use <a href="man/rabbitmq-plugins.8.html">rabbitmq-plugins</a>:
+enable it, use [rabbitmq-plugins](man/rabbitmq-plugins.8.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_federation
@@ -98,21 +98,21 @@ Information about federation upstreams is stored in the RabbitMQ
 database, along with users, permissions, queues, etc. There
 are three levels of configuration involved in federation:
 
- * **Upstreams**: each upstream defines how to connect to another broker.
- * **Upstream sets**: each upstream set groups together a set of upstreams to use for federation.
- * **Policies**: each [policy](/parameters.html#policies) selects a set of exchanges,
-   queues or both, and applies a single upstream or an upstream
-   set to those objects.
+* **Upstreams**: each upstream defines how to connect to another broker.
+* **Upstream sets**: each upstream set groups together a set of upstreams to use for federation.
+* **Policies**: each [policy](/parameters.html#policies) selects a set of exchanges,
+  queues or both, and applies a single upstream or an upstream
+  set to those objects.
 
 In practice, for simple use cases you can almost ignore the
 existence of upstream sets, since there is an implicitly-defined upstream set called <code>all</code>
 to which all upstreams are added.
 
-Upstreams and upstream sets are both instances of <a href="/parameters.html">runtime parameters</a>.
+Upstreams and upstream sets are both instances of [runtime parameters](/parameters.html).
 Like exchanges and queues, each virtual host has its own distinct set of parameters and policies. For more
 generic information on parameters and policies, see the guide on
-<a href="/parameters.html">parameters and policies</a>.
-For full details on the parameters used by federation, see the <a href="federation-reference.html">federation reference</a>.
+[parameters and policies](/parameters.html).
+For full details on the parameters used by federation, see the [federation reference](federation-reference.html).
 
 Parameters and policies can be set in three ways - either with
 an invocation of <code>rabbitmqctl</code>, a call to the
@@ -294,15 +294,15 @@ can. To summarise how clustering and federation interact:
 
 Federation connections (links) can be secured with TLS. Because Federation uses
 a RabbitMQ client under the hood, it is necessary to both configure
-source broker to <a href="/ssl.html">listen for TLS connections</a>
+source broker to [listen for TLS connections](/ssl.html)
 and Federation/Erlang client to use TLS.
 
 To configure Federation to use TLS, one needs to
 
  * Use the <code>amqps</code> URI scheme instead of <code>amqp</code>
- * Specify CA certificate and client certificate/key pair via <a href="/uri-query-parameters.html">URI query parameters</a>
+ * Specify CA certificate and client certificate/key pair via [URI query parameters](/uri-query-parameters.html)
    when configuring upstream(s)
- * <a href="/ssl.html">Configure Erlang client to use TLS</a>
+ * [Configure Erlang client to use TLS](/ssl.html)
 
 Just like with "regular" client connections, server's CA should be
 trusted on the node where federation link(s) runs, and vice versa.
