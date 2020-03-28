@@ -88,21 +88,19 @@ This means that the user can consider the library to be licensed under any of th
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
 
-### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
+## <a id="distribution" class="anchor" href="#distribution">NuGet</a>
 
 Recent versions of the library are exclusively [distributed via NuGet](https://www.nuget.org/packages/RabbitMQ.Client).
 
-
-## <a id="distribution" class="anchor" href="#distribution">NuGet</a>
-
-The most recent release of the RabbitMQ .NET client library is `5.1.2` ([on NuGet](https://www.nuget.org/packages/RabbitMQ.Client)).
+The most recent release is [`5.1.2`](https://www.nuget.org/packages/RabbitMQ.Client).
 Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases).
 
 
 ## <a id="documentation" class="anchor" href="#documentation">Documentation</a>
 
-Please refer to the [API guide](/dotnet-api-guide.html). There's
-also [an online API reference](http://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
+Please refer to the [RabbitMQ tutorials](/getstarted.html) and [.NET client user guide](/dotnet-api-guide.html).
+
+There's also [an online API reference](http://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
 
 
 ## <a id="changelog" class="anchor" href="#changelog">Change log</a>
@@ -116,20 +114,24 @@ Modern versions of this library (e.g. 4.x and 5.x) are distributed as a [NuGet p
 
 <table>
   <thead>
-    <td>Description</td>
-    <td>Download</td>
+    <td><strong>Description</strong></td>
+    <td><strong>Download</strong></td>
   </thead>
 
   <tr>
-    <td class="desc">5.x NuGet package for .NET Core and .NET 4.5.1</td>
+    <td class="desc">6.x NuGet package</td>
     <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
   </tr>
   <tr>
-    <td class="desc">4.x NuGet package for .NET Core and .NET 4.5.1</td>
+    <td class="desc">5.x NuGet package</td>
     <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
   </tr>
   <tr>
-    <td class="desc">Legacy 3.x series binary builds</td>
+    <td class="desc">4.x NuGet package</td>
+    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
+  </tr>
+  <tr>
+    <td class="desc">3.x Series Binary Builds</td>
     <td><a href="/releases/rabbitmq-dotnet-client">3.x builds</a></td>
   </tr>
 </table>
