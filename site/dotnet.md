@@ -38,6 +38,15 @@ targets what .NET standard (or .NET framework) version.
 
   <tr>
     <td>
+      6.x (in development)
+    </td>
+    <td>
+      .NET 4.6.1+ or a .NET Standard 2.0+ implementation (e.g. .NET Core 3.x)
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       5.x
     </td>
     <td>
