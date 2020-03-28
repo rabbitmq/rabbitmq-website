@@ -24,16 +24,13 @@ library for C# (and, implicitly, other .NET languages).
 
 ### <a id="series" class="anchor" href="#series">Release Series</a>
 
-4.x and later release series of this library require .NET 4.5.1+ or .NET Standard 1.5+ implementation
-(e.g. .NET Core 2.x).
-
 The following table explains what RabbitMQ .NET client release series
 targets what .NET standard (or .NET framework) version.
 
 <table>
   <thead>
-    <td>Library Release Series</td>
-    <td>Required .NET Framework/Standard/Flavor Versions</td>
+    <td><strong>Library Release Series</strong></td>
+    <td><strong>Required .NET Framework/Standard/Flavor Versions</strong></td>
   </thead>
 
   <tr>
