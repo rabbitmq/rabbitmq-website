@@ -19,36 +19,37 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers <a href="/dotnet.html">RabbitMQ .NET/C# client</a> and its public API.
-It assumes that the <a href="https://www.nuget.org/packages/RabbitMQ.Client">most recent major version of the client</a> is used
-and the reader is familiar with <a href="/getstarted.html">the basics</a>.
+This guide covers [RabbitMQ .NET/C# client](/dotnet.html) and its public API.
+It assumes that the [most recent major version of the client](https://www.nuget.org/packages/RabbitMQ.Client) is used
+and the reader is familiar with [the basics](/getstarted.html).
 
 Key sections of the guide are:
 
-* <a href="#major-api-elements">Important interfaces and classes</a> in the public API
-* <a href="#connecting">Connecting to RabbitMQ</a>
-* <a href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a>
-* <a href="#exchanges-and-queues">Using Exchanges and Queues</a>
-* <a href="#publishing">Publishing Messages</a>
-* <a href="#consuming">Consuming Using a Subscription</a>
-* <a href="#concurrency">Concurrency Considerations and Safety</a>
-* <a href="#recovery">Automatic Recovery From Network Failures</a>
+* [Important interfaces and classes](#major-api-elements) in the public API
+* [Connecting to RabbitMQ](#connecting)
+* [Connection and Channel Lifespan](#connection-and-channel-lifspan)
+* [Using Exchanges and Queues](#exchanges-and-queues)
+* [Publishing Messages](#publishing)
+* [Consuming Using a Subscription](#consuming)
+* [Concurrency Considerations and Safety](#concurrency)
+* [Automatic Recovery From Network Failures](#recovery)
 
-4.x and 5.x release series of this library <a href="/dotnet.html#overview">require .NET 4.5.1+ or a .NET Standard 1.5+ implementation</a> (e.g. .NET Core 2.x).
+6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](/dotnet.html#overview).
+For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](/dotnet.html#overview).
 
-The library is open source, developed <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/">on GitHub</a>, and is double-licensed under the
+The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/), and is double-licensed under the
 
-* <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a>
-* <a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a>
+* [Apache Public License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+* [Mozilla Public License](https://www.mozilla.org/MPL/1.1/)
 
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
 
-The client API is closely modelled on the <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 protocol model</a>,
+The client API is closely modelled on the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
 with additional abstractions for ease of use.
 
-An <a href="&dir-current-docfx;">API reference</a> is available separately.
+An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/) is available separately.
 
 
 ## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
@@ -61,19 +62,19 @@ using RabbitMQ.Client;
 
 The core API interfaces and classes are
 
-* <code>IModel</code>: represents an AMQP 0-9-1 channel, and provides most of the operations (protocol methods)
-* <code>IConnection</code>: represents an AMQP 0-9-1 connection
-* <code>ConnectionFactory</code>: constructs <code>IConnection</code> instances
-* <code>IBasicConsumer</code>: represents a message consumer
+* `IModel`: represents an AMQP 0-9-1 channel, and provides most of the operations (protocol methods)
+* `IConnection`: represents an AMQP 0-9-1 connection
+* `ConnectionFactory`: constructs `IConnection` instances
+* `IBasicConsumer`: represents a message consumer
 
 Other useful interfaces and classes include:
 
-* <code>DefaultBasicConsumer</code>: commonly used base class for consumers
+* `DefaultBasicConsumer`: commonly used base class for consumers
 
 Public namespaces other than <code>RabbitMQ.Client</code> include:
 
 * <code>RabbitMQ.Client.Events</code>: various events and event handlers
-  that are part of the client library, including <code>EventingBasicConsumer</code>,
+  that are part of the client library, including `EventingBasicConsumer`,
   a consumer implementation built around C# event handlers.
 * <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
 
@@ -91,11 +92,11 @@ private namespaces remaining stable across releases of the library.
 Before an application can use RabbitMQ, it has to open a [connection](/connections.html)
 to a RabbitMQ node.
 
-To do so in the .NET client, it is necessary to instantiate a <code>ConnectionFactory</code>
+To do so in the .NET client, it is necessary to instantiate a `ConnectionFactory`
 and configure it to use desired hostname, virtual host, and credentials. Then
 use <code>ConnectionFactory.CreateConnection()</code> to open a connection.
 
-The following two code snippets connect to a RabbitMQ node on <code>hostName</code>:
+The following two code snippets connect to a RabbitMQ node on `hostName`:
 
 <pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
@@ -115,12 +116,13 @@ factory.Uri = "amqp://user:pass@hostName:port/vhost";
 IConnection conn = factory.CreateConnection();
 </pre>
                 
-Since the .NET client uses a stricter interpretation of the <a href="/uri-spec.html">AMQP 0-9-1 URI
-spec</a> than the other clients, care must be taken when using URIs.  In
-particular, the host part must not be omitted and virtual hosts with
+Since the .NET client uses a stricter interpretation of the [AMQP 0-9-1 URI spec](/uri-spec.html)
+than the other clients, care must be taken when using URIs.
+In particular, the host part must not be omitted and virtual hosts with
 empty names are not addressable.
 
-All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
+All factory properties have default values. The default value for a property will be used if the property
+remains unassigned prior to creating a connection:
 
 <table>
   <thead>
@@ -154,16 +156,16 @@ All factory properties have default values. The default value for a property wil
     <td>Port</td>
 
     <td>
-      <code>5672</code> for regular connections,
-      <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+      <code>5672</code> for regular ("plain TCP") connections,
+      <code>5671</code> for <a href="/ssl.html">connections with TLS enabled</a>
     </td>
   </tr>
 </table>
 
-Note that <a href="/access-control.html">user guest can only connect from localhost</a> by default.
+Note that [user guest can only connect from localhost](/access-control.html) by default.
 This is to limit well-known credential use in production systems.
 
-The <code>IConnection</code> interface can then be used to open a channel:
+The `IConnection` interface can then be used to open a channel:
 
 <pre class="lang-csharp">
 IModel channel = conn.CreateModel();
@@ -172,7 +174,7 @@ IModel channel = conn.CreateModel();
 The channel can now be used to send and receive messages,
 as described in subsequent sections.
 
-Successful and unsuccessful client connection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+Successful and unsuccessful client connection events can be [observed in server node logs](/networking.html#logging).
 
 
 ## <a id="disconnecting" class="anchor" href="#disconnecting">Disconnecting from RabbitMQ</a>
@@ -190,7 +192,7 @@ with the API methods from the example above.
 Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
 automatically anyway when the underlying connection is closed.
 
-Client disconnection events can be <a href="/networking.html#logging">observed in server node logs</a>.
+Client disconnection events can be [observed in server node logs](/networking.html#logging).
 
 
 ## <a id="connection-and-channel-lifspan" class="anchor" href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a>
@@ -214,8 +216,8 @@ and will initiate a shutdown sequence for the channel (see below).
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
-Client applications work with exchanges and <a href="/queues.html">queues</a>,
-the high-level <a href="/tutorials/amqp-concepts.html">building blocks of the protocol</a>.
+Client applications work with exchanges and [queues](/queues.html),
+the high-level [building blocks of the protocol](/tutorials/amqp-concepts.html).
 These must be "declared" before they can be
 used. Declaring either type of object simply ensures that one of that
 name exists, creating it if necessary.
@@ -238,8 +240,8 @@ The exchange can be customised by using additional parameters.
 The above code then binds the queue to the exchange with the given
 routing key.
 
-Many channel API (<code>IModel</code>) methods are overloaded. The convenient
-short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
+Many channel API (`IModel`) methods are overloaded. The convenient
+short form of `ExchangeDeclare` uses sensible defaults. There are
 also longer forms with more parameters, to let you override these
 defaults as necessary, giving full control where needed.
 
@@ -250,14 +252,14 @@ This "short version, long version" pattern is used throughout the API.
 Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
 with the provided name exists. If it does, the operation is a no-op. For queues successful
 passive declares will return the same information as non-passive ones, namely the number of
-consumers and messages in <a href="/confirms.html">ready state</a> in the queue.
+consumers and messages in [ready state](/confirms.html) in the queue.
 
 If the entity does not exist, the operation fails with a channel level exception. The channel
 cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
 channels for passive declarations.
 
-<code>IModel#QueueDeclarePassive</code> and <code>IModel#ExchangeDeclarePassive</code> are the
-methods used for passive declaration. The following example demonstrates <code>IModel#QueueDeclarePassive</code>:
+`IModel#QueueDeclarePassive` and `IModel#ExchangeDeclarePassive` are the
+methods used for passive declaration. The following example demonstrates `IModel#QueueDeclarePassive`:
 
 <pre class="lang-csharp">
 var response = channel.QueueDeclarePassive("queue-name");
@@ -267,7 +269,7 @@ response.MessageCount;
 response.ConsumerCount;
 </pre>
 
-<code>IModel#ExchangeDeclarePassive</code>'s return value contains no useful information. Therefore
+`IModel#ExchangeDeclarePassive`'s return value contains no useful information. Therefore
 if the method returns and no channel exceptions occurs, it means that the exchange does exist.
 
 ### <a id="nowait-methods" class="anchor" href="#nowait-methods">Operations with Optional Responses</a>
@@ -279,7 +281,7 @@ response, use
 <pre class="lang-csharp">channel.QueueDeclareNoWait(queueName, true, false, false, null);</pre>
 
 The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
-are more dependent on the <a href="/heartbeats.html">heartbeat mechanism</a> for detection of failed operations.
+are more dependent on the [heartbeat mechanism](/heartbeats.html) for detection of failed operations.
 When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
 with high topology (queue, binding) churn.
 
@@ -332,7 +334,7 @@ channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
 </pre>
 
 This sends a message with delivery mode 2 (persistent) and
-content-type "text/plain". See the definition of the <code>IBasicProperties</code>
+content-type "text/plain". See the definition of the `IBasicProperties`
 interface for more information about the available message properties.
 
 In the following example, we publish a message with custom headers:
@@ -367,12 +369,12 @@ channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
 ## <a id="consuming" class="anchor" href="#consuming">Retrieving Messages By Subscription ("push API")</a>
 
 The recommended and most convenient way to receive messages is to set up a subscription using the
-<code>IBasicConsumer</code> interface. The messages will then be delivered
+`IBasicConsumer` interface. The messages will then be delivered
 automatically as they arrive, rather than having to be requested
 proactively.
 
 One way to implement a consumer is to use the
-convenience class <code>EventingBasicConsumer</code>, which dispatches
+convenience class `EventingBasicConsumer`, which dispatches
 deliveries and other consumer lifecycle events as C# events:
 
 <pre class="lang-csharp">
@@ -383,19 +385,21 @@ consumer.Received += (ch, ea) =>
                     // ... process the message
                     channel.BasicAck(ea.DeliveryTag, false);
                 };
+// this consumer tag identifies the subscription
+// when it has to be cancelled
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
-Another option is to subclass <code>DefaultBasicConsumer</code>,
-overriding methods as necessary, or implement <code>IBasicConsumer</code>
+Another option is to subclass `DefaultBasicConsumer`,
+overriding methods as necessary, or implement `IBasicConsumer`
 directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
 
 More sophisticated consumers will need to implement further
-methods. In particular, <code>HandleModelShutdown</code> traps
+methods. In particular, `HandleModelShutdown` traps
 channel/connection closure. Consumers can also implement
-<code> HandleBasicCancelOk</code> to be notified of cancellations.
+` HandleBasicCancelOk` to be notified of cancellations.
 
-The <code>ConsumerTag</code> property of <code>DefaultBasicConsumer</code> can be
+The `ConsumerTag` property of `DefaultBasicConsumer` can be
 used to retrieve the server-generated consumer tag, in cases where
 none was supplied to the original <code>IModel.BasicConsume</code> call.
 
@@ -407,7 +411,7 @@ channel.BasicCancel(consumerTag);
 
 When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
-explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> document.
+explained in the [AMQP 0-9-1 specification](/specification.html) document.
 
 
 ## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages ("pull API")</a>
@@ -448,7 +452,7 @@ The above example uses [automatic acknowledgements](/confirms.html) (`noAck = fa
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations for Consumers</a>
 
-Each <code>IConnection</code> instance is, in the current implementation,
+Each `IConnection` instance is, in the current implementation,
 backed by a single background thread that reads from the socket and
 dispatches the resulting events to the application.
 If heartbeats are enabled, as of version <code>3.5.0</code>
@@ -471,24 +475,22 @@ using this library:
   </dd>
 </dl>
 
-
 The one place where the nature of the threading model is visible to
 the application is in any callback the application registers with the
 library. Such callbacks include:
 
-* any <code>IBasicConsumer</code> method
-* the <code>BasicReturn</code> event on <code>IModel</code>
-* any of the various shutdown events on <code>IConnection</code>, <code>IModel</code> etc.
+* any `IBasicConsumer` method
+* the `BasicReturn` event on `IModel`
+* any of the various shutdown events on `IConnection`, `IModel` etc.
 
 ### <a id="consumer-callbacks-and-ordering" class="anchor" href="#consumer-callbacks-and-ordering">Consumer Callbacks and Ordering</a>
             
-As of version <code>3.5.0</code> application callback handlers <strong>can</strong> invoke blocking
-operations (such as <code>IModel.QueueDeclare</code> or
-<code> IModel.BasicCancel</code>). <code>IBasicConsumer</code> callbacks are invoked concurrently.
+As of version `3.5.0` application callback handlers <strong>can</strong> invoke blocking
+operations (such as `IModel.QueueDeclare` or `IModel.BasicCancel`). `IBasicConsumer` callbacks are invoked concurrently.
 However, per-channel operation order is preserved. In other word, if messages A and B were delivered
 in this order on the same channel, they will be processed in this order. If messages A and B
 were delivered on different channels, they can be processed in any order (or in parallel).
-Consumer callbacks are invoked in tasks dispatched a <a href="https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx">TaskScheduler</a>.
+Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
 
 ### <a id="custom-task-scheduler" class="anchor" href="#custom-task-scheduler">Using a Custom Task Scheduler</a>
             
@@ -504,18 +506,18 @@ var cf = new ConnectionFactory();
 cf.TaskScheduler = new CustomTaskScheduler();
 </pre>
 
-This, for example, can be used to <a href="https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx">limit concurrency degree with a custom TaskScheduler</a>.          
+This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).          
 
 ### <a id="model-sharing" class="anchor" href="#model-sharing">Sharing Channels Between Threads</a>
 
-As a rule of thumb, <code>IModel</code> instances should not be used by more than
+As a rule of thumb, `IModel` instances should not be used by more than
 one thread simultaneously: application code should maintain a clear
-notion of thread ownership for <code>IModel</code> instances.
+notion of thread ownership for `IModel` instances.
 
-If more than one thread needs to access a particular <code>IModel</code>
+If more than one thread needs to access a particular `IModel`
 instances, the application should enforce mutual exclusion itself. One
-way of achieving this is for all users of an <code>IModel</code> to
-<code>lock</code> the instance itself:
+way of achieving this is for all users of an `IModel` to
+`lock` the instance itself:
 
 <pre class="lang-csharp">
 IModel ch = RetrieveSomeSharedIModelInstance();
@@ -524,17 +526,17 @@ lock (ch) {
 }
 </pre>
 
-Symptoms of incorrect serialisation of <code>IModel</code> operations
+Symptoms of incorrect serialisation of `IModel` operations
 include, but are not limited to,
 
  * invalid frame sequences being sent on the wire (which occurs, for
-   example, if more than one <code>BasicPublish</code> operation is run
+   example, if more than one `BasicPublish` operation is run
    simultaneously), and/or
 
- * <code>NotSupportedException</code>s being thrown from a method in class
-   <code>RpcContinuationQueue</code> complaining about
-   <code>"Pipelining of requests forbidden"</code> (which occurs in situations where more than
-   one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run simultaneously).
+ * `NotSupportedException`s being thrown from a method in class
+   `RpcContinuationQueue` complaining about
+   `"Pipelining of requests forbidden"` (which occurs in situations where more than
+   one AMQP 0-9-1 synchronous operation, such as `ExchangeDeclare`, is run simultaneously).
               
             
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
@@ -548,11 +550,10 @@ To be notified of such returns, clients can subscribe to the
 event, then returned messages will be silently dropped.
 
 <pre class="lang-csharp">
-model.BasicReturn +=
-  new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
+model.BasicReturn += new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
 </pre>
 
-The <code>BasicReturn</code> event will fire, for example, if the client
+The `BasicReturn` event will fire, for example, if the client
 publishes a message with the "mandatory" flag set to an exchange of
 "direct" type which is not bound to a queue.
 
@@ -608,7 +609,7 @@ Automatic connection recovery, if enabled, will be triggered by the following ev
 
 * An I/O exception is thrown in connection's I/O loop
 * A socket read operation times out
-* Missed server <a href="/heartbeats.html">heartbeats</a> are detected
+* Missed server [heartbeats](/heartbeats.html) are detected
 * Any other unexpected exception is thrown in connection's I/O loop
 
 whichever happens first.
@@ -641,7 +642,7 @@ non-existent queue).
             
 Messages that are published using <code>IModel.BasicPublish</code> when connection is down
 will be lost. The client does not enqueue them for delivery after connection has recovered.
-To ensure that published messages reach RabbitMQ applications need to use <a href="confirms.html">Publisher Confirms</a>
+To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](confirms.html)
 and account for connection failures.
             
 ### <a id="topology-recovery" class="anchor" href="#topology-recovery">Topology Recovery</a>
@@ -662,13 +663,13 @@ factory.TopologyRecoveryEnabled  = false;
 Automatic connection recovery has a number of limitations and intentional
 design decisions that applications developers need to be aware of.
 
-When a connection is down or lost, it <a href="/heartbeats.html">takes time to detect</a>.
+When a connection is down or lost, it [takes time to detect](/heartbeats.html).
 Therefore there is a window of time in which both the
 library and the application are unaware of effective
 connection failure.  Any messages published during this
 time frame are serialised and written to the TCP socket
 as usual. Their delivery to the broker can only be
-guaranteed via <a href="/confirms.html">publisher confirms</a>: publishing in AMQP 0-9-1 is entirely
+guaranteed via [publisher confirms](/confirms.html): publishing in AMQP 0-9-1 is entirely
 asynchronous by design.
 
 When a socket or I/O operation error is detected by a
@@ -686,7 +687,7 @@ with an exception. The client currently does not perform
 any internal buffering of such outgoing messages. It is
 an application developer's responsibility to keep track of such
 messages and republish them when recovery succeeds.
-<a href="/confirms.html">Publisher confirms</a> is a protocol extension
+[Publisher confirms](/confirms.html) is a protocol extension
 that should be used by publishers that cannot afford message loss.
 
 Connection recovery will not kick in when a channel is closed due to a
