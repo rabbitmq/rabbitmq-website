@@ -549,11 +549,14 @@ concurrency hazard safety.
 
 ## <a id="getting" class="anchor" href="#getting">Retrieving Individual Messages ("Pull API")</a>
 
-To explicitly retrieve messages, use
-`Channel.basicGet`.  The returned value is an
-instance of `GetResponse`, from which the
-header information (properties) and message body can be
-extracted:
+It is also possible to retrieve individual messages on demand ("pull API" a.k.a. polling).
+This approach to consumption is highly inefficient as it is effectively polling
+and applications repeatedly have to ask for results even if the vast majority of the requests
+yield no results. Therefore using this approach **is highly discouraged**.
+
+To "pull" a message, use the `Channel.basicGet` method.  The returned value is an
+instance of `GetResponse`, from which the header information (properties)
+and message body can be extracted:
 
 <pre class="lang-java">
 boolean autoAck = false;
