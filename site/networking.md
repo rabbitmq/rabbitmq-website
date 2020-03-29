@@ -454,8 +454,9 @@ Values that are too low will produce false positives.
 
 ### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
-RabbitMQ supports
-[Proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+RabbitMQ supports [Proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+versions 1 (text header format) and 2 (binary header format).
+
 The protocol makes servers such as RabbitMQ aware of the actual client IP address
 when connections go over a proxy (e.g. [HAproxy](http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#send-proxy) or [AWS ELB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol)).
 This makes it easier for the operator to inspect connection origins in the management UI
