@@ -58,8 +58,9 @@ confirming messages too early, potentially resulting in a data loss.
 Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics
 that users should find easier to reason about when designing and operating their systems.
 
-To reach this goal, quorum queues adopt a different replication and consensus protocol and give up
-support for certain "transient" in nature features as covered below.
+These design choices come with constraints. To reach this goal, quorum queues adopt a different replication
+and consensus protocol and give up support for certain "transient" in nature features.
+These constraints and limitations are covered later in this guide.
 
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
