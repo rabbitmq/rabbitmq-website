@@ -270,7 +270,7 @@ number of channels on a node and then identify how many there are on each connec
 The number of channels is displayed in the [management UI](/management.html) on the Overview tab,
 as is the [number of connections](/connections.html#monitoring).
 By dividing the number of channels by the number of connections
-the operator can detemine an average number of channels per connection.
+the operator can determine an average number of channels per connection.
 
 To find out how much memory on a node is used by channels, use [`rabbitmq-diagnostics memory_breakdown`](/rabbitmq-diagnostics.8.html):
 
