@@ -90,11 +90,17 @@ private namespaces remaining stable across releases of the library.
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
 Before an application can use RabbitMQ, it has to open a [connection](/connections.html)
-to a RabbitMQ node.
+to a RabbitMQ node. The connection then will be used to perform all subsequent
+operations. Connections are **meant to be long-lived**. Opening a connection
+for every operation (e.g. publishing a message) would be very inefficient and is
+**highly discouraged**.
 
-To do so in the .NET client, it is necessary to instantiate a `ConnectionFactory`
-and configure it to use desired hostname, virtual host, and credentials. Then
-use <code>ConnectionFactory.CreateConnection()</code> to open a connection.
+To open a connection with the .NET client, first instantiate a `ConnectionFactory`
+and configure it to use desired hostname, virtual host, credentials, [TLS settings](/ssl.html),
+and any other parameters as needed.
+
+Then call the `ConnectionFactory.CreateConnection()` method to open a connection.
+Successful and unsuccessful client connection events can be [observed in server logs](/networking.html#logging).
 
 The following two code snippets connect to a RabbitMQ node on `hostName`:
 
@@ -165,7 +171,7 @@ remains unassigned prior to creating a connection:
 Note that [user guest can only connect from localhost](/access-control.html) by default.
 This is to limit well-known credential use in production systems.
 
-The `IConnection` interface can then be used to open a channel:
+The `IConnection` interface can then be used to open a [channel](/channels.html):
 
 <pre class="lang-csharp">
 IModel channel = conn.CreateModel();
@@ -174,7 +180,14 @@ IModel channel = conn.CreateModel();
 The channel can now be used to send and receive messages,
 as described in subsequent sections.
 
-Successful and unsuccessful client connection events can be [observed in server node logs](/networking.html#logging).
+Just like connections, channels are **meant to be long-lived**. Opening a new channel
+for every operation would be highly inefficient is **highly discouraged**. Channels,
+however, can have a shorter life span than connections. For example, certain
+protocol errors will automatically close channels. If applications can recover
+from them, they can open a new channel and retry the operation.
+
+This is covered in more detail in the [Channel guide](/channels.html) as well as other
+guides such as [Consumer Acknowledgements](/confirms.html).
 
 
 ## <a id="disconnecting" class="anchor" href="#disconnecting">Disconnecting from RabbitMQ</a>
