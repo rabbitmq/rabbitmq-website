@@ -109,14 +109,14 @@ The following example configures an upstream named "source" which can be contact
 
 <pre class="lang-bash">
 # Adds a federation upstream named "origin"
-rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://localhost:5673"}'
+rabbitmqctl set_parameter federation-upstream origin '{"uri":"amqp://localhost:5672"}'
 </pre>
 
 On Windows, use `rabbitmqctl.bat` and suitable PowerShell quoting:
 
 <pre class="lang-powershell">
 # Adds a federation upstream named "origin"
-rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5673""}"
+rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5672""}"
 </pre>
   
 More upstream definition parameters are covered in the [Federation Reference guide](/federation-reference.html).
