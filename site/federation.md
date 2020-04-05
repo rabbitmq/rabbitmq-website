@@ -195,7 +195,7 @@ PUT /api/policies/%2f/federate-me
     </td>
   </tr>
   <tr>
-    <th>Web UI</th>
+    <th>Management UI</th>
     <td>
       Navigate to `Admin` > `Policies` > `Add / update a policy`.
       Enter "federate-me" next to "Name", "^amq\." next to
@@ -237,10 +237,11 @@ three exchanges and two upstreams for each there will be six
 links.
 
 For simple use this should be all you need - you will probably
-want to look at the <a href="uri-spec.html">AMQP URI
-reference</a>. The <a href="federation-reference.html">federation
-reference</a> contains more details on setting up upstreams and
-upstream sets.
+want to look at the <a href="/uri-spec.html">AMQP URI
+reference</a>.
+
+The <a href="/federation-reference.html">federation reference</a> contains
+more details on upstream parameters and upstream sets.
 
 
 ## <a id="link-failures" class="anchor" href="#link-failures">Federation Connection (Link) Failures</a>
@@ -306,3 +307,111 @@ To configure Federation to use TLS, one needs to
 
 Just like with "regular" client connections, server's CA should be
 trusted on the node where federation link(s) runs, and vice versa.
+
+
+## <a id="status" class="anchor" href="#status">Federation Link Monitoring</a>
+
+Each combination of federated exchange or queue and upstream needs a
+link to run. This is the process that retrieves messages from upstream
+and republishes them downstream. You can monitor the status of
+federation links using <code>rabbitmqctl</code> and the management
+plugin.
+      
+### Using CLI Tools
+
+Federation link status can be inspected using [RabbitMQ CLI tools](/cli.html).
+      
+Invoke:
+
+<pre class="lang-bash">
+rabbitmqctl eval 'rabbit_federation_status:status().'
+</pre>
+
+This will output a list of federation links running on the target node (not cluster-wide).
+It contains the following keys:
+
+<table>
+  <thead>
+    <tr>
+      <td>Parameter Name</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><code>type</code></td>
+      <td>
+        <code>exchange</code> or <code>queue</code> depending on
+        what type of federated resource this link relates to
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>name</code></td>
+      <td>
+        the name of the federated exchange or queue
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>vhost</code></td>
+      <td>
+        the virtual host containing the federated exchange or queue
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>upstream_name</code></td>
+      <td>
+        the name of the upstream this link is connected to
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>status</code></td>
+      <td>
+        status of the link:
+          <ul>
+            <li><code>starting</code></li>
+            <li><code>{running, LocalConnectionName}</code></li>
+            <li><code>{shutdown, Error}</code></li>
+          </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>connection</code></td>
+      <td>
+        the name of the connection for this link (from config)
+      </td>
+    </tr>
+
+    <tr>
+      <td><code>timestamp</code></td>
+      <td>
+        time stamp of the last status update
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Here's an example:
+
+<pre class="lang-bash"># rabbitmqctl eval 'rabbit_federation_status:status().'
+# => [[{type,&lt;&lt;"exchange">>},
+# =>   {name,&lt;&lt;"my-exchange">>},
+# =>   {vhost,&lt;&lt;"/">>},
+# =>   {connection,&lt;&lt;"upstream-server">>},
+# =>   {upstream_name,&lt;&lt;"my-upstream-x">>},
+# =>   {status,{running,&lt;&lt;"&lt;rabbit@my-server.1.281.0>">>}},
+# =>   {timestamp,{{2020,3,1},{12,3,28}}}]]
+# => ...done.</pre>
+
+### Using the Management UI
+
+Enable the <code>rabbitmq_federation_management</code> [plugin](/plugins.html) that extends
+[management UI](/management.html) with a new page that displays federation links in the cluster.
+It can be found under `Admin > Federation Status`, or by using the
+<code>GET /api/federation-links</code> HTTP API endpoint.
+    
