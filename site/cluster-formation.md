@@ -54,7 +54,7 @@ The following mechanisms are built into the core and always available:
  * [Pre-configured DNS A/AAAA records](#peer-discovery-dns)
 
 Additional peer discovery mechanisms are available via plugins. The following
-peer discovery plugins ship with RabbitMQ as of 3.7.0:
+peer discovery plugins ship with [supported RabbitMQ versions](/versions.html):
 
  * [AWS (EC2)](#peer-discovery-aws)
  * [Kubernetes](#peer-discovery-k8s)
@@ -904,6 +904,9 @@ cluster_formation.consul.lock_prefix = environments-qa
 An [etcd](https://coreos.com/etcd)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd).
 
+As of RabbitMQ `3.8.4`, the plugin uses a v3 API, gRPC-based etcd client and
+**requires etcd 3.4 or a later version**.
+
 As with any [plugin](/plugins.html), it must be enabled before it
 can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
 or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
@@ -912,54 +915,114 @@ or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_etcd
 </pre>
 
-etcd v3 and v2 are supported.
-
 Nodes register with etcd on boot by creating a key in a conventionally named directory. The keys have
 a short (say, a minute) expiration period. The keys are deleted when nodes stop cleanly.
+
 Prior to registration, nodes will attempt to acquire a
 lock in etcd to reduce the probability of a [race condition
 during initial cluster formation](#initial-formation-race-condition).
 
-Nodes contact etcd periodically to refresh
-their keys. Those that haven't done so in a configurable
-period of time (node TTL) are cleaned up from etcd.  If
-configured, such nodes can be forcefully removed from the
-cluster.
+Every node's key has an associated [lease](https://etcd.io/docs/v3.4.0/dev-guide/interacting_v3/#grant-leases)
+with a configurable TTL. Nodes keep their key's leases alive.
+If a node loses connectivity and cannot update its lease, its key will be cleaned up by etcd after TTL expires.
+Such nodes won't be discovered by newly joining nodes.
+If configured, such nodes can be forcefully removed from the cluster.
 
 ### Configuration
 
+#### etcd Endpoints and Authentication
+
 To use etcd for peer discovery, set the `cluster_formation.peer_discovery_backend`
 to `rabbit_peer_discovery_etcd` (note: this value is slightly different from plugin name).
-The plugin requires a configured etcd node hostname for the plugin
+The plugin requires a configured etcd endpoint for the plugin
 to connect to:
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-# etcd host (hostname or IP address). This property is required or peer discovery won't be performed.
-cluster_formation.etcd.host = etcd.eng.example.local
+# etcd endpoints. This property is required or peer discovery won't be performed.
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 </pre>
 
-It is possible to configure etcd port and URI scheme:
+It is possible to configure multiple etcd endpoints. The first randomly
+chosen one that the plugin can successfully connect to will be used.
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-cluster_formation.etcd.host = etcd.eng.example.local
-# 2379 is used by default
-cluster_formation.etcd.port = 2379
-# http is used by default
-cluster_formation.etcd.scheme = http
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
 </pre>
 
-Directories and keys used by the peer discovery mechanism follow a naming scheme:
+If [authentication is enabled for etcd](https://etcd.io/docs/v3.4.0/op-guide/authentication/), the plugin can be confired to use
+a pair of credentials:
 
-<pre class="lang-ini">/v2/keys/{key_prefix}/{cluster_name}/nodes/{node_name}</pre>
+<pre class="lang-ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
+
+cluster_formation.etcd.username = rabbitmq
+cluster_formation.etcd.password = s3kR37
+</pre>
+
+It is possible to use [advanced.config](/configure.html#advanced-config-file) file to [encrypt the password value](/configure.html#configuration-encryption)
+listed in the config. In this case all plugin settings must be moved to the advanced config:
+
+<pre class="lang-erlang">
+%% advanced.config file
+[
+ {rabbit,
+     [{cluster_formation,
+          [{peer_discovery_etcd, [
+                {endpoints, [
+                  "one.etcd.eng.example.local:2379",
+                  "two.etcd.eng.example.local:2479",
+                  "three.etcd.eng.example.local:2579"
+                ]},
+                
+                {etcd_prefix,   "rabbitmq"},
+                {cluster_name,  "default"},
+
+                {etcd_username, "etcd user"},
+                {etcd_password, {encrypted, &lt;&lt;"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ=="&gt;&gt;}
+                }]
+           }]
+      }]
+ },
+
+  {config_entry_decoder, [
+             {passphrase, &lt;&lt;"decryption key passphrase"&gt;&gt;}
+         ]}
+].    
+</pre>
+
+#### Key Naming
+
+Directories and keys used by the peer discovery mechanism follow a naming scheme.
+Since in etcd [v3 API the key space is flat](https://etcd.io/docs/v3.4.0/rfc/v3api/),
+a hardcoded prefix is used. It allows the plugin to predictably perform key range queries
+using a well-known prefix:
+
+<pre class="lang-ini">
+# for node presence keys
+/rabbitmq/discovery/{prefix}/clusters/{cluster name}/nodes/{node name}
+</pre>
+
+<pre class="lang-ini">
+# for regisration lock keys
+/rabbitmq/locks/{prefix}/clusters/{cluster name}/registration
+</pre>
 
 Here's an example of a key that would be used by node `rabbit@hostname1`
-with default key prefix and cluster name:
+with default user-provided key prefix and cluster name:
 
-<pre class="lang-ini">/v2/keys/rabbitmq/default/nodes/rabbit@hostname1</pre>
+<pre class="lang-ini">
+/rabbitmq/discovery/rabbitmq/clusters/default/nodes/rabbit@hostname1
+</pre>
 
 Default key prefix is simply "rabbitmq". It rarely needs overriding but that's
 supported:
@@ -967,7 +1030,10 @@ supported:
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-cluster_formation.etcd.host = etcd.eng.example.local
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
+
 # rabbitmq is used by default
 cluster_formation.etcd.key_prefix = rabbitmq_discovery
 </pre>
@@ -978,26 +1044,38 @@ a unique name:
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-cluster_formation.etcd.host = etcd.eng.example.local
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
+
 # default name: "default"
 cluster_formation.etcd.cluster_name = staging
 </pre>
 
-Key used for node registration will have a TTL interval set for them. Online nodes
-will periodically refresh their key(s). The TTL value can be configured:
+#### Key Leases and TTL
+
+Key used for node registration will have a lease with a TTL associated with them.
+Online nodes will periodically keep the leases alive (refresh). The TTL value can be configured:
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-cluster_formation.etcd.host = etcd.eng.example.local
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
+
 # node TTL in seconds
 # default: 30
 cluster_formation.etcd.node_ttl = 40
 </pre>
 
-Key refreshes will be performed every `TTL/2` seconds.
+Key leases are updated periodically while the node is running and the plugin
+remains enabled.
+
 It is possible to forcefully remove the nodes that fail to refresh their keys from the cluster.
 This is covered later in this guide.
+
+#### Locks
 
 When a node tries to acquire a lock on boot and the lock is already taken,
 it will wait for the lock to become available for a limited amount of time. Default value is 300
@@ -1006,11 +1084,85 @@ seconds but it can be configured:
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
-cluster_formation.etcd.host = etcd.eng.example.local
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+
 # lock acquisition timeout in seconds
 # default: 300
 # cluster_formation.consul.lock_wait_time is an alias
 cluster_formation.etcd.lock_timeout = 60
+</pre>
+
+#### TLS
+
+It is possible to configure the plugin to [use TLS](/ssl.html) when connecting to etcd.
+TLS will be enabled if any of the TLS options listed below are configured, otherwise
+connections will use "plain TCP" without TLS.
+
+The plugin acts as a TLS client. A [trusted CA certificate](/ssl.html#peer-verification) file must
+be provided as well as a client certificate and private key pair:
+
+<pre class="lang-ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+
+# trusted CA certificate file path
+cluster_formation.etcd.ssl_options.cacertfile = /path/to/ca_certificate.pem
+# client certificate (public key) file path
+cluster_formation.etcd.ssl_options.certfile   = /path/to/client_certificate.pem
+# client private key file path
+cluster_formation.etcd.ssl_options.keyfile    = /path/to/client_key.pem
+
+# use TLSv1.2 for connections
+cluster_formation.etcd.ssl_options.versions.1 = tlsv1.2
+
+# enables peer verification (the plugin will verify the certificate chain of the server)
+cluster_formation.etcd.ssl_options.verify               = verify_peer
+cluster_formation.etcd.ssl_options.fail_if_no_peer_cert = true
+</pre>
+
+More [TLS options](/ssl.html) are supported such as cipher suites and
+client-side session renegotiation options:
+
+<pre class="lang-ini">
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+
+cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
+cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
+
+# trusted CA certificate file path
+cluster_formation.etcd.ssl_options.cacertfile = /path/to/ca_certificate.pem
+# client certificate (public key) file path
+cluster_formation.etcd.ssl_options.certfile   = /path/to/client_certificate.pem
+# client private key file path
+cluster_formation.etcd.ssl_options.keyfile    = /path/to/client_key.pem
+
+# use TLSv1.2 for connections
+cluster_formation.etcd.ssl_options.versions.1 = tlsv1.2
+
+# enables peer verification (the plugin will verify the certificate chain of the server)
+cluster_formation.etcd.ssl_options.verify               = verify_peer
+cluster_formation.etcd.ssl_options.fail_if_no_peer_cert = true
+
+# use secure session renegotiation
+cluster_formation.etcd.ssl_options.secure_renegotiate   = true
+
+# Explicitly list enabled cipher suites. This can break connectivity
+# and is not necessary most of the time.
+cluster_formation.etcd.ssl_options.ciphers.1  = ECDHE-ECDSA-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.2  = ECDHE-RSA-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.3  = ECDH-ECDSA-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.4  = ECDH-RSA-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.5  = DHE-RSA-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.6  = DHE-DSS-AES256-GCM-SHA384
+cluster_formation.etcd.ssl_options.ciphers.7  = ECDHE-ECDSA-AES128-GCM-SHA256
+cluster_formation.etcd.ssl_options.ciphers.8  = ECDHE-RSA-AES128-GCM-SHA256
+cluster_formation.etcd.ssl_options.ciphers.9  = ECDH-ECDSA-AES128-GCM-SHA256
+cluster_formation.etcd.ssl_options.ciphers.10 = ECDH-RSA-AES128-GCM-SHA256
+cluster_formation.etcd.ssl_options.ciphers.11 = DHE-RSA-AES128-GCM-SHA256
+cluster_formation.etcd.ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
 </pre>
 
 
