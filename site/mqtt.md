@@ -26,13 +26,15 @@ RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
 ### The Quorum Requirement
 
-As of 3.8, the plugin [requires a quorum of cluster nodes](#limitations) to be present.
+As of 3.8, the plugin [requires a quorum of cluster nodes](#consensus) to be present.
 This means two nodes out of three, three out of five and so on.
 
 The plugin can also be used on a single node but **does not support** clusters of two nodes.
 
 In case the majority of cluster nodes is down, remaining cluster nodes would not be able to
 accept new MQTT client connections.
+
+There are other [documented limitations](#limitations).
 
 ### Enabled on All Nodes
 
@@ -195,6 +197,18 @@ Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
 request (SUBACK responses will contain the actually provided QoS
 level).
 
+## <a id="consensus" class="anchor" href="#consensus">Consensus Features</a>
+
+As of RabbitMQ 3.8, this plugin requires a quorum (majority) of nodes to be online.
+This is because client ID tracking now uses a consensus protocol which requires
+a quorum of nodes to be online in order to make progress.
+
+If a quorum of nodes is down or lost, the plugin won't be able to access new client
+connections until the quorum is restored.
+
+This also means that **two node clusters are not supported** since the loss of just one
+node out of two means the loss of a quorum of online nodes.
+
 
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
@@ -218,25 +232,6 @@ mqtt.subscription_ttl = 86400000
 mqtt.prefetch         = 10
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
-                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
-                  {allow_anonymous,  true},
-                  {vhost,            &lt;&lt;"/"&gt;&gt;},
-                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
-                  {subscription_ttl, 1800000},
-                  {prefetch,         10},
-                  {ssl_listeners,    []},
-                  %% Default MQTT with TLS port is 8883
-                  %% {ssl_listeners,    [8883]}
-                  {tcp_listeners,    [1883]},
-                  {tcp_listen_options, [{backlog, 4096},
-                                        {nodelay, true}]}]}
-].
-</pre>
-
 ### <a id="tcp-listeners" class="anchor" href="#tcp-listeners">TCP Listeners</a>
 
 When no configuration is specified the MQTT plugin will listen on
@@ -254,29 +249,12 @@ port to 12345 would look like:
 mqtt.listeners.tcp.1 = 12345
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [{tcp_listeners, [12345]}]}
-].
-</pre>
-
 while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
 
 <pre class="lang-ini">
 mqtt.listeners.tcp.1 = 127.0.0.1:1883
 mqtt.listeners.tcp.2 = ::1:1883
-</pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [{tcp_listeners, [{"127.0.0.1", 1883},
-                                    {"::1",       1883}]}]}
-].
 </pre>
 
 ### TCP Listener Options
@@ -322,23 +300,6 @@ mqtt.listeners.ssl.default = 8883
 mqtt.listeners.tcp.default = 1883
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[{rabbit,        [
-                  {ssl_options, [{cacertfile, "/path/to/ca_certificate.pem"},
-                                 {certfile,   "/path/to/server_certificate.pem"},
-                                 {keyfile,    "/path/to/server_key.pem"},
-                                 {verify,     verify_peer},
-                                 {fail_if_no_peer_cert, true}]}
-                 ]},
- {rabbitmq_mqtt, [
-                  {ssl_listeners,    [8883]},
-                  {tcp_listeners,    [1883]}
-                  ]}
-].
-</pre>
-
 Note that RabbitMQ rejects SSLv3 connections by default because that protocol
 is known to be compromised.
 
@@ -363,14 +324,16 @@ First way is mapping MQTT plugin (TCP or TLS) listener ports to vhosts. The mapp
 is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](/parameters.html).
 Let's take the following plugin configuration:
 
-<pre class="lang-erlang">
-[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
-                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
-                  {allow_anonymous,  true},
-                  {vhost,            &lt;&lt;"/"&gt;&gt;},
-                  {tcp_listeners,    [1883, 1884]},
-                  {ssl_listeners,    [8883, 8884]}]
-}].
+<pre class="lang-ini">
+mqtt.listeners.tcp.1 = 1883
+mqtt.listeners.tcp.2 = 1884
+
+mqtt.listeners.ssl.1 = 8883
+mqtt.listeners.ssl.2 = 8884
+
+# (other TLS settings are omitted for brevity)
+
+mqtt.vhost            = /
 </pre>
 
 Note the plugin listens on ports 1883, 1884, 8883, and 8884. Imagine you
@@ -442,14 +405,6 @@ To switch this feature on, set `ssl_cert_login` to `true` for the
 mqtt.ssl_cert_login = true
 </pre>
 
-Or using the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [{ssl_cert_login, true}]}
-].
-</pre>
-
 By default this will set the username to an RFC4514-ish string form of
 the certificate's subject's Distinguished Name, similar to that
 produced by OpenSSL's "-nameopt RFC2253" option.
@@ -458,12 +413,6 @@ To use the Common Name instead, add:
 
 <pre class="lang-ini">
 ssl_cert_login_from = common_name
-</pre>
-
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-{rabbit, [{ssl_cert_login_from, common_name}]}
 </pre>
 
 to your configuration.
@@ -532,21 +481,6 @@ mqtt.prefetch         = 10
 ...
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[{rabbit,        [{tcp_listeners,    [5672]}]},
- {rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
-                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
-                  {allow_anonymous,  true},
-                  {vhost,            &lt;&lt;"/"&gt;&gt;},
-                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
-                  {subscription_ttl, undefined},
-                  {prefetch,         10},
-                  ...
-].
-</pre>
-
 Note that disabling queue TTL carries a risk: short-lived clients that don't use clean sessions
 can leave queues and messages behind, which will consume resources and require manual
 cleanup.
@@ -572,14 +506,6 @@ This feature is disabled by default, to enable it for MQTT clients:
 mqtt.proxy_protocol = true
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [{proxy_protocol, true}]}
-].
-</pre>
-
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
@@ -595,14 +521,6 @@ To solve this, the `sparkplug` configuration entry can be set to `true`:
 
 <pre class="lang-ini">
 mqtt.sparkplug = true
-</pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_mqtt, [{sparkplug, true}]}
-].
 </pre>
 
 When the Sparkplug support is enabled, the MQTT plugin will not translate the
@@ -641,25 +559,6 @@ mqtt.listeners.ssl = none
 mqtt.listeners.tcp.default = 1883
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[{rabbitmq_mqtt, [{default_user,     &lt;&lt;"guest"&gt;&gt;},
-                  {default_pass,     &lt;&lt;"guest"&gt;&gt;},
-                  {allow_anonymous,  true},
-                  {vhost,            &lt;&lt;"/"&gt;&gt;},
-                  {exchange,         &lt;&lt;"amq.topic"&gt;&gt;},
-                  {subscription_ttl, 1800000},
-                  {prefetch,         10},
-                  %% use DETS (disk-based) store for retained messages
-                  {retained_message_store, rabbit_mqtt_retained_msg_store_dets},
-                  %% only used by DETS store
-                  {retained_message_store_dets_sync_interval, 2000},
-                  {ssl_listeners,    []},
-                  {tcp_listeners,    [1883]}]}
-].
-</pre>
-
 The value must be a module that implements the store:
 
  * <code>rabbit_mqtt_retained_msg_store_ets</code> for RAM-based
@@ -676,6 +575,10 @@ Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> be
 
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+### Presence of a Quorum of Nodes
+
+See [Consensus Features](#consensus).
 
 ### Overlapping Subscriptions
 
