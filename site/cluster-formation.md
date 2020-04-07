@@ -196,18 +196,10 @@ can be reset and will successfully join B.
 Peer discovery plugins are configured just like the core server and other
 plugins: using a [config file](/configure.html).
 
-`cluster_formation.peer_discovery_backend` is the key that [controls what
-peer discovery backend will be used](#peer-discovery-configuring-mechanism). Each backend will also have a number of
-configuration settings specific to it. The rest of the guide will cover configurable settings specific to a particular mechanism
+`cluster_formation.peer_discovery_backend` is the key that [controls what peer discovery backend will be used](#peer-discovery-configuring-mechanism).
+Each backend will also have a number of configuration settings specific to it.
+The rest of the guide will cover configurable settings specific to a particular mechanism
 as well as provide examples for each one.
-
-Environment variables can also be used to configure several mechanisms for easier
-migration from `rabbitmq-autocluster`. This method is highly discouraged,
-however: using environment variables is more error prone compared to the config file,
-and it is harder to [verify effective configuration](/configure.html#verify-configuration-effective-configuration).
-Only those [migrating](/upgrade.html) clusters that use `rabbitmq-autocluster` should
-use environment variables for peer discoveery configuration, this guide leaves them out. Variable
-names are the same as used by `rabbitmq-autocluster`.
 
 
 ## <a id="peer-discovery-classic-config" class="anchor" href="#peer-discovery-classic-config">Config File Peer Discovery Backend</a>
