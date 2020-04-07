@@ -173,10 +173,20 @@ reserved_unallocated: 0.0 gb (0.0%)
   </tr>
 
   <tr>
+    <td>quorum_queue_procs</td>
+    <td>Queues</td>
+    <td>
+      <a href="//quorum-queues.html">Quorum queue</a> processes, both currently elected leaders and followers.
+      Memory footprint can be capped on a per-queue basis.
+      See the <a href="/quorum-queues.html">Quorum Queues</a> guide for more information.
+    </td>
+  </tr>
+
+  <tr>
     <td>queue_procs</td>
     <td>Queues</td>
     <td>
-      Queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
+      Classic queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
@@ -188,7 +198,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>queue_slave_procs</td>
     <td>Queues</td>
     <td>
-      Queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
+      Classic queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
       inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
@@ -246,6 +256,12 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>mnesia</td>
     <td>Internal Database</td>
     <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+  </tr>
+
+  <tr>
+    <td>quorum_ets</td>
+    <td>Internal Database</td>
+    <td>Raft implementation's WAL and other memory tables. Most of these are periodically moved to disk.</td>
   </tr>
 
   <tr>
