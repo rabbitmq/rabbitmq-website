@@ -26,11 +26,11 @@ important aspect of [system monitoring](/monitoring.html).
 RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](/cli.html)
- * [`rabbitmqctl status`](/cli.html) includes the above breakdown as a section
+ * [`rabbitmq-diagnostics status`](/cli.html) includes the above breakdown as a section
  * [Prometheus and Grafana](/prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
- * [management UI](/management.html) provides the same breakdown on the node page as `rabbitmqctl status`
+ * [Management UI](/management.html) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
  * [HTTP API](/management.html#http-api) provides the same information as the management UI, useful [for monitoring](/monitoring.html)
- * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top), a plugin inspired by the [top](https://en.wikipedia.org/wiki/Top_(software)) utility
+ * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
 
 Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
 
@@ -80,11 +80,12 @@ To find out what strategy a node uses, see its [effective configuration](/config
 
 ### <a id="breakdown-intro" class="anchor" href="#breakdown-intro">How Memory Breakdown Works</a>
 
-Memory use breakdown reports allocated memory distribution by category:
+Memory use breakdown reports allocated memory distribution on the target node, by category:
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
- * Queue master replicas
- * Queue mirror replicas
+ * [Quorum queue](/quorum-queues.html) replicas
+ * Classic queue [master replicas](/ha.html)
+ * Classic queue mirror replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)
  * Node-local metrics (stats database)
