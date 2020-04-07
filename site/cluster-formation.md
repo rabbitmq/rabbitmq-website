@@ -437,7 +437,7 @@ control [network identity of the pods](https://kubernetes.io/docs/concepts/servi
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-[eager synchronisation](/ha.html) of classic queue mirrors on newly joining nodes.
+[eager synchronisation of classic queue mirrors](/ha.html) on newly joining nodes.
 
 Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
