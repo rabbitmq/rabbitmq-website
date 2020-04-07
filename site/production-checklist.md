@@ -97,7 +97,7 @@ to throttle publishers when consumers do not keep up.
 
 By default, RabbitMQ will not accept any new messages when it detects
 that it's using more than 40% of the available memory (as reported by the OS):
-`{vm_memory_high_watermark, 0.4}`. This is a safe default
+`vm_memory_high_watermark.relative = 0.4`. This is a safe default
 and care should be taken when modifying this value, even when the
 host is a dedicated RabbitMQ node.
 
@@ -111,7 +111,7 @@ A few recommendations when adjusting the default
 
  * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
    memory available at all times. Deployments that use [quorum queues](/quorum-queues.html), [Shovel](/shovel.html) and [Federation](/federation.html) may need more.
- * The recommended `vm_memory_high_watermark` range is `0.4 to 0.7`
+ * The recommended `vm_memory_high_watermark.relative` range is `0.4 to 0.7`
  * Values above `0.7` should be used with care and with solid [memory usage](/memory-use.html) and infrastructure-level [monitoring](/monitoring.html) in place.
    The OS and file system must be left with at least 30% of the memory, otherwise performance may degrade severely due to paging.
 
@@ -139,7 +139,7 @@ following:
 
 <ul class="plain">
   <li>
-    <code>{disk_free_limit, {mem_relative, 1.0}}</code> is the
+    <code>disk_free_limit.relative = 1.0</code> is the
     minimum recommended value and it translates to the total amount of
     memory available. For example, on a host dedicated to
     RabbitMQ with 4GB of system memory, if available disk space drops
@@ -148,7 +148,7 @@ following:
     consumers, before publishing will be allowed to resume.
   </li>
   <li>
-    <code>{disk_free_limit, {mem_relative, 1.5}}</code> is a
+    <code>disk_free_limit.relative = 1.5</code> is a
     safer production value. On a RabbitMQ node with 4GB of
     memory, if available disk space drops below 6GB, all new messages
     will be blocked until the disk alarm clears. If RabbitMQ needs to
@@ -159,11 +159,10 @@ following:
     6GB.
   </li>
   <li>
-    <code>{disk_free_limit, {mem_relative, 2.0}}</code> is the
+    <code>disk_free_limit.relative = 2.0</code> is the
     most conservative production value, we cannot think of any reason to use
-    anything higher.If you want full confidence in RabbitMQ having
-    all the disk space that it needs, at all times, this is the value
-    to use.
+    anything higher. If you want full confidence in RabbitMQ having
+    all the disk space that it needs, at all times, this is the value to use.
   </li>
 </ul>
 
