@@ -111,15 +111,15 @@ A few recommendations when adjusting the default
 
  * Nodes hosting RabbitMQ should have at least <strong>256 MiB</strong> of
    memory available at all times. Deployments that use [quorum queues](/quorum-queues.html), [Shovel](/shovel.html) and [Federation](/federation.html) may need more.
- * The recommended `vm_memory_high_watermark` range is `0.40 to 0.7`
- * Values above `0.7` should be used with care and with solid [kernel metric monitoring](/monitoring.html) in place. The OS and
-   file system must be left with at least 30% of the memory,
-   otherwise performance may degrade severely due to paging.
+ * The recommended `vm_memory_high_watermark` range is `0.4 to 0.7`
+ * Values above `0.7` should be used with care and with solid [memory usage](/memory-use.html) and infrastructure-level [monitoring](/monitoring.html) in place.
+   The OS and file system must be left with at least 30% of the memory, otherwise performance may degrade severely due to paging.
 
-As with every tuning, benchmarking and measuring are required to find
-the best setting for your environment and workload.
+These are some very broad-stroked guidelines.
+As with every tuning scenario, monitoring, benchmarking and measuring are required to find
+the best setting for the environment and workload.
 
-[Learn more about RabbitMQ &amp; system memory](/memory.html) in a separate guide.
+Learn more about [RabbitMQ and system memory](/memory.html) in a separate guide.
 
 ### <a id="resource-limits-disk-space" class="anchor" href="#resource-limits-disk-space">Disk Space</a>
 
