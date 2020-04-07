@@ -40,29 +40,29 @@ time, usually within a 5 seconds time window.
 
 ## <a id="strategies" class="anchor" href="#strategies">Total Memory Use Calculation Strategies</a>
 
-RabbitMQ can use different strategies to compute how much memory a node uses. Historically, nodes
-obtained this information from the runtime, reporting how much
-memory is used (not just allocated). This strategy, known as
-`legacy` (alias for `erlang`) tends to
+RabbitMQ can use different strategies to compute how much memory a node uses.
+Historically, nodes obtained this information from the runtime, reporting how much
+memory is used (not just allocated). This strategy, known as `legacy` (alias for `erlang`) tends to
 underreport and is not recommended.
 
 Effective strategy is configured using the `vm_memory_calculation_strategy` key.
+There are two primary options:
 
-`rss` uses OS-specific means of querying the kernel to find
-RSS (Resident Set Size) value of the node OS process. This strategy is most precise
-and used by default on Linux, MacOS, BSD and Solaris systems. When
-this strategy is used, RabbitMQ runs short lived subprocesses once a second.
+ * `rss` uses OS-specific means of querying the kernel to find
+   RSS (Resident Set Size) value of the node OS process. This strategy is most precise
+   and used by default on Linux, MacOS, BSD and Solaris systems. When
+  this strategy is used, RabbitMQ runs short lived subprocesses once a second.
 
-`allocated` is a strategy that queries runtime memory allocator
-information. It is usually quite close to the values reported by the `rss`
-strategy. This strategy is used by default on Windows.
+ * `allocated` is a strategy that queries runtime memory allocator
+   information. It is usually quite close to the values reported by the `rss`
+  strategy. This strategy is used by default on Windows.
 
 The `vm_memory_calculation_strategy` setting also impacts
 memory breakdown reporting. If set to `legacy` (`erlang`) or `allocated`,
 some memory breakdown fields will not be reported. This is covered in more detail
 further in this guide.
 
-The following config example uses the `rss` strategy:
+The following configuration example uses the `rss` strategy:
 
 <pre class="lang-ini">
 vm_memory_calculation_strategy = rss
