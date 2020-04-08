@@ -1093,6 +1093,14 @@ cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
 cluster_formation.etcd.lock_timeout = 60
 </pre>
 
+#### Inspecting Keys
+
+In order to list all keys used by the etcd-based peer discovery mechanism, use `etcdctl get` like so:
+
+```shell
+etcdctl get --prefix=true "/rabbitmq"
+```
+
 #### TLS
 
 It is possible to configure the plugin to [use TLS](/ssl.html) when connecting to etcd.
