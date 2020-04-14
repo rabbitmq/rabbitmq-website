@@ -21,6 +21,23 @@ limitations under the License.
 
 RabbitMQ supports MQTT 3.1.1 via a plugin that ships in the core distribution.
 
+Key covered topics are:
+
+ * [Clustering requirements](#requirements) of this plugin
+ * [Supported MQTT 3.1.1 features](#features) as well as [limitations](#limitations)
+ * [How to enable the plugin](#enabling-plugin)
+ * [Users and authentication](#authentication), [remote connection](#local-vs-remote) limitations of the default user
+ * [Implementation overview](#implementation)
+ * [Subscription durability](#durability) and [session stickiness](#stickiness)
+ * [Consensus-based Features](#consensus) 
+ * [Key configurable settings](#config) of the plugin
+ * [TLS support](#tls)
+ * [Virtual hosts](#virtual-hosts)
+ * [Sparkplug support](#sparkplug-support), [Proxy protocol](#proxy-protocol)
+ * How to disable the plugin and [decomission a node](#disabling-plugin)
+
+ and more.
+
 
 ## <a id="requirements" class="anchor" href="#requirements">Clustering Requirements</a>
 
@@ -55,6 +72,7 @@ the [management UI](/management.html) and several other plugins can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
+
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The MQTT plugin is included in the RabbitMQ distribution. Before clients can successfully
@@ -67,7 +85,7 @@ rabbitmq-plugins enable rabbitmq_mqtt
 Now that the plugin is enabled, MQTT clients will be able to connect provided that
 they have a set of credentials for an existing user with the appropriate permissions.
 
-### <a id="authentication" class="anchor" href="#authentication"> Users and Authentication</a>
+### <a id="authentication" class="anchor" href="#authentication">Users and Authentication</a>
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
 have the [appropriate permissions](/access-control.html) to the virtual host used by the
@@ -95,14 +113,26 @@ rabbitmqctl set_user_tags mqtt-test management
 Note that colons may not appear in usernames.
 
 
-## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
+## <a id="implementation" class="anchor" href="#implementation">How it Works</a>
 
-Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](/cli.html):
+RabbitMQ MQTT plugin targets MQTT 3.1.1 and supports a broad range
+of MQTT clients. It also makes it possible for MQTT clients to interoperate
+with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
+There is also support for multi-tenancy.
 
-<pre class="lang-bash">
-rabbitmqctl decommission_mqtt_node &lt;node&gt;
-</pre>
+The plugin builds on top of RabbitMQ core protocol's entities: exchanges and queues. Messages published
+to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
+RabbitMQ queues bound to the topic exchange. This both enables interoperability
+with other protocols and makes it possible to use the [Management plugin](/management.html)
+to inspect queue sizes, message rates, and so on.
 
+Note that MQTT uses slashes ("/") for topic segment separators and
+AMQP 0-9-1 uses dots.  This plugin translates patterns under the hood
+to bridge the two, for example, `cities/london` becomes
+`cities.london` and vice versa. This has one important limitation:
+MQTT topics that have dots in them won't work as expected and are to
+be avoided, the same goes for AMQP 0-9-1 routing keys that contains
+slashes.
 
 ## <a id="local-vs-remote" class="anchor" href="#local-vs-remote">Local vs. Remote Client Connections</a>
 
@@ -112,9 +142,9 @@ connections. When connecting from a remote host, here are the options
 that make sure remote clients can successfully connect:
 
  * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
-   that connect from remote hosts use those credentials
+   that connect from remote hosts use those credentials. This is the recommended option.
  * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
-[appropriate permissions](/access-control.html)
+[appropriate permissions](/access-control.html).
 
 
 ### <a id="anonymous-connections" class="anchor" href="#anonymous-connections">Anonymous Connections</a>
@@ -141,29 +171,6 @@ If the `mqtt.allow_anonymous` key is set to `false` then clients **must** provid
 The use of anonymous connections is highly discouraged and it is a subject
 to certain limitations (see above) enforced for a reasonable level of security
 by default.
-
-
-## <a id="implementation" class="anchor" href="#implementation">How it Works</a>
-
-RabbitMQ MQTT plugin targets MQTT 3.1.1 and supports a broad range
-of MQTT clients. It also makes it possible for MQTT clients to interoperate
-with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
-There is also support for multi-tenancy.
-
-The plugin builds on top of RabbitMQ core protocol's entities: exchanges and queues. Messages published
-to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
-RabbitMQ queues bound to the topic exchange. This both enables interoperability
-with other protocols and makes it possible to use the [Management plugin](/management.html)
-to inspect queue sizes, message rates, and so on.
-
-Note that MQTT uses slashes ("/") for topic segment separators and
-AMQP 0-9-1 uses dots.  This plugin translates patterns under the hood
-to bridge the two, for example, `cities/london` becomes
-`cities.london` and vice versa. This has one important limitation:
-MQTT topics that have dots in them won't work as expected and are to
-be avoided, the same goes for AMQP 0-9-1 routing keys that contains
-slashes.
-
 
 ### <a id="durability" class="anchor" href="#durability"> Subscription Durability</a>
 
@@ -197,6 +204,7 @@ Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
 request (SUBACK responses will contain the actually provided QoS
 level).
 
+
 ## <a id="consensus" class="anchor" href="#consensus">Consensus Features</a>
 
 As of RabbitMQ 3.8, this plugin requires a quorum (majority) of nodes to be online.
@@ -208,6 +216,25 @@ connections until the quorum is restored.
 
 This also means that **two node clusters are not supported** since the loss of just one
 node out of two means the loss of a quorum of online nodes.
+
+### Memory Footprint of Raft Log Memory Tables
+
+RabbitMQ's Raft implementation keeps a portion of the operation log in memory as well as on disk.
+In environments where the MQTT plugin is the only Raft-based feature used
+(namely where [quorum queues](/quorum-queues.html) are not used), reducing the portion of
+the log stored in memory will reduce memory footprint of the plugin in case of
+[high connection churn](/connections.html#high-connection-churn).
+
+The configuration key of interest is `raft.wal_max_size_bytes`:
+
+```ini
+# if quorum queues are not used, configure a lower max WAL segment
+# limit compared to the default of 512 MiB, e.g. 64 MiB
+raft.wal_max_size_bytes = 67108864
+```
+
+If [quorum queues](/quorum-queues.html) are adopted at a later point, this setting
+should be revisited to be closer to the default one.
 
 
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
@@ -497,7 +524,8 @@ The `exchange` option determines which exchange messages from MQTT clients are p
 to. If a non-default exchange is chosen then it must be created before clients
 publish any messages. The exchange is expected to be a topic exchange.
 
-### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
+
+## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for MQTT clients:
@@ -509,7 +537,7 @@ mqtt.proxy_protocol = true
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
-### <a id="sparkplug-support" class="anchor" href="#sparkplug-support">Sparkplug Support</a>
+## <a id="sparkplug-support" class="anchor" href="#sparkplug-support">Sparkplug Support</a>
 
 [Sparkplug](https://www.cirrus-link.com/mqtt-sparkplug-tahu/) is a specification
 that provides guidance for the design of a MQTT system. In Sparkplug,
@@ -525,6 +553,34 @@ mqtt.sparkplug = true
 
 When the Sparkplug support is enabled, the MQTT plugin will not translate the
 `spAvM.N`/`spBvM.N` part of the names of topics.
+
+
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+### Presence of a Quorum of Nodes
+
+See [Consensus Features](#consensus).
+
+### Overlapping Subscriptions
+
+Overlapping subscriptions from the same client
+(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
+duplicate messages being delivered. Applications
+need to account for this.
+
+### Retained Message Stores
+
+See Retained Messages above. Different retained message stores have
+different benefits, trade-offs, and limitations.
+
+
+## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
+
+Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](/cli.html):
+
+<pre class="lang-bash">
+rabbitmqctl decommission_mqtt_node &lt;node&gt;
+</pre>
 
 ## <a id="retained" class="anchor" href="#retained">Retained Messages and Stores</a>
 
@@ -572,22 +628,3 @@ and [Cassandra](http://cassandra.apache.org/) would be suitable for most product
 those data stores provide [tunable consistency](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/reference/strong-consistency.md).
 
 Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
-
-
-## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
-
-### Presence of a Quorum of Nodes
-
-See [Consensus Features](#consensus).
-
-### Overlapping Subscriptions
-
-Overlapping subscriptions from the same client
-(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
-duplicate messages being delivered. Applications
-need to account for this.
-
-### Retained Message Stores
-
-See Retained Messages above. Different retained message stores have
-different benefits, trade-offs, and limitations.

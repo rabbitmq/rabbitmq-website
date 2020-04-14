@@ -41,7 +41,7 @@ limitations under the License.
 
   <tr>
     <td>3.7</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.24" target="_blank">3.7.24</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.25" target="_blank">3.7.25</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
     <td>31 March 2020</td>
     <td>31 September 2020</td>
@@ -49,7 +49,7 @@ limitations under the License.
   </tr>
 </table>
 
-**Extended Support**: *security fixes* &amp; *high-severity issues* reported by users with a support contract.
+**Extended Support**: *security fixes* and *high-severity issues* reported by users with a [support contract](/contact.html).
 
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release series that are out of support</a>

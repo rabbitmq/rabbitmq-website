@@ -26,11 +26,11 @@ important aspect of [system monitoring](/monitoring.html).
 RabbitMQ provides tools that report and help analyse node memory use:
 
  * [`rabbitmq-diagnostics memory_breakdown`](/cli.html)
- * [`rabbitmqctl status`](/cli.html) includes the above breakdown as a section
+ * [`rabbitmq-diagnostics status`](/cli.html) includes the above breakdown as a section
  * [Prometheus and Grafana](/prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
- * [management UI](/management.html) provides the same breakdown on the node page as `rabbitmqctl status`
+ * [Management UI](/management.html) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
  * [HTTP API](/management.html#http-api) provides the same information as the management UI, useful [for monitoring](/monitoring.html)
- * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top), a plugin inspired by the [top](https://en.wikipedia.org/wiki/Top_(software)) utility
+ * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
 
 Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
 
@@ -40,29 +40,29 @@ time, usually within a 5 seconds time window.
 
 ## <a id="strategies" class="anchor" href="#strategies">Total Memory Use Calculation Strategies</a>
 
-RabbitMQ can use different strategies to compute how much memory a node uses. Historically, nodes
-obtained this information from the runtime, reporting how much
-memory is used (not just allocated). This strategy, known as
-`legacy` (alias for `erlang`) tends to
+RabbitMQ can use different strategies to compute how much memory a node uses.
+Historically, nodes obtained this information from the runtime, reporting how much
+memory is used (not just allocated). This strategy, known as `legacy` (alias for `erlang`) tends to
 underreport and is not recommended.
 
 Effective strategy is configured using the `vm_memory_calculation_strategy` key.
+There are two primary options:
 
-`rss` uses OS-specific means of querying the kernel to find
-RSS (Resident Set Size) value of the node OS process. This strategy is most precise
-and used by default on Linux, MacOS, BSD and Solaris systems. When
-this strategy is used, RabbitMQ runs short lived subprocesses once a second.
+ * `rss` uses OS-specific means of querying the kernel to find
+   RSS (Resident Set Size) value of the node OS process. This strategy is most precise
+   and used by default on Linux, MacOS, BSD and Solaris systems. When
+  this strategy is used, RabbitMQ runs short lived subprocesses once a second.
 
-`allocated` is a strategy that queries runtime memory allocator
-information. It is usually quite close to the values reported by the `rss`
-strategy. This strategy is used by default on Windows.
+ * `allocated` is a strategy that queries runtime memory allocator
+   information. It is usually quite close to the values reported by the `rss`
+  strategy. This strategy is used by default on Windows.
 
 The `vm_memory_calculation_strategy` setting also impacts
 memory breakdown reporting. If set to `legacy` (`erlang`) or `allocated`,
 some memory breakdown fields will not be reported. This is covered in more detail
 further in this guide.
 
-The following config example uses the `rss` strategy:
+The following configuration example uses the `rss` strategy:
 
 <pre class="lang-ini">
 vm_memory_calculation_strategy = rss
@@ -80,11 +80,12 @@ To find out what strategy a node uses, see its [effective configuration](/config
 
 ### <a id="breakdown-intro" class="anchor" href="#breakdown-intro">How Memory Breakdown Works</a>
 
-Memory use breakdown reports allocated memory distribution by category:
+Memory use breakdown reports allocated memory distribution on the target node, by category:
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
- * Queue master replicas
- * Queue mirror replicas
+ * [Quorum queue](/quorum-queues.html) replicas
+ * Classic queue [master replicas](/ha.html)
+ * Classic queue mirror replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)
  * Node-local metrics (stats database)
@@ -173,10 +174,20 @@ reserved_unallocated: 0.0 gb (0.0%)
   </tr>
 
   <tr>
+    <td>quorum_queue_procs</td>
+    <td>Queues</td>
+    <td>
+      <a href="//quorum-queues.html">Quorum queue</a> processes, both currently elected leaders and followers.
+      Memory footprint can be capped on a per-queue basis.
+      See the <a href="/quorum-queues.html">Quorum Queues</a> guide for more information.
+    </td>
+  </tr>
+
+  <tr>
     <td>queue_procs</td>
     <td>Queues</td>
     <td>
-      Queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
+      Classic queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
@@ -188,7 +199,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>queue_slave_procs</td>
     <td>Queues</td>
     <td>
-      Queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
+      Classic queue mirrors, indices and messages kept in memory. Reducing the number of mirrors (replicas) or not mirroring queues with
       inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
@@ -246,6 +257,12 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>mnesia</td>
     <td>Internal Database</td>
     <td>Virtual hosts, users, permissions, queue metadata and state, exchanges, bindings, runtime parameters and so on.</td>
+  </tr>
+
+  <tr>
+    <td>quorum_ets</td>
+    <td>Internal Database</td>
+    <td>Raft implementation's WAL and other memory tables. Most of these are periodically moved to disk.</td>
   </tr>
 
   <tr>
