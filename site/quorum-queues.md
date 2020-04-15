@@ -31,6 +31,9 @@ Quorum queues also have important [differences in behaviour](#behaviour)
 and some [limitations](#feature-comparison) compared to classic mirrored queues,
 including workload-specific ones, e.g. when consumers [repeatedly requeue the same message](#repeated-requeues).
 
+Some features, such as [poison message handling](#poison-message-handling), are specific
+to quorum queues.
+
 ### What is a Quorum?
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum) in a distributed system can
@@ -94,7 +97,8 @@ Some features are not currently supported by quorum queues.
 | [TTL](/ttl.html) | yes | no |
 | [Queue length limits](/maxlength.html) | yes | partial (drop-head strategy only) |
 | [Lazy behaviour](/lazy-queues.html) | yes | partial (see [Memory Limit](#memory-limit)) |
-| [Priority](/queues.html) | yes | no |
+| [Message priority](/priority.html) | yes | no |
+| [Consumer priority](/consumer-priority.html) | yes | no |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
 | Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
 | Reacts to [memory alarms](/alarms.html) | yes | partial (truncates log) |
@@ -143,21 +147,12 @@ Use [per-consumer QoS prefetch](/consumer-prefetch.html), which is the default i
 
 #### Priorities
 
-Quorum queues do not currently support priorities.
+Quorum queues do not currently support [priorities](/priority.html), including [consumer priorities](/consumer-priority.html).
+
 
 #### Poison Message Handling
 
-Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
-that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
-such that the message is never consumed completely and [positively acknowledged](/confirms.html) so that it can be marked for
-deletion by RabbitMQ.
-
-Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
-"x-delivery-count" header that is included with any redelivered message.
-
-It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) argument, `delivery-limit`.
-When a message has been returned more times than the limit the message will be dropped or
-[dead-lettered](/dlx.html) (if a DLX is configured).
+Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
 
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
@@ -450,6 +445,23 @@ Example:
            {quorum_commands_soft_limit, 512}]}
 ]
 </pre>
+
+
+## <a id="poison-message-handling" class="anchor" href="#poison-message-handling">Poison Message Handling</a>
+
+Quorum queue support handling of [poison messages](https://en.wikipedia.org/wiki/Poison_message),
+that is, messages that cause a consumer to repeatedly requeue a delivery (possibly due to a consumer failure)
+such that the message is never consumed completely and [positively acknowledged](/confirms.html) so that it can be marked for
+deletion by RabbitMQ.
+
+Quorum queues keep track of the number of unsuccessful delivery attempts and expose it in the
+"x-delivery-count" header that is included with any redelivered message.
+
+It is possible to set a delivery limit for a queue using a [policy](/parameters.html#policies) argument, `delivery-limit`.
+
+When a message has been returned more times than the limit the message will be dropped or
+[dead-lettered](/dlx.html) (if a DLX is configured).
+
 
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
