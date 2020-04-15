@@ -20,8 +20,10 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
-[Quorum queues](/quorum-queues.html) is an alternative queue type that offers replication.
-We highly recommend the reader to also read the quorum queues guide.
+[Quorum queues](/quorum-queues.html) is an alternative queue type that offers replication
+and focuses on data safety. In many cases quorum queues would be a superior option
+to classic queue mirroring. Readers are encouraged to get familiar
+with quorum queues as well as the contents of this guide.
 
 Topics covered in this guide include
 
