@@ -443,7 +443,8 @@ this can result in very large payloads and a lot of CPU resources spent serialis
 data to output. This mode therefore is only suitable for development environments
 and as a way of troubleshooting.
 
-By default, metrics are aggregated which significantly reduces output size.
+By default, returned rows are aggregated by metric name. This significantly reduces the size of the output
+and makes it constant even as the number of objects grows.
 
 To enable per-object (unaggregated) metrics, use the `prometheus.return_per_object_metrics` key:
 
