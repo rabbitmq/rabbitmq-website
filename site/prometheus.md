@@ -19,6 +19,7 @@ Some key topics covered by this guide are
  * [Grafana support basics](#overview-grafana)
  * [Quick Start](#quick-start) for local experimentation
  * [Installation steps](#installation) for production systems
+ * [Per-object Metric Aggregation](#metric-aggregation)
 
 Grafana dashboards follow a number of conventions to make the system more observable
 and anti-patterns easier to spot. Its design decisions are explained in a number of sections:
@@ -432,6 +433,31 @@ below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
+### <a id="metric-aggregation" class="anchor" href="#metric-aggregation"></a>
+
+The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
+
+The the latter case, there will be an output row for each object-metric pair.
+With a large number of stats-emitting entities, e.g. a lot of connections and queues,
+this can result in very large payloads and a lot of CPU resources spent serialising
+data to output. This mode therefore is only suitable for development environments
+and as a way of troubleshooting.
+
+By default, metrics are aggregated which significantly reduces output size.
+
+To enable per-object (unaggregated) metrics, use the `prometheus.return_per_object_metrics` key:
+
+<pre class="lang-ini">
+# will result in a really excessive output produced,
+# only use for troubleshooting.
+# Not recommended for production deployments!
+prometheus.return_per_object_metrics = true
+</pre>
+
+<pre class="lang-ini">
+# enables aggregation, highly recommended for most environments
+prometheus.return_per_object_metrics = false
+</pre>
 
 ### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scraping Endpoint Timeouts</a>
 
