@@ -454,6 +454,8 @@ To enable per-object (unaggregated) metrics, use the `prometheus.return_per_obje
 prometheus.return_per_object_metrics = true
 </pre>
 
+For the sake of completeness, the default used by the plugin is
+
 <pre class="lang-ini">
 # enables aggregation, highly recommended for most environments
 prometheus.return_per_object_metrics = false
