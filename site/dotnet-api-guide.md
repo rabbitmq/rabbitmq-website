@@ -395,13 +395,20 @@ var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
                     var body = ea.Body;
-                    // ... process the message
+                    // copy or deserialise the payload
+                    // and process the message
+                    // ...
                     channel.BasicAck(ea.DeliveryTag, false);
                 };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
+
+**Important**: consumer interface implementations must deserialize or copy delivery payload
+before delivery handler finishes running. Retaining a reference to the payload
+is not safe: the memory allocated for it can be deallocated at any moment
+after the handler returns.
 
 Another option is to subclass `DefaultBasicConsumer`,
 overriding methods as necessary, or implement `IBasicConsumer`
