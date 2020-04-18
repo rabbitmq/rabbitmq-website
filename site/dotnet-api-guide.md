@@ -30,7 +30,7 @@ Key sections of the guide are:
 * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
-* [Consuming Using a Subscription](#consuming)
+* [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
@@ -405,11 +405,6 @@ consumer.Received += (ch, ea) =>
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
-**Important**: consumer interface implementations must deserialize or copy delivery payload
-before delivery handler finishes running. Retaining a reference to the payload
-is not safe: the memory allocated for it can be deallocated at any moment
-after the handler returns.
-
 Another option is to subclass `DefaultBasicConsumer`,
 overriding methods as necessary, or implement `IBasicConsumer`
 directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
@@ -433,11 +428,24 @@ When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
 explained in the [AMQP 0-9-1 specification](/specification.html) document.
 
+## <a id="consuming-memory-safety" class="anchor" href="#consuming-memory-safety">Consumer Memory Safety Requirements</a>
 
-## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages ("pull API")</a>
+As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/CHANGELOG.md) of
+the .NET client, message payloads are represented using the [`System.ReadOnlyMemory<byte>`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
+type from the [`System.Memory` library](https://www.nuget.org/packages/System.Memory/).
+
+This library places certain restrictions on when a read only memory span can be
+accessed by applications.
+
+**Important**: consumer interface implementations **must deserialize or copy delivery payload before delivery handler method returns**.
+Retaining a reference to the payload is not safe: the memory allocated for it can be deallocated at any moment
+after the handler returns.
+
+
+## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages (Polling or "pull API")</a>
 
 It is also possible to retrieve individual messages on demand ("pull API" a.k.a. polling).
-This approach to consumption is highly inefficient as it is effectively polling
+This approach to consumption is **very inefficient** as it is effectively polling
 and applications repeatedly have to ask for results even if the vast majority of the requests
 yield no results. Therefore using this approach **is highly discouraged**.
 
