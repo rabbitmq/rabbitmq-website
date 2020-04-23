@@ -308,7 +308,7 @@ Before a node can perform any operations on AWS, it needs to have a set of
 AWS account credentials configured. This can be done in a couple of ways:
 
 1. Via [config file](/configure.html)
-2. Using environment variables
+2. Using environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 
 [EC2 Instance Metadata service](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) for the region will also be consulted.
 
