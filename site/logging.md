@@ -709,7 +709,20 @@ use categories.
 ## <a id="internal-events" class="anchor" href="#internal-events">Watching Internal Events</a>
 
 RabbitMQ nodes have an internal mechanism. Some of its events can be of interest for monitoring,
-audit and troubleshooting purposes. They can be exposed to applications for [consumption](/consumers.html)
+audit and troubleshooting purposes. They can be consumed as JSON objects using a `rabbitmq-diagnostics` command:
+
+<pre class="lang-ini">
+# will emit JSON objects
+rabbitmq-diagnostics consume_event_stream
+</pre>
+
+When used interactively, results can be piped to a command line JSON processor such as [jq](https://stedolan.github.io/jq/):
+
+<pre class="lang-ini">
+rabbitmq-diagnostics consume_event_stream | jq
+</pre>
+
+The events can also be exposed to applications for [consumption](/consumers.html)
 with a plugin, [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/).
 
 Events are published as messages with blank bodies. All event metadata is stored in
