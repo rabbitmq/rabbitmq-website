@@ -178,7 +178,7 @@ limitations under the License.
   {source,
       [
        {protocol, <em>amqp091 | amqp10</em>},
-       {uris, <em>uri_list</em>}
+       {brokers, <em>broker_list</em>}
       ]}
 </pre>
           <dl id="protocol">
@@ -192,14 +192,14 @@ limitations under the License.
               </p>
           </dd>
       </dl>
-          <dl id="uris">
-            <dt><strong>uris</strong></dt>
+          <dl id="brokers">
+            <dt><strong>brokers</strong></dt>
             <dd>
               <p>
                 This clause is mandatory. In
               </p>
 <pre class="lang-erlang">
-  {uris, <em>uri_list</em>}
+  {brokers, <em>broker_list</em>}
 </pre>
               <p>
                 <code><em>uri_list</em></code> is a list of URI
@@ -394,7 +394,7 @@ limitations under the License.
 <pre class="lang-erlang">
   {destination,
       [ {protocol, <em>amqp091 | amqp10</em>},
-        {uris, <em>uri_list</em>}
+        {brokers, <em>broker_list</em>}
       ]}
 </pre>
   <dl>
@@ -601,7 +601,7 @@ limitations under the License.
     [ {shovels, [ {my_first_shovel,
                     [ {source,
                         [ {protocol, amqp091},
-                          {uris, [ "amqp://fred:secret@host1.domain/my_vhost",
+                          {brokers, [ "amqp://fred:secret@host1.domain/my_vhost",
                                    "amqp://john:secret@host2.domain/my_vhost" ]},
                           {declarations, [ {'exchange.declare',
                                               [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;},
@@ -621,7 +621,7 @@ limitations under the License.
                         ]},
                       {destination,
                         [ {protocol, amqp091},
-                          {uris, ["amqp://"]},
+                          {brokers, ["amqp://"]},
                           {declarations, [ {'exchange.declare',
                                               [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
                                                 {type, &lt;&lt;"direct"&gt;&gt;},
@@ -684,14 +684,14 @@ limitations under the License.
  [ {shovels, [ {my_first_shovel,
                 [ {source,
                    [ {protocol, amqp10,
-                      uris, [ "amqp://fred:secret@host1.domain/my_vhost",
+                      brokers, [ "amqp://fred:secret@host1.domain/my_vhost",
                             ]},
                      {source_address, &lt;&lt;"my-source"&gt;&gt;},
                      {prefetch_count, 10}
                    ]},
                   {destination,
                      [ {protocol, amqp091},
-                       {uris, ["amqp://"]},
+                       {brokers, ["amqp://"]},
                        {declarations, [ {'exchange.declare',
                                          [ {exchange, &lt;&lt;"my_direct"&gt;&gt;},
                                            {type, &lt;&lt;"direct"&gt;&gt;},
@@ -722,7 +722,7 @@ limitations under the License.
  [{shovels, [{my_first_shovel,
               {source,
                [{protocol, amqp091},
-                {uris, ["amqp://fred:secret@host1.domain/my_vhost",
+                {brokers, ["amqp://fred:secret@host1.domain/my_vhost",
                         "amqp://john:secret@host2.domain/my_vhost"]},
                 {declarations, [{'exchange.declare',
                                    [{exchange, &lt;&lt;"my_fanout"&gt;&gt;},
@@ -742,9 +742,9 @@ limitations under the License.
               {destination,
                [{protocol, amqp10},
                 % Note: for plain text SASL authentication
-                % {uris, ["amqp://user:pass@host:5672?sasl=plain"]},
+                % {brokers, ["amqp://user:pass@host:5672?sasl=plain"]},
                 % Note: for anonymous access
-                {uris, ["amqp://host:5672"]},
+                {brokers, ["amqp://host:5672"]},
                 {properties, [{user_id, &lt;&lt;"my-user"&gt;&gt;}]},
                 {application_properties, [{&lt;&lt;"my-prop"&gt;&gt;, &lt;&lt;"my-prop-value"&gt;&gt;}]},
                 {add_forward_headers, true},
