@@ -460,7 +460,7 @@ if (result == null) {
     // No message available at this time.
 } else {
     IBasicProperties props = result.BasicProperties;
-    byte[] body = result.Body;
+    ReadOnlyMemory<byte> body = result.Body;
     ...
 </pre>
 

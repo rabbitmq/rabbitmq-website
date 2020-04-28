@@ -92,7 +92,7 @@ a commercial product. Codebases that are licensed under the GPLv2 may choose GPL
 
 Recent versions of the library are exclusively [distributed via NuGet](https://www.nuget.org/packages/RabbitMQ.Client).
 
-The most recent release is [`5.1.2`](https://www.nuget.org/packages/RabbitMQ.Client).
+The most recent release is [available via NuGet](https://www.nuget.org/packages/RabbitMQ.Client).
 Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases).
 
 
@@ -110,7 +110,7 @@ There's also [an online API reference](http://rabbitmq.github.io/rabbitmq-dotnet
 
 ## <a id="binary-builds" class="anchor" href="#binary-builds">Binary Downloads</a>
 
-Modern versions of this library (e.g. 4.x and 5.x) are distributed as a [NuGet package](https://www.nuget.org/packages/RabbitMQ.Client).
+Modern versions of this library (e.g. `6.x`) are distributed as a [NuGet package](https://www.nuget.org/packages/RabbitMQ.Client).
 
 <table>
   <thead>
