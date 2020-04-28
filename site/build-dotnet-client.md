@@ -32,7 +32,7 @@ git clone https://github.com/rabbitmq/rabbitmq-dotnet-client.git
 
 To build the .NET/C# client libraries on Windows, you will need
 
- * Microsoft .NET 4.6.1 or later (including .NET Core)
+ * .NET Core or Microsoft .NET 4.6.1 or later
  * Microsoft Visual Studio Community Edition 2017 or later
 
 

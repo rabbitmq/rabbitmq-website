@@ -34,8 +34,12 @@ Key sections of the guide are:
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
+### <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
+
 6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](/dotnet.html#overview).
 For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](/dotnet.html#overview).
+
+### <a id="license" class="anchor" href="#license">License</a>
 
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/), and is double-licensed under the
 
@@ -46,15 +50,15 @@ This means that the user can consider the library to be licensed under any of th
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
 
+
+## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
+
 The client API is closely modelled on the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
 with additional abstractions for ease of use.
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/) is available separately.
 
-
-## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
-
-The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+The core API interfaces and classes are defined in the `RabbitMQ.Client` namespace:
 
 <pre class="lang-csharp">
 using RabbitMQ.Client;
@@ -71,12 +75,12 @@ Other useful interfaces and classes include:
 
 * `DefaultBasicConsumer`: commonly used base class for consumers
 
-Public namespaces other than <code>RabbitMQ.Client</code> include:
+Public namespaces other than `RabbitMQ.Client` include:
 
-* <code>RabbitMQ.Client.Events</code>: various events and event handlers
+* `RabbitMQ.Client.Events`: various events and event handlers
   that are part of the client library, including `EventingBasicConsumer`,
   a consumer implementation built around C# event handlers.
-* <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
+* `RabbitMQ.Client.Exceptions`: exceptions visible to the user.
 
 All other namespaces are reserved for private implementation detail of
 the library, although members of private namespaces are usually made
