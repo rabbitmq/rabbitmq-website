@@ -464,7 +464,7 @@ if (result == null) {
     // No message available at this time.
 } else {
     IBasicProperties props = result.BasicProperties;
-    ReadOnlyMemory&lgt;byte&gt; body = result.Body;
+    ReadOnlyMemory&lt;byte&gt; body = result.Body;
     ...
 </pre>
 
