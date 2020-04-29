@@ -435,7 +435,7 @@ explained in the [AMQP 0-9-1 specification](/specification.html) document.
 ## <a id="consuming-memory-safety" class="anchor" href="#consuming-memory-safety">Consumer Memory Safety Requirements</a>
 
 As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/CHANGELOG.md) of
-the .NET client, message payloads are represented using the [`System.ReadOnlyMemory<byte>`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
+the .NET client, message payloads are represented using the [`System.ReadOnlyMemory&lt;byte&gt;`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
 type from the [`System.Memory` library](https://www.nuget.org/packages/System.Memory/).
 
 This library places certain restrictions on when a read only memory span can be
@@ -464,7 +464,7 @@ if (result == null) {
     // No message available at this time.
 } else {
     IBasicProperties props = result.BasicProperties;
-    ReadOnlyMemory<byte> body = result.Body;
+    ReadOnlyMemory&lgt;byte&gt; body = result.Body;
     ...
 </pre>
 
