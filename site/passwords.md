@@ -47,14 +47,6 @@ for example, to use SHA-512:
 password_hashing_module = rabbit_password_hashing_sha512
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [{password_hashing_module, rabbit_password_hashing_sha512}]}
-].
-</pre>
-
 Out of the box, the following hashing modules are provided:
 
  * `rabbit_password_hashing_sha256` (default)
@@ -63,6 +55,7 @@ Out of the box, the following hashing modules are provided:
 
 Updated hashing algorithm will be applied to newly created users
 or when password is changed using [rabbitmqctl](/man/rabbitmqctl.8.html).
+
 
 ## <a id="upgrading-to-3-6-x" class="anchor" href="#upgrading-to-3-6-x">Upgrading from pre-3.6.0 Versions</a>
 
@@ -74,6 +67,7 @@ When importing definitions exported from versions earlier than
 3.6.0 into a 3.6.1 or later release, existing user records will use
 MD5 for password hashing. In order to migrate them to a more secure algorithm,
 use [rabbitmqctl](/man/rabbitmqctl.8.html) to update their passwords.
+
 
 ## <a id="credential-validation" class="anchor" href="#credential-validation">Credential Validation</a>
 
@@ -98,38 +92,12 @@ credential_validator.validation_backend = rabbit_credential_validator_min_passwo
 credential_validator.min_length = 30
 </pre>
 
-In the [classic config format](/configure.html) that would be
-
-<pre class="lang-erlang">
-[
- {rabbit, [
-           {credential_validator, [{validation_backend,
-                                    rabbit_credential_validator_min_password_length},
-                                   {min_length, 30}]}
-          ]}
-].
-</pre>
-
 The following example demonstrates how `rabbit_credential_validator_password_regexp` is used:
 
 <pre class="lang-ini">
 credential_validator.validation_backend = rabbit_credential_validator_password_regexp
 credential_validator.regexp = ^[a-bA-Z0-9$]{20,100}
 </pre>
-
-which becomes
-
-<pre class="lang-erlang">
-[
- {rabbit, [
-           {credential_validator, [{validation_backend,
-                                    rabbit_credential_validator_password_regexp},
-                                   {regexp, &lt;&lt;"^[a-bA-Z0-9$]{20,100}"&gt;&gt;}]}
-          ]}
-].
-</pre>
-
-in the [classic config format](/configure.html).
 
 ### <a id="credential-validation-limitations" class="anchor" href="#credential-validation-limitations">Credential Validator Limitations</a>
 
