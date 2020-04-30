@@ -32,8 +32,10 @@ A closely related topic of [TLS support](/ssl.html) is also covered in a dedicat
 
 Other topics discussed in this guide include:
 
+ * [Access control essentials](#the-basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
+ * How to [manage users and permissions](#user-management) using CLI tools
  * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
 
@@ -129,16 +131,103 @@ which allows remote connections for <code>guest</code> looks like so:
 loopback_users = none
 </pre>
 
-Or, in the [classic config file format](/configure.html#erlang-term-config-file) (<code>rabbitmq.config</code>):
 
-<pre class="lang-erlang">
-%% DANGER ZONE!
-%%
-%% Allowing remote connections for default user is highly discouraged
-%% as it dramatically decreases the security of the system. Delete the user
-%% instead and create a new one with generated secure credentials.
-[{rabbit, [{loopback_users, []}]}].
+## <a id="user-management" class="anchor" href="#user-management">Managing Users and Permissions</a>
+
+Users and permissions can be managed using [CLI tools](/cli.html) and definition import (covered below).
+
+### Adding a User
+
+To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](/passwords.html):
+
+<pre class="lang-bash">
+# will prompt for password, only use this option interactively
+rabbitmqctl add_user "username"
 </pre>
+
+<pre class="lang-bash">
+# password is provided via standard input
+echo "pA$$w0Яd" | rabbitmqctl add_user "username"
+</pre>
+
+<pre class="lang-bash">
+# password is provided as a command line argument
+rabbitmqctl add_user "username" "pA$$w0Яd"
+</pre>
+
+On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping would be different:
+
+<pre class="lang-powershell">
+# password is provided as a command line argument
+rabbitmqctl.bat add_user 'username' 'pA$$w0Яd'
+</pre>
+
+### Listing Users
+
+To list users in a cluster, use `rabbitmqctl list_users`:
+
+<pre class="lang-bash">
+rabbitmqctl list_users
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat list_users
+</pre>
+
+The output can be changed to be JSON:
+
+<pre class="lang-bash">
+rabbitmqctl list_users --formatter=json
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat list_users --formatter=json
+</pre>
+
+### Deleting a User
+
+To delete a user, use `rabbitmqctl delete_user`:
+
+<pre class="lang-bash">
+rabbitmqctl delete_user 'username'
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat delete_user 'username'
+</pre>
+
+### Granting Permissions to a User
+
+To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl set_permissions`:
+
+<pre class="lang-bash">
+# First ".*" for read permission on every entity
+# Second ".*" for write permission on every entity
+# Third ".*" for configure permission on every entity
+rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
+</pre>
+
+<pre class="lang-powershell">
+# First ".*" for read permission on every entity
+# Second ".*" for write permission on every entity
+# Third ".*" for configure permission on every entity
+rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
+</pre>
+
+### Revoking Permissions of a User in a Virtual Host
+
+To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
+
+<pre class="lang-bash">
+# Revokes permissions in a virtual host
+rabbitmqctl clear_permissions -p "custom-vhost" "username"
+</pre>
+
+<pre class="lang-powershell">
+# Revokes permissions in a virtual host
+rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
+</pre>
+
 
 ## <a id="seeding" class="anchor" href="#seeding">Seeding (Pre-creating) Users and Permissions</a>
 
@@ -152,6 +241,8 @@ This process involves the following steps:
  * Export definitions to a definition file
  * Remove parts of the file that are not relevant
  * Configure the node to [import the file on boot](/management.html#load-definitions)
+
+### At Node Boot Time
 
 To import definitions from a local file on node boot,
 set the `load_definitions`config key
@@ -173,6 +264,22 @@ management.load_definitions = /path/to/definitions/file.json
 If a blank (uninitialised) node imports a definition file, it will
 not create the default virtual host and user. For extra safety the user
 can be deleted using CLI tools at deployment time.
+
+### After Node Boot
+
+To import definitions after node boot, use `rabbitmqctl import_definitions`:
+
+<pre class="lang-ini">
+# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
+rabbitmqctl import_definitions /path/to/definitions.file.json
+</pre>
+
+`rabbitmqadmin import` is its [HTTP API](/management.html) equivalent:
+
+<pre class="lang-ini">
+# Requires management plugin to be enabled
+rabbitmqadmin import /path/to/definitions.file.json
+</pre>
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
@@ -680,7 +787,7 @@ will be logged differently. See [TLS Troubleshooting guide](/troubleshooting-ssl
 for a username and password pair:
 
 <pre class="lang-bash">
-rabbitmqctl authenticate_user 'a-username' 'a/password'
+rabbitmqctl authenticate_user "a-username" "a/password"
 </pre>
 
 If authentication succeeds, it will exit with
