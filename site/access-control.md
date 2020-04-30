@@ -34,8 +34,8 @@ Other topics discussed in this guide include:
 
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
+ * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
-
 
 ## <a id="terminology-and-definitions" class="anchor" href="#terminology-and-definitions">Terminology and Definitions</a>
 
@@ -43,8 +43,24 @@ Authentication and authorisation are often confused or used
 interchangeably. That's wrong and in RabbitMQ, the two are
 separated. For the sake of simplicity, we'll define
 authentication as "identifying who the user is" and
-authorisation as "determining what the user is and isn't
-allowed to do."
+authorisation as "determining what the user is and isn't allowed to do."
+
+
+## <a id="basics" class="anchor" href="#basics">The Basics</a>
+
+Clients use RabbitMQ features to [connecting](/connections.html) to it. Every connection has
+an associated user which is authenticated. It also targets a [virtual host](/vhosts.html) for which
+the user must have a certain set of permissions.
+
+User credentials, target virtual host and (optionally) client [certificate](/ssl.html) are specified at connection
+initiation time.
+
+There is a default pair of credentials called the [default user](#default-state). This user can only
+be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
+it will be refused.
+
+[Production environments](/production-checklist.html) should not use the default user and create
+new user accounts with generated credentials instead.
 
 
 ## <a id="default-state" class="anchor" href="#default-state">Default Virtual Host and User</a>
@@ -123,6 +139,40 @@ Or, in the [classic config file format](/configure.html#erlang-term-config-file)
 %% instead and create a new one with generated secure credentials.
 [{rabbit, [{loopback_users, []}]}].
 </pre>
+
+## <a id="seeding" class="anchor" href="#seeding">Seeding (Pre-creating) Users and Permissions</a>
+
+[Production environments](/production-checklist.html) typically need to pre-configure (seed) a number
+of virtual hosts, users and user permissions.
+
+While this can be done using [CLI tools](/cli.html), a more optimal way is to use [definition export and import on node boot](/management.html#load-definitions).
+This process involves the following steps:
+
+ * Set up a temporary node and create the necessary virtual host, users, permissions, and so on using CLI tools
+ * Export definitions to a definition file
+ * Remove parts of the file that are not relevant
+ * Configure the node to [import the file on boot](/management.html#load-definitions)
+
+To import definitions from a local file on node boot,
+set the `load_definitions`config key
+to the path of a previously exported JSON file containing
+the definitions that should be imported on node boot:
+
+<pre class="lang-ini">
+# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
+load_definitions = /path/to/definitions/file.json
+</pre>
+
+In older versions definition import is provided by the [management plugin](/management.html):
+
+<pre class="lang-ini">
+# Requires management plugin to be enabled at the time of node boot
+management.load_definitions = /path/to/definitions/file.json
+</pre>
+
+If a blank (uninitialised) node imports a definition file, it will
+not create the default virtual host and user. For extra safety the user
+can be deleted using CLI tools at deployment time.
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
