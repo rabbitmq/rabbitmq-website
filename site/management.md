@@ -136,7 +136,7 @@ Some of the features include:
   </li>
   <li>
     <a href="/backup.html">Export schema</a> (vhosts, users, permissions, queues, exchanges, bindings, parameters,
-    policies) and <a href="#load-definitions">import it on node start</a>. This can be used for <a href="/backup.html">recovery purposes</a>
+    policies) and <a href="/definitions.html">import it on node start</a>. This can be used for <a href="/backup.html">recovery purposes</a>
     or setup automation of new nodes and clusters.
   </li>
   <li>
@@ -501,7 +501,7 @@ management.tcp.compress = true
 
 Some HTTP API endpoints respond quickly, others may need to return or stream
 a sizeable data set to the client (e.g. many thousands of connections) or perform
-an operation that takes time proportionally to the input (e.g. [import a large definitions file](https://www.rabbitmq.com/management.html#load-definitions)).
+an operation that takes time proportionally to the input (e.g. [import a large definitions file](/definitions.html)).
 In those cases the amount of time it takes to process the request can exceed certain
 timeouts in the Web server as well as HTTP client.
 
@@ -861,70 +861,13 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
 
 ## <a id="load-definitions" class="anchor" href="#load-definitions">Loading Definitions (Schema) at Startup</a>
 
-### Definition Export and Import
+Nodes and clusters store information that can be thought of schema, metadata or topology.
+Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-It is possible to export a definitions file over HTTP API or using a management UI form.
+Definitions can be exported and imported via the [`rabbitmqctl`](/cli.html) or the HTTP API
+provided by this plugin, including `rabbitmqadmin`.
 
-A definition file contains definitions of all broker objects (queues,
-exchanges, bindings, users, virtual hosts, permissions and
-parameters).
-
-Such file can be imported using CLI tools, the HTTP API, or on node start.
-The latter option provides a way to preconfigure a node with virtual hosts, users, permissions,
-policies, queues, exchanges, bindings and so on. This is the recommended way of preconfiguring a node.
-
-To export definitions using [CLI tools](/cli.html), use `rabbitmqctl export_definitions`:
-
-<pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
-rabbitmqctl export_definitions /path/to/definitions.file.json
-</pre>
-
-`rabbitmqadmin export` is an option that uses the HTTP API:
-
-<pre class="lang-ini">
-# Requires management plugin to be enabled
-rabbitmqadmin export /path/to/definitions.file.json
-</pre>
-
-To import definitions using [CLI tools](/cli.html), use `rabbitmqctl import_definitions`:
-
-<pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
-rabbitmqctl import_definitions /path/to/definitions.file.json
-</pre>
-
-`rabbitmqadmin import` is its HTTP API equivalent:
-
-<pre class="lang-ini">
-# Requires management plugin to be enabled
-rabbitmqadmin import /path/to/definitions.file.json
-</pre>
-
-### Definition Import at Node Boot
-
-To import definitions from a local file on node boot,
-set the `management.load_definitions`config key
-to the path of a previously exported JSON file containing
-the definitions that should be imported on node boot:
-
-<pre class="lang-ini">
-# Requires management plugin to be enabled at the time of node boot
-management.load_definitions = /path/to/definitions/file.json
-</pre>
-
-Most recent releases support definition import directly in the core,
-without the need to [preconfigure](/plugins.html#enabled-plugins-file) the management plugin.
-The syntax is very similar:
-
-<pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
-load_definitions = /path/to/definitions/file.json
-</pre>
-
-The definitions in the file will not overwrite anything already in the broker.
-However, if a blank (uninitialised) node imports a definition file, it will
-not create the default virtual host and user.
+Please refer to the [Definitions guide](/definitions.html).
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Metrics Collection and HTTP API in Clusters</a>

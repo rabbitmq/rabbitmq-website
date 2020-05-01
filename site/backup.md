@@ -18,8 +18,7 @@ message store data.
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-Definitions can be exported and imported via the [HTTP API](/management.html), [CLI tools](/cli.html) and via
-declarations performed by client libraries (apps).
+Definitions can be [exported and imported](/definitions.html) as JSON files.
 
 Definitions are stored in an internal database and replicated across all cluster nodes.
 Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
@@ -49,42 +48,19 @@ Definitions can only be backed up from a running node.
 
 ## <a id="definitions-backup" class="anchor" href="#definitions-backup">Backing Up Definitions</a>
 
-Definitions can be exported to a JSON file or backed up manually. In
-most cases, definition export/import is the optimal way of doing
-it. Manual backup will require additional steps if the node name or
-hostname changes.
+Definitions can be exported to a JSON file. This is the recommended way of backing them up.
 
 ### <a id="definitions-export" class="anchor" href="#definitions-export">Exporting Definitions</a>
 
-Definitions are exported as a JSON file using the [HTTP API](/management.html):
-
- * There's a definitions pane on the Overview page
- * [rabbitmqadmin](/management-cli.html) provides a command that exports definitions
- * The `GET /api/definitions` API endpoint can be invoked directly
-
-Definitions can be exported for a specific vhost or the entire cluster (or standalone node).
-When only a single vhost definitions are exported, some information (e.g. cluster users and their permissions)
-will be excluded from the resulting file.
-
-Exported user data contains password hashes as well as hashing function information. While brute forcing
-passwords with hashing functions such as SHA-256 or SHA-512 is not a completely trivial task, user
-records should be considered sensitive information.
-
+Definition export is covered in the dedicated [Definitions guide](/definitions.html#export).
 
 ### <a id="definitions-import" class="anchor" href="#definitions-import">Importing Definitions</a>
 
-A JSON file with definitions can be imported using the same three ways
-
- * There's a definitions pane on the Overview page
- * [rabbitmqadmin](/management-cli.html) provides a command that imports definitions
- * The `POST /api/definitions` API endpoint can be invoked directly
-
-It is also possible to load definitions from a local file on node boot, via the
-[`load_definitions` configuration parameter](/management.html#load-definitions).
+Definition import is covered in the dedicated [Definitions guide](/definitions.html#import).
 
 Importing a definitions file is sufficient for creating a broker with
 an identical set of definitions (e.g. users, vhosts, permissions,
-topologies).
+policies, topologies, and so on).
 
 ### <a id="manual-definitions-backup" class="anchor" href="#manual-definitions-backup">Manually Backing Up Definitions</a>
 

@@ -43,7 +43,7 @@ when picking a version to deploy.
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
 
 It is often necessary to seed a cluster with virtual hosts, users, permissions, topologies, policies
-and so on. The recommended way of doing this at deployment time is [via definition file import](/management.html#load-definitions).
+and so on. The recommended way of doing this at deployment time is [via definition file import](/definitions.html).
 
 ### <a id="virtual-hosts" class="anchor" href="#virtual-hosts">Virtual Hosts</a>
 

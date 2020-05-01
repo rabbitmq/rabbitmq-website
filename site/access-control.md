@@ -234,52 +234,22 @@ rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 [Production environments](/production-checklist.html) typically need to pre-configure (seed) a number
 of virtual hosts, users and user permissions.
 
-While this can be done using [CLI tools](/cli.html), a more optimal way is to use [definition export and import on node boot](/management.html#load-definitions).
+While this can be done using [CLI tools](/cli.html), a more optimal way is to use [definition export and import on node boot](/definitions.html).
 This process involves the following steps:
 
  * Set up a temporary node and create the necessary virtual host, users, permissions, and so on using CLI tools
  * Export definitions to a definition file
  * Remove parts of the file that are not relevant
- * Configure the node to [import the file on boot](/management.html#load-definitions)
+ * Configure the node to import the file on node boot or after
 
 ### At Node Boot Time
 
-To import definitions from a local file on node boot,
-set the `load_definitions`config key
-to the path of a previously exported JSON file containing
-the definitions that should be imported on node boot:
+See [importing definitions on node boot](/definitions.html#import-on-boot) in the definitions guide.
 
-<pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
-load_definitions = /path/to/definitions/file.json
-</pre>
-
-In older versions definition import is provided by the [management plugin](/management.html):
-
-<pre class="lang-ini">
-# Requires management plugin to be enabled at the time of node boot
-management.load_definitions = /path/to/definitions/file.json
-</pre>
-
-If a blank (uninitialised) node imports a definition file, it will
-not create the default virtual host and user. For extra safety the user
-can be deleted using CLI tools at deployment time.
 
 ### After Node Boot
 
-To import definitions after node boot, use `rabbitmqctl import_definitions`:
-
-<pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
-rabbitmqctl import_definitions /path/to/definitions.file.json
-</pre>
-
-`rabbitmqadmin import` is its [HTTP API](/management.html) equivalent:
-
-<pre class="lang-ini">
-# Requires management plugin to be enabled
-rabbitmqadmin import /path/to/definitions.file.json
-</pre>
+See [importing definitions after node boot](/definitions.html#import) in the definitions guide.
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
