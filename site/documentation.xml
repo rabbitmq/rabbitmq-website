@@ -88,6 +88,7 @@ limitations under the License.
               <li><a href="/install-homebrew.html">MacOS via Homebrew</a></li>
               <li><a href="/ec2.html">Amazon EC2</a></li>
               <li><a href="/install-solaris.html">Solaris</a></li>
+              <li><a href="/definitions.html">Schema Definitions</a></li>
               <li><a href="/upgrade.html">Upgrade</a></li>
               <li><a href="/blue-green-upgrade.html">Blue-green deployment-based upgrade</a></li>
               <li><a href="/signatures.html">Package Signatures</a></li>
@@ -121,6 +122,9 @@ limitations under the License.
               </li>
               <li>
                 <a href="parameters.html">Policies and Runtime Parameters</a>
+              </li>
+              <li>
+                <a href="/definitions.html">Schema Definitions</a>
               </li>
               <li>
                 <a href="vhosts.html">Per Virtual Host Limits</a>
