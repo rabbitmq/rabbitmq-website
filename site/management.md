@@ -388,14 +388,6 @@ The port is configured using the `management.tcp.port` key:
 management.tcp.port = 15672
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [{listener, [{port, 15672}]}]},
-].
-</pre>
-
 ### <a id="single-listener-https" class="anchor" href="#single-listener-https">HTTPS</a>
 
 The management plugin can be configured to use HTTPS. See the guide [on TLS](/ssl.html)
@@ -407,20 +399,6 @@ management.ssl.cacertfile = /path/to/ca_certificate.pem
 management.ssl.certfile   = /path/to/server_certificate.pem
 management.ssl.keyfile    = /path/to/server_key.pem
 </pre>
-
-HTTP listener can also be configured using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbitmq_management,
-  [{listener, [{port,     15671},
-               {ssl,      true},
-               {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
-                           {certfile,   "/path/to/server_certificate.pem"},
-                           {keyfile,    "/path/to/server_key.pem"}]}
-              ]}
-  ]}
-].</pre>
-
 
 More [TLS options](/ssl.html) can be configured for the HTTPS listener.
 
@@ -519,18 +497,6 @@ Response compression is enabled by default. To enable it explicitly, use `manage
 management.tcp.compress = true
 </pre>
 
-Using the classic config format:
-
-<pre class="lang-erlang">
-%% For RabbitMQ 3.7.9 and later versions
-[{rabbitmq_management,
-  [{tcp_config, [{port,        15672},
-                 {cowboy_opts, [{compress, true}]}
-                ]}
-  ]}
-].
-</pre>
-
 #### Client Inactivity Timeouts
 
 Some HTTP API endpoints respond quickly, others may need to return or stream
@@ -573,37 +539,6 @@ management.ssl.inactivity_timeout = 120000
 management.ssl.request_timeout    = 10000
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-%% For RabbitMQ 3.7.9 and later versions.
-%%
-%% Configures HTTP (non-encrypted) listener timeouts
-[{rabbitmq_management,
-  [{tcp_config, [{port,        15672},
-                 {cowboy_opts, [{idle_timeout,      120000},
-                                {inactivity_timeout,120000},
-                                {request_timeout,   10000}]}
-                ]}
-  ]}
-].
-</pre>
-
-<pre class="lang-erlang">
-%% For RabbitMQ 3.7.9 and later versions.
-%%
-%% Configures HTTPS (TLS-enabled) listener,
-%% sets all types of timeouts to 120 seconds
-[{rabbitmq_management,
-  [{ssl_config, [{port,        15672},
-                 {cowboy_opts, [{idle_timeout,      120000},
-                                {inactivity_timeout,120000},
-                                {request_timeout,   10000}]}
-                ]}
-  ]}
-].
-</pre>
-
 All values are in milliseconds. Their defaults vary:
 
  * `management.tcp.inactivity_timeout` has the default of 300 seconds
@@ -617,7 +552,6 @@ of `management.tcp.idle_timeout`.
 `management.tcp.request_timeout` typically does not need increasing as clients send a request
 shortly after establishing a TCP connection.
 
-
 ### <a id="http-logging" class="anchor" href="#http-logging">HTTP Request Logging</a>
 
 To create simple access logs of requests to the HTTP API,
@@ -628,14 +562,6 @@ RabbitMQ.
 
 <pre class="lang-ini">
 management.http_log_dir = /path/to/folder
-</pre>
-
-Or using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [{http_log_dir, "/path/to/folder"}]}
-].
 </pre>
 
 ### <a id="statistics-interval" class="anchor" href="#statistics-interval">Statistics Interval</a>
@@ -758,27 +684,11 @@ The value can be any valid CSP header string:
 management.csp.policy = default-src https://rabbitmq.eng.example.local
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-{rabbitmq_management, [
-  {content_security_policy,
-    "management.csp.policy = default-src https://rabbitmq.eng.example.local"}
-]}.</pre>
-
 Wildcards are also allowed:
 
 <pre class="lang-ini">
 management.csp.policy = default-src 'self' *.eng.example.local
 </pre>
-
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-{rabbitmq_management, [
-  {content_security_policy,
-    "management.csp.policy = default-src 'self' *.eng.example.local"}
-]}.</pre>
 
 ### <a id="hsts" class="anchor" href="#hsts">Strict Transport Security (HSTS)</a>
 
@@ -788,13 +698,6 @@ is used by HTTP API responses:
 <pre class="lang-ini">
 management.hsts.policy = max-age=31536000; includeSubDomains
 </pre>
-
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-rabbitmq_management, [
-  {strict_transport_security, "max-age=31536000; includeSubDomains"}
-]}.</pre>
 
 ### <a id="cors" class="anchor" href="#cors">Cross-origin Resource Sharing (CORS)</a>
 
@@ -807,15 +710,6 @@ management.cors.allow_origins.1 = https://origin1.org
 management.cors.allow_origins.2 = https://origin2.org
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {cors_allow_origins, ["https://origin1.org", "https://origin2.org"]}
-  ]}
-].</pre>
-
 It is possible to allow any origin to use the API using a wildcard.
 This is <strong>highly discouraged</strong> for deployments where the UI
 application may be exposed to the public.
@@ -823,15 +717,6 @@ application may be exposed to the public.
 <pre class="lang-ini">
 management.cors.allow_origins.1 = *
 </pre>
-
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {cors_allow_origins, ["*"]}
-  ]}
-].</pre>
 
 The CORS pre-flight requests are cached by the browser.
 The management plugin defines a timeout of 30 minutes
@@ -842,16 +727,6 @@ management.cors.allow_origins.1 = https://origin1.org
 management.cors.allow_origins.2 = https://origin2.org
 management.cors.max_age         = 3600
 </pre>
-
-In the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {cors_allow_origins, ["https://origin1.org", "https://origin2.org"]},
-    {cors_max_age, 3600}
-  ]}
-].</pre>
 
 ### <a id="login-session-timeout" class="anchor" href="#login-session-timeout">Login Session Timeout</a>
 
@@ -867,15 +742,6 @@ The following example sets the session timeout to 1 hour:
 <pre class="lang-ini">
 management.login_session_timeout = 60
 </pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">[
-  %% ...
-  {rabbitmq_management,
-    [{login_session_timeout, 60}]},
-  %% ...
-].</pre>
 
 ### <a id="path-prefix" class="anchor" href="#path-prefix">Path Prefix</a>
 
@@ -896,15 +762,6 @@ trailing slash is <em>required</em> in this case.
 <pre class="lang-ini">
 management.path_prefix = /my-prefix
 </pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">[
-  %% ...
-  {rabbitmq_management,
-    [{path_prefix, "/my-prefix"}]},
-  %% ...
-].</pre>
 
 ### <a id="example-config" class="anchor" href="#example-config">Example</a>
 
