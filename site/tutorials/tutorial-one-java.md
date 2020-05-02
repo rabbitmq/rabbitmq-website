@@ -161,8 +161,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 </pre>
 
-The extra `DefaultConsumer` is a class implementing the `Consumer`
-interface we'll use to buffer the messages pushed to us by the server.
+The extra `DeliverCallback` interface we'll use to buffer the messages pushed to us by the server.
 
 Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
