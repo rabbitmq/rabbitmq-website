@@ -41,7 +41,7 @@ limitations under the License.
 
   <tr>
     <td>3.7</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.25" target="_blank">3.7.25</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.26" target="_blank">3.7.26</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
     <td>31 March 2020</td>
     <td>31 September 2020</td>
