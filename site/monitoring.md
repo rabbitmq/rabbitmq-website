@@ -657,8 +657,8 @@ Includes all checks in stage 5 plus checks all channel and queue processes
 on the target node for aliveness.
 
 The combination of [`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) and
-[`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the closest alternative
-to this check currently available.
+[`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the closest currently available
+alternative to this check.
 
 This combination of commands includes all checks up to and including stage 4.
 It will also check all channel and queue processes on the target queue for aliveness:
@@ -669,9 +669,12 @@ rabbitmq-diagnostics -q node_health_check
 # if both checks succeed, the exit code will be 0
 </pre>
 
-The probability of false positives is moderate for systems under
+Note that this is an **expensive operation** on nodes with a lot of queues and channels.
+
+Picking a suitable timeout for such check, therefore, is non-trivial.
+The probability of false positives is **high** for systems under
 above average load or with a large number of queues and channels
-(starting with 10s of thousands).
+(starting with thousands).
 
 #### Optional Check 1
 
@@ -817,7 +820,7 @@ Note that this list is by no means complete.
       <td>Prometheus</td>
       <td>
         <a href="/prometheus.html">Prometheus guide</a>,
-        <a href="https://github.com/deadtrickster/prometheus_rabbitmq_exporter">GitHub</a>
+        <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
       </td>
     </tr>
     <tr>
