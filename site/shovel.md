@@ -184,14 +184,6 @@ dynamic shovels first for their ease of reconfiguration and management.
 Note that when using AMQP 1.0 the "nodes" may still need to be created
 outside of the shovel as the protocol does not include topology
 creation.
-    
-### <a id="configuration-format-differences" class="anchor" href="#configuration-format-differences">Configuration Format Differences</a>
-
-Shovel versions prior to RabbitMQ 3.7 use a slightly different configuration format.
-
-See [static shovels (legacy)](shovel-static-legacy.html) and [dynamic shovels (legacy)](shovel-dynamic-legacy.html) guides
-for details. Static shovel created using the old format are still supported but it is highly
-recommended to switch to the modern format.
 
 
 ## <a id="authn-authz-for-shovels" class="anchor" href="#authn-authz-for-shovels">Authentication and authorisation for Shovels</a>
