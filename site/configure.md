@@ -427,8 +427,8 @@ used to install RabbitMQ, then in an administrative command prompt run
 .\rabbitmq-service.bat start
 </pre>
 
-This will restart the node in a way that makes environment variable and `rabbitmq-env-conf.bat` values
-to be updated.
+This will restart the node in a way that makes the environment variable and
+`rabbitmq-env-conf.bat` changes to be observable to it.
 
 
 ### <a id="example-config" class="anchor" href="#example-config">Example Configuration Files</a>
