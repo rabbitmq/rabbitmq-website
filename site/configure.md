@@ -413,22 +413,13 @@ If `rabbitmq-env.conf` doesn't exist, it can be created manually
 in the location specified by the `RABBITMQ_CONF_ENV_FILE` variable.
 On Windows systems, it is named `rabbitmq-env-conf.bat`.
 
-Windows service users will need to **re-install the service** if configuration file location
-or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
-the service would not be updated otherwise.
+Windows service users will need to **[re-install the service](#rabbitmq-env-file-windows)** if
+configuration file location or any values in ``rabbitmq-env-conf.bat` have changed.
+Environment variables used by the service would not be updated otherwise.
 
-To re-install the Windows service, make sure to use the same administrative account
-used to install RabbitMQ, then in an administrative command prompt run
-
-<pre class="lang-powershell">
-.\rabbitmq-service.bat stop
-.\rabbitmq-service.bat remove
-.\rabbitmq-service.bat install
-.\rabbitmq-service.bat start
-</pre>
-
-This will restart the node in a way that makes the environment variable and
-`rabbitmq-env-conf.bat` changes to be observable to it.
+In the context of deployment automation this means that environment variables
+such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
+This would help avoid unnecessary confusion and Windows service re-installations.
 
 
 ### <a id="example-config" class="anchor" href="#example-config">Example Configuration Files</a>
@@ -1455,10 +1446,8 @@ using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
 ``rabbitmq-env.conf`` uses the standard environment variable names
 but without the `RABBITMQ_` prefix. For example, the
-`RABBITMQ_CONFIG_FILE` parameter appears
-below as `CONFIG_FILE` and
-`RABBITMQ_NODENAME` becomes
-`NODENAME`:
+`RABBITMQ_CONFIG_FILE` variable appears below as `CONFIG_FILE` and
+`RABBITMQ_NODENAME` becomes `NODENAME`:
 
 <pre class="lang-bash">
 # Example rabbitmq-env.conf file entries. Note that the variables
@@ -1478,40 +1467,36 @@ See the [rabbitmq-env.conf man page](man/rabbitmq-env.conf.5.html) for details.
 
 ### <a id="rabbitmq-env-file-windows" class="anchor" href="#rabbitmq-env-file-windows">Windows</a>
 
-
 The easiest option to customise names, ports or locations is
 to configure environment variables in the Windows dialogue:
 Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables.
 Then create or edit the system variable name and value.
 
-Alternatively it is possible to
-use a file named `rabbitmq-env-conf.bat`
+Alternatively it is possible to use a file named `rabbitmq-env-conf.bat`
 to define environment variables that will be used by the broker.
 Its [location](#config-location) is configurable
 using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
-<strong>Important</strong>: for environment changes to take effect on Windows, the service must be
-<em>re-installed</em>. It is <em>not sufficient</em> to restart the service.
+Windows service users will need to **re-install the service** if configuration file location
+or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
+the service would not be updated otherwise.
 
 This can be done using the installer or on the command line
 with administrator permissions:
 
- * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
- * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin`)
- * Run `rabbitmq-service.bat remove`
+ * Start an [administrative command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
+ * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-{version}\sbin`)
+ * Run `rabbitmq-service.bat stop` to stop the service
+ * Run `rabbitmq-service.bat remove` to remove the Windows service (this will *not* remove RabbitMQ or its data directory)
  * Set environment variables via command line, i.e. run commands like the following: <pre class="lang-powershell">set RABBITMQ_BASE=C:\Data\RabbitMQ</pre>
  * Run `rabbitmq-service.bat install`
+ * Run `rabbitmq-service.bat start`
 
-Alternatively, if the new configuration needs to take effect after the next broker restart,
-the service removal step can be skipped:
-
- * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
- * cd into the sbin folder under RabbitMQ server installation directory
- * Set environment variables via command line
- * Run `rabbitmq-service.bat install`, which will only update service parameters
+This will restart the node in a way that makes the environment variable and
+`rabbitmq-env-conf.bat` changes to be observable to it.
 
 
-## <a id="supported-environment-variables" class="anchor" href="#supported-environment-variables">RabbitMQ Environment Variables</a>
+## <a id="supported-environment-variables" class="anchor" href="#supported-environment-variables">Environment Variables Used by RabbitMQ</a>
 
 All environment variables used by RabbitMQ use the
 prefix `RABBITMQ_` (except when defined in [rabbitmq-env.conf](#environment-env-file-unix) or

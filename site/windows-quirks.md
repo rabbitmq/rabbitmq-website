@@ -22,9 +22,10 @@ Windows. However, sometimes there are circumstances beyond our
 control that can introduce quirky behaviour. This page documents
 them.
 
-## Multiple versions of Erlang may cause installation issues
+## Multiple Versions of Erlang May Cause Installation Issues
 
-Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed - the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
+Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed -
+the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
 
  * Make sure to use the same administrative user that was used to install RabbitMQ
  * Stop the RabbitMQ Windows service using `.\rabbitmq-service.bat stop`
@@ -37,6 +38,9 @@ Due to how the Windows `.exe` installer detects an installed version of Erlang, 
 .\rabbitmq-service.bat install
 .\rabbitmq-service.bat start
 </pre>
+
+If any environment variables have changed in the mean time, [Windows service reinstallation](/configure.html#rabbitmq-env-file-windows) would
+also be necessary.
 
 
 ## Cannot install to a path with non-ASCII characters
