@@ -26,18 +26,18 @@ them.
 
 Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed - the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
 
-<ul>
-  <li>Stop the RabbitMQ windows service</li>
-  <li>Un-install Erlang</li>
-  <li>Install the new version of Erlang</li>
-  <li>Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run these commands:
-    <pre class="lang-text">
-    .\rabbitmq-service.bat remove
-    .\rabbitmq-service.bat install
-    .\rabbitmq-service.bat start
-    </pre>
-  </li>
-</ul>
+ * Make sure to use the same administrative user that was used to install RabbitMQ
+ * Stop the RabbitMQ windows service
+ * Uninstall Erlang
+ * Install the new version of Erlang
+ * Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run the commands below to reinstall the Windows service
+
+<pre class="lang-powershell">
+.\rabbitmq-service.bat remove
+.\rabbitmq-service.bat install
+.\rabbitmq-service.bat start
+</pre>
+
 
 ## Cannot install to a path with non-ASCII characters
 

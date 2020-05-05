@@ -405,12 +405,30 @@ The `RABBITMQ_CONFIG_FILE` environment variable can be used to override the loca
 RABBITMQ_CONFIG_FILE=/path/to/a/custom/location/rabbitmq.conf
 </pre>
 
-On Linux, MacOS and BSD configuration file changes take affect only after a node restart.
-Windows service users will need to re-install the service after addition or changes to the configuration file.
+### <a id="config-changes-effects" class="anchor" href="#config-changes-effects">When Will Configuration File Changes Be Applied</a>
+
+`rabbitmq.conf` and `advanced.config` changes take affect after a node restart.
 
 If `rabbitmq-env.conf` doesn't exist, it can be created manually
 in the location specified by the `RABBITMQ_CONF_ENV_FILE` variable.
 On Windows systems, it is named `rabbitmq-env-conf.bat`.
+
+Windows service users will need to **re-install the service** if configuration file location
+or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
+the service would not be updated otherwise.
+
+To re-install the Windows service, make sure to use the same administrative account
+used to install RabbitMQ, then in an administrative command prompt run
+
+<pre class="lang-powershell">
+.\rabbitmq-service.bat stop
+.\rabbitmq-service.bat remove
+.\rabbitmq-service.bat install
+.\rabbitmq-service.bat start
+</pre>
+
+This will restart the node in a way that makes environment variable and `rabbitmq-env-conf.bat` values
+to be updated.
 
 
 ### <a id="example-config" class="anchor" href="#example-config">Example Configuration Files</a>
