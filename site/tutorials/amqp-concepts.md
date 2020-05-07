@@ -329,8 +329,7 @@ To draw an analogy:
 
  * Queue is like your destination in New York city
  * Exchange is like JFK airport
- * Bindings are routes from JFK to your destination. There
-can be zero or many ways to reach it
+ * Bindings are routes from JFK to your destination. There can be zero or many ways to reach it
 
 Having this layer of indirection enables routing scenarios
 that are impossible or very hard to implement using publishing
