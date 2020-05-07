@@ -349,8 +349,8 @@ Storing messages in queues is useless unless applications
 can _[consume](/consumers.html)_ them. In the AMQP 0-9-1 Model, there
 are two ways for applications to do this:
 
- * Have messages delivered to them ("push API")
- * Fetch messages as needed ("pull API")
+ * Subscribe to have messages delivered to them ("push API"): this is the recommended option
+ * Polling ("pull API"): this way is **highly inefficient** and **should be avoided** in most cases
 
 With the "push API", applications have to indicate interest in
 consuming messages from a particular queue. When they do so,
