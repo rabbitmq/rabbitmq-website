@@ -52,7 +52,7 @@ worth bearing in mind:
    on real or simulated workloads will help assess how suitable a particular instance type is.
 
 
-## <a id="os" class="anchor" href="#os">Operaing Systems</a>
+## <a id="os" class="anchor" href="#os">Operating Systems</a>
 
 Although RabbitMQ is tested with most major Linux distributions,
 Ubuntu support for Amazon EC2 seems to be strongest, so that's the distribution this guide
