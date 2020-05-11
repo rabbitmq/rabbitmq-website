@@ -46,7 +46,7 @@ and uses [acknowledgements]() on both ends to cope with failures.
 A Shovel uses [Erlang AMQP 0-9-1](https://www.rabbitmq.com/erlang-client-user-guide.html)
 and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client) clients under the hood.
     
-## <a id="benefits" class="anchor" href="#benefits">Overview</a>
+## <a id="benefits" class="anchor" href="#benefits">Why Use Shovel</a>
 
 Shovel is a minimalistic yet flexible tool in the distributed messaging toolkit
 that can accommodate a number of use cases. Below are some of its key features
