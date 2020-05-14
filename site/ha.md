@@ -15,15 +15,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Highly Available (Mirrored) Queues
+# Classic Mirrored Queues
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's More: Next Generation Highly Available Queues</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
-[Quorum queues](/quorum-queues.html) is an alternative queue type that offers replication
-and focuses on data safety. In many cases quorum queues would be a superior option
+[Quorum queues](/quorum-queues.html) is an alternative, more modern queue type
+that offers high availability via replication and focuses on data safety.
+
+In many cases quorum queues would be a superior option
 to classic queue mirroring. Readers are encouraged to get familiar
-with quorum queues as well as the contents of this guide.
+with quorum queues and consider them instead of classic mirrored queues.
+
+
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Topics covered in this guide include
 
@@ -392,22 +397,34 @@ PUT /api/policies/%2f/ha-two
   </tr>
 </table>
 
-The following example declares a policy named `ha-all` which matches
-the queues whose names begin with
-"`ha.`" and configures mirroring to all nodes in the cluster (see [To How Many Nodes to Mirror?](#replication-factor) above):
+The following example declares a policy which matches
+the queues whose names begin with "`ha.`" and configures
+mirroring to all nodes in the cluster.
 
+Note that **mirroring to all nodes is rarely necessary** and will result
+in unnecessary resource waste.
+
+See [To How Many Nodes to Mirror?](#replication-factor) above):
 
 <table>
   <tr>
     <th>rabbitmqctl</th>
     <td>
-      <pre class="lang-bash">rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
+<pre class="lang-bash">
+# Note that mirroring to all nodes is rarely necessary.
+# Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'
+</pre>
     </td>
   </tr>
   <tr>
     <th>rabbitmqctl (Windows)</th>
     <td>
-      <pre class="lang-powershell">rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+<pre class="lang-powershell">
+# Note that mirroring to all nodes is rarely necessary.
+# Consider mirroring to the majority (N/2+1) nodes with "ha-mode":"exactly" instead.
+rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
+</pre>
     </td>
   </tr>
   <tr>
@@ -421,8 +438,7 @@ the queues whose names begin with
     <td>
       <ul>
         <li>
-          Navigate to Admin > Policies > Add / update a
-          policy.
+          Navigate to <code>Admin</code> > <code>Policies</code> > <code>Add / update a policy</code>.
         </li>
         <li>
           Enter "ha-all" next to Name, "^ha\." next to Pattern,
@@ -430,7 +446,7 @@ the queues whose names begin with
           Policy.
         </li>
         <li>
-          Click Add policy.
+          Click <code>Add policy</code>.
         </li>
       </ul>
     </td>

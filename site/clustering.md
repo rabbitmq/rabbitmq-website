@@ -34,7 +34,7 @@ This guide covers fundamental topics related to RabbitMQ clustering:
 
 and more. [Cluster Formation and Peer Discovery](/cluster-formation.html) is a closely related guide
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
-(message) replication, see the [Mirrored Queues](/ha.html) guide.
+(message) replication, see [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html) guides.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
@@ -159,9 +159,10 @@ All data/state required for the operation of a RabbitMQ
 broker is replicated across all nodes. An exception to this
 are message queues, which by default reside on one node,
 though they are visible and reachable from all nodes. To
-replicate queues across nodes in a cluster, see the
-documentation on [high availability](ha.html)
-(note: this guide is a prerequisite for mirroring).
+replicate queues across nodes in a cluster, use a queue type
+that supports replication. This topic is covered in
+the [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html)
+guides.
 
 ### <a id="peer-equality" class="anchor" href="#peer-equality">Nodes are Equal Peers</a>
 
@@ -305,7 +306,7 @@ MQTT client connections won't be accepted, quorum queues would lose their availa
 From the consensus point of view, Four or six node clusters would have the same availability
 characteristics as three and five node clusters.
 
-The [Quorum queue guide](/quorum-queues.html) covers this topic in more detail.
+The [Quorum Queues guide](/quorum-queues.html) covers this topic in more detail.
 
 
 ### <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
@@ -313,8 +314,8 @@ The [Quorum queue guide](/quorum-queues.html) covers this topic in more detail.
 Assuming all cluster members
 are available, a client can connect to any node and
 perform any operation. Nodes will route operations to the
-[queue master node](ha.html#master-migration-data-locality) transparently to
-clients.
+[quorum queue leader](/quorum-queues.html) or [queue master replica](ha.html#master-migration-data-locality)
+transparently to clients.
 
 With all supported messaging protocols a client is only connected to one node
 at a time.
@@ -326,7 +327,10 @@ as a connection option. The list of hosts will be used during initial connection
 as well as connection recovery, if the client supports it. See documentation guides
 for individual clients to learn more.
 
-There are scenarios where it may not be possible for a client to transparently continue
+With [quorum queues](/quorum-queues.html), clients will only be able to perform
+operations on queues that have a quorum of replicas online.
+
+With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
 operations after connecting to a different node. They usually involve
 [non-mirrored queues hosted on a failed node](/ha.html#non-mirrored-queue-behavior-on-node-failure).
 

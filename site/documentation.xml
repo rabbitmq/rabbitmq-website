@@ -241,20 +241,22 @@ limitations under the License.
 
             <ul>
               <li>
-                <a href="distributed.html">Mirroring, Shovel, Federation Overview</a>
+                <a href="/distributed.html">Replication and Distributed Feature Overview</a>
               </li>
               <li>
-                <a href="clustering.html">Clustering</a>
+                <a href="/clustering.html">Clustering</a>
               </li>
               <li>
-                <a href="ha.html">Queue Mirroring</a>
+                <a href="/quorum-queues.html">Quorum Queues</a>: a modern highly available replicated queue type
+              </li>
+              <li>
+                <a href="/ha.html">Classic Mirrored Queues</a>
               </li>
               <li>
                 <a href="/reliability.html">Reliable Message Delivery</a>
               </li>
               <li>
-                Active-passive (standby) <a href="pacemaker.html">highly available</a>
-                configuration with Pacemaker (legacy).
+                Active-passive <a href="/pacemaker.html">standby configuration with Pacemaker</a> (legacy)
               </li>
             </ul>
           </li>
