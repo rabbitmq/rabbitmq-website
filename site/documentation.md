@@ -64,7 +64,6 @@ for the original RabbitMQ protocol.
  * [Snapshot (Nightly) Builds](/snapshots.html)
 
 
-
 ### CLI tools
 
  * [RabbitMQ CLI Tools](/cli.html): general installation and usage topics
