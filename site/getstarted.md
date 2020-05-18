@@ -175,7 +175,8 @@ as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 ## Getting Help
 
 If you have any questions or comments regarding RabbitMQ, feel free to
-ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users).
+ask them on [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
+or the public [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
 
 
 ## AMQP 0-9-1 Overview and Quick Reference

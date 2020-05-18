@@ -41,7 +41,7 @@ There is no guarantee of response or specific turnaround time.
 
 ### Community Slack
 
-Feel free to join our community [RabbitMQ Slack channel](https://rabbitmq-slack.herokuapp.com/).
+Feel free to join our [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
 
 The channel offers a free, best effort support from the community.
 There is no guarantee of response or specific turnaround time.
