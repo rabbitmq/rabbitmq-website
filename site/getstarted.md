@@ -186,32 +186,19 @@ skip ahead), you may wish to read an
 and browse our
 [AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
 
-## Tutorials in other languages
+
+## Tutorials in Other Languages
 
 The tutorials here use a number of popular technologies,
 however, there are [ports available](https://github.com/rabbitmq/rabbitmq-tutorials) for
 many more languages and client libraries, for example:
 
-<ul>
-  <li>
-    [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure) (using [Langohr](http://clojurerabbitmq.info))
-  </li>
-  <li>
-    [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
-  </li>
-  <li>
-    [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
-  </li>
-  <li>
-    [Perl](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl) (using [Net::RabbitFoot](https://github.com/cooldaemon/RabbitFoot))
-  </li>
-    <li>
-    [Perl](https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl) (using [Net::AMQP::RabbitMQ](http://p3rl.org/Net::AMQP::RabbitMQ))
-  </li>
-  <li>
-    [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
-  </li>
-</ul>
+ * [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure) (using [Langohr](http://clojurerabbitmq.info))
+ * [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
+ * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
+ * [Perl](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl) (using [Net::RabbitFoot](https://github.com/cooldaemon/RabbitFoot))
+ * [Perl](https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl) (using [Net::AMQP::RabbitMQ](http://p3rl.org/Net::AMQP::RabbitMQ))
+ * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
 
-We also maintain a list of [clients and developer tools](devtools.html) for
-a range of platforms, which you may find useful.
+We also maintain a list of community-developed [clients and developer tools](/devtools.html)
+for a range of platforms.
