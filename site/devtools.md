@@ -117,6 +117,9 @@ Miscellaneous projects:
  * [Lapin](https://github.com/sozu-proxy/lapin), a Rust client
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
 
+## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
+
+ * [amqp-client](https://github.com/cloudamqp/amqp-client.cr), an AMQP 0-9-1 client for Crystal
 
 ## <a id="alt-jvm-dev" class="anchor" href="#alt-jvm-dev">Other JVM Languages</a>
 
@@ -271,3 +274,4 @@ Miscellaneous projects:
  * [Fudge Messaging Format](http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html):
    fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
  * [QDB: Persistent Message Queues with Replay](http://qdb.io/): queue backup and replay over AMQP 0-9-1. Includes REST API
+ * [AMQProxy](https://github.com/cloudamqp/amqproxy): An AMQP 0-9-1 proxy, with connection and channel pooling/reusing
