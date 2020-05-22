@@ -6,8 +6,6 @@ All changes that need to be deployed right away need to be committed to the `liv
 
 Changes which should be deployed when the next patch release (a.k.a. stable) of RabbitMQ ships should be committed to the `stable` branch.
 
-Changes which should be deployed when the next 3.6.x patch release of RabbitMQ ships should be committed to the `3.6.x` branch.
-
 Changes which should be deployed when the next minor release (a.k.a. master) of RabbitMQ ships should be committed to the `master` branch.
 
 ## Branches
@@ -18,7 +16,7 @@ repository:
 Branch        | Description
 :-------------|:--------------------
 `live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](https://www.rabbitmq.com/).
-`stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.7.x release occurs.
+`stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.8.x release occurs.
 `master`       | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
 
 
