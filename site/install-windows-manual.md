@@ -25,8 +25,9 @@ we recommend using one the [more automation-friendly options for Windows](/insta
 
 ## <a id="install-erlang" class="anchor" href="#install-erlang">Install Erlang/OTP</a>
 
-A [supported version of Erlang](/which-erlang.html) for Windows must be installed in order to run RabbitMQ.
-Run the [Erlang Windows installer](http://www.erlang.org/download.html).
+RabbitMQ requires a 64-bit [supported version of Erlang](/which-erlang.html) for Windows to be installed.
+Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
+
 Erlang will appear in the Start Menu,
 and <code>\erl<var>x.x.x</var>\bin\erl.exe</code> will be in
 `&dir-win32-apps;` or `&dir-win-apps;`, depending on

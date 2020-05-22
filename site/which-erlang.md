@@ -224,6 +224,7 @@ Most recent versions can be obtained from a number of sources:
  * [Debian Erlang packages](https://bintray.com/rabbitmq-erlang/) from team RabbitMQ.
  * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from team RabbitMQ
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/) or via [Erlang Docker image](https://hub.docker.com/_/erlang/)
+ * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) provides binary builds of patch releases for Windows
  * [Erlang Solutions](https://packages.erlang-solutions.com/erlang/) package repositories
  * Building from source with [kerl](https://github.com/kerl/kerl)
 

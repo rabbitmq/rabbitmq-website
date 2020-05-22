@@ -40,27 +40,28 @@ To install RabbitMQ, run the following command from the command line or from Pow
 choco install rabbitmq
 </pre>
 
-For most users and use cases, Chocolatey is the optimal installation method.
+For many Windows users and use cases, Chocolatey is the optimal installation method.
 
 
 ## <a id="installer" class="anchor" href="#installer">Using the Installer</a>
 
-The official RabbitMQ installer is produced for [every RabbitMQ releases](/changelog.html). It requires a dependency
+The official RabbitMQ installer is produced for [every RabbitMQ release](/changelog.html).
+It requires a 64-bit [supported version of Erlang](/which-erlang.html) to be installed.
+Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
 ### Dependencies
 
 RabbitMQ requires a 64-bit [supported version of Erlang](/which-erlang.html) for Windows to be installed.
-Erlang releases include a [Windows installer](http://www.erlang.org/download.html). [Erlang Solutions](https://packages.erlang-solutions.com/erlang/)
-provide binary 64-bit builds of Erlang as well.
+Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
 **Important:** the Erlang installer **must be run using an administrative account**
 otherwise a registry key expected by the RabbitMQ installer will not be
 present.
 
 **Important:** your system should only have one version of Erlang installed.
-Please consult the [Windows-specific Issues](windows-quirks.html) page.
+Please consult the [Windows-specific Issues](/windows-quirks.html) page.
 
-Once a supported version of Erlang is installed, download the RabbitMQ installer (<code><span class="path">rabbitmq-server-&version-server;.exe</span></code>) and run it.
+Once a supported version of Erlang is installed, download the RabbitMQ installer (<code><span class="path">rabbitmq-server-{version}.exe</span></code>) and run it.
 It installs RabbitMQ as a Windows service and starts it using the default configuration.
 
 ### <a id="downloads" class="anchor" href="#downloads">Direct Downloads</a>
