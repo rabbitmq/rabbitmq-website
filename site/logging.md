@@ -98,26 +98,9 @@ Logging to a file can be disabled with
 log.file = false
 </pre>
 
-Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example).
+Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/docs/rabbitmq.conf.example).
 
-The rest of this guide describes more options. [Lager configuration reference](https://github.com/erlang-lager/lager) is the most comprehensive reference.
-
-#### Classic Config Format
-
-It is possible to configure file logging using the [classic configuration format](/configure.html):
-
-<pre class="lang-erlang">
-[{rabbit, [
-        {log, [
-            {file, [{file, "/path/to/log/file.log"}, %% log.file
-                    {level, info},        %% log.file.info
-                    {date, ""},           %% log.file.rotation.date
-                    {size, 0},            %% log.file.rotation.size
-                    {count, 1}            %% log.file.rotation.count
-                    ]}
-        ]}
-    ]}].
-</pre>
+The rest of this guide describes more options, including [more advanced ones](#advanced-configuration).
 
 ### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
 
@@ -251,14 +234,6 @@ The following example uses TCP and the RFC 5424 protocol:
 log.syslog = true
 log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
-</pre>
-
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{protocol, {tcp, rfc5424}}]}
-].
 </pre>
 
 To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
@@ -845,14 +820,6 @@ To include upgrade logs in the default log file, disable file logging for that c
 <pre class="lang-ini">
 log.upgrade.file = false
 </pre>
-
-or
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].
-</pre>
-
-in the [classic configuration format](/configure.html#config-file-formats).
 
 Logging settings must go into the `lager` application section. To add extra handlers to default
 configuration or sinks, use the `handlers` to `extra_sinks` keys.
