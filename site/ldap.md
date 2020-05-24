@@ -76,7 +76,7 @@ The following example will configure RabbitMQ to **only** check LDAP for users, 
 auth_backends.1 = ldap
 </pre>
 
-The same can be done using the [classic config format](/configure.html#erlang-term-config-file):
+The same can be done using the [advanced config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 {rabbit, [
@@ -92,7 +92,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
-Same example in the [classic config format](/configure.html#erlang-term-config-file):
+Same example in the [advanced config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 {rabbit,[
@@ -113,7 +113,7 @@ auth_backends.1.authz = internal
 auth_backends.2 = internal
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
+In the [advanced config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 {rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
@@ -476,7 +476,8 @@ to bind with a specified username and password. For example:
 
 <pre class="lang-ini">
 auth_ldap.other_bind.user_dn = a-username
-auth_ldap.other_bind.password = a-password</pre>
+auth_ldap.other_bind.password = a-password
+</pre>
 
 Using the classic config format:
 

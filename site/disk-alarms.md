@@ -100,12 +100,6 @@ Or you can use memory units (KB, MB GB etc.) like this:
 disk_free_limit.absolute = 1GB
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [{disk_free_limit, 1000000000}]}].
-</pre>
-
 It is also possible to set a free space limit relative to the RAM in the machine.
 This configuration file sets the disk free space limit to the same
 as the amount of RAM on the machine:
@@ -114,18 +108,10 @@ as the amount of RAM on the machine:
 disk_free_limit.relative = 1.0
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].
-</pre>
-
 The limit can be changed while the broker is running
-using the <code>rabbitmqctl set_disk_free_limit <em>disk_limit</em></code> command
-or
-<code>rabbitmqctl set_disk_free_limit mem_relative <em>fraction</em></code> command.
+using the `rabbitmqctl set_disk_free_limit` command
+or `rabbitmqctl set_disk_free_limit mem_relative` command.
 This command will take effect until next node restart.
 
-The corresponding configuration
-setting should also be changed when the effects should survive
-a node restart.
+The corresponding configuration setting should also be changed
+when the effects should survive a node restart.

@@ -129,15 +129,6 @@ port to 12345 would look like:
 web_stomp.tcp.port = 12345
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp,
-      [{tcp_config, [{port, 12345}]}]}
-].
-</pre>
-
 You can use the `tcp_config` section to specify any TCP option you need.
 See the [RabbitMQ Networking guide](/networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
 for details about accepted parameters.
@@ -157,22 +148,6 @@ web_stomp.ssl.cacertfile = /path/to/ca_certificate.pem
 web_stomp.ssl.certfile   = /path/to/server_certificate.pem
 web_stomp.ssl.keyfile    = /path/to/server_key.pem
 web_stomp.ssl.password   = changeme
-</pre>
-
-In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
-section is `rabbitmq_web_stomp.ssl_config`:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp,
-      [{ssl_config, [{port,       15673},
-                     {backlog,    1024},
-                     {cacertfile, "/path/to/ca_certificate.pem"},
-                     {certfile,   "/path/to/server_certificate.pem"},
-                     {keyfile,    "/path/to/server_key.pem"},
-                     %% needed when private key has a passphrase
-                     {password,   "changeme"}]}]}
-].
 </pre>
 
 The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
@@ -211,14 +186,6 @@ This feature is disabled by default, to enable it for clients:
 web_stomp.proxy_protocol = true
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp, [{proxy_protocol, true}]}
-].
-</pre>
-
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
@@ -241,14 +208,6 @@ using the `ws_frame` option:
 web_stomp.ws_frame = binary
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp, [{ws_frame, binary}]}
-].
-</pre>
-
 ### HTTP Options
 
 Generic HTTP server settings can be specified using `web_stomp.cowboy_opts.*` keys,
@@ -267,20 +226,6 @@ web_stomp.cowboy_opts.max_empty_lines = 5
 web_stomp.cowboy_opts.max_request_line_length
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp,
-      [
-        {cowboy_opts, [{max_keepalive, 200},
-                       {max_headers,   100}]}
-      ]
-  }
-].
-</pre>
-
-
 ### WebSocket Options
 
 <pre class="lang-ini">
@@ -291,18 +236,4 @@ web_stomp.ws_opts.compress = true
 web_stomp.ws_opts.idle_timeout
 
 web_stomp.ws_opts.max_frame_size = 50000
-</pre>
-
-In the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_stomp,
-      [
-        {cowboy_ws_opts, [{compress,       true},
-                          {idle_timeout,   60000},
-                          {max_frame_size, 50000}]}
-      ]
-  }
-].
 </pre>

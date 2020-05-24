@@ -197,17 +197,6 @@ On the server side, the limit is controlled using the `channel_max`:
 channel_max = 100
 </pre>
 
-In the [classic config format](/configure.html#configuration-files), the key is `rabbit.channel_max`:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    %% no more 100 channels can be opened on a connection at the same time
-    {channel_max, 100}
-  ]}
-].
-</pre>
-
 Should the configured limit be exceeded, the connection will be closed with a fatal
 error:
 

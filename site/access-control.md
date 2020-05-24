@@ -482,15 +482,6 @@ only (and is the default):
 auth_backends.1 = internal
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_internal]}
-          ]
-}].
-</pre>
-
 The example above uses an alias, <code>internal</code> for <code>rabbit_auth_backend_internal</code>.
 The following aliases are available:
 
@@ -509,30 +500,12 @@ for both authentication and authorisation. Internal database will not be consult
 auth_backends.1 = ldap
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap]}
-          ]
-}].
-</pre>
-
 This will check LDAP first, and then fall back to the internal
 database if the user cannot be authenticated through LDAP:
 
 <pre class="lang-ini">
 auth_backends.1 = ldap
 auth_backends.2 = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
-          ]
-}].
 </pre>
 
 Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
@@ -552,21 +525,6 @@ auth_http.resource_path = http://my-authenticator-app/auth/resource
 auth_http.topic_path = http://my-authenticator-app/auth/topic
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
-          ]
- },
- %% See HTTP backend docs for details
- {rabbitmq_auth_backend_http,
-   [{user_path,     "http://my-authenticator-app/auth/user"},
-    {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-    {resource_path, "http://my-authenticator-app/auth/resource"},
-    {topic_path,    "http://my-authenticator-app/auth/topic"}]}].
-</pre>
-
 The following example configures RabbitMQ to use the internal
 database for authentication and the [source IP range backend](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range) for authorisation:
 
@@ -578,15 +536,6 @@ auth_backends.1.authn = internal
 auth_backends.1.authz = rabbit_auth_backend_ip_range
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
-          ]
-}].
-</pre>
-
 The following example configures RabbitMQ to use the [LDAP backend](/ldap.html)
 for authentication and the internal backend for authorisation:
 
@@ -595,14 +544,6 @@ for authentication and the internal backend for authorisation:
 #
 auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
-          ]}].
 </pre>
 
 The example below is fairly advanced. It will check LDAP
@@ -619,16 +560,6 @@ a second attempt is made using only the internal database:
 auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
 auth_backends.2       = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
-                             rabbit_auth_backend_internal]}
-          ]
-}].
 </pre>
 
 

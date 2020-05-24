@@ -224,20 +224,6 @@ cluster_formation.classic_config.nodes.1 = rabbit@hostname1.eng.example.local
 cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
 </pre>
 
-The following example demonstrates the same configuration in
-the [classic config format](/configure.html#config-file-formats). The 2nd member of the
-`rabbit.cluster_nodes` tuple is the node type to
-use for the current node. In the vast majority of cases all
-nodes should be `disc` nodes.
-
-<pre class="lang-erlang">
-[
- {rabbit, [
-           {cluster_nodes, {['rabbit@hostname1.eng.example.local',
-                             'rabbit@hostname2.eng.example.local'], disc}}
-          ]}
-].
-</pre>
 
 ## <a id="peer-discovery-dns" class="anchor" href="#peer-discovery-dns">DNS Peer Discovery Backend</a>
 
