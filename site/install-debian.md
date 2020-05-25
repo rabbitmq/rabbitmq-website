@@ -58,7 +58,7 @@ On Debian and Ubuntu, the easiest way to do that is [via apt](#erlang-repositori
 
 Below is a list Debian-based distributions supported by recent RabbitMQ releases:
 
- * Ubuntu 14.04 through 19.04
+ * Ubuntu 16.04 through 20.04
  * Debian Stretch (9), Buster (10) and Sid ("unstable")
 
 The package may work on other Debian-based distributions
@@ -219,9 +219,8 @@ Below is a table of OS release and distribution names that should be used on Bin
 
 | Release        | Distribution Name to Use on Bintray |
 |----------------|-----------|
+| Ubuntu 20.04   | `bionic`  |
 | Ubuntu 18.04   | `bionic`  |
-| Ubuntu 19.04   | `bionic`  |
-| Ubuntu 19.10   | `bionic`  |
 | Ubuntu 16.04   | `xenial`  |
 | Debian Buster  | `buster`  |
 | Debian Stretch | `stretch` |
@@ -506,9 +505,8 @@ Below is a table of OS release and distribution names that should be used on Bin
 
 | Release        | Distribution Name to Use on Bintray |
 |----------------|-----------|
+| Ubuntu 20.04   | `bionic`  |
 | Ubuntu 18.04   | `bionic`  |
-| Ubuntu 19.04   | `bionic`  |
-| Ubuntu 19.10   | `bionic`  |
 | Ubuntu 16.04   | `xenial`  |
 | Debian Buster  | `stretch` |
 | Debian Stretch | `stretch` |
@@ -837,7 +835,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.24. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -896,7 +894,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.24. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
