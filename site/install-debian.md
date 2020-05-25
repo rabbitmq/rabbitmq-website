@@ -120,18 +120,6 @@ apt repositories:
        <strong>Supported <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/KbOldePfgYw/cjYzldEJAQAJ">starting with 3.7.7</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
      </td>
    </tr>
-   <tr>
-     <td>20.3.x</td>
-     <td>
-       <ul>
-         <li><a href="#apt-bintray-erlang">Debian packages of Erlang</a> by Team RabbitMQ</li>
-         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
-       </ul>
-     </td>
-     <td>
-       <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/_imbAavBYjY">starting with 3.6.11</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
-     </td>
-   </tr>
  </tbody>
 </table>
 
