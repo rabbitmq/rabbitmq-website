@@ -290,8 +290,8 @@ If the file does not exist, Erlang VM will automatically create
 one with a randomly generated value when the RabbitMQ server
 starts up.
 
-Erlang cookie management is best done using automation tools such as Chef, BOSH, Docker
-or similar.
+Erlang cookie management is best done using automation tools and not manually.
+
 
 ## <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
 
@@ -308,8 +308,8 @@ non-privileged users and `root`.
 
 On Windows, the cookie location depends on a few factors:
 
- * Erlang version: prior to 20.2 or 20.2 and later
  * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
+ * Erlang version: prior to 20.2 or 20.2 and later
 
 ##### Erlang 20.2 or later
 
@@ -351,6 +351,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
 This is the least secure option and generally not recommended.
+
 
 ## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 
