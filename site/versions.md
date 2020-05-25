@@ -17,7 +17,6 @@ limitations under the License.
 
 # Release Series
 
-
 ## <a id="currently-supported" class="anchor" href="#currently-supported">Currently supported release series</a>
 
 <table class="release-series">
@@ -32,7 +31,7 @@ limitations under the License.
 
   <tr>
     <td>3.8</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3" target="_blank">3.8.3</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/&version-server-tag;" target="_blank">&version-server;</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0" target="_blank">1 October 2019</a></td>
     <td></td>
     <td></td>

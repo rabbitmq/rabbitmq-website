@@ -78,11 +78,23 @@ apt repositories:
  <thead>
    <tr>
      <td><strong>Erlang Release Series</strong></td>
-     <td><strong>Repositories that provide it</strong></td>
+     <td><strong>Apt Repositories that provide it</strong></td>
      <td><strong>Notes</strong></td>
    </tr>
  </thead>
  <tbody>
+  <tr>
+     <td>23.x</td>
+     <td>
+       <ul>
+         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
+       </ul>
+     </td>
+     <td>
+       <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">starting with 3.8.4</a></strong>.
+       See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+     </td>
+   </tr>
    <tr>
      <td>22.x</td>
      <td>
@@ -92,7 +104,8 @@ apt repositories:
        </ul>
      </td>
      <td>
-       <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">starting with 3.7.15</a></strong>. See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+       <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">starting with 3.7.15</a></strong>.
+       See <a href="/which-erlang.html">Erlang compatibility guide</a>.
      </td>
    </tr>
    <tr>
@@ -141,7 +154,7 @@ The repo provides most recent patch releases in the following Erlang series:
  * 21.x
  * 20.3.x
  * 19.3.x
- * master (23.x)
+ * master (24.x)
  * R16B03 (16.x)
 
 In order to use the repository, it is necessary to
@@ -345,13 +358,13 @@ Pin: version 1:22.3-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `rabbitmq-server` package to to `3.8.3`
+The following preference file example will pin `rabbitmq-server` package to to `3.8.4`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/rabbitmq
 Package: rabbitmq-server
-Pin: version 1:3.8.3
+Pin: version 1:3.8.4
 Pin-Priority: 1000
 </pre>
 
