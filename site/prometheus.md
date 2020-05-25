@@ -19,6 +19,7 @@ Some key topics covered by this guide are
  * [Grafana support basics](#overview-grafana)
  * [Quick Start](#quick-start) for local experimentation
  * [Installation steps](#installation) for production systems
+ * [Per-object Metric Aggregation](#metric-aggregation)
 
 Grafana dashboards follow a number of conventions to make the system more observable
 and anti-patterns easier to spot. Its design decisions are explained in a number of sections:
@@ -38,7 +39,7 @@ As of 3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
 Support for Prometheus metric collector ships in the `rabbitmq_prometheus` plugin.
 The plugin exposes all RabbitMQ metrics on a dedicated TCP port, in Prometheus text format.
 
-These metrics provide a deep insights into the state of RabbitMQ nodes and [the runtime](/runtime.html).
+These metrics provide deep insights into the state of RabbitMQ nodes and [the runtime](/runtime.html).
 They make reasoning about the behaviour of RabbitMQ, applications that use it and various infrastructure
 elements a lot more informed.
 
@@ -57,7 +58,7 @@ There is a number of dashboards available:
 and others. Each is meant to provide an insight into a specific
 part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
 
-Note that the Grafana dashboards are opinionated and uses a number of conventions, for example, to
+Note that the Grafana dashboards are opinionated and use a number of conventions, for example, to
 [spot system health issues quicker](#health-indicators) or make [cross-graph referencing](#graph-colour-labelling) possible.
 Like all Grafana dashboards, they are also highly customizable. The conventions they assume are considered to be
 good practices and are thus recommended.
@@ -282,7 +283,7 @@ It is a lot more and efficient to have RabbitMQ [push messages to the consumer](
 
 ### <a id="example-workloads" class="anchor" href="#example-workloads">Example Workloads</a>
 
-The [Prometheus plugin repository](https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker) contains example workloads that us [PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
+The [Prometheus plugin repository](https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker) contains example workloads that use [PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
 to simulate different workloads.
 Their goal is to exercise all metrics in the RabbitMQ Overview dashboard. These examples are meant to be
 edited and extended as developers and operators see fit when exploring various metrics, their thresholds and behaviour.
@@ -432,6 +433,34 @@ below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
+### <a id="metric-aggregation" class="anchor" href="#metric-aggregation"></a>
+
+The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
+
+In the latter case, there will be an output row for each object-metric pair.
+With a large number of stats-emitting entities, e.g. a lot of connections and queues,
+this can result in very large payloads and a lot of CPU resources spent serialising
+data to output. This mode therefore is only suitable for development environments
+and as a way of troubleshooting.
+
+By default, returned rows are aggregated by metric name. This significantly reduces the size of the output
+and makes it constant even as the number of objects grows.
+
+To enable per-object (unaggregated) metrics, use the `prometheus.return_per_object_metrics` key:
+
+<pre class="lang-ini">
+# will result in a really excessive output produced,
+# only use for troubleshooting.
+# Not recommended for production deployments!
+prometheus.return_per_object_metrics = true
+</pre>
+
+For the sake of completeness, the default used by the plugin is
+
+<pre class="lang-ini">
+# enables aggregation, highly recommended for most environments
+prometheus.return_per_object_metrics = false
+</pre>
 
 ### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scraping Endpoint Timeouts</a>
 

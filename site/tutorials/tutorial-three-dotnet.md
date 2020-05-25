@@ -345,7 +345,7 @@ class ReceiveLogs
             consumer.Received += (model, ea) =>
             {
                 var body = ea.Body;
-                var message = Encoding.UTF8.GetString(body);
+                var message = Encoding.UTF8.GetString(body.ToArray());
                 Console.WriteLine(" [x] {0}", message);
             };
             channel.BasicConsume(queue: queueName,

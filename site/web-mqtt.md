@@ -143,15 +143,6 @@ port to 12345 would look like:
 web_mqtt.tcp.port = 12345
 </pre>
 
-Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_mqtt,
-      [{tcp_config, [{port, 12345}]}]}
-].
-</pre>
-
 See [RabbitMQ Networking guide](/networking.html) for more information.
 
 
@@ -170,23 +161,6 @@ web_mqtt.ssl.certfile   = /path/to/server_certificate.pem
 web_mqtt.ssl.keyfile    = /path/to/server_key.pem
 # needed when private key has a passphrase
 # web_mqtt.ssl.password   = changeme
-</pre>
-
-In the <a href="/configure.html#erlang-term-config-file">classic config format</a> the
-section is `rabbitmq_web_mqtt.ssl_config`:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_mqtt,
-      [{ssl_config, [{port,       15673},
-                     {backlog,    1024},
-                     {cacertfile, "/path/to/ca_certificate.pem"}
-                     {certfile,   "/path/to/server_certificate.pem"},
-                     {keyfile,    "/path/to/server_key.pem"}
-                     %% needed when private key has a passphrase
-                     %% , {password,   "changeme"}
-                    ]}]}
-].
 </pre>
 
 The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
@@ -245,14 +219,6 @@ This feature is disabled by default, to enable it for MQTT clients:
 web_mqtt.proxy_protocol = true
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_mqtt, [{proxy_protocol, true}]}
-].
-</pre>
-
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
@@ -283,19 +249,6 @@ web_mqtt.cowboy_opts.max_empty_lines = 5
 web_mqtt.cowboy_opts.max_request_line_length
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_mqtt,
-      [
-        {cowboy_opts, [{max_keepalive, 200},
-                       {max_headers,   100}]}
-      ]
-  }
-].
-</pre>
-
 
 ### WebSocket Options
 
@@ -307,18 +260,4 @@ web_mqtt.ws_opts.compress = true
 web_mqtt.ws_opts.idle_timeout
 
 web_mqtt.ws_opts.max_frame_size = 50000
-</pre>
-
-In the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_web_mqtt,
-      [
-        {cowboy_ws_opts, [{compress,       true},
-                          {idle_timeout,   60000},
-                          {max_frame_size, 50000}]}
-      ]
-  }
-].
 </pre>

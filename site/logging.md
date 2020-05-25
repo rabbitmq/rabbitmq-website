@@ -12,16 +12,17 @@ RabbitMQ supports a number of features when it comes to logging.
 
 This guide covers topics such as:
 
+ * Supported log outputs: [file](#logging-to-a-file) and [standard streams (console)](#logging-to-console)
  * [Log file location](#log-file-location)
- * [Log levels](#log-levels)
- * [Log categories](#log-message-categories)
- * Supported log outputs
+ * Supported [log levels](#log-levels)
+ * How to [enable debug logging](#debug-logging)
+ * How to [tail logs of a running node](#log-tail) without having access to the log file
+ * Watching [internal events](#internal-events)
  * [Connection lifecycle events](#logged-events) logged
+ * [Log categories](#log-message-categories)
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
- * Watching [internal events](#internal-events)
- * [Debug logging](#debug-logging)
  * Advanced configuration topics (custom log handlers, sinks, etc)
 
 and more.
@@ -33,7 +34,11 @@ Starting with 3.7.0, RabbitMQ uses a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
-There are two ways to configure log file location. One is the [configuration file](/configure.html). The other is the `RABBITMQ_LOGS` environment variable. Use [RabbitMQ management UI](/management.html) or [`rabbitmqctl` environment](/cli.html) to find when a node stores its log file(s).
+There are two ways to configure log file location. One is the [configuration file](/configure.html).
+The other is the `RABBITMQ_LOGS` environment variable.
+
+Use [RabbitMQ management UI](/management.html) or [`rabbitmq-diagnostics status`](/cli.html)
+to find when a node stores its log file(s).
 
 The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
 `RABBITMQ_LOGS=-` will result in all log messages being sent to standard output.
@@ -93,26 +98,9 @@ Logging to a file can be disabled with
 log.file = false
 </pre>
 
-Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example).
+Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/docs/rabbitmq.conf.example).
 
-The rest of this guide describes more options. [Lager configuration reference](https://github.com/erlang-lager/lager) is the most comprehensive reference.
-
-#### Classic Config Format
-
-It is possible to configure file logging using the [classic configuration format](/configure.html):
-
-<pre class="lang-erlang">
-[{rabbit, [
-        {log, [
-            {file, [{file, "/path/to/log/file.log"}, %% log.file
-                    {level, info},        %% log.file.info
-                    {date, ""},           %% log.file.rotation.date
-                    {size, 0},            %% log.file.rotation.size
-                    {count, 1}            %% log.file.rotation.count
-                    ]}
-        ]}
-    ]}].
-</pre>
+The rest of this guide describes more options, including [more advanced ones](#advanced-configuration).
 
 ### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
 
@@ -212,19 +200,6 @@ The following example instructs RabbitMQ to use the `debug` logging level when l
 log.console.level = debug
 </pre>
 
-
-It is possible to configure console logging using the [classic config format](/configure.html#config-file-formats):
-
-<pre class="lang-erlang">
-[{rabbit, [
-        {log, [
-            {console, [{enabled, true}, %% log.console
-                       {level, info}    %% log.console.level
-            ]}
-        ]}
-    ]}].
-</pre>
-
 When console output is enabled, the file output will also be enabled by default.
 To disable the file output, set `log.file` to `false`.
 
@@ -240,14 +215,6 @@ Syslog output has to be explicitly configured:
 
 <pre class="lang-ini">
 log.syslog = true
-</pre>
-
-Or, in the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [
-    {syslog, [{enabled, true}]}]}]
-}].
 </pre>
 
 #### Syslog Endpoint Configuration
@@ -269,14 +236,6 @@ log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{protocol, {tcp, rfc5424}}]}
-].
-</pre>
-
 To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
 
 <pre class="lang-ini">
@@ -289,17 +248,6 @@ log.syslog.ssl_options.certfile = /path/to/client_certificate.pem
 log.syslog.ssl_options.keyfile = /path/to/client_key.pem
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{protocol, {tls, rfc5424,
-                        [{cacertfile,"/path/to/ca_certificate.pem"},
-                         {certfile,"/path/to/client_certificate.pem"},
-                         {keyfile,"/path/to/client_key.pem"}]}}]}
-].
-</pre>
-
 Syslog service IP address and port can be customised:
 
 <pre class="lang-ini">
@@ -308,30 +256,12 @@ log.syslog.ip = 10.10.10.10
 log.syslog.port = 1514
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{dest_host, {10, 10, 10, 10}},
-           {dest_port, 1514}]}
-].
-</pre>
-
 If a hostname is to be used rather than an IP address:
 
 <pre class="lang-ini">
 log.syslog = true
 log.syslog.host = my.syslog-server.local
 log.syslog.port = 1514
-</pre>
-
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{dest_host, "my.syslog-server.local"},
-           {dest_port, 1514}]}
-].
 </pre>
 
 Syslog metadata identity and facility values also can be configured.
@@ -346,16 +276,8 @@ log.syslog.identity = my_rabbitmq
 log.syslog.facility = user
 </pre>
 
-In the classic config format:
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{syslog, [{enabled, true}]}]}]},
- {syslog, [{app_name, "my_rabbitmq"},
-           {facility, user}]}
-].
-</pre>
-
-Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
+Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
+be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
 
 ## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
@@ -391,39 +313,10 @@ log.file.level = debug
 log.connection.level = info
 </pre>
 
-Or, using the [classic configuration format](/configure.html):
-
-<pre class="lang-erlang">
-[{rabbit,
-    [{log,
-        [{file, [{level, debug}]},
-         {categories,
-            [{connection,
-                [{level, info}]
-            }]
-        }]
-    }]
-}].
-</pre>
-
 To redirect all federation logs to the `rabbit_federation.log` file, use:
 
 <pre class="lang-ini">
 log.federation.file = rabbit_federation.log
-</pre>
-
-Using the [classic configuration format](/configure.html):
-
-<pre class="lang-erlang">
-[{rabbit,
-    [{log,
-        [{categories,
-            [{federation,
-                [{file, "rabbit_federation.log"}]
-            }]
-        }]
-    }]
-}]
 </pre>
 
 To disable a log type, you can use the `none` log level. For example, to disable
@@ -431,20 +324,6 @@ upgrade logs:
 
 <pre class="lang-ini">
 log.upgrade.level = none
-</pre>
-
-Using the [classic configuration format](/configure.html):
-
-<pre class="lang-erlang">
-[{rabbit,
-    [{log,
-        [{categories,
-            [{upgrade,
-                [{level, none}]
-            }]
-        }]
-    }]
-}].
 </pre>
 
 ### <a id="log-levels" class="anchor" href="#log-levels">Log Levels</a>
@@ -495,9 +374,9 @@ There are two ways of changing effective log levels:
 
  * Via [configuration file(s)](/configure.html): this is more flexible but requires
    a node restart between changes
- * Using `rabbitmqctl set_log_level &lt;level&gt;`: this option sets the same level for all
+ * Using [CLI tools](/cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: this option sets the same level for all
    sinks, the changes are transient (will not survive node restart) but can be used to
-   enable e.g. [debug logging](#debug-logging) at runtime.
+   enable and disable e.g. [debug logging](#debug-logging) at runtime for a period of time.
 
 To set log level of all sinks to `debug` on a running node:
 
@@ -512,7 +391,41 @@ rabbitmqctl -n rabbit@target-host set_log_level info
 </pre>
 
 
-#### <a id="debug-logging" class="anchor" href="#debug-logging">Enabling Debug Logging</a>
+## <a id="log-tail" class="anchor" href="#log-tail">Tailing Logs Using CLI Tools</a>
+
+Modern releases support tailing logs of a node using [CLI tools](/cli.html). This is convenient
+when log file location is not known or is not easily accessible but CLI tool connectivity
+is allowed.
+
+To tail three hundred last lines on a node `rabbitmq@target-host`, use `rabbitmq-diagnostics log_tail`:
+
+<pre class="lang-bash">
+# This is semantically equivalent to using `tail -n 300 /path/to/rabbit@hostname.log`.
+# Use -n to specify target node, -N is to specify the number of lines.
+rabbitmq-diagnostics -n rabbit@target-host log_tail -N 300
+</pre>
+
+This will load and print last lines from the log file for the default sink.
+If only console logging is enabled, this command will fail with a "file not found" (`enoent`) error.
+
+To continuously inspect as a stream of log messages as they are appended to a file,
+similarly to `tail -f` or console logging, use `rabbitmq-diagnostics log_tail_stream`:
+
+<pre class="lang-bash">
+# This is semantically equivalent to using `tail -f /path/to/rabbit@hostname.log`.
+# Use Control-C to stop the stream.
+rabbitmq-diagnostics -n rabbit@target-host log_tail_stream
+</pre>
+
+This will continuously tail and stream lines added to the log file for the default sink.
+If only console logging is enabled, this command will fail with a "file not found" (`enoent`) error.
+
+The `rabbitmq-diagnostics log_tail_stream` command can only be used against a running RabbitMQ node
+and will fail if the node is not running or the RabbitMQ application on it
+was stopped using `rabbitmqctl stop_app`.
+
+
+## <a id="debug-logging" class="anchor" href="#debug-logging">Enabling Debug Logging</a>
 
 To enable debug messages, you should have a debug output.
 
@@ -522,29 +435,11 @@ For example to log debug messages to a file:
 log.file.level = debug
 </pre>
 
-In the [classic config format](/configure.html#config-file-formats):
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [
-    {file, [{level, debug}]}]
-}].
-</pre>
-
 To print log messages to standard I/O streams:
 
 <pre class="lang-ini">
 log.console = true
 log.console.level = debug
-</pre>
-
-In the [classic config format](/configure.html#config-file-formats):
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [
-    {console, [{enabled, true},
-               {level, debug}]}
-    ]}]
-}].
 </pre>
 
 To switch to debug logging at runtime:
@@ -568,21 +463,8 @@ log.connection.level = info
 log.channel.level = info
 </pre>
 
-In the [classic config format](/configure.html#config-file-formats):
 
-<pre class="lang-erlang">
-[{rabbit, [{log, [
-    {file, [{level, debug}]},
-    {categories, [
-        {connection, [{level, info}]},
-        {channel, [{level, info}]}
-        ]}
-    ]}]
-}].
-</pre>
-
-
-### <a id="service-logs" class="anchor" href="#service-logs">Service Logs</a>
+## <a id="service-logs" class="anchor" href="#service-logs">Service Logs</a>
 
 On `systemd`-based Linux distributions, system service logs can be
 inspected using `journalctl --system`
@@ -603,7 +485,7 @@ The output of <code>journalctl --system</code> will look similar to this:
 
 <pre class="sourcecode">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.24. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -701,7 +583,7 @@ Starting with `3.7.0` it's been replaced with [categories](#log-message-categori
 which are more descriptive and powerful.
 
 If the `log_levels` key is present in `rabbitmq.config` file, it should be updated to
-use categories.
+[use categories](#log-message-categories).
 
 `rabbit.log_levels` will work in 3.7.0 **only** if no `categories` are defined.
 
@@ -709,7 +591,20 @@ use categories.
 ## <a id="internal-events" class="anchor" href="#internal-events">Watching Internal Events</a>
 
 RabbitMQ nodes have an internal mechanism. Some of its events can be of interest for monitoring,
-audit and troubleshooting purposes. They can be exposed to applications for [consumption](/consumers.html)
+audit and troubleshooting purposes. They can be consumed as JSON objects using a `rabbitmq-diagnostics` command:
+
+<pre class="lang-ini">
+# will emit JSON objects
+rabbitmq-diagnostics consume_event_stream
+</pre>
+
+When used interactively, results can be piped to a command line JSON processor such as [jq](https://stedolan.github.io/jq/):
+
+<pre class="lang-ini">
+rabbitmq-diagnostics consume_event_stream | jq
+</pre>
+
+The events can also be exposed to applications for [consumption](/consumers.html)
 with a plugin, [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/).
 
 Events are published as messages with blank bodies. All event metadata is stored in
@@ -925,14 +820,6 @@ To include upgrade logs in the default log file, disable file logging for that c
 <pre class="lang-ini">
 log.upgrade.file = false
 </pre>
-
-or
-
-<pre class="lang-erlang">
-[{rabbit, [{log, [{categories, [{upgrade, [{file, false}]}]}]}]}].
-</pre>
-
-in the [classic configuration format](/configure.html#config-file-formats).
 
 Logging settings must go into the `lager` application section. To add extra handlers to default
 configuration or sinks, use the `handlers` to `extra_sinks` keys.

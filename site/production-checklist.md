@@ -42,6 +42,9 @@ when picking a version to deploy.
 
 ## <a id="users-and-permissions" class="anchor" href="#users-and-permissions">Virtual Hosts, Users, Permissions</a>
 
+It is often necessary to seed a cluster with virtual hosts, users, permissions, topologies, policies
+and so on. The recommended way of doing this at deployment time is [via definition file import](/definitions.html).
+
 ### <a id="virtual-hosts" class="anchor" href="#virtual-hosts">Virtual Hosts</a>
 
 In a single-tenant environment, for example, when your RabbitMQ
@@ -57,8 +60,10 @@ each tenant/environment, e.g. `project1_development`,
 
 For production environments, delete the default user (`guest`).
 Default user only can connect from localhost by default, because it has well-known
-credentials. Instead of enabling remote connections, consider using a separate user
+credentials. Instead of enabling remote connections, consider creating a separate user
 with administrative permissions and a generated password.
+
+
 
 It is recommended to use a separate user per application. For example, if you
 have a mobile app, a Web app, and a data aggregation system, you'd have 3

@@ -15,31 +15,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Windows Quirks
+# Windows-specific Issues
 
-We aim to make RabbitMQ a first-class citizen on
-Windows. However, sometimes there are circumstances beyond our
-control that can introduce quirky behaviour. This page documents
-them.
+This guide is a companion to the main [Windows installation guide](/install-windows.html).
 
-## Multiple versions of Erlang may cause installation issues
+It documents known conditions and scenarios which can cause RabbitMQ Windows service
+or CLI tools to malfunction.
 
-Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed - the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
 
-<ul>
-  <li>Stop the RabbitMQ windows service</li>
-  <li>Un-install Erlang</li>
-  <li>Install the new version of Erlang</li>
-  <li>Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run these commands:
-    <pre class="lang-text">
-    .\rabbitmq-service.bat remove
-    .\rabbitmq-service.bat install
-    .\rabbitmq-service.bat start
-    </pre>
-  </li>
-</ul>
+## <a id="multiple-erlang-versions" class="anchor" href="#multiple-erlang-versions">Multiple Versions of Erlang May Cause Installation Issues</a>
 
-## Cannot install to a path with non-ASCII characters
+Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed -
+the version you wish RabbitMQ to use. If you must upgrade Erlang, use this procedure:
+
+ * Make sure to use the same administrative user that was used to install RabbitMQ
+ * Stop the RabbitMQ Windows service using `.\rabbitmq-service.bat stop`
+ * Uninstall Erlang
+ * Install the new version of Erlang
+ * Open the "RabbitMQ Command Prompt (sbin dir)" start menu item and run the commands below to reinstall the Windows service
+
+<pre class="lang-powershell">
+.\rabbitmq-service.bat remove
+.\rabbitmq-service.bat install
+.\rabbitmq-service.bat start
+</pre>
+
+If any environment variables have changed in the mean time, [Windows service reinstallation](/configure.html#rabbitmq-env-file-windows) would
+also be necessary.
+
+
+## <a id="non-ascii-paths" class="anchor" href="#non-ascii-paths">Cannot Install to a Path with non-ASCII Characters</a>
 
 RabbitMQ will fail to start with the error that reads
 
@@ -51,67 +56,52 @@ when installed to a path with non-ASCII characters in it.
 This is because we need to pass the location of the compiled Erlang files to the Erlang VM.
 It expects input in UTF-8, but the console will typically use some other encoding.
 
-### Workarounds
+### Mitigation
 
-<ul>
-  <li>
-    Override <code>RABBITMQ_BASE</code> to point to a directory
-    that only has ASCII characters and <em>re-install</em> the
-    service.
-  </li>
-  <li>
-    Edit the file <code>rabbitmq-server.bat</code> and change the
-    line "<code>set TDP0=%~dp0</code>" to "
-    <code>set TDP0=%~dps0</code>". This will use short paths (the
-    infamous <code>C:\PROGRA~1</code>) everywhere.
-  </li>
-</ul>
+One of these options can be used to mitigate:
 
-## rabbitmqctl displays or parses non-ASCII characters incorrectly
+ * Override `RABBITMQ_BASE` to point to a directory
+   that only has ASCII characters and [**re-install** the Windows service](/configure.html#rabbitmq-env-file-windows).
+ * Edit the file `rabbitmq-server.bat` and change the
+   line `set TDP0=%~dp0` to `set TDP0=%~dps0`.
+   This will use short paths (the infamous `C:\PROGRA~1`) everywhere.
+
+
+## <a id="non-ascii-cli" class="anchor" href="#non-ascii-cli">CLI Tools Display or Parse non-ASCII Characters Incorrectly</a>
 
 Similarly, [RabbitMQ CLI tools](/cli.html) will expect command line
 parameters to be encoded in UTF-8, and display strings as
-UTF-8. The console will instead provide and expect some
-country-specific encoding.
+UTF-8. The console will instead provide and expect some country-specific encoding.
 
-### Workarounds
+### Mitigation
 
-<ul>
-  <li>
-    On recent versions of Windows, issue the command "
-    <code>chcp 65001</code>" before using <code>rabbitmqctl</code> to force
-    the console to use UTF-8. (Beware: on older versions
-    including Windows XP this will cause the console to silently
-    fail to run any batch file at all!) <em>or</em>
-  </li>
-  <li>
-    Avoid using non-ASCII characters in object names <em>or</em>
-  </li>
-  <li>
-    Use the <a href="management.html">management plugin</a> instead of
-    <code>rabbitmqctl</code>.
-  </li>
-</ul>
+One of these options can be used to mitigate:
 
-## Installing as a non-administrator user leaves `.erlang.cookie` in the wrong place
+ * Avoid using non-ASCII characters in RabbitMQ installation and [node directory](/relocate.html) paths
+ * On recent versions of Windows, issue the command 
+   <pre class="lang-powershell">chcp 65001</pre> before using CLI tools to force
+   the console to use UTF-8
+ * Where possible, use the [management plugin](/management.html) instead of CLI tools.
 
-This makes it impossible to use [CLI tools](/cli.html) and cluster nodes.
 
-### Workarounds
+## <a id="cookie-location" class="anchor" href="#cookie-location">Installing as a non-administrator User Leaves `.erlang.cookie` in the Wrong Place</a>
 
-<ul>
-  <li>
-    Run the installer as an administrator <em>or</em>
-  </li>
-  <li>
-    Copy the file <code>.erlang.cookie</code> manually
-    from <code>%SystemRoot%</code> or
-    <code>%SystemRoot%\system32\config\systemprofile</code>
-    to <code>%HOMEDRIVE%%HOMEPATH%</code>.
-  </li>
-</ul>
+If RabbitMQ is installed using a non-administrative account, a [shared secret](/cli.html#erlang-cookie) file
+used by nodes and CLI tools will not be placed into a correct location,
+leading to [authencation failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
+and other CLI tools are used.
 
-Please also refer to the `.erlang.cookie` [documentation](/clustering.html#erlang-cookie).
+### Mitigation
+
+One of these options can be used to mitigate:
+
+ * Re-install RabbitMQ using an administrative user
+ * Copy the file `.erlang.cookie` manually
+   from `%SystemRoot%` or `%SystemRoot%\system32\config\systemprofile`
+   to `%HOMEDRIVE%%HOMEPATH%`.
+
+See [How CLI Tools Authenticate to Nodes (and Nodes to Each Other](/cli.html#erlang-cookie) in the CLI guide.
+
 
 ## <a id="computername-vs-hostname" class="anchor" href="#computername-vs-hostname">COMPUTERNAME is different from HOSTNAME</a>
 

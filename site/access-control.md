@@ -32,10 +32,12 @@ A closely related topic of [TLS support](/ssl.html) is also covered in a dedicat
 
 Other topics discussed in this guide include:
 
+ * [Access control essentials](#the-basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
+ * How to [manage users and permissions](#user-management) using CLI tools
+ * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
-
 
 ## <a id="terminology-and-definitions" class="anchor" href="#terminology-and-definitions">Terminology and Definitions</a>
 
@@ -43,8 +45,24 @@ Authentication and authorisation are often confused or used
 interchangeably. That's wrong and in RabbitMQ, the two are
 separated. For the sake of simplicity, we'll define
 authentication as "identifying who the user is" and
-authorisation as "determining what the user is and isn't
-allowed to do."
+authorisation as "determining what the user is and isn't allowed to do."
+
+
+## <a id="basics" class="anchor" href="#basics">The Basics</a>
+
+Clients use RabbitMQ features to [connecting](/connections.html) to it. Every connection has
+an associated user which is authenticated. It also targets a [virtual host](/vhosts.html) for which
+the user must have a certain set of permissions.
+
+User credentials, target virtual host and (optionally) client [certificate](/ssl.html) are specified at connection
+initiation time.
+
+There is a default pair of credentials called the [default user](#default-state). This user can only
+be [used for **host-local connections**](#loopback-users) by default. Remote connections that use
+it will be refused.
+
+[Production environments](/production-checklist.html) should not use the default user and create
+new user accounts with generated credentials instead.
 
 
 ## <a id="default-state" class="anchor" href="#default-state">Default Virtual Host and User</a>
@@ -113,16 +131,129 @@ which allows remote connections for <code>guest</code> looks like so:
 loopback_users = none
 </pre>
 
-Or, in the [classic config file format](/configure.html#erlang-term-config-file) (<code>rabbitmq.config</code>):
 
-<pre class="lang-erlang">
-%% DANGER ZONE!
-%%
-%% Allowing remote connections for default user is highly discouraged
-%% as it dramatically decreases the security of the system. Delete the user
-%% instead and create a new one with generated secure credentials.
-[{rabbit, [{loopback_users, []}]}].
+## <a id="user-management" class="anchor" href="#user-management">Managing Users and Permissions</a>
+
+Users and permissions can be managed using [CLI tools](/cli.html) and definition import (covered below).
+
+### Adding a User
+
+To add a user, use `rabbitmqctl add_user`. It has multiple ways of specifying a [password](/passwords.html):
+
+<pre class="lang-bash">
+# will prompt for password, only use this option interactively
+rabbitmqctl add_user "username"
 </pre>
+
+<pre class="lang-bash">
+# Password is provided via standard input.
+# Note that certain characters such as &#36;, &amp;, &#38;, &#35;, and so on must be escaped to avoid
+# special interpretation by the shell.
+echo '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b' | rabbitmqctl add_user 'username'
+</pre>
+
+<pre class="lang-bash">
+# Password is provided as a command line argument.
+# Note that certain characters such as &#36;, &amp;, &#38;, &#35;, and so on must be escaped to avoid
+# special interpretation by the shell.
+rabbitmqctl add_user 'username' '2a55f70a841f18b97c3a7db939b7adc9e34a0f1b'
+</pre>
+
+On Windows, `rabbitmqctl` becomes `rabbitmqctl.bat` and shell escaping would be different:
+
+<pre class="lang-powershell">
+# password is provided as a command line argument
+rabbitmqctl.bat add_user 'username' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'
+</pre>
+
+### Listing Users
+
+To list users in a cluster, use `rabbitmqctl list_users`:
+
+<pre class="lang-bash">
+rabbitmqctl list_users
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat list_users
+</pre>
+
+The output can be changed to be JSON:
+
+<pre class="lang-bash">
+rabbitmqctl list_users --formatter=json
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat list_users --formatter=json
+</pre>
+
+### Deleting a User
+
+To delete a user, use `rabbitmqctl delete_user`:
+
+<pre class="lang-bash">
+rabbitmqctl delete_user 'username'
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat delete_user 'username'
+</pre>
+
+### Granting Permissions to a User
+
+To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl set_permissions`:
+
+<pre class="lang-bash">
+# First ".*" for read permission on every entity
+# Second ".*" for write permission on every entity
+# Third ".*" for configure permission on every entity
+rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
+</pre>
+
+<pre class="lang-powershell">
+# First ".*" for read permission on every entity
+# Second ".*" for write permission on every entity
+# Third ".*" for configure permission on every entity
+rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
+</pre>
+
+### Revoking Permissions of a User in a Virtual Host
+
+To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
+
+<pre class="lang-bash">
+# Revokes permissions in a virtual host
+rabbitmqctl clear_permissions -p "custom-vhost" "username"
+</pre>
+
+<pre class="lang-powershell">
+# Revokes permissions in a virtual host
+rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
+</pre>
+
+
+## <a id="seeding" class="anchor" href="#seeding">Seeding (Pre-creating) Users and Permissions</a>
+
+[Production environments](/production-checklist.html) typically need to pre-configure (seed) a number
+of virtual hosts, users and user permissions.
+
+While this can be done using [CLI tools](/cli.html), a more optimal way is to use [definition export and import on node boot](/definitions.html).
+This process involves the following steps:
+
+ * Set up a temporary node and create the necessary virtual host, users, permissions, and so on using CLI tools
+ * Export definitions to a definition file
+ * Remove parts of the file that are not relevant
+ * Configure the node to import the file on node boot or after
+
+### At Node Boot Time
+
+See [importing definitions on node boot](/definitions.html#import-on-boot) in the definitions guide.
+
+
+### After Node Boot
+
+See [importing definitions after node boot](/definitions.html#import) in the definitions guide.
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
@@ -351,15 +482,6 @@ only (and is the default):
 auth_backends.1 = internal
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_internal]}
-          ]
-}].
-</pre>
-
 The example above uses an alias, <code>internal</code> for <code>rabbit_auth_backend_internal</code>.
 The following aliases are available:
 
@@ -378,30 +500,12 @@ for both authentication and authorisation. Internal database will not be consult
 auth_backends.1 = ldap
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap]}
-          ]
-}].
-</pre>
-
 This will check LDAP first, and then fall back to the internal
 database if the user cannot be authenticated through LDAP:
 
 <pre class="lang-ini">
 auth_backends.1 = ldap
 auth_backends.2 = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
-          ]
-}].
 </pre>
 
 Same as above but will fall back to the [HTTP backend](https://github.com/rabbitmq/rabbitmq-auth-backend-http)
@@ -421,21 +525,6 @@ auth_http.resource_path = http://my-authenticator-app/auth/resource
 auth_http.topic_path = http://my-authenticator-app/auth/topic
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
-          ]
- },
- %% See HTTP backend docs for details
- {rabbitmq_auth_backend_http,
-   [{user_path,     "http://my-authenticator-app/auth/user"},
-    {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-    {resource_path, "http://my-authenticator-app/auth/resource"},
-    {topic_path,    "http://my-authenticator-app/auth/topic"}]}].
-</pre>
-
 The following example configures RabbitMQ to use the internal
 database for authentication and the [source IP range backend](https://github.com/gotthardp/rabbitmq-auth-backend-ip-range) for authorisation:
 
@@ -447,15 +536,6 @@ auth_backends.1.authn = internal
 auth_backends.1.authz = rabbit_auth_backend_ip_range
 </pre>
 
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
-          ]
-}].
-</pre>
-
 The following example configures RabbitMQ to use the [LDAP backend](/ldap.html)
 for authentication and the internal backend for authorisation:
 
@@ -464,14 +544,6 @@ for authentication and the internal backend for authorisation:
 #
 auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
-          ]}].
 </pre>
 
 The example below is fairly advanced. It will check LDAP
@@ -488,16 +560,6 @@ a second attempt is made using only the internal database:
 auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
 auth_backends.2       = internal
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[{rabbit, [
-            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
-                             rabbit_auth_backend_internal]}
-          ]
-}].
 </pre>
 
 
@@ -630,7 +692,7 @@ will be logged differently. See [TLS Troubleshooting guide](/troubleshooting-ssl
 for a username and password pair:
 
 <pre class="lang-bash">
-rabbitmqctl authenticate_user 'a-username' 'a/password'
+rabbitmqctl authenticate_user "a-username" "a/password"
 </pre>
 
 If authentication succeeds, it will exit with

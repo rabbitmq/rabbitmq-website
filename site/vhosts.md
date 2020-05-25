@@ -99,7 +99,7 @@ When a number of virtual hosts is created in a loop, CLI and HTTP API clients ca
 rate of virtual host creation and experience timeouts. If that's the case operation timeout should be increased
 and delays should be introduced between operations.
 
-Definition [export](/backup.html) and [import](/management.html#load-definitions) is the recommended
+[Definition export and import](/definitions.html) is the recommended
 way of pre-configuring many virtual hosts at deployment time.
 
 

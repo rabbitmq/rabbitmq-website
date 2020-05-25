@@ -227,11 +227,11 @@ the log stored in memory will reduce memory footprint of the plugin in case of
 
 The configuration key of interest is `raft.wal_max_size_bytes`:
 
-```ini
+<pre class="lang-ini">
 # if quorum queues are not used, configure a lower max WAL segment
 # limit compared to the default of 512 MiB, e.g. 64 MiB
 raft.wal_max_size_bytes = 67108864
-```
+</pre>
 
 If [quorum queues](/quorum-queues.html) are adopted at a later point, this setting
 should be revisited to be closer to the default one.

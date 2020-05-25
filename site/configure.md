@@ -28,7 +28,8 @@ This guide covers a number of topics related to configuration:
 
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
  * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
- * Troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
+ * Default [configuration file location(s)](#config-location) on various platforms
+ * Configuration troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
  * [Environment variables](#customise-environment)
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
@@ -49,16 +50,18 @@ A RabbitMQ node can be configured using a number of mechanisms responsible
 for different areas:
 
 <table>
+  <caption>Ways of configuration RabbitMQ</caption>
   <thead>
-    <td>Mechanism</td>
-    <td>Description</td>
+    <td><strong>Mechanism</strong></td>
+    <td><strong>Description</strong></td>
   </thead>
+  
   <tr>
     <td>
       <a href="#configuration-files">Configuration File(s)</a>
     </td>
     <td>
-      defines server and plugin settings for
+      contains server and plugin settings for
 
       <ul>
         <li><a href="/networking.html">TCP listeners and other networking-related settings</a></li>
@@ -76,8 +79,7 @@ for different areas:
       <a href="#customise-environment">Environment Variables</a>
     </td>
     <td>
-      define <a href="/cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or
-      set in the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
+      define <a href="/cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
       and <code>rabbitmq-env-conf.bat</code> (Windows)
     </td>
   </tr>
@@ -87,8 +89,18 @@ for different areas:
       <a href="/cli.html">rabbitmqctl</a>
     </td>
     <td>
-      When <a href="access-control.html">internal authentication/authorisation backend</a> is used,
-      <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions.
+      When <a href="/access-control.html">internal authentication/authorisation backend</a> is used,
+      <code>rabbitmqctl</code> is the tool that manages virtual hosts, users and permissions. It
+      is also used to manage <a href="/parameters.html">runtime parameters and policies</a>.
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="/cli.html">rabbitmq-queues</a>
+    </td>
+    <td>
+      <code>rabbitmq-queues</code> is the tool that manages settings specific to <a href="/quorum-queues.html">quorum queues</a>.
     </td>
   </tr>
 
@@ -97,7 +109,17 @@ for different areas:
       <a href="/cli.html">rabbitmq-plugins</a>
     </td>
     <td>
-      <code>rabbitmq-plugins</code> is the tool that manages enabled plugins.
+      <code>rabbitmq-plugins</code> is the tool that manages <a href="/plugins.html">plugins</a>.
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="/cli.html">rabbitmq-diagnostics</a>
+    </td>
+    <td>
+      <code>rabbitmq-diagnostics</code> allows for inspection of node state, including effective configuration,
+      as well as many other metrics and <a href="/monitoring.html">health checks</a>.
     </td>
   </tr>
 
@@ -201,12 +223,25 @@ It is a useful step in troubleshooting a broad range of problems.
 
 ### <a id="config-file-formats" class="anchor" href="#config-file-formats">The New and Old Config File Formats</a>
 
-Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
-`rabbitmq.config` and used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html).
-That format is still supported for backwards compatibility.
-Those running 3.7.0 or later are recommended to consider the new sysctl format.
+All [supported RabbitMQ versions](/versions.html) use an [ini-like, sysctl configuration file format](#config-file).
+Main configuration file is typically named `rabbitmq.conf`.
+
+Versions older than RabbitMQ 3.7 used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html)
+and default config file name was `rabbitmq.config`.
+
+The new config format is much simpler, eadier for humans to read
+and machines to generate. It is also relatively limited compared
+to the classic config format used prior to RabbitMQ 3.7.0.
+For example, when configuring [LDAP support](/ldap.html), it may be necessary to use deeply nested data structures to
+express desired configuration. 
+
+To accommodate this need, modern RabbitMQ versions allow for both both formats to be used at the same time
+in separate files: `rabbitmq.conf` uses the new style format and recommended for most settings,
+and `advanced.config` covers more advanced settings that the ini-style configuration
+cannot express. This is covered in more detail in the following sections.
 
 The new format is easier to generate deployment automation tools.
+
 Compare
 
 <pre class="sourcecode">
@@ -217,7 +252,7 @@ ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>
 
-with
+to
 
 <pre class="sourcecode">
 [
@@ -228,16 +263,6 @@ with
                            {fail_if_no_peer_cert, true}]}]}
 ].
 </pre>
-
-While the new config format is more convenient for humans to edit
-and machines to generate, it is also relatively limited compared
-to the classic config format used prior to RabbitMQ 3.7.0. For
-example, when configuring [LDAP support](/ldap.html),
-it may be necessary to use deeply nested data structures to
-express desired configuration. To accommodate this need,
-RabbitMQ still supports the classic `rabbitmq.config`
-config files as well as ability to use both formats at the same time
-(`advanced.config`). This is covered in more detail in the following sections.
 
 ### <a id="config-file" class="anchor" href="#config-file">The rabbitmq.conf File</a>
 
@@ -305,15 +330,15 @@ environment variable.
 
 ### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
 
-RabbitMQ 3.7.0 and later versions still support the classic configuration file format, known as
-`rabbitmq.config`. The classic format is  **deprecated**. Please prefer the new style config format
-accompanied `advanced.config` as needed.
+RabbitMQ 3.7.0 and later versions still support the classic configuration file format, used in
+`rabbitmq.config` files. The classic format is **deprecated**. Please prefer the new style config format
+in `rabbitmq.conf` accompanied by an `advanced.config` file as needed.
 
 To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to point to the file with
 a `.config` extension. The extension will indicate to RabbitMQ  that it should treat the file as one
 in the classic config format.
 
-The RabbitMQ server source repository contains [an example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
+[An example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
 `rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
@@ -323,30 +348,81 @@ for the classic config format.
 The use of classic config format should only be limited to the [advanced.config file](#advanced-config-file) and settings
 that cannot be configured using the [ini-style config file](#config-file).
 
-### <a id="config-location" class="anchor" href="#config-location">Location of rabbitmq.conf and rabbitmq-env.conf</a>
+### <a id="config-location" class="anchor" href="#config-location">Location of rabbitmq.conf, advanced.config and rabbitmq-env.conf</a>
 
-The location of these files is distribution-specific. By default, they
-are not created, but expect to be located in the following places on each platform:
+Default configuration file location is distribution-specific. By default, the files
+are not created, but expected to be located in the following places on each platform:
 
- * Generic UNIX: `$RABBITMQ_HOME/etc/rabbitmq/`
- * Debian: `/etc/rabbitmq/`
- * RPM: `/etc/rabbitmq/`
- * Mac OS (Homebrew): `${install_prefix}/etc/rabbitmq/`, the Homebrew cellar prefix is usually `/usr/local`
- * Windows: `%APPDATA%\RabbitMQ\`
+<table>
+  <thead>
+    <tr>
+      <td><strong>Platform</strong></td>
+      <td><strong>Default Configuration File Location</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <a href="/install-generic-unix.html">Generic binary package</a>
+      </td>
+      <td>
+        <code>$RABBITMQ_HOME/etc/rabbitmq/</code>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="/install-debian.html">Debian and Ubuntu</a></td>
+      <td>
+        <code>/etc/rabbitmq/</code>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="/install-rpm.html">RPM-based Linux</a></td>
+      <td>
+        <code>/etc/rabbitmq/</code>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="/install-windows.html">Windows</a></td>
+      <td>
+        <code>%APPDATA%\RabbitMQ\</code>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="/install-homebrew.html">MacOS Homebrew Formula</a></td>
+      <td>
+        <code>${install_prefix}/etc/rabbitmq/</code>,
+        and the Homebrew cellar prefix is usually <code>/usr/local</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+If `rabbitmq.conf` doesn't exist, it can be created manually or generated at deployment time.
+The `RABBITMQ_CONFIG_FILE` environment variable can be used to override the location of the configuration file:
+
+<pre class="lang-ini">
+RABBITMQ_CONFIG_FILE=/path/to/a/custom/location/rabbitmq.conf
+</pre>
+
+### <a id="config-changes-effects" class="anchor" href="#config-changes-effects">When Will Configuration File Changes Be Applied</a>
+
+`rabbitmq.conf` and `advanced.config` changes take affect after a node restart.
 
 If `rabbitmq-env.conf` doesn't exist, it can be created manually
-in the location, specified by the `RABBITMQ_CONF_ENV_FILE` variable.
+in the location specified by the `RABBITMQ_CONF_ENV_FILE` variable.
 On Windows systems, it is named `rabbitmq-env-conf.bat`.
 
-If `rabbitmq.conf` doesn't exist, it can be created manually.
-Set the <b>RABBITMQ_CONFIG_FILE</b> environment variable if you change the location.
-RabbitMQ automatically appends the `.conf` extension to the
-value of this variable.
+Windows service users will need to **[re-install the service](#rabbitmq-env-file-windows)** if
+configuration file location or any values in ``rabbitmq-env-conf.bat` have changed.
+Environment variables used by the service would not be updated otherwise.
 
-Restart the server after changes. Windows service users will need to re-install the
-service after adding or removing a configuration file.
+In the context of deployment automation this means that environment variables
+such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
+This would help avoid unnecessary confusion and Windows service re-installations.
 
-### <a id="example-config" class="anchor" href="#example-config">Example rabbitmq.conf File</a>
+
+### <a id="example-config" class="anchor" href="#example-config">Example Configuration Files</a>
 
 The RabbitMQ server source repository contains
 examples for the configuration files:
@@ -354,10 +430,8 @@ examples for the configuration files:
  * [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example)
  * [advanced.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/advanced.config.example)
 
-These files contain examples of most of the
-configuration items you might want to set (with some very
-obscure ones omitted) along with documentation for those
-settings. All configuration items are commented out in the
+These files contain examples of most of the configuration keys along with a brief explanation
+for those settings. All configuration items are commented out in the
 example, so you can uncomment what you need. Note that the
 example files are meant to be used as, well, examples, and
 should not be treated as a general recommendation.
@@ -376,15 +450,18 @@ These variables are the most common. The list is not complete, as
 some settings are quite obscure.
 
 <table class="name-description">
-  <tr>
-    <th>Key</th>
-    <th>Documentation</th>
-  </tr>
+  <thead>
+    <tr>
+      <th><strong>Key</strong></th>
+      <th><strong>Documentation</strong></th>
+    </tr>  
+  </thead>
+
   <tr>
     <td><code>listeners</code></td>
     <td>
       Ports or hostname/pair on which to listen for "plain" AMQP 0-9-1 and AMQP 1.0 connections
-      (without TLS). See the <a href="/networking.html">Networking guide</a> for more
+      (without <a href="/ssl.html">TLS</a>). See the <a href="/networking.html">Networking guide</a> for more
       details and examples.
 
       <p>
@@ -411,8 +488,8 @@ num_acceptors.tcp = 10
   <tr>
     <td><code>handshake_timeout</code></td>
     <td>
-      Maximum time for AMQP 0-9-1 handshake (after socket connection
-      and TLS handshake), in milliseconds.
+      Maximum time for AMQP 0-9-1 handshake (after socket connection and TLS handshake),
+      in milliseconds.
       <p>
         Default:
 <pre class="lang-ini">
@@ -446,8 +523,7 @@ num_acceptors.ssl = 10
   <tr>
     <td><code>ssl_options</code></td>
     <td>
-      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS support
-      documentation</a>.
+      TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS guide</a>.
       <p>
         Default:
 <pre class="lang-ini">
@@ -541,7 +617,7 @@ vm_memory_high_watermark_paging_ratio = 0.5
       when the value is set to 4 GB, the node will believe it is
       running on a machine with 4 GB of RAM.
       <p>
-        Default: `undefined` (not set or used).
+        Default: <code>undefined</code> (not set or used).
       </p>
     </td>
   </tr>
@@ -1046,10 +1122,13 @@ the [advanced config file](#advanced-config-file) only,
 under the `rabbit` section.
 
 <table class="name-description">
-  <tr>
-    <th>Key</th>
-    <th>Documentation</th>
-  </tr>
+  <thead>
+    <tr>
+      <th><strong>Key</strong></th>
+      <th><strong>Documentation</strong></th>
+    </tr>
+  </thead>
+
   <tr>
     <td><code>msg_store_index_module</code></td>
     <td>
@@ -1367,10 +1446,8 @@ using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
 ``rabbitmq-env.conf`` uses the standard environment variable names
 but without the `RABBITMQ_` prefix. For example, the
-`RABBITMQ_CONFIG_FILE` parameter appears
-below as `CONFIG_FILE` and
-`RABBITMQ_NODENAME` becomes
-`NODENAME`:
+`RABBITMQ_CONFIG_FILE` variable appears below as `CONFIG_FILE` and
+`RABBITMQ_NODENAME` becomes `NODENAME`:
 
 <pre class="lang-bash">
 # Example rabbitmq-env.conf file entries. Note that the variables
@@ -1390,40 +1467,36 @@ See the [rabbitmq-env.conf man page](man/rabbitmq-env.conf.5.html) for details.
 
 ### <a id="rabbitmq-env-file-windows" class="anchor" href="#rabbitmq-env-file-windows">Windows</a>
 
-
 The easiest option to customise names, ports or locations is
 to configure environment variables in the Windows dialogue:
 Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables.
 Then create or edit the system variable name and value.
 
-Alternatively it is possible to
-use a file named `rabbitmq-env-conf.bat`
+Alternatively it is possible to use a file named `rabbitmq-env-conf.bat`
 to define environment variables that will be used by the broker.
 Its [location](#config-location) is configurable
 using the `RABBITMQ_CONF_ENV_FILE` environment variable.
 
-<strong>Important</strong>: for environment changes to take effect on Windows, the service must be
-<em>re-installed</em>. It is <em>not sufficient</em> to restart the service.
+Windows service users will need to **re-install the service** if configuration file location
+or any values in ``rabbitmq-env-conf.bat` changed. Environment variables used by
+the service would not be updated otherwise.
 
 This can be done using the installer or on the command line
 with administrator permissions:
 
- * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
- * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin`)
- * Run `rabbitmq-service.bat remove`
+ * Start an [administrative command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
+ * cd into the sbin folder under the RabbitMQ server installation directory (such as `C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-{version}\sbin`)
+ * Run `rabbitmq-service.bat stop` to stop the service
+ * Run `rabbitmq-service.bat remove` to remove the Windows service (this will *not* remove RabbitMQ or its data directory)
  * Set environment variables via command line, i.e. run commands like the following: <pre class="lang-powershell">set RABBITMQ_BASE=C:\Data\RabbitMQ</pre>
  * Run `rabbitmq-service.bat install`
+ * Run `rabbitmq-service.bat start`
 
-Alternatively, if the new configuration needs to take effect after the next broker restart,
-the service removal step can be skipped:
-
- * [Start an admin command prompt](https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx)
- * cd into the sbin folder under RabbitMQ server installation directory
- * Set environment variables via command line
- * Run `rabbitmq-service.bat install`, which will only update service parameters
+This will restart the node in a way that makes the environment variable and
+`rabbitmq-env-conf.bat` changes to be observable to it.
 
 
-## <a id="supported-environment-variables" class="anchor" href="#supported-environment-variables">RabbitMQ Environment Variables</a>
+## <a id="supported-environment-variables" class="anchor" href="#supported-environment-variables">Environment Variables Used by RabbitMQ</a>
 
 All environment variables used by RabbitMQ use the
 prefix `RABBITMQ_` (except when defined in [rabbitmq-env.conf](#environment-env-file-unix) or

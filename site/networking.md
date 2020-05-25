@@ -85,16 +85,6 @@ demonstrates how to configure AMQP 0-9-1 and AMQP 1.0 listener to use a specific
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"192.168.1.99", 5672}]}
-  ]}
-].
-</pre>
-
 By default, RabbitMQ will listen on port 5672 on **all available interfaces**. It is possible to
 limit client connections to a subset of the interfaces or even just one, for example, IPv6-only
 interfaces. The following few sections demonstrate how to do it.
@@ -107,17 +97,6 @@ to listen on localhost only for both IPv4 and IPv6:
 <pre class="lang-ini">
 listeners.tcp.1 = 127.0.0.1:5672
 listeners.tcp.2 = ::1:5672
-</pre>
-
-Or, in the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {tcp_listeners, [{"127.0.0.1", 5672},
-                     {"::1",       5672}]}
-  ]}
-].
 </pre>
 
 With modern Linux kernels and Windows releases,
@@ -1122,21 +1101,9 @@ the `rabbit.handshake_timeout` (in milliseconds):
 handshake_timeout = 20000
 </pre>
 
-Using the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    %% 20 seconds
-    {handshake_timeout, 20000}
-  ]}
-].
-</pre>
-
 It should be pointed out that this is only necessary with very constrained
 clients and networks. Handshake timeouts in other circumstances indicate
 a problem elsewhere.
-
 
 ### <a id="tls-handshake" class="anchor" href="#tls-handshake">TLS (SSL) Handshake</a>
 
@@ -1146,17 +1113,6 @@ the `rabbit.ssl_handshake_timeout` (in milliseconds):
 
 <pre class="lang-ini">
 ssl_handshake_timeout = 10000
-</pre>
-
-Using the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    %% 10 seconds
-    {ssl_handshake_timeout, 10000}
-  ]}
-].
 </pre>
 
 
@@ -1211,16 +1167,6 @@ To disable reverse DNS lookups:
 
 <pre class="lang-ini">
 reverse_dns_lookups = false
-</pre>
-
-Using the classic config format:
-
-<pre class="lang-erlang">
-[
-  {rabbit, [
-    {reverse_dns_lookups, false}
-  ]}
-].
 </pre>
 
 

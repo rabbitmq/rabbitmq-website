@@ -30,12 +30,16 @@ Key sections of the guide are:
 * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
-* [Consuming Using a Subscription](#consuming)
+* [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
+### <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
+
 6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](/dotnet.html#overview).
 For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](/dotnet.html#overview).
+
+### <a id="license" class="anchor" href="#license">License</a>
 
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/), and is double-licensed under the
 
@@ -46,15 +50,15 @@ This means that the user can consider the library to be licensed under any of th
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
 
+
+## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
+
 The client API is closely modelled on the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
 with additional abstractions for ease of use.
 
 An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/) is available separately.
 
-
-## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
-
-The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+The core API interfaces and classes are defined in the `RabbitMQ.Client` namespace:
 
 <pre class="lang-csharp">
 using RabbitMQ.Client;
@@ -71,12 +75,12 @@ Other useful interfaces and classes include:
 
 * `DefaultBasicConsumer`: commonly used base class for consumers
 
-Public namespaces other than <code>RabbitMQ.Client</code> include:
+Public namespaces other than `RabbitMQ.Client` include:
 
-* <code>RabbitMQ.Client.Events</code>: various events and event handlers
+* `RabbitMQ.Client.Events`: various events and event handlers
   that are part of the client library, including `EventingBasicConsumer`,
   a consumer implementation built around C# event handlers.
-* <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
+* `RabbitMQ.Client.Exceptions`: exceptions visible to the user.
 
 All other namespaces are reserved for private implementation detail of
 the library, although members of private namespaces are usually made
@@ -395,7 +399,9 @@ var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
                     var body = ea.Body;
-                    // ... process the message
+                    // copy or deserialise the payload
+                    // and process the message
+                    // ...
                     channel.BasicAck(ea.DeliveryTag, false);
                 };
 // this consumer tag identifies the subscription
@@ -426,11 +432,24 @@ When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
 explained in the [AMQP 0-9-1 specification](/specification.html) document.
 
+## <a id="consuming-memory-safety" class="anchor" href="#consuming-memory-safety">Consumer Memory Safety Requirements</a>
 
-## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages ("pull API")</a>
+As of [version 6.0](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/CHANGELOG.md) of
+the .NET client, message payloads are represented using the [`System.ReadOnlyMemory&lt;byte&gt;`](https://docs.microsoft.com/en-us/dotnet/api/system.readonlymemory-1?view=netcore-3.1)
+type from the [`System.Memory` library](https://www.nuget.org/packages/System.Memory/).
+
+This library places certain restrictions on when a read only memory span can be
+accessed by applications.
+
+**Important**: consumer interface implementations **must deserialize or copy delivery payload before delivery handler method returns**.
+Retaining a reference to the payload is not safe: the memory allocated for it can be deallocated at any moment
+after the handler returns.
+
+
+## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages (Polling or "pull API")</a>
 
 It is also possible to retrieve individual messages on demand ("pull API" a.k.a. polling).
-This approach to consumption is highly inefficient as it is effectively polling
+This approach to consumption is **very inefficient** as it is effectively polling
 and applications repeatedly have to ask for results even if the vast majority of the requests
 yield no results. Therefore using this approach **is highly discouraged**.
 
@@ -445,7 +464,7 @@ if (result == null) {
     // No message available at this time.
 } else {
     IBasicProperties props = result.BasicProperties;
-    byte[] body = result.Body;
+    ReadOnlyMemory&lt;byte&gt; body = result.Body;
     ...
 </pre>
 

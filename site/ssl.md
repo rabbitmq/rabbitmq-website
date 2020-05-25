@@ -33,7 +33,7 @@ connections:
  * TLS configuration in [Java](#java-client) and [.NET](#dotnet-client) clients
  * [Peer (certificate chain) verification](#peer-verification)
  * Public [key usage extensions](#key-usage) relevant to RabbitMQ
- * [TLS version](#tls-versions) and [cipher suite](#cipher-suites) configuration
+ * [Enabled TLS version](#tls-versions) and [cipher suite](#cipher-suites) configuration
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
@@ -1097,14 +1097,40 @@ the shortcomings resulted in [known attacks](#major-vulnerabilities) that affect
 versions of TLS (and SSL). disabling older TLS versions is a way to mitigate
 many of those attacks (another technique is to [disable affected cipher suites](#cipher-suites)).
 
-For the above reasons, Erlang 22 only enables TLSv1.2 by default. Users of [older supported Erlang releases](/which-erlang.html)
-are encouraged to limit supported TLS versions to 1.2 and later versions only, if possible. Consider
-TLSv1.0 and TLSv1.1 to be deprecated by the industry.
+For the above reasons, recent release series of Erlang only enable latest supported
+TLS version by default, as demonstrated in the below table.
+
+<table>
+  <thead>
+    <tr>
+      <td><strong>Erlang Series</strong></td>
+      <td><strong>TLS Versions Enabled by Default</strong></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>23.x</td>
+      <td>TLSv1.3 and TLSv1.2</td>
+    </tr>
+    <tr>
+      <td>22.x</td>
+      <td>TLSv1.2</td>
+    </tr>
+  </tbody>
+</table>
+
+Users of [older supported Erlang releases](/which-erlang.html)
+are encouraged to limit supported TLS versions to 1.2 and later versions only, if possible.
+Consider TLSv1.0 and TLSv1.1 to be **deprecated by the industry**.
 
 ### <a id="tls-versions-why-not-limit" class="anchor" href="#tls-versions-why-not-limit">Why Not Limit TLS Versions</a>
 
-limiting TLS versions to TLSv1.2 only means that clients that [support older
-TLS versions only](#tls-version-support-in-jdk-and-net) (e.g. JDK 6 or .NET 4.0) won't be able to connect.
+limiting TLS versions to TLSv1.2 only means that clients that [support older TLS versions only](#tls-version-support-in-jdk-and-net) (e.g. JDK 6 or .NET 4.0) won't be able to connect.
+
+If support for applications that use such old runtimes is important, the server must
+be configured to support older versions of TLS, namely TLSv1.1. All other users
+are encouraged to limit supported TLS versions to 1.2 and later versions only.
 
 ### <a id="tls-versions-server" class="anchor" href="#tls-versions-server"></a>
 

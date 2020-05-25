@@ -78,6 +78,15 @@ To find out what strategy a node uses, see its [effective configuration](/config
 
 ## <a id="breakdown" class="anchor" href="#breakdown">Memory Use Breakdown</a>
 
+A RabbitMQ node can report its memory usage breakdown. The breakdown is provided
+as a list of categories (shown below) and the memory footprint of that category.
+
+Each category is a sum of runtime-reported memory footprint of every process or table
+of that kind. This means that the connections category is the sum of memory used by
+all connection processes, the channels category is the sum of memory used by all channel
+processes, ETS tables is the sum of memory used of all in-memory tables on the node,
+and so on.
+
 ### <a id="breakdown-intro" class="anchor" href="#breakdown-intro">How Memory Breakdown Works</a>
 
 Memory use breakdown reports allocated memory distribution on the target node, by category:
@@ -102,7 +111,7 @@ Plugins and runtime versions may affect this.
 
 ### <a id="breakdown-cli" class="anchor" href="#breakdown-cli">Producing Memory Use Breakdown Using CLI Tools</a>
 
-A common way of producing memory breakdown is via `rabbitmq-diagnostics memory_breakdown`:
+A common way of producing memory breakdown is via `rabbitmq-diagnostics memory_breakdown`.
 
 <pre class="lang-ini">
 quorum_queue_procs: 0.4181 gb (28.8%)

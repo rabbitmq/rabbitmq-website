@@ -46,15 +46,17 @@ Nodes authenticate to each other using [a pre-shared secret](/clustering.html#er
 typically installed by deployment automation tools.
 
 Virtual hosts, exchanges, users, and permissions are
-[automatically replicated](/clustering.html#cluster-membership) across all nodes in a cluster. Queues may
-be located on a single node, or [mirrored across multiple nodes](/ha.html).
+[automatically replicated](/clustering.html#cluster-membership) across all nodes in a cluster.
+Queues may be located on a single node, or replicate their content for higher availability.
+[Quorum queues](/quorum-queues.html) is a modern replicated queue type that focuses on data safety.
+Classic queues can optionally be [mirrored](/ha.html)
 
 A client connecting to any node in a
 cluster can [use all non-exclusive queues in the cluster](/clustering.html#clustering-and-clients), even if they are not
 located on that node.
 
 Clustering nodes can help improve availability, data safety of queue contents and sustain
-more concurrent client connections. The [Clustering](/clustering.html) and [Queue Mirroring](/ha.html)
+more concurrent client connections. The [Clustering](/clustering.html), [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html)
 guides provide more details on these topics.
 
 

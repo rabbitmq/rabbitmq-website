@@ -225,10 +225,11 @@ checking the exchanges list in management or with:
 rabbitmqctl list_exchanges name policy | grep federate-me
 </pre>
 
-And you can check that federation links for each exchange have come up with Admin > Federation Status > Running Links or with:
+And you can check that federation links for each exchange have come up with `Admin` > `Federation Status` > `Running Links` or with:
 
 <pre class="lang-bash">
-rabbitmqctl eval 'rabbit_federation_status:status().'
+# This command will be available only if federation plugin is enabled
+rabbitmqctl federation_status
 </pre>
 
 In general there will be one federation link for each
@@ -324,7 +325,8 @@ Federation link status can be inspected using [RabbitMQ CLI tools](/cli.html).
 Invoke:
 
 <pre class="lang-bash">
-rabbitmqctl eval 'rabbit_federation_status:status().'
+# This command will be available only if federation plugin is enabled
+rabbitmqctl federation_status
 </pre>
 
 This will output a list of federation links running on the target node (not cluster-wide).
@@ -398,7 +400,9 @@ It contains the following keys:
 
 Here's an example:
 
-<pre class="lang-bash"># rabbitmqctl eval 'rabbit_federation_status:status().'
+<pre class="lang-bash">
+# This command will be available only if federation plugin is enabled
+rabbitmqctl federation_status
 # => [[{type,&lt;&lt;"exchange">>},
 # =>   {name,&lt;&lt;"my-exchange">>},
 # =>   {vhost,&lt;&lt;"/">>},
@@ -412,6 +416,6 @@ Here's an example:
 
 Enable the <code>rabbitmq_federation_management</code> [plugin](/plugins.html) that extends
 [management UI](/management.html) with a new page that displays federation links in the cluster.
-It can be found under `Admin > Federation Status`, or by using the
+It can be found under `Admin` > `Federation Status`, or by using the
 <code>GET /api/federation-links</code> HTTP API endpoint.
     
