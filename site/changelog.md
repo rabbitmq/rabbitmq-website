@@ -37,7 +37,21 @@ published separately.
     <th class="centre">Release Notes</th>
   </tr>
 
-<tr>
+  <tr>
+    <td class="centre">3.8.4</td>
+    <td class="centre">25 May 2020</td>
+    <td>
+      <ul>
+        <li>First release to <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">support Erlang 23</a></li>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+        <li>Minor usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.4">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.26</td>
     <td class="centre">4 May 2020</td>
     <td>
