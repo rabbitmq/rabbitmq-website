@@ -37,7 +37,7 @@ to quorum queues.
 ### What is a Quorum?
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum) in a distributed system can
-defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
+be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
 system participants).
 
 When applied to queue mirroring in RabbitMQ [clusters](/clustering.html)
@@ -195,7 +195,7 @@ In some cases quorum queues should not be used. They typically involve:
 Quorum queues are designed to trade latency for throughput and have been tested
 and compared against [mirrored queues](/ha.html) in 3, 5 and 7 node configurations at several
 message sizes. In scenarios using both consumer acks and publisher confirms
- quorum queues have been observed to be have equal or greater throughput to
+ quorum queues have been observed to have equal or greater throughput to
 classic mirrored queues.
 
 As quorum queues persist all data to disks before doing anything it is recommended
@@ -308,7 +308,7 @@ it replaces.
 
 ### <a id="replica-rebalancing" class="anchor" href="#replica-rebalancing">Rebalancing Replicas</a>
 
-Once declared the RabbitMQ nodes a quorum queue resides on won't change even if the
+Once declared, the RabbitMQ nodes a quorum queue resides on won't change even if the
 members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
 To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
 [command line tool](/cli.html).
