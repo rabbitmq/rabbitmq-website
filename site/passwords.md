@@ -30,7 +30,7 @@ that perform authentication. One of the backends, known as internal or built-in,
 to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
 and hashed.
 
-As of version 3.6.0, RabbitMQ can be configured to use several password hashing functions:
+RabbitMQ can be configured to use several password hashing functions:
 
  * SHA-256
  * SHA-512
@@ -104,20 +104,14 @@ credential_validator.regexp = ^[a-bA-Z0-9$]{20,100}
 Credential validators have limitations that have to do both with the config file grammar and shell interpretation of
 certain characters when credentials are specified on the command line.
 
-[New style configuration format](/configure.html) uses `#` as the comment character. This means that validation rules cannot
-use `#` in regular expression values. Leading and trailing spaces in values will also be stripped by the config file parser.
+[New style configuration format](/configure.html) uses `#` as the comment character.
+This means that validation rules cannot
+use `#` in regular expression values. Leading and trailing spaces in values will also
+be stripped by the config file parser.
 
-Shells interpret certain characters (`!`, `?`, `&`, `^`, `"`, `'`, `*`, `~`, and others) as control characters. When a password is specified
-on the command line for `rabbitmqctl add_user` or `rabbitmqctl change_password`, such control characters must
-be escaped appropriately. With inappropriate escaping the command will fail or RabbitMQ CLI tools will receive a different value
-from the shell.
+Also note that when passwords are used with CLI tools commands that [manage users](/access-control.html#user-management),
+shell escaping of certain characters [must be taken into account](/access-control.html#password-and-shell-escaping).
 
-When generating passwords that will be passed on the command line,
-long alphanumeric value with a very limited set of symbols (e.g. `:`, `=`) is the safest option.
-
-When users are created via [HTTP API](/management.html) without using a shell (e.g. `curl`),
-the control character limitation does not apply. However, different escaping rules may be necessary
-depending on the programming language used.
 
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
 

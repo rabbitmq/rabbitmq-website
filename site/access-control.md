@@ -21,23 +21,26 @@ limitations under the License.
 
 This document describes [authentication](#authentication) and [authorisation](#authorisation) features
 in RabbitMQ. Together they allow the operator to control access to the system.
+
 Different users can be granted access only to specific [virtual hosts](/vhosts.html). Their
 permissions in each virtual hosts also can be limited.
 
 RabbitMQ supports two major [authentication mechanisms](#mechanisms)
 as well as several [authentication and authorisation backends](#backends).
 
-[Password-based](/passwords.html) authentication has a companion guide.
-A closely related topic of [TLS support](/ssl.html) is also covered in a dedicated guide.
-
-Other topics discussed in this guide include:
+This guide covers a variety of authentication, authorisation and user management topics such as
 
  * [Access control essentials](#the-basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
  * How to [manage users and permissions](#user-management) using CLI tools
+ * [Shell escaping](#passwords-and-shell-escaping) of charachters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
+
+[Password-based](/passwords.html) authentication has a companion guide.
+A closely related topic of [TLS support](/ssl.html) is also covered in a dedicated guide.
+
 
 ## <a id="terminology-and-definitions" class="anchor" href="#terminology-and-definitions">Terminology and Definitions</a>
 
@@ -135,6 +138,29 @@ loopback_users = none
 ## <a id="user-management" class="anchor" href="#user-management">Managing Users and Permissions</a>
 
 Users and permissions can be managed using [CLI tools](/cli.html) and definition import (covered below).
+
+### <a id="passwords-and-shell-escaping" class="anchor" href="#passwords-and-shell-escaping">Before We Start: Shell Escaping and Generated Passwords</a>
+
+It is a common security practice to generate complex passwords,
+often involving non-alphanumeric characters. This practice is perfectly
+applicable to RabbitMQ users.
+
+Shells (`bash`, `zsh`, and so on) interpret certain characters
+(`!`, `?`, `&`, `^`, `"`, `'`, `*`, `~`, and others) as control characters.
+
+When a password is specified on the command line for `rabbitmqctl add_user`, `rabbitmqctl change_password`, 
+and other commands that accept a password, such control characters must be escaped appropriately
+for the shell used.
+With inappropriate escaping the command will fail or RabbitMQ CLI tools will receive a different value
+from the shell.
+
+When generating passwords that will be passed on the command line,
+long (say, 40 to 100 characters) alphanumeric value with a very limited set of
+symbols (e.g. `:`, `=`) is the safest option.
+
+When users are created via [HTTP API](/management.html) without using a shell (e.g. `curl`),
+the control character limitation does not apply. However, different escaping rules may be necessary
+depending on the programming language used.
 
 ### Adding a User
 
