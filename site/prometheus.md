@@ -437,28 +437,39 @@ below:
 
 The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
 
-In the latter case, there will be an output row for each object-metric pair.
+By default, returned rows are aggregated by metric name. This significantly reduces the size of the output
+and makes it constant even as the number of objects (e.g. connections and queues) grows.
+
+In the per-object mode, there will be an output row for **each object-metric pair**.
 With a large number of stats-emitting entities, e.g. a lot of connections and queues,
 this can result in very large payloads and a lot of CPU resources spent serialising
-data to output. This mode therefore is only suitable for development environments
-and as a way of troubleshooting.
+data to output.
 
-By default, returned rows are aggregated by metric name. This significantly reduces the size of the output
-and makes it constant even as the number of objects grows.
+Metric aggregation is a more predictable and practical option for larger deployments.
+It scales very well with respect to the number of metric-emitting objects in the system
+(connections, channels, queues, consumers, etc) by keeping response size and time small.
+It is also predictably easy to visualise.
+
+The downside of metric aggregation is that it loses data fidelity. Per-object metrics
+and alerting are not possible with aggregation. Individual object metrics, while very useful
+in some cases, are also hard to visualise. Consider what a chart with 200K connections
+charted on it would look like and whether an operator would be able to make sense of it.
 
 To enable per-object (unaggregated) metrics, use the `prometheus.return_per_object_metrics` key:
 
 <pre class="lang-ini">
-# will result in a really excessive output produced,
-# only use for troubleshooting.
-# Not recommended for production deployments!
+# can result in a really excessive output produced,
+# only suitable for environments with a relatively small
+# number of metrics-emitting objects such as connections and queues
 prometheus.return_per_object_metrics = true
 </pre>
 
 For the sake of completeness, the default used by the plugin is
 
 <pre class="lang-ini">
-# enables aggregation, highly recommended for most environments
+# Enables metric aggregation. Individual object (e.g. connection or queue) metrics
+# will not be emitted to significantly reduce output size.
+# This option is recommended for most environments.
 prometheus.return_per_object_metrics = false
 </pre>
 
