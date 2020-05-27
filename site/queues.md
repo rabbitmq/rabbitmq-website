@@ -124,15 +124,40 @@ may affect this.
 
 ## <a id="durability" class="anchor" href="#durability">Durability</a>
 
-Durable queues are persisted to disk and thus survive broker
-restarts. Queues that are not durable are called transient.
-Not all scenarios and use cases mandate queues to be durable.
+Queues can be durable or transient. Metadata of a durable queue is stored on disk,
+while metadata of a transient wueue is stored in memory when possible.
+The same distinction is made for [messages at publishing time](/publishers.html#message-properties)
+in some protocols, e.g. AMQP 0-9-1 and MQTT.
 
-Durability of a queue does not make <em>messages</em> that
-are routed to that queue durable. If broker is taken down
-and then brought back up, durable queue will be re-declared
-during broker startup, however, only <em>persistent</em>
-messages will be recovered.
+In environments and use cases where durability is important, applications
+must use durable queues *and* make sure that publish mark published messages as persisted.
+
+Transient queues will be deleted on node boot. They therefore will not survive a node restart,
+by design. Messages in transient queues will also be discarded.
+
+Durable queues will be recovered on node boot, including messages in them published as persistent.
+Messages published as transient will be **discarded** during recovery, even if they were stored
+in durable queues.
+
+### How to Choose
+
+In most other cases, durable queues are the recommended option. For [replicated queues](#distributed),
+the only reasonable option is to use durable queues.
+
+Throughput and latency of a queue is **not affected** by whether a queue is durable or not
+in most cases. Only environments with very high queue or binding churn — that is, where queues are deleted
+and re-declared hundreds or more times a second — will see latency improvements for
+some operations, namely on bindings. The choice between durable and transient queues
+therefore comes down to the semantics of the use case.
+
+Temporary queues can be a reasonable choice for workloads with transient clients, for example,
+temporary WebSocket connections in user interfaces, mobile applications and devices
+that are expected to go offline or use switch identities. Such clients usually have
+inherently transient state that should be replaced when the client reconnects.
+
+Some queue types do not support transient queues. [Quorum queues](/quorum-queues.html) must
+be durable due to the assumptions and requirements of the underlying replication protocol,
+for example.
 
 
 ## <a id="temporary-queues" class="anchor" href="#temporary-queues">Temporary Queues</a>
@@ -172,10 +197,18 @@ are only suitable for client-specific transient state.
 It is common to make exclusive queues server-named.
 
 
-## <a id="distributed" class="anchor" href="#distributed">Mirrored and Distributed Queues</a>
+## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 
-Queues can be [replicated across cluster nodes](/ha.html) and [federated](https://www.rabbitmq.com/federated-queues.html)
-across loosely coupled nodes or clusters. Note that mirroring and federation
+Queues can be replicated to multiple cluster nodes and [federated](https://www.rabbitmq.com/federated-queues.html)
+across loosely coupled nodes or clusters. There are two replicated queue types provided:
+
+ * [Quorum queues](/quorum-queues.html)
+ * Classic queues with [mirroring](/ha.html) enabled
+
+The difference between them is covered in the [Quorum queues](/quorum-queues.html) guide.
+Quorum queues is the recommended option for most workloads and use cases.
+
+Note that intra-cluster replication and federation
 are orthogonal features and should not be considered direct alternatives.
 
 

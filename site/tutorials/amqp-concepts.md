@@ -303,15 +303,16 @@ with reply code 403 (`ACCESS_REFUSED`).
 
 ### <a id="queue-durability" class="anchor" href="#queue-durability">Queue Durability</a>
 
-Durable queues are persisted to disk and thus survive broker
-restarts. Queues that are not durable are called transient.
-Not all scenarios and use cases mandate queues to be durable.
+In AMQP 0-9-1, queues can be declared as durable or transient.
+Metadata of a durable queue is stored on disk, while metadata of a transient wueue is
+stored in memory when possible.
 
-Durability of a queue does not make _messages_ that
-are routed to that queue durable. If broker is taken down
-and then brought back up, durable queue will be re-declared
-during broker startup, however, only _persistent_
-messages will be recovered.
+The same distinction is made for [messages at publishing time](/publishers.html#message-properties).
+
+In environments and use cases where durability is important, applications
+must use durable queues *and* make sure that publish mark published messages as persisted.
+
+This topic is covered in more detailed in the [Queues guide](/queues.html#durability).
 
 
 ## <a id="bindings" class="anchor" href="#bindings">Bindings</a>
