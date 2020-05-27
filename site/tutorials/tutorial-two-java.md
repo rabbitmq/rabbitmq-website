@@ -198,7 +198,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](/confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](/confirms.html). An acknowledgement is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
