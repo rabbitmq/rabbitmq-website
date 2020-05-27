@@ -19,7 +19,7 @@ Some key topics covered by this guide are
  * [Grafana support basics](#overview-grafana)
  * [Quick Start](#quick-start) for local experimentation
  * [Installation steps](#installation) for production systems
- * [Per-object Metric Aggregation](#metric-aggregation)
+ * Two types of scraping endpoint responses: [Aggregated vs. Individual Entity Metrics](#metric-aggregation)
 
 Grafana dashboards follow a number of conventions to make the system more observable
 and anti-patterns easier to spot. Its design decisions are explained in a number of sections:
