@@ -191,7 +191,7 @@ pattern:
 <pre class="lang-bash">
 # This repository provides Erlang packages produced by the RabbitMQ team
 # See below for supported distribution and component values
-deb http://dl.bintray.com/rabbitmq-erlang/debian $distribution $component
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution $component
 </pre>
 
 The next couple of sections discuss what distribution and component values
@@ -238,7 +238,7 @@ Consider the following repository file at `/etc/apt/sources.list.d/bintray.erlan
 <pre class="lang-ini">
 ## Installs the latest 21.x version available in the repository.
 ## Please see the distribution name table above.
-deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
 </pre>
 
 It configures apt to install the most recent Erlang `21.x` version available in the
@@ -250,7 +250,7 @@ For Debian Buster the file would look like this:
 <pre class="lang-ini">
 ## Installs the latest 21.x version available in the repository.
 ## Please see the distribution name table above.
-deb http://dl.bintray.com/rabbitmq-erlang/debian buster erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian buster erlang-21.x
 </pre>
 
 For Debian Stretch:
@@ -258,7 +258,7 @@ For Debian Stretch:
 <pre class="lang-ini">
 ## Installs the latest 21.x version available in the repository.
 ## Please see the distribution name table above.
-deb http://dl.bintray.com/rabbitmq-erlang/debian stretch erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang-21.x
 </pre>
 
 To use the most recent `20.x` patch release available, switch the component
@@ -267,7 +267,7 @@ to `erlang-20.x`:
 <pre class="lang-ini">
 ## Installs the latest 20.x version available in the repository.
 ## Please see the distribution name table above.
-deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
 </pre>
 
 `erlang-21.x`, `erlang-19.x`, and `erlang-16.x` are the components for Erlang 21.x,
@@ -279,7 +279,7 @@ The `erlang` component installs the most recent version available:
 ## Installs the latest version available in the repository.
 ## Consider using version pinning.
 ## Please see the distribution name table above.
-deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
 That version may or may not be supported by RabbitMQ, so [package version pinning](#apt-pinning) is highly recommended.
