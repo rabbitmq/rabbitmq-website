@@ -32,7 +32,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 ### Installation Guides
 
  * Linux, BSD, UNIX: [Debian, Ubuntu](install-debian.html) | [RHEL, CentOS, Fedora](install-rpm.html) | [Generic binary build](install-generic-unix.html) | [Solaris](install-solaris.html)
- * Windows: [Installer (recommended)](install-windows.html) | [Binary build](install-windows-manual.html)
+ * Windows: [Chocolatey or Installer](install-windows.html) (recommended) | [Binary build](install-windows-manual.html)
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](/which-erlang.html)
 
