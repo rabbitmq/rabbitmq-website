@@ -65,7 +65,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange/releases/tag/v3.8.0">3.7.x / 3.8.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_lvc_exchange">3.6.x</a></li>
         <li>Maintainer: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq-lvc-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq-lvc-exchange</a></li>
       </ul>
     </td>
   </tr>
@@ -83,7 +83,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_rtopic_exchange">3.6.x</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
         <li>Maintainer: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
       </ul>
     </td>
   </tr>
@@ -108,7 +108,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/tag/v3.8.0">3.7.x / 3.8.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_delayed_message_exchange">3.6.x</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
       </ul>
     </td>
   </tr>
@@ -124,7 +124,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp/releases/tag/v3.8.0">3.7.x / 3.8.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_routing_node_stamp">3.6.x</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
       </ul>
     </td>
   </tr>
@@ -140,7 +140,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp/releases/tag/v3.8.0">3.7.x / 3.8.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_message_timestamp">3.6.x</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
       </ul>
     </td>
   </tr>
@@ -156,7 +156,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range/releases/tag/v1.0.0">3.7.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_auth_backend_ip_range">3.6.x</a></li>
         <li>Authors: <b>Petr Gotthard</b></li>
-        <li>Github: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
+        <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
       </ul>
     </td>
   </tr>
@@ -176,7 +176,7 @@ here, please [get in touch](contact.html)!
       the broker's package.
       <ul>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-trust-store">rabbitmq/rabbitmq-trust-store</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-trust-store">rabbitmq/rabbitmq-trust-store</a></li>
       </ul>
     </td>
   </tr>
@@ -199,7 +199,7 @@ here, please [get in touch](contact.html)!
 
       <ul>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
       </ul>
     </td>
   </tr>
@@ -215,7 +215,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-management-exchange/releases/tag/v3.8.0">3.7.x / 3.8.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_management_exchange">3.6.x</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
       </ul>
     </td>
   </tr>
@@ -242,7 +242,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_management_themes">3.7.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_management_themes">3.6.x</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
       </ul>
     </td>
   </tr>
@@ -260,7 +260,7 @@ here, please [get in touch](contact.html)!
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_boot_steps_visualiser">3.7.x</a></li>
         <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.6.x/rabbitmq_boot_steps_visualiser">3.6.x</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
       </ul>
     </td>
   </tr>
@@ -286,7 +286,7 @@ here, please [get in touch](contact.html)!
 
       <ul>
         <li>Author: <b>Gavin M. Roy</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-autocluster">rabbitmq/rabbitmq-autocluster</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-autocluster">rabbitmq/rabbitmq-autocluster</a></li>
       </ul>
     </td>
   </tr>
@@ -300,7 +300,7 @@ here, please [get in touch](contact.html)!
 
       <ul>
         <li>Author: <b>Team RabbitMQ</b></li>
-        <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
+        <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
       </ul>
     </td>
   </tr>
@@ -319,8 +319,8 @@ here, please [get in touch](contact.html)!
       Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
       <ul>
         <li>Author: <b>Basho Technologies</b></li>
-        <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
-        <li>Github (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
+        <li>GitHub (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
+        <li>GitHub (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
       </ul>
     </td>
   </tr>
@@ -381,7 +381,7 @@ here, please [get in touch](contact.html)!
       IP address and UDP port.
       <ul>
         <li>Author: <b>Tony Garnock-Jones</b></li>
-        <li>Github: <a href="https://github.com/tonyg/udp-exchange">tonyg/udp-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/tonyg/udp-exchange">tonyg/udp-exchange</a></li>
       </ul>
     </td>
   </tr>
@@ -440,7 +440,7 @@ here, please [get in touch](contact.html)!
 
       <ul>
         <li>Author: <b>Gavin M. Roy</b></li>
-        <li>Github: <a href="https://github.com/gmr/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
+        <li>GitHub: <a href="https://github.com/gmr/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
       </ul>
     </td>
     </tr>
@@ -459,7 +459,7 @@ here, please [get in touch](contact.html)!
 
         <ul>
           <li>Author: <b>Team RabbitMQ</b></li>
-          <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt">rabbitmq/rabbitmq-web-mqtt</a></li>
+          <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt">rabbitmq/rabbitmq-web-mqtt</a></li>
         </ul>
       </td>
     </tr>
