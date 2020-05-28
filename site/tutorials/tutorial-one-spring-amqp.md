@@ -237,7 +237,7 @@ public class Tut1Sender {
 }
 </pre>
 
-You'll notice that Spring AMQP removes the boiler plate code
+You'll notice that Spring AMQP removes the boilerplate code
 leaving you with only the logic of the messaging to be concerned
 about.  We autowire in the queue that was configured in our
 bean definition in the `Tut1Config` class and like many spring connection
