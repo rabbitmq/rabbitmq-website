@@ -2255,7 +2255,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </p>
 
         <p>
-          As <a href="https://groups.google.com/d/topic/rabbitmq-users/z41DX5ba0go/discussion">announced on the mailing-list</a>,
+          As <a href="https://groups.google.com/d/topic/rabbitmq-users/z41DX5ba0go/discussion">announced on the mailing list</a>,
           there is a breakage in the Java client library API to
           <a href="https://github.com/rabbitmq/rabbitmq-java-client/issues/65">fix a bug</a>.
           Of course, if you are not impacted by this bug, you can
