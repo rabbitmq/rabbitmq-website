@@ -153,7 +153,7 @@ public class Tut2Sender {
 	@Scheduled(fixedDelay = 1000, initialDelay = 500)
 	public void send() {
 		StringBuilder builder = new StringBuilder("Hello");
-		if (dots.incrementAndGet() == 3) {
+		if (dots.incrementAndGet() == 4) {
 			dots.set(1);
 		}
 		for (int i = 0; i &lt; dots.get(); i++) {
