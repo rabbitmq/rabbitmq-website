@@ -478,8 +478,8 @@ as metric collection.
 
 #### Stage 1
 
-The most basic check ensures that the runtime is running
-and (indirectly) that CLI tools can authenticate to it.
+The most basic check ensures that the [runtime](/runtime.html) is running
+and (indirectly) that CLI tools can [authenticate](/cli.html#erlang-cookie) with it.
 
 Except for the CLI tool authentication
 part, the probability of false positives can be considered approaching `0`
