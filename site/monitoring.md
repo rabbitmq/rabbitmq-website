@@ -468,7 +468,7 @@ Health checks can verify the state of an individual node (node health checks), o
 
 This section covers several examples of node health check. They are organised in stages.
 Higher stages perform more comprehensive and opinionated checks. Such checks will have a higher probability of
-false positives. Some stages have dedicated RabbitMQ CLI tool commands, other scan involve extra tools.
+false positives. Some stages have dedicated RabbitMQ CLI tool commands, others can involve extra tools.
 
 While the health checks are ordered, a higher number does not mean a check is "better".
 
