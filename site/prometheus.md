@@ -433,7 +433,7 @@ below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
-### <a id="metric-aggregation" class="anchor" href="#metric-aggregation"></a>
+### <a id="metric-aggregation" class="anchor" href="#metric-aggregation">Aggregated and Per-Object Metrics</a>
 
 The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
 
