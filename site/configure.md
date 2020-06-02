@@ -312,7 +312,8 @@ and [rabbitmq-env-conf.bat](#environment-env-file-windows).
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
 [environment variable](#customise-environment). Use `.conf` as file extension
-for the new style config format.
+for the new style config format, e.g. `/etc/rabbitmq/rabbitmq.conf` or
+`/data/configuration/rabbitmq/rabbitmq.conf`
 
 ### <a id="advanced-config-file" class="anchor" href="#advanced-config-file">The advanced.config File</a>
 
@@ -1628,10 +1629,10 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_CONFIG_FILE</td>
     <td>
-      Main RabbitMQ config file path without the <code>.conf</code>
-      (or <code>.config</code>, for the classic format) extension.
-      For example, it should be <code>/data/rabbitmq/rabbitmq</code>,
-      not <code>/data/rabbitmq/rabbitmq.conf</code>.
+      Main RabbitMQ config file path, for example,
+      <code>/etc/rabbitmq/rabbitmq.conf</code> or <code>/data/configuration/rabbitmq.conf</code> for new style configuration format files.
+      If classic config format it used, the extension must be <code>.config</code>
+      or can be omitted entirely.
 
       <p>
         <strong>Default</strong>:
@@ -1654,9 +1655,8 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_ADVANCED_CONFIG_FILE</td>
     <td>
-      "Advanced" (Erlang term-based) RabbitMQ config file path without the <code>.config</code> file extension.
-      For example, it should be <code>/data/rabbitmq/advanced</code>,
-      not <code>/data/rabbitmq/advanced.config</code>.
+      "Advanced" (Erlang term-based) RabbitMQ config file path with a <code>.config</code> file extension.
+      For example, <code>/data/rabbitmq/advanced.config</code>.
 
       <p>
         <strong>Default</strong>:
