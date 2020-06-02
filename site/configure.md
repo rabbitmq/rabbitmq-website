@@ -163,15 +163,13 @@ therefore, focuses on them.
 ### <a id="config-file-intro" class="anchor" href="#config-file-intro">Introduction</a>
 
 While some settings in RabbitMQ can be tuned using environment variables,
-most are configured using a [configuration file](#config-file), usually named `rabbitmq.conf`.
-This includes configuration for the core server as well as plugins.
-The sections below cover the syntax, [location](#config-file-location),
-how to configure things to which the format isn't well-suited, where to find examples, and so on.
+most are configured using a [main configuration file](#config-file), usually named `rabbitmq.conf`.
+This includes configuration for the core server as well as plugins. An additional configuration
+file can be used to configure settings that cannot be expressed in the main file's configuration
+format. This is covered in more details below.
 
-Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
-`rabbitmq.config` and used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html).
-That format is [still supported](#config-file-formats) for backwards compatibility.
-Those running 3.7.0 or later versions are **highly recommended** to use the [new style format](#config-file).
+The sections below cover the syntax and [location](#config-file-location) of both files,
+where to find examples, and more.
 
 ### <a id="config-file-location" class="anchor" href="#config-file-location">Config File Locations</a>
 
@@ -223,11 +221,8 @@ It is a useful step in troubleshooting a broad range of problems.
 
 ### <a id="config-file-formats" class="anchor" href="#config-file-formats">The New and Old Config File Formats</a>
 
-All [supported RabbitMQ versions](/versions.html) use an [ini-like, sysctl configuration file format](#config-file).
-Main configuration file is typically named `rabbitmq.conf`.
-
-Versions older than RabbitMQ 3.7 used an [Erlang term configuration format](http://www.erlang.org/doc/man/config.html)
-and default config file name was `rabbitmq.config`.
+All [supported RabbitMQ versions](/versions.html) use an [ini-like, sysctl configuration file format](#config-file)
+for the main configuration file. The file is typically named `rabbitmq.conf`.
 
 The new config format is much simpler, eadier for humans to read
 and machines to generate. It is also relatively limited compared
@@ -240,11 +235,48 @@ in separate files: `rabbitmq.conf` uses the new style format and recommended for
 and `advanced.config` covers more advanced settings that the ini-style configuration
 cannot express. This is covered in more detail in the following sections.
 
-The new format is easier to generate deployment automation tools.
+<table>
+  <thead>
+    <tr>
+      <td><strong>Configuration File</strong></td>
+      <td><strong>Format Used</strong></td>
+      <td><strong>Purpose</strong></td>
+    </tr>
+  </thead>
 
-Compare
+  <tbody>
+    <tr>
+      <td><code>rabbitmq.conf</code></td>
+      <td>New style format (sysctl or ini-like)</td>
+      <td>
+        <a href="#config-file">Primary configuration file</a>. Should be used for most settings.
+        It is easier for humans to read and machines (deployment tools) to generate.
+        Not every setting can be expressed in this format.
+      </td>
+    </tr>
+    <tr>
+      <td><code>advanced.config</code></td>
+      <td>Classic (Erlang terms)</td>
+      <td>
+        A limited number of settings that cannot be expressed
+        in the new style configuration format, such as <a href="/ldap.html">LDAP queries</a>.
+        Only should be used when necessary.
+      </td>
+    </tr>
+    <tr>
+      <td><code>rabbitmq-env.conf</code> (<code>rabbitmq-env.conf.bat</code> on Windows)</td>
+      <td>Environment variable pairs</td>
+      <td>
+        Used to set <a href="#customise-environment">environment variables</a> relevant to RabbitMQ in one place.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-<pre class="sourcecode">
+Compare this examplary `rabbitmq.conf` file
+
+<pre class="lang-ini">
+# A new style format snippet. This format is used by rabbitmq.conf files.
 ssl_options.cacertfile           = /path/to/ca_certificate.pem
 ssl_options.certfile             = /path/to/server_certificate.pem
 ssl_options.keyfile              = /path/to/server_key.pem
@@ -254,7 +286,8 @@ ssl_options.fail_if_no_peer_cert = true
 
 to
 
-<pre class="sourcecode">
+<pre class="lang-erlang">
+%% A classic format snippet, now used by advanced.config files.
 [
   {rabbit, [{ssl_options, [{cacertfile,           "/path/to/ca_certificate.pem"},
                            {certfile,             "/path/to/server_certificate.pem"},
@@ -264,7 +297,7 @@ to
 ].
 </pre>
 
-### <a id="config-file" class="anchor" href="#config-file">The rabbitmq.conf File</a>
+### <a id="config-file" class="anchor" href="#config-file">The Main Configuration File, rabbitmq.conf</a>
 
 The configuration file `rabbitmq.conf`
 allows the RabbitMQ server and plugins to be configured.
@@ -303,8 +336,7 @@ most of the configuration items you might want to set (with some very obscure on
 documentation for those settings.
 
 Documentation guides such as [Networking](/networking.html), [TLS](/ssl.html), or
-[Access Control](/access-control.html) will often provide examples
-in both formats.
+[Access Control](/access-control.html) contain many examples in relevant formats.
 
 Note that this configuration file is not to be confused with the environment variable
 configuration files, [rabbitmq-env.conf](#environment-env-file-unix)
@@ -329,36 +361,17 @@ named `advanced.config.example`. It focuses on the options that are typically se
 To override the advanced config file location, use the `RABBITMQ_ADVANCED_CONFIG_FILE`
 environment variable.
 
-### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
-
-RabbitMQ 3.7.0 and later versions still support the classic configuration file format, used in
-`rabbitmq.config` files. The classic format is **deprecated**. Please prefer the new style config format
-in `rabbitmq.conf` accompanied by an `advanced.config` file as needed.
-
-To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to point to the file with
-a `.config` extension. The extension will indicate to RabbitMQ  that it should treat the file as one
-in the classic config format.
-
-[An example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
-`rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
-
-To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
-[environment variable](#customise-environment). Use `.config` as file extension
-for the classic config format.
-
-The use of classic config format should only be limited to the [advanced.config file](#advanced-config-file) and settings
-that cannot be configured using the [ini-style config file](#config-file).
-
 ### <a id="config-location" class="anchor" href="#config-location">Location of rabbitmq.conf, advanced.config and rabbitmq-env.conf</a>
 
-Default configuration file location is distribution-specific. By default, the files
-are not created, but expected to be located in the following places on each platform:
+Default configuration file location is distribution-specific. RabbitMQ packages or nodes will not create
+any configuration files. Users and deployment tool should use the following locations when creating the files:
 
 <table>
   <thead>
     <tr>
       <td><strong>Platform</strong></td>
-      <td><strong>Default Configuration File Location</strong></td>
+      <td><strong>Default Configuration File Directory</strong></td>
+      <td><strong>Example Configuration File Paths</strong></td>
     </tr>
   </thead>
 
@@ -370,11 +383,19 @@ are not created, but expected to be located in the following places on each plat
       <td>
         <code>$RABBITMQ_HOME/etc/rabbitmq/</code>
       </td>
+      <td>
+        <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf</code>,
+        <code>$RABBITMQ_HOME/etc/rabbitmq/advanced.config</code>
+      </td>
     </tr>
     <tr>
       <td><a href="/install-debian.html">Debian and Ubuntu</a></td>
       <td>
         <code>/etc/rabbitmq/</code>
+      </td>
+      <td>
+        <code>/etc/rabbitmq/rabbitmq.conf</code>,
+        <code>/etc/rabbitmq/advanced.config</code>
       </td>
     </tr>
     <tr>
@@ -382,11 +403,19 @@ are not created, but expected to be located in the following places on each plat
       <td>
         <code>/etc/rabbitmq/</code>
       </td>
+      <td>
+        <code>/etc/rabbitmq/rabbitmq.conf</code>,
+        <code>/etc/rabbitmq/advanced.config</code>
+      </td>
     </tr>
     <tr>
       <td><a href="/install-windows.html">Windows</a></td>
       <td>
         <code>%APPDATA%\RabbitMQ\</code>
+      </td>
+      <td>
+        <code>%APPDATA%\RabbitMQ\rabbitmq.conf</code>,
+        <code>%APPDATA%\RabbitMQ\advanced.config</code>
       </td>
     </tr>
     <tr>
@@ -395,15 +424,25 @@ are not created, but expected to be located in the following places on each plat
         <code>${install_prefix}/etc/rabbitmq/</code>,
         and the Homebrew cellar prefix is usually <code>/usr/local</code>
       </td>
+      <td>
+        <code>${install_prefix}/etc/rabbitmq/rabbitmq.conf</code>,
+        <code>${install_prefix}/etc/rabbitmq/advanced.config</code>
+      </td>
     </tr>
   </tbody>
 </table>
 
-If `rabbitmq.conf` doesn't exist, it can be created manually or generated at deployment time.
-The `RABBITMQ_CONFIG_FILE` environment variable can be used to override the location of the configuration file:
+Environment variables can be used to override the location of the configuration file:
 
 <pre class="lang-ini">
+# overrides primary config file location
 RABBITMQ_CONFIG_FILE=/path/to/a/custom/location/rabbitmq.conf
+
+# overrides advanced config file location
+RABBITMQ_ADVANCED_CONFIG_FILE=/path/to/a/custom/location/advanced.config
+
+# overrides environment variable file location
+RABBITMQ_CONF_ENV_FILE=/path/to/a/custom/location/rabbitmq-env.conf
 </pre>
 
 ### <a id="config-changes-effects" class="anchor" href="#config-changes-effects">When Will Configuration File Changes Be Applied</a>
@@ -422,6 +461,28 @@ In the context of deployment automation this means that environment variables
 such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
 This would help avoid unnecessary confusion and Windows service re-installations.
 
+### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
+
+Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
+`rabbitmq.config` and used [the same Erlang term format](http://www.erlang.org/doc/man/config.html) used by `advanced.config` today.
+That format is [still supported](#config-file-formats) for backwards compatibility.
+
+The classic format is **deprecated**. Please prefer the [new style config format](#config-file)
+in `rabbitmq.conf` accompanied by an `advanced.config` file as needed.
+
+To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to point to the file with
+a `.config` extension. The extension will indicate to RabbitMQ that it should treat the file as one
+in the classic config format.
+
+[An example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
+`rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
+
+To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
+[environment variable](#customise-environment). Use `.config` as file extension
+for the classic config format.
+
+The use of classic config format should only be limited to the [advanced.config file](#advanced-config-file) and settings
+that cannot be configured using the [ini-style config file](#config-file).
 
 ### <a id="example-config" class="anchor" href="#example-config">Example Configuration Files</a>
 
@@ -1418,6 +1479,7 @@ Or, on Windows:
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
                      "&lt;&lt;""guest""&gt;&gt;" mypassphrase
 </pre>
+
 
 ## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Using Environment Variables</a>
 
