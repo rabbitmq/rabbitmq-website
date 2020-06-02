@@ -29,9 +29,7 @@ RabbitMQ requires a 64-bit [supported version of Erlang](/which-erlang.html) for
 Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
 Erlang will appear in the Start Menu,
-and <code>\erl<var>x.x.x</var>\bin\erl.exe</code> will be in
-`&dir-win32-apps;` or `&dir-win-apps;`, depending on
-your platform and whether you chose a 32bit or 64bit version of Erlang.
+and `\erl{version}\bin\erl.exe` will be in `&dir-win-apps;` for 64-bit Erlang installations
 
 **Important:** your system should only have one version of Erlang installed.
 Please consult the [Windows-specific Issues](windows-quirks.html) page.
@@ -40,17 +38,15 @@ Please consult the [Windows-specific Issues](windows-quirks.html) page.
 
 In case there's an existing RabbitMQ installation with the broker running as a service and
 you installed an Erlang VM with a different architecture then the service must be uninstalled
-before updating <span class="envvar">ERLANG_HOME</span>.
+before updating `ERLANG_HOME`.
 
-Set <span class="envvar">ERLANG_HOME</span> to where you actually put your Erlang installation, e.g.
-<code>C:\Program Files\erl<var>x.x.x</var></code> (full path).
-The RabbitMQ batch files expect to execute
-<code><span class="envvar">%ERLANG_HOME%</span>\bin\erl.exe</code>.
+Set `ERLANG_HOME` to where you actually put your Erlang installation, e.g.
+`C:\Program Files\erl{version}` (full path).
+The RabbitMQ batch files expect to execute `%ERLANG_HOME%\bin\erl.exe`.
 
 Go to `Start`&#xA0;>&#xA0;`Settings`&#xA0;>&#xA0;`Control Panel`&#xA0;>&#xA0;`System`&#xA0;>&#xA0;`Advanced`&#xA0;>&#xA0;`Environment Variables`.
-Create the system environment variable <span class="envvar">ERLANG_HOME</span>
-and set it to the full path of the directory which contains
-`bin\erl.exe`.
+Create the system environment variable `ERLANG_HOME`
+and set it to the full path of the directory which contains `bin\erl.exe`.
 
 
 ## <a id="install-rabbitmq" class="anchor" href="#install-rabbitmq">Install RabbitMQ Server</a>
