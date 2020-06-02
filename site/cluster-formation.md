@@ -88,7 +88,11 @@ on. `cluster_formation.peer_discovery_backend` is the key
 that controls what discovery module (implementation) is used:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+cluster_formation.peer_discovery_backend = classic_config
+
+# The backend can also be specified using its module name. Note that
+# module names do not necessarily match plugin names exactly.
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 </pre>
 
 The module has to implement the [rabbit_peer_discovery_backend](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl)
@@ -218,7 +222,10 @@ by using a randomized startup delay.
 The peer nodes are listed using the `cluster_formation.classic_config.nodes` config setting:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+cluster_formation.peer_discovery_backend = classic_config
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
 
 cluster_formation.classic_config.nodes.1 = rabbit@hostname1.eng.example.local
 cluster_formation.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
@@ -254,7 +261,10 @@ and `rabbit@node2.eng.example.local`.
 The seed hostname is set using the `cluster_formation.dns.hostname` config setting:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_dns
+cluster_formation.peer_discovery_backend = dns
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_dns
 
 cluster_formation.dns.hostname = discovery.eng.example.local
 </pre>
@@ -302,8 +312,10 @@ The following example snippet configures RabbitMQ to use the AWS peer discovery
 backend and provides information about AWS region as well as a set of credentials:
 
 <pre class="lang-ini">
-# note: this value is slightly different from plugin name
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = aws
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -346,7 +358,7 @@ To use autoscaling group membership, set the `cluster_formation.aws.use_autoscal
 to `true`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -365,7 +377,7 @@ Tags are configured using the `cluster_formation.aws.instance_tags` key. The exa
 below uses three tags: `region`, `service`, and `environment`.
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -383,7 +395,7 @@ It is possible to opt into using private IPs instead by setting
 the `cluster_formation.aws.use_private_ip` key to `true`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+cluster_formation.peer_discovery_backend = aws
 
 cluster_formation.aws.region = us-east-1
 cluster_formation.aws.access_key_id = ANIDEXAMPLE
@@ -447,10 +459,14 @@ mechanism can be found on GitHub.
 ### Configuration
 
 To use Kubernetes for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `rabbit_peer_discovery_k8s` (note: this value is slightly different from plugin name):
+to `k8s` or `kubernetes` or its module name, `rabbit_peer_discovery_k8s`
+(note: the name of the module is slightly different from plugin name):
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
 
 # Kubernetes API hostname (or IP address). Default value is kubernetes.default.svc.cluster.local
 cluster_formation.k8s.host = kubernetes.default.example.local
@@ -459,7 +475,7 @@ cluster_formation.k8s.host = kubernetes.default.example.local
 It is possible to configure Kubernetes API port and URI scheme:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # 443 is used by default
@@ -471,7 +487,7 @@ cluster_formation.k8s.scheme = https
 Kubernetes token file path is configurable via `cluster_formation.k8s.token_path`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # default value is /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -484,7 +500,7 @@ Certificate and namespace paths use `cluster_formation.k8s.cert_path`
 and `cluster_formation.k8s.namespace_path`, respectively:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 # default value is /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -505,7 +521,7 @@ either hostnames or IP addresses can be used. This is configurable using the
 `cluster_formation.k8s.address_type` key:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -528,7 +544,7 @@ It is possible to append a suffix to peer hostnames returned by Kubernetes using
 `cluster_formation.k8s.hostname_suffix`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -544,7 +560,7 @@ Service name is `rabbitmq` by default but can be overridden using the
 `cluster_formation.k8s.service_name` key if needed:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -565,7 +581,7 @@ Randomized startup delay in such scenarios can use a significantly lower delay v
 cluster_formation.randomized_startup_delay_range.min = 0
 cluster_formation.randomized_startup_delay_range.max = 2
 
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.peer_discovery_backend = k8s
 
 cluster_formation.k8s.host = kubernetes.default.example.local
 
@@ -600,10 +616,14 @@ check](https://www.consul.io/docs/agent/checks.html) for itself (more on this be
 ### Configuration
 
 To use Consul for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `rabbit_peer_discovery_consul` (note: this value is slightly different from plugin name):
+to `consul` or its module name, `rabbit_peer_discovery_consul` (note: the name of the module is
+slightly different from plugin name):
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
 
 # Consul host (hostname or IP address). Default value is localhost
 cluster_formation.consul.host = consul.eng.example.local
@@ -614,7 +634,7 @@ cluster_formation.consul.host = consul.eng.example.local
 It is possible to configure Consul port and URI scheme:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # 8500 is used by default
@@ -629,7 +649,7 @@ To configure [Consul ACL](https://www.consul.io/docs/guides/acl.html) token,
 use `cluster_formation.consul.acl_token`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.acl_token = acl-token-value
@@ -638,7 +658,7 @@ cluster_formation.consul.acl_token = acl-token-value
 Service name (as registered in Consul) defaults to "rabbitmq" but can be overridden:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # rabbitmq is used by default
@@ -665,7 +685,7 @@ hardcoded to `hostname1.rmq.eng.example.local` instead of being computed automat
 from the environment:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -682,7 +702,7 @@ In this example, the service address reported to Consul is
 parsed from node name (the `rabbit@` prefix will be dropped):
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -703,7 +723,7 @@ In the next example, the service address is
 computed using hostname as reported by the OS instead of node name:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -720,7 +740,7 @@ In the example below, the service address is
 computed by taking the IP address of a provided NIC, `en0`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -741,7 +761,7 @@ necessary if RabbitMQ uses a [non-standard port](/networking.html)
 for client (technically AMQP 0-9-1 and AMQP 1.0) connections since default value is 5672.
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # 5672 is used by default
@@ -753,7 +773,7 @@ cluster_formation.consul.svc_port = 6674
 It is possible to provide [Consul service tags](https://www.consul.io/docs/agent/services.html):
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # Define tags for the RabbitMQ service: "qa" and "3.8"
@@ -766,7 +786,7 @@ which is a map of string keys to string values with certain restrictions
 (see Consul documentation to learn more):
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -785,7 +805,7 @@ for itself. Online nodes will periodically send a health check update to Consul 
 is available. This interval can be configured:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -800,7 +820,7 @@ period of time (note: this is a separate interval value from
 the TTL above). The period cannot be less than 60 seconds.
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -818,7 +838,7 @@ by default. It is possible to opt into including them by setting
 `true`:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # health check interval (node TTL) in seconds
@@ -836,7 +856,7 @@ DNS conventions, e.g. when all service nodes
 are organised in a separate subdomain. Here's an example:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 
@@ -861,7 +881,7 @@ it will wait for the lock to become available for a limited amount of time. Defa
 seconds but it can be configured:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 # lock acquisition timeout in seconds
@@ -873,7 +893,7 @@ cluster_formation.consul.lock_timeout = 60
 Lock key prefix is `rabbitmq` by default. It can also be overridden:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+cluster_formation.peer_discovery_backend = consul
 
 cluster_formation.consul.host = consul.eng.example.local
 cluster_formation.consul.lock_timeout = 60
@@ -919,12 +939,17 @@ If configured, such nodes can be forcefully removed from the cluster.
 #### etcd Endpoints and Authentication
 
 To use etcd for peer discovery, set the `cluster_formation.peer_discovery_backend`
-to `rabbit_peer_discovery_etcd` (note: this value is slightly different from plugin name).
+to `etcd` or its module name, `rabbit_peer_discovery_etcd` (note: the name of the module
+is slightly different from plugin name).
+
 The plugin requires a configured etcd endpoint for the plugin
 to connect to:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
+
+# the backend can also be specified using its module name
+# cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
 
 # etcd endpoints. This property is required or peer discovery won't be performed.
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
@@ -934,7 +959,7 @@ It is possible to configure multiple etcd endpoints. The first randomly
 chosen one that the plugin can successfully connect to will be used.
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -945,7 +970,7 @@ If [authentication is enabled for etcd](https://etcd.io/docs/v3.4.0/op-guide/aut
 a pair of credentials:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1014,7 +1039,7 @@ Default key prefix is simply "rabbitmq". It rarely needs overriding but that's
 supported:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1028,7 +1053,7 @@ If multiple RabbitMQ clusters share an etcd installation, each cluster must use
 a unique name:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1044,7 +1069,7 @@ Key used for node registration will have a lease with a TTL associated with them
 Online nodes will periodically keep the leases alive (refresh). The TTL value can be configured:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1068,7 +1093,7 @@ it will wait for the lock to become available for a limited amount of time. Defa
 seconds but it can be configured:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1097,7 +1122,7 @@ The plugin acts as a TLS client. A [trusted CA certificate](/ssl.html#peer-verif
 be provided as well as a client certificate and private key pair:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
@@ -1121,7 +1146,7 @@ More [TLS options](/ssl.html) are supported such as cipher suites and
 client-side session renegotiation options:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+cluster_formation.peer_discovery_backend = etcd
 
 cluster_formation.etcd.endpoints.1 = one.etcd.eng.example.local:2379
 cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
