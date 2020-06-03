@@ -88,6 +88,7 @@ apt repositories:
      <td>23.x</td>
      <td>
        <ul>
+        <li><a href="#apt-bintray-erlang">Debian packages of Erlang</a> by Team RabbitMQ</li>
          <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
        </ul>
      </td>
@@ -139,10 +140,10 @@ a number of commonly used Debian and Ubuntu distributions:
 
 The repo provides most recent patch releases in the following Erlang series:
 
- * 22.x
- * 21.x
+ * 23.x
+ * 22.3.x
+ * 21.3.x
  * 20.3.x
- * 19.3.x
  * master (24.x)
  * R16B03 (16.x)
 
