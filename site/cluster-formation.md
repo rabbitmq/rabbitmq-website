@@ -421,12 +421,17 @@ or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 </pre>
 
-### Prerequisites
+### Important: Prerequisites and Deployment Considerations
 
 With this mechanism, nodes fetch a list of their peers from
 a Kubernetes API endpoint using a set of configured values:
-a URI scheme, host, port, as as well as the token and
-certificate paths.
+a URI scheme, host, port, as as well as the token and certificate paths.
+
+There are several prerequisites and deployment choices that must be taken into
+account when deploying RabbitMQ to Kubernetes, with this peer discovery mechanism
+and in general.
+
+#### Use a Stateful Set
 
 A RabbitMQ cluster deployed to Kubernetes will use a set of pods. The set must be a [stateful set](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#statefulset).
 A [headless service](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations) must be used to
@@ -435,10 +440,30 @@ control [network identity of the pods](https://kubernetes.io/docs/concepts/servi
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-[eager synchronisation of classic queue mirrors](/ha.html) on newly joining nodes.
+data synchronisation of both [quorum queues](/quorum-queues.html)
+and [classic queue mirrors](/ha.html) on newly joining nodes.
 
 Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
 cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
+
+#### Use Persistent Volumes
+
+How [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+is generally orthogonal to peer discovery. However, it does not make sense to run a stateful
+data service such as RabbitMQ with [node data directory](/relocate.html) stored on a transient volume.
+Use of transient volumes can lead nodes to not have their persisted data after a restart.
+This has the same consequences as with stateless sets covered above.
+
+#### Make Sure `/etc/rabbitmq` is Mounted as Writeable
+
+RabbitMQ nodes and images may need to update a file under `/etc/rabbitmq`, the default [configuration file location](/configure.html#config-location) on Linux. This may involve configuration file generation
+performed by the image used, [enabled plugins file](/plugins.html#enabled-plugins-file) updates,
+and so on.
+
+It is therefore highly recommended that `/etc/rabbitmq` is mounted as writeable and owned by
+RabbitMQ's effective user (typically `rabbitmq`).
+
+#### Use `OrderedReady` Pod Management Policy
 
 Peer discovery mechanism will filter out nodes whose pods are not yet ready
 (initialised) according to their readiness probe as reported by the Kubernetes API.
@@ -448,13 +473,14 @@ of a stateful set is set to `Parallel`, some nodes can be discovered but will no
 It is therefore necessary to use `OrderedReady` pod management policy for the sets
 used by RabbitMQ nodes. This policy is used by default by Kubernetes.
 
-Other stateful set aspects such as how [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-is orthogonal to peer discovery.
 
 ### Examples
 
 A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples)
 mechanism can be found on GitHub.
+
+The example can be run using either MiniKube or Kind.
+
 
 ### Configuration
 
