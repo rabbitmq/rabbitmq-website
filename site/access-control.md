@@ -77,8 +77,8 @@ initialises a fresh database with the following resources:
  * a [virtual host](/vhosts.html) named <code>/</code> (a slash)
  * a user named <code>guest</code> with a default password of <code>guest</code>, granted full access to the <code>/</code> virtual host
 
-It is advisable to [delete](rabbitmqctl.8.html#delete_user)
-the <code>guest</code> user or at least [change its password](rabbitmqctl.8.html#change_password)
+It is advisable to [pre-configure a new user with a generated username and password](#seeding) or [delete](rabbitmqctl.8.html#delete_user)
+the `guest` user or at least [change its password](rabbitmqctl.8.html#change_password)
 to reasonably secure generated value that won't be known to the public.
 
 
@@ -264,7 +264,18 @@ rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 [Production environments](/production-checklist.html) typically need to pre-configure (seed) a number
 of virtual hosts, users and user permissions.
 
-While this can be done using [CLI tools](/cli.html), a more optimal way is to use [definition export and import on node boot](/definitions.html).
+While this can be done in a few ways:
+
+ * Using [CLI tools](/cli.html)
+ * [Definition export and import on node boot](/definitions.html) (recommended)
+ * Override [default credentials](#default-state) in configuration file(s)
+
+### CLI Tools
+
+See the section on [User Management](#user-management).
+
+### Definition Import at Node Boot Time
+
 This process involves the following steps:
 
  * Set up a temporary node and create the necessary virtual host, users, permissions, and so on using CLI tools
@@ -272,14 +283,35 @@ This process involves the following steps:
  * Remove parts of the file that are not relevant
  * Configure the node to import the file on node boot or after
 
-### At Node Boot Time
+See [importing definitions on node boot](/definitions.html#import-on-boot) in the definitions guide to learn more.
 
-See [importing definitions on node boot](/definitions.html#import-on-boot) in the definitions guide.
-
-
-### After Node Boot
+### Definition Import After Node Boot
 
 See [importing definitions after node boot](/definitions.html#import) in the definitions guide.
+
+### Override Default User Credentials
+
+Two configuration options can be used to override default user credentials. This user will only
+be created **on first node boot** so they must exist in the configuration file before
+first boot.
+
+The settings are:
+
+``` ini
+# default is "guest", and its access is limited to localhost only.
+# See https://www.rabbitmq.com/access-control.html#default-state
+default_user = a-user
+# default is "guest"
+default_pass = 768a852ed69ce916fa7faa278c962de3e4275e5f
+```
+
+As with all values in [`rabbitmq.conf`](/configure.html#config-file), the `#` character
+starts a comment so this character must be avoided in generated credentials.
+
+Default user credentials can also be encrypted.
+That requires the use of the [advanced configuration file](/configure.html#advanced-config-file), `advanced.config`.
+This topic is covered in more detail in [Configuration Value Encryption](/configure.html#configuration-encryption).
+
 
 
 ## <a id="authorisation" class="anchor" href="#authorisation">Authorisation: How Permissions Work</a>
