@@ -43,7 +43,7 @@ This guide covers:
  * [The basics](#basics) of how clients use RabbitMQ
  * [Connection lifecycle](#lifecycle)
  * Connection [event logging](#logging)
- * [Monitoring](#monitoring) of connections
+ * [Monitoring](#monitoring) of connections and how to detect [high connection churn](#high-connection-churn) scenarios
  * Sustaining a [large number of concurrent connections](#large-number-of-connections)
  * [TLS](#tls)
  * [Flow control](#flow-control)
@@ -167,7 +167,7 @@ of the system that should be [monitored](/monitoring.html). Monitoring them will
 problems that are common in messaging-based system:
 
  * Connection leaks
- * High connection churn
+ * [High connection churn](#high-connection-churn)
 
 Both problems eventually lead to node exhaustion of [resources](#resource-usage).
 
