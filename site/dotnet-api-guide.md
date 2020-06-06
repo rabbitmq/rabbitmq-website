@@ -484,11 +484,51 @@ The above example uses [automatic acknowledgements](/confirms.html) (`noAck = fa
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations for Consumers</a>
 
+There is a number of concurrency-related topics for a library user to consider.
+
+### <a id="concurrency-channel-sharing" class="anchor" href="#concurrency-channel-sharing">Sharing Channels Between Threads</a>
+
+As a rule of thumb, `IModel` instance usage by more than
+one thread simultaneously should be avoided. Application code
+should maintain a clear notion of thread ownership for `IModel` instances.
+
+This is a hard requirement for publishers: sharing a channel (an `IModel` instance)
+for concurrent publishing will lead to incorrect frame interleaving at the protocol level.
+Channel instances **must not be shared** by threads that publish on them.
+
+If more than one thread needs to access a particular `IModel`
+instances, the application should enforce mutual exclusion. One
+way of achieving this is for all users of an `IModel` to
+`lock` the instance itself:
+
+<pre class="lang-csharp">
+IModel ch = RetrieveSomeSharedIModelInstance();
+lock (ch) {
+  ch.BasicPublish(...);
+}
+</pre>
+
+Symptoms of incorrect serialisation of `IModel` operations
+include, but are not limited to,
+
+ * [connection-level exceptions](/connections.html#error-handling) due to invalid frame
+   interleaving on the wire. RabbitMQ [server logs](/logging.html) will
+   contain unexpected frame errors in such scenario.
+ * Pipelining and continuation exceptions thrown by the client
+
+Consumption that involve sharing a channel between threads should be avoided
+when possible but can be done safely.
+
+Consumers that can be multi-threaded or use a thread pool internally, including TPL-based
+consumers, must use mutual exclusion of [acknowledgements](/confirms.html) operations
+on a shared channel.
+
+### <a id="concurrency-thread-usage" class="anchor" href="#concurrency-thread-usage">Per-Connection Thread Use</a>
+
 Each `IConnection` instance is, in the current implementation,
 backed by a single background thread that reads from the socket and
 dispatches the resulting events to the application.
-If heartbeats are enabled, as of version <code>3.5.0</code>
-they are implemented in terms of .NET timers.
+If heartbeats are enabled, they will use a pair of .NET timers per connection.
 
 Usually, therefore, there will be at least two threads active in an application
 using this library:
@@ -539,36 +579,6 @@ cf.TaskScheduler = new CustomTaskScheduler();
 </pre>
 
 This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).          
-
-### <a id="model-sharing" class="anchor" href="#model-sharing">Sharing Channels Between Threads</a>
-
-As a rule of thumb, `IModel` instances should not be used by more than
-one thread simultaneously: application code should maintain a clear
-notion of thread ownership for `IModel` instances.
-
-If more than one thread needs to access a particular `IModel`
-instances, the application should enforce mutual exclusion itself. One
-way of achieving this is for all users of an `IModel` to
-`lock` the instance itself:
-
-<pre class="lang-csharp">
-IModel ch = RetrieveSomeSharedIModelInstance();
-lock (ch) {
-  ch.BasicPublish(...);
-}
-</pre>
-
-Symptoms of incorrect serialisation of `IModel` operations
-include, but are not limited to,
-
- * invalid frame sequences being sent on the wire (which occurs, for
-   example, if more than one `BasicPublish` operation is run
-   simultaneously), and/or
-
- * `NotSupportedException`s being thrown from a method in class
-   `RpcContinuationQueue` complaining about
-   `"Pipelining of requests forbidden"` (which occurs in situations where more than
-   one AMQP 0-9-1 synchronous operation, such as `ExchangeDeclare`, is run simultaneously).
               
             
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
