@@ -45,15 +45,17 @@ Installing the RabbitMQ formula will install key dependencies such as a [support
 
 ## <a id="operations" class="anchor" href="#operations">Operations</a>
 
-The RabbitMQ server scripts and [CLI tools](/cli.html) are installed in `sbin` directory under `/usr/local/Cellar/rabbitmq`,
-which is accessible via `/usr/local/opt/rabbitmq/sbin`.
+The RabbitMQ server scripts and [CLI tools](/cli.html) are installed in `sbin` directory under `/usr/local/Cellar/rabbitmq/<version>/`,
+which is accessible via `/usr/local/opt/rabbitmq/sbin`. Links to binaries have been created under `/usr/local/sbin`.
 In case that directory is not in `PATH` it's recommend to append it:
 
 <pre class="lang-bash">
-export PATH=$PATH:/usr/local/opt/rabbitmq/sbin
+export PATH=$PATH:/usr/local/sbin
 </pre>
 
-The server can then be started with `rabbitmq-server`.
+Add this to your shell's startup (`~/.bashrc` for bash, `~/.zshrc` for zsh) to be persistent accross logins.
+
+The server can then be started with `rabbitmq-server` or with `brew services start rabbitmq` to have it run under launchd.
 With Homebrew the node and CLI tools will use the logged in user account by default. Using `sudo` is not required.
 
 Otherwise operations are no different from the generic binary build.
