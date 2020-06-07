@@ -36,8 +36,6 @@ limitations under the License.
 
 <!ENTITY dir-current-docfx "https://rabbitmq.github.io/rabbitmq-dotnet-client/">
 
-<!ENTITY dir-current-erlang-client "https://hex.pm/packages/amqp_client/&version-server;">
-
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win32-apps "C:\Program Files (x86)">
 

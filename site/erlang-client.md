@@ -20,23 +20,43 @@ limitations under the License.
 The RabbitMQ Erlang client library allows Erlang and Elixir applications
 to connect to and interact with RabbitMQ nodes.
 
-### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
+## <a id="licensing" class="anchor" href="#licensing">Licensing</a>
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-erlang-client/),
 and is dual-licensed under [the Apache License v2](https://www.apache.org/licenses/LICENSE-2.0)
 and [the Mozilla Public License v1.1](/mpl.html).
 
-### Prerequisites
+
+## <a id="releases" class="anchor" href="#releases">Releases</a>
+
+The client library is named `amqp_client` and [distributed via Hex.pm](https://hex.pm/packages/amqp_client)
+together with its key dependency, [`rabbit-common`](https://hex.pm/packages/rabbit_common).
+
+### Mix
+
+<pre class="lang-elixir">
+{:rabbit_common, "~> 3.8"}
+</pre>
+
+### Rebar 3
+
+<pre class="lang-erlang">
+{rabbit_common, "&version-erlang-client;"}
+</pre>
+
+### erlang.mk
+
+<pre class="lang-makefile">
+dep_rabbit_common = hex &version-erlang-client;
+</pre>
+
+
+## Prerequisites
 
 RabbitMQ Erlang client connects to RabbitMQ server nodes.
 
 You will need a running [RabbitMQ node](/download.html) to use with the client
 library.
-
-### Latest Version
-
-The current release of the RabbitMQ Erlang client is `3.8.1`.
-
 
 ## Download the Library and Documentation
 
@@ -48,7 +68,7 @@ The library is distributed [via hex.pm](https://hex.pm/packages/amqp_client).
 
 Please refer to the [Erlang RabbitMQ user quide](/erlang-client-user-guide.html).
 
-<a href="https://hexdocs.pm/amqp_client/3.8.1/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
+<a href="https://hexdocs.pm/amqp_client/3.8.4/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
 
 ### Other Versions
 
