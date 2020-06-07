@@ -27,6 +27,17 @@ Refer to guides on [connections](/connections.html), [channels](/channels.html),
 [publishers](/publishers.html), and [consumers](/consumers.html) to learn about those
 key RabbitMQ concepts in more details.
 
+Some topics covered in this guide include
+
+ * [How to add a dependency](#dependency) on this client
+ * [Usage basics](#basics)
+ * How to [connect](#connecting) to and [disconnect](#disconnecting) from a RabbitMQ node
+ * How to [open a channel](#channels) and [perform protocol operations](#methods) on it
+ * How to [define a topology](#topology): declare queues, exchanges and bindings
+ * [Publishing](#publishing) and [consumption](#consumers) of messages
+ * Handling of [returned messages](#returns)
+
+and more.
 
 ## <a id="dependency" class="anchor" href="#dependency">Dependency</a>
 
