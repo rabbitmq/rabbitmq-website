@@ -45,17 +45,23 @@ Installing the RabbitMQ formula will install key dependencies such as a [support
 
 ## <a id="operations" class="anchor" href="#operations">Operations</a>
 
-The RabbitMQ server scripts and [CLI tools](/cli.html) are installed in `sbin` directory under `/usr/local/Cellar/rabbitmq`,
-which is accessible via `/usr/local/opt/rabbitmq/sbin`.
+The RabbitMQ server scripts and [CLI tools](/cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/<version>/`,
+which is accessible from `/usr/local/opt/rabbitmq/sbin`. Links to binaries have been created under `/usr/local/sbin`.
 In case that directory is not in `PATH` it's recommend to append it:
 
 <pre class="lang-bash">
-export PATH=$PATH:/usr/local/opt/rabbitmq/sbin
+export PATH=$PATH:/usr/local/sbin
 </pre>
 
-The server can then be started with `rabbitmq-server`.
-With Homebrew the node and CLI tools will use the logged in user account by default. Using `sudo` is not required.
+Add the above expert to the shell profile (such as `~/.bashrc` for bash or `~/.zshrc` for zsh)
+to have `PATH` updated for every new shell, including OS restarts.
+
+The server can then be started with `rabbitmq-server` in the foreground or with `brew services start rabbitmq`
+to have it run under launchd in the background.
+
+With Homebrew, the node and CLI tools will use the logged in user account by default.
+Using `sudo` is not required.
 
 Otherwise operations are no different from the generic binary build.
 Please refer to the [Operations section](install-generic-unix.html#operations) of
-the generic binary build guide section.
+the generic binary build guide.
