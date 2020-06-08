@@ -567,16 +567,20 @@ management.http_log_dir = /path/to/folder
 ### <a id="statistics-interval" class="anchor" href="#statistics-interval">Statistics Interval</a>
 
 By default the server will emit statistics events every
-5000ms. The message rate values shown in the management
-plugin are calculated over this period. You may therefore
-want to increase this value in order to sample rates over
-a longer period, or to reduce the statistics load on a
-server with a very large number of queues or channels.
+5 seconds (`5000` ms). The message rate values shown in the management
+plugin are calculated over this period.
 
-In order to do so, set the value of
-the `collect_statistics_interval` variable for
-the `rabbit` application to the desired
-interval in milliseconds and restart RabbitMQ.
+Increasing this value will reduce CPU resource consumption of
+stats collection in environments with a large number of stats emitting
+entities such as [connections](/connections.html), [channels](/channels.html), [queues](/queues.html).
+
+In order to do so, set the value of the `collect_statistics_interval` configuration key
+to the desired interval in milliseconds and restart the node:
+
+<pre class="lang-ini">
+# 15s
+collect_statistics_interval = 15000
+</pre>
 
 
 ### <a id="fine-stats" class="anchor" href="#fine-stats">Message Rates</a>
