@@ -690,6 +690,15 @@ Wildcards are also allowed:
 management.csp.policy = default-src 'self' *.eng.example.local
 </pre>
 
+A CSP policy [`frame-ancestors` directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) can be used
+to prevent frame embedding of the management UI, mitigating
+certain types of cross-frame scripting attacks:
+
+<pre class="lang-ini">
+# prohibits iframe embedding of the UI
+management.csp.policy = frame-ancestors 'none'
+</pre>
+
 ### <a id="hsts" class="anchor" href="#hsts">Strict Transport Security (HSTS)</a>
 
 It is possible to configure what [Strict Transport Security header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) value
