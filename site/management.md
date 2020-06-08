@@ -583,24 +583,28 @@ interval in milliseconds and restart RabbitMQ.
 
 The management plugin by default shows message rates
 globally, and for each queue, channel, exchange, and
-vhost. These are known as the <i>basic</i> message rates.
+vhost. These are known as the *basic* message rates.
 
 It can also show message rates for all the combinations of
 channel to exchange, exchange to queue, and queue to
-channel. These are known as <i>detailed</i> message rates.
+channel. These are known as *detailed* message rates.
 Detailed message rates are disabled by default as they can
 have a large memory footprint when there are a large
 number of combinations of channels, queues and exchanges.
 
 Alternatively, the message rates can be disabled
-altogether. This can help get the best possible
-performance out of a CPU-bound server.
+altogether. This can help get reduce CPU resource
+consumption of the plugin.
 
 The message rate mode is controlled by the
-`rates_mode` configuration variable in
-`rabbitmq_management`. This can be one of
-`basic` (the default), `detailed` or
-`none`.
+`management.rates_mode` configuration key:
+
+<pre class="lang-ini">
+# supported values: basic, detailed, none
+management.rates_mode = basic
+</pre>
+
+Supported values are `basic` (the default), `detailed`, and `none`.
 
 ### <a id="max-backlog" class="anchor" href="#max-backlog">Event Backlog</a>
 
