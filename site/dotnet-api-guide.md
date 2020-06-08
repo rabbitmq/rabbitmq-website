@@ -398,7 +398,7 @@ deliveries and other consumer lifecycle events as C# events:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // copy or deserialise the payload
                     // and process the message
                     // ...

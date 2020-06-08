@@ -180,7 +180,7 @@ Here's an example that demonstrates a positive acknowledgement with that client:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // positively acknowledge a single delivery, the message will
                     // be discarded
                     channel.BasicAck(ea.DeliveryTag, false);
@@ -237,7 +237,7 @@ The idea is very much the same with the .NET client:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // positively acknowledge all deliveries up to
                     // this delivery tag
                     channel.BasicAck(ea.DeliveryTag, true);
@@ -311,7 +311,7 @@ respectively:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // negatively acknowledge, the message will
                     // be discarded
                     channel.BasicReject(ea.DeliveryTag, false);
@@ -325,7 +325,7 @@ String consumerTag = channel.BasicConsume(queueName, false, consumer);
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // requeue the delivery
                     channel.BasicReject(ea.DeliveryTag, true);
                 };
@@ -380,7 +380,7 @@ Things work very similarly with .NET client:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (ch, ea) =>
                 {
-                    var body = ea.Body;
+                    var body = ea.Body.ToArray();
                     // requeue all unacknowledged deliveries up to
                     // this delivery tag
                     channel.BasicNack(ea.DeliveryTag, true, true);

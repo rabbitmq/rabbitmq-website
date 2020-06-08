@@ -229,7 +229,7 @@ class ReceiveLogsTopic
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
-                var body = ea.Body;
+                var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body.ToArray());
                 var routingKey = ea.RoutingKey;
                 Console.WriteLine(" [x] Received '{0}':'{1}'",

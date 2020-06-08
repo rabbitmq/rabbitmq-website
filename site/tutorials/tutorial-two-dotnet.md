@@ -246,7 +246,7 @@ worker, once we're done with a task.
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (sender, ea) =>
 {
-    var body = ea.Body;
+    var body = ea.Body.ToArray();
     var message = Encoding.UTF8.GetString(body);
     Console.WriteLine(" [x] Received {0}", message);
 
@@ -442,7 +442,7 @@ class Worker
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (sender, ea) =>
             {
-                var body = ea.Body;
+                var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine(" [x] Received {0}", message);
 

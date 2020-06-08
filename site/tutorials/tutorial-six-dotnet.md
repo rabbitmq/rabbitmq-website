@@ -255,7 +255,7 @@ class RPCServer
             {
                 string response = null;
 
-                var body = ea.Body;
+                var body = ea.Body.ToArray();
                 var props = ea.BasicProperties;
                 var replyProps = channel.CreateBasicProperties();
                 replyProps.CorrelationId = props.CorrelationId;
@@ -349,7 +349,7 @@ public RpcClient()
 
         consumer.Received += (model, ea) =&gt;
         {
-            var body = ea.Body;
+            var body = ea.Body.ToArray();
             var response = Encoding.UTF8.GetString(body.ToArray());
             if (ea.BasicProperties.CorrelationId == correlationId)
             {
