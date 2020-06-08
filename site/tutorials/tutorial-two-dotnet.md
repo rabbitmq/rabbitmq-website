@@ -124,7 +124,7 @@ the `Worker` project and modify:
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, ea) =>
 {
-    var body = ea.Body;
+    var body = ea.Body.ToArray();
     var message = Encoding.UTF8.GetString(body);
     Console.WriteLine(" [x] Received {0}", message);
 
@@ -341,7 +341,7 @@ var properties = channel.CreateBasicProperties();
 properties.Persistent = true;
 </pre>
 
-> #### Note on message persistence
+> #### Note on Message Persistence
 >
 > Marking messages as persistent doesn't fully guarantee that a message
 > won't be lost. Although it tells RabbitMQ to save the message to disk,
@@ -353,8 +353,7 @@ properties.Persistent = true;
 > [publisher confirms](https://www.rabbitmq.com/confirms.html).
 
 
-Fair dispatch
-----------------
+## Fair Dispatch
 
 You might have noticed that the dispatching still doesn't work exactly
 as we want. For example in a situation with two workers, when all
@@ -408,57 +407,12 @@ channel.BasicQos(0, 1, false);
 > If all the workers are busy, your queue can fill up. You will want to keep an
 > eye on that, and maybe add more workers, or have some other strategy.
 
-Putting it all together
------------------------
+## Putting It All Together
 
-Final code of our `NewTask.cs` class:
+Open two terminals.
 
-<pre class="lang-csharp">
-using System;
-using RabbitMQ.Client;
-using System.Text;
-
-class NewTask
-{
-    public static void Main(string[] args)
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "task_queue",
-                                 durable: true,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
-            var message = GetMessage(args);
-            var body = Encoding.UTF8.GetBytes(message);
-
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = true;
-
-            channel.BasicPublish(exchange: "",
-                                 routingKey: "task_queue",
-                                 basicProperties: properties,
-                                 body: body);
-            Console.WriteLine(" [x] Sent {0}", message);
-        }
-
-        Console.WriteLine(" Press [enter] to exit.");
-        Console.ReadLine();
-    }
-
-    private static string GetMessage(string[] args)
-    {
-        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-    }
-}
-</pre>
-
-[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask/NewTask.cs)
-
-And our `Worker.cs`:
+Run the consumer (worker) first so that the topology (primarily the queue) is in place.
+Here is its complete code:
 
 <pre class="lang-csharp">
 using System;
@@ -512,7 +466,53 @@ class Worker
 }
 </pre>
 
-[(Worker.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Worker/Worker.cs)
+Now run the task publisher. Its final code is:
+
+<pre class="lang-csharp">
+using System;
+using RabbitMQ.Client;
+using System.Text;
+
+class NewTask
+{
+    public static void Main(string[] args)
+    {
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using(var connection = factory.CreateConnection())
+        using(var channel = connection.CreateModel())
+        {
+            channel.QueueDeclare(queue: "task_queue",
+                                 durable: true,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
+
+            var message = GetMessage(args);
+            var body = Encoding.UTF8.GetBytes(message);
+
+            var properties = channel.CreateBasicProperties();
+            properties.Persistent = true;
+
+            channel.BasicPublish(exchange: "",
+                                 routingKey: "task_queue",
+                                 basicProperties: properties,
+                                 body: body);
+            Console.WriteLine(" [x] Sent {0}", message);
+        }
+
+        Console.WriteLine(" Press [enter] to exit.");
+        Console.ReadLine();
+    }
+
+    private static string GetMessage(string[] args)
+    {
+        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
+    }
+}
+</pre>
+
+[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask/NewTask.cs)
+
 
 Using message acknowledgments and `BasicQos` you can set up a
 work queue. The durability options let the tasks survive even if
