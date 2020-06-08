@@ -98,9 +98,9 @@ $channel = $connection->channel();
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
-we connect to a broker on the local machine - hence the
-_localhost_. If we wanted to connect to a broker on a different
-machine we'd simply specify its name or IP address here.
+we connect to a RabbitMQ node on the local machine - hence the
+_localhost_. If we wanted to connect to a node on a different
+machine we'd simply specify its hostname or IP address here.
 
 Next we create a channel, which is where most of the API for getting
 things done resides.
