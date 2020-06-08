@@ -269,7 +269,7 @@ is highly recommended and will help the operator understand what the metric mean
 
 ### <a id="spot-anti-patterns" class="anchor" href="#spot-anti-pattern">Using Graphs to Spot Anti-patterns</a>
 
-Any metric drawn in red hints at an anti-pattern in the system. Such graphs try to high highlight sub-optimal
+Any metric drawn in red hints at an anti-pattern in the system. Such graphs try to highlight sub-optimal
 uses of RabbitMQ. A **red graphs with non-zero metrics should be investigated**. Such metrics might indicate
 an issue in RabbitMQ configuration or sub-optimal actions by clients ([publishers](/publishers.html) or [consumers](/consumers.html)).
 
