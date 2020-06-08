@@ -608,9 +608,19 @@ Under heavy load, the processing of statistics events can
 increase the memory consumption. To reduce this,
 the maximum backlog size of the channel and queue statistics
 collectors can be regulated. The value of the
-`stats_event_max_backlog` variable in
-the `rabbitmq_management` application sets
-the maximum size of both backlogs. Defaults to 250.
+`rabbitmq_management.stats_event_max_backlog` key sets
+the maximum size of both backlogs. The value is only
+configurable via `advanced.config` at the moment:
+
+<pre class="lang-erlang">
+[
+  {rabbitmq_management, [
+    {stats_event_max_backlog, 200}
+  ]}
+].
+</pre>
+
+Defaults to 250.
 
 ### <a id="sample-retention" class="anchor" href="#sample-retention">Sample (Data Point) Retention</a>
 
