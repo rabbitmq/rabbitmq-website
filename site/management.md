@@ -31,8 +31,13 @@ The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-h
 a non-standard port, path prefix, HTTP server options, custom [strict transport security](#hsts) settings,
 [cross-origin resource sharing](#cors), and more.
 
-It also provides tools for [analyse memory usage](#memory) of the node,
-for [preconfiguring nodes](#load-definitions) using an exported schema definitions file, and a few
+Some settings directly affect CPU resource usage of the metric collection system and this plugin:
+
+ * [Stats collection interval](#statistics-interval)
+ * [Message rate mode](#rates-mode) (rate fidelity) used
+
+The plugin also provides tools for [analyse memory usage](#memory) of the node,
+for [preconfiguring nodes](#load-definitions) using an exported [schema definitions](/definitions.html) file, and a few
 other features related to monitoring, metrics and node management.
 
 In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
@@ -583,7 +588,7 @@ collect_statistics_interval = 15000
 </pre>
 
 
-### <a id="fine-stats" class="anchor" href="#fine-stats">Message Rates</a>
+### <a id="rates-mode" class="anchor" href="#rates-mode">Message Rates</a>
 
 The management plugin by default shows message rates
 globally, and for each queue, channel, exchange, and
