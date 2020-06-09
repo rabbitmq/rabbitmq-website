@@ -181,7 +181,7 @@ suites will be available on all systems.
 RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
 [on cipher suites](/ssl.html#cipher-suites). Below is an example
 in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
-and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
+and a number of other [TLS options](/ssl.html) for the plugin:
 
 <pre class="lang-ini">
 web_mqtt.ssl.port       = 15676
