@@ -262,7 +262,7 @@ web_mqtt.cowboy_opts.max_request_line_length
 web_mqtt.ws_opts.compress = true
 
 # WebSocket connection inactivity timeout
-web_mqtt.ws_opts.idle_timeout
+web_mqtt.ws_opts.idle_timeout = 60000
 
 web_mqtt.ws_opts.max_frame_size = 50000
 </pre>

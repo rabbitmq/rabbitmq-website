@@ -276,7 +276,7 @@ web_stomp.cowboy_opts.max_request_line_length
 web_stomp.ws_opts.compress = true
 
 # WebSocket connection inactivity timeout
-web_stomp.ws_opts.idle_timeout
+web_stomp.ws_opts.idle_timeout = 60000
 
 web_stomp.ws_opts.max_frame_size = 50000
 </pre>
