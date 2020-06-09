@@ -16,6 +16,8 @@ limitations under the License.
 -->
 # RabbitMQ Web STOMP Plugin NOSYNTAX
 
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
 The Web STOMP plugin makes it possible to use
 [STOMP](/stomp.html) over a WebSocket connection.
 
@@ -24,15 +26,14 @@ The goal of this plugin is to enable STOMP messaging in Web applications.
 A similar plugin, [Web MQTT plugin](/web-mqtt.html), makes it possible to use [MQTT](/mqtt.html) over
 WebSockets.
 
-## How It Works
+## <a id="how-it-works" class="anchor" href="#how-it-works">How It Works</a>
 
-RabbitMQ Web STOMP plugin is rather simple. It takes the STOMP protocol,
-as provided by [RabbitMQ STOMP plugin](/stomp.html) and exposes it using
-WebSockets.
+RabbitMQ Web STOMP plugin is a minimalistic "bridge" between the STOMP protocol implementation
+provided by [RabbitMQ STOMP plugin](/stomp.html), and WebSocket clients.
 
 RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](/stomp.html) plugin.
 
-## Enabling the Plugin
+## <a id="enabling" class="anchor" href="#enabling">Enabling the Plugin</a>
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
@@ -42,7 +43,7 @@ To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
 rabbitmq-plugins enable rabbitmq_web_stomp
 </pre>
 
-## Usage
+## <a id="usage" class="anchor" href="#usage">Usage</a>
 
 In order to use STOMP in a Web browser context, a JavaScript STOMP
 library is required. We've tested a
@@ -92,7 +93,8 @@ client.connect('guest', 'guest', on_connect, on_error, '/');
 [...]
 </pre>
 
-## Web STOMP Examples
+
+## <a id="examples" class="anchor" href="#examples">Web STOMP Examples</a>
 
 A few simple Web STOMP examples are provided as a
 [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
@@ -111,7 +113,7 @@ The examples will be available under
 
 We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/tree/master/priv).
 
-## Configuration
+## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 When no configuration is specified the Web STOMP plugin will listen on
 all interfaces on port 15674 and have a default user login/passcode of
@@ -134,7 +136,7 @@ See the [RabbitMQ Networking guide](/networking.html) and [Ranch documentation](
 for details about accepted parameters.
 
 
-### TLS (SSL)
+### <a id="tls" class="anchor" href="#tls">TLS</a>
 
 The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
 to learn more about TLS support in RabbitMQ.
@@ -158,7 +160,7 @@ Full list of options accepted by this plugin can be found in [Ranch documentatio
 A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
 
 
-## Basic HTTP Authentication
+### <a id="http-auth" class="anchor" href="#http-auth">Basic HTTP Authentication</a>
 
 The `use_http_auth` option extends the authentication by
 allowing clients to send the login and passcode in the
@@ -177,7 +179,7 @@ or the <a href="/configure.html#erlang-term-config-file">classic config format</
 ].
 </pre>
 
-## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
+### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The Web STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for clients:
@@ -189,6 +191,7 @@ web_stomp.proxy_protocol = true
 See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
+
 ## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>
 
 The Web STOMP plugin uses the Cowboy HTTP and WebSocket server under the hood.  Cowboy
@@ -198,7 +201,7 @@ w.r.t. WebSocket connection handling.
 
 Some settings are generic HTTP ones, others are specific to WebSockets.
 
-### Content Encoding
+### <a id="content-encoding" class="anchor" href="#content-encoding">Content Encoding</a>
 
 By default, the Web STOMP plugin will expect to handle messages
 encoded as UTF-8. The WebSocket endpoint exposed by this plugin can be switched to binary mode if needed
@@ -208,7 +211,7 @@ using the `ws_frame` option:
 web_stomp.ws_frame = binary
 </pre>
 
-### HTTP Options
+### <a id="http-options" class="anchor" href="#http-options">HTTP Options</a>
 
 Generic HTTP server settings can be specified using `web_stomp.cowboy_opts.*` keys,
 for example:
@@ -226,7 +229,7 @@ web_stomp.cowboy_opts.max_empty_lines = 5
 web_stomp.cowboy_opts.max_request_line_length
 </pre>
 
-### WebSocket Options
+### <a id="websocket-options" class="anchor" href="#websocket-options">WebSocket Options</a>
 
 <pre class="lang-ini">
 # WebSocket traffic compression is enabled by default
