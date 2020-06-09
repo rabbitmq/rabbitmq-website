@@ -1,0 +1,240 @@
+## RabbitMQ 3.8.5-rc.1
+
+RabbitMQ `3.8.5-rc.1` is a maintenance release candidate.
+It focuses on bug fixes and usability improvements.
+
+This release is [compatible](https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ) with [Erlang 23](http://blog.erlang.org/OTP-23-Highlights/).
+
+### Erlang/OTP Compatibility Notes
+
+This release [**requires Erlang/OTP 21.3**](https://www.rabbitmq.com/which-erlang.html) or later.
+`22.3` or `23.0` releases are recommended.
+
+[Provisioning Latest Erlang Releases](https://www.rabbitmq.com/which-erlang.html#erlang-repositories) explains
+what package repositories and tools can be used to provision latest patch versions of Erlang `22.3.x`.
+
+
+## Upgrade and Compatibility Notes
+
+### Deprecations
+
+This release deprecates `rabbitmq-diagnostics node_health_check` (née `rabbitmqctl node_health_check`).
+See the section on CLI tools changes below to learn more.
+
+
+### Upgrade Doc Guides and Change Log
+
+See [3.8.0 release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) upgrade and
+compatibility notes first if upgrading from an earlier release.
+
+See the [Upgrading guide](https://www.rabbitmq.com/upgrade.html) for general documentation on upgrades and
+[RabbitMQ change log](https://www.rabbitmq.com/changelog.html) for release notes of other releases.
+
+### Upgrading to Erlang 21.x or Later Versions
+
+When upgrading to this release from `3.7.6` or an older version, extra care has to be taken.
+
+Since CLI tools from RabbitMQ releases older than 3.7.7 will fail on Erlang 21 or later,
+RabbitMQ **must be upgraded at the same time as Erlang**.
+
+Alternatively the node can be upgraded to `3.7.18` first, then Erlang 22.x or 23.x, then RabbitMQ to most recent
+3.8.x release.
+
+### Getting Help
+
+Any questions about this release, upgrades or RabbitMQ in general are welcome on the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users).
+
+
+
+## Changes Worth Mentioning
+
+### Core Server
+
+#### Bug Fixes
+
+ * Message store shutdown now uses a much higher timeout (up to 10 minutes instead of 30 seconds).
+
+   In environments with large message backlogs this means that the chances of queue indices rebuilding
+   after node restart is now substantially lower.
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2324](https://github.com/rabbitmq/rabbitmq-server/issues/2324)
+
+ * On Windows, `RABBITMQ_HOME` locations with brackets are supported again.
+
+   Contributed by @twjs76.
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2371](https://github.com/rabbitmq/rabbitmq-server/pull/2371)
+
+ * `RABBITMQ_LOG_BASE` was not respected in some installations.
+
+   GitHub issue: [rabbitmq/rabbitmq-server-release#131](https://github.com/rabbitmq/rabbitmq-server-release/issues/131)
+
+ * Setting `RABBITMQ_QUORUM_DIR` to a location outside of node's data directory for a new node resulted
+   in feature flags not being implicitly enabled on boot.
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2317](https://github.com/rabbitmq/rabbitmq-server/issues/2317)
+
+#### Enhancements
+
+ * Raft data directory now can be configured using `ra.data_dir` configuration key:
+
+   ``` ini
+   ra.data_dir = /path/to/raft/data/directory
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2354](https://github.com/rabbitmq/rabbitmq-server/issues/2354)
+
+ * User and permission management operations now produce clear log entries when they succeed,
+   not just when they fail. This helps auditing in environments that have stricter security and audit
+   requirements.
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2363](https://github.com/rabbitmq/rabbitmq-server/issues/2363)
+
+
+### CLI Tools
+
+#### Bug Fixes
+
+ * CLI tools now take `NODENAME` into account as well as `RABBITMQ_NODENAME`, just like the server does.
+
+   GitHub issue: [rabbitmq/rabbitmq-cli#421](https://github.com/rabbitmq/rabbitmq-cli/issues/421)
+
+#### Deprecations
+
+ * `rabbitmq-diagnostics node_health_check` (née `rabbitmqctl node_health_check`) is **deprecated** and will be
+   removed in a future version.
+
+   `node_health_check` (as well as its HTTP API counterpart) is an opinionated, intrusive, aspirational attempt
+   at producing One True Health Check™ for RabbitMQ that was envisioned and added to CLI tools around 2015-2016.
+
+   It has proven to be too prone to false positives, can consume a prohibitive amount of CPU resources and runtime scheduler,
+   and be too opinionated for many technical operations teams.
+
+   A much more modular, pick-and-choose approach [has been adopted since](https://www.rabbitmq.com/monitoring.html#health-checks)
+   but this command has never been deprecated. Until now.
+
+   GitHub issue: [rabbitmq/rabbitmq-cli#426](https://github.com/rabbitmq/rabbitmq-cli/issues/426)
+
+
+### Management Plugin
+
+#### Bug Fixes
+
+ * [Definition import](https://www.rabbitmq.com/definitions.html) `management.load_definitions = /path/to/definitions/file.json` was not performed
+   although its newer counterpart, `load_definitions = /path/to/definitions/file.json`, was.
+
+   GitHub issue: [rabbitmq/rabbitmq-server#2368](https://github.com/rabbitmq/rabbitmq-server/pull/2368)
+
+ * jQuery was upgraded to `3.4.1`.
+
+   GitHub issue: [rabbitmq/rabbitmq-management#815](https://github.com/rabbitmq/rabbitmq-management/issues/815)
+
+
+### MQTT Plugin
+
+#### Bug Fixes
+
+ * Client ID tracker operation timeout has been increased from default 5 seconds.
+
+   GitHub issue: [rabbitmq/rabbitmq-mqtt#231](https://github.com/rabbitmq/rabbitmq-mqtt/pull/231)
+
+
+### AWS Peer Discovery Plugin
+
+#### Enhancements
+
+ * AWS peer discovery backend can be specified as `aws`:
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = aws
+   ```
+
+   as well as the module name, or plugin name (`rabbitmq_peer_discovery_aws`):
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = rabbit_peer_discovery_aws
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-peer-discovery-aws#34](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws/issues/34)
+
+
+### Consul Peer Discovery Plugin
+
+#### Enhancements
+
+ * Consul peer discovery backend can be specified as `consul`:
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = consul
+   ```
+
+   as well as the module name, or plugin name (`rabbitmq_peer_discovery_consul`):
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = rabbit_peer_discovery_consul
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-peer-discovery-consul#43](https://github.com/rabbitmq/rabbitmq-peer-discovery-consul/issues/43)
+
+
+### etcd Peer Discovery Plugin
+
+#### Enhancements
+
+ * etcd peer discovery backend can be specified as `etcd`:
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = etcd
+   ```
+
+   as well as the module name, or plugin name (`rabbitmq_peer_discovery_etcd`):
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = rabbit_peer_discovery_etcd
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-peer-discovery-etcd#26](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd/issues/26)
+
+
+### Kubernetes Peer Discovery Plugin
+
+#### Enhancements
+
+ * Kubernetes peer discovery backend can be specified as `k8s` or `kubernetes`:
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = k8s
+   ```
+
+   as well as the module name, or plugin name (`rabbitmq_peer_discovery_k8s`):
+
+   ``` ini
+   cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-peer-discovery-k8s#65](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/issues/65)
+
+
+### Web STOMP Plugin
+
+#### Enhancements
+
+ * [Basic HTTP auth setting](https://www.rabbitmq.com/web-stomp.html) is now exposed to new style configuration:
+
+   ``` ini
+   web_stomp.use_http_auth = true
+   ```
+
+   GitHub issue: [rabbitmq/rabbitmq-web-stomp#119](https://github.com/rabbitmq/rabbitmq-web-stomp/issues/119)
+
+
+## Dependency Upgrades
+
+ * `recon` was upgraded [from 2.5.0 to 2.5.1](https://github.com/ferd/recon/compare/2.5.0...2.5.1)
+ * `observer_cli` was upgraded [from 1.5.3 to 1.5.4]()
+
+
+## Source code archives
+
+**Warning**: The source code archive provided by GitHub only contains the source of the broker, not the plugins or the client libraries.
+Please download the archive named `rabbitmq-server-3.8.4.tar.xz`.
