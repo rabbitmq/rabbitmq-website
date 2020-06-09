@@ -67,7 +67,8 @@ Any questions about this release, upgrades or RabbitMQ in general are welcome on
 
    Contributed by @twjs76.
 
-   GitHub issue: [rabbitmq/rabbitmq-server#2371](https://github.com/rabbitmq/rabbitmq-server/pull/2371)
+   GitHub issues: [rabbitmq/rabbitmq-server#2371](https://github.com/rabbitmq/rabbitmq-server/pull/2371),
+                  [rabbitmq/rabbitmq-server#1756](https://github.com/rabbitmq/rabbitmq-server/issues/1756)
 
  * `RABBITMQ_LOG_BASE` was not respected in some installations.
 
