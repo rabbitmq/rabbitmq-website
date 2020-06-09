@@ -52,6 +52,10 @@ Any questions about this release, upgrades or RabbitMQ in general are welcome on
 
 #### Bug Fixes
 
+ * In `3.8.4`, [`RABBITMQ_CONF_ENV_FILE`](https://www.rabbitmq.com/configure.html#customise-environment) value was ignored on Windows.
+
+   GitHub issue: [rabbitmq/rabbitmq-common#392](https://github.com/rabbitmq/rabbitmq-common/issues/392)
+
  * Message store shutdown now uses a much higher timeout (up to 10 minutes instead of 30 seconds).
 
    In environments with large message backlogs this means that the chances of queue indices rebuilding
