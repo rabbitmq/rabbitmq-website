@@ -1046,7 +1046,7 @@ body#index #getstarted,
 }
 
 #hero #hero-pipeline-webinar {
-  background: url(../img/home/banner/pipeline/pipeline-desktop.svg) no-repeat bottom right;
+  background: url(../img/home/banner/webinar/RabbitMQ-Hero-queues-desktop.svg) no-repeat bottom right;
   background-size: cover;
 }
 
@@ -1102,7 +1102,7 @@ body#index #getstarted,
     overflow: hidden;
   }
   #hero #hero-pipeline-webinar {
-    background: url(../img/home/banner/pipeline/pipeline-tab.svg) no-repeat bottom right;
+    background: url(../img/home/banner/webinar/RabbitMQ-Hero-queues-tablet.svg) no-repeat bottom right;
     background-size: cover;
   }
 }
@@ -1121,7 +1121,7 @@ body#index #getstarted,
     text-align: center;
   }
   #hero #hero-pipeline-webinar {
-    background: url(../img/home/banner/pipeline/pipeline-phone.svg) no-repeat bottom right;
+    background: url(../img/home/banner/webinar/RabbitMQ-Hero-queues-phone.svg) no-repeat bottom right;
     background-size: 100%;
     padding-bottom: 300px;
   }
