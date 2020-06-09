@@ -136,7 +136,7 @@ See the [RabbitMQ Networking guide](/networking.html) and [Ranch documentation](
 for details about accepted parameters.
 
 
-### <a id="tls" class="anchor" href="#tls">TLS</a>
+### <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
 The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
 to learn more about TLS support in RabbitMQ.
@@ -157,7 +157,47 @@ Password is also mandatory if the private key uses one.
 An extended list of TLS settings is largely identical to those [for the core server](/ssl.html).
 Full list of options accepted by this plugin can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.7/manual/ranch_ssl/).
 
-A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
+#### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
+
+It is possible to configure what TLS versions and cipher suites will be used by RabbitMQ. Note that not all
+suites will be available on all systems.
+
+RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
+[on cipher suites](/ssl.html#cipher-suites). Below is an example
+in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
+and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
+
+<pre class="lang-ini">
+web_stomp.ssl.port       = 15673
+web_stomp.ssl.backlog    = 1024
+web_stomp.ssl.certfile   = /path/to/server_certificate.pem
+web_stomp.ssl.keyfile    = /path/to/server_key.pem
+web_stomp.ssl.cacertfile = /path/to/ca_certificate_bundle.pem
+web_stomp.ssl.password   = changeme
+
+web_stomp.ssl.honor_cipher_order   = true
+web_stomp.ssl.honor_ecc_order      = true
+web_stomp.ssl.client_renegotiation = false
+web_stomp.ssl.secure_renegotiate   = true
+
+web_stomp.ssl.versions.1 = tlsv1.2
+web_stomp.ssl.versions.2 = tlsv1.1
+web_stomp.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+web_stomp.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+web_stomp.ssl.ciphers.3 = ECDHE-ECDSA-AES256-SHA384
+web_stomp.ssl.ciphers.4 = ECDHE-RSA-AES256-SHA384
+web_stomp.ssl.ciphers.5 = ECDH-ECDSA-AES256-GCM-SHA384
+web_stomp.ssl.ciphers.6 = ECDH-RSA-AES256-GCM-SHA384
+web_stomp.ssl.ciphers.7 = ECDH-ECDSA-AES256-SHA384
+web_stomp.ssl.ciphers.8 = ECDH-RSA-AES256-SHA384
+web_stomp.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
+</pre>
+
+
+#### Troubleshooting TLS (WSS)
+
+See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
+information.
 
 
 ### <a id="http-auth" class="anchor" href="#http-auth">Basic HTTP Authentication</a>

@@ -16,6 +16,8 @@ limitations under the License.
 -->
 # RabbitMQ Web MQTT Plugin NOSYNTAX
 
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
 The Web MQTT plugin makes it possible to use
 [MQTT](/mqtt.html) over a WebSocket connection.
 
@@ -24,16 +26,16 @@ The goal of this plugin is to enable MQTT messaging in Web applications.
 A similar plugin, [Web STOMP plugin](/web-stomp.html), makes it possible to use [STOMP](/stomp.html) over
 WebSockets.
 
-## How It Works
+## <a id="how-it-works" class="anchor" href="#how-it-works">How It Works</a>
 
 RabbitMQ Web MQTT plugin is rather simple. It takes the MQTT protocol,
 as provided by [RabbitMQ MQTT plugin](/mqtt.html) and exposes it using
 WebSockets.
 
 
-## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Installation and Enabling the Plugin</a>
+## <a id="enabling" class="anchor" href="#enabling">Installation and Enabling the Plugin</a>
 
-`rabbitmq_web_mqtt` plugin ships with RabbitMQ as of 3.6.7.
+`rabbitmq_web_mqtt` plugin ships with RabbitMQ.
 
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
@@ -137,16 +139,16 @@ To change this, edit your
 to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 
 For example, a complete configuration file which changes the listener
-port to 12345 would look like:
+port to `9001` would look like:
 
 <pre class="lang-ini">
-web_mqtt.tcp.port = 12345
+web_mqtt.tcp.port = 9001
 </pre>
 
 See [RabbitMQ Networking guide](/networking.html) for more information.
 
 
-## <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
+### <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
 The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
 to learn more about TLS support in RabbitMQ.
@@ -154,7 +156,7 @@ to learn more about TLS support in RabbitMQ.
 TLS configuration parameters are provided in the `web_mqtt.ssl` section:
 
 <pre class="lang-ini">
-web_mqtt.ssl.port       = 15673
+web_mqtt.ssl.port       = 15676
 web_mqtt.ssl.backlog    = 1024
 web_mqtt.ssl.cacertfile = /path/to/ca_certificate.pem
 web_mqtt.ssl.certfile   = /path/to/server_certificate.pem
@@ -171,7 +173,7 @@ Full list of options accepted by this plugin can be found in [Ranch documentatio
 A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
 
 
-### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
+#### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
 
 It is possible to configure what TLS versions and cipher suites will be used by RabbitMQ. Note that not all
 suites will be available on all systems.
@@ -181,31 +183,34 @@ RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versi
 in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
 and a number of other [TLS options](/ssl.html) for the Web MQTT plugin:
 
-<pre class="lang-erlang">
-{rabbitmq_web_mqtt,
-  [{ssl_config,
-    [{cacertfile,           "/path/to/ca_certificate.pem"},
-     {certfile,             "/path/to/server_certificate.pem"},
-     {keyfile,              "/path/to/server_key.pem"},
-     {verify,               verify_peer},
-     {fail_if_no_peer_cert, true},
-     {versions,             ['tlsv1.2']},
-     {honor_cipher_order,   true},
-     {honor_ecc_order,      true},
-     {secure_renegotiate,   true},
-     {ciphers,              [{rsa,aes_256_cbc,sha256},
-                             {rsa,aes_128_cbc,sha256},
-                             {rsa,aes_256_cbc,sha},
-                             {rsa,'3des_ede_cbc',sha},
-                             {rsa,aes_128_cbc,sha},
-                             {rsa,des_cbc,sha}]}]
-    ]
-  }]
-}
+<pre class="lang-ini">
+web_mqtt.ssl.port       = 15676
+web_mqtt.ssl.backlog    = 1024
+web_mqtt.ssl.certfile   = /path/to/server_certificate.pem
+web_mqtt.ssl.keyfile    = /path/to/server_key.pem
+web_mqtt.ssl.cacertfile = /path/to/ca_certificate_bundle.pem
+web_mqtt.ssl.password   = changeme
+
+web_mqtt.ssl.honor_cipher_order   = true
+web_mqtt.ssl.honor_ecc_order      = true
+web_mqtt.ssl.client_renegotiation = false
+web_mqtt.ssl.secure_renegotiate   = true
+
+web_mqtt.ssl.versions.1 = tlsv1.2
+web_mqtt.ssl.versions.2 = tlsv1.1
+web_mqtt.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384
+web_mqtt.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384
+web_mqtt.ssl.ciphers.3 = ECDHE-ECDSA-AES256-SHA384
+web_mqtt.ssl.ciphers.4 = ECDHE-RSA-AES256-SHA384
+web_mqtt.ssl.ciphers.5 = ECDH-ECDSA-AES256-GCM-SHA384
+web_mqtt.ssl.ciphers.6 = ECDH-RSA-AES256-GCM-SHA384
+web_mqtt.ssl.ciphers.7 = ECDH-ECDSA-AES256-SHA384
+web_mqtt.ssl.ciphers.8 = ECDH-RSA-AES256-SHA384
+web_mqtt.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 </pre>
 
 
-### Troubleshooting TLS (WSS)
+#### Troubleshooting TLS (WSS)
 
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
 information.
@@ -231,7 +236,7 @@ w.r.t. WebSocket connection handling.
 
 Some settings are generic HTTP ones, others are specific to WebSockets.
 
-### HTTP Options
+### <a id="http-options" class="anchor" href="#http-options">HTTP Options</a>
 
 Generic HTTP server settings can be specified using `web_mqtt.cowboy_opts.*` keys,
 for example:
@@ -250,7 +255,7 @@ web_mqtt.cowboy_opts.max_request_line_length
 </pre>
 
 
-### WebSocket Options
+### <a id="websocket-options" class="anchor" href="#websocket-options">WebSocket Options</a>
 
 <pre class="lang-ini">
 # WebSocket traffic compression is enabled by default
