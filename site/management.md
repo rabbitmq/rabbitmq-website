@@ -615,26 +615,6 @@ management.rates_mode = basic
 
 Supported values are `basic` (the default), `detailed`, and `none`.
 
-### <a id="max-backlog" class="anchor" href="#max-backlog">Event Backlog</a>
-
-Under heavy load, the processing of statistics events can
-increase the memory consumption. To reduce this,
-the maximum backlog size of the channel and queue statistics
-collectors can be regulated. The value of the
-`rabbitmq_management.stats_event_max_backlog` key sets
-the maximum size of both backlogs. The value is only
-configurable via `advanced.config` at the moment:
-
-<pre class="lang-erlang">
-[
-  {rabbitmq_management, [
-    {stats_event_max_backlog, 200}
-  ]}
-].
-</pre>
-
-Defaults to 250.
-
 ### <a id="sample-retention" class="anchor" href="#sample-retention">Sample (Data Point) Retention</a>
 
 The management plugin will retain samples of some data
@@ -834,61 +814,6 @@ management.sample_retention_policies.basic.hour = 60
 
 management.sample_retention_policies.detailed.10 = 5
 </pre>
-
-Or, using the [classic config format](/configure.html#erlang-term-config-file):
-
-<pre class="lang-erlang">[
-{rabbit, [{tcp_listeners,               [5672]},
-          {collect_statistics_interval, 10000}]},
-
-{rabbitmq_management,
-  [
-   %% Pre-Load schema definitions from the following JSON file.
-   %%
-   %% {load_definitions, "/path/to/definitions.json"},
-
-   %% Log all requests to the management HTTP API to a directory.
-   %%
-   {http_log_dir, "/path/to/rabbit/logs/http"},
-
-   %% Change the port on which the HTTP listener listens,
-   %% specifying an interface for the HTTP server to bind to.
-   %% Also set the listener to use TLS and provide TLS options.
-   %%
-   %% {listener, [{port,     15672},
-   %%             {ip,       "0.0.0.0"},
-   %%             {ssl,      true},
-   %%             {ssl_opts, [{cacertfile, "/path/to/ca_certificate.pem"},
-   %%                         {certfile,   "/path/to/server_certificate.pem"},
-   %%                         {keyfile,    "/path/to/server_key.pem"}]}]},
-
-   %% One of 'basic', 'detailed' or 'none'.
-   {rates_mode, basic},
-
-   %% increasing this parameter will make HTTP API cache data retrieved
-   %% from other cluster peers more aggressively
-   %% {management_db_cache_multiplier, 5},
-
-   %% If event collection falls back behind stats emission,
-   %% up to this many events will be kept in the backlog, the rest
-   %% will be dropped to avoid runaway memory consumption growth.
-   %% This setting is per-node. Unless there is evidence of
-   %% a stats collector backlog, you don't need to change this value.
-   %% {stats_event_max_backlog, 250},
-
-   %% CORS settings for HTTP API
-   %% {cors_allow_origins, ["https://rabbitmq.eng.megacorp.local", "https://monitoring.eng.megacorp.local"]},
-   %% {cors_max_age, 1800},
-
-   %% Configure how long aggregated data (such as message rates and queue
-   %% lengths) is retained.
-   %%
-   %% {sample_retention_policies,
-   %%  [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
-   %%   {basic,    [{60, 5}, {3600, 60}]},
-   %%   {detailed, [{10, 5}]}]}
-  ]}
-].</pre>
 
 
 ## <a id="load-definitions" class="anchor" href="#load-definitions">Loading Definitions (Schema) at Startup</a>
