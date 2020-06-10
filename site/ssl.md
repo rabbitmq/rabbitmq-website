@@ -401,7 +401,7 @@ provides an overview of various alerts and what they mean.
 Every TLS-enabled tool and TLS implementation, including Erlang/OTP and
 RabbitMQ, has a way of marking a set of certificates as trusted.
 
-There are three common approaches to this are
+There are three common approaches to this:
 
  * All trusted CA certificates must be added to a single file called the *CA certificate bundle*
  * All CA certificates in a directory are considered to be trusted
