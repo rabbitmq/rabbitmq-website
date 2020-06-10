@@ -426,7 +426,7 @@ to implementation. Certificates in a CA certificate bundler won't be considered 
 for example, unless explicitly added to the trust store.
 
 RabbitMQ relies on Erlang's TLS implementation. It assumes that
-**all trusted CA certificates are added to the certificate bundle**.
+**all trusted CA certificates are added to the server certificate bundle**.
 
 When performing peer verification, RabbitMQ will only consider the root certificate (first certificate in the list) to be trusted.
 Any intermediate certificates will be ignored. If it's desired that intermediate certificates
