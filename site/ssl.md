@@ -346,18 +346,16 @@ on the latter.
 ### <a id="peer-verification-how-it-works" class="anchor" href="#peer-verification-how-it-works">How Peer Verification Works</a>
 
 When a TLS connection is established client and server perform connection negotiation that takes several steps.
-The first step is when the peers <em>optionally</em> exchange their
-[certificates](#certificates-and-keys).
-Having exchanged certificates, the peers can <em class="">optionally</em> attempt
-to establish a chain of trust between their CA
-certificates and the certificates presented. This acts to verify that
-the peer is who it claims to be (provided the private key hasn't been
+The first step is when the peers *optionally* exchange their [certificates](#certificates-and-keys).
+Having exchanged certificates, the peers can *optionally attempt
+to establish a chain of trust between their CA certificates and the certificates presented.
+This acts to verify that the peer is who it claims to be (provided the private key hasn't been
 stolen). The process is known as peer verification or peer validation
 and follows an algorithm known as the [Certification path validation algorithm](https://en.wikipedia.org/wiki/Certification_path_validation_algorithm).
 Understanding the entire algorithm is not necessary in order to use peer verification,
 so this section provides an oversimplified explanation of the key parts.
 
-Each peer provides a <em>chain of certificates</em> that begins with a "leaf"
+Each peer provides a *chain of certificates* that begins with a "leaf"
 (client or server) certificate and continues with at least one Certificate Authority (CA) certificate. That
 CA issued (signed) the leaf CA. If there are multiple CA certificates, they usually form a chain of signatures,
 meaning that each CA certificate was signed by the next one. For example, if certificate B is signed by A and C is signed by B,
@@ -401,12 +399,23 @@ provides an overview of various alerts and what they mean.
 ### <a id="peer-verification-trusted-certificates" class="anchor" href="#peer-verification-trusted-certificates">Trusted Certificates</a>
 
 Every TLS-enabled tool and TLS implementation, including Erlang/OTP and
-RabbitMQ, has a way of marking a set of certificates as
-trusted. On Linux and other UNIX-like systems this is
-usually a directory administered by superusers. CA
-certificates in that directory will be considered trusted,
-and so are the certificates issued by them (such as those
-presented by clients). Locations of the trusted certificate directory will [vary](https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/)
+RabbitMQ, has a way of marking a set of certificates as trusted.
+
+There are three common approaches to this are
+
+ * All trusted CA certificates must be added to a single file called the *CA certificate bundle*
+ * All CA certificates in a directory are considered to be trusted
+ * A dedicated tool is used to manage trusted CA certificates
+
+Different TLS implementation and tools use different options. In the context of RabbitMQ this means that
+the trusted certificate management approach may be different for different client
+libraries, tools and RabbitMQ server itself.
+
+For example, OpenSSL and OpenSSL command line tools such as `s_client` on Linux and other UNIX-like systems
+will useu a directory administered by superusers.
+CA certificates in that directory will be considered trusted,
+and so are the certificates issued by them (such as those presented by clients).
+Locations of the trusted certificate directory will [vary](https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/)
 [between distributions](http://gagravarr.org/writing/openssl-certs/others.shtml), operating systems and releases.
 
 On Windows trusted certificates are managed using tools such as [certmgr](https://docs.microsoft.com/en-us/dotnet/framework/tools/certmgr-exe-certificate-manager-tool).
@@ -416,9 +425,12 @@ We say "may" because it doesn't work the same way for all client libraries since
 to implementation. Certificates in a CA certificate bundler won't be considered to be trusted in Python,
 for example, unless explicitly added to the trust store.
 
+RabbitMQ relies on Erlang's TLS implementation. It assumes that
+**all trusted CA certificates are added to the certificate bundle**.
+
 When performing peer verification, RabbitMQ will only consider the root certificate (first certificate in the list) to be trusted.
 Any intermediate certificates will be ignored. If it's desired that intermediate certificates
-are also considered to be trusted they must be added to the trusted certificate store.
+are also considered to be trusted they must be added to the trusted certificate list: the certificate bundle.
 
 While it is possible to place final ("leaf") certificates
 such as those used by servers and clients to the trusted certificate directory,
