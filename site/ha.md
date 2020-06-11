@@ -83,11 +83,12 @@ can be promoted, too, depending on queue mirroring parameters.
 There are multiple terms commonly used to identify primary
 and secondary replicas in a distributed system. This guide
 typically uses "master" to refer to the primary replica of a
-queue and "mirror" for secondary replicas.  However,
-RabbitMQ CLI tools historically have been using the term
-"slave" to refer to secondaries. Therefore that term still appears
-in column names in CLI tools for backwards compatibility but will
-eventually be replaced.
+queue and "mirror" for secondary replicas.
+
+Queue object fields in the HTTP API and CLI tools originally sed the unfortunate term
+"slave" to refer to secondaries. That term still appears
+in column names in CLI tools for backwards compatibility but will be
+replaced or removed in a future version.
 
 
 ## <a id="ways-to-configure" class="anchor" href="#ways-to-configure">How Mirroring is Configured</a>
