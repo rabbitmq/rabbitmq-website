@@ -44,11 +44,23 @@ and client libraries. This value is negotiated between the
 client and RabbitMQ server at the time of connection. The
 client must be configured to request heartbeats.
 
-The broker and client will attempt to negotiate
-heartbeats by default. When both values are greater than zero, the lower of the requested
-values will be used. A zero value disables heartbeats.
+The negotiation process works like this: the server will suggest
+its configurable value and the client will reconcile it with its configured value,
+and send the result value back. The value is **in seconds**,
+and default value suggested by RabbitMQ is `60`.
 
-The timeout is in seconds, and default value is `60`.
+Java, .NET and Erlang clients maintained by the RabbitMQ core team use the following negotiation
+algorithm:
+
+ * If either value is `0` (see below), the greater value of the two is used
+ * Otherwise the smaller value of the two is used
+
+A zero value indicates that a peer suggests disabling heartbeats entirely.
+To disable heartbeats, both peers have to opt in and use the value of `0`.
+This is **highly recommended against** unless the environment is known to use
+[TCP keepalives](#tcp-keepalives) on every host.
+
+[Very low values](#false-positives) are also highly recommended against.
 
 
 ## <a id="heartbeats-interval" class="anchor" href="#heartbeats-interval">Heartbeat Frames</a>
