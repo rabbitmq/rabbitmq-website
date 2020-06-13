@@ -134,9 +134,11 @@ Standard Debian and Ubuntu repositories tend to provide outdated versions of Erl
 an apt repository that includes [packages of modern Erlang/OTP releases](https://bintray.com/rabbitmq-erlang/debian/erlang/) for
 a number of commonly used Debian and Ubuntu distributions:
 
+ * Ubuntu 20.04 (Focal)
  * Ubuntu 18.04 (Bionic)
  * Ubuntu 16.04 (Xenial)
- * Debian Stretch and Buster
+ * Debian Buster
+ * Debian Stretch
 
 The repo provides most recent patch releases in the following Erlang series:
 
@@ -206,6 +208,7 @@ decisions have to be made. One is determining the distribution name. It typicall
 the Debian or Ubuntu release used but only a handful of distributions are
 supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
 
+ * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
  * `xenial` for Ubuntu 16.04
  * `buster` for Debian Buster
@@ -221,7 +224,7 @@ Below is a table of OS release and distribution names that should be used on Bin
 
 | Release        | Distribution Name to Use on Bintray |
 |----------------|-----------|
-| Ubuntu 20.04   | `bionic`  |
+| Ubuntu 20.04   | `focal`   |
 | Ubuntu 18.04   | `bionic`  |
 | Ubuntu 16.04   | `xenial`  |
 | Debian Buster  | `buster`  |
@@ -232,18 +235,18 @@ Below is a table of OS release and distribution names that should be used on Bin
 #### Erlang/OTP Version
 
 Another is what Erlang/OTP release version should be provisioned. It is possible to track
-a specific series (e.g. `21.x`) or install the most recent version available. The choice
+a specific series (e.g. `22.x`) or install the most recent version available. The choice
 determines what Debian repository `component` will be configured.
 
 Consider the following repository file at `/etc/apt/sources.list.d/bintray.erlang.list`:
 
 <pre class="lang-ini">
-## Installs the latest 21.x version available in the repository.
+## Installs the latest 22.x version available in the repository.
 ## Please see the distribution name table above.
-deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-22.x
 </pre>
 
-It configures apt to install the most recent Erlang `21.x` version available in the
+It configures apt to install the most recent Erlang `22.x` version available in the
 repository and use packages for Ubuntu 18.04 (Bionic). More recent Ubuntu releases
 should also use this distribution name.
 
@@ -252,30 +255,21 @@ For Debian Buster the file would look like this:
 <pre class="lang-ini">
 ## Installs the latest 21.x version available in the repository.
 ## Please see the distribution name table above.
-deb https://dl.bintray.com/rabbitmq-erlang/debian buster erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian buster erlang-22.x
 </pre>
 
 For Debian Stretch:
 
 <pre class="lang-ini">
-## Installs the latest 21.x version available in the repository.
+## Installs the latest 22.x version available in the repository.
 ## Please see the distribution name table above.
-deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang-21.x
+deb https://dl.bintray.com/rabbitmq-erlang/debian stretch erlang-22.x
 </pre>
 
-To use the most recent `20.x` patch release available, switch the component
-to `erlang-20.x`:
+`erlang-21.x`, `erlang-19.x`, and `erlang-16.x` are the component names
+for Erlang 21.x, 19.x and R16B03, respectively.
 
-<pre class="lang-ini">
-## Installs the latest 20.x version available in the repository.
-## Please see the distribution name table above.
-deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang-20.x
-</pre>
-
-`erlang-21.x`, `erlang-19.x`, and `erlang-16.x` are the components for Erlang 21.x,
-19.x and R16B03, respectively.
-
-The `erlang` component installs the most recent version available:
+The `erlang` component installs the most recent version available (currently Erlang 23):
 
 <pre class="lang-ini">
 ## Installs the latest version available in the repository.
@@ -284,7 +278,8 @@ The `erlang` component installs the most recent version available:
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
 </pre>
 
-That version may or may not be supported by RabbitMQ, so [package version pinning](#apt-pinning) is highly recommended.
+That version may or may not be supported by RabbitMQ, so [package version pinning](#apt-pinning)
+is highly recommended.
 
 ### <a id="installing-erlang-package" class="anchor" href="#installing-erlang-package">Install Erlang Packages</a>
 
@@ -337,13 +332,13 @@ Effective package pinning policy can be verified with
 sudo apt-cache policy
 </pre>
 
-The following preference file example will pin all `erlang-*` packages to `22.3`
+The following preference file example will pin all `erlang-*` packages to `22.3.4.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: erlang*
-Pin: version 1:22.3-1
+Pin: version 1:22.3.4.1-1
 Pin-Priority: 1000
 </pre>
 
@@ -358,13 +353,13 @@ Pin-Priority: 1000
 </pre>
 
 
-In the example below, the `esl-erlang` package is pinned to to to `22.3`
+In the example below, the `esl-erlang` package is pinned to to to `22.3.4.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/erlang
 Package: esl-erlang
-Pin: version 1:22.3
+Pin: version 1:22.3.4.1
 Pin-Priority: 1000
 </pre>
 
@@ -435,13 +430,14 @@ curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 ## Install apt HTTPS transport
 sudo apt-get install apt-transport-https
 
-## Add Bintray repositories that provision latest RabbitMQ and Erlang 21.x releases
+## Add Bintray repositories that provision latest RabbitMQ and Erlang 23.x releases
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
-## Installs the latest Erlang 22.x release.
-## Change component to "erlang-21.x" to install the latest 21.x version.
+## Installs the latest Erlang 23.x release.
+## Change component to "erlang-22.x" to install the latest 22.x version.
 ## "bionic" as distribution name should work for any later Ubuntu or Debian release.
 ## See the release to distribution mapping table in RabbitMQ doc guides to learn more.
 deb https://dl.bintray.com/rabbitmq-erlang/debian bionic erlang
+## Installs latest RabbitMQ release
 deb https://dl.bintray.com/rabbitmq/debian bionic main
 EOF
 
@@ -473,10 +469,10 @@ pattern:
 # Source repository definition example.
 # See below for supported distribution and component values
 
-# Use this line to install the latest Erlang 21.3.x package available
-deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution erlang-21.x
+# Use this line to install the latest Erlang 22.3.x package available
+deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution erlang-22.x
 
-# Or use this line to install the latest Erlang 22.x package available
+# Or use this line to install the latest Erlang 23.x package available
 # deb https://dl.bintray.com/rabbitmq-erlang/debian $distribution erlang
 
 # This repository provides RabbitMQ packages
@@ -489,10 +485,10 @@ are supported.
 #### Distribution
 
 In order to set up an apt repository that provides the correct package, a few
-decisions have to be made. One is determining the distribution name. It typically matches
-the Debian or Ubuntu release used:
+decisions have to be made. One is determining the distribution name. It often
+matches the Debian or Ubuntu release used:
 
- * `bionic` for Ubuntu 18.04
+ * `bionic` for Ubuntu 18.04 and 20.04
  * `xenial` for Ubuntu 16.04
  * `buster` for Debian Buster
  * `stretch` for Debian Stretch
@@ -546,7 +542,7 @@ echo "deb https://dl.bintray.com/rabbitmq/debian xenial main" | sudo tee /etc/ap
 </pre>
 
 It is possible to list multiple repositories, for example, one that provides RabbitMQ and one that [provides Erlang/OTP packages](#erlang-repositories).
-On Ubuntu 18.04 that can be done by modifying the command in the above example like so:
+On Ubuntu 18.04 or Ubuntu 20.04 that can be done by modifying the command in the above example like so:
 
 <pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list &lt;&lt;EOF
@@ -645,7 +641,10 @@ RabbitMQ server package is installed. It will run as a non-privileged user `rabb
 
 As an administrator, start and stop the
 server as usual for Debian-based systems:
-`service rabbitmq-server start`.
+
+<pre class="lang-bash">
+service rabbitmq-server start
+</pre>
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuring RabbitMQ</a>
