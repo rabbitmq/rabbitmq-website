@@ -304,7 +304,7 @@ with reply code 403 (`ACCESS_REFUSED`).
 ### <a id="queue-durability" class="anchor" href="#queue-durability">Queue Durability</a>
 
 In AMQP 0-9-1, queues can be declared as durable or transient.
-Metadata of a durable queue is stored on disk, while metadata of a transient wueue is
+Metadata of a durable queue is stored on disk, while metadata of a transient queue is
 stored in memory when possible.
 
 The same distinction is made for [messages at publishing time](/publishers.html#message-properties).
