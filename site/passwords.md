@@ -43,7 +43,7 @@ SHA-256 is used by default. More algorithms can be provided by plugins.
 It is possible to change what algorithm is used via [RabbitMQ configuration file](/configure.html#config-file),
 for example, to use SHA-512:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 password_hashing_module = rabbit_password_hashing_sha512
 </pre>
 

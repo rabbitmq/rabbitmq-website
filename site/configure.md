@@ -55,7 +55,7 @@ for different areas:
     <td><strong>Mechanism</strong></td>
     <td><strong>Description</strong></td>
   </thead>
-  
+
   <tr>
     <td>
       <a href="#configuration-files">Configuration File(s)</a>
@@ -228,7 +228,7 @@ The new config format is much simpler, eadier for humans to read
 and machines to generate. It is also relatively limited compared
 to the classic config format used prior to RabbitMQ 3.7.0.
 For example, when configuring [LDAP support](/ldap.html), it may be necessary to use deeply nested data structures to
-express desired configuration. 
+express desired configuration.
 
 To accommodate this need, modern RabbitMQ versions allow for both both formats to be used at the same time
 in separate files: `rabbitmq.conf` uses the new style format and recommended for most settings,
@@ -516,7 +516,7 @@ some settings are quite obscure.
     <tr>
       <th><strong>Key</strong></th>
       <th><strong>Documentation</strong></th>
-    </tr>  
+    </tr>
   </thead>
 
   <tr>
@@ -2070,7 +2070,7 @@ On distributions that use systemd, the OS limits are controlled via
 a configuration file at `/etc/systemd/system/rabbitmq-server.service.d/limits.conf`.
 For example, to set the max open file handle limit (`nofile`) to `64000`:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 [Service]
 LimitNOFILE=64000
 </pre>
@@ -2103,7 +2103,7 @@ RabbitMQ on distributions that do not use systemd is to edit the `/etc/default/r
 (provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](#config-file)
 to invoke `ulimit` before the service is started.
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ulimit -S -n 4096
 </pre>
 

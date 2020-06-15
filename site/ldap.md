@@ -896,7 +896,7 @@ The [standard config](/configure.html#config-file)
 (rabbitmq.conf) is used to configure authentication backends and
 several LDAP plugin parameters:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 auth_backends.1 = ldap
 
 auth_ldap.servers.1  = my-ldap-server

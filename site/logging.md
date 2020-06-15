@@ -483,9 +483,9 @@ sudo journalctl --system | grep rabbitmq
 Service logs will include standard output and standard error streams of the node.
 The output of <code>journalctl --system</code> will look similar to this:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.5. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -506,7 +506,7 @@ not be logged.
 
 Here's an example:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 2018-11-22 10:44:33.654 [info] &lt;0.620.0&gt; accepting AMQP connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672)
 </pre>
 
@@ -517,7 +517,7 @@ when troubleshooting client connections.
 Once a connection successfully authenticates and is granted access to a [virtual host](/vhosts.html),
 that is also logged:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 2018-11-22 10:44:33.663 [info] &lt;0.620.0&gt; connection &lt;0.620.0&gt; (127.0.0.1:52771 -> 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
 </pre>
 
@@ -533,29 +533,14 @@ or TCP connection fails. RabbitMQ will log both cases.
 
 Below is an example entry for a successfully closed connection:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 2018-06-17 06:23:29.855 [info] &lt;0.634.0&gt; closing AMQP connection &lt;0.634.0&gt; (127.0.0.1:58588 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest')
-</pre>
-
-Prior to RabbitMQ 3.7 the format was different:
-
-<pre class="lang-ini">
-=INFO REPORT==== 30-Oct-2017::21:40:32 ===
-closing AMQP connection &lt;0.24990.164&gt; (127.0.0.1:57919 -> 127.0.0.1:5672, vhost: '/', user: 'guest')
 </pre>
 
 Abruptly closed connections will be logged as warnings:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 2018-06-17 06:28:40.868 [warning] &lt;0.646.0&gt; closing AMQP connection &lt;0.646.0&gt; (127.0.0.1:58667 -&gt; 127.0.0.1:5672, vhost: '/', user: 'guest'):
-client unexpectedly closed TCP connection
-</pre>
-
-In the pre-3.7 format:
-
-<pre class="lang-ini">
-=WARNING REPORT==== 1-Nov-2017::16:58:58 ===
-closing AMQP connection &lt;0.601.0&gt; (127.0.0.1:60471 -> 127.0.0.1:5672, vhost: '/', user: 'guest'):
 client unexpectedly closed TCP connection
 </pre>
 
@@ -593,14 +578,14 @@ If the `log_levels` key is present in `rabbitmq.config` file, it should be updat
 RabbitMQ nodes have an internal mechanism. Some of its events can be of interest for monitoring,
 audit and troubleshooting purposes. They can be consumed as JSON objects using a `rabbitmq-diagnostics` command:
 
-<pre class="lang-ini">
+<pre class="lang-bash">
 # will emit JSON objects
 rabbitmq-diagnostics consume_event_stream
 </pre>
 
 When used interactively, results can be piped to a command line JSON processor such as [jq](https://stedolan.github.io/jq/):
 
-<pre class="lang-ini">
+<pre class="lang-bash">
 rabbitmq-diagnostics consume_event_stream | jq
 </pre>
 

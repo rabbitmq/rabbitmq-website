@@ -55,7 +55,7 @@ is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq
 
 The WebSocket endpoint is available on the `/ws` path:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 http://127.0.0.1:15674/ws
 </pre>
 

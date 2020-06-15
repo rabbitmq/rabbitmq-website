@@ -34,16 +34,16 @@ data consistency and availability (as in the CAP theorem) to client operations.
 Since different applications have different requirements around consistency
 and can tolerate unavailability to a different extent, different
 [partition handling strategies](#automatic-handling) are available.
-      
+
 ## <a id="detecting" class="anchor" href="#detecting">Detecting Network Partitions</a>
-      
+
 Nodes determine if its peer is down if another
 node is unable to contact it for a [period of time](nettick.html), 60 seconds by default.
 If two nodes come back into contact, both having thought the other is down, the nodes will
 determine that a partition has occurred. This will be written to
 the RabbitMQ log in a form like:
-      
-<pre class="sourcecode">
+
+<pre class="lang-plaintext">
 2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 </pre>
 
@@ -54,51 +54,51 @@ and a [CLI command](/cli.html):
 <pre class="lang-bash">
 rabbitmq-diagnostics cluster_status
 </pre>
-       
+
 <code>rabbitmq-diagnostics cluster_status</code> will normally show an
 empty list for partitions:
-      
+
 <pre class="lang-bash">
 rabbitmq-diagnostics cluster_status
 # => Cluster status of node rabbit@warp10 ...
 # => Basics
-# => 
+# =>
 # => Cluster name: local.1
-# => 
+# =>
 # => ...edited out for brevity...
-# => 
+# =>
 # => Network Partitions
-# => 
+# =>
 # => (none)
 # =>
 # => ...edited out for brevity...
 </pre>
-      
+
 However, if a network partition has occurred then information
 about partitions will appear there:
-      
+
 <pre class="lang-bash">
 rabbitmqctl cluster_status
 # => Cluster status of node rabbit@warp10 ...
 # => Basics
-# => 
+# =>
 # => Cluster name: local.1
-# => 
+# =>
 # => ...edited out for brevity...
-# => 
+# =>
 # => Network Partitions
 # =>
 # => Node flopsy@warp10 cannot communicate with hare@warp10
 # => Node rabbit@warp10 cannot communicate with hare@warp10
 </pre>
-      
+
 The HTTP API will return partition
 information for each node under <code>partitions</code>
 in <code>GET /api/nodes</code> endpoints.
 
 The management UI will show a
 warning on the overview page if a partition has occurred.
-      
+
 
 ## <a id="during" class="anchor" href="#during">Behavior During a Network Partition</a>
 
@@ -111,16 +111,16 @@ be created or deleted separately.
 [Classic mirrored queues](ha.html) which are split across the partition will end up with
 one master on each side of the partition, again with both sides
 acting independently. [Quorum queues](/quorum-queues.html) will elect a new leader on the
-majority side. Quorum queue replicas on the minority side will 
+majority side. Quorum queue replicas on the minority side will
 
 Unless a [partition handling strategy](#automatic-handling),
 such as <code>pause_minority</code>, is configured to be used,
 the split will continue even after network connectivity is restored.
-      
-    
+
+
 
 ## <a id="suspend" class="anchor" href="#suspend">Partitions Caused by Suspend and Resume</a>
-      
+
 While we refer to "network" partitions, really a partition is
 any case in which the different nodes of a cluster can have
 communication interrupted without any node failing. In addition
@@ -147,8 +147,8 @@ asymmetrical - the suspended node will not necessarily see the
 other nodes as having gone down, but will be seen as down by the
 rest of the cluster. This has particular implications for <a
 href="#pause-minority">pause_minority</a> mode.
-      
-    
+
+
 
 ## <a id="recovering" class="anchor" href="#recovering">Recovering From a Split-Brain</a>
 
@@ -217,7 +217,7 @@ partitions is chosen in an unspecified way).
 You can enable either mode by setting the configuration
 parameter <code>cluster_partition_handling</code>
 for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-file) to:
-      
+
 <ul>
   <li><code>autoheal</code></li>
   <li><code>pause_minority</code></li>
@@ -233,7 +233,7 @@ If using the <code>pause_if_all_down</code> mode, additional parameters are requ
 
 Example [config snippet](/configure.html#config-file) that uses <code>pause_if_all_down</code>:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 cluster_partition_handling = pause_if_all_down
 
 ## Recovery strategy. Can be either 'autoheal' or 'ignore'
@@ -245,15 +245,15 @@ cluster_partition_handling.pause_if_all_down.nodes.2 = rabbit@myhost2
 </pre>
 
 ### <a id="options" class="anchor" href="#options">Which Mode to Pick?</a>
-    
+
 It's important to understand that allowing RabbitMQ to deal with
 network partitions automatically comes with trade offs.
 
 As stated in the introduction, to connect RabbitMQ clusters over generally unreliable
 links, prefer [Federation](/federation.html) or the [Shovel](/shovel.html).
-    
+
 With that said, here are some guidelines to help the operator determine
-which mode may or may not be appropriate:    
+which mode may or may not be appropriate:
 
 <ul>
   <li>
@@ -275,7 +275,7 @@ which mode may or may not be appropriate:
 </ul>
 
 ### <a id="pause-minority" class="anchor" href="#pause-minority">More About Pause-minority Mode</a>
-    
+
 The Erlang VM on the paused nodes will continue running but the
 nodes will not listen on any ports or be otherwise available.
 They will check once per second to see if the rest of the cluster has

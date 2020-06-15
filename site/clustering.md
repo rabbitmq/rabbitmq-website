@@ -750,7 +750,7 @@ Consider the following scenario:
 in this case node B will reject the clustering attempt from A with an appropriate error
 message in the log:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
 </pre>
 

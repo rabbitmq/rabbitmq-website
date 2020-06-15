@@ -298,7 +298,7 @@ would need to use `"c:\\ca_certificate.pem"` or `"c:/ca_certificate.pem"`.
 To verify that TLS has been enabled on the node, restart it and inspect its [log file](/logging.html).
 It should contain an entry about a TLS listener being enabled, looking like this:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 2018-09-02 14:24:58.611 [info] &lt;0.664.0&gt; started TCP listener on [::]:5672
 2018-09-02 14:24:58.614 [info] &lt;0.680.0&gt; started SSL listener on [::]:5671
 </pre>
@@ -1039,7 +1039,7 @@ namespace RabbitMQ.client.Examples {
       cf.Ssl.Enabled = true;
       cf.Ssl.ServerName = System.Net.Dns.GetHostName();
       cf.Ssl.CertPath = "/path/to/client_key.p12";
-      cf.Ssl.CertPassphrase = "MySecretPassword";      
+      cf.Ssl.CertPassphrase = "MySecretPassword";
 
       using (IConnection conn = cf.CreateConnection()) {
         using (IModel ch = conn.CreateModel()) {
@@ -1199,7 +1199,7 @@ openssl s_client -connect 127.0.0.1:5671 -tls1
 
  and look for the following in the output:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 SSL-Session:
 Protocol  : TLSv1
 </pre>

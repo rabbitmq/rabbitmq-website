@@ -232,7 +232,7 @@ please refer to the excellent [Riak guide on open file limit tuning](https://git
 
 [RabbitMQ management UI](management.html) displays the number of file descriptors available for it to use on the Overview tab.
 
-<pre class="sourcecode">rabbitmqctl status</pre>
+<pre class="lang-plaintext">rabbitmqctl status</pre>
 
 includes the same value. The following command
 

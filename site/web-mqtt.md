@@ -53,7 +53,7 @@ It is included as part of [RabbitMQ Web MQTT example plugin](https://github.com/
 By default the Web MQTT plugin exposes a WebSocket endpoint on port
 15675. The WebSocket endpoint is available on the `/ws` path:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 http://127.0.0.1:15675/ws
 </pre>
 

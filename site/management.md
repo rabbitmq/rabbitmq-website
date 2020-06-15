@@ -899,12 +899,12 @@ rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 
 There is also HTTP API endpoints to reset a database
 For entire database
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 DELETE /api/reset
 </pre>
 
 For a single node
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 DELETE /api/reset/:node
 </pre>
 
