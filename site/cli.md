@@ -293,7 +293,7 @@ starts up.
 Erlang cookie management is best done using automation tools and not manually.
 
 
-## <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
+### <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
 
 #### Linux, MacOS, *BSD
 
@@ -341,26 +341,40 @@ When a node starts, it will [log](/logging.html) its home (base) directory locat
 any [server directories](/relocate.html) were overridden, that's the directory the cookie file
 will be created in by the RabbitMQ service.
 
-#### Runtime Arguments
+### Overrding Using CLI and Runtime Command Line Arguments
 
-As an alternative, you can add the option "`-setcookie <i>value</i>`"
-in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>:
+As an alternative, the option "`-setcookie <value>`" can be added
+to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>
+to override the cookie value used by a RabbitMQ node:
 
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
-This is the least secure option and generally not recommended.
+CLI tools can take a cookie value using a command line flag:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status --erlang-cookie "cookie-value"
+</pre>
+
+Both are **the least secure options** and generally **not recommended**.
 
 
 ## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 
-When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
-such as "Connection attempt from disallowed node" and "Could not auto-cluster". When
-a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
+When the cookie is misconfigured (for example, not identical), RabbitMQ nodes will log errors
+such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
+
+For example, when a CLI tool connects and tries to authenticate using a mismatching secret value:
+
+<pre class="lang-plaintext">
+2020-06-15 13:03:33 [error] &lt;0.1187.0&gt; ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
+</pre>
+
+When a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 * epmd reports node 'rabbit' running on port 25672
 * TCP connection succeeded but Erlang distribution failed
 * suggestion: hostname mismatch?
@@ -384,7 +398,7 @@ cookie hash value when they fail to authenticate with the target node.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and cookie mismatches can be identified better:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 rabbit@warp10:
   * connected to epmd (port 4369) on warp10
   * epmd reports node 'rabbit' running on port 25672
@@ -428,7 +442,7 @@ rare.
 When a recent Erlang/OTP version is used, authentication failures contain
 more information and hostname mismatches can be identified better:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 rabbit@localhost:
   * connected to epmd (port 4369) on localhost
   * epmd reports node 'rabbit' running on port 25672
