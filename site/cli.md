@@ -335,12 +335,6 @@ If the Windows service is used, the cookie should be copied from
 `C:\Windows\.erlang.cookie` to the expected location for users
 running commands like `rabbitmqctl.bat`.
 
-##### Troubleshooting
-
-When a node starts, it will [log](/logging.html) its home (base) directory location. Unless
-any [server directories](/relocate.html) were overridden, that's the directory the cookie file
-will be created in by the RabbitMQ service.
-
 ### Overrding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
@@ -358,6 +352,20 @@ rabbitmq-diagnostics status --erlang-cookie "cookie-value"
 </pre>
 
 Both are **the least secure options** and generally **not recommended**.
+
+### Troubleshooting
+
+When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+
+<pre class="lang-plaintext">
+node           : rabbit@cdbf4de5f22d
+home dir       : /var/lib/rabbitmq
+</pre>
+
+Unless any [server directories](/relocate.html) were overridden, that's the directory where
+the cookie file will be looked for, and created by the node on first boot if it does not already exist.
+
+In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
 
 ## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
