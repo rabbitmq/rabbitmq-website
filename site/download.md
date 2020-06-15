@@ -51,16 +51,16 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Downloads [on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases)
 
- * [Windows installer](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4.exe)
- * [Debian, Ubuntu](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server_3.8.4-1_all.deb)
- * [RHEL/CentOS 8.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4-1.el8.noarch.rpm) |
-    [RHEL/CentOS 7.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4-1.el7.noarch.rpm) |
-    [RHEL/CentOS 6.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4-1.el6.noarch.rpm) |
-    [OpenSUSE](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4-1.suse.noarch.rpm) |
-    [SLES 11.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-3.8.4-1.sles11.noarch.rpm) |
+ * [Windows installer](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;.exe)
+ * [Debian, Ubuntu](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server_&version-server;-1_all.deb)
+ * [RHEL/CentOS 8.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm) |
+    [RHEL/CentOS 7.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm) |
+    [RHEL/CentOS 6.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm) |
+    [OpenSUSE](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm) |
+    [SLES 11.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.sles11.noarch.rpm) |
     [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
- * [Generic UNIX binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-generic-unix-3.8.4.tar.xz)
- * [Windows binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.4/rabbitmq-server-windows-3.8.4.zip)
+ * [Generic UNIX binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
+ * [Windows binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-windows-&version-server;.zip)
 
 
 ## Debian (Apt) and RPM (Yum) Repositories
@@ -96,15 +96,15 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 Bintray is an alternative download location that provides a subset of packages compared to [GitHub](#install-from-github).
 
- * [Windows installer](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-3.8.4.exe)
- * [Debian, Ubuntu](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server_3.8.4-1_all.deb) |
+ * [Windows installer](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe)
+ * [Debian, Ubuntu](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-1_all.deb) |
    [Erlang Debian packages](https://bintray.com/rabbitmq-erlang/debian/erlang)
- * [RHEL/CentOS 8.x and 7.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-3.8.4-1.el7.noarch.rpm) |
-   [RHEL/CentOS 6.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-3.8.4-1.el6.noarch.rpm) |
-   [OpenSUSE](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-3.8.4-1.suse.noarch.rpm) |
-   [SLES 11.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-3.8.4-1.sles11.noarch.rpm) |
+ * [RHEL/CentOS 8.x and 7.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.el7.noarch.rpm) |
+   [RHEL/CentOS 6.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.el6.noarch.rpm) |
+   [OpenSUSE](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.suse.noarch.rpm) |
+   [SLES 11.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.sles11.noarch.rpm) |
    [Erlang RPM packages](https://bintray.com/rabbitmq-erlang/rpm/erlang)
- * [Generic UNIX binary](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.8.4/rabbitmq-server-generic-unix-3.8.4.tar.xz)
+ * [Generic UNIX binary](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
 
 
 ## Older Versions
@@ -139,8 +139,8 @@ Bintray is an alternative download location that provides a subset of packages c
 
 ### Erlang Client
 
- * Quick download: Binary [client.ez](/releases/rabbitmq-erlang-client/v3.8.4/amqp_client-3.8.4.ez), [common.ez](/releases/rabbitmq-erlang-client/v3.8.4/rabbit_common-3.8.4.ez) |
-   Source [.tar.xz](/releases/rabbitmq-erlang-client/v3.8.4/amqp_client-3.8.4-src.tar.xz)
+ * Quick download: Binary [client.ez](/releases/rabbitmq-erlang-client/v&version-server;/amqp_client-&version-server;.ez), [common.ez](/releases/rabbitmq-erlang-client/v&version-server;/rabbit_common-&version-server;.ez) |
+   Source [.tar.xz](/releases/rabbitmq-erlang-client/v&version-server;/amqp_client-&version-server;-src.tar.xz)
  * [All Erlang client downloads](/erlang-client.html)
  * [Older versions](/releases/rabbitmq-erlang-client/)
 
