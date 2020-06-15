@@ -92,7 +92,7 @@ With <code>rabbitmqctl status</code> it will look like so:
 If the above steps are not an option, inspecting node's [log file](/logging.html) can be a viable alternative.
 It should contain an entry about a TLS listener being enabled, looking like this:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 2018-09-02 14:24:58.611 [info] &lt;0.664.0&gt; started TCP listener on [::]:5672
 2018-09-02 14:24:58.614 [info] &lt;0.680.0&gt; started SSL listener on [::]:5671
 </pre>

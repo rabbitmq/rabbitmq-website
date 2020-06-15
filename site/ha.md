@@ -224,7 +224,7 @@ is not online):
 
 When a new queue mirror is added, the event is logged:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 2018-03-01 07:26:33.121 [info] &lt;0.1360.0&gt; Mirrored queue 'two.replicas' in vhost '/': Adding mirror on node hare@warp10: &lt;37324.1148.0&gt;
 </pre>
 

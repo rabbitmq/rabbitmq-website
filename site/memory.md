@@ -161,7 +161,7 @@ When running RabbitMQ inside a 32 bit Erlang VM in a 64 bit
 OS (or a 32 bit OS with PAE), the addressable memory is
 limited. The server will detect this and log a message like:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 2018-11-22 10:44:33.654 [warning] Only 2048MB of 12037MB memory usable due to limited address space.
 </pre>
 

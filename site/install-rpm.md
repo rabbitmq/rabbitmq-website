@@ -108,7 +108,7 @@ that are not essential for running RabbitMQ.
 
 openSUSE package repositories provide Erlang so it can be installed using Zypper:
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 sudo zypper in erlang
 </pre>
 
@@ -116,7 +116,7 @@ Erlang versions available in the standard repositories will in practice be behin
 To use the last version with the newest features, add the
 [openSUSE Factory repositories for Erlang](http://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/):
 
-<pre class="sourcecode bash">
+<pre class="lang-bash">
 # add the openSUSE erlang factory, obs:// extracts the http url for the matching distro.
 sudo zypper ar -f  obs://devel:languages:erlang:Factory openSUSE-Erlang-Factory
 
@@ -223,7 +223,7 @@ between distributions (e.g. CentOS 7 and 8 vs. CentOS 6 vs. OpenSUSE).
 
 The following example sets up a repository that will installRabbitMQ 3.8 and targets CentOS 8:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/8/
@@ -234,7 +234,7 @@ enabled=1
 
 On CentOS 7 the `baseurl` line would be slightly different:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/7/
@@ -245,7 +245,7 @@ enabled=1
 
 Same for CentOS 6:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/6/
@@ -256,7 +256,7 @@ enabled=1
 
 The following example targets OpenSUSE:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/opensuse/42.1/
@@ -267,7 +267,7 @@ enabled=1
 
 The following example targets SLES 11.x:
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/sles/11
@@ -279,7 +279,7 @@ enabled=1
 The following example sets up a repository that will install RabbitMQ 3.7 on CentOS 7.
 Note that RabbitMQ 3.7 [goes out of support](/versions.html) in 2020.
 
-<pre class="lang-bash">
+<pre class="lang-ini">
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/

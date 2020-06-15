@@ -342,13 +342,13 @@ Pin: version 1:22.3.4.1-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `rabbitmq-server` package to to `3.8.4`
+The following preference file example will pin `rabbitmq-server` package to to `&version-server;`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
 # /etc/apt/preferences.d/rabbitmq
 Package: rabbitmq-server
-Pin: version 1:3.8.4
+Pin: version 1:&version-server;
 Pin-Priority: 1000
 </pre>
 
@@ -836,7 +836,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.5. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -895,7 +895,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.4. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.5. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

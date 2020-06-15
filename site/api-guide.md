@@ -1379,7 +1379,7 @@ It's possible to encrypt the communication between the client and the broker
 [using TLS](/ssl.html). Client and server authentication (a.k.a. peer verification) is also supported.
 Here is the simplest, most naive way to use encryption with the Java client:
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost("localhost");
 factory.setPort(5671);

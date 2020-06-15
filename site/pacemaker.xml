@@ -136,7 +136,7 @@ limitations under the License.
         between the two nodes has already been done. Our DRBD resource
         <code>drbd1</code> configuration looks like:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 global {
   usage-count no;
 }
@@ -160,7 +160,7 @@ resource drbd1 {
         it. <code>crm configure show</code> should show nothing
         configured:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm configure show
 node ha-node-1
 node ha-node-2
@@ -200,7 +200,7 @@ rsc_defaults $id="rsc-options" \
         use Pacemaker to ensure only one node has the shared storage
         area mounted at any one time.</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm
 crm(live)# cib new drbd
 INFO: drbd shadow CIB created
@@ -270,7 +270,7 @@ ha-node-2:~#
         cookie. The <code>rabbitmq</code> home directory is normally
         <code>/var/lib/rabbitmq</code>, so:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# scp /var/lib/rabbitmq/.erlang.cookie ha-node-1:/var/lib/rabbitmq/
 
 ha-node-1:~# chown rabbitmq: /var/lib/rabbitmq/.erlang.cookie
@@ -286,7 +286,7 @@ ha-node-1:~# chmod 400 /var/lib/rabbitmq/.erlang.cookie
         depending on your platform). Now create a resource in
         Pacemaker for Rabbit:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm
 crm(live)# cib new bunny
 INFO: bunny shadow CIB created
@@ -312,7 +312,7 @@ ha-node-2:~#
         resources can be seen by running <code>crm status</code> on
         any active node:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm status
 ============
 Last updated: Mon Apr 12 17:29:50 2010
@@ -398,7 +398,7 @@ Online: [ ha-node-2 ha-node-1 ]
         seems to make the migration of the IP address more
         reliable.</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm
 crm(live)# cib new ip
 INFO: bunny shadow CIB created
@@ -422,7 +422,7 @@ ha-node-2:~#
         we are done now, but we can explicitly tell it to listen on
         our chosen IP:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm_resource --resource bunny --set-parameter ip --parameter-value 192.168.50.1
 ha-node-2:~#
 </pre>
@@ -507,7 +507,7 @@ ha-node-2:~#
         the second RabbitMQ server resource is called
         <i>bunny2</i>):</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-2:~# crm_resource --resource bunny --set-parameter nodename --parameter-value "rabbit@rabbit-ha-1"
 ha-node-2:~# crm_resource --resource bunny2 --set-parameter nodename --parameter-value "rabbit@rabbit-ha-2"
 ha-node-2:~#
@@ -520,7 +520,7 @@ ha-node-2:~#
         all of the HA nodes, and we issue the following commands to
         form the cluster:</p>
 
-<pre class="sourcecode">
+<pre class="lang-plaintext">
 ha-node-3:~# rabbitmqctl stop_app
 ha-node-3:~# rabbitmqctl reset
 ha-node-3:~# rabbitmqctl cluster rabbit@rabbit-ha-1 rabbit@rabbit-ha-2
@@ -578,7 +578,7 @@ ha-node-3:~#
           is recommended. With either the <code>pcs</code>
           or <code>crm</code> tools, the example commands may look like:
         </p>
-        <pre class="sourcecode">
+        <pre class="lang-plaintext">
 $ <i>pcs resource create --force --master p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
   erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672 \
   op monitor interval=30 timeout=60 \
@@ -608,7 +608,7 @@ $ <i>crm configure ms p_rabbitmq-server-master p_rabbitmq-server \
           Note, that for a symmetric Pacemaker cluster, the resource should be started
           immediately after it has been created. And the resulting resource may look like:
         </p>
-        <pre class="sourcecode">
+        <pre class="lang-plaintext">
 $ <i>pcs resource show p_rabbitmq-server-master</i>
  Master: p_rabbitmq-server-master
   Meta Attrs: notify=true ordered=false interleave=false master-max=1 master-node-max=1
@@ -749,7 +749,7 @@ $ <i>pcs resource describe ocf:rabbitmq:rabbitmq-server-ha</i>
         <p>
           or by the direct execution of the resource agent:
         </p>
-        <pre class="sourcecode">
+        <pre class="lang-plaintext">
 $i <i>OCF_ROOT=/usr/lib/ocf /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha meta-data</i>
         </pre>
         <p>We only briefly describe some of them here. A few, that help to
