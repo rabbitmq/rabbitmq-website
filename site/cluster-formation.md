@@ -187,7 +187,7 @@ Consider the following scenario:
 in this case node B will reject the clustering attempt from A with an appropriate error
 message in the log:
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
 </pre>
 
@@ -1236,11 +1236,19 @@ provisioning and orchestration tool. [Kubernetes stateful sets](https://kubernet
 
 ## <a id="node-health-checks-and-cleanup" class="anchor" href="#node-health-checks-and-cleanup">Node Health Checks and Forced Removal</a>
 
-Sometimes a node is a cluster member but not known to the discovery backend.
+Nodes in clusters formed using peer discovery can fail, become unavailable or be permanently
+removed (decomissioned). Some operators may want such nodes to be automatically removed
+from the cluster after a period of time. Such automated forced removal also can produced
+unforeseen side effects, so RabbitMQ does not enforce this behavior. It **should be used
+with great care** and only if the side effects are fully understood and considered.
+
 For example, consider a cluster that uses the AWS backend configured to use autoscaling group membership.
-If an EC2 instance in that group fails and is later re-created, it will be considered
-an unavailable node in the RabbitMQ cluster. With some peer discovery backends
-such unknown nodes can be logged or forcefully removed from the cluster.
+If an EC2 instance in that group fails and is later re-created as a new node, its original "incarnation"
+will be considered a separate, now permanently unavailable node in the same cluster.
+
+With peer discovery backends that offer dynamic node management (as opposed to, say, a fixed list of nodes
+in the configuration file), such unknown nodes can be logged or forcefully removed from the cluster.
+
 They are
 
  * [AWS (EC2)](#peer-discovery-aws)
@@ -1286,10 +1294,24 @@ cluster_formation.node_cleanup.only_log_warning = false
 Note that this option should be used with care, in particular
 with discovery backends other than AWS.
 
-Some backends (Consul, etcd) support node health checks (or TTL).
-Nodes periodically notify their respective discovery service (e.g. Consul)
-that they are still available. If no notifications from a node come
-in after a period of time, the node is considered to be in the warning state.
+The cleanup checks are performed periodically. The interval is 60 seconds
+by default and can be overridden:
+
+<pre class="lang-ini">
+# perform the check every 90 seconds
+cluster_formation.node_cleanup.interval = 90
+</pre>
+
+Some backends (Consul, etcd) support node health checks or TTL. These checks
+should not to be confused with [monitoring health checks](/monitoring.html#health-checks).
+They allow peer discovery services (such as etcd or Consul) keep track of what
+nodes are still around (have checked in recently).
+
+With service discovery health checks, nodes set a TTL on their keys and/or periodically
+notify their respective discovery service that they are still present. If no notifications
+from a node come in after a period of time, the node's key will eventually expire (with
+Consul, such nodes will be considered to be in a warning state).
+
 With etcd, such nodes will no longer show up in discovery results. With Consul,
 they can either be removed (deregistered) or their warning state can be
 reported. Please see documentation for those backends to learn more.
@@ -1298,7 +1320,28 @@ Automatic cleanup of absent nodes makes most sense in environments where failed/
 will be replaced with brand new ones (including cases when persistent storage won't be re-attached).
 
 When automatic node cleanup is disabled (switched to the warning mode), operators have to
-explicitly remove absent cluster nodes using [CLI tools](/cli.html).
+explicitly remove absent cluster nodes using [`rabbitmqctl forget_cluster_node`](/cli.html).
+
+### Negative Side Effects of Automatic Removal
+
+Automatic node removal has a number of negative side effects operators should be aware of.
+A node that's temporarily unreachable, for example, because it's lost connectivity
+to the rest of the network or its VM was temporarily suspended, will be removed and will
+then come back. Such node won't be able to [rejoin its cluster](#rejoining) and will
+log a similar message:
+
+<pre class="lang-plaintext">
+Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
+</pre>
+
+In addition, such nodes can begin to fail their [monitoring health checks](/monitoring.html#health-checks),
+as they would be in a permanent "partitioned off" state. Even though such nodes might have been
+replaced with a new one and the cluster would be operating as expected, such automatically removed
+and replaced nodes can produce monitoring false positives.
+
+The list of side effects is not limited to those two scenarios but they all have the same
+root cause: an automatically removed node can come back without realising that it's been kicked out
+of the its cluster. Monitoring systems and operators won't be immediately aware of that event either.
 
 
 ## <a id="http-proxy-settings" class="anchor" href="#http-proxy-settings">HTTP Proxy Settings</a>
