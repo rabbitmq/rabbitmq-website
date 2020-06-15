@@ -290,7 +290,9 @@ If the file does not exist, Erlang VM will automatically create
 one with a randomly generated value when the RabbitMQ server
 starts up.
 
-Erlang cookie management is best done using automation tools and not manually.
+Erlang cookie generation should be done at cluster deployment stage, ideally using automation
+and orchestration tools.
+
 
 
 ### <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
@@ -301,8 +303,22 @@ On UNIX systems, the cookie will be typically
 located in `/var/lib/rabbitmq/.erlang.cookie` (used by the server)
 and `$HOME/.erlang.cookie` (used by CLI tools). Note that since the value
 of `$HOME` varies from user to user, it's necessary to place a copy of
-the cookie file for each user that will be using the CLI tools. This applies to both
-non-privileged users and `root`.
+the cookie file for each user that will be using the CLI tools.
+This applies to both non-privileged users and `root`.
+
+RabbitMQ nodes will log its effective user's home directory location early on boot.
+
+#### Community Docker Image and Kubernetes
+
+[Docker community RabbitMQ image](https://github.com/docker-library/rabbitmq/) uses `RABBITMQ_ERLANG_COOKIE` environment variable value
+to populate the cookie file.
+
+Configuration management and container orchestration tools that use this image
+must make sure that every RabbitMQ node container in a cluster users the same value.
+
+In the context of Kubernetes, the value must be specified in the
+[deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+For instance, this can be seen in the [RabbitMQ on Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples).
 
 #### Windows
 

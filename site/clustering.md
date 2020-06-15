@@ -202,7 +202,9 @@ environments only. Since each node will generate its own value independently,
 this strategy is not really viable in a [clustered environment](/clustering.html).
 
 Erlang cookie generation should be done at cluster deployment stage, ideally using automation
-and orchestration tools such as Chef, Puppet, BOSH, Docker or similar.
+and orchestration tools.
+
+In distributed deployment
 
 ### <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
 
@@ -212,8 +214,22 @@ On UNIX systems, the cookie will be typically
 located in `/var/lib/rabbitmq/.erlang.cookie` (used by the server)
 and `$HOME/.erlang.cookie` (used by CLI tools). Note that since the value
 of `$HOME` varies from user to user, it's necessary to place a copy of
-the cookie file for each user that will be using the CLI tools. This applies to both
-non-privileged users and `root`.
+the cookie file for each user that will be using the CLI tools.
+This applies to both non-privileged users and `root`.
+
+RabbitMQ nodes will log its effective user's home directory location early on boot.
+
+#### Community Docker Image and Kubernetes
+
+[Docker community RabbitMQ image](https://github.com/docker-library/rabbitmq/) uses `RABBITMQ_ERLANG_COOKIE` environment variable value
+to populate the cookie file.
+
+Configuration management and container orchestration tools that use this image
+must make sure that every RabbitMQ node container in a cluster users the same value.
+
+In the context of Kubernetes, the value must be specified in the
+[deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+For instance, this can be seen in the [RabbitMQ on Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples).
 
 #### Windows
 
@@ -246,31 +262,53 @@ If the Windows service is used, the cookie should be copied from
 `C:\Windows\.erlang.cookie` to the expected location for users
 running commands like `rabbitmqctl.bat`.
 
-#### Troubleshooting
+### Overrding Using CLI and Runtime Command Line Arguments
 
-When a node starts, it will [log](/logging.html) its home (base) directory location. Unless
-any [server directories](/relocate.html) were overridden, that's the directory the cookie file
-will be created in by the RabbitMQ service.
-
-#### Runtime Arguments
-
-As an alternative, you can add the option "`-setcookie <i>value</i>`"
-in the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` [environment variable value](/configure.html):
+As an alternative, the option "`-setcookie <value>`" can be added
+to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>
+to override the cookie value used by a RabbitMQ node:
 
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie cookie-value"
 </pre>
 
-This is the least secure option and generally not recommended.
+CLI tools can take a cookie value using a command line flag:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status --erlang-cookie "cookie-value"
+</pre>
+
+Both are **the least secure options** and generally **not recommended**.
+
+### Troubleshooting
+
+When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+
+<pre class="lang-plaintext">
+node           : rabbit@cdbf4de5f22d
+home dir       : /var/lib/rabbitmq
+</pre>
+
+Unless any [server directories](/relocate.html) were overridden, that's the directory where
+the cookie file will be looked for, and created by the node on first boot if it does not already exist.
+
+In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
 ### <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 
-When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
-such as "Connection attempt from disallowed node" and "Could not auto-cluster". When
-a [CLI tool](/cli.html) such as `rabbitmqctl` fails to authenticate with RabbitMQ,
+When the cookie is misconfigured (for example, not identical), RabbitMQ nodes will log errors
+such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
+
+For example, when a CLI tool connects and tries to authenticate using a mismatching secret value:
+
+<pre class="lang-plaintext">
+2020-06-15 13:03:33 [error] &lt;0.1187.0&gt; ** Connection attempt from node 'rabbitmqcli-99391-rabbit@warp10' rejected. Invalid challenge reply. **
+</pre>
+
+When a CLI tool such as `rabbitmqctl` fails to authenticate with RabbitMQ,
 the message usually says
 
-<pre class="lang-ini">
+<pre class="lang-plaintext">
 * epmd reports node 'rabbit' running on port 25672
 * TCP connection succeeded but Erlang distribution failed
 * suggestion: hostname mismatch?
