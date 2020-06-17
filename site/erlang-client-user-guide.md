@@ -110,7 +110,7 @@ They will be covered later in this guide.
 
 The library is made up of two layers:
 
- * A high level logical layer that follows the AMQP execution model
+ * A high level logical layer that follows the AMQP 0-9-1 protocol and operation execution model
  * A low-level protocol implementation layer that is responsible for communicating with RabbitMQ nodes
 
 ### <a id="driver-types" class="anchor" href="#driver-types">Network Connection Types</a>
