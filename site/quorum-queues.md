@@ -86,7 +86,7 @@ With some queue operations there are minor differences:
 
 Some features are not currently supported by quorum queues.
 
-### <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Matrix</a>
+### <a id="feature-matrix" class="anchor" href="#feature-matrix">Feature Matrix</a>
 
 | Feature | Classic Mirrored | Quorum |
 | :-------- | :------- | ------ |
