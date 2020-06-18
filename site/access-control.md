@@ -297,13 +297,13 @@ first boot.
 
 The settings are:
 
-``` ini
+<pre class="lang-ini">
 # default is "guest", and its access is limited to localhost only.
 # See https://www.rabbitmq.com/access-control.html#default-state
 default_user = a-user
 # default is "guest"
 default_pass = 768a852ed69ce916fa7faa278c962de3e4275e5f
-```
+</pre>
 
 As with all values in [`rabbitmq.conf`](/configure.html#config-file), the `#` character
 starts a comment so this character must be avoided in generated credentials.
