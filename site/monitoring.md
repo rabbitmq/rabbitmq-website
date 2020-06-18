@@ -214,59 +214,61 @@ be one example. Both types are complimentary to infrastructure and node metrics.
   <tbody>
     <tr>
       <td>Cluster name</td>
-      <td>`cluster_name`</td>
+      <td><code>cluster_name</code></td>
     </tr>
     <tr>
       <td>Cluster-wide message rates</td>
-      <td>`message_stats`</td>
+      <td><code>message_stats</code></td>
     </tr>
     <tr>
       <td>Total number of connections</td>
-      <td>`object_totals.connections`</td>
+      <td><code>object_totals.connections</code></td>
     </tr>
     <tr>
       <td>Total number of channels</td>
-      <td>`object_totals.channels`</td>
+      <td><code>object_totals.channels</code></td>
     </tr>
     <tr>
       <td>Total number of queues</td>
-      <td>`object_totals.queues`</td>
+      <td><code>object_totals.queues</code></td>
     </tr>
     <tr>
       <td>Total number of consumers</td>
-      <td>`object_totals.consumers`</td>
+      <td><code>object_totals.consumers</code></td>
     </tr>
     <tr>
       <td>Total number of messages (ready plus unacknowledged)</td>
-      <td>`queue_totals.messages`</td>
+      <td><code>queue_totals.messages</code></td>
     </tr>
     <tr>
       <td>Number of messages ready for delivery</td>
-      <td>`queue_totals.messages_ready`</td>
+      <td><code>queue_totals.messages_ready</code></td>
     </tr>
     <tr>
       <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
-      <td>`queue_totals.messages_unacknowledged`</td>
+      <td><code>queue_totals.messages_unacknowledged</code></td>
     </tr>
     <tr>
       <td>Messages published recently</td>
-      <td>`message_stats.publish`</td>
+      <td><code>message_stats.publish</code></td>
     </tr>
     <tr>
       <td>Message publish rate</td>
-      <td>`message_stats.publish_details.rate`</td>
+      <td><code>message_stats.publish_details.rate</code></td>
     </tr>
     <tr>
       <td>Messages delivered to consumers recently</td>
-      <td>`message_stats.deliver_get`</td>
+      <td><code>message_stats.deliver_get</code></td>
     </tr>
     <tr>
       <td>Message delivery rate</td>
-      <td>`message_stats.deliver_get.rate`</td>
+      <td><code>message_stats.deliver_get.rate</code></td>
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.19/priv/www/doc/stats.html">this document</a>)</td>
+      <td>
+        <code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API reference</a>)
+      </td>
     </tr>
   </tbody>
 </table>
@@ -294,51 +296,51 @@ compared to their previous values and historical mean/percentile values.
   <tbody>
     <tr>
       <td>Total amount of <a href="/memory-use.html">memory used</a></td>
-      <td>`mem_used`</td>
+      <td><code>mem_used</code></td>
     </tr>
     <tr>
       <td>Memory usage high watermark</td>
-      <td>`mem_limit`</td>
+      <td><code>mem_limit</code></td>
     </tr>
     <tr>
       <td>Is a <a href="/memory.html">memory alarm</a> in effect?</td>
-      <td>`mem_alarm`</td>
+      <td><code>mem_alarm</code></td>
     </tr>
     <tr>
       <td>Free disk space low watermark</td>
-      <td>`disk_free_limit`</td>
+      <td><code>disk_free_limit</code></td>
     </tr>
     <tr>
       <td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td>
-      <td>`disk_free_alarm`</td>
+      <td><code>disk_free_alarm</code></td>
     </tr>
     <tr>
       <td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td>
-      <td>`fd_total`</td>
+      <td><code>fd_total</code></td>
     </tr>
     <tr>
       <td>File descriptors used</td>
-      <td>`fd_used`</td>
+      <td><code>fd_used</code></td>
     </tr>
     <tr>
       <td>File descriptor open attempts</td>
-      <td>`io_file_handle_open_attempt_count`</td>
+      <td><code>io_file_handle_open_attempt_count</code></td>
     </tr>
     <tr>
       <td>Sockets available</td>
-      <td>`sockets_total`</td>
+      <td><code>sockets_total</code></td>
     </tr>
     <tr>
       <td>Sockets used</td>
-      <td>`sockets_used`</td>
+      <td><code>sockets_used</code></td>
     </tr>
     <tr>
       <td>Message store disk reads</td>
-      <td>`message_stats.disk_reads`</td>
+      <td><code>message_stats.disk_reads</code></td>
     </tr>
     <tr>
       <td>Message store disk writes</td>
-      <td>`message_stats.disk_writes`</td>
+      <td><code>message_stats.disk_writes</code></td>
     </tr>
     <tr>
       <td>Inter-node communication links</td>
@@ -346,23 +348,23 @@ compared to their previous values and historical mean/percentile values.
     </tr>
     <tr>
       <td>GC runs</td>
-      <td>`gc_num`</td>
+      <td><code>gc_num</code></td>
     </tr>
     <tr>
       <td>Bytes reclaimed by GC</td>
-      <td>`gc_bytes_reclaimed`</td>
+      <td><code>gc_bytes_reclaimed</code></td>
     </tr>
     <tr>
       <td>Erlang process limit</td>
-      <td>`proc_total`</td>
+      <td><code>proc_total</code></td>
     </tr>
     <tr>
       <td>Erlang processes used</td>
-      <td>`proc_used`</td>
+      <td><code>proc_used</code></td>
     </tr>
     <tr>
       <td>Runtime run queue</td>
-      <td>`run_queue`</td>
+      <td><code>run_queue</code></td>
     </tr>
   </tbody>
 </table>
@@ -379,39 +381,40 @@ via the `GET /api/queues/{vhost}/{qname}` endpoint.
   <tbody>
     <tr>
       <td>Memory</td>
-      <td>`memory`</td>
+      <td><code>memory</code></td>
     </tr>
     <tr>
       <td>Total number of messages (ready plus unacknowledged)</td>
-      <td>`messages`</td>
+      <td><code>messages</code></td>
     </tr>
     <tr>
       <td>Number of messages ready for delivery</td>
-      <td>`messages_ready`</td>
+      <td><code>messages_ready</code></td>
     </tr>
     <tr>
       <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
-      <td>`messages_unacknowledged`</td>
+      <td><code>messages_unacknowledged</code></td>
     </tr>
     <tr>
       <td>Messages published recently</td>
-      <td>`message_stats.publish`</td>
+      <td><code>message_stats.publish</code></td>
     </tr>
     <tr>
       <td>Message publishing rate</td>
-      <td>`message_stats.publish_details.rate`</td>
+      <td><code>message_stats.publish_details.rate</code></td>
     </tr>
     <tr>
       <td>Messages delivered recently</td>
-      <td>`message_stats.deliver_get`</td>
+      <td><code>message_stats.deliver_get</code></td>
     </tr>
     <tr>
       <td>Message delivery rate</td>
-      <td>`message_stats.deliver_get.rate`</td>
+      <td><code>message_stats.deliver_get.rate</code></td>
     </tr>
     <tr>
       <td>Other message stats</td>
-      <td>`message_stats.*` (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/v3.7.19/priv/www/doc/stats.html">this document</a>)</td>
+      <td><code>message_stats.*</code> (see <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API reference</a>)
+    </td>
     </tr>
   </tbody>
 </table>
