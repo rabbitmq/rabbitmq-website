@@ -39,8 +39,10 @@ There are several areas which can be configured or tuned. Each has a section in 
  * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](/cli.html)
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
- * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
+ * Tuning for a [large number of concurrent connections](#tuning-for-large-number-of-connections)
+ * [High connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
+ * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
  * The interface and port used by [epmd](#epmd)
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
@@ -64,7 +66,6 @@ such as
  * [connection lifecycle logging](#logging)
  * [Heartbeats](#heartbeats) (a.k.a. keepalives)
  * [proxies and load balancers](#intermediaries)
- * [high connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
 
 and more.
 
