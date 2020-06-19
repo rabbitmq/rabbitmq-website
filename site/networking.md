@@ -578,7 +578,12 @@ total throughput.
 
 ### <a id="tuning-for-large-number-of-connections-limitations" class="anchor" href="#tuning-for-large-number-of-connections-limitations"></a>
 
-Several factors can limit how many concurrent connections a single node can support: * Maximum number of [open file handles](#open-file-handle-limit) (including sockets) as well as other kernel-enforced resource limits * Amount of [RAM used by each connection](/memory-use.html) * Amount of CPU resources used by each connection * Maximum number of Erlang processes the VM is configured to allow
+Several factors can limit how many concurrent connections a single node can support:
+
+ * Maximum number of [open file handles](#open-file-handle-limit) (including sockets) as well as other kernel-enforced resource limits
+ * Amount of [RAM used by each connection](/memory-use.html)
+ * Amount of CPU resources used by each connection
+ * Maximum number of Erlang processes the VM is configured to allow.
 
 ### <a id="open-file-handle-limit" class="anchor" href="#open-file-handle-limit">Open File Handle Limit</a>
 
@@ -666,6 +671,26 @@ found for every workload.
 
 Setting send and receive buffer sizes to different values is dangerous
 and is not recommended. Values lower than 8 KiB are not recommended.
+
+### <a id="tuning-for-large-number-of-connections-cpu-footprint" class="anchor" href="#tuning-for-large-number-of-connections-cpu-footprint">Reducing CPU Footprint of Stats Emission</a>
+
+A large number of concurrent connections will generate a lot of metric (stats) emission events.
+This increases CPU consumption even with mostly idle connections. To reduce this footprint,
+increase the statistics collection interval using the `collect_statistics_interval` key:
+
+<pre class="lang-ini">
+# sets the interval to 60 seconds
+collect_statistics_interval = 60000
+</pre>
+
+The default is 5 seconds (5000 milliseconds).
+
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consuption.
+This come with a downside: with the value in the example above, metrics of said entities
+will refresh every 60 seconds.
+
+This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
+but will make management UI less convenient to use for operators.
 
 ### <a id="tuning-for-large-number-of-connections-channel-max" class="anchor" href="#tuning-for-large-number-of-connections-channel-max">Limiting Number of Channels on a Connection</a>
 
