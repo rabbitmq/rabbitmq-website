@@ -38,9 +38,9 @@ Therefore RabbitMQ redefines the meaning of the
 
 <table class="styled-table">
   <tr>
-    <th>`global`</th>
-    <th>Meaning of `prefetch_count` in AMQP 0-9-1</th>
-    <th>Meaning of `prefetch_count` in RabbitMQ</th>
+    <th><code>global</code></th>
+    <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
+    <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
   </tr>
   <tr>
     <th>false</th>
