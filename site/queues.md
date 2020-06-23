@@ -116,10 +116,29 @@ declares queues.
 
 ## <a id="message-ordering" class="anchor" href="#message-ordering">Message Ordering</a>
 
-Queues in RabbitMQ are ordered collections of messages. Messages
-are enqueued and dequeued (consumed) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)),
-although [priority queues](/priority.html), [sharded queues](https://github.com/rabbitmq/rabbitmq-sharding/) and other features
-may affect this.
+Queues in RabbitMQ are ordered collections of messages.
+Messages are enqueued and dequeued (delivered to consumers) in the [FIFO manner](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
+
+FIFO ordering is not guaranteed for [priority](/priority.html) and [sharded queues](https://github.com/rabbitmq/rabbitmq-sharding/).
+
+Ordering also can be affected by the presence of multiple competing [consumers](/consumers.html),
+[consumer priorities](/consumers.html#priority), message redeliveries.
+This applies to redeliveries of any kind: automatic after channel closure and
+[negative consumer acknowledgements](/confirms.html).
+
+Publishing applications can assume that messages that were published on a single channel
+in order will be enqueued onto all queues those messages were routed to in the same order.
+When publishing happens on multiple connections or channels, their sequences of messages
+will be routed concurrently and interleaved.
+
+Consuming applications can assume that initial deliveries (those where the `redelivered` property
+is set to `false`) to a single consumer are performed in the same FIFO order as they were enqueued.
+
+In case of multiple consumers, messages will be dequeued for delivery in the FIFO order
+but actual delivery will happen to multiple consumers. If all of the consumers have
+equal priorities, they will be picked on a [round-robin basis](https://en.wikipedia.org/wiki/Round-robin_scheduling).
+Only consumers on channels that have not exceeded their [prefetch value](/consumers.html#prefetch)
+(the number of outstanding unacknowledged deliveries) will be considered.
 
 
 ## <a id="durability" class="anchor" href="#durability">Durability</a>
