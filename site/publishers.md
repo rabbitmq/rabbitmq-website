@@ -478,10 +478,9 @@ The automatic recovery process for many applications follows the following steps
 
 1. Reconnect to a reachable node
 2. Restore connection listeners
-3. Restore connection listeners
-4. Re-open channels
-5. Restore channel listeners
-6. Restore channel `basic.qos` setting, publisher confirms and transaction settings
+3. Re-open channels
+4. Restore channel listeners
+5. Restore channel `basic.qos` setting, publisher confirms and transaction settings
 
 After connections and channels are recovered, topology recovery can start.
 Topology recovery includes the following actions, performed for every channel
