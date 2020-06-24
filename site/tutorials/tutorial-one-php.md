@@ -145,9 +145,9 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
 
 ### Receiving
 
-That's it for our publisher.  Our receiver listening for messages from
+That's it for our publisher.  Our receiver listens for messages from
 RabbitMQ, so unlike the publisher which publishes a single message, we'll
-keep it running to listen for messages and print them out.
+keep the receiver running to listen for messages and print them out.
 
 <div class="diagram">
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
