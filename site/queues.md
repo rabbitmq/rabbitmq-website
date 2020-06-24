@@ -131,8 +131,11 @@ in order will be enqueued onto all queues those messages were routed to in the s
 When publishing happens on multiple connections or channels, their sequences of messages
 will be routed concurrently and interleaved.
 
-Consuming applications can assume that initial deliveries (those where the `redelivered` property
+Consuming applications can assume that **initial deliveries** (those where the `redelivered` property
 is set to `false`) to a single consumer are performed in the same FIFO order as they were enqueued.
+For **repeated deliveries** (the `redelivered` property is set to `true`), original ordering
+can be affected by the timing of consumer acknowledgements and redeliveries, and thus
+not guaranteed.
 
 In case of multiple consumers, messages will be dequeued for delivery in the FIFO order
 but actual delivery will happen to multiple consumers. If all of the consumers have
