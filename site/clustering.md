@@ -227,8 +227,8 @@ to populate the cookie file.
 Configuration management and container orchestration tools that use this image
 must make sure that every RabbitMQ node container in a cluster users the same value.
 
-In the context of Kubernetes, the value must be specified in the
-[deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+In the context of Kubernetes, the value must be specified in the pod template specification of
+the [stateful set](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
 For instance, this can be seen in the [RabbitMQ on Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples).
 
 #### Windows
