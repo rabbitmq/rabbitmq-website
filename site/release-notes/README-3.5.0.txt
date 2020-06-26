@@ -6,7 +6,7 @@ Release Highlights
 server
 ------
 bug fixes
-26527 Prevent huge GM / slave memory consumption under load by adding flow
+26527 Prevent huge GM / mirror memory consumption under load by adding flow
       control to messages via GM (since 2.6.0)
 26636 Fix inconsistencies and hangs when a node comes back online before its
       disappearance is fulled treated (since 3.1.0)
@@ -14,7 +14,7 @@ bug fixes
       3.3.5)
 26628 When using autoheal, ensure the leader waits for the winner to finish
       the autoheal process (since 3.3.0)
-26467 Fix promotion of offline mirrors, in particular if the slave crashed
+26467 Fix promotion of offline mirrors, in particular if the mirror crashed
       (since 3.4.0)
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect

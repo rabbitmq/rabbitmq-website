@@ -25,7 +25,7 @@ bug fixes
 26341 add assertions to prevent silent failure from DETS errors in
       rabbit_recovery_terms (since 3.3.0)
 26171 prevent crash in rare conditions in gm:find_member_or_blank/2 during
-      slave startup (since 2.6.0)
+      mirror startup (since 2.6.0)
 26368 prevent autoheal from hanging when loser shuts down before the winner
       learns it is the winner (since 3.1.0)
 25850 prevent excessive binary memory use when accepting or delivering

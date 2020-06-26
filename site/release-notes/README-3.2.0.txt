@@ -7,7 +7,7 @@ bug fixes
       during promotion (since 2.6.0)
 25745 prevent HA queue from becoming masterless if multiple nodes shutdown in
       quick succession (since 2.6.0)
-25685 prevent race that leads to a masterless queue when a slave and
+25685 prevent race that leads to a masterless queue when a mirror and
       previous master start simultaneously (since 2.6.0)
 25815 ensure that persistent messages with expiration property timeout
       correctly after broker restarts (since 3.0.0)

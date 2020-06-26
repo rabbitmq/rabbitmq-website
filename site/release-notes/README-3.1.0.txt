@@ -3,7 +3,7 @@ Release: RabbitMQ 3.1.0
 server
 ------
 bug fixes
-25524 fix memory leak in mirror queue slave with many short-lived publishing
+25524 fix memory leak in mirror queue mirror with many short-lived publishing
       channels
 25518 fix handling of certain ASN.1 fields in SSL certificates
 25486 ensure we handle cross cluster resource alarms after a partition

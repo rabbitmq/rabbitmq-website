@@ -22,14 +22,14 @@ server
 bug fixes
 26084 fix race condition causing queue mirrors to occasionally not be promoted
       on clean master shutdown (since 3.0.0)
-26115 prevent badmatch crash on slave queue init during rapid restarts
+26115 prevent badmatch crash on mirror queue init during rapid restarts
       (since 3.2.0)
-26117 prevent slave being incorrectly considered dead when added at the same
-      time as another slave dies (since 3.2.0)
-26118 prevent slave queue crash if a queue hibernates before it has fully
+26117 prevent mirror being incorrectly considered dead when added at the same
+      time as another mirror dies (since 3.2.0)
+26118 prevent mirror queue crash if a queue hibernates before it has fully
       started (since 3.2.2)
-26125 prevent possible deadlock when slave becomes synchronised
-      simultaneously with another slave starting (since 3.1.0)
+26125 prevent possible deadlock when mirror becomes synchronised
+      simultaneously with another mirror starting (since 3.1.0)
 26103 ensure dead-letter cycle detection works when dead-lettering messages due
       to exceeding the queue's max-length (since 3.1.0)
 26123 ensure worker pool state does not become corrupt if a worker process

@@ -55,7 +55,7 @@ bug fixes
 - management plugin could fail to start if there were strange permissions
   in /proc
 - overview could sometimes crash when another node starts up or shuts down
-- HA slave synchronisation could sometimes be misrepresented on the
+- HA mirror synchronisation could sometimes be misrepresented on the
   management UI
 - encoding of underscore in URL properties was incomplete
 - management interface could break if there were html syntax characters in names

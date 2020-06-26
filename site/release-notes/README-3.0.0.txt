@@ -3,9 +3,9 @@ Release: RabbitMQ 3.0.0
 server
 ------
 bug fixes
-25195 prevent slave being promoted before it has received all
+25195 prevent mirror being promoted before it has received all
       messages from dying master, which subsequently caused it to crash
-25202 fix race at slave startup causing process leak and other problems
+25202 fix race at mirror startup causing process leak and other problems
 25216 prevent excessive memory use when recovering large durable queues
 25226 prevent mirrors leaking memory when using persistence and confirms
 25260 ensure messages that expire while the broker is stopped are
