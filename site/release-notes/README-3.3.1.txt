@@ -20,7 +20,7 @@ Release Highlights
 server
 ------
 bug fixes
-26084 fix race condition causing queue slaves to occasionally not be promoted
+26084 fix race condition causing queue mirrors to occasionally not be promoted
       on clean master shutdown (since 3.0.0)
 26115 prevent badmatch crash on slave queue init during rapid restarts
       (since 3.2.0)

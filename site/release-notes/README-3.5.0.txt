@@ -14,7 +14,7 @@ bug fixes
       3.3.5)
 26628 When using autoheal, ensure the leader waits for the winner to finish
       the autoheal process (since 3.3.0)
-26467 Fix promotion of offline slaves, in particular if the slave crashed
+26467 Fix promotion of offline mirrors, in particular if the slave crashed
       (since 3.4.0)
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect

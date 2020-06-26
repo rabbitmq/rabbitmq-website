@@ -639,7 +639,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
         </pre>
         <p>
           After that, your cluster has to be assembled by the OCF agent and ready for operations.
-          When assembled, one and only resource instance must run as a resource master, and others as a slaves.
+          When assembled, one and only resource instance must run as a resource primary (master), and others as secondaries.
           Note that these are the multi-state resource's Master/Slave and has nothing to the RabbitMQ cluster,
           which is active-active.
         </p>

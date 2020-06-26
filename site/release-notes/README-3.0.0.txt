@@ -7,7 +7,7 @@ bug fixes
       messages from dying master, which subsequently caused it to crash
 25202 fix race at slave startup causing process leak and other problems
 25216 prevent excessive memory use when recovering large durable queues
-25226 prevent slaves leaking memory when using persistence and confirms
+25226 prevent mirrors leaking memory when using persistence and confirms
 25260 ensure messages that expire while the broker is stopped are
       dead-lettered correctly
 25198, 25185, 25200 ensure "redelivered" flag set correctly on HA

@@ -59,13 +59,13 @@ enhancements
 24926 allow plugins to be enabled / disabled without restarting the server
 25884 add argument and policy to limit queue length in bytes
 26150 prevent clean master shutdown from promoting unsynchronised
-      slaves and thus losing messages; add ha-promote-on-shutdown
+      mirrors and thus losing messages; add ha-promote-on-shutdown
       to configure
 26151 make queues located on down cluster nodes visible in "rabbitmqctl
       list_queues"
 26213 prevent undefined behaviour during partial partitions by
       promoting them to full ones
-26254 allow "rabbitmqctl_forget_cluster_node" to promote mirror queue slaves
+26254 allow "rabbitmqctl_forget_cluster_node" to promote mirror queue mirrors
       that are down and thus recover from loss of a node containing masters
       after it was the last node to stop
 26256 add "rabbitmqctl force_boot" command to allow administrator to
@@ -85,7 +85,7 @@ enhancements
 26225 provide connection age in rabbitmqctl list_connections
 25446 add "rabbitmq-plugins set" subcommand
 25824 / 26398 provide a summary of binary memory use
-26397 split out memory used by slaves vs masters / unmirrored in the
+26397 split out memory used by mirrors vs masters / unmirrored in the
       memory summary
 26401 split out memory used by connection readers / writers / channels / other
       in the memory summary
