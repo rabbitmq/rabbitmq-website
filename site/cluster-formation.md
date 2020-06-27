@@ -31,7 +31,7 @@ this guide also covers a closely related topic of [rejoining nodes](#rejoining),
 the problem of [initial cluster formation](#initial-formation-race-condition) with nodes booting in parallel as well as [additional health checks](#node-health-checks-and-cleanup) offered
 by some discovery implementations.
 
-The guide also covers the basics of [peer discovery troubleshooting](#troubleshooting-cluster-formation).
+The guide also covers the basics of [peer discovery troubleshooting](#troubleshooting).
 
 ## <a id="peer-discovery" class="anchor" href="#peer-discovery">What is Peer Discovery?</a>
 
@@ -129,11 +129,13 @@ delays. This problem does not apply to the backends that require listing all nod
 
 When the configured backend supports registration, nodes unregister when they stop.
 
-If peer discovery isn't configured, or it fails, or no peers are reachable,
-a node that wasn't a cluster member in the past
+If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
+or no peers are reachable, a node that wasn't a cluster member in the past
 will initialise from scratch and proceed as a standalone node.
+Peer discovery progress and outcomes will be [logged](/logging.html)
+by the node.
 
-If a node previously was a cluster member, it will try to contact
+If a node previously was a cluster member, it will try to contact and rejoin
 its "last seen" peer for a period of time. In this case, no peer discovery
 will be performed. This is true for all backends.
 
@@ -1343,15 +1345,52 @@ The list of side effects is not limited to those two scenarios but they all have
 root cause: an automatically removed node can come back without realising that it's been kicked out
 of the its cluster. Monitoring systems and operators won't be immediately aware of that event either.
 
-## <a id="http-proxy-settings" class="anchor" href="#http-proxy-settings">HTTP Proxy Settings</a>
+## <a id="discovery-retries" class="anchor" href="#discovery-retries">Peer Discovery Failures and Retries</a>
 
 In latest releases if a peer discovery attempt fail, it will be retried up to a certain number
-of times with a delay between each attempt. This is similar to
+of times with a delay between each attempt. This is similar to the peer sync retries nodes
+perform [when they come online after a restart](/clustering.html#restarting).
+
+For example, with the [Kubernetes peer discovery mechanism](#peer-discovery-k8s) this means that
+Kubernetes API requests that list pods will be retried should they fail. With the AWS mechanism,
+EC2 API requests are retried, and so on.
+
+Such retries by no means handle every possible failure scenario but they improve the resilience
+of peer discovery and thus cluster and node deployments in practice. However, if clustered
+nodes [fail to authenticate](/clustering.html##erlang-cookie) with each other, retries
+will simply merely the inevitable failure of cluster formation.
+
+Nodes that fail to perform peer discovery will [log](/logging.html) their remaining recovery attempts:
+
+<pre class="lang-plaintext">
+2020-06-27 06:35:36.426 [error] &lt;0.277.0&gt; Trying to join discovered peers failed. Will retry after a delay of 500 ms, 4 retries left...
+2020-06-27 06:35:36.928 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
+2020-06-27 06:35:36.930 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
+2020-06-27 06:35:36.930 [error] &lt;0.277.0&gt; Trying to join discovered peers failed. Will retry after a delay of 500 ms, 3 retries left...
+2020-06-27 06:35:37.432 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname2: {badrpc,nodedown}
+2020-06-27 06:35:37.434 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
+</pre>
+
+If a node fails to perform peer discovery and exhausts all retries, [enable debug logging](/logging.html#debug-logging) is highly recommended for [troubleshooting](#troubleshooting).
+
+The number of retries and the delay can be configured:
 
 <pre class="lang-ini">
 # These are the default values
+
+# Retry peer discovery operations up to ten times
 cluster_formation.discovery_retry_limit = 10
+
+# 500 milliseconds
+cluster_formation.discovery_retry_interval = 500
 </pre>
+
+The defaults cover five seconds of unavaiability of services, API endpoints or nodes
+involved in peer discovery. These values are sufficient to cover sporadic failures.
+They will require increasing in environments where dependent services (DNS, etcd, Consul, etc)
+may be provisioned concurrently with RabbitMQ cluster deployment and thus can become
+available only after a period of time.
+
 
 ## <a id="http-proxy-settings" class="anchor" href="#http-proxy-settings">HTTP Proxy Settings</a>
 
@@ -1382,7 +1421,7 @@ cluster_formation.proxy.proxy_exclusions.2 = excluded.example.local
 </pre>
 
 
-## <a id="troubleshooting-cluster-formation" class="anchor" href="#troubleshooting-cluster-formation">Troubleshooting</a>
+## <a id="troubleshooting" class="anchor" href="#troubleshooting">Troubleshooting</a>
 
 The peer discovery subsystem and individual mechanism implementations log important
 discovery procedure steps at the `info` log level. More extensive logging
