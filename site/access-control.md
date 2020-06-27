@@ -246,7 +246,7 @@ rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 
 ### Revoking Permissions of a User in a Virtual Host
 
-To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
+To revoke [permissions](#authorisation) from a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
 
 <pre class="lang-bash">
 # Revokes permissions in a virtual host
