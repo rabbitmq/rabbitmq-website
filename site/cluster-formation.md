@@ -1020,7 +1020,7 @@ listed in the config. In this case all plugin settings must be moved to the adva
                   "two.etcd.eng.example.local:2479",
                   "three.etcd.eng.example.local:2579"
                 ]},
-                
+
                 {etcd_prefix,   "rabbitmq"},
                 {cluster_name,  "default"},
 
@@ -1034,7 +1034,7 @@ listed in the config. In this case all plugin settings must be moved to the adva
   {config_entry_decoder, [
              {passphrase, &lt;&lt;"decryption key passphrase"&gt;&gt;}
          ]}
-].    
+].
 </pre>
 
 #### Key Naming
@@ -1343,6 +1343,15 @@ The list of side effects is not limited to those two scenarios but they all have
 root cause: an automatically removed node can come back without realising that it's been kicked out
 of the its cluster. Monitoring systems and operators won't be immediately aware of that event either.
 
+## <a id="http-proxy-settings" class="anchor" href="#http-proxy-settings">HTTP Proxy Settings</a>
+
+In latest releases if a peer discovery attempt fail, it will be retried up to a certain number
+of times with a delay between each attempt. This is similar to
+
+<pre class="lang-ini">
+# These are the default values
+cluster_formation.discovery_retry_limit = 10
+</pre>
 
 ## <a id="http-proxy-settings" class="anchor" href="#http-proxy-settings">HTTP Proxy Settings</a>
 
