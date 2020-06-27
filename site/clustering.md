@@ -632,8 +632,10 @@ cluster at any time, while the cluster is running.
 
 Nodes that have been joined to a cluster can be stopped at
 any time. They can also fail or be terminated by the OS.
-In general this does not affect the rest of the cluster, although
-client connection, queue replica placement and load distribution
+
+In general, if the majority of nodes is still online after a node
+is stopped, this does not affect the rest of the cluster, although
+client connection distribution, queue replica placement, and load distribution
 of the cluster will change.
 
 A restarted node will sync the schema
