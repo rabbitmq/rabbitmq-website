@@ -150,7 +150,7 @@ To create the namespace and role-based access control (RBAC) objects:
 1. Create RBAC objects in the `rabbitmq-system` namespace by running:
 
     <pre class='hljs lang-bash'>
-    kubectl create -k config/rbac/
+    kubectl -n rabbitmq-system create --kustomize config/rbac/
     </pre>
 
 ### <a id='private-images' class='anchor' href='#private-images'>(Optional) Configure Kubernetes Cluster Access to Private Images</a>
@@ -218,5 +218,11 @@ kustomize build . | kubectl create -f -
 cd -
 </pre>
 
+-----
+
+## Next steps
+
+Once the Cluster Operator Pod is running, head over to [Using Kubernetes Cluster Operator](/using-cluster-operator.html)
+for instructions on how to deploy RabbitMQ using a Kubernetes Custom Resource.
 
 
