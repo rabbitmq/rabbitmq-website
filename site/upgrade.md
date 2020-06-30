@@ -1,6 +1,6 @@
 # Upgrading RabbitMQ
 
-## Intro
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers topics related to RabbitMQ installation upgrades.
 
