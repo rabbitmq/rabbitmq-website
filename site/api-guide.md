@@ -37,6 +37,7 @@ Key sections of the guide are:
  * [Automatic Recovery From Network Failures](#recovery)
  * [Unhandled Exceptions](#unhandled-exceptions) in consumers
  * [Metrics and Monitoring](#metrics)
+ * [Endpoint Resolution with the AddressResolver Interface](#service-discovery-with-address-resolver)
  * The [Request/Response Pattern](#rpc) ("RPC")
  * [TLS support](#tls)
  * [OAuth 2 support](#oauth2-support)
