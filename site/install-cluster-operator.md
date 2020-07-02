@@ -10,6 +10,17 @@ There are two ways to install the Cluster Operator:
  * Using a Helm chart
  * Using `kubectl` and YAML manifests
 
+Regardless of the installation method chosen, download or clone the
+[Cluster Operator repository](https://github.com/rabbitmq/cluster-operator) and set it as
+your current working directory.
+
+## Compatibility
+
+- Kubernetes 1.16 or 1.17
+- Kubernetes 1.18 is not fully tested and there might be incompatibilities
+- [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
+    - Our Operator relies on some behaviour of the entry point script used in this image.
+
 ## <a id="using-helm-chart" class="anchor" href="#using-helm-chart">Using a Helm chart</a>
 
 This topic describes how to install and configure Cluster Operator using a Helm chart.
@@ -124,6 +135,9 @@ To install the Operator using Helm:
     pod/rabbitmq-cluster-operator-5dcbcc558c-br2t7   1/1     Running   0          52s
     </pre>
 
+At this point, the Cluster Operator is successfully installed. Check the [next steps](#next-steps) for
+a guide on how to configure and deploy RabbitMQ instances.
+
 -----
 
 ## <a id='using-kubectl-yaml' class='anchor' href='#using-kubectl-yaml'>Using kubectl and YAML</a>
@@ -218,9 +232,12 @@ kustomize build . | kubectl create -f -
 cd -
 </pre>
 
+At this point, the Cluster Operator is successfully installed. Check the [next steps](#next-steps) for
+a guide on how to configure and deploy RabbitMQ instances.
+
 -----
 
-## Next steps
+## <a id='next-steps'></a> Next steps
 
 Once the Cluster Operator Pod is running, head over to [Using Kubernetes Cluster Operator](/using-cluster-operator.html)
 for instructions on how to deploy RabbitMQ using a Kubernetes Custom Resource.

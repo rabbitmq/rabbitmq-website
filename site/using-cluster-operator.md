@@ -2,7 +2,7 @@
 
 This section covers how to deploy Custom Resource objects that will
 be managed by the Kubernetes Cluster Operator. If you have not installed
-the Cluster Operator, check the [Installing Cluster Operator in a Kubernetes cluster](/install-operator.html).
+the Cluster Operator, check the [Installing Cluster Operator in a Kubernetes cluster](/install-cluster-operator.html).
 
 ## Confirm Service Availability
 
@@ -25,7 +25,7 @@ To confirm this availability:
     rabbitmqclusters.rabbitmq.com   2019-10-23T10:11:06Z
     </pre>
 
-If it is not, ask your operator to install it by following the steps in [Installing Cluster Operator in a Kubernetes cluster](/install-operator.html).
+If it is not, ask your operator to install it by following the steps in [Installing Cluster Operator in a Kubernetes cluster](/install-cluster-operator.html).
 
 
 ## <a id='psp' class='anchor' href='#psp'>(Optional) Apply Pod Security Policies</a>
@@ -510,9 +510,8 @@ The configurations are listed in the table below.
         <code>spec.service.annotations</code>
       </td>
       <td>
-      These are annotations on the ingress service.
-      Annotations containing <code>kubernetes.io</code> and <code>k8s.io</code> are ignored because these are
-      reserved for Kubernetes core components.
+      These are annotations on the ingress service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
+      are <b>not</b> filtered at this level.
       </td>
     </tr>
     <tr>
@@ -699,6 +698,10 @@ kubectl get rabbitmqcluster INSTANCE \
 
 Where `INSTANCE` is the name of `RabbitmqCluster` resource.
 
+For more information on how to connect using Services, check
+[Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
+regarding Service DNS.
+
 ### <a id='creds' class='anchor' href='#creds'>Retrieve Your RabbitMQ Admin Credentials</a>
 
 Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-rabbitmq-admin`,
@@ -756,7 +759,7 @@ For more information, see [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-t
 
     A log appears as in this example:
 
-  <pre class="terminal">
+  <pre class="hljs terminal">
   $ kubectl logs -f perf-test
   id: test-104555-858, starting consumer #0
   id: test-104555-858, starting consumer #0, channel #0

@@ -5,7 +5,7 @@ Cluster Operator is a Kubernetes Operator that automates provisioning, managing,
 and operating RabbitMQ clusters running on Kubernetes.
 
 Kubernetes Operators are software extensions to Kubernetes that make use of custom resources to manage apps
-and their components.For general information about Operators, see the
+and their components. For general information about Operators, see the
 [Kubernetes documentation](https://kubernetes.io/docs/concepts/extend-kubernetes/operator).
 
 Cluster Operator provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and
@@ -14,7 +14,7 @@ manage their lifecycle. RabbitMQ clusters can be accessed by apps running on Kub
 ## Key Features
 Cluster Operator includes the following key features:
 
-* Provisioning of single-node and three-node RabbitMQ clusters
+* Provisioning of single-node and multi-node RabbitMQ clusters
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
 * Monitoring of RabbitMQ clusters through Prometheus and Grafana
 For more information, see the [Prometheus](https://prometheus.io/docs/introduction/overview/)
@@ -22,9 +22,16 @@ and [Grafana](https://grafana.com/docs/) documentation.
 
 Automated upgrades of RabbitMQ clusters, another key feature, is planned for a later update.
 
+## Compatibility
+
+- Kubernetes 1.16 or 1.17
+- Kubernetes 1.18 is not fully tested and there might be incompatibilities
+- [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
+    - Our Operator relies on some behaviour of the entry point script used in this image.
+
 ## Installation
 
-See the [Cluster Operator Installation Guide](/install-operator.html) page
+See the [Cluster Operator Installation Guide](/install-cluster-operator.html) page
 for information on how to install it.
 
 ## Limitations
