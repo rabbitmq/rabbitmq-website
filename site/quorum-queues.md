@@ -34,7 +34,7 @@ including workload-specific ones, e.g. when consumers [repeatedly requeue the sa
 Some features, such as [poison message handling](#poison-message-handling), are specific
 to quorum queues.
 
-### What is a Quorum?
+### <a id="what-is-quorum" class="anchor" href="#what-is-quorum">What is a Quorum?</a>
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum) in a distributed system can
 be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
