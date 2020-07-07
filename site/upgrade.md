@@ -12,7 +12,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
-1. [Cluster configuration](#rabbitmq-cluster-configuration), single node vs. multiple nodes
+1. How upgrades of [multi-node clusters](#clusters) is different from those with only a single node
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
