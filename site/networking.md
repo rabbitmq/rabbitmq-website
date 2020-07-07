@@ -47,6 +47,8 @@ There are several areas which can be configured or tuned. Each has a section in 
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
+ * How to allow Erlang runtime to accept inbound connections
+   when [MacOS Application Firewall](#firewalls-mac-os) is enabled
 
 This guide also covers a few topics closely related to networking:
 
@@ -1205,3 +1207,35 @@ See [Connection Lifecycle Events](/logging.html#connection-lifecycle-events) in 
 
 A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.
+
+
+## <a id="firewalls-mac-os" class="anchor" href="#firewalls-mac-os">MacOS Application Firewall</a>
+
+On MacOS systems with [Application Firewall](https://support.apple.com/en-us/HT201642) enabled,
+Erlang runtime processes must be allowed to bind to ports and accept connections.
+Without this, RabbitMQ nodes won't be able to bind to their [ports](#ports) and will fail to start.
+
+A list of blocked applications can be seen under `Security and Privacy` => `Firewall` in system settings.
+
+To "unblock" a command line tool, use `sudo /usr/libexec/ApplicationFirewall/socketfilterfw`.
+The examples below assume that Erlang is installed under `/usr/local/Cellar/erlang/{version}`,
+used by the Homebrew Erlang formula:
+
+<pre class="lang-bash">
+# allow CLI tools and shell to bind to ports and accept inbound connections
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/Cellar/erlang/{version}/lib/erlang/bin/erl
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/Cellar/erlang/{version}/lib/erlang/bin/erl
+</pre>
+
+<pre class="lang-bash">
+# allow server nodes (Erlang VM) to bind to ports and accept inbound connections
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/Cellar/erlang/{version}/lib/erlang/erts-{erts version}/bin/beam.smp
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/Cellar/erlang/{version}/lib/erlang/erts-{erts version}/bin/beam.smp
+</pre>
+
+Note that `socketfilterfw` command line arguments can vary between MacOS releases.
+To see supports command line arguments, use
+
+<pre class="lang-bash">
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --help
+</pre>
