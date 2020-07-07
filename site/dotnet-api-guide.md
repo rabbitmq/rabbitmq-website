@@ -25,6 +25,7 @@ and the reader is familiar with [the basics](/getstarted.html).
 
 Key sections of the guide are:
 
+* [Dependencies](#dependencies)
 * [Important interfaces and classes](#major-api-elements) in the public API
 * [Connecting to RabbitMQ](#connecting)
 * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
@@ -50,6 +51,18 @@ The library is open source, developed [on GitHub](https://github.com/rabbitmq/ra
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
+
+### <a id="dependencies" class="anchor" href="#dependencies">Dependencies</a>
+
+The clients has a couple of dependencies:
+
+ * [`System.Memory`](https://www.nuget.org/packages/System.Memory/) 4.5.x
+ * [`System.Threading.Channels`](https://www.nuget.org/packages/System.Threading.Channels/) 4.7.x
+
+Applications that use different versions os the same dependencies
+should use [assembly version redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions),
+[automatic](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection) or
+explicit.
 
 
 ## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
