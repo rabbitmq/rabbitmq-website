@@ -574,12 +574,6 @@ span.path, i.Pa {
   font-weight: bold;
 }
 
-div.variablelist .sourcecode {
-  color: white;
-  background: #444;
-  border: none;
-}
-
 table {
   width: 100%;
   border-top: #e4e4e4 1px solid;
