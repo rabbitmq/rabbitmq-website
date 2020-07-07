@@ -321,22 +321,66 @@ An affected node will not respond to CLI connections in a reasonable amount of t
 when performing the following basic commands:
 
 <pre class="lang-bash">
-rabbitmqctl status
-rabbitmqctl eval "ok."
+rabbitmq-diagnostics ping
+rabbitmq-diagnostics status
 </pre>
 
-### <a id="mirrored-queues-synchronisation" class="anchor" href="#mirrored-queues-synchronisation">Mirrored queues synchronisation</a>
+### <a id="quorum-queues" class="anchor" href="#quorum-queues">Quorum Queues</a>
 
-Before stopping a node, make sure that
-all mirrored queue masters it holds have at least one synchronised queue mirror.
-RabbitMQ will not promote unsynchronised queue mirrors on controlled
-queue master shutdown when
-[default promotion settings](ha.html#promotion-while-down) are used.
+[Quorum queues](/quorum-queues.html) depend on a [quorum](/quorum-queues.html#what-is-quorum) of nodes to
+be online for any queue operations to succeed. This includes successful new leader election should
+a cluster node that hosts some leaders shut down.
+
+In the context of rolling upgrades this means that a quorum of nodes must be present at all times
+during an upgrade. If this is not the case, quorum queues will become unavailable and will be not
+able to satisfy their data safety guarantees.
+
+Latest RabbitMQ releases provide a [health check](/monitoring.html#health-checks) command that would fail
+should any quorum queues on the target node lose their quorum in case the node was to be shut down:
+
+<pre class="lang-bash">
+# Exits with a non-zero code if one or more quorum queues will lose online quorum
+# should target node be shut down
+rabbitmq-diagnostics check_if_node_is_quorum_critical
+</pre>
+
+For example, consider a three node cluster with nodes A, B, and C. If node B is currently down
+and there are quorum queues with leader replica on node A, this check will fail if executed
+against node A. When node B comes back online, the same check would succeed because
+the quorum queues with leader on node A would have a quorum of replicas online.
+
+Quorum queue quorum state can be verified by listing queues in the management UI or using `rabbitmq-queues`:
+
+<pre class="lang-bash">
+rabbitmq-queues -n rabbit@to-be-stopped quorum_status &lt;queue name&gt;
+</pre>
+
+### <a id="mirrored-queues-synchronisation" class="anchor" href="#mirrored-queues-synchronisation">Mirrored Queues Replica Synchronisation</a>
+
+In environments that use [classic mirrored queues](/ha.html), it is important to make sure that all mirrored queues on a node
+have a synchronised follower replica (mirror) **before stopping that node**.
+
+RabbitMQ will not promote unsynchronised queue mirrors on controlled queue master shutdown when
+[default promotion settings](/ha.html#promotion-while-down) are used.
 However if a queue master encounters any errors during shutdown, an [unsynchronised queue mirror](/ha.html#unsynchronised-mirrors)
-might still be promoted. It is generally safer option to synchronise
-a queue first.
+might still be promoted. It is generally safer option to synchronise all classic mirrored queues
+with replicas on a node before shutting the node down.
 
-This can be verified by listing queues in the management UI or using `rabbitmqctl`:
+Latest RabbitMQ releases provide a [health check](/monitoring.html#health-checks) command that would fail
+should any classic mirrored queues on the target node have no synchronised mirrors:
+
+<pre class="lang-bash">
+# Exits with a non-zero code if target node hosts master replica of at least one queue
+# that has out-of-sync mirror.
+rabbitmq-diagnostics check_if_node_is_mirror_sync_critical
+</pre>
+
+For example, consider a three node cluster with nodes A, B, and C. If there are classic mirrored queues
+with the only synchronised replica on node A (the leader), this check will fail if executed
+against node A. When one of other replicas is re-synchronised, the same check would succeed because
+there would be at least one replica suitable for promotion.
+
+Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
 <pre class="lang-bash">
 # For queues with non-empty `slave_pids`, you must have at least one
@@ -345,8 +389,7 @@ rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchron
 </pre>
 
 If there are unsynchronised queues, either enable
-automatic synchronisation or [trigger it using
-`rabbitmqctl`](ha.html#unsynchronised-mirrors) manually.
+automatic synchronisation or [trigger it using `rabbitmqctl`](ha.html#unsynchronised-mirrors) manually.
 
 RabbitMQ shutdown process will not wait for queues to be synchronised
 if a synchronisation operation is in progress.
