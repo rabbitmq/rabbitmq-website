@@ -1158,7 +1158,6 @@ may lead to resolution timeouts, e.g. when trying to resolve a local hostname
 such as `my-dev-machine`, over DNS. As a result, client connections
 can take a long time (from tens of seconds to a few minutes).
 
-
 ### <a id="dns-resolution-by-nodes" class="anchor" href="#dns-resolution-by-nodes">Short and Fully-qualified RabbitMQ Node Names</a>
 
 RabbitMQ relies on the Erlang runtime for inter-node
@@ -1193,6 +1192,47 @@ To disable reverse DNS lookups:
 
 <pre class="lang-ini">
 reverse_dns_lookups = false
+</pre>
+
+### <a id="dns-verify-resolution" class="anchor" href="#dns-verify-resolution">Verify Hostname Resolution</a> on a Node or Locally
+
+Since hostname resolution is a [prerequisite for successfull inter-node communication](/clustering.html#hostname-resolution-requirement),
+starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
+that hostname resolution on a node works as expected. The commands are not mean to replace
+[`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
+provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
+into account.
+
+The first command is `rabbitmq-diagnostics resolve_hostname`:
+
+<pre class="lang-bash">
+# resolves node2.cluster.local.svc to IPv6 addresses on node rabbit@node1.cluster.local.svc
+rabbitmq-diagnostics resolve_hostname node2.cluster.local.svc --address-family IPv6 -n rabbit@node1.cluster.local.svc
+
+# makes local CLI tool resolve node2.cluster.local.svc to IPv4 addresses
+rabbitmq-diagnostics resolve_hostname node2.cluster.local.svc --address-family IPv4 --offline
+</pre>
+
+The second one is `rabbitmq-diagnostics resolver_info`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics resolver_info
+</pre>
+
+It will report key resolver settings such as the lookup order (whether CLI tools should prefer the OS resolver,
+inetrc file, and so on) as well as inetrc hostname entries, if any:
+
+<pre class="lang-plaintext">
+Runtime Hostname Resolver (inetrc) Settings
+
+Lookup order: native
+Hosts file: /etc/hosts
+Resolver conf file: /etc/resolv.conf
+Cache size:
+
+inetrc File Host Entries
+
+(none)
 </pre>
 
 
