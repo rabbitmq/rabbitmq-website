@@ -207,7 +207,7 @@ prepared to handle this and reconnect.
 
 Rolling upgrades are possible only between compatible RabbitMQ and Erlang versions.
 
-#### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">Starting RabbitMQ 3.8</a>
+#### <a id="rolling-upgrade-starting-with-3.8" class="anchor" href="#rolling-upgrade-starting-with-3.8">With RabbitMQ 3.8 or Later Versions</a>
 
 RabbitMQ 3.8.0 comes with a [feature flag](/feature-flags.html) subsystem which is
 responsible for determining if two versions of RabbitMQ are compatible.
