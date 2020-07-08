@@ -39,7 +39,8 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Kubernetes
 
- * [RabbitMQ Cluster Operator](/kubernetes-operator.html) ([Source Code](https://github.com/rabbitmq/cluster-operator))
+ * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/rabbitmq-cluster-kubernetes-operator.html)
+ ([GitHub repository](https://github.com/rabbitmq/cluster-operator))
  * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
  * [Examples](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples) that use Minikube and Kind
 
