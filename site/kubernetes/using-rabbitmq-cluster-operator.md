@@ -125,7 +125,7 @@ spec:
 **Description:** Specify the RabbitMQ image reference.
 This property is necessary if, for example, you are using a private registry.
 
-**Default Value:** The official [rabbitmq image on Dockerhub](https://hub.docker.com/_/rabbitmq).
+**Default Value:** The community [RabbitMQ image on Dockerhub](https://hub.docker.com/_/rabbitmq).
 
 **Example:**
 

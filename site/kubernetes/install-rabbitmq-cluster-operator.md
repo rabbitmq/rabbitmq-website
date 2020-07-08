@@ -1,36 +1,36 @@
-# Installing Cluster Operator in a Kubernetes cluster
+# Installing RabbitMQ Cluster Kubernetes Operator in a Kubernetes cluster
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers the installation of Cluster Operator in a Kubernetes cluster. This guide
+This guide covers the installation of RabbitMQ Cluster Kubernetes Operator in a Kubernetes cluster. This guide
 was written using a GKE cluster, although any Kubernetes flavour should work.
 
-There are two ways to install the Cluster Operator:
+There are two ways to install the RabbitMQ Cluster Kubernetes Operator:
 
  * Using a Helm chart
  * Using `kubectl` and YAML manifests
 
 Regardless of the installation method chosen, download or clone the
-[Cluster Operator repository](https://github.com/rabbitmq/cluster-operator) and set it as
+[RabbitMQ Cluster Kubernetes Operator repository](https://github.com/rabbitmq/cluster-operator) and set it as
 your current working directory.
 
-## Compatibility
+## <a id='compatibility' class='anchor' href='#compatibility'>Compatibility</a>
 
 - Kubernetes 1.16 or 1.17
 - Kubernetes 1.18 is not fully tested and there might be incompatibilities
-- [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
+- [Community RabbitMQ Docker image](https://hub.docker.com/_/rabbitmq) 3.8.5+
     - Our Operator relies on some behaviour of the entry point script used in this image.
 
 ## <a id="using-helm-chart" class="anchor" href="#using-helm-chart">Using a Helm chart</a>
 
-This topic describes how to install and configure Cluster Operator using a Helm chart.
+This topic describes how to install and configure RabbitMQ Cluster Kubernetes Operator using a Helm chart.
 
 In most cases, using a Helm chart is the fastest way to install.
 For more information about Helm charts, see the [Helm documentation](https://helm.sh/docs/topics/charts/).
 
-### Prerequisites
+### <a id='helm-prerequisites' class='anchor' href='#helm-prerequisites'>Prerequisites</a>
 
-Before you install and configure Cluster Operator, you must install and configure:
+Before installing and configuring RabbitMQ Cluster Kubernetes Operator, the following must be installed and configured:
 
 * **The Docker CLI:** For installation instructions,
 see the [Docker documentation](https://docs.docker.com/install/).
@@ -39,15 +39,15 @@ see the [Docker documentation](https://docs.docker.com/install/).
 
 ### High level steps
 
-To install and configure Cluster Operator using a Helm chart:
+To install and configure RabbitMQ Cluster Kubernetes Operator using a Helm chart:
 
-1. [Build and push the Cluster Operator image](#build-image)
+1. [Build and push the RabbitMQ Cluster Kubernetes Operator image](#build-image)
 1. [Create a Values File](#helm-create-values)
 1. [Helm Install](#helm-install-op)
 
-### <a id='build-image' class='anchor' href='#build-image'>Build the Cluster Operator image</a>
+### <a id='build-image' class='anchor' href='#build-image'>Build the RabbitMQ Cluster Kubernetes Operator image</a>
 
-From the Cluster Operator repository, run `docker build -t someregistry/cluster-operator:some-tag`. The value of `someregistry`
+From the RabbitMQ Cluster Kubernetes Operator repository, run `docker build -t someregistry/cluster-operator:some-tag`. The value of `someregistry`
 should be the address of an OCI compatible registry e.g. Docker Hub and `some-tag` should be a value to version the image.
 
 Once the image is built, push it to the registry using `docker push someregistry/cluster-operator:some-tag`.
@@ -64,7 +64,7 @@ To create a values file:
 
 1. Open the values file and adapt the values to match your environment.
 
-    <pre class='hljs lang-bash'>
+    <pre class='lang-yaml'>
     global:
       imageRegistry: IMAGE-REGISTRY-URL
       imageUsername: USERNAME
@@ -85,7 +85,7 @@ To create a values file:
 
     This is an example of a customized values file:
 
-    <pre class='hljs lang-bash'>
+    <pre class='lang-yaml'>
     global:
       imageRegistry: someregistry.example.com
       imageUsername: myuser@example.com
@@ -97,7 +97,7 @@ To create a values file:
     </pre>
 
 
-### <a id='helm-install-op' class='anchor' href='#helm-install-op'>Install Cluster Operator</a>
+### <a id='helm-install-op' class='anchor' href='#helm-install-op'>Install RabbitMQ Cluster Kubernetes Operator</a>
 
 To install the Operator using Helm:
 
@@ -116,39 +116,39 @@ To install the Operator using Helm:
 
 1. Verify that the output of the `helm install` command is similar to the example below.
 
-    <pre class="terminal">
-    NAME: cluster-operator
-    LAST DEPLOYED: Tue Mar 31 16:13:05 2020
-    NAMESPACE: default
-    STATUS: deployed
-    REVISION: 1
-    TEST SUITE: None
+    <pre class="lang-bash">helm -n default install -f cluster-operator-values.yaml cluster-operator charts/operator/
+     # NAME: cluster-operator
+     # LAST DEPLOYED: Tue Mar 31 16:13:05 2020
+     # NAMESPACE: default
+     # STATUS: deployed
+     # REVISION: 1
+     # TEST SUITE: None
     </pre>
 
-1. Verify that Cluster Operator Deployment and Pod are created in `rabbitmq-system` Namespace.
+1. Verify that RabbitMQ Cluster Kubernetes Operator Deployment and Pod are created in `rabbitmq-system` Namespace.
 
-    <pre class="terminal">
-    kubectl -n rabbitmq-system get deployment,pod
-    NAME                                        READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/rabbitmq-cluster-operator   1/1     1            1           52s
-    NAME                                             READY   STATUS    RESTARTS   AGE
-    pod/rabbitmq-cluster-operator-5dcbcc558c-br2t7   1/1     Running   0          52s
+    <pre class="lang-bash">kubectl -n rabbitmq-system get deployment,pod
+     # NAME                                        READY   UP-TO-DATE   AVAILABLE   AGE
+     # deployment.apps/rabbitmq-cluster-operator   1/1     1            1           52s
+     #
+     # NAME                                             READY   STATUS    RESTARTS   AGE
+     # pod/rabbitmq-cluster-operator-5dcbcc558c-br2t7   1/1     Running   0          52s
     </pre>
 
-At this point, the Cluster Operator is successfully installed. Check the [next steps](#next-steps) for
+At this point, the RabbitMQ Cluster Kubernetes Operator is successfully installed. Check the [next steps](#next-steps) for
 a guide on how to configure and deploy RabbitMQ instances.
 
 -----
 
 ## <a id='using-kubectl-yaml' class='anchor' href='#using-kubectl-yaml'>Using kubectl and YAML</a>
 
-This topic describes how to install and configure Cluster Operator using Kubectl CLI and YAML manifests.
+This topic describes how to install and configure RabbitMQ Cluster Kubernetes Operator using Kubectl CLI and YAML manifests.
 
 ### High level steps
 
 1. [Create the Namespace and Role-Based Access Control Objects](#namespace-rbac)
 1. [(Optional) Configure Kubernetes Cluster Access to Private Images](#private-images)
-1. Build and push the image
+1. [Build and push the image](#build-image-kctl)
 1. [Install using kubectl](#deploy-op)
 
 ### <a id='namespace-rbac' class='anchor' href='#namespace-rbac'>Create the Namespace and Role-Based Access Control Objects</a>
@@ -192,7 +192,7 @@ To configure access to your private registry:
 
     For example:
     <pre class="terminal">
-    $ kubectl -n rabbitmq-system create secret \
+    kubectl -n rabbitmq-system create secret \
     docker-registry rabbitmq-cluster-registry-access \
     --docker-server=docker.io/my-registry \
     --docker-username=my-username \
@@ -206,9 +206,9 @@ To configure access to your private registry:
     rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-registry-access"}]}'
     </pre>
 
-### Build and push the image
+### <a id='build-image-kctl' class='anchor' href='#build-image-kctl'>Build and push the image</a>
 
-From the Cluster Operator repository, run `docker build -t someregistry/cluster-operator:some-tag`. The value of `someregistry`
+From the RabbitMQ Cluster Kubernetes Operator repository, run `docker build -t someregistry/cluster-operator:some-tag`. The value of `someregistry`
 should be the address of an OCI compatible registry e.g. Docker Hub and `some-tag` should be a value to version the image.
 
 Once the image is built, push it to the registry using `docker push someregistry/cluster-operator:some-tag`.
@@ -217,13 +217,13 @@ Once the image is built, push it to the registry using `docker push someregistry
 
 Install the Custom Resource Definition (CRD) by running:
 
-<pre class='hljs lang-yaml'>
+<pre class='lang-bash'>
 kubectl create -f config/crd/bases/rabbitmq.com_rabbitmqclusters.yaml
 </pre>
 
 To deploy the Operator, adapt and run the following commands to your image registry:
 
-<pre class='hljs lang-yaml'>
+<pre class='hljs lang-bash'>
 cd config/manager/
 kustomize edit set image 'controller=someregistry.example.com/my-project/cluster-operator:some-tag'
 kustomize edit set nameprefix rabbitmq-cluster-
@@ -232,14 +232,15 @@ kustomize build . | kubectl create -f -
 cd -
 </pre>
 
-At this point, the Cluster Operator is successfully installed. Check the [next steps](#next-steps) for
+At this point, the RabbitMQ Cluster Kubernetes Operator is successfully installed. Check the [next steps](#next-steps) for
 a guide on how to configure and deploy RabbitMQ instances.
 
 -----
 
 ## <a id='next-steps'></a> Next steps
 
-Once the Cluster Operator Pod is running, head over to [Using Kubernetes Cluster Operator](/using-cluster-operator.html)
+Once the RabbitMQ Cluster Kubernetes Operator Pod is running, head over to
+[Using Kubernetes RabbitMQ Cluster Kubernetes Operator](/kubernetes/using-rabbitmq-cluster-operator.html)
 for instructions on how to deploy RabbitMQ using a Kubernetes Custom Resource.
 
 
