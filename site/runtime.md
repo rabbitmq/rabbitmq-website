@@ -108,7 +108,7 @@ is highly discourage and will result in suboptimal performance.
 The runtime can put schedulers to sleep when they run out of work to execute. There's a certain cost
 to bringing them back online, so with some workloads it may be beneficial to not do that.
 
-This cam be compared to a factory with multiple conveyor belts. When one belt runs out of items,
+This can be compared to a factory with multiple conveyor belts. When one belt runs out of items,
 it can be stopped. However, once more work is there for it to do, restarting it will take time.
 Alternatively the conveyor can be speculatively kept running for a period of time.
 
