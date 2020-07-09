@@ -83,9 +83,12 @@ They execute code, perform I/O, execute timers and so on. Schedulers have a numb
 that can affect overall system performance, CPU utilisation, latency and other runtime characteristics
 of a node.
 
-By default the runtime will start one scheduler for one CPU core it detects. This can be changed
-using the `+S` flag. The following example configures the node to start 4 schedulers even if it detects
-more:
+By default the runtime will start one scheduler for one CPU core it detects. Starting
+with Erlang 23, this [takes CPU quotas into account](http://blog.erlang.org/OTP-23-Highlights/) in
+containerized environments such as Docker and Kubernetes.
+
+The number of schedulers can be explicitly set using the `+S` flag. The following example configures
+the node to start 4 schedulers even if it detects more cores to be available to it:
 
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+S 4:4"
