@@ -2,7 +2,7 @@
 
 This topic describes how to monitor RabbitMQ instances deployed by Cluster Operator.
 
-## <a id='overview'></a> Overview
+## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
 Cluster Operator deploys RabbitMQ clusters with the `rabbitmq_prometheus` plugin, which is enabled by
 default. `rabbitmq_prometheus` exposes a Prometheus-compatible metrics endpoint.
@@ -15,7 +15,7 @@ For a detailed guide on RabbitMQ Prometheus configuration, check the [Prometheus
 
 The following sections assume Prometheus is deployed and working.
 
-## <a id='prom-annotations'></a> Monitor RabbitMQ Using Scraping Annotations
+## <a id='prom-annotations' class='anchor' href='#prom-annotations'>Monitor RabbitMQ Using Scraping Annotations</a>
 
 Prometheus can configured to scrape all Pods with the `prometheus.io/scrape: true` annotation.
 
@@ -34,7 +34,7 @@ spec:
       "prometheus.io/port": "15692"
 </pre>
 
-## <a id='prom-operator'></a> Monitor RabbitMQ Using the Prometheus Operator
+## <a id='prom-operator' class='anchor' href='#prom-operator'>Monitor RabbitMQ Using the Prometheus Operator</a>
 
 The Prometheus Operator defines scraping configuration through a more flexible custom resource called `PodMonitor`.
 For more information, see the [Prometheus Operator](https://github.com/coreos/prometheus-operator) in GitHub.
@@ -98,7 +98,7 @@ For more information about these permissions, see
 [Configure Permissions for the Prometheus Operator](#config-perm) below.
 
 
-### <a id='config-perm'></a> (Optional) Configure Permissions for the Prometheus Operator
+### <a id='config-perm' class='anchor' href='#config-perm'>(Optional) Configure Permissions for the Prometheus Operator</a>
 
 If your RabbitMQ clusters do not appear in Prometheus, you might need to configure permissions for the
 Prometheus Operator.
@@ -149,17 +149,9 @@ To configure permissions for the Prometheus Operator:
 
 1. Apply the permissions listed in `prometheus-roles.yaml` by running: `kubectl apply -f prometheus-roles.yaml`
 
-## <a id='grafana'></a> Import Dashboards to Grafana
+## <a id='grafana' class='anchor' href='#grafana'>Import Dashboards to Grafana</a>
 
 RabbitMQ provides Grafana dashboards to visualize the metrics scraped by Prometheus.
 
-To import a dashboard to Grafana:
-
-1. Go to the [Grafana website](https://grafana.com/orgs/rabbitmq) to view the list of official RabbitMQ Grafana
-dashboards.
-1. Click on the dashboard you want to use.
-1. Click the **Download JSON** link or copy the dashboard ID.
-1. Follow the steps in the
-[Grafana documentation](https://grafana.com/docs/reference/export_import/#importing-a-dashboard) to import your
-chosen dashboard to Grafana.
+Follow the instructions in the [Prometheus guide](/prometheus.html#grafana-configuration) to import dashboards to Grafana.
 
