@@ -230,7 +230,7 @@ class ReceiveLogsTopic
             consumer.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body.ToArray());
+                var message = Encoding.UTF8.GetString(body);
                 var routingKey = ea.RoutingKey;
                 Console.WriteLine(" [x] Received '{0}':'{1}'",
                                   routingKey,
