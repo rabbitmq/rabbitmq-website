@@ -24,7 +24,7 @@ to connect to and interact with RabbitMQ nodes.
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-erlang-client/),
 and is dual-licensed under [the Apache License v2](https://www.apache.org/licenses/LICENSE-2.0)
-and [the Mozilla Public License v1.1](/mpl.html).
+and [the Mozilla Public License v2.0](/mpl.html).
 
 
 ## <a id="releases" class="anchor" href="#releases">Releases</a>
