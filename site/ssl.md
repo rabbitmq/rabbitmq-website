@@ -299,8 +299,19 @@ To verify that TLS has been enabled on the node, restart it and inspect its [log
 It should contain an entry about a TLS listener being enabled, looking like this:
 
 <pre class="lang-plaintext">
-2018-09-02 14:24:58.611 [info] &lt;0.664.0&gt; started TCP listener on [::]:5672
-2018-09-02 14:24:58.614 [info] &lt;0.680.0&gt; started SSL listener on [::]:5671
+2020-07-13 21:13:01.015 [info] &lt;0.573.0&gt; started TCP listener on [::]:5672
+2020-07-13 21:13:01.055 [info] &lt;0.589.0&gt; started TLS (SSL) listener on [::]:5671
+</pre>
+
+Another way is by using `rabbitmq-diagnostics listeners` which should contain
+lines for TLS-enabled listeners:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics listeners
+#
+# ... (some output omitted for brevity)
+# => Interface: [::], port: 5671, protocol: amqp/ssl, purpose: AMQP 0-9-1 and AMQP 1.0 over TLS
+# ...
 </pre>
 
 ### <a id="private-key-passwords" class="anchor" href="#private-key-passwords">Providing Private Key Password</a>
