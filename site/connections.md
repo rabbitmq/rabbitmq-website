@@ -261,7 +261,26 @@ Since connections [consume resources](#resource-usage), sustaining a large numbe
 requires reducing resource consumption or provisioning more resources or nodes. In practice those
 two options are used in combination.
 
+A large number of concurrent connections will generate a lot of metric (stats) emission events.
+This increases CPU consumption even with mostly idle connections. To reduce this footprint,
+increase the statistics collection interval using the `collect_statistics_interval` key:
+
+<pre class="lang-ini">
+# sets the interval to 60 seconds
+collect_statistics_interval = 60000
+</pre>
+
+The default is 5 seconds (5000 milliseconds).
+
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consuption.
+This come with a downside: with the value in the example above, metrics of said entities
+will refresh every 60 seconds.
+
+This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
+but will make management UI less convenient to use for operators.
+
 The [Networking guide](/networking.html) has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
+It explains how to reduce per-connection memory footprint.
 
 
 ## <a id="tls" class="anchor" href="#tls">TLS</a>

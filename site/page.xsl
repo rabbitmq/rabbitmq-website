@@ -135,13 +135,28 @@ limitations under the License.
       <script type="text/javascript">
         // code highlighting
         window.addEventListener("load", function() {
-          const selectors = "pre.sourcecode, pre.lang-bash, pre.lang-ini, \
-                             pre.lang-powershell, pre.lang-erlang, pre.lang-elixir, \
-                             pre.lang-java, pre.lang-csharp, pre.lang-xml, pre.lang-haskell, \
-                             pre.lang-groovy, pre.lang-json, pre.lang-javascript, pre.lang-html, \
-                             pre.lang-go, pre.lang-php, pre.lang-objectivec, pre.lang-swift, \
-                             pre.lang-ruby, pre.lang-python, div.lang-bash, pre.lang-makefile, \
-                             pre.lang-plaintext";
+          const selectors = "pre.lang-bash, \
+                             pre.lang-csharp, \
+                             pre.lang-elixir, \
+                             pre.lang-erlang, \
+                             pre.lang-go, \
+                             pre.lang-groovy, \
+                             pre.lang-haskell, \
+                             pre.lang-html, \
+                             pre.lang-ini, \
+                             pre.lang-java, \
+                             pre.lang-javascript, \
+                             pre.lang-json, \
+                             pre.lang-makefile, \
+                             pre.lang-objectivec, \
+                             pre.lang-php, \
+                             pre.lang-plaintext, \
+                             pre.lang-powershell, \
+                             pre.lang-python, \
+                             pre.lang-ruby, \
+                             pre.lang-swift, \
+                             pre.lang-yaml, \
+                             pre.lang-xml";
           document.querySelectorAll(selectors).forEach(function(el) {
             hljs.highlightBlock(el);
           });

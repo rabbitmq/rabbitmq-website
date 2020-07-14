@@ -262,7 +262,7 @@ class RPCServer
 
                 try
                 {
-                    var message = Encoding.UTF8.GetString(body.ToArray());
+                    var message = Encoding.UTF8.GetString(body);
                     int n = int.Parse(message);
                     Console.WriteLine(" [.] fib({0})", message);
                     response = fib(n).ToString();
@@ -350,7 +350,7 @@ public RpcClient()
         consumer.Received += (model, ea) =&gt;
         {
             var body = ea.Body.ToArray();
-            var response = Encoding.UTF8.GetString(body.ToArray());
+            var response = Encoding.UTF8.GetString(body);
             if (ea.BasicProperties.CorrelationId == correlationId)
             {
                 respQueue.Add(response);

@@ -25,12 +25,14 @@ and the reader is familiar with [the basics](/getstarted.html).
 
 Key sections of the guide are:
 
+* [Dependencies](#dependencies)
 * [Important interfaces and classes](#major-api-elements) in the public API
 * [Connecting to RabbitMQ](#connecting)
 * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
 * [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
+* [Async Consumer Implementations](#consuming-async)
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
@@ -49,6 +51,18 @@ The library is open source, developed [on GitHub](https://github.com/rabbitmq/ra
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
+
+### <a id="dependencies" class="anchor" href="#dependencies">Dependencies</a>
+
+The clients has a couple of dependencies:
+
+ * [`System.Memory`](https://www.nuget.org/packages/System.Memory/) 4.5.x
+ * [`System.Threading.Channels`](https://www.nuget.org/packages/System.Threading.Channels/) 4.7.x
+
+Applications that use different versions os the same dependencies
+should use [assembly version redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions),
+[automatic](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection) or
+explicit.
 
 
 ## <a id="major-api-elements" class="anchor" href="#major-api-elements">Major namespaces, interfaces and classes</a>
@@ -445,6 +459,41 @@ accessed by applications.
 Retaining a reference to the payload is not safe: the memory allocated for it can be deallocated at any moment
 after the handler returns.
 
+## <a id="consuming-async" class="anchor" href="#consuming-async">Async Consumer Implementations</a>
+
+The client provides an async-oriented consumer dispatch implementation. This dispatcher can only
+be used with async consumers, that is, `IAsyncBasicConsumer` implementations.
+
+In order to use this dispatcher, set the `ConnectionFactory.DispatchConsumersAsync` property to `true`:
+
+<pre class="lang-csharp">
+ConnectionFactory factory = new ConnectionFactory();
+// ...
+// use async-oriented consumer dispatcher. Only compatible with IAsyncBasicConsumer implementations
+factory.DispatchConsumersAsync = true;
+</pre>
+
+then register a consumer that implements `IAsyncBasicConsumer`, such as `AsyncEventingBasicConsumer` or `AsyncDefaultBasicConsumer`:
+
+<pre class="lang-csharp">
+var consumer = new AsyncEventingBasicConsumer(channel);
+consumer.Received += async (ch, ea) =>
+    {
+        var body = ea.Body.ToArray();
+        // copy or deserialise the payload
+        // and process the message
+        // ...
+
+        ch.BasicAck(ea.DeliveryTag, false);
+        await Task.Yield();
+
+    };
+// this consumer tag identifies the subscription
+// when it has to be cancelled
+string tag = m.BasicConsume(queueName, false, consumer);
+// ensure we get a delivery
+bool waitRes = latch.WaitOne(2000);
+</pre>
 
 ## <a id="basic-get" class="anchor" href="#basic-get">Fetching Individual Messages (Polling or "pull API")</a>
 

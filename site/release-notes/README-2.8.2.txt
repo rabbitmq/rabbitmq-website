@@ -11,8 +11,8 @@ bug fixes
 - memory leak with dead-letter cycles and HA queues
 - possible message loss with dead-lettered messages and HA queues at broker
   shutdown
-- HA slave queue crash on basic.reject{requeue = false}
-- HA slave queue crash with dead-letter cycle
+- HA mirror queue crash on basic.reject{requeue = false}
+- HA mirror queue crash with dead-letter cycle
 - messages might incorrectly not expire if consumed immediately and then
   requeued
 - message acks might be lost if sent immediately before channel closure

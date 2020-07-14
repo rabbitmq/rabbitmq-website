@@ -10,7 +10,7 @@ bug fixes
   confirms, and cause it to leak memory
 - fix bug that prevented confirms from mirrored queues when x-message-ttl
   was set to zero
-- fix slave synchronisation detection logic in mirrored queues
+- fix mirror synchronisation detection logic in mirrored queues
 - fix possible deadlock during broker shutdown
 - fix resource leak when declaring many short-lived mirrored queues with
   different names
@@ -19,7 +19,7 @@ bug fixes
 
 performance improvements
 - reduce unnecessary fsync operations when deleting non-durable resources
-- slave nodes of mirrored queues now pro-actively persist acks and messages on
+- mirror nodes of mirrored queues now pro-actively persist acks and messages on
   a timer with a sensible interval
 
 

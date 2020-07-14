@@ -327,7 +327,7 @@ created against the queue.
 A different default exchange than `amq.topic` can be specified
 using the `stomp.default_topic_exchange` configuration setting:
 
-<pre class="sourcecode ini">
+<pre class="lang-ini">
 stomp.default_topic_exchange = some.exchange
 </pre>
 
@@ -355,7 +355,7 @@ subscription is not deleted when last subscriber disconnects.
 When creating a durable subscription,
 the `id` header must be specified. For example:
 
-<pre class="sourcecode ini">
+<pre class="lang-plaintext">
 SUBSCRIBE
 destination:/topic/my-durable
 id:1234

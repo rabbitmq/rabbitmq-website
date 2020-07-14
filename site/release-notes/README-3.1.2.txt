@@ -15,7 +15,7 @@ bug fixes
 25576 fix bug in queue index where a broker crash between segment
       deletion and journal truncation could prevent the broker from
       subsequently starting (since 2.0.0)
-25615 fix duplicate mirror queue slaves starting on a single node (since 2.6.0)
+25615 fix duplicate mirror queue mirrors starting on a single node (since 2.6.0)
 25588 ensure per-message-TTL is removed when messages are dead-lettered
       (since 3.0.0)
 25575 fix bug handling empty rabbit_serial leading to startup failure

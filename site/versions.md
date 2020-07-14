@@ -17,15 +17,22 @@ limitations under the License.
 
 # Release Series
 
-## <a id="currently-supported" class="anchor" href="#currently-supported">Currently supported release series</a>
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+This guide explains what release series of RabbitMQ (e.g. `3.8.x`) are currently covered
+by general or extended support policies, and what series are no longer supported.
+
+For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deployment Upgrade](/blue-green-upgrade.html) guides.
+
+## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
 
 <table class="release-series">
   <tr>
     <th>Version</th>
     <th>Latest patch</th>
     <th>First Release</th>
-    <th>End of General Support</th>
-    <th>End of Extended Support*</th>
+    <th>End of General Support<sup>1</sup></th>
+    <th>End of Extended Support<sup>2</sup></th>
     <th>In service for</th>
   </tr>
 
@@ -48,10 +55,13 @@ limitations under the License.
   </tr>
 </table>
 
-**Extended Support**: *security fixes* and *high-severity issues* reported by users with a [support contract](/contact.html).
+<sup>1</sup> **General Support** means patch releases that are [produced regularly](/changelog.html) based on the feedback of
+open source users and users with a [commercial support contract](/contact.html).
 
+<sup>2</sup> **Extended Support** means only *security patches* and *high-severity issues* reported by users
+with a [commercial support contract](/contact.html).
 
-## <a id="out-of-support" class="anchor" href="#out-of-support">Release series that are out of support</a>
+## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
 <table class="release-series">
   <tr>
@@ -119,7 +129,7 @@ limitations under the License.
   </tr>
 </table>
 
-If you want to learn more about individual releases, please see the [change log](/changelog.html).
+To learn more about individual releases, please see the [change log](/changelog.html).
 
 
 ## <a id="prior-to-v3x" class="anchor" href="#prior-to-v3x">Versions prior to v3.x</a>

@@ -343,7 +343,7 @@ perform TLS termination but that is out of scope for this guide.
 In this example <code>stunnel</code> will connect to the unencrypted port of the broker (5672) and accept
 TLS connections from TLS-capable clients on port 5679:
 
-<pre  class="sourcecode">
+<pre  class="lang-bash">
 cat client_key.pem client_certificate.pem > client/key-cert.pem
 stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
 </pre>

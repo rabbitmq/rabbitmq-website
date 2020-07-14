@@ -388,7 +388,6 @@ consumer.Received += (ch, ea) =>
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
-
 ### <a id="channel-qos-prefetch" class="anchor" href="#channel-qos-prefetch">Channel Prefetch Setting (QoS)</a>
 
 Because messages are sent (pushed) to clients
@@ -423,11 +422,16 @@ there already are deliveries in flight, a natural race
 condition arises and there can temporarily be more than
 prefetch count unacknowledged messages on a channel.
 
+#### Per-channel, Per-consumer and Global Prefetch
+
+The QoS setting can be configured for a specific channel or a specific consumer.
+The [Consumer Prefetch](/consumer-prefetch.html) guide explains
+the effects of this scoping.
+
+#### Prefetch and Polling Consumers
+
 The QoS prefetch setting has no effect on messages fetched using the `basic.get`
 ("pull API"), even in manual confirmation mode.
-
-The QoS setting can be configured for a channel or a consumer.
-See [Consumer Prefetch](/consumer-prefetch.html) for details.
 
 ### <a id="channel-qos-prefetch-throughput" class="anchor" href="#channel-qos-prefetch-throughput">Consumer Acknowledgement Modes, Prefetch and Throughput</a>
 

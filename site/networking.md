@@ -39,12 +39,16 @@ There are several areas which can be configured or tuned. Each has a section in 
  * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](/cli.html)
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
- * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
+ * Tuning for a [large number of concurrent connections](#tuning-for-large-number-of-connections)
+ * [High connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
+ * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
  * The interface and port used by [epmd](#epmd)
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
+ * How to allow Erlang runtime to accept inbound connections
+   when [MacOS Application Firewall](#firewalls-mac-os) is enabled
 
 This guide also covers a few topics closely related to networking:
 
@@ -64,7 +68,6 @@ such as
  * [connection lifecycle logging](#logging)
  * [Heartbeats](#heartbeats) (a.k.a. keepalives)
  * [proxies and load balancers](#intermediaries)
- * [high connection churn](#dealing-with-high-connection-churn) scenarios and resource exhaustion
 
 and more.
 
@@ -578,7 +581,12 @@ total throughput.
 
 ### <a id="tuning-for-large-number-of-connections-limitations" class="anchor" href="#tuning-for-large-number-of-connections-limitations"></a>
 
-Several factors can limit how many concurrent connections a single node can support: * Maximum number of [open file handles](#open-file-handle-limit) (including sockets) as well as other kernel-enforced resource limits * Amount of [RAM used by each connection](/memory-use.html) * Amount of CPU resources used by each connection * Maximum number of Erlang processes the VM is configured to allow
+Several factors can limit how many concurrent connections a single node can support:
+
+ * Maximum number of [open file handles](#open-file-handle-limit) (including sockets) as well as other kernel-enforced resource limits
+ * Amount of [RAM used by each connection](/memory-use.html)
+ * Amount of CPU resources used by each connection
+ * Maximum number of Erlang processes the VM is configured to allow.
 
 ### <a id="open-file-handle-limit" class="anchor" href="#open-file-handle-limit">Open File Handle Limit</a>
 
@@ -666,6 +674,26 @@ found for every workload.
 
 Setting send and receive buffer sizes to different values is dangerous
 and is not recommended. Values lower than 8 KiB are not recommended.
+
+### <a id="tuning-for-large-number-of-connections-cpu-footprint" class="anchor" href="#tuning-for-large-number-of-connections-cpu-footprint">Reducing CPU Footprint of Stats Emission</a>
+
+A large number of concurrent connections will generate a lot of metric (stats) emission events.
+This increases CPU consumption even with mostly idle connections. To reduce this footprint,
+increase the statistics collection interval using the `collect_statistics_interval` key:
+
+<pre class="lang-ini">
+# sets the interval to 60 seconds
+collect_statistics_interval = 60000
+</pre>
+
+The default is 5 seconds (5000 milliseconds).
+
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consuption.
+This come with a downside: with the value in the example above, metrics of said entities
+will refresh every 60 seconds.
+
+This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
+but will make management UI less convenient to use for operators.
 
 ### <a id="tuning-for-large-number-of-connections-channel-max" class="anchor" href="#tuning-for-large-number-of-connections-channel-max">Limiting Number of Channels on a Connection</a>
 
@@ -1132,7 +1160,6 @@ may lead to resolution timeouts, e.g. when trying to resolve a local hostname
 such as `my-dev-machine`, over DNS. As a result, client connections
 can take a long time (from tens of seconds to a few minutes).
 
-
 ### <a id="dns-resolution-by-nodes" class="anchor" href="#dns-resolution-by-nodes">Short and Fully-qualified RabbitMQ Node Names</a>
 
 RabbitMQ relies on the Erlang runtime for inter-node
@@ -1169,6 +1196,47 @@ To disable reverse DNS lookups:
 reverse_dns_lookups = false
 </pre>
 
+### <a id="dns-verify-resolution" class="anchor" href="#dns-verify-resolution">Verify Hostname Resolution</a> on a Node or Locally
+
+Since hostname resolution is a [prerequisite for successfull inter-node communication](/clustering.html#hostname-resolution-requirement),
+starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
+that hostname resolution on a node works as expected. The commands are not mean to replace
+[`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
+provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
+into account.
+
+The first command is `rabbitmq-diagnostics resolve_hostname`:
+
+<pre class="lang-bash">
+# resolves node2.cluster.local.svc to IPv6 addresses on node rabbit@node1.cluster.local.svc
+rabbitmq-diagnostics resolve_hostname node2.cluster.local.svc --address-family IPv6 -n rabbit@node1.cluster.local.svc
+
+# makes local CLI tool resolve node2.cluster.local.svc to IPv4 addresses
+rabbitmq-diagnostics resolve_hostname node2.cluster.local.svc --address-family IPv4 --offline
+</pre>
+
+The second one is `rabbitmq-diagnostics resolver_info`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics resolver_info
+</pre>
+
+It will report key resolver settings such as the lookup order (whether CLI tools should prefer the OS resolver,
+inetrc file, and so on) as well as inetrc hostname entries, if any:
+
+<pre class="lang-plaintext">
+Runtime Hostname Resolver (inetrc) Settings
+
+Lookup order: native
+Hosts file: /etc/hosts
+Resolver conf file: /etc/resolv.conf
+Cache size:
+
+inetrc File Host Entries
+
+(none)
+</pre>
+
 
 ## <a id="logging" class="anchor" href="#logging">Connection Event Logging</a>
 
@@ -1179,3 +1247,35 @@ See [Connection Lifecycle Events](/logging.html#connection-lifecycle-events) in 
 
 A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.
+
+
+## <a id="firewalls-mac-os" class="anchor" href="#firewalls-mac-os">MacOS Application Firewall</a>
+
+On MacOS systems with [Application Firewall](https://support.apple.com/en-us/HT201642) enabled,
+Erlang runtime processes must be allowed to bind to ports and accept connections.
+Without this, RabbitMQ nodes won't be able to bind to their [ports](#ports) and will fail to start.
+
+A list of blocked applications can be seen under `Security and Privacy` => `Firewall` in system settings.
+
+To "unblock" a command line tool, use `sudo /usr/libexec/ApplicationFirewall/socketfilterfw`.
+The examples below assume that Erlang is installed under `/usr/local/Cellar/erlang/{version}`,
+used by the Homebrew Erlang formula:
+
+<pre class="lang-bash">
+# allow CLI tools and shell to bind to ports and accept inbound connections
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/Cellar/erlang/{version}/lib/erlang/bin/erl
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/Cellar/erlang/{version}/lib/erlang/bin/erl
+</pre>
+
+<pre class="lang-bash">
+# allow server nodes (Erlang VM) to bind to ports and accept inbound connections
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/Cellar/erlang/{version}/lib/erlang/erts-{erts version}/bin/beam.smp
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/Cellar/erlang/{version}/lib/erlang/erts-{erts version}/bin/beam.smp
+</pre>
+
+Note that `socketfilterfw` command line arguments can vary between MacOS releases.
+To see supports command line arguments, use
+
+<pre class="lang-bash">
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --help
+</pre>

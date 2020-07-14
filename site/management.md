@@ -927,10 +927,19 @@ depends on the topology size (e.g. the number of queues), number of concurrent c
 and channels, event emission interval, effective rates mode and
 retention policies.
 
-Increasing the `rabbit.collect_statistics_interval` value to 30-60s (note: the value should
-be set in milliseconds, e.g. `30000`) will reduce memory
-comsuption for systems with large amounts of queues/channels/connections.
-Adjusting retention policies to retain less data will also help.
+Entities that emit stats (connections, channels, queues, nodes) do so periodically.
+The interval can be configured using the `collect_statistics_interval` key:
+
+<pre class="lang-ini">
+# sets the interval to 30 seconds
+collect_statistics_interval = 30000
+</pre>
+
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory
+consuption for systems with large amounts of connections, channels and queues.
+This come with a downside: metrics of said entities will refresh every 30-60 seconds.
+This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
+but will make management UI less convenient to use for operators.
 
 The memory usage of the channel and stats collector processes can be limited
 by setting the maximum backlog queue size using the parameter

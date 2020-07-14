@@ -236,7 +236,7 @@ please refer to the excellent [Riak guide on open file limit tuning](https://git
 
 includes the same value. The following command
 
-<pre  class="sourcecode">
+<pre  class="lang-bash">
 ulimit -a
 </pre>
 

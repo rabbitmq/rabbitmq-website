@@ -8,7 +8,7 @@ server
 bug fixes
 - long-running brokers could crash due to global unique identifiers not being
   unique enough
-- promotion of HA slaves to master could fail when using confirms
+- promotion of HA mirrors to master could fail when using confirms
 - there was a slow memory leak in HA queues with persistent and confirmed
   messages
 - when using HA queues with policy of 'nodes', master queues didn't recover
@@ -55,7 +55,7 @@ bug fixes
 - management plugin could fail to start if there were strange permissions
   in /proc
 - overview could sometimes crash when another node starts up or shuts down
-- HA slave synchronisation could sometimes be misrepresented on the
+- HA mirror synchronisation could sometimes be misrepresented on the
   management UI
 - encoding of underscore in URL properties was incomplete
 - management interface could break if there were html syntax characters in names
