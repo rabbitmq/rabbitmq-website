@@ -45,8 +45,8 @@ see the [Docker documentation](https://docs.docker.com/install/).
 To install and configure RabbitMQ Cluster Kubernetes Operator using a Helm chart:
 
 1. [Build and push the RabbitMQ Cluster Kubernetes Operator image](#build-image)
-1. [Create a Values File](#helm-create-values)
-1. [Helm Install](#helm-install-op)
+2. [Create a Values File](#helm-create-values)
+3. [Helm Install](#helm-install-op)
 
 ### <a id='build-image' class='anchor' href='#build-image'>Build the RabbitMQ Cluster Kubernetes Operator Image</a>
 
@@ -67,15 +67,13 @@ docker push {someregistry}/cluster-operator:{some-tag}`
 
 ### <a id='helm-create-values' class='anchor' href='#helm-create-values'>Create a Values File</a>
 
-To create a values file:
-
-1. Display the chart values by running:
+To create a values file, first display the chart values by running:
 
 <pre class='lang-bash'>
 helm show values charts/operator/ > cluster-operator-values.yaml
 </pre>
 
-1. Open the values file and adapt the values to match your environment.
+Next, open the values file and adapt the values to match your environment.
 
 <pre class='lang-yaml'>
 global:
@@ -112,9 +110,7 @@ images:
 
 ### <a id='helm-install-op' class='anchor' href='#helm-install-op'>Install RabbitMQ Cluster Kubernetes Operator</a>
 
-To install the Operator using Helm:
-
-1. Install the chart by running:
+To install the Operator using Helm, first run:
 
 <pre class="lang-bash">
 helm -n default install -f cluster-operator-values.yaml cluster-operator charts/operator/
@@ -126,7 +122,7 @@ helm -n default install -f cluster-operator-values.yaml cluster-operator charts/
   <p>It is possible to use a different namespace if default is not available.</p>
 </p>
 
-1. Verify that the output of the `helm install` command is similar to the example below.
+Then verify that the output of the `helm install` command is similar to the example below.
 
 <pre class="lang-bash">
 helm -n default install -f cluster-operator-values.yaml cluster-operator charts/operator/
@@ -138,7 +134,7 @@ helm -n default install -f cluster-operator-values.yaml cluster-operator charts/
 # TEST SUITE: None
 </pre>
 
-1. Verify that RabbitMQ Cluster Kubernetes Operator Deployment and Pod are created in `rabbitmq-system` Namespace.
+and verify that RabbitMQ Cluster Kubernetes Operator deployment and pod are created in `rabbitmq-system` namespace:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system get deployment,pod
@@ -149,8 +145,8 @@ kubectl -n rabbitmq-system get deployment,pod
 # pod/rabbitmq-cluster-operator-5dcbcc558c-br2t7   1/1     Running   0          52s
 </pre>
 
-At this point, the RabbitMQ Cluster Kubernetes Operator is successfully installed. Check the [next steps](#next-steps) for
-a guide on how to configure and deploy RabbitMQ instances.
+At this point, the RabbitMQ Cluster Kubernetes Operator is successfully installed.
+Check the [next steps](#next-steps) for a guide on how to configure and deploy RabbitMQ instances.
 
 -----
 
@@ -161,21 +157,20 @@ This section describes how to install and configure the Operator using `kubectl`
 ### High level steps
 
 1. [Create the Namespace and Role-Based Access Control Objects](#namespace-rbac)
-1. [(Optional) Configure Kubernetes Cluster Access to Private Images](#private-images)
-1. [Build and push the image](#build-image-kctl)
-1. [Install using kubectl](#deploy-op)
+2. [(Optional) Configure Kubernetes Cluster Access to Private Images](#private-images)
+3. [Build and push the image](#build-image-kctl)
+4. [Install using kubectl](#deploy-op)
 
 ### <a id='namespace-rbac' class='anchor' href='#namespace-rbac'>Create the Namespace and Role-Based Access Control Objects</a>
 
-To create the namespace and role-based access control (RBAC) objects:
-
-1. Create a `rabbitmq-system` namespace by running:
+To create the namespace and role-based access control (RBAC) objects,
+first create a `rabbitmq-system` namespace by running:
 
 <pre class="lang-bash">
 kubectl create -f config/namespace/base/namespace.yaml
 </pre>
 
-1. Create RBAC objects in the `rabbitmq-system` namespace by running:
+Then create RBAC objects in the `rabbitmq-system` namespace by running:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system create --kustomize config/rbac/
@@ -186,9 +181,7 @@ kubectl -n rabbitmq-system create --kustomize config/rbac/
 If you require authentication to pull images from your private image registry, you must authorize access to the
 registry from the `rabbitmq-system` namespace.
 
-To configure access to your private registry:
-
-1. Create a secret for your private image registry by running:
+To configure access to your private registry, first create a secret for your private image registry by running:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system create secret \
@@ -214,7 +207,7 @@ docker-registry rabbitmq-cluster-registry-access \
 --docker-password=example-password1
 </pre>
 
-1. Update your service account by running:
+Now update your service account by running:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system patch serviceaccount \
