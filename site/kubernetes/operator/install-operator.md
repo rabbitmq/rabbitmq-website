@@ -14,6 +14,12 @@ Regardless of the installation method chosen, to get started, download or clone 
 [RabbitMQ Cluster Kubernetes Operator repository](https://github.com/rabbitmq/cluster-operator)
 and change into it (set current working directory to the repository root).
 
+
+## <a id='source' class='anchor' href='#source'>Source Code</a>
+
+The Operator is open source. You can [contribute to its development on GitHub](https://github.com/rabbitmq/cluster-operator).
+
+
 ## <a id='compatibility' class='anchor' href='#compatibility'>Compatibility</a>
 
 The Operator requires
