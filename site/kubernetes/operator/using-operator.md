@@ -1,39 +1,38 @@
 # Using RabbitMQ Cluster Kubernetes Operator
 
-This section covers how to deploy Custom Resource objects that will
-be managed by the Kubernetes RabbitMQ Cluster Kubernetes Operator. If
-RabbitMQ Cluster Kubernetes Operator is not installed,
-check the [Installing RabbitMQ Cluster Kubernetes Operator in a Kubernetes cluster](/kubernetes/install-rabbitmq-cluster-operator.html).
+This guides covers how to deploy Custom Resource objects that will
+be managed by the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
+If RabbitMQ Cluster Kubernetes Operator is not installed,
+see the [installation guide](/kubernetes/operator/install-operator.html).
 
-## Confirm Service Availability
+## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
 Before configuring your app to use RabbitMQ Cluster Kubernetes Operator, ensure that RabbitmqCluster Custom Resource is deployed
 to your Kubernetes cluster and is available.
 
-To confirm this availability:
+To confirm this availability, run
 
-1. Run:
+<pre class="lang-bash">
+kubectl get customresourcedefinitions.apiextensions.k8s.io
+</pre>
 
-    <pre class="lang-bash">
-    kubectl get customresourcedefinitions.apiextensions.k8s.io
-    </pre>
+Then verify that `rabbitmqclusters.rabbitmq.com` is on the list, as in the example below:
 
-1. Verify that `rabbitmqclusters.rabbitmq.com` is on the list, as in the example below.
+<pre class="lang-bash">
+kubectl get customresourcedefinitions.apiextensions.k8s.io
+# NAME                                   CREATED AT
+# rabbitmqclusters.rabbitmq.com   2019-10-23T10:11:06Z
+</pre>
 
-      <pre class="lang-bash">kubectl get customresourcedefinitions.apiextensions.k8s.io
-      # NAME                                   CREATED AT
-      # rabbitmqclusters.rabbitmq.com   2019-10-23T10:11:06Z
-      </pre>
-
-If it is not, install it by following the steps in [Installing RabbitMQ Cluster Kubernetes Operator in a Kubernetes cluster](/kubernetes/install-rabbitmq-cluster-operator.html).
+If it is not, install it by following the steps in the [installation guide](/kubernetes/operator/install-operator.html).
 
 
 ## <a id='psp' class='anchor' href='#psp'>(Optional) Apply Pod Security Policies</a>
 
-If Pod Security Policies are enabled in the Kubernetes cluster, a `[Cluster]Role` and
-`[Cluster]RoleBinding` must be created to enable the Pods to be scheduled. For more information about Pod security policies, see the
-[Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/). If
-`Role` and `RoleBinding` are used, it will only be effective in the Namespace where the RBACs are deployed.
+If [pod security policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) are enabled in the Kubernetes cluster,
+a `[Cluster]Role` and `[Cluster]RoleBinding` must be created to enable the Pods to be scheduled. For more information about Pod security policies,
+see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
+If `Role` and `RoleBinding` are used, it will only be effective in the Namespace where the RBACs are deployed.
 
 If Pod security policies are not enabled, skip to <a href="#create">Create a RabbitMQ Instance</a> below.
 
@@ -46,39 +45,39 @@ To create a RabbitMQ instance, a `RabbitmqCluster` resource definition must be c
 RabbitMQ Cluster Kubernetes Operator creates the necessary resources, such as Services and StatefulSet, in the same namespace
 in which the `RabbitmqCluster` was defined.
 
-1. Create a YAML file to define a `RabbitmqCluster` resource named `definition.yaml`.
+First, create a YAML file to define a `RabbitmqCluster` resource named `definition.yaml`.
 
-    <p class="note">
-      <strong>Note:</strong> The YAML file can have any name, but the steps that follow assume it is named
-      <code>definition</code>.
-    </p>
+<p class="note">
+  <strong>Note:</strong> The YAML file can have any name, but the steps that follow assume it is named
+  <code>definition</code>.
+</p>
 
-1. Copy and paste the below snippet into the file and save it.
+Then copy and paste the below snippet into the file and save it:
 
-    <pre class='lang-yaml'>
-    apiVersion: rabbitmq.com/v1beta1
-    kind: RabbitmqCluster
-    metadata:
-      name: definition
-    </pre>
+<pre class='lang-yaml'>
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: definition
+</pre>
 
-1. Apply the definition by running:
+Next, apply the definition by running:
 
-    <pre class='lang-bash'>
-    kubectl apply -f definition.yaml
-    </pre>
+<pre class='lang-bash'>
+kubectl apply -f definition.yaml
+</pre>
 
-1. Verify that the process was successful by running:
+Then verify that the process was successful by running:
 
-    <pre class='lang-bash'>
-    kubectl get all -l app.kubernetes.io/name=definition
-    </pre>
+<pre class='lang-bash'>
+kubectl get all -l app.kubernetes.io/name=definition
+</pre>
 
-    If successful, you see a running Pod and a service that exposes the instance.
+If successful, there will be a running pod and a service that exposes the instance.
+For example:
 
-    For example:
-
-<pre class='lang-bash'>kubectl get all -l app.kubernetes.io/name=definition
+<pre class='lang-bash'>
+kubectl get all -l app.kubernetes.io/name=definition
 # NAME                               READY   STATUS    RESTARTS   AGE
 # pod/definition-rabbitmq-server-0   1/1     Running   0          112s
 #
@@ -87,25 +86,24 @@ in which the `RabbitmqCluster` was defined.
 # service/definition-rabbitmq-ingress    ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
 </pre>
 
-RabbitMQ is now ready to be used by applications. Continue for more advanced configuration options.
-For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/getstarted.html).
+A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
+For more information, see the [RabbitMQ documentation guides](https://www.rabbitmq.com/documentation.html).
 
 ## <a id='configure' class='anchor' href='#configure'>Configure a RabbitMQ Instance</a>
 
-To configure a RabbitMQ instance:
+To configure a RabbitMQ instance, open `definition.yaml` or edit the the configuration in place by running:
 
-1. Open `definition.yaml` or edit the the configuration in place by running:
+<pre class='lang-bash'>
+kubectl edit rabbitmqcluster definition
+</pre>
 
-    <pre class='lang-bash'>
-    kubectl edit rabbitmqcluster definition
-    </pre>
+Next, add any of the properties described below along with their values. Every property listed below is optional.
 
-1. Add any of the properties described below along with their values. Every property listed below is optional.
-
-### <a name='replicas' class='anchor' href='#replicas'>Replicas</a>
+### <a name='replicas' class='anchor' href='#replicas'>Number of Replicas</a>
 
 **Description:** Specify the number of replicas for the RabbitmqCluster. [An even number of replicas
-is higly discouraged](https://www.rabbitmq.com/clustering.html#node-count). Odd numbers must be used.
+is higly discouraged](https://www.rabbitmq.com/clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
+[must be used](/clustering.html#node-count).
 
 **Default Value:** 1
 
@@ -123,9 +121,9 @@ spec:
 ### <a name='images' class='anchor' href='#images'>Image</a>
 
 **Description:** Specify the RabbitMQ image reference.
-This property is necessary if, for example, you are using a private registry.
+This property is necessary if a private registry is used.
 
-**Default Value:** The community [RabbitMQ image on Dockerhub](https://hub.docker.com/_/rabbitmq).
+**Default Value:** The community [RabbitMQ image on DockerHub](https://hub.docker.com/_/rabbitmq).
 
 **Example:**
 
@@ -320,8 +318,7 @@ For more information about concepts mentioned above, see:
 
 ### <a name='affinity' class='anchor' href='#affinity'>Affinity and Anti-affinity Rules</a>
 
-**Description:** Affinity and anti-affinity rules are structured in the same way as Kubernetes affinity rules.
-For more information about affinity, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+**Description:** Affinity and anti-affinity rules are structured in the same way as [Kubernetes affinity rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 **Default Value:** N/A
 
@@ -346,8 +343,7 @@ spec:
 
 ### <a name='tolerations' class='anchor' href='#tolerations'>Pod Tolerations</a>
 
-**Description:** Add tolerations for the RabbitmqCluster Pods.
-For more information about toleration, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration).
+**Description:** Add [tolerations](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration) for the RabbitmqCluster pods.
 
 **Default Value:** N/A
 
@@ -440,6 +436,7 @@ spec:
     secretName: rabbitmq-server-certs
 </pre>
 
+
 ## <a id='update' class='anchor' href='#update'>Update a RabbitMQ Instance</a>
 
 It is possible to add, change, or remove properties in a `RabbitmqCluster` object for an existing RabbitMQ instance.
@@ -450,9 +447,9 @@ To view the default values, see [Configure a RabbitMQ Instance](#configure) abov
 The configurations are listed in the table below.
 
 <table class="nice">
-      <col width="33%">
-      <th>Custom Resource attribute</th>
-      <th>Description</th>
+    <col width="33%">
+    <th>Custom Resource attribute</th>
+    <th>Description</th>
     <tr>
       <td>
         <code>metadata.labels</code>
@@ -614,10 +611,10 @@ The configurations are listed in the table below.
 </table>
 
 For more information about CPU units, the Kubernetes scheduler, and CPU time availability, see the
-[Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container).
+[Kubernetes guide on compute resources](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container).
 
 For more information about Pod affinity and anti-affinity rules, see the
-[Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+[Kubernetes guide on affinity rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 To update a RabbitMQ instance:
 
@@ -640,9 +637,7 @@ consistency, such as pause-minority mode for partition tolerance.
 
 ### <a id='create-pdb' class='anchor' href='#create-pdb'>Create a `PodDisruptionBudget` Object</a>
 
-To create and set a `PodDisruptionBudget` object:
-
-1. Create a file called `rabbitmq-pdb.yaml` that includes:
+To create and set a `PodDisruptionBudget` object, first create a file called `rabbitmq-pdb.yaml` that includes:
 
 <pre class="lang-yaml">
     apiVersion: policy/v1beta1
@@ -654,17 +649,17 @@ To create and set a `PodDisruptionBudget` object:
           app.kubernetes.io/name: YOUR-RABBITMQ-CUSTOM-RESOURCE-NAME
 </pre>
 
-1. Run:
+Then run
 
-    <pre class='lang-bash'>
-    kubectl apply -f rabbitmq-pdb.yaml
-    </pre>
+<pre class='lang-bash'>
+kubectl apply -f rabbitmq-pdb.yaml
+</pre>
 
 For more information about concepts mentioned above, see:
 
 <table class="nice">
-<col width="50%"></col>
-<col width="50%">
+  <col width="50%"></col>
+  <col width="50%">
 	<th>Concept</th>
 	<th>More information in…</th>
 	<tr>
@@ -682,6 +677,7 @@ For more information about concepts mentioned above, see:
   </col>
 </table>
 
+
 ## <a id='find' class='anchor' href='#find'>Find Your RabbitmqCluster Service Name and Admin Credentials</a>
 
 If an app is deployed in the same Kubernetes cluster as RabbitMQ, the RabbitmqCluster Service name
@@ -697,7 +693,7 @@ Follow the procedures below to find your `RabbitmqCluster` Service name and admi
 The Service used to access RabbitMQ Pods is displayed in the Custom Resource Status field as `status.serviceReference`.
 This field shows the Service name and namespace. The following command shows how to fetch this information:
 
-<pre class='hljs lang-bash'>
+<pre class="lang-bash">
 kubectl get rabbitmqcluster INSTANCE \
 -ojsonpath='Name: {.status.admin.serviceReference.name} -- Namespace: {.status.admin.serviceReference.namespace}'
 </pre>
@@ -717,25 +713,25 @@ Kubernetes encodes secrets using base64.
 The name and namespace of the secret is also present in the custom resource status. To retrieve the Secret name,
 run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.admin.secretReference.name}'`
 
-To retrieve credentials and display them in plaintext:
+To retrieve credentials and display them in plaintext, first display the username by running:
 
-1. Display the username by running:
+<pre class='lang-bash'>
+kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode
+</pre>
 
-    <pre class='lang-bash'>
-    kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode
-    </pre>
+Where:
 
-    Where:
-    <ul>
-      <li><code>INSTANCE</code> is the name of your <code>RabbitmqCluster</code></li>
-      <li><code>NAMESPACE</code> is the Kubernetes namespace that contains <code>RabbitmqCluster</code></li>
-    </ul>
+<ul>
+  <li><code>INSTANCE</code> is the name of your <code>RabbitmqCluster</code></li>
+  <li><code>NAMESPACE</code> is the Kubernetes namespace that contains <code>RabbitmqCluster</code></li>
+</ul>
 
-1. Display the password by running:
+Next, display the password by running:
 
-    <pre class='lang-bash'>
-    kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode
-    </pre>
+<pre class='lang-bash'>
+kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode
+</pre>
+
 
 ## <a id='verify-instance' class='anchor' href='#verify-instance'>Verify the Instance is Running</a>
 
@@ -743,54 +739,71 @@ Deploy the RabbitMQ throughput testing tool PerfTest to quickly verify that your
 For more information, see [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-test) in GitHub.
 
 <p>
-  <strong>Note:</strong> If the below commands are executed from outside the namespace where <code>RabbitmqCluster</code>
+  <strong>Note:</strong> if the below commands are executed from outside the namespace where <code>RabbitmqCluster</code>
   object was created, add <code>-n NAMESPACE</code> to the kubectl commands below.
 </p>
 
-1. To install and run PerfTest, run these commands:
+To install and run PerfTest, run these commands:
 
-    <pre class="lang-bash">
-    instance=INSTANCE-NAME
-    username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
-    password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
-    service=${instance}-rabbitmq-ingress
-    kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
-    </pre>
+<pre class="lang-bash">
+instance=INSTANCE-NAME
+username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
+service=${instance}-rabbitmq-ingress
+kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
+</pre>
 
-1. Verify that PerfTest is sending and receiving messages by running:
+To verify that PerfTest is sending and receiving messages by running:
 
-    <pre class='lang-bash'>
-    kubectl logs -f perf-test
-    </pre>
+<pre class='lang-bash'>
+kubectl logs -f perf-test
+</pre>
 
-    A log appears as in this example:
+A log appears as in this example:
 
-    <pre class="lang-bash">
-     kubectl logs -f perf-test
-     # id: test-104555-858, starting consumer #0
-     # id: test-104555-858, starting consumer #0, channel #0
-     # id: test-104555-858, starting producer #0
-     # id: test-104555-858, starting producer #0, channel #0
-     # id: test-104555-858, time: 1.000s, sent: 19057 msg/s, received: 11768 msg/s, min/median/75th/95th/99th consumer latency: 4042/140608/190841/251618/258979 micro-s
-     # id: test-104555-858, time: 2.000s, sent: 24020 msg/s, received: 16283 msg/s, min/median/75th/95th/99th consumer latency: 222998/507432/642110/754038/776600 micro-s
-    </pre>
+<pre class="lang-bash">
+kubectl logs -f perf-test
+# id: test-104555-858, starting consumer #0
+# id: test-104555-858, starting consumer #0, channel #0
+# id: test-104555-858, starting producer #0
+# id: test-104555-858, starting producer #0, channel #0
+# id: test-104555-858, time: 1.000s, sent: 19057 msg/s, received: 11768 msg/s, min/median/75th/95th/99th consumer latency: 4042/140608/190841/251618/258979 micro-s
+# id: test-104555-858, time: 2.000s, sent: 24020 msg/s, received: 16283 msg/s, min/median/75th/95th/99th consumer latency: 222998/507432/642110/754038/776600 micro-s
+</pre>
 
-1. Delete PerfTest by running:
+To delete a PerfTest instance, use
 
-    <pre class='lang-bash'>
-    kubectl delete pod perf-test
-    </pre>
+<pre class='lang-bash'>
+kubectl delete pod perf-test
+</pre>
+
 
 ## <a id='use' class='anchor' href='#use'>Use the RabbitMQ Service in Your App</a>
 
-For information about how to start using your apps, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/getstarted.html).
+For information about how to start using your apps, see
+[RabbitMQ tutorials](https://www.rabbitmq.com/getstarted.html)
+and guides on [Connections](/consumers.html), [Publishers](/publishers.html), and [Consumers](/consumers.html).
+
+
+## <a id='monitoring' class='anchor' href='#monitoring'>Monitor RabbitMQ Clusters</a>
+
+For production systems, it is critically important to enable RabbitMQ cluster [monitoring](/monitoring.html).
+
+See [Monitoring RabbitMQ in Kubernetes](/kubernetes/operator/operator-monitoring.html) to learn about
+the recommended monitoring options for Kubernetes-deployed clusters.
+
 
 ## <a id='delete' class='anchor' href='#delete'>Delete a RabbitMQ Instance</a>
 
-To delete a service instance:
+To delete a RabbitMQ service instance, run
 
-1. Run `kubectl delete rabbitmqcluster INSTANCE`. Where `INSTANCE` is the name of your RabbitmqCluster.
+<pre class="lang-bash">
+kubectl delete rabbitmqcluster INSTANCE
+</pre>
 
-    or `kubectl delete -f INSTANCE.yaml`
+where `INSTANCE` is the name of your RabbitmqCluster,
+or use
 
+<pre class="lang-bash">
+kubectl delete -f INSTANCE.yaml
+</pre>

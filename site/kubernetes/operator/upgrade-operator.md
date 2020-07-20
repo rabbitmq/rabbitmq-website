@@ -31,7 +31,7 @@ To uninstall Cluster Operator:
 
 1. Delete using the manifests:
 
-    <pre class='hljs lang-bash'>
+    <pre class="lang-bash">
     kubectl delete --kustomize config/manager/
     kubectl delete --kustomize config/rbac/
     kubectl delete -f config/namespace/base/namespace.yaml
