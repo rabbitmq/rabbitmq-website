@@ -911,7 +911,7 @@ threads that read and write from/to the network socket.
 Use the NIO mode if your Java process uses many connections (dozens or hundreds).
 You should use fewer threads than with the default blocking mode. With the
 appropriate number of threads set, you shouldn't
-experiment any decrease in performance, especially if the connections are
+experience any decrease in performance, especially if the connections are
 not so busy.
 
 NIO must be enabled explicitly:
