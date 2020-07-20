@@ -22,7 +22,13 @@ Documentation of the Operator spans several guides:
  * [Monitoring RabbitMQ Clusters on Kubernetes](/kubernetes/operator/operator-monitoring.html)
  * [Troubleshooting RabbitMQ Clusters on Kubernetes](/kubernetes/operator/troubleshooting-operator.html)
 
-## Key Features
+
+## <a id='source' class='anchor' href='#source'>Source Code</a>
+
+The Operator is open source. You can [contribute to its development on GitHub](https://github.com/rabbitmq/cluster-operator).
+
+
+## <a id='features' class='anchor' href='#features'>Key Features</a>
 
 The operator provides the following key features:
 
@@ -33,7 +39,8 @@ The operator provides the following key features:
 Automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters is a future that will be provided in later
 versions.
 
-## Supported Kubernetes Versions
+
+## <a id='kubernetes-versions' class='anchor' href='#kubernetes-versions'>Supported Kubernetes Versions</a>
 
 The Operator requires
 
@@ -43,7 +50,7 @@ The Operator requires
 Kubernetes 1.18 is not fully tested and there might be incompatibilities.
 
 
-## Installation
+## <a id='installation' class='anchor' href='#installation'>Installation</a>
 
 The Kubernetes Operator has a dedicated [installation guide](/kubernetes/operator/install-operator.html).
 
