@@ -171,7 +171,7 @@ have leader and follower nodes. This is generally not true for RabbitMQ.
 All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
 This topic becomes more nuanced when [queue mirroring](ha.html) and plugins
 are taken into consideration but for most intents and purposes,
-all cluster nodes should be considered equal
+all cluster nodes should be considered equal.
 
 Many [CLI tool](/cli.html) operations can be executed against any node.
 An [HTTP API](/management.html) client can target any cluster node.
@@ -282,7 +282,7 @@ Both are **the least secure options** and generally **not recommended**.
 
 ### Troubleshooting
 
-When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+When a node starts, it will [log](/logging.html) the home directory location of its effective user:
 
 <pre class="lang-plaintext">
 node           : rabbit@cdbf4de5f22d
@@ -1042,7 +1042,7 @@ defaults to the short name), and that full hostname is resolveable using DNS,
 you may want to investigate setting the environment variable
 `RABBITMQ_USE_LONGNAME=true`.
 
-See the section on [hostname resolution](/clustering.html#overview-hostname-requirements) for more information.
+See the section on [hostname resolution](/clustering.html#hostname-resolution-requirement) for more information.
 
 
 ## <a id="firewall" class="anchor" href="#firewall">Firewalled Nodes</a>
