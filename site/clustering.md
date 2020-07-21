@@ -282,7 +282,7 @@ Both are **the least secure options** and generally **not recommended**.
 
 ### Troubleshooting
 
-When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+When a node starts, it will [log](/logging.html) the home directory location of its effective user:
 
 <pre class="lang-plaintext">
 node           : rabbit@cdbf4de5f22d
