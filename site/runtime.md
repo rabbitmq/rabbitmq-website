@@ -35,9 +35,10 @@ Topics covered include:
 
  * How to [configure Erlang VM settings for RabbitMQ](#vm-settings) nodes
  * [Runtime schedulers](#scheduling), what they are, how they relate to CPU cores, and so on
- * [Memory allocator](#allocators) settings
+ * Runtime [thread activity metrics](#thread-stats): where is scheduler and CPU time spent
  * Runtime features that affect [CPU utilisation](#cpu)
- * Runtime [thread activity metrics](#thread-stats)
+ * How to [reduce CPU utilisation](#cpu-reduce-idle-usage) on moderately or lightly loaded nodes
+ * [Memory allocator](#allocators) settings
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Asynchronous I/O thread pool](#io-threads) size
@@ -68,13 +69,13 @@ characteristics or system limits can be unintentionally affected.
 As with other environment variables used by RabbitMQ, `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`
 and friends can be [set using a separate environment variable file](/configure.html#customise-environment).
 
+
 ## <a id="cpu" class="anchor" href="#cpu">CPU Utilisation</a>
 
 CPU utilisation is a workload-specific topic. Generally speaking, when a workload involves more queues, connections
 and channels than CPU cores, all cores will be used without any configuration necessary.
 
 The runtime provides several features that control how the cores are used.
-
 
 ### <a id="scheduling" class="anchor" href="#scheduling">Runtime Schedulers</a>
 
@@ -83,9 +84,12 @@ They execute code, perform I/O, execute timers and so on. Schedulers have a numb
 that can affect overall system performance, CPU utilisation, latency and other runtime characteristics
 of a node.
 
-By default the runtime will start one scheduler for one CPU core it detects. This can be changed
-using the `+S` flag. The following example configures the node to start 4 schedulers even if it detects
-more:
+By default the runtime will start one scheduler for one CPU core it detects. Starting
+with Erlang 23, this [takes CPU quotas into account](http://blog.erlang.org/OTP-23-Highlights/) in
+containerized environments such as Docker and Kubernetes.
+
+The number of schedulers can be explicitly set using the `+S` flag. The following example configures
+the node to start 4 schedulers even if it detects more cores to be available to it:
 
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+S 4:4"
@@ -108,13 +112,13 @@ is highly discourage and will result in suboptimal performance.
 The runtime can put schedulers to sleep when they run out of work to execute. There's a certain cost
 to bringing them back online, so with some workloads it may be beneficial to not do that.
 
-This cam be compared to a factory with multiple conveyor belts. When one belt runs out of items,
+This can be compared to a factory with multiple conveyor belts. When one belt runs out of items,
 it can be stopped. However, once more work is there for it to do, restarting it will take time.
 Alternatively the conveyor can be speculatively kept running for a period of time.
 
 By default, RabbitMQ nodes configure runtime schedulers to speculatively wait for a short period
 of time before going to sleep. Workloads where there can be prolonged periods of inactivity
-can choose to disable this speculative busy waiting using the [`+sbwt` and related flags](https://erlang.org/doc/man/erl.html):
+can choose to disable this speculative busy waiting using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
 
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
@@ -142,7 +146,7 @@ for example). As such the runtime has to decide how to bind scheduler binding to
 CPU cores and NUMA nodes.
 
 There are several binding strategies available. Desired strategy can be specified using the
-`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable or using the [`+stbt` VM flag](http://erlang.org/doc/man/erl.html)
+`RABBITMQ_SCHEDULER_BIND_TYPE` environment variable or using the [`+stbt` runtime flag](http://erlang.org/doc/man/erl.html)
 value.
 
 <pre class="lang-bash">
@@ -167,6 +171,68 @@ Valid values are:
  * `ns`
 
 See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detailed descriptions.
+
+### <a id="cpu-reduce-idle-usage" class="anchor" href="#cpu-reduce-idle-usage">Reducing CPU Usage</a> for "Moderately Idle" Nodes and Clusters
+
+CPU usage is by definition very workload-dependent metric. Some workloads naturally use more CPU resources.
+With others, CPU resources can be wasted while nodes are [busy waiting for I/O operations](https://www.rabbitmq.com/blog/2020/04/21/quorum-queues-and-why-disks-matter/).
+
+A couple of general recommendations can be applied to "moderately loaded" systems where a large percentage or
+most connections and queues can go idle from time to time. Put differently, in this section we consider
+any system that's not hovering around its peak capacity to be "moderately loaded".
+
+Such system often can reduce their CPU footprint with a few straightforward steps.
+These recommendations can significantly decrease CPU footprint with some workloads: consider
+[this community case for example](https://groups.google.com/forum/#!msg/rabbitmq-users/6jGtaHINmNM/rc1rR1PqAwAJ).
+
+#### Collect Runtime Thread Statistics
+
+Collect [runtime thread activity stats](#thread-stats) data to understand how scheduler and CPU time
+is spent. This is a critically important step for making informed decisions.
+
+#### Disable Speculative Scheduler Busy Waiting
+
+Disable speculative [scheduler busy waiting](#busy-waiting) using the [`+sbwt` and related runtime flags](https://erlang.org/doc/man/erl.html):
+
+<pre class="lang-bash">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
+</pre>
+
+Speculative busy waiting usually not productive on moderately loaded systems.
+
+#### Increase Statistics Emission Interval
+
+Increase [statistics emission interval](/management.html#statistics-interval) from default 5 seconds to 15 or 30 seconds. This will reduce
+periodic activity that all connections, channels and queues carry out, even if they would otherwise be
+idle as far as client operations go. With most monitoring tools such [monitoring frequency](/monitoring.html#monitoring-frequency)
+would be sufficient or even optimal.
+
+
+## <a id="thread-stats" class="anchor" href="#thread-stats">Thread Statistics</a>: How is Scheduler and CPU Time Spent?
+
+RabbitMQ CLI tools provide a number of [metrics](/monitoring.html) that make it easier to reason
+about runtime thread activity.
+
+<pre class="lang-bash">
+rabbitmq-diagnostics runtime_thread_stats
+</pre>
+
+is the command that produces a breakdown of how various threads spend their time.
+
+The command's output will produce a table with percentages by thread activity:
+
+ * `emulator`: general code execution
+ * `port`: external I/O activity (socket I/O, file I/O, subprocesses)
+ * `gc`: performing garbage collection
+ * `check_io`: checking for I/O events
+ * `other`, `aux`: busy waiting, managing timers, all other tasks
+ * `sleep`: sleeping (idle state)
+
+Significant percentage of activity in the external I/O state may indicate that the node
+and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
+
+Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
+runtime scheduler configuration for the available hardware and workload.
 
 
 ## <a id="allocators" class="anchor" href="#allocators">Memory Allocator Settings</a>
@@ -216,6 +282,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+MMscs 4096"
 </pre>
 
 To learn about other available settings, see [runtime documentation on allocators](http://erlang.org/doc/man/erts_alloc.html).
+
 
 ## <a id="open-file-handle-limit" class="anchor" href="#open-file-handle-limit">Open File Handle Limit</a>
 
@@ -282,33 +349,6 @@ to use values higher than 96, that is, 12 or more I/O threads for every core ava
 Note that higher values do not necessarily mean better throughput or lower CPU
 burn due to waiting on I/O. There are relevant [metrics](/monitoring.html) available about runtime
 thread activity. This is covered in [a separate section](#thread-stats)
-
-
-## <a id="thread-stats" class="anchor" href="#thread-stats">Thread Statistics</a>
-
-RabbitMQ CLI tools provide a number of [metrics](/monitoring.html) that make it easier to reason
-about runtime thread activity.
-
-<pre class="lang-bash">
-rabbitmq-diagnostics runtime_thread_stats
-</pre>
-
-is the command that produces a breakdown of how various threads spend their time.
-
-The command's output will produce a table with percentages by thread activity:
-
- * `emulator`: general code execution
- * `port`: external I/O activity (socket I/O, file I/O, subprocesses)
- * `gc`: performing garbage collection
- * `check_io`: checking for I/O events
- * `other`, `aux`: busy waiting, managing timers, all other tasks
- * `sleep`: sleeping (idle state)
-
-Significant percentage of activity in the external I/O state may indicate that the node
-and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
-
-Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
-runtime scheduler configuration for the available hardware and workload.
 
 
 ## <a id="erlang-process-limit" class="anchor" href="#erlang-process-limit">Erlang Process Limit</a>

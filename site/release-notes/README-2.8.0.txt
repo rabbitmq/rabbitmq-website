@@ -10,7 +10,7 @@ bug fixes
 - fix a rare bug which could cause the server to stop accepting connections
 - ensure starting a ram node when all disk nodes are down fails, instead
   of creating a blank ram node
-- fix a race in mirrored queues where one node could run two slaves
+- fix a race in mirrored queues where one node could run two mirrors
 - improve internal accounting of file descriptors; make it harder to hit the
   limit unexpectedly
 - rabbitmqctl <unknown-action> fixed on R15B

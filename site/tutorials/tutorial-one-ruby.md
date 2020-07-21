@@ -139,7 +139,7 @@ connection.close
 
 That's it for our producer. Our consumer is listening for messages from
 RabbitMQ, so unlike the producer which publishes a single message, we'll
-keep it running to listen for messages and print them out.
+keep the consumer running to listen for messages and print them out.
 
 <div class="diagram">
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />

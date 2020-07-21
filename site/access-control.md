@@ -34,7 +34,7 @@ This guide covers a variety of authentication, authorisation and user management
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
  * How to [manage users and permissions](#user-management) using CLI tools
- * [Shell escaping](#passwords-and-shell-escaping) of charachters in generated passwords
+ * [Shell escaping](#passwords-and-shell-escaping) of characters in generated passwords
  * How to [pre-create users](#seeding) and their permissions
  * Troubleshooting of [authentication](#troubleshooting-authn) and [authorisation failures](#troubleshooting-authz)
 
@@ -246,7 +246,7 @@ rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 
 ### Revoking Permissions of a User in a Virtual Host
 
-To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
+To revoke [permissions](#authorisation) from a user in a [virtual host](/vhosts.html), use `rabbitmqctl clear_permissions`:
 
 <pre class="lang-bash">
 # Revokes permissions in a virtual host

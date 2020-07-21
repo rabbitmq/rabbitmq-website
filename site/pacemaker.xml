@@ -335,7 +335,7 @@ Online: [ ha-node-2 ha-node-1 ]
         <p>Thus we can see that the <i>bunny</i> and <i>drbd_fs</i>
         resources are running only on <code>ha-node-1</code> and that
         the <i>drbd_ms</i> resource has its master as
-        <code>ha-node-1</code> and its slave as
+        <code>ha-node-1</code> and its mirror as
         <code>ha-node-2</code>. The output of <code>mount</code>
         should show that <code>/media/drbd1</code> is mounted only on
         <code>ha-node-1</code>, and a
@@ -639,7 +639,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
         </pre>
         <p>
           After that, your cluster has to be assembled by the OCF agent and ready for operations.
-          When assembled, one and only resource instance must run as a resource master, and others as a slaves.
+          When assembled, one and only resource instance must run as a resource primary (master), and others as secondaries.
           Note that these are the multi-state resource's Master/Slave and has nothing to the RabbitMQ cluster,
           which is active-active.
         </p>

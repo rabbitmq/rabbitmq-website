@@ -227,8 +227,8 @@ to populate the cookie file.
 Configuration management and container orchestration tools that use this image
 must make sure that every RabbitMQ node container in a cluster users the same value.
 
-In the context of Kubernetes, the value must be specified in the
-[deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+In the context of Kubernetes, the value must be specified in the pod template specification of
+the [stateful set](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
 For instance, this can be seen in the [RabbitMQ on Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples).
 
 #### Windows
@@ -631,92 +631,18 @@ cluster at any time, while the cluster is running.
 ### <a id="restarting" class="anchor" href="#restarting">Restarting Cluster Nodes</a>
 
 Nodes that have been joined to a cluster can be stopped at
-any time. They can also fail or be terminated by the OS. In all cases
-the rest of the cluster can continue operating,
-and the nodes automatically "catch up" with (sync from) the other
-cluster nodes when they start up again. Note that some [partition handling strategies](/partitions.html)
-may work differently and affect other nodes.
+any time. They can also fail or be terminated by the OS.
 
-We shut down the nodes `rabbit@rabbit1` and
-`rabbit@rabbit3` and check on the cluster
-status at each step:
+In general, if the majority of nodes is still online after a node
+is stopped, this does not affect the rest of the cluster, although
+client connection distribution, queue replica placement, and load distribution
+of the cluster will change.
 
-<pre class="lang-bash">
-# on rabbit1
-rabbitmqctl stop
-# => Stopping and halting node rabbit@rabbit1 ...done.
+A restarted node will sync the schema
+and other information from its peers on boot. Before this process
+completes, the node won't be fully started and functional.
 
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
-# => ...done.
-
-# on rabbit3
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
-# => ...done.
-
-# on rabbit3
-rabbitmqctl stop
-# => Stopping and halting node rabbit@rabbit3 ...done.
-
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2]}]
-# => ...done.
-</pre>
-
-Now we start the nodes again, checking on the cluster
-status as we go along:
-
-<pre class="lang-bash">
-# on rabbit1
-rabbitmq-server -detached
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-# => ...done.
-
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-# => ...done.
-
-# on rabbit3
-rabbitmq-server -detached
-
-# on rabbit1
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit1 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-# => ...done.
-
-# on rabbit2
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit2 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
-# => ...done.
-
-# on rabbit3
-rabbitmqctl cluster_status
-# => Cluster status of node rabbit@rabbit3 ...
-# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
-# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-# => ...done.
-</pre>
-
-It is important to understand the process node go through when
+It is therefore important to understand the process node go through when
 they are stopped and restarted.
 
 A stopping node picks an online cluster member (only disc
@@ -781,6 +707,87 @@ During [upgrades](/upgrade.html), sometimes the last node to stop
 must be the first node to be started after the upgrade. That node will be designated to perform
 a cluster-wide schema migration that other nodes can sync from and apply when they
 rejoin.
+
+The below example uses CLI tools to shut down the nodes `rabbit@rabbit1` and
+`rabbit@rabbit3` and check on the cluster
+status at each step:
+
+<pre class="lang-bash">
+# on rabbit1
+rabbitmqctl stop
+# => Stopping and halting node rabbit@rabbit1 ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl stop
+# => Stopping and halting node rabbit@rabbit3 ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2]}]
+# => ...done.
+</pre>
+
+In the below example, the nodes are started back, checking on the cluster
+status as we go along:
+
+<pre class="lang-bash">
+# on rabbit1
+rabbitmq-server -detached
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+# => ...done.
+
+# on rabbit3
+rabbitmq-server -detached
+
+# on rabbit1
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit1 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit2
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit2 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
+# => ...done.
+
+# on rabbit3
+rabbitmqctl cluster_status
+# => Cluster status of node rabbit@rabbit3 ...
+# => [{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+# =>  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+# => ...done.
+</pre>
+
+### <a id="forced-boot" class="anchor" href="#forced-boot">Forcing Node Boot in Case of Unavailable Peers</a>
 
 In some cases the last node to go
 offline cannot be brought back up. It can be removed from the

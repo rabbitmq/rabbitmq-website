@@ -3,7 +3,7 @@ Release: RabbitMQ 3.1.0
 server
 ------
 bug fixes
-25524 fix memory leak in mirror queue slave with many short-lived publishing
+25524 fix memory leak in mirror queue mirror with many short-lived publishing
       channels
 25518 fix handling of certain ASN.1 fields in SSL certificates
 25486 ensure we handle cross cluster resource alarms after a partition
@@ -18,8 +18,8 @@ bug fixes
 25385 check equivalence for dead-lettering related arguments
 
 enhancements
-24407 manual eager synchronisation of slaves
-25418 automatic eager synchronisation of slaves by policy
+24407 manual eager synchronisation of mirrors
+25418 automatic eager synchronisation of mirrors by policy
 25358 cluster "autoheal" mode to automatically choose nodes to restart
       when a partition has occurred
 25358 cluster "pause minority" mode to prefer partition tolerance over
@@ -39,7 +39,7 @@ enhancements
 
 performance improvements
 25514 performance improvements in message store garbage collection
-25302 performance improvements in slaves when consuming
+25302 performance improvements in mirrors when consuming
 25311 performance improvements requeuing persistent messages
 25373 memory-use improvement while fetching messages
 25428 memory-use improvement in queue index
@@ -51,7 +51,7 @@ performance improvements
 management plugin
 -----------------
 bug fixes
-25290 fix per-queue memory leak recording stats for mirror queue slaves
+25290 fix per-queue memory leak recording stats for mirror queue mirrors
 25526 ensure single-object API queries support ?columns= in query string
 
 enhancements

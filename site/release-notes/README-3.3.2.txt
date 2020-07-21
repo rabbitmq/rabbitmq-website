@@ -12,14 +12,14 @@ bug fixes
 26227 fix incorrect log message about config file location when running as
       a Windows service, changing RABBITMQ_CONFIG_FILE and not reinstalling
       the service (since 3.3.0)
-26172 ensure slave queue does not hang if the GM process crashes at queue
+26172 ensure mirror queue does not hang if the GM process crashes at queue
       startup (since 2.6.0)
 26178 prevent error logger crash in rare circumstances (since 3.3.0)
 26184 prevent small log messages being needlessly truncated (since 3.3.0)
 26226 ensure rabbitmqctl status does not crash if invoked while Mnesia is
       starting or stopping (since 3.0.0)
 26200 fix garbled SSL log messages (since 3.0.3)
-26203 prevent spurious log message if slave queue crashes early (since 3.2.2)
+26203 prevent spurious log message if mirror queue crashes early (since 3.2.2)
 
 
 management plugin

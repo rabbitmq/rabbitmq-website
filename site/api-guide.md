@@ -37,6 +37,7 @@ Key sections of the guide are:
  * [Automatic Recovery From Network Failures](#recovery)
  * [Unhandled Exceptions](#unhandled-exceptions) in consumers
  * [Metrics and Monitoring](#metrics)
+ * [Endpoint Resolution with the AddressResolver Interface](#service-discovery-with-address-resolver)
  * The [Request/Response Pattern](#rpc) ("RPC")
  * [TLS support](#tls)
  * [OAuth 2 support](#oauth2-support)
@@ -910,7 +911,7 @@ threads that read and write from/to the network socket.
 Use the NIO mode if your Java process uses many connections (dozens or hundreds).
 You should use fewer threads than with the default blocking mode. With the
 appropriate number of threads set, you shouldn't
-experiment any decrease in performance, especially if the connections are
+experience any decrease in performance, especially if the connections are
 not so busy.
 
 NIO must be enabled explicitly:
