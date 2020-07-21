@@ -171,7 +171,7 @@ have leader and follower nodes. This is generally not true for RabbitMQ.
 All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
 This topic becomes more nuanced when [queue mirroring](ha.html) and plugins
 are taken into consideration but for most intents and purposes,
-all cluster nodes should be considered equal
+all cluster nodes should be considered equal.
 
 Many [CLI tool](/cli.html) operations can be executed against any node.
 An [HTTP API](/management.html) client can target any cluster node.
