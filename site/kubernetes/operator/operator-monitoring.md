@@ -20,11 +20,11 @@ The following sections assume Prometheus is deployed and functional.
 Prometheus can be configured to scrape all Pods with the `prometheus.io/scrape: true` annotation. The
 [Prometheus Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus#scraping-pod-metrics-via-annotations),
 for example, is configured by default to scrape all pods in a cluster with this annotation. All RabbitMQ pods created
-by the Cluster Operator have this annotation, and so will be automatically scraped if you have deployed Prometheus
-through the Helm chart.
+by the Cluster Operator have this annotation, and so will be automatically scraped if Prometheus
+was deployed through the Helm chart.
 
-If you have deployed Prometheus through some other means, but still wish to scrape all pods with this annotation,
-this can be achieved through the [Kubernetes Service Discovery](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
+If Prometheus was deployed through some other means, it is still possible to set up scraping of all pods with this annotation.
+This can be achieved through the [Kubernetes Service Discovery](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
 configuration. A bare-minimum Prometheus configuration which can provide this functionality is included below for reference.
 
 <pre class='hljs lang-yaml'>
@@ -72,7 +72,7 @@ Next, verify that you have deployed the Prometheus `PodMonitor` Custom Resource 
 kubectl get customresourcedefinitions.apiextensions.k8s.io podmonitors.monitoring.coreos.com
 </pre>
 
-If this command returns an error, you do not have the Prometheus Operator deployed.
+If this command returns an error, the Kubernetes cluster does not have the Prometheus Operator deployed.
 
 Next, create a YAML file named `rabbitmq-podmonitor.yaml` with the following contents:
 
