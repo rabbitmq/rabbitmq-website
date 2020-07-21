@@ -7,7 +7,7 @@ This guide describes how to [monitor](/monitoring.html) RabbitMQ instances deplo
 Cluster Operator deploys RabbitMQ clusters with the [`rabbitmq_prometheus` plugin](/prometheus.html), which is enabled
 for all nodes deployed by the Operator by default. The plugin exposes a Prometheus-compatible metrics endpoint.
 
-For information to configure Prometheus to scrape Kubernetes targets, check
+For information on configuring Prometheus to scrape Kubernetes targets, check the
 [Prometheus configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
 documentation.
 For a detailed guide on RabbitMQ Prometheus configuration, check the [Prometheus guide](/prometheus.html).
@@ -17,21 +17,42 @@ The following sections assume Prometheus is deployed and functional.
 
 ## <a id='prom-annotations' class='anchor' href='#prom-annotations'>Monitor RabbitMQ Using Scraping Annotations</a>
 
-Prometheus can configured to scrape all Pods with the `prometheus.io/scrape: true` annotation.
+Prometheus can be configured to scrape all Pods with the `prometheus.io/scrape: true` annotation. The
+[Prometheus Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus#scraping-pod-metrics-via-annotations),
+for example, is configured by default to scrape all pods in a cluster with this annotation. All RabbitMQ pods created
+by the Cluster Operator have this annotation, and so will be automatically scraped if you have deployed Prometheus
+through the Helm chart.
 
-To add annotations to RabbitMQ Pods, modify the `RabbitmqCluster` custom resource `spec.service.annotations`
-property. Here's an example:
+If you have deployed Prometheus through some other means, but still wish to scrape all pods with this annotation,
+this can be achieved through the [Kubernetes Service Discovery](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
+configuration. A bare-minimum Prometheus configuration which can provide this functionality is included below for reference.
 
-<pre class='lang-yaml'>
-apiVersion: rabbitmq.com/v1beta1
-kind: RabbitmqCluster
-metadata:
-  name: my-instance
-spec:
-  service:
-    annotations:
-      "prometheus.io/scrape": "true"
-      "prometheus.io/port": "15692"
+<pre class='hljs lang-yaml'>
+global:
+  scrape_interval: 1m
+  scrape_timeout: 10s
+  evaluation_interval: 1m
+scrape_configs:
+- job_name: kubernetes-pods
+  honor_timestamps: true
+  scrape_interval: 1m
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+    separator: ;
+    regex: "true"
+    replacement: $1
+    action: keep
+  - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+    separator: ;
+    regex: ([^:]+)(?::\d+)?;(\d+)
+    target_label: __address__
+    replacement: $1:$2
+    action: replace
 </pre>
 
 
@@ -53,21 +74,7 @@ kubectl get customresourcedefinitions.apiextensions.k8s.io podmonitors.monitorin
 
 If this command returns an error, you do not have the Prometheus Operator deployed.
 
-Next, create a YAML file named `rabbitmq-prometheus-patch.yaml` with the following contents:
-
-<pre class="lang-yaml">
-spec:
-  podMonitorNamespaceSelector:
-    any: 'true'
-</pre>
-
-Now patch the Prometheus Operator using the above file:
-
-<pre class="lang-bash">
-kubectl -n monitoring patch prometheuses k8s --type merge --patch "$(cat rabbitmq-prometheus-patch.yaml)"
-</pre>
-
-Create another YAML file named `rabbitmq-podmonitor.yaml` with the following contents:
+Next, create a YAML file named `rabbitmq-podmonitor.yaml` with the following contents:
 
 <pre class="lang-yaml">
 apiVersion: monitoring.coreos.com/v1
