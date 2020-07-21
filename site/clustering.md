@@ -1035,7 +1035,7 @@ defaults to the short name), and that full hostname is resolveable using DNS,
 you may want to investigate setting the environment variable
 `RABBITMQ_USE_LONGNAME=true`.
 
-See the section on [hostname resolution](/clustering.html#overview-hostname-requirements) for more information.
+See the section on [hostname resolution](/clustering.html#hostname-resolution-requirement) for more information.
 
 
 ## <a id="firewall" class="anchor" href="#firewall">Firewalled Nodes</a>
