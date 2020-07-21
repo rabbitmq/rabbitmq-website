@@ -423,7 +423,7 @@ the trusted certificate management approach may be different for different clien
 libraries, tools and RabbitMQ server itself.
 
 For example, OpenSSL and OpenSSL command line tools such as `s_client` on Linux and other UNIX-like systems
-will useu a directory administered by superusers.
+will use a directory administered by superusers.
 CA certificates in that directory will be considered trusted,
 and so are the certificates issued by them (such as those presented by clients).
 Locations of the trusted certificate directory will [vary](https://www.happyassassin.net/2015/01/12/a-note-about-ssltls-trusted-certificate-stores-and-platforms/)
