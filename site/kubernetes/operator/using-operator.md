@@ -644,8 +644,10 @@ The configurations are listed in the table below.
         <code>spec.override</code>
       </td>
       <td>
-        Arbitrary overrides to the resources created by RabbitMQ Cluster Kubernetes Operator. Using this feature can easily render your RabbitMQ Cluster unusable. Use with caution! Check <a href='#override'>Override</a>
-    section for more details.
+        Arbitrary overrides to the resources created by RabbitMQ Cluster Kubernetes Operator. This feature should be
+        used with <strong>great care</strong> as overriding essential properties can render a RabbitMQ cluster unusable
+        to applications or unreachable to the Operator.
+        See the <a href='#override'>Override section</a> to learn more.
       </td>
     </tr>
     </col>
