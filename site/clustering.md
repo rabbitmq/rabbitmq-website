@@ -27,7 +27,7 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * What clustering [means for clients](#clustering-and-clients)
  * [How clusters are formed](#cluster-formation)
  * How nodes [authenticate to each other](#erlang-cookie) (and with CLI tools)
- * Why [two cluster nodes are highly recommended against](#node-count)
+ * Why it's important to [use an odd number of nodes](#node-count) and **two cluster nodes are highly recommended against**
  * [Node restarts](#restarting) and how nodes rejoin their cluster
  * How to [remove a cluster node](#removing-nodes)
  * How to [reset a cluster node](#resetting-nodes)
