@@ -20,7 +20,7 @@ limitations under the License.
 <ol class="plain">
   <li>
     <p>
-      <strong>PURPOSE.</strong> Pivotal Software, Inc. (“Pivotal”) owns a number of
+      <strong>PURPOSE.</strong> VMware, Inc. (“VMware”) owns a number of
       international trademarks and logos that identify the RabbitMQ community
       and individual RabbitMQ projects (“RabbitMQ Marks”). These trademarks
       include:
@@ -39,7 +39,7 @@ limitations under the License.
       </li>
     </ol>
     <p>
-      This policy outlines Pivotal’s policy and guidelines about the use of
+      This policy outlines VMware’s policy and guidelines about the use of
       the RabbitMQ trademarks by members of the RabbitMQ development and
       user community.
     </p>
@@ -156,7 +156,7 @@ limitations under the License.
               <li>
                 <p>
                   There is no suggestion that your project is approved,
-                  sponsored, or affiliated with Pivotal.
+                  sponsored, or affiliated with VMware.
                 </p>
               </li>
               <li>
@@ -175,7 +175,7 @@ limitations under the License.
         <p>
           <strong>
             Attribution.
-          </strong> Identify the trademarks as trademarks of Pivotal, as
+          </strong> Identify the trademarks as trademarks of VMware, as
           set forth in Section 7.
         </p>
       </li>
@@ -218,7 +218,7 @@ limitations under the License.
       <strong>
         IMPROPER USE OF THE TRADEMARKS AND LOGOS.
       </strong> Use of the logos is
-      reserved solely for use by Pivotal in its unaltered form. Examples of
+      reserved solely for use by VMware in its unaltered form. Examples of
       unauthorized use of the RabbitMQ trademarks include:
     </p>
     <ol class="alpha">
@@ -329,7 +329,7 @@ limitations under the License.
           <strong>
             Endorsement or Sponsorship.
           </strong> You may not use the RabbitMQ
-          trademarks in a manner that would imply Pivotal’s affiliation
+          trademarks in a manner that would imply VMware’s affiliation
           with or endorsement, sponsorship, or support of a product or
           service.
         </p>
@@ -376,7 +376,7 @@ limitations under the License.
       (i.e.,  ®) should appear at least with the first use of the RabbitMQ
       trademarks (for example, RABBITMQ®). When you use a RabbitMQ
       trademark you should include a statement attributing the trademark to
-      Pivotal. For example, "RabbitMQ is a trademark of Pivotal Software,
+      VMware. For example, "RabbitMQ is a trademark of VMware,
       Inc. in the U.S. and other countries."
     </p>
   </li>
