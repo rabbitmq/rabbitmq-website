@@ -436,6 +436,38 @@ spec:
     secretName: rabbitmq-server-certs
 </pre>
 
+### <a name='override' class='anchor' href='#override'>Override Resource Properties</a>
+
+**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.clientService</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
+
+**Default Value:** N/A
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: additional-port
+spec:
+  override:
+    clientService:
+      spec:
+        ports:
+          - name: additional-port # adds an additional port on the client service
+            protocol: TCP
+            port: 12345
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: rabbitmq
+                ports:
+                  - containerPort: 12345 # opens an additional port on the rabbitmq server container
+                    name: additional-port
+                    protocol: TCP
+</pre>
 
 ## <a id='update' class='anchor' href='#update'>Update a RabbitMQ Instance</a>
 
@@ -605,6 +637,15 @@ The configurations are listed in the table below.
       <td>
         Additional configuration to append to the Cluster Generated configuration. Check <a href='#additional-config'>Additional Config</a>
 	section for the list of always generated configuration.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.override</code>
+      </td>
+      <td>
+        Arbitrary overrides to the resources created by RabbitMQ Cluster Kubernetes Operator. Using this feature can easily render your RabbitMQ Cluster unusable. Use with caution! Check <a href='#override'>Override</a>
+    section for more details.
       </td>
     </tr>
     </col>
