@@ -168,7 +168,7 @@ limitations under the License.
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div class="rabbit-logo">
-      <a href="/"><img src="/img/RabbitMQ-logo.svg" alt="RabbitMQ"/></a>
+      <a href="/"><img src="/img/logo-rabbitmq.svg" alt="RabbitMQ"/></a>
     </div>
     <a class='btn menubtn' onclick='showHide()'>Menu <img src="/img/carrot-down-white.svg"/></a>
     <div class='mobilemenuicon' onclick='showHide()'><img src="/img/mobile-menu-icon.svg"/></div>
@@ -197,7 +197,7 @@ limitations under the License.
     </div>
       <div class='container'>
         <div class="rabbit-logo">
-          <a href="/"><img src="/img/RabbitMQ-logo-white.svg" alt="RabbitMQ"/></a>
+          <a href="/"><img src="/img/logo-rabbitmq-white.svg" alt="RabbitMQ"/></a>
         </div>
         <ul class='footerNav'>
           <li><a href="/#features">Features</a></li>

@@ -230,7 +230,7 @@ img.figure {
 }
 
 .rabbit-logo img {
-  width: 238px;
+  width: 176px;
   height: 28px;
 }
 
@@ -1554,7 +1554,7 @@ img.screenshot {
     display: block;
   }
   .rabbit-logo img {
-    max-width: 170px;
+    /*max-width: 170px;*/
   }
   .menubtn {
     display: none;
