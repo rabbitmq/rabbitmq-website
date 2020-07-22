@@ -262,7 +262,7 @@ If the Windows service is used, the cookie should be copied from
 `C:\Windows\.erlang.cookie` to the expected location for users
 running commands like `rabbitmqctl.bat`.
 
-### Overrding Using CLI and Runtime Command Line Arguments
+### Overriding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
 to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>

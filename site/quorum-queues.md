@@ -422,7 +422,7 @@ There are a few new configuration parameters that can be tweaked using
 the [advanced](configure.html#advanced-config-file) config file.
 
 The `ra` application (which is the Raft library that quorum
-queues use) has [it's own set of tunable parameters](https://github.com/rabbitmq/ra#configuration).
+queues use) has [its own set of tunable parameters](https://github.com/rabbitmq/ra#configuration).
 
 The `rabbit` application has a couple of quorum queue related configuration items:
 

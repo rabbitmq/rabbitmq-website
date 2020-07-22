@@ -382,7 +382,7 @@ try to not override user-provided policies where possible.
 
 ### <a id="operator-policy-definition" class="anchor" href="#operator-policy-definition">Defining Operator Policies</a>
 
-Operator policies defined in a way very similar to regular (user) policies.
+Operator policies are defined in a way very similar to regular (user) policies.
 When `rabbitmqctl` is used, the command name is `set_operator_policy`
 instead of `set_policy`. In the HTTP API, `/api/policies/` in request path
 becomes `/api/operator-policies/`:

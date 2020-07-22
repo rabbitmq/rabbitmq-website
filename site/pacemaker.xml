@@ -556,7 +556,7 @@ ha-node-3:~#
           <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server</code>
           is a generic init-like script and provides no clustering.
           The second one <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha</code>
-          (referenced as "RabbitMQ HA" in the comparison sreadsheet)
+          (referenced as "RabbitMQ HA" in the comparison spreadsheet)
           provides an active-active disposable cluster configuration with a dynamic membership
           of nodes. Note that only disc nodes are currently supported by the OCF agent.
           There is also an example <i>policy file</i>
@@ -639,7 +639,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
         </pre>
         <p>
           After that, your cluster has to be assembled by the OCF agent and ready for operations.
-          When assembled, one and only resource instance must run as a resource primary (master), and others as secondaries.
+          When assembled, one and only one resource instance must run as a resource primary (master), and others as secondaries.
           Note that these are the multi-state resource's Master/Slave and has nothing to the RabbitMQ cluster,
           which is active-active.
         </p>
