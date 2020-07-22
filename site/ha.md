@@ -405,7 +405,7 @@ mirroring to all nodes in the cluster.
 Note that **mirroring to all nodes is rarely necessary** and will result
 in unnecessary resource waste.
 
-See [To How Many Nodes to Mirror?](#replication-factor) above):
+See [To How Many Nodes to Mirror?](#replication-factor) above:
 
 <table>
   <tr>
@@ -564,7 +564,7 @@ master as follows:
 
 If consumers use [automatic acknowledgement mode](/confirms.html), then messages can be lost. This is no different
 from non-mirrored queues, of course: the broker considers a message
-_acknowledged_ as soon as it has been sent to a a consumer in automatic acknowledgement mode.
+_acknowledged_ as soon as it has been sent to a consumer in automatic acknowledgement mode.
 
 Should the client disconnect abruptly, the message may never be received. In the case of a
 mirrored queue, should the master die, messages that are in-flight on
