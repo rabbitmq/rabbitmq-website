@@ -173,7 +173,7 @@ trusted partition.
 
 ## <a id="automatic-handling" class="anchor" href="#automatic-handling">Partition Handling Strategies</a>
 
-RabbitMQ also three ways to deal with network partitions
+RabbitMQ also offers three ways to deal with network partitions
 automatically: <code>pause-minority</code> mode, <code>pause-if-all-down</code>
 mode and <code>autoheal</code> mode. The default behaviour is referred
 to as <code>ignore</code> mode.
