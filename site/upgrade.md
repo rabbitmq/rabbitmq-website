@@ -494,7 +494,7 @@ on how to upgrade RabbitMQ.
 
     There will be no new patch releases for [versions after EOL](/versions.html).
 
-    Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
+    Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
     It's recommended to always upgrade at least to the latest patch release in a series.
 
 1. Read carefully the release notes up to the selected RabbitMQ version.
@@ -559,11 +559,11 @@ on how to upgrade RabbitMQ.
     vet individual nodes.
 
     Queues in flow state or blocked/blocking connections might be ok,
-    depending on your workload. It's up to you to determinate if this is
+    depending on your workload. It's up to you to determine if this is
     a normal situation or if the cluster is under unexpected load and
     thus, decide if it's safe to continue with the upgrade.
 
-    However, if there queues in an undefined state (a.k.a. `NaN` or
+    However, if there are queues in an undefined state (a.k.a. `NaN` or
     "ghost" queues), you should first start by understanding what is
     wrong before starting an upgrade.
 
