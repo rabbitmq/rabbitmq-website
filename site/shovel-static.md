@@ -401,7 +401,7 @@ are available to static shovels, such as TLS certificate and private key.
       <td>publish_properties</td>
       <td>
         <p>
-          This optionak key controls <a href="/publishers.html#message-properties">message properties</a>
+          This optional key controls <a href="/publishers.html#message-properties">message properties</a>
           set or overridden by the shovel. It takes the following form
         </p>
 <pre class="lang-erlang">
@@ -663,7 +663,7 @@ directly to the local broker as destination. It will reconnect
 to the other source broker on failure, after a delay of 5
 seconds.
 
-When connected to the source it will declare a a direct, fanout exchange
+When connected to the source it will declare a direct, fanout exchange
 called `"my_fanout"`, an anonymous queue with a [per-queue message ttl](/ttl.html#per-queue-message-ttl),
 and bind the queue to the exchange.
 
