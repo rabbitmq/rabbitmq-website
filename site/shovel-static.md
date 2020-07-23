@@ -34,7 +34,7 @@ easier compared to a static shovel definition (which uses Erlang terms).
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
-The configuration for the Shovel plugin must be defined in the in the
+The configuration for the Shovel plugin must be defined in the
 [advanced configuration file](configure.html#advanced-config-file).
 
 It consists of a single `shovels` clause that lists the shovels that should
