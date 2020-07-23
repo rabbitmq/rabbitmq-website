@@ -9,7 +9,7 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [An overview](#basics) of how RabbitMQ can be upgraded
 1. [RabbitMQ version upgradability](#rabbitmq-version-upgradability), version upgrading from &amp; version upgrading to
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
-1. [Plugin compatiblity between versions](#rabbitmq-plugins-compatibility)
+1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
 1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
 1. How upgrades of [multi-node clusters](#clusters) is different from those with only a single node
@@ -46,7 +46,7 @@ the process for those cases.
 
 ### Blue-Green Deployment Upgrades
 
-The Blue/Green deployment strategy offers the benefit of making the upgrade process safier at the cost of
+The Blue/Green deployment strategy offers the benefit of making the upgrade process safer at the cost of
 temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
 can abort an upgrade by switching applications back to the existing cluster.
 
@@ -494,7 +494,7 @@ on how to upgrade RabbitMQ.
 
     There will be no new patch releases for [versions after EOL](/versions.html).
 
-    Version 3.5.x reached it's end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
+    Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
     It's recommended to always upgrade at least to the latest patch release in a series.
 
 1. Read carefully the release notes up to the selected RabbitMQ version.
@@ -552,18 +552,18 @@ on how to upgrade RabbitMQ.
 
     We recommend recording the number of durable queues, the number
     of messages they hold and other pieces of information about the
-    topology that are relevant. This data wil help verify that the
+    topology that are relevant. This data will help verify that the
     system operates within reasonable parameters after the upgrade.
 
     Use the `rabbitmqctl node_health_check` command to
     vet individual nodes.
 
     Queues in flow state or blocked/blocking connections might be ok,
-    depending on your workload. It's up to you to determinate if this is
+    depending on your workload. It's up to you to determine if this is
     a normal situation or if the cluster is under unexpected load and
     thus, decide if it's safe to continue with the upgrade.
 
-    However, if there queues in an undefined state (a.k.a. `NaN` or
+    However, if there are queues in an undefined state (a.k.a. `NaN` or
     "ghost" queues), you should first start by understanding what is
     wrong before starting an upgrade.
 

@@ -291,7 +291,7 @@ It is important to understand the difference between *enabled* and
  * A *supported* feature flag is one which is known by the node. It can
    be enabled or disabled, but its state is irrelevant at this point.
  * An *enabled* feature flag is one which is activated and used by the
-   node. Per the definition above, it is implicitely a *supported*
+   node. Per the definition above, it is implicitly a *supported*
    feature flag.
 
 If one of those two conditions is not verified, the node cannot join or
@@ -500,7 +500,7 @@ will use a second version of RabbitMQ to start half of the nodes when
 starting a cluster:
 
  * Node 1 will be on the primary copy (the one used to start the testsuite)
- * Node 2 will be on the secondary copy (the one provided explicitely to `rabbitmq-ct-helpers`)
+ * Node 2 will be on the secondary copy (the one provided explicitly to `rabbitmq-ct-helpers`)
  * Node 3 will be on the primary copy
  * Node 4 will be on the secondary copy
  * ...
