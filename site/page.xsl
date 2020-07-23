@@ -168,7 +168,7 @@ limitations under the License.
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div class="rabbit-logo">
-      <a href="/"><img src="/img/RabbitMQ-logo.svg" alt="RabbitMQ"/></a>
+      <a href="/"><img src="/img/logo-rabbitmq.svg" alt="RabbitMQ"/></a>
     </div>
     <a class='btn menubtn' onclick='showHide()'>Menu <img src="/img/carrot-down-white.svg"/></a>
     <div class='mobilemenuicon' onclick='showHide()'><img src="/img/mobile-menu-icon.svg"/></div>
@@ -190,18 +190,14 @@ limitations under the License.
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
-    <!-- <div class='container'>
-      <a id='s1p-promo' href='https://springoneplatform.io/?utm_source=rabbitmq-website-footer&amp;utm_medium=footer-link&amp;utm_campaign=s1p-promo-rabbitmq' target="_blank">
-        <div>
-          <img id='tagline' src='/img/promos/tagline.svg'/>
-          <img id='s1plogo' src='/img/promos/S1P.svg'/>
-          <img id='date' src='/img/promos/date-2019.svg'/>
-        </div>
+    <div class='container'>
+      <a id='s1p-promo' href='https://springone.io?utm_campaign=SpringOne-July9&amp;utm_source=rabbit-site-footer&amp;utm_medium=website' target="_blank">
+          <img src='/img/promos/S1-Promo.svg'/>
       </a>
-    </div> -->
+    </div>
       <div class='container'>
         <div class="rabbit-logo">
-          <a href="/"><img src="/img/RabbitMQ-logo-white.svg" alt="RabbitMQ"/></a>
+          <a href="/"><img src="/img/logo-rabbitmq-white.svg" alt="RabbitMQ"/></a>
         </div>
         <ul class='footerNav'>
           <li><a href="/#features">Features</a></li>

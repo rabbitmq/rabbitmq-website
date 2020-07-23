@@ -3,7 +3,7 @@
     <div class="pageFooter">
       <div class='container'>
         <div class="rabbit-logo">
-          <a href="/"><img src="/img/RabbitMQ-logo-white.svg" alt="RabbitMQ"/></a>
+          <a href="/"><img src="/img/logo-rabbitmq-white.svg" alt="RabbitMQ"/></a>
         </div>
         <ul class='footerNav'>
           <li><a href="/#features">Features</a></li>
