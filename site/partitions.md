@@ -47,7 +47,7 @@ the RabbitMQ log in a form like:
 2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 </pre>
 
-Partition presence can be idenfied via server [logs](/logging.html),
+Partition presence can be identified via server [logs](/logging.html),
 [HTTP API](/management.html) (for [monitoring](/monitoring.html))
 and a [CLI command](/cli.html):
 
@@ -261,7 +261,7 @@ which mode may or may not be appropriate:
   <li>
     <code>ignore</code>: use when network reliability is the highest practically possible
     and node availability is of topmost importance. For example, all cluster nodes can
-    be in the same a rack or equivalent, connected with a switch, and that switch is also the route
+    be in the same rack or equivalent, connected with a switch, and that switch is also the route
     to the outside world.
   </li>
   <li>
