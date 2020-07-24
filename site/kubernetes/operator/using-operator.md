@@ -450,6 +450,7 @@ kind: RabbitmqCluster
 metadata:
   name: additional-port
 spec:
+  replicas: 1
   override:
     clientService:
       spec:
