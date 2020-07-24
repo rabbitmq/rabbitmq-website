@@ -59,7 +59,7 @@ The clients has a couple of dependencies:
  * [`System.Memory`](https://www.nuget.org/packages/System.Memory/) 4.5.x
  * [`System.Threading.Channels`](https://www.nuget.org/packages/System.Threading.Channels/) 4.7.x
 
-Applications that use different versions os the same dependencies
+Applications that use different versions of the same dependencies
 should use [assembly version redirection](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions),
 [automatic](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection) or
 explicit.
@@ -199,7 +199,7 @@ The channel can now be used to send and receive messages,
 as described in subsequent sections.
 
 Just like connections, channels are **meant to be long-lived**. Opening a new channel
-for every operation would be highly inefficient is **highly discouraged**. Channels,
+for every operation would be highly inefficient and is **highly discouraged**. Channels,
 however, can have a shorter life span than connections. For example, certain
 protocol errors will automatically close channels. If applications can recover
 from them, they can open a new channel and retry the operation.
@@ -637,7 +637,7 @@ set, but cannot be delivered, the broker will return it to the sending
 client (via a <code>basic.return</code> AMQP 0-9-1 command).
 
 To be notified of such returns, clients can subscribe to the
-<code> IModel.BasicReturn</code> event. If there are no listeners attached to the
+<code>IModel.BasicReturn</code> event. If there are no listeners attached to the
 event, then returned messages will be silently dropped.
 
 <pre class="lang-csharp">

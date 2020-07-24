@@ -334,8 +334,7 @@ mirrors can be configured to be [promoted to master even when not in sync](#unsy
 
 Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
-cluster, with [automatic
-synchronisation](#eager-synchronisation):
+cluster, with [automatic synchronisation](#eager-synchronisation):
 
 <table>
   <tr>
@@ -351,8 +350,8 @@ rabbitmqctl set_policy ha-two "^two\." \
           <th>rabbitmqctl (Windows)</th>
           <td>
 <pre class="lang-bash">
-rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"
+rabbitmqctl.bat set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2,""ha-sync-mode"":""automatic""}"
  </pre>
           </td>
         </tr>
