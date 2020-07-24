@@ -161,7 +161,7 @@ limitations under the License.
       <doc:heading>Cloud Configurations</doc:heading>
       <ul>
         <li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
-          Alexis' presention on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
+          Alexis' presentation on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
           and why it is useful for cloud computing by way of illustrating use cases from RabbitMQ customers. (Download a
           <a href="/resources/SkillsMatterCloudAndGridExchange2010RabbitMQCloudMessagingUseCases.pdf">PDF of the slides</a>, 3.2MB).
     </li>
@@ -178,7 +178,7 @@ limitations under the License.
     Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
     </li>
     <li><a href="http://notes.variogr.am/post/67710296/replacing-amazon-sqs-with-something-faster-and-cheaper">Replacing Amazon SQS with something faster and cheaper</a><br/>
-    Illustrates the use of RabbitMQ as a alternative to SQS for message queuing on AWS.
+    Illustrates the use of RabbitMQ as an alternative to SQS for message queuing on AWS.
     </li>
     <li><a href="http://www.equivalence.co.uk/archives/1521">Idiot's Guide to Linux on Amazon EC2</a><br/>
     Walk through of how to set up Ubuntu for use with RabbitMQ on AWS.
@@ -381,14 +381,14 @@ limitations under the License.
     </li>
     <li>
       <a href="http://www.erlang-factory.com/conference/SFBay2011/speakers/JamesAimonetti">Powerful, Open Source, VoIP Cloud Services</a><br />
-      James Aimonetti describes a open-source product that automatically deploys, scales and distributes
+      James Aimonetti describes an open-source product that automatically deploys, scales and distributes
       VoIP calls across the Internet on commodity or virtualized servers. It fully utilizes Erlang for VoIP
       logic and on other Erlang products like CouchDB and RabbitMQ.
     </li>
     <li>
       <a href="http://about.digg.com/blog/how-digg-is-built">How Digg is Built</a><br />
       Dave Beckett describes how Digg, a social news and content sharing website, rebuilt their infrastructure. Digg use RabbitMQ
-      to bridge their on-line applications and asynchround backend systems, queuing up events that have happened and jobs to perform.
+      to bridge their on-line applications and asynchronous backend systems, queuing up events that have happened and jobs to perform.
     </li>
     <li>
       <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />

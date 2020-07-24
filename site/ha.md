@@ -77,7 +77,7 @@ load across nodes (all participating nodes each do all the
 work).
 
 If the node that hosts queue master fails, the oldest mirror will be
-promoted to the new master as long as it synchronised. [Unsynchronised mirrors](#unsynchronised-mirrors)
+promoted to the new master as long as it's synchronised. [Unsynchronised mirrors](#unsynchronised-mirrors)
 can be promoted, too, depending on queue mirroring parameters.
 
 There are multiple terms commonly used to identify primary
@@ -837,7 +837,7 @@ For example, if you set `ha-sync-batch-size` to
 `50000` messages, and each message in the
 queue is 1KB, then each synchronisation message between nodes
 will be ~49MB. You need to make sure that your network
-between queue mirrors can accomodate this kind of traffic. If the
+between queue mirrors can accommodate this kind of traffic. If the
 network takes longer than [net_ticktime](nettick.html)
 to send one batch of messages, then nodes in the cluster could
 think they are in the presence of a network partition.
@@ -857,7 +857,7 @@ Queue synchronisation can be configured as follows:
    only receive new messages. The new queue mirror will become an
    exact replica of the master over time, once consumers have
    drained messages that only exist on the master. If the master
-   queue fails before all unsychronised messages are drained,
+   queue fails before all unsynchronised messages are drained,
    those messages will be lost. You can fully synchronise a queue
    manually, refer to [unsynchronised mirrors](#unsynchronised-mirrors)
    section for details.

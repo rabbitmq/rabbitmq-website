@@ -199,7 +199,7 @@ and aggregated. Logs can be crucially important in investigating unusual system 
 The way applications are designed and use RabbitMQ client libraries
 is a major contributor to the overall system resilience. Applications
 that use resources inefficiently or leak them will eventually affect the
-rest of the system. For example, an app that continously opens connections
+rest of the system. For example, an app that continuously opens connections
 but never closes them will exhaust cluster nodes out of file descriptors so
 no new connections will be accepted. This and similar problems can
 manifest themselves in more complex scenarios, e.g those collectively
