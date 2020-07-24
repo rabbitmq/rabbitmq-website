@@ -181,7 +181,7 @@ The port is then used by peer nodes and [CLI tools](/cli.html).
 
 When a node or CLI tool needs to contact node `rabbit@hostname2` it will do the following:
 
- * Resolve `hostname2` to an IP4 or IPv6 address using the standard OS resolver or a custom one specified in the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
+ * Resolve `hostname2` to an IPv4 or IPv6 address using the standard OS resolver or a custom one specified in the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
  * Contact `epmd` running on `hostname2` using the above address
  * Ask `epmd` for the port used by node `rabbit` on it
  * Contact the node using the resolved IP address and discovered port
@@ -480,7 +480,11 @@ for more information.
 
 ### <a id="tuning-for-throughput-intro" class="anchor" href="#tuning-for-throughput-intro"></a>
 
-Tuning for throughput is a common goal. Improvements can be achieved by * Increasing TCP buffer sizes * Ensuring Nagle's algorithm is disabled * Enabling optional TCP features and extensions
+Tuning for throughput is a common goal. Improvements can be achieved by
+
+* Increasing TCP buffer sizes
+* Ensuring Nagle's algorithm is disabled
+* Enabling optional TCP features and extensions
 
 For the latter two, see the OS-level tuning section below.
 
@@ -609,7 +613,7 @@ MacOS uses a [similar system](https://superuser.com/questions/433746/is-there-a-
 On Windows, the limit for the Erlang runtime is controlled using the `ERL_MAX_PORTS` environment variable.
 
 When optimising for the number of concurrent connections,
-making sure your system has enough file descriptors to
+make sure your system has enough file descriptors to
 support not only client connections but also files the node
 may use. To calculate a ballpark limit, multiply the number
 of connections per node by 1.5. For example, to support 100,000
@@ -834,7 +838,7 @@ described in this section.
 ### <a id="dealing-with-high-connection-churn-troubleshooting" class="anchor" href="#dealing-with-high-connection-churn-troubleshooting">Inspecting Connections and Gathering Evidence</a>
 
 If a node fails to accept connections it is important to first gather data (metrics, evidence) to
-determing the state of the system and the limiting factor (exhausted resource).
+determine the state of the system and the limiting factor (exhausted resource).
 Tools such as [netstat](https://en.wikipedia.org/wiki/Netstat),
 [ss](https://linux.die.net/man/8/ss), [lsof](https://en.wikipedia.org/wiki/Lsof) can be used
 to inspect TCP connections of a node. See [Troubleshooting Networking](/troubleshooting-networking.html) for examples.
