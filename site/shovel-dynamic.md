@@ -109,7 +109,7 @@ The body in this example includes a few keys:
         </td>
     </tr>
     <tr>
-      <td>src-protocool</td>
+      <td>src-protocol</td>
       <td>
         Protocol to use when connecting to the source.
         Either <code>amqp091</code> or <code>amqp10</code>. If omitted it will default to <code>amqp091</code>.
