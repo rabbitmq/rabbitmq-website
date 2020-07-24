@@ -34,7 +34,7 @@
   <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
     <div class='container'>
       <div class="rabbit-logo">
-        <a href="/"><img src="/img/RabbitMQ-logo.svg" alt="RabbitMQ"/></a>
+        <a href="/"><img src="/img/logo-rabbitmq.svg" alt="RabbitMQ"/></a>
       </div>
       <a class='btn menubtn' onclick='showHide()'>Menu <img src="/img/carrot-down-white.svg"/></a>
       <div class='mobilemenuicon' onclick='showHide()'><img src="/img/mobile-menu-icon.svg"/></div>
