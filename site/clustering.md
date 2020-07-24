@@ -640,7 +640,7 @@ of the cluster will change.
 
 A restarted node will sync the schema
 and other information from its peers on boot. Before this process
-completes, the node won't be fully started and functional.
+completes, the node **won't be fully started and functional**.
 
 It is therefore important to understand the process node go through when
 they are stopped and restarted.
@@ -652,7 +652,12 @@ default, with 30 second response timeouts.  In case the
 peer becomes available in that time interval, the node
 successfully starts, syncs what it needs from the peer and
 keeps going. If the peer does not become available, the restarted
-node will <strong>give up and voluntarily stop</strong>.
+node will **give up and voluntarily stop**. Such condition can be
+identified by the following log message:
+
+<pre class="lang-plaintext">
+
+</pre>
 
 When a node has no online peers during shutdown, it will start without
 attempts to sync with any known peers. It does not start as a standalone
