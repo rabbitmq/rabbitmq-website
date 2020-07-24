@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide accompanies the one [on networking](/networking.html) and focuses on troublshooting of
+This guide accompanies the one [on networking](/networking.html) and focuses on troubleshooting of
 network connections.
 
 For connections that use TLS there is an additional [guide on troubleshooting TLS](/troubleshooting-ssl.html).
