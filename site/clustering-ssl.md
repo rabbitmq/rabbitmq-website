@@ -173,7 +173,7 @@ Once a node has inter-node connection configured with TLS, CLI tools such as `ra
 also must use TLS to talk to the node. Plain TCP connections will be fail.
 
 This is done very similarly to what the example above does using `SERVER_ADDITIONAL_ERL_ARGS` but this time
-the environment variable is `CTL_ERL_ARGS`. It controls runtime flags used by CLI tools.
+the environment variable is `RABBITMQ_CTL_ERL_ARGS`. It controls runtime flags used by CLI tools.
 
 Here is the complete `/etc/rabbitmq/rabbitmq-env.conf` file:
 
@@ -195,7 +195,7 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 
 # Same settings as above but for CLI tools
-CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
+RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
@@ -226,7 +226,7 @@ SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH
   -proto_dist inet_tls
   -ssl_dist_optfile /etc/rabbitmq/inter_node_tls.config"
 
-CTL_ERL_ARGS="-pa $ERL_SSL_PATH
+RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH
   -proto_dist inet_tls
   -ssl_dist_optfile /etc/rabbitmq/inter_node_tls.config"
 </pre>
