@@ -352,7 +352,7 @@ rabbitmqctl set_policy ha-two "^two\." \
           <td>
 <pre class="lang-bash">
 rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"
+   "{""ha-mode"":""exactly"",""ha-params"":2,""ha-sync-mode"":""automatic""}"
  </pre>
           </td>
         </tr>
