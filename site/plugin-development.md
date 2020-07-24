@@ -201,7 +201,7 @@ The following table should explain the purpose of the various files in the repos
   <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
     <td>
-      A <a href="https://github.com/Kyorai/cuttlefish">Cuttlefish</a> configrution schema.
+      A <a href="https://github.com/Kyorai/cuttlefish">Cuttlefish</a> configuration schema.
       Used to translate <a href="/configure.html#configuration-file">configuration file</a>
       to the internal format used by RabbitMQ and its runtime.
 
