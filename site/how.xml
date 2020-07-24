@@ -381,14 +381,14 @@ limitations under the License.
     </li>
     <li>
       <a href="http://www.erlang-factory.com/conference/SFBay2011/speakers/JamesAimonetti">Powerful, Open Source, VoIP Cloud Services</a><br />
-      James Aimonetti describes a open-source product that automatically deploys, scales and distributes
+      James Aimonetti describes an open-source product that automatically deploys, scales and distributes
       VoIP calls across the Internet on commodity or virtualized servers. It fully utilizes Erlang for VoIP
       logic and on other Erlang products like CouchDB and RabbitMQ.
     </li>
     <li>
       <a href="http://about.digg.com/blog/how-digg-is-built">How Digg is Built</a><br />
       Dave Beckett describes how Digg, a social news and content sharing website, rebuilt their infrastructure. Digg use RabbitMQ
-      to bridge their on-line applications and asynchround backend systems, queuing up events that have happened and jobs to perform.
+      to bridge their on-line applications and asynchronous backend systems, queuing up events that have happened and jobs to perform.
     </li>
     <li>
       <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />
