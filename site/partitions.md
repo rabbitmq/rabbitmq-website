@@ -297,7 +297,7 @@ nodes will pause. However, <code>pause_minority</code> mode is
 safer than <code>ignore</code> mode, with regards to integrity.
 For clusters of more than two nodes, especially if the most likely
 form of network partition is that a single minority of nodes
-drops off the network, the availability is remains as good as
+drops off the network, the availability remains as good as
 with <code>ignore</code> mode.
 
 Note that <code>pause_minority</code> mode will do
