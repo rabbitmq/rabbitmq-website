@@ -456,11 +456,10 @@ at least one disk node. It is therefore not possible to manually remove
 the last remaining disk node in a cluster.
 
 
-## <a id="transcript" class="anchor" href="#transcript">Clustering Transcript with `rabbitmqctl`</a>
+## <a id="manual-transcript" class="anchor" href="#manual-transcript">Clustering Transcript with `rabbitmqctl`</a>
 
-The following is a transcript of manually setting up and manipulating
-a RabbitMQ cluster across three machines -
-`rabbit1`, `rabbit2`,
+The following several sections provide a transcript of manually setting up and manipulating
+a RabbitMQ cluster across three machines: `rabbit1`, `rabbit2`,
 `rabbit3`. It is recommended that the example is studied before
 [more automation-friendly](/cluster-formation.html) cluster formation
 options are used.
@@ -473,7 +472,8 @@ user's PATH.
 This transcript can be modified to run on a single host, as
 explained more details below.
 
-### <a id="starting" class="anchor" href="#starting">Starting Independent Nodes</a>
+
+## <a id="starting" class="anchor" href="#starting">Starting Independent Nodes</a>
 
 Clusters are set up by re-configuring existing RabbitMQ
 nodes into a cluster configuration. Hence the first step
@@ -521,7 +521,7 @@ batch file is used, the short node name is upper-case (as
 in `rabbit@RABBIT1`). When you type node names,
 case matters, and these strings must match exactly.
 
-### <a id="creating" class="anchor" href="#creating">Creating a Cluster</a>
+## <a id="creating" class="anchor" href="#creating">Creating a Cluster</a>
 
 In order to link up our three nodes in a cluster, we tell
 two of the nodes, say `rabbit@rabbit2` and
@@ -628,7 +628,7 @@ rabbitmqctl cluster_status
 By following the above steps we can add new nodes to the
 cluster at any time, while the cluster is running.
 
-### <a id="restarting" class="anchor" href="#restarting">Restarting Cluster Nodes</a>
+## <a id="restarting" class="anchor" href="#restarting">Restarting Cluster Nodes</a>
 
 Nodes that have been joined to a cluster can be stopped at
 any time. They can also fail or be terminated by the OS.
@@ -638,9 +638,11 @@ is stopped, this does not affect the rest of the cluster, although
 client connection distribution, queue replica placement, and load distribution
 of the cluster will change.
 
+### <a id="restarting-schema-sync" class="anchor" href="#restarting-schema-sync">Schema Syncing from Online Peers</a>
+
 A restarted node will sync the schema
 and other information from its peers on boot. Before this process
-completes, the node won't be fully started and functional.
+completes, the node **won't be fully started and functional**.
 
 It is therefore important to understand the process node go through when
 they are stopped and restarted.
@@ -648,15 +650,103 @@ they are stopped and restarted.
 A stopping node picks an online cluster member (only disc
 nodes will be considered) to sync with after restart. Upon
 restart the node will try to contact that peer 10 times by
-default, with 30 second response timeouts.  In case the
-peer becomes available in that time interval, the node
+default, with 30 second response timeouts.
+
+In case the peer becomes available in that time interval, the node
 successfully starts, syncs what it needs from the peer and
-keeps going. If the peer does not become available, the restarted
-node will <strong>give up and voluntarily stop</strong>.
+keeps going.
+
+If the peer does not become available, the restarted
+node will **give up and voluntarily stop**. Such condition can be
+identified by the timeout (`timeout_waiting_for_tables`) warning messages in the logs
+that eventually lead to node startup failure:
+
+<pre class="lang-plaintext">
+2020-07-27 21:10:51.361 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
+2020-07-27 21:10:51.361 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 1 retries left
+2020-07-27 21:11:21.362 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_durable_queue]}
+2020-07-27 21:11:21.362 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 0 retries left
+</pre>
+
+<pre class="lang-plaintext">
+2020-07-27 21:15:51.380 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 1 retries left
+2020-07-27 21:16:21.381 [warning] &lt;0.269.0&gt; Error while waiting for Mnesia tables: {timeout_waiting_for_tables,[rabbit@node2,rabbit@node1],[rabbit_user,rabbit_user_permission, …]}
+2020-07-27 21:16:21.381 [info] &lt;0.269.0&gt; Waiting for Mnesia tables for 30000 ms, 0 retries left
+2020-07-27 21:16:51.393 [info] &lt;0.44.0&gt; Application mnesia exited with reason: stopped
+</pre>
+
+<pre class="lang-plaintext">
+2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; BOOT FAILED
+2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; ===========
+2020-07-27 21:16:51.397 [error] &lt;0.269.0&gt; Timeout contacting cluster nodes: [rabbit@node1].
+</pre>
 
 When a node has no online peers during shutdown, it will start without
 attempts to sync with any known peers. It does not start as a standalone
 node, however, and peers will be able to rejoin it.
+
+When the entire cluster is brought down therefore, the last node to go down
+is the only one that didn't have any running peers at the time of shutdown.
+That node can start without contacting any peers first.
+Since nodes will try to contact a known peer for up to 5 minutes (by default), nodes
+can be restarted in any order in that period of time. In this case
+they will rejoin each other one by one successfully. This window of time
+can be adjusted using two configuration settings:
+
+<pre class="lang-ini">
+# wait for 60 seconds instead of 30
+mnesia_table_loading_retry_timeout = 60000
+
+# retry 15 times instead of 10
+mnesia_table_loading_retry_limit = 15
+</pre>
+
+By adjusting these settings and tweaking the time window in which
+known peer has to come back it is possible to account for cluster-wide
+redeployment scenarios that can be longer than 5 minutes to complete.
+
+During [upgrades](/upgrade.html), sometimes the last node to stop
+must be the first node to be started after the upgrade. That node will be designated to perform
+a cluster-wide schema migration that other nodes can sync from and apply when they
+rejoin.
+
+### <a id="restarting-readiness-probes" class="anchor" href="#restarting-readiness-probes">Restarts and Health Checks (Readiness Probes)</a>
+
+In some environments, node restarts are controlled with a designated [health check](/monitoring.html#health-checks).
+The checks verify that one node has started and the deployment process can proceed to the next one.
+If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
+will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
+where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
+
+Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
+from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
+its cluter peers will fail and block further node deployments.
+
+[Most health check](/monitoring.html#health-checks), even relatively basic ones, implicitlly assume that the node has
+finished booting. They are not suitable for for nodes that are [awaiting schema table sync](#restarting-schema-sync) from a peer.
+
+One very common example of such check is
+
+<pre class="lang-bash">
+# will exit with an error for the nodes that are currently waiting for
+# a peer to sync schema tables from
+rabbitmq-diagnostics check_running
+</pre>
+
+One health check that does not expect a node to be fully booted and have schema tables synced is
+
+<pre class="lang-bash">
+# a very basic check that will succeed for the nodes that are currently waiting for
+# a peer to sync schema from
+rabbitmq-diagnostics ping
+</pre>
+
+This basic check is would allow the deployment to proceed and the nodes to eventually rejoin each other,
+assuming they are [compatible](/upgrade.html).
+
+
+### <a id="restarting-with-hostname-changes" class="anchor" href="#restarting-with-hostname-changes">Hostname Changes Between Restarts</a>
 
 A node rejoining after a node name or host name change can start as [a blank node](#peer-discovery-how-does-it-work)
 if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
@@ -683,30 +773,7 @@ Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', 
 In this case B can be reset again and then will be able to join A, or A
 can be reset and will successfully join B.
 
-When the entire cluster is brought down therefore, the last node to go down
-is the only one that didn't have any running peers at the time of shutdown.
-That node can start without contacting any peers first.
-Since nodes will try to contact a known peer for up to 5 minutes (by default), nodes
-can be restarted in any order in that period of time. In this case
-they will rejoin each other one by one successfully. This window of time
-can be adjusted using two configuration settings:
-
-<pre class="lang-ini">
-# wait for 60 seconds instead of 30
-mnesia_table_loading_retry_timeout = 60000
-
-# retry 15 times instead of 10
-mnesia_table_loading_retry_limit = 15
-</pre>
-
-By adjusting these settings and tweaking the time window in which
-known peer has to come back it is possible to account for cluster-wide
-redeployment scenarios that can be longer than 5 minutes to complete.
-
-During [upgrades](/upgrade.html), sometimes the last node to stop
-must be the first node to be started after the upgrade. That node will be designated to perform
-a cluster-wide schema migration that other nodes can sync from and apply when they
-rejoin.
+### <a id="restarting-transcript" class="anchor" href="#restarting-transcript">Cluster Node Restart Example</a>
 
 The below example uses CLI tools to shut down the nodes `rabbit@rabbit1` and
 `rabbit@rabbit3` and check on the cluster
@@ -787,7 +854,7 @@ rabbitmqctl cluster_status
 # => ...done.
 </pre>
 
-### <a id="forced-boot" class="anchor" href="#forced-boot">Forcing Node Boot in Case of Unavailable Peers</a>
+## <a id="forced-boot" class="anchor" href="#forced-boot">Forcing Node Boot in Case of Unavailable Peers</a>
 
 In some cases the last node to go
 offline cannot be brought back up. It can be removed from the
@@ -799,7 +866,7 @@ peers (as if they were last to shut down). This is
 usually only necessary if the last node to shut down or a
 set of nodes will never be brought back online.
 
-### <a id="removing-nodes" class="anchor" href="#removing-nodes">Breaking Up a Cluster</a>
+## <a id="removing-nodes" class="anchor" href="#removing-nodes">Breaking Up a Cluster</a>
 
 Sometimes it is necessary to remove a node from a
 cluster. The operator has to do this explicitly using a
