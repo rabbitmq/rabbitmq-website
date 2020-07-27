@@ -37,7 +37,7 @@ limitations under the License.
 
     <doc:item>
       <doc:date iso="2020-07-24T12:00:00+00:00">24 July 2020</doc:date>
-      <doc:title>RabbitMQ Cluster Operator for Kubernetes is Open Sourced</doc:title>
+      <doc:title>RabbitMQ Cluster Operator for Kubernetes</doc:title>
       <doc:link>https://github.com/rabbitmq/cluster-operator</doc:link>
       <doc:text>
         <p>
