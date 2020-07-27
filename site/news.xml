@@ -36,6 +36,33 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2020-07-24T12:00:00+00:00">24 July 2020</doc:date>
+      <doc:title>RabbitMQ Cluster Operator for Kubernetes is Open Sourced</doc:title>
+      <doc:link>https://github.com/rabbitmq/cluster-operator</doc:link>
+      <doc:text>
+        <p>
+          VMware has <a href="https://github.com/rabbitmq/cluster-operator">open sourced</a> a RabbitMQ cluster operator for Kubernetes.
+        </p>
+        <p>
+          This project is under active development and this release should be considered a preview.
+          Community feedback is very welcome.
+        </p>
+
+        <p>
+          See <a href="/kubernetes/operator/operator-overview.html">Operator Overview</a>
+          to learn what the Operator does, what Kubernetes flavours and versions are supported, and so on.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2020-06-15T12:00:00+00:00">15 June 2020</doc:date>
       <doc:title>RabbitMQ 3.8.5 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.5</doc:link>
