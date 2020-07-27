@@ -230,7 +230,7 @@ PUT /api/policies/%2f/federate-me
           policy.
         </li>
         <li>
-          Enter "federate-me" next to Name, "^amq\." next to
+          Enter "federate-me" next to Name, "^federated\." next to
           Pattern, and select "Exchanges" next to Apply to.
         </li>
         <li>
@@ -247,7 +247,7 @@ PUT /api/policies/%2f/federate-me
 
 This matches the value `"all"` with the key
 `"federation-upstream-set"` for all exchanges
-with names beginning with `"amq."`, in the
+with names beginning with `"federated."`, in the
 virtual host `"/"`.
 
 The `"pattern"` argument is a regular expression used
