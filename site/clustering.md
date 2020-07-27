@@ -29,8 +29,9 @@ This guide covers fundamental topics related to RabbitMQ clustering:
  * How nodes [authenticate to each other](#erlang-cookie) (and with CLI tools)
  * Why it's important to [use an odd number of nodes](#node-count) and **two cluster nodes are highly recommended against**
  * [Node restarts](#restarting) and how nodes rejoin their cluster
+ * [Node readiness probes](#restarting-readiness-probes) and how they can affect rolling cluster restarts
  * How to [remove a cluster node](#removing-nodes)
- * How to [reset a cluster node](#resetting-nodes)
+ * How to [reset a cluster node](#resetting-nodes) to a pristine (blank) state
 
 and more. [Cluster Formation and Peer Discovery](/cluster-formation.html) is a closely related guide
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
