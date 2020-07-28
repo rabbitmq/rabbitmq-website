@@ -21,7 +21,7 @@ limitations under the License.
 This guide assumes familiarity with the general [clustering guide](/clustering.html) as well
 the guide on [cluster peer discovery](/cluster-formation.html).
 
-Using RabbitMQ on EC2 is quite similar running it on other
+Using RabbitMQ on EC2 is quite similar to running it on other
 platforms. However, there are certain minor aspects to EC2 that need
 to be accounted for. They primarily have to do with hostnames and their resolution.
 
