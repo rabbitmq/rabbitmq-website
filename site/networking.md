@@ -390,7 +390,7 @@ Protocol 'inet_tcp': register/listen error: econnrefused
 #### systemd Unit File
 
 On distributions that use systemd, the `epmd.socket` service controls network settings of `epmd`.
-It is possible to configure `epmd` to only listen on IPv6 intefaces:
+It is possible to configure `epmd` to only listen on IPv6 interfaces:
 
 <pre class="lang-ini">
 ListenStream=[::1]:4369
@@ -692,7 +692,7 @@ collect_statistics_interval = 60000
 
 The default is 5 seconds (5000 milliseconds).
 
-Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consuption.
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consumption.
 This come with a downside: with the value in the example above, metrics of said entities
 will refresh every 60 seconds.
 

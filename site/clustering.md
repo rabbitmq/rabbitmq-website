@@ -226,7 +226,7 @@ RabbitMQ nodes will log its effective user's home directory location early on bo
 to populate the cookie file.
 
 Configuration management and container orchestration tools that use this image
-must make sure that every RabbitMQ node container in a cluster users the same value.
+must make sure that every RabbitMQ node container in a cluster uses the same value.
 
 In the context of Kubernetes, the value must be specified in the pod template specification of
 the [stateful set](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
@@ -743,7 +743,7 @@ One health check that does not expect a node to be fully booted and have schema 
 rabbitmq-diagnostics ping
 </pre>
 
-This basic check is would allow the deployment to proceed and the nodes to eventually rejoin each other,
+This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
 assuming they are [compatible](/upgrade.html).
 
 

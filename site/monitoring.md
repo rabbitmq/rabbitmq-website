@@ -164,7 +164,7 @@ Long term metric storage and visualisation services such as [Prometheus and Graf
  * Long term metric storage
  * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
  * More powerful and customizable user interface
- * Ease of metric data sharing: both metric state and dashbaords
+ * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
  * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
 

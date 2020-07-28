@@ -161,7 +161,7 @@ time to start it is recommended that the number of retries is increased.
 
 If a node is reset since losing contact with the cluster, it will behave [like a blank node](#peer-discovery-how-does-it-work).
 Note that other cluster members might still consider it to be a cluster member, in which case
-there two sides will disagree and the node will fail to join. Such reset nodes must also be
+the two sides will disagree and the node will fail to join. Such reset nodes must also be
 removed from the cluster using [`rabbitmqctl forget_cluster_node`](/cli.html) executed against
 an existing cluster member.
 
@@ -488,7 +488,7 @@ One health check that does not expect a node to be fully booted and have schema 
 rabbitmq-diagnostics ping
 </pre>
 
-This basic check is would allow the deployment to proceed and the nodes to eventually rejoin each other,
+This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
 assuming they are [compatible](/upgrade.html).
 
 See [Schema Syncing from Online Peers](/clustering.html#restarting-schema-sync) in the [Clustering guide](/clustering.html).

@@ -88,7 +88,7 @@ One of these options can be used to mitigate:
 
 If RabbitMQ is installed using a non-administrative account, a [shared secret](/cli.html#erlang-cookie) file
 used by nodes and CLI tools will not be placed into a correct location,
-leading to [authencation failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
+leading to [authentication failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
 and other CLI tools are used.
 
 ### Mitigation

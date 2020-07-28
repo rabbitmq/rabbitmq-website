@@ -21,7 +21,7 @@ limitations under the License.
 This guide assumes familiarity with the general [clustering guide](/clustering.html) as well
 the guide on [cluster peer discovery](/cluster-formation.html).
 
-Using RabbitMQ on EC2 is quite similar running it on other
+Using RabbitMQ on EC2 is quite similar to running it on other
 platforms. However, there are certain minor aspects to EC2 that need
 to be accounted for. They primarily have to do with hostnames and their resolution.
 
@@ -109,7 +109,7 @@ is high  and set up I/O operation rate monitoring.
 
 Several other guides cover topics highly relevant for running RabbitMQ clusters in public clouds:
 
- * [Custering Fundamentals](/clustering.html)
+ * [Clustering Fundamentals](/clustering.html)
  * [Peer Discovery](/cluster-formation.html)
  * [Configuration](/configure.html)
  * [Monitoring](/monitoring.html)
