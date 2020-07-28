@@ -97,13 +97,13 @@ We recommend performing symlinking and other storage preparation steps before in
 RabbitMQ when possible.
 
 Note that EBS volumes have an [IOPS
-limits](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html), which can impact thoughput and RabbitMQ operations.
+limits](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html), which can impact throughput and RabbitMQ operations.
 If an EBS volume hits the limit, disk writes will worsen. It is also possible that the RabbitMQ message store
 compaction (garbage collection of on-disk data) can fall behind
 disk writes, which means the disk will be filled up quicker than
 disk space can be reclaimed after messages were consumed and
 acknowledged. This will eventually lead to [resource alarms](/alarms.html) and publisher throttling. Please make sure the limit
-is high  and set up I/O operation rate monitoring.
+is high and set up I/O operation rate monitoring.
 
 ## <a id="related" class="anchor" href="#related">Further Reading</a>
 
