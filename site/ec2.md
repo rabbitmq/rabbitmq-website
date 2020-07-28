@@ -109,7 +109,7 @@ is high  and set up I/O operation rate monitoring.
 
 Several other guides cover topics highly relevant for running RabbitMQ clusters in public clouds:
 
- * [Custering Fundamentals](/clustering.html)
+ * [Clustering Fundamentals](/clustering.html)
  * [Peer Discovery](/cluster-formation.html)
  * [Configuration](/configure.html)
  * [Monitoring](/monitoring.html)
