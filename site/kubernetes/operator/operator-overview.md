@@ -28,6 +28,11 @@ Documentation of the Operator spans several guides:
 The Operator is open source. You can [contribute to its development on GitHub](https://github.com/rabbitmq/cluster-operator).
 
 
+## <a id='license' class='anchor' href='#license'>License</a>
+
+The Operator is released under the [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/2.0/).
+
+
 ## <a id='features' class='anchor' href='#features'>Key Features</a>
 
 The operator provides the following key features:

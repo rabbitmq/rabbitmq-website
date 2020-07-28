@@ -326,7 +326,7 @@ connection management by one or more applications and usually are worth investig
 Note that some clients and runtimes (notably PHP) do not use long-lived connections and high connection
 churn rates are expected from them unless a [specialized proxy is used](https://github.com/cloudamqp/amqproxy).
 
-### <a id="inspect-in-management-ui" class="anchor" href="#inspect-in-management-ui">Inspecting Channels and Their State Using CLI Tools</a>
+### <a id="inspect-in-management-ui" class="anchor" href="#inspect-in-management-ui">Inspecting Channels and Their State in Management UI</a>
 
 To inspect channels in the management UI, navigate to the Channels tab and add or remove columns
 as needed:

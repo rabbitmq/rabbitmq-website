@@ -48,7 +48,7 @@ They collect data that can be inspected and analysed, helping identify and detec
 
 ## <a id="logging" class="anchor" href="#logging">Logging</a>
 
-Logs is another important source of information for troublshooting. Separate [guide on logging](/logging.html)
+Logs is another important source of information for troubleshooting. Separate [guide on logging](/logging.html)
 explains where to find log files, how to adjust log levels, what log categories exist, connection
 lifecycle events that can be detected using log files, and more.
 
@@ -104,7 +104,7 @@ head -n 3 ./erl_crash.dump
 
 In this specific example, the slogan (uncaught exception message) says that a started node
 timed out [syncing schema metadata from its peers](/clustering.html#restarting), likely because they did not come online
-in the configiured window of time.
+in the configured window of time.
 
 To better understand the state of the Erlang runtime from a <a href="http://erlang.org/doc/apps/erts/crash_dump.html" target="_blank">crash dump file</a>, it
 helps to visualise it. The Crash Dump Viewer tool, `cdv`, is part of the Erlang installation.

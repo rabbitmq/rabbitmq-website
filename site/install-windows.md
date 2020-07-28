@@ -43,7 +43,7 @@ and ways to mitigate them.
 
 ## <a id="chocolatey" class="anchor" href="#chocolatey">Using chocolatey</a>
 
-RabbitMQ packagese are [distributed via Chocolatey](https://chocolatey.org/packages/rabbitmq).
+RabbitMQ packages are [distributed via Chocolatey](https://chocolatey.org/packages/rabbitmq).
 New releases can take a while (sometimes weeks) to get through approvals,
 so this option is not guaranteed to provide the latest release.
 It does, however, manage the required dependencies.
@@ -63,14 +63,14 @@ The Chocolatey RabbitMQ package is open source and can be [found on GitHub](http
 
 The official RabbitMQ installer is produced for [every RabbitMQ release](/changelog.html).
 
-Compared to [installation via Chocolaty](#chocolatey), this option gives Windows users
+Compared to [installation via Chocolatey](#chocolatey), this option gives Windows users
 the most flexibility but also requires them to be
 aware of certain assumptions and requirements in the installer:
 
  * There must be only one Erlang version installed at a time
  * Erlang must be installed **using an administrative account**
  * It is **highly recommended** that RabbitMQ is also installed as an administrative account
- * Installation path must only contain ASCII characters in path
+ * Installation path must only contain ASCII characters
  * It may be necessary to manually copy the [shared secret]() file used by CLI tools
  * CLI tools require Windows console to operate in UTF-8 mode
 
@@ -172,7 +172,7 @@ whether the `HOMEDRIVE` and `HOMEPATH` environment variables are set.
 
 If RabbitMQ is installed using a non-administrative account, a [shared secret](/cli.html#erlang-cookie) file
 used by nodes and CLI tools will not be placed into a correct location,
-leading to [authencation failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
+leading to [authentication failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
 and other CLI tools are used.
 
 One of these options can be used to mitigate:

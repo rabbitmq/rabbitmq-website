@@ -80,7 +80,7 @@ A recent version of <i>xsltproc</i>, which is part of [libxslt](http://xmlsoft.o
 ### zip and unzip
 
 [zip](http://www.info-zip.org/Zip.html) and [unzip](http://www.info-zip.org/UnZip.html)
-would be necessary if source code is obtained avia an archive instead of a git repository clone.
+would be necessary if source code is obtained via an archive instead of a git repository clone.
 
 
 ## <a id="building-server" class="anchor" href="#building-server">Building the Server</a>

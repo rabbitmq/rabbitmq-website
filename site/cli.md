@@ -312,7 +312,7 @@ RabbitMQ nodes will log its effective user's home directory location early on bo
 to populate the cookie file.
 
 Configuration management and container orchestration tools that use this image
-must make sure that every RabbitMQ node container in a cluster users the same value.
+must make sure that every RabbitMQ node container in a cluster uses the same value.
 
 In the context of Kubernetes, the value must be specified in the
 [deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
@@ -349,7 +349,7 @@ If the Windows service is used, the cookie should be copied from
 `C:\Windows\.erlang.cookie` to the expected location for users
 running commands like `rabbitmqctl.bat`.
 
-### Overrding Using CLI and Runtime Command Line Arguments
+### Overriding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
 to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>
@@ -405,7 +405,7 @@ RABBITMQ_ERLANG_COOKIE value length: 0
 
 #### Server Nodes
 
-When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+When a node starts, it will [log](/logging.html) the home directory location of its effective user:
 
 <pre class="lang-plaintext">
 node           : rabbit@cdbf4de5f22d

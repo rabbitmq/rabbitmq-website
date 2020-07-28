@@ -200,7 +200,7 @@ is cancelled (e.g. using the <code>basic.cancel</code> in AMQP 0-9-1)
 or gone (closed channel or connection, or lost TCP connection with the server).
 
 If a queue never had any consumers, for instance, when all consumption happens
-using the <code>basic.get</code> method (the "pull" API), it wont' be automatically
+using the <code>basic.get</code> method (the "pull" API), it won't be automatically
 deleted. For such cases, use exclusive queues or queue TTL.
 
 

@@ -197,7 +197,7 @@ gracefully, and the RPC should ideally be idempotent.
 Our RPC will work like this:
 
   * For an RPC request, the Client sends a message with two properties:
-    `replyTo`, which is set to a anonymous exclusive queue created
+    `replyTo`, which is set to an anonymous exclusive queue created
     just for the request, and `correlationId`,
     which is set to a unique value for every request.
   * The request is sent to an `rpc_queue` queue.

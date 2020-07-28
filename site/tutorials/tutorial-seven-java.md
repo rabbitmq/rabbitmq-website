@@ -238,7 +238,7 @@ following steps:
 > It can be tempting to re-publish a nack-ed message from the corresponding
 > callback but this should be avoided, as confirm callbacks are
 > dispatched in an I/O thread where channels are not supposed
-> to do operations. A better solution consists in enqueuing the message in a in-memory
+> to do operations. A better solution consists in enqueuing the message in an in-memory
 > queue which is polled by a publishing thread. A class like `ConcurrentLinkedQueue`
 > would be a good candidate to transmit messages between the confirm callbacks
 > and a publishing thread.

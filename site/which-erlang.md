@@ -100,6 +100,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.7.27</li>
         <li>3.7.26</li>
         <li>3.7.25</li>
         <li>3.7.24</li>
@@ -285,7 +286,7 @@ Erlang and its distributed libraries when a node joins a
 cluster, refusing to cluster if there's a potentially
 incompatible combination detected.
 
-Outside of a reasonably long upgrade time wiindow, it is
+Outside of a reasonably long upgrade time window, it is
 recommended that all nodes use exactly the same version of Erlang.
 
 

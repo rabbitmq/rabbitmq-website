@@ -39,6 +39,21 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.7.27</td>
+    <td class="centre">25 July 2020</td>
+    <td>
+      <ul>
+        <li>Bug Fixes</li>
+        <li>Backports from 3.8.x series</li>
+        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.27">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.5</td>
     <td class="centre">15 June 2020</td>
     <td>
