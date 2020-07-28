@@ -75,7 +75,7 @@ or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable o
  * Long term metric storage
  * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
  * More powerful and customizable user interface
- * Ease of metric data sharing: both metric state and dashbaords
+ * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
  * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
 
@@ -936,7 +936,7 @@ collect_statistics_interval = 30000
 </pre>
 
 Increasing the interval value to 30-60s will reduce CPU footprint and peak memory
-consuption for systems with large amounts of connections, channels and queues.
+consumption for systems with large amounts of connections, channels and queues.
 This come with a downside: metrics of said entities will refresh every 30-60 seconds.
 This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
 but will make management UI less convenient to use for operators.

@@ -272,7 +272,7 @@ collect_statistics_interval = 60000
 
 The default is 5 seconds (5000 milliseconds).
 
-Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consuption.
+Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consumption.
 This come with a downside: with the value in the example above, metrics of said entities
 will refresh every 60 seconds.
 
