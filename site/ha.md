@@ -77,7 +77,7 @@ load across nodes (all participating nodes each do all the
 work).
 
 If the node that hosts queue master fails, the oldest mirror will be
-promoted to the new master as long as it synchronised. [Unsynchronised mirrors](#unsynchronised-mirrors)
+promoted to the new master as long as it's synchronised. [Unsynchronised mirrors](#unsynchronised-mirrors)
 can be promoted, too, depending on queue mirroring parameters.
 
 There are multiple terms commonly used to identify primary
@@ -85,7 +85,7 @@ and secondary replicas in a distributed system. This guide
 typically uses "master" to refer to the primary replica of a
 queue and "mirror" for secondary replicas.
 
-Queue object fields in the HTTP API and CLI tools originally sed the unfortunate term
+Queue object fields in the HTTP API and CLI tools originally used the unfortunate term
 "slave" to refer to secondaries. That term still appears
 in column names in CLI tools for backwards compatibility but will be
 replaced or removed in a future version.
@@ -334,8 +334,7 @@ mirrors can be configured to be [promoted to master even when not in sync](#unsy
 
 Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
-cluster, with [automatic
-synchronisation](#eager-synchronisation):
+cluster, with [automatic synchronisation](#eager-synchronisation):
 
 <table>
   <tr>
@@ -351,8 +350,8 @@ rabbitmqctl set_policy ha-two "^two\." \
           <th>rabbitmqctl (Windows)</th>
           <td>
 <pre class="lang-bash">
-rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"
+rabbitmqctl.bat set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2,""ha-sync-mode"":""automatic""}"
  </pre>
           </td>
         </tr>
@@ -405,7 +404,7 @@ mirroring to all nodes in the cluster.
 Note that **mirroring to all nodes is rarely necessary** and will result
 in unnecessary resource waste.
 
-See [To How Many Nodes to Mirror?](#replication-factor) above):
+See [To How Many Nodes to Mirror?](#replication-factor) above:
 
 <table>
   <tr>
@@ -564,7 +563,7 @@ master as follows:
 
 If consumers use [automatic acknowledgement mode](/confirms.html), then messages can be lost. This is no different
 from non-mirrored queues, of course: the broker considers a message
-_acknowledged_ as soon as it has been sent to a a consumer in automatic acknowledgement mode.
+_acknowledged_ as soon as it has been sent to a consumer in automatic acknowledgement mode.
 
 Should the client disconnect abruptly, the message may never be received. In the case of a
 mirrored queue, should the master die, messages that are in-flight on
@@ -837,7 +836,7 @@ For example, if you set `ha-sync-batch-size` to
 `50000` messages, and each message in the
 queue is 1KB, then each synchronisation message between nodes
 will be ~49MB. You need to make sure that your network
-between queue mirrors can accomodate this kind of traffic. If the
+between queue mirrors can accommodate this kind of traffic. If the
 network takes longer than [net_ticktime](nettick.html)
 to send one batch of messages, then nodes in the cluster could
 think they are in the presence of a network partition.
@@ -857,7 +856,7 @@ Queue synchronisation can be configured as follows:
    only receive new messages. The new queue mirror will become an
    exact replica of the master over time, once consumers have
    drained messages that only exist on the master. If the master
-   queue fails before all unsychronised messages are drained,
+   queue fails before all unsynchronised messages are drained,
    those messages will be lost. You can fully synchronise a queue
    manually, refer to [unsynchronised mirrors](#unsynchronised-mirrors)
    section for details.

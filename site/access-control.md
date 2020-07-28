@@ -53,7 +53,7 @@ authorisation as "determining what the user is and isn't allowed to do."
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
-Clients use RabbitMQ features to [connecting](/connections.html) to it. Every connection has
+Clients use RabbitMQ features to [connect](/connections.html) to it. Every connection has
 an associated user which is authenticated. It also targets a [virtual host](/vhosts.html) for which
 the user must have a certain set of permissions.
 

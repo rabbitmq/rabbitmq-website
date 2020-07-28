@@ -47,7 +47,7 @@ the RabbitMQ log in a form like:
 2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 </pre>
 
-Partition presence can be idenfied via server [logs](/logging.html),
+Partition presence can be identified via server [logs](/logging.html),
 [HTTP API](/management.html) (for [monitoring](/monitoring.html))
 and a [CLI command](/cli.html):
 
@@ -173,7 +173,7 @@ trusted partition.
 
 ## <a id="automatic-handling" class="anchor" href="#automatic-handling">Partition Handling Strategies</a>
 
-RabbitMQ also three ways to deal with network partitions
+RabbitMQ also offers three ways to deal with network partitions
 automatically: <code>pause-minority</code> mode, <code>pause-if-all-down</code>
 mode and <code>autoheal</code> mode. The default behaviour is referred
 to as <code>ignore</code> mode.
@@ -261,7 +261,7 @@ which mode may or may not be appropriate:
   <li>
     <code>ignore</code>: use when network reliability is the highest practically possible
     and node availability is of topmost importance. For example, all cluster nodes can
-    be in the same a rack or equivalent, connected with a switch, and that switch is also the route
+    be in the same rack or equivalent, connected with a switch, and that switch is also the route
     to the outside world.
   </li>
   <li>
@@ -297,7 +297,7 @@ nodes will pause. However, <code>pause_minority</code> mode is
 safer than <code>ignore</code> mode, with regards to integrity.
 For clusters of more than two nodes, especially if the most likely
 form of network partition is that a single minority of nodes
-drops off the network, the availability is remains as good as
+drops off the network, the availability remains as good as
 with <code>ignore</code> mode.
 
 Note that <code>pause_minority</code> mode will do

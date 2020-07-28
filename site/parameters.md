@@ -230,7 +230,7 @@ PUT /api/policies/%2f/federate-me
           policy.
         </li>
         <li>
-          Enter "federate-me" next to Name, "^amq\." next to
+          Enter "federate-me" next to Name, "^federated\." next to
           Pattern, and select "Exchanges" next to Apply to.
         </li>
         <li>
@@ -247,7 +247,7 @@ PUT /api/policies/%2f/federate-me
 
 This matches the value `"all"` with the key
 `"federation-upstream-set"` for all exchanges
-with names beginning with `"amq."`, in the
+with names beginning with `"federated."`, in the
 virtual host `"/"`.
 
 The `"pattern"` argument is a regular expression used
@@ -382,7 +382,7 @@ try to not override user-provided policies where possible.
 
 ### <a id="operator-policy-definition" class="anchor" href="#operator-policy-definition">Defining Operator Policies</a>
 
-Operator policies defined in a way very similar to regular (user) policies.
+Operator policies are defined in a way very similar to regular (user) policies.
 When `rabbitmqctl` is used, the command name is `set_operator_policy`
 instead of `set_policy`. In the HTTP API, `/api/policies/` in request path
 becomes `/api/operator-policies/`:

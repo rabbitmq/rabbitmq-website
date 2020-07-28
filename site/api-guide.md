@@ -1100,7 +1100,7 @@ begins after a configurable delay, 5 seconds by
 default. This design assumes that even though a lot of
 network failures are transient and generally short
 lived, they do not go away in an instant. Having a delay
-also avoids an inherent race conditon between server-side resource
+also avoids an inherent race condition between server-side resource
 cleanup (such as [exclusive or auto-delete queue](/queues.html) deletion)
 and operations performed on a newly opened connection on the same resources.
 

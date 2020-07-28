@@ -88,7 +88,7 @@ clients know when to do this.
 Acknowledgements can be used in both directions - to allow a consumer
 to indicate to the server that it has received and/or processed a delivery
 and to allow the server to indicate the same thing to the
-publisher. Both are known as consumer acknowledgements and publisher confirms.
+publisher. They are known as consumer acknowledgements and publisher confirms.
 
 While TCP ensures that packets have been delivered to connection peer, and will
 retransmit until they are, that only handles failures at the network
@@ -99,7 +99,7 @@ the receiver assumes full responsibility for it.
 
 Acknowledgements therefore have semantics. A consuming application
 should not acknowledge messages until it has done whatever it needs to
-do with them: recorded them in a data store, forwarded them on, or perform
+do with them: recorded them in a data store, forwarded them on, or performed
 any other operation. Once it does so, the broker is free
 to mark the delivery for deletion.
 
@@ -221,7 +221,7 @@ for messages with the `redelivered` flag set.
 If a consumer determines that it cannot handle a message then it
 can reject it using the `basic.reject` or `basic.nack` method, either asking the server to requeue it,
 or not (in which case the server might be configured
-to [dead-letter](dlx.html) it instead.
+to [dead-letter](dlx.html) it instead).
 
 ### <a id="cancel-notification" class="anchor" href="#cancel-notification">Consumer Cancel Notification</a>
 
@@ -253,7 +253,7 @@ A failed Shovel will be restarted after a configurable delay and retry.
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring and Health Checks</a>
 
 Some failure scenarios are subtle and hard to observe or detect. For example, a slow [connection leak](/connections.html)
-can build up over time and like a chronic decease, go unnoticed for a period of time. [Monitoring and metrics](/monitoring.html)
+can build up over time and like a chronic disease, go unnoticed for a period of time. [Monitoring and metrics](/monitoring.html)
 is the way to detect many types of failures. Longer-term metric data collected using tools such as [Prometheus](/prometheus.html)
 can help spot irregularities and problematic patterns in system behaviour.
 

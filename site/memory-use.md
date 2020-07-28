@@ -556,7 +556,7 @@ It is recommended that production systems monitor memory usage of all cluster no
 ideally with a breakdown, together with [infrastructure-level metrics](/monitoring.html).
 By correlating breakdown categories with other metrics, e.g. the number of concurrent
 connections or enqueued messages, it becomes possible to detect problems that
-stem from a application-specific behavior (e.g. connection leaks or ever growing queues without consumers).
+stem from an application-specific behavior (e.g. connection leaks or ever growing queues without consumers).
 
 
 ## <a id="queue-memory" class="anchor" href="#queue-memory">Queue Memory</a>

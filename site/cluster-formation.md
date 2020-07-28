@@ -161,7 +161,7 @@ time to start it is recommended that the number of retries is increased.
 
 If a node is reset since losing contact with the cluster, it will behave [like a blank node](#peer-discovery-how-does-it-work).
 Note that other cluster members might still consider it to be a cluster member, in which case
-there two sides will disagree and the node will fail to join. Such reset nodes must also be
+the two sides will disagree and the node will fail to join. Such reset nodes must also be
 removed from the cluster using [`rabbitmqctl forget_cluster_node`](/cli.html) executed against
 an existing cluster member.
 
@@ -474,6 +474,24 @@ of a stateful set is set to `Parallel`, some nodes can be discovered but will no
 
 It is therefore necessary to use `OrderedReady` pod management policy for the sets
 used by RabbitMQ nodes. This policy is used by default by Kubernetes.
+
+#### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
+
+A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
+can prevent a deployment that restarts all RabbitMQ pods.
+
+One health check that does not expect a node to be fully booted and have schema tables synced is
+
+<pre class="lang-bash">
+# a very basic check that will succeed for the nodes that are currently waiting for
+# a peer to sync schema from
+rabbitmq-diagnostics ping
+</pre>
+
+This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
+assuming they are [compatible](/upgrade.html).
+
+See [Schema Syncing from Online Peers](/clustering.html#restarting-schema-sync) in the [Clustering guide](/clustering.html).
 
 
 ### Examples

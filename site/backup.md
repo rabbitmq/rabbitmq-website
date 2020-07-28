@@ -103,7 +103,7 @@ To back up messages on a node it **must be first stopped**.
 
 In the case of a cluster with [mirrored queues](/ha.html), you need to
 stop the entire cluster to take a backup. If you stop one node at a
-time, you may loose messages or have duplicates, exactly like when you
+time, you may lose messages or have duplicates, exactly like when you
 back up a single running node.
 
 ### <a id="manual-messages-backup" class="anchor" href="#manual-messages-backup">Manually Backing Up Messages</a>

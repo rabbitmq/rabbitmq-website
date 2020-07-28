@@ -230,7 +230,7 @@ img.figure {
 }
 
 .rabbit-logo img {
-  width: 238px;
+  width: 176px;
   height: 28px;
 }
 
@@ -661,13 +661,13 @@ table.release-series {
 }
 
 .pageFooter #s1p-promo {
-  background-color: #d0d0d0;
-  padding: 17px;
+  /*background-color: black;*/
+  /*padding: 17px;*/
   display: block;
-  width: 93%;
+  /*width: 93%;*/
   margin-bottom: 40px;
 }
-.pageFooter #s1p-promo div {
+/*.pageFooter #s1p-promo div {
   max-width: 715px;
   margin: 0 auto;
 }
@@ -698,7 +698,7 @@ table.release-series {
     height: 35px;
     margin: 14px auto 17px;
   }
-}
+}*/
 
 .pageFooter .rabbit-logo {
   margin-top: 0;
@@ -1554,7 +1554,7 @@ img.screenshot {
     display: block;
   }
   .rabbit-logo img {
-    max-width: 170px;
+    /*max-width: 170px;*/
   }
   .menubtn {
     display: none;
