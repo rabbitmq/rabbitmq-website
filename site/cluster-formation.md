@@ -488,7 +488,7 @@ One health check that does not expect a node to be fully booted and have schema 
 rabbitmq-diagnostics ping
 </pre>
 
-This basic check is would allow the deployment to proceed and the nodes to eventually rejoin each other,
+This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
 assuming they are [compatible](/upgrade.html).
 
 See [Schema Syncing from Online Peers](/clustering.html#restarting-schema-sync) in the [Clustering guide](/clustering.html).
