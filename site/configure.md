@@ -224,7 +224,7 @@ It is a useful step in troubleshooting a broad range of problems.
 All [supported RabbitMQ versions](/versions.html) use an [ini-like, sysctl configuration file format](#config-file)
 for the main configuration file. The file is typically named `rabbitmq.conf`.
 
-The new config format is much simpler, eadier for humans to read
+The new config format is much simpler, easier for humans to read
 and machines to generate. It is also relatively limited compared
 to the classic config format used prior to RabbitMQ 3.7.0.
 For example, when configuring [LDAP support](/ldap.html), it may be necessary to use deeply nested data structures to
@@ -719,7 +719,7 @@ disk_free_limit.absolute = 50MB
 				logged), <code>warning</code> (only errors and warning are
 				logged), <code>info</code> (errors, warnings and informational
 				messages are logged), or <code>debug</code> (errors, warnings,
-        informational messages and debugging m  essages are
+        informational messages and debugging messages are
         logged).
       </p>
 
@@ -1883,7 +1883,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_SERVICENAME</td>
     <td>
-      The name of the installed Windows ervice. This will appear in
+      The name of the installed Windows service. This will appear in
       <code>services.msc</code>.
 
       <p>
