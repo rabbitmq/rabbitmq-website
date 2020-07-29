@@ -577,9 +577,9 @@ on how to upgrade RabbitMQ.
     before the upgrade. Default memory watermark is 0.4 so it should be
     ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
     the way nodes [calculate their total RAM consumption](/memory-use.html) has changed.
-    When upgrading from an earlier version.
 
-    It is required that the node has enough free disk space to fit at
+    When upgrading from an earlier version,
+    it is required that the node has enough free disk space to fit at
     least a full copy of the node data directory. Nodes create backups
     before proceeding to upgrade their database. If disk space is
     depleted, the node will abort upgrading and may fail to start
