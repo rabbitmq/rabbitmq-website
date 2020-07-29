@@ -75,7 +75,7 @@ Current release series upgrade compatibility with full stop upgrade:
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" href="#rabbitmq-erlang-version-requirement">Erlang Version Requirements</a>
 
-We recommended that you upgrade Erlang together with RabbitMQ.
+We recommend that you upgrade Erlang together with RabbitMQ.
 Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
 
 
@@ -97,7 +97,7 @@ introduces no breaking changes within a release series (e.g. between
 the new RabbitMQ version series.
 
 In rare cases patch versions of RabbitMQ (e.g. 3.6.7) can break some plugin APIs.
-Such cases will be documented the breaking changes section of the release notes document.
+Such cases will be documented in the breaking changes section of the release notes document.
 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
@@ -446,7 +446,7 @@ The recovery procedure for many applications follows the same steps:
 1. Reconnect
 2. Re-open channels
 3. Restore channel settings (e.g. the [`basic.qos` setting](/confirms.html), publisher confirms)
-4. Recovery topology
+4. Recover topology
 
 Topology recovery includes the following actions, performed for every channel:
 

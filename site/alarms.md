@@ -69,7 +69,7 @@ producing or consuming.
 When an alarm is in effect, publishing connections will be blocked by TCP back pressure.
 In practice this means that publish operations will eventually time out of fail outright.
 Application developers must be prepared to handle such failures and use [publisher confirms](/confirms.html)
-to keep track of what messages have been successfully handled and proceessed by RabbitMQ.
+to keep track of what messages have been successfully handled and processed by RabbitMQ.
 
 
 ## <a id="file-descriptors" class="anchor" href="#file-descriptors">Running Out of File Descriptors</a>

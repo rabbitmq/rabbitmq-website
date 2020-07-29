@@ -58,7 +58,7 @@ on your setup. The Upgrade guide covers [some client features which enable
 them to switch between nodes](upgrade.html#rabbitmq-restart-handling).
 
 At that point, your producers are still publishing to "blue", but thanks to
-the federation plugin, message are transfered to consumers connected to "green".
+the federation plugin, message are transferred to consumers connected to "green".
 
 ## <a id="drain-messages" class="anchor" href="#drain-messages">Drain Messages</a>
 
