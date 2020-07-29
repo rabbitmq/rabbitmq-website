@@ -286,7 +286,7 @@ on one node and copying it to all other nodes is also a poor practice: it makes 
 more predictable since the generation algorithm is known.
 
 CLI tools use the same authentication mechanism. It is recommended that
-[inter-node and CLI communication port](/clustering.html#selinux-ports)
+[inter-node and CLI communication port](/clustering.html#ports)
 access is limited to the hosts that run RabbitMQ nodes or CLI tools.
 
 [Securing inter-node communication with TLS](/clustering-ssl.html) is recommended.
@@ -294,7 +294,7 @@ It implies that CLI tools are also configured to use TLS.
 
 ### <a id="security-firewall-rules" class="anchor" href="#security-firewall-rules">Firewall Configuration</a>
 
-[Ports used by RabbitMQ](/networking.html#selinux-ports) can be broadly put into
+[Ports used by RabbitMQ](/networking.html#ports) can be broadly put into
 one of two categories:
 
 <ul>

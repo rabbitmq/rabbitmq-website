@@ -105,7 +105,7 @@ the scheduling mechanism used can become very inefficient and result in signific
 latency increase for certain operations.
 
 This means that in most cases colocating RabbitMQ nodes with other tools or applying CPU time slicing
-is highly discourage and will result in suboptimal performance.
+is highly discouraged and will result in suboptimal performance.
 
 ### <a id="busy-waiting" class="anchor" href="#busy-waiting">Scheduler Busy Waiting</a>
 
@@ -231,7 +231,7 @@ The command's output will produce a table with percentages by thread activity:
 Significant percentage of activity in the external I/O state may indicate that the node
 and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
 
-Significant percent of activity in the sleeping state might indicate a lighly loaded node or suboptimal
+Significant percentage of activity in the sleeping state might indicate a lightly loaded node or suboptimal
 runtime scheduler configuration for the available hardware and workload.
 
 
@@ -321,7 +321,7 @@ mentioning a busy distribution port (`busy_dist_port`):
 2019-04-06 22:48:19.031 [warning] &lt;0.242.0&gt; rabbit_sysmon_handler busy_dist_port &lt;0.1401.0&gt;
 </pre>
 
-Increasing buffer size may help increase thoughput and/or reduce latency.
+Increasing buffer size may help increase throughput and/or reduce latency.
 
 
 ## <a id="io-threads" class="anchor" href="#io-threads">I/O Thread Pool Size</a>
@@ -356,7 +356,7 @@ thread activity. This is covered in [a separate section](#thread-stats)
 The runtime has a limit on the number of Erlang processes ("lightweight threads") that can exist on a node.
 The default is about 1 million. In most environments this is sufficient with a wide safety margin.
 
-Environments that have a particularly [high number of concurrent connectionse]() or a very large number
+Environments that have a particularly [high number of concurrent connections](/networking.html#tuning-for-large-number-of-connections) or a very large number
 of queues (say, hundreds of thousands) this limit might need adjusting. This is done using the
 `RABBITMQ_MAX_NUMBER_OF_PROCESSES` environment variable, which is a convenient way of
 setting the `+P` Erlang VM flag:
