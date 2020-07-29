@@ -356,7 +356,7 @@ thread activity. This is covered in [a separate section](#thread-stats)
 The runtime has a limit on the number of Erlang processes ("lightweight threads") that can exist on a node.
 The default is about 1 million. In most environments this is sufficient with a wide safety margin.
 
-Environments that have a particularly [high number of concurrent connections]() or a very large number
+Environments that have a particularly [high number of concurrent connections](/networking.html#tuning-for-large-number-of-connections) or a very large number
 of queues (say, hundreds of thousands) this limit might need adjusting. This is done using the
 `RABBITMQ_MAX_NUMBER_OF_PROCESSES` environment variable, which is a convenient way of
 setting the `+P` Erlang VM flag:
