@@ -458,7 +458,7 @@ throughput. The larger the batch, the smaller the effect will be.
 
 This strategy can be considered an anti-pattern and is documented primarily for completeness.
 It involves publishing a message and immediately waiting for the outstanding acknowledgement to arrive.
-It can be thought of as a the above strategy with batch publishing where batch size equals to one.
+It can be thought of as the above strategy with batch publishing where batch size equals to one.
 
 This approach will have a **very significant negative effect on throughput** and is not recommended.
 
@@ -504,8 +504,8 @@ and programming languages.
 
 The former type of exception can occur immediately during a write or with a certain delay.
 This is because certain types of I/O failures (e.g. to high network congestion or packet drop rate)
-can [take time to detect](/heartbeats.html). Publishing can continue after the [connection recovers](#connection-recovery) but if the connection is blocked due to an alarm, all further attemptes
-will fail until the alarm clears. This is covered  in more details beloow in the [Effects of Resource Alarms](#alarms) section.
+can [take time to detect](/heartbeats.html). Publishing can continue after the [connection recovers](#connection-recovery) but if the connection is blocked due to an alarm, all further attempts
+will fail until the alarm clears. This is covered in more details below in the [Effects of Resource Alarms](#alarms) section.
 
 The latter type of exception can only happen when the application developer provides a timeout.
 What timeout value is reasonable for a given application is decided by the developer.
@@ -535,8 +535,8 @@ by RabbitMQ are of particular interest when it comes to publishers:
  * [Publisher confirmation](#data-safety) rate
  * [Connection churn](/connections.html#monitoring) rate
  * [Channel churn](/channels.html#monitoring) rate
- * Unroutabble dropped message rate
- * Unrooutable returned message rate
+ * Unroutable dropped message rate
+ * Unroutable returned message rate
 
 The publishing and confirmation rates are mostly self-explanatory. The churn rates are so important
 because they help detect applications that do not use connections or channels optimally and thus
@@ -547,7 +547,7 @@ routed to any queue. For example, this may suggest a misconfiguration.
 
 Client libraries may also collect metrics. [RabbitMQ Java client](/api-guide.html#metrics) is one
 example. These metrics can provide insight into application-specific architecture (e.g. what publishing
-component publishes unrooutable messages) that RabbitMQ nodes cannot infer.
+component publishes unroutable messages) that RabbitMQ nodes cannot infer.
 
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations</a>
@@ -673,7 +673,7 @@ are blocked. Learn more in the [Resource Alarms guide](/alarm.shtml).
 
 With some protocols, such as AMQP 0-9-1 and STOMP, publishers can run into a condition known
 as a protocol error (exception). For example, publishing to a non-existent exchange or binding
-an exchange to an non-existent exchange will result in a [channel exception](/channels.html#error-handling)
+an exchange to a non-existent exchange will result in a [channel exception](/channels.html#error-handling)
 and will render the channel closed. Publishing is not possible on a closed channel. Such events
 are logged by the RabbitMQ node the publisher was connected to. Failed publishing attempts
 will also result in client-side exceptions or errors returned, depending on the client library used.
