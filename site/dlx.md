@@ -152,7 +152,7 @@ queues.
 
 It is possible to form a cycle of message dead-lettering.  For
 instance, this can happen when a queue dead-letters
-messages to the default exchange without specifiying a
+messages to the default exchange without specifying a
 dead-letter routing key.  Messages in such cycles (i.e.
 messages that reach the same queue twice) will be
 dropped <em>if there was no rejections in the entire cycle</em>.
@@ -181,7 +181,7 @@ of several fields:
  * `routing-keys`: the routing keys (including `CC` keys but excluding
    `BCC` ones) the message was published with
  * `count`: how many times this message was dead-lettered in this queue for this reason
- * `original-expiration` (if the message was dead-letterered due to [per-message TTL](ttl.html#per-message-ttl)): the
+ * `original-expiration` (if the message was dead-lettered due to [per-message TTL](ttl.html#per-message-ttl)): the
    original `expiration` property of the message. The `expiration` property is removed from the
    message on dead-lettering in order to prevent it from expiring again in any queues it is routed to.
 

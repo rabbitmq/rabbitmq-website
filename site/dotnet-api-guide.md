@@ -54,7 +54,7 @@ a commercial product.
 
 ### <a id="dependencies" class="anchor" href="#dependencies">Dependencies</a>
 
-The clients has a couple of dependencies:
+The client has a couple of dependencies:
 
  * [`System.Memory`](https://www.nuget.org/packages/System.Memory/) 4.5.x
  * [`System.Threading.Channels`](https://www.nuget.org/packages/System.Threading.Channels/) 4.7.x
@@ -608,7 +608,7 @@ library. Such callbacks include:
             
 As of version `3.5.0` application callback handlers <strong>can</strong> invoke blocking
 operations (such as `IModel.QueueDeclare` or `IModel.BasicCancel`). `IBasicConsumer` callbacks are invoked concurrently.
-However, per-channel operation order is preserved. In other word, if messages A and B were delivered
+However, per-channel operation order is preserved. In other words, if messages A and B were delivered
 in this order on the same channel, they will be processed in this order. If messages A and B
 were delivered on different channels, they can be processed in any order (or in parallel).
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).

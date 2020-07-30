@@ -371,7 +371,7 @@ add the following JARs to the classpath:
 We highly recommend to use a dependency management tool like [Maven](http://maven.apache.org/)
 or [Gradle](https://gradle.org/) to manage dependencies.
 
-The SLF4J API is backwards compatible, so you can use use any version of
+The SLF4J API is backwards compatible, so you can use any version of
 SLF4J. Version 1.7.5 or higher is recommended. The SLF4J API and
 bindings, however, must be from the same SLF4J version.
 

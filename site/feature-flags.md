@@ -364,7 +364,7 @@ internally:
 ### <a id="implementation-for-developers" class="anchor" href="#implementation-for-developers">From a Developer Point of View</a>
 
 When working on a plugin or a RabbitMQ core contribution, feature flags
-should be used to made the new version of the code compatible with older
+should be used to make the new version of the code compatible with older
 versions of RabbitMQ.
 
 #### When to Use a Feature Flag
@@ -494,7 +494,7 @@ init_per_testcase(Testcase, Config) ->
     end.
 </pre>
 
-It it possible to run testsuites locally in the context of a
+It is possible to run testsuites locally in the context of a
 mixed-version cluster. If configured to do so, `rabbitmq-ct-helpers`
 will use a second version of RabbitMQ to start half of the nodes when
 starting a cluster:

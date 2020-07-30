@@ -313,7 +313,7 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
       group. It has an object class associated with it and
       one or more attributes, including a common name.
       Since the entity is located somewhere in the LDAP
-      database tree it also must have a distringuished name
+      database tree it also must have a distinguished name
       which uniquely identifies it. Entries is what LDAP
       plugin queries use (look up, check for membership,
       compare attributes of and so on). An LDAP database
@@ -360,7 +360,7 @@ There are two ways to do that. The simplest way is via string substitution
 with `user_dn_pattern`. To use this option, set
 `user_dn_pattern` to a string containing exactly one
 instance of `${username}`, a variable that will be
-substituited for the username value provided by the client.
+substituted for the username value provided by the client.
 
 For example, setting user_dn_pattern to
 `"cn=${username},ou=People,dc=example,dc=com"`
@@ -428,7 +428,7 @@ This is essential for troubleshooting.
 Setting the value to `true` will enable verbose logging of the logic used by
 the LDAP plugin to make decisions. Credentials in bind request outcomes will be
 scrubbed in this mode. This mode is not recommended for production systems
-but ocassionally can be useful.
+but occasionally can be useful.
 
 The value of `network` works similarly to the above but  <b>additionally</b> causes LDAP
 network traffic to be logged at a lower (LDAP client) level, with bind
