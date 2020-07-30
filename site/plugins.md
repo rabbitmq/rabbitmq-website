@@ -180,7 +180,7 @@ Note that the trailing dot is significant and cannot be left out.
 ### <a id="plugin-expansion" class="anchor" href="#plugin-expansion">Plugin Expansion (Extraction)</a>
 
 Not every plugin can be loaded from an archive `.ez` file.
-For this reason RabbitMQ will extracts plugin archives on boot into a separate
+For this reason RabbitMQ will extract plugin archives on boot into a separate
 directory that is then added to its code path. This directory is known
 as the expanded plugins directory. It is usually managed entirely by RabbitMQ
 but if node directories are changed to non-standard ones, that directory will likely
@@ -203,7 +203,7 @@ are
 ### <a id="troubleshooting-plugin-not-found" class="anchor" href="#troubleshooting-plugin-not-found">3rd Party Plugin Not Found</a>
 
 When a plugin is enabled but the server cannot locate it, it will report an error.
-Since any plugin name can be given to `rabbitmq-plugins`, double checking
+Since any plugin name can be given to `rabbitmq-plugins`, double check
 the name:
 
 <pre class="lang-bash">
@@ -214,7 +214,7 @@ rabbitmq-plugins enable rabbitmq_managemenr
 </pre>
 
 Another common reason is that plugin directory the plugin archive (the `.ez` file)
-was downloaded to doesn't that match that of the server.
+was downloaded to doesn't match that of the server.
 
 Plugin directory can be located by executing the following command on the host
 with a running RabbitMQ node:
