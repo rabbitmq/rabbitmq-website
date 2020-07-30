@@ -128,7 +128,7 @@ apt repositories:
 This guide will focus on the first option.
 
 
-## <a id="apt-bintray-erlang" class="anchor" href="#apt-bintray-erlang">Install Erlang from an Apt Repostory on Bintray</a>
+## <a id="apt-bintray-erlang" class="anchor" href="#apt-bintray-erlang">Install Erlang from an Apt Repository on Bintray</a>
 
 Standard Debian and Ubuntu repositories tend to provide outdated versions of Erlang/OTP. Team RabbitMQ maintains
 an apt repository that includes [packages of modern Erlang/OTP releases](https://bintray.com/rabbitmq-erlang/debian/erlang/) for
@@ -342,7 +342,7 @@ Pin: version 1:22.3.4.1-1
 Pin-Priority: 1000
 </pre>
 
-The following preference file example will pin `rabbitmq-server` package to to `&version-server;`
+The following preference file example will pin `rabbitmq-server` package to `&version-server;`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">
@@ -353,7 +353,7 @@ Pin-Priority: 1000
 </pre>
 
 
-In the example below, the `esl-erlang` package is pinned to to to `22.3.4.1`
+In the example below, the `esl-erlang` package is pinned to `22.3.4.1`
 (assuming [package epoch](https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version) for the package is 1):
 
 <pre class="lang-ini">

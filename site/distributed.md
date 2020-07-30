@@ -49,7 +49,7 @@ Virtual hosts, exchanges, users, and permissions are
 [automatically replicated](/clustering.html#cluster-membership) across all nodes in a cluster.
 Queues may be located on a single node, or replicate their content for higher availability.
 [Quorum queues](/quorum-queues.html) is a modern replicated queue type that focuses on data safety.
-Classic queues can optionally be [mirrored](/ha.html)
+Classic queues can optionally be [mirrored](/ha.html).
 
 A client connecting to any node in a
 cluster can [use all non-exclusive queues in the cluster](/clustering.html#clustering-and-clients), even if they are not

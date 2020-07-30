@@ -148,7 +148,7 @@ to 20 seconds range are optimal for most environments.
 ## <a id="stomp" class="anchor" href="#stomp">Heartbeats in STOMP</a>
 
 [STOMP 1.2 includes heartbeats](https://stomp.github.io/stomp-specification-1.2.html#Heart-beating).  In STOMP, heartbeat timeouts can
-be assymetrical: that is to say, client and server can use
+be asymmetrical: that is to say, client and server can use
 different values. RabbitMQ STOMP plugin fully supports this
 feature.
 
