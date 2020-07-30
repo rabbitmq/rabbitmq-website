@@ -91,7 +91,7 @@ For more information, see the [RabbitMQ documentation guides](https://www.rabbit
 
 ## <a id='configure' class='anchor' href='#configure'>Configure a RabbitMQ Instance</a>
 
-To configure a RabbitMQ instance, open `definition.yaml` or edit the the configuration in place by running:
+To configure a RabbitMQ instance, open `definition.yaml` or edit the configuration in place by running:
 
 <pre class='lang-bash'>
 kubectl edit rabbitmqcluster definition
