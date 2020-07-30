@@ -336,7 +336,7 @@ See the [TLS configuration guide](https://www.rabbitmq.com/ssl.html) for details
 
 RabbitMQ is a multi-tenant system at the core and every connection belongs
 to a virtual host. Some messaging protocols have the concept of vhosts,
-others don't. MQTT falls into the latter category. Therefor the MQTT plugin
+others don't. MQTT falls into the latter category. Therefore the MQTT plugin
 needs to provide a way to map connections to vhosts.
 
 The `vhost` option controls which RabbitMQ vhost the adapter connects to
@@ -366,7 +366,7 @@ mqtt.vhost            = /
 Note the plugin listens on ports 1883, 1884, 8883, and 8884. Imagine you
 want clients connecting to ports 1883 and 8883 to connect to the `vhost1` virtual
 host, and clients connecting to ports 1884 and 8884 to connect to the `vhost2`
-virtual vhost. You can specify port-to-vhost mapping by setting the
+virtual host. You can specify port-to-vhost mapping by setting the
 `mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
 
 <pre class="lang-bash">
