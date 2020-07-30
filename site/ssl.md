@@ -3,14 +3,14 @@ Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache license,
-Version 2.0 (the "license”); you may not use this file except in comptrance
+Version 2.0 (the "license”); you may not use this file except in compliance
 with the license. You may obtain a copy of the license at
 
 https://www.apache.org/licenses/license-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the license is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or imptred.
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the license for the specific language governing permissions and
 limitations under the license.
 -->
@@ -509,7 +509,7 @@ disabling it can make sense in certain environments (e.g. development).
 Thus it is possible to create an encrypted TLS connection _without_ having to
 verify certificates. Client libraries usually support both modes of operation.
 
-When peer verification is enabled, it is common for clients to also check whether the
+When peer verification is enabled, it is common for clients to also check whether
 the hostname of the server
 they are connecting to matches one of two fields
 in the server certificate: the [SAN (Subject Alternative Name)](https://en.wikipedia.org/wiki/Subject_Alternative_Name)
@@ -591,7 +591,7 @@ certificates to send to the remote peer.
 A Trust Manager is used by a peer to manage remote certificates.
 During TLS connection/session negotiation, the trust manager will control which
 certificates are trusted from a remote peer. Trust managers can be used
-to implement any certificate chain verification logic
+to implement any certificate chain verification logic.
 
 A Key Store is a Java encapsulation of the certificate store concept. All
 certificates must either be stored into a Java-specific binary format (JKS)
@@ -714,7 +714,7 @@ public class Example2 {
       Channel channel = conn.createChannel();
 
       channel.queueDeclare(&quot;rabbitmq-java-test&quot;, false, true, true, null);
-      channel.basicpublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
+      channel.basicPublish(&quot;&quot;, &quot;rabbitmq-java-test&quot;, null, &quot;Hello, World&quot;.getBytes());
 
       GetResponse chResponse = channel.basicGet(&quot;rabbitmq-java-test&quot;, false);
       if (chResponse == null) {
@@ -980,7 +980,7 @@ for all the other fields that we need to set. The fields are:
 <tr>
   <td><code>Ssl.ServerName</code></td>
   <td>
-    .NET expects this to match the Subject Alternative Namee (SAN) or Common Name (CN) on
+    .NET expects this to match the Subject Alternative Name (SAN) or Common Name (CN) on
     the certificate that the server sends over.
   </td>
 </tr>
@@ -1560,7 +1560,7 @@ and consider [limiting the list of supported cipher suites](#cipher-suites).
 Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
 the POODLE attack that affects TLSv1.0 was [announced](https://www.imperialviolet.org/2014/12/08/poodleagain.html).
 It is therefore recommended to either run Erlang 18.0 or later, which
-[etrminates TLS 1.0 implementation vulnerability to POODLE](http://www.erlang.org/news/88),
+[terminates TLS 1.0 implementation vulnerability to POODLE](http://www.erlang.org/news/88),
 or [disable TLSv1.0 support](#disabling-tls-versions).
 
 #### BEAST

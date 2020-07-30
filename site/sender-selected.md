@@ -22,7 +22,7 @@ The routing logic in AMQP 0-9-1 does not offer a way for message
 [publishers](/publishers.html) to select intended recipients unless they
 bind their queues to the target destination (an exchange).
 
-The RabbitMQ broker treats the the "CC" and "BCC" message headers
+The RabbitMQ broker treats the "CC" and "BCC" message headers
 in a special way to overcome this limitation.
 This is the equivalent of entering multiple recipients in the "CC"
 or "BCC" field of an email.
