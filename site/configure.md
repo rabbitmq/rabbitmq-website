@@ -29,7 +29,7 @@ This guide covers a number of topics related to configuration:
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
  * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
  * Default [configuration file location(s)](#config-location) on various platforms
- * Configuration troubleshooting: how to [verify config file location](#verify-configuration-effective-configuration) and [effective configuration](#verify-configuration-effective-configuration)
+ * Configuration troubleshooting: how to [find config file location](#verify-configuration-config-file-location) and [inspect and verify effective configuration](#verify-configuration-effective-configuration)
  * [Environment variables](#customise-environment)
  * [Operating system (kernel) limits](#kernel-limits)
  * Available [core server settings](#config-items)
@@ -178,10 +178,10 @@ vary between operating systems and [package types](/download.html).
 
 This topic is covered in more detail in the rest of this guide.
 
-When in doubt about RabbitMQ config file location for your OS and installation method,
-consult the log file and/or management UI as explained in the following sections.
+When in doubt about RabbitMQ config file location,
+consult the log file and/or management UI as explained in the following section.
 
-### <a id="verify-configuration-config-file-location" class="anchor" href="#verify-configuration-config-file-location">Verify Configuration: How to Find Config File Location</a>
+### <a id="verify-configuration-config-file-location" class="anchor" href="#verify-configuration-config-file-location">How to Find Config File Location</a>
 
 The active configuration file can be verified by inspecting the
 RabbitMQ log file. It will show up in the [log file](logging.html)
@@ -203,21 +203,34 @@ home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.conf (not found)
 </pre>
 
-Alternatively config file location can be found in the [management UI](/management.html),
+Alternatively, the location of configuration files used by a local node, use the [rabbitmq-diagnostics status](/rabbitmq-diagnostics.8.html) command:
+
+<pre class="lang-bash">
+# displays key
+rabbitmq-diagnostics status
+</pre>
+
+and look for the `Config files` section that would look like this:
+
+<pre class="lang-plaintext">
+Config files
+
+ * /etc/rabbitmq/advanced.config
+ * /etc/rabbitmq/rabbitmq.conf
+</pre>
+
+To inspect the locations of a specific node, including nodes running remotely, use the `-n` (short for `--node`) switch:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics status -n [node name]
+</pre>
+
+Finally, config file location can be found in the [management UI](/management.html),
 together with other details about nodes.
 
 When troubleshooting configuration settings, it is very useful to verify that the config file
-path is correct, exists and can be loaded (e.g. the file is readable) before checking effective
-node configuration.
-
-### <a id="verify-configuration-effective-configuration" class="anchor" href="#verify-configuration-effective-configuration">Verify Configuration: How to Check Effective Configuration</a>
-
-It is possible to print effective configuration (user provided values merged into defaults) using
-the [rabbitmqctl environment](/rabbitmqctl.8.html) command. It will print
-applied configuration for every application (RabbitMQ, plugins, libraries) running on the node.
-
-Effective configuration should be verified together with config file location (see above).
-It is a useful step in troubleshooting a broad range of problems.
+path is correct, exists and can be loaded (e.g. the file is readable) before [verifying effective node configuration](#verify-configuration-effective-configuration).
+Together, these steps help quickly narrow down most common misconfiguration problems.
 
 ### <a id="config-file-formats" class="anchor" href="#config-file-formats">The New and Old Config File Formats</a>
 
@@ -319,6 +332,7 @@ listeners.tcp.default = 5673
 The same example in the <a href="#config-file-formats">classic config format</a>:
 
 <pre class="lang-erlang">
+%% this is a comment
 [
   {rabbit, [
       {tcp_listeners, [5673]}
@@ -460,6 +474,31 @@ Environment variables used by the service would not be updated otherwise.
 In the context of deployment automation this means that environment variables
 such as `RABBITMQ_BASE` and `RABBITMQ_CONFIG_FILE` should ideally be set before RabbitMQ is installed.
 This would help avoid unnecessary confusion and Windows service re-installations.
+
+### <a id="verify-configuration-effective-configuration" class="anchor" href="#verify-configuration-effective-configuration">How to Inspect and Verify Effective Configuration of a Running Node</a>
+
+It is possible to print effective configuration (user provided values from all configuration files merged into defaults) using
+the [rabbitmq-diagnostics environment](/rabbitmq-diagnostics.8.html) command:
+
+<pre class="lang-bash">
+# inspect effective configuration on a node
+rabbitmq-diagnostics environment
+</pre>
+
+to check effective configuration of a specific node, including nodes running remotely, use the `-n` (short for `--node`) switch:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics environment -n [node name]
+</pre>
+
+The command above will print applied configuration for every application (RabbitMQ, plugins, libraries) running on the node.
+Effective configuration is computed using the following steps:
+
+ * `rabbitmq.conf` is translated into the internally used (advanced) config format. These configuration is merged into the defaults
+ * `advanced.config` is loaded if present, and merged into the result of the step above
+
+Effective configuration should be verified together with [config file location](#verify-configuration-config-file-location).
+Together, these steps help quickly narrow down most common misconfiguration problems.
 
 ### <a id="erlang-term-config-file" class="anchor" href="#erlang-term-config-file">The rabbitmq.config (Classic Format) File</a>
 
