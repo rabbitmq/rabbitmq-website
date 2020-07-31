@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide proviews an overview of RabbitMQ Shovel, a core RabbitMQ plugin that unidirectionally
+This guide provides an overview of RabbitMQ Shovel, a core RabbitMQ plugin that unidirectionally
 moves messages from a source to a destination. Two more guides
 cover the two flavors of Shovels, [dynamic shovels](shovel-dynamic.html) and [static shovels](shovel-static.html),
 respectively. This one focuses on explaining the concept, how do shovels work

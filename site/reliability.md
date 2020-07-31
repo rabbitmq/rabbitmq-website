@@ -150,7 +150,7 @@ nodes. Queues remain visible and reachable from all nodes regardless
 of what node their master replica is located.
 
 Mirrored queues replicate their contents across a number of configured cluster
-nodes. When a node fails, queues with master replica hosted on that node under go a promotion
+nodes. When a node fails, queues with master replica hosted on that node undergo a promotion
 (new master election). Key reliability criteria in this scenario is whether there is a replica (queue mirror)
 [eligible for promotion](/ha.html#unsynchronised-mirrors).
 
