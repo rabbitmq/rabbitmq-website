@@ -27,7 +27,7 @@ bindings). Typical examples of this are
  * detecting when clients accidentally or maliciously publish messages that cannot be routed
  * "or else" routing semantics where some messages are handled specially and the rest by a generic handler
 
-Alternate Exchange ("AE") is a feature addresses these use cases.
+Alternate Exchange ("AE") is a feature that addresses these use cases.
 
 ## <a id="define" class="anchor" href="#define">How to Define an Alternate Exchange</a>
 
@@ -38,7 +38,7 @@ specified in arguments overrules the one specified in policy.
 
 ### <a id="define-using-policy" class="anchor" href="#define-using-policy">Configuration Using a Policy</a>
 
-This is the recommended way of of defining alternate exchanges.
+This is the recommended way of defining alternate exchanges.
 
 To specify an AE using policy, add the key 'alternate-exchange'
 to a policy definition and make sure that the policy matches the exchange(s)
