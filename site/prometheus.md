@@ -45,15 +45,16 @@ elements a lot more informed.
 
 ### <a id="overview-grafana" class="anchor" href="#overview-grafana">Grafana Support</a>
 
-Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a prebuilt set of
-Grafana dashboards that visualise a large number of available RabbitMQ and runtime metrics in context-specific ways.
+Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a [prebuilt set of Grafana dashboards](https://grafana.com/rabbitmq)
+that visualise a large number of available RabbitMQ and [runtime](/runtime.html) metrics in context-specific ways.
 
 There is a number of dashboards available:
 
  * an overview dashboard
- * a Raft metric dashboard
+ * runtime [memory allocators](/runtime.html#allocators) dashboard
  * an [inter-node communication](https://www.rabbitmq.com/clustering.html#cluster-membership)
 (Erlang distribution) dashboard
+ * a Raft metric dashboard
 
 and others. Each is meant to provide an insight into a specific
 part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
