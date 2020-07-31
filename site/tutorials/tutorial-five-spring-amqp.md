@@ -156,7 +156,7 @@ advantage of both wildcards and a hash tag.
 The code is almost the same as in the
 [previous tutorial](tutorial-four-spring-amqp.html).
 
-First lets configure some profiles and beans in the `Tut5Config` class
+First let's configure some profiles and beans in the `Tut5Config` class
 of the `tut5` package:
 
 <pre class="lang-java">
