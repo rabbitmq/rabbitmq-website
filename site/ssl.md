@@ -1085,12 +1085,12 @@ them on the other then be sure to swap out the `$(hostname)`
 section, and replace it with the correct hostname for your server.
 
 
-On the .NET platform, [RemoteCertificatevalidationCallback](http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx)
+On the .NET platform, [RemoteCertificateValidationCallback](http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx)
 controls TLS verification behavior.
 
 
 In RabbitMQ .NET client, `RabbitMQ.client.SslOption.CertificatevalidationCallback`
-can be used to provide a [RemoteCertificatevalidationCallback](http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx)
+can be used to provide a [RemoteCertificateValidationCallback](http://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx)
 delegate. The delegate will be used to verify peer (RabbitMQ node) identity using whatever logic fits
 the applications.
 
