@@ -32,12 +32,12 @@ the minimum of the two values is applied.
 
 Queue length settings also can be enforced by [operator policies](/parameters.html#operator-policies).
 
-In all cases the number of <i>ready</i> messages is used; unacknowledged messages
+In all cases the number of messages in the **ready** state is used; [messages unacknowledged by consumers](/confirms.html)
 do not count towards the limit.
 
-The fields `messages_ready` and `message_bytes_ready` from
-`rabbitmqctl list_queues` and the management API show the values
-that would be limited.
+The number of **ready** messages and their footprint in bytes can be observed
+using the `messages_ready` and `message_bytes_ready` from
+`rabbitmqctl list_queues` output, as well as similarly named fields in the management UI and HTTP API responses.
 
 
 ## <a id="default-behaviour" class="anchor" href="#default-behaviour">Default Max Queue Length Limit Behaviour</a>
