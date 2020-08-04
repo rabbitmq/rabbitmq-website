@@ -517,8 +517,15 @@ on importing dashboards in Grafana.
 Grafana dashboards for RabbitMQ and Erlang are open source and publicly from the <a
 href="https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker/grafana/dashboards"
 target="_blank">rabbitmq-prometheus</a> GitHub repository.
-To import the **RabbitMQ-Overview** Grafana Dashboard from GitHub, navigate to the <a href="https://github.com/rabbitmq/rabbitmq-prometheus/raw/master/docker/grafana/dashboards/RabbitMQ-Overview.json" target="_blank">raw version</a>
-and copy paste the file contents in Grafana, then click **Load**, as seen below:
+
+To import **RabbitMQ-Overview** dashboard to Grafana:
+
+1. Go to the [Grafana website](https://grafana.com/orgs/rabbitmq) to view the list of official RabbitMQ Grafana
+dashboards.
+1. Select **RabbitMQ-Overview** [dashboard](https://grafana.com/grafana/dashboards/10991).
+1. Click the **Download JSON** link or copy the dashboard ID.
+1. Copy paste the file contents in Grafana, then click **Load**, as seen below:
+    - Alternatively, paste the dashboard ID in the field **Grafana.com Dashboard**.
 
 ![Grafana Import Dashboard](/img/grafana-import-dashboard.png)
 

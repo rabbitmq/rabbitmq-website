@@ -293,8 +293,6 @@ starts up.
 Erlang cookie generation should be done at cluster deployment stage, ideally using automation
 and orchestration tools.
 
-
-
 ### <a id="cookie-file-locations" class="anchor" href="#cookie-file-locations">Cookie File Locations</a>
 
 #### Linux, MacOS, *BSD
@@ -369,7 +367,43 @@ rabbitmq-diagnostics status --erlang-cookie "cookie-value"
 
 Both are **the least secure options** and generally **not recommended**.
 
-### Troubleshooting
+### <a id="cookie-file-troubleshooting" class="anchor" href="#cookie-file-troubleshooting">Troubleshooting</a> Cookie-based Authentication
+
+#### CLI Tools
+
+Starting with [version `3.8.6`](/changelog.html), `rabbitmq-diagnostics` includes a command
+that provides relevant information on the Erlang cookie file used by CLI tools:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics erlang_cookie_sources
+</pre>
+
+The command will report on the effective user, user home directory and the expected location
+of the cookie file:
+
+<pre class="lang-plaintext">
+Cookie File
+
+Effective user: antares
+Effective home directory: /home/cli-user
+Cookie file path: /home/cli-user/.erlang.cookie
+Cookie file exists? true
+Cookie file type: regular
+Cookie file access: read
+Cookie file size: 20
+
+Cookie CLI Switch
+
+--erlang-cookie value set? false
+--erlang-cookie value length: 0
+
+Env variable  (Deprecated)
+
+RABBITMQ_ERLANG_COOKIE value set? false
+RABBITMQ_ERLANG_COOKIE value length: 0
+</pre>
+
+#### Server Nodes
 
 When a node starts, it will [log](/logging.html) the home directory location of its effective user:
 
@@ -383,6 +417,15 @@ the cookie file will be looked for, and created by the node on first boot if it 
 
 In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
+#### Hostname Resolution
+
+Starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
+that hostname resolution on a node works as expected. The commands are not mean to replace
+[`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
+provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
+into account.
+
+The commands are covered in the [Networking guide](/networking.html#dns-verify-resolution).
 
 ## <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
 

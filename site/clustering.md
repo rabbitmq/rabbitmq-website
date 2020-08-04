@@ -332,7 +332,68 @@ more information and cookie mismatches can be identified better:
 
 See the [CLI Tools guide](/cli.html) for more information.
 
-### <a id="node-count" class="anchor" href="#node-count">Node Counts and Quorum</a>
+### <a id="cookie-file-troubleshooting" class="anchor" href="#cookie-file-troubleshooting">Troubleshooting</a> Cookie-based Authentication
+
+#### Server Nodes
+
+When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+
+<pre class="lang-plaintext">
+node           : rabbit@cdbf4de5f22d
+home dir       : /var/lib/rabbitmq
+</pre>
+
+Unless any [server directories](/relocate.html) were overridden, that's the directory where
+the cookie file will be looked for, and created by the node on first boot if it does not already exist.
+
+In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
+
+#### Hostname Resolution
+
+Since hostname resolution is a [prerequisite for successfull inter-node communication](#hostname-resolution-requirement),
+starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
+that hostname resolution on a node works as expected. The commands are not mean to replace
+[`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
+provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
+into account.
+
+The commands are covered in the [Networking guide](/networking.html#dns-verify-resolution).
+
+#### CLI Tools
+
+Starting with [version `3.8.6`](/changelog.html), `rabbitmq-diagnostics` includes a command
+that provides relevant information on the Erlang cookie file used by CLI tools:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics erlang_cookie_sources
+</pre>
+
+The command will report on the effective user, user home directory and the expected location
+of the cookie file:
+
+<pre class="lang-plaintext">
+Cookie File
+
+Effective user: antares
+Effective home directory: /home/cli-user
+Cookie file path: /home/cli-user/.erlang.cookie
+Cookie file exists? true
+Cookie file type: regular
+Cookie file access: read
+Cookie file size: 20
+
+Cookie CLI Switch
+
+--erlang-cookie value set? false
+--erlang-cookie value length: 0
+
+Env variable  (Deprecated)
+
+RABBITMQ_ERLANG_COOKIE value set? false
+RABBITMQ_ERLANG_COOKIE value length: 0
+</pre>
+
+## <a id="node-count" class="anchor" href="#node-count">Node Counts and Quorum</a>
 
 Because several features (e.g. [quorum queues](/quorum-queues.html), [client tracking in MQTT](/mqtt.html))
 require a consensus between cluster members, odd numbers of cluster nodes are highly recommended:
@@ -348,7 +409,7 @@ characteristics as three and five node clusters.
 The [Quorum Queues guide](/quorum-queues.html) covers this topic in more detail.
 
 
-### <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
+## <a id="clustering-and-clients" class="anchor" href="#clustering-and-clients">Clustering and Clients</a>
 
 Assuming all cluster members
 are available, a client can connect to any node and
@@ -373,7 +434,7 @@ With classic mirrored queues, there are scenarios where it may not be possible f
 operations after connecting to a different node. They usually involve
 [non-mirrored queues hosted on a failed node](/ha.html#non-mirrored-queue-behavior-on-node-failure).
 
-### <a id="clustering-and-observability" class="anchor" href="#clustering-and-observability">Clustering and Observability</a>
+## <a id="clustering-and-observability" class="anchor" href="#clustering-and-observability">Clustering and Observability</a>
 
 Client connections, channels and queues will be distributed across cluster nodes.
 Operators need to be able to inspect and [monitor](/monitoring.html) such resources
@@ -435,26 +496,6 @@ to retrieve their data and then produces an aggregated result.
 
 In versions older than 3.6.7, [RabbitMQ management plugin](/management.html) used
 a dedicated node for stats collection and aggregation.
-
-### <a id="cluster-node-types" class="anchor" href="#cluster-node-types">Disk and RAM Nodes</a>
-
-A node can be a <em>disk node</em> or a <em>RAM node</em>.
-(<b>Note:</b> <i>disk</i> and <i>disc</i> are used
-interchangeably). RAM nodes store internal database tables
-in RAM only. This does not include messages, message store
-indices, queue indices and other node state.
-
-In the vast majority of cases you want all your nodes to be
-disk nodes; RAM nodes are a special case that can be used
-to improve the performance clusters with high queue,
-exchange, or binding churn. RAM nodes do not provide
-higher message rates. When in doubt, use
-disk nodes only.
-
-Since RAM nodes store internal database tables in RAM only, they must sync
-them from a peer node on startup. This means that a cluster must contain
-at least one disk node. It is therefore not possible to manually remove
-the last remaining disk node in a cluster.
 
 
 ## <a id="manual-transcript" class="anchor" href="#manual-transcript">Clustering Transcript with `rabbitmqctl`</a>
@@ -1158,6 +1199,27 @@ In general, this aspect of managing the
 connection to nodes within a cluster is beyond the scope of
 this guide, and we recommend the use of other
 technologies designed specifically to address these problems.
+
+
+## <a id="cluster-node-types" class="anchor" href="#cluster-node-types">Disk and RAM Nodes</a>
+
+A node can be a <em>disk node</em> or a <em>RAM node</em>.
+(<b>Note:</b> <i>disk</i> and <i>disc</i> are used
+interchangeably). RAM nodes store internal database tables
+in RAM only. This does not include messages, message store
+indices, queue indices and other node state.
+
+In the vast majority of cases you want all your nodes to be
+disk nodes; RAM nodes are a special case that can be used
+to improve the performance clusters with high queue,
+exchange, or binding churn. RAM nodes do not provide
+higher message rates. When in doubt, use
+disk nodes only.
+
+Since RAM nodes store internal database tables in RAM only, they must sync
+them from a peer node on startup. This means that a cluster must contain
+at least one disk node. It is therefore not possible to manually remove
+the last remaining disk node in a cluster.
 
 
 ## <a id="ram-nodes" class="anchor" href="#ram-nodes">Clusters with RAM nodes</a>
