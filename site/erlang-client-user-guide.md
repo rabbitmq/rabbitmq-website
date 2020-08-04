@@ -606,7 +606,7 @@ will be no further deliveries to its handling process.
 
 The channel uses a module implementing the `amqp_gen_consumer`
 behaviour to determine how it should handle consumer events.
-Effectively, this modules handles client-side
+Effectively, this module handles client-side
 consumer registration and ensures routing of deliveries to the appropriate consumers.
 
 For instance, the default consumer module, `amqp_selective_consumer`, 
@@ -673,7 +673,7 @@ Applications are recommended to use a prefetch. Learn more in the
 
 ## <a id="blocked" class="anchor" href="#blocked">Blocked Connections</a>
   
-When a node detect that it is below a certain available resource threshold,
+When a node detects that it is below a certain available resource threshold,
 it may <a href="alarms.html">choose to stop reading from publishers' network sockets</a>.
   
 RabbitMQ supports <a href="connection-blocked.html">a mechanism to allow clients to be told this has taken place</a>. 

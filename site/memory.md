@@ -72,7 +72,7 @@ The example below sets the threshold to the default value of 0.4:
 vm_memory_high_watermark.relative = 0.4
 </pre>
 
-The default value of 0.4 stands for 40% of availalbe (detected) RAM or
+The default value of 0.4 stands for 40% of available (detected) RAM or
 40% of available virtual address space, whichever is
 smaller. E.g. on a 32-bit platform with 4 GiB of RAM
 installed, 40% of 4 GiB is 1.6 GiB, but 32-bit Windows normally

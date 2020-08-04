@@ -430,7 +430,7 @@ of guarding client connections that can go idle for periods of
 time against premature closure by proxies and load balancers.
 
 Heartbeat timeouts from 10 to 30 seconds will produce periodic
-network traffic often enough (roughly every 5 to 15 seconds))
+network traffic often enough (roughly every 5 to 15 seconds)
 to satisfy defaults of most proxy tools and load balancers.
 Values that are too low will produce false positives.
 

@@ -186,7 +186,7 @@ connections also increases node's memory consumption.
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-global-connection-count.png" alt="Global connection count in management UI" title="Global connection count in management UI" />
 
-A connection leak on monitoring charts can be identified as an monotonically growing number of client connections.
+A connection leak on monitoring charts can be identified as a monotonically growing number of client connections.
 
 It is also possible to see how many file handles and sockets does a specific node have, which can be useful
 in determining connection leaks as well. The following chart demonstrates a very stable number of sockets

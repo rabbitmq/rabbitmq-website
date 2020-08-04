@@ -74,13 +74,13 @@ messages.
  * `log.file.level`: log level for the file output. Default level is `info`.
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings.
 
-The following example overiddes log file name:
+The following example overrides log file name:
 
 <pre class="lang-ini">
 log.file = rabbit.log
 </pre>
 
-The following example overiddes log file directory:
+The following example overrides log file directory:
 
 <pre class="lang-ini">
 log.dir = /data/logs/rabbitmq

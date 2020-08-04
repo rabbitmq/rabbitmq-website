@@ -567,7 +567,7 @@ counterparts.
         <p>
           If set to <code>queue-length</code> then the shovel will
           measure the length of the source queue when starting up,
-          and delete itself after it has transfered that many
+          and delete itself after it has transferred that many
           messages.
         </p>
         <p>

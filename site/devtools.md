@@ -69,7 +69,7 @@ Miscellaneous projects:
  * [Bunny](http://rubybunny.info), a dead easy to use RabbitMQ Ruby client
  * [March Hare](http://rubymarchhare.info), a JRuby RabbitMQ client
  * [Sneakers](http://jondot.github.io/sneakers/), a fast background processing framework for Ruby and RabbitMQ
- * [Hutch](https://github.com/gocardless/hutch), a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
+ * [Hutch](https://github.com/gocardless/hutch), a conventions-based framework for writing (Ruby) services that communicate over RabbitMQ.
  * [Ruby RabbitMQ HTTP API client](https://github.com/ruby-amqp/rabbitmq_http_api_client)
  * [Ruby RabbitMQ clients blog](http://blog.rubyrabbitmq.info)
  * [Ruby RabbitMQ clients mailing list](http://groups.google.com/group/ruby-amqp/)
@@ -127,7 +127,7 @@ Miscellaneous projects:
 
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
- * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an optinionated Akka-based RabbitMQ client for Scala
+ * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
  * [Processing RabbitMQ messages using Akka Streams](http://typesafe.com/activator/template/rabbitmq-akka-stream)
  * [RabbitMQ module for Play Framework](https://www.playframework.com/modules/rabbitmq-0.0.9/home)
  * [Lift RabbitMQ module](https://github.com/liftmodules/amqp)

@@ -151,12 +151,12 @@ is open for external connections on the target node.
 
 ## <a id="remote-nodes" class="anchor" href="#remote-nodes">Using CLI Tools against Remote Server Nodes</a>
 
-CLI tools can be used to talk to remote nodes as we as the local ones. Nodes are identified by [node names](#node-names).
+CLI tools can be used to talk to remote nodes as well as the local ones. Nodes are identified by [node names](#node-names).
 If no node name is specified, `rabbit@{local hostname}` is assumed to be the target. When contacting remote nodes,
-the same [authentication requirementes](#authentication) apply.
+the same [authentication requirements](#authentication) apply.
 
 To contact a remote node, use the `--node` (`-n`) option that `rabbitmqctl`, `rabbitmq-diagnostics` and other core CLI tools
-accept. The following example contact nodes `rabbit@remote-host.local` to find out its status:
+accept. The following example contact the node `rabbit@remote-host.local` to find out its status:
 
 <pre class="lang-bash">
 rabbitmq-diagnostics status -n rabbit@remote-host.local
@@ -450,7 +450,7 @@ the message usually says
 </pre>
 
 This means that TCP connection from a CLI tool to a RabbitMQ node
-succeded but authentication attempt was rejected by the server. The
+succeeded but authentication attempt was rejected by the server. The
 message also mentions several most common reasons for that, which are
 covered next.
 
@@ -595,7 +595,7 @@ variable:
 export RABBITMQ_CLI_ALIASES_FILE=/path/to/cli_aliases.conf
 </pre>
 
-The aliases file uses a vary minimalistic ini-style `alias = command` format, for
+The aliases file uses a very minimalistic ini-style `alias = command` format, for
 example:
 
 <pre class="lang-ini">
@@ -647,7 +647,7 @@ rabbitmq-diagnostics cipher_suites --openssl-format --quiet
 
 All tools process aliases the same way. As long as the expanded command is recognized,
 aliases can be used with any tool or even more than one. For example,
-both `rabbitmqctl` and `rabbitmq-diagnostics` both provide the `environment` command
+both `rabbitmqctl` and `rabbitmq-diagnostics` provide the `environment` command
 so the `env` alias works for both of them exactly the same way:
 
 <pre class="lang-bash">

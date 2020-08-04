@@ -75,7 +75,7 @@ Current release series upgrade compatibility with full stop upgrade:
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" href="#rabbitmq-erlang-version-requirement">Erlang Version Requirements</a>
 
-We recommended that you upgrade Erlang together with RabbitMQ.
+We recommend that you upgrade Erlang together with RabbitMQ.
 Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
 
 
@@ -97,7 +97,7 @@ introduces no breaking changes within a release series (e.g. between
 the new RabbitMQ version series.
 
 In rare cases patch versions of RabbitMQ (e.g. 3.6.7) can break some plugin APIs.
-Such cases will be documented the breaking changes section of the release notes document.
+Such cases will be documented in the breaking changes section of the release notes document.
 
 [Community plugins page](/community-plugins.html) contains information on RabbitMQ
 version support for plugins not included into the RabbitMQ distribution.
@@ -446,7 +446,7 @@ The recovery procedure for many applications follows the same steps:
 1. Reconnect
 2. Re-open channels
 3. Restore channel settings (e.g. the [`basic.qos` setting](/confirms.html), publisher confirms)
-4. Recovery topology
+4. Recover topology
 
 Topology recovery includes the following actions, performed for every channel:
 
@@ -465,8 +465,8 @@ or by specifying multiple server hosts if client library supports this feature.
 
 The following libraries support host lists:
 
-* [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection-com.rabbitmq.client.Address:A-)
-* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs#L376)
+* [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
+* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
 * [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
 
 
@@ -577,9 +577,9 @@ on how to upgrade RabbitMQ.
     before the upgrade. Default memory watermark is 0.4 so it should be
     ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
     the way nodes [calculate their total RAM consumption](/memory-use.html) has changed.
-    When upgrading from an earlier version.
 
-    It is required that the node has enough free disk space to fit at
+    When upgrading from an earlier version,
+    it is required that the node has enough free disk space to fit at
     least a full copy of the node data directory. Nodes create backups
     before proceeding to upgrade their database. If disk space is
     depleted, the node will abort upgrading and may fail to start

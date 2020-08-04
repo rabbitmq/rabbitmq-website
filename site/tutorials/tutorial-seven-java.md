@@ -121,7 +121,7 @@ if (outstandingMessageCount > 0) {
 Waiting for a batch of messages to be confirmed improves throughput drastically over
 waiting for a confirm for individual message (up to 20-30 times with a remote RabbitMQ node).
 One drawback is that we do not know exactly what went wrong in case of failure,
-so we may have to keep a whole batch in memory to log something meaningul or
+so we may have to keep a whole batch in memory to log something meaningful or
 to re-publish the messages. And this solution is still synchronous, so it
 blocks the publishing of messages.
 
