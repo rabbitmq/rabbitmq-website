@@ -25,10 +25,10 @@ body lengths, ignoring message properties and any overheads), or
 both.
 
 For any given queue, the maximum length (of either type) can be
-defined by clients using the queue's arguments, or in the server
-using [policies](/parameters.html#policies). In the
-case where both policy and arguments specify a maximum length,
-the minimum of the two values is applied.
+defined using a [policy](/parameters.html#policies) (this option is highly recommended)
+or by clients using the [queue's optional arguments](/queues.html#optional-arguments).
+In the case where both the effective queue policy and arguments specify a maximum length,
+the minimum of the two values will be used.
 
 Queue length settings also can be enforced by [operator policies](/parameters.html#operator-policies).
 
@@ -134,6 +134,8 @@ the [policy documentation](parameters.html#policies) for more details.
 
 ## <a id="definition-using-x-args" class="anchor" href="#definition-using-x-args">Define Max Queue Length Using x-arguments During Declaration</a>
 
+
+
 Maximum number of messages can be set by supplying the
 `x-max-length` queue declaration argument with a
 non-negative integer value.
@@ -158,3 +160,8 @@ Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);
 </pre>
+
+
+
+## <a id="inspecting" class="anchor" href="#inspecting">Inspecting Queue Length Limits</a>
+

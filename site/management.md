@@ -560,14 +560,14 @@ shortly after establishing a TCP connection.
 ### <a id="http-logging" class="anchor" href="#http-logging">HTTP Request Logging</a>
 
 To create simple access logs of requests to the HTTP API,
-set the value of the `http_log_dir` variable in
-the `rabbitmq_management` application to the name
-of a directory in which logs can be created and restart
-RabbitMQ.
+set the value of the `management.http_log_dir` key to
+the path of a directory in which logs can be created:
 
 <pre class="lang-ini">
 management.http_log_dir = /path/to/folder
 </pre>
+
+For the change to have an effect, restart the plugin or the node.
 
 ### <a id="statistics-interval" class="anchor" href="#statistics-interval">Statistics Interval</a>
 
