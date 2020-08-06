@@ -231,16 +231,16 @@ rabbitmqctl.bat delete_user 'username'
 To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl set_permissions`:
 
 <pre class="lang-bash">
-# First ".*" for read permission on every entity
+# First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
-# Third ".*" for configure permission on every entity
+# Third ".*" for read permission on every entity
 rabbitmqctl set_permissions -p "custom-vhost" "username" ".*" ".*" ".*"
 </pre>
 
 <pre class="lang-powershell">
-# First ".*" for read permission on every entity
+# First ".*" for configure permission on every entity
 # Second ".*" for write permission on every entity
-# Third ".*" for configure permission on every entity
+# Third ".*" for read permission on every entity
 rabbitmqctl.bat set_permissions -p 'custom-vhost' 'username' '.*' '.*' '.*'
 </pre>
 
