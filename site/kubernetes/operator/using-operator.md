@@ -422,7 +422,7 @@ spec:
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
-Optionally, configure RabbitMQ to connect using mTLS by providing a CA Certificate to verify peer certificates against.
+Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
 This certificate must be stored under a key of name `spec.tls.caCertName`, in a Secret of name `spec.tls.caSecretName`, in
 the same Namespace as the `RabbitmqCluster` object. Note that this can be the same Secret as `spec.tls.secretName`.
 
