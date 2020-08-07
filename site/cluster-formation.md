@@ -496,7 +496,7 @@ See [Schema Syncing from Online Peers](/clustering.html#restarting-schema-sync) 
 
 ### Examples
 
-A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples)
+A minimalistic [runnable example of Kubernetes peer discovery](https://github.com/rabbitmq/diy-kubernetes-examples)
 mechanism can be found on GitHub.
 
 The example can be run using either MiniKube or Kind.

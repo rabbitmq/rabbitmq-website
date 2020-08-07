@@ -316,7 +316,7 @@ must make sure that every RabbitMQ node container in a cluster uses the same val
 
 In the context of Kubernetes, the value must be specified in the
 [deployment file](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
-For instance, this can be seen in the [RabbitMQ on Kubernetes peer discovery example](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s/tree/master/examples).
+For instance, this can be seen in the [RabbitMQ on Kubernetes examples repository](https://github.com/rabbitmq/diy-kubernetes-examples).
 
 #### Windows
 
