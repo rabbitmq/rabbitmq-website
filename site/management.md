@@ -284,7 +284,7 @@ rabbitmqctl set_user_tags full_access administrator
 
 RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
 to authenticate client applications and management UI users. When doing so, the management UI does
-not automatically redirects users to authenticate
+not automatically redirect users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
 only [UAA](https://github.com/cloudfoundry/uaa) is supported authorization server.
 
@@ -330,7 +330,7 @@ curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/ap
 </pre>
 
 This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those
-endpoints requires the token to be passed in the `token` query string parameter.
+endpoints require the token to be passed in the `token` query string parameter.
 
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
@@ -560,14 +560,14 @@ shortly after establishing a TCP connection.
 ### <a id="http-logging" class="anchor" href="#http-logging">HTTP Request Logging</a>
 
 To create simple access logs of requests to the HTTP API,
-set the value of the `http_log_dir` variable in
-the `rabbitmq_management` application to the name
-of a directory in which logs can be created and restart
-RabbitMQ.
+set the value of the `management.http_log_dir` key to
+the path of a directory in which logs can be created:
 
 <pre class="lang-ini">
 management.http_log_dir = /path/to/folder
 </pre>
+
+For the change to have an effect, restart the plugin or the node.
 
 ### <a id="statistics-interval" class="anchor" href="#statistics-interval">Statistics Interval</a>
 
@@ -653,7 +653,7 @@ at least one retention setting (period).
 
 ### <a id="disable-stats" class="anchor" href="#disable-stats">Disable statistics and metrics collection</a>
 
-It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be an useful feature if external monitoring solutions such as [Prometheus and Grafana](/prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
+It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be a useful feature if external monitoring solutions such as [Prometheus and Grafana](/prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
 
 In order to completely disable the internal metrics collection, the `disable_metrics_collector` flag must be set in the `rabbitmq_management_agent` plugin. The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
 
@@ -663,7 +663,7 @@ management_agent.disable_metrics_collector = true
 
 Disabling the metrics collection is the preferred option if it is being used with an external monitoring system, as this reduced the overhead that statistics collection and aggregation causes in the broker. If the statistics are only temporary disabled, or are not required in some [HTTP API](#http-api) queries, the aggregation of the stats can be disabled in the `rabbitmq_management` plugin. The disable flag can be also passed as part of the query string in the URI.
 
-As at the moment the [Prometheus plugin](/prometheus.html) can not report individual queue totals, there is a configuration option that allows to list `messages`, `messages_ready` and `messages_unacknowledged` in the `queues` endpoint.
+As at the moment the [Prometheus plugin](/prometheus.html) cannot report individual queue totals, there is a configuration option that allows to list `messages`, `messages_ready` and `messages_unacknowledged` in the `queues` endpoint.
 
 Below is a configuration example that disables the statistics but returns individual queue totals in the `queues` page:
 

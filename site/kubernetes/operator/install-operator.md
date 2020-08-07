@@ -25,7 +25,7 @@ The Operator is open source. You can [contribute to its development on GitHub](h
 The Operator requires
 
  * Kubernetes 1.16 or 1.17
- * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
+ * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.6+
 
 Kubernetes 1.18 is not fully tested and there might be incompatibilities.
 

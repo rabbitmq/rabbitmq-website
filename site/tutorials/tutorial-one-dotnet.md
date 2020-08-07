@@ -61,7 +61,7 @@ on behalf of the consumer.
 
 ### Setup
 
-First lets verify that you have .NET Core toolchain in `PATH`:
+First let's verify that you have .NET Core toolchain in `PATH`:
 
 <pre class="lang-powershell">
 dotnet --help

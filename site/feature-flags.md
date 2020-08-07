@@ -98,7 +98,7 @@ Therefore, as long as the 3.8.x node has all its feature flags disabled,
 it is compatible with a 3.7.x node.
 
 However, note that only upgrading from one minor to the next minor
-or major is supported. To upgrade from e.g. 3.8.5 to 3.10.0, it is
+or major is supported. To upgrade from e.g. 3.8.6 to 3.10.0, it is
 necessary to upgrade to 3.9.x first. Likewise if there is one or more
 minor release branches between the minor version used and the next
 major release. That might work (i.e. there could be no incompatible
@@ -364,7 +364,7 @@ internally:
 ### <a id="implementation-for-developers" class="anchor" href="#implementation-for-developers">From a Developer Point of View</a>
 
 When working on a plugin or a RabbitMQ core contribution, feature flags
-should be used to made the new version of the code compatible with older
+should be used to make the new version of the code compatible with older
 versions of RabbitMQ.
 
 #### When to Use a Feature Flag
@@ -494,7 +494,7 @@ init_per_testcase(Testcase, Config) ->
     end.
 </pre>
 
-It it possible to run testsuites locally in the context of a
+It is possible to run testsuites locally in the context of a
 mixed-version cluster. If configured to do so, `rabbitmq-ct-helpers`
 will use a second version of RabbitMQ to start half of the nodes when
 starting a cluster:

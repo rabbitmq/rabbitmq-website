@@ -66,9 +66,9 @@ The library is distributed [via hex.pm](https://hex.pm/packages/amqp_client).
 
 ### Documentation
 
-Please refer to the [Erlang RabbitMQ user quide](/erlang-client-user-guide.html).
+Please refer to the [Erlang RabbitMQ user guide](/erlang-client-user-guide.html).
 
-<a href="https://hexdocs.pm/amqp_client/3.8.5/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
+<a href="https://hexdocs.pm/amqp_client/3.8.6/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
 
 ### Other Versions
 

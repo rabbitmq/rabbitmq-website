@@ -25,19 +25,19 @@ body lengths, ignoring message properties and any overheads), or
 both.
 
 For any given queue, the maximum length (of either type) can be
-defined by clients using the queue's arguments, or in the server
-using [policies](/parameters.html#policies). In the
-case where both policy and arguments specify a maximum length,
-the minimum of the two values is applied.
+defined using a [policy](/parameters.html#policies) (this option is highly recommended)
+or by clients using the [queue's optional arguments](/queues.html#optional-arguments).
+In the case where both the effective queue policy and arguments specify a maximum length,
+the minimum of the two values will be used.
 
 Queue length settings also can be enforced by [operator policies](/parameters.html#operator-policies).
 
-In all cases the number of <i>ready</i> messages is used; unacknowledged messages
+In all cases the number of messages in the **ready** state is used; [messages unacknowledged by consumers](/confirms.html)
 do not count towards the limit.
 
-The fields `messages_ready` and `message_bytes_ready` from
-`rabbitmqctl list_queues` and the management API show the values
-that would be limited.
+The number of **ready** messages and their footprint in bytes can be observed
+using the `messages_ready` and `message_bytes_ready` from
+`rabbitmqctl list_queues` output, as well as similarly named fields in the management UI and HTTP API responses.
 
 
 ## <a id="default-behaviour" class="anchor" href="#default-behaviour">Default Max Queue Length Limit Behaviour</a>
@@ -158,3 +158,52 @@ Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);
 </pre>
+
+
+## <a id="inspecting" class="anchor" href="#inspecting">Inspecting Queue Length Limits</a>
+
+To inspect effective limits for a queue, inspect its [optional arguments](/queues.html#optional-arguments) and
+[effective policy](/parameters.html#policies).
+
+This can be done using CLI tools or the management UI.
+
+### Using CLI Tools
+
+`rabbitmqctl list_queues` can be used to display optional queue arguments and the policy applied to a queue, if any:
+
+<pre class="lang-bash">
+rabbitmqctl list_queues name durable arguments policy --formatter=pretty_table --silent
+# => ┌──────────────┬─────────┬──────────────────────────────────────────────────────────────────────┬─────────┐
+# => │ name         │ durable │ arguments                                                            │ policy  │
+# => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
+# => │ qq.1         │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}{&lt;&lt;"x-max-length"&gt;&gt;,long,7} │         │
+# => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
+# => │ limited.qq.3 │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}                            │ limited │
+# => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
+# => │ limited.cq.1 │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"classic"&gt;&gt;}                           │ limited │
+# => ├──────────────┼─────────┼──────────────────────────────────────────────────────────────────────┼─────────┤
+# => │ qq.2         │ true    │ {&lt;&lt;"x-queue-type"&gt;&gt;,longstr,&lt;&lt;"quorum"&gt;&gt;}                            │         │
+# => └──────────────┴─────────┴──────────────────────────────────────────────────────────────────────┴─────────┘
+</pre>
+
+To find out what arguments are defined by the policy, use `rabbitmqctl list_policies`:
+
+<pre class="lang-bash">
+rabbitmqctl list_policies --formatter=pretty_table --silent
+# => ┌───────┬─────────┬────────────┬──────────┬───────────────────┬──────────┐
+# => │ vhost │ name    │ pattern    │ apply-to │ definition        │ priority │
+# => ├───────┼─────────┼────────────┼──────────┼───────────────────┼──────────┤
+# => │ /     │ limited │ ^limited\. │ queues   │ {"max-length":11} │ 0        │
+# => └───────┴─────────┴────────────┴──────────┴───────────────────┴──────────┘
+</pre>
+
+### Using Management UI
+
+Both optional queue arguments and effective policy for a queue can be seen on the Queues tab or individual queue page:
+
+<img class="screenshot" src="img/limits/max_length_queues_page.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />
+
+The policy name is a clickable link that leads to the policy definition page where you
+can see the limits:
+
+<img class="screenshot" src="img/limits/max_length_policy_definition.png" alt="Effective queue policy and optional arguments in management UI" title="Effective queue policy and optional arguments in management UI" />

@@ -395,7 +395,7 @@ system buffer or otherwise fail to reach the queue leader.
 ### <a id="availability" class="anchor" href="#availability">Availability</a>
 
 A quorum queue should be able to tolerate a minority of queue members becoming unavailable
-with no or little affect on availability.
+with no or little effect on availability.
 
 Note that depending on the [partition handling strategy](/partitions.html)
 used RabbitMQ may restart itself during recovery and reset the node but as long as that

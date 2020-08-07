@@ -39,6 +39,18 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.6</td>
+    <td class="centre">4 August 2020</td>
+    <td>
+      <ul>
+        <li>RabbitMQ license has <a href="https://github.com/rabbitmq/rabbitmq-server/issues/2372">changed to the Mozilla Public License 2.0</a></li>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.6">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.7.27</td>
     <td class="centre">25 July 2020</td>
     <td>

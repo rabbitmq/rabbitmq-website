@@ -116,7 +116,7 @@ with TLS setups.
 On Linux, BSD and MacOS directory permissions can also affect node's ability to read the files.
 
 When certificate or private key files are not readable or do not exist,
-the node fail to accept TLS-enabled connections or TLS connections will just hang (the behavior
+the node will fail to accept TLS-enabled connections or TLS connections will just hang (the behavior
 differs between Erlang/OTP versions).
 
 When [new style configuration format](/configure.html#config-file-formats) is used to configure certificate and private
@@ -248,7 +248,7 @@ openssl s_server -accept 8443 \
   -cert server_certificate.pem -key server_key.pem -CAfile ca_certificate.pem
 </pre>
 
-It will start an OpenSSL <code>s_server</code> with that uses the provided
+It will start an OpenSSL <code>s_server</code> that uses the provided
 CA certificate bundler, server certificate and private key. It will be used
 to sanity check the certificates with test TLS connections against this example server.
 
@@ -265,7 +265,7 @@ It will open a new TLS connection to the example TLS server started above. You m
 off the <code>-verify_hostname</code> argument but OpenSSL will no longer perform that
 verification.
 
-If the certificates and keys have been correctly created, an TLS connection output
+If the certificates and keys have been correctly created, a TLS connection output
 will appear in both tabs. There is now a connection between the example client and the example
 server, similar to <code>telnet</code>.
 
@@ -276,7 +276,7 @@ a verification confirmation with the code of <code>0</code>:
 Verify return code: 0 (ok)
 </pre>
 
-Just like with command line tools, a non-zero code communicates and error of some kind.
+Just like with command line tools, a non-zero code communicates an error of some kind.
 
 If an error is reported, confirm that the certificates and keys were
 generated correctly and that a matching certificate/private key pair is used.
@@ -307,10 +307,10 @@ will display all cipher suites supported by the local build of OpenSSL.
 
 ## <a id="sclient-connection" class="anchor" href="#sclient-connection">Attempt TLS Connection to a RabbitMQ Node</a>
 
-Once a RabbitMQ node was configure to listen on an TLS port,
+Once a RabbitMQ node was configured to listen on a TLS port,
 the OpenSSL <code>s_client</code> can be used to test TLS connection establishment, this time against the node.
 This check establishes whether the broker is likely to be configured correctly, without needing
-to configure an RabbitMQ client. The tool can also be useful to compare the behaviour of different clients.
+to configure a RabbitMQ client. The tool can also be useful to compare the behaviour of different clients.
 The example assumes a node running on <code>localhost</code> on [default TLS port for AMQP 0-9-1 and AMQP 1.0](networking.html#ports), 5671:
 
 <pre class="lang-bash">

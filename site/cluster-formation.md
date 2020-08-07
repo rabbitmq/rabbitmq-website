@@ -427,7 +427,7 @@ rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
 
 With this mechanism, nodes fetch a list of their peers from
 a Kubernetes API endpoint using a set of configured values:
-a URI scheme, host, port, as as well as the token and certificate paths.
+a URI scheme, host, port, as well as the token and certificate paths.
 
 There are several prerequisites and deployment choices that must be taken into
 account when deploying RabbitMQ to Kubernetes, with this peer discovery mechanism
@@ -650,7 +650,7 @@ or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_consul
 </pre>
 
-The plugiin supports Consul 0.8.0 and later versions.
+The plugin supports Consul 0.8.0 and later versions.
 
 Nodes register with Consul on boot and unregister when they
 leave. Prior to registration, nodes will attempt to acquire a
@@ -1012,7 +1012,7 @@ cluster_formation.etcd.endpoints.2 = two.etcd.eng.example.local:2479
 cluster_formation.etcd.endpoints.3 = three.etcd.eng.example.local:2579
 </pre>
 
-If [authentication is enabled for etcd](https://etcd.io/docs/v3.4.0/op-guide/authentication/), the plugin can be confired to use
+If [authentication is enabled for etcd](https://etcd.io/docs/v3.4.0/op-guide/authentication/), the plugin can be configured to use
 a pair of credentials:
 
 <pre class="lang-ini">
@@ -1070,7 +1070,7 @@ using a well-known prefix:
 </pre>
 
 <pre class="lang-ini">
-# for regisration lock keys
+# for registration lock keys
 /rabbitmq/locks/{prefix}/clusters/{cluster name}/registration
 </pre>
 
@@ -1361,7 +1361,7 @@ and replaced nodes can produce monitoring false positives.
 
 The list of side effects is not limited to those two scenarios but they all have the same
 root cause: an automatically removed node can come back without realising that it's been kicked out
-of the its cluster. Monitoring systems and operators won't be immediately aware of that event either.
+of its cluster. Monitoring systems and operators won't be immediately aware of that event either.
 
 ## <a id="discovery-retries" class="anchor" href="#discovery-retries">Peer Discovery Failures and Retries</a>
 
@@ -1403,7 +1403,7 @@ cluster_formation.discovery_retry_limit = 10
 cluster_formation.discovery_retry_interval = 500
 </pre>
 
-The defaults cover five seconds of unavaiability of services, API endpoints or nodes
+The defaults cover five seconds of unavailability of services, API endpoints or nodes
 involved in peer discovery. These values are sufficient to cover sporadic failures.
 They will require increasing in environments where dependent services (DNS, etcd, Consul, etc)
 may be provisioned concurrently with RabbitMQ cluster deployment and thus can become
@@ -1456,5 +1456,5 @@ Peer discovery relies on inter-node network connectivity and successful authenti
 secret. Verifying that nodes can communicate with one another and use the expected Erlang cookie value (that's also identical across all cluster nodes).
 See the main [Clustering guide](clustering.html) for more information.
 
-A methodology for network connectivty troubleshooting as well as commonly used
+A methodology for network connectivity troubleshooting as well as commonly used
 tools are covered in the [Troubleshooting Network Connectivity](troubleshooting-networking.html) guide.

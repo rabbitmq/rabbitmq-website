@@ -45,15 +45,16 @@ elements a lot more informed.
 
 ### <a id="overview-grafana" class="anchor" href="#overview-grafana">Grafana Support</a>
 
-Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a prebuilt set of
-Grafana dashboards that visualise a large number of available RabbitMQ and runtime metrics in context-specific ways.
+Collected metrics are not very useful unless they are visualised. Team RabbitMQ provides a [prebuilt set of Grafana dashboards](https://grafana.com/rabbitmq)
+that visualise a large number of available RabbitMQ and [runtime](/runtime.html) metrics in context-specific ways.
 
 There is a number of dashboards available:
 
  * an overview dashboard
- * a Raft metric dashboard
+ * runtime [memory allocators](/runtime.html#allocators) dashboard
  * an [inter-node communication](https://www.rabbitmq.com/clustering.html#cluster-membership)
 (Erlang distribution) dashboard
+ * a Raft metric dashboard
 
 and others. Each is meant to provide an insight into a specific
 part of the system. When used together, they are able to explain RabbitMQ and application behaviour in detail.
@@ -207,7 +208,7 @@ In the example below, connections are spread out evenly across all nodes most of
 
 All metrics on all graphs are associated with specific node names. For example,
 all metrics drawn in green are for the node that contains `0` in its name, e.g.
-`rabbit@rmq0`. This makes is easy to correlate metrics of a specific node across graphs.
+`rabbit@rmq0`. This makes it easy to correlate metrics of a specific node across graphs.
 Metrics for the first node, which is assumed to contain `0` in
 its name, will always appear as green across all graphs.
 
@@ -220,7 +221,7 @@ When this is the case, the panels must be updated to use a different node naming
 ### <a id="graph-thresholds" class="anchor" href="#graph-thresholds">Thresholds in Graphs</a>
 
 Most metrics have pre-configured thresholds. They define expected operating boundaries for the metric.
-On the graphs they appear as semi-transpared
+On the graphs they appear as semi-transparent
 orange or red areas, as seen in the example below.
 
 ![RabbitMQ Overview Dashboard Single-stat](/img/rabbitmq-overview-dashboard-memory-threshold.png)
@@ -250,8 +251,8 @@ across cluster then should return to their optimal state.
 
 ### <a id="graph-thresholds-are-system-specific" class="anchor" href="#graph-thresholds-are-system-specific">There is No "Right" Threshold for Many Metrics</a>
 
-Note that that the thresholds used by the Grafana dashboards have to have a default value. No matter
-what value is picked by dashboard developers, they **will not suitable for all environments and workloads**.
+Note that the thresholds used by the Grafana dashboards have to have a default value. No matter
+what value is picked by dashboard developers, they **will not be suitable for all environments and workloads**.
 
 Some workloads may require higher thresholds, others may choose to lower them. While the defaults should be
 adequate in many cases, the **operator must review and adjust the thresholds** to suit their specific

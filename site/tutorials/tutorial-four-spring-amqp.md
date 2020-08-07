@@ -445,7 +445,7 @@ java -jar target/rabbitmq-tutorials.jar \
     --tutorial.client.duration=60000
 </pre>
 
-and in the other temrinal window run the sender
+and in the other terminal window run the sender
 
 <pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
