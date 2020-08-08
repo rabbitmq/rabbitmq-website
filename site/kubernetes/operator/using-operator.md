@@ -102,7 +102,7 @@ Next, add any of the properties described below along with their values. Every p
 ### <a name='replicas' class='anchor' href='#replicas'>Number of Replicas</a>
 
 **Description:** Specify the number of replicas for the RabbitmqCluster. [An even number of replicas
-is higly discouraged](https://www.rabbitmq.com/clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
+is highly discouraged](https://www.rabbitmq.com/clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
 [must be used](/clustering.html#node-count).
 
 **Default Value:** 1
