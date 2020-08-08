@@ -431,7 +431,7 @@ public class Tut4Receiver {
 
 
 Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html) 
-for maven compilation and executing the options from the jar.
+for maven compilation and executing the options from the jar).
 
 <pre class="lang-bash">
 ./mvnw clean package
@@ -445,7 +445,7 @@ java -jar target/rabbitmq-tutorials.jar \
     --tutorial.client.duration=60000
 </pre>
 
-and in the other terminal window run the sender
+and in the other terminal window run the sender:
 
 <pre class="lang-bash">
 java -jar target/rabbitmq-tutorials.jar \
