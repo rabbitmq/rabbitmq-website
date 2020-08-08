@@ -18,7 +18,7 @@ limitations under the License.
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="https://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ Project Annoucements</title>
+    <title>RabbitMQ Project Announcements</title>
     <link rel="alternate" type="application/atom+xml" href="news.atom"/>
   </head>
   <body>

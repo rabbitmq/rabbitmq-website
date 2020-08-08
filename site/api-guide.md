@@ -1419,7 +1419,7 @@ before authorising the connection and granting access to the requested
 virtual host.
 
 Prefer the use of `OAuth2ClientCredentialsGrantCredentialsProviderBuilder`
-to create a `OAuth2ClientCredentialsGrantCredentialsProvider` instance and
+to create an `OAuth2ClientCredentialsGrantCredentialsProvider` instance and
 then set it up on the `ConnectionFactory`. The
 following snippet shows how to configure and create an instance of the OAuth 2 credentials provider
 for the [example setup of the OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#examples):

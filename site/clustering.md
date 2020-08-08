@@ -336,7 +336,7 @@ See the [CLI Tools guide](/cli.html) for more information.
 
 #### Server Nodes
 
-When a node starts, it will [log](/logging.html) log the home directory location of its effective user:
+When a node starts, it will [log](/logging.html) the home directory location of its effective user:
 
 <pre class="lang-plaintext">
 node           : rabbit@cdbf4de5f22d
@@ -350,9 +350,9 @@ In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlan
 
 #### Hostname Resolution
 
-Since hostname resolution is a [prerequisite for successfull inter-node communication](#hostname-resolution-requirement),
+Since hostname resolution is a [prerequisite for successful inter-node communication](#hostname-resolution-requirement),
 starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
-that hostname resolution on a node works as expected. The commands are not mean to replace
+that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
 into account.
