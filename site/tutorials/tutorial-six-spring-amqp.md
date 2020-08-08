@@ -348,7 +348,7 @@ public class Tut6Client {
 </pre>
 
 Using the project setup as defined in (see [tutorial one](tutorial-one-spring-amqp.html))
-with start.spring.io and SpringInitialzr the preparing the runtime is the same as the
+with start.spring.io and SpringInitializr the preparing the runtime is the same as the
 other tutorials:
 
 <pre class="lang-bash">

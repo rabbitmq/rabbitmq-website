@@ -79,7 +79,7 @@ import (
 )
 </pre>
 
-We also need an helper function to check the return value for each
+We also need a helper function to check the return value for each
 amqp call:
 
 <pre class="lang-go">

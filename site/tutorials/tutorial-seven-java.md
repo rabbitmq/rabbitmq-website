@@ -78,7 +78,7 @@ in logging an error message and/or retrying to send the message.
 Different client libraries have different ways to synchronously deal with publisher confirms,
 so make sure to read carefully the documentation of the client you are using.
 
-This techniques is very straightforward but also has a major drawback:
+This technique is very straightforward but also has a major drawback:
 it **significantly slows down publishing**, as the confirmation of a message blocks the publishing
 of all subsequent messages. This approach is not going to deliver throughput of
 more than a few hundreds of published messages per second. Nevertheless, this can be
