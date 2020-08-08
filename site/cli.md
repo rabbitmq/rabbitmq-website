@@ -420,7 +420,7 @@ In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlan
 #### Hostname Resolution
 
 Starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
-that hostname resolution on a node works as expected. The commands are not mean to replace
+that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
 into account.
