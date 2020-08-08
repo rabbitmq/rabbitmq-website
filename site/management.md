@@ -962,7 +962,7 @@ all nodes in the cluster.
 ## <a id="publishing-consuming" class="anchor" href="#publishing-consuming">Publishing and Consuming over HTTP API</a>
 
 It is possible to publish and consume messages using the [HTTP API](#http-api).
-This ways of messaging is discouraged: prefer one of the binary messaging protocols supported
+This way of messaging is discouraged: prefer one of the binary messaging protocols supported
 by RabbitMQ. Publishing and consuming that way will be significantly more efficient and will
 provide access to various messaging protocol features such as [confirmations](/confirms.html).
 
