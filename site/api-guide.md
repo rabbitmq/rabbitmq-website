@@ -30,6 +30,7 @@ Key sections of the guide are:
  * [Support Timeline](#support-timeline)
  * [Connecting to RabbitMQ](#connecting)
  * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
+ * [Client-provided connection name](#client-provided-names)
  * [Using Exchanges and Queues](#exchanges-and-queues)
  * [Publishing Messages](#publishing)
  * [Consuming Using a Subscription](#consuming)
@@ -70,7 +71,7 @@ For example, the user may choose the Apache Public License 2.0 and include this 
 a commercial product. Codebases that are licensed under the GPLv2 may choose GPLv2, and so on.
 
 
-## <a id="classoverview" class="anchor" href="#classoverview">Overview</a>
+## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The client API exposes key entities in the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
 with additional abstractions for ease of use.
@@ -176,8 +177,13 @@ Connection conn = factory.newConnection();
 All of these parameters have sensible defaults for a stock
 RabbitMQ server running locally.
 
+Successful and unsuccessful client connection events can be [observed in server node logs](/logging.html).
+
 Note that [user guest can only connect from localhost](/access-control.html) by default.
 This is to limit well-known credential use in production systems.
+
+Application developers can [assign a custom name to a connection](#client-provided-names). If set,
+the name will be mentioned in RabbitMQ node logs as well as [management UI](/management.html).
 
 The `Connection` interface can then be used to open a channel:
 
@@ -187,15 +193,14 @@ Channel channel = conn.createChannel();
 
 The channel can now be used to send and receive messages, as described in subsequent sections.
 
-Successful and unsuccessful client connection events can be [observed in server node logs](/networking.html#logging).
-
 ## <a id="disconnecting" class="anchor" href="#disconnecting">Disconnecting from RabbitMQ</a>
 
 To disconnect, simply close the channel and the connection:
 
 <pre class="lang-java">
 channel.close();
-conn.close();</pre>
+conn.close();
+</pre>
 
 Note that closing the channel may be considered good practice, but is not strictly necessary here - it will be done
 automatically anyway when the underlying connection is closed.
@@ -219,6 +224,35 @@ queue that does not exist will result in channel closure. A closed channel can n
 longer be used and will not receive any more events from the server (such
 as message deliveries). Channel-level exceptions will be logged by RabbitMQ
 and will initiate a shutdown sequence for the channel (see below).
+
+## <a id="client-provided-names" class="anchor" href="#client-provided-names">Client-Provided Connection Name</a>
+
+RabbitMQ nodes have a limited amount of information about their clients:
+
+ * their TCP endpoint (source IP address and port)
+ * the credentials used
+
+This information alone can make identifying applications and instances problematic, in particular when credentials can be
+shared and clients connect over a load balancer but [Proxy protocol](/networking.html#proxy-protocol) cannot be enabled.
+
+To make it easier to identify clients in [server logs](/logging.html) and [management UI](/management.html),
+AMQP 0-9-1 client connections, including the RabbitMQ Java client, can provide a custom identifier.
+If set, the identifier will be mentioned in log entries and management UI. The identifier is known as
+the **client-provided connection name**. The name can be used to identify an application or a specific component
+within an application. The name is optional; however, developers are strongly encouraged to provide one
+as it would significantly simplify certain operational tasks.
+
+RabbitMQ Java client's [`ConnectionFactory#newConnection` method overrides](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection(java.util.concurrent.ExecutorService,com.rabbitmq.client.Address%5B%5D,java.lang.String))
+accept a client-provided connection name. Here's a modified connection example used above
+which provides such a name:
+
+<pre class="lang-java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUri("amqp://userName:password@hostName:portNumber/virtualHost");
+// provides a custom connection name
+Connection conn = factory.newConnection("app:audit component:event-consumer");
+</pre>
+
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
