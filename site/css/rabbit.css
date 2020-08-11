@@ -520,8 +520,6 @@ span.code.Fl {
 }
 
 span.code.Li {
-  color: white;
-  background: none;
   font-family: monospace;
   font-size: medium;
   white-space: normal;
