@@ -46,7 +46,7 @@ For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ impl
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/), and is double-licensed under the
 
 * [Apache Public License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
-* [Mozilla Public License](https://www.mozilla.org/MPL/1.1/)
+* [Mozilla Public License 2.0](https://www.mozilla.org/MPL/2.0/)
 
 This means that the user can consider the library to be licensed under any of the licenses from the list above.
 For example, the user may choose the Apache Public License 2.0 and include this client into

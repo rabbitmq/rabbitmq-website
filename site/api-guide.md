@@ -63,7 +63,7 @@ this means only [Android 7.0 or later](https://developer.android.com/guide/platf
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-java-client/), and is triple-licensed under
 
  * [Apache Public License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
- * [Mozilla Public License](https://www.mozilla.org/MPL/1.1/)
+ * [Mozilla Public License 2.0](https://www.mozilla.org/MPL/2.0/)
  * [GPL 2.0](http://www.gnu.org/licenses/gpl-2.0.html)
 
 This means that the user can consider the library to be licensed under **any of the licenses from the list above**.
