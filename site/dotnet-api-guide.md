@@ -274,7 +274,7 @@ by this factory.
 
 Here's a modified connection example used above which provides such a name:
 
-<pre class="lang-java">
+<pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 // "guest"/"guest" by default, limited to localhost connections
 factory.UserName = user;
