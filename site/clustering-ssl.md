@@ -146,10 +146,12 @@ value is multi-line:
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
+# -ssl_dist_opt server_password password   required if the private key is encrypted 
 #
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
-  -ssl_dist_opt server_certfile /path/to/combined_keys.pem
+  -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
+  -ssl_dist_opt server_password password
 </pre>
 
 Next step is to build on the previous example and enable secure renegotiation for
@@ -162,10 +164,12 @@ covered in this example:
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
+# -ssl_dist_opt server_password password   required if the private key is encrypted 
 # -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true enables an additional TLS setting: secure renegotiation
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
+  -ssl_dist_opt server_password password \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 </pre>
 
@@ -188,16 +192,19 @@ ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-9.4/ebin"
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
+# -ssl_dist_opt server_password password   required if the private key is encrypted 
 # -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true enables an additional TLS setting: secure renegotiation
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
+  -ssl_dist_opt server_password password \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 
 # Same settings as above but for CLI tools
 RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
   -ssl_dist_opt server_certfile /path/to/combined_keys.pem \
+  -ssl_dist_opt server_password password \
   -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 </pre>
 
@@ -239,8 +246,9 @@ and requires peers to present a certificate:
 [
   {server, [
     {cacertfile, "/full/path/to/ca_certificate.pem"},
-    {certfile, "/full/path/to/server_certificate.pem"},
-    {keyfile,  "/full/path/to/server_key.pem"},
+    {certfile,   "/full/path/to/server_certificate.pem"},
+    {keyfile,    "/full/path/to/server_key.pem"},
+    {password,   "password-if-keyfile-is-encrypted"},
     {secure_renegotiate, true},
     {verify, verify_peer},
     {fail_if_no_peer_cert, true}
@@ -249,6 +257,7 @@ and requires peers to present a certificate:
     {cacertfile, "/full/path/to/ca_certificate.pem"},
     {certfile,   "/full/path/to/client_certificate.pem"},
     {keyfile,    "/full/path/to/client_key.pem"},
+    {password,   "password-if-keyfile-is-encrypted"},
     {secure_renegotiate, true},
     {verify, verify_peer},
     {fail_if_no_peer_cert, true}
@@ -311,6 +320,7 @@ to be set if necessary.
         {cacertfile, "C:/Path/To/ca_certificate.pem"},
         {certfile, "C:/Path/To/server_certificate.pem"},
         {keyfile, "C:/Path/To/server_key.pem"},
+        {password, "password-if-keyfile-is-encrypted"},
         {secure_renegotiate, true},
         {verify, verify_peer},
         {fail_if_no_peer_cert, true}
@@ -319,6 +329,7 @@ to be set if necessary.
         {cacertfile, "C:/Path/To/ca_certificate.pem"},
         {certfile, "C:/Path/To/client_certificate.pem"},
         {keyfile, "C:/Path/To/client_key.pem"},
+        {password, "password-if-keyfile-is-encrypted"},
         {secure_renegotiate, true},
         {verify, verify_peer},
         {fail_if_no_peer_cert, true}
