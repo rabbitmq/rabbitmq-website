@@ -29,6 +29,7 @@ Key sections of the guide are:
 * [Important interfaces and classes](#major-api-elements) in the public API
 * [Connecting to RabbitMQ](#connecting)
 * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
+* [Client-provided connection name](#client-provided-names)
 * [Using Exchanges and Queues](#exchanges-and-queues)
 * [Publishing Messages](#publishing)
 * [Consuming Using a Subscription](#consuming) and [Consumer Memory Safety](#consuming-memory-safety)
