@@ -543,3 +543,30 @@ RabbitMQ versions prior to 3.8 can use a separate plugin,
 [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
 to expose metrics to Prometheus. The plugin uses [RabbitMQ HTTP API](/monitoring.html) internally
 and requires visualisation to be set up separately.
+
+## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Securing Prometheus Metrics with TLS</a>
+
+The Prometheus metrics can be secured with TLS similar to the other listeners. 
+For example, in the [configuration file](/configure.html#configuration-file)
+
+<pre class="lang-ini">
+prometheus.ssl.port       = 15691
+prometheus.ssl.cacertfile = /full/path/to/ca_certificate.pem
+prometheus.ssl.certfile   = /full/path/to/server_certificate.pem
+prometheus.ssl.keyfile    = /full/path/to/server_key.pem
+prometheus.ssl.password   = password-if-keyfile-is-encrypted
+</pre>
+
+
+To enable TLS with [peer verification](/ssl.html#peer-verification), use a config similar to
+
+<pre class="lang-ini">
+prometheus.ssl.port       = 15691
+prometheus.ssl.cacertfile = /full/path/to/ca_certificate.pem
+prometheus.ssl.certfile   = /full/path/to/server_certificate.pem
+prometheus.ssl.keyfile    = /full/path/to/server_key.pem
+prometheus.ssl.password   = password-if-keyfile-is-encrypted
+prometheus.ssl.verify     = verify_peer
+prometheus.ssl.depth      = 2
+prometheus.ssl.fail_if_no_peer_cert = true
+</pre>
