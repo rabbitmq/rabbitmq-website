@@ -31,6 +31,7 @@ and anti-patterns easier to spot. Its design decisions are explained in a number
  * [Relevant documentation](#graph-documentation) for each graph (metric)
  * [Spotting Anti-patterns](#spot-anti-patterns)
  * [Other available dashboards](#other-dashboards)
+ * [TLS support](#tls) for Prometheus scraping endpoint
 
 ### <a id="overview-prometheus" class="anchor" href="#overview-prometheus">Built-in Prometheus Support</a>
 
@@ -537,16 +538,9 @@ Finally, switch the default data source used by Grafana to `prometheus`.
 Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
 
 
-## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
+## <a id="tls" class="anchor" href="#tls">Securing Prometheus Scarping Endpoint with TLS</a>
 
-RabbitMQ versions prior to 3.8 can use a separate plugin,
-[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
-to expose metrics to Prometheus. The plugin uses [RabbitMQ HTTP API](/monitoring.html) internally
-and requires visualisation to be set up separately.
-
-## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Securing Prometheus Metrics with TLS</a>
-
-The Prometheus metrics can be secured with TLS similar to the other listeners. 
+The Prometheus metrics can be secured with TLS similar to the other listeners.
 For example, in the [configuration file](/configure.html#configuration-file)
 
 <pre class="lang-ini">
@@ -570,3 +564,11 @@ prometheus.ssl.verify     = verify_peer
 prometheus.ssl.depth      = 2
 prometheus.ssl.fail_if_no_peer_cert = true
 </pre>
+
+
+## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
+
+RabbitMQ versions prior to 3.8 can use a separate plugin,
+[prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
+to expose metrics to Prometheus. The plugin uses [RabbitMQ HTTP API](/monitoring.html) internally
+and requires visualisation to be set up separately.
