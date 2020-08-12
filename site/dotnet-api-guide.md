@@ -36,12 +36,16 @@ Key sections of the guide are:
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
-### <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
+An [API reference](http://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html) is available separately.
+
+
+## <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
 
 6.x release series of this library [require .NET 4.6.1+ or a .NET Standard 2.0+ implementation](/dotnet.html#overview).
 For 5.x releases, the requirements are [.NET 4.5.1+ or a .NET Standard 1.5+ implementation](/dotnet.html#overview).
 
-### <a id="license" class="anchor" href="#license">License</a>
+
+## <a id="license" class="anchor" href="#license">License</a>
 
 The library is open source, developed [on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client/), and is double-licensed under the
 
@@ -52,7 +56,8 @@ This means that the user can consider the library to be licensed under any of th
 For example, the user may choose the Apache Public License 2.0 and include this client into
 a commercial product.
 
-### <a id="dependencies" class="anchor" href="#dependencies">Dependencies</a>
+
+## <a id="dependencies" class="anchor" href="#dependencies">Dependencies</a>
 
 The client has a couple of dependencies:
 
@@ -243,6 +248,46 @@ queue that does not exist will result in channel closure. A closed channel can n
 longer be used and will not receive any more events from the server (such
 as message deliveries). Channel-level exceptions will be logged by RabbitMQ
 and will initiate a shutdown sequence for the channel (see below).
+
+
+## <a id="client-provided-names" class="anchor" href="#client-provided-names">Client-Provided Connection Name</a>
+
+RabbitMQ nodes have a limited amount of information about their clients:
+
+ * their TCP endpoint (source IP address and port)
+ * the credentials used
+
+This information alone can make identifying applications and instances problematic, in particular when credentials can be
+shared and clients connect over a load balancer but [Proxy protocol](/networking.html#proxy-protocol) cannot be enabled.
+
+To make it easier to identify clients in [server logs](/logging.html) and [management UI](/management.html),
+AMQP 0-9-1 client connections, including the RabbitMQ .NET client, can provide a custom identifier.
+If set, the identifier will be mentioned in log entries and management UI. The identifier is known as
+the **client-provided connection name**. The name can be used to identify an application or a specific component
+within an application. The name is optional; however, developers are strongly encouraged to provide one
+as it would significantly simplify certain operational tasks.
+
+RabbitMQ .NET client provides a connection factory property,
+[`ConnectionFactory.ClientProvidedName`](http://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ClientProvidedName),
+which, if set, controls the client-provided connection name for all new connections opened
+by this factory.
+
+Here's a modified connection example used above which provides such a name:
+
+<pre class="lang-java">
+ConnectionFactory factory = new ConnectionFactory();
+// "guest"/"guest" by default, limited to localhost connections
+factory.UserName = user;
+factory.Password = pass;
+factory.VirtualHost = vhost;
+factory.HostName = hostName;
+
+// this name will be shared by all connections instantiated by
+// this factory
+factory.ClientProvidedName = "app:audit component:event-consumer"
+
+IConnection conn = factory.CreateConnection();
+</pre>
 
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
