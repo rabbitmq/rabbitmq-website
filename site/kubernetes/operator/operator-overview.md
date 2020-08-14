@@ -50,10 +50,9 @@ versions.
 The Operator requires
 
  * Kubernetes 1.16 or 1.17
- * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.6+
+ * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
 
-Kubernetes 1.18 is not fully tested and there might be incompatibilities.
-
+There is a [known issue when deploying to Kubernetes 1.18](https://github.com/rabbitmq/cluster-operator/issues/230).
 
 ## <a id='installation' class='anchor' href='#installation'>Installation</a>
 
