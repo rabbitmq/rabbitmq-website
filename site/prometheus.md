@@ -538,7 +538,7 @@ Finally, switch the default data source used by Grafana to `prometheus`.
 Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
 
 
-## <a id="tls" class="anchor" href="#tls">Securing Prometheus Scarping Endpoint with TLS</a>
+## <a id="tls" class="anchor" href="#tls">Securing Prometheus Scraping Endpoint with TLS</a>
 
 The Prometheus metrics can be secured with TLS similar to the other listeners.
 For example, in the [configuration file](/configure.html#configuration-file)
