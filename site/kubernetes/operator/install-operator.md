@@ -42,7 +42,7 @@ If you can't pull images from Docker Hub directly to your Kubernetes cluster, yo
 <pre class="lang-bash">
 docker pull rabbitmqoperator/rabbitmq-cluster-kubernetes-operator-dev:latest
 docker tag rabbitmqoperator/rabbitmq-cluster-kubernetes-operator-dev:latest {someregistry}/rabbitmq-cluster-kubernetes-operator-dev:latest
-docker push {someregistry}/cluster-operator:{latest
+docker push {someregistry}/cluster-operator:latest
 </pre>
 
 The value of `{someregistry}` should be the address of an OCI compatible registry.
