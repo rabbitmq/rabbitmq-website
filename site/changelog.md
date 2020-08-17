@@ -39,6 +39,32 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.7</td>
+    <td class="centre">17 August 2020</td>
+    <td>
+      <ul>
+        <li>Security vulnerability (<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>) fix, CVE details is to be announced at a later point</li>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.7">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.7.28</td>
+    <td class="centre">17 August 2020</td>
+    <td>
+      <ul>
+        <li>Security vulnerability (<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>) fix, CVE details is to be announced at a later point</li>
+        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.28">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.6</td>
     <td class="centre">4 August 2020</td>
     <td>

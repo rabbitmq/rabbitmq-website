@@ -98,8 +98,8 @@ Therefore, as long as the 3.8.x node has all its feature flags disabled,
 it is compatible with a 3.7.x node.
 
 However, note that only upgrading from one minor to the next minor
-or major is supported. To upgrade from e.g. 3.8.6 to 3.10.0, it is
-necessary to upgrade to 3.9.x first. Likewise if there is one or more
+or major is supported. To upgrade from e.g. 3.6.16 to 3.8.7, it is
+necessary to upgrade to 3.7.28 first. Likewise if there is one or more
 minor release branches between the minor version used and the next
 major release. That might work (i.e. there could be no incompatible
 changes between major releases), but this scenario is unsupported by design
