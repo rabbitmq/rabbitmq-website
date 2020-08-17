@@ -137,6 +137,22 @@ In this example RabbitMQ will listen on an IPv4 interface only:
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
+It is possible to disable non-TLS connections by disabling all regular TCP listeners.
+Only [TLS-enabled](/ssl.html) clients will be able to connect:
+
+<pre class="lang-ini">
+# disables non-TLS listeners, only TLS-enabled clients will be able to connect
+listeners.tcp = none
+
+listeners.ssl.default = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+</pre>
+
 
 ## <a id="ports" class="anchor" href="#ports">Port Access</a>
 

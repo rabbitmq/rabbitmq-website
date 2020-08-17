@@ -250,8 +250,7 @@ Here are the essential configuration settings related to TLS:
   </tr>
 </table>
 
-The options are provided in the <a
-href="configure.html#configuration-file">configuration
+The options are provided in the <a href="configure.html#configuration-file">configuration
 file</a>. An example of the config file is below, which
 will start one TLS listener on port 5671 on all interfaces
 on this hostname:
@@ -266,7 +265,23 @@ ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = false
 </pre>
 
-Below is the same example using the [classic config format](/configure.html#erlang-term-config-file):
+It is possible to completely disable regular (non-TLS) listeners. Only TLS-enabled
+clients would be able to connect to such a node, and only if they use the correct port:
+
+<pre class="lang-ini">
+# disables non-TLS listeners, only TLS-enabled clients will be able to connect
+listeners.tcp = none
+
+listeners.ssl.default = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+TLS settings can also be configured using the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
