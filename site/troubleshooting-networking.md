@@ -45,6 +45,7 @@ are often effective and sufficient:
  * Verify what TCP [port are used and their accessibility](#ports)
  * Verify [IP routing](#ip-routing)
  * If needed, [take and analyze a traffic dump](#traffic-capture) (traffic capture)
+ * Verify that clients can [successfully authenticate](/access-control.html#troubleshooting-authn)
 
 These steps, when performed in sequence, usually help identify the root cause of
 the vast majority of networking issues. Troubleshooting tools and techniques for
