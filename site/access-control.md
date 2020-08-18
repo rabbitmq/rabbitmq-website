@@ -258,6 +258,17 @@ rabbitmqctl clear_permissions -p "custom-vhost" "username"
 rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 </pre>
 
+### Operations on Multiple Virtual Hosts
+
+Every `rabbitmqctl` permission management operation is scoped to a single virtual host.
+Bulk operations have to be scripted, with the list of virtual hosts coming from `rabbitmqctl list_vhosts --silent`:
+
+<pre class="lang-bash">
+# Assumes a Linux shell.
+# Grants a user permissions to all virtual hosts.
+for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p $v "a-user" ".*" ".*" ".*"; done
+</pre>
+
 
 ## <a id="seeding" class="anchor" href="#seeding">Seeding (Pre-creating) Users and Permissions</a>
 
@@ -402,20 +413,23 @@ perform permission checks.
 </table>
 
 Permissions are expressed as a triple of regular expressions
-- one each for configure, write and read - on per-vhost
+— one each for configure, write and read — on per-vhost
 basis. The user is granted the respective permission for
 operations on all resources with names matching the regular
-expressions. <i>(Note: For convenience RabbitMQ maps AMQP's
+expressions.
+
+For convenience RabbitMQ maps AMQP 0-9-1's
 default exchange's blank name to 'amq.default' when
-performing permission checks.)</i>
+performing permission checks.
 
 The regular expression <code>'^$'</code>, i.e. matching
 nothing but the empty string, covers all resources and
 effectively stops the user from performing any operation.
-Standard AMQP resource names are prefixed with
+Built-in AMQP 0-9-1 resource names are prefixed with
 <code>amq.</code> and server generated names are prefixed
-with <code>amq.gen</code>.  For example,
-<code>'^(amq\.gen.*|amq\.default)$'</code> gives a user access to
+with <code>amq.gen</code>.
+
+For example, <code>'^(amq\.gen.*|amq\.default)$'</code> gives a user access to
 server-generated names and the default exchange.  The empty
 string, <code>''</code> is a synonym for <code>'^$'</code>
 and restricts permissions in the exact same way.
@@ -425,8 +439,8 @@ per-connection or per-channel basis. Hence changes to user
 permissions may only take effect when the user reconnects.
 
 For details of how to set up access control, please see the
-[Access Control section](rabbitmqctl.8.html#Access_Control)
-of the [rabbitmqctl man page](rabbitmqctl.8.html).
+[User management](#user-management) section
+as well as the [rabbitmqctl man page](rabbitmqctl.8.html).
 
 
 ### <a id="user-tags" class="anchor" href="#user-tags">User Tags and Management UI Access</a>
