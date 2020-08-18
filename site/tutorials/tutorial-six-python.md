@@ -257,15 +257,15 @@ channel.start_consuming()
 
 The server code is rather straightforward:
 
-  * (4) As usual we start by establishing the connection and declaring
-    the queue.
-  * (11) We declare our fibonacci function. It assumes only valid positive integer input.
+  * As usual we start by establishing the connection and declaring
+    the queue `rpc_queue`.
+  * We declare our fibonacci function. It assumes only valid positive integer input.
     (Don't expect this one to work for big numbers,
     it's probably the slowest recursive implementation possible).
-  * (19) We declare a callback for `basic_consume`,
+  * We declare a callback `on_request` for `basic_consume`,
     the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
-  * (32) We might want to run more than one server process. In order
+  * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
     `prefetch_count` setting.
 
@@ -323,24 +323,23 @@ print(" [.] Got %r" % response)
 
 The client code is slightly more involved:
 
-  * (7) We establish a connection, channel and declare an
-    exclusive 'callback' queue for replies.
-  * (16) We subscribe to the 'callback' queue, so that
+  * We establish a connection, channel and declare an
+    exclusive `callback_queue` for replies.
+  * We subscribe to the `callback_queue`, so that
     we can receive RPC responses.
-  * (18) The 'on_response' callback executed on every response is
+  * The `on_response` callback executed on every response is
     doing a very simple job, for every response message it checks if
     the `correlation_id` is the one we're looking for. If so, it saves
     the response in `self.response` and breaks the consuming loop.
-  * (23) Next, we define our main `call` method - it does the actual
+  * Next, we define our main `call` method - it does the actual
     RPC request.
-  * (24) In this method, first we generate a unique `correlation_id`
-    number and save it - the 'on_response' callback function will
+  * In `call` method, we generate a unique `correlation_id`
+    number and save it - the `on_response` callback function will
     use this value to catch the appropriate response.
-  * (25) Next, we publish the request message, with two properties:
+  * Also in `call` method, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (32) At this point we can sit back and wait until the proper
-    response arrives.
-  * (33) And finally we return the response back to the user.
+  * At the end we wait until the proper response
+    arrives and return the response back to the user.
 
 Our RPC service is now ready. We can start the server:
 
