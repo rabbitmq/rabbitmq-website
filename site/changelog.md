@@ -43,7 +43,7 @@ published separately.
     <td class="centre">17 August 2020</td>
     <td>
       <ul>
-        <li>Security vulnerability (<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>) fix, CVE details is to be announced at a later point</li>
+        <li>Security vulnerability fix, CVE details is to be announced at a later point</li>
         <li>Bug fixes</li>
       </ul>
     </td>
@@ -55,7 +55,7 @@ published separately.
     <td class="centre">17 August 2020</td>
     <td>
       <ul>
-        <li>Security vulnerability (<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>) fix, CVE details is to be announced at a later point</li>
+        <li>Security vulnerability fix, CVE details is to be announced at a later point</li>
         <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
       </ul>
     </td>

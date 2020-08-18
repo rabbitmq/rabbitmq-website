@@ -44,8 +44,8 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.7.
         </p>
         <p>
-          This is a maintenance release that includes a security patch for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>
-          (CVE details are to be announced at a later point).
+          This is a maintenance release that includes a security vulnerability fix (CVE details are
+          to be announced at a later point).
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
@@ -75,8 +75,8 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.28.
         </p>
         <p>
-          This is a maintenance release that includes a security patch for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5419">CVE-2020-5419</a>
-          (CVE details are to be announced at a later point).
+          This is a maintenance release that includes a security vulnerability fix (CVE details are
+          to be announced at a later point).
           Release notes can be found <a href="/changelog.html">in the change log</a>.
           RabbitMQ 3.7 series are now <a href="/versions.html">only covered under the limited extended support policy</a>.
         </p>
