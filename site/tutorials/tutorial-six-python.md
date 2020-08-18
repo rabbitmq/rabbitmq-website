@@ -327,7 +327,7 @@ The client code is slightly more involved:
     exclusive `callback_queue` for replies.
   * We subscribe to the `callback_queue`, so that
     we can receive RPC responses.
-  * The `on_response` callback executed on every response is
+  * The `on_response` callback that got executed on every response is
     doing a very simple job, for every response message it checks if
     the `correlation_id` is the one we're looking for. If so, it saves
     the response in `self.response` and breaks the consuming loop.
