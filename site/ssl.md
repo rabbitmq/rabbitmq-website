@@ -1172,17 +1172,7 @@ are encouraged to limit supported TLS versions to 1.2 and later versions only.
 
 ### <a id="tls-versions-server" class="anchor" href="#tls-versions-server"></a>
 
-To limit enabled TLS protocol versions, use the `ssl_options.versions` setting:
-
-<pre class="lang-ini">
-listeners.ssl.1        = 5671
-ssl_options.cacertfile = /path/to/ca_certificate.pem
-ssl_options.certfile   = /path/to/server_certificate.pem
-ssl_options.keyfile    = /path/to/server_key.pem
-ssl_options.versions.1 = tlsv1.2
-ssl_options.versions.2 = tlsv1.1
-ssl_options.versions.3 = tlsv1
-</pre>
+To limit enabled TLS protocol versions, use the `ssl_options.versions` setting.
 
 The example below disable versions older than TLSv1.1:
 
@@ -1193,20 +1183,6 @@ ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.versions.1 = tlsv1.2
 ssl_options.versions.2 = tlsv1.1
-</pre>
-
-The same example using the [advanced config](/configure.html#advanced-config-file) format:
-
-<pre class="lang-erlang">
-%% Disable SSLv3.0 and TLSv1.0 support.
-[
- {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
- {rabbit, [
-           {ssl_options, [
-                          {versions, ['tlsv1.2', 'tlsv1.1']}
-                         ]}
-          ]}
-].
 </pre>
 
 ### <a id="verifying-tls-versions" class="anchor" href="#verifying-tls-versions">Verifying Enabled TLS Versions</a>
