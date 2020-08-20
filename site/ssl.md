@@ -296,6 +296,13 @@ TLS settings can also be configured using the [classic config format](/configure
 ].
 </pre>
 
+When a TLS listener is set up it may be desired to disable all non-TLS ones.
+This can be configured like so:
+
+<pre class="lang-ini">
+listeners.tcp   = none
+</pre>
+
 ### <a id="enabling-tls-paths" class="anchor" href="#enabling-tls-paths">Certificate and Private Key File Paths</a>
 
 RabbitMQ must be able to read its configured CA certificate bundle, server certificate and private key. The files
