@@ -110,7 +110,7 @@ environment variable, which is always upper-case. Later versions of RabbitMQ
 use `HOSTNAME` which may be lowercase. If you are upgrading from an old
 (pre-`3.6.0`) version of RabbitMQ to a current one and see [the issue described
 here](https://github.com/rabbitmq/rabbitmq-server/issues/1568), you should set
-a system-wide environment variable named `RABBITMO_NODENAME` with the following
+a system-wide environment variable named `RABBITMQ_NODENAME` with the following
 value:
 
 ```
