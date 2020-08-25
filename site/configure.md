@@ -1219,11 +1219,13 @@ proxy_protocol = false
   <tr>
     <td><code>cluster_name</code></td>
     <td>
-      Cluster name that is announced to clients on connection, and used by the federation and shovel plugins to record where a message has been.
+      Operator-controlled cluster name. This name is used to identify a cluster, and by
+      the federation and Shovel plugins to record the origin or path of transferred messages.
       Can be set to any arbitrary string to help identify the cluster (eg. <code>london</code>).
+      This name can be inspected by AMQP 0-9-1 clients in the server properties map.
 
       <p>
-        Default: The cluster name is by default derived from the hostname of the first node in the cluster
+        Default: by default the name is derived from the first (seed) node in the cluster.
       </p>
     </td>
   </tr>
