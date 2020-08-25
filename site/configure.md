@@ -1216,6 +1216,17 @@ proxy_protocol = false
       </p>
     </td>
   </tr>
+  <tr>
+    <td><code>cluster_name</code></td>
+    <td>
+      Cluster name that is announced to clients on connection, and used by the federation and shovel plugins to record where a message has been.
+      Can be set to any arbitrary string to help identify the cluster (eg. <code>london</code>).
+
+      <p>
+        Default: The cluster name is by default derived from the hostname of the first node in the cluster
+      </p>
+    </td>
+  </tr>
 </table>
 
 The following configuration settings can be set in
