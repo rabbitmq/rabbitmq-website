@@ -96,7 +96,7 @@ messages from the queue and perform the task, so let's call it `worker.py`:
 import time
 
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(" [x] Received %r" % body.decode())
     time.sleep(body.count(b'.'))
     print(" [x] Done")
 </pre>
@@ -204,7 +204,7 @@ from the worker, once we're done with a task.
 
 <pre class="lang-python">
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(" [x] Received %r" % body.decode())
     time.sleep( body.count('.') )
     print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
@@ -400,7 +400,7 @@ print(' [*] Waiting for messages. To exit press CTRL+C')
 
 
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(" [x] Received %r" % body.decode())
     time.sleep(body.count(b'.'))
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
