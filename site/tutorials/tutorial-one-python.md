@@ -143,8 +143,9 @@ connection.close()
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 200 MB free) and is therefore refusing to
-> accept messages. Check the broker logfile to confirm and reduce the
-> limit if necessary. The <a
+> accept messages. Check the <a
+> href="https://www.rabbitmq.com/logging.html#log-file-location">broker logfile
+> </a> to confirm and reduce the limit if necessary. The <a
 > href="https://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
@@ -236,11 +237,23 @@ created a queue above &#8210; using `queue_declare`.
 The `auto_ack` parameter will be described [later on](tutorial-two-python.html).
 
 And finally, we enter a never-ending loop that waits for data and runs callbacks
-whenever necessary.
+whenever necessary, and catch `KeyboardInterrupt` during program shutdown.
 
 <pre class="lang-python">
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
+</pre>
+
+<pre class="lang-python">
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Interrupted')
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
 </pre>
 
 ### Putting it all together
@@ -266,24 +279,31 @@ connection.close()
 
 <pre class="lang-python">
 #!/usr/bin/env python
-import pika
+import pika, sys, os
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
+def main():
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
 
-channel.queue_declare(queue='hello')
+    channel.queue_declare(queue='hello')
 
+    def callback(ch, method, properties, body):
+        print(" [x] Received %r" % body)
 
-def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
 
+    print(' [*] Waiting for messages. To exit press CTRL+C')
+    channel.start_consuming()
 
-channel.basic_consume(
-    queue='hello', on_message_callback=callback, auto_ack=True)
-
-print(' [*] Waiting for messages. To exit press CTRL+C')
-channel.start_consuming()
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Interrupted')
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
 </pre>
 
 Now we can try out our programs in a terminal. First, let's start
