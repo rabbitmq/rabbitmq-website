@@ -265,7 +265,7 @@ When no configuration is specified the MQTT plugin will listen on
 all interfaces on port 1883 and have a default user login/passcode
 of `guest`/`guest`.
 
-To change this, edit your
+To change the listener port, edit your
 [Configuration file](/configure.html#configuration-file),
 to contain a `tcp_listeners` variable for the `rabbitmq_mqtt` application.
 

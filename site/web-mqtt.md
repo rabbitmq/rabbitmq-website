@@ -132,9 +132,9 @@ We encourage you to take a look [at the source code](https://github.com/rabbitmq
 When no configuration is specified the Web MQTT plugin will listen on
 all interfaces on port 15675 and have a default user login and password of
 `guest`/`guest`. Note that this user is only [allowed to connect from localhost](/access-control.html) by default.
-We highly recommend creating a separate user production systems.
+We highly recommend creating a separate user for production systems.
 
-To change this, edit your
+To change the listener port, edit your
 [Configuration file](/configure.html#configuration-file),
 to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 
