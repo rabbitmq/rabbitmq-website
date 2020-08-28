@@ -1746,21 +1746,20 @@ More variables are covered in the [File and Directory Locations guide](/relocate
       Main RabbitMQ config file path, for example,
       <code>/etc/rabbitmq/rabbitmq.conf</code> or <code>/data/configuration/rabbitmq.conf</code> for new style configuration format files.
       If classic config format it used, the extension must be <code>.config</code>
-      or can be omitted entirely.
 
       <p>
         <strong>Default</strong>:
 
         <ul>
-          <li><b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq</code>
+          <li><b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf</code>
           </li>
-          <li><b>Debian</b>: <code>/etc/rabbitmq/rabbitmq</code></li>
-          <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq</code></li>
+          <li><b>Debian</b>: <code>/etc/rabbitmq/rabbitmq.conf</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/rabbitmq.conf</code></li>
           <li>
-            <b>MacOS(Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/rabbitmq</code>,
+            <b>MacOS(Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/rabbitmq.conf</code>,
             the Homebrew prefix is usually <code>/usr/local</code>
           </li>
-          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\rabbitmq</code></li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\rabbitmq.conf</code></li>
         </ul>
       </p>
     </td>
@@ -1777,15 +1776,15 @@ More variables are covered in the [File and Directory Locations guide](/relocate
 
         <ul>
           <li>
-            <b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/advanced</code>
+            <b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/advanced.config</code>
           </li>
-          <li><b>Debian</b>: <code>/etc/rabbitmq/advanced</code></li>
-          <li><b>RPM</b>: <code>/etc/rabbitmq/advanced</code></li>
+          <li><b>Debian</b>: <code>/etc/rabbitmq/advanced.config</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/advanced.config</code></li>
           <li>
-            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/advanced</code>,
+            <b>MacOS (Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/advanced.config</code>,
             the Homebrew prefix is usually <code>/usr/local</code>
           </li>
-          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\advanced</code></li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\advanced.config</code></li>
         </ul>
       </p>
     </td>
