@@ -90,8 +90,8 @@ good enough for some applications.
 > We mentioned at the beginning that the broker confirms published
 > messages asynchronously but in the first example the code waits
 > synchronously until the message is confirmed. The client actually
-> receives confirms asynchronously and unblocks the call to `waitForConfirmsOrDie`
-> accordingly. Think of `waitForConfirmsOrDie` as a synchronous helper
+> receives confirms asynchronously and unblocks the call to `WaitForConfirmsOrDie`
+> accordingly. Think of `WaitForConfirmsOrDie` as a synchronous helper
 > which relies on asynchronous notifications under the hood.
 
 
