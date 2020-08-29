@@ -121,7 +121,7 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the channel and the connection;
+Lastly, we close the channel and the connection:
 
 <pre class="lang-php">
 $channel->close();
