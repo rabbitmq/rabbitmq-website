@@ -203,7 +203,7 @@ q.subscribe(manualAck, handler: {(_ message: RMQMessage) -> Void in
 })
 </pre>
 
-Using this code we can be sure that even if a worker dies using while it was
+Using this code we can be sure that even if a worker dies while it was
 processing a message, nothing will be lost. Soon after the worker dies all
 unacknowledged messages will be redelivered.
 
