@@ -121,7 +121,7 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the connection and exit;
+Lastly, we close the connection and exit:
 
 <pre class="lang-javascript">
 setTimeout(function() { 

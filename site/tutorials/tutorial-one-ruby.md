@@ -115,7 +115,7 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the connection;
+Lastly, we close the connection:
 
 <pre class="lang-ruby">
 connection.close
