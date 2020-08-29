@@ -227,7 +227,7 @@ and the Shovel to use TLS when connecting.
   
 To configure Shovel to use TLS, one needs to
 
- * Specify CA certificate and client certificate/key pair, as well as other parameters (e.g. [peer verification depth](/ssl.html#peer-verification-)) via [URI query parameters](/uri-query-parameters.html)
+ * Specify CA certificate and client certificate/key pair, as well as other parameters (e.g. [peer verification depth](/ssl.html#peer-verification-depth)) via [URI query parameters](/uri-query-parameters.html)
  * Configure Erlang client to [use TLS](/ssl.html)
 
 
