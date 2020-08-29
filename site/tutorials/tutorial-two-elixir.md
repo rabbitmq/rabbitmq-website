@@ -269,7 +269,7 @@ unless you tell it not to. Two things are required to make sure that
 messages aren't lost: we need to mark both the queue and messages as
 durable.
 
-First, we need to make sure that the queue will survive a RabbitMQ node.
+First, we need to make sure that the queue will survive a RabbitMQ node restart.
 In order to do so, we need to declare it as _durable_:
 
 <pre class="lang-elixir">
@@ -291,7 +291,7 @@ This `AMQP.Queue.declare` change needs to be applied to both the producer
 and consumer code.
 
 At that point we're sure that the `task_queue` queue won't be lost
-even if RabbitMQ s. Now we need to mark our messages as persistent
+even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `persistent: true` property.
 
 <pre class="lang-elixir">
