@@ -40,7 +40,7 @@ their pros and cons.
 
 ### Enabling Publisher Confirms on a Channel
 
-Publishers confirms are a RabbitMQ extension to the AMQP 0.9.1 protocol,
+Publisher confirms are a RabbitMQ extension to the AMQP 0.9.1 protocol,
 so they are not enabled by default. Publisher confirms are
 enabled at the channel level with the `confirmSelect` method:
 
@@ -203,7 +203,7 @@ The previous sample contains a callback that cleans the map when
 confirms arrive. Note this callback handles both single and multiple
 confirms. This callback is used when confirms arrive (as the first argument of
 `Channel#addConfirmListener`). The callback for nack-ed messages
-retrieves the message body and issue a warning. It then re-uses the
+retrieves the message body and issues a warning. It then re-uses the
 previous callback to clean the map of outstanding confirms (whether
 messages are confirmed or nack-ed, their corresponding entries in the map
 must be removed.)
@@ -213,7 +213,7 @@ must be removed.)
 > Our samples use a `ConcurrentNavigableMap` to track outstanding confirms.
 > This data structure is convenient for several reasons. It allows to
 > easily correlate a sequence number with a message (whatever the message data
-> is) and to easily clean the entries up to a give sequence id (to handle
+> is) and to easily clean the entries up to a given sequence id (to handle
 > multiple confirms/nacks). At last, it supports concurrent access, because
 > confirm callbacks are called in a thread owned by the client library, which
 > should be kept different from the publishing thread.
@@ -309,7 +309,7 @@ We see publishing individually now performs terribly. But
 with the network between the client and the server, batch publishing and asynchronous handling
 now perform similarly, with a small advantage for asynchronous handling of the publisher confirms.
 
-Remember that batch publishing is simple to implement, but do not make it easy to know
+Remember that batch publishing is simple to implement, but does not make it easy to know
 which message(s) could not make it to the broker in case of negative publisher acknowledgment.
 Handling publisher confirms asynchronously is more involved to implement but provide
 better granularity and better control over actions to perform when published messages
