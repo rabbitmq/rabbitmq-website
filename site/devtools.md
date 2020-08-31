@@ -105,6 +105,8 @@ Miscellaneous projects:
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
+ * [foo-foo-mq](https://github.com/foo-foo-mq/foo-foo-mq): an opinionated abstraction over [amqp.node](https://github.com/squaremo/amqp.node)
+   that uses reasonable assumptions and defaults to simplify the implementation messaging patterns on RabbitMQ.
 
 
 ## <a id="objc-swift-dev" class="anchor" href="#objc-swift-dev">Objective-C and Swift</a>
