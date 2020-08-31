@@ -395,6 +395,29 @@ spec:
       channel_max = 1050
 </pre>
 
+### <a name='advanced-config' class='anchor' href='#advanced-config'>RabbitMQ Advanced Configuration</a>
+
+**Description:** Advanced configuration that will be written to `/etc/rabbitmq/advanced.config` file.
+
+**Default Value:** N/A
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  rabbitmq:
+    advancedConfig: |
+      [
+          {ra, [
+              {wal_data_dir, '/var/lib/rabbitmq/quorum-wal'}
+          ]}
+      ].
+</pre>
+
 ### <a name='additional-plugins' class='anchor' href='#additional-plugins'>RabbitMQ Additional Plugins</a>
 
 **Description:** Additional plugins to enable in RabbitMQ. RabbitMQ Cluster Kubernetes Operator enabled `rabbitmq_peer_discovery_k8s`,
@@ -644,6 +667,14 @@ The configurations are listed in the table below.
       <td>
         Additional configuration to append to the Cluster Generated configuration. Check <a href='#additional-config'>Additional Config</a>
 	section for the list of always generated configuration.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.rabbitmq.advancedConfig</code>
+      </td>
+      <td>
+        RabbitMQ <code>advanced.config</code>. See <a href='#advanced-config'>RabbitMQ Advanced Configuration</a> for an example.
       </td>
     </tr>
     <tr>
