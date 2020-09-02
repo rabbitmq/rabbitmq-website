@@ -27,8 +27,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 ## <a id="supported-version-policy" class="anchor" href="#supported-version-policy">Supported Erlang Version Policy</a>
 
 [Starting in January 2019](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ),
-RabbitMQ supports two most recent Erlang release series: `23.x` and `22.x`,
-plus `21.x` for a transitionary period that will end on **September 1st, 2020**.
+RabbitMQ supports two most recent Erlang release series: `23.x` and `22.x`.
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
