@@ -35,6 +35,40 @@ limitations under the License.
      will give you a suitable RFC 3339 value.
     -->
 
+
+    <doc:item>
+      <doc:date iso="2020-09-03T18:00:00+00:00">3 September 2020</doc:date>
+      <doc:title>RabbitMQ 3.8.8 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.8</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.8.
+        </p>
+        <p>
+          This is a maintenance release that focuses on bug fixes and usability improvements.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This is the last release to <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">support Erlang/OTP 21.3</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq">Package Cloud</a> and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
     <doc:item>
       <doc:date iso="2020-08-17T18:00:00+00:00">17 August 2020</doc:date>
       <doc:title>RabbitMQ 3.8.7 release</doc:title>
@@ -44,8 +78,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.7.
         </p>
         <p>
-          This is a maintenance release that includes a security vulnerability fix (CVE details are
-          to be announced at a later point).
+          This is a maintenance release that includes a security vulnerability fix (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>).
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
@@ -75,8 +108,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.7.28.
         </p>
         <p>
-          This is a maintenance release that includes a security vulnerability fix (CVE details are
-          to be announced at a later point).
+          This is a maintenance release that includes a security vulnerability fix (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>).
           Release notes can be found <a href="/changelog.html">in the change log</a>.
           RabbitMQ 3.7 series are now <a href="/versions.html">only covered under the limited extended support policy</a>.
         </p>
