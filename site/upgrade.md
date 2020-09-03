@@ -11,8 +11,9 @@ It is important to consider a number of things before upgrading RabbitMQ.
 1. [Erlang version requirement](#rabbitmq-erlang-version-requirement)
 1. [Plugin compatibility between versions](#rabbitmq-plugins-compatibility)
 1. Features [that do not support in-place upgrade](#unsupported-inplace-upgrade)
-1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version.
+1. [Changes in system resource usage and reporting](#system-resource-usage) in the new version
 1. How upgrades of [multi-node clusters](#clusters) is different from those with only a single node
+1. Marking [nodes for maintenance](#maintenance-mode)
 1. [Caveats](#caveats)
 1. [Handling node restarts](#rabbitmq-restart-handling) in applications
 
@@ -252,22 +253,104 @@ refuse to join its peer (cluster).
 Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
-#### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">Restarting Nodes</a>
+
+### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">When to Restar Nodes</a>
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
 can check for that via the management UI. Confirm that:
 
-* the `rabbitmqctl wait &lt;pidfile&gt;` command returns;
-* the node is fully started from the overview page;
-* queues are [synchronised](#mirrored-queues-synchronisation) from the queues list.
+* the `rabbitmqctl await_startup` (or `rabbitmqctl wait &lt;pidfile&gt;`) command returns
+* the node starts and rejoins its cluster according to the management overview page or `rabbitmq-diagnostics cluster_status`
+* the node is not quorum-critical for any [quorum queues](#quorum-queues) it hosts
+* all classic mirrored queues have [synchronised mirrors](#mirrored-queues-synchronisation)
 
-During a rolling upgrade connections and queues will be rebalanced.
-This will put more load on the broker. This can impact performance
-and stability of the cluster. It's not recommended to perform rolling
-upgrades under high load.
+During a rolling upgrade, client connection recovery will make sure that connections
+are rebalanced. Primary queue replicas will migrate to other nodes.
+In practice this will put more load on the remaining cluster nodes.
+This can impact performance and stability of the cluster.
+It's not recommended to perform rolling upgrades under high load.
 
-### <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>
+Starting with RabbitMQ 3.8.8, nodes can be put into maintenance mode to prepare them for
+shutdown during rolling upgrades.
+
+
+## <a id="maintenance-mode" class="anchor" href="#maintenance-mode">Maintenance Mode</a>
+
+### What is Maintenance Mode?
+
+Maintenance mode. This is a new mode operation mode for RabbitMQ nodes.
+The mode is explicitly turned on and off by the operator using a bunch of new CLI commands covered below. For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](/feature-flags.html)
+once all cluster members have been upgraded to a version that supports it:
+
+<pre class="lang-bash">
+rabbitmqctl enable_feature_flag maintenance_mode_status
+</pre>
+
+### Put a Node into Maintenance Mode
+
+To put a node under maintenance, use `rabbitmq-upgrade drain`:
+
+<pre class="lang-bash">
+rabbitmq-upgrade drain
+</pre>
+
+As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
+using the `-n` switch:
+
+<pre class="lang-bash">
+# puts node rabbit@node2.cluster.rabbitmq.svc into maintenance mode
+rabbitmq-upgrade drain -n rabbit@node2.cluster.rabbitmq.svc
+</pre>
+
+When a node is in maintenance mode, it **will not be available for serving client traffic**
+and will try to transfer as many of its responsibilities as practically possible and safe.
+
+Currently this involves the following steps:
+
+* Suspend all client connection listeners (no new client connections will be accepted)
+* Close all existing client connections: applications are expected to reconnect to other nodes and recover
+* Transfer primary replicas of all classic mirrored queues hosted on the target node
+* Transfer primary replicas of all quorum queues hosted on the target node, and prevent them from participating
+    in the subsequently triggered Raft elections
+* Mark the node as down for maintenance
+* At this point, a node shutdown will be least disruptive as the node has already transferred most of its
+    responsibilities
+
+A node in maintenance mode will not be considered for new primary queue replica placement, regardless
+of queue type and the [queue master locator policy](/ha.html#master-migration-data-locality) used.
+
+This feature is expected to evolve based on the feedback from RabbitMQ operators, users,
+and RabbitMQ core team's own experience with it.
+
+A node in maintenance mode is expected to be shut down, upgraded or reconfigured, and restarted in a short
+period of time (say, 5-30 minutes). Nodes are not expected to be running in this mode for long periods of time.
+
+### Revive a Node from Maintenance Mode
+
+A node in maintenance mode can be *revived*, that is, **brough back into its regular operational state**,
+using `rabbitmq-upgrade revive`:
+
+<pre class="lang-bash">
+rabbitmq-upgrade revive
+</pre>
+
+As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
+using the `-n` switch:
+
+<pre class="lang-bash">
+# revives node rabbit@node2.cluster.rabbitmq.svc from maintenance
+rabbitmq-upgrade revive -n rabbit@node2.cluster.rabbitmq.svc
+</pre>
+
+When a node is revived or restarted (e.g. after an upgrade), it will again accept client connections
+and be considered for primary queue replica placements.
+
+It will not recover previous client connections as RabbitMQ never initiates connections
+to clients, but clients will be able to reconnect to it.
+
+
+## <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>
 
 When an entire cluster is stopped for upgrade, the order in which nodes are
 stopped and started is important.
