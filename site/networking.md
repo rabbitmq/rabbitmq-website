@@ -187,7 +187,7 @@ It is possible to [configure RabbitMQ](/configure.html)
 to use [different ports and specific network interfaces](/networking.html).
 
 
-## <a id="#listener-suspension" class="anchor" href="#listener-suspension">How to Temporarily Stop New Client Connections</a>
+## <a id="listener-suspension" class="anchor" href="#listener-suspension">How to Temporarily Stop New Client Connections</a>
 
 Starting with RabbitMQ `3.8.8`, client connection listeners can be *suspended* to prevent new client
 connections from being accepted. Existing connections will not be affected in any way.
