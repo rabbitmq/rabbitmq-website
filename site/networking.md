@@ -229,15 +229,15 @@ Both operations will leave [log entries](/logging.html) in the node's log.
 
 [epmd](http://www.erlang.org/doc/man/epmd.html) (for Erlang Port Mapping Daemon)
 is a small additional daemon that runs alongside every RabbitMQ node and is used by
-the [runtime](/runtime.html) to discover what port a particular node listens on.
-The port is then used by peer nodes and [CLI tools](/cli.html).
+the [runtime](/runtime.html) to discover what port a particular node listens on for
+inter-node communication. The port is then used by peer nodes and [CLI tools](/cli.html).
 
 When a node or CLI tool needs to contact node `rabbit@hostname2` it will do the following:
 
  * Resolve `hostname2` to an IPv4 or IPv6 address using the standard OS resolver or a custom one specified in the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
  * Contact `epmd` running on `hostname2` using the above address
  * Ask `epmd` for the port used by node `rabbit` on it
- * Contact the node using the resolved IP address and discovered port
+ * Connect to the node using the resolved IP address and the discovered port
  * Proceed with communication
 
 ### <a id="epmd-interface" class="anchor" href="#epmd-interface">EPMD Interface</a>
