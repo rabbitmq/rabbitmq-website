@@ -349,6 +349,41 @@ and be considered for primary queue replica placements.
 It will not recover previous client connections as RabbitMQ never initiates connections
 to clients, but clients will be able to reconnect to it.
 
+### Verify Maintenance Status of a Node
+
+If the maintenance mode status feature flag is enabled, node maintenance status will be reported
+in `rabbitmq-diagnostics status` and `rabbitmq-diagnostics cluster_status`.
+
+If the feature flag is not enabled, the status will be reported as unknown.
+
+Here's an example `rabbitmq-diagnostics status` output of a node under maintenance:
+
+<pre class="lang-plaintext">
+Status of node rabbit@hostname ...
+Runtime
+
+OS PID: 25531
+OS: macOS
+Uptime (seconds): 48540
+Is under maintenance?: true
+
+# ...
+</pre>
+
+Compare this to this example output from a node in regular operating mode:
+
+<pre class="lang-plaintext">
+Status of node rabbit@hostname ...
+Runtime
+
+OS PID: 25531
+OS: macOS
+Uptime (seconds): 48540
+Is under maintenance?: false
+
+# ...
+</pre>
+
 
 ## <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>
 
