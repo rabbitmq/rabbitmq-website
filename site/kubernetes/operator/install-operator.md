@@ -89,3 +89,42 @@ Now update your service account by running:
 kubectl -n rabbitmq-system patch serviceaccount \
 rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-registry-access"}]}'
 </pre>
+
+### <a id='openshift' class='anchor' href='#openshift'>Installation on OpenShift</a>
+
+The RabbitMQ cluster operator runs as user ID `1000` and RabbitMQ runs as user ID `999`.
+By default OpenShift has security context constraints which disallow to create pods running with these user IDs.
+To install the RabbitMQ cluster operator on OpenShift, you need perform the following steps:
+
+1. In above [installation steps](#installation), after creating the namespace via `kubectl create -f config/namespace/base/namespace.yaml` but before
+creating the manager via `kubectl -n rabbitmq-system create --kustomize config/manager/`, change the following fields:
+
+<pre class="lang-bash">
+oc edit namespace rabbitmq-system
+</pre>
+
+<pre class="lang-yaml">
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+...
+    openshift.io/sa.scc.supplemental-groups: 1000/1
+    openshift.io/sa.scc.uid-range: 1000/1
+</pre>
+
+2. For every namespace where the RabbitMQ cluster custom resources will be created (here we assume `default` namespace), change the following fields:
+
+<pre class="lang-bash">
+oc edit namespace default
+</pre>
+
+<pre class="lang-yaml">
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+...
+    openshift.io/sa.scc.supplemental-groups: 999/1
+    openshift.io/sa.scc.uid-range: 999/1
+</pre>
