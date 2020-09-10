@@ -243,5 +243,5 @@ limitations under the License.
    </x:page>
    <x:page url="/getstarted.html" text="Tutorials"/>
    <x:page url="/services.html" text="Support"/>
-   <x:page url="https://careers.vmware.com/main/jobs?page=1&tags1=Engineering%20and%20Technology&sortBy=posted_date&descending=true" text="VMware is Hiring"/>
+   <x:page url="https://careers.vmware.com" text="VMware is Hiring"/>
 </x:pages>
