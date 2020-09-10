@@ -31,13 +31,13 @@ Pricing is available [here](https://www.vmware.com/products/pivotal-rabbitmq.htm
 
 ### RabbitMQ for VMware Tanzu
 
-[RabbitMQ for VMware Tanzu [VMs]](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
+[VMware Tanzu™ RabbitMQ® for VMs](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
 gives developers self-service access to on-demand RabbitMQ clusters
-running on [VMware Tanzu platform](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
+running on [VMware Tanzu™ platform](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
 ### RabbitMQ for Kubernetes
 
-[RabbitMQ for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
+[Tanzu™ RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
 simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
 based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
 
@@ -57,12 +57,12 @@ best practice design and architecture.
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[AceMQ](https://acemq.com/rabbitmq/) and others provide <strong>professional consulting services</strong>
+[AceMQ](https://acemq.com/rabbitmq/) and others provide **professional consulting services**
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.
 
-# Contacts for Commercial Support or Services
+## Contacts for Commercial Support or Services
 
 For any questions about the commercial licensing, support, consulting training services listed in this guide,
 please reach out to the vendors or see the [contact us page](https://www.rabbitmq.com/contact.html#email).

@@ -72,7 +72,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Cloud
 
- * [VMware Tanzu RabbitMQ](https://tanzu.vmware.com/rabbitmq)
+ * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
  * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
  * [Amazon EC2](/ec2.html)
