@@ -191,9 +191,9 @@ limitations under the License.
     <div class="clear"/>
     <div class="pageFooter">
     <div class='container'>
-      <a id='s1p-promo' href='https://springone.io?utm_campaign=SpringOne-July9&amp;utm_source=rabbit-site-footer&amp;utm_medium=website' target="_blank">
+<!--       <a id='s1p-promo' href='https://springone.io?utm_campaign=SpringOne-July9&amp;utm_source=rabbit-site-footer&amp;utm_medium=website' target="_blank">
           <img src='/img/promos/S1-Promo.svg'/>
-      </a>
+      </a> -->
     </div>
       <div class='container'>
         <div class="rabbit-logo">
