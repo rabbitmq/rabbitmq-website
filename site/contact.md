@@ -23,7 +23,7 @@ If you have questions about RabbitMQ or need help, there are several ways
 to get it:
 
  * Freely available [community resources](#community-resources) (mailing list, community Slack channel and so on)
- * [Paid commercial support](#paid-support) from Pivotal Software and other vendors
+ * [Paid commercial support](#paid-support) from VMware and other vendors
 
 There's also a separate email address for [responsible disclosure of security issues](#security).
 
@@ -91,7 +91,7 @@ If you want to ask a question about how to use RabbitMQ please use
 For enquiries about Pivotal’s commercial licensing and support,
 there is information about offerings, subscription fees, and a contact form [on this page](https://pivotal.io/rabbitmq).
 Alternatively, if you already have a support contract established with Pivotal,
-please see the [Pivotal support page](https://support.pivotal.io/hc/en-us).
+please see the [VMware  support page](https://support.pivotal.io/hc/en-us).
 For questions about booking training or consulting,
 please contact the [appropriate vendor](https://www.rabbitmq.com/services.html).
 

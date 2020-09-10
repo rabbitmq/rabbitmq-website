@@ -31,7 +31,6 @@ is an option more suitable for automation.
 
 ## <a id="amis" class="anchor" href="#amis">AMIs</a>
 
-Pivotal currently does not provide AMI images with RabbitMQ pre-provisioned.
 RabbitMQ works well on up-to-date Ubuntu, Debian and CentOS AMIs as long as
 a [compatible version of Erlang/OTP](/which-erlang.html) is installed.
 

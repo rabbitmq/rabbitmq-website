@@ -186,16 +186,16 @@ limitations under the License.
               <img src="img/commercial-distribution-phone.svg" height="111" width="88" />
               <h2>Commercial Distribution</h2>
               <p>
-                Pivotal Software offers a <a href="https://pivotal.io/rabbitmq">range of commercial offerings for RabbitMQ</a>.
-                This includes a distribution called <a href="https://network.pivotal.io/products/pivotal-rabbitmq">Pivotal RabbitMQ</a>,
-                a version that deploys in <a href="https://pivotal.io/platform/services-marketplace/messaging-and-integration/rabbitmq">Pivotal Platform</a>,
-                and a forthcoming <a href="https://content.pivotal.io/blog/introducing-rabbitmq-for-kubernetes">version for Kubernetes</a>.
+                VMware offers a <a href="https://www.vmware.com/products/pivotal-rabbitmq.html">range of commercial offerings for RabbitMQ</a>.
+                This includes a distribution called <a href="https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq">Tanzu RabbitMQ</a>,
+                a version that deploys in <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu platform</a>,
+                and a forthcoming <a href="https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes">version for Kubernetes</a>.
                 These distributions include all of the features of the open source version, with some additional management features. Support agreements are part of the commercial licensing.
               </p>
               <img src="img/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                Pivotal Software provides <a href="https://pivotal.io/rabbitmq">support for open source RabbitMQ</a>,
+                VMware provides <a href="https://pivotal.io/rabbitmq">support for open source RabbitMQ</a>,
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
@@ -207,7 +207,7 @@ limitations under the License.
               <img src="img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
-                <a href="https://academy.pivotal.io/store-catalog" target="_blank">Pivotal Software</a>,
+                <a href="https://academy.pivotal.io/store-catalog" target="_blank">VMware</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
                 <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
                 <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a>.
@@ -237,7 +237,7 @@ limitations under the License.
               <div class='container'>
                 <h1>Contact Us</h1>
                 <h2>Commercial inquiries</h2>
-                <p><a href='mailto:rabbitmq-sales@pivotal.io'>Pivotal Sales</a> | <a href='https://support.pivotal.io' target="_blank">Pivotal Support</a></p>
+                <p><a href='mailto:rabbitmq-sales@pivotal.io'>VMware Sales</a> | <a href='https://support.pivotal.io' target="_blank">VMware Support</a></p>
                 <h2>Other inquiries</h2>
                 <p><a href="/contact.html">Contact us</a></p>
                 <h2>Report a security vulnerability</h2>
