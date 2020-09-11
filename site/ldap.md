@@ -591,34 +591,35 @@ different variables.
 
 The `vhost_access_query` supports:
 
- * `${username}` - the user name provided at authentication
- * `${user_dn}` - the distinguished name of the user
- * `${vhost}` - the virtual host for which we are querying access
+ * `${username}`: the user name provided at authentication
+ * `${user_dn}`: the distinguished name of the user
+ * `${vhost}`: the virtual host for which we are querying access
 
 The `resource_access_query` supports:
 
- * `${username}` - the user name provided at authentication
- * `${user_dn}` - the distinguished name of the user
- * `${vhost}` - the virtual host in which the resource resides
- * `${resource}` - one of "exchange" or "queue" for the type of resource
- * `${name}` - the name of the resource
- * `${permission}` - one of "configure", "write" or "read" for the type of access being requested to the resource
+ * `${username}`: the user name provided at authentication
+ * `${user_dn}`: the distinguished name of the user
+ * `${vhost}`: the virtual host in which the resource resides
+ * `${resource}`: one of "exchange" or "queue" for the type of resource
+ * `${name}`: the name of the resource
+ * `${permission}`: one of "configure", "write" or "read" for the type of access being requested to the resource
 
 The `tag_queries` supports:
 
- * `${username}` - the user name provided at authentication
- * `${user_dn}` - the distinguished name of the user
+ * `${username}`: the user name provided at authentication
+ * `${user_dn}`: the distinguished name of the user
+ * `${vhost}`: can be used for additional context, e.g. to group applications or users
 
 The `topic_access_query` supports:
 
- * `${username}` - the user name provided at authentication
- * `${user_dn}` - the distinguished name of the user
- * `${vhost}` - the virtual host in which the resource resides
- * `${resource}` - always "topic" in this case
- * `${name}` - the name of the resource
- * `${permission}` - one of "write" (publishing) or "read" (consuming, queue and
+ * `${username}`: the user name provided at authentication
+ * `${user_dn}`: the distinguished name of the user
+ * `${vhost}`: the virtual host in which the resource resides
+ * `${resource}`: always "topic" in this case
+ * `${name}`: the name of the resource
+ * `${permission}`: one of "write" (publishing) or "read" (consuming, queue and
    exchange-to-exchange binding for topic exchanges)
- * `${routing_key}` - the routing key of the published message ("write" permission)
+ * `${routing_key}`: the routing key of the published message ("write" permission)
    or routing key of the topic exchange to queue/exchange binding ("read" permission)
 
 Finally, if the user name provided at authentication is in the form
