@@ -143,12 +143,14 @@ by them.
 to installation method. For example, `/usr/lib/rabbitmq/plugins` is a 3rd party plugin directory
 path used by RabbitMQ [Debian packages](/install-debian.html).
 
-Plugin directory can be located by executing the following command on the host
+Plugin directory can be located by executing the `rabbitmq-plugins directories` command on the host
 with a running RabbitMQ node:
 
 <pre class="lang-bash">
-rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.4/plugins"}
+rabbitmq-plugins directories -s
+# => Plugin archives directory: /path/to/rabbitmq/plugins
+# => Plugin expansion directory: /path/to/node/node-plugins-expand
+# => Enabled plugins file: /path/to/enabled_plugins
 </pre>
 
 The first directory in the example above is the 3rd party plugin directory.
@@ -216,12 +218,14 @@ rabbitmq-plugins enable rabbitmq_managemenr
 Another common reason is that plugin directory the plugin archive (the `.ez` file)
 was downloaded to doesn't match that of the server.
 
-Plugin directory can be located by executing the following command on the host
+Plugin directory can be located by executing the `rabbitmq-plugins directories` command on the host
 with a running RabbitMQ node:
 
 <pre class="lang-bash">
-rabbitmqctl eval 'application:get_env(rabbit, plugins_dir).'
-# => {ok,"/usr/lib/rabbitmq/plugins:/usr/lib/rabbitmq/lib/rabbitmq_server-3.8.4/plugins"}
+rabbitmq-plugins directories -s
+# => Plugin archives directory: /path/to/rabbitmq/plugins
+# => Plugin expansion directory: /path/to/node/node-plugins-expand
+# => Enabled plugins file: /path/to/enabled_plugins
 </pre>
 
 The first directory in the example above is the 3rd party plugin directory.
@@ -269,9 +273,10 @@ one is that used by the target RabbitMQ node.
 used by the server:
 
 <pre class="lang-bash">
-rabbitmqctl environment | grep enabled_plugins                                                                                                                                                                                                  70 ↵
-# =>       {enabled_plugins_file,
-# =>         "/path/to/rabbitmq/etc/rabbitmq/enabled_plugins"}
+rabbitmq-plugins directories -s
+# => Plugin archives directory: /path/to/rabbitmq/plugins
+# => Plugin expansion directory: /path/to/node/node-plugins-expand
+# => Enabled plugins file: /path/to/enabled_plugins
 </pre>
 
 Other common reasons that prevent plugins from being enabled can include [plugin archive](#plugin-directories)
