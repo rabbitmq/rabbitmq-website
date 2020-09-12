@@ -91,7 +91,7 @@ If you want to ask a question about how to use RabbitMQ please use
 For enquiries about Pivotal’s commercial licensing and support,
 there is information about offerings, subscription fees, and a contact form [on this page](https://pivotal.io/rabbitmq).
 Alternatively, if you already have a support contract established with Pivotal,
-please see the [VMware  support page](https://support.pivotal.io/hc/en-us).
+please see the [VMware support page](https://support.pivotal.io/hc/en-us).
 For questions about booking training or consulting,
 please contact the [appropriate vendor](https://www.rabbitmq.com/services.html).
 

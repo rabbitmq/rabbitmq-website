@@ -26,7 +26,7 @@ VMware offers [**a range of commercial support and services** for RabbitMQ](http
 
 ### Commercial Releases of RabbitMQ
 
-Commerial RabbitMQ edition includes all of the features of the open source version under a commercial license.
+Commercial RabbitMQ edition includes all of the features of the open source version under a commercial license.
 Pricing is available [here](https://www.vmware.com/products/pivotal-rabbitmq.html).
 
 ### RabbitMQ for VMware Tanzu
