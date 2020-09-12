@@ -92,7 +92,7 @@ rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-r
 
 The RabbitMQ cluster operator runs as user ID `1000` and RabbitMQ runs as user ID `999`.
 By default OpenShift has security context constraints which disallow to create pods running with these user IDs.
-To install the RabbitMQ cluster operator on OpenShift, you need perform the following steps:
+To install the RabbitMQ cluster operator on OpenShift, you need to perform the following steps:
 
 1. In above [installation steps](#installation), after creating the namespace via `kubectl create -f config/namespace/base/namespace.yaml` but before
 creating the manager via `kubectl -n rabbitmq-system create --kustomize config/manager/`, change the following fields:
