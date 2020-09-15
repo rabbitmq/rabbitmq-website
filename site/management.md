@@ -892,13 +892,13 @@ Starting with RabbitMQ 3.6.7, the database can be reset per node using
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
 
-To reset entire management database on all nodes
+To reset the entire management database on all nodes
 <pre class="lang-bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 </pre>
 
-There is also HTTP API endpoints to reset a database
-For entire database
+There are also HTTP API endpoints to reset a database.
+For the entire database
 <pre class="lang-plaintext">
 DELETE /api/reset
 </pre>
