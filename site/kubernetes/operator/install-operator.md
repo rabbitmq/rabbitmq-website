@@ -9,7 +9,7 @@ This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator]
 The Operator requires
 
 * Kubernetes 1.16 or above
-* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.5+
+* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
 -----
 
