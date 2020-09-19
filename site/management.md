@@ -937,7 +937,7 @@ collect_statistics_interval = 30000
 
 Increasing the interval value to 30-60s will reduce CPU footprint and peak memory
 consumption for systems with large amounts of connections, channels and queues.
-This come with a downside: metrics of said entities will refresh every 30-60 seconds.
+This comes with a downside: metrics of said entities will refresh every 30-60 seconds.
 This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
 but will make management UI less convenient to use for operators.
 
