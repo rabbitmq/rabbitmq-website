@@ -36,7 +36,7 @@ Some settings directly affect CPU resource usage of the metric collection system
  * [Stats collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) used
 
-The plugin also provides tools for [analyse memory usage](#memory) of the node,
+The plugin also provides tools for [analysing memory usage](#memory) of the node,
 for [preconfiguring nodes](#load-definitions) using an exported [schema definitions](/definitions.html) file, and a few
 other features related to monitoring, metrics and node management.
 
@@ -44,7 +44,7 @@ In a multi-node cluster, management plugin is most commonly [enabled on every no
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or
-[rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management)
+[rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management),
 use to extend the UI.
 
 While a monitoring option, management UI lacks certain features that external monitoring solutions
@@ -153,7 +153,7 @@ Some of the features include:
   </li>
 </ul>
 
-The UI application supports recent versions of Google Chrome Safari, Firefox, and Microsoft Edge browsers.
+The UI application supports recent versions of Google Chrome, Safari, Firefox, and Microsoft Edge browsers.
 
 ### <a id="usage-ui-clusters" class="anchor" href="#usage-ui-clusters">Management UI Access in Clusters</a>
 
@@ -321,7 +321,7 @@ management.uaa_client_id = rabbit_user_client
 management.uaa_location = https://my-uaa-server-host:8443/uaa
 </pre>
 
-When settings `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
+When setting `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
 work, for example:
 
 <pre class="lang-bash">
@@ -382,7 +382,7 @@ and so on.
 
 While rarely needed, it is possible to configure multiple listeners (ports), e.g. to both enable HTTPS and
 retain support for clients that can only use HTTP (without TLS). This uses an alternative
-set of configuration keys and available starting with RabbitMQ 3.7.9.
+set of configuration keys and is available starting with RabbitMQ 3.7.9.
 
 
 ### <a id="single-listener-port" class="anchor" href="#single-listener-port">Port</a>
@@ -732,7 +732,7 @@ management.cors.allow_origins.1 = *
 
 The CORS pre-flight requests are cached by the browser.
 The management plugin defines a timeout of 30 minutes
-by default. The value can be changes. It is configured in seconds:
+by default. The value can be changed. It is configured in seconds:
 
 <pre class="lang-ini">
 management.cors.allow_origins.1 = https://origin1.org
