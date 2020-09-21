@@ -186,7 +186,7 @@ limitations under the License.
               <img src="img/commercial-distribution-phone.svg" height="111" width="88" />
               <h2>Commercial Distribution</h2>
               <p>
-                VMware offers a <a href="https://www.vmware.com/products/pivotal-rabbitmq.html">range of commercial offerings for RabbitMQ</a>.
+                VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
                 This includes a distribution called <a href="https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq">Tanzu RabbitMQ</a>,
                 a version that deploys in <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu platform</a>,
                 and a forthcoming <a href="https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes">version for Kubernetes</a>.
