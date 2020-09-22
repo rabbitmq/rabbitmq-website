@@ -27,7 +27,7 @@ Every node in a cluster has its own replica of all definitions. When a part of d
 the update is performed on all nodes in a single transaction. This means that
 in practice, definitions can be exported from any cluster node with the same result.
 
-Definitions can be [exported](#export) to a file and then [imported](#imported) into another cluster or
+Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
 used for schema backup.
 
 A definition file contains definitions of all broker objects (queues,
