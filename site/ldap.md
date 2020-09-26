@@ -880,7 +880,7 @@ LDAP. As this returns a string rather than a boolean it should be
 used within a `match` or `equals` query. See
 above for example.
 
-## <a id="examples" class="anchor" href="#example">Example Configuration</a>
+## <a id="example" class="anchor" href="#example">Example Configuration</a>
 
 Bringing it all together, here's a sample configuration. It uses both the [standard config](/configure.html#config-file) and
 [advanced config](/configure.html#advanced-config-file) files together. This
