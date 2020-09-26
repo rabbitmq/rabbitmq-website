@@ -41,7 +41,7 @@ do not have this manifest. We strongly recommend to install versions 0.46.0+
 
 The plugin can be installed by downloading the file and placing it in the system PATH. In most Linux systems, the
 location `/usr/local/bin` is part of the PATH. You can check your current PATH using `echo $PATH`. This plugin presents
-an alterantive to install the Cluster Operator. It also provides a shortcut to create and edit `RabbitmqCluster` resources.
+an alternative to install the Cluster Operator. It also provides a shortcut to create and edit `RabbitmqCluster` resources.
 
 The following command downloads the plugin from the main branch:
 
