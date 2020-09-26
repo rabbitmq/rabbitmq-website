@@ -41,7 +41,7 @@ The operator provides the following key features:
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
 * Monitoring of RabbitMQ clusters using [Prometheus and Grafana](/prometheus.html)
 
-Automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters is a future that will be provided in later
+Automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters is a feature that will be provided in later
 versions.
 
 
