@@ -266,7 +266,7 @@ See [Memory Usage](/memory-use.html), [Alarms](/alarms.html)
 guide for details.
 
 
-## <a id="priorities" class="anchor" href="#priorites">Priorities</a>
+## <a id="priorities" class="anchor" href="#priorities">Priorities</a>
 
 Queues can have 0 or more [priorities](/priority.html). This feature is opt-in:
 only queues that have maximum number of priorities configured via an optional argument
