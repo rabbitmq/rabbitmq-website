@@ -18,6 +18,8 @@ limitations under the License.
 
 ## Publisher Confirms
 
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
+
 [Publisher confirms](/confirms.html#publisher-confirms)
 are a RabbitMQ extension to implement reliable
 publishing. When publisher confirms are enabled on a channel,
@@ -27,8 +29,6 @@ side.
 
 
 ### (using [php-amqplib](https://github.com/php-amqplib/php-amqplib))
-
-<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 ### Overview
 
