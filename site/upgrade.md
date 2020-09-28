@@ -422,7 +422,9 @@ during shutdown, which blocks subsequent upgrade steps:
 * [OTP-14441](https://bugs.erlang.org/browse/ERL-430): fixed in Erlang/OTP `19.3.6` and `20.0`
 * [OTP-14509](https://bugs.erlang.org/browse/ERL-448): fixed in Erlang/OTP `19.3.6.2` and `20.0.2`
 
-Please note that both issues affect very old version of Erlang (check [Erlang Version Requirements](https://www.rabbitmq.com/upgrade.html#rabbitmq-erlang-version-requirement) for more details). A node that suffered from the above bugs will fail to shut down and stop responding to inbound
+Please note that both issues affect old and [no longer supported version of Erlang](/which-erlang.html).
+
+A node that suffered from the above bugs will fail to shut down and stop responding to inbound
 connections, including those of CLI tools. Such node's OS process has to be terminated
 (e.g. using `kill -9` on UNIX systems).
 
