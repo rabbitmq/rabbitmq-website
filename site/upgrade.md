@@ -254,7 +254,7 @@ Upgrading to a new minor or patch version of Erlang usually can be done using
 a rolling upgrade.
 
 
-### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">When to Restar Nodes</a>
+### <a id="rolling-upgrades-restarting-nodes" class="anchor" href="#rolling-upgrades-restarting-nodes">When to Restart Nodes</a>
 
 It is important to let the node being upgraded to fully start and sync
 all data from its peers before proceeding to upgrade the next one. You
@@ -279,7 +279,7 @@ shutdown during rolling upgrades.
 
 ### What is Maintenance Mode?
 
-Maintenance mode. This is a new mode operation mode for RabbitMQ nodes.
+Maintenance mode. This is a new node operation mode for RabbitMQ nodes.
 The mode is explicitly turned on and off by the operator using a bunch of new CLI commands covered below. For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](/feature-flags.html)
 once all cluster members have been upgraded to a version that supports it:
 
@@ -328,7 +328,7 @@ period of time (say, 5-30 minutes). Nodes are not expected to be running in this
 
 ### Revive a Node from Maintenance Mode
 
-A node in maintenance mode can be *revived*, that is, **brough back into its regular operational state**,
+A node in maintenance mode can be *revived*, that is, **brought back into its regular operational state**,
 using `rabbitmq-upgrade revive`:
 
 <pre class="lang-bash">
@@ -348,6 +348,41 @@ and be considered for primary queue replica placements.
 
 It will not recover previous client connections as RabbitMQ never initiates connections
 to clients, but clients will be able to reconnect to it.
+
+### Verify Maintenance Status of a Node
+
+If the maintenance mode status feature flag is enabled, node maintenance status will be reported
+in `rabbitmq-diagnostics status` and `rabbitmq-diagnostics cluster_status`.
+
+If the feature flag is not enabled, the status will be reported as unknown.
+
+Here's an example `rabbitmq-diagnostics status` output of a node under maintenance:
+
+<pre class="lang-plaintext">
+Status of node rabbit@hostname ...
+Runtime
+
+OS PID: 25531
+OS: macOS
+Uptime (seconds): 48540
+Is under maintenance?: true
+
+# ...
+</pre>
+
+Compare this to this example output from a node in regular operating mode:
+
+<pre class="lang-plaintext">
+Status of node rabbit@hostname ...
+Runtime
+
+OS PID: 25531
+OS: macOS
+Uptime (seconds): 48540
+Is under maintenance?: false
+
+# ...
+</pre>
 
 
 ## <a id="full-stop-upgrades" class="anchor" href="#full-stop-upgrades">Full-Stop Upgrades</a>

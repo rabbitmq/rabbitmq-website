@@ -766,7 +766,7 @@ from completing in time. Checks that explicitly or implicitly assume a fully boo
 its cluster peers will fail and block further node deployments.
 
 [Most health check](/monitoring.html#health-checks), even relatively basic ones, implicitly assume that the node has
-finished booting. They are not suitable for for nodes that are [awaiting schema table sync](#restarting-schema-sync) from a peer.
+finished booting. They are not suitable for nodes that are [awaiting schema table sync](#restarting-schema-sync) from a peer.
 
 One very common example of such check is
 

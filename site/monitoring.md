@@ -37,7 +37,8 @@ categories:
  * [How frequently](#monitoring-frequency) should monitoring checks be performed?
  * [Application-level metrics](#app-metrics)
  * How to approach [node health checking](#health-checks) and why it's more involved than a single
-   CLI command.
+   CLI command
+ * Health checks use as [node readiness probes](#readiness-probes) during deployment or upgrades
  * [Log aggregation](#log-aggregation)
  * [Command-line based observer](#diagnostics-observer) tool
 
@@ -458,6 +459,9 @@ A health check is a command that
 tests whether an aspect of the RabbitMQ service is operating as expected.
 Health checks are [executed periodically by machines](#monitoring-frequency) or interactively by operators.
 
+Health checks can be used to both assess the state and liveness of a node but also as [readiness probes](#readiness-probes)
+by deployment automation and orchestration tools, including during upgrades.
+
 There is a series of health checks that can be performed, starting
 with the most basic and very rarely producing [false positives](https://en.wikipedia.org/wiki/False_positives_and_false_negatives),
 to increasingly more comprehensive, intrusive, and opinionated that have a
@@ -678,6 +682,43 @@ Picking a suitable timeout for such check, therefore, is non-trivial.
 The probability of false positives is **high** for systems under
 above average load or with a large number of queues and channels
 (starting with thousands).
+
+
+### <a id="readiness-probes" class="anchor" href="#readiness-probes">Health Checks as Readiness Probes</a>
+
+In some environments, node restarts are controlled with a designated [health check](/monitoring.html#health-checks).
+The checks verify that one node has started and the deployment process can proceed to the next one.
+If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
+will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
+where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
+
+Given the [peer syncing behavior during node restarts](/clustering.html#restarting-schema-sync), such a health check can prevent a cluster-wide restart
+from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
+its cluster peers will fail and block further node deployments.
+
+Most health check, even relatively basic ones, implicitly assume that the node has
+finished booting. They are not suitable for nodes that are [awaiting schema table sync](/clustering.html#restarting-schema-sync) from a peer.
+
+One very common example of such check is
+
+<pre class="lang-bash">
+# will exit with an error for the nodes that are currently waiting for
+# a peer to sync schema tables from
+rabbitmq-diagnostics check_running
+</pre>
+
+One health check that does not expect a node to be fully booted and have schema tables synced is
+
+<pre class="lang-bash">
+# a very basic check that will succeed for the nodes that are currently waiting for
+# a peer to sync schema from
+rabbitmq-diagnostics ping
+</pre>
+
+This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
+assuming they are [compatible](/upgrade.html).
+
 
 #### Optional Check 1
 

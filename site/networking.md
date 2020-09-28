@@ -44,6 +44,7 @@ There are several areas which can be configured or tuned. Each has a section in 
  * TCP buffer size (affects [throughput](#tuning-for-throughput-tcp-buffers) and [how much memory is used per connection](#tuning-for-large-number-of-connections-tcp-buffer-size))
  * [Hostname resolution](#dns)-related topics such as [reverse DNS lookups](#dns-reverse-dns-lookups)
  * The interface and port used by [epmd](#epmd)
+ * How to [suspend and resume listeners](#listener-suspension) to temporarily stop and resume new client connections
  * Other TCP socket settings
  * [Proxy protocol](#proxy-protocol) support for client connections
  * Kernel TCP settings and limits (e.g. [TCP keepalives](#tcp-keepalives) and [open file handle limit](#open-file-handle-limit))
@@ -186,21 +187,57 @@ It is possible to [configure RabbitMQ](/configure.html)
 to use [different ports and specific network interfaces](/networking.html).
 
 
+## <a id="listener-suspension" class="anchor" href="#listener-suspension">How to Temporarily Stop New Client Connections</a>
+
+Starting with RabbitMQ `3.8.8`, client connection listeners can be *suspended* to prevent new client
+connections from being accepted. Existing connections will not be affected in any way.
+
+This can be useful during node operations and is one of the steps performed
+when a node is [put into maintenance mode](/upgrade.html#maintenance-mode).
+
+To suspend all listeners on a node and prevent new client connections to it, use `rabbitmqctl suspend_listeners`:
+
+<pre class="lang-bash">
+rabbitmqctl suspend_listeners
+</pre>
+
+As all other CLI commands, this command can be invoked against an arbitrary node (including remote ones)
+using the `-n` switch:
+
+<pre class="lang-bash">
+# suspends listeners on node rabbit@node2.cluster.rabbitmq.svc: it won't accept any new client connections
+rabbitmqctl suspend_listeners -n rabbit@node2.cluster.rabbitmq.svc
+</pre>
+
+To resume all listeners on a node and make it accept new client connections again, use `rabbitmqctl resume_listeners`:
+
+<pre class="lang-bash">
+rabbitmqctl resume_listeners
+</pre>
+
+<pre class="lang-bash">
+# resumes listeners on node rabbit@node2.cluster.rabbitmq.svc: it will accept new client connections again
+rabbitmqctl resume_listeners -n rabbit@node2.cluster.rabbitmq.svc
+</pre>
+
+Both operations will leave [log entries](/logging.html) in the node's log.
+
+
 ## <a id="epmd" class="anchor" href="#epmd">EPMD and Inter-node Communication</a>
 
 ### What is EPMD and How is It Used?
 
 [epmd](http://www.erlang.org/doc/man/epmd.html) (for Erlang Port Mapping Daemon)
 is a small additional daemon that runs alongside every RabbitMQ node and is used by
-the [runtime](/runtime.html) to discover what port a particular node listens on.
-The port is then used by peer nodes and [CLI tools](/cli.html).
+the [runtime](/runtime.html) to discover what port a particular node listens on for
+inter-node communication. The port is then used by peer nodes and [CLI tools](/cli.html).
 
 When a node or CLI tool needs to contact node `rabbit@hostname2` it will do the following:
 
  * Resolve `hostname2` to an IPv4 or IPv6 address using the standard OS resolver or a custom one specified in the [inetrc file](http://erlang.org/doc/apps/erts/inet_cfg.html)
  * Contact `epmd` running on `hostname2` using the above address
  * Ask `epmd` for the port used by node `rabbit` on it
- * Contact the node using the resolved IP address and discovered port
+ * Connect to the node using the resolved IP address and the discovered port
  * Proceed with communication
 
 ### <a id="epmd-interface" class="anchor" href="#epmd-interface">EPMD Interface</a>
@@ -709,7 +746,7 @@ collect_statistics_interval = 60000
 The default is 5 seconds (5000 milliseconds).
 
 Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consumption.
-This come with a downside: with the value in the example above, metrics of said entities
+This comes with a downside: with the value in the example above, metrics of said entities
 will refresh every 60 seconds.
 
 This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system

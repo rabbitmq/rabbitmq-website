@@ -273,7 +273,7 @@ collect_statistics_interval = 60000
 The default is 5 seconds (5000 milliseconds).
 
 Increasing the interval value to 30-60s will reduce CPU footprint and peak memory consumption.
-This come with a downside: with the value in the example above, metrics of said entities
+This comes with a downside: with the value in the example above, metrics of said entities
 will refresh every 60 seconds.
 
 This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
@@ -304,7 +304,7 @@ the TCP socket.
 Applications that experience flow control regularly may consider to use separate connections
 to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management).
 
-## <a id="errors" class="anchor" href="#error-handling">Error Handling and Protocol Exceptions</a>
+## <a id="error-handling" class="anchor" href="#error-handling">Error Handling and Protocol Exceptions</a>
 
 A connection can fail or be unable to satisfy a client operation. Such scenarios are called errors
 or protocol exceptions. They can indicate a transient condition (e.g. a resource is locked),
