@@ -39,6 +39,18 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.9</td>
+    <td class="centre">28 September 2020</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>This release <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">drops support for Erlang/OTP 21.3</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.8</td>
     <td class="centre">3 September 2020</td>
     <td>
