@@ -123,5 +123,5 @@ Policies are the recommended way to configure [TTL](/ttl.html), [queue length li
 other [optional queue arguments](/queues.html).
 
 However, policies cannot be used to configure priorities because policies are dynamic
-and can changed after a queue has been declared. Priority queues can never change the number of priorities they
+and can be changed after a queue has been declared. Priority queues can never change the number of priorities they
 support after queue declaration, so policies would not be a safe option to use.

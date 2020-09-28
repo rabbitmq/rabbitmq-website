@@ -200,7 +200,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
 
 Speculative busy waiting usually not productive on moderately loaded systems.
 
-#### Increase Statistics Emission Interval
+#### Reduce Statistics Emission Frequency (Increase the Statistics Emission Interval)
 
 Increase [statistics emission interval](/management.html#statistics-interval) from default 5 seconds to 15 or 30 seconds. This will reduce
 periodic activity that all connections, channels and queues carry out, even if they would otherwise be

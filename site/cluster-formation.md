@@ -1154,9 +1154,9 @@ cluster_formation.etcd.lock_timeout = 60
 
 In order to list all keys used by the etcd-based peer discovery mechanism, use `etcdctl get` like so:
 
-```shell
+<pre class="lang-shell">
 etcdctl get --prefix=true "/rabbitmq"
-```
+</pre>
 
 #### TLS
 

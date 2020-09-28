@@ -30,7 +30,7 @@ See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 If you want to contribute a non-trivial change, please submit a signed copy of our
 [Contributor Agreement](https://github.com/rabbitmq/ca#how-to-submit) around the time
 you submit your pull request. This will make it much easier (in some cases, possible)
-for the RabbitMQ team at Pivotal to merge your contribution.
+for the RabbitMQ core team to merge your contribution.
 
 
 ## Where to Ask Questions

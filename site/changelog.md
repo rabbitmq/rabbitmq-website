@@ -39,11 +39,35 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.9</td>
+    <td class="centre">28 September 2020</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>This release <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">drops support for Erlang/OTP 21.3</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.8</td>
+    <td class="centre">3 September 2020</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Last release to <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">support Erlang/OTP 21.3</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.8">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.7</td>
     <td class="centre">17 August 2020</td>
     <td>
       <ul>
-        <li>Security vulnerability fix, CVE details is to be announced at a later point</li>
+        <li>Security vulnerability patch (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>)</li>
         <li>Bug fixes</li>
       </ul>
     </td>
@@ -55,7 +79,7 @@ published separately.
     <td class="centre">17 August 2020</td>
     <td>
       <ul>
-        <li>Security vulnerability fix, CVE details is to be announced at a later point</li>
+        <li>Security vulnerability patch (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>)</li>
         <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
       </ul>
     </td>

@@ -41,9 +41,38 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
 
+
   <tr>
     <td>
       <ul>
+        <li>3.8.9</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>22.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">Erlang/OTP <code>23</code> compatibility notes</a>
+        </li>
+        <li>Erlang 23.x is recommended</li>
+        <li>Erlang 22.x dropped support for HiPE</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.8</li>
         <li>3.8.7</li>
         <li>3.8.6</li>
         <li>3.8.5</li>

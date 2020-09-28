@@ -19,9 +19,7 @@ limitations under the License.
 
 ## <a id="introduction" class="anchor" href="#introduction">Introduction</a>
 
-RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
-RabbitMQ is not a JMS provider but includes [a
-plugin](https://github.com/rabbitmq/rabbitmq-jms-topic-exchange)
+RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-jms-topic-exchange)
 needed to support the JMS Queue and Topic messaging models. JMS Client
 for RabbitMQ implements the JMS 1.1 specification on top of the
 [RabbitMQ Java client](/api-guide.html), thus allowing new and

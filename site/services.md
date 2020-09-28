@@ -19,31 +19,33 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Commercial Licensing, Support</a>
 
-Pivotal Software offers [**a range of commercial support and services** for RabbitMQ](https://pivotal.io/rabbitmq):
+VMware offers [**a range of commercial support and services** for RabbitMQ](https://www.vmware.com/products/pivotal-rabbitmq.html):
 
  * **Commercial support** for the most recent open source release of RabbitMQ, available for a subscription fee.
  * **Commercial releases** of RabbitMQ, available for a subscription fee.
 
 ### Commercial Releases of RabbitMQ
 
-Pivotal RabbitMQ includes all of the features of the open source version under a commercial license. Pricing is available [here](https://pivotal.io/rabbitmq).
+Commercial RabbitMQ edition includes all of the features of the open source version under a commercial license.
+Pricing is available [here](https://www.vmware.com/products/pivotal-rabbitmq.html).
 
-### RabbitMQ for Pivotal Platform
+### RabbitMQ for VMware Tanzu
 
-[RabbitMQ for Pivotal Platform](https://pivotal.io/platform/services-marketplace/messaging-and-integration/rabbitmq)
+[VMware Tanzu™ RabbitMQ® for VMs](https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq)
 gives developers self-service access to on-demand RabbitMQ clusters
-running on Pivotal Platform (formerly known as Pivotal Cloud Foundry).
+running on [VMware Tanzu™ platform](https://tanzu.vmware.com/application-service) (formerly known as Pivotal Cloud Foundry).
 
-### Pivotal RabbitMQ for Kubernetes
+### RabbitMQ for Kubernetes
 
-[Pivotal RabbitMQ for Kubernetes](https://content.pivotal.io/blog/introducing-rabbitmq-for-kubernetes)
-simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform.
-[Inquire here](https://pivotal.io/pivotal-rabbitmq-on-kubernetes) about the beta of Pivotal RabbitMQ for Kubernetes.
+[Tanzu™ RabbitMQ® for Kubernetes](https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes)
+simplifies the operational experience to make RabbitMQ available on a Kubernetes-based platform,
+based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html).
+
 
 ## <a id="training" class="anchor" href="#training">Training</a>
 
 The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
-[Pivotal Software](https://academy.pivotal.io/store-catalog),
+[VMware](https://academy.pivotal.io/store-catalog),
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [LearnQuest](http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc) and
 [Open Source Architect](https://opensource.io/product/rabbitmq-training/).
@@ -55,12 +57,12 @@ best practice design and architecture.
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[AceMQ](https://acemq.com/rabbitmq/) and others provide <strong>professional consulting services</strong>
+[AceMQ](https://acemq.com/rabbitmq/) and others provide **professional consulting services**
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.
 
-# Contacts for Commercial Support or Services
+## Contacts for Commercial Support or Services
 
 For any questions about the commercial licensing, support, consulting training services listed in this guide,
 please reach out to the vendors or see the [contact us page](https://www.rabbitmq.com/contact.html#email).

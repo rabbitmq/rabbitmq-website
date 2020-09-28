@@ -39,14 +39,14 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Kubernetes
 
- * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) ([GitHub repository](https://github.com/rabbitmq/cluster-operator))
+ * Open source [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
  * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
- * [Examples](https://github.com/rabbitmq/diy-kubernetes-examples) that use GKE, Minikube, or Kind
+ * GKE-, Minikube-, or Kind-based [examples](https://github.com/rabbitmq/diy-kubernetes-examples) that demonstrate a [DIY RabbitMQ on Kubernetes deployment](https://www.rabbitmq.com/blog/2020/08/10/deploying-rabbitmq-to-kubernetes-whats-involved/)
 
 
 ## Docker
 
- * [Docker image](https://registry.hub.docker.com/_/rabbitmq/) from the Docker community ([on GitHub](https://github.com/docker-library/rabbitmq/))
+ * Docker community-maintained [RabbitMQ Docker image](https://registry.hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq/))
 
 
 ## Downloads [on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases)
@@ -72,10 +72,10 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Cloud
 
- * [Cloud Foundry](https://github.com/pivotal-cf/cf-rabbitmq-release)
- * [Pivotal Cloud Foundry](http://docs.pivotal.io/rabbitmq-cf/index.html)
+ * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
- * [Amazon EC2](ec2.html)
+ * [Amazon EC2](/ec2.html)
 
 
 ## Provisioning Tools (Chef, Puppet, etc)
