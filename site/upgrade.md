@@ -409,10 +409,6 @@ which disc node will be the upgrader, stop that node last, and start it first.
 Otherwise changes to the cluster configuration that were made between the
 upgrader node stopping and the last node stopping will be lost.
 
-Automatic upgrades are only possible from RabbitMQ versions 2.1.1 and later.
-If you have an earlier cluster, you will need to rebuild it to upgrade.
-
-
 ## <a id="caveats" class="anchor" href="#caveats">Caveats</a>
 
 There are some minor things to consider during upgrade process when stopping and
@@ -426,7 +422,7 @@ during shutdown, which blocks subsequent upgrade steps:
 * [OTP-14441](https://bugs.erlang.org/browse/ERL-430): fixed in Erlang/OTP `19.3.6` and `20.0`
 * [OTP-14509](https://bugs.erlang.org/browse/ERL-448): fixed in Erlang/OTP `19.3.6.2` and `20.0.2`
 
-A node that suffered from the above bugs will fail to shut down and stop responding to inbound
+Please note that both issues affect very old version of Erlang (check [Erlang Version Requirements](https://www.rabbitmq.com/upgrade.html#rabbitmq-erlang-version-requirement) for more details). A node that suffered from the above bugs will fail to shut down and stop responding to inbound
 connections, including those of CLI tools. Such node's OS process has to be terminated
 (e.g. using `kill -9` on UNIX systems).
 
