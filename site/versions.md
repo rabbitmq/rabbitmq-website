@@ -68,7 +68,6 @@ with a [commercial support contract](/contact.html).
     <td>3.7</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.28" target="_blank">3.7.28</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
-    <td>31 March 2020</td>
     <td>30 September 2020</td>
     <td>34 months</td>
   </tr>
