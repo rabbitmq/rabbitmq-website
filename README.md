@@ -120,3 +120,4 @@ xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
 ## Copyright and License
 
 See [NOTICE](NOTICE) and [LICENSE](LICENSE).
+Hope you love it
