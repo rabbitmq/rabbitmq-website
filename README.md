@@ -1,6 +1,6 @@
 # [rabbitmq.com](https://www.rabbitmq.com/)
 
-This repository contains source code for [rabbitmq.com](https://www.rabbitmq.com/) content.
+This nice repository contains source code for [rabbitmq.com](https://www.rabbitmq.com/) content.
 
 All changes that need to be deployed right away need to be committed to the `live` branch.
 
