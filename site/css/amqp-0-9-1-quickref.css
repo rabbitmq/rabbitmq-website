@@ -16,7 +16,8 @@ limitations under the License.
 */
 
 /* stylesheet for rendering AMQP 0-9-1 quick reference */
-
+/*Manage files correctly so anyone underatand you project simply and knows the application of project.*/
+/*Also uses the seprate code for every file*/
 div.method-box {
   border: 1px solid #555;
   padding: 0.5em 1em;
