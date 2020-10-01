@@ -44,15 +44,6 @@ For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deplo
     <td></td>
     <td></td>
   </tr>
-
-  <tr>
-    <td>3.7</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.28" target="_blank">3.7.28</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
-    <td>31 March 2020</td>
-    <td>30 September 2020</td>
-    <td>28 months + 6 months</td>
-  </tr>
 </table>
 
 <sup>1</sup> **General Support** means patch releases that are [produced regularly](/changelog.html) based on the feedback of
@@ -60,6 +51,7 @@ open source users and users with a [commercial support contract](/contact.html).
 
 <sup>2</sup> **Extended Support** means only *security patches* and *high-severity issues* reported by users
 with a [commercial support contract](/contact.html).
+
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
@@ -70,6 +62,15 @@ with a [commercial support contract](/contact.html).
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
+  </tr>
+
+  <tr>
+    <td>3.7</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.28" target="_blank">3.7.28</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.0" target="_blank">28 November 2017</a></td>
+    <td>31 March 2020</td>
+    <td>30 September 2020</td>
+    <td>34 months</td>
   </tr>
 
   <tr>
