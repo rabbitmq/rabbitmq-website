@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e
+
+SOURCE=$(realpath ./site)
+DESTINATION="${1:-/tmp/rabbitmq_website}"
+
+echo "Generating the site, ${SOURCE} => ${DESTINATION}"
+
+debug() {
+  [ -z "$DEBUG" ] || set -x
+}
+
+prepare() {
+  rm -rf "${DESTINATION}"
+}
+
+generate_pages() {
+  PYTHONENCODING="utf-8" python3 ./code/compile "${SOURCE}" "${DESTINATION}" "www"
+  PYTHONENCODING="utf-8" python3 ./code/compile "${SOURCE}" "${DESTINATION}" "www" index.xml
+}
+
+copy_assets() {
+  mkdir -p "${DESTINATION}/img" "${DESTINATION}/js" "${DESTINATION}/css"
+  cp -r "${SOURCE}"/img/* "${DESTINATION}/img/"
+  cp -r "${SOURCE}"/js/*  "${DESTINATION}/js/"
+  cp -r "${SOURCE}"/css/* "${DESTINATION}/css/"
+}
+
+generate_atom_feed() {
+  xsltproc --novalid "${SOURCE}/feed-atom.xsl" "${SOURCE}/news.xml" > "${DESTINATION}/news.atom"
+}
+
+main() {
+  debug
+  prepare
+  generate_pages
+  copy_assets
+  generate_atom_feed
+}
+
+main
