@@ -855,7 +855,7 @@ kubectl logs -f perf-test
 To delete a PerfTest instance, use
 
 <pre class='lang-bash'>
-kubectl delete pod perf-test
+kubectl delete deploy perf-test
 </pre>
 
 
