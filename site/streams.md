@@ -15,17 +15,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Stream Queues NOSYNTAX
+# Stream NOSYNTAX
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-A new persistent and replicated RabbitMQ queue type modelling an append-only log
-with non-destructive consumer semantics. Can be used as a regular AMQP 0.9.1 queue
-or through a new binary protocol plugin and associated client(s).
+A stream is a new persistent and replicated data structure in RabbitMQ which models
+an append-only log with non-destructive consumer semantics.
+It can be used as a regular AMQP 0.9.1 queue or through a new binary protocol
+plugin and associated client(s).
+
+This page covers the concepts of streams, their usage as AMQP 0.9.1 queues, and
+their administation and maintenance operations. Please visit the [Stream plugin](/stream.html)
+page to learn more about the usage of streams with the custom binary protocol.
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
-The stream queue type was developed to initially cover 4 messaging use-cases that
+Streams were developed to initially cover 4 messaging use-cases that
 existing queue types either can not provide or provide with downsides:
 
 1. Large fan-outs
@@ -33,70 +38,70 @@ existing queue types either can not provide or provide with downsides:
     When wanting to deliver the same message to multiple subscribers users currently
     have to bind a dedicated queue for each consumer. If the number of consumers is
     large this becomes potentially inefficient, especially when wanting persistence
-    and/or replication. The stream queue will allow any number of consumers to consume
+    and/or replication. Streams will allow any number of consumers to consume
     the same messages from the same queue in a non-destructive manner, negating the need
-    to bind multiple queues. Stream queue consumers will also be able to read from replicas
+    to bind multiple queues. Stream consumers will also be able to read from replicas
     allowing read load to be spread across the cluster.
 
 2. Replay / Time-travelling
 
     As all current RabbitMQ queue types have destructive consume behaviour, i.e. messages
     are deleted from the queue when a consumer is finished with them, it is not
-    possible to re-read messages that have been consumed. Stream queues will allow
+    possible to re-read messages that have been consumed. Streams will allow
     consumers to attach at any point in the log and read from there.
 
 3. Throughput Performance
 
     No persistent queue types are able to deliver throughput that can compete with
-    any of the existing log based messaging systems. Stream queues have been designed
+    any of the existing log based messaging systems. Streams have been designed
     with performance as a major goal.
 
-4. Large queues
+4. Large logs
 
     Most RabbitMQ queues are designed to converge towards the empty state and are
     optimised as such and can perform worse when there are millions of messages on a
-    given queue. Stream queues are designed to store larger amounts of data in an
+    given queue. Streams are designed to store larger amounts of data in an
     efficient manner with minimal in-memory overhead.
 
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
 
-A client library that can specify [optional queue and consumer arguments](/queues.html#optional-arguments) will
-be able to use stream queues.
+An AMQP 0.9.1 client library that can specify [optional queue and consumer arguments](/queues.html#optional-arguments)
+will be able to use streams as regular AMQP 0.9.1 queues.
 
-First we will cover how to declare a stream queue.
+First we will cover how to declare a stream.
 
 ### <a id="declaring" class="anchor" href="#declaring">Declaring</a>
 
-To declare a stream queue set the `x-queue-type` queue argument to `stream`
+To declare a stream, set the `x-queue-type` queue argument to `stream`
 (the default is `classic`). This argument must be provided by a client
-at queue declaration time; it cannot be set or changed using a [policy](/parameters.html#policies).
+at declaration time; it cannot be set or changed using a [policy](/parameters.html#policies).
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
-Declaring a queue with an `x-queue-type` argument set to `stream` will create a stream queue
-with a replica on each configured RabbitMQ node. Stream queues are quorum systems
+Declaring a queue with an `x-queue-type` argument set to `stream` will create a stream
+with a replica on each configured RabbitMQ node. Streams are quorum systems
 so uneven cluster sizes is strongly recommended.
 
-After declaration a stream queue can be bound to any exchange just as any other
-RabbitMQ queue.
+A stream remains an AMQP 0.9.1 queue, so it can be bound to any exchange after its creation,
+just as any other RabbitMQ queue.
 
-If declaring using [management UI](/management.html), queue type must be specified using
+If declaring using [management UI](/management.html), the `stream` type must be specified using
 the queue type drop down menu.
 
-Stream queues support 3 additional [queue arguments](/queues.html#optional-arguments)
+Streams support 3 additional [queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies)
 
  * `max-length-bytes`
 
-Sets the maximum size of the stream in bytes. See retention. Default: not set.
+Sets the maximum size of the stream in bytes. See [retention](#retention). Default: not set.
 
 * `max-age`
 
-Sets the maximum age of a stream. See retention. Default: not set.
+Sets the maximum age of the stream. See [retention](#retention). Default: not set.
 
 * `max-segment-size`
 
-Unit: bytes. A stream queue is divided up into fixed size segments on disk.
+Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes). 
 
@@ -106,7 +111,7 @@ Default: (500000000 bytes).
 
 #### Consuming
 
-As stream queues never delete any messages any consumer can start reading/consuming
+As streams never delete any messages, any consumer can start reading/consuming
 from any point in the log. This is controlled by the `x-stream-offset` consumer argument.
 If it is unspecified the consumer will start reading from the next offset written
 to the log after the consumer starts. The following values are supported:
@@ -134,14 +139,14 @@ but some have some queue specific behaviour.
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
 
-Stream queues are not really queues in the traditional sense and thus do not
+Streams are not really queues in the traditional sense and thus do not
 align very closely with AMQP 0.9.1 queue semantics. Many features that other queue types
 support are not supported and will never be due to the nature of the queue type.
 
-A client library that can use regular mirrored queues will be able to use stream queues
+An AMQP 0.9.1 client library that can use regular mirrored queues will be able to use streams
 as long as it uses consumer acknowledgements.
 
-Many features will never be supported by stream queues due their non-destructive
+Many features will never be supported by streams due their non-destructive
 read semantics.
 
 ### <a id="feature-matrix" class="anchor" href="#feature-matrix">Feature Matrix</a>
@@ -152,7 +157,7 @@ read semantics.
 | [Exclusivity](/queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [TTL](/ttl.html) | yes | no (but see [Retention](#retention) |
+| [TTL](/ttl.html) | yes | no (but see [Retention](#retention)) |
 | [Queue length limits](/maxlength.html) | yes | no (but see [Retention](#retention))|
 | [Lazy behaviour](/lazy-queues.html) | yes | inherent |
 | [Message priority](/priority.html) | yes | no |
@@ -165,35 +170,35 @@ read semantics.
 
 #### Non-durable Queues
 
-Regular queues can be [non-durable](/queues.html). Stream queues are always durable per their
+Regular queues can be [non-durable](/queues.html). Streams are always durable per their
 assumed [use cases](#use-cases).
 
 #### Exclusivity
 
-Regular queues can be [exclusive](/queues.html#exclusive-queues). Stream queues are always durable per their
+Regular queues can be [exclusive](/queues.html#exclusive-queues). Streams are always durable per their
 assumed [use cases](#use-cases). They are not meant to be used as [temporary queues](/queues.html#temporary-queues).
 
 
 #### Lazy Mode
 
-Stream queues store all data directly on disk, after a message has been written
-it does not use any memory until it is read. Stream queues are inherently "lazy".
+Streams store all data directly on disk, after a message has been written
+it does not use any memory until it is read. Streams are inherently "lazy".
 
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
-Stream queues do not support global [QoS prefetch](/confirms.html#channel-qos-prefetch) where a channel sets a single
+Streams do not support global [QoS prefetch](/confirms.html#channel-qos-prefetch) where a channel sets a single
 prefetch limit for all consumers using that channel. If an attempt
-is made to consume from a stream queue from a channel with global QoS enabled
+is made to consume from a stream from a channel with global QoS enabled
 a channel error will be returned.
 
 Use [per-consumer QoS prefetch](/consumer-prefetch.html), which is the default in several popular clients.
 
 ## <a id="retention" class="anchor" href="#retention">Data Retention</a>
 
-Stream queues are implemented as an immutable append-only disk log. This means that
+Streams are implemented as an immutable append-only disk log. This means that
 the log will grow indefinitely until the disk runs out. To avoid this undesirable
-scenario it is possible to set a retention configuration per queue which will 
+scenario it is possible to set a retention configuration per stream which will 
 discard the oldest data in the log based on total log data size and/or age.
 
 There are two parameters that control the retention of a stream. These can be combined.
@@ -218,17 +223,15 @@ one message.
 
 ## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
 
-As stream queues persist all data to disks before doing anything it is recommended
+As streams persist all data to disks before doing anything it is recommended
 to use the fastest disks possible.
 
-Due to the disk I/O-heavy nature of stream queues, their throughput decreases
+Due to the disk I/O-heavy nature of streams, their throughput decreases
 as message sizes increase.
 
-Just like quorum queues, stream queues are also affected by cluster sizes.
-The more replicas a stream queue has, the lower its throughput generally will
+Just like quorum queues, streams are also affected by cluster sizes.
+The more replicas a stream has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
-
-
 
 
 ### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
@@ -237,22 +240,22 @@ TODO
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Stream Replicas)
 
-Replicas of a stream queue are explicitly managed by the operator. When a new node is added
-to the cluster, it will host no stream queue replicas unless the operator explicitly adds it
-to a replica set of a stream queue.
+Replicas of a stream are explicitly managed by the operator. When a new node is added
+to the cluster, it will host no stream replicas unless the operator explicitly adds it
+to a replica set of a stream.
 
 When a node has to be decommissioned (permanently removed from the cluster), it must be explicitly
-removed from the replica list of all stream queues it currently hosts replicas for.
+removed from the replica list of all streams it currently hosts replicas for.
 
 Two [CLI commands](/cli.html) are provided to perform the above operations,
 `rabbitmq-streams add_member` and `rabbitmq-streams delete_member`:
 
 <pre class="lang-bash">
-rabbitmq-streams add_replica [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+rabbitmq-streams add_replica [-p &lt;vhost&gt;] &lt;stream-name&gt; &lt;node&gt;
 </pre>
 
 <pre class="lang-bash">
-rabbitmq-streams delete_replica [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+rabbitmq-streams delete_replica [-p &lt;vhost&gt;] &lt;stream-name&gt; &lt;node&gt;
 </pre>
 
 To successfully add and remove replicas the stream coordinator must be
@@ -271,17 +274,17 @@ TODO
 
 ## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
 
-Every stream queue has a primary writer and zero or more replicas.
+Every stream has a primary writer and zero or more replicas.
 
 A leader is elected when the cluster is first formed and later if the leader
 becomes unavailable.
 
 ### <a id="leader-election" class="anchor" href="#leader-election">Leader Election and Failure Handling</a>
 
-A stream queue requires a quorum of the declared nodes to be available
-to function. When a RabbitMQ node hosting a stream queue's
+A stream requires a quorum of the declared nodes to be available
+to function. When a RabbitMQ node hosting a stream's
 *leader* fails or is stopped another node hosting one of that
-stream queue's *replica* will be elected leader and resume
+stream's *replica* will be elected leader and resume
 operations.
 
 Failed and rejoining replicas will re-synchronise ("catch up") with the leader.
@@ -290,8 +293,8 @@ does not require a full re-synchronization from the currently elected leader. On
 will be transferred if a re-joining replica is behind the leader. This "catching up" process
 does not affect leader availability.
 
-Replicas must be explicitly added to
-When a new replica is [added](#replica-management), it will synchronise the entire queue state
+Replicas must be explicitly added.
+When a new replica is [added](#replica-management), it will synchronise the entire stream state
 from the leader, similarly to classic mirrored queues.
 
 ### <a id="quorum-requirements" class="anchor" href="#quorum-requirements">Fault Tolerance and Minimum Number of Replicas Online</a>
@@ -320,12 +323,12 @@ in a table:
 
 ### <a id="data-safety" class="anchor" href="#data-safety">Data Safety</a>
 
-Stream queues replicate data across multiple nodes and publisher confirms are only
-issue once the data has been replicated to a quorum of stream replicas.
+Streams replicate data across multiple nodes and publisher confirms are only
+issued once the data has been replicated to a quorum of stream replicas.
 
-Stream queues always store data on disk, however, they do not explicitly flush (fsync)
+Streams always store data on disk, however, they do not explicitly flush (fsync)
 the data from the operating system page cache to the underlying storage
-medium, instead it relies on the operating system to do as and when required.
+medium, instead they rely on the operating system to do as and when required.
 This means that an uncontrolled shutdown of a server could result in data loss
 for replicas hosted on that node. Although theoretically this opens up the possibility
 of confirmed data loss, the chances of this happening during normal operation is
@@ -338,12 +341,12 @@ flushed the data to disk.
 
 *_No guarantees are provided for messages that have not been confirmed using
 the publisher confirm mechanism_*. Such messages could be lost "mid-way", in an operating
-system buffer or otherwise fail to reach the queue leader.
+system buffer or otherwise fail to reach the stream leader.
 
 
 ### <a id="availability" class="anchor" href="#availability">Availability</a>
 
-A stream queue should be able to tolerate a minority of queue replicas becoming unavailable
+A stream should be able to tolerate a minority of stream replicas becoming unavailable
 with no or little affect on availability.
 
 Note that depending on the [partition handling strategy](/partitions.html)
@@ -351,7 +354,7 @@ used RabbitMQ may restart itself during recovery and reset the node but as long 
 does not happen, this availability guarantee should hold true.
 
 For example, a stream with three replicas can tolerate one node failure without losing availability.
-A queue with five replicas can tolerate two, and so on.
+A stream with five replicas can tolerate two, and so on.
 
 If a quorum of nodes cannot be recovered (say if 2 out of 3 RabbitMQ nodes are
 permanently lost) the queue is permanently unavailable and
@@ -363,6 +366,6 @@ will most likely need operator involvement to be recovered.
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
-Stream queues are typically more light-weight than mirrored and quorum queues.
+Streams are typically more light-weight than mirrored and quorum queues.
 
 All data is stored on disk with only unwritten data stored in memory.
