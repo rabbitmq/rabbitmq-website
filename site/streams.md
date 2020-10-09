@@ -84,7 +84,7 @@ The following snippet shows how to create a stream with the [AMQP 0.9.1 Java cli
 ConnectionFactory factory = new ConnectionFactory();
 Connection connection = factory.newConnection();
 Channel channel = connection.createChannel();
-c.queueDeclare(
+channel.queueDeclare(
   "my-stream",
   true,         // durable
   false, false, // not exclusive, not auto-delete
@@ -105,21 +105,39 @@ the queue type drop down menu.
 Streams support 3 additional [queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies)
 
-* `max-length-bytes`
+* `x-max-length-bytes`
 
 Sets the maximum size of the stream in bytes. See [retention](#retention). Default: not set.
 
-* `max-age`
+* `x-max-age`
 
 Sets the maximum age of the stream. See [retention](#retention). Default: not set.
 
-* `max-segment-size`
+* `x-max-segment-size`
 
 Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes). 
 
-TODO: snippet to illustrate the creation with the 3 arguments
+The following snippet shows how to set the maximum size of a stream to 20 GB, with
+segment files of 100 MB:
+
+<pre class="lang-java">
+ConnectionFactory factory = new ConnectionFactory();
+Connection connection = factory.newConnection();
+Channel channel = connection.createChannel();
+Map&lt;String, Object&gt; arguments = new HashMap&lt;&gt;();
+arguments.put("x-queue-type", "stream");
+arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
+arguments.put("x-max-segment-size", 100_000_000); // size of segment files: 100 MB
+channel.queueDeclare(
+  "my-stream",
+  true,         // durable
+  false, false, // not exclusive, not auto-delete
+  arguments
+);
+</pre>
+
 
 ### Client Operations
 
