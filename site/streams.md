@@ -123,9 +123,6 @@ The following snippet shows how to set the maximum size of a stream to 20 GB, wi
 segment files of 100 MB:
 
 <pre class="lang-java">
-ConnectionFactory factory = new ConnectionFactory();
-Connection connection = factory.newConnection();
-Channel channel = connection.createChannel();
 Map&lt;String, Object&gt; arguments = new HashMap&lt;&gt;();
 arguments.put("x-queue-type", "stream");
 arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
@@ -149,23 +146,55 @@ from any point in the log. This is controlled by the `x-stream-offset` consumer 
 If it is unspecified the consumer will start reading from the next offset written
 to the log after the consumer starts. The following values are supported:
 
- * "first" - start from the first available message in the log
- * "last" - this starts reading from the last written "chunk" of messages (TODO: explain chunks)
- * "next" - same as not specifying any offset
+ * `first` - start from the first available message in the log
+ * `last` - this starts reading from the last written "chunk" of messages (TODO: explain chunks)
+ * `next` - same as not specifying any offset
  * Offset - a numerical value specifying an exact offset to attach to the log at. If
 this offset does not exist it will clamp to either the start or end of the log respectively.
+
+The following snippet shows on to use the `first` offset specification:
+
+<pre class="lang-java">
+channel.basicQos(100); // QoS must be specified
+channel.basicConsume(
+  "my-stream",
+  false,
+  Collections.singletonMap("x-stream-offset", "first"), // "first" offset specification
+  (consumerTag, message) -> {
+    // message processing
+    // ...
+   channel.basicAck(message.getEnvelope().getDeliveryTag(), false); // ack is required
+  },
+  consumerTag -> { });
+</pre>
+
+The following snippet shows on to specify an specific offset to consume from:
+
+<pre class="lang-java">
+channel.basicQos(100); // QoS must be specified
+channel.basicConsume(
+  "my-stream",
+  false,
+  Collections.singletonMap("x-stream-offset", 5000), // offset value
+  (consumerTag, message) -> {
+    // message processing
+    // ...
+   channel.basicAck(message.getEnvelope().getDeliveryTag(), false); // ack is required
+  },
+  consumerTag -> { });
+</pre>
 
 #### Other
 
 The following operations can be used in a similar way to classic and quorum queues
 but some have some queue specific behaviour.
 
- * [Declaration](#declaring) (covered above)
+ * [Declaration](#declaring)
  * Queue deletion
- * [Consumption](/consumers.html) (subscription)
-    Consumption requires QoS prefetch to be set. The acks works as a credit mechanism
-    to advance the current offset of the consumer.
-
+ * [Publisher confirms](/confirms.html#publisher-confirms)
+ * [Consumption](/consumers.html) (subscription): consumption requires QoS
+ prefetch to be set. The acks works as a credit mechanism to advance the current
+ offset of the consumer.
  * Setting [QoS prefetch](#global-qos) for consumers
  * [Consumer acknowledgements](/confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
  * Cancellation of consumers
