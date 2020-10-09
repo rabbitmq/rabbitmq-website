@@ -78,6 +78,20 @@ at declaration time; it cannot be set or changed using a [policy](/parameters.ht
 This is because policy definition or applicable policy can be changed dynamically but
 queue type cannot. It must be specified at the time of declaration.
 
+The following snippet shows how to create a stream with the [AMQP 0.9.1 Java client](/api-guide.html):
+
+<pre class="lang-java">
+ConnectionFactory factory = new ConnectionFactory();
+Connection connection = factory.newConnection();
+Channel channel = connection.createChannel();
+c.queueDeclare(
+  "my-stream",
+  true,         // durable
+  false, false, // not exclusive, not auto-delete
+  Collections.singletonMap("x-queue-type", "stream")
+);
+</pre>
+
 Declaring a queue with an `x-queue-type` argument set to `stream` will create a stream
 with a replica on each configured RabbitMQ node. Streams are quorum systems
 so uneven cluster sizes is strongly recommended.
@@ -91,7 +105,7 @@ the queue type drop down menu.
 Streams support 3 additional [queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies)
 
- * `max-length-bytes`
+* `max-length-bytes`
 
 Sets the maximum size of the stream in bytes. See [retention](#retention). Default: not set.
 
@@ -105,6 +119,7 @@ Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
 Default: (500000000 bytes). 
 
+TODO: snippet to illustrate the creation with the 3 arguments
 
 ### Client Operations
 
