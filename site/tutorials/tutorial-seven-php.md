@@ -72,7 +72,7 @@ confirmation with the `$channel::wait_for_pending_acks(int|float)` method.
 The method returns as soon as the message has been confirmed. If the
 message is not confirmed within the timeout or if it is nack-ed (meaning
 the broker could not take care of it for some reason), the method will
-throw an exception. The handling of the exception will usually consists
+throw an exception. The handling of the exception usually consists
 in logging an error message and/or retrying to send the message.
 
 Different client libraries have different ways to synchronously deal with publisher confirms,
