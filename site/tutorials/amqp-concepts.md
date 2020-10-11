@@ -455,7 +455,7 @@ Messages also have a _payload_ (the data that
 they carry), which AMQP brokers treat as an opaque byte array.
 The broker will not inspect or modify the payload. It is possible
 for messages to contain only attributes and no payload. It
-is common to use serialisation formats like JSON, Thrift,
+is common to use serialization formats like JSON, Thrift,
 Protocol Buffers and MessagePack to serialize structured data
 in order to publish it as the message payload. Protocol peers
 typically use the "content-type" and "content-encoding" fields to
