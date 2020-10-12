@@ -15,13 +15,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Stream NOSYNTAX
+# Streams NOSYNTAX
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-A stream is a new persistent and replicated data structure in RabbitMQ which models
+Streams are a new persistent and replicated data structure in RabbitMQ which models
 an append-only log with non-destructive consumer semantics.
-It can be used as a regular AMQP 0.9.1 queue or through a new binary protocol
+They can be used as a regular AMQP 0.9.1 queue or through a new binary protocol
 plugin and associated client(s).
 
 This page covers the concepts of streams, their usage as AMQP 0.9.1 queues, and
