@@ -187,6 +187,7 @@ limitations under the License.
          <x:related url="/uri-spec.html"/>
          <x:related url="/uri-query-parameters.html"/>
        </x:page>
+       <x:page url="/stream.html" text="Stream plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/web-stomp.html" text="STOMP-over-WebSockets"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
