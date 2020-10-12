@@ -147,7 +147,9 @@ If it is unspecified the consumer will start reading from the next offset writte
 to the log after the consumer starts. The following values are supported:
 
  * `first` - start from the first available message in the log
- * `last` - this starts reading from the last written "chunk" of messages (TODO: explain chunks)
+ * `last` - this starts reading from the last written "chunk" of messages _(a chunk
+ is the storage and transportation unit used in streams, put simply it is a batch
+ of messages made of several to a few thousands of messages, depending on the ingress)_
  * `next` - same as not specifying any offset
  * Offset - a numerical value specifying an exact offset to attach to the log at. If
 this offset does not exist it will clamp to either the start or end of the log respectively.
@@ -232,19 +234,20 @@ read semantics.
 
 #### Non-durable Queues
 
-Regular queues can be [non-durable](/queues.html). Streams are always durable per their
-assumed [use cases](#use-cases).
+Streams are always durable per their assumed [use cases](#use-cases),
+they cannot be [non-durable](/queues.html#properties) like regular queues.
 
 #### Exclusivity
 
-Regular queues can be [exclusive](/queues.html#exclusive-queues). Streams are always durable per their
-assumed [use cases](#use-cases). They are not meant to be used as [temporary queues](/queues.html#temporary-queues).
+Streams are always durable per their assumed [use cases](#use-cases), they cannot be
+[exclusive](/queues.html#exclusive-queues) like regular queues.
+They are not meant to be used as [temporary queues](/queues.html#temporary-queues).
 
 
 #### Lazy Mode
 
 Streams store all data directly on disk, after a message has been written
-it does not use any memory until it is read. Streams are inherently "lazy".
+it does not use any memory until it is read. Streams are inherently [lazy](/lazy-queues.html, so to speak).
 
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
@@ -300,7 +303,7 @@ be since more work has to be done to replicate data and achieve consensus.
 
 TODO
 
-### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Stream Replicas)
+### <a id="replica-management" class="anchor" href="#replica-management">Managing Stream Replicas</a>
 
 Replicas of a stream are explicitly managed by the operator. When a new node is added
 to the cluster, it will host no stream replicas unless the operator explicitly adds it
