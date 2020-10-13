@@ -275,7 +275,7 @@ for v in $(rabbitmqctl list_vhosts --silent); do rabbitmqctl set_permissions -p 
 [Production environments](/production-checklist.html) typically need to pre-configure (seed) a number
 of virtual hosts, users and user permissions.
 
-While this can be done in a few ways:
+This can be done in a few ways:
 
  * Using [CLI tools](/cli.html)
  * [Definition export and import on node boot](/definitions.html) (recommended)
@@ -472,7 +472,7 @@ message to a topic-typed exchange will go through both the
 The latter is never called if the former refuses access.
 
 Topic authorisation can also be enforced for topic consumers.
-Note that it works different for different protocols. The concept
+Note that it works differently for different protocols. The concept
 of topic authorisation only really makes sense for the topic-oriented protocols such as MQTT
 and STOMP. In AMQP 0-9-1, for example, consumers consume from queues
 and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
@@ -487,7 +487,7 @@ topic exchange or consuming from a topic is always authorised
 if no topic permissions
 are defined (which is the case on a fresh RabbitMQ
 installation). With this authorisation backend, topic
-authorisation as optional: you don't need to whitelist any
+authorisation is optional: you don't need to whitelist any
 exchanges. To use topic authorisation therefore you need to opt in
 and define topic permissions for one or more exchanges. For details please see
 the [rabbitmqctl man page](/rabbitmqctl.8.html).
@@ -770,7 +770,7 @@ rabbitmqctl authenticate_user "a-username" "a/password"
 If authentication succeeds, it will exit with
 the code of zero. In case of a failure, a non-zero exit code will be used and a failure error message will be printed.
 
-<code>rabbitmqctl authenticate_user</code> will use an CLI-to-node communication connection to attempt to authenticate
+<code>rabbitmqctl authenticate_user</code> will use a CLI-to-node communication connection to attempt to authenticate
 the username/password pair against an internal API endpoint.
 The connection is assumed to be trusted. If that's not the case, its traffic can be [encrypted using TLS](/clustering-ssl.html).
 

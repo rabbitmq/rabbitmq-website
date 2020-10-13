@@ -619,7 +619,7 @@ channel.basicAck(method.deliveryTag, false); // acknowledge receipt of the messa
 
 If a message is published with the "mandatory" flags set,
 but cannot be routed, the broker will return it to the
-sending client (via a `AMQP.Basic.Return`
+sending client (via an `AMQP.Basic.Return`
 command).
 
 To be notified of such returns, clients can implement the `ReturnListener`

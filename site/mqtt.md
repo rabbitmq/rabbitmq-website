@@ -211,7 +211,7 @@ As of RabbitMQ 3.8, this plugin requires a quorum (majority) of nodes to be onli
 This is because client ID tracking now uses a consensus protocol which requires
 a quorum of nodes to be online in order to make progress.
 
-If a quorum of nodes is down or lost, the plugin won't be able to access new client
+If a quorum of nodes is down or lost, the plugin won't be able to accept new client
 connections until the quorum is restored.
 
 This also means that **two node clusters are not supported** since the loss of just one
@@ -540,7 +540,7 @@ about the proxy protocol.
 ## <a id="sparkplug-support" class="anchor" href="#sparkplug-support">Sparkplug Support</a>
 
 [Sparkplug](https://www.cirrus-link.com/mqtt-sparkplug-tahu/) is a specification
-that provides guidance for the design of a MQTT system. In Sparkplug,
+that provides guidance for the design of an MQTT system. In Sparkplug,
 MQTT topics must start with `spAvM.N` or `spBvM.N`, where `M` and `N` are integers.
 This unfortunately conflicts with the way the RabbitMQ MQTT plugin [translates MQTT
 topics into AMQP routing keys](#implementation).
