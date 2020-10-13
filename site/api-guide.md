@@ -1048,7 +1048,7 @@ recovery won't kick in. Applications developers are responsible for retrying
 such connections, logging failed attempts, implementing a limit to the number
 of retries and so on. Here's a very basic example:
 
-<pre class="lang-csharp">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
@@ -1414,7 +1414,7 @@ It's possible to encrypt the communication between the client and the broker
 [using TLS](/ssl.html). Client and server authentication (a.k.a. peer verification) is also supported.
 Here is the simplest, most naive way to use encryption with the Java client:
 
-<pre class="lang-plaintext">
+<pre class="lang-java">
 ConnectionFactory factory = new ConnectionFactory();
 factory.setHost("localhost");
 factory.setPort(5671);
