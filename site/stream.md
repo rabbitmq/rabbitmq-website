@@ -97,7 +97,7 @@ stream.frame_max = 2097152 # in bytes
 stream.heartbeat = 120 # in seconds
 </pre>
 
-### <a id="credits" class="anchor" href="#Credits">Flow Control</a>
+### <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
 Fast publishers can overhelm the broker if it cannot keep up writing and replicating inbound messages.
 So each connection has a maximum number of outstanding unconfirmed messages allowed before being blocked
@@ -113,3 +113,20 @@ stream.credits_required_for_unblocking = 25000
 High values for these settings can improve publishing throughput at the cost of higher memory consumption
 (which can finally make the broker crash). Low values can help to cope with a lot of moderately fast-publishing
 connections.
+
+### <a id="advertised-host-port" class="anchor" href="#advertised-host-port">Advertised Host and Port</a>
+
+The stream protocol allows to discover the topology of streams, that is where the leader and replicas for a given
+set of streams are located in the cluster. This way the client can choose to connect to the appropriate node
+to interact with the streams: the leader node to publish, a replica to consume. By default, nodes return their
+hostname and listener port, which may be fine for most situations, but not always (proxy sitting between the cluster
+nodes and the clients, cluster nodes and/or clients running in containers, etc).
+
+The `advertised_host` and `advertised_port` keys allow to specify which information a broker node returns when asked
+the topology of streams. One can set those settings according to their infrastructure, so that clients can connect
+to cluster nodes:
+
+<pre class="lang-ini">
+stream.advertised_host = rabbitmq-1
+stream.advertised_port = 12345
+</pre>
