@@ -110,7 +110,7 @@ use `#` in regular expression values. Leading and trailing spaces in values will
 be stripped by the config file parser.
 
 Also note that when passwords are used with CLI tools commands that [manage users](/access-control.html#user-management),
-shell escaping of certain characters [must be taken into account](/access-control.html#password-and-shell-escaping).
+shell escaping of certain characters [must be taken into account](/access-control.html#passwords-and-shell-escaping).
 
 
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>

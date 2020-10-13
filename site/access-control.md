@@ -30,7 +30,7 @@ as well as several [authentication and authorisation backends](#backends).
 
 This guide covers a variety of authentication, authorisation and user management topics such as
 
- * [Access control essentials](#the-basics)
+ * [Access control essentials](#basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
  * How to [manage users and permissions](#user-management) using CLI tools
