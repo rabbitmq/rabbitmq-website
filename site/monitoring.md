@@ -658,31 +658,6 @@ rabbitmq-diagnostics -q check_virtual_hosts
 The probability of false positives is generally low except for systems that are under
 high CPU load.
 
-#### Stage 6
-
-Includes all checks in stage 5 plus checks all channel and queue processes
-on the target node for aliveness.
-
-The combination of [`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) and
-[`rabbitmq-diagnostics node_health_check`](/rabbitmq-diagnostics.8.html) is the closest currently available
-alternative to this check.
-
-This combination of commands includes all checks up to and including stage 4.
-It will also check all channel and queue processes on the target queue for aliveness:
-
-<pre class="lang-bash">
-rabbitmq-diagnostics -q check_port_connectivity &amp;&amp; \
-rabbitmq-diagnostics -q node_health_check
-# if both checks succeed, the exit code will be 0
-</pre>
-
-Note that this is an **expensive operation** on nodes with a lot of queues and channels.
-
-Picking a suitable timeout for such check, therefore, is non-trivial.
-The probability of false positives is **high** for systems under
-above average load or with a large number of queues and channels
-(starting with thousands).
-
 
 ### <a id="readiness-probes" class="anchor" href="#readiness-probes">Health Checks as Readiness Probes</a>
 
