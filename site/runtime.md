@@ -323,34 +323,6 @@ mentioning a busy distribution port (`busy_dist_port`):
 
 Increasing buffer size may help increase throughput and/or reduce latency.
 
-
-## <a id="io-threads" class="anchor" href="#io-threads">I/O Thread Pool Size</a>
-
-The runtime uses a pool of threads for performing I/O
-operations asynchronously. The size of the pool is [configured](/configure.html) via
-the `RABBITMQ_IO_THREAD_POOL_SIZE` environment variable. The variable
-is a shortcut to setting the `+A` VM command line flag, e.g. `+A 128`.
-
-<pre class="lang-bash">
-# reduces number of I/O threads from 128 to 32
-RABBITMQ_IO_THREAD_POOL_SIZE=32
-</pre>
-
-To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
-variable:
-
-<pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
-</pre>
-
-Default value in recent RabbitMQ releases is 128 (30 previously). Nodes that have 8 or more cores available are recommended
-to use values higher than 96, that is, 12 or more I/O threads for every core available.
-
-Note that higher values do not necessarily mean better throughput or lower CPU
-burn due to waiting on I/O. There are relevant [metrics](/monitoring.html) available about runtime
-thread activity. This is covered in [a separate section](#thread-stats)
-
-
 ## <a id="erlang-process-limit" class="anchor" href="#erlang-process-limit">Erlang Process Limit</a>
 
 The runtime has a limit on the number of Erlang processes ("lightweight threads") that can exist on a node.
