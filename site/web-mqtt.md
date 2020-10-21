@@ -83,7 +83,7 @@ you may use code like:
 </pre>
 
 Once you have the `client` object you can follow API's exposed by
-[Paho JavaScript library](https://eclipse.org/paho/clients/js/). The next step is usually to establish a MQTT
+[Paho JavaScript library](https://eclipse.org/paho/clients/js/). The next step is usually to establish an MQTT
 connection with the broker:
 
 <pre class="lang-javascript">

@@ -122,7 +122,7 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <p class="Pp">For <code class="Cm">reset</code> and
         <code class="Cm">force_reset</code> to succeed the RabbitMQ application
         must have been stopped, e.g. with <code class="Cm">stop_app</code>.</p>
-    <p class="Pp">For example, to resets the RabbitMQ node:</p>
+    <p class="Pp">For example, to reset the RabbitMQ node:</p>
     <p class="Pp"></p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl reset</code></div>
   </dd>
@@ -1284,7 +1284,7 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
       my-vhost messages consumers</code></div>
   </dd>
   <dt><a class="permalink" href="#list_unresponsive_queues"><code class="Cm" id="list_unresponsive_queues">list_unresponsive_queues</code></a>
-    [<code class="Fl">--local</code>] [<code class="Fl">--queue_timeout</code>
+    [<code class="Fl">--local</code>] [<code class="Fl">--queue-timeout</code>
     <var class="Ar">milliseconds</var>] [<var class="Ar">column ...</var>]
     [<code class="Fl">--no-table-headers</code>]</dt>
   <dd>
@@ -1294,19 +1294,6 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
         whose master process is located on the current node.</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
       list_unresponsive_queues --local name</code></div>
-  </dd>
-  <dt><a class="permalink" href="#node_health_check"><code class="Cm" id="node_health_check">node_health_check</code></a></dt>
-  <dd>
-    <p class="Pp">DEPRECATED. Performs intrusive, opinionated health checks on a
-        fully booted node. To learn more, see the
-        <a class="Lk" href="https://www.rabbitmq.com/monitoring.html#health-checks">Health
-        Checks documentation</a></p>
-    <p class="Pp">Verifies the RabbitMQ application is running and alarms are
-        not set, then checks that every queue and channel on the node can emit
-        basic stats.</p>
-    <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl node_health_check -n
-      rabbit@hostname</code></div>
   </dd>
   <dt><a class="permalink" href="#ping"><code class="Cm" id="ping">ping</code></a></dt>
   <dd>
@@ -1954,24 +1941,6 @@ Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
     <var class="Ar">expression</var></dt>
   <dd>
     <p class="Pp">Evaluates an Erlang expression on the target node</p>
-  </dd>
-  <dt><a class="permalink" href="#hipe_compile"><code class="Cm" id="hipe_compile">hipe_compile</code></a>
-    <var class="Ar">directory</var></dt>
-  <dd>
-    <p class="Pp">Performs HiPE-compilation and caches resulting
-        <span class="Pa">.beam</span>-files in the given directory.</p>
-    <p class="Pp">Parent directories are created if necessary. Any existing
-        <span class="Pa">.beam</span> files from the directory are automatically
-        deleted prior to compilation.</p>
-    <p class="Pp">To use this precompiled files, you should set
-        <code class="Ev">RABBITMQ_SERVER_CODE_PATH</code> environment variable
-        to directory specified in <code class="Cm">hipe_compile</code>
-        invocation.</p>
-    <p class="Pp">For example, to HiPE-compile modules and store them to
-        <span class="Pa">/tmp/rabbit-hipe/ebin</span> directory:</p>
-    <p class="Pp"></p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl hipe_compile
-      /tmp/rabbit-hipe/ebin</code></div>
   </dd>
 </dl>
 </section>

@@ -100,8 +100,8 @@ the `$page-mode` variable in XSLT.
 
 ### Tutorial Charts (Diagrams)
 
-[diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) is a script generates PNGs from graph descriptions
-embedded in files. Generally you don't need to run this, since the generated
+[diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) is a script that generates PNGs from graph descriptions
+embedded in files. Generally, you don't need to run this, since the generated
 PNGs are committed. To work on the diagrams please install Graphviz:
 
 ```sh

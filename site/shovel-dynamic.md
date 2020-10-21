@@ -71,7 +71,7 @@ different:
 
 <pre class="lang-powershell">
 rabbitmqctl.bat set_parameter shovel my-shovel ^
-  "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""source-queue"": ""source-queue"", ^ 
+  "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^ 
    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^
    ""dest-queue"": ""target-queue""}"
 </pre>

@@ -967,7 +967,7 @@ rabbitmqctl cluster_status
 
 We can also remove nodes remotely. This is useful, for example, when
 having to deal with an unresponsive node. We can for example remove
-`rabbit@rabbi1` from `rabbit@rabbit2`.
+`rabbit@rabbit1` from `rabbit@rabbit2`.
 
 <pre class="lang-bash">
 # on rabbit1

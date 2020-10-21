@@ -80,7 +80,7 @@ published separately.
     <td>
       <ul>
         <li>Security vulnerability patch (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>)</li>
-        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+        <li>3.7.x release series <a href="/versions.html">has reached end of life</a></li>
       </ul>
     </td>
     <td class="centre">

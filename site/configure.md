@@ -1706,18 +1706,6 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   </tr>
 
   <tr>
-    <td>RABBITMQ_IO_THREAD_POOL_SIZE</td>
-    <td>
-      <a href="/networking.html#tuning-for-throughput-async-thread-pool">Number of threads used by the runtime for I/O</a>. Values lower than
-      32 are not recommended.
-
-      <p>
-        <strong>Default</strong>: 128 (Linux), 64 (Windows)
-      </p>
-    </td>
-  </tr>
-
-  <tr>
     <td>RABBITMQ_NODENAME</td>
     <td>
       The node name should be unique per Erlang-node-and-machine combination.

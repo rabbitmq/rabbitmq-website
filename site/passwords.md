@@ -25,7 +25,7 @@ a different authentication backend is used, most
 material in this guide will not be applicable.
 
 RabbitMQ supports multiple [authentication mechanisms](/access-control.html#mechanisms). Some of them use
-username/password pairs. These credential pairs are then handed over to an [authentication backends](/access-control.html#backends)
+username/password pairs. These credential pairs are then handed over to [authentication backends](/access-control.html#backends)
 that perform authentication. One of the backends, known as internal or built-in, uses internal RabbitMQ data store
 to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
 and hashed.
@@ -110,7 +110,7 @@ use `#` in regular expression values. Leading and trailing spaces in values will
 be stripped by the config file parser.
 
 Also note that when passwords are used with CLI tools commands that [manage users](/access-control.html#user-management),
-shell escaping of certain characters [must be taken into account](/access-control.html#password-and-shell-escaping).
+shell escaping of certain characters [must be taken into account](/access-control.html#passwords-and-shell-escaping).
 
 
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
@@ -126,7 +126,7 @@ Credential validators can also validate usernames or apply any other logic
 ## <a id="passwordless-users" class="anchor" href="#passwordless-users">Passwordless Users</a>
 
 [Internal authentication backend](/access-control.html) allows for users without a password
-or with a blank one (assuming credential validator also allows it). Such users are only mean to be used
+or with a blank one (assuming credential validator also allows it). Such users are only meant to be used
 with passwordless [authentication mechanisms](/authentication.html) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
 
 In order to create a passwordless user, create one with any password that passes validation and clear

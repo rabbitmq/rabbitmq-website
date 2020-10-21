@@ -366,8 +366,8 @@ As mentioned in the [Certificates and Keys](#certificates-and-keys) section, TLS
 primary purposes: encrypting connection traffic and providing a way to verify
 that the peer can be trusted (e.g. signed by a trusted Certificate Authority)
 to mitigate against [Man-in-the-Middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack),
-a class of attacks where an attacker impersonates a legitimate trusted client. This section will focus
-on the latter.
+a class of attacks where an attacker impersonates a legitimate trusted peer (usually a server).
+This section will focus on the latter.
 
 ### <a id="peer-verification-how-it-works" class="anchor" href="#peer-verification-how-it-works">How Peer Verification Works</a>
 

@@ -136,9 +136,9 @@ spec:
   image: my-private-registry/rabbitmq:my-custom-tag
 </pre>
 
-### <a name='image-pull-secret' class='anchor' href='#image-pull-secret'>imagePullSecret</a>
+### <a name='image-pull-secrets' class='anchor' href='#image-pull-secrets'>imagePullSecrets</a>
 
-**Description:** Specify `imagePullSecret` for the RabbitMQ image.
+**Description:** Specify `imagePullSecrets` for the RabbitMQ image.
 If the registry requires authentication, this is the name of the secret used to pull images.
 Kubernetes Secrets can be created by running:
 
@@ -157,7 +157,8 @@ metadata:
   name: rabbitmqcluster-sample
 spec:
   image: my-private-registry/rabbitmq:3.8
-  imagePullSecret: some-secret
+  imagePullSecrets:
+  - name: some-secret
 </pre>
 
 ### <a name='service-type' class='anchor' href='#service-type'>Service Type</a>
@@ -556,7 +557,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.imagePullSecret</code>
+        <code>spec.imagePullSecrets</code>
       </td>
       <td>The name of the Kubernetes secret that accesses the registry which contains
         the RabbitMQ image. This is only required for private registries.

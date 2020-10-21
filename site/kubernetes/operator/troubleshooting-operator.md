@@ -20,13 +20,13 @@ After creating a RabbitMQ instance, it is not available within a few minutes and
 
 Common reasons for such failure are:
 
- * Incorrect `imagePullSecret` configuration. This prevents the image from being pulled from a Docker registry.
+ * Incorrect `imagePullSecrets` configuration. This prevents the image from being pulled from a Docker registry.
  * Incorrect `storageClassName` configuration.
 
 Potential solution to resolve this issue:
 
- * Correct the <code>imagePullSecret</code> and <code>storageClassName</code>
-   configurations. See [imagePullSecret](/using-cluster-operator.html#image-pull-secret),
+ * Correct the <code>imagePullSecrets</code> and <code>storageClassName</code>
+   configurations. See [imagePullSecrets](/using-cluster-operator.html#image-pull-secrets),
    [Persistence](/using-cluster-operator.html#persistence), and
    [Update a RabbitMQ Instance](/using.html#update).
  * If the issue persists after updating the above configurations, view the status

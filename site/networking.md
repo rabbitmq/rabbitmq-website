@@ -597,31 +597,6 @@ stomp.tcp_listen_options.recbuf = 196608
 Note that setting send and receive buffer sizes to different values
 can be dangerous and **not recommended**.
 
-### <a id="tuning-for-throughput-async-thread-pool" class="anchor" href="#tuning-for-throughput-async-thread-pool">Erlang VM I/O Thread Pool</a>
-
-Erlang runtime uses a pool of threads for performing I/O
-operations asynchronously. The size of the pool is [configured](/configure.html) via
-the `RABBITMQ_IO_THREAD_POOL_SIZE` environment variable. The variable
-is a shortcut to setting the `+A` VM command line flag, e.g. `+A 128`.
-
-<pre class="lang-bash">
-# reduces number of I/O threads from 128 to 32
-RABBITMQ_IO_THREAD_POOL_SIZE=32
-</pre>
-
-To set the flag directly, use the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
-variable:
-
-<pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
-</pre>
-
-Default value in recent RabbitMQ releases is 128 (30 previously). Nodes that have 8 or more cores available are recommended
-to use values higher than 96, that is, 12 or more I/O threads for every core available.
-Note that higher values do not necessarily mean better throughput or lower CPU
-burn due to waiting on I/O.
-
-
 ## <a id="tuning-for-large-number-of-connections" class="anchor" href="#tuning-for-large-number-of-connections">Tuning for a Large Number of Connections</a>
 
 ### <a id="tuning-for-large-number-of-connections-intro" class="anchor" href="#tuning-for-large-number-of-connections-intro"></a>

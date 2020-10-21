@@ -152,6 +152,7 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-seven-java.html">Java</a></li>
       <li><a href="/tutorials/tutorial-seven-dotnet.html">C#</a></li>
+      <li><a href="/tutorials/tutorial-seven-php.html">PHP</a></li>
     </ul>
   </td>
   <td class="tutorial-empty"></td>
