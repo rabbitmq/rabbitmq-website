@@ -218,25 +218,26 @@ Below is a chart that demonstrates a fairly low new connection rate:
 
 A system is said to have high connection churn when its rate of newly opened connections is consistently high and
 its rate of closed connection is consistently high. This usually means that an application
-uses short lived connections. While with some workloads this is a natural state of the system,
+uses short lived connections. While with some workloads this scenario is difficult to avoid,
 long lived connections should be used instead when possible.
 
-[Management UI](/management.html) provides a chart of connection churn rate as of [RabbitMQ 3.7.9](/changelog.html).
+[Management UI](/management.html) provides a connection churn rate chart.
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
 in the given period of time:
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-connection-churn.png" alt="Node connection churn in management UI" title="Node connection churn in management UI" />
 
 While connection and disconnection rates are system-specific, rates consistently above 100/second likely indicate a suboptimal
-connection management by one or more applications and usually are worth investigating.
+connection management approach by one or more applications and usually are worth investigating.
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-high-connection-churn.png" alt="High connection churn in management UI" title="High connection churn in management UI" />
 
-Note that some clients and runtimes (notably PHP) do not use long-lived connections and high connection
-churn rates are expected from them unless a [specialized proxy is used](https://github.com/cloudamqp/amqproxy).
+Some clients and runtimes (notably PHP) do not use long-lived connections and high connection
+churn rates are expected from them. A [specialized proxy](https://github.com/cloudamqp/amqproxy) should be
+used with those clients to mitigate the churn they naturally create.
 
-Environments that experience high connection churn require TCP stack tuning to avoid resource exhaustion.
-This is covered [in the Networking guide](/networking.html#dealing-with-high-connection-churn).
+Environments that experience high connection churn require [TCP stack tuning to avoid resource exhaustion](/networking.html#dealing-with-high-connection-churn)
+under churn.
 
 
 ## <a id="resource-usage" class="anchor" href="#resource-usage">Resource Usage</a>
