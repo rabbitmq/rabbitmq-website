@@ -198,7 +198,7 @@ This chart demonstrates a monotonically growing number of connections after a dr
 
 <img class="screenshot" src="img/monitoring/connections/mgmt-ui-node-socket-count-growth.png" alt="Node file handle and socket count growth in management UI" title="Node file handle and socket count growth in management UI" />
 
-If the number of sockets used by a node keeps growing and growing this may be an indication
+If the number of sockets used by a node keeps growing and growing, it is likely an indication
 of a connection leak in one of the applications.
 
 Some client libraries, [such has the Java client](/api-guide.html#metrics), expose metrics including the number of currently
@@ -221,7 +221,7 @@ its rate of closed connection is consistently high. This usually means that an a
 uses short lived connections. While with some workloads this scenario is difficult to avoid,
 long lived connections should be used instead when possible.
 
-[Management UI](/management.html) provides a connection churn rate chart.
+RabbitMQ collects metrics on connection churn and exposes them via [Prometheus and Grafana](/prometheus.html) as well a [,anagement UI](/management.html) churn rate chart.
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
 in the given period of time:
 
