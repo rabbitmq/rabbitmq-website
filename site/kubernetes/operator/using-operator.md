@@ -83,7 +83,7 @@ kubectl get all -l app.kubernetes.io/name=definition
 #
 # NAME                                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
 # service/definition-rabbitmq-headless   ClusterIP   None             None        4369/TCP                       113s
-# service/definition-rabbitmq-ingress    ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
+# service/definition-rabbitmq-client     ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
 </pre>
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
@@ -531,7 +531,7 @@ The configurations are listed in the table below.
         These are annotations to add to every child resource, such as StatefulSet and Service.<br></br>
         Annotations containing <code>kubernetes.io</code> and <code>k8s.io</code> are ignored because these
         are reserved for Kubernetes core components.
-        When <code>spec.service.annotations</code> is specified, annotations for ingress are merged between
+        When <code>spec.service.annotations</code> is specified, annotations for the client service are merged between
         <code>spec.service.annotations</code> and <code>metadata.annotations</code>.<br></br>
         If the same key is specified in both configurations, the value from <code>spec.service.annotations</code>
         is applied. Modifying annotations triggers a rolling restart of StatefulSet.
@@ -576,7 +576,7 @@ The configurations are listed in the table below.
         <code>spec.service.annotations</code>
       </td>
       <td>
-      These are annotations on the ingress service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
+      These are annotations on the client service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
       are <b>not</b> filtered at this level.
       </td>
     </tr>
@@ -831,7 +831,7 @@ To install and run PerfTest, run these commands:
 instance=INSTANCE-NAME
 username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
 password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
-service=${instance}-rabbitmq-ingress
+service=${instance}-rabbitmq-client
 kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
 </pre>
 

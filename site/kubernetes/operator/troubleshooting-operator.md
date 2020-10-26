@@ -94,7 +94,7 @@ kubectl -n p-rmq-instance-1 get all
 <br/>
 # NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
 # service/pivotal-rabbitmq-headless   ClusterIP   None             None        4369/TCP                       2m27s
-# service/pivotal-rabbitmq-ingress    ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
+# service/pivotal-rabbitmq-client     ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
 <br/>
 # NAME                                       READY   AGE
 # statefulset.apps/pivotal-rabbitmq-server   1/1     2m28s
