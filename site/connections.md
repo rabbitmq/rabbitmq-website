@@ -221,7 +221,7 @@ its rate of closed connection is consistently high. This usually means that an a
 uses short lived connections. While with some workloads this scenario is difficult to avoid,
 long lived connections should be used instead when possible.
 
-RabbitMQ collects metrics on connection churn and exposes them via [Prometheus and Grafana](/prometheus.html) as well a [,anagement UI](/management.html) churn rate chart.
+RabbitMQ collects metrics on connection churn and exposes them via [Prometheus and Grafana](/prometheus.html) as well as [management UI](/management.html) churn rate chart.
 Below is a chart that demonstrates a fairly low connection churn with a comparable number of connections open and closed
 in the given period of time:
 
