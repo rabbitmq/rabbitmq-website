@@ -28,7 +28,22 @@ This guide covers queues primarily in the context of [AMQP 0-9-1](/tutorials/amq
 however, much of the content is applicable to other supported protocols.
 
 Some protocols (e.g. STOMP and MQTT) are based around the idea of topics.
-For them, queues are an implementation detail.
+For them, queues act as data accumulation buffer for consumers.
+However, it is still important to understand the role queues play
+because many features still operate at the queue level, even for those protocols.
+
+## <a id="basics" class="anchor" href="#basics">The Basics</a>
+
+A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type) is a sequential data structure
+with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed)
+from the head. Queues play a prominent role in the messaging technology space:
+many messaging protocols and tools assume that [publishers](/publishers.html) and [consumers](/consumers.html)
+communicate using a queue-like storage mechanism.
+
+Queues in RabbitMQ are [FIFO ("first in, first out")](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)).
+Some queue features, namely priorities and [requeueing](/confirms.html) by consumers, can affect
+the ordering as observed by consumers.
+
 
 ## <a id="names" class="anchor" href="#names">Names</a>
 
