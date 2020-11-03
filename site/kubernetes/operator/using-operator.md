@@ -419,6 +419,28 @@ spec:
       ].
 </pre>
 
+### <a name='env-config' class='anchor' href='#env-config'>RabbitMQ Environment Configuration</a>
+
+**Description:** RabbitMQ uses `rabbitmq-env.conf` to override the defaults built-in into the RabbitMQ scripts and CLI tools.
+The value of `spec.rabbitmq.envConfig` will be written to `/etc/rabbitmq/rabbitmq-env.conf`.
+
+**Default Value:** N/A
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  rabbitmq:
+    envConfig: |
+      RABBITMQ_DISTRIBUTION_BUFFER_SIZE=some_value
+</pre>
+
+Please refer to [the `spec.override` property](#override) for additional ways of customizing the environment.
+
 ### <a name='additional-plugins' class='anchor' href='#additional-plugins'>RabbitMQ Additional Plugins</a>
 
 **Description:** Additional plugins to enable in RabbitMQ. RabbitMQ Cluster Kubernetes Operator enabled `rabbitmq_peer_discovery_k8s`,
@@ -498,6 +520,13 @@ spec:
                   - containerPort: 12345 # opens an additional port on the rabbitmq server container
                     name: additional-port
                     protocol: TCP
+</pre>
+
+When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and `K8S_SERVICE_NAME` variables to access container metadata. For example:
+
+<pre class="lang-yaml>
+- name: MY_VARIABLE
+  value: test-$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
 </pre>
 
 ## <a id='update' class='anchor' href='#update'>Update a RabbitMQ Instance</a>
