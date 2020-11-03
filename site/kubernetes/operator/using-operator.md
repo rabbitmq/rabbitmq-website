@@ -817,17 +817,17 @@ regarding Service DNS.
 
 ### <a id='creds' class='anchor' href='#creds'>Retrieve Your RabbitMQ Admin Credentials</a>
 
-Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-rabbitmq-admin`,
+Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-rabbitmq-default-user`,
 where `INSTANCE` is the name of the `RabbitmqCluster` object.
 Kubernetes encodes secrets using base64.
 
 The name and namespace of the secret is also present in the custom resource status. To retrieve the Secret name,
-run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.admin.secretReference.name}'`
+run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.defaultUser.secretReference.name}'`
 
 To retrieve credentials and display them in plaintext, first display the username by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-default-user -o jsonpath="{.data.username}" | base64 --decode
 </pre>
 
 Where:
@@ -840,7 +840,7 @@ Where:
 Next, display the password by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-default-user -o jsonpath="{.data.password}" | base64 --decode
 </pre>
 
 
@@ -858,8 +858,8 @@ To install and run PerfTest, run these commands:
 
 <pre class="lang-bash">
 instance=INSTANCE-NAME
-username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
-password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
+username=$(kubectl get secret ${instance}-rabbitmq-default-user -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret ${instance}-rabbitmq-default-user -o jsonpath="{.data.password}" | base64 --decode)
 service=${instance}-rabbitmq-client
 kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
 </pre>
