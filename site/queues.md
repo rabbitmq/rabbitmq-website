@@ -34,7 +34,7 @@ because many features still operate at the queue level, even for those protocols
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
-A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type) is a sequential data structure
+A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure
 with two primary operations: an item can be **enqueued** (added) at the tail and **dequeued** (consumed)
 from the head. Queues play a prominent role in the messaging technology space:
 many messaging protocols and tools assume that [publishers](/publishers.html) and [consumers](/consumers.html)
