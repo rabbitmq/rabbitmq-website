@@ -52,10 +52,6 @@ The Operator requires
  * Kubernetes 1.16 or above
  * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
-## <a id='installation' class='anchor' href='#installation'>Installation</a>
-
-The Kubernetes Operator has a dedicated [installation guide](/kubernetes/operator/install-operator.html).
-
 
 ## <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
