@@ -68,3 +68,14 @@ not be deployed to the RabbitMQ cluster. For example, if the `Secret` with admin
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
 It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)
 known as the Erlang cookie.
+
+## <a id='plugin' class='anchor' href='#plugin'>kubectl plugin</a>
+
+The kubectl rabbitmq plugin provides utilities to manage RabbitMQ clusters.
+The plugin can be installed using [krew](https://github.com/kubernetes-sigs/krew):
+
+<pre class="lang-bash">kubectl krew install rabbitmq</pre>
+
+To get the list of available commands, use:
+
+<pre class="lang-bash">kubectl rabbitmq help</pre>
