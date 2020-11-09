@@ -78,12 +78,12 @@ For example:
 
 <pre class='lang-bash'>
 kubectl get all -l app.kubernetes.io/name=definition
-# NAME                               READY   STATUS    RESTARTS   AGE
-# pod/definition-rabbitmq-server-0   1/1     Running   0          112s
+# NAME                      READY   STATUS    RESTARTS   AGE
+# pod/definition-server-0   1/1     Running   0          112s
 #
-# NAME                                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
-# service/definition-rabbitmq-headless   ClusterIP   None             None        4369/TCP                       113s
-# service/definition-rabbitmq-client     ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
+# NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
+# service/definition-nodes      ClusterIP   None             None        4369/TCP                       113s
+# service/definition            ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
 </pre>
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
@@ -490,7 +490,7 @@ spec:
 
 ### <a name='override' class='anchor' href='#override'>Override Resource Properties</a>
 
-**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.clientService</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
+**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.service</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
 
 **Default Value:** N/A
 
@@ -504,10 +504,10 @@ metadata:
 spec:
   replicas: 1
   override:
-    clientService:
+    service:
       spec:
         ports:
-          - name: additional-port # adds an additional port on the client service
+          - name: additional-port # adds an additional port on the service
             protocol: TCP
             port: 12345
     statefulSet:
@@ -560,7 +560,7 @@ The configurations are listed in the table below.
         These are annotations to add to every child resource, such as StatefulSet and Service.<br></br>
         Annotations containing <code>kubernetes.io</code> and <code>k8s.io</code> are ignored because these
         are reserved for Kubernetes core components.
-        When <code>spec.service.annotations</code> is specified, annotations for the client service are merged between
+        When <code>spec.service.annotations</code> is specified, annotations for the service are merged between
         <code>spec.service.annotations</code> and <code>metadata.annotations</code>.<br></br>
         If the same key is specified in both configurations, the value from <code>spec.service.annotations</code>
         is applied. Modifying annotations triggers a rolling restart of StatefulSet.
@@ -605,7 +605,7 @@ The configurations are listed in the table below.
         <code>spec.service.annotations</code>
       </td>
       <td>
-      These are annotations on the client service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
+      These are annotations on the service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
       are <b>not</b> filtered at this level.
       </td>
     </tr>
@@ -817,7 +817,7 @@ regarding Service DNS.
 
 ### <a id='creds' class='anchor' href='#creds'>Retrieve Your RabbitMQ Admin Credentials</a>
 
-Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-rabbitmq-default-user`,
+Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-default-user`,
 where `INSTANCE` is the name of the `RabbitmqCluster` object.
 Kubernetes encodes secrets using base64.
 
@@ -827,7 +827,7 @@ run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.defaultUser.secre
 To retrieve credentials and display them in plaintext, first display the username by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-default-user -o jsonpath="{.data.username}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.username}" | base64 --decode
 </pre>
 
 Where:
@@ -840,7 +840,7 @@ Where:
 Next, display the password by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-default-user -o jsonpath="{.data.password}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.password}" | base64 --decode
 </pre>
 
 
@@ -858,9 +858,9 @@ To install and run PerfTest, run these commands:
 
 <pre class="lang-bash">
 instance=INSTANCE-NAME
-username=$(kubectl get secret ${instance}-rabbitmq-default-user -o jsonpath="{.data.username}" | base64 --decode)
-password=$(kubectl get secret ${instance}-rabbitmq-default-user -o jsonpath="{.data.password}" | base64 --decode)
-service=${instance}-rabbitmq-client
+username=$(kubectl get secret ${instance}-default-user -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret ${instance}-default-user -o jsonpath="{.data.password}" | base64 --decode)
+service=${instance}
 kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
 </pre>
 

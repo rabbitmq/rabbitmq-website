@@ -70,9 +70,9 @@ kubectl delete pod --force --grace-period=0 POD-NAME
 This example uses a Pod name:
 
 <pre class="lang-bash">
-kubectl delete pod --force rabbit-rollout-restart-rabbitmq-server-1
+kubectl delete pod --force rabbit-rollout-restart-server-1
 # warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
-# pod 'rabbit-rollout-restart-rabbitmq-server-1' force deleted
+# pod 'rabbit-rollout-restart-server-1' force deleted
 </pre>
 
 ### <a id='check-instance-status'></a> Check the Status of an Instance
@@ -89,14 +89,14 @@ For example:
 
 <pre class="lang-bash">
 kubectl -n p-rmq-instance-1 get all
-# NAME                            READY   STATUS    RESTARTS   AGE
-# pod/pivotal-rabbitmq-server-0   1/1     Running   0          2m27s
+# NAME                   READY   STATUS    RESTARTS   AGE
+# pod/pivotal-server-0   1/1      Running   0          2m27s
 <br/>
-# NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
-# service/pivotal-rabbitmq-headless   ClusterIP   None             None        4369/TCP                       2m27s
-# service/pivotal-rabbitmq-client     ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
+# NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
+# service/pivotal-nodes      ClusterIP   None             None        4369/TCP                       2m27s
+# service/pivotal            ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
 <br/>
-# NAME                                       READY   AGE
-# statefulset.apps/pivotal-rabbitmq-server   1/1     2m28s
+# NAME                             READY   AGE
+# statefulset.apps/pivotal-server  1/1     2m28s
 </pre>
 
