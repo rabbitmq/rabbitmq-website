@@ -57,14 +57,13 @@ The Operator requires
 The Kubernetes Operator has a dedicated [installation guide](/kubernetes/operator/install-operator.html).
 
 
-## Limitations
+## <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
 ### General Limitations
 
 * This product is intended to be used with any Kubernetes distribution. However, given the number of Kubernetes vendors,
   versions, and configurations, not all of them have been tested.
 * This product has been tested with Google Kubernetes Engine (GKE).
-* Kubernetes Operator upgrades are not currently supported. To deploy a newer version, delete the previous version first.
 
 ### RabbitMQ Cluster Reconciliation
 
