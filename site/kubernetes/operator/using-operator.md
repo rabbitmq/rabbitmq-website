@@ -123,7 +123,7 @@ spec:
 **Description:** Specify the RabbitMQ image reference.
 This property is necessary if a private registry is used.
 
-**Default Value:** The community [RabbitMQ image on DockerHub](https://hub.docker.com/_/rabbitmq).
+**Default Value:** The community [RabbitMQ management image on DockerHub](https://hub.docker.com/_/rabbitmq).
 
 **Example:**
 
@@ -486,6 +486,46 @@ spec:
     secretName: rabbitmq-server-certs
     caSecretName: rabbitmq-ca-cert
     caCertName: ca.crt
+</pre>
+
+### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
+
+**Description:** If unset, or set to false, operator will run `rabbitmq-queues rebalance all` whenever the cluster is updated.
+When set to true, operator will skip running `rabbitmq-queues rebalance all`.
+For more information, see [rabbitmq-queues rebalance all](https://www.rabbitmq.com/rabbitmq-queues.8.html#rebalance).
+
+**Default Value:** false
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  skipPostDeploySteps: true
+</pre>
+
+### <a name='TerminationGracePeriodSeconds' class='anchor' href='#TerminationGracePeriodSeconds'>Termination Grace Period Timeout</a>
+
+**Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
+The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
+See [rabbitmq-queues check_if_node_is_quorum_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_mirror_sync_critical) for more details.
+It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
+If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
+
+**Default Value:** 604800
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  terminationGracePeriodSeconds: 60
 </pre>
 
 ### <a name='override' class='anchor' href='#override'>Override Resource Properties</a>
