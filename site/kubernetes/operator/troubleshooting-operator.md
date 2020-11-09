@@ -88,15 +88,15 @@ Where `NAMESPACE` is the Kubernetes namespace of the instance.
 For example:
 
 <pre class="lang-bash">
-kubectl -n p-rmq-instance-1 get all
+kubectl -n rmq-instance-1 get all
 # NAME                   READY   STATUS    RESTARTS   AGE
-# pod/pivotal-server-0   1/1      Running   0          2m27s
+# pod/example-server-0   1/1      Running   0          2m27s
 <br/>
 # NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
-# service/pivotal-nodes      ClusterIP   None             None        4369/TCP                       2m27s
-# service/pivotal            ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
+# service/example-nodes      ClusterIP   None             None        4369/TCP                       2m27s
+# service/example            ClusterIP   10.111.202.183   None        5672/TCP,15672/TCP,15692/TCP   2m28s
 <br/>
 # NAME                             READY   AGE
-# statefulset.apps/pivotal-server  1/1     2m28s
+# statefulset.apps/example-server  1/1     2m28s
 </pre>
 
