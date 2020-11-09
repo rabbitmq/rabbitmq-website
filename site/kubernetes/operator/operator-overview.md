@@ -71,11 +71,15 @@ known as the Erlang cookie.
 
 ## <a id='plugin' class='anchor' href='#plugin'>kubectl plugin</a>
 
-The kubectl rabbitmq plugin provides utilities to manage RabbitMQ clusters.
+The `kubectl rabbitmq` plugin provides commands for managing RabbitMQ clusters.
 The plugin can be installed using [krew](https://github.com/kubernetes-sigs/krew):
 
-<pre class="lang-bash">kubectl krew install rabbitmq</pre>
+<pre class="lang-bash">
+kubectl krew install rabbitmq
+</pre>
 
 To get the list of available commands, use:
 
-<pre class="lang-bash">kubectl rabbitmq help</pre>
+<pre class="lang-bash">
+kubectl rabbitmq help
+</pre>
