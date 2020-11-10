@@ -49,7 +49,7 @@ versions.
 
 The Operator requires
 
- * Kubernetes 1.16 or above
+ * Kubernetes 1.17 or above
  * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
 
