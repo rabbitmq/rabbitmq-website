@@ -9,8 +9,8 @@ If you are installing in OpenShift, follow the instructions in [Installation on 
 
 The Operator requires
 
-* Kubernetes 1.16 or above
-* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.4+
+* Kubernetes 1.17 or above
+* [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
 -----
 
@@ -39,25 +39,14 @@ do not have this manifest. We strongly recommend to install versions 0.46.0+
 
 ### <a id='kubectl-plugin' class='anchor' href='#kubectl-plugin'>Installation using kubectl-rabbitmq plugin</a>
 
-The plugin can be installed by downloading the file and placing it in the system PATH. In most Linux systems, the
-location `/usr/local/bin` is part of the PATH. You can check your current PATH using `echo $PATH`. This plugin presents
-an alternative to install the Cluster Operator. It also provides a shortcut to create and edit `RabbitmqCluster` resources.
-
-The following command downloads the plugin from the main branch:
+The `kubectl rabbitmq` plugin provides commands for managing RabbitMQ clusters.
+The plugin can be installed using [krew](https://github.com/kubernetes-sigs/krew):
 
 <pre class="lang-bash">
-curl -o kubectl-rabbitmq "https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/bin/kubectl-rabbitmq"
+kubectl krew install rabbitmq
 </pre>
 
-Make sure the file is executable and somewhere in the PATH:
-
-<pre class="lang-bash">
-chmod +x kubectl-rabbitmq
-mv kubectl-rabbitmq /usr/local/bin/kubectl-rabbitmq
-</pre>
-
-Test that the plugin installed correctly and install the Cluster Operator by running the commands below.
-If you get an error, open a new terminal session.
+To get the list of available commands, use:
 
 <pre class="lang-bash">
 kubectl rabbitmq help
@@ -102,7 +91,7 @@ grep -C3 image: releases/rabbitmq-cluster-operator.yaml
 #           valueFrom:
 #             fieldRef:
 #               fieldPath: metadata.namespace
-#         image: rabbitmqoperator/cluster-operator:0.46.0
+#         image: rabbitmqoperator/cluster-operator:0.49.0
 #         name: operator
 #         resources:
 #           limits:

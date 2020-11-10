@@ -52,6 +52,7 @@ for the original RabbitMQ protocol.
 
 #### Operating Systems and Platforms
 
+ * [Kubernetes](/kubernetes/operator/operator-overview.html)
  * [Debian and Ubuntu](/install-debian.html)
  * [Red Hat Enterprise Linux, CentOS, Fedora](/install-rpm.html)
  * [Windows Installer](/install-windows.html), [Windows-specific Issues](/windows-quirks.html)
