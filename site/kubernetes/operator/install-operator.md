@@ -222,11 +222,13 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     kind: Namespace
     metadata:
       annotations:
-    ...
-	openshift.io/sa.scc.supplemental-groups: 999/1
-	openshift.io/sa.scc.uid-range: 0-999
+        ...
+        openshift.io/sa.scc.supplemental-groups: 999/1
+        openshift.io/sa.scc.uid-range: 0-999
     </pre>
 
 5. For every RabbitMQ cluster (here we assume the name `my-rabbitmq`) assign the previously created security context constraint to the cluster's service account.
 
-    <pre class="lang-bash">oc adm policy add-scc-to-user rabbitmq-cluster -z my-rabbitmq</pre>
+    <pre class="lang-bash">
+    oc adm policy add-scc-to-user rabbitmq-cluster -z my-rabbitmq-server
+    </pre>
