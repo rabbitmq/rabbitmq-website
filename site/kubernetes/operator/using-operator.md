@@ -469,7 +469,7 @@ already exist in the same Namespace as the `RabbitmqCluster` object. It is expec
 and `tls.crt` for the private key and public certificate respectively.
 
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
-This certificate must be stored under a key of name `spec.tls.caCertName`, in a Secret of name `spec.tls.caSecretName`, in
+This certificate must be stored under the key `ca.crt`, in a Secret called `spec.tls.caSecretName`, in
 the same Namespace as the `RabbitmqCluster` object. Note that this can be the same Secret as `spec.tls.secretName`.
 
 **Default Value:** N/A
@@ -485,7 +485,6 @@ spec:
   tls:
     secretName: rabbitmq-server-certs
     caSecretName: rabbitmq-ca-cert
-    caCertName: ca.crt
 </pre>
 
 ### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
