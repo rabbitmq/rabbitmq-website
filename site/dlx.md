@@ -137,18 +137,6 @@ their original routing keys.  This includes routing keys
 added by the `CC` and `BCC` headers
 (see [Sender-selected distribution](sender-selected.html) for details on these two headers).
 
-Dead-lettered messages are re-published with publisher
-confirms turned on internally so, the "dead-letter queues"
-(DLX routing targets) the messages eventually land on must
-confirm the messages before they are removed from the original
-queue. In other words, the "publishing" (the one in which
-messages expired) queue will <em>not</em> remove messages
-before the dead-letter queues acknowledge receiving them (see
-[Confirms](confirms.html) for details on the
-guarantees made).  Note that, in the event of an unclean
-broker shutdown, the same message may be duplicated on both
-the original queue and on the dead-lettering destination
-queues.
 
 It is possible to form a cycle of message dead-lettering.  For
 instance, this can happen when a queue dead-letters
@@ -156,6 +144,16 @@ messages to the default exchange without specifying a
 dead-letter routing key.  Messages in such cycles (i.e.
 messages that reach the same queue twice) will be
 dropped <em>if there was no rejections in the entire cycle</em>.
+
+## <a id="effects" class="anchor" href="#effects">Safety</a>
+
+Dead-lettered messages are re-published <em>without</em> publisher
+[confirms](confirms.html) turned on internally. Therefore using DLX in a clustered
+RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
+original queue immediately after publishing to the DLX target queue. This ensures
+that there is no chance of excessive message buildup that could exhaust broker
+resources but does mean that messages may be lost should the target queue not
+be available to accept messages. 
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
 
