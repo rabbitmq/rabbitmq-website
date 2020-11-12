@@ -860,10 +860,10 @@ illustrates the minimum necessary directives to coax Apache into
 conformance. It assumes a management web UI on the default port of 15672:
 
 <pre class="lang-ini">
-On
-ProxyPass        /api http://localhost:15672/api nocanon
-ProxyPass        /    http://localhost:15672/
-ProxyPassReverse /    http://localhost:15672/
+AllowEncodedSlashes      NoDecode
+ProxyPass         "/api" http://localhost:15672/api nocanon
+ProxyPass         "/"    http://localhost:15672/
+ProxyPassReverse  "/"    http://localhost:15672/
 </pre>
 
 
