@@ -47,7 +47,7 @@ Installing the RabbitMQ formula will install key dependencies such as a [support
 
 The RabbitMQ server scripts and [CLI tools](/cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/<version>/`,
 which is accessible from `/usr/local/opt/rabbitmq/sbin`. Links to binaries have been created under `/usr/local/sbin`.
-In case that directory is not in `PATH` it's recommend to append it:
+In case that directory is not in `PATH` it's recommended to append it:
 
 <pre class="lang-bash">
 export PATH=$PATH:/usr/local/sbin
