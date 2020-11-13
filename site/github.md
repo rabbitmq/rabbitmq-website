@@ -27,7 +27,7 @@ It has numerous [tutorials](https://git-scm.com/doc).
 
 Team RabbitMQ uses Git to manage almost all of our source code.
 
-[RabbitMQ's Git repositories](https://github.com/rabbitmq) are hosted on GitHub.
+RabbitMQ source code repositories [hosted on GitHub](https://github.com/rabbitmq).
 Individual project pages on this website will generally point
 you in the direction of the specific combinations of modules
 you'll need to check out.
@@ -96,38 +96,33 @@ the code. Generally, both the core repositories and the
 repositories of plugins intended to work with the named
 snapshot are tagged.
 
-For example, if you are using RabbitMQ server version 3.7.15,
-then examining the output of <code>git tag</code> in a copy
-of <code>rabbitmq-stomp</code> gives:
+For example, if you are using RabbitMQ server version 3.8.9,
+then examining the output of <code>git tag</code> yields:
 
 <pre class="lang-bash">
 git tag
 # omitted for brevity
-# => v3.7.11
-# => v3.7.11-rc.1
-# => v3.7.11-rc.2
-# => v3.7.12
-# => v3.7.12-rc.1
-# => v3.7.12-rc.2
-# => v3.7.13
-# => v3.7.13-beta.1
-# => v3.7.13-rc.1
-# => v3.7.13-rc.2
-# => v3.7.14
-# => v3.7.14-rc.1
-# => v3.7.14-rc.2
-# => v3.7.15
+# => v3.8.5
+# => v3.8.5-rc.1
+# => v3.8.5-rc.2
+# => v3.8.6
+# => v3.8.6-beta.1
+# => v3.8.6-rc.1
+# => v3.8.6-rc.2
+# => v3.8.7
+# => v3.8.8
+# => v3.8.9
 </pre>
 
 It's important to make sure that all the repositories you
 are using are on the same tag as each other. Continuing with
-our example of server version 3.7.15, make sure
+our example of server version 3.8.9, make sure
 your checkout of <code>rabbitmq-stomp</code> was at the
-<code>v3.7.15</code> tag using
+<code>v3.8.9</code> tag using
 <code>git checkout</code>:
 
 <pre class="lang-bash">
-git checkout v3.7.15
+git checkout v3.8.9
 </pre>
 
 At this point, you could proceed with compiling the plugin

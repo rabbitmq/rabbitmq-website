@@ -29,13 +29,14 @@ server from source.
 First, get the source code from [our GitHub repositories](github.html):
 
 <pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-server.git
+git clone https://github.com/rabbitmq/rabbitmq-server.git rabbitmq
 </pre>
 
-Then, use GNU Make to pull down dependencies and build the server:
+Then, use GNU Make to pull down dependencies and build the server and all plugins
+that ship with the RabbitMQ distribution:
 
 <pre class="lang-bash">
-cd rabbitmq-server
+cd rabbitmq
 make
 </pre>
 
@@ -85,8 +86,7 @@ would be necessary if source code is obtained via an archive instead of a git re
 
 ## <a id="building-server" class="anchor" href="#building-server">Building the Server</a>
 
-Change to the `rabbitmq-server` directory, and
-type `make`.
+Change to the `rabbitmq` directory, and type `make`.
 
 Other interesting `Makefile` targets include
 
@@ -117,7 +117,7 @@ Other interesting `Makefile` targets include
       <td>
         Builds the server and starts an instance with an
         interactive Erlang shell. This will by default put
-        data, including a Mnesia database, in <code>/tmp/rabbitmq-test-instances</code>,
+        data, including the node's data directory, under <code>/tmp/rabbitmq-test-instances</code>,
         but this location can be overridden by setting the
         Makefile variable <code>TEST_TMPDIR</code>:
 
@@ -159,11 +159,15 @@ make run-broker RABBITMQ_NODENAME=rmq
 ## <a id="building-packages" class="anchor" href="#building-packages">Building Packages</a>
 
 In practice, building RabbitMQ server from source is of limited use
-unless an easy to deploy package (e.g. a Debian one) can be produced.
+unless an easy to deploy package (e.g. a generic binary build or Debian one) can be produced.
 
-Everything related to packaging
-the RabbitMQ server is in the [rabbitmq-server-release](https://github.com/rabbitmq/rabbitmq-server-release)
-repository. The repository has the list of plugins
-shipped with the broker. Please refer to the
-[README.md](https://github.com/rabbitmq/rabbitmq-server-release/blob/master/README.md)
-for instructions to create the source archive or any binary packages.
+Everything related to packaging the RabbitMQ server is in the [main RabbitMQ repository](https://github.com/rabbitmq/rabbitmq-server).
+
+There is a number of top-level packaging Make targets available, one for each package
+type (or family of packages, such as RPM):
+
+ * `make package-generic-unix`
+ * `make package-deb`
+ * `make package-rpm`
+ * `make package-rpm-suse`
+ * `make package-windows`
