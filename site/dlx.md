@@ -145,7 +145,7 @@ dead-letter routing key.  Messages in such cycles (i.e.
 messages that reach the same queue twice) will be
 dropped <em>if there was no rejections in the entire cycle</em>.
 
-## <a id="effects" class="anchor" href="#effects">Safety</a>
+## <a id="safety" class="anchor" href="#safety">Safety</a>
 
 Dead-lettered messages are re-published <em>without</em> publisher
 [confirms](confirms.html) turned on internally. Therefore using DLX in a clustered
