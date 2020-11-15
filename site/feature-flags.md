@@ -47,8 +47,8 @@ feature flags are enabled.
 
  *  To list feature flags:
     <pre class="lang-bash">rabbitmqctl list_feature_flags</pre>
- *  To enable a feature flag:
-    <pre class="lang-bash">rabbitmqctl enable_feature_flag &lt;name&gt;</pre>
+ *  To enable a feature flag (or all currently disabled flags):
+    <pre class="lang-bash">rabbitmqctl enable_feature_flag &lt;all | name&gt;</pre>
 
 It is also possible to list and enable feature flags from the
 [Management plugin UI](/management.html), in "*Admin > Feature flags*".
@@ -180,6 +180,12 @@ feature flags are enabled.
 
 <pre class="lang-bash">
 rabbitmqctl enable_feature_flag &lt;name&gt;
+</pre>
+
+**To enable all feature flags**, use `rabbitmqctl enable_feature_flag all`:
+
+<pre class="lang-bash">
+rabbitmqctl enable_feature_flag &lt;all&gt;
 </pre>
 
 The `list_feature_flags` command can be used again to verify the feature

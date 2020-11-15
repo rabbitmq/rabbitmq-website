@@ -1844,7 +1844,10 @@ Note that <code class="Nm">rabbitmqctl</code> manages the RabbitMQ internal user
     <p class="Pp">Enables a feature flag on the target node.</p>
     <p class="Pp">Example:</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl enable_feature_flag
-      quorum_queue</code></div>
+          quorum_queue</code></div>
+    <p class="Pp">You can also enable all feature flags by specifying "all":</p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl enable_feature_flag
+          all</code></div>
   </dd>
   <dt><a class="permalink" href="#list_feature_flags"><code class="Cm" id="list_feature_flags">list_feature_flags</code></a>
     [<var class="Ar">column ...</var>]</dt>
