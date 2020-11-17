@@ -1,9 +1,24 @@
 # Using RabbitMQ Cluster Kubernetes Operator
 
-This guides covers how to deploy Custom Resource objects that will
+## <a id='overview' class='anchor' href='#overview'>Overview</a>
+
+This guide covers how to deploy Custom Resource objects that will
 be managed by the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
 If RabbitMQ Cluster Kubernetes Operator is not installed,
-see the [installation guide](/kubernetes/operator/install-operator.html).
+see the [installation guide](/kubernetes/operator/install-operator.html). This guide is structured
+in the following sections:
+
+* [Confirm Service Availability](#service-availability).
+* [Apply Pod Security Policies](#psp).
+* [Create a RabbitMQ Instance](#create).
+* [Configure a RabbitMQ Instance](#configure).
+* [Update a RabbitMQ Instance](#update).
+* [Set a Pod Disruption Budget](#set-pdb).
+* [Find Your RabbitmqCluster Service Name and Admin Credentials](#find).
+* [Verify the Instance is Running](#verify-instance).
+* [Use the RabbitMQ Service in Your App](#use).
+* [Monitor RabbitMQ Clusters](#monitoring).
+* [Delete a RabbitMQ Instance](#delete).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -89,6 +104,20 @@ kubectl get all -l app.kubernetes.io/name=definition
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
 For more information, see the [RabbitMQ documentation guides](https://www.rabbitmq.com/documentation.html).
 
+### <a id='internal-labels' class='anchor' href='#internal-labels'> Internal labels and annotations</a>
+
+The child resources created by the Cluster Operator always have the following set of labels:
+
+* `app.kubernetes.io/name` - the value is the `RabbitmqCluster` name associated to the resource.
+* `app.kubernetes.io/component` - the component it belongs to. Currently always set to `rabbitmq`.
+* `app.kubernetes.io/part-of` - The name of a higher level application this one is part of. Currently always set to `rabbitmq`.
+
+The same set of labels is applied to the Pods created by the StatefulSet. In addition to the above, the following
+two annotations are added to the Pods:
+
+* `prometheus.io/port` - with value `15692`.
+* `prometheus.io/scrape` - with value `true`.
+
 ## <a id='configure' class='anchor' href='#configure'>Configure a RabbitMQ Instance</a>
 
 To configure a RabbitMQ instance, open `definition.yaml` or edit the configuration in place by running:
@@ -98,6 +127,26 @@ kubectl edit rabbitmqcluster definition
 </pre>
 
 Next, add any of the properties described below along with their values. Every property listed below is optional.
+
+### <a name='labels-annotations' class='anchor' href='#labels-annotations'>Labels and Annotations</a>
+
+**Description:** Labels and annotations in RabbitmqCluster metadata are propagated to the resources created by
+the Operator. The Pods **do not** inherit these labels and/or annotations.
+
+**Default Value:** N/A - Empty
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  labels:
+    app: rabbitmq
+  annotations:
+    some: annotation
+  name: rabbitmqcluster-sample
+</pre>
 
 ### <a name='replicas' class='anchor' href='#replicas'>Number of Replicas</a>
 
@@ -138,8 +187,8 @@ spec:
 
 ### <a name='image-pull-secrets' class='anchor' href='#image-pull-secrets'>imagePullSecrets</a>
 
-**Description:** Specify `imagePullSecrets` for the RabbitMQ image.
-If the registry requires authentication, this is the name of the secret used to pull images.
+**Description:** An array of `Secret` names to be used as `imagePullSecrets` for the RabbitMQ image.
+If the registry requires authentication, this array must have the name of the secret used to pull images.
 Kubernetes Secrets can be created by running:
 
 <pre class='lang-bash'>
@@ -469,8 +518,10 @@ already exist in the same Namespace as the `RabbitmqCluster` object. It is expec
 and `tls.crt` for the private key and public certificate respectively.
 
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
-This certificate must be stored under a key of name `spec.tls.caCertName`, in a Secret of name `spec.tls.caSecretName`, in
-the same Namespace as the `RabbitmqCluster` object. Note that this can be the same Secret as `spec.tls.secretName`.
+This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
+object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` contaning
+the CA certificate.
+
 
 **Default Value:** N/A
 
@@ -485,7 +536,6 @@ spec:
   tls:
     secretName: rabbitmq-server-certs
     caSecretName: rabbitmq-ca-cert
-    caCertName: ca.crt
 </pre>
 
 ### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
@@ -564,7 +614,7 @@ spec:
 
 When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and `K8S_SERVICE_NAME` variables to access container metadata. For example:
 
-<pre class="lang-yaml>
+<pre class="lang-yaml">
 - name: MY_VARIABLE
   value: test-$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
 </pre>
@@ -589,7 +639,7 @@ The configurations are listed in the table below.
       <td>
         These are labels to add to every child resource, such as StatefulSet and Service.
         Labels starting with <code>app.kubernetes.io</code> are ignored because these are reserved for internal use.
-        Modifying labels triggers a rolling restart of StatefulSet.
+        Labels are not applied to Pods.
       </td>
     </tr>
     <tr>
@@ -603,7 +653,7 @@ The configurations are listed in the table below.
         When <code>spec.service.annotations</code> is specified, annotations for the service are merged between
         <code>spec.service.annotations</code> and <code>metadata.annotations</code>.<br></br>
         If the same key is specified in both configurations, the value from <code>spec.service.annotations</code>
-        is applied. Modifying annotations triggers a rolling restart of StatefulSet.
+        is applied.
       </td>
     </tr>
     <tr>
@@ -628,8 +678,8 @@ The configurations are listed in the table below.
       <td>
         <code>spec.imagePullSecrets</code>
       </td>
-      <td>The name of the Kubernetes secret that accesses the registry which contains
-        the RabbitMQ image. This is only required for private registries.
+      <td>An array of names of <a href='https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line'>Kubernetes secrets</a>,
+      used to access the registry which contains the RabbitMQ image. This is only required for private registries.
       </td>
     </tr>
     <tr>
