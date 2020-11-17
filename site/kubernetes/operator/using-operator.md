@@ -564,7 +564,7 @@ spec:
 
 When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and `K8S_SERVICE_NAME` variables to access container metadata. For example:
 
-<pre class="lang-yaml>
+<pre class="lang-yaml">
 - name: MY_VARIABLE
   value: test-$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
 </pre>
