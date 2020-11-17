@@ -78,12 +78,12 @@ For example:
 
 <pre class='lang-bash'>
 kubectl get all -l app.kubernetes.io/name=definition
-# NAME                               READY   STATUS    RESTARTS   AGE
-# pod/definition-rabbitmq-server-0   1/1     Running   0          112s
+# NAME                      READY   STATUS    RESTARTS   AGE
+# pod/definition-server-0   1/1     Running   0          112s
 #
-# NAME                                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
-# service/definition-rabbitmq-headless   ClusterIP   None             None        4369/TCP                       113s
-# service/definition-rabbitmq-ingress    ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
+# NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                        AGE
+# service/definition-nodes      ClusterIP   None             None        4369/TCP                       113s
+# service/definition            ClusterIP   10.103.214.196   None        5672/TCP,15672/TCP,15692/TCP   113s
 </pre>
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
@@ -123,7 +123,7 @@ spec:
 **Description:** Specify the RabbitMQ image reference.
 This property is necessary if a private registry is used.
 
-**Default Value:** The community [RabbitMQ image on DockerHub](https://hub.docker.com/_/rabbitmq).
+**Default Value:** The community [RabbitMQ with management plugin image](https://hub.docker.com/_/rabbitmq).
 
 **Example:**
 
@@ -419,6 +419,28 @@ spec:
       ].
 </pre>
 
+### <a name='env-config' class='anchor' href='#env-config'>RabbitMQ Environment Configuration</a>
+
+**Description:** RabbitMQ uses `rabbitmq-env.conf` to override the defaults built-in into the RabbitMQ scripts and CLI tools.
+The value of `spec.rabbitmq.envConfig` will be written to `/etc/rabbitmq/rabbitmq-env.conf`.
+
+**Default Value:** N/A
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  rabbitmq:
+    envConfig: |
+      RABBITMQ_DISTRIBUTION_BUFFER_SIZE=some_value
+</pre>
+
+Please refer to [the `spec.override` property](#override) for additional ways of customizing the environment.
+
 ### <a name='additional-plugins' class='anchor' href='#additional-plugins'>RabbitMQ Additional Plugins</a>
 
 **Description:** Additional plugins to enable in RabbitMQ. RabbitMQ Cluster Kubernetes Operator enabled `rabbitmq_peer_discovery_k8s`,
@@ -466,9 +488,49 @@ spec:
     caCertName: ca.crt
 </pre>
 
+### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
+
+**Description:** If unset, or set to false, operator will run `rabbitmq-queues rebalance all` whenever the cluster is updated.
+When set to true, operator will skip running `rabbitmq-queues rebalance all`.
+For more information, see [rabbitmq-queues rebalance all](https://www.rabbitmq.com/rabbitmq-queues.8.html#rebalance).
+
+**Default Value:** false
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  skipPostDeploySteps: true
+</pre>
+
+### <a name='TerminationGracePeriodSeconds' class='anchor' href='#TerminationGracePeriodSeconds'>Termination Grace Period Timeout</a>
+
+**Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
+The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
+See [rabbitmq-queues check_if_node_is_quorum_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_mirror_sync_critical) for more details.
+It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
+If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
+
+**Default Value:** 604800
+
+**Example:**
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+spec:
+  terminationGracePeriodSeconds: 60
+</pre>
+
 ### <a name='override' class='anchor' href='#override'>Override Resource Properties</a>
 
-**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.clientService</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
+**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.service</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
 
 **Default Value:** N/A
 
@@ -482,10 +544,10 @@ metadata:
 spec:
   replicas: 1
   override:
-    clientService:
+    service:
       spec:
         ports:
-          - name: additional-port # adds an additional port on the client service
+          - name: additional-port # adds an additional port on the service
             protocol: TCP
             port: 12345
     statefulSet:
@@ -498,6 +560,13 @@ spec:
                   - containerPort: 12345 # opens an additional port on the rabbitmq server container
                     name: additional-port
                     protocol: TCP
+</pre>
+
+When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and `K8S_SERVICE_NAME` variables to access container metadata. For example:
+
+<pre class="lang-yaml">
+- name: MY_VARIABLE
+  value: test-$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
 </pre>
 
 ## <a id='update' class='anchor' href='#update'>Update a RabbitMQ Instance</a>
@@ -531,7 +600,7 @@ The configurations are listed in the table below.
         These are annotations to add to every child resource, such as StatefulSet and Service.<br></br>
         Annotations containing <code>kubernetes.io</code> and <code>k8s.io</code> are ignored because these
         are reserved for Kubernetes core components.
-        When <code>spec.service.annotations</code> is specified, annotations for ingress are merged between
+        When <code>spec.service.annotations</code> is specified, annotations for the service are merged between
         <code>spec.service.annotations</code> and <code>metadata.annotations</code>.<br></br>
         If the same key is specified in both configurations, the value from <code>spec.service.annotations</code>
         is applied. Modifying annotations triggers a rolling restart of StatefulSet.
@@ -576,7 +645,7 @@ The configurations are listed in the table below.
         <code>spec.service.annotations</code>
       </td>
       <td>
-      These are annotations on the ingress service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
+      These are annotations on the service. Note that annotations containing <code>kubernetes.io</code> and <code>k8s.io</code>
       are <b>not</b> filtered at this level.
       </td>
     </tr>
@@ -788,17 +857,17 @@ regarding Service DNS.
 
 ### <a id='creds' class='anchor' href='#creds'>Retrieve Your RabbitMQ Admin Credentials</a>
 
-Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-rabbitmq-admin`,
+Admin credentials for a RabbitmqCluster are stored in a Kubernetes secret called `INSTANCE-default-user`,
 where `INSTANCE` is the name of the `RabbitmqCluster` object.
 Kubernetes encodes secrets using base64.
 
 The name and namespace of the secret is also present in the custom resource status. To retrieve the Secret name,
-run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.admin.secretReference.name}'`
+run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.defaultUser.secretReference.name}'`
 
 To retrieve credentials and display them in plaintext, first display the username by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.username}" | base64 --decode
 </pre>
 
 Where:
@@ -811,7 +880,7 @@ Where:
 Next, display the password by running:
 
 <pre class='lang-bash'>
-kubectl -n NAMESPACE get secret INSTANCE-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode
+kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.password}" | base64 --decode
 </pre>
 
 
@@ -829,9 +898,9 @@ To install and run PerfTest, run these commands:
 
 <pre class="lang-bash">
 instance=INSTANCE-NAME
-username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
-password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
-service=${instance}-rabbitmq-ingress
+username=$(kubectl get secret ${instance}-default-user -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret ${instance}-default-user -o jsonpath="{.data.password}" | base64 --decode)
+service=${instance}
 kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
 </pre>
 

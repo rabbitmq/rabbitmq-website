@@ -49,22 +49,17 @@ versions.
 
 The Operator requires
 
- * Kubernetes 1.16 or above
+ * Kubernetes 1.17 or above
  * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
-## <a id='installation' class='anchor' href='#installation'>Installation</a>
 
-The Kubernetes Operator has a dedicated [installation guide](/kubernetes/operator/install-operator.html).
-
-
-## Limitations
+## <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
 ### General Limitations
 
 * This product is intended to be used with any Kubernetes distribution. However, given the number of Kubernetes vendors,
   versions, and configurations, not all of them have been tested.
 * This product has been tested with Google Kubernetes Engine (GKE).
-* Kubernetes Operator upgrades are not currently supported. To deploy a newer version, delete the previous version first.
 
 ### RabbitMQ Cluster Reconciliation
 
@@ -73,3 +68,4 @@ not be deployed to the RabbitMQ cluster. For example, if the `Secret` with admin
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
 It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)
 known as the Erlang cookie.
+
