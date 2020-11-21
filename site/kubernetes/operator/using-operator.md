@@ -519,7 +519,7 @@ and `tls.crt` for the private key and public certificate respectively.
 
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
-object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` contaning
+object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
 
