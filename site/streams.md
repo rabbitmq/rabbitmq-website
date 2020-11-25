@@ -153,6 +153,7 @@ to the log after the consumer starts. The following values are supported:
  * `next` - same as not specifying any offset
  * Offset - a numerical value specifying an exact offset to attach to the log at. If
 this offset does not exist it will clamp to either the start or end of the log respectively.
+ * Timestamp - a timestamp value specifying the point in time to attach to the log at. It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively. The timestamp used is POSIX time in milliseconds, the milliseconds since 00:00:00 UTC, 1970-01-01.
 
 The following snippet shows on to use the `first` offset specification:
 
