@@ -843,6 +843,13 @@ Note that this list is by no means complete.
       </td>
     </tr>
     <tr>
+      <td>Sematext</td>
+      <td>
+        <a href="https://sematext.com/docs/integration/rabbitmq/">Sematext RabbitMQ monitoring integration</a>,
+        <a href="https://sematext.com/docs/integration/rabbitmq-logs/">Sematext RabbitMQ logs integration</a>
+      </td>
+    </tr>
+    <tr>
       <td>Zabbix</td>
       <td><a href="https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/app/rabbitmq_http">Zabbix by HTTP</a>,
       <a href="https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/app/rabbitmq_agent">Zabbix by Agent</a>,
