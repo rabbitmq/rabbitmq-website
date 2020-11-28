@@ -403,6 +403,8 @@ target="_blank">Prometheus configuration documentation</a> .
 There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
 for beginners.
 
+#### Metric Collection and Scraping Intervals
+
 Prometheus will periodically scrape (read) metrics from the systems it
 monitors, every 60 seconds by default. RabbitMQ metrics are updated
 periodically, too, every 5 seconds by default. Since [this value is
