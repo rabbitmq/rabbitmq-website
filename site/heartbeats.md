@@ -124,7 +124,7 @@ creating a connection:
 var cf = new ConnectionFactory();
 
 // set the heartbeat timeout to 60 seconds
-cf.RequestedHeartbeat = 60;
+cf.RequestedHeartbeat = TimeSpan.FromSeconds(60);
 </pre>
 
 
