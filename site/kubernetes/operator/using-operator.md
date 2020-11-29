@@ -127,6 +127,7 @@ kubectl edit rabbitmqcluster definition
 </pre>
 
 Next, add any of the properties described below along with their values. Every property listed below is optional.
+You can view these operator configuration [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples) in GitHub.
 
 ### <a name='labels-annotations' class='anchor' href='#labels-annotations'>Labels and Annotations</a>
 
@@ -510,6 +511,8 @@ spec:
       - rabbitmq_top
       - rabbitmq_shovel
 </pre>
+
+Community plugins are not available in the standard rabbitmq image. To enable one of these, you can create your own image with your plugin or see this [example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins) in GitHub.
 
 ### <a name='tls-conf' class='anchor' href='#tls-conf'>TLS Configuration</a>
 
