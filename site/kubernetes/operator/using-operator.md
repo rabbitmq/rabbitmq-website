@@ -128,6 +128,9 @@ kubectl edit rabbitmqcluster definition
 
 Next, add any of the properties described below along with their values. Every property listed below is optional.
 
+A number of [configuration examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples) are available
+in the Operator repository on GitHub.
+
 ### <a name='labels-annotations' class='anchor' href='#labels-annotations'>Labels and Annotations</a>
 
 **Description:** Labels and annotations in RabbitmqCluster metadata are propagated to the resources created by
@@ -510,6 +513,9 @@ spec:
       - rabbitmq_top
       - rabbitmq_shovel
 </pre>
+
+If community plugins need to be provisioned, they should be included into a custom image or [downloaded on node startup](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins). The latter option is generally
+**not recommended** as it goes against the philosophy of immutable images and repeatable builds.
 
 ### <a name='tls-conf' class='anchor' href='#tls-conf'>TLS Configuration</a>
 
