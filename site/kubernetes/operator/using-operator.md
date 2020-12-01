@@ -128,6 +128,9 @@ kubectl edit rabbitmqcluster definition
 
 Next, add any of the properties described below along with their values. Every property listed below is optional.
 
+A number of [configuration examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples) are available
+in the Operator repository on GitHub.
+
 ### <a name='labels-annotations' class='anchor' href='#labels-annotations'>Labels and Annotations</a>
 
 **Description:** Labels and annotations in RabbitmqCluster metadata are propagated to the resources created by
@@ -511,6 +514,9 @@ spec:
       - rabbitmq_shovel
 </pre>
 
+If community plugins need to be provisioned, they should be included into a custom image or [downloaded on node startup](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/community-plugins). The latter option is generally
+**not recommended** as it goes against the philosophy of immutable images and repeatable builds.
+
 ### <a name='tls-conf' class='anchor' href='#tls-conf'>TLS Configuration</a>
 
 **Description:** Configure RabbitMQ to use the certificates provided by Secret `spec.tls.secretName`. The Secret must
@@ -519,7 +525,7 @@ and `tls.crt` for the private key and public certificate respectively.
 
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
-object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` contaning
+object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
 
@@ -843,6 +849,8 @@ To create and set a `PodDisruptionBudget` object, first create a file called `ra
 <pre class="lang-yaml">
     apiVersion: policy/v1beta1
     kind: PodDisruptionBudget
+    metadata:
+      name: pdb-rabbitmq
     spec:
       maxUnavailable: 1
       selector:

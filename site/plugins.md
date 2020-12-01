@@ -440,6 +440,17 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     </tr>
 
     <tr>
+      <th>rabbitmq_prometheus</th>
+      <td>
+        Prometheus monitoring support.
+
+        <ul>
+          <li><a href="prometheus.html">Documentation for monitoring with the Prometheus plugin</a></li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
       <th>rabbitmq_shovel</th>
       <td>
         A plug-in for RabbitMQ that shovels messages from a queue on
