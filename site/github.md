@@ -27,7 +27,7 @@ It has numerous [tutorials](https://git-scm.com/doc).
 
 Team RabbitMQ uses Git to manage almost all of our source code.
 
-RabbitMQ source code repositories [hosted on GitHub](https://github.com/rabbitmq).
+RabbitMQ source code repositories are [hosted on GitHub](https://github.com/rabbitmq).
 Individual project pages on this website will generally point
 you in the direction of the specific combinations of modules
 you'll need to check out.

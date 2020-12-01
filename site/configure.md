@@ -344,7 +344,7 @@ The same example in the <a href="#config-file-formats">classic config format</a>
 This example will alter the [port RabbitMQ listens on](/networking.html#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
 
-The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.conf.example)
+The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/rabbitmq.conf.example)
 named `rabbitmq.conf.example`. It contains examples of
 most of the configuration items you might want to set (with some very obscure ones omitted), along with
 documentation for those settings.
@@ -369,7 +369,7 @@ config file in the Erlang term format (same as `rabbitmq.config`).
 That file is commonly named `advanced.config`. It will be merged
 with the configuration provided in `rabbitmq.conf`.
 
-The RabbitMQ server source repository contains [an example advanced.config file](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/advanced.config.example)
+The RabbitMQ server source repository contains [an example advanced.config file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/advanced.config.example)
 named `advanced.config.example`. It focuses on the options that are typically set using the advanced config.
 
 To override the advanced config file location, use the `RABBITMQ_ADVANCED_CONFIG_FILE`

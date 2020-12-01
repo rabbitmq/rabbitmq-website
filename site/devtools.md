@@ -96,6 +96,7 @@ Miscellaneous projects:
  * [Thumper](https://github.com/php-amqplib/Thumper) a library of messaging patterns
  * [CAMQP](http://www.yiiframework.com/extension/amqp/) an extension for the Yii framework providing a gateway for RabbitMQ messaging
  * [AMQP Interop](https://github.com/queue-interop/queue-interop#amqp-interop) is a set of unified AMQP 0-9-1 interfaces in PHP and their implementations
+ * [Bowler](https://github.com/Vinelab/bowler) is a RabbitMQ client abstraction for Laravel
 
 
 ## <a id="node-dev" class="anchor" href="#node-dev">JavaScript and Node</a>
