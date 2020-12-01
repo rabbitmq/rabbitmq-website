@@ -849,6 +849,8 @@ To create and set a `PodDisruptionBudget` object, first create a file called `ra
 <pre class="lang-yaml">
     apiVersion: policy/v1beta1
     kind: PodDisruptionBudget
+    metadata:
+      name: pdb-rabbitmq
     spec:
       maxUnavailable: 1
       selector:
