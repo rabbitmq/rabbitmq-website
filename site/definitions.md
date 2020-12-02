@@ -27,14 +27,17 @@ Every node in a cluster has its own replica of all definitions. When a part of d
 the update is performed on all nodes in a single transaction. This means that
 in practice, definitions can be exported from any cluster node with the same result.
 
-Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
-used for schema backup.
-
 A definition file contains definitions of all broker objects (queues,
 exchanges, bindings, users, virtual hosts, permissions and
 parameters).
 
-Definition import on node boot is the recommended way of pre-configuring nodes at deployment time.
+Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
+used for schema backup.
+
+[VMware Tanzu RabbitMQ](/tanzu/) supports [continuous schema definition replication](/definitions-standby.html) to a remote cluster,
+which makes it easy to run a hot standby cluster for disaster recovery.
+
+Definition import on node boot is the recommended way of [pre-configuring nodes at deployment time](#import-on-boot).
 
 ## <a id="export" class="anchor" href="#export">Definition Export</a>
 

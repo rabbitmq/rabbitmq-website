@@ -1,4 +1,4 @@
-# Schema Definition Replication
+# Hot Standby via Continuous Definition Replication
 
 [VMware Tanzu RabbitMQ](/tanzu/) supports continuous schema definition replication
 to a remote cluster, which makes it easy to run a hot standby cluster for disaster recovery.

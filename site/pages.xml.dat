@@ -109,6 +109,9 @@ limitations under the License.
        <x:page url="/reliability.html" text="Reliable Delivery">
          <x:related url="/heartbeats.html" text="Heartbeats"/>
        </x:page>
+       <x:page url="/definitions.html" text="Schema Definition Export and Import">
+          <x:page url="/definitions-standby.html" text="Hot standby Using Definition Replication"/>
+       </x:page>
        <x:page url="/backup.html" text="Backup and restore"/>
        <x:page url="/alarms.html" text="Alarms">
          <x:page url="/memory.html" text="Memory Alarms"/>
@@ -193,7 +196,6 @@ limitations under the License.
        <x:page url="/mqtt.html" text="MQTT plugin"/>
        <x:page url="/web-mqtt.html" text="MQTT-over-WebSockets"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>
-       <x:page url="/schema-definition-replication.html" text="Schema definition replication"/>
        <x:page url="/installing-plugins.html" text="Installing plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
        <x:related url="/community-plugins.html"/>
