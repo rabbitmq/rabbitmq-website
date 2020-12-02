@@ -262,8 +262,11 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
-ssl_options.fail_if_no_peer_cert = false
+ssl_options.fail_if_no_peer_cert = true
 </pre>
+
+This configuration will also perform [peer certificate chain verification](#peer-verification)
+so clients clients without any certificates will be rejected.
 
 It is possible to completely disable regular (non-TLS) listeners. Only TLS-enabled
 clients would be able to connect to such a node, and only if they use the correct port:
@@ -278,7 +281,7 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
-ssl_options.fail_if_no_peer_cert = false
+ssl_options.fail_if_no_peer_cert = true
 </pre>
 
 TLS settings can also be configured using the [classic config format](/configure.html#erlang-term-config-file):
@@ -291,7 +294,7 @@ TLS settings can also be configured using the [classic config format](/configure
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
                     {verify,     verify_peer},
-                    {fail_if_no_peer_cert, false}]}
+                    {fail_if_no_peer_cert, true}]}
    ]}
 ].
 </pre>
