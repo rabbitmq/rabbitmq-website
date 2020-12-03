@@ -23,6 +23,27 @@ It documents known conditions and scenarios which can cause RabbitMQ Windows ser
 or CLI tools to malfunction.
 
 
+## <a id="erlang-distribution-port" class="anchor" href="#erlang-distribution-port">Erlang Distribution Port</a>
+
+To specify a non-standard port to be used for Erlang distribution, do the following:
+
+ * Make sure to use the same administrative user that was used to install RabbitMQ
+ * Stop the RabbitMQ Windows service using `.\rabbitmq-service.bat stop`
+ * Remove the RabbitMQ Windows service using `.\rabbitmq-service.bat remove`
+ * Create the `%AppData%\RabbitMQ\rabbitmq-env-conf.bat` file with the following contents (use your own port number):
+
+<pre class="lang-text">
+set DIST_PORT=44556
+</pre>
+
+ * Install the RabbitMQ Windows service using `.\rabbitmq-service.bat install`
+ * Start the RabbitMQ Windows service using `.\rabbitmq-service.bat start`
+ * Verify what port being used for inter-node and CLI tool communication:
+
+<pre class="lang-bash">
+epmd -names
+</pre>
+
 ## <a id="multiple-erlang-versions" class="anchor" href="#multiple-erlang-versions">Multiple Versions of Erlang May Cause Installation Issues</a>
 
 Due to how the Windows `.exe` installer detects an installed version of Erlang, RabbitMQ may end up not using the latest version of Erlang installed. Please ensure that only one version of Erlang is installed -
