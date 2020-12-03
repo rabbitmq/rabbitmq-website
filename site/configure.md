@@ -1662,7 +1662,8 @@ More variables are covered in the [File and Directory Locations guide](/relocate
       Port used for inter-node and CLI tool communication. Ignored if node config
       file sets <code>kernel.inet_dist_listen_min</code> or
       <code>kernel.inet_dist_listen_max</code> keys.
-      See <a href="/networking.html">Networking</a> for details.
+      See <a href="/networking.html">Networking</a> for details, and
+      <a href="/windows-quirks.html">Windows Quirks</a> for Windows-specific details.
 
       <p>
         <strong>Default</strong>: <code>RABBITMQ_NODE_PORT + 20000</code>

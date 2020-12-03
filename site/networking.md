@@ -316,6 +316,9 @@ on the inter-node communication port from every cluster member and every host wh
 CLI tools might be used. epmd port must be open for CLI tools and clustering
 to function.
 
+On Windows, the following settings have no effect when RabbitMQ runs as a service.
+Please see <a href="/windows-quirks.html">Windows Quirks</a> for details.
+
 The range used by RabbitMQ can also be controlled via two configuration keys:
 
  * `kernel.inet_dist_listen_min` in the <b>classic</b> config format <em>only</em>
