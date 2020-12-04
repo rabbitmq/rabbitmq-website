@@ -390,8 +390,9 @@ curl -s localhost:15692/metrics | head -n 3
 erlang_mnesia_held_locks{node="rabbit@65f1a10aaffa",cluster="rabbit@65f1a10aaffa"} 0
 </pre>
 
-Notice that RabbitMQ exposes the metrics on a dedicated TCP port, `15692` by
-default.
+Notice that RabbitMQ exposes the metrics on a dedicated TCP port, `15692` on IPv4 only by
+default. To get IPv6 support running, rabbitmq_prometheus.tcp_config.ip must be set to "::" or
+the wanted IPv6 address (see [rabbitmq_prometheus.schema](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/priv/schema/rabbitmq_prometheus.schema)).
 
 
 ### <a id="prometheus-configuration" class="anchor" href="#prometheus">Prometheus Configuration</a>
