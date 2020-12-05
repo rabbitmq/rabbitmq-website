@@ -266,7 +266,7 @@ ssl_options.fail_if_no_peer_cert = true
 </pre>
 
 This configuration will also perform [peer certificate chain verification](#peer-verification)
-so clients clients without any certificates will be rejected.
+so clients without any certificates will be rejected.
 
 It is possible to completely disable regular (non-TLS) listeners. Only TLS-enabled
 clients would be able to connect to such a node, and only if they use the correct port:
