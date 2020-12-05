@@ -244,7 +244,7 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
 ## References
 
  * [Java](https://rabbitmq.github.io/rabbitmq-java-client/api/current/)
- * [.NET](http://rabbitmq.github.io/rabbitmq-dotnet-client/index.html)
+ * [.NET](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html)
  * [AMQP 0-9-1 URI Specification](/uri-spec.html)
  * [URI Query Parameters](/uri-query-parameters.html)
   
