@@ -37,7 +37,7 @@ Key sections of the guide are:
 * [Concurrency Considerations and Safety](#concurrency)
 * [Automatic Recovery From Network Failures](#recovery)
 
-An [API reference](http://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html) is available separately.
+An [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.html) is available separately.
 
 
 ## <a id="dotnet-versions" class="anchor" href="#dotnet-versions">.NET Version Requirements</a>
@@ -269,7 +269,7 @@ within an application. The name is optional; however, developers are strongly en
 as it would significantly simplify certain operational tasks.
 
 RabbitMQ .NET client provides a connection factory property,
-[`ConnectionFactory.ClientProvidedName`](http://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ClientProvidedName),
+[`ConnectionFactory.ClientProvidedName`](https://rabbitmq.github.io/rabbitmq-dotnet-client/api/RabbitMQ.Client.ConnectionFactory.html#RabbitMQ_Client_ConnectionFactory_ClientProvidedName),
 which, if set, controls the client-provided connection name for all new connections opened
 by this factory.
 
