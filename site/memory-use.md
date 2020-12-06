@@ -545,8 +545,8 @@ and increase the percentage of efficiently used memory. The right set of setting
 the workload and message payload size distribution.
 
 Runtime's memory allocator behavior can be tuned, please refer to
-[erl](http://erlang.org/doc/man/erl.html" target="_blank) and
-[erts_alloc](http://erlang.org/doc/man/erts_alloc.html" target="_blank)
+<a href="http://erlang.org/doc/man/erl.html" target="_blank">erl</a> and
+<a href="http://erlang.org/doc/man/erts_alloc.html" target="_blank">erts_alloc</a>
 documentation.
 
 
