@@ -692,10 +692,10 @@ management.enable_queue_totals = true
 ### <a id="csp" class="anchor" href="#csp">Content Security Policy (CSP)</a>
 
 It is possible to configure what [CSP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) value
-is used by HTTP API responses. The default value is `script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'"`:
+is used by HTTP API responses. The default value is `script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'`:
 
 <pre class="lang-ini">
-management.csp.policy = script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'"
+management.csp.policy = script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'
 </pre>
 
 The value can be any valid CSP header string:
