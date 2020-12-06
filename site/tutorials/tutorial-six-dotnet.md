@@ -98,7 +98,7 @@ channel.BasicPublish(exchange: "",
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
-> * `Persistent`: : Marks a message as persistent (with a value of `2`)
+> * `Persistent`: Marks a message as persistent (with a value of `true`)
 >    or transient (any other value). Take a look at [the second tutorial](tutorial-two-dotnet.html).
 > * `DeliveryMode`: those familiar with the protocol may choose to use this
 >    property instead of `Persistent`. They control the same thing.
