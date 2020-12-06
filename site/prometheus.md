@@ -437,6 +437,32 @@ below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
 
+### <a id="port" class="anchor" href="#listener">Network Interface and Port</a>
+
+The port is configured using the `prometheus.tcp.port` key:
+
+<pre class="lang-ini">
+prometheus.tcp.port = 15692
+</pre>
+
+It is possible to configure what interface the Prometheus plugin API endpoint will use, similarly
+to [messaging protoco listeners](/networking.html#interfaces), using
+the `prometheus.tcp.ip` key:
+
+<pre class="lang-ini">
+prometheus.tcp.ip = 0.0.0.0
+</pre>
+
+To check what interface and port is used by a running node, use
+`rabbitmq-diagnostics`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics -s listeners
+# => Interface: [::], port: 15692, protocol: http/prometheus, purpose: Prometheus exporter API over HTTP
+</pre>
+
+or [tools such as `lsof`, `ss` or `netstat`](/troubleshooting-networking.html#ports).
+
 ### <a id="metric-aggregation" class="anchor" href="#metric-aggregation">Aggregated and Per-Object Metrics</a>
 
 The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
