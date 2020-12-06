@@ -31,7 +31,7 @@ To receive these notifications, the client must present a
 `capabilities` table in its `client-properties` in which there is a key
 `connection.blocked` and a boolean value `true`.
 
-See the [capabilities](#capabilities) section for further
+See the [capabilities](/consumer-cancel.html#capabilities) section for further
 details on this. Our supported clients indicate this capability
 by default and provide a way to register handlers for the
 `connection.blocked` and `connection.unblocked` methods.
