@@ -980,7 +980,7 @@ rabbitmqctl forget_cluster_node rabbit@rabbit1
 # => ...done.
 </pre>
 
-Note that `rabbit1` still thinks its clustered with
+Note that `rabbit1` still thinks it's clustered with
 `rabbit2`, and trying to start it will result in an
 error. We will need to reset it to be able to start it again.
 

@@ -1170,7 +1170,7 @@ a problem elsewhere.
 
 ### <a id="tls-handshake" class="anchor" href="#tls-handshake">TLS (SSL) Handshake</a>
 
-If TLS/SSL is enabled, it may necessary to increase also the TLS/SSL
+If TLS/SSL is enabled, it may be necessary to increase also the TLS/SSL
 handshake timeout. This can be done via
 the `rabbit.ssl_handshake_timeout` (in milliseconds):
 
