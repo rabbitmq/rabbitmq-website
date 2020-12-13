@@ -278,7 +278,7 @@ from the queue to the exchange with the `rpc` routing-key.
 The server code is rather straightforward:
 
   * As usual we start annotating our receiver method with a `@RabbitListener`
-    and defining the queue its listening on. 
+    and defining the queue it's listening on.
   * Our Fibonacci method calls fib() with the payload parameter and returns
     the result
   
@@ -319,7 +319,7 @@ is as easy as the server:
     exchange name, routing key and message.
   * We print the result
 
-Making the client request is simply:
+Making the client request is simple:
 
 <pre class="lang-java">
 import org.springframework.amqp.core.DirectExchange;

@@ -58,7 +58,7 @@ This step checks that the broker is listening on the [expected port(s)](/network
 To verify that TLS has been enabled on the node, use <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>
 or the <code>listeners</code> section in <code>[rabbitmqctl](/rabbitmqctl.8.html) status</code>.
 
-The listeners sections will look something like this:
+The listeners section will look something like this:
 
 <pre class="lang-ini">
 Interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication

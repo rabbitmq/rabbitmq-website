@@ -38,7 +38,7 @@ set DIST_PORT=44556
 
  * Install the RabbitMQ Windows service using `.\rabbitmq-service.bat install`
  * Start the RabbitMQ Windows service using `.\rabbitmq-service.bat start`
- * Verify what port being used for inter-node and CLI tool communication:
+ * Verify what port is being used for inter-node and CLI tool communication:
 
 <pre class="lang-bash">
 epmd -names

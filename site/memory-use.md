@@ -392,7 +392,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
 
 ### <a id="breakdown-connections" class="anchor" href="#breakdown-connections">Connections</a>
 
-This includes memory used by client connections (including [Shovels](/shovel.html) and [Federation links](/federation.html)
+This includes memory used by client connections (including [Shovels](/shovel.html) and [Federation links](/federation.html))
 and channels, and outgoing ones (Shovels and Federation upstream links). Most of the memory
 is usually used by TCP buffers, which on Linux autotune to about 100 kB in size by default.
 TCP buffer size can be reduced at the cost of a proportional decrease in connection throughput.
