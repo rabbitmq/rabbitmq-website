@@ -381,9 +381,7 @@ use a different port or network interface, enable HTTPS
 and so on.
 
 While rarely needed, it is possible to configure multiple listeners (ports), e.g. to both enable HTTPS and
-retain support for clients that can only use HTTP (without TLS). This uses an alternative
-set of configuration keys and is available starting with RabbitMQ 3.7.9.
-
+retain support for clients that can only use HTTP (without TLS).
 
 ### <a id="single-listener-port" class="anchor" href="#single-listener-port">Port</a>
 
@@ -392,6 +390,25 @@ The port is configured using the `management.tcp.port` key:
 <pre class="lang-ini">
 management.tcp.port = 15672
 </pre>
+
+It is possible to configure what interface the API endpoint will use, similarly
+to [messaging protoco listeners](/networking.html#interfaces), using
+the `management.tcp.ip` key:
+
+<pre class="lang-ini">
+management.tcp.ip = 0.0.0.0
+</pre>
+
+To check what interface and port is used by a running node, use
+`rabbitmq-diagnostics`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics -s listeners
+# => Interface: [::], port: 15672, protocol: http, purpose: HTTP API
+# => Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
+</pre>
+
+or [tools such as `lsof`, `ss` or `netstat`](/troubleshooting-networking.html#ports).
 
 ### <a id="single-listener-https" class="anchor" href="#single-listener-https">HTTPS</a>
 
@@ -787,7 +804,9 @@ listeners.tcp.default = 5672
 
 collect_statistics_interval = 10000
 
-# management.load_definitions = /path/to/exported/definitions.json
+## Note: this uses the core `load_definitions` key over
+## now deprecated `management.load_definitions`
+# load_definitions = /path/to/exported/definitions.json
 
 management.tcp.port = 15672
 management.tcp.ip   = 0.0.0.0
