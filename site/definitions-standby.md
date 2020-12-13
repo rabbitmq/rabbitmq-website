@@ -63,7 +63,7 @@ The plugin has two sides on a schema replication link (connection):
 
 Downstreams connect to their upstream and periodically initiate sync operations. These
 operations synchronise the schema on the downstream side with that of the upstream,
-with some safety mechanisms (covered laster in this guide).
+with some safety mechanisms (covered later in this guide).
 
  A node running in the downstream mode (a follower) can be **converted to an upstream** (leader)
  on the fly. This will make it disconnect from its original source, therefore stopping all
@@ -123,7 +123,7 @@ A node participating in schema definition syncing must be provided with two piec
  * What mode it operates in, `upstream` (leader) or `downstream` (passive follower)
  * Upstream connection endpoints
 
-This is true for both upstreams and downtreams.
+This is true for both upstreams and downstreams.
 
 The mode must be provided in the config file. Supported values are `upstream`
 and `downstream`, respectively:

@@ -72,7 +72,7 @@ following things:
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 *   Erlang distribution **compression and SSL can't be used at the same time**:
-    the user must choose between both.
+    the user must choose between them.
 
     The reason is that the Erlang node is configured with a specific
     distribution module provided with VMware Tanzu RabbitMQ, plus a small

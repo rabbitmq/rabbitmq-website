@@ -122,7 +122,7 @@ public class Tut2Config {
 ### Sender
 
 We will modify the sender to provide a means for identifying
-whether its a longer running task by appending a dot to the
+whether it's a longer running task by appending a dot to the
 message in a very contrived fashion using the same method
 on the `RabbitTemplate` to publish the message, `convertAndSend`.
 The documentation defines this as, "Convert a Java object to
