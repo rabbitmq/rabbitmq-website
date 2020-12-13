@@ -576,10 +576,10 @@ Some messages can be stored on disk, but still have their metadata kept in memor
 
 ### <a id="queue-memory-usage" class="anchor" href="#queue-memory-usage">How much memory does a queue use?</a>
 
-A message has multiple parts that use up memory. Every queue is backed an Erlang process.
+A message has multiple parts that use up memory. Every queue is backed by an Erlang process.
 If a queue is mirrored, each mirror is a separate Erlang process.
 
-Since a queues master is a single Erlang process, message ordering can be guaranteed.
+Since a queue's master is a single Erlang process, message ordering can be guaranteed.
 Multiple queues means multiple Erlang processes which get an even amount of CPU time.
 This ensures that no queue can block other queues.
 
@@ -598,7 +598,7 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/queues/%2f/queue-name |
 }
 </pre>
 
- * `memory`: memory used by the queue process, accounts message metadata (at least 720 bytes per message), does not account for message payloads over 64 bytes
+ * `memory`: memory used by the queue process, accounts for message metadata (at least 720 bytes per message), does not account for message payloads over 64 bytes
  * `message_bytes_ram`: memory used by the message payloads, regardless of the size
 
 If messages are small, message metadata can use more memory than the message payload.
@@ -613,7 +613,7 @@ Erlang uses [generational garbage collection](https://www.erlang-solutions.com/b
 Garbage collection is done per queue, independently of all other Erlang processes.
 
 When garbage collection runs, it will copy used process memory before deallocating unused memory.
-This can can lead to the queue process using up to twice as much memory during garbage collection, as shown here (queue contains a lot of messages):
+This can lead to the queue process using up to twice as much memory during garbage collection, as shown here (queue contains a lot of messages):
 
 <img class="screenshot" src="img/memory/queue-memory-usage-spikes.png" alt="Queue under load memory usage" title="Queue under load memory usage" />
 

@@ -311,4 +311,4 @@ In the event that the Erlang VM terminates when RabbitMQ is running
 as a service, rather than writing the crash dump to the current
 directory (which doesn't make sense for a service) it is written
 to an `erl_crash.dump` file in the [base directory](/relocate.html) of
-the RabbitMQ server, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` - typically `%APPDATA%\RabbitMQ` otherwise).
+the RabbitMQ server, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` - typically `%APPDATA%\RabbitMQ` otherwise.
