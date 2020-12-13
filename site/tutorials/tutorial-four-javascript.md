@@ -370,7 +370,7 @@ And, for example, to emit an `error` log message just type:
 
 
 (Full source code for [(emit_log_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log_direct.js)
-and [(receive_logs_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs_direct.js)
+and [(receive_logs_direct.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs_direct.js))
 
 Move on to [tutorial 5](tutorial-five-javascript.html) to find out how to listen
 for messages based on a pattern.

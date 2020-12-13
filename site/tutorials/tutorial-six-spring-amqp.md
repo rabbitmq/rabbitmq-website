@@ -38,7 +38,7 @@ service that returns Fibonacci numbers.
 ### Client interface
 
 To illustrate how an RPC service could be used we're going to
-change the names of our profiles from "Sender" and "Receiver
+change the names of our profiles from "Sender" and "Receiver"
 to "Client" and "Server". When we call the server we will get
 back the fibonacci of the argument we call with. 
 

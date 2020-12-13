@@ -399,7 +399,7 @@ default.
 Once RabbitMQ is configured to expose metrics to Prometheus, Prometheus should be made
 aware of where it should scrape RabbitMQ metrics from. There are a number of ways of doing this.
 Please refer to the official <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/"
-target="_blank">Prometheus configuration documentation</a> .
+target="_blank">Prometheus configuration documentation</a>.
 There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
 for beginners.
 
@@ -446,7 +446,7 @@ prometheus.tcp.port = 15692
 </pre>
 
 It is possible to configure what interface the Prometheus plugin API endpoint will use, similarly
-to [messaging protoco listeners](/networking.html#interfaces), using
+to [messaging protocol listeners](/networking.html#interfaces), using
 the `prometheus.tcp.ip` key:
 
 <pre class="lang-ini">

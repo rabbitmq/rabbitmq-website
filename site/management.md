@@ -392,7 +392,7 @@ management.tcp.port = 15672
 </pre>
 
 It is possible to configure what interface the API endpoint will use, similarly
-to [messaging protoco listeners](/networking.html#interfaces), using
+to [messaging protocol listeners](/networking.html#interfaces), using
 the `management.tcp.ip` key:
 
 <pre class="lang-ini">
