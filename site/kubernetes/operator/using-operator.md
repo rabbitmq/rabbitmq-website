@@ -531,7 +531,7 @@ This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in 
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
-RabbitMQ supports tls certificate rotation (same CA) without restarting itself. To rotate your tls certificate, you can simply update certificates in your tls Secret object. Updates to the Secret object will be picked up by the RabbitMQ pods within several minutes and you won't need to restart the RabbitmqCluster yourself.
+RabbitMQ can reload certificates produced by the same CA without a node restart. This makes one-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
 
 **Default Value:** N/A
 
@@ -1040,19 +1040,19 @@ kubectl delete -f INSTANCE.yaml
 
 ## <a id='pause' class='anchor' href='#pause'>Pause Reconciliation for a RabbitMQCluster</a>
 
-If you wish to pause reconciliation for a RabbitMQ instance to stop the cluster operator updating and watching the instance. You can set a special label on your RabbitmqCluster.
+It is possible to pause reconciliation for a RabbitMQ instance: this will prevent the cluster operator from watching and updating the instance. To do so, set a special label "rabbitmq.com/pauseReconciliation=true" on your RabbitmqCluster.
 
-This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally deletes a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
+This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally delete a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
 
-To pause reconciliation, you can set the special label like
+To pause reconciliation, set the label by running:
 
 <pre class="lang-bash">
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation=true
 </pre>
 
-where `INSTANCE` is the name of your RabbitmqCluster,
+where `INSTANCE` is the name of your RabbitmqCluster.
 
-To resume reconciliation, you can simply remove the label like
+To resume reconciliation, remove the label by runninng:
 
 <pre class="lang-bash">
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
