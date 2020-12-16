@@ -19,6 +19,7 @@ in the following sections:
 * [Use the RabbitMQ Service in Your App](#use).
 * [Monitor RabbitMQ Clusters](#monitoring).
 * [Delete a RabbitMQ Instance](#delete).
+* [Pause Reconciliation for a RabbitMQ Instance](#pause).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -1033,4 +1034,24 @@ or use
 
 <pre class="lang-bash">
 kubectl delete -f INSTANCE.yaml
+</pre>
+
+## <a id='pause' class='anchor' href='#pause'>Pause Reconciliation for a RabbitMQCluster</a>
+
+If you wish to pause reconciliation for a RabbitMQ instance to stop the cluster operator updating and watching the instance. You can set a special label on your RabbitmqCluster.
+
+This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally deletes a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
+
+To pause reconciliation, you can set the special label like
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation=true
+</pre>
+
+where `INSTANCE` is the name of your RabbitmqCluster,
+
+To resume reconciliation, you can simply remove the label like
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
