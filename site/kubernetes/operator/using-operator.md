@@ -531,6 +531,8 @@ This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in 
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
+RabbitMQ supports tls certificate rotation (same CA) without restarting itself. To rotate your tls certificate, you can simply update certificates in your tls Secret object. Updates to the Secret object will be picked up by the RabbitMQ pods within several minutes and you won't need to restart the RabbitmqCluster yourself.
+
 **Default Value:** N/A
 
 **Example:**
