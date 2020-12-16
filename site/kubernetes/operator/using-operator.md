@@ -523,11 +523,12 @@ If community plugins need to be provisioned, they should be included into a cust
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
+By default, enabling TLS does not disable non-TLS listeners and therefore plain-text connections are still possible. If you want to disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
+
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
-
 
 **Default Value:** N/A
 
@@ -542,6 +543,7 @@ spec:
   tls:
     secretName: rabbitmq-server-certs
     caSecretName: rabbitmq-ca-cert
+    disableNonTLSListeners: true
 </pre>
 
 ### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
@@ -775,6 +777,22 @@ The configurations are listed in the table below.
       </td>
       <td>
         The Secret name used to configure RabbitMQ TLS. The Secret must exist and contain keys `tls.key` and `tls.crt`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.tls.caSecretName</code>
+      </td>
+      <td>
+        The Secret name used to configure RabbitMQ mTLS (used to verify clients' certificates). The Secret must exist and contain key `ca.crt`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.tls.disableNonTLSListeners</code>
+      </td>
+      <td>
+        When set to `true`, only TLS connections are allowed (non-TLS listeners are disabled).
       </td>
     </tr>
     <tr>
