@@ -533,7 +533,7 @@ To run a testsuite in the context of a mixed-version cluster:
     Umbrella. The `rabbitmq-federation` plugin is used as an example:
 
     <pre class="lang-bash">
-    cd seconary-umbrella/deps/rabbitmq_federation
+    cd secondary-umbrella/deps/rabbitmq_federation
     make dist
     </pre>
 

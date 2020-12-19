@@ -377,11 +377,11 @@ provide more convenient ways of setting a custom name on a connection.
 
 ## <a id="capabilities" class="anchor" href="#capabilities">Client and Server Capabilities</a>
 
-Some protocols, namely AMQP 0-9-1, providea for clients and servers to express
+Some protocols, namely AMQP 0-9-1, provide for clients and servers to express
 their capabilities when opening a connection. This can be thought of as a
 table of optional features that specific versions of RabbitMQ and client libraries
 may or may not support. This mechanism is similar to [feature flags](/feature-flags.html)
-used by RabbitMQ nodes to determine what set of features is supposed by all cluster
+used by RabbitMQ nodes to determine what set of features is supported by all cluster
 members, and if a new member would be able to join the cluster.
 
 The values for these capability keys are typically booleans, indicating whether or not the capability
@@ -408,7 +408,7 @@ The capabilities table for clients is optional: failure to present
 such a table does not preclude the client from being able to
 use extensions such as [exchange to exchange bindings](/e2e.html).
 However, in some cases such as [consumer cancellation notification](/consumer-cancel.html),
-the client must present the associated capability otherwise RabbitMQ nodes will have no
+the client must present the associated capability, otherwise RabbitMQ nodes will have no
 way of knowing that the client is capable of receiving the additional notifications.
 
 ## <a id="automatic-recovery" class="anchor" href="#automatic-recovery">Recovery from Network Connection Failures</a>
