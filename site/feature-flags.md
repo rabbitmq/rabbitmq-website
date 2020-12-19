@@ -445,7 +445,7 @@ quorum_queue_migration(_FeatureName, _FeatureProps, is_enabled) ->
 
 More implementation docs can be found in
 the [`rabbit_feature_flags` module source
-code](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_feature_flags.erl).
+code](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_feature_flags.erl).
 
 Erlang's `edoc` reference can be generated locally from a RabbitMQ
 repository clone or source archive:
