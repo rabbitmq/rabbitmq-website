@@ -48,6 +48,7 @@ This guide covers:
  * [TLS](#tls)
  * [Flow control](#flow-control)
  * [Connection exceptions](#error-handling) (protocol errors)
+ * [Client properties and capabilities](#capabilities)
  * [Network failure recovery](#automatic-recovery)
 
 and other topics related to connections.
@@ -353,6 +354,62 @@ creating loops of error triggering, connection storms and variations of the [thu
 With MQTT, inspecting [server logs](/logging.html) and [monitoring connections](#monitoring) is therefore of particular
 importance.
 
+## <a id="client-provided-names" class="anchor" href="#client-provided-names">Client-Provided Connection Name</a>
+
+RabbitMQ nodes have a limited amount of information about their clients:
+
+ * their TCP endpoint (source IP address and port)
+ * the credentials used
+
+This information alone can make identifying applications and instances problematic, in particular when credentials can be
+shared and clients connect over a load balancer but [Proxy protocol](/networking.html#proxy-protocol) cannot be enabled.
+
+To make it easier to identify clients in [server logs](/logging.html) and [management UI](/management.html),
+AMQP 0-9-1 client connections, including the RabbitMQ Java client, can provide a custom identifier.
+If set, the identifier will be mentioned in log entries and management UI. The identifier is known as
+the **client-provided connection name**. The name can be used to identify an application or a specific component
+within an application. The name is optional; however, developers are strongly encouraged to provide one
+as it would significantly simplify certain operational tasks.
+
+Connection name must be specified using the `"connection_name"` field in the [client capabilities table](#capabilities).
+Some client libraries, e.g. [Java](/api-guide.html#client-provided-names) and [.NET](/dotnet-api-guide.html#client-provided-names),
+provide more convenient ways of setting a custom name on a connection.
+
+## <a id="capabilities" class="anchor" href="#capabilities">Client and Server Capabilities</a>
+
+Some protocols, namely AMQP 0-9-1, providea for clients and servers to express
+their capabilities when opening a connection. This can be thought of as a
+table of optional features that specific versions of RabbitMQ and client libraries
+may or may not support. This mechanism is similar to [feature flags](/feature-flags.html)
+used by RabbitMQ nodes to determine what set of features is supposed by all cluster
+members, and if a new member would be able to join the cluster.
+
+The values for these capability keys are typically booleans, indicating whether or not the capability
+is supported, but may vary based on the nature of the capability.
+
+For example, capability table presented by
+a RabbitMQ node to a client may look like
+(the format presented here can be thought of as pseudocode, since the
+actual table encoding is in a binary format and would not be human-friendly):
+
+<pre class="lang-haskell">
+{ "product"      = (longstr) "RabbitMQ",
+  "platform"     = (longstr) "Erlang/OTP",
+  "information"  = (longstr) "Licensed under the MPL.  See https://www.rabbitmq.com/",
+  "copyright"    = (longstr) "Copyright (c) 2007-2020 VMware, Inc. or its affiliates.",
+  "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
+                               "consumer_cancel_notify"     = (bool) true,
+                               "basic.nack"                 = (bool) true,
+                               "publisher_confirms"         = (bool) true },
+  "version"      = (longstr) "3.8.9" }
+</pre>
+
+The capabilities table for clients is optional: failure to present
+such a table does not preclude the client from being able to
+use extensions such as [exchange to exchange bindings](/e2e.html).
+However, in some cases such as [consumer cancellation notification](/consumer-cancel.html),
+the client must present the associated capability otherwise RabbitMQ nodes will have no
+way of knowing that the client is capable of receiving the additional notifications.
 
 ## <a id="automatic-recovery" class="anchor" href="#automatic-recovery">Recovery from Network Connection Failures</a>
 
