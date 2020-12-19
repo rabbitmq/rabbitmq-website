@@ -19,6 +19,7 @@ in the following sections:
 * [Use the RabbitMQ Service in Your App](#use).
 * [Monitor RabbitMQ Clusters](#monitoring).
 * [Delete a RabbitMQ Instance](#delete).
+* [Pause Reconciliation for a RabbitMQ Instance](#pause).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -530,6 +531,8 @@ This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in 
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
+RabbitMQ can reload certificates produced by the same CA without a node restart. This makes one-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
+
 **Default Value:** N/A
 
 **Example:**
@@ -1033,4 +1036,24 @@ or use
 
 <pre class="lang-bash">
 kubectl delete -f INSTANCE.yaml
+</pre>
+
+## <a id='pause' class='anchor' href='#pause'>Pause Reconciliation for a RabbitMQCluster</a>
+
+It is possible to pause reconciliation for a RabbitMQ instance: this will prevent the cluster operator from watching and updating the instance. To do so, set a special label "rabbitmq.com/pauseReconciliation=true" on your RabbitmqCluster.
+
+This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally delete a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
+
+To pause reconciliation, set the label by running:
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation=true
+</pre>
+
+where `INSTANCE` is the name of your RabbitmqCluster.
+
+To resume reconciliation, remove the label by runninng:
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
