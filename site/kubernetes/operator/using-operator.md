@@ -531,7 +531,7 @@ This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in 
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
-RabbitMQ can reload certificates produced by the same CA without a node restart. This makes one-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
+RabbitMQ can reload certificates produced by the same CA without a node restart. This makes on-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
 
 **Default Value:** N/A
 
@@ -1052,7 +1052,7 @@ kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation=tr
 
 where `INSTANCE` is the name of your RabbitmqCluster.
 
-To resume reconciliation, remove the label by runninng:
+To resume reconciliation, remove the label by running:
 
 <pre class="lang-bash">
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-

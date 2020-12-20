@@ -98,7 +98,7 @@ Logging to a file can be disabled with
 log.file = false
 </pre>
 
-Find supported log levels in the [example  rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/docs/rabbitmq.conf.example).
+Find supported log levels in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/rabbitmq.conf.example).
 
 The rest of this guide describes more options, including [more advanced ones](#advanced-configuration).
 

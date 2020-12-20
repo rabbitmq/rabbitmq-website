@@ -513,7 +513,7 @@ To use a config file in the classic format, export `RABBITMQ_CONFIG_FILE` to poi
 a `.config` extension. The extension will indicate to RabbitMQ that it should treat the file as one
 in the classic config format.
 
-[An example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/docs/rabbitmq.config.example) named
+[An example configuration file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.x/deps/rabbit/docs/rabbitmq.config.example) named
 `rabbitmq.config.example`. It contains an example of most of the configuration items in the classic config format.
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
@@ -528,8 +528,8 @@ that cannot be configured using the [ini-style config file](#config-file).
 The RabbitMQ server source repository contains
 examples for the configuration files:
 
- * [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example)
- * [advanced.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/advanced.config.example)
+ * [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/docs/rabbitmq.conf.example)
+ * [advanced.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/docs/advanced.config.example)
 
 These files contain examples of most of the configuration keys along with a brief explanation
 for those settings. All configuration items are commented out in the
