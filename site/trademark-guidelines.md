@@ -382,7 +382,9 @@ limitations under the License.
   </li>
   <li>
     <p>
-      MORE QUESTIONS? If you have questions about this policy, please
+      <strong>
+        MORE QUESTIONS?
+      </strong> If you have questions about this policy, please
       contact us at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
     </p>
   </li>
