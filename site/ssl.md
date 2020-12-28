@@ -1228,14 +1228,14 @@ explains what TLS versions are supported by what JDK and .NET releases.
   </tr>
   <tr>
     <td>TLS 1.1</td>
-    <td>JDK 7 (see [Protocols](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider),
-    [JDK 8 recommended](http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html))</td>
+    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
     <td>.NET 4.5</td>
   </tr>
   <tr>
     <td>TLS 1.2</td>
-    <td>JDK 7 (see [Protocols](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider),
-    [JDK 8 recommended](http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html))</td>
+    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
     <td>.NET 4.5</td>
   </tr>
 </table>
