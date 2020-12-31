@@ -296,7 +296,7 @@ Debian and RPM package installations use an empty
   <tr>
     <td>RABBITMQ_MNESIA_DIR</td>
     <td>
-      <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span></span>
+      <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-mnesia</span>
     </td>
   </tr>
 
@@ -342,7 +342,7 @@ Debian and RPM package installations use an empty
 </table>
 
 
-## <a id="windows" class="anchor" href="#windows">Generic Binary Build Defaults</a>
+## <a id="binary-build" class="anchor" href="#binary-build">Generic Binary Build Defaults</a>
 
 These are the defaults obtained when unpacking the Generic
 Unix tar-file and running the server without modification. In
