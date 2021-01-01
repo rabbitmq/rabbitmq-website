@@ -31,7 +31,7 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [CLI tool authentication](#cli)
  * [RabbitMQ Windows Service](#service)
  * [Managing the node](#managing)
- * [Firewall and security tools](#firewalls) effects
+ * [Firewall and security tools](#firewall) effects
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
@@ -138,7 +138,6 @@ in [PowerShell](https://docs.microsoft.com/en-us/windows-server/administration/w
 
 On Windows, CLI tools have a `.bat` suffix compared to other platforms. For example,
 `rabbitmqctl` on Windows is invoked as `rabbitmqctl.bat`.
-CLI tools are primarily covered in the .
 
 In order for these tools to work they must be able to [authenticate with RabbitMQ nodes](/cli.html#erlang-cookie)
 using a shared secret file called the Erlang cookie.
