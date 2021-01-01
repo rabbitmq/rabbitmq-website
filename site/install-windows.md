@@ -31,7 +31,7 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [CLI tool authentication](#cli)
  * [RabbitMQ Windows Service](#service)
  * [Managing the node](#managing)
- * [Firewall and security tools](#firewalls) effects
+ * [Firewall and security tools](#firewall) effects
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
