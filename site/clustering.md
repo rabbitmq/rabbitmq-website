@@ -759,7 +759,8 @@ The checks verify that one node has started and the deployment process can proce
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
-can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Deployments that use the `Parallel` pod management policy
+will not be affected but must worry about the [natural race condition during initial cluster formation](/cluster-formation.html#initial-formation-race-condition).
 
 Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
