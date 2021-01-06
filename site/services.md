@@ -56,7 +56,7 @@ best practice design and architecture.
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[AceMQ](https://acemq.com/rabbitmq/), [CoreShop Solutions](https://coreshopsolutions.com/partners/rabbitmq/) and others provide **professional consulting services**
+[AceMQ](https://acemq.com/rabbitmq/), [CoreShop Solutions](https://coreshopsolutions.com/partners/rabbitmq/), and others provide **professional consulting services**
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.
