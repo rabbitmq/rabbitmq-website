@@ -1341,18 +1341,18 @@ with cipher suite configuration.
 
 ### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Cipher Suites Available on a RabbitMQ Node</a>
 
-To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --openssl-format`:
+To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --format openssl`:
 
 <pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites --openssl-format -q
+rabbitmq-diagnostics cipher_suites --format openssl -q
 </pre>
 
 This will produce a list of cipher suites in the OpenSSL format.
 
-Note that if `--openssl-format` is set to `false`:
+Note that if you use `--format erlang`:
 
 <pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites -q --openssl-format=false
+rabbitmq-diagnostics cipher_suites --format erlang -q
 </pre>
 
 then `rabbitmq-diagnostics cipher_suites` will list cipher suites in the format
