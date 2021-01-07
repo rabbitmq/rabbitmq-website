@@ -1366,13 +1366,6 @@ client TLS connections. They are different from those used by [configuration val
 When overriding cipher suites, it is highly recommended
 that server-preferred [cipher suite ordering is enforced](#cipher-suite-order).
 
-When using classic config format, the following formatter setting can be helpful as it will produce
-a list of cipher suites that can be used in that file format:
-
-<pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
-</pre>
-
 ### <a id="configuring-cipher-suites" class="anchor" href="#configuring-cipher-suites">Configuring Cipher Suites</a>
 
 Cipher suites are configured using the `ssl_options.ciphers` config option (`rabbit.ssl_options.ciphers`
