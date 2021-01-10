@@ -483,7 +483,7 @@ the node to be fully booted. This is covered in the following section.
 A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
 can prevent a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
 Deployments that use the `Parallel` pod management policy
-will not be affected but must worry about the [natural race condition during initial cluster formation](/#initial-formation-race-condition).
+will not be affected but must worry about the [natural race condition during initial cluster formation](#initial-formation-race-condition).
 
 One health check that does not expect a node to be fully booted and have schema tables synced is
 
