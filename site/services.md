@@ -46,9 +46,8 @@ based on the [RabbitMQ Operator for Kubernetes](https://www.rabbitmq.com/kuberne
 
 The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
 [VMware](https://academy.pivotal.io/store-catalog),
-[Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
-[LearnQuest](http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc) and
-[Open Source Architect](https://opensource.io/product/rabbitmq-training/).
+[Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html) and
+[LearnQuest](http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc).
 These <strong>training courses</strong> cover learning messaging with RabbitMQ, use cases, patterns,
 best practice design and architecture.
 
@@ -57,7 +56,7 @@ best practice design and architecture.
 [Erlang Solutions](https://www.erlang-solutions.com/products/rabbitmq.html),
 [XPlatform Consulting](http://www.xplatformconsulting.com/rabbitmq/),
 [NobleProg](https://www.nobleprog.com/consulting/rabbitmq),
-[AceMQ](https://acemq.com/rabbitmq/) and others provide **professional consulting services**
+[AceMQ](https://acemq.com/rabbitmq/), [CoreShop Solutions](https://coreshopsolutions.com/partners/rabbitmq/), and others provide **professional consulting services**
 to address specific issues such as on-site troubleshooting, design review,
 deployment planning, project delivery and other value-adding services
 tailored to suit your needs.

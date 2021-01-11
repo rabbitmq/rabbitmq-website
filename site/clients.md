@@ -27,7 +27,7 @@ limitations under the License.
  * [Command line tools](java-tools.html)
 
 
-## .NET/C#
+## .NET/C# #
 
  * [Downloads and Installation](dotnet.html)
  * [API Guide](dotnet-api-guide.html)
@@ -37,7 +37,7 @@ limitations under the License.
 
  * [Downloads and Installation](erlang-client.html)
  * [API Guide](erlang-client-user-guide.html)
- * [API Reference](https://hexdocs.pm/amqp_client/" target="_blank)
+ * <a href="https://hexdocs.pm/amqp_client/" target="_blank">API Reference</a>
 
 ## Other Resources
 

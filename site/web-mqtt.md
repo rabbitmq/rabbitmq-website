@@ -54,7 +54,7 @@ By default the Web MQTT plugin exposes a WebSocket endpoint on port
 15675. The WebSocket endpoint is available on the `/ws` path:
 
 <pre class="lang-plaintext">
-http://127.0.0.1:15675/ws
+ws://127.0.0.1:15675/ws
 </pre>
 
 In order to establish connection from the browser using WebSocket

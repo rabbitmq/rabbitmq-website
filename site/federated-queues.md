@@ -41,7 +41,7 @@ to one or more downstreams, federated queues move data where the consumers are,
 always preferring local consumers to remote ones. Federated queues are considered
 to be equal peers, there is no "leader/follower" relationship between them like with federated exchanges.
 
-A federated queue links to other its federated peers (called _upstream_ queues).
+A federated queue links to other of its federated peers (called _upstream_ queues).
 It will retrieve messages from upstream queues in order to satisfy demand for
 messages from local consumers. The upstream queues do not
 need to be reconfigured. They are assumed to be located on a separate node or in a separate

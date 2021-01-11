@@ -39,7 +39,7 @@ when they are.
 Example (non-encrypted):
 
 <pre class="lang-ini">
-amqp://myhost?heartbeat=10&amp;connection_timeout=10000
+amqp://myhost?heartbeat=5&amp;connection_timeout=10000
 </pre>
 
 This specifies a (non-encrypted) network connection to the host

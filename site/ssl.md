@@ -262,8 +262,11 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
-ssl_options.fail_if_no_peer_cert = false
+ssl_options.fail_if_no_peer_cert = true
 </pre>
+
+This configuration will also perform [peer certificate chain verification](#peer-verification)
+so clients without any certificates will be rejected.
 
 It is possible to completely disable regular (non-TLS) listeners. Only TLS-enabled
 clients would be able to connect to such a node, and only if they use the correct port:
@@ -278,7 +281,7 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.verify     = verify_peer
-ssl_options.fail_if_no_peer_cert = false
+ssl_options.fail_if_no_peer_cert = true
 </pre>
 
 TLS settings can also be configured using the [classic config format](/configure.html#erlang-term-config-file):
@@ -291,7 +294,7 @@ TLS settings can also be configured using the [classic config format](/configure
                     {certfile,   "/path/to/server_certificate.pem"},
                     {keyfile,    "/path/to/server_key.pem"},
                     {verify,     verify_peer},
-                    {fail_if_no_peer_cert, false}]}
+                    {fail_if_no_peer_cert, true}]}
    ]}
 ].
 </pre>
@@ -1225,14 +1228,14 @@ explains what TLS versions are supported by what JDK and .NET releases.
   </tr>
   <tr>
     <td>TLS 1.1</td>
-    <td>JDK 7 (see [Protocols](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider),
-    [JDK 8 recommended](http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html))</td>
+    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
     <td>.NET 4.5</td>
   </tr>
   <tr>
     <td>TLS 1.2</td>
-    <td>JDK 7 (see [Protocols](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider),
-    [JDK 8 recommended](http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html))</td>
+    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
     <td>.NET 4.5</td>
   </tr>
 </table>
@@ -1338,18 +1341,18 @@ with cipher suite configuration.
 
 ### <a id="available-cipher-suites" class="anchor" href="#available-cipher-suites">Listing Cipher Suites Available on a RabbitMQ Node</a>
 
-To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --openssl-format`:
+To list cipher suites supported by the Erlang runtime of a running node, use `rabbitmq-diagnostics cipher_suites --format openssl`:
 
 <pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites --openssl-format -q
+rabbitmq-diagnostics cipher_suites --format openssl -q
 </pre>
 
 This will produce a list of cipher suites in the OpenSSL format.
 
-Note that if `--openssl-format` is set to `false`:
+Note that if you use `--format erlang`:
 
 <pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites -q --openssl-format=false
+rabbitmq-diagnostics cipher_suites --format erlang -q
 </pre>
 
 then `rabbitmq-diagnostics cipher_suites` will list cipher suites in the format
@@ -1362,13 +1365,6 @@ client TLS connections. They are different from those used by [configuration val
 
 When overriding cipher suites, it is highly recommended
 that server-preferred [cipher suite ordering is enforced](#cipher-suite-order).
-
-When using classic config format, the following formatter setting can be helpful as it will produce
-a list of cipher suites that can be used in that file format:
-
-<pre class="lang-ini">
-rabbitmq-diagnostics cipher_suites --openssl-format=false --formatter=erlang -q
-</pre>
 
 ### <a id="configuring-cipher-suites" class="anchor" href="#configuring-cipher-suites">Configuring Cipher Suites</a>
 

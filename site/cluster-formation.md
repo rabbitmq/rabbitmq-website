@@ -1375,7 +1375,7 @@ EC2 API requests are retried, and so on.
 
 Such retries by no means handle every possible failure scenario but they improve the resilience
 of peer discovery and thus cluster and node deployments in practice. However, if clustered
-nodes [fail to authenticate](/clustering.html##erlang-cookie) with each other, retries
+nodes [fail to authenticate](/clustering.html#erlang-cookie) with each other, retries
 will simply merely the inevitable failure of cluster formation.
 
 Nodes that fail to perform peer discovery will [log](/logging.html) their remaining recovery attempts:

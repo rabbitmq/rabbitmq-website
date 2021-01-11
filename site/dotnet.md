@@ -100,7 +100,7 @@ Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotn
 
 Please refer to the [RabbitMQ tutorials](/getstarted.html) and [.NET client user guide](/dotnet-api-guide.html).
 
-There's also [an online API reference](http://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
+There's also [an online API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
 
 
 ## <a id="changelog" class="anchor" href="#changelog">Change log</a>

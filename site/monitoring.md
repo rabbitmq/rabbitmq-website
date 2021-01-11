@@ -118,7 +118,7 @@ Collect the following metrics on all hosts that run RabbitMQ nodes or applicatio
  * Free disk space on the mount used for the [node data directory](/relocate.html)
  * File descriptors used by `beam.smp` vs. [max system limit](/networking.html#open-file-handle-limit)
  * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, `TIME_WAIT`)
- * Network throughput (bytes received, bytes sent) & maximum network throughput)
+ * Network throughput (bytes received, bytes sent) & maximum network throughput
  * Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)
 
 There is no shortage of existing tools (such as Prometheus or Datadog) that collect infrastructure
@@ -427,8 +427,8 @@ immediately obvious which component is misbehaving. Every single part of the sys
 applications, should be monitored and investigated.
 
 Some infrastructure-level and RabbitMQ metrics can show
-presence of an unusual system behaviour or issue but can't pin
-point the root cause. For example, it is easy to tell that a
+presence of an unusual system behaviour or issue but can't
+pinpoint the root cause. For example, it is easy to tell that a
 node is running out of disk space but not always easy to tell why.
 This is where application metrics come in: they can help identify
 a run-away publisher, a repeatedly failing consumer, a consumer that cannot
@@ -840,6 +840,13 @@ Note that this list is by no means complete.
       <td>
         <a href="/prometheus.html">Prometheus guide</a>,
         <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Sematext</td>
+      <td>
+        <a href="https://sematext.com/docs/integration/rabbitmq/">Sematext RabbitMQ monitoring integration</a>,
+        <a href="https://sematext.com/docs/integration/rabbitmq-logs/">Sematext RabbitMQ logs integration</a>
       </td>
     </tr>
     <tr>

@@ -9,7 +9,7 @@ This is based on TCP/IP connections and the exchanged data can be plain or
 ciphered if [SSL is configured](clustering-ssl.html).
 
 As the name suggests, Erlang distribution compression adds a third transport
-solution: compression. It allows inter-node communication to be reduce by up to
+solution: compression. It allows inter-node communication to be reduced by up to
 96%, depending on the nature of the data being compressed.
 
 <p class="box-info">
@@ -58,7 +58,7 @@ following things:
    remote node and specifies the list of algorithms it supports.
 
 4. The remote node compares the received list of algorithms to its own list.
-   The remode node's list is ordered by preference. The selected algorithm is
+   The remote node's list is ordered by preference. The selected algorithm is
    the first one in the remote node's list which is also supported by the
    initiating node. If there is no algorithm in common, the connection remains
    uncompressed and following steps are skipped.
@@ -66,20 +66,20 @@ following things:
 5. Once an algorithm is selected, the remote node **sends a message back to the
    initiating node to inform it of its decision**.
 
-6. The two nodes synhronize to **start compression** on the existing TCP
+6. The two nodes synchronize to **start compression** on the existing TCP
    connection.
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
 *   Erlang distribution **compression and SSL can't be used at the same time**:
-    the user must choose between both.
+    the user must choose between them.
 
     The reason is that the Erlang node is configured with a specific
     distribution module provided with VMware Tanzu RabbitMQ, plus a small
     Erlang application to deal with the algorithm negotiation. The distribution
     module is a replacement to the default module (`inet_tcp_dist`) or the
     SSL-based one (`inet_tls_dist`). It is impossible to use two modules
-    simulatenously.
+    simultaneously.
 
 *   In VMware Tanzu RabbitMQ, the compression code relies on native libraries.
     **Only Linux/amd64 is supported** in the existing packaging. We might

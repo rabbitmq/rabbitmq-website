@@ -175,7 +175,8 @@ See [VM flag documentation](http://erlang.org/doc/man/erl.html) for more detaile
 ### <a id="cpu-reduce-idle-usage" class="anchor" href="#cpu-reduce-idle-usage">Reducing CPU Usage</a> for "Moderately Idle" Nodes and Clusters
 
 CPU usage is by definition very workload-dependent metric. Some workloads naturally use more CPU resources.
-With others, CPU resources can be wasted while nodes are [busy waiting for I/O operations](https://www.rabbitmq.com/blog/2020/04/21/quorum-queues-and-why-disks-matter/).
+Others use [disk-heavy features such as quorum queues](https://www.rabbitmq.com/blog/2020/04/21/quorum-queues-and-why-disks-matter/),
+and if disk I/O throughput is insufficient, CPU resources will be wasted while nodes are busy waiting for I/O operations to complete.
 
 A couple of general recommendations can be applied to "moderately loaded" systems where a large percentage or
 most connections and queues can go idle from time to time. Put differently, in this section we consider
