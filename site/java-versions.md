@@ -33,7 +33,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank">Java Client</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-16</td>
+    <td>8-17</td>
   </tr>
 
   <tr>
@@ -47,7 +47,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank">JMS Client</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-16</td>
+    <td>8-17</td>
   </tr>
 
   <tr>
@@ -61,21 +61,21 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-perf-test" target="_blank">PerfTest</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-16</td>
+    <td>8-17</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 3.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-16</td>
+    <td>8-17</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank">Reactor RabbitMQ</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-16</td>
+    <td>8-17</td>
   </tr>
 
 </table>

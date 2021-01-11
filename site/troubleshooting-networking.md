@@ -32,7 +32,7 @@ that help narrow most common issues down efficiently.
 
 Networking protocols are [layered](https://en.wikipedia.org/wiki/OSI_model#Comparison_with_TCP.2FIP_model).
 So are problems with them. An effective troubleshooting
-strategy typically uses the process of elimination to pin point the issue (or multiple issues),
+strategy typically uses the process of elimination to pinpoint the issue (or multiple issues),
 starting at higher levels. Specifically for messaging technologies, the following steps
 are often effective and sufficient:
 
@@ -85,7 +85,7 @@ In modern versions either tool can be used to run those commands but
 [rabbitmq-diagnostics][2] is what most documentation guides
 will typically recommend.
 
-The listeners sections will look something like this:
+The listeners section will look something like this:
 
 <pre class="lang-ini">
 Interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication

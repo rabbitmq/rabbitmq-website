@@ -19,6 +19,7 @@ in the following sections:
 * [Use the RabbitMQ Service in Your App](#use).
 * [Monitor RabbitMQ Clusters](#monitoring).
 * [Delete a RabbitMQ Instance](#delete).
+* [Pause Reconciliation for a RabbitMQ Instance](#pause).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -523,11 +524,14 @@ If community plugins need to be provisioned, they should be included into a cust
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
+By default, enabling TLS does not disable non-TLS listeners and therefore plain-text connections are still possible. If you want to disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
+
 Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
+RabbitMQ can reload certificates produced by the same CA without a node restart. This makes on-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
 
 **Default Value:** N/A
 
@@ -542,6 +546,7 @@ spec:
   tls:
     secretName: rabbitmq-server-certs
     caSecretName: rabbitmq-ca-cert
+    disableNonTLSListeners: true
 </pre>
 
 ### <a name='SkipPostDeploySteps' class='anchor' href='#SkipPostDeploySteps'>Skip Post Deploy</a>
@@ -775,6 +780,22 @@ The configurations are listed in the table below.
       </td>
       <td>
         The Secret name used to configure RabbitMQ TLS. The Secret must exist and contain keys `tls.key` and `tls.crt`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.tls.caSecretName</code>
+      </td>
+      <td>
+        The Secret name used to configure RabbitMQ mTLS (used to verify clients' certificates). The Secret must exist and contain key `ca.crt`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>spec.tls.disableNonTLSListeners</code>
+      </td>
+      <td>
+        When set to `true`, only TLS connections are allowed (non-TLS listeners are disabled).
       </td>
     </tr>
     <tr>
@@ -1015,4 +1036,24 @@ or use
 
 <pre class="lang-bash">
 kubectl delete -f INSTANCE.yaml
+</pre>
+
+## <a id='pause' class='anchor' href='#pause'>Pause Reconciliation for a RabbitMQCluster</a>
+
+It is possible to pause reconciliation for a RabbitMQ instance: this will prevent the cluster operator from watching and updating the instance. To do so, set a special label "rabbitmq.com/pauseReconciliation=true" on your RabbitmqCluster.
+
+This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally delete a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
+
+To pause reconciliation, set the label by running:
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation=true
+</pre>
+
+where `INSTANCE` is the name of your RabbitmqCluster.
+
+To resume reconciliation, remove the label by running:
+
+<pre class="lang-bash">
+kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>

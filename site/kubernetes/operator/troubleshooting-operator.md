@@ -54,9 +54,9 @@ Potential solution is to create the PodSecurityPolicy and RBAC resources by foll
 ### <a id="pods-stuck-in-terminating-state" class="anchor" href="#pods-stuck-in-terminating-state">Pods Are Stuck in the Terminating State</a>
 
 symptom: "After deleting a RabbitmqCluster instance, some Pods
-are stuck in the terminating state. RabbitMQ is still running in the affected Pods.
+are stuck in the terminating state. RabbitMQ is still running in the affected Pods."
 
-cause: "The likely cause is a leftover quorum queue in RabbitMQ.",
+cause: "The likely cause is a leftover quorum queue in RabbitMQ."
 
 Potential solution to resolve this issue:
 

@@ -27,7 +27,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 </pre>
 
 
-## RabbitMQ Server
+## Open Source RabbitMQ Server
 
 ### Installation Guides
 
@@ -35,7 +35,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * Windows: [Chocolatey or Installer](install-windows.html) (recommended) | [Binary build](install-windows-manual.html)
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](/which-erlang.html)
-
 
 ## Kubernetes
 

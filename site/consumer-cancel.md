@@ -41,7 +41,7 @@ asynchronously, and so in order to enable this behaviour,
 the client must present a `capabilities` table in
 its `client-properties` in which there is a key
 `consumer_cancel_notify` and a boolean value
-`true`. See the [section on capabilities](#capabilities) for details.
+`true`. See the [section on capabilities](/connections.html#capabilities) for details.
 
 Our supported clients present this capability by default to
 the broker and thus will be sent the asynchronous
@@ -72,61 +72,9 @@ does not error when it receives the
 `basic.cancel` and replies with a
 `basic.cancel-ok` as normal.
 
-### <a id="mirroring" class="anchor" href="#mirroring">Consumer Cancellation and Mirrored Queues</a>
+### <a id="replication" class="anchor" href="#replication">Consumer Cancellation and Replicated Queues</a>
 
 Clients supporting consumer cancel notification will always be
 informed when a queue is deleted or becomes
-unavailable. Consumers <em>may</em> request that they should be cancelled
-when a mirrored queue fails over (see the page on [mirrored queues](/ha.html)
-for why and how this can be done).
-
-
-## <a id="capabilities" class="anchor" href="#capabilities">Client and Server Capabilities</a>
-
-The AMQP 0-9-1 specification defines a
-way for clients and servers to express their capabilities using
-the `capabilities` field as part of the
-`connection.open` method. This field was
-deprecated in the AMQP 0-9-1 specification and is not
-inspected by the RabbitMQ broker. As specified in AMQP 0-8,
-it also suffered from being a `shortstr`: a
-string of no more than 256 characters.
-
-There is good reason for both the client and the server
-being able to present extensions and capabilities that they
-support, thus we have introduced an alternative form of
-capabilities. In the `server-properties` field of
-`connection.start`, and in the
-`client-properties` field of
-`connection.start-ok`, the field value (a
-`peer-properties` table) can optionally contain a
-key named `capabilities` for which the value is
-another table, in which the keys name the capabilities
-supported. The values for these capability keys are
-typically booleans, indicating whether or not the capability
-is supported, but may vary based on the nature of the
-capability.
-
-For example, the `server-properties` presented by
-the RabbitMQ broker to a client may look like:
-
-<pre class="lang-haskell">
-{ "product"      = (longstr) "RabbitMQ",
-  "platform"     = (longstr) "Erlang/OTP",
-  "information"  = (longstr) "Licensed under the MPL.  See https://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (c) 2007-2020 VMware, Inc. or its affiliates.",
-  "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
-                               "consumer_cancel_notify"     = (bool) true,
-                               "basic.nack"                 = (bool) true,
-                               "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "3.7.15" }
-</pre>
-
-Note that it is optional for clients to present this
-`capabilities` table as part of the
-`client-properties` table: failure to present
-such a table does not preclude the client from being able to
-use extensions such as [exchange to exchange bindings](/e2e.html).
-However, in some cases such as consumer cancellation notification,
-the client must present the associated capability otherwise the broker will have no
-way of knowing that the client is capable of receiving the additional notifications.
+unavailable. Consumers may request that they should be cancelled
+when the leader of a replicated queue changes.

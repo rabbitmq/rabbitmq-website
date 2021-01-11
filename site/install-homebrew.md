@@ -53,7 +53,7 @@ In case that directory is not in `PATH` it's recommended to append it:
 export PATH=$PATH:/usr/local/sbin
 </pre>
 
-Add the above expert to the shell profile (such as `~/.bashrc` for bash or `~/.zshrc` for zsh)
+Add the above export to the shell profile (such as `~/.bashrc` for bash or `~/.zshrc` for zsh)
 to have `PATH` updated for every new shell, including OS restarts.
 
 The server can then be started with `rabbitmq-server` in the foreground or with `brew services start rabbitmq`

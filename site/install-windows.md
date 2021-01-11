@@ -31,7 +31,7 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [CLI tool authentication](#cli)
  * [RabbitMQ Windows Service](#service)
  * [Managing the node](#managing)
- * [Firewall and security tools](#firewalls) effects
+ * [Firewall and security tools](#firewall) effects
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
@@ -138,7 +138,6 @@ in [PowerShell](https://docs.microsoft.com/en-us/windows-server/administration/w
 
 On Windows, CLI tools have a `.bat` suffix compared to other platforms. For example,
 `rabbitmqctl` on Windows is invoked as `rabbitmqctl.bat`.
-CLI tools are primarily covered in the .
 
 In order for these tools to work they must be able to [authenticate with RabbitMQ nodes](/cli.html#erlang-cookie)
 using a shared secret file called the Erlang cookie.
@@ -289,7 +288,7 @@ Make sure the following ports are accessible:
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
- * 1883, 8883: ([MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
+ * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
  * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
 
@@ -311,4 +310,4 @@ In the event that the Erlang VM terminates when RabbitMQ is running
 as a service, rather than writing the crash dump to the current
 directory (which doesn't make sense for a service) it is written
 to an `erl_crash.dump` file in the [base directory](/relocate.html) of
-the RabbitMQ server, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` - typically `%APPDATA%\RabbitMQ` otherwise).
+the RabbitMQ server, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` - typically `%APPDATA%\RabbitMQ` otherwise.

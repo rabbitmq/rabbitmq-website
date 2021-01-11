@@ -82,6 +82,30 @@
         the rebalance of mirrored and quorum queues across all nodes in the
         cluster.</p>
   </dd>
+  <dt><a class="permalink" href="#await_online_quorum_plus_one"><code class="Cm" id="await_online_quorum_plus_one">await_online_quorum_plus_one</code></a></dt>
+  <dd>
+    <p class="Pp">Waits for all quorum queues to have an above minimum online
+        quorum. This makes sure that no queues would lose their quorum if the
+        target node is shut down.</p>
+  </dd>
+  <dt><a class="permalink" href="#drain"><code class="Cm" id="drain">drain</code></a></dt>
+  <dd>
+    <p class="Pp">Puts the node in maintenance mode. Such nodes will not serve
+        any client traffic or considered for hosting any primary queue
+      replicas.</p>
+    <p class="Pp">To learn more, see the
+        <a class="Lk" href="https://www.rabbitmq.com/upgrade.html#maintenance-mode">RabbitMQ
+        Upgrade guide</a></p>
+  </dd>
+  <dt><a class="permalink" href="#revive"><code class="Cm" id="revive">revive</code></a></dt>
+  <dd>
+    <p class="Pp">Puts the node out of maintenance and into regular operating
+        mode. Such nodes will again serve client traffic and considered for
+        primary queue replica placement.</p>
+    <p class="Pp">To learn more, see the
+        <a class="Lk" href="https://www.rabbitmq.com/upgrade.html#maintenance-mode">RabbitMQ
+        Upgrade guide</a></p>
+  </dd>
 </dl>
 </section>
 <section class="Sh">

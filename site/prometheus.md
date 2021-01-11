@@ -399,9 +399,11 @@ default.
 Once RabbitMQ is configured to expose metrics to Prometheus, Prometheus should be made
 aware of where it should scrape RabbitMQ metrics from. There are a number of ways of doing this.
 Please refer to the official <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/"
-target="_blank">Prometheus configuration documentation</a> .
+target="_blank">Prometheus configuration documentation</a>.
 There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
 for beginners.
+
+#### Metric Collection and Scraping Intervals
 
 Prometheus will periodically scrape (read) metrics from the systems it
 monitors, every 60 seconds by default. RabbitMQ metrics are updated
@@ -434,6 +436,32 @@ that all RabbitMQ endpoints are **Up** on the Prometheus Targets page, as shown
 below:
 
 ![Prometheus RabbitMQ Targets](/img/monitoring/prometheus/prometheus-targets.png)
+
+### <a id="port" class="anchor" href="#listener">Network Interface and Port</a>
+
+The port is configured using the `prometheus.tcp.port` key:
+
+<pre class="lang-ini">
+prometheus.tcp.port = 15692
+</pre>
+
+It is possible to configure what interface the Prometheus plugin API endpoint will use, similarly
+to [messaging protocol listeners](/networking.html#interfaces), using
+the `prometheus.tcp.ip` key:
+
+<pre class="lang-ini">
+prometheus.tcp.ip = 0.0.0.0
+</pre>
+
+To check what interface and port is used by a running node, use
+`rabbitmq-diagnostics`:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics -s listeners
+# => Interface: [::], port: 15692, protocol: http/prometheus, purpose: Prometheus exporter API over HTTP
+</pre>
+
+or [tools such as `lsof`, `ss` or `netstat`](/troubleshooting-networking.html#ports).
 
 ### <a id="metric-aggregation" class="anchor" href="#metric-aggregation">Aggregated and Per-Object Metrics</a>
 
