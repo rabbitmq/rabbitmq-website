@@ -227,11 +227,6 @@ limitations under the License.
           <a href="https://forge.puppet.com/puppet/rabbitmq">Puppet Module</a><br />
           A module for managing RabbitMQ with Puppet.
         </li>
-        <li>
-          <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and
-          <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
-          More links to what others are doing to manage and monitor RabbitMQ.
-        </li>
       </ul>
     </doc:section>
     <doc:section name="messaging-patterns">
