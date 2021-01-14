@@ -5,8 +5,8 @@
 This guide covers how to deploy Custom Resource objects that will
 be managed by the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
 If RabbitMQ Cluster Kubernetes Operator is not installed,
-see the [installation guide](/kubernetes/operator/install-operator.html). This guide is structured
-in the following sections:
+see the [installation guide](/kubernetes/operator/install-operator.html). For instructions on getting started quickly, see the [quickstart guide](/kubernetes/operator/quickstart-operator.html)
+This guide is structured in the following sections:
 
 * [Confirm Service Availability](#service-availability).
 * [Apply Pod Security Policies](#psp).
