@@ -37,7 +37,7 @@ If you want to install a specific version of the Operator, you will have to obta
 [Operator Releases](https://github.com/rabbitmq/cluster-operator/releases). Please note that releases prior to 0.46.0
 do not have this manifest. We strongly recommend to install versions 0.46.0+
 
-If you can't pull from DockerHub, you will need to relocate the Operator image to a different location. The section [Relocate the Image](#relocate-image)
+If you want to relocate the Operator image to a custom location, the section [Relocate the Image](#relocate-image)
 has instructions to relocate the Operator image to a private registry.
 
 ### <a id='kubectl-plugin' class='anchor' href='#kubectl-plugin'>Installation using kubectl-rabbitmq plugin</a>
