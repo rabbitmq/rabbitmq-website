@@ -87,7 +87,7 @@ metadata:
 ```
 Submit this using the following command -
 ```shell
-kubectl apply -f https//raw.githubusercontent.com/rabbitmq/cluster-operator/main/docs/examples/hello-world/rabbitmq.yaml
+kubectl apply -f https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/docs/examples/hello-world/rabbitmq.yaml
 ```
 
 This will create  a RabbitMQ cluster called `hello-world` in the current namespace. You can see the RabbitMQ Cluster as it is being created:
