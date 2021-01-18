@@ -124,15 +124,6 @@ NAME          AGE    STATUS
 hello-world   4m10s
 ```
 
-Briefly breaking down what the `hello-world` RabbitMQ Cluster has created in terms of Kubernetes objects -
-
-- a `hello-world-server-0` pod. This pod runs a single container which is loaded with the RabbitMQ Image. By default, this is the [Community RabbitMQ image available on Dockerhub](https://hub.docker.com/_/rabbitmq).
-- a statefulset `hello-world-server`. The RabbitMQ server pods are wrapped with the stateful set abstraction of Kubernetes which ensures pod restarts on failure, ordered upgrades, etc. If you wish to understand why statefulsets are the chosen abstraction, you can read the [diy RabbitMQ on Kubernetes blog post](https://www.rabbitmq.com/blog/tag/diy/).
-- a service `hello-world` and a service `hello-world-nodes`. Here, the `hello-world` service opens ports `5672` and `15672` which are the `amqp` and the Management UI ports. It is the `hello-world` service that is used to interact and connect with the RabbitMQ server. Conversely, the `hello-world-nodes` service is used only for inter-node communication.
-
-There are other resources such as Secrets, ConfigMaps, etc, that are also created, but for the sake for brevity, we will move on in this quickstart.
-
-
 ## View RabbitMQ Logs
 
 In order to make sure RabbitMQ has started correctly, let's view the RabbitMQ log file. This can be done by viewing the RabbitMQ pod logs. In this case, it would be -
@@ -192,7 +183,7 @@ kubectl rabbitmq manage hello-world
 
 ## Connect An Application To The Cluster
 
-Next step, would be to connect an application to the RabbitMQ Cluster in order to use it's messaging capabilities. The [perf-test](https://github.com/rabbitmq/rabbitmq-perf-test) application is frequently used within the RabbitMQ community for load testing a RabbitMQ Cluster.
+The next step would be to connect an application to the RabbitMQ Cluster in order to use it's messaging capabilities. The [perf-test](https://github.com/rabbitmq/rabbitmq-perf-test) application is frequently used within the RabbitMQ community for load testing RabbitMQ Clusters.
 
 Here, we will be using the `hello-world` service to find the connection address, and the `hello-world-default-user` to find connection credentials.
 
