@@ -170,9 +170,9 @@ kubectl rabbitmq tail hello-world
 Next, let's access the Management UI.
 
 ```shell
-username=$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)
+username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password=$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)
+password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
 kubectl port-forward "service/hello-world" 15672
@@ -197,10 +197,10 @@ Next step, would be to connect an application to the RabbitMQ Cluster in order t
 Here, we will be using the `hello-world` service to find the connection address, and the `hello-world-default-user` to find connection credentials.
 
 ```shell
-username=$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)
-password=$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)
-service=$(kubectl get service hello-world -o jsonpath='{.spec.clusterIP}')
-kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri amqp://{username}:{password}@{service}
+username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+service="$(kubectl get service hello-world -o jsonpath='{.spec.clusterIP}')"
+kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri amqp://$username:$password@$service
 
 # pod/perf-test created
 ```
