@@ -15,12 +15,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+
 <!ENTITY version-java-client "5.10.0">
-<!ENTITY version-dotnet-client "6.1.0">
-<!ENTITY version-server "3.8.9">
+<!ENTITY version-dotnet-client "6.2.1">
+<!ENTITY version-server "3.8.10">
 <!ENTITY version-server-series "v3.8.x">
 <!ENTITY version-erlang-client "3.8.7">
-<!ENTITY version-server-tag "v3.8.9">
+<!ENTITY version-server-tag "v3.8.10">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
