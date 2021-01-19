@@ -340,7 +340,7 @@ PUT /api/policies/%2f/ha-fed
   </tr>
 </table>
 
-By doing that all the queues matched by the pattern "^hf\." will have the `"federation-upstream-set"`
+By doing that all the queues matched by the pattern "^hf\\." will have the `"federation-upstream-set"`
 and the policy definitions applied to them.
 
 ## <a id="operator-policies" class="anchor" href="#operator-policies">Operator Policies</a>
