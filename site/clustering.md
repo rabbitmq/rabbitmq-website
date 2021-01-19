@@ -759,7 +759,8 @@ The checks verify that one node has started and the deployment process can proce
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
-can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
+can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used. Deployments that use the `Parallel` pod management policy
+will not be affected but must worry about the [natural race condition during initial cluster formation](/cluster-formation.html#initial-formation-race-condition).
 
 Given the [peer syncing behavior described above](#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
@@ -790,7 +791,7 @@ assuming they are [compatible](/upgrade.html).
 
 ### <a id="restarting-with-hostname-changes" class="anchor" href="#restarting-with-hostname-changes">Hostname Changes Between Restarts</a>
 
-A node rejoining after a node name or host name change can start as [a blank node](#peer-discovery-how-does-it-work)
+A node rejoining after a node name or host name change can start as [a blank node](/cluster-formation.html#peer-discovery-how-does-it-work)
 if its data directory path changes as a result. Such nodes will fail to rejoin the cluster.
 While the node is offline, its peers can be reset or started with a blank data directory.
 In that case the recovering node will fail to rejoin its peer as well since internal data store cluster
@@ -1072,7 +1073,7 @@ and topology (queues, exchanges, bindings), runtime parameters and policies. It 
 queue](/ha.html) contents if elected to host a replica. Non-mirrored queue contents on a reset node will be lost.
 
 Restoring queue data directories on a reset node that has synchronised its schema from a peer
-is not guaranteed to make that data available to clients because [queue master location](#master-migration-data-locality)
+is not guaranteed to make that data available to clients because [queue master location](/ha.html#master-migration-data-locality)
 might have changed for the affected queues.
 
 ## <a id="upgrading" class="anchor" href="#upgrading">Upgrading clusters</a>

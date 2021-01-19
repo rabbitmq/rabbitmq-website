@@ -470,15 +470,20 @@ RabbitMQ's effective user (typically `rabbitmq`).
 Peer discovery mechanism will filter out nodes whose pods are not yet ready
 (initialised) according to their readiness probe as reported by the Kubernetes API.
 For example, if [pod management policy](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy)
-of a stateful set is set to `Parallel`, some nodes can be discovered but will not be joined.
+of a stateful set is set to `Parallel`, some nodes may be discovered but will not be joined.
+To work around this, the Kubernetes peer discovery plugin uses [randomized startup delays](/cluster-formation.html#initial-formation-race-condition).
 
-It is therefore necessary to use `OrderedReady` pod management policy for the sets
-used by RabbitMQ nodes. This policy is used by default by Kubernetes.
+Deployments that use the `OrderedReady` pod management policy start pods one by one and therefore
+all discovered nodes will be ready to join. This policy is used by default by Kubernetes.
 
+However, such deployments can run into a deadlock if the readiness probe used expects
+the node to be fully booted. This is covered in the following section.
 #### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
 
 A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
-can prevent a deployment that restarts all RabbitMQ pods.
+can prevent a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
+Deployments that use the `Parallel` pod management policy
+will not be affected but must worry about the [natural race condition during initial cluster formation](#initial-formation-race-condition).
 
 One health check that does not expect a node to be fully booted and have schema tables synced is
 
