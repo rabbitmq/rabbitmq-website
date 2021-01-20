@@ -94,11 +94,12 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](/queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [TTL](/ttl.html) | yes | no |
-| [Queue length limits](/maxlength.html) | yes | partial (drop-head strategy only) |
+| [Message TTL](/ttl.html) | yes | no |
+| [Queue TTL](/ttl.html#queue-ttl) | yes | yes |
+| [Queue length limits](/maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](/lazy-queues.html) | yes | partial (see [Memory Limit](#memory-limit)) |
 | [Message priority](/priority.html) | yes | no |
-| [Consumer priority](/consumer-priority.html) | yes | no |
+| [Consumer priority](/consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
 | Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
 | Reacts to [memory alarms](/alarms.html) | yes | partial (truncates log) |
@@ -184,7 +185,7 @@ another consumer can re-attempt processing.
 In some cases quorum queues should not be used. They typically involve:
 
  * Temporary nature of queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
- * Low latency: the underlying consensus algorithm
+ * Low latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features.
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](/confirms.html) are not used)
  * Very long queue backlogs (quorum queues currently keep all messages in memory at all times, up to a [limit](#memory-limit))
 
