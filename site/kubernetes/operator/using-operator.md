@@ -11,6 +11,7 @@ This guide is structured in the following sections:
 * [Confirm Service Availability](#service-availability).
 * [Apply Pod Security Policies](#psp).
 * [Create a RabbitMQ Instance](#create).
+* [Existing examples](#examples).
 * [Configure a RabbitMQ Instance](#configure).
 * [Update a RabbitMQ Instance](#update).
 * [Set a Pod Disruption Budget](#set-pdb).
@@ -51,6 +52,26 @@ see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/po
 If `Role` and `RoleBinding` are used, it will only be effective in the Namespace where the RBACs are deployed.
 
 If Pod security policies are not enabled, skip to <a href="#create">Create a RabbitMQ Instance</a> below.
+
+The `Role` and `RoleBinding` should be created before a `RabbitmqCluster` instance is created. It's ok to create a binding that refers to a non-existing
+Service Account or User. The Operator creates a Service Account using the pattern `INSTANCE-NAME-server`. For example, a `RabbitmqCluster` named
+'mycluster' will generate a Service Account named `mycluster-server`. In order to allow a Service Account to use PSPs, a Role with the verb 'use' must
+be bound to the Service Account. For example:
+
+<pre class="lang-bash">
+# Assuming RabbitmqCluster name is 'mycluster'
+
+kubectl create role rabbitmq:psp:unprivileged \
+    --verb=use \
+    --resource=podsecuritypolicy \
+    --resource-name=some-pod-security-policy
+# role "rabbitmq:psp:unprivileged" created
+
+kubectl create rolebinding rabbitmq-mycluster:psp:unprivileged \
+    --role=rabbitmq:psp:unprivileged \
+    --serviceaccount=some-namespace:mycluster-server
+# rolebinding "rabbitmq-mycluster:psp:unprivileged" created
+</pre>
 
 [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#example) has an example
 to create RBAC rules and a policy.
@@ -118,6 +139,18 @@ two annotations are added to the Pods:
 
 * `prometheus.io/port` - with value `15692`.
 * `prometheus.io/scrape` - with value `true`.
+
+## <a id='examples' class='anchor' href='#examples'>Existing examples</a>
+
+There are examples for some common use cases in the [GitHub repository](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples).
+Some interesting use cases are:
+
+* [How to import a definitions file](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/import-definitions) in RabbitMQ using the Operator
+* [How to configure memory and CPU limits for RabbitMQ](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/resource-limits)
+* [A production ready example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/production-ready), tested in Google Cloud Platform and
+a good baseline to start.
+
+There are more [examples available](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples).
 
 ## <a id='configure' class='anchor' href='#configure'>Configure a RabbitMQ Instance</a>
 

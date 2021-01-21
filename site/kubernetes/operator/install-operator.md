@@ -37,6 +37,9 @@ If you want to install a specific version of the Operator, you will have to obta
 [Operator Releases](https://github.com/rabbitmq/cluster-operator/releases). Please note that releases prior to 0.46.0
 do not have this manifest. We strongly recommend to install versions 0.46.0+
 
+If you want to relocate the Operator image to a custom location, the section [Relocate the Image](#relocate-image)
+has instructions to relocate the Operator image to a private registry.
+
 ### <a id='kubectl-plugin' class='anchor' href='#kubectl-plugin'>Installation using kubectl-rabbitmq plugin</a>
 
 The `kubectl rabbitmq` plugin provides commands for managing RabbitMQ clusters.
@@ -73,19 +76,20 @@ If you can't pull images from Docker Hub directly to your Kubernetes cluster, yo
 
 <pre class="lang-bash">
 docker pull rabbitmqoperator/cluster-operator:{some-version}
-docker tag rabbitmqoperator/cluster-operator:{some-version} {someregistry}/cluster-operator-dev:{some-version}
+docker tag rabbitmqoperator/cluster-operator:{some-version} {someregistry}/cluster-operator:{some-version}
 docker push {someregistry}/cluster-operator:{some-version}
 </pre>
 
 The value of `{someregistry}` should be the address of an OCI compatible registry. The value of `{some-version}` is
 a version number of the Cluster Operator.
 
-You also need to update the deployment to use your private registry. [Download the manifest](https://github.com/rabbitmq/cluster-operator/releases)
-from the release you are relocating and edit the section in Deployment image. You can locate this section by `grep`'ing
-the string `image:`
+If you require authentication to pull images from your private image registry, you must [Configure Kubernetes Cluster Access to Private Images](#private-images).
+
+[Download the manifest](https://github.com/rabbitmq/cluster-operator/releases) from the release you are relocating and edit
+the section in Deployment image. You can locate this section by `grep`'ing the string `image:`
 
 <pre class="lang-bash">
-grep -C3 image: releases/rabbitmq-cluster-operator.yaml
+grep -C3 image: releases/cluster-operator.yml
 # [...]
 # --
 #           valueFrom:
@@ -97,11 +101,21 @@ grep -C3 image: releases/rabbitmq-cluster-operator.yaml
 #           limits:
 </pre>
 
-If you require authentication to pull images from your private image registry, you must [Configure Kubernetes Cluster Access to Private Images](#private-images).
-
 ### <a id='private-images' class='anchor' href='#private-images'>(Optional) Configure Kubernetes Cluster Access to Private Images</a>
 
 If you relocated the image to a private registry and your registry requires authentication, you need to follow these steps to allow Kubernetes to pull the image.
+
+First, create the Service Account that the Operator will use to run and to pull images:
+
+<pre class="lang-yaml">
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rabbitmq-cluster-operator
+  namespace: rabbitmq-system
+</pre>
+
+Second, create a Secret with the credentials to pull from the private registry:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system create secret \
@@ -127,12 +141,14 @@ docker-registry rabbitmq-cluster-registry-access \
 --docker-password=example-password1
 </pre>
 
-Now update your service account by running:
+Now update the Operator Service Account by running:
 
 <pre class="lang-bash">
 kubectl -n rabbitmq-system patch serviceaccount \
 rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-registry-access"}]}'
 </pre>
+
+Please note that the name of the Operator Service Account is not configurable and it must be `rabbitmq-cluster-operator`.
 
 ### <a id='openshift' class='anchor' href='#openshift'>Installation on OpenShift</a>
 
