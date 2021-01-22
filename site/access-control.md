@@ -429,7 +429,7 @@ Built-in AMQP 0-9-1 resource names are prefixed with
 <code>amq.</code> and server generated names are prefixed
 with <code>amq.gen</code>.
 
-For example, <code>'^(amq\.gen.*|amq\.default)$'</code> gives a user access to
+For example, <code>'^(amq\\.gen.*|amq\\.default)$'</code> gives a user access to
 server-generated names and the default exchange.  The empty
 string, <code>''</code> is a synonym for <code>'^$'</code>
 and restricts permissions in the exact same way.
