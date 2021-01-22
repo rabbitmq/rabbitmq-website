@@ -39,15 +39,27 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.11</td>
+    <td class="centre">22 January 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>This release <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">requires Erlang/OTP 22.x or later</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.11">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.10</td>
     <td class="centre">19 January 2021</td>
     <td>
       <ul>
+        <li>We encourage all users to consult release notes but skip this release and upgrade to 3.8.11 or later.</li>
         <li>Bug fixes</li>
         <li>More features supported by quorum queues</li>
         <li>Usability improvements</li>
         <li>Deprecations</li>
-        <li>This release <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/v3K5nZNsfwM">requires Erlang/OTP 22.x or later</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.10">Release notes</a></td>
