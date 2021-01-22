@@ -99,9 +99,9 @@ NAME                       READY   STATUS    RESTARTS   AGE
 pod/hello-world-server-0   1/1     Running   0          2m
 
 NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)              AGE
-service/hello-world         ClusterIP   10.75.242.149   <none>        5672/TCP,15672/TCP   2m
-service/hello-world-nodes   ClusterIP   None            <none>        4369/TCP,25672/TCP   2m
-service/kubernetes          ClusterIP   10.75.240.1     <none>        443/TCP              4h1m
+service/hello-world         ClusterIP   10.75.242.149   &lt;none&gt;  5672/TCP,15672/TCP   2m
+service/hello-world-nodes   ClusterIP   None            &lt;none&gt;  4369/TCP,25672/TCP   2m
+service/kubernetes          ClusterIP   10.75.240.1     &lt;none&gt;  443/TCP              4h1m
 
 NAME                                  READY   AGE
 statefulset.apps/hello-world-server   1/1     2m
