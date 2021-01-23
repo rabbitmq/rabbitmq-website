@@ -595,8 +595,8 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.7.16. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.11. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
@@ -617,16 +617,15 @@ sudo rabbitmq-diagnostics ping
 # and so on
 sudo rabbitmq-diagnostics status
 
+# prints cluster membership information
+sudo rabbitmq-diagnostics cluster_status
+
 # prints effective node configuration
 sudo rabbitmq-diagnostics environment
-
-# performs a more extensive health check of the local node
-sudo rabbitmq-diagnostics node_health_check
 </pre>
 
-All `rabbitmqctl` commands will report the node absence if no broker is running.
-
-See the [CLI tools guide](/cli.html) to learn more.
+All `rabbitmqctl` commands will report an error if no node is running.
+See the [CLI tools](/cli.html) and [Monitoring](/monitoring.html) guides to learn more.
 
 
 ## <a id="server-logs" class="anchor" href="#server-logs">Log Files and Management</a>
@@ -654,8 +653,8 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.7.16. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.11. Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
 Dec 26 11:03:04 localhost rabbitmq-server[968]: /var/log/rabbitmq/rabbit@localhost_upgrade.log
