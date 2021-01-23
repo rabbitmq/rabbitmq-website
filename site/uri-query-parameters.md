@@ -94,7 +94,7 @@ against the hostname `myhost`.
       certificate. <b>Note:</b> It is highly recommended to use
       both values. See the <a href="ssl.html">TLS guide</a> to
       learn more about TLS support in RabbitMQ in general and specifically the
-      <a href="ssl.html#configure-erlang">Erlang client</a>
+      <a href="ssl.html#erlang-client">Erlang client</a>
       section.
     </td>
   </tr>
