@@ -315,7 +315,7 @@ using [Prometheus and Grafana](/prometheus.html).
 High connection churn (lots of connections opened and closed after a brief
 period of time) [can lead to resource exhaustion](/networking.html#dealing-with-high-connection-churn).
 It is therefore important to be able to identify such scenarios. `netstat` and `ss`
-are most popular options for [inspecting TCP connections](troubleshooting-inspecting-connections).
+are most popular options for [inspecting TCP connections](#inspecting-connections).
 A lot of connections in the `TIME_WAIT` state is a likely symptom of high connection churn.
 Lots of connections in states other than `ESTABLISHED` also might be a symptom worth investigating.
 
