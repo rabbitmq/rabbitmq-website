@@ -47,6 +47,7 @@ kubectl rabbitmq install-cluster-operator
 Installing the Cluster Operator creates a bunch of Kubernetes resources. Breaking these down, we have:
 
 - a new namespace `rabbitmq-system`. The Cluster Operator deployment is created in this namespace.
+
 <pre class="lang-bash">
 kubectl get all -n rabbitmq-system
 
@@ -59,7 +60,9 @@ deployment.apps/rabbitmq-cluster-operator   1/1     1            1           2m1
 NAME                                                   DESIRED   CURRENT   READY   AGE
 replicaset.apps/rabbitmq-cluster-operator-54f948d8b6   1         1         1       2m10s
 </pre>
+
 - a new custom resource `rabbitmqclusters.rabbitmq.com`. The custom resource allows us to define an API for the creation of RabbitMQ Clusters.
+
 <pre class="lang-bash">
 kubectl get customresourcedefinitions.apiextensions.k8s.io
 
@@ -68,6 +71,7 @@ NAME                                             CREATED AT
 rabbitmqclusters.rabbitmq.com                    2021-01-14T11:12:26Z
 ...
 </pre>
+
 - and some rbac roles. These are required by the Operator to create, update and delete RabbitMQ Clusters.
 
 ## Hello RabbitMQ!
