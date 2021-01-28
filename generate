@@ -14,7 +14,6 @@ debug() {
 
 prepare() {
   rm -rf "${DESTINATION}"
-  mkdir "${DESTINATION}"
 }
 
 generate_pages() {
