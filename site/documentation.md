@@ -44,7 +44,8 @@ for the original RabbitMQ protocol.
 ### [Installation and Provisioning](download.html):
 
  * [Packages and repositories](/download.html)
- * [Provisioning Tools](/download.html) (e.g. Chef cookbook, Puppet module, Docker image)
+ * [Kubernetes Operator](/kubernetes/operator/operator-overview.html)
+ * [Provisioning Tools](/download.html) (Docker image, Chef cookbook, Puppet module, etc)
  * [Package Signatures](/signatures.html)
  * [Supported Erlang/OTP Versions](/which-erlang.html)
  * [Supported RabbitMQ Versions](/versions.html)
