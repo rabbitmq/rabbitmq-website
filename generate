@@ -14,6 +14,7 @@ debug() {
 
 prepare() {
   rm -rf "${DESTINATION}"
+  mkdir "${DESTINATION}"
 }
 
 generate_pages() {
@@ -26,18 +27,24 @@ copy_assets() {
   cp -r "${SOURCE}"/img/* "${DESTINATION}/img/"
   cp -r "${SOURCE}"/js/*  "${DESTINATION}/js/"
   cp -r "${SOURCE}"/css/* "${DESTINATION}/css/"
+  cp -r "${SOURCE}"/favicon.ico "${DESTINATION}"
 }
 
 generate_atom_feed() {
-  xsltproc --novalid "${SOURCE}/feed-atom.xsl" "${SOURCE}/news.xml" > "${DESTINATION}/news.atom"
+  xsltproc --novalid "${SOURCE}/feed-atom.xsl" "${SOURCE}/news.xml" > "${SOURCE}/news.atom"
+}
+
+move_atom_feed_to_destination() {
+  mv "${SOURCE}/news.atom" "$DESTINATION"
 }
 
 main() {
   debug
   prepare
+  generate_atom_feed
   generate_pages
   copy_assets
-  generate_atom_feed
+  move_atom_feed_to_destination
 }
 
 main
