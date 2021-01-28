@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -307,7 +307,7 @@ Combining connection information from management UI or CLI tools with those of `
 can help troubleshoot misbehaving applications, application instances and client libraries.
 
 Most relevant connection metrics can be collected, aggregated and [monitored](/monitoring.html)
-using [Prometheus and Grafana](/prometheus.html). 
+using [Prometheus and Grafana](/prometheus.html).
 
 
 ## <a id="detecting-high-connection-churn" class="anchor" href="#detecting-high-connection-churn">Detecting High Connection Churn</a>

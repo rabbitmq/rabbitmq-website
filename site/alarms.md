@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,21 +19,33 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-There are two circumstances under which RabbitMQ will stop
-reading from client network sockets, in order to avoid being killed by the
-OS (out-of-memory killer). They are:
+During operation, RabbitMQ nodes will consume varying amount of [memory](/memory-use.html) and disk
+space based on the workload. When usage spikes, both memory and free disk space can reach
+potentially dangerous levels. In case of memory, the node can be killed
+by the operating system's low-on-memory process termination mechanism
+(known as the "OOM killer" on Linux, for example). In case of free disk space,
+the node can run out of memory, which means it won't be able to perform
+many internal operations.
 
- * When [memory use](memory-use.html) goes above the configured limit.
- * When [free disk space](/disk-alarms.html) drops below the configured limit.
+To reduce the likelihood of these scenarios, RabbitMQ has two configurable resource
+watermarks. When they are reached, RabbitMQ will block connections that publish messages.
 
-In both circumstances the server will temporarily <em>block</em>
-connections - the server will pause reading from the sockets of
-connected clients which publish messages. Connection
-heartbeat monitoring will be disabled too. All network
-connections will show in <code>rabbitmqctl</code> and the
-management plugin as either <code>blocking</code>, meaning they
-have not attempted to publish and can thus continue or
-<code>blocked</code>, meaning they have published and are now
+More specifically, RabbitMQ will block connections that
+publish messages in order to avoid being killed by the
+OS (out-of-memory killer) or exhausting all available free disk space:
+
+ * When [memory use](memory-use.html) goes above the configured watermark (limit)
+ * When [free disk space](/disk-alarms.html) drops below the configured watermark (limit)
+
+Nodes will temporarily _block_ publishing connections
+by suspending reading from [client connection](/connections.html).
+Connections that are only used to *consume* messages will not be blocked.
+
+Connection [heartbeat monitoring](/heartbeats.html) will be disabled, too.
+All network connections will show in `rabbitmqctl` and the
+management UI as either `blocking`, meaning they
+have not attempted to publish and can thus continue, or
+`blocked`, meaning they have published and are now
 paused. Compatible clients will be [notified](#client-notifications)
 when they are blocked.
 

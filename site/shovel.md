@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -45,7 +45,7 @@ and uses [acknowledgements]() on both ends to cope with failures.
 
 A Shovel uses [Erlang AMQP 0-9-1](https://www.rabbitmq.com/erlang-client-user-guide.html)
 and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client) clients under the hood.
-    
+
 ## <a id="benefits" class="anchor" href="#benefits">Why Use Shovel</a>
 
 Shovel is a minimalistic yet flexible tool in the distributed messaging toolkit
@@ -85,13 +85,13 @@ it needs.
 There is no requirement to run the shovel on the same broker
 (or cluster) as its source or destination, although that's the most typical approach;
 the shovel can run on an entirely separate node or cluster.
-    
+
 A comparison between [clustering](/clustering.html), [federation](/federation.html)
 is provided in the [Distributed Messaging](distributed.html) guide.
-    
+
 
 ## <a id="what-it-does" class="anchor" href="#what-it-does">What Does a Shovel Do?</a>
-            
+
 In essence, a shovel is a minimalistic message pump. Each shovel:
 
  * [Connects](/connections.html) to the source and destination clusters
@@ -100,7 +100,7 @@ In essence, a shovel is a minimalistic message pump. Each shovel:
  * Uses [data safety features](/confirms.html) on both ends and handles failures
 
 The shovel configuration allows each of these processes to be tailored.
-      
+
 ### Connection
 
 After connection to a source or a destination broker a
@@ -124,21 +124,21 @@ destination are re-issued upon reconnection.
 The Shovel's consumer will [acknowledge](/confirms.html) messages
 automatically on receipt, after (re-)publication, or after
 [confirmation of its publication](/confirms.html) from the destination server.
-          
+
 ### Re-publishing
 
 Most publishing and message properties are controlled by the operator.
 
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting started</a>
-      
+
 The Shovel plugin is included in the RabbitMQ distribution.
 To enable it, use [rabbitmq-plugins](/cli.html):
-      
+
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_shovel
 </pre>
-      
+
 [Management UI](/management.html) users may also wish to enable the `rabbitmq_shovel_management` plugin
 for [Shovel status monitoring](#status).
 
@@ -219,12 +219,12 @@ be restarted on another cluster node when a node failure is detected.
 
 
 ## <a id="tls" class="anchor" href="#tls">Securing Shovel Connections with TLS</a>
-  
+
 Shovel connections can use [TLS](/ssl.html). Because Shovel uses
 client libraries under the hood, it is necessary to both configure
 the source broker to [listen for TLS connections](/ssl.html)
 and the Shovel to use TLS when connecting.
-  
+
 To configure Shovel to use TLS, one needs to
 
  * Specify CA certificate and client certificate/key pair, as well as other parameters (e.g. [peer verification depth](/ssl.html#peer-verification-depth)) via [URI query parameters](/uri-query-parameters.html)
@@ -238,28 +238,28 @@ for application connections applies to shovels.
 
 
 ## <a id="status" class="anchor" href="#status">Monitoring Shovels</a>
-  
+
 There are two ways of discovering the status of shovels.
-  
+
 ### <a id="status-management" class="anchor" href="#status-management">Using Management UI</a>
-        
+
 Shovel status can be reported on the [Management plugin](management.html) user interface
 in the administrative section.
 This requires the `rabbitmq_shovel_management` plugin to be [enabled](/plugins.html)
 on the node used to access management UI.
-      
+
 
 ### <a id="status-cli" class="anchor" href="#status-cli">Using CLI Tools</a>
 
 Shovel status can be obtained by direct query of the Shovel plugin app using [`rabbitmqctl`](/cli.html):
-        
+
 <pre class="lang-bash">
 # use the -n switch to target a remote node
 rabbitmqctl shovel_status
 </pre>
 
 The result will return a list of statuses, one per Shovel running.
-        
+
 Each element of the list is a map with several properties:
 
  * Name
@@ -298,7 +298,7 @@ Each element of the list is a map with several properties:
     </tr>
   </tbody>
 </table>
-        
+
 Timestamp will return a local calendar time of the form
 of `{{YYYY, MM, DD}, {HH, MM, SS}}`.
 

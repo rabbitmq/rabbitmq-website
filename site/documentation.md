@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -44,7 +44,8 @@ for the original RabbitMQ protocol.
 ### [Installation and Provisioning](download.html):
 
  * [Packages and repositories](/download.html)
- * [Provisioning Tools](/download.html) (e.g. Chef cookbook, Puppet module, Docker image)
+ * [Kubernetes Operator](/kubernetes/operator/operator-overview.html)
+ * [Provisioning Tools](/download.html) (Docker image, Chef cookbook, Puppet module, etc)
  * [Package Signatures](/signatures.html)
  * [Supported Erlang/OTP Versions](/which-erlang.html)
  * [Supported RabbitMQ Versions](/versions.html)
@@ -109,10 +110,10 @@ for the original RabbitMQ protocol.
  * [LDAP](ldap.html)
  * [Validated User ID](/validated-user-id.html)
  * [Authentication Failure Notifications](/auth-notification.html)
-  
+
 
 ### Networking and TLS
-  
+
  * [Client Connections](connections.html)
  * [Networking](networking.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
@@ -133,7 +134,7 @@ for the original RabbitMQ protocol.
  * [Per Virtual Host Limits](vhosts.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
-  
+
 
 ### Distributed RabbitMQ
 
@@ -143,7 +144,7 @@ for the original RabbitMQ protocol.
  * [Classic Mirrored Queues](/ha.html)
  * [Reliable Message Delivery](/reliability.html)
  * Active-passive [standby configuration with Pacemaker](/pacemaker.html) (legacy)
-  
+
 
 ### Guidance
 
@@ -151,7 +152,7 @@ for the original RabbitMQ protocol.
  * [Production Checklist](production-checklist.html)
  * [Backup and Restore](backup.html)
  * [Troubleshooting guidance](troubleshooting.html)
- * [Reliable Message Delivery](/reliability.html)  
+ * [Reliable Message Delivery](/reliability.html)
 
 
 ### Message Store and Resource Management
@@ -166,7 +167,7 @@ for the original RabbitMQ protocol.
  * [Queue and Message TTL](/ttl.html)
  * [Queue Length Limits](/maxlength.html)
  * [Lazy Queues](/lazy-queues.html)
-  
+
 
 ### Queue and Consumer Features
 
@@ -180,7 +181,7 @@ for the original RabbitMQ protocol.
  * [Consumer Cancellation Notifications](/consumer-cancel.html)
  * [Consumer Prefetch](/consumer-prefetch.html)
  * [Consumer Priorities](/consumer-priority.html)
-  
+
 
 ### Publisher Features
 
@@ -188,7 +189,7 @@ for the original RabbitMQ protocol.
  * [Exchange-to-Exchange Bindings](/e2e.html)
  * [Alternate Exchanges](/ae.html)
  * [Sender-Selected Distribution](/sender-selected.html)
-  
+
 
 ### STOMP, MQTT, WebSockets
 
@@ -197,7 +198,7 @@ for the original RabbitMQ protocol.
  * [MQTT](/mqtt.html)
  * [STOMP over WebSockets](web-stomp.html)
  * [MQTT over WebSockets](web-mqtt.html)
-  
+
 
 ## Man Pages
 
@@ -211,14 +212,14 @@ of guides and API references. A separate set of [tutorials](/getstarted.html) fo
 many popular programming languages are also available, as is an [AMQP 0-9-1 Overview](/tutorials/amqp-concepts.html).
 
 ### Client Documentation Guides
-  
+
  * [Java Client](api-guide.html)
  * [.NET Client](dotnet-api-guide.html)
  * [Ruby Client](http://rubybunny.info)
  * [JMS Client](jms-client.html)
  * [Erlang Client](erlang-client-user-guide.html)
  * [RabbitMQ extensions to AMQP 0-9-1](/extensions.html)
-  
+
 ### Client-Driven Features
 
  * [Client Connections](/connections.html)
@@ -239,7 +240,7 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
  * [Alternate Exchanges](/ae.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
-  
+
 
 ## References
 
@@ -247,7 +248,7 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
  * [.NET](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html)
  * [AMQP 0-9-1 URI Specification](/uri-spec.html)
  * [URI Query Parameters](/uri-query-parameters.html)
-  
+
 See [Clients and Developer Tools](devtools.html)
 for community client libraries.
 
@@ -276,7 +277,7 @@ and the [Plugins Guide](plugins.html) for more information about plugins.
  * [Contributor Code of Conduct](https://github.com/rabbitmq/rabbitmq-server/blob/master/CODE_OF_CONDUCT.md)
  * How to [build RabbitMQ](build.html) from source, or
  * from [GitHub](github.html).
-  
+
 
 ## Protocols
 
@@ -287,4 +288,3 @@ and the [Plugins Guide](plugins.html) for more information about plugins.
  * [MQTT over WebSockets](web-mqtt.html)
  * [AMQP 0-9-1 implementation details](protocol.html).
  * [AMQP 0-9-1 Errata document](amqp-0-9-1-errata.html).
-  

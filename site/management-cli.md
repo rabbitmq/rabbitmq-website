@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -125,7 +125,7 @@ rabbitmqadmin list queues vhost name node messages message_stats.publish_details
 <pre class="lang-bash">
 rabbitmqadmin -f long -d 3 list queues
 # =>     --------------------------------------------------------------------------------
-# => 
+# =>
 # =>                                            vhost: /
 # =>                                             name: amq.gen-UELtxwb8OGJ9XHlHJq0Jug==
 # =>                                      auto_delete: False

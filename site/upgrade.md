@@ -310,7 +310,6 @@ Currently this involves the following steps:
 
 * Suspend all client connection listeners (no new client connections will be accepted)
 * Close all existing client connections: applications are expected to reconnect to other nodes and recover
-* Transfer primary replicas of all classic mirrored queues hosted on the target node
 * Transfer primary replicas of all quorum queues hosted on the target node, and prevent them from participating
     in the subsequently triggered Raft elections
 * Mark the node as down for maintenance

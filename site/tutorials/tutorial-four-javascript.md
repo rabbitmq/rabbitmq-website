@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -289,9 +289,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     console.log(" [x] Sent %s: '%s'", severity, msg);
   });
 
-  setTimeout(function() { 
-    connection.close(); 
-    process.exit(0) 
+  setTimeout(function() {
+    connection.close();
+    process.exit(0)
   }, 500);
 });
 </pre>

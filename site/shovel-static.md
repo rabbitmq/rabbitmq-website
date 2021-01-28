@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -61,7 +61,7 @@ Each element of the `shovels` clause is a named static shovel.
 The names in the list must be distinct.
 
 A shovel definition looks like this at the top level:
- 
+
 <pre class="lang-erlang">
 {<em>shovel_name</em>, [
   {source, [ <em>...protocol specific config...</em> ]},
@@ -423,8 +423,8 @@ are available to static shovels, such as TLS certificate and private key.
 </pre>
           <p>
             By default the original properties of the message are preserved, but
-            this clause can be used to change or set any known property: 
-            
+            this clause can be used to change or set any known property:
+
             <ul>
               <li><code>content_type</code></li>
               <li><code>content_encoding</code></li>
@@ -453,7 +453,7 @@ are available to static shovels, such as TLS certificate and private key.
             instead of message properties that are accessible to consumers. It takes the form of
           </p>
 <pre class="lang-erlang">
-{publish_fields, [ 
+{publish_fields, [
                     {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
                     {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
                   ]}
@@ -468,7 +468,7 @@ are available to static shovels, such as TLS certificate and private key.
            exchange name and routing key. By specifying
          </p>
 <pre class="lang-erlang">
-{publish_fields, [ 
+{publish_fields, [
                     {exchange, &lt;&lt;"my_exchange"&gt;&gt;},
                     {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
                   ]}

@@ -1,9 +1,9 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -133,7 +133,7 @@ Now, we can publish to our named exchange instead:
 channel.publish('logs', '', Buffer.from('Hello World!'));
 </pre>
 
-The empty string as second parameter means that we don't want to send 
+The empty string as second parameter means that we don't want to send
 the message to any specific queue. We want only to publish it to our
 'logs' exchange.
 
@@ -284,9 +284,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     console.log(" [x] Sent %s", msg);
   });
 
-  setTimeout(function() { 
-    connection.close(); 
-    process.exit(0); 
+  setTimeout(function() {
+    connection.close();
+    process.exit(0);
   }, 500);
 });
 </pre>

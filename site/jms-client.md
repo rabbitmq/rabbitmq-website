@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -177,7 +177,7 @@ And here is the Spring XML configuration:
   &lt;property name="password" value="guest" /&gt;
   &lt;property name="virtualHost" value="/" /&gt;
   &lt;property name="host" value="localhost" /&gt;
-  &lt;property name="port" value="5672" /&gt;      
+  &lt;property name="port" value="5672" /&gt;
 &lt;/bean&gt;
 </pre>
 

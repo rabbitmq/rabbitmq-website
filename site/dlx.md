@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -153,7 +153,7 @@ RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
 that there is no chance of excessive message buildup that could exhaust broker
 resources but does mean that messages may be lost should the target queue not
-be available to accept messages. 
+be available to accept messages.
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
 

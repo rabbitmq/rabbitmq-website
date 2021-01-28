@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -146,7 +146,7 @@ value is multi-line:
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
-# -ssl_dist_opt server_password password   required if the private key is encrypted 
+# -ssl_dist_opt server_password password   required if the private key is encrypted
 #
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
@@ -164,7 +164,7 @@ covered in this example:
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
-# -ssl_dist_opt server_password password   required if the private key is encrypted 
+# -ssl_dist_opt server_password password   required if the private key is encrypted
 # -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true enables an additional TLS setting: secure renegotiation
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \
@@ -192,7 +192,7 @@ ERL_SSL_PATH="/usr/lib64/erlang/lib/ssl-9.4/ebin"
 # -proto_dist inet_tls tells the runtime to encrypt inter-node communication
 # -ssl_dist_opt server_certfile /path/to/combined_keys.pem tells the runtime
 #                               where to find the combined certificate/key file
-# -ssl_dist_opt server_password password   required if the private key is encrypted 
+# -ssl_dist_opt server_password password   required if the private key is encrypted
 # -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true enables an additional TLS setting: secure renegotiation
 SERVER_ADDITIONAL_ERL_ARGS="-pa $ERL_SSL_PATH \
   -proto_dist inet_tls \

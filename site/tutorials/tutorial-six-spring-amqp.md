@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -40,7 +40,7 @@ service that returns Fibonacci numbers.
 To illustrate how an RPC service could be used we're going to
 change the names of our profiles from "Sender" and "Receiver"
 to "Client" and "Server". When we call the server we will get
-back the fibonacci of the argument we call with. 
+back the fibonacci of the argument we call with.
 
 <pre class="lang-java">
 Integer response = (Integer) template.convertSendAndReceive
@@ -107,7 +107,7 @@ That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
 `correlationId` property is used. Spring AMQP automatically sets
 a unique value for every request. In addition it handles the details
-of matching the response with the correct correlationID. 
+of matching the response with the correct correlationID.
 
 One reason that Spring AMQP makes RPC style easier is that sometimes
 you may want to ignore unknown messages in the callback
@@ -183,7 +183,7 @@ Our RPC will work like this:
 
   * The `Tut6Config` will setup a new `DirectExchange` and a client
   * The client will leverage the `convertSendAndReceive` method, passing the exchange
-    name, the routingKey, and the message. 
+    name, the routingKey, and the message.
   * The request is sent to an RPC queue `tut.rpc`.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it performs the task and sends a message with the
@@ -253,7 +253,7 @@ public class Tut6Config {
 		}
 
 		@Bean
-		public Binding binding(DirectExchange exchange, 
+		public Binding binding(DirectExchange exchange,
 		    Queue queue) {
 			return BindingBuilder.bind(queue)
 			    .to(exchange)
@@ -281,7 +281,7 @@ The server code is rather straightforward:
     and defining the queue it's listening on.
   * Our Fibonacci method calls fib() with the payload parameter and returns
     the result
-  
+
 The code for our RPC server [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
 
 <pre class="lang-java">
@@ -292,7 +292,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 public class Tut6Server {
 
 	@RabbitListener(queues = "tut.rpc.requests")
-	// @SendTo("tut.rpc.replies") used when the 
+	// @SendTo("tut.rpc.replies") used when the
 	// client doesn't set replyTo.
 	public int fibonacci(int n) {
 		System.out.println(" [x] Received request for " + n);
@@ -377,7 +377,7 @@ service, but it has some important advantages:
    another one. Try running a second `RPCServer` in a new console.
  * On the client side, the RPC requires sending and
    receiving only one message with one method. No synchronous calls
-   like `queueDeclare` are required. As a result the RPC client needs 
+   like `queueDeclare` are required. As a result the RPC client needs
    only one network round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
