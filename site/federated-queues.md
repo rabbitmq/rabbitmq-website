@@ -1,9 +1,9 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -58,8 +58,8 @@ queues in two RabbitMQ nodes connected using queue federation:
 
 When queue federation is used, usually only a subset of queues in a cluster is federated.
 Some queues can be inherently local to the "site" (cluster) and its uses.
-      
-    
+
+
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
 The typical use would be to have the same "logical" queue
@@ -74,10 +74,10 @@ there is some degree of locality; i.e. as many messages as
 possible are consumed from the same queue as they were published
 to, and the federation mechanism only needs to move messages
 around in order to perform load balancing.
-      
-    
+
+
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
-      
+
 Federated queues include a number of limitations or differences compared to their non-federated peers
 as well as federated exchanges.
 
@@ -94,8 +94,8 @@ Brokers running different versions of RabbitMQ can be connected
 using federation. However, since queue federation requires
 consumer priorities, it is not possible to federate a queue with a
 broker running a RabbitMQ version prior to 3.2.0.
-      
-    
+
+
 ## <a id="usage" class="anchor" href="#usage">Usage and Configuration</a>
 
 Federated queues are declared just like any other queue, by applications.
@@ -132,7 +132,7 @@ On Windows, use <code>rabbitmqctl.bat</code> and suitable PowerShell quoting:
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5673""}"
 </pre>
-      
+
 Once an upstream has been specified, a policy that controls federation can be added.
 It is added just like any other [policy](/parameters.html#policies), using `rabbitmqctl set_policy`:
 
@@ -155,7 +155,7 @@ rabbitmqctl.bat set_policy queue-federation ^
     --priority 10 ^
     --apply-to queues
 </pre>
-      
+
 In the example above, the policy will match queues whose name begins with a `federated.` prefix
 in the default virtual host. Those queues will set up federation links for all declared upstreams.
 The name of the policy is `queue-federation`. As with any policy, if multiple policies match a queue,
@@ -171,7 +171,7 @@ To disable federation for the matching queues, delete the policy using its name:
 <pre class="lang-bash">
 rabbitmqctl clear_policy queue-federation
 </pre>
-    
+
 
 ## <a id="loops" class="anchor" href="#loops">Complex Topologies and Loop Handling</a>
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -99,7 +99,7 @@ UTF-8. The console will instead provide and expect some country-specific encodin
 One of these options can be used to mitigate:
 
  * Avoid using non-ASCII characters in RabbitMQ installation and [node directory](/relocate.html) paths
- * On recent versions of Windows, issue the command 
+ * On recent versions of Windows, issue the command
    <pre class="lang-powershell">chcp 65001</pre> before using CLI tools to force
    the console to use UTF-8
  * Where possible, use the [management plugin](/management.html) instead of CLI tools.

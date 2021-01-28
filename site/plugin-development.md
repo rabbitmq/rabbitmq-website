@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -16,7 +16,7 @@ limitations under the License.
 -->
 
 # Plugin Development Basics
-  
+
 This guide covers the basics of RabbitMQ plugin development. It is expected that
 before reading this guide, the reader has a basic understanding of the RabbitMQ plugin mechanism.
 
@@ -28,7 +28,7 @@ started with Erlang and OTP.
 
 
 ## <a id="pros" class="anchor" href="#pros">Why Develop a Plugin?</a>
-        
+
 Writing a RabbitMQ plugin provides a number of appealing possibilities:
 
  * Enable your application to access internal RabbitMQ functionality that is not exposed
@@ -36,10 +36,10 @@ Writing a RabbitMQ plugin provides a number of appealing possibilities:
  * Running in the same Erlang VM as the broker may increase performance for certain workloads.
  * Plugins can implement features that otherwise would have to be implemented by every application
    (service) in the system, creating duplication and increasing maintenance load
-      
+
 
 ## <a id="cons" class="anchor" href="#cons">Why To Not Develop a Plugin</a>
-        
+
 As with any plugin mechanism, consideration should be given when developing functionality as to whether
 embedding it as a plugin is the most appropriate path to take. Some reasons that you might not want to
 develop your functionality as a plugin:
@@ -48,28 +48,28 @@ develop your functionality as a plugin:
    new RabbitMQ come out, including patch releases. If you can do what you need to do without
    using RabbitMQ internals, then your application will be far more forward-compatible
  * A poorly written plugin can result in the **entire node becoming unavailable** or misbehaving
-      
+
 
 ## <a id="getting-started" class="anchor" href="#getting-started">Getting Started</a>
 
 To develop a RabbitMQ plugin, first make sure the following
 requirements are met:
-        
+
  * Ensure that you have a working installation of [Git](http://git-scm.com/)
  * Ensure that the dependencies detailed in the [Server Build](build-server.html#prerequisites) guides are installed and functional
-        
+
 [Erlang.mk](http://erlang.mk) is used to
 build RabbitMQ and its plugins. The easiest way to start on
 a new plugin is probably to copy an existing plugin such as
 <tt>rabbitmq-metronome</tt>, <a href="#plugin-hello-world">used
 as an example below</a>.
-      
+
 
 ## <a id="installing-plugins-during-development" class="anchor" href="#installing-plugins-during-development">Activating Plugins During Development</a>
 
 To test the plugin during development, use the following make target to start
 a RabbitMQ node with the local plugin built from source and enabled:
-          
+
 <pre class="lang-bash">
 make run-broker
 </pre>
@@ -80,15 +80,15 @@ make run-broker
 A badly-written plugins can pose a risk to the stability of the broker.
 To ensure that your plugin can safely operate without affecting RabbitMQ core,
 a couple of safety best practices are highly recommended.
-        
+
 1. Always use a top-level supervisor for your application.
 1. Never start the plugin application directly,
    instead opting to create a (possibly quite trivial) supervisor that will prevent the Erlang VM from
    shutting down due to a crashed top-level application.
-      
+
 
 ## <a id="plugin-version-constraints" class="anchor" href="#plugin-version-constraints">Broker and Dependency Version Constraints</a>
-        
+
 It's possible to specify broker and dependency version
 requirements for a plugin using the
 <code>broker_version_requirements</code> key in plugin's
@@ -107,8 +107,8 @@ The above requires RabbitMQ
 3.7.x starting with 3.7.26 and 3.8.x starting with 3.8.0.
 Note that when new major and minor (feature) RabbitMQ versions
 come out, **it is necessary for plugin maintainers to update the list**.
-        
-        
+
+
 Plugins can have dependencies. It is possible to specify supported
 version series for dependencies, too. This is quite similar
 to the above but uses a dictionary-like data structure (proplist).
@@ -124,7 +124,7 @@ For example:
 
 means the plugin depends on `rabbitmq_management` 3.7.x starting
 with 3.7.26 and all versions in the 3.8.x series.
-        
+
 
 ## <a id="plugin-hello-world" class="anchor" href="#plugin-hello-world">Example Plugin: Metronome</a>
 
@@ -268,7 +268,7 @@ make
 </pre>
 
 To start a node with the plugin built and enabled on:
-    
+
 <pre class="lang-bash">
 make run-broker
 </pre>
@@ -283,16 +283,16 @@ If your plugin has loaded successfully, you should see it in the enabled plugin 
 
 <pre class="lang-bash">
 # => Plugins
-# => 
+# =>
 # => Enabled plugin file: /var/folders/gp/53t98z011678vk9rkcb_s6ph0000gn/T/rabbitmq-test-instances/rabbit@warp10/enabled_plugins
 # => Enabled plugins:
-# => 
+# =>
 # =>  * rabbitmq_metronome
 # =>  * amqp_client
 </pre>
 
 To run Common Test test suites, use
-    
+
 <pre class="lang-bash">make tests</pre>
 
 Finally, you can produce an <code>.ez</code> file, suitable for distribution with:

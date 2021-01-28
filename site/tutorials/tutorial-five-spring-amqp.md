@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -41,7 +41,7 @@ routes logs based on both severity (info/warn/crit...) and facility
 That example would give us a lot of flexibility - we may want to listen to
 just critical errors coming from 'cron' but also all logs from 'kern'.
 
-To implement that flexibility in our logging system we need to learn 
+To implement that flexibility in our logging system we need to learn
 about a more complex `topic` exchange.
 
 
@@ -151,7 +151,7 @@ Putting it all together
 
 We're going to use a `topic` exchange in our messaging system. We'll
 start off with a working assumption that the routing keys will take
-advantage of both wildcards and a hash tag. 
+advantage of both wildcards and a hash tag.
 
 The code is almost the same as in the
 [previous tutorial](tutorial-four-spring-amqp.html).
@@ -193,7 +193,7 @@ public class Tut5Config {
 		}
 
 		@Bean
-		public Binding binding1a(TopicExchange topic, 
+		public Binding binding1a(TopicExchange topic,
 		    Queue autoDeleteQueue1) {
 			return BindingBuilder.bind(autoDeleteQueue1)
 			    .to(topic)
@@ -201,7 +201,7 @@ public class Tut5Config {
 		}
 
 		@Bean
-		public Binding binding1b(TopicExchange topic, 
+		public Binding binding1b(TopicExchange topic,
 		    Queue autoDeleteQueue1) {
 			return BindingBuilder.bind(autoDeleteQueue1)
 			    .to(topic)
@@ -209,7 +209,7 @@ public class Tut5Config {
 		}
 
 		@Bean
-		public Binding binding2a(TopicExchange topic, 
+		public Binding binding2a(TopicExchange topic,
 		    Queue autoDeleteQueue2) {
 			return BindingBuilder.bind(autoDeleteQueue2)
 			    .to(topic)
@@ -234,7 +234,7 @@ for the topics utilizing the topic syntax. We also create the `sender` profile a
 creation of the `Tut5Sender` class.
 
 The `Tut5Receiver` again uses the `@RabbitListener` annotation to receive messages from the respective
-topics. 
+topics.
 
 <pre class="lang-java">
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -252,15 +252,15 @@ public class Tut5Receiver {
 		receive(in, 2);
 	}
 
-	public void receive(String in, int receiver) throws 
+	public void receive(String in, int receiver) throws
 	    InterruptedException {
 		StopWatch watch = new StopWatch();
 		watch.start();
-		System.out.println("instance " + receiver + " [x] Received '" 
+		System.out.println("instance " + receiver + " [x] Received '"
 		    + in + "'");
 		doWork(in);
 		watch.stop();
-		System.out.println("instance " + receiver + " [x] Done in " 
+		System.out.println("instance " + receiver + " [x] Done in "
 		    + watch.getTotalTimeSeconds() + "s");
 	}
 
@@ -319,7 +319,7 @@ public class Tut5Sender {
 
 Compile and run the examples as described
 in [Tutorial 1](tutorial-one-spring-amqp.html). Or if you have been
-following along through the tutorials you only need to do the 
+following along through the tutorials you only need to do the
 following:
 
 To build the project:
@@ -328,7 +328,7 @@ To build the project:
 ./mvnw clean package
 </pre>
 
-To execute the sender and receiver with the correct profiles 
+To execute the sender and receiver with the correct profiles
 execute the jar with the correct parameters:
 
 <pre class="lang-bash">
@@ -384,5 +384,5 @@ with more than two routing key parameters.
 and [Tut5Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Sender.java).
 The configuration is in [Tut5Config.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut5/Tut5Config.java). )
 
-Next, find out how to do a round trip message as a remote procedure call 
+Next, find out how to do a round trip message as a remote procedure call
 in [tutorial 6](tutorial-six-spring-amqp.html)

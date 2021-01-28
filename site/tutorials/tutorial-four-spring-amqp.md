@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -29,7 +29,7 @@ receivers.
 In this tutorial we're going to add a feature to it - we're going to
 make it possible to subscribe only to a subset of the messages. For
 example, we will be able to direct only  messages to the
-certain colors of interest ("orange", "black", "green"), while still being 
+certain colors of interest ("orange", "black", "green"), while still being
 able to print all of the messages on the console.
 
 
@@ -41,7 +41,7 @@ code like this in our `Tut3Config` file:
 
 <pre class="lang-java">
 @Bean
-public Binding binding1(FanoutExchange fanout, 
+public Binding binding1(FanoutExchange fanout,
     Queue autoDeleteQueue1) {
     return BindingBuilder.bind(autoDeleteQueue1).to(fanout);
 }
@@ -58,7 +58,7 @@ the queue "to" the exchange "with a binding key" as follows:
 
 <pre class="lang-java">
 @Bean
-public Binding binding1a(DirectExchange direct, 
+public Binding binding1a(DirectExchange direct,
     Queue autoDeleteQueue1) {
     return BindingBuilder.bind(autoDeleteQueue1)
         .to(direct)
@@ -219,7 +219,7 @@ public DirectExchange direct() {
 }
 ...
 @Bean
-public Binding binding1a(DirectExchange direct, 
+public Binding binding1a(DirectExchange direct,
     Queue autoDeleteQueue1) {
     return BindingBuilder.bind(autoDeleteQueue1)
         .to(direct)
@@ -303,7 +303,7 @@ public class Tut4Config {
 		}
 
 		@Bean
-		public Binding binding1a(DirectExchange direct, 
+		public Binding binding1a(DirectExchange direct,
 		    Queue autoDeleteQueue1) {
 			return BindingBuilder.bind(autoDeleteQueue1)
 			    .to(direct)
@@ -311,7 +311,7 @@ public class Tut4Config {
 		}
 
 		@Bean
-		public Binding binding1b(DirectExchange direct, 
+		public Binding binding1b(DirectExchange direct,
 		    Queue autoDeleteQueue1) {
 			return BindingBuilder.bind(autoDeleteQueue1)
 			    .to(direct)
@@ -327,7 +327,7 @@ public class Tut4Config {
 		}
 
 		@Bean
-		public Binding binding2b(DirectExchange direct, 
+		public Binding binding2b(DirectExchange direct,
 		    Queue autoDeleteQueue2) {
 			return BindingBuilder.bind(autoDeleteQueue2)
 			    .to(direct)
@@ -414,7 +414,7 @@ public class Tut4Receiver {
 		System.out.println("instance " + receiver + " [x] Received '" + in + "'");
 		doWork(in);
 		watch.stop();
-		System.out.println("instance " + receiver + " [x] Done in " + 
+		System.out.println("instance " + receiver + " [x] Done in " +
 		    watch.getTotalTimeSeconds() + "s");
 	}
 
@@ -430,7 +430,7 @@ public class Tut4Receiver {
 </pre>
 
 
-Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html) 
+Compile as usual (see [tutorial one](tutorial-one-spring-amqp.html)
 for maven compilation and executing the options from the jar).
 
 <pre class="lang-bash">

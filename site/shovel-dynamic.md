@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -71,7 +71,7 @@ different:
 
 <pre class="lang-powershell">
 rabbitmqctl.bat set_parameter shovel my-shovel ^
-  "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^ 
+  "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^
    ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^
    ""dest-queue"": ""target-queue""}"
 </pre>
@@ -159,7 +159,7 @@ The body in this example includes a few keys:
             it will be declared as a classic durable queue with no optional arguments.
           </p>
       </td>
-    </tr>                    
+    </tr>
   </tbody>
 </table>
 

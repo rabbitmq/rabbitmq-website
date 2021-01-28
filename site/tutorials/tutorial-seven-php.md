@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -151,7 +151,7 @@ $channel->set_nack_handler(
 There are 2 callbacks: one for confirmed messages and one for nack-ed messages
 (messages that can be considered lost by the broker). Each callback has
 `AMQPMessage $message` parameter with returned message, so you don't need to
-handle sequence numbers (delivery tag) to understand which message this callback belongs to.  
+handle sequence numbers (delivery tag) to understand which message this callback belongs to.
 
 ### Summary
 

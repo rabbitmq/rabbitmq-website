@@ -1,9 +1,9 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -59,10 +59,10 @@ Some exchanges can be inherently local to the "site" (cluster) and its uses.
 Exchange federation will propagate [bindings](/tutorials/amqp-concepts.html)
 from the downstream to the upstreams when possible. It will also apply optimizations and propagate messages selectively if needed.
 This is covered in [future sections](#details).
-  
+
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
-  
+
 Federated exchanges can be used to replicate a flow of certain message types to remote locations.
 Combined with continuous [schema synchronisation](/backup.html#definitions-backup) and
 [queue and message TTL](/ttl.html), this can be used to maintain a hot standby
@@ -75,10 +75,10 @@ turn, each of these can be upstream for many more exchanges, and so
 on.
 
 See the [example diagrams below](#topology-diagrams) for some possible arrangements.
-  
+
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
-  
+
 Exchange federation supports all built-in exchange types.
 3rd party exchange types might work depending on their semantics.
 
@@ -87,7 +87,7 @@ exchange and relies on node-local optimizations other exchange types do not use.
 
 Exchanges with the internal property set to `true` are declared and internally used
 by RabbitMQ and cannot be federated.
-  
+
 
 ## <a id="usage" class="anchor" href="#usage">Usage and Configuration</a>
 
@@ -118,7 +118,7 @@ On Windows, use `rabbitmqctl.bat` and suitable PowerShell quoting:
 # Adds a federation upstream named "origin"
 rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5672""}"
 </pre>
-  
+
 More upstream definition parameters are covered in the [Federation Reference guide](/federation-reference.html).
 
 Once an upstream has been specified, a policy that controls federation can be added. It is added just like
@@ -143,7 +143,7 @@ rabbitmqctl.bat set_policy exchange-federation ^
 --priority 10 ^
 --apply-to exchanges
 </pre>
-  
+
 In the example above, the policy will match exchanges whose name begins with a `federated.` prefix
 in the default virtual host. Those exchanges will set up federation links for all declared upstreams.
 The name of the policy is `exchange-federation`. As with any policy, if multiple policies match an exchange,
@@ -177,7 +177,7 @@ same type. Mixing types can and likely will lead to confusing routing behaviours
 
 
 ## <a id="details" class="anchor" href="#details">Implementation</a>
-    
+
 Inter-broker communication is implemented using AMQP 0-9-1 (optionally
 [secured with TLS](/ssl.html)). Bindings are grouped together and binding operations such as
 `queue.bind` and `queue.unbind` commands are sent to the upstream side of
@@ -208,17 +208,17 @@ Publications to either exchange may be received by queues bound to
 the federated exchange, but publications directly to the federated
 exchange cannot be received by queues bound to the upstream
 exchange.
-    
+
 
 ## <a id="topology-diagrams" class="anchor" href="#topology-diagrams">Example Topologies</a>
-  
+
 We illustrate some example federation topologies. Where RabbitMQ
 brokers are shown in these diagrams indicated by
 
 (indicated by a <img src="img/rabbitmq_logo_30x30.png" height="15"/>)
 
 it can be a cluster of nodes or a standalone node.
-  
+
 <table>
   <thead>
     <tr>
@@ -254,9 +254,9 @@ it can be a cluster of nodes or a standalone node.
           This arrangement is the analogue of the pair of federated exchanges
           but for three exchanges. Each exchange links to both the others.
         </p>
-      
+
         <img src="img/federation/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
-      
+
         <p>
           Again `max-hops=1` because the "hop distance" to any
           other exchange is exactly one. This will be the case in any complete
@@ -274,9 +274,9 @@ it can be a cluster of nodes or a standalone node.
           In this case messages published to the master exchange can be
           received by any consumer connected to any broker in the tree.
         </p>
-      
+
         <img src="img/federation/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
-      
+
         <p>
           Because there are no loops it is not as crucial to get the
           `max-hops` value right, but it must be at least
@@ -295,9 +295,9 @@ it can be a cluster of nodes or a standalone node.
           to 5 so that every exchange in the ring sees the message exactly
           once.
         </p>
-      
+
         <img src="img/federation/federation05.png" height="300" alt="Ring" title="Ring" />
-      
+
         <p>
           This topology, though relatively cheap in queues and connections, is
           rather fragile compared to a completely connected graph. One broker

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -317,11 +317,11 @@ link to run. This is the process that retrieves messages from upstream
 and republishes them downstream. You can monitor the status of
 federation links using <code>rabbitmqctl</code> and the management
 plugin.
-      
+
 ### Using CLI Tools
 
 Federation link status can be inspected using [RabbitMQ CLI tools](/cli.html).
-      
+
 Invoke:
 
 <pre class="lang-bash">
@@ -418,4 +418,3 @@ Enable the <code>rabbitmq_federation_management</code> [plugin](/plugins.html) t
 [management UI](/management.html) with a new page that displays federation links in the cluster.
 It can be found under `Admin` > `Federation Status`, or by using the
 <code>GET /api/federation-links</code> HTTP API endpoint.
-    

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -93,10 +93,10 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [LDAP](ldap.html)
  * [Validated User ID](/validated-user-id.html)
  * [Authentication Failure Notifications](/auth-notification.html)
-  
+
 
 ## Networking and TLS
-  
+
  * [Client Connections](connections.html)
  * [Networking](networking.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
@@ -117,7 +117,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Per Virtual Host Limits](vhosts.html)
  * [Message Tracing](firehose.html)
  * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
-  
+
 
 ## Distributed RabbitMQ
 
@@ -127,7 +127,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Classic Mirrored Queues](/ha.html)
  * [Reliable Message Delivery](/reliability.html)
  * Active-passive [standby configuration with Pacemaker](/pacemaker.html) (legacy)
-  
+
 
 ## Guidance
 
@@ -135,7 +135,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Production Checklist](production-checklist.html)
  * [Backup and Restore](backup.html)
  * [Troubleshooting guidance](troubleshooting.html)
- * [Reliable Message Delivery](/reliability.html)  
+ * [Reliable Message Delivery](/reliability.html)
 
 
 ## Message Store and Resource Management
@@ -150,7 +150,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Queue and Message TTL](/ttl.html)
  * [Queue Length Limits](/maxlength.html)
  * [Lazy Queues](/lazy-queues.html)
-  
+
 
 ## Queue and Consumer Features
 
@@ -164,7 +164,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Consumer Cancellation Notifications](/consumer-cancel.html)
  * [Consumer Prefetch](/consumer-prefetch.html)
  * [Consumer Priorities](/consumer-priority.html)
-  
+
 
 ## STOMP, MQTT, WebSockets
 
@@ -173,7 +173,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [MQTT](/mqtt.html)
  * [STOMP over WebSockets](web-stomp.html)
  * [MQTT over WebSockets](web-mqtt.html)
-  
+
 
 ## Man Pages
 
