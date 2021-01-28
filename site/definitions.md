@@ -21,18 +21,15 @@ limitations under the License.
 
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
+This metadata is called **definitions** in RabbitMQ parlance.
+
+Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
+used for schema [backup](/backup.html) or data seeding.
 
 Definitions are stored in an internal database and replicated across all cluster nodes.
 Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
 the update is performed on all nodes in a single transaction. This means that
 in practice, definitions can be exported from any cluster node with the same result.
-
-A definition file contains definitions of all broker objects (queues,
-exchanges, bindings, users, virtual hosts, permissions and
-parameters).
-
-Definitions can be [exported](#export) to a file and then [imported](#import) into another cluster or
-used for schema backup.
 
 [VMware Tanzu RabbitMQ](/tanzu/) supports [continuous schema definition replication](/definitions-standby.html) to a remote cluster,
 which makes it easy to run a hot standby cluster for disaster recovery.
