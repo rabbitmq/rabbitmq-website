@@ -561,22 +561,27 @@ The default values (expressions) can be found in the table below:
 <table>
   <thead>
     <td>Query</td>
+    <td>Purpose</td>
     <td>Default Expression</td>
   </thead>
   <tr>
     <td><code>rabbitmq_auth_backend_ldap.vhost_access_query</code></td>
+    <td>Verifies that user is allowed to access a virtual host</td>
     <td><code>{constant, true}</code></td>
   </tr>
   <tr>
     <td><code>rabbitmq_auth_backend_ldap.resource_access_query</code></td>
+    <td>Verifies that user is allowed to access a resource (queue, exchange, etc)</td>
     <td><code>{constant, true}</code></td>
   </tr>
   <tr>
     <td><code>rabbitmq_auth_backend_ldap.topic_access_query</code></td>
+    <td>Verifies that user is allowed to publish to a topic</td>
     <td><code>{constant, true}</code></td>
   </tr>
   <tr>
     <td><code>rabbitmq_auth_backend_ldap.tag_queries</code></td>
+    <td>Checks if a well-known tag is applicable to a user</td>
     <td><code>[{administrator, {constant, false}}]</code></td>
   </tr>
 </table>
@@ -608,7 +613,8 @@ The `tag_queries` supports:
 
  * `${username}`: the user name provided at authentication
  * `${user_dn}`: the distinguished name of the user
- * `${vhost}`: can be used for additional context, e.g. to group applications or users
+ * `${vhost}`: **virtual host information will not be available in every scenario**. It can be used for additional context,
+    e.g. to group applications or users
 
 The `topic_access_query` supports:
 
