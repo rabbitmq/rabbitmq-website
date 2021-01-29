@@ -104,7 +104,7 @@ limitations under the License.
            <x:related url="/heartbeats.html" text="Heartbeats"/>
          </x:page>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
-         <x:page url="/erlang-distribution-compression.html" text="Inter-node Traffic Compression"/>
+         <x:page url="/clustering-compression.html" text="Inter-node Traffic Compression"/>
        </x:page>
        <x:page url="/reliability.html" text="Reliable Delivery">
          <x:related url="/heartbeats.html" text="Heartbeats"/>
