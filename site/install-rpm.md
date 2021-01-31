@@ -24,7 +24,7 @@ This guide covers RabbitMQ installation on RPM-based Linux (RedHat Enterprise Li
 RabbitMQ is included in standard Fedora and RHEL repositories. However, the versions included are
 usually outdated and [out of support](/versions.html).
 
-There are two ways to install the most recent version of RabbitMQ:
+There are two ways to install the most recent version of RabbitMQ on an RPM distribution:
 
  * Installing the package using Yum repositories on [Package Cloud](#package-cloud) or [Bintray](#bintray) (this option is highly recommended)
  * [Downloading](#downloads) the package and installing it with `rpm`. This option will require manual installation of all [package dependencies](#package-dependencies).
@@ -584,7 +584,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
    Loaded: loaded (/usr/lib/systemd/system/rabbitmq-server.service; enabled; vendor preset: disabled)
   Drop-In: /etc/systemd/system/rabbitmq-server.service.d
            └─limits.conf
-   Active: active (running) since Wed 2018-12-26 10:21:32 UTC; 25s ago
+   Active: active (running) since Wed 2021-01-22 10:21:32 UTC; 25s ago
  Main PID: 957 (beam.smp)
    Status: "Initialized"
    CGroup: /system.slice/rabbitmq-server.service
