@@ -53,7 +53,7 @@ such as [Prometheus and Grafana](/prometheus.html) provide.
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
-The [management UI and its HTTP API](/monitoring.html) is a built-in monitoring option for RabbitMQ.
+The management UI and its [HTTP API](#http-api) is a built-in [monitoring option]((/monitoring.html)) for RabbitMQ.
 This is a convenient option for development and in environments where
 external monitoring is difficult or impossible to introduce.
 
