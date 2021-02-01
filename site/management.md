@@ -38,6 +38,8 @@ Some settings directly affect CPU resource usage of the metric collection system
 
 The plugin also provides tools for [analysing memory usage](#memory) of the node,
 and other features related to monitoring, metrics, user, permission, and topology management.
+Previously it also provided [definition export and import functionality](/definitions.html). Those are now
+core RabbitMQ features and do not require or rely on this plugin.
 
 In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
 
