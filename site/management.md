@@ -37,8 +37,7 @@ Some settings directly affect CPU resource usage of the metric collection system
  * [Message rate mode](#rates-mode) (rate fidelity) used
 
 The plugin also provides tools for [analysing memory usage](#memory) of the node,
-for [preconfiguring nodes](#load-definitions) using an exported [schema definitions](/definitions.html) file, and a few
-other features related to monitoring, metrics and node management.
+and other features related to monitoring, metrics, user, permission, and topology management.
 
 In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
 
