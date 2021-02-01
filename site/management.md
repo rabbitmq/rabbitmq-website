@@ -72,7 +72,7 @@ or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable o
  * Decoupling of the monitoring system from the system being monitored
  * Lower overhead
  * Long term metric storage
- * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
+ * Access to additional related metrics such as those of the [Erlang runtime](/runtime.html) ones
  * More powerful and customizable user interface
  * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
