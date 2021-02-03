@@ -137,7 +137,8 @@ see the [logging docs page](/logging.html).
 kubectl rabbitmq tail INSTANCE
 </pre>
 
-Attach to live log output from all RabbitMQ nodes.
+Attach to live log output from all RabbitMQ nodes. This requires the `tail` plugin for kubectl.
+Install it with `kubectl krew install tail`.
 
 ### <a id='observe' class='anchor' href='#observe'>Observe</a>
 
