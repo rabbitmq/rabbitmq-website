@@ -120,7 +120,7 @@ Displays the default user secrets for the named RabbitMQ cluster
 kubectl rabbitmq manage INSTANCE
 </pre>
 
-Opens the RabbitMQ Management dashboard in a browser.
+Opens the RabbitMQ [Management UI](/management.html) in a browser.
 
 ### <a id='debug' class='anchor' href='#debug'>Set Log Level to debug</a>
 
@@ -146,8 +146,7 @@ Install it with `kubectl krew install tail`.
 kubectl rabbitmq observe INSTANCE INDEX
 </pre>
 
-Opens the rabbitmq-diagnostics observer interface for a given node. For more
-information on the rabbitmq-diagnostics see [here](rabbitmq-diagnostics.8.html).
+Opens the [rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) observer interface for a given node.
 
 ### <a id='feature-flags' class='anchor' href='#feature-flags'>Enable All Feature Flags</a>
 
@@ -178,7 +177,7 @@ Instructs the operator to resume reconciliation for a RabbitMQ cluster.
 ### <a id='list-pause-reconciliation-instances' class='anchor' href='#list-pause-reconciliation-instances'>List Instances with Paused Reconciliation</a>
 
 <pre class="lang-bash">
-kubectl rabbitmq resume-reconciliation INSTANCE 
+kubectl rabbitmq [list pause reconciliation instances](list-pause-reconciliation-instances) INSTANCE
 </pre>
 
 Lists all instances that are not being reconciled by the operator.
@@ -190,10 +189,9 @@ Lists all instances that are not being reconciled by the operator.
 kubectl rabbitmq perf-test INSTANCE --rate 100
 </pre>
 
-Runs perf-test against an instance. You can pass as many perf test parameters as you like here.
-For more information on perf-test and what parameters are available see [here](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/).
+Runs [perf-test](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/) against an instance. You can pass as many perf test parameters as you like here.
 
-If you want to monitor perf-test, you can do so by creating the following ServiceMonitor:
+To monitor PerfTest, add the following ServiceMonitor:
 <pre class="lang-yaml">
   apiVersion: monitoring.coreos.com/v1
   kind: ServiceMonitor
