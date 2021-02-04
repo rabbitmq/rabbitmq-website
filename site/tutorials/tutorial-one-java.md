@@ -1,9 +1,9 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 https://www.apache.org/licenses/LICENSE-2.0
@@ -50,7 +50,7 @@ on behalf of the consumer.
 > and its dependencies ([SLF4J API](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar) and
 > [SLF4J Simple](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.26/slf4j-simple-1.7.26.jar)).
 > Copy those files in your working directory, along the tutorials Java files.
-> 
+>
 > Please note SLF4J Simple is enough for tutorials but you should use a full-blown
 > logging library like [Logback](https://logback.qos.ch/) in production.
 >
@@ -88,7 +88,7 @@ public class Send {
   public static void main(String[] argv) throws Exception {
       ...
   }
-}    
+}
 </pre>
 
 then we can create a connection to the server:

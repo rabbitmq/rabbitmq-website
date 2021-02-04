@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -69,7 +69,7 @@ channel.assertQueue('', {
 });
 
 channel.sendToQueue('rpc_queue', Buffer.from('10'), {
-   replyTo: queue_name 
+   replyTo: queue_name
 });
 
 # ... then code to read a response message from the callback queue ...
@@ -303,9 +303,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       channel.consume(q.queue, function(msg) {
         if (msg.properties.correlationId == correlationId) {
           console.log(' [.] Got %s', msg.content.toString());
-          setTimeout(function() { 
-            connection.close(); 
-            process.exit(0) 
+          setTimeout(function() {
+            connection.close();
+            process.exit(0)
           }, 500);
         }
       }, {
@@ -313,8 +313,8 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       });
 
       channel.sendToQueue('rpc_queue',
-        Buffer.from(num.toString()),{ 
-          correlationId: correlationId, 
+        Buffer.from(num.toString()),{
+          correlationId: correlationId,
           replyTo: q.queue });
     });
   });

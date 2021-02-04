@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -34,23 +34,23 @@ implicitly-defined upstream set "all") or a single upstream
 to a set of exchanges and / or queues.
 
 To apply all upstreams:
-        
+
 <pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"all"}'
 </pre>
-        
+
 To apply a named set of upstreams:
-        
+
 <pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"my-set"}'
 </pre>
-        
+
 To apply a single upstream:
-        
+
 <pre class="lang-bash">
 rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream":"my-upstream"}'
 </pre>
-        
+
 Note that you cannot use the <code>federation-upstream</code>
 and <code>federation-upstream-set</code> keys together in a
 policy. For more detail on policies, see the <a href="parameters.html#policies">policy</a> documentation.
@@ -62,11 +62,11 @@ to connect to a remote node or cluster as well as certain properties
 of a link (connection). Upstreams are defined using the
 `rabbitmqctl set_parameter federation-upstream` command which accepts
 an upstream name and an upstream definition JSON object:
-        
+
 <pre class="lang-bash">
 rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 </pre>
-        
+
 The upstream definition object can contain the following keys:
 
 #### Applicable to Both Federated Exchanges and Queues
@@ -86,7 +86,7 @@ The upstream definition object can contain the following keys:
         The  <a href="uri-spec.html">AMQP URI(s)</a> for the upstream.
         See the <a href="uri-query-parameters.html">query parameter reference</a> for the underlying client library extensions
         (including those for <a href="/ssl.html">TLS</a>) which are available to federation.
-      
+
         The value can either be a string, or a list of
         strings. If more than one string is provided, the federation
         plugin will randomly pick <b>one</b> URI from the list when attempting to connect. This can
@@ -122,14 +122,14 @@ The upstream definition object can contain the following keys:
         acknowledged to the upstream broker after they have been
         confirmed downstream. This handles network errors and broker
         failures without losing messages, and is the slowest option.
-      
-      
+
+
         If set to <code>on-publish</code>, messages are acknowledged to
         the upstream broker after they have been published
         downstream. This handles network errors without losing messages,
         but may lose messages in the event of broker failures.
-      
-      
+
+
         If set to <code>no-ack</code>, message acknowledgements are not
         used. This is the fastest option, but may lose messages in the
         event of network or broker failures.
@@ -196,10 +196,10 @@ The following upstream parameters are only applicable to <a href="/federated-exc
         an <a href="federated-exchanges.html#implementation">upstream queue</a> for
         a federated exchange may be deleted if a connection to the upstream is lost.
         The default is <code>'none'</code>, meaning no expiration will be applied to the queue.
-      
+
         This setting controls how long the upstream queue will
         last before it is eligible for deletion if the connection is lost.
-      
+
         This value controls <a href="/ttl.html">TTL settings</a> for the upstream queue.
       </td>
     </tr>
@@ -211,7 +211,7 @@ The following upstream parameters are only applicable to <a href="/federated-exc
         for a federated exchange (see <code>expires</code>), in milliseconds.
         Default is <code>'none'</code>, meaning messages should never expire.
         This does not apply to federated queues.
-      
+
         This value controls <a href="/ttl.html">TTL settings</a> for the messages in the upstream queue.
       </td>
     </tr>
@@ -246,19 +246,19 @@ The following upstream parameters are only applicable to <a href="/federated-exc
     </tr>
   </tbody>
 </table>
-      
+
 
 ## <a id="upstream-sets" class="anchor" href="#upstream-sets">Upstream Sets</a>
 
 Each <code>upstream-set</code> is a set of upstreams. It can be more convenient to use a set
 and refer to it in a federation policy definition that repeatedly listing upstreams.
-        
+
 <pre class="lang-bash">
 rabbitmqctl set_parameter federation-upstream-set [name] '[object1, object2, ...]'
 </pre>
-        
+
 Supported keys of the JSON objects are
-        
+
 <table>
   <thead>
     <tr>
@@ -278,7 +278,7 @@ Supported keys of the JSON objects are
     </tr>
   </tbody>
 </table>
-        
+
 In addition, any of the properties from an upstream can be
 overridden in an upstream set.
 

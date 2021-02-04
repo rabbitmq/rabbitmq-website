@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -126,8 +126,8 @@ forever := make(chan bool)
 go func() {
   for d := range msgs {
     log.Printf("Received a message: %s", d.Body)
-    dot_count := bytes.Count(d.Body, []byte("."))
-    t := time.Duration(dot_count)
+    dotCount := bytes.Count(d.Body, []byte("."))
+    t := time.Duration(dotCount)
     time.Sleep(t * time.Second)
     log.Printf("Done")
   }
@@ -264,8 +264,8 @@ forever := make(chan bool)
 go func() {
   for d := range msgs {
     log.Printf("Received a message: %s", d.Body)
-    dot_count := bytes.Count(d.Body, []byte("."))
-    t := time.Duration(dot_count)
+    dotCount := bytes.Count(d.Body, []byte("."))
+    t := time.Duration(dotCount)
     time.Sleep(t * time.Second)
     log.Printf("Done")
     d.Ack(false)
@@ -572,8 +572,8 @@ func main() {
         go func() {
                 for d := range msgs {
                         log.Printf("Received a message: %s", d.Body)
-                        dot_count := bytes.Count(d.Body, []byte("."))
-                        t := time.Duration(dot_count)
+                        dotCount := bytes.Count(d.Body, []byte("."))
+                        t := time.Duration(dotCount)
                         time.Sleep(t * time.Second)
                         log.Printf("Done")
                         d.Ack(false)

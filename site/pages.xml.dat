@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -105,7 +105,7 @@ limitations under the License.
            <x:related url="/heartbeats.html" text="Heartbeats"/>
          </x:page>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
-         <x:page url="/erlang-distribution-compression.html" text="Inter-node Traffic Compression"/>
+         <x:page url="/clustering-compression.html" text="Inter-node Traffic Compression"/>
        </x:page>
        <x:page url="/reliability.html" text="Reliable Delivery">
          <x:related url="/heartbeats.html" text="Heartbeats"/>

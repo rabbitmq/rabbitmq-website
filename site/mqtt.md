@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -29,7 +29,7 @@ Key covered topics are:
  * [Users and authentication](#authentication), [remote connection](#local-vs-remote) limitations of the default user
  * [Implementation overview](#implementation)
  * [Subscription durability](#durability) and [session stickiness](#stickiness)
- * [Consensus-based Features](#consensus) 
+ * [Consensus-based Features](#consensus)
  * [Key configurable settings](#config) of the plugin
  * [TLS support](#tls)
  * [Virtual hosts](#virtual-hosts)

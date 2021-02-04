@@ -5,7 +5,7 @@
 %entities;
 ]>
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -207,7 +207,7 @@ limitations under the License.
               <img src="img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
-                <a href="https://academy.pivotal.io/store-catalog" target="_blank">VMware</a>,
+                <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank">VMware</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
                 <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
                 <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a>.

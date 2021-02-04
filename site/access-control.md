@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -148,7 +148,7 @@ applicable to RabbitMQ users.
 Shells (`bash`, `zsh`, and so on) interpret certain characters
 (`!`, `?`, `&`, `^`, `"`, `'`, `*`, `~`, and others) as control characters.
 
-When a password is specified on the command line for `rabbitmqctl add_user`, `rabbitmqctl change_password`, 
+When a password is specified on the command line for `rabbitmqctl add_user`, `rabbitmqctl change_password`,
 and other commands that accept a password, such control characters must be escaped appropriately
 for the shell used.
 With inappropriate escaping the command will fail or RabbitMQ CLI tools will receive a different value

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -41,7 +41,6 @@ Topics covered include:
  * [Memory allocator](#allocators) settings
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
- * [Asynchronous I/O thread pool](#io-threads) size
  * [Erlang process limit](#erlang-process-limit)
 
 ## <a id="vm-settings" class="anchor" href="#vm-settings">VM Settings</a>

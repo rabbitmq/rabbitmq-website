@@ -139,12 +139,12 @@ kubectl logs hello-world-server-0
 ...
 
  Starting RabbitMQ 3.8.9 on Erlang 23.2.1
- Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+ Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
  Licensed under the MPL 2.0. Website: https://rabbitmq.com
 
   ##  ##      RabbitMQ 3.8.9
   ##  ##
-  ##########  Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+  ##########  Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
   ######  ##
   ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
 

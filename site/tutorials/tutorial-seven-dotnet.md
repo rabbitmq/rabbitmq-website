@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -288,8 +288,8 @@ Published 50,000 messages in batch in 2,331 ms
 Published 50,000 messages and handled confirms asynchronously in 4,054 ms
 </pre>
 
-The output on your computer should look similar if the client and the server sit 
-on the same machine. Publishing messages individually performs poorly as expected, 
+The output on your computer should look similar if the client and the server sit
+on the same machine. Publishing messages individually performs poorly as expected,
 but the results for asynchronously handling are a bit disappointing compared to batch publishing.
 
 Publisher confirms are very network-dependent, so we're better off

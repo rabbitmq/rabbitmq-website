@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -160,7 +160,7 @@ The code for `emit_log_topic.exs`:
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 
-{topic, message} = 
+{topic, message} =
   System.argv
   |> case do
     []            -> {"anonymous.info", "Hello World!"}
@@ -184,12 +184,12 @@ defmodule ReceiveLogsTopic do
     receive do
       {:basic_deliver, payload, meta} ->
       IO.puts " [x] Received [#{meta.routing_key}] #{payload}"
-    					
+
       wait_for_messages(channel)
     end
   end
 end
-    		
+
 {:ok, connection} = AMQP.Connection.open
 {:ok, channel} = AMQP.Channel.open(connection)
 

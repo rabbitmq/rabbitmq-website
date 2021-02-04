@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -37,8 +37,9 @@ Some settings directly affect CPU resource usage of the metric collection system
  * [Message rate mode](#rates-mode) (rate fidelity) used
 
 The plugin also provides tools for [analysing memory usage](#memory) of the node,
-for [preconfiguring nodes](#load-definitions) using an exported [schema definitions](/definitions.html) file, and a few
-other features related to monitoring, metrics and node management.
+and other features related to monitoring, metrics, user, permission, and topology management.
+Previously it also provided [definition export and import functionality](/definitions.html). Those are now
+core RabbitMQ features and do not require or rely on this plugin.
 
 In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
 
@@ -53,7 +54,7 @@ such as [Prometheus and Grafana](/prometheus.html) provide.
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
-The [management UI and its HTTP API](/monitoring.html) is a built-in monitoring option for RabbitMQ.
+The management UI and its [HTTP API](#http-api) is a built-in [monitoring option](/monitoring.html) for RabbitMQ.
 This is a convenient option for development and in environments where
 external monitoring is difficult or impossible to introduce.
 
@@ -73,7 +74,7 @@ or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable o
  * Decoupling of the monitoring system from the system being monitored
  * Lower overhead
  * Long term metric storage
- * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
+ * Access to additional related metrics such as those of the [Erlang runtime](/runtime.html) ones
  * More powerful and customizable user interface
  * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
@@ -340,7 +341,7 @@ endpoints require the token to be passed in the `token` query string parameter.
 When activated, the management plugin provides an HTTP API at
 <code>http://<i>server-name</i>:15672/api/</code> by default. Browse to that
 location for more information on the API. For convenience the same API reference is
-[available from GitHub](https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html).
+[available on GitHub](https://rawcdn.githack.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/priv/www/api/index.html).
 
 ### <a id="http-api-monitoring" class="anchor" href="#http-api-monitoring">HTTP API and Monitoring</a>
 
@@ -368,7 +369,7 @@ see [Developer Tools](/devtools.html).
 
 Some API endpoints return a lot of information. The volume can be reduced
 by filtering what columns are returned by `HTTP GET` requests. See
-[latest HTTP API documentation](https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html) for details.
+[latest HTTP API documentation](https://rawcdn.githack.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/priv/www/api/index.html) for details.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 

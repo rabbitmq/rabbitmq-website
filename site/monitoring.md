@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -803,6 +803,12 @@ Note that this list is by no means complete.
       <td>
         <a href="https://docs.datadoghq.com/integrations/rabbitmq/">DataDog RabbitMQ integration</a>,
         <a href="https://github.com/DataDog/integrations-core/tree/master/rabbitmq">GitHub</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Dynatrace</td>
+      <td>
+        <a href="https://www.dynatrace.com/technologies/rabbitmq-monitoring/">Dynatrace RabbitMQ monitoring</a>
       </td>
     </tr>
     <tr>

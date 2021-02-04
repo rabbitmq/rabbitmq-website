@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -77,22 +77,22 @@ The basic usage of the client follows these broad steps:
    declaring exchanges and queues, defining bindings between them, publishing messages,
    registering consumers (subscribing), and so on
 5. Register optional event handlers such as [returned message handler](#returns)
-6. When no longer required, close the channel and the connection 
+6. When no longer required, close the channel and the connection
 
 
 ### <a id="amqp-client-app" class="anchor" href="#amqp-client-app">The amqp_client Application</a>
 
 RabbitMQ Erlang client is an Erlang application named `amqp_client`.
-    
+
 As with any Erlang application, to begin using the client it's necessary to first
 make sure it is started:
-    
+
 <pre class="lang-erlang">
 application:ensure_started(amqp_client).
 </pre>
-  
+
 ### <a id="key-modules" class="anchor" href="#key-modules">Key Modules and Concepts</a>
-  
+
 The main two modules in the client library are:
 
  * `amqp_connection`, which is used to open a connection to a
@@ -146,7 +146,7 @@ parameter set to an `#amqp_params_direct` record.
 
 
 ### <a id="headers" class="anchor" href="#headers">Including Header Files</a>
-  
+
 The Erlang client uses a number of record definitions which you
 will encounter in this guide. These records fall into two broad
 categories:
@@ -160,11 +160,11 @@ amqp_client.hrl in every module that uses the Erlang client:
 <pre class="lang-erlang">
 -include("amqp_client.hrl").
 </pre>
-    
+
 
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
-  
+
 The `amqp_connection` module is used to start a [connection](/connections.html) to a RabbitMQ node.
 In this example we will use a network connection, which is the recommended
 option for most use cases:
@@ -172,15 +172,15 @@ option for most use cases:
 <pre class="lang-erlang">
 {ok, Connection} = amqp_connection:start(#amqp_params_network{})
 </pre>
-    
+
 This function returns an `{ok, Connection}` pair, where `Connection` is the
 pid of a process that maintains a permanent connection.
 This pid will be used to open channels on the connection and [close the connection](#disconnecting).
-  
+
 In case of an error, the above call returns an `{error, Error}` pair.
-    
+
 The `#amqp_params_network` record sets the following default values:
-    
+
 <table>
   <thead>
     <tr>
@@ -188,7 +188,7 @@ The `#amqp_params_network` record sets the following default values:
       <td>Default Value</td>
     </tr>
   </thead>
-      
+
   <tbody>
     <tr>
       <td>username</td>
@@ -236,7 +236,7 @@ The `#amqp_params_network` record sets the following default values:
     </tr>
   </tbody>
 </table>
-    
+
 These values are only the defaults that will work with an out of
 the box RabbitMQ node running on the same host. If the target node or the
 environment has been configured differently, these values can be
@@ -274,7 +274,7 @@ to be from a fully trusted user which can connect to any virtual host and has
 full [permissions](/access-control.html).
 
 The `#amqp_params_direct` record sets the following default values:
-    
+
 <table>
   <thead>
     <tr>
@@ -306,7 +306,7 @@ The `#amqp_params_direct` record sets the following default values:
 </table>
 
 ### <a id="amqp-uris" class="anchor" href="#amqp-uris">Connecting to RabbitMQ Using an AMQP URI</a>
-  
+
 Instead of working with records such `#amqp_params_network` directly,
 <a href="/uri-spec.html">AMQP URIs</a> may be used.
 
@@ -318,10 +318,10 @@ connection is assumed to be direct and an `#amqp_params_direct{}`
 record is returned.  In addition to the standard host, port, user,
 password and vhost parameters, extra parameters may be specified
 via the query string (e.g. "?heartbeat=5" to configure a [heartbeat timeout](/heartbeats.html)).
-  
+
 
 ## <a id="channels" class="anchor" href="#channels">Creating Channels</a>
-  
+
 Once a connection has been established, use the `amqp_connection` module
 to open one or more [channels](/channels.html) that will be used
 to define the topology, publish and consume messages:
@@ -333,10 +333,10 @@ to define the topology, publish and consume messages:
 This function takes the pid of the connection process and returns
 a `{ok, Channel}` pair, where `Channel` is a pid that represents
 a channel and will be used to execute protocol commands.
-  
+
 
 ## <a id="methods" class="anchor" href="#methods">Using AMQP 0-9-1 Methods (Protocol Operations)</a>
-  
+
 The client library's primary way of interacting with RabbitMQ nodes is by
 sending and handling [AMQP 0-9-1 methods](/specification.html)
 (also referred to as "commands" in this guide) that are represented by records.
@@ -364,7 +364,7 @@ The above example is equivalent to this:
 
 
 ## <a id="topology" class="anchor" href="#topology">Defining a Topology: Exchanges, Queues, Bindings</a>
-  
+
 Once a channel has been established, the `amqp_channel` module can
 be used to manage the fundamental objects within AMQP, namely
 exchanges and queues. The following function creates an exchange
@@ -464,7 +464,7 @@ has acknowledged our command.
 
 
 ## <a id="publishing" class="anchor" href="#publishing">Publishing Messages</a>
-  
+
 To publish a message to an exchange with a particular routing key,
 the `#'basic.publish'{}` method.
 Messages are represented using the `#amqp_msg{}` record:
@@ -532,7 +532,7 @@ process (`self()`) will be the consumer
 #'basic.consume_ok'{consumer_tag = Tag} =
   amqp_channel:call(Channel, #'basic.consume'{queue = Q})
 </pre>
-  
+
 The consumer argument is the pid of a process to which the client library
 will deliver messages.
 This can be an arbitrary Erlang process, including the process that initiated
@@ -609,7 +609,7 @@ behaviour to determine how it should handle consumer events.
 Effectively, this module handles client-side
 consumer registration and ensures routing of deliveries to the appropriate consumers.
 
-For instance, the default consumer module, `amqp_selective_consumer`, 
+For instance, the default consumer module, `amqp_selective_consumer`,
 keeps track of which processes are subscribed to which queues and routes deliveries appropriately;
 in addition, if the channel gives it a delivery for an unknown
 consumer, it will pass it to a default consumer, should one be registered.
@@ -626,7 +626,7 @@ delivery of published messages.
 
 
 ## <a id="disconnecting" class="anchor" href="#disconnecting">Closing Channels And The Connection</a>
-  
+
 When a channel is no longer required, a client should close it.
 This is achieved using `amqp_channel:close/1`:
 
@@ -639,10 +639,10 @@ To close the connection, `amqp_connection:close/1` is used:
 <pre class="lang-erlang">
 amqp_connection:close(Connection)
 </pre>
-  
+
 Closing a connection will automatically implicitly close all channels
 on that connection.
-  
+
 Both the #'channel.close'{} and #'connection.close'{} commands
 take the arguments `reply_code` (an integer) and `reply_text` (a binary),
 which can be set by the client depending on the reason why
@@ -654,9 +654,9 @@ may or may not log. If a client wants to set to a different reply
 code and/or text, it can use the overloaded functions
 `amqp_channel:close/3` and `amqp_connection:close/3` respectively.
 
-  
+
 ## <a id="flow" class="anchor" href="#flow">Delivery Flow Control</a>
-  
+
 By default, there is no flow control within a channel other than
 normal TCP back-pressure. A consumer can set the size of the
 prefetch buffer that the broker will maintain for outstanding
@@ -669,19 +669,19 @@ amqp_channel:call(Channel, #'basic.qos'{prefetch_count = Prefetch})
 
 Applications are recommended to use a prefetch. Learn more in the
 [Publisher Confirms and Consumer Acknowledgements guide](/confirms.html).
-  
+
 
 ## <a id="blocked" class="anchor" href="#blocked">Blocked Connections</a>
-  
+
 When a node detects that it is below a certain available resource threshold,
 it may <a href="alarms.html">choose to stop reading from publishers' network sockets</a>.
-  
-RabbitMQ supports <a href="connection-blocked.html">a mechanism to allow clients to be told this has taken place</a>. 
+
+RabbitMQ supports <a href="connection-blocked.html">a mechanism to allow clients to be told this has taken place</a>.
 
 Use `amqp_connection:register_blocked_handler/2` giving the
 pid of a process to which `#'connection.blocked'{}` and
 `#'connection.unblocked'{}` should may be sent.
-  
+
 
 ## <a id="returns" class="anchor" href="#returns">Handling Returned Messages</a>
 
@@ -708,7 +708,7 @@ end
 
 
 ## <a id="polling" class="anchor" href="#polling">Receiving Messages Using the "Fetch API"</a>
-  
+
 It is also possible to retrieve individual messages on demand ("pull API" a.k.a. polling).
 This approach to consumption is highly inefficient as it is effectively polling
 and applications repeatedly have to ask for results even if the vast majority of the requests
@@ -725,7 +725,7 @@ Get = #'basic.get'{queue = Q, no_ack = true},
 The payload that is returned is an Erlang binary, and it is up to
 the application to decode it, as the structure of this content is
 opaque to both client library and the server.
-  
+
 If the queue were empty when the `#'basic.get'{}` command was
 invoked, then the channel will return an `#'basic.get_empty'`
 result, as illustrated here:
@@ -733,7 +733,7 @@ result, as illustrated here:
 <pre class="lang-erlang">
 #'basic.get_empty'{} = amqp_channel:call(Channel, Get)
 </pre>
-  
+
 Note that the previous example sets the no_ack flag on the
 #'basic.get'{} command. This tells the broker that the receiver
 will not send an acknowledgement of the message. In doing so, the
@@ -752,7 +752,7 @@ Get = #'basic.get'{queue = Q},
 %% Do something with the message payload.......and then ack it
 amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag})
 </pre>
-    
+
 Notice that the #'basic.ack'{} method was sent using
 `amqp_channel:cast/2` instead of `amqp_channel:call/2`. This is
 because acknowledgements are entirely asynchronous and the server
@@ -811,7 +811,7 @@ and a message is published directly to the queue. This makes use
 of the fact that every queue is bound to the default exchange via
 its own queue name. The message is then dequeued and acknowledged.
 
-  
+
 ## <a id="deployment" class="anchor" href="#deployment">Compiling Code with Client as a Dependency</a>
 
 The client build process produces two deployment archives:

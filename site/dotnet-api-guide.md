@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -145,7 +145,7 @@ factory.Uri = "amqp://user:pass@hostName:port/vhost";
 
 IConnection conn = factory.CreateConnection();
 </pre>
-                
+
 Since the .NET client uses a stricter interpretation of the [AMQP 0-9-1 URI spec](/uri-spec.html)
 than the other clients, care must be taken when using URIs.
 In particular, the host part must not be omitted and virtual hosts with
@@ -441,8 +441,8 @@ props.Expiration = "36000000"
 
 channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
 </pre>
-          
-        
+
+
 ## <a id="consuming" class="anchor" href="#consuming">Retrieving Messages By Subscription ("push API")</a>
 
 The recommended and most convenient way to receive messages is to set up a subscription using the
@@ -651,7 +651,7 @@ library. Such callbacks include:
 * any of the various shutdown events on `IConnection`, `IModel` etc.
 
 ### <a id="consumer-callbacks-and-ordering" class="anchor" href="#consumer-callbacks-and-ordering">Consumer Callbacks and Ordering</a>
-            
+
 As of version `3.5.0` application callback handlers <strong>can</strong> invoke blocking
 operations (such as `IModel.QueueDeclare` or `IModel.BasicCancel`). `IBasicConsumer` callbacks are invoked concurrently.
 However, per-channel operation order is preserved. In other words, if messages A and B were delivered
@@ -660,7 +660,7 @@ were delivered on different channels, they can be processed in any order (or in 
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
 
 ### <a id="custom-task-scheduler" class="anchor" href="#custom-task-scheduler">Using a Custom Task Scheduler</a>
-            
+
 It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
 
 <pre class="lang-csharp">
@@ -673,9 +673,9 @@ var cf = new ConnectionFactory();
 cf.TaskScheduler = new CustomTaskScheduler();
 </pre>
 
-This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).          
-              
-            
+This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).
+
+
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
 
 If a message is published with the "mandatory" flag
@@ -741,7 +741,7 @@ factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
 </pre>
 
 ### <a id="recovery-triggers" class="anchor" href="#recovery-triggers">When Will Connection Recovery Be Triggered?</a>
-            
+
 Automatic connection recovery, if enabled, will be triggered by the following events:
 
 * An I/O exception is thrown in connection's I/O loop
@@ -767,21 +767,21 @@ try {
   // apply retry logic
 }
 </pre>
-            
+
 When a connection is closed by the application via the <code>Connection.Close</code> method,
 connection recovery will not be initiated.
 
 Channel-level exceptions will not trigger any kind of recovery as they usually
 indicate a semantic issue in the application (e.g. an attempt to consume from a
 non-existent queue).
-            
+
 ### <a id="publishers" class="anchor" href="#publishers">Effects on Publishing</a>
-            
+
 Messages that are published using <code>IModel.BasicPublish</code> when connection is down
 will be lost. The client does not enqueue them for delivery after connection has recovered.
 To ensure that published messages reach RabbitMQ applications need to use [Publisher Confirms](confirms.html)
 and account for connection failures.
-            
+
 ### <a id="topology-recovery" class="anchor" href="#topology-recovery">Topology Recovery</a>
 
 Topology recovery involves recovery of exchanges, queues, bindings
@@ -794,9 +794,9 @@ Connection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
 </pre>
-            
+
 ### <a id="automatic-recovery-limitations" class="anchor" href="#automatic-recovery-limitations">Failure Detection and Recovery Limitations</a>
-            
+
 Automatic connection recovery has a number of limitations and intentional
 design decisions that applications developers need to be aware of.
 
@@ -835,9 +835,9 @@ the case.
 Closed channels won't be recovered even after connection recovery kicks in.
 This includes both explicitly closed channels and the channel-level exception
 case above.
-            
+
 ### <a id="basic-ack-and-recovery" class="anchor" href="#basic-ack-and-recovery">Manual Acknowledgements and Automatic Recovery</a>
-            
+
 When manual acknowledgements are used, it is possible that
 network connection to RabbitMQ node fails between message
 delivery and acknowledgement. After connection recovery,
