@@ -94,23 +94,21 @@ curl -H "Accept:application/json" -u guest:guest "http://localhost:15672/api/def
 
 ## <a id="import-on-boot" class="anchor" href="#import-on-boot">Definition Import at Node Boot Time</a>
 
-Most recent releases support definition import directly in the core,
+Modern releases support definition import directly in the core,
 without the need to [preconfigure](/plugins.html#enabled-plugins-file) the [management plugin](/management.html).
 
-As of RabbitMQ `3.8.6`, definition import happens after plugin activation.
-This means that definitions related to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on)
-can be imported at boot time.
-
 To import definitions from a local file on node boot,
-set the `load_definitions`config key
-to the path of a previously exported JSON file containing
-the definitions that should be imported on node boot:
+set the `load_definitions` config key to a path of a previously exported JSON file with definitions:
 
 <pre class="lang-ini">
 # New in RabbitMQ 3.8.2.
 # Does not require management plugin to be enabled.
 load_definitions = /path/to/definitions/file.json
 </pre>
+
+As of RabbitMQ `3.8.6`, definition import happens after plugin activation.
+This means that definitions related to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on)
+can be imported at boot time.
 
 The definitions in the file will not overwrite anything already in the broker.
 However, if a blank (uninitialised) node imports a definition file, it will
