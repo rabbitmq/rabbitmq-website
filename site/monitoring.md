@@ -806,6 +806,12 @@ Note that this list is by no means complete.
       </td>
     </tr>
     <tr>
+      <td>Dynatrace</td>
+      <td>
+        <a href="https://www.dynatrace.com/technologies/rabbitmq-monitoring/">Dynatrace RabbitMQ monitoring</a>
+      </td>
+    </tr>
+    <tr>
       <td>Ganglia</td>
       <td><a href="https://github.com/ganglia/gmond_python_modules/tree/master/rabbit">GitHub</a></td>
     </tr>

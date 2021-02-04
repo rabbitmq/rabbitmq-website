@@ -58,7 +58,14 @@ sudo pip install lxml markdown
 To run a local copy manually on [localhost:8191](http://localhost:8191), use:
 
 ```sh
-./driver.py [www|next|previous]
+./driver.py
+```
+
+To run a local copy of the "next" version of the site (usually only relevant for `master` and
+documentation work for the next feature release):
+
+```sh
+./driver.py next
 ```
 
 #### On Debian-based Linux
