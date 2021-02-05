@@ -49,12 +49,12 @@ the ordering as observed by consumers.
 
 Queues have names so that applications can reference them.
 
-Applications may pick queue names or ask the broker to generate a name
+Applications may pick queue names or ask the broker to [generate a name](#server-named-queues)
 for them. Queue names may be up to 255 bytes of UTF-8 characters.
 
 Queue names starting with "amq." are reserved for internal
 use by the broker. Attempts to declare a queue with a name that
-violates this rule will result in a channel-level exception
+violates this rule will result in a [channel-level exception](/channels.html)
 with reply code 403 (<code>ACCESS_REFUSED</code>).
 
 ### <a id="server-named-queues" class="anchor" href="#server-named-queues">Server-named Queues</a>
@@ -65,6 +65,15 @@ argument: The same generated name may be obtained by subsequent
 methods in the same channel by using the empty string where a queue
 name is expected. This works because the channel remembers the last
 server-generated queue name.
+
+Server-named queues are meant to be used for state that is transient
+in nature and specific to a particular consumer (application instance).
+Applications can share such names in message metadata to let other applications respond
+to them (as demonstrated in [tutorial six](/getstarted.html)).
+Otherwise, the names of server-named queues should be known and used only by the
+declaring application instance. The instance should also set up appropriate
+bindings (routing) for the queue, so that publishers can use well-known
+exchanges instead of the server-generated queue name directly.
 
 
 ## <a id="properties" class="anchor" href="#properties">Properties</a>
