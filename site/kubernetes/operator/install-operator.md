@@ -167,8 +167,9 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     metadata:
       annotations:
     ...
-	openshift.io/sa.scc.supplemental-groups: 1000/1
-	openshift.io/sa.scc.uid-range: 1000/1
+        openshift.io/sa.scc.supplemental-groups: 1000/1
+        openshift.io/sa.scc.uid-range: 1000/1
+        openshift.io/sa.scc.mcs: 's0:c26,c5'
     </pre>
 
 2. Run the installation command.
@@ -207,6 +208,7 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     allowedCapabilities:
       - "FOWNER"
       - "CHOWN"
+      - "DAC_OVERRIDE"
     volumes:
       - "configMap"
       - "secret"
