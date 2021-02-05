@@ -22,7 +22,7 @@ This guide goes through the following steps:
 
 Many steps in the quickstart - installing the operator, accessing the Management UI, fetching credentials for the RabbitMQ Cluster, are made easier by the `kubectl rabbitmq` plugin. While there are instructions to follow along without using the plugin, getting the plugin will make these commands simpler. To install the plugin, look at its [installation instructions](/kubernetes/operator/install-operator.html).
 
-For extensive documentation on the plugin see [here](/kubernetes/operator/kubectl-plugin.html).
+For extensive documentation on the plugin see the [`kubectl` Plugin guide](/kubernetes/operator/kubectl-plugin.html).
 
 ## Install the RabbitMQ Cluster Operator
 

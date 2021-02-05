@@ -1,4 +1,4 @@
-# RabbitMQ Cluster Operator plugin for kubectl
+# RabbitMQ Cluster Operator Plugin for kubectl
 
 This guide covers the RabbitMQ Cluster Operator plugin for kubectl.
 This plugin makes it easy to install the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
@@ -19,9 +19,7 @@ For a more detailed guide on using the operator and how to deploy Custom Resourc
 
 [Krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/) is the plugin manager for kubectl command-line tool. 
 
-Get krew for your system [here](https://krew.sigs.k8s.io/docs/user-guide/setup/install/).
-
-Verify your krew installation.
+After installing `krew`, verify the installation:
 
 <pre class="lang-bash">
 kubectl krew
@@ -99,7 +97,7 @@ Displays all RabbitMQ clusters deployed by the RabbitMQ cluster operator on the 
 kubectl rabbitmq delete INSTANCE
 </pre>
 
-Delete a RabbitMQ cluster, or multiple RabbitMQ clusters. When deleting multiple RabbitMQ clusters, provide a space
+Deletes a RabbitMQ cluster, or multiple RabbitMQ clusters. When deleting multiple RabbitMQ clusters, provide a space
 seperated list.
 
 <pre class="lang-bash">
@@ -129,7 +127,7 @@ kubectl rabbitmq debug INSTANCE
 </pre>
 
 Sets the log level on all nodes to debug. For a detailed breakdown on RabbitMQ logging
-see the [logging docs page](/logging.html).
+see the [Logging guide](/logging.html).
 
 ### <a id='tail' class='anchor' href='#tail'>Tail Logs</a>
 
@@ -137,8 +135,12 @@ see the [logging docs page](/logging.html).
 kubectl rabbitmq tail INSTANCE
 </pre>
 
-Attach to live log output from all RabbitMQ nodes. This requires the `tail` plugin for kubectl.
-Install it with `kubectl krew install tail`.
+Attach to live log output from all RabbitMQ nodes. This requires the `tail` plugin for `kubectl`.
+Install it with
+
+<pre class="lang-bash">
+kubectl krew install tail
+</pre>
 
 ### <a id='observe' class='anchor' href='#observe'>Observe</a>
 
@@ -146,7 +148,7 @@ Install it with `kubectl krew install tail`.
 kubectl rabbitmq observe INSTANCE INDEX
 </pre>
 
-Opens the [rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) observer interface for a given node.
+Opens the [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) observer interface for a given node.
 
 ### <a id='feature-flags' class='anchor' href='#feature-flags'>Enable All Feature Flags</a>
 
@@ -154,8 +156,7 @@ Opens the [rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) observer interfac
 kubectl rabbitmq enable-all-feature-flags INSTANCE 
 </pre>
 
-This command wraps the `rabbitmqctl` CLI to enable all possible feature flags.
-For comprehensive documentation on all feature flags see [here](/feature-flags.html).
+This command uses [`rabbitmqctl`](/cli.html) to enable all possible [feature flags](/feature-flags.html).
 
 ### <a id='pause-reconciliation' class='anchor' href='#pause-reconciliation'>Pause Reconciliation</a>
 
@@ -163,8 +164,8 @@ For comprehensive documentation on all feature flags see [here](/feature-flags.h
 kubectl rabbitmq pause-reconciliation INSTANCE 
 </pre>
 
-This adds the label "rabbitmq.com/pauseReconciliation=true" to your RabbitMQ cluster, which prevents the operator from
-watching and updating the instance.
+This adds the label "rabbitmq.com/pauseReconciliation=true" to the target RabbitMQ cluster.
+The label prevents the Operator from watching and updating the instance.
 
 ### <a id='resume-reconciliation' class='anchor' href='#resume-reconciliation'>Resume Reconciliation</a>
 
@@ -207,4 +208,4 @@ To monitor PerfTest, add the following ServiceMonitor:
 </pre>
 
 ---
-Please submit feedback and feature requests for the RabbitMQ Cluster Operator plugin for kubectl [here](https://github.com/rabbitmq/cluster-operator).
+Please submit feedback and feature requests for the RabbitMQ Cluster Operator [on GitHub](https://github.com/rabbitmq/cluster-operator).
