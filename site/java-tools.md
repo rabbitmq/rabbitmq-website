@@ -65,9 +65,6 @@ runtracer [proxy-port] [upstream-host] [upstream-port]
 
 ## <a id="tracer-download" class="anchor" href="#tracer-download">Download and Source Code</a>
 
-Releases can be obtained from:
-
- * [GitHub](https://github.com/rabbitmq/rabbitmq-tracer/releases)
- * [Bintray](https://bintray.com/rabbitmq/java-tools/tracer)
+Releases can be obtained from [GitHub](https://github.com/rabbitmq/rabbitmq-tracer/releases).
 
 [Source repository](https://github.com/rabbitmq/rabbitmq-tracer) is hosted on GitHub.

@@ -48,16 +48,6 @@ There's a separate [binary package for Windows](/install-windows-manually.html).
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz.asc">Signature</a>
     </td>
   </tr>
-
-  <tr>
-    <td>
-      Alternative download location (from <a href="https://bintray.com/rabbitmq/binaries">Bintray</a>)
-    </td>
-    <td>
-      <a href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">rabbitmq-server-generic-unix-&version-server;.tar.xz</a>
-    </td>
-    <td></td>
-  </tr>
 </table>
 
 
