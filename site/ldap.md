@@ -81,7 +81,7 @@ and ignore the internal database:
 auth_backends.1 = ldap
 </pre>
 
-If [`advanced.config` file](/configure.html#erlang-term-config-file), the same settings would look like this:
+In [`advanced.config` file](/configure.html#erlang-term-config-file), the same settings would look like this:
 
 <pre class="lang-erlang">
 {rabbit, [
