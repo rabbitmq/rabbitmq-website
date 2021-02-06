@@ -2,14 +2,14 @@
 
 This guide covers the RabbitMQ Cluster Operator plugin for kubectl.
 This plugin makes it easy to install the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
-into any Kuberenetes instance and offers several commands for common workflows with RabbitMQ clusters.
+into any Kubernetes instance and offers several commands for common workflows with RabbitMQ clusters.
 
-The only pre-requesites to using the plugin are a working installation of kubectl and krew.
+The only prerequisites to using the plugin are a working installation of kubectl and krew.
 
 1. [Install the plugin](#install)
 2. [Using the plugin](#using)
 
-Each plugin command automates many interactions with the kuberenetes API and the RabbitMQ cluster operator.
+Each plugin command automates many interactions with the kubernetes API and the RabbitMQ cluster operator.
 For a more detailed guide on using the operator and how to deploy Custom Resource objects it manages, see the
 [Using RabbitMQ Cluster Operator](/kubernetes/operator/using-operator.html) page.
 ---
@@ -89,7 +89,7 @@ secret/hello-rmq-erlang-cookie   Opaque   1      5h31m
 kubectl rabbitmq list
 </pre>
 
-Displays all RabbitMQ clusters deployed by the RabbitMQ cluster operator on the target kuberentes instance.
+Displays all RabbitMQ clusters deployed by the RabbitMQ cluster operator on the target kubernetes instance.
 
 ### <a id='delete-rmq' class='anchor' href='#delete-plugin'>Delete RabbitMQ cluster</a>
 
@@ -98,7 +98,7 @@ kubectl rabbitmq delete INSTANCE
 </pre>
 
 Deletes a RabbitMQ cluster, or multiple RabbitMQ clusters. When deleting multiple RabbitMQ clusters, provide a space
-seperated list.
+separated list.
 
 <pre class="lang-bash">
 kubectl rabbitmq delete rmq1 rmq2 rmq3
