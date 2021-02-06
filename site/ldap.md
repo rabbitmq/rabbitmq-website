@@ -69,7 +69,7 @@ After enabling the plugin it is necessary to configure the node to use it.
 
 This involves
 
- * Listing `ldap` as an [authentication (authN) and/or authorization (authZ) backend](/access-control.html)
+ * Listing LDAP as an [authentication (authN) and/or authorization (authZ) backend](/access-control.html)
  * Configuring [LDAP server endpoints](#connectivity)
  * Specifying what [LDAP queries](#query-types) will be used for various authZ permission checks
 
