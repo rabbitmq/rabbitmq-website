@@ -13,7 +13,7 @@ Certain errors have dedicated sections:
 + [RabbitMQ cluster fails to deploy](#cluster-fails-to-deploy)
 + [Pods are not being created](#pods-are-not-created)
 + [Pods are stuck in the terminating state](#pods-stuck-in-terminating-state)
-+ [Cluster Operator crashes on startup](#operator-crash-on-startup)
++ [Cluster Operator fails on startup](#operator-failure-on-startup)
 
 ### <a id="cluster-fails-to-deploy" class="anchor" href="#cluster-fails-to-deploy">RabbitMQ Cluster Fails to Deploy</a>
 
@@ -101,13 +101,13 @@ kubectl -n rmq-instance-1 get all
 # statefulset.apps/example-server  1/1     2m28s
 </pre>
 
-### <a id="operator-crash-on-startup" class="anchor" href="#operator-crash-on-startup">Cluster Operator Crashes on Startup</a>
+### <a id="operator-failure-on-startup" class="anchor" href="#operator-failure-on-startup">Cluster Operator Fails on Startup</a>
 
-After deploying RabbitMQ Cluster Operator, it crashes during startup and its pod is restarted.
+After deploying RabbitMQ Cluster Operator, it fails during startup and its pod is restarted.
 
 Common reasons for such failure are:
 
- * Operator can't connect to the Kubernetes API.
+ * The Operator can't connect to the Kubernetes API.
 
 Potential solution to resolve this issue:
 
