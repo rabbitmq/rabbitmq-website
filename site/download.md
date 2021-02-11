@@ -88,28 +88,11 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * [Release Signing Key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc) <code>0x6B73A36E6026DFCA</code> (on GitHub)
  * [How to Verify Release Artifact Signatures](/signatures.html)
  * [Release Signing Key](/rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
- * [Release Signing Key](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc) (alternative download location on Bintray)
-
-
-## Downloads [on Bintray](https://bintray.com/rabbitmq/all)
-
-Bintray is an alternative download location that provides a subset of packages compared to [GitHub](#install-from-github).
-
- * [Windows installer](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe)
- * [Debian, Ubuntu](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-1_all.deb) |
-   [Erlang Debian packages](https://bintray.com/rabbitmq-erlang/debian/erlang)
- * [RHEL/CentOS 8.x and 7.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.el7.noarch.rpm) |
-   [RHEL/CentOS 6.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.el6.noarch.rpm) |
-   [OpenSUSE](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.suse.noarch.rpm) |
-   [SLES 11.x](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-1.sles11.noarch.rpm) |
-   [Erlang RPM packages](https://bintray.com/rabbitmq-erlang/rpm/erlang)
- * [Generic UNIX binary](https://dl.bintray.com/rabbitmq/all/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
 
 
 ## Older Versions
 
-* [3.5.x](https://github.com/rabbitmq/rabbitmq-server/releases) |
-* [Older than 3.5.0](https://www.rabbitmq.com/releases/rabbitmq-server/)
+* [3.5.x](https://github.com/rabbitmq/rabbitmq-server/releases)
 
 
 ## Client Libraries

@@ -48,8 +48,7 @@ The direct download method is recommended because most key servers are prone to 
 
 #### Direct Download
 
-The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
-[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/) and
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
@@ -91,8 +90,7 @@ On Debian and Ubuntu systems, assuming that [apt repositories](/install-debian.h
 
 #### Direct Download
 
-The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
-[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/) and
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
@@ -120,8 +118,7 @@ On RPM-based systems (RHEL, Fedora, CentOS), assuming that [yum repositories](/i
 
 #### Direct Download
 
-The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/),
-[Bintray](https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc), and
+The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/) and
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">

@@ -26,9 +26,9 @@ Common reasons for such failure are:
 Potential solution to resolve this issue:
 
  * Correct the <code>imagePullSecrets</code> and <code>storageClassName</code>
-   configurations. See [imagePullSecrets](/using-cluster-operator.html#image-pull-secrets),
-   [Persistence](/using-cluster-operator.html#persistence), and
-   [Update a RabbitMQ Instance](/using.html#update).
+   configurations. See [imagePullSecrets](/kubernetes/operator/using-operator.html#image-pull-secrets),
+   [Persistence](/kubernetes/operator/using-operator.html#persistence), and
+   [Update a RabbitMQ Instance](/kubernetes/operator/using-operator.html#update).
  * If the issue persists after updating the above configurations, view the status
    of your RabbitMQ cluster resources by following in the procedure in
    [Check the Status of an Instance](#check-instance-status)
@@ -49,7 +49,7 @@ Kubernetes cluster, but you have not created the necessary `PodSecurityPolicy` a
 corresponding role-based access control (RBAC) resources.
 
 Potential solution is to create the PodSecurityPolicy and RBAC resources by following the procedure in
-[Pod Security Policies](/using-cluster-operator.html#psp)
+[Pod Security Policies](/using-operator.html#psp)
 
 ### <a id="pods-stuck-in-terminating-state" class="anchor" href="#pods-stuck-in-terminating-state">Pods Are Stuck in the Terminating State</a>
 

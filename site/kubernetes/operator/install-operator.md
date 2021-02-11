@@ -167,8 +167,8 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     metadata:
       annotations:
     ...
-	openshift.io/sa.scc.supplemental-groups: 1000/1
-	openshift.io/sa.scc.uid-range: 1000/1
+        openshift.io/sa.scc.supplemental-groups: 1000/1
+        openshift.io/sa.scc.uid-range: 1000/1
     </pre>
 
 2. Run the installation command.
@@ -207,6 +207,7 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     allowedCapabilities:
       - "FOWNER"
       - "CHOWN"
+      - "DAC_OVERRIDE"
     volumes:
       - "configMap"
       - "secret"
@@ -236,4 +237,24 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
 
     <pre class="lang-bash">
     oc adm policy add-scc-to-user rabbitmq-cluster -z my-rabbitmq-server
+    </pre>
+
+6. (optional) If the cluster operator fails to create with the below error:
+
+    <pre class="lang-bash">
+    Events:
+    Type     Reason        Age                 From                   Message
+    ----     ------        ----                ----                   -------
+    Warning  FailedCreate  74s (x107 over 9h)  replicaset-controller  Error creating: pods "rabbitmq-cluster-operator-79888fd8c8-" is forbidden: unable to validate against any security context constraint: []
+    </pre>
+
+    This could be a result of the default SELinuxContext in the Openshift project is not compatible with the cluster operator. To fix this issue, add an additional annotation in the `rabbitmq-system` namespace:
+
+    <pre class="lang-yaml">
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      annotations:
+    ...
+        openshift.io/sa.scc.mcs: 's0:c26,c5'
     </pre>

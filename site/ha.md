@@ -526,7 +526,7 @@ client need take any action or be informed of the failure.
 Note that mirror failures may not be detected immediately and
 the interruption of the per-connection flow control mechanism
 can delay message publication. The details are described
-[here](nettick.html).
+in the [Inter-node Communication Heartbeats](nettick.html) guide.
 
 If the master fails, then one of the mirrors will be promoted to
 master as follows:
