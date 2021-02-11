@@ -13,6 +13,7 @@ Certain errors have dedicated sections:
 + [RabbitMQ cluster fails to deploy](#cluster-fails-to-deploy)
 + [Pods are not being created](#pods-are-not-created)
 + [Pods are stuck in the terminating state](#pods-stuck-in-terminating-state)
++ [Cluster Operator crashes on startup](#operator-crash-on-startup)
 
 ### <a id="cluster-fails-to-deploy" class="anchor" href="#cluster-fails-to-deploy">RabbitMQ Cluster Fails to Deploy</a>
 
@@ -100,3 +101,20 @@ kubectl -n rmq-instance-1 get all
 # statefulset.apps/example-server  1/1     2m28s
 </pre>
 
+### <a id="operator-crash-on-startup" class="anchor" href="#operator-crash-on-startup">Cluster Operator Crashes on Startup</a>
+
+After deploying RabbitMQ Cluster Operator, it crashes during startup and its pod is restarted.
+
+Common reasons for such failure are:
+
+ * Operator can't connect to the Kubernetes API.
+
+Potential solution to resolve this issue:
+
+ * Check whether the Operator is still crashing. Pod restarts solve many interim issues and therefore a restart is a symptom, not a problem.
+ * Check the Operator logs (`kubectl -n rabbitmq-system logs -l app.kubernetes.io/name=rabbitmq-cluster-operator`)
+ * You may see an error such as:
+   * `Failed to get API Group-Resources`
+   * `Get https://ADDRESS:443/api: connect: connection refused`
+ * Check whether your Kubernetes cluster is healthy, specifically the `kube-apiserver` component
+ * Check whether any security network policies could prevent the Operator from reaching the Kubernetes API server
