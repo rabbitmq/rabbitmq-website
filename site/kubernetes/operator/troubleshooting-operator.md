@@ -26,9 +26,9 @@ Common reasons for such failure are:
 Potential solution to resolve this issue:
 
  * Correct the <code>imagePullSecrets</code> and <code>storageClassName</code>
-   configurations. See [imagePullSecrets](/using-operator.html#image-pull-secrets),
-   [Persistence](/using-operator.html#persistence), and
-   [Update a RabbitMQ Instance](/using-operator.html#update).
+   configurations. See [imagePullSecrets](/kubernetes/operator/using-operator.html#image-pull-secrets),
+   [Persistence](/kubernetes/operator/using-operator.html#persistence), and
+   [Update a RabbitMQ Instance](/kubernetes/operator/using-operator.html#update).
  * If the issue persists after updating the above configurations, view the status
    of your RabbitMQ cluster resources by following in the procedure in
    [Check the Status of an Instance](#check-instance-status)
