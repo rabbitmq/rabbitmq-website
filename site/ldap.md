@@ -66,17 +66,22 @@ The LDAP plugin ships with RabbitMQ. To enable it, use
 ## <a id="essential-configuration" class="anchor" href="#essential-configuration">Enabling LDAP AuthN and AuthZ backends</a>
 
 After enabling the plugin it is necessary to configure the node to use it.
-To do so, add `rabbit_auth_backend_ldap` to the list of `auth_backends`.
-See the [Access Control](/access-control.html) guide for an overview of authentication
-and authorisation backends and how they are used.
 
-The following example will configure RabbitMQ to **only** check LDAP for users, and ignore the internal database:
+This involves
 
-<pre class="lang-init">
+ * Listing LDAP as an [authentication (authN) and/or authorization (authZ) backend](/access-control.html)
+ * Configuring [LDAP server endpoints](#connectivity)
+ * Specifying what [LDAP queries](#query-types) will be used for various authZ permission checks
+
+The following example will configure RabbitMQ to **only** use LDAP for authentication and authorisation,
+and ignore the internal database:
+
+<pre class="lang-ini">
+# use LDAP exclusively for authentication and authorisation
 auth_backends.1 = ldap
 </pre>
 
-The same can be done using the [advanced config format](/configure.html#erlang-term-config-file):
+In [`advanced.config` file](/configure.html#erlang-term-config-file), the same settings would look like this:
 
 <pre class="lang-erlang">
 {rabbit, [
@@ -84,15 +89,17 @@ The same can be done using the [advanced config format](/configure.html#erlang-t
 ]}
 </pre>
 
-The following example will instruct the node to check LDAP first and then fall back to the internal
+The following example will instruct the node to try LDAP first and then fall back to the internal
 database if the user cannot be authenticated through LDAP:
 
 <pre class="lang-ini">
+# try LDAP first
 auth_backends.1 = ldap
+# fall back to the internal database
 auth_backends.2 = internal
 </pre>
 
-Same example in the [advanced config format](/configure.html#erlang-term-config-file):
+Same example in the [`advanced.config` format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 {rabbit,[
@@ -100,16 +107,19 @@ Same example in the [advanced config format](/configure.html#erlang-term-config-
 ]}
 </pre>
 
-In example, LDAP will be used for authentication first. If the user is found in LDAP then the
-password will be checked against LDAP and subsequent authorisation
-checks will be performed against the internal database (therefore
-users in LDAP must exist in the internal database as well, but do not
-need a password there). If the user is not found in LDAP then a second
+In the following example, LDAP will be used for authentication first.
+If the user is found in LDAP then the password will be checked against LDAP and
+subsequent authorisation checks will be performed against the internal database (therefore
+users in LDAP must exist in the internal database as well, optionally with a blank password).
+If the user is not found in LDAP then a second
 attempt is made using only the internal database.
 
 <pre class="lang-ini">
+# use LDAP for authentication first
 auth_backends.1.authn = ldap
+# use internal database for authorisation
 auth_backends.1.authz = internal
+# fall back to the internal database
 auth_backends.2 = internal
 </pre>
 
@@ -123,8 +133,8 @@ In the [advanced config format](/configure.html#erlang-term-config-file):
 ## <a id="basic" class="anchor" href="#basic">Configuration</a>
 
 Once the plugin is enabled and its backends are wired in, a number of LDAP-specific
-settings must be configured. They include LDAP server list, authentication and
-authorisation settings and more.
+settings must be configured. They include a list of LDAP servers, authentication and
+authorisation settings, and more.
 
 The default configuration allows all users to access all objects in
 all vhosts, but does not make them administrators. Restricting access is possible
@@ -245,7 +255,7 @@ auth_ldap.use_ssl   = true
 ].
 </pre>
 
-An example that uses both of the above and uses the [classic config format](/configure.html):
+An example that uses both of the above and uses the [advanced.config format](/configure.html):
 
 <pre class="lang-erlang">
 [
