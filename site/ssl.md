@@ -33,7 +33,8 @@ connections:
  * TLS configuration in [Java](#java-client) and [.NET](#dotnet-client) clients
  * [Peer (certificate chain) verification](#peer-verification)
  * Public [key usage extensions](#key-usage) relevant to RabbitMQ
- * [Enabled TLS version](#tls-versions) and [cipher suite](#cipher-suites) configuration
+ * How to control what [TLS version](#tls-versions) and [cipher suite](#cipher-suites) are enabled
+ * [TLSv1.3](#tls1.3) support
  * Tools that can be used to [evaluate a TLS setup](#tls-evaluation-tools)
  * Known [attacks on TLS](#major-vulnerabilities) and their mitigation
  * How to use [private key passwords](#private-key-passwords)
@@ -1152,7 +1153,7 @@ TLS version by default, as demonstrated in the below table.
   <tbody>
     <tr>
       <td>23.x</td>
-      <td>TLSv1.3 and TLSv1.2</td>
+      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
     </tr>
     <tr>
       <td>22.x</td>
@@ -1167,48 +1168,121 @@ Consider TLSv1.0 and TLSv1.1 to be **deprecated by the industry**.
 
 ### <a id="tls-versions-why-not-limit" class="anchor" href="#tls-versions-why-not-limit">Why Not Limit TLS Versions</a>
 
-Limiting TLS versions to TLSv1.2 only means that clients that [support older TLS versions only](#tls-version-support-in-jdk-and-net) (e.g. JDK 6 or .NET 4.0) won't be able to connect.
+Limiting TLS versions to only TLSv1.3 or even only TLSv1.2 means that clients
+that [support older TLS versions only](#tls-version-support-in-jdk-and-net) won't be able to connect.
 
 If support for applications that use such old runtimes is important, the server must
-be configured to support older versions of TLS, namely TLSv1.1. All other users
-are encouraged to limit supported TLS versions to 1.2 and later versions only.
+be configured to support older versions of TLS. In most cases, supporting TLSv1.2
+should be sufficient.
 
 ### <a id="tls-versions-server" class="anchor" href="#tls-versions-server"></a>
 
 To limit enabled TLS protocol versions, use the `ssl_options.versions` setting.
 
-The example below disable versions older than TLSv1.1:
+The example below only accepts TLSv1.3 (the most recent and secure version),
+and requires the node to be running on Erlang 23 compiled against a very recent OpenSSL.
+Clients that use older runtimes (e.g. JDK, .NET, Python) without TLSv1.3 support
+**will not be able to connect** with this setup.
+
+<pre class="lang-ini">
+listeners.ssl.1 = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+
+ssl_options.versions.1 = tlsv1.3
+
+# Limits enable cipher suites to only those used by TLSv1.3.
+# There are no cipher suites supported by both TLSv1.3 and TLSv1.2.
+ssl_options.ciphers.1  = TLS_AES_256_GCM_SHA384
+ssl_options.ciphers.2  = TLS_AES_128_GCM_SHA256
+ssl_options.ciphers.3  = TLS_CHACHA20_POLY1305_SHA256
+ssl_options.ciphers.4  = TLS_AES_128_CCM_SHA256
+ssl_options.ciphers.5  = TLS_AES_128_CCM_8_SHA256
+</pre>
+
+The example below disables versions older than TLSv1.2:
 
 <pre class="lang-ini">
 listeners.ssl.1 = 5671
 ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
+
 ssl_options.versions.1 = tlsv1.2
-ssl_options.versions.2 = tlsv1.1
 </pre>
 
 ### <a id="verifying-tls-versions" class="anchor" href="#verifying-tls-versions">Verifying Enabled TLS Versions</a>
 
-To verify provided TLS versions, use `openssl s_client`:
+To verify provided TLS versions, [use `openssl s_client`](https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-openssl.html)
+with an [appropriate TLS version flag](https://www.openssl.org/docs/man1.1.1/man1/openssl-s_client.html):
 
 <pre class="lang-bash">
-# connect using SSLv3
-openssl s_client -connect 127.0.0.1:5671 -ssl3
+# connect using TLSv1.3
+openssl s_client -connect 127.0.0.1:5671 -tls1_3
 </pre>
+
+and look for the following in the output:
+
+<pre class="lang-plaintext">
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+</pre>
+
+In the example below, TLSv1.2 is used:
 
 <pre class="lang-bash">
-# connect using TLSv1.0 through v1.2
-openssl s_client -connect 127.0.0.1:5671 -tls1
+# connect using TLSv1.2
+openssl s_client -connect 127.0.0.1:5671 -tls1_2
 </pre>
 
- and look for the following in the output:
+The protocol and negotiated cipher suite in the output would
+look like so:
 
 <pre class="lang-plaintext">
 SSL-Session:
-Protocol  : TLSv1
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
 </pre>
 
+
+### <a id="tls1.3" class="anchor" href="#tls1.3">TLSv1.3</a>
+
+[TLSv1.3](https://wiki.openssl.org/index.php/TLS1.3) is a major revision to the TLS protocol. It is the most recent
+and secure option. Prior to [RabbitMQ `3.8.11`](/changelog.html), TLSv1.3 support was considered
+experimental and was disabled.
+
+TLSv1.3 support requires the node to be [running on Erlang 23](/which-erlang.html) compiled against a very recent OpenSSL.
+
+
+Clients that use older runtimes (e.g. JDK, .NET, Python) without TLSv1.3 support
+**will not be able to connect** to RabbitMQ nodes that are configured to only accept TLSv1.3 connections.
+
+Because TLSv1.3 shares no cipher suites with earlier TLS versions, when enabling TLSv1.3,
+list a set of TLSv1.3-specific cipher suites:
+
+<pre class="lang-ini">
+listeners.ssl.1 = 5671
+
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+
+ssl_options.versions.1 = tlsv1.3
+
+# Limits enable cipher suites to only those used by TLSv1.3.
+# There are no cipher suites supported by both TLSv1.3 and TLSv1.2.
+ssl_options.ciphers.1  = TLS_AES_256_GCM_SHA384
+ssl_options.ciphers.2  = TLS_AES_128_GCM_SHA256
+ssl_options.ciphers.3  = TLS_CHACHA20_POLY1305_SHA256
+ssl_options.ciphers.4  = TLS_AES_128_CCM_SHA256
+ssl_options.ciphers.5  = TLS_AES_128_CCM_8_SHA256
+</pre>
+
+Explicit cipher suite configuration may also be necessary on the client side.
+
+To verify provided TLS versions, use `openssl s_client` as
+[explained above](#verifying-tls-versions).
 
 ### <a id="tls-version-support-in-jdk-and-net" class="anchor" href="#tls-version-support-in-jdk-and-net">TLS Version Support Table for JDK and .NET</a>
 
@@ -1222,15 +1296,9 @@ explains what TLS versions are supported by what JDK and .NET releases.
     <td>Minimum .NET version</td>
   </thead>
   <tr>
-    <td>TLS 1.0</td>
-    <td>JDK 5 (RabbitMQ Java client requires &minimum-jdk-version;)</td>
-    <td>.NET 2.0 (RabbitMQ .NET client requires &minimum-dotnet-version;)</td>
-  </tr>
-  <tr>
-    <td>TLS 1.1</td>
-    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
-    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
-    <td>.NET 4.5</td>
+    <td>TLS 1.3</td>
+    <td>JDK 8 <a href="https://www.oracle.com/java/technologies/javase/8u261-relnotes.html">starting with JDK8u261</a>, JDK 11+</td>
+    <td><a href="https://github.com/dotnet/docs/issues/4675">.NET 4.7</a> on <a href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls">Windows versions that support TLSv1.3</a></td>
   </tr>
   <tr>
     <td>TLS 1.2</td>
@@ -1238,11 +1306,16 @@ explains what TLS versions are supported by what JDK and .NET releases.
     <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
     <td>.NET 4.5</td>
   </tr>
+  <tr>
+    <td>TLS 1.1</td>
+    <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+    <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a></td>
+    <td>.NET 4.5</td>
+  </tr>
 </table>
 
- * [.NET versions source](http://msdn.microsoft.com/en-us/library/system.security.authentication.sslprotocols(v=vs.110).aspx)
- * [JDK versions source](http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider)
-
+JDK has a [public roadmap on crypt](https://java.com/en/jre-jdk-cryptoroadmap.html) that outlines when certain cipher suites or TLS versions
+will be deprecated or removed.
 
 ## <a id="key-usage" class="anchor" href="#key-usage">Public Key Usage Options</a>
 
