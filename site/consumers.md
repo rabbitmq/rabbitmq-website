@@ -399,7 +399,7 @@ Single active consumer can be enabled when declaring a queue, with the
 
 <pre class="lang-java">
 Channel ch = ...;
-Map<String, Object> arguments = new HashMap<String, Object>();
+Map&lt;String, Object&gt; arguments = new HashMap&lt;String, Object&gt;();
 arguments.put("x-single-active-consumer", true);
 ch.queueDeclare("my-queue", false, false, false, arguments);
 </pre>
