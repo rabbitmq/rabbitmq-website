@@ -474,9 +474,20 @@ good throughput characteristics all members in a quorum queue
 
 Quorum queues use a write-ahead-log (WAL) for all operations.
 WAL operations are stored both in memory and written to disk.
-When the WAL file written to disk reaches a predefined limit, the system will begin to release memory.
-When this limit is reached, the system will also start moving operations that are still required to a long-term storage mechanism.
-The WAL file size limit at which memory and disk start being released defaults to 512MiB.
+When the current WAL file reaches a predefined limit, it is flushed to a WAL segment file on disk
+and the system will begin to release the memory used by that batch of log entries.
+The segment files are then compacted over time as consumers [acknowledge deliveries](/confirms.html).
+Compaction is the process that reclaims disk space.
+
+The WAL file size limit at which it is flushed to disk can be controlled:
+
+``` ini
+# Flush current WAL file to a segment file on disk once it reaches 64 MiB in size
+raft.wal_max_size_bytes = 64000000
+```
+
+The value defaults to 512 MiB. This means that during steady load, the WAL table memory
+footprint can reach 512 MiB.
 
 Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
@@ -485,11 +496,15 @@ More will be required in high-throughput systems. 4 times is a good starting poi
 ### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
 
 It is possible to limit the amount of memory each quorum queue will use for the part of its log that
-is kept in memory. This is done using a couple of [optional queue arguments](/queues.html#optional-arguments)
+is kept in memory. Note that these limits are different from those of the [in-memory Raft WAL table](#resource-use)
+and [queue length limits](/maxlength.html).
+
+The limit is controlled using [optional queue arguments](/queues.html#optional-arguments)
 that are best configured using a [policy](/parameters.html#policies).
 
  * `x-max-in-memory-length` sets a limit as a number of messages. Must be a non-negative integer.
  * `x-max-in-memory-bytes` sets a limit as the total size of message bodies (payloads), in bytes. Must be a non-negative integer.
+
 
 ### <a id="repeated-requeues" class="anchor" href="#repeated-requeues">Repeated Requeues</a>
 
