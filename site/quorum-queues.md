@@ -481,10 +481,10 @@ Compaction is the process that reclaims disk space.
 
 The WAL file size limit at which it is flushed to disk can be controlled:
 
-``` ini
+<pre class="lang-ini">
 # Flush current WAL file to a segment file on disk once it reaches 64 MiB in size
 raft.wal_max_size_bytes = 64000000
-```
+</pre>
 
 The value defaults to 512 MiB. This means that during steady load, the WAL table memory
 footprint can reach 512 MiB.
