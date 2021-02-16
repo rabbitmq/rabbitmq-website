@@ -397,10 +397,12 @@ would be dispatched to all consumers using round-robin.
 Single active consumer can be enabled when declaring a queue, with the
 `x-single-active-consumer` argument set to `true`, e.g. with the Java client:
 
-    Channel ch = ...;
-    Map<String, Object> arguments = new HashMap<String, Object>();
-    arguments.put("x-single-active-consumer", true);
-    ch.queueDeclare("my-queue", false, false, false, arguments);
+<pre class="lang-java">
+Channel ch = ...;
+Map&lt;String, Object&gt; arguments = new HashMap&lt;String, Object&gt;();
+arguments.put("x-single-active-consumer", true);
+ch.queueDeclare("my-queue", false, false, false, arguments);
+</pre>
 
 Compared to [AMQP exclusive consumer](#exclusivity), single active consumer puts
 less pressure on the application side to maintain consumption continuity.

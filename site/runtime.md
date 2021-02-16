@@ -125,15 +125,6 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt none +sbwtdcpu none +sbwtdio none"
 
 This can also reduce CPU usage on systems with limited or burstable CPU resources.
 
-In order to use the minimum amount of busy waiting, use:
-
-<pre class="lang-bash">
-RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+sbwt very_short +sbwtdcpu very_short +sbwtdio very_short"
-</pre>
-
-Disabling busy waiting can result in higher latency and lower throughput but generally
-does reduce CPU usage of the node that can go idle for periods of time.
-
 In order to determine how much time schedulers spend in busy wait, consult [thread activity metrics](#thread-stats).
 Busy waiting will usually be accounted as system time in the output of tools such as `top` and `pidstat`.
 
