@@ -336,16 +336,16 @@ In this configuration clients will make a secure connection to stunnel,
 which will pass the decrypted data through to a "regular" port of the broker (say, 5672 for AMQP 0-9-1 and AMQP 1.0).
 This provides some confidence that the client TLS configuration is correct independently of the broker TLS configuration.
 
-<code>stunnel</code> is a specialised proxy. In this example it will run in daemon mode on the same host as the broker.
+`stunnel` is a specialised proxy. In this example it will run in daemon mode on the same host as the broker.
 In the discussion that follows it is assumed that stunnel will only be used temporarily. It is also possible to use stunnel to
 perform TLS termination but that is out of scope for this guide.
 
-In this example <code>stunnel</code> will connect to the unencrypted port of the broker (5672) and accept
+In this example `stunnel` will connect to the unencrypted port of the broker (5672) and accept
 TLS connections from TLS-capable clients on port 5679.
 
 Parameters are passed via a config file named <code>stunnel.conf</code>. It has the following content:
 
-<pre  class="lang-bash">
+<pre  class="lang-ini">
 foreground = yes
 
 [rabbit-amqp]
@@ -355,24 +355,24 @@ cert = client/key-cert.pem
 debug = 7
 </pre>
 
-<code>stunnel</code> is started as follows:
+`stunnel` is started as follows:
 
 <pre  class="lang-bash">
 cat client_key.pem client_certificate.pem > client/key-cert.pem
 stunnel stunnel.conf
 </pre>
 
-<code>stunnel</code> requires a certificate and its corresponding private key. The certificate
+`stunnel` requires a certificate and its corresponding private key. The certificate
 and private key files must be concatenated as shown above with the <code>cat</code> command.
-<code>stunnel</code> requires that the key not be password-protected.
+`stunnel` requires that the key not be password-protected.
 TLS-capable clients should now be able to connect to port 5679 and any TLS errors will appear
-on the console where <code>stunnel</code> was started.
+on the console where `stunnel` was started.
 
 ## <a id="client-connection" class="anchor" href="#client-connection">Validate RabbitMQ Client Connection to RabbitMQ Node</a>
 
 Assuming none of the previous steps produced errors then you can confidently connect the tested TLS-enabled
 client to the TLS-enabled port of the broker, making sure to stop any running OpenSSL <code>s_server</code>
-or <code>stunnel</code> instances first.
+or `stunnel` instances first.
 
 ## <a id="verify-verification-depth" class="anchor" href="#verify-verification-depth">Certificate Chains and Verification Depth</a>
 
