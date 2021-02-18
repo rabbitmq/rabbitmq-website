@@ -341,11 +341,12 @@ In the discussion that follows it is assumed that stunnel will only be used temp
 perform TLS termination but that is out of scope for this guide.
 
 In this example <code>stunnel</code> will connect to the unencrypted port of the broker (5672) and accept
-TLS connections from TLS-capable clients on port 5679:
+TLS connections from TLS-capable clients on port 5679. (NOTE: stunnel changed its commandline usage between
+version 3 and version 4. stunnel3 is a perl script, providing commandline behaviour of stunnel version &lt; 4.):
 
 <pre  class="lang-bash">
 cat client_key.pem client_certificate.pem > client/key-cert.pem
-stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
+stunnel3 -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7
 </pre>
 
 <code>stunnel</code> requires a certificate and its corresponding private key. The certificate
