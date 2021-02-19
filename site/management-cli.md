@@ -42,7 +42,7 @@ to download. The tool supports
 
 Alternatively, you can download the version of rabbitmqadmin which
 corresponds with the management plugin version &version-server;
-[from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/bin/rabbitmqadmin).
+[from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 
 ## Getting Started
