@@ -31,18 +31,13 @@ HTTP API intentionally doesn't expose certain operations.
 
 ## Obtaining `rabbitmqadmin`
 
-With the management plugin installed, browse to
-`http://{hostname}:15672/cli/rabbitmqadmin`
-to download. The tool supports
+`rabbitmqadmin` can be downloaded from any RabbitMQ node that has
+the management plugin enabled. Navigate to `http://{hostname}:15672/cli/rabbitmqadmin` to download it.
+The tool requires a supported version of Python to be installed.
 
- * Python `3.x`
- * Python `2.6` or later for HTTP connections
- * Python `2.7.9` or later for HTTPS connections
-
-
-Alternatively, you can download the version of rabbitmqadmin which
+Alternatively, the version of `rabbitmqadmin` which
 corresponds with the management plugin version &version-server;
-[from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/bin/rabbitmqadmin).
+can be downloaded [from GitHub](https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/&version-server-tag;/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 
 ## Getting Started
