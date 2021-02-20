@@ -50,7 +50,7 @@ Kubernetes cluster, but you have not created the necessary `PodSecurityPolicy` a
 corresponding role-based access control (RBAC) resources.
 
 Potential solution is to create the PodSecurityPolicy and RBAC resources by following the procedure in
-[Pod Security Policies](/using-operator.html#psp)
+[Pod Security Policies](/kubernetes/operator/using-operator.html#psp).
 
 ### <a id="pods-stuck-in-terminating-state" class="anchor" href="#pods-stuck-in-terminating-state">Pods Are Stuck in the Terminating State</a>
 
