@@ -42,7 +42,7 @@ rabbitmq-plugins enable rabbitmq_stream
 ### <a id="tcp-listeners" class="anchor" href="#tcp-listeners">TCP Listeners</a>
 
 When no configuration is specified the Stream Adapter will listen on
-all interfaces on port 5555 and have a default user login/passcode
+all interfaces on port 5551 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change this, edit your
@@ -60,8 +60,8 @@ while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
 
 <pre class="lang-ini">
-stream.listeners.tcp.1 = 127.0.0.1:5555
-stream.listeners.tcp.2 = ::1:5555
+stream.listeners.tcp.1 = 127.0.0.1:5551
+stream.listeners.tcp.2 = ::1:5551
 </pre>
 
 ### <a id="tcp-listeners-options" class="anchor" href="#tcp-listeners-options">TCP Listener Options</a>
@@ -73,8 +73,8 @@ things such as TCP buffer sizes, inbound TCP connection queue length, whether [T
 are enabled and so on. See the [Networking guide](/networking.html) for details.
 
 <pre class="lang-ini">
-stream.listeners.tcp.1 = 127.0.0.1:5555
-stream.listeners.tcp.2 = ::1:5555
+stream.listeners.tcp.1 = 127.0.0.1:5551
+stream.listeners.tcp.2 = ::1:5551
 
 stream.tcp_listen_options.backlog = 4096
 stream.tcp_listen_options.recbuf  = 131072
