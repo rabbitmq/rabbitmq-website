@@ -27,6 +27,7 @@ This guide covers various topics related to consumers:
  * [Acknowledgement modes](#acknowledgement-modes)
  * [Message properties](#message-properties) and delivery metadata
  * [How to limit number of outstanding deliveries with prefetch](#prefetch)
+ * [Consumer capacity](#metrics-capacity) metric
  * [How to cancel a consumer](#unsubscribing)
  * [Consumer exclusivity](#exclusivity)
  * [Single active consumer](#single-active-consumer)
@@ -319,6 +320,29 @@ With manual acknowledgement mode consumers have a way of limiting how many deliv
 over the network or delivered but unacknowledged). This can avoid consumer overload.
 
 This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html).
+
+
+## <a id="metrics-capacity" class="anchor" href="#metrics-capacity">The Consumer Capacity Metric</a>
+
+RabbitMQ [management UI](/management.html) as well as [monitoring data](/monitoring.html) endpoints such as that for [Prometheus scraping](/prometheus.html)
+display a metric called consumer capacity (previously consumer utilisation) for individual queues.
+
+The metric is computed as a fraction of the time that the queue is able to immediately deliver messages to consumers.
+It helps the operator notice conditions where it **may** be worthwhile adding more consumers (application instances)
+to the queue.
+
+If this number is less than 100%, the queue leader replica may be able to deliver messages faster if:
+
+ * There were more consumers or
+ * The consumers spent less time processing deliveries or
+ * The consumer channels used a higher [prefetch value](#prefetch)
+
+Consumer capacity will be 0% for queues that have no consumers. For queues that have online consumers but
+no message flow, the value will be 100%: the idea is that any number of consumers can sustain this
+kind of delivery rate.
+
+Note that consumer capacity is merely a hint. Consumer applications can and should collect more specific
+metrics about their operations to help with sizing and any possible capacity changes.
 
 ## <a id="unsubscribing" class="anchor" href="#unsubscribing">Cancelling a Consumer (Unsubscribing)</a>
 

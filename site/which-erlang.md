@@ -41,10 +41,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
 
-
   <tr>
     <td>
       <ul>
+        <li>3.8.13</li>
         <li>3.8.12</li>
         <li>3.8.11</li>
         <li>3.8.10</li>
