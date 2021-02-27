@@ -70,6 +70,16 @@ channel.basicQos(10); // Per consumer limit
 channel.basicConsume("my-queue", false, consumer);
 </pre>
 
+A value of `0` is treated as infinite, allowing any number of unacknowledged
+messages.
+
+<pre class="lang-java">
+Channel channel = ...;
+Consumer consumer = ...;
+channel.basicQos(0); // No limit for this consumer
+channel.basicConsume("my-queue", false, consumer);
+</pre>
+
 ## <a id="independent-consumers" class="anchor" href="#independent-consumers">Independent Consumers</a>
 
 This example starts two consumers on the same channel, each of

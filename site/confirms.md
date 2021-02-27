@@ -404,6 +404,8 @@ number of unacknowledged deliveries that are permitted on a
 channel. Once the number reaches the configured count,
 RabbitMQ will stop delivering more messages on the channel
 unless at least one of the outstanding ones is acknowledged.
+(A value of `0` is treated as infinite, allowing any number
+of unacknowledged messages.)
 
 For example, given that there are delivery tags 5, 6, 7, and
 8 unacknowledged on channel `Ch` and channel

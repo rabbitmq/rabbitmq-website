@@ -46,8 +46,8 @@ to not only a different virtual host but an entirely different cluster, so
 virtual host selection primarily acts as a way of organising shovels and access to them,
 much like with the rest of [permission in RabbitMQ](/access-control.html).
 
-Every shovel is also named. The name is used to identify shovels when looking
-at their status and when deleting them.
+Every shovel is also named. The name is used to identify shovels when [inspecting their status](#status),
+[deleting them](#deleting) or [restarting them](#restarting).
 
 
 ## <a id="declaring" class="anchor" href="#declaring">Declaring a Dynamic Shovel</a>
@@ -55,7 +55,7 @@ at their status and when deleting them.
 In this example we will set up a dynamic shovel that will move messages from the queue `"source-queue"` in the
 local RabbitMQ cluster to the queue `"target-queue"` on a remote RabbitMQ node, using AMQP 0-9-1.
 
-### <a id="cli" class="anchor" href="#cli">Using CLI Tools</a>
+### Using CLI Tools
 
 A shovel is declared using the `rabbitmqctl set_parameter` command with component name `shovel`, a shovel
 name and a definition body which is a JSON document:
@@ -165,7 +165,7 @@ The body in this example includes a few keys:
 
 There are other Shovel definition keys that will be covered later in this guide.
 
-### <a id="http-api" class="anchor" href="#http-api">Using HTTP API</a>
+### Using HTTP API
 
 To declare a shovel using the HTTP API, make sure that the [management](/management.html) plugin
 is enabled, then use the following endpoint:
@@ -219,7 +219,7 @@ curl -v -u guest:guest -X PUT http://localhost:15672/api/parameters/shovel/%2f/m
 EOF
 </pre>
 
-### <a id="management-ui" class="anchor" href="#management-ui">Using Management UI</a>
+### Using Management UI
 
 To declare a shovel using the management UI, first make sure that the [management](/management.html) plugin
 is enabled.
@@ -231,31 +231,111 @@ Then
  * Click Add shovel
 
 
+## <a id="status" class="anchor" href="#status">Inspecting Status of Dynamic Shovels</a>
+
+### Using CLI Tools
+
+Use `rabbitmqctl shovel_status` to inspect dynamic shovels in a cluster. The `rabbitmq_shovel`
+plugin must be enabled on the host where this command is executed.
+
+<pre class="lang-bash">
+rabbitmqctl shovel_status --formatter=pretty_table
+</pre>
+
+The output can be formatted as JSON and redirected to a tool such as [`jq`](https://stedolan.github.io/jq/):
+
+<pre class="lang-bash">
+rabbitmqctl shovel_status --formatter=json | jq
+</pre>
+
+### Using HTTP API
+
+`GET /api/shovels` is an endpoint that can be used to list dynamic
+shovels in a cluster. The endpoint is provided by the `rabbitmq_shovel_management` plugin
+which must be enabled on the target node.
+
+<pre class="lang-ini">
+# Note: this user's access is limited to localhost!
+ curl -v -u guest:guest -X GET http://localhost:15672/api/shovels/
+</pre>
+
+To inspect shovels in a specific virtual host, use `GET /api/shovels/{vhost}`
+`{vhost}` is the virtual host name. The value must be percent-encoded.
+
+<pre class="lang-ini">
+# Note: this user's access is limited to localhost!
+ curl -v -u guest:guest -X GET http://localhost:15672/api/shovels/%2f
+</pre>
+
+To inspect status of a specific shovels, use `GET /api/shovels/vhost/{vhost}/{name}`
+`{vhost}` is the virtual host in which the Shovel is running and `{name}`
+is the name of the shovel.  Both values must be percent-encoded.
+
+<pre class="lang-ini">
+# Note: this user's access is limited to localhost!
+ curl -v -u guest:guest -X GET http://localhost:15672/api/shovels/vhost/%2f/my-shovel
+</pre>
+
+### Using Management UI
+
+ * Navigate to `Admin` &gt; `Shovel Status`
+ * Locate the shovel of interest in the table
+
+
+## <a id="restarting" class="anchor" href="#restarting">Restarting a Shovel</a>
+
+A dynamic Shovel can be restarted. Restarting a shovel briefly interrupts its operations
+and makes it reconnect to both source and destination. When an appropriate [acknowledgement mode](/confirms.html) is
+used by a shovel, the interruption is safe: any unacknowledged or unconfirmed ("in flight") messages
+consumed from the source or published to the destination will be automatically requeued
+when the shovel is stopped, and consumed again after the restart.
+### Using CLI Tools
+
+Use `rabbitmqctl restart_shovel` to restart a shovel using its name. The `rabbitmq_shovel`
+plugin must be enabled on the host where this command is executed.
+
+<pre class="lang-bash">
+rabbitmqctl restart_shovel "my-shovel"
+</pre>
+
+### Using HTTP API
+
+`DELETE /api/shovels/vhost/{vhost}/{name}/restart` is an endpoint that restarts
+a dynamic shovel. The endpoint is provided by the `rabbitmq_shovel_management` plugin
+which must be enabled on the target node.
+
+`{vhost}` is the virtual host in which the Shovel is running and `{name}`
+is the name of the shovel to be restarted.  Both values must be percent-encoded.
+
+<pre class="lang-ini">
+# Note: this user's access is limited to localhost!
+ curl -v -u guest:guest -X DELETE http://localhost:15672/api/shovels/vhost/%2f/my-shovel/restart
+</pre>
+
+### Using Management UI
+
+ * Navigate to `Admin` &gt; `Shovel Status`
+ * Locate the shovel of interest in the table
+ * Click Restart and wait for the next UI refresh
+
 ## <a id="deleting" class="anchor" href="#deleting">Deleting a Shovel</a>
 
 ### Using CLI Tools
 
 To delete a Shovel using CLI tools, use `rabbitmqctl clear_parameter` and pass `shovel` for
-component name and a shovel name:
+component name and the name of the shovel that should be deleted:
 
 <pre class="lang-bash">
-rabbitmqctl clear_parameter shovel my-shovel
+rabbitmqctl clear_parameter shovel "my-shovel"
 </pre>
 
 ### Using HTTP API
 
-To delete a shovel using the HTTP API, use the following endpoint:
+`DELETE /api/parameters/shovel/{vhost}/{name}` is the endpoint that can be used
+to delete a shovel.
 
-<pre class="lang-ini">
-DELETE /api/parameters/shovel/{vhost}/{name}
-</pre>
-
-where `{vhost}` is the virtual host in which the Shovel is running and `{name}`
-is the name of the new shovel. Note that this exact command would fail if invoked against
-a remote node. Please [add a new user](/access-control.html) tagged as `policymaker`
-for your own experiments.
-
-A `curl` example:
+`{vhost}` is the virtual host in which the Shovel is running and `{name}`
+is the name of the shovel to be deleted. Both values must be percent-encoded.
 
 <pre class="lang-bash">
 # Note: this user's access is limited to localhost!
