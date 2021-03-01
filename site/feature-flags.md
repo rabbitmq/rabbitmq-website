@@ -217,6 +217,17 @@ It is also possible to list and enable feature flags from the
 
 It is **impossible to disable a feature flag** once it is enabled.
 
+## <a id="how-to-start-new-node-disabled-feature-flags" class="anchor" href="#how-to-start-new-node-disabled-feature-flags">How to Configure the List of Feature Flags to Enable on Startup</a>
+
+By default a new and unclustered node will start with all supported feature flags enabled, but this setting can be overriden. There are two ways to [configure](/configure.html) the list of feature flags to enable out-of-the-box when starting a node for the **first** time:
+
+ 1. Using the `RABBITMQ_FEATURE_FLAGS` environment variable:
+  <pre class="lang-bash">RABBITMQ_FEATURE_FLAGS=quorum_queue,implicit_default_bindings</pre>
+ 2. Using the `forced_feature_flags_on_init` configuration parameter:
+  <pre class="lang-erlang">{rabbit, [{forced_feature_flags_on_init, [quorum_queue, implicit_default_bindings]}]}</pre>
+
+The environment variable has precedence over the configuration parameter.
+
 ## <a id="core-feature-flags" class="anchor" href="#core-feature-flags">List of Core Feature Flags</a>
 
 The feature flags listed below are those provided by RabbitMQ core or
@@ -267,6 +278,46 @@ one of the tier-1 plugins bundled with RabbitMQ.
       </table>
     </td>
   </tr>
+
+  <tr>
+    <td><a id="ff-drop_unroutable_metric" class="anchor" href="#ff-drop_unroutable_metric">drop_unroutable_metric</a></td>
+    <td>
+      Count of dropped unroutable messages in statistics.
+    </td>
+    <td>
+    <table class="feature-flag-lifecycle">
+      <tr><th>Introduction:</th><td>3.8.0</td></tr>
+      <tr><th>Removal:</th><td>-</td></tr>
+    </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td><a id="ff-maintenance_mode_status" class="anchor" href="#ff-maintenance_mode_status">maintenance_mode_status</a></td>
+    <td>
+      Enable <a href="/upgrade.html#maintenance-mode"> maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
+    </td>
+    <td>
+    <table class="feature-flag-lifecycle">
+      <tr><th>Introduction:</th><td>3.8.8</td></tr>
+      <tr><th>Removal:</th><td>-</td></tr>
+    </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td><a id="ff-user_limits" class="anchor" href="#ff-user_limits">user_limits</a></td>
+    <td>
+      Enable connection and queue limits associated to a given user.
+    </td>
+    <td>
+    <table class="feature-flag-lifecycle">
+      <tr><th>Introduction:</th><td>3.8.10</td></tr>
+      <tr><th>Removal:</th><td>-</td></tr>
+    </table>
+    </td>
+  </tr>
+
 </table>
 
 ## <a id="implementation" class="anchor" href="#implementation">How Do Feature Flags Work?</a>
