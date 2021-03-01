@@ -256,7 +256,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-implicit_default_bindings" class="anchor" href="#ff-implicit_default_bindings">implicit_default_bindings</a></td>
     <td>
-      Clean up explicit default bindings now that they are managed implicitly.
+      Cleans up explicit default exchange bindings now that they are managed implicitly.
     </td>
     <td>
     <table class="feature-flag-lifecycle">
@@ -269,7 +269,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-quorum_queue" class="anchor" href="#ff-quorum_queue">quorum_queue</a></td>
     <td>
-      Add the <a href="/quorum-queues.html">quorum queue</a> type.
+      Enables <a href="/quorum-queues.html">quorum queue</a> type.
     </td>
     <td>
       <table class="feature-flag-lifecycle">
@@ -282,7 +282,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-drop_unroutable_metric" class="anchor" href="#ff-drop_unroutable_metric">drop_unroutable_metric</a></td>
     <td>
-      Count of dropped unroutable messages in statistics.
+      Dropped <a href="/publishers.html#unroutable">unroutable message</a> metrics.
     </td>
     <td>
     <table class="feature-flag-lifecycle">
@@ -295,7 +295,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-maintenance_mode_status" class="anchor" href="#ff-maintenance_mode_status">maintenance_mode_status</a></td>
     <td>
-      Enable <a href="/upgrade.html#maintenance-mode"> maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
+      Enable <a href="/upgrade.html#maintenance-mode">maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
     </td>
     <td>
     <table class="feature-flag-lifecycle">
@@ -308,7 +308,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-user_limits" class="anchor" href="#ff-user_limits">user_limits</a></td>
     <td>
-      Enable connection and queue limits associated to a given user.
+      Enable connection and queue limits associated with a given user.
     </td>
     <td>
     <table class="feature-flag-lifecycle">
