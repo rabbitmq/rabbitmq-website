@@ -39,6 +39,17 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.14</td>
+    <td class="centre">2 March 2021</td>
+    <td>
+      <ul>
+        <li>Restores Erlang 22.3 compatibility for <a href="/direct-reply-to.html">direct reply-to</a></li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.14">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.13</td>
     <td class="centre">27 February 2021</td>
     <td>
