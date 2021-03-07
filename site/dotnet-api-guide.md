@@ -147,7 +147,7 @@ factory.Uri = "amqp://user:pass@hostName:port/vhost";
 IConnection conn = factory.CreateConnection();
 </pre>
 
-### <a id="endpoints-list" class="anchor" href="#endpoints-list">Using Lists of Hosts</a>
+### <a id="endpoints-list" class="anchor" href="#endpoints-list">Using Lists of Endpoints</a>
 
 It is possible to specify a list of endpoints to use when connecting. The first
 reachable endpoint will be used. In case of [connection failures](#recovery), using
