@@ -834,15 +834,15 @@ allocation is more than sufficient. The overhead is initially minimal and
 the total thread resources allocated are bounded, even if a burst of consumer
 activity may occasionally occur.
 
-### <a id="address-array" class="anchor" href="#address-array">Using Lists of Hosts</a>
+### <a id="endpoints-list" class="anchor" href="#endpoints-list">Using Lists of Hosts</a>
 
-It is possible to pass an `Address` array
-to `newConnection()`.
-An `Address` is simply a convenience class
-in the `com.rabbitmq.client` package with <i>host</i>
-and <i>port</i> components.
+It is possible to specify a list of endpoints to use when connecting. The first
+reachable endpoint will be used. In case of [connection failures](#recovery), using
+a list of endpoints makes it possible for the application to connect to a different
+node if the original one is down.
 
-For example:
+To use multiple of endpoint, provide a list of `Address`es to `ConnectionFactory#newConnection`.
+An `Address` represents a hostname and port pair.
 
 <pre class="lang-java">
 Address[] addrArr = new Address[]{ new Address(hostname1, portnumber1)
@@ -883,7 +883,7 @@ public interface AddressResolver {
 }
 </pre>
 
-Just like with [a list of hosts](#address-array),
+Just like with [a list of endpoints](#endpoints-list),
 the first `Address` returned will be tried first, then
 the second if the client fails to connect to the first, and so on.
 
