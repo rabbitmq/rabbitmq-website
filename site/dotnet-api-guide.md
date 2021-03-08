@@ -162,7 +162,7 @@ ConnectionFactory factory = new ConnectionFactory();
 factory.UserName = "username";
 factory.Password = "s3Kre7";
 
-var endpoints = new System.Collections.Generic.List<AmqpTcpEndpoint> {
+var endpoints = new System.Collections.Generic.List&lt;AmqpTcpEndpoint&gt; {
   new AmqpTcpEndpoint("hostname"),
   new AmqpTcpEndpoint("localhost")
 };
