@@ -126,7 +126,8 @@ and any other parameters as needed.
 Then call the `ConnectionFactory.CreateConnection()` method to open a connection.
 Successful and unsuccessful client connection events can be [observed in server logs](/networking.html#logging).
 
-The following two code snippets connect to a RabbitMQ node on `hostName`:
+The following two code snippets connect to a RabbitMQ node using a hostname configured
+using the `hostName` property:
 
 <pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
@@ -145,6 +146,30 @@ factory.Uri = "amqp://user:pass@hostName:port/vhost";
 
 IConnection conn = factory.CreateConnection();
 </pre>
+
+### <a id="endpoints-list" class="anchor" href="#endpoints-list">Using Lists of Endpoints</a>
+
+It is possible to specify a list of endpoints to use when connecting. The first
+reachable endpoint will be used. In case of [connection failures](#recovery), using
+a list of endpoints makes it possible for the application to connect to a different
+node if the original one is down.
+
+To use multiple of endpoint, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
+An `AmqpTcpEndpoint` represents a hostname and port pair.
+
+<pre class="lang-csharp">
+ConnectionFactory factory = new ConnectionFactory();
+factory.UserName = "username";
+factory.Password = "s3Kre7";
+
+var endpoints = new System.Collections.Generic.List&lt;AmqpTcpEndpoint&gt; {
+  new AmqpTcpEndpoint("hostname"),
+  new AmqpTcpEndpoint("localhost")
+};
+IConnection conn = factory.CreateConnection(endpoints);
+</pre>
+
+### <a id="connecting-uri" class="anchor" href="#connecting-uri"></a>
 
 Since the .NET client uses a stricter interpretation of the [AMQP 0-9-1 URI spec](/uri-spec.html)
 than the other clients, care must be taken when using URIs.
