@@ -3633,7 +3633,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
       <doc:text>
         <p>
           RabbitMQ v3.1.0 is significant because it introduces an important
-          <a href="https://www.rabbitmq.com/blog/2013/05/01/rabbitmq-3-1-0-in-images/">set of
+          <a href="https://blog.rabbitmq.com/posts/2013/05/rabbitmq-3-1-0-in-images/">set of
           new features</a>, making Rabbit easier to use and manage.
         </p>
         <ul>
@@ -4289,7 +4289,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
             available in beta.  You can read about it on <a
             href="http://blog.heroku.com/archives/2011/8/31/rabbitmq_add_on_now_available_on_heroku/">on
             the Heroku blog</a> and on <a
-            href="https://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
+            href="https://blog.rabbitmq.com/posts/2011/09/rabbitmq-on-heroku/">the
             RabbitMQ blog</a>.  And there is more information and
             links to sample code on <a
             href="http://heroku.srs.rabbitmq.com">this page</a>.

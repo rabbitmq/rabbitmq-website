@@ -311,7 +311,7 @@ limitations under the License.
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicRecoverAsync_System_Boolean_"/>
     </x:decorate>
     <x:decorate target="method" name="basic.reject">
-      <x:url href="https://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
+      <x:url href="https://blog.rabbitmq.com/posts/2010/08/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#basicReject(long, boolean)"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_BasicReject_System_UInt64_System_Boolean_"/>
     </x:decorate>
@@ -338,7 +338,7 @@ limitations under the License.
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
       <x:url href="https://www.rabbitmq.com/e2e.html" label="RabbitMQ Documentation"/>
-      <x:url href="https://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
+      <x:url href="https://blog.rabbitmq.com/posts/2010/10/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#exchangeBind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"/>
       <x:dotnetdoc href="RabbitMQ.Client.IModel.html#RabbitMQ_Client_IModel_ExchangeBind_System_String_System_String_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__"/>
     </x:decorate>

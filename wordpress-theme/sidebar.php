@@ -62,7 +62,7 @@
 
   <?php wp_list_categories('show_count=1&title_li=<h2>Categories</h2>'); ?>
 
-  <li><a href="/blog/feed/">Atom feed</a></li>
+  <li><a href="https://blog.rabbitmq.com/index.xml">Atom feed</a></li>
 
   <?php endif; ?>
   </ul>

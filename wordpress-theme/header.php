@@ -45,7 +45,7 @@
           <li><a href="/#support">Support</a></li>
           <li><a href="/#community">Community</a></li>
           <li><a href="/documentation.html">Docs</a></li>
-          <li><a href="/blog/" class='selected'>Blog</a></li>
+          <li><a href="https://blog.rabbitmq.com/" class='selected'>Blog</a></li>
         </ul>
       </div>
     </div>
