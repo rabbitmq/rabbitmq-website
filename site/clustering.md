@@ -170,7 +170,7 @@ guides.
 Some distributed systems
 have leader and follower nodes. This is generally not true for RabbitMQ.
 All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
-This topic becomes more nuanced when [queue mirroring](ha.html) and plugins
+This topic becomes more nuanced when [quorum queues](quorum-queues.html) and plugins
 are taken into consideration but for most intents and purposes,
 all cluster nodes should be considered equal.
 
