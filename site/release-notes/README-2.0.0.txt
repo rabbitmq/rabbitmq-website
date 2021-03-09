@@ -35,12 +35,12 @@ enhancements
 - instrumentation for asynchronous statistics events, emitting more
   stats than currently available and laying the foundation for
   monitoring a busy broker without crippling performance -
-  see https://www.rabbitmq.com/blog/2010/08/06/management-monitoring-and-statistics/
+  see https://blog.rabbitmq.com/posts/2010/08/management-monitoring-and-statistics/
 - more effective flow control mechanism that does not require
   cooperation from clients and reacts quickly to prevent the broker
   from exhausing memory - see https://www.rabbitmq.com/extensions.html#memsup
 - implement basic.reject - see
-https://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/
+https://blog.rabbitmq.com/posts/2010/08/well-ill-let-you-go-basicreject-in-rabbitmq/
 - simplify plugin activation by moving it into the server startup
 - permit upgrades of Erlang w/o breaking rabbit servers with activated
   plugins

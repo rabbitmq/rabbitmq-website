@@ -1320,7 +1320,7 @@ under the `rabbit` section.
         Messages which need to be paged out due to memory pressure will also use this credit.
       </p>
       <p>
-        The Message Store is the last component in the credit flow chain. <a href="https://www.rabbitmq.com/blog/2015/10/06/new-credit-flow-settings-on-rabbitmq-3-5-5/" target="_blank">Learn about credit flow.</a>
+        The Message Store is the last component in the credit flow chain. <a href="https://blog.rabbitmq.com/posts/2015/10/new-credit-flow-settings-on-rabbitmq-3-5-5/" target="_blank">Learn about credit flow.</a>
       </p>
       <p>
         This value only takes effect when messages are persisted to the message store.

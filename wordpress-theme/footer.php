@@ -11,7 +11,7 @@
           <li><a href="/#support">Support</a></li>
           <li><a href="/#community">Community</a></li>
           <li><a href="/documentation.html">Docs</a></li>
-          <li><a href="/blog/">Blog</a></li>
+          <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
         </ul>
         <p id="copyright">
           Copyright &#169; 2007-2020 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.

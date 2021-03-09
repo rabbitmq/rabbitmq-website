@@ -180,7 +180,7 @@ limitations under the License.
         <li><a href="/#community">Community</a></li>
         <li><a href="/documentation.html">Docs</a></li>
         <xsl:if test="$site-mode = 'www'">
-          <li><a href="/blog/">Blog</a></li>
+          <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
         </xsl:if>
       </ul>
     </div>
@@ -206,7 +206,7 @@ limitations under the License.
           <li><a href="/#community">Community</a></li>
           <li><a href="/documentation.html">Docs</a></li>
           <xsl:if test="$site-mode = 'www'">
-            <li><a href="/blog/">Blog</a></li>
+            <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
           </xsl:if>
         </ul>
         <p id="copyright">
