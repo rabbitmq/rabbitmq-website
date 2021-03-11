@@ -63,8 +63,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 ## Debian (Apt) and RPM (Yum) Repositories
 
  * [Package Cloud](https://packagecloud.io/rabbitmq/)
- * [Bintray](https://bintray.com/rabbitmq/debian) (Apt)
- * [Bintray](https://bintray.com/rabbitmq/rpm) (Yum)
 
 
 ## Cloud
