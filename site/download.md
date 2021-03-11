@@ -90,11 +90,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * [Release Signing Key](/rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
 
 
-## Older Versions
-
-* [3.5.x](https://github.com/rabbitmq/rabbitmq-server/releases)
-
-
 ## Client Libraries
 
 ### Java Client
