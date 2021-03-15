@@ -32,7 +32,7 @@ To specify a non-standard port to be used for Erlang distribution, do the follow
  * Remove the RabbitMQ Windows service using `.\rabbitmq-service.bat remove`
  * Create the `%AppData%\RabbitMQ\rabbitmq-env-conf.bat` file with the following contents (use your own port number):
 
-<pre class="lang-text">
+<pre class="lang-powershell">
 set DIST_PORT=44556
 </pre>
 
