@@ -15,6 +15,7 @@ This guide is structured in the following sections:
 * [Configure a RabbitMQ Instance](#configure).
 * [Update a RabbitMQ Instance](#update).
 * [Set a Pod Disruption Budget](#set-pdb).
+* [Configure TLS](#tls).
 * [Find Your RabbitmqCluster Service Name and Admin Credentials](#find).
 * [Verify the Instance is Running](#verify-instance).
 * [Use the RabbitMQ Service in Your App](#use).
@@ -939,6 +940,87 @@ For more information about concepts mentioned above, see:
 	</tr>
   </col>
 </table>
+
+## <a id='tls' class='anchor' href='#tls'>(Optional) Configure TLS</a>
+
+Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="/ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with <a href="#one-way-tls">TLS</a> or <a href="#mutual-tls">mutual TLS (mTLS)</a> encrypted traffic between clients and the cluter, as well as supporting <a href="https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node">encrypting RabbitMQ inter-node traffic with mTLS</a>. A <a href="/ssl.html#certificates-and-keys">basic overview of TLS</a> is helpful for understanding this guide.
+
+### <a id='one-way-tls' class='anchor' href='#one-way-tls'>TLS encrypting traffic between clients and RabbitMQ</a>
+
+In order to encrypt traffic between clients and the RabbitMQ cluster, the RabbitMQ cluster must be configured with a server certificate and key pair signed by a Certificate Authority (CA) trusted by the clients. This allows clients to verify that the server is trusted, and traffic sent between the client and server are encrypted using the server's keys.
+
+The certificate's Subject Alternative Name (SAN) must contain at least the following attributes:
+* `*.<RabbitMQ cluster name>-nodes.<namespace>.svc.<K8s cluster domain name>`
+* `<RabbitMQ cluster name>.<namespace>.svc.<K8s cluster domain name>`
+
+If wildcards are not permitted, the certificate must provide a SAN attribute for each RabbitMQ node in the RabbitMQ cluster.
+For example, if you deploy a 3-node RabbitMQ cluster named `myrabbit` in namespace `mynamespace` with the default Kubernetes cluster domain `cluster.local`, the SAN must include at least the following attributes:
+* `myrabbit-server-0.myrabbit-nodes.mynamespace.svc.cluster.local`
+* `myrabbit-server-1.myrabbit-nodes.mynamespace.svc.cluster.local`
+* `myrabbit-server-2.myrabbit-nodes.mynamespace.svc.cluster.local`
+* `myrabbit.mynamespace.svc.cluster.local`
+
+Note that the last SAN attribute is the client service DNS name.
+Depending on the service type used (`spec.service.type`), further SAN attributes may be required.
+For example, if using service type `NodePort`, the SAN must include the external IP address of each Kubernetes node.
+
+To enable TLS, create a Kubernetes secret containing the PEM-encoded server certificate `server.pem` and private key `server-key.pem`
+
+<pre class='lang-bash'>
+kubectl create secret tls tls-secret --cert=server.pem --key=server-key.pem
+</pre>
+
+or use a tool such as <a href="https://cert-manager.io/">Cert Manger</a> to generate a TLS secret.
+
+Once this secret exists, a RabbitMQ cluster can be deployed following the <a href="https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls">TLS example</a>.
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: additional-port
+spec:
+  replicas: 1
+  tls:
+    secretName: tls-secret
+</pre>
+
+### <a id='mutual-tls' class='anchor' href='#mutual-tls'>Mutual TLS encryption between clients and RabbitMQ</a>
+
+Mutual TLS (mTLS) enhances TLS by requiring that the server verify the identity of the client, in addition to the client verifying the server, which already occurs in TLS encryption. In order for this mutual verification to occur, both the client and server must be configured with certificate and key pairs, with the client pair signed by a CA trusted by the server and the server pair signed by a CA trusted by the client. The mutual verification process is shown in the following diagram:
+
+<img src="/img/mTLS.png"/>
+
+In addition to the <a href="#one-way-tls">configuration required to support TLS</a>, configuring mutual TLS requires the RabbitMQ cluster to be configured with the CA certificate used to sign the client certificate and key pair, `ca.pem`. Create a Kuberntes secret with key `ca.crt` containing this secret
+
+<pre class='lang-bash'>
+kubectl create secret generic ca-secret --from-file=ca.crt=ca.pem
+</pre>
+
+or create this secret using a tool such as <a href="https://cert-manager.io/">Cert Manager</a>.
+
+Once this secret and the `tls-secret` exist, a RabbitMQ cluster cluster can be deployed following the <a href="https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls">mTLS example</a>.
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: mtls
+spec:
+  replicas: 1
+  tls:
+    secretName: tls-secret
+    caSecretName: ca-secret
+</pre>
+
+In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling <a href="/ssl.html#peer-verification">TLS peer verification</a> using the `ssl_options.fail_if_no_peer_cert` option in the additional config:
+
+<pre class="lang-yaml">
+spec:
+  rabbitmq:
+    additionalConfig: |
+      ssl_options.fail_if_no_peer_cert = true
+</pre>
 
 
 ## <a id='find' class='anchor' href='#find'>Find Your RabbitmqCluster Service Name and Admin Credentials</a>

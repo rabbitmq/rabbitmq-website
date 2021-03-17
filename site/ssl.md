@@ -51,6 +51,8 @@ TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
 which this guide focuses on. [HTTP API](/management.html), [inter-node and CLI tool traffic](/clustering-ssl.html) can be configured
 to use TLS (HTTPS) as well.
 
+To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](/kubernetes/operator/using-operator.html#tls).
+
 For an overview of common TLS troubleshooting techniques, see [Troubleshooting TLS-related issues](troubleshooting-ssl.html)
 and [Troubleshooting Networking](troubleshooting-networking.html).
 
