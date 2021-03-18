@@ -15,18 +15,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Mirrored Queues
+# Classic Queue Mirroring
 
-## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's More: Next Generation Highly Available Queues</a>
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
 [Quorum queues](/quorum-queues.html) is an alternative, more modern queue type
 that offers high availability via replication and focuses on data safety.
 
-In many cases quorum queues would be a superior option
-to classic queue mirroring. Readers are encouraged to get familiar
-with quorum queues and consider them instead of classic mirrored queues.
-
+Quorum queues should be the **default choice** for a replicated queue type.
+Classic mirrored queues will be **removed in a future version** of RabbitMQ.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
