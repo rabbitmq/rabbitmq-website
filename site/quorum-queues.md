@@ -19,13 +19,14 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The quorum queue is a queue type for RabbitMQ implementing a durable,
+The quorum queue is a modern queue type for RabbitMQ implementing a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
 It is available as of RabbitMQ 3.8.0.
 
-The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
-(a.k.a. HA queues) purpose built for a [set of use cases](#use-cases) where [data safety](#data-safety) is
+The quorum queue type is a alternative to durable [mirrored queues](/ha.html)
+purpose built for a [set of use cases](#use-cases) where [data safety](#data-safety) is
 a top priority. This is covered in [Motivation](#motivation).
+They should be considered the default option for a replicated queue type.
 
 Quorum queues also have important [differences in behaviour](#behaviour)
 and some [limitations](#feature-comparison) compared to classic mirrored queues,
@@ -34,6 +35,35 @@ including workload-specific ones, e.g. when consumers [repeatedly requeue the sa
 Some features, such as [poison message handling](#poison-message-handling), are specific
 to quorum queues.
 
+
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+Topics covered in this guide include
+
+ * [What are quorum queues](#motivation) and why they were introduced
+ * [How are they different](#feature-comparison) from classic queues
+ * Primary [use cases](#use-cases) of quorum queues and when not to use them
+ * How to [declare a quorum queue](#usage)
+ * [Replication](#replication)-related topics: replica management, [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
+ * [Performance](#performance) characteristics
+ * [Poison message handling](#poison-message-handling) provided by quorum queues
+ * [Configurable settings](#configuration) of quorum queues
+ * Resource use of quorum queues, most importantly their [memory footprint](#resource-use)
+
+and more.
+
+This guide assumes general familiarity with [RabbitMQ clustering](/clustering.html).
+
+
+## <a id="motivation" class="anchor" href="#motivation">Motivation</a>
+
+Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics
+that users should find easier to reason about when designing and operating their systems.
+
+These design choices come with constraints. To reach this goal, quorum queues adopt a different replication
+and consensus protocol and give up support for certain "transient" in nature features.
+These constraints and limitations are covered later in this guide.
 ### <a id="what-is-quorum" class="anchor" href="#what-is-quorum">What is a Quorum?</a>
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum) in a distributed system can
@@ -44,26 +74,19 @@ When applied to queue mirroring in RabbitMQ [clusters](/clustering.html)
 this means that the majority of replicas (including the currently elected queue master/leader)
 agree on the state of the queue and its contents.
 
-### Differences from Classic Queues
+### Differences from Classic Mirrored Queues
 
-Quorum queues share most of the fundamentals with [queues](/queues.html) in RabbitMQ.
-They are more purpose-built and currently have limitations (do not support certain features).
-The differences will be covered in this guide.
+Quorum queues share many of the fundamentals with [queues](/queues.html) of other types in RabbitMQ.
+However, they are more purpose-built, focus on data safety and predictable recovery,
+and do not support certain feature.
 
-### <a id="motivation" class="anchor" href="#motivation">Motivation</a>
+The differences is covered [is covered](#feature-comparison) in this guide.
 
 Classic mirrored queues in RabbitMQ have technical limitations that makes it difficult to provide
 comprehensible guarantees and clear failure handling semantics.
 
 Certain failure scenarios can result in mirrored queues
 confirming messages too early, potentially resulting in a data loss.
-
-Quorum queues are designed to be safer and provide simpler, well defined failure handling semantics
-that users should find easier to reason about when designing and operating their systems.
-
-These design choices come with constraints. To reach this goal, quorum queues adopt a different replication
-and consensus protocol and give up support for certain "transient" in nature features.
-These constraints and limitations are covered later in this guide.
 
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
@@ -113,8 +136,11 @@ assumed [use cases](#use-cases).
 
 #### Exclusivity
 
-Regular queues can be [exclusive](/queues.html#exclusive-queues). Quorum queues are always durable per their
-assumed [use cases](#use-cases). They are not meant to be used as [temporary queues](/queues.html#temporary-queues).
+[Exclusive queues](queues.html#exclusive-queues) are tied to the lifecycle of their declaring connection.
+Quorum queues by design are replicated and durable, therefore the exclusive property makes
+no sense in their context. Therefore quorum queues cannot be exclusive.
+
+Quorum queues are not meant to be used as [temporary queues](/queues.html#temporary-queues).
 
 #### TTL
 
@@ -191,28 +217,6 @@ In some cases quorum queues should not be used. They typically involve:
 
 
 
-## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
-
-Quorum queues are designed to trade latency for throughput and have been tested
-and compared against [mirrored queues](/ha.html) in 3, 5 and 7 node configurations at several
-message sizes. In scenarios using both consumer acks and publisher confirms
- quorum queues have been observed to have equal or greater throughput to
-classic mirrored queues.
-
-As quorum queues persist all data to disks before doing anything it is recommended
-to use the fastest disks possible. Quorum queues also benefit from consumers
-using higher prefetch values to ensure consumers aren't starved whilst
-acknowledgements are flowing through the system and allowing messages
-to be delivered in a timely fashion.
-
-Due to the disk I/O-heavy nature of quorum queues, their throughput decreases
-as message sizes increase.
-
-Just like mirrored queues, quorum queues are also affected by cluster sizes.
-The more replicas a quorum queue has, the lower its throughput generally will
-be since more work has to be done to replicate data and achieve consensus.
-
-
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
 
 As stated earlier, quorum queues share most of the fundamentals with other [queue](/queues.html) types.
@@ -256,14 +260,25 @@ With some queue operations there are minor differences:
  * Setting [QoS prefetch](#global-qos) for consumers
 
 
+## <a id="replication" class="anchor" href="#replication">Replication and Data Locality</a>
+
+When a quorum queue is declared, an initial number of replicas for it must be started in the cluster.
+By default the number of replicas to be started is up to three, one per RabbitMQ node in the cluster.
+
+Three nodes is the practical minimum of replicas for a quorum queue. In RabbitMQ clusters with a larger
+number of nodes, adding more replicas than a [quorum](#what-is-quorum) (majority) will not provide
+any improvements in terms of [quorum queue availability](#quorum-requirements) but it will consume
+more cluster resources.
+
+Therefore the **recommended number of replicas** for a quorum queue is the quorum of cluster nodes
+(but no fewer than three).
 ### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
 
-By default a quorum queue will start up to five replicas (Raft group members), one per RabbitMQ node in the cluster.
-
 For example, a cluster of three nodes will have three replicas, one on each node.
-In a cluster of seven nodes, five nodes will have one replica each but two nodes won't host any replicas.
+In a cluster of seven nodes, three nodes will have one replica each but four more nodes won't host any replicas
+of the newly declared queue.
 
-Like with mirrored queues, the replication factor (number of replicas a queue has) can be configured for quorum queues.
+Like with classic mirrored queues, the replication factor (number of replicas a queue has) can be configured for quorum queues.
 
 The minimum factor value that makes practical sense is three.
 It is highly recommended for the factor to be an odd number.
@@ -277,6 +292,22 @@ nodes. To control the number of quorum queue members set the
 group size argument provided should be an integer that is greater than zero and smaller or
 equal to the current RabbitMQ cluster size. The quorum queue will be
 launched to run on a random subset of the RabbitMQ cluster.
+
+### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
+
+Every quorum queue has a primary replica. That replica is called
+_queue leader_ (originally "queue master"). All queue operations go through the leader
+first and then are replicated to followers (mirrors). This is necessary to
+guarantee FIFO ordering of messages.
+
+To avoid some nodes in a cluster hosting the majority of queue leader
+replicas and thus handling most of the load, queue leaders should
+be reasonably evenly distributed across cluster nodes.
+
+When a new quorum queue is declared, the set of nodes that will host it
+replicas is randomly picked. Which replica becomes the leader is decided
+by a [leader election](#leader-election) process which is is also
+based on randomization.
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Quorum Group Members)
 
@@ -312,8 +343,26 @@ it replaces.
 Once declared, the RabbitMQ nodes a quorum queue resides on won't change even if the
 members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
 To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
-[command line tool](/cli.html).
+[command line tool](/cli.html):
 
+<pre class="lang-bash">
+# rebalances all quorum queues
+rabbitmq-queues rebalance quorum
+</pre>
+
+it is possible to rebalance a subset of queues selected by name:
+
+<pre class="lang-bash">
+# rebalances a subset of quorum queues
+rabbitmq-queues rebalance quorum --queue-pattern "orders.*"
+</pre>
+
+or quorum queues in a particular set of virtual hosts:
+
+<pre class="lang-bash">
+# rebalances a subset of quorum queues
+rabbitmq-queues rebalance quorum --vhost-pattern "production.*"
+</pre>
 
 
 ## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
@@ -340,7 +389,7 @@ does not require a full re-synchronization from the currently elected leader. On
 will be transferred if a re-joining replica is behind the leader. This "catching up" process
 does not affect leader availability.
 
-Replicas must be explicitly added to
+Except for the initial replica set selection, replicas must be explicitly added to a quorum queue.
 When a new replica is [added](#replica-management), it will synchronise the entire queue state
 from the leader, similarly to classic mirrored queues.
 
@@ -417,32 +466,78 @@ log entries it does not have from the leader, including the dropped ones. Quorum
 will therefore remain consistent.
 
 
+## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
+
+Quorum queues are designed to trade latency for throughput and have been tested
+and compared against durable [classic mirrored queues](/ha.html) in 3, 5 and 7 node configurations at several
+message sizes. In scenarios using both consumer acks and publisher confirms
+ quorum queues have been observed to have equal or greater throughput to
+classic mirrored queues.
+
+As quorum queues persist all data to disks before doing anything it is recommended
+to use the fastest disks possible. Quorum queues also benefit from consumers
+using higher prefetch values to ensure consumers aren't starved whilst
+acknowledgements are flowing through the system and allowing messages
+to be delivered in a timely fashion.
+
+Due to the disk I/O-heavy nature of quorum queues, their throughput decreases
+as message sizes increase.
+
+Just like mirrored queues, quorum queues are also affected by cluster sizes.
+The more replicas a quorum queue has, the lower its throughput generally will
+be since more work has to be done to replicate data and achieve consensus.
+
+
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
 There are a few new configuration parameters that can be tweaked using
 the [advanced](configure.html#advanced-config-file) config file.
 
+Note that all settings related to [resource footprint](#resource-use) are documented
+in a separate section.
+
 The `ra` application (which is the Raft library that quorum
 queues use) has [its own set of tunable parameters](https://github.com/rabbitmq/ra#configuration).
 
-The `rabbit` application has a couple of quorum queue related configuration items:
+The `rabbit` application has several quorum queue related configuration items available.
 
- * `quorum_cluster_size`
+<table>
+  <thead>
+    <tr>
+      <td><code>advanced.config</code> Configuration Key</td>
+      <td>Description</td>
+      <td>Default value</td>
+    </tr>
+  </thead>
 
-Sets the default quorum queue cluster size (can be over-ridden by the `x-quorum-initial-group-size`
-queue argument at declaration time. Default value is 5.
+  <tbody>
+    <tr>
+      <td>rabbit.quorum_cluster_size</td>
+      <td>
+        Sets the default quorum queue cluster size (can be over-ridden by the <code>x-quorum-initial-group-size</code>
+        queue argument at declaration time.
+      </td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>rabbit.quorum_commands_soft_limit</td>
+      <td>
+        This is a flow control related parameter defining
+        the maximum number of unconfirmed messages a channel accepts before entering flow.
+      </td>
+      <td>256</td>
+    </tr>
+  </tbody>
+</table>
 
- * `quorum_commands_soft_limit`
+### Example
 
-This is a flow control related parameter defining
-the maximum number of unconfirmed messages a channel accepts before entering flow.
-Default: 256
-
-Example:
+The following `advanced.config` example modifies all values listed above:
 
 <pre class="lang-erlang">
 [
- {rabbit, [{quorum_cluster_size, 7},
+ %% five replicas by default, only makes sense for nine node clusters
+ {rabbit, [{quorum_cluster_size, 5},
            {quorum_commands_soft_limit, 512}]}
 ]
 </pre>
