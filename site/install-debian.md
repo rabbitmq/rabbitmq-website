@@ -301,8 +301,7 @@ a key server or via direct key download.
 # primary RabbitMQ signing key
 curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
 
-# Launchpad PPA signing key for apt
-sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F77F1EDA57EBB1CC"
+curl -1sLf 'https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key' | sudo apt-key add -
 </pre>
 
 Using a key server:
@@ -311,8 +310,7 @@ Using a key server:
 # primary RabbitMQ signing key
 sudo apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 
-# Launchpad PPA signing key for apt
-sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F77F1EDA57EBB1CC"
+curl -1sLf 'https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key' | sudo apt-key add -
 </pre>
 
 See the [guide on signatures](/signatures.html) to learn more.
@@ -335,9 +333,9 @@ The file should have a source (repository) definition line that uses the followi
 pattern:
 
 <pre class="lang-bash">
-# This Launchpad PPA repository provides Erlang packages produced by the RabbitMQ team
-deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
-deb-src http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
+# This Cloudsmith.io repository provides Erlang packages produced by the RabbitMQ team
+deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu $distribution main
+deb-src https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu $distribution main
 </pre>
 
 The next section discusses what distribution values are supported by the Launchpad PPA.
