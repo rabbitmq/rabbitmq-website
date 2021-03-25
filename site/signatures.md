@@ -86,11 +86,13 @@ gpg --keyserver "pgp.mit.edu" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E602
 ### <a id="importing-apt" class="anchor" href="#importing-apt">With apt</a>
 
 On Debian and Ubuntu systems, assuming that [apt repositories](/install-debian.html) are used for installation,
-`apt-key` should be used to import the key. The direct download method is recommended because SKS servers are prone to overload.
+trusted repository signing keys must be added to `apt-key` before any packages can be installed.
+
+This can be done using key servers or (for the RabbitMQ main signing key) a direct download.
 
 #### Direct Download
 
-The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/) and
+Main RabbitMQ signing key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/releases/) and
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
@@ -99,7 +101,7 @@ curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 
 #### Using a Key Server
 
-The key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
+The same main RabbitMQ signing key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
 
 <pre class="lang-bash">
 apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
@@ -109,6 +111,19 @@ or the SKS key server pool:
 
 <pre class="lang-bash">
 apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
+</pre>
+
+When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
+and [PackageCloud apt repository](https://packagecloud.io/rabbitmq/rabbitmq-server), two more keys need
+to be added:
+
+<pre class="lang-bash">
+## Team RabbitMQ's main signing keys
+sudo apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
+## Launchpad Erlang PPA key
+sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F77F1EDA57EBB1CC"
+## PackageCloud RabbitMQ repository key
+sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F6609E60DC62814E"
 </pre>
 
 ### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
@@ -124,7 +139,6 @@ The key is distributed via [GitHub](https://github.com/rabbitmq/signing-keys/rel
 <pre class="lang-bash">
 rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 </pre>
-
 
 ## <a id="checking-signatures" class="anchor" href="#checking-signatures">Verifying Signatures</a>
 

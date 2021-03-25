@@ -26,13 +26,13 @@ usually outdated and [out of support](/versions.html).
 
 There are two ways to install the most recent version of RabbitMQ on an RPM distribution:
 
- * Installing the package using Yum repositories on [Package Cloud](#package-cloud) or [Bintray](#bintray) (this option is highly recommended)
+ * Installing the package using Yum repositories on [Package Cloud](#package-cloud) (this option is highly recommended)
  * [Downloading](#downloads) the package and installing it with `rpm`. This option will require manual installation of all [package dependencies](#package-dependencies).
 
 The following guide focuses on RabbitMQ installation on RPM-based distributions
 such as Fedora, RHEL and CentOS. It covers a number of topics:
 
- * Package installation from Yum repositories on [Package Cloud](#package-cloud) or [Bintray](#bintray)
+ * Package installation from Yum repositories on [Package Cloud](#package-cloud)
  * How to install a [latest supported Erlang/OTP version](#install-erlang)
  * [Package dependencies](#package-dependencies)
  * [Supported distributions](#supported-distributions)
@@ -46,16 +46,13 @@ and more.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The package is distributed via Yum repositories on [PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server/)
-and [Bintray](https://bintray.com/rabbitmq/rpm/rabbitmq-server).
+The package is distributed via Yum repositories on [PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server/).
 
 `rabbitmq-server` is included in Fedora. However,
 the versions included often lag behind RabbitMQ releases.
-It is recommended that you use Yum repositories from [PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server/)
-or [Bintray](https://bintray.com/rabbitmq/rpm/rabbitmq-server).
+It is recommended that you use Yum repositories from [PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server/).
 
-Check the [Fedora
-package](https://admin.fedoraproject.org/updates/rabbitmq-server) details for which version of the server is
+Check the [Fedora package](https://admin.fedoraproject.org/updates/rabbitmq-server) details for which version of the server is
 available for which versions of the distribution.
 
 
@@ -97,8 +94,8 @@ There are three commonly used sources for Erlang packages on RPM-based distribut
 
 ### <a id="install-zero-dependency-rpm" class="anchor" href="#install-zero-dependency-rpm">Zero-dependency Erlang from RabbitMQ</a>
 
-[Zero dependency Erlang RPM package for running RabbitMQ](https://github.com/rabbitmq/erlang-rpm) can be
-installed via Yum repositories on [Package Cloud](https://packagecloud.io/rabbitmq/erlang) and [Bintray](https://bintray.com/rabbitmq-erlang/rpm/erlang)
+[Zero dependency Erlang RPM package for running RabbitMQ](https://github.com/rabbitmq/erlang-rpm)
+can be installed from a Yum repository on [Package Cloud](https://packagecloud.io/rabbitmq/erlang)
 as well as a [direct download](https://github.com/rabbitmq/erlang-rpm/releases).
 
 As the name suggests, the package strips off some Erlang modules and dependencies
@@ -243,17 +240,6 @@ repo_gpgcheck=0
 enabled=1
 </pre>
 
-Same for CentOS 6:
-
-<pre class="lang-ini">
-[bintray-rabbitmq-server]
-name=bintray-rabbitmq-rpm
-baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/6/
-gpgcheck=0
-repo_gpgcheck=0
-enabled=1
-</pre>
-
 The following example targets OpenSUSE:
 
 <pre class="lang-ini">
@@ -271,18 +257,6 @@ The following example targets SLES 11.x:
 [bintray-rabbitmq-server]
 name=bintray-rabbitmq-rpm
 baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/sles/11
-gpgcheck=0
-repo_gpgcheck=0
-enabled=1
-</pre>
-
-The following example sets up a repository that will install RabbitMQ 3.7 on CentOS 7.
-Note that RabbitMQ 3.7 [goes out of support](/versions.html) in 2020.
-
-<pre class="lang-ini">
-[bintray-rabbitmq-server]
-name=bintray-rabbitmq-rpm
-baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/
 gpgcheck=0
 repo_gpgcheck=0
 enabled=1
