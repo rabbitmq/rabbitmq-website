@@ -137,7 +137,7 @@ In order to use the repository, it is necessary to
  * Update package metadata
  * Install Erlang packages required by RabbitMQ
 
-### <a id="erlang-apt-repo-essentials" class="anchor" href="#erlang-apt-repo-essentials">Install Essential Dependencies</a>
+### Install Essential Dependencies
 
 <pre class="lang-bash">
 sudo apt-get update -y
@@ -283,7 +283,7 @@ a privileged shell!
 
 This guide will focus on a more traditional and explicit way of setting up an additional apt repository.
 
-### ### <a id="erlang-apt-repo-essentials" class="anchor" href="#erlang-apt-repo-essentials">Install Essential Dependencies</a>
+### Install Essential Dependencies
 
 <pre class="lang-bash">
 sudo apt-get update -y
