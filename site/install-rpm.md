@@ -367,6 +367,10 @@ After downloading the server package, issue the following command as
 
 <pre class="lang-bash">
 rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+
+## install these dependencies from standard OS repositories
+yum install socat logrotate -y
+
 # This example assumes the CentOS 8 version of the package.
 # For CentOS 7, replace "el8" with "el7".
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
@@ -376,6 +380,10 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.
 
 <pre class="lang-bash">
 rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+
+## install these dependencies from standard OS repositories
+yum install socat logrotate -y
+
 # This example assumes the CentOS 8 version of the package, suitable for
 # Red Hat 8, CentOS 8 and modern Fedora releases.
 #
