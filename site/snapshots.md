@@ -66,68 +66,7 @@ sign the snapshot artefacts using [GnuPG](http://www.gnupg.org/) and
 
 ### <a id="direct-downloads" class="anchor" href="#direct-downloads">Direct Downloads</a>
 
-All snapshot artefacts, indexed by their version, are available
-in the <em>all-dev</em> repository on Bintray:
-
- * [Bintray webpage](https://bintray.com/rabbitmq/all-dev/rabbitmq-server)
- * [Bintray repository](https://dl.bintray.com/rabbitmq/all-dev/rabbitmq-server/)
-
-### <a id="apt" class="anchor" href="#apt">Debian (apt) Repository</a>
-
-Packages for many Debian-based Linux distributions are available
-from a Bintray repository called <em>debian-dev</em>.
-
-Use Debian components to select exactly what will be installed:
-
-<dl>
-<dt><code>main</code></dt>
-<dd>Gives access to all snapshots we produce, not only the RabbitMQ server.</dd>
-<dt><code>rabbitmq</code></dt>
-<dd>Gives access to all snapshots of the RabbitMQ server, no matter the branch.</dd>
-<dt><code>rabbitmq-v3.8.x</code></dt>
-<dd>Gives access to snapshots of the 3.8.x line of the RabbitMQ server.</dd>
-<dt><code>rabbitmq-v3.7.x</code></dt>
-<dd>Gives access to snapshots of the 3.7.x line of the RabbitMQ server.</dd>
-</dl>
-
- * [Bintray webpage](https://bintray.com/rabbitmq/debian-dev/rabbitmq-server)
- * [Bintray repository](https://dl.bintray.com/rabbitmq/debian-dev/)
-
-For instance, if you want to use RabbitMQ 3.8.x snapshots on a Debian Stretch:
-
-<pre class="lang-bash">
-wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add -
-cat >/etc/apt/sources.list.d/rabbitmq-dev.list &lt;&lt;EOF
-deb http://dl.bintray.com/rabbitmq/debian-dev stretch rabbitmq-server-v3.8.x
-EOF
-apt-get update
-apt-get install rabbitmq-server</pre>
-
-### <a id="yum" class="anchor" href="#yum">RPM (Yum) Repository</a>
-
-Packages for RPM-based Linux distributions are available from a
-Bintray repository called <em>rpm-dev</em> which serves several
-Yum repositories. There is a Yum repository per package we
-produce (the RabbitMQ server being one) and per version of
-supported distributions.
-
- * [Bintray webpage](https://bintray.com/rabbitmq/rpm-dev/rabbitmq-server)
- * [Bintray repository](https://dl.bintray.com/rabbitmq/rpm-dev/rabbitmq-server/)
-
-For instance, if you want to use RabbitMQ 3.8.x snapshots on a CentOS 7:
-
-<pre class="lang-bash">
-cat >/etc/yum.repos.d/rabbitmq-dev.repo &lt;&lt;EOF
-[rabbitmq-dev]
-name=rabbitmq-dev
-baseurl=https://dl.bintray.com/rabbitmq/rpm-dev/rabbitmq-server/v3.8.x/el/7
-gpgcheck=1
-gpgkey=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-repo_gpgcheck=0
-enabled=1
-EOF
-yum install rabbitmq-server
-</pre>
+All snapshot artefacts are available for download [from GitHub](https://github.com/rabbitmq/rabbitmq-server-binaries-dev/releases).
 
 
 ## <a id="feedback" class="anchor" href="#feedback">Providing Feedback on Snapshot Builds</a>
