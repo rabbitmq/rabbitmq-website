@@ -445,7 +445,7 @@ reply queues.
 ### <a id="d.ugqn" class="anchor" href="#d.ugqn">User generated queue names for Topic and Exchange destinations</a>
 
 When subscribing to an `exchange` or `topic` destination, RabbitMQ would generate
-a queue name by default. Starting with version 3.5.7, is it possible to provide
+a queue name by default. It is possible to provide
 a custom name using the `x-queue-name` header:
 
     SUBSCRIBE
@@ -454,8 +454,7 @@ a custom name using the `x-queue-name` header:
 
 ## <a id="queue-parameters" class="anchor" href="#queue-parameters">Controlling RabbitMQ Queue Parameters with STOMP</a>
 
-As of RabbitMQ 3.6.0, it is possible to control queue parameters via STOMP
-headers:
+[Queue properties](queues.html) can be controlled via STOMP headers:
 
  * `durable` (aliased as `persistent`)
  * `auto-delete`
@@ -596,7 +595,7 @@ rules apply:
 
 ### Optional Queue Properties
 
-As of RabbitMQ 3.5.5, SEND and SUBSCRIBE frames accepts a set of headers to configure the queue behaviour,
+With RabbitMQ, `SEND` and `SUBSCRIBE` frames can include a set of headers to configure the queue behaviour,
 for example, use [TTL](/ttl.html) or similar extensions.
 
 The list of supported headers is
