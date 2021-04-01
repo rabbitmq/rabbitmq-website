@@ -459,8 +459,6 @@ autorefresh=1
 type=rpm-md
 
 
-
-
 ##
 ## RabbitMQ Server
 ##
