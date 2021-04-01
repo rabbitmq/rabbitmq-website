@@ -301,6 +301,7 @@ enabled=1
 repo_gpgcheck=1
 pkg_gpgcheck=0
 gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 autorefresh=1
 type=rpm-md
 
