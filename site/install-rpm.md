@@ -147,6 +147,8 @@ Yum will verify signatures of any packages it installs, therefore the first step
 in the process is to import the signing key
 
 <pre class="lang-bash">
+## primary RabbitMQ signing key
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 ## modern Erlang repository
 rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
 ## RabbitMQ server repository
@@ -179,6 +181,7 @@ gpgcheck=1
 enabled=1
 # PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -241,6 +244,7 @@ gpgcheck=1
 enabled=1
 # PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
