@@ -35,7 +35,9 @@ This guide covers fundamental topics related to RabbitMQ clustering:
 
 and more. [Cluster Formation and Peer Discovery](/cluster-formation.html) is a closely related guide
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
-(message) replication, see [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html) guides.
+(message) replication, see the [Quorum Queues](/quorum-queues.html) guide.
+
+[Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,

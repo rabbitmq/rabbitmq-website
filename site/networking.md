@@ -70,7 +70,7 @@ such as
  * [Heartbeats](#heartbeats) (a.k.a. keepalives)
  * [proxies and load balancers](#intermediaries)
 
-and more.
+[Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
 A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.

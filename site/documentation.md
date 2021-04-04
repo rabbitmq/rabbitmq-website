@@ -140,6 +140,7 @@ for the original RabbitMQ protocol.
 
  * [Replication and Distributed Feature Overview](/distributed.html)
  * [Clustering](/clustering.html)
+ * [Inter-node traffic compression](clustering-compression.html)
  * [Quorum Queues](/quorum-queues.html): a modern highly available replicated queue type
  * [Classic Mirrored Queues](/ha.html)
  * [Reliable Message Delivery](/reliability.html)
