@@ -184,9 +184,7 @@ management.
   </tr>
   <tr>
     <td>(None)</td>
-    <td>
-      No access to the management plugin
-    </td>
+    <td>No access to the management plugin</td>
   </tr>
   <tr>
   <td>management</td>
@@ -421,6 +419,8 @@ management.ssl.port       = 15671
 management.ssl.cacertfile = /path/to/ca_certificate.pem
 management.ssl.certfile   = /path/to/server_certificate.pem
 management.ssl.keyfile    = /path/to/server_key.pem
+## This key must only be used if private key is password protected
+# management.ssl.password   = bunnies
 </pre>
 
 More [TLS options](/ssl.html) can be configured for the HTTPS listener.
@@ -430,6 +430,8 @@ management.ssl.port       = 15671
 management.ssl.cacertfile = /path/to/ca_certificate.pem
 management.ssl.certfile   = /path/to/server_certificate.pem
 management.ssl.keyfile    = /path/to/server_key.pem
+## This key must only be used if private key is password protected
+# management.ssl.password   = bunnies
 
 # For RabbitMQ 3.7.10 and later versions
 management.ssl.honor_cipher_order   = true
@@ -449,6 +451,14 @@ management.ssl.ciphers.6 = ECDH-RSA-AES256-GCM-SHA384
 management.ssl.ciphers.7 = ECDH-ECDSA-AES256-SHA384
 management.ssl.ciphers.8 = ECDH-RSA-AES256-SHA384
 management.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
+
+## Usually RabbitMQ nodes do not perform peer verification of HTTP API clients
+## but it can be enabled if needed. Clients then will have to be configured with
+## a certificate and private key pair.
+##
+## See https://www.rabbitmq.com/ssl.html#peer-verification for details.
+# management.ssl.verify = verify_peer
+# management.ssl.fail_if_no_peer_cert = true
 </pre>
 
 The above example in the [classic config format](/configure.html#erlang-term-config-file):
