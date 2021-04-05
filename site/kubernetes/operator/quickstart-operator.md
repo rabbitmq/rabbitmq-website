@@ -132,6 +132,26 @@ NAME          AGE    STATUS
 hello-world   4m10s
 </pre>
 
+If your Pod is stuck in the `Pending` state, most probably your cluster does not have a Physical Volume Provisioner. This can be verified as the following:
+<pre class="lang-bash">
+kubectl get pvc,pod
+NAME                               STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistence-hello-world-server-0   Pending                                                     30s
+</pre>
+
+In this case, and if this is not a production environment, you might want to install the [Local Path Provisioner](https://github.com/rancher/local-path-provisioner)
+
+<pre class="lang-bash">
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+kubectl annotate storageclass local-path storageclass.kubernetes.io/is-default-class=true
+</pre>
+
+After that, you need to remove and re-create the previously created RabbitMQ Cluster object:
+
+<pre class="lang-bash">
+kubectl delete rabbitmqclusters.rabbitmq.com hello-world
+</pre>
+
 ## View RabbitMQ Logs
 
 In order to make sure RabbitMQ has started correctly, let's view the RabbitMQ log file. This can be done by viewing the RabbitMQ pod logs. In this case, it would be:
