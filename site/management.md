@@ -421,6 +421,7 @@ management.ssl.port       = 15671
 management.ssl.cacertfile = /path/to/ca_certificate.pem
 management.ssl.certfile   = /path/to/server_certificate.pem
 management.ssl.keyfile    = /path/to/server_key.pem
+management.ssl.password   = bunnies
 </pre>
 
 More [TLS options](/ssl.html) can be configured for the HTTPS listener.
@@ -430,6 +431,7 @@ management.ssl.port       = 15671
 management.ssl.cacertfile = /path/to/ca_certificate.pem
 management.ssl.certfile   = /path/to/server_certificate.pem
 management.ssl.keyfile    = /path/to/server_key.pem
+management.ssl.password   = bunnies
 
 # For RabbitMQ 3.7.10 and later versions
 management.ssl.honor_cipher_order   = true
