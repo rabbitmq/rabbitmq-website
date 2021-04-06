@@ -52,7 +52,7 @@ on behalf of the consumer.
 > <pre class="lang-javascript">
 > {
 >     "require": {
->         "php-amqplib/php-amqplib": ">=2.9.0"
+>         "php-amqplib/php-amqplib": ">=3.0"
 >     }
 > }
 > </pre>
