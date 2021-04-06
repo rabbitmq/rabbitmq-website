@@ -28,7 +28,7 @@ In this part of the tutorial we'll write two programs in PHP
 that communicate using RabbitMQ. This tutorial uses a client library
 that requires PHP 7.x or 8.x.
 
-The program will consist of a producer that sends a single message, and a consumer that receives
+First program will be a producer that sends a single message, and the second one will be a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [php-amqplib](https://github.com/php-amqplib/php-amqplib) API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
