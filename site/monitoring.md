@@ -483,6 +483,9 @@ The health checks can be used selectively and combined.
 Unless noted otherwise, the checks should follow the same [monitoring frequency](#monitoring-frequency) recommendation
 as metric collection.
 
+Earlier versions of RabbitMQ used an [intrusive health check](#deprecations) that has since been deprecated
+and should be avoided. Use one of the checks covered in this section (or their combination).
+
 #### Stage 1
 
 The most basic check ensures that the [runtime](/runtime.html) is running
@@ -730,6 +733,26 @@ The probability of false positives is generally low but raises
 in environments where environment variables that can affect [rabbitmq-plugins](/cli.html)
 are overridden.
 
+## <a id="deprecations" class="anchor" href="#deprecations">Deprecated Health Checks and Monitoring Features</a>
+### Legacy Intrusive Health Check
+
+Earlier versions of RabbitMQ provided a single opinionated and intrusive health check command (and its respective HTTP API endpoint):
+
+<pre class="lang-bash">
+# DO NOT USE: this health check is very intrusive, resource-intensive, prone to false positives
+#             and as such, deprecated
+rabbitmq-diagnostics node_health_check
+</pre>
+
+The above command is **deprecated** will be **removed in a future version** of RabbitMQ and is to be avoided.
+Systems that use it should adopt one of the [fine grained modern health checks](#health-checks) instead.
+
+The above check forced every connection, queue leader replica, and channel in the system to emit certain metrics.
+With a large number of concurrent connections and queues, this can be very resource-intensive and too likely
+to produce false positives.
+
+The above check is also not suitable to be used as a [readiness probe](#readiness-probes) as it implicitly
+assumes a fully booted node.
 
 ## <a id="diagnostics-observer" class="anchor" href="#diagnostics-observer">Command-line Based Observer Tool</a>
 

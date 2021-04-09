@@ -56,7 +56,7 @@ This step checks that the broker is listening on the [expected port(s)](/network
 5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on.
 
 To verify that TLS has been enabled on the node, use <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>
-or the <code>listeners</code> section in <code>[rabbitmqctl](/rabbitmqctl.8.html) status</code>.
+or the <code>listeners</code> section in <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>.
 
 The listeners section will look something like this:
 
@@ -76,18 +76,6 @@ In the above example, there are 6 TCP listeners on the node. Two of them accept 
  * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port <code>5671</code>
  * [HTTP API](/management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
  * [MQTT](/mqtt.html) listener for non-TLS connections 1883
-
-With <code>rabbitmqctl status</code> it will look like so:
-
-<pre class="lang-erlang">
-% ...
-{listeners,
-   [{clustering,25672,"::"},
-    {amqp,5672,"::"},
-    {'amqp/ssl',5671,"::"},
-    {http,15672,"::"}]}
-% ...
-</pre>
 
 If the above steps are not an option, inspecting node's [log file](/logging.html) can be a viable alternative.
 It should contain an entry about a TLS listener being enabled, looking like this:
@@ -174,13 +162,13 @@ If an error is reported instead, confirm that the Erlang/OTP installation [inclu
 It is also possible to list cipher suites available on a node:
 
 <pre class="lang-bash">
-rabbitmq-diagnostics cipher_suites --openssl-format --silent
+rabbitmq-diagnostics cipher_suites --format openssl --silent
 </pre>
 
 Or, on Windows:
 
 <pre class="lang-powershell">
-rabbitmq-diagnostics.bat cipher_suites --openssl-format --silent
+rabbitmq-diagnostics.bat cipher_suites --format openssl --silent
 </pre>
 
 It is also possible to inspect what TLS versions are supported by the local Erlang runtime.

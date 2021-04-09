@@ -24,8 +24,11 @@ limitations under the License.
 ## "Hello World"
 ### (using the php-amqplib Client)
 
-In this part of the tutorial we'll write two programs in PHP; a
-producer that sends a single message, and a consumer that receives
+In this part of the tutorial we'll write two programs in PHP
+that communicate using RabbitMQ. This tutorial uses a client library
+that requires PHP 7.x or 8.x.
+
+First program will be a producer that sends a single message, and the second one will be a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [php-amqplib](https://github.com/php-amqplib/php-amqplib) API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
@@ -52,7 +55,7 @@ on behalf of the consumer.
 > <pre class="lang-javascript">
 > {
 >     "require": {
->         "php-amqplib/php-amqplib": ">=2.9.0"
+>         "php-amqplib/php-amqplib": ">=3.0"
 >     }
 > }
 > </pre>
@@ -190,7 +193,7 @@ $callback = function ($msg) {
 
 $channel->basic_consume('hello', '', false, true, false, false, $callback);
 
-while ($channel->is_consuming()) {
+while ($channel->is_open()) {
     $channel->wait();
 }
 </pre>

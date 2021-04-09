@@ -26,13 +26,11 @@ The following platforms are supported by Erlang and could therefore
 run RabbitMQ:
 
  * Linux
- * Windows, NT through 10
- * Windows Server 2012 through 2018
+ * Windows versions supported by Microsoft, e.g. 10
+ * Windows Server versions supported by Microsoft, e.g. Windows Servier 2019
  * macOS
  * Solaris
  * FreeBSD
- * TRU64
- * VxWorks
 
 The open source release of RabbitMQ is most commonly used and deployed on the
 following platforms:
@@ -53,11 +51,7 @@ RabbitMQ is available in the [commercial RabbitMQ distribution documentation](ht
 ## <a id="windows" class="anchor" href="#windows">Windows</a>
 
 RabbitMQ will run on any Windows version that [supported Erlang/OTP releases](/which-erlang.html)
-can run on, both desktop and server editions. This includes Windows 7 through 10, Server 2012 through 2018.
-
-Older versions of Windows may require using an older
-version of Erlang/OTP and RabbitMQ. Please consult [documentation archive](http://previous.rabbitmq.com/)
-and [Erlang version compatibility page](/which-erlang.html).
+can run on, both desktop and server editions. This includes Windows 10, Server 2012 through 2022.
 
 
 ## <a id="bsd" class="anchor" href="#bsd">Other Flavours of UNIX</a>
@@ -85,4 +79,4 @@ Some platforms are not supported and probably never will be:
  * Very memory-constrained systems (&lt; 32 MB of RAM)
 
 If your platform is on this list or you need assistance then
-please [contact Pivotal](contact.html).
+please [contact VMware](contact.html).

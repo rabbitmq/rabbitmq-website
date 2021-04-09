@@ -39,8 +39,8 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 ## Kubernetes
 
  * Open source [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * Kubernetes Operator [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
  * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
- * GKE-, Minikube-, or Kind-based [examples](https://github.com/rabbitmq/diy-kubernetes-examples) that demonstrate a [DIY RabbitMQ on Kubernetes deployment](https://blog.rabbitmq.com/posts/2020/08/deploying-rabbitmq-to-kubernetes-whats-involved/)
 
 
 ## Docker
@@ -54,10 +54,8 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * [Debian, Ubuntu](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server_&version-server;-1_all.deb)
  * [RHEL/CentOS 8.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.el8.noarch.rpm) |
     [RHEL/CentOS 7.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.el7.noarch.rpm) |
-    [RHEL/CentOS 6.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.el6.noarch.rpm) |
     [OpenSUSE](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.suse.noarch.rpm) |
-    [SLES 11.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.sles11.noarch.rpm) |
-    [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
+    zero dependency [Erlang 23 RPM](https://github.com/rabbitmq/erlang-rpm)
  * [Generic UNIX binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
  * [Windows binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-windows-&version-server;.zip)
 
@@ -65,8 +63,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 ## Debian (Apt) and RPM (Yum) Repositories
 
  * [Package Cloud](https://packagecloud.io/rabbitmq/)
- * [Bintray](https://bintray.com/rabbitmq/debian) (Apt)
- * [Bintray](https://bintray.com/rabbitmq/rpm) (Yum)
 
 
 ## Cloud
@@ -88,11 +84,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * [Release Signing Key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc) <code>0x6B73A36E6026DFCA</code> (on GitHub)
  * [How to Verify Release Artifact Signatures](/signatures.html)
  * [Release Signing Key](/rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
-
-
-## Older Versions
-
-* [3.5.x](https://github.com/rabbitmq/rabbitmq-server/releases)
 
 
 ## Client Libraries

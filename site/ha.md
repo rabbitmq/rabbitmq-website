@@ -15,18 +15,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Classic Mirrored Queues
+# Classic Queue Mirroring
 
-## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's More: Next Generation Highly Available Queues</a>
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
 [Quorum queues](/quorum-queues.html) is an alternative, more modern queue type
 that offers high availability via replication and focuses on data safety.
 
-In many cases quorum queues would be a superior option
-to classic queue mirroring. Readers are encouraged to get familiar
-with quorum queues and consider them instead of classic mirrored queues.
-
+Quorum queues should be the **default choice** for a replicated queue type.
+Classic mirrored queues will be **removed in a future version** of RabbitMQ.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
@@ -47,6 +45,9 @@ This guide assumes general familiarity with [RabbitMQ clustering](/clustering.ht
 
 
 ## <a id="what-is-mirroring" class="anchor" href="#what-is-mirroring">What is Queue Mirroring</a>
+
+**Important**: mirroring of classic queues will be **removed in a future version** of RabbitMQ.
+Consider using [quorum queues](quorum-queues.html) or a non-replicated classic queue instead.
 
 By default, contents of a queue within a RabbitMQ cluster are located on
 a single node (the node on which the queue was
@@ -246,23 +247,25 @@ See [Runtime Parameters and Policies](/parameters.html#policies) to learn more.
 
 
 ## <a id="master-migration-data-locality" class="anchor" href="#master-migration-data-locality">Queue Masters, Master Migration, Data Locality</a>
-
 ### <a id="queue-master-location" class="anchor" href="#queue-master-location">Queue Master Location</a>
 
-Every queue in RabbitMQ has a primary replica. That node is called
-_queue master_. All queue operations go through the master
-first and then are replicated to mirrors. This is necessary to
+Every queue in RabbitMQ has a primary replica. That replica is called
+_queue leader_ (originally "queue master"). All queue operations go through the leader
+replica first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 
-Queue masters can be distributed between nodes using several
+To avoid some nodes in a cluster hosting the majority of queue leader
+replicas and thus handling most of the load, queue leaders should
+be reasonably evenly distributed across cluster nodes.
+
+Queue leaders can be distributed between nodes using several
 strategies. Which strategy is used is controlled in three ways,
 namely, using the `x-queue-master-locator` queue
 declare argument, setting the `queue-master-locator`
 policy key or by defining the `queue_master_locator`
-key in [
-`the configuration file`](configure.html#configuration-file). Here are the possible strategies and how to set them:
+key in [`the configuration file`](configure.html#configuration-file). Here are the possible strategies and how to set them:
 
- * Pick the node hosting the minimum number of <em>bound</em> masters:
+ * Pick the node hosting the minimum number of leaders:
  `min-masters`
  * Pick the node the client that declares the queue is
  connected to: `client-local`

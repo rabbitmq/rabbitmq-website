@@ -35,7 +35,9 @@ This guide covers fundamental topics related to RabbitMQ clustering:
 
 and more. [Cluster Formation and Peer Discovery](/cluster-formation.html) is a closely related guide
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
-(message) replication, see [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html) guides.
+(message) replication, see the [Quorum Queues](/quorum-queues.html) guide.
+
+[Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
@@ -162,15 +164,14 @@ are message queues, which by default reside on one node,
 though they are visible and reachable from all nodes. To
 replicate queues across nodes in a cluster, use a queue type
 that supports replication. This topic is covered in
-the [Quorum Queues](/quorum-queues.html) and [Classic Mirrored Queues](/ha.html)
-guides.
+the [Quorum Queues](/quorum-queues.html) guide.
 
 ### <a id="peer-equality" class="anchor" href="#peer-equality">Nodes are Equal Peers</a>
 
 Some distributed systems
 have leader and follower nodes. This is generally not true for RabbitMQ.
 All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core.
-This topic becomes more nuanced when [queue mirroring](ha.html) and plugins
+This topic becomes more nuanced when [quorum queues](quorum-queues.html) and plugins
 are taken into consideration but for most intents and purposes,
 all cluster nodes should be considered equal.
 
@@ -473,11 +474,12 @@ nodes. Nodes can be started and stopped at will,
 as long as they can contact a cluster member node
 known at the time of shutdown.
 
-[Queue mirroring](/ha.html) allows queue contents to be replicated
-across multiple cluster nodes.
+[Quorum queue](quorum-queues.html) allows queue contents to be replicated
+across multiple cluster nodes with parallel replication and a predictable [leader election](#quorum-queues.html#leader-election)
+and [data safety](quorum-queues.html#data-safety) behavior as long as a majority of replicas are online.
 
-Non-mirrored queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](/ha.html#non-mirrored-queue-behavior-on-node-failure)
-depends on queue durability.
+Non-replicated classic queues can also be used in clusters. Non-mirrored queue [behaviour in case of node failure](/ha.html#non-mirrored-queue-behavior-on-node-failure)
+depends on [queue durability](queues.html#durability).
 
 RabbitMQ clustering has several modes of dealing with [network partitions](partitions.html),
 primarily consistency oriented. Clustering is meant to be used across LAN. It is
@@ -1069,12 +1071,9 @@ the node's data directory location or [re]move the existing data store. This wil
 start as a blank one. It will have to be instructed to [rejoin its original cluster](#cluster-formation), if any.
 
 A node that's been reset and rejoined its original cluster will sync all virtual hosts, users, permissions
-and topology (queues, exchanges, bindings), runtime parameters and policies. It may sync [mirrored
-queue](/ha.html) contents if elected to host a replica. Non-mirrored queue contents on a reset node will be lost.
-
-Restoring queue data directories on a reset node that has synchronised its schema from a peer
-is not guaranteed to make that data available to clients because [queue master location](/ha.html#master-migration-data-locality)
-might have changed for the affected queues.
+and topology (queues, exchanges, bindings), runtime parameters and policies. [Quorum queue](quorum-queues.html)
+contents will be replicated if the node will be selected to host a replica.
+Non-replicated queue contents on a reset node will be lost.
 
 ## <a id="upgrading" class="anchor" href="#upgrading">Upgrading clusters</a>
 You can find instructions for upgrading a cluster in

@@ -35,6 +35,31 @@ limitations under the License.
      will give you a suitable RFC 3339 value.
     -->
 
+
+    <doc:item>
+      <doc:date iso="2021-03-24T12:00:00+00:00">24 March 2021</doc:date>
+      <doc:title>Erlang 24 Support and Erlang 22 Retirement Timeline</doc:title>
+      <doc:link>https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/</doc:link>
+      <doc:text>
+        <p>
+          Starting on May 3rd, 2021, RabbitMQ will <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">introduce support for Erlang 24</a>
+          and retire support for Erlang 22 ahead of schedule.
+        </p>
+        <p>
+          Erlang 24 offers meaningful improvements to RabbitMQ throughput and improved TLSv1.3 support.
+          To smoothen the transition to this new major Erlang version, we encourage all users to move to Erlang 23 today.
+          upgrade
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>
+          or the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
     <doc:item>
       <doc:date iso="2021-03-02T08:00:00+00:00">2 March 2021</doc:date>
       <doc:title>RabbitMQ 3.8.14 release</doc:title>
