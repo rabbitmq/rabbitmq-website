@@ -42,26 +42,18 @@ The operator provides the following key features:
 * Provisioning of single-node and multi-node RabbitMQ clusters
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
 * Monitoring of RabbitMQ clusters using [Prometheus and Grafana](/prometheus.html)
-
-Automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters is a feature that will be provided in later
-versions.
-
+* Scaling up and automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters
 
 ## <a id='kubernetes-versions' class='anchor' href='#kubernetes-versions'>Supported Kubernetes Versions</a>
 
-The Operator requires
+The operator is intended to be used with any Kubernetes-compliant platform. If you encounter an issue with
+a particular distribution of Kubernetes, please [check for known issues in the GitHub repo](https://github.com/rabbitmq/cluster-operator/issues).
 
- * Kubernetes 1.17 or above
- * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
+For more information on which Kubernetes & RabbitMQ server versions are supported by the operator,
+please consult the [README](https://github.com/rabbitmq/cluster-operator#supported-versions).
 
 
 ## <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
-
-### General Limitations
-
-* This product is intended to be used with any Kubernetes distribution. However, given the number of Kubernetes vendors,
-  versions, and configurations, not all of them have been tested.
-* This product has been tested with Google Kubernetes Engine (GKE).
 
 ### RabbitMQ Cluster Reconciliation
 
