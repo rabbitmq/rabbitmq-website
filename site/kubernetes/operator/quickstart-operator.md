@@ -1,4 +1,4 @@
-# Quickstart
+# RabbitMQ Cluster Kubernetes Operator Quickstart
 
 This is the fastest way to get up and running with a RabbitMQ cluster deployed by the Cluster Operator. More detailed resources are available for [installation](/kubernetes/operator/install-operator.html), [usage](/kubernetes/operator/using-operator.html) and [API reference](/kubernetes/operator/using-operator.html).
 
