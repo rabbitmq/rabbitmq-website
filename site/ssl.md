@@ -424,8 +424,8 @@ and client connections. Enabling peer verification on just one end is not enough
 
 ### When Peer Verification Fails
 
-If no trusted and otherwise valid certificate is found, peer verification fails and client connection is closed
-with an error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
+If no trusted and otherwise valid certificate is found, peer verification fails and client's TLS (TCP) connection is
+closed with a fatal error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
 will be logged by the server with a message similar to this:
 
 <pre class="lang-ini">
@@ -440,7 +440,7 @@ like this:
 2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
 </pre>
 
-The examples above demonstrate TLS alert messages logged by RabbitMQ running on Erlang/OTP 21.
+The examples above demonstrate TLS alert messages logged by a RabbitMQ node.
 Clients that perform peer verification will also raise alerts but may use different
 error messages. [RFC 8446 section 6.2](https://tools.ietf.org/html/rfc8446#section-6.2)
 provides an overview of various alerts and what they mean.
