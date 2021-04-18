@@ -263,7 +263,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
     </tr>
     <tr>
       <td>Message delivery rate</td>
-      <td><code>message_stats.deliver_get.rate</code></td>
+      <td><code>message_stats.deliver_get_details.rate</code></td>
     </tr>
     <tr>
       <td>Other message stats</td>
