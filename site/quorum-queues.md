@@ -71,7 +71,7 @@ be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is
 system participants).
 
 When applied to queue mirroring in RabbitMQ [clusters](/clustering.html)
-this means that the majority of replicas (including the currently elected queue master/leader)
+this means that the majority of replicas (including the currently elected queue leader/leader)
 agree on the state of the queue and its contents.
 
 ### Differences from Classic Mirrored Queues
@@ -296,7 +296,7 @@ launched to run on a random subset of the RabbitMQ cluster.
 ### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
 
 Every quorum queue has a primary replica. That replica is called
-_queue leader_ (originally "queue master"). All queue operations go through the leader
+_queue leader_ (originally "queue leader"). All queue operations go through the leader
 first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 

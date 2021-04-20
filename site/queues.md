@@ -305,7 +305,7 @@ Currently using more priorities will consume more resources (Erlang processes).
 
 ## <a id="runtime-characteristics" class="anchor" href="#runtime-characteristics">CPU Utilisation and Parallelism Considerations</a>
 
-Currently a single queue (master or mirror) is limited to a single CPU core
+Currently a single queue replica (whether leader or follower) is limited to a single CPU core
 on its hot code path. This design therefore assumes that most systems
 use multiple queues in practice. A single queue is generally
 considered to be an anti-pattern (and not just for resource utilisation

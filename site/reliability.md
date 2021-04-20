@@ -193,7 +193,7 @@ Producers should also be aware that when publishing to a clustered node,
 if one or more destination queues that are bound to the exchange have
 mirrors in the cluster, it's possible to incur delays in the face of
 network failures between nodes, due to flow control between replicas
-and the queue master replica. See [inter-node heartbeat guide](nettick.html) for
+and the queue leader replica. See [inter-node heartbeat guide](nettick.html) for
 more details.
 
 

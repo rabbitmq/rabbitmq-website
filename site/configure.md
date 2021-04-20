@@ -1171,7 +1171,7 @@ mirroring_sync_batch_size = 4096
   <tr>
     <td><code>queue_master_locator</code></td>
     <td>
-      Queue master location strategy. Available strategies are:
+      queue leader location strategy. Available strategies are:
       <ul>
         <li><code>min-masters</code></li>
         <li><code>client-local</code></li>
@@ -1179,7 +1179,7 @@ mirroring_sync_batch_size = 4096
       </ul>
       See the
       <a href="/ha.html#queue-master-location">documentation
-      on queue master location</a> for more information.
+      on queue leader location</a> for more information.
       <p>
         Default:
 <pre class="lang-ini">

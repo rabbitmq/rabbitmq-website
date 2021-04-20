@@ -196,7 +196,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>queue_procs</td>
     <td>Queues</td>
     <td>
-      Classic queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
+      Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides

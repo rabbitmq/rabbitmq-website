@@ -317,7 +317,7 @@ Currently this involves the following steps:
     responsibilities
 
 A node in maintenance mode will not be considered for new primary queue replica placement, regardless
-of queue type and the [queue master locator policy](/ha.html#master-migration-data-locality) used.
+of queue type and the [queue leader locator policy](/ha.html#leader-migration-data-locality) used.
 
 This feature is expected to evolve based on the feedback from RabbitMQ operators, users,
 and RabbitMQ core team's own experience with it.
@@ -475,9 +475,9 @@ rabbitmq-queues -n rabbit@to-be-stopped quorum_status &lt;queue name&gt;
 In environments that use [classic mirrored queues](/ha.html), it is important to make sure that all mirrored queues on a node
 have a synchronised follower replica (mirror) **before stopping that node**.
 
-RabbitMQ will not promote unsynchronised queue mirrors on controlled queue master shutdown when
+RabbitMQ will not promote unsynchronised queue mirrors on controlled queue leader shutdown when
 [default promotion settings](/ha.html#promotion-while-down) are used.
-However if a queue master encounters any errors during shutdown, an [unsynchronised queue mirror](/ha.html#unsynchronised-mirrors)
+However if a queue leader encounters any errors during shutdown, an [unsynchronised queue mirror](/ha.html#unsynchronised-mirrors)
 might still be promoted. It is generally safer option to synchronise all classic mirrored queues
 with replicas on a node before shutting the node down.
 
@@ -509,15 +509,15 @@ automatic synchronisation or [trigger it using `rabbitmqctl`](ha.html#unsynchron
 RabbitMQ shutdown process will not wait for queues to be synchronised
 if a synchronisation operation is in progress.
 
-### <a id="mirrored-queue-masters-rebalance" class="anchor" href="#mirrored-queue-masters-rebalance">Mirrored queue masters rebalancing</a>
+### <a id="mirrored-queue-masters-rebalance" class="anchor" href="#mirrored-queue-masters-rebalance">Mirrored queue leaders rebalancing</a>
 
-Some upgrade scenarios can cause mirrored queue masters to be unevenly distributed
-between nodes in a cluster. This will put more load on the nodes with more queue masters.
-For example a full-stop upgrade will make all queue masters migrate to the "upgrader" node -
+Some upgrade scenarios can cause mirrored queue leaders to be unevenly distributed
+between nodes in a cluster. This will put more load on the nodes with more queue leaders.
+For example a full-stop upgrade will make all queue leaders migrate to the "upgrader" node -
 the one stopped last and started first.
-A rolling upgrade of three nodes with two mirrors will also cause all queue masters to be on the same node.
+A rolling upgrade of three nodes with two mirrors will also cause all queue leaders to be on the same node.
 
-You can move a queue master for a queue using a temporary [policy](/parameters.html) with
+You can move a queue leader for a queue using a temporary [policy](/parameters.html) with
 `ha-mode: nodes` and `ha-params: [&lt;node&gt;]`
 The policy can be created via management UI or rabbitmqctl command:
 
@@ -526,17 +526,17 @@ rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queu
 rabbitmqctl clear_policy move-my-queue
 </pre>
 
-A [queue master rebalancing script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
-is available. It rebalances queue masters for all queues.
+A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
+is available. It rebalances queue leaders for all queues.
 
 The script has certain assumptions (e.g. the default node name) and can fail to run on
 some installations. The script should be considered
 experimental. Run it in a non-production environment first.
 
-A [queue master rebalance command](https://www.rabbitmq.com/rabbitmq-queues.8.html) is available. It rebalances queue masters for all queues, or those that match the given name pattern. Queue masters for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](https://www.rabbitmq.com/rabbitmq-upgrade.8.html).
+A [queue leader rebalance command](https://www.rabbitmq.com/rabbitmq-queues.8.html) is available. It rebalances queue leaders for all queues, or those that match the given name pattern. queue leaders for mirrored queues and leaders for quorum queues are also rebalanced in the [post-upgrade command](https://www.rabbitmq.com/rabbitmq-upgrade.8.html).
 
 There is also a [third-party plugin](https://github.com/Ayanda-D/rabbitmq-queue-master-balancer)
-that rebalances queue masters. The plugin has some additional configuration and reporting tools,
+that rebalances queue leaders. The plugin has some additional configuration and reporting tools,
 but is not supported or verified by the RabbitMQ team. Use at your own risk.
 
 

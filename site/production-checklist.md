@@ -347,7 +347,7 @@ Since clients can connect to any node, RabbitMQ may need to perform inter-cluste
 routing of messages and internal operations. Try making consumers and producers
 connect to the same node, if possible: this will reduce inter-node traffic.
 Equally helpful would be making consumers connect to the node that currently hosts
-queue master (can be inferred using [HTTP API](/management.html)).
+queue leader (can be inferred using [HTTP API](/management.html)).
 When data locality is taken into consideration, total cluster throughput
 can reach [non-trivial](http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine) volumes.
 
