@@ -147,10 +147,10 @@ In a RabbitMQ cluster, all definitions (of exchanges, bindings, users, etc) are 
 cluster. [Queues](/queues.html) behave differently, by default residing only on a
 single node, but can be configured to be replicated (mirrored) across multiple
 nodes. Queues remain visible and reachable from all nodes regardless
-of what node their master replica is located.
+of what node their leader replica is located.
 
 Mirrored queues replicate their contents across a number of configured cluster
-nodes. When a node fails, queues with master replica hosted on that node undergo a promotion
+nodes. When a node fails, queues with leader replica hosted on that node undergo a promotion
 (new master election). Key reliability criteria in this scenario is whether there is a replica (queue mirror)
 [eligible for promotion](/ha.html#unsynchronised-mirrors).
 
@@ -158,7 +158,7 @@ Exclusive queues are tied to the lifecycle of their connection and thus are neve
 and by definition will not survive a node restart.
 
 Consumers connected to the failed node will have to recover as usual. Consumers that were
-connected to a different node will be automatically re-registered by RabbitMQ when a new master replica
+connected to a different node will be automatically re-registered by RabbitMQ when a new leader replica
 for the queue is elected. Those consumers do not need to perform recovery
 (e.g. reconnect or resubscribe).
 

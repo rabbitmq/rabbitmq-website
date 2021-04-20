@@ -485,7 +485,7 @@ Latest RabbitMQ releases provide a [health check](/monitoring.html#health-checks
 should any classic mirrored queues on the target node have no synchronised mirrors:
 
 <pre class="lang-bash">
-# Exits with a non-zero code if target node hosts master replica of at least one queue
+# Exits with a non-zero code if target node hosts leader replica of at least one queue
 # that has out-of-sync mirror.
 rabbitmq-diagnostics check_if_node_is_mirror_sync_critical
 </pre>
