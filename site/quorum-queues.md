@@ -80,7 +80,7 @@ Quorum queues share many of the fundamentals with [queues](/queues.html) of othe
 However, they are more purpose-built, focus on data safety and predictable recovery,
 and do not support certain feature.
 
-The differences is covered [is covered](#feature-comparison) in this guide.
+The differences [are covered](#feature-comparison) in this guide.
 
 Classic mirrored queues in RabbitMQ have technical limitations that makes it difficult to provide
 comprehensible guarantees and clear failure handling semantics.
