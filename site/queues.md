@@ -150,8 +150,8 @@ Ordering also can be affected by the presence of multiple competing [consumers](
 This applies to redeliveries of any kind: automatic after channel closure and
 [negative consumer acknowledgements](/confirms.html).
 
-Publishing applications can assume that messages that were published on a single channel
-in order will be enqueued onto all queues those messages were routed to in the same order.
+Applications can assume messages published on a single channel will be enqueued
+in publishing order in all the queues they get routed to.
 When publishing happens on multiple connections or channels, their sequences of messages
 will be routed concurrently and interleaved.
 
