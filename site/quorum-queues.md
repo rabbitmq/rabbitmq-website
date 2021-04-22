@@ -187,7 +187,7 @@ Quorum queues [support poison message handling](#poison-message-handling) via a 
 Quorum queues are purpose built by design. They are _not_ designed to be used for every problem.
 Their intended use is for topologies where queues exist for a long time and are critical to certain
 aspects of system operation, therefore fault tolerance and data safety is more important than, say,
-low latency and advanced queue features.
+lowest possible latency and advanced queue features.
 
 Examples would be incoming orders in a sales system or votes cast in an
 election system where potentially losing messages would have a significant
