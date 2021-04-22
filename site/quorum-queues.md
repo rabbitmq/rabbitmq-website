@@ -211,7 +211,7 @@ another consumer can re-attempt processing.
 In some cases quorum queues should not be used. They typically involve:
 
  * Temporary nature of queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
- * Low latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features.
+ * Lowest possible latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](/confirms.html) are not used)
  * Very long queue backlogs (quorum queues currently keep all messages in memory at all times, up to a [limit](#memory-limit))
 
