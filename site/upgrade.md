@@ -279,8 +279,9 @@ shutdown during rolling upgrades.
 
 ### What is Maintenance Mode?
 
-Maintenance mode. This is a new node operation mode for RabbitMQ nodes.
-The mode is explicitly turned on and off by the operator using a bunch of new CLI commands covered below. For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](/feature-flags.html)
+Maintenance mode is a special node operation mode introduced in latest RabbitMQ releases.
+The mode is explicitly turned on and off by the operator using a bunch of new CLI commands covered below.
+For mixed-version cluster compatibility, this feature must be [enabled using a feature flag](/feature-flags.html)
 once all cluster members have been upgraded to a version that supports it:
 
 <pre class="lang-bash">
