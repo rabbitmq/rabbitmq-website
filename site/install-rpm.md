@@ -236,6 +236,9 @@ metadata_expire=300
 
 #### Red Hat 7, CentOS 7
 
+The following example sets up a repository that will install RabbitMQ and its Erlang dependency from PackageCloud,
+and targets **CentOS 7**. There are slight differences to CentOS 8 instructions.
+
 On CentOS 7 the `baseurl` line would be slightly different:
 
 <pre class="lang-ini">
@@ -327,24 +330,45 @@ type=rpm-md
 
 ### Install Packages with Yum
 
-First, update Yum package metadata:
+#### CentOS 8, RHEL 8, Modern Fedora
+
+Update Yum package metadata:
 
 <pre class="lang-bash">
 yum update -y
 yum -q makecache -y --disablerepo='*' --enablerepo='rabbitmq_erlang' --enablerepo='rabbitmq_server'
 </pre>
 
-Then install the packages:
+Next install dependencies from the standard repositories:
 
 <pre class="lang-bash">
 ## install these dependencies from standard OS repositories
 yum install socat logrotate -y
 </pre>
 
+Finally, install modern Erlang and RabbitMQ:
+
 <pre class="lang-bash">
 ## install RabbitMQ and zero dependency Erlang from the above repositories,
 ## ignoring any versions provided by the standard repositories
-yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server
+yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server -y
+</pre>
+
+#### CentOS 7
+
+Update Yum package metadata:
+
+<pre class="lang-bash">
+yum update -y
+</pre>
+
+Next, install the packages:
+
+<pre class="lang-bash">
+## install these dependencies from standard OS repositories
+yum install socat logrotate -y
+
+yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server -y
 </pre>
 
 
@@ -513,15 +537,6 @@ On CentOS 7 the `baseurl` line would be slightly different:
 <pre class="lang-ini">
 # In /etc/yum.repos.d/rabbitmq.repo
 
-##
-## Zero dependency Erlang
-##
-
-
-# Source: Cloudsmith (support@cloudsmith.io)
-# Repository: rabbitmq / Modern Erlang packages for Debian
-# Description: A fork of the official Erlang packages for Debian, produced to package most recent releases as they come out.
-
 [rabbitmq_erlang]
 name=rabbitmq-rabbitmq-erlang
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/$basearch
@@ -572,7 +587,7 @@ type=rpm-md
 ## RabbitMQ server
 ##
 
-[rabbitmq_server]
+[rabbitmq-rabbitmq-server]
 name=rabbitmq-rabbitmq-server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/$basearch
 repo_gpgcheck=1
@@ -586,7 +601,7 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq_server-noarch]
+[rabbitmq-rabbitmq-server-noarch]
 name=rabbitmq-rabbitmq-server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/noarch
 repo_gpgcheck=1
@@ -600,7 +615,7 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq_server-source]
+[rabbitmq-rabbitmq-server-source]
 name=rabbitmq-rabbitmq-server-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/SRPMS
 repo_gpgcheck=1
@@ -670,24 +685,44 @@ type=rpm-md
 
 ### Install Packages with Yum
 
-First, update Yum package metadata:
+#### CentOS 8, RHEL 8, modern Fedora
+
+Update Yum package metadata:
 
 <pre class="lang-bash">
 yum update -y
 yum -q makecache -y --disablerepo='*' --enablerepo='rabbitmq_erlang' --enablerepo='rabbitmq_server'
 </pre>
 
-Then install the packages:
+Next install dependencies from the standard repositories:
 
 <pre class="lang-bash">
 ## install these dependencies from standard OS repositories
 yum install socat logrotate -y
 </pre>
 
+Finally, install modern Erlang and RabbitMQ:
+
 <pre class="lang-bash">
 ## install RabbitMQ and zero dependency Erlang from the above repositories,
 ## ignoring any versions provided by the standard repositories
 yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server
+</pre>
+
+#### CentOS 7
+
+Update Yum package metadata:
+
+<pre class="lang-bash">
+yum update -y
+</pre>
+
+Then install the packages:
+
+<pre class="lang-bash">
+yum install socat logrotate -y
+
+yum install erlang rabbitmq-server -y
 </pre>
 
 ### Install Packages with Zypper
