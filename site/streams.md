@@ -138,8 +138,7 @@ channel.queueDeclare(
 
 ### Client Operations
 
-
-#### Consuming
+#### <a id="consuming" class="anchor" href="#consuming">Consuming</a>
 
 As streams never delete any messages, any consumer can start reading/consuming
 from any point in the log. This is controlled by the `x-stream-offset` consumer argument.

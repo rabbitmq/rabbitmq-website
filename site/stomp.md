@@ -567,6 +567,34 @@ The prefetch count for all subscriptions is set to unlimited by
 default. This can be controlled by setting the `prefetch-count` header
 on `SUBSCRIBE` frames to the desired integer count.
 
+### <a id="stream-support" class="anchor" href="#stream-support">Stream Support</a>
+
+The `SUBSCRIBE` frame supports a `x-stream-offset` header to specify the offset
+to start consuming from in a [stream](/streams.html). A typical subscription frame
+for a stream will look like the following:
+
+    SUBSCRIBE
+    destination:/amq/queue/my-stream
+    ack:client
+    prefetch-count:10
+    x-stream-offset:next
+
+Note the `ack` and `prefetch-count` headers are also necessary. The `x-stream-offset` header
+has the same semantics as in [AMQP 0.9.1](/streams.html#consuming), the possible values are:
+
+ * `first` to start consuming from the first available message in the stream
+ * `last` to start consuming from the last written chunk of messages
+ * `next` to start consuming from the end of the stream (note the consumer will not receive
+ messages until someone is publishing to the stream)
+ * `offset=<offset-value>` to start from a specific offset, e.g. `offset=40000`
+ * `timestamp=<unix-time>` to start from a given time, e.g. `timestamp=1619432061` for
+ `2021-04-26T10:14:21+00:00`
+
+The default value is `next`.
+
+When delivering messages from a stream, the message offset (that is the position of the
+message in the stream) is included in the `x-stream-offset` header of the `MESSAGE` frame.
+
 ### <a id="pear.hpos" class="anchor" href="#pear.hpos">Header prohibited on `SEND`</a>
 
 It is not permitted to set a `message-id` header on a `SEND` frame.
