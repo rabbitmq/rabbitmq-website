@@ -438,8 +438,8 @@ and targets **CentOS 8**. The same repository definition **can be used by recent
 ## Zero dependency Erlang RPM
 ##
 
-[rabbitmq-rabbitmq-erlang]
-name=rabbitmq-rabbitmq-erlang
+[rabbitmq_erlang]
+name=rabbitmq_erlang
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
@@ -452,8 +452,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-erlang-noarch]
-name=rabbitmq-rabbitmq-erlang-noarch
+[rabbitmq_erlang-noarch]
+name=rabbitmq_erlang-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
@@ -467,8 +467,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-erlang-source]
-name=rabbitmq-rabbitmq-erlang-source
+[rabbitmq_erlang-source]
+name=rabbitmq_erlang-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
@@ -488,7 +488,7 @@ type=rpm-md
 ##
 
 [rabbitmq_server]
-name=rabbitmq-rabbitmq-server
+name=rabbitmq_server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
@@ -502,7 +502,7 @@ autorefresh=1
 type=rpm-md
 
 [rabbitmq_server-noarch]
-name=rabbitmq-rabbitmq-server-noarch
+name=rabbitmq_server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
@@ -516,7 +516,7 @@ autorefresh=1
 type=rpm-md
 
 [rabbitmq_server-source]
-name=rabbitmq-rabbitmq-server-source
+name=rabbitmq_server-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
@@ -538,7 +538,7 @@ On CentOS 7 the `baseurl` line would be slightly different:
 # In /etc/yum.repos.d/rabbitmq.repo
 
 [rabbitmq_erlang]
-name=rabbitmq-rabbitmq-erlang
+name=rabbitmq_erlang
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/$basearch
 repo_gpgcheck=1
 enabled=1
@@ -553,7 +553,7 @@ autorefresh=1
 type=rpm-md
 
 [rabbitmq_erlang-noarch]
-name=rabbitmq-rabbitmq-erlang-noarch
+name=rabbitmq_erlang-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/noarch
 repo_gpgcheck=1
 enabled=1
@@ -568,7 +568,7 @@ autorefresh=1
 type=rpm-md
 
 [rabbitmq_erlang-source]
-name=rabbitmq-rabbitmq-erlang-source
+name=rabbitmq_erlang-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/SRPMS
 repo_gpgcheck=1
 enabled=1
@@ -587,8 +587,8 @@ type=rpm-md
 ## RabbitMQ server
 ##
 
-[rabbitmq-rabbitmq-server]
-name=rabbitmq-rabbitmq-server
+[rabbitmq-server]
+name=rabbitmq_server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/$basearch
 repo_gpgcheck=1
 enabled=1
@@ -601,8 +601,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-server-noarch]
-name=rabbitmq-rabbitmq-server-noarch
+[rabbitmq_server-noarch]
+name=rabbitmq_server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/noarch
 repo_gpgcheck=1
 enabled=1
@@ -615,8 +615,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-server-source]
-name=rabbitmq-rabbitmq-server-source
+[rabbitmq_server-source]
+name=rabbitmq_server-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/SRPMS
 repo_gpgcheck=1
 enabled=1
@@ -640,8 +640,8 @@ Erlang is assumed to be provisioned from the [`devel:languages:erlang:Factory`](
 ## RabbitMQ server
 ##
 
-[rabbitmq-rabbitmq-server]
-name=rabbitmq-rabbitmq-server
+[rabbitmq_server]
+name=rabbitmq_server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/$basearch
 repo_gpgcheck=1
 enabled=1
@@ -654,8 +654,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-server-noarch]
-name=rabbitmq-rabbitmq-server-noarch
+[rabbitmq_server-noarch]
+name=rabbitmq_server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/noarch
 repo_gpgcheck=1
 enabled=1
@@ -668,8 +668,8 @@ pkg_gpgcheck=1
 autorefresh=1
 type=rpm-md
 
-[rabbitmq-rabbitmq-server-source]
-name=rabbitmq-rabbitmq-server-source
+[rabbitmq_server-source]
+name=rabbitmq_server-source
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/opensuse/15.1/SRPMS
 repo_gpgcheck=1
 enabled=1
@@ -691,7 +691,7 @@ Update Yum package metadata:
 
 <pre class="lang-bash">
 yum update -y
-yum -q makecache -y --disablerepo='*' --enablerepo='rabbitmq_erlang' --enablerepo='rabbitmq_server'
+yum -q makecache -y --disablerepo='*' --enablerepo='rabbitmq_erlang-noarch' --enablerepo='rabbitmq_server-noarch'
 </pre>
 
 Next install dependencies from the standard repositories:
@@ -706,7 +706,7 @@ Finally, install modern Erlang and RabbitMQ:
 <pre class="lang-bash">
 ## install RabbitMQ and zero dependency Erlang from the above repositories,
 ## ignoring any versions provided by the standard repositories
-yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server
+yum install --repo rabbitmq_erlang --repo rabbitmq_server-noarch erlang rabbitmq-server
 </pre>
 
 #### CentOS 7
@@ -730,17 +730,17 @@ yum install erlang rabbitmq-server -y
 First, update Zypper package metadata:
 
 <pre class="lang-bash">
-## refresh the repository. These verbose repository names are used by PackageCloud
-zypper --gpg-auto-import-keys refresh rabbitmq-rabbitmq-server
-zypper --gpg-auto-import-keys refresh rabbitmq-rabbitmq-server-noarch
-zypper --gpg-auto-import-keys refresh rabbitmq-rabbitmq-server-source
+## refresh the RabbitMQ repositories
+zypper --gpg-auto-import-keys refresh rabbitmq_server
+zypper --gpg-auto-import-keys refresh rabbitmq_server-noarch
+zypper --gpg-auto-import-keys refresh rabbitmq_server-source
 </pre>
 
 Then install the packages:
 
 <pre class="lang-bash">
 ## install the package from Cloudsmith repository
-zypper install --repo rabbitmq-rabbitmq-server-noarch
+zypper install --repo rabbitmq_server-noarch
 </pre>
 
 
