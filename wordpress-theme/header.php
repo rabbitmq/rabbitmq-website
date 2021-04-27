@@ -2,13 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NSPM4RC');</script>
-    <!-- End Google Tag Manager -->
+    <!-- OneTrust Cookie Consent -->
+    <meta content='73d8ba46-8c12-43f6-8c22-24aa21b8d93d' name='onetrust-data-domain'>
+    <meta content='https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js' name='microsites-utag'>
+    <script src='https://d1fto35gcfffzn.cloudfront.net/assets/jquery-1.11.2.min.js'></script>
+    <script src='//www.vmware.com/files/templates/inc/utag_data.js'></script>
+    <script src='//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js'></script>
+    <script>function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }</script>
+    <script>
+      function setGTM(w,d,s,l,i){ w[l]=w[l]||[]; w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'}); var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:''; j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); }
+
+      if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { setGTM(window,document,'script','dataLayer','GTM-TT84L8K'); } else{ waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) { clearTimeout(timer); setGTM(window,document,'script','dataLayer','GTM-TT84L8K'); } else{ timer=setTimeout(waitForOnetrustActiveGroups, 250); } }
+    </script>
+    <!-- End OneTrust Cookie Consent -->
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?> - Messaging that just works</title>
   <meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"></meta>
 <meta xmlns="http://www.w3.org/1999/xhtml" name="googlebot" content="NOODP"></meta>
@@ -27,10 +33,6 @@
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSPM4RC"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
     <div class='container'>
       <div class="rabbit-logo">
