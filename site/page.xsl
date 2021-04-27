@@ -209,7 +209,7 @@ limitations under the License.
         </ul>
         <p id="copyright">
           Copyright &#169; 2007-2021 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
-          <a href="https://pivotal.io/legal">Terms of Use</a> &#8226;
+          <a href="https://www.vmware.com/help/legal.html">Terms of Use</a> &#8226;
           <a href="https://www.vmware.com/help/privacy.html">Privacy</a> &#8226;
           <a href="/trademark-guidelines.html">Trademark Guidelines</a> &#8226;
           <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> &#8226;
