@@ -382,6 +382,10 @@ spec:
       memory: 2Gi
 </pre>
 
+**Note:** It's possible for RabbitMQ and Erlang to temporarily exceed the total available memory, which could cause an immediate OOM kill.
+To prevent this from happening, the cluster operator sets memory headroom of 20% (with a max value of 2GB) by configuring `total_memory_available_override_value`.
+This means the actual memory limit set in RabbitMQ is 20% less than the specified resource requirement.
+
 For more information about concepts mentioned above, see:
 
 <table class="nice">
