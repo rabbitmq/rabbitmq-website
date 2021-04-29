@@ -382,6 +382,10 @@ spec:
       memory: 2Gi
 </pre>
 
+**Note:** It's possible for RabbitMQ to temporary exceed its memory high-water mark which could cause immediate OOM kill.
+cluster operator sets a 20% memory headroom (with a max value of 2GB) to prevent this from happening.
+This means the actual memory limit set in RabbitMQ is 20% less than the specified resource requirement.
+
 For more information about concepts mentioned above, see:
 
 <table class="nice">
