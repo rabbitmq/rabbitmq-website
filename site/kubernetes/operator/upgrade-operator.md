@@ -4,7 +4,7 @@ This topic describes how to upgrade the Cluster Operator and its components.
 
 ## <a id="overview"> </a> Overview
 
-Upgrades are not currently supported. The recommended method is a delete and re-install.
+Upgrades are not currently supported. The recommended method is delete and re-install.
 
 Replacing the image reference in the Deployment manifest to a new version may work to deploy
 a newer version of the Cluster Operator, however that is not tested and has no guarantees.

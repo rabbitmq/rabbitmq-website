@@ -60,7 +60,7 @@ This will create RabbitMQ cluster with some basic configuration where only the c
 kubectl rabbitmq get INSTANCE
 </pre>
 
-Display all of the kubernetes resources associated with the named RabbitMQ cluster including
+Display all the kubernetes resources associated with the named RabbitMQ cluster including
 pods, configmaps, statefulsets, services and secrets.
 
 <pre class="lang-bash">
@@ -136,7 +136,7 @@ kubectl rabbitmq tail INSTANCE
 </pre>
 
 Attach to live log output from all RabbitMQ nodes. This requires the `tail` plugin for `kubectl`.
-Install it with
+Install it with:
 
 <pre class="lang-bash">
 kubectl krew install tail

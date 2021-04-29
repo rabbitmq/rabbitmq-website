@@ -8,7 +8,7 @@ Kubernetes Operators are software extensions to Kubernetes that provide custom r
 services  and their components.
 
 In this and other Operator related guides, we use "Operator" (with a capital O) to refer to a Kubernetes Operator
-pattern implementation and "operator" (with a lowercase o) to refer to a technical operations
+pattern implementation and "operator" (with a lowercase o) to refer to a technical operation
 engineer (administrator).
 
 The Operator provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and
@@ -57,7 +57,7 @@ please consult the [README](https://github.com/rabbitmq/cluster-operator#support
 
 ### RabbitMQ Cluster Reconciliation
 
-Deleted `Secret` objects will be recreated by the Kubernetes Operator but the newly generated secret value will
+Deleted `Secret` objects will be recreated by the Kubernetes Operator, but the newly generated secret value will
 not be deployed to the RabbitMQ cluster. For example, if the `Secret` with administrator credentials is deleted,
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
 It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)

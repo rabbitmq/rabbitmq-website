@@ -22,7 +22,7 @@ This guide goes through the following steps:
 
 Many steps in the quickstart - installing the operator, accessing the Management UI, fetching credentials for the RabbitMQ Cluster, are made easier by the `kubectl rabbitmq` plugin. While there are instructions to follow along without using the plugin, getting the plugin will make these commands simpler. To install the plugin, look at its [installation instructions](/kubernetes/operator/install-operator.html).
 
-For extensive documentation on the plugin see the [`kubectl` Plugin guide](/kubernetes/operator/kubectl-plugin.html).
+For an extensive documentation on the plugin see the [`kubectl` Plugin guide](/kubernetes/operator/kubectl-plugin.html).
 
 ## Install the RabbitMQ Cluster Operator
 
@@ -78,7 +78,7 @@ rabbitmqclusters.rabbitmq.com                    2021-01-14T11:12:26Z
 
 ## Hello RabbitMQ!
 
-Now that we have the Operator deployed, let's create the simplest RabbitMQ Cluster.
+Now we have the Operator deployed, let's create the simplest RabbitMQ Cluster.
 
 This example can be found in the [Cluster Operator GitHub repo](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/hello-world). As mentioned on the page:
 > This is the simplest `RabbitmqCluster` definition. The only explicitly specified property is the name of the cluster. Everything else will be configured according to the Cluster Operator's defaults.
@@ -248,7 +248,7 @@ As can be seen, perf-test is able to produce and consume about 25,000 messages p
 
 ## Next Steps
 
-Now that you are up and running with the basics, you can explore what the Cluster Operator can do for you!
+Now you are up and running with the basics, you can explore what the Cluster Operator can do for you!
 
 You can do so by:
 

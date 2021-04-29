@@ -103,7 +103,7 @@ kubectl -n rmq-instance-1 get all
 
 ### <a id="operator-failure-on-startup" class="anchor" href="#operator-failure-on-startup">Cluster Operator Fails on Startup</a>
 
-After deploying RabbitMQ Cluster Operator, it fails during startup and its pod is restarted.
+After deploying RabbitMQ Cluster Operator, it fails during the startup and its pod is restarted.
 
 Common reasons for such failure are:
 

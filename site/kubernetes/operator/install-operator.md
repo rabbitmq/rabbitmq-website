@@ -35,7 +35,7 @@ Once the RabbitMQ Cluster Kubernetes Operator pod is running, head over to [Usin
 
 If you want to install a specific version of the Operator, you will have to obtain the manifest link from the
 [Operator Releases](https://github.com/rabbitmq/cluster-operator/releases). Please note that releases prior to 0.46.0
-do not have this manifest. We strongly recommend to install versions 0.46.0+
+do not have this manifest. We strongly recommend installing versions 0.46.0+
 
 If you want to relocate the Operator image to a custom location, the section [Relocate the Image](#relocate-image)
 has instructions to relocate the Operator image to a private registry.
@@ -103,7 +103,7 @@ grep -C3 image: releases/cluster-operator.yml
 
 ### <a id='private-images' class='anchor' href='#private-images'>(Optional) Configure Kubernetes Cluster Access to Private Images</a>
 
-If you relocated the image to a private registry and your registry requires authentication, you need to follow these steps to allow Kubernetes to pull the image.
+If you relocated the image to a private registry, and your registry requires authentication, you need to follow these steps to allow Kubernetes to pull the image.
 
 First, create the Service Account that the Operator will use to run and to pull images:
 
@@ -148,13 +148,13 @@ kubectl -n rabbitmq-system patch serviceaccount \
 rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-registry-access"}]}'
 </pre>
 
-Please note that the name of the Operator Service Account is not configurable and it must be `rabbitmq-cluster-operator`.
+Please note that the name of the Operator Service Account is not configurable, and it must be `rabbitmq-cluster-operator`.
 
 ### <a id='openshift' class='anchor' href='#openshift'>Installation on OpenShift</a>
 
 The RabbitMQ cluster operator runs as user ID `1000`.
 The RabbitMQ pod runs the RabbitMQ container as user ID `999` and an init container as user ID `0`.
-By default OpenShift has security context constraints which disallow to create pods running with these user IDs.
+By default, OpenShift has security context constraints which disallow to create pods running with these user IDs.
 To install the RabbitMQ cluster operator on OpenShift, you need to perform the following steps:
 
 1. Download the installation manifest from the [release page in GitHub](https://github.com/rabbitmq/cluster-operator/releases).
@@ -248,7 +248,7 @@ To install the RabbitMQ cluster operator on OpenShift, you need to perform the f
     Warning  FailedCreate  74s (x107 over 9h)  replicaset-controller  Error creating: pods "rabbitmq-cluster-operator-79888fd8c8-" is forbidden: unable to validate against any security context constraint: []
     </pre>
 
-    This could be a result of the default SELinuxContext in the Openshift project is not compatible with the cluster operator. To fix this issue, add an additional annotation in the `rabbitmq-system` namespace:
+    This could be a result of the default SELinuxContext in the Openshift project is not compatible with the cluster operator. To fix this issue, add an annotation in the `rabbitmq-system` namespace:
 
     <pre class="lang-yaml">
     apiVersion: v1

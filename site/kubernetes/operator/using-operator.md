@@ -54,7 +54,7 @@ If `Role` and `RoleBinding` are used, it will only be effective in the Namespace
 
 If Pod security policies are not enabled, skip to <a href="#create">Create a RabbitMQ Instance</a> below.
 
-The `Role` and `RoleBinding` should be created before a `RabbitmqCluster` instance is created. It's ok to create a binding that refers to a non-existing
+The `Role` and `RoleBinding` should be created before a `RabbitmqCluster` instance is created. It's ok to create a binding refers to a non-existing
 Service Account or User. The Operator creates a Service Account using the pattern `INSTANCE-NAME-server`. For example, a `RabbitmqCluster` named
 'mycluster' will generate a Service Account named `mycluster-server`. In order to allow a Service Account to use PSPs, a Role with the verb 'use' must
 be bound to the Service Account. For example:
@@ -111,7 +111,7 @@ Then verify that the process was successful by running:
 kubectl get all -l app.kubernetes.io/name=definition
 </pre>
 
-If successful, there will be a running pod and a service that exposes the instance.
+If successful, there will be a running pod, and a service exposes the instance.
 For example:
 
 <pre class='lang-bash'>
@@ -132,8 +132,8 @@ For more information, see the [RabbitMQ documentation guides](https://www.rabbit
 The child resources created by the Cluster Operator always have the following set of labels:
 
 * `app.kubernetes.io/name` - the value is the `RabbitmqCluster` name associated to the resource.
-* `app.kubernetes.io/component` - the component it belongs to. Currently always set to `rabbitmq`.
-* `app.kubernetes.io/part-of` - The name of a higher level application this one is part of. Currently always set to `rabbitmq`.
+* `app.kubernetes.io/component` - the component it belongs to, currently always set to `rabbitmq`.
+* `app.kubernetes.io/part-of` - The name of a higher level application this one is part of, currently always set to `rabbitmq`.
 
 The same set of labels is applied to the Pods created by the StatefulSet. In addition to the above, the following
 two annotations are added to the Pods:
@@ -148,7 +148,7 @@ Some interesting use cases are:
 
 * [How to import a definitions file](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/import-definitions) in RabbitMQ using the Operator
 * [How to configure memory and CPU limits for RabbitMQ](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/resource-limits)
-* [A production ready example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/production-ready), tested in Google Cloud Platform and
+* [A production ready example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/production-ready) tested in Google Cloud Platform, and
 a good baseline to start.
 
 There are more [examples available](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples).
@@ -465,7 +465,7 @@ cluster_partition_handling = pause_minority
 queue_master_locator = min-masters
 </pre>
 
-All the values in additional config will be appended to this list. If any property is specified twice, the latest
+All the values in the additional config will be appended to this list. If any property is specified twice, the latest
 will take effect.
 
 **Default Value:** N/A
@@ -630,7 +630,7 @@ spec:
 
 ### <a name='override' class='anchor' href='#override'>Override Resource Properties</a>
 
-**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.service</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
+**Description:** Use with caution! Customize resources created by the operator by overriding their properties or providing additional settings. This is an advanced feature that allows you to enable features that are not explicitly supported but can easily render your RabbitMQ Cluster unusable if used incorrectly. You can customize the StatefulSet, and the Service used by client applications. The values for <code>spec.override.statefulSet</code> and <code>spec.override.service</code> should match [StatefulSet object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#statefulset-v1-apps) and [Service object](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#service-v1-core) specification respectively.
 
 **Default Value:** N/A
 
@@ -955,7 +955,7 @@ A [basic overview of TLS](/ssl.html#certificates-and-keys) is helpful for unders
 
 ### <a id='one-way-tls' class='anchor' href='#one-way-tls'>TLS encrypting traffic between clients and RabbitMQ</a>
 
-In order to encrypt traffic between clients and the RabbitMQ cluster, the RabbitMQ cluster must be configured with a server certificate and key pair signed by a Certificate Authority (CA) trusted by the clients. This allows clients to verify that the server is trusted, and traffic sent between the client and server are encrypted using the server's keys.
+In order to encrypt traffic between clients, and the RabbitMQ cluster, the RabbitMQ cluster must be configured with a server certificate and key pair signed by a Certificate Authority (CA) trusted by the clients. This allows clients to verify that the server is trusted, and traffic sent between the client and server are encrypted using the server's keys.
 
 The certificate's Subject Alternative Name (SAN) must contain at least the following attributes:
 * `*.<RabbitMQ cluster name>-nodes.<namespace>.svc.<K8s cluster domain name>`
@@ -995,12 +995,12 @@ spec:
 
 ### <a id='mutual-tls' class='anchor' href='#mutual-tls'>Mutual TLS encryption between clients and RabbitMQ</a>
 
-Mutual TLS (mTLS) enhances TLS by requiring that the server verify the identity of the client, in addition to the client verifying the server, which already occurs in TLS encryption. In order for this mutual verification to occur, both the client and server must be configured with certificate and key pairs, with the client pair signed by a CA trusted by the server and the server pair signed by a CA trusted by the client. The mutual verification process is shown in the following diagram:
+Mutual TLS (mTLS) enhances TLS by requiring that the server verify the identity of the client, in addition to the client verifying the server, which already occurs in TLS encryption. In order for this mutual verification to occur, both the client and server must be configured with certificate and key pairs, with the client pair signed by a CA trusted by the server, and the server pair signed by a CA trusted by the client. The mutual verification process is shown in the following diagram:
 
 <img src="/img/mTLS.png"/>
 
 In addition to the [configuration required to support TLS](#one-way-tls), configuring mutual TLS requires the RabbitMQ cluster to be configured with the CA certificate
-used to sign the client certificate and key pair, `ca.pem`. Create a Kuberntes secret with key `ca.crt` containing this secret
+used to sign the client certificate and key pair, `ca.pem`. Create a Kuberntes secret with key `ca.crt` containing this secret:
 
 <pre class='lang-bash'>
 kubectl create secret generic ca-secret --from-file=ca.crt=ca.pem
@@ -1008,7 +1008,7 @@ kubectl create secret generic ca-secret --from-file=ca.crt=ca.pem
 
 or create this secret using a tool such as <a href="https://cert-manager.io/">Cert Manager</a>.
 
-Once this secret and the `tls-secret` exist, a RabbitMQ cluster cluster can be deployed following the [mTLS example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls).
+Once this secret and the `tls-secret` exist, a RabbitMQ cluster can be deployed following the [mTLS example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls).
 
 <pre class="lang-yaml">
 apiVersion: rabbitmq.com/v1beta1
@@ -1036,7 +1036,7 @@ spec:
 ## <a id='find' class='anchor' href='#find'>Find Your RabbitmqCluster Service Name and Admin Credentials</a>
 
 If an app is deployed in the same Kubernetes cluster as RabbitMQ, the RabbitmqCluster Service name
-and admin credentials can be used to connect such app to RabbitMQ.
+and admin credentials can be used to connect such an app to RabbitMQ.
 The steps required to make that connection can vary greatly by deployment and are beyond the scope of this
 documentation.
 
@@ -1066,7 +1066,7 @@ where `INSTANCE` is the name of the `RabbitmqCluster` object.
 Kubernetes encodes secrets using base64.
 
 The name and namespace of the secret is also present in the custom resource status. To retrieve the Secret name,
-run `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.defaultUser.secretReference.name}'`
+run: `kubectl get rabbitmqcluster INSTANCE -ojsonpath='{.status.defaultUser.secretReference.name}'`
 
 To retrieve credentials and display them in plaintext, first display the username by running:
 
@@ -1167,7 +1167,7 @@ kubectl delete -f INSTANCE.yaml
 
 It is possible to pause reconciliation for a RabbitMQ instance: this will prevent the cluster operator from watching and updating the instance. To do so, set a special label "rabbitmq.com/pauseReconciliation=true" on your RabbitmqCluster.
 
-This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware that pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally delete a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
+This feature can be used if you wish to upgrade to a new version of the cluster operator but do not wish for the operator to start updating some of your RabbitmqCluster. Please be aware pausing reconciliation means that the operator will not watch this RabbitmqCluster until the special label is removed. Any updates to the paused RabbitmqCluster will be ignored by the operator and if you accidentally delete a child resource of the RabbitmqCluster (e.g. the Stateful Set or Service object), deleted object won't be recreated automatically. We do not recommend using this feature unless absolutely necessary.
 
 To pause reconciliation, set the label by running:
 
