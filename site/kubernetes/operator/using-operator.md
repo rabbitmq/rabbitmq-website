@@ -571,10 +571,21 @@ This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in 
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
-RabbitMQ nodes can reload certificates produced by the same CA without a node restart. This makes on-the-fly certificate
-rotation (renewal) possible.
-To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up
-by the RabbitMQ pods within several minutes.
+RabbitMQ nodes can reload TLS certificates without a node restart. To rotate the TLS certificate, update the TLS Secret object
+with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
+If you need to speed up the process, you can force RabbitMQ to reload the certificate immediately by running:
+
+<pre class='lang-bash'>
+kubectl exec -it INSTANCE-server-0 -- rabbitmqctl eval "ssl:clear_pem_cache()."
+</pre>
+
+or directly from within the node pod:
+
+<pre class='lang-bash'>
+rabbitmqctl eval "ssl:clear_pem_cache()."
+</pre>
+
+Since each node has its own cache, if you decide to run this command, you should execute it on all cluster nodes.
 
 **Default Value:** N/A
 
