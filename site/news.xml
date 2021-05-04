@@ -37,6 +37,69 @@ limitations under the License.
 
 
     <doc:item>
+      <doc:date iso="2021-05-04T18:00:00+00:00">4 May 2021</doc:date>
+      <doc:title>RabbitMQ 3.8.16 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.16.
+        </p>
+        <p>
+          This is a maintenance release that follows-up to 3.8.15 to
+          reintroduce AWS peer discovery plugin that was unintentionally excluded.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and is the first
+          release to <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">support Erlang 24</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2021-05-03T016:00:00+00:00">3 May 2021</doc:date>
+      <doc:title>RabbitMQ 3.8.15 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.15</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.15.
+        </p>
+        <p>
+          This is a maintenance release that includes two security patches.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This is the last release to support Erlang/OTP 22.
+        </p>
+        <p>
+          We encourage all users to consult release notes but skip this release and upgrade to 3.8.11 or later.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2021-03-24T12:00:00+00:00">24 March 2021</doc:date>
       <doc:title>Erlang 24 Support and Erlang 22 Retirement Timeline</doc:title>
       <doc:link>https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/</doc:link>
