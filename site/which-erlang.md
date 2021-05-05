@@ -314,7 +314,7 @@ is recommended.
 
 Most recent versions can be obtained from a number of sources:
 
- * Debian Erlang packages from Team RabbitMQ [on Launchpad](install-debian.html#apt-launchpad-erlang) and [Cloudsmith.io](install-debian.html#apt-cloudsmith-erlang).
+ * Debian Erlang packages from Team RabbitMQ [on Launchpad](install-debian.html#apt-launchpad-erlang) and [Cloudsmith.io](install-debian.html#apt-cloudsmith).
  * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/)
  * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) provides binary builds of patch releases for Windows
