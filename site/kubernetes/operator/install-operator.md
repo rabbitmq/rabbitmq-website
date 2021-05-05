@@ -9,7 +9,7 @@ If you are installing in OpenShift, follow the instructions in [Installation on 
 
 The Operator requires
 
-* Kubernetes 1.17 or above
+* Kubernetes 1.18 or above
 * [RabbitMQ DockerHub image](https://hub.docker.com/_/rabbitmq) 3.8.8+
 
 -----

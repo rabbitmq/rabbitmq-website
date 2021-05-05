@@ -58,7 +58,7 @@ endif
 $(PIPENV): $(PYTHON)
 ifeq ($(PLATFORM),Darwin)
   ifeq ($(wildcard $(PIPENV_BIN)),)
-	@brew install pipenv
+	@brew list pipenv || brew install pipenv
   endif
 endif
 

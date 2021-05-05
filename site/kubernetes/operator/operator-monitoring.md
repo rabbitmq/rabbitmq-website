@@ -4,105 +4,68 @@ This guide describes how to [monitor](/monitoring.html) RabbitMQ instances deplo
 
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
-Cluster Operator deploys RabbitMQ clusters with the [`rabbitmq_prometheus` plugin](/prometheus.html), which is enabled
-for all nodes deployed by the Operator by default. The plugin exposes a Prometheus-compatible metrics endpoint.
+Cluster Operator deploys RabbitMQ clusters with the [rabbitmq_prometheus plugin](/prometheus.html) enabled.
+The plugin exposes a Prometheus-compatible metrics endpoint.
 
-For information on configuring Prometheus to scrape Kubernetes targets, check the
-[Prometheus configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
-documentation.
 For a detailed guide on RabbitMQ Prometheus configuration, check the [Prometheus guide](/prometheus.html).
 
 The following sections assume Prometheus is deployed and functional.
+How to configure Prometheus to monitor RabbitMQ depends on whether Prometheus is installed by Prometheus Operator or by other means.
 
+## <a id='prom-operator' class='anchor' href='#prom-operator'>Monitor RabbitMQ with Prometheus Operator</a>
 
-## <a id='prom-annotations' class='anchor' href='#prom-annotations'>Monitor RabbitMQ Using Scraping Annotations</a>
+The [Prometheus Operator](https://github.com/coreos/prometheus-operator) defines the custom resource definitions (CRDs) `ServiceMonitor`, `PodMonitor`, and `PrometheusRule`.
+`ServiceMonitor` and `PodMonitor` CRDs allow to declaratively define how a dynamic set of services and pods should be monitored.
 
-Prometheus can be configured to scrape all Pods with the `prometheus.io/scrape: true` annotation. The
-[Prometheus Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus#scraping-pod-metrics-via-annotations),
-for example, is configured by default to scrape all pods in a cluster with this annotation. All RabbitMQ pods created
-by the Cluster Operator have this annotation, and so will be automatically scraped if Prometheus
-was deployed through the Helm chart.
-
-If Prometheus was deployed through some other means, it is still possible to set up scraping of all pods with this annotation.
-This can be achieved through the [Kubernetes Service Discovery](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
-configuration. A bare-minimum Prometheus configuration which can provide this functionality is included below for reference.
-
-<pre class='hljs lang-yaml'>
-global:
-  scrape_interval: 1m
-  scrape_timeout: 10s
-  evaluation_interval: 1m
-scrape_configs:
-- job_name: kubernetes-pods
-  honor_timestamps: true
-  scrape_interval: 1m
-  scrape_timeout: 10s
-  metrics_path: /metrics
-  scheme: http
-  kubernetes_sd_configs:
-  - role: pod
-  relabel_configs:
-  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-    separator: ;
-    regex: "true"
-    replacement: $1
-    action: keep
-  - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-    separator: ;
-    regex: ([^:]+)(?::\d+)?;(\d+)
-    target_label: __address__
-    replacement: $1:$2
-    action: replace
-</pre>
-
-
-## <a id='prom-operator' class='anchor' href='#prom-operator'>Monitor RabbitMQ Using the Prometheus Operator</a>
-
-The Prometheus Operator defines scraping configuration through a more flexible custom resource called `PodMonitor`.
-For more information, see the [Prometheus Operator](https://github.com/coreos/prometheus-operator) in GitHub.
-
-To use the Prometheus Operator to monitor RabbitMQ clusters:
-
-First, deploy the Prometheus Operator. There are several ways to do so. Guidance is provided in the
-[kube-prometheus](https://github.com/coreos/kube-prometheus/#quickstart) documentation in GitHub.
-
-Next, verify that you have deployed the Prometheus `PodMonitor` Custom Resource Definition (CRD) by running:
-
+Check if the Kubernetes cluster has Prometheus Operator deployed:
 <pre class="lang-bash">
-kubectl get customresourcedefinitions.apiextensions.k8s.io podmonitors.monitoring.coreos.com
+kubectl get customresourcedefinitions.apiextensions.k8s.io servicemonitors.monitoring.coreos.com
 </pre>
+If this command returns an error, Prometheus Operator is not deployed.
 
-If this command returns an error, the Kubernetes cluster does not have the Prometheus Operator deployed.
-
-Next, create a YAML file named `rabbitmq-podmonitor.yaml` with the following contents:
-
-<pre class="lang-yaml">
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: rabbitmq
-spec:
-  podMetricsEndpoints:
-  - interval: 15s
-    port: prometheus
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: rabbitmq
-  namespaceSelector:
-    any: true
-</pre>
-
-This defines the `PodMonitor` resource, which is needed to configure the automatic discovery of RabbitMQ clusters.
-
-Next, apply the `PodMonitor` resource by running
-
+To monitor all RabbitMQ clusters, run:
 <pre class="lang-bash">
-kubectl apply -f rabbitmq-podmonitor.yaml
+kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-servicemonitor.yml
 </pre>
 
-`PodMonitor` can be created in any namespace, as long as the Prometheus Operator has permissions to find it.
+To monitor RabbitMQ Cluster Operator, run:
+<pre class="lang-bash">
+kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
+</pre>
+
+`ServiceMonitor` and `PodMonitor` can be created in any namespace, as long as the Prometheus Operator has permissions to find it.
 For more information about these permissions, see [Configure Permissions for the Prometheus Operator](#config-perm) below.
 
+Prometheus Operator will detect `ServiceMonitor` and `PodMonitor` objects and automatically configure and reload Prometheus' [scrape config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+
+To validate whether Prometheus successfully scrapes metrics, open the Prometheus web UI in your browser and navigate to the `Status -> Targets` page where you should see
+an entry for the Cluster Operator (e.g. `podMonitor/<podMonitorNamespace>/rabbitmq-cluster-operator/0 (1/1 up)`) and one entry for each deployed RabbitMQ cluster (e.g. `serviceMonitor/<serviceMonitorNamespace>/rabbitmq/0 (1/1 up)`).
+
+### Prometheus Alerts
+The custom resource `PrometheusRule` allows to declaratively define [alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+To install RabbitMQ alerting rules, first ensure that [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) is installed.
+To deploy Prometheus rules for RabbitMQ, `kubectl apply` all YAML files in directory [rules/rabbitmq](https://github.com/rabbitmq/cluster-operator/tree/main/observability/prometheus/rules/rabbitmq).
+To deploy Prometheus rules for Cluster Operator, `kubectl apply` the YAML files in directory [rules/rabbitmq-cluster-operator](https://github.com/rabbitmq/cluster-operator/tree/main/observability/prometheus/rules/rabbitmq-cluster-operator).
+
+The `ruleSelector` from the `Prometheus` custom resource must match the labels of the deployed `PrometheusRules`.
+For example, if the Prometheus custom resource contains below `ruleSelector`, a label `release: my-prometheus` needs to be added to the `PrometheusRules`.
+<pre class='hljs lang-yaml'>
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+   ...
+spec:
+  ...
+  ruleNamespaceSelector: {}
+  ruleSelector:
+    matchLabels:
+      release: my-prometheus
+  ...
+  version: v2.26.0
+</pre>
+
+To get notified on firing alerts (e.g. via Email or PagerDuty) configure a notification receiver in [Alertmanager](https://prometheus.io/docs/alerting/latest/overview/).
+To receive Slack notifications, deploy the Kubernetes `Secret` in directory [alertmanager](https://github.com/rabbitmq/cluster-operator/tree/main/observability/prometheus/alertmanager).
 
 ### <a id='config-perm' class='anchor' href='#config-perm'>(Optional) Configure Permissions for the Prometheus Operator</a>
 
@@ -153,10 +116,24 @@ Then apply the permissions listed in `prometheus-roles.yaml` by running
 kubectl apply -f prometheus-roles.yaml
 </pre>
 
+## <a id='prom-annotations' class='anchor' href='#prom-annotations'>Monitor RabbitMQ Without Prometheus Operator</a>
+
+If Prometheus is not installed by Prometheus Operator, but by other means, the CRDs `ServiceMonitor`, `PodMonitor`, and `PrometheusRule` are not available.
+Therefore, Prometheus needs to be [configured via a config file](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
+To monitor all RabbitMQ clusters and RabbitMQ Cluster Operator, use the scrape targets defined in [Prometheus config file for RabbitMQ](https://github.com/rabbitmq/cluster-operator/blob/main/observability/prometheus/config-file.yml).
+
+To set up RabbitMQ alerting rules, first configure Prometheus to receive metrics from the [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) agent.
+Thereafter, configure Prometheus to use the [Prometheus rule file](https://github.com/rabbitmq/cluster-operator/blob/main/observability/prometheus/rule-file.yml).
+To receive Slack notifications, use the same `alertmanager.yaml` as provided in [alertmanager/slack.yml](https://github.com/rabbitmq/cluster-operator/blob/main/observability/prometheus/alertmanager/slack.yml)
+for the [Alertmanager configuration file](https://prometheus.io/docs/alerting/latest/configuration/#configuration-file).
 
 ## <a id='grafana' class='anchor' href='#grafana'>Import Dashboards to Grafana</a>
 
 RabbitMQ provides Grafana dashboards to visualize the metrics scraped by Prometheus.
 
-Follow the instructions in the [Prometheus guide](/prometheus.html#grafana-configuration)
-to import dashboards to Grafana.
+Follow the instructions in the [Prometheus guide](/prometheus.html#grafana-configuration) to import dashboards to Grafana.
+
+Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in directory [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards)
+to import RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).
+
+The [RabbitMQ-Alerts dashboard](https://github.com/rabbitmq/cluster-operator/blob/main/observability/grafana/dashboards/rabbitmq-alerts.yml) provides a history of all past RabbitMQ alerts across all RabbitMQ clusters in Kubernetes.
