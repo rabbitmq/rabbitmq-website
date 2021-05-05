@@ -1106,8 +1106,7 @@ sudo apt-get install curl gnupg debian-keyring debian-archive-keyring -y
 ### <a id="erlang-apt-repo-signing-key" class="anchor" href="#erlang-apt-repo-signing-key">Add Repository Signing Key</a>
 
 In order to use the repository, add [RabbitMQ signing key](/signatures.html) to `apt-key`.
-This will instruct apt to trust packages signed by that key. This can be done using
-a key server or via direct key download.
+This will instruct apt to trust packages signed by that key.
 
 <pre class="lang-bash">
 # primary RabbitMQ signing key
