@@ -383,7 +383,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 
 ## <a id="apt-cloudsmith" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on Cloudsmith</a>
 
-Team RabbitMQ maintains twp [apt repositories on Cloudsmith](),
+Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
 a package hosting service. They provide packages for most recent RabbitMQ and modern Erlang releases.
 
 Cloudsmith provides repository setup instructions that include
