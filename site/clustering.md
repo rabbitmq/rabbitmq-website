@@ -415,7 +415,7 @@ The [Quorum Queues guide](/quorum-queues.html) covers this topic in more detail.
 Assuming all cluster members
 are available, a client can connect to any node and
 perform any operation. Nodes will route operations to the
-[quorum queue leader](/quorum-queues.html) or [queue master replica](ha.html#master-migration-data-locality)
+[quorum queue leader](/quorum-queues.html) or [queue leader replica](ha.html#leader-migration-data-locality)
 transparently to clients.
 
 With all supported messaging protocols a client is only connected to one node

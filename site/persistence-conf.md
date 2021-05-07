@@ -46,7 +46,7 @@ memory pressure. The "persistence layer" refers to the mechanism
 used to store messages of both types to disk.
 
 On this page we say "queue" to refer to an unmirrored queue or a
-queue master or a queue mirror. Queue mirroring is a "layer above"
+queue leader or a queue mirror. Queue mirroring is a "layer above"
 persistence.
 
 The persistence layer has two components: the _queue index_

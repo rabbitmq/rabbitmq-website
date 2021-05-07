@@ -71,7 +71,7 @@ be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is
 system participants).
 
 When applied to queue mirroring in RabbitMQ [clusters](/clustering.html)
-this means that the majority of replicas (including the currently elected queue master/leader)
+this means that the majority of replicas (including the currently elected queue leader/leader)
 agree on the state of the queue and its contents.
 
 ### Differences from Classic Mirrored Queues
@@ -80,7 +80,7 @@ Quorum queues share many of the fundamentals with [queues](/queues.html) of othe
 However, they are more purpose-built, focus on data safety and predictable recovery,
 and do not support certain feature.
 
-The differences is covered [is covered](#feature-comparison) in this guide.
+The differences [are covered](#feature-comparison) in this guide.
 
 Classic mirrored queues in RabbitMQ have technical limitations that makes it difficult to provide
 comprehensible guarantees and clear failure handling semantics.
@@ -187,7 +187,7 @@ Quorum queues [support poison message handling](#poison-message-handling) via a 
 Quorum queues are purpose built by design. They are _not_ designed to be used for every problem.
 Their intended use is for topologies where queues exist for a long time and are critical to certain
 aspects of system operation, therefore fault tolerance and data safety is more important than, say,
-low latency and advanced queue features.
+lowest possible latency and advanced queue features.
 
 Examples would be incoming orders in a sales system or votes cast in an
 election system where potentially losing messages would have a significant
@@ -211,7 +211,7 @@ another consumer can re-attempt processing.
 In some cases quorum queues should not be used. They typically involve:
 
  * Temporary nature of queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
- * Low latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features.
+ * Lowest possible latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](/confirms.html) are not used)
  * Very long queue backlogs (quorum queues currently keep all messages in memory at all times, up to a [limit](#memory-limit))
 
@@ -296,7 +296,7 @@ launched to run on a random subset of the RabbitMQ cluster.
 ### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
 
 Every quorum queue has a primary replica. That replica is called
-_queue leader_ (originally "queue master"). All queue operations go through the leader
+_queue leader_ (originally "queue leader"). All queue operations go through the leader
 first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 
@@ -424,7 +424,7 @@ smaller uneven number of nodes.
 
 Performance tails off quite a bit for quorum queue node sizes larger than 5.
 We do not recommend running quorum queues on more than 7 RabbitMQ nodes. The
-default quorum queue size is 5 and is controllable using the
+default quorum queue size is 3 and is controllable using the
 `x-quorum-initial-group-size` [queue argument](/queues.html#optional-arguments).
 
 ### <a id="data-safety" class="anchor" href="#data-safety">Data Safety</a>

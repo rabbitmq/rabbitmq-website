@@ -284,9 +284,8 @@ can. To summarise how clustering and federation interact:
    the node they are running on crashes or stops.
  * Queue federation links will start on the same node as the
    downstream queue. If the downstream queue is mirrored, they
-   will start on the same node as the master, and will be
-   recreated on the same node as the new master if the node the
-   existing master is running on crashes or stops.
+   will start on the same node as the leader, and will be
+   recreated on the same node as the new leader after any future leader elections.
  * To connect to an upstream cluster, you can specify multiple URIs in
    a single upstream. The federation link process will choose one of
    these URIs at random each time it attempts to connect.

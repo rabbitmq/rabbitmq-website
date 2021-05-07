@@ -93,8 +93,8 @@ Memory use breakdown reports allocated memory distribution on the target node, b
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
  * [Quorum queue](/quorum-queues.html) replicas
- * Classic queue [master replicas](/ha.html)
- * Classic queue mirror replicas
+ * Classic mirorred queue [leader replicas](ha.html)
+ * Classic mirrored queue mirror (follower) replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)
  * Node-local metrics (stats database)
@@ -196,7 +196,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>queue_procs</td>
     <td>Queues</td>
     <td>
-      Classic queue masters, indices and messages kept in memory. The greater the number of messages enqueued,
+      Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
       See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
@@ -579,7 +579,7 @@ Some messages can be stored on disk, but still have their metadata kept in memor
 A message has multiple parts that use up memory. Every queue is backed by an Erlang process.
 If a queue is mirrored, each mirror is a separate Erlang process.
 
-Since a queue's master is a single Erlang process, message ordering can be guaranteed.
+Since every replica of a queue, whether leader or follower, is a single Erlang process, message ordering can be guaranteed.
 Multiple queues means multiple Erlang processes which get an even amount of CPU time.
 This ensures that no queue can block other queues.
 

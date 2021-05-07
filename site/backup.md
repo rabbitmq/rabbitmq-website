@@ -31,7 +31,7 @@ Messages are stored in a message store. For the purpose of this guide we will de
 as an internal store for messages, a single entity that's transparent to the user.
 
 Each node has its own data directory and stores messages for the queues that have
-their master hosted on that node. Messages can be replicated between nodes using [queue mirroring](/ha.html).
+their leader replica hosted on that node. Messages can be replicated between nodes using [queue mirroring](/ha.html).
 Messages are stored in subdirectories of the node's data directory.
 
 ### <a id="data-lifespan" class="anchor" href="#data-lifespan">Data Lifecycle</a>

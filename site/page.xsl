@@ -38,13 +38,15 @@ limitations under the License.
 
   <xsl:template match="html:head">
     <head>
-      <!-- Google Tag Manager -->
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-NSPM4RC');</script>
-      <!-- End Google Tag Manager -->
+      <!-- OneTrust Cookie Consent -->
+      <meta content='73d8ba46-8c12-43f6-8c22-24aa21b8d93d' name='onetrust-data-domain'/>
+      <meta content='https://tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.js' name='microsites-utag'/>
+      <script src='https://d1fto35gcfffzn.cloudfront.net/assets/jquery-1.11.2.min.js'></script>
+      <script src='//www.vmware.com/files/templates/inc/utag_data.js'></script>
+      <script src='//tags.tiqcdn.com/utag/vmware/microsites-privacy/prod/utag.sync.js'></script>
+      <script>function OptanonWrapper() { { window.dataLayer.push({ event: 'OneTrustGroupsUpdated' }); } }</script>
+      <script src="/js/gtm.js"></script>
+      <!-- End OneTrust Cookie Consent -->
 
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="googlebot" content="NOODP"/>
@@ -82,10 +84,6 @@ limitations under the License.
 
   <xsl:template match="html:body">
     <body id="{$page-id}">
-      <!-- Google Tag Manager (noscript) -->
-      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSPM4RC"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-      <!-- End Google Tag Manager (noscript) -->
       <div id="outerContainer">
         <div class="container">
           <xsl:call-template name="page-header"/>
@@ -211,9 +209,11 @@ limitations under the License.
         </ul>
         <p id="copyright">
           Copyright &#169; 2007-2021 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
-          <a href="https://pivotal.io/legal">Terms of Use</a>,
-          <a href="https://pivotal.io/privacy-policy">Privacy</a> and
-          <a href="/trademark-guidelines.html">Trademark Guidelines</a>
+          <a href="https://www.vmware.com/help/legal.html">Terms of Use</a> &#8226;
+          <a href="https://www.vmware.com/help/privacy.html">Privacy</a> &#8226;
+          <a href="/trademark-guidelines.html">Trademark Guidelines</a> &#8226;
+          <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> &#8226;
+          <a class="ot-sdk-show-settings">Cookie Settings</a>
           <br/>
           <a id='teconsent'></a>
         </p>

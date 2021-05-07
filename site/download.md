@@ -38,7 +38,9 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
 ## Kubernetes
 
- * Open source [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * Open source [RabbitMQ Cluster Kubernetes Operator](kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * Kubernetes Operator [quickstart guide](kubernetes/operator/quickstart-operator.html)
+ * Kubernetes Operator [usage guide](kubernetes/operator/using-operator.html)
  * Kubernetes Operator [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
  * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
 

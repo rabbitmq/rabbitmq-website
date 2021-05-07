@@ -28,8 +28,7 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 RabbitMQ supports [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-On **May 3rd, 2021**, the list will mean [Erlang `24.x` and `23.x`](https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/).
-**Please upgrade to Erlang `23.3`** to ensure a smooth transition.
+At the moment they are [Erlang `24.x` and `23.x`](https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/).
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
@@ -46,6 +45,34 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.8.16</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Erlang/OTP <code>24</code> support announcement</a>
+        </li>
+        <li>Erlang 24 is expected to ship in May 2021</li>
+        <li>Erlang 23.3 is recommended</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.15</li>
         <li>3.8.14</li>
         <li>3.8.13</li>
         <li>3.8.12</li>
@@ -287,7 +314,7 @@ is recommended.
 
 Most recent versions can be obtained from a number of sources:
 
- * Debian Erlang packages from Team RabbitMQ [on Launchpad](install-debian.html#apt-launchpad-erlang) and [Cloudsmith.io](install-debian.html#apt-cloudsmith-erlang).
+ * Debian Erlang packages from Team RabbitMQ [on Launchpad](install-debian.html#apt-launchpad-erlang) and [Cloudsmith.io](install-debian.html#apt-cloudsmith).
  * [Zero dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from Team RabbitMQ
  * As part of [RabbitMQ Docker image](https://github.com/docker-library/rabbitmq/)
  * [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) provides binary builds of patch releases for Windows

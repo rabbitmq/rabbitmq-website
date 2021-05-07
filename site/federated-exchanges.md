@@ -269,9 +269,9 @@ it can be a cluster of nodes or a standalone node.
       <td>Fan-out</td>
       <td>
         <p>
-          One master exchange (which it is _not_ necessary to federate)
+          One source exchange (which it is _not_ necessary to federate)
           is linked to by a tree of exchanges, which can extend to any depth.
-          In this case messages published to the master exchange can be
+          In this case messages published to the source exchange can be
           received by any consumer connected to any broker in the tree.
         </p>
 

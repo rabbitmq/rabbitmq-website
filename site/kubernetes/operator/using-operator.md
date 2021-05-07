@@ -382,6 +382,10 @@ spec:
       memory: 2Gi
 </pre>
 
+**Note:** It's possible for RabbitMQ and Erlang to temporarily exceed the total available memory, which could cause an immediate OOM kill.
+To prevent this from happening, the cluster operator sets memory headroom of 20% (with a max value of 2GB) by configuring `total_memory_available_override_value`.
+This means the actual memory limit set in RabbitMQ is 20% less than the specified resource requirement.
+
 For more information about concepts mentioned above, see:
 
 <table class="nice">
@@ -558,14 +562,30 @@ If community plugins need to be provisioned, they should be included into a cust
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
-By default, enabling TLS does not disable non-TLS listeners and therefore plain-text connections are still possible. If you want to disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
+By default, enabling [TLS for client connections](/ssl.html) does not disable non-TLS listeners. Therefore, unencrypted connections will stil lbe accepted.
+To disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
 
-Optionally, configure RabbitMQ to connect using mutual [TLS authentication](/ssl.html) (mTLS) by providing a CA certificate to [verify peer certificates against](/ssl.html#peer-verification).
+It is also possible to make RabbitMQ [verify peer certificates](/ssl.html#peer-verification) against a provided a CA certificate.
+The same can be done by clients, so peer verification can be mutual ("mTLS").
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
 the CA certificate.
 
-RabbitMQ can reload certificates produced by the same CA without a node restart. This makes on-the-fly certificate rotation (renewal) possible. To rotate the TLS certificate, update the TLS Secret object with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
+RabbitMQ nodes can reload TLS certificates without a node restart. To rotate the TLS certificate, update the TLS Secret object
+with the new certificate directly and this change will be picked up by the RabbitMQ pods within several minutes.
+If you need to speed up the process, you can force RabbitMQ to reload the certificate immediately by running:
+
+<pre class='lang-bash'>
+kubectl exec -it INSTANCE-server-0 -- rabbitmqctl eval "ssl:clear_pem_cache()."
+</pre>
+
+or directly from within the node pod:
+
+<pre class='lang-bash'>
+rabbitmqctl eval "ssl:clear_pem_cache()."
+</pre>
+
+Since each node has its own cache, if you decide to run this command, you should execute it on all cluster nodes.
 
 **Default Value:** N/A
 

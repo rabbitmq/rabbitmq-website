@@ -69,7 +69,7 @@ also be necessary.
 
 RabbitMQ will fail to start with the error that reads
 
-<pre class="lang-text">
+<pre class="lang-plaintext">
 RabbitMQ: Erlang machine stopped instantly (distribution name conflict?)
 </pre>
 
@@ -132,11 +132,7 @@ use `HOSTNAME` which may be lowercase. If you are upgrading from an old
 (pre-`3.6.0`) version of RabbitMQ to a current one and see [the issue described
 here](https://github.com/rabbitmq/rabbitmq-server/issues/1568), you should set
 a system-wide environment variable named `RABBITMQ_NODENAME` with the following
-value:
+value: `rabbit@ALL_CAPS_HOSTNAME`.
 
-```
-rabbit@ALL_CAPS_HOSTNAME
-```
-
-Then, RabbitMQ will continue to use the all-caps hostname and your upgrade will
+Then, RabbitMQ will continue to use the all-caps hostname and the upgrade will
 succeed.

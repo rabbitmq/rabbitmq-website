@@ -92,7 +92,7 @@ for the original RabbitMQ protocol.
  * [File and Directory Locations](relocate.html)
  * [Logging](logging.html)
  * [Policies and Runtime Parameters](parameters.html)
- * [Schema Definitions](/definitions.html)
+ * [Schema Definitions](definitions.html)
  * [Per Virtual Host Limits](vhosts.html)
  * [Client Connection Heartbeats](heartbeats.html)
  * [Inter-node Connection Heartbeats](nettick.html)
@@ -140,10 +140,11 @@ for the original RabbitMQ protocol.
 
  * [Replication and Distributed Feature Overview](/distributed.html)
  * [Clustering](/clustering.html)
+ * [Cluster Formation and Peer Discovery](cluster-formation.html)
  * [Inter-node traffic compression](clustering-compression.html)
  * [Quorum Queues](/quorum-queues.html): a modern highly available replicated queue type
- * [Classic Mirrored Queues](/ha.html)
- * [Reliable Message Delivery](/reliability.html)
+ * [Reliability](/reliability.html) of distributed deployments, publishers and consumers
+ * [Classic Mirrored Queues](/ha.html) (legacy)
  * Active-passive [standby configuration with Pacemaker](/pacemaker.html) (legacy)
 
 
@@ -153,7 +154,7 @@ for the original RabbitMQ protocol.
  * [Production Checklist](production-checklist.html)
  * [Backup and Restore](backup.html)
  * [Troubleshooting guidance](troubleshooting.html)
- * [Reliable Message Delivery](/reliability.html)
+ * [Reliable Message Delivery](reliability.html)
 
 
 ### Message Store and Resource Management

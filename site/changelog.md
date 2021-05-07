@@ -39,6 +39,31 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.16</td>
+    <td class="centre">4 May 2021</td>
+    <td>
+      <ul>
+        <li>Reintroduces AWS peer discovery plugin that was unintentionally excluded from 3.8.15</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Introduces support for Erlang 24</a> and drops support for Erlang/OTP 22.3 as previously announced</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.15</td>
+    <td class="centre">3 May 2021</td>
+    <td>
+      <ul>
+        <li>We encourage all users to consult release notes but skip this release and upgrade to 3.8.16 or later</li>
+        <li>Security patches</li>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.15">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.14</td>
     <td class="centre">2 March 2021</td>
     <td>

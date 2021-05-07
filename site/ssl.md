@@ -31,7 +31,7 @@ connections:
  * [Enabling TLS](#enabling-tls) in RabbitMQ
  * How to generate self-signed certificates for development and QA environments [with tls-gen](#automated-certificate-generation) or [manually](#manual-certificate-generation)
  * TLS configuration in [Java](#java-client) and [.NET](#dotnet-client) clients
- * [Peer (certificate chain) verification](#peer-verification)
+ * [Peer (certificate chain) verification](#peer-verification) of client connections or mutual ("mTLS")
  * Public [key usage extensions](#key-usage) relevant to RabbitMQ
  * How to control what [TLS version](#tls-versions) and [cipher suite](#cipher-suites) are enabled
  * [TLSv1.3](#tls1.3) support
@@ -150,7 +150,9 @@ of the RabbitMQ node process.
 
 Both ends of a TLS-enabled connection can optionally verify
 the other end of the connection. While doing so, they try to locate a trusted Certificate Authority in the certificate list
-presented by the peer. More on this in the [Peer Verification](#peer-verification) section.
+presented by the peer. When both sides perform this verification process, this is known
+as _mutual TLS authentication_ or _mTLS_.
+More on this in the [Peer Verification](#peer-verification) section.
 
 This guides assumes the user has access to a Certificate Authority and two certificate/key pairs
 in a number of formats for different client libraries to use.
@@ -172,10 +174,8 @@ This guides assumes the user has access to a CA certificate bundle file and two 
 The certificate/key pairs are used by RabbitMQ and clients that connect to the server on a
 TLS-enabled port. The process of generating a Certificate Authority and two key pairs is fairly labourious
 and can be error-prone. An easier way of generating all that
-stuff on MacOS or Linux is with <a
-href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
-you will need `Python 3.5+`, `make` and `openssl`
-in `PATH`.
+stuff on MacOS or Linux is with <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
+it requires `Python 3.5+`, `make` and `openssl` in `PATH`.
 
 Note that `tls-gen` and the certificate/key pairs
 it generates are self-signed and only suitable for development
@@ -382,7 +382,9 @@ The first step is when the peers *optionally* exchange their [certificates](#cer
 Having exchanged certificates, the peers can *optionally* attempt
 to establish a chain of trust between their CA certificates and the certificates presented.
 This acts to verify that the peer is who it claims to be (provided the private key hasn't been
-stolen). The process is known as peer verification or peer validation
+stolen).
+
+The process is known as peer verification or peer validation
 and follows an algorithm known as the [Certification path validation algorithm](https://en.wikipedia.org/wiki/Certification_path_validation_algorithm).
 Understanding the entire algorithm is not necessary in order to use peer verification,
 so this section provides an oversimplified explanation of the key parts.
@@ -406,8 +408,24 @@ A chain with intermediate certificates might look like this:
 During peer verification TLS connection client (or server) traverses
 the chain of certificates presented by the peer
 and if a trusted certificate is found, considers the peer trusted.
-If no trusted and otherwise valid certificate is found, peer verification fails and client connection is closed
-with an error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
+
+### Mutual Peer Verification (Mutual TLS Authentication or mTLS)
+
+When both sides perform this peer verification process, this is known
+as _mutual TLS authentication_ or _mTLS_.
+
+Enabling mutual peer verification involves two things:
+
+ * [Enabling peer verification for client connections](#peer-verification-configuration) on the RabbitMQ side
+ * [Enabling peer verification of the server](#peer-verification-clients) in application code
+
+In other words, mutual peer verification ("mTLS") is a joint responsibility of RabbitMQ nodes
+and client connections. Enabling peer verification on just one end is not enough.
+
+### When Peer Verification Fails
+
+If no trusted and otherwise valid certificate is found, peer verification fails and client's TLS (TCP) connection is
+closed with a fatal error ("alert" in OpenSSL parlance) that says "Unknown CA" or similar. The alert
 will be logged by the server with a message similar to this:
 
 <pre class="lang-ini">
@@ -422,7 +440,7 @@ like this:
 2018-09-10 18:11:05.168 [info] &lt;0.923.0&gt; TLS server generated SERVER ALERT: Fatal - Certificate Expired
 </pre>
 
-The examples above demonstrate TLS alert messages logged by RabbitMQ running on Erlang/OTP 21.
+The examples above demonstrate TLS alert messages logged by a RabbitMQ node.
 Clients that perform peer verification will also raise alerts but may use different
 error messages. [RFC 8446 section 6.2](https://tools.ietf.org/html/rfc8446#section-6.2)
 provides an overview of various alerts and what they mean.
