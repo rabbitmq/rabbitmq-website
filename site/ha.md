@@ -57,7 +57,7 @@ can optionally run mirrors (additional replicas) on other cluster nodes.
 
 Each mirrored queue consists of one **leader replica** and
 one or more **mirrors** (replicas). The leader is hosted on one
-node commonly referred as the leader node for that qeue. Each queue has
+node commonly referred as the leader node for that queue. Each queue has
 its own leader node. All operations for a given queue are first applied
 on the queue's leader node and then propagated to mirrors. This
 involves enqueueing publishes, delivering messages to consumers, tracking
