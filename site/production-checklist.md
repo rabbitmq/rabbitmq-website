@@ -336,23 +336,65 @@ Please refer to the [Networking Guide](/networking.html) for details.
 
 ### <a id="distribution-considerations-cluster-size" class="anchor" href="#distribution-considerations-cluster-size">Cluster Size</a>
 
-When determining cluster size, it is important to take several factors into
-consideration:
+The number of queues, queue replication factor, number of connections, maximum
+message backlog and sometimes message throughput are factors the determine how
+many nodes there should be in a cluster.
 
- * Expected throughput
- * Expected replication (number of mirrors)
- * Data locality
+Single node clusters work well in many cases, especially when simplicity is
+preferred over everything else.  The biggest trade-off is availability, since
+stopping the node - regardless of the reason - will result in service
+unavailability.
 
-Since clients can connect to any node, RabbitMQ may need to perform inter-cluster
-routing of messages and internal operations. Try making consumers and producers
-connect to the same node, if possible: this will reduce inter-node traffic.
-Equally helpful would be making consumers connect to the node that currently hosts
-queue leader (can be inferred using [HTTP API](/management.html)).
-When data locality is taken into consideration, total cluster throughput
-can reach [non-trivial](http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine) volumes.
+Three (3) node clusters are the next step up, which is what we recommend for
+the majority of production deployments.  They can tolerate a single node
+failure (or unavailability) and still maintain quorum.  Simplicity was traded
+off for availability, resiliency and, in certain cases, throughput.  If you do
+run a three node cluster in production, you need to consider data locality.
 
-For most environments, mirroring to more than half of cluster nodes is sufficient.
-It is recommended to use clusters with an odd number of nodes (3, 5, and so on).
+Since clients can connect to any node, RabbitMQ may need to perform
+inter-cluster routing of messages and internal operations.  To avoid this and
+achieve ideal data locality, producers (or publishers) should connect to
+RabbitMQ nodes where queue leaders are running.  If queue replication is not
+used, then the single queue instance is the leader, and there are no followers.
+Consumers should also connect to the node where the queue leader is running
+when using classic queues.  Quorum queues on the other hand deliver messages
+from queue replicas as well, so as long as consumers connect to a node where a
+queue member is running, messages delivered to those consumers will be node
+local.
+
+For most environments, configuring queue replication to more than half of
+cluster nodes is sufficient.  It is recommended to use clusters with an odd
+number of nodes (3, 5, 7 or 9) so that when one node becomes unavailable, the
+service remains available (including maintenance windows).  Uneven number of
+nodes also help mitigate network partitions, with the common option of the
+minority automatically refusing to service commands (a.k.a. pause-minority) and
+therefore preventing "split brain" scenarios.
+
+Five (5) nodes is a less common cluster size that we usually recommend for
+setups with many queues or connections.  Even when queues are replicated, we
+usually recommend three (3) replicas so that only a subset of nodes are used
+for any one queue.  This helps keep disruption to a minimum during maintenance
+windows, and also helps with resiliency. Two (2) nodes can become unavailable
+in a five (5) node cluster without affecting service availability.
+
+Seven (7) and nine (9) node clusters are very rare in our experience and those
+that use them have a very good reason to do so. Disk, network or CPUs are the
+factors that typically drive this sizing. If you need a cluster this large, you
+know exactly what you are doing.
+
+Clusters above nine (9) nodes are highly discouraged, and some would even go as
+far as saying that they should not be allowed.  All metadata (queue
+definitions, bindings, etc.) is replicated across all nodes in the cluster, and
+all metadata operations are synchronous.  If nine (9) or more nodes need to
+confirm every metadata operation, this will be slow, even on an uncongested &
+low-latency network.  All these operations need to be confirmed, maybe retried,
+and eventually written to nine (9) different disks.  Keeping all that metadata
+in sync as nodes stop and start is also slow.  Usually clusters as large as
+these tend to have lots of objects, so everything goes in the same direction:
+slow.  If you need a cluster this large, we would very much like to find out
+what you are doing with RabbitMQ because we wouldn't want to say that you are
+doing it wrong without knowning more.  As it stands today, RabbitMQ is not
+built for clusters larger than nine (9) nodes.
 
 ### <a id="distribution-considerations-partition-handling-strategy" class="anchor" href="#distribution-considerations-partition-handling-strategy">Partition Handling Strategy</a>
 
