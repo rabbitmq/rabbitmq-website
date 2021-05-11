@@ -337,21 +337,22 @@ Please refer to the [Networking Guide](/networking.html) for details.
 ### <a id="distribution-considerations-cluster-size" class="anchor" href="#distribution-considerations-cluster-size">Cluster Size</a>
 
 The number of queues, queue replication factor, number of connections, maximum
-message backlog and sometimes message throughput are factors the determine how
-many nodes there should be in a cluster.
+message backlog and sometimes message throughput are factors that determine how
+large should a cluster be.
 
 Single node clusters work well in many cases, especially when simplicity is
 preferred over everything else.  The biggest trade-off is availability, since
 stopping the node - regardless of the reason - will result in service
-unavailability.
+unavailability.  Queue replication has no effect in this scenario since there
+are no nodes to replicate to.
 
 Three (3) node clusters are the next step up, which is what we recommend for
 the majority of production deployments.  They can tolerate a single node
 failure (or unavailability) and still maintain quorum.  Simplicity was traded
-off for availability, resiliency and, in certain cases, throughput.  If you do
-run a three node cluster in production, you need to consider data locality.
+off for availability, resiliency and, in certain cases, throughput.
 
-Since clients can connect to any node, RabbitMQ may need to perform
+If you run a (3) three node cluster in production, you need to consider data
+locality.  Since clients can connect to any node, RabbitMQ may need to perform
 inter-cluster routing of messages and internal operations.  To avoid this and
 achieve ideal data locality, producers (or publishers) should connect to
 RabbitMQ nodes where queue leaders are running.  If queue replication is not
@@ -364,13 +365,15 @@ local.
 
 For most environments, configuring queue replication to more than half of
 cluster nodes is sufficient.  It is recommended to use clusters with an odd
-number of nodes (3, 5, 7 or 9) so that when one node becomes unavailable, the
-service remains available (including maintenance windows).  Uneven number of
-nodes also help mitigate network partitions, with the common option of the
-minority automatically refusing to service commands (a.k.a. pause-minority) and
-therefore preventing "split brain" scenarios.
+number of nodes - 3, 5, 7 or 9 - so that when one node becomes unavailable, the
+service remains available.  Uneven number of nodes also help mitigate network
+partitions, with the common option of the minority automatically refusing to
+service commands (a.k.a. `pause_minority`) and therefore preventing "split
+brain" scenarios.  It is important to pick a [partition handling
+strategy](/partitions.html) before going into production. When in doubt, use
+the `pause_minority` strategy.
 
-Five (5) nodes is a less common cluster size that we usually recommend for
+Five (5) nodes is a less common cluster size. We usually recommend it for
 setups with many queues or connections.  Even when queues are replicated, we
 usually recommend three (3) replicas so that only a subset of nodes are used
 for any one queue.  This helps keep disruption to a minimum during maintenance
@@ -393,13 +396,8 @@ in sync as nodes stop and start is also slow.  Usually clusters as large as
 these tend to have lots of objects, so everything goes in the same direction:
 slow.  If you need a cluster this large, we would very much like to find out
 what you are doing with RabbitMQ because we wouldn't want to say that you are
-doing it wrong without knowning more.  As it stands today, RabbitMQ is not
+doing it wrong without knowing more.  As it stands today, RabbitMQ is not
 built for clusters larger than nine (9) nodes.
-
-### <a id="distribution-considerations-partition-handling-strategy" class="anchor" href="#distribution-considerations-partition-handling-strategy">Partition Handling Strategy</a>
-
-It is important to pick a [partition handling strategy](/partitions.html)
-before going into production. When in doubt, use the `autoheal` strategy.
 
 ### <a id="distribution-considerations-ntp" class="anchor" href="#distribution-considerations-ntp">Node Time Synchronization</a>
 
