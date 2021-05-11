@@ -382,6 +382,30 @@ See [Java client guide](/api-guide.html#getting) for examples.
 See [.NET client guide](/dotnet-api-guide.html#basic-get) for examples.
 
 
+## <a id="acknowledgement-timeout" class="anchor" href="#acknowledgement-timeout">Delivery Acknowledgement Timeout</a>
+
+In modern RabbitMQ versions, a timeout is enforced on consumer delivery acknowledgement.
+This helps detect buggy (stuck) consumers that never acknowledge deliveries.
+Such consumers can affect node's on disk data compaction and potentially drive
+nodes out of disk space.
+
+If a consumer does not ack its delivery for more than the timeout value (15 minutes by default),
+its channel will be closed with a `PRECONDITION_FAILED` channel exception.
+The error will be [logged](logging.html) by the node that the consumer was
+connected to.
+
+The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
+
+<pre class="lang-ini">
+# 15 minutes in milliseconds
+consumer_timeout = 900000
+</pre>
+
+<pre class="lang-ini">
+# one hour in milliseconds
+consumer_timeout = 3600000
+</pre>
+
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
 
 When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](amqp-0-9-1-reference.html#basic.consume)
