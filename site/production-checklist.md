@@ -343,15 +343,16 @@ large should a cluster be.
 Single node clusters can be sufficient when simplicity is
 preferred over everything else: development, integration testing and certain QA environments.
 
-Three node clusters are the next step up, which is what we recommend for
-the majority of production deployments.  They can tolerate a single node
+Three node clusters are the next step up. They can tolerate a single node
 failure (or unavailability) and still [maintain quorum](quorum-queues.html).
 Simplicity is traded off for availability, resiliency and, in certain cases, throughput.
 
-For most environments, configuring queue replication to more than half — but not all —
-cluster nodes is sufficient. It is recommended to use clusters with an odd
+It is recommended to use clusters with an odd
 number of nodes (3, 5, 7, etc) so that when one node becomes unavailable, the
-service remains available.
+service remains available and a clear majority of nodes can be identified.
+
+For most environments, configuring queue replication to more than half — but not all —
+cluster nodes is sufficient.
 
 #### Uneven Numbers of Nodes and Cluster Majority
 
@@ -373,7 +374,12 @@ Quorum queues can deliver messages from queue replicas as well,
 so as long as consumers connect to a node where a
 quorum queue replica is hosted, messages delivered to those consumers will be
 performed from the local node.
+#### Growing Node Count to Sustain More Concurrent Clients
 
+Environments that have to sustain a [large number of concurrent client connections](networking.html#tuning-for-large-number-of-connections)
+will benefit from more cluster nodes as long as the connections are distributed
+across them. This can be achieved using a load balancer or making clients
+randomly pick a node to connect to from the provided node list.
 #### Increasing Node Counts vs. Deploying Separate Clusters for Separate Purposes
 
 All metadata ([definitions](definitions.html): virtual hosts, users, queues, exchanges, bindings, etc.) is replicated
