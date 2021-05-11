@@ -27,6 +27,7 @@ This guide covers various topics related to consumers:
  * [Acknowledgement modes](#acknowledgement-modes)
  * [Message properties](#message-properties) and delivery metadata
  * [How to limit number of outstanding deliveries with prefetch](#prefetch)
+ * [Delivery acknowledgement timeout](#acknowledgement-timeout)
  * [Consumer capacity](#metrics-capacity) metric
  * [How to cancel a consumer](#unsubscribing)
  * [Consumer exclusivity](#exclusivity)
