@@ -75,7 +75,7 @@ This option will require manual installation of all RabbitMQ package dependencie
 
 Below is a list Debian-based distributions supported by recent RabbitMQ releases:
 
- * Ubuntu 16.04 through 20.10
+ * Ubuntu 18.04 through 21.04
  * Debian Buster (10), Bullseye (11), and Sid ("unstable")
 
 The package may work on other Debian-based distributions
@@ -249,7 +249,6 @@ matches the Debian or Ubuntu release used:
 
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `xenial` for Ubuntu 16.04
  * `buster` for Debian Buster
 
 However, not all distributions are covered (indexed).
@@ -265,7 +264,6 @@ with the RabbitMQ apt repository on PackageCloud.
 |-----------------|--------------|
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
-| Ubuntu 16.04    | `xenial`     |
 | Debian Buster   | `buster`     |
 | Debian Bullseye | `buster`     |
 | Debian Sid      | `buster`     |
@@ -338,22 +336,6 @@ deb-src http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
 ##
 deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
 deb-src https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
-EOF
-</pre>
-
-On Ubuntu 16.04, use
-
-<pre class="lang-bash">
-sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
-## Provides modern Erlang/OTP releases
-##
-deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu xenial main
-deb-src http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu xenial main
-
-## Provides RabbitMQ
-##
-deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ xenial main
-deb-src https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ xenial main
 EOF
 </pre>
 
@@ -516,7 +498,6 @@ matches the Debian or Ubuntu release used:
 
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `xenial` for Ubuntu 16.04
  * `buster` for Debian Buster
 
 However, not all distributions are covered (indexed).
@@ -532,7 +513,6 @@ with the RabbitMQ apt repository on PackageCloud.
 |-----------------|--------------|
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
-| Ubuntu 16.04    | `xenial`     |
 | Debian Buster   | `buster`     |
 | Debian Bullseye | `buster`     |
 | Debian Sid      | `buster`     |
@@ -604,22 +584,6 @@ deb-src https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu bion
 ##
 deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu bionic main
 deb-src https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu bionic main
-EOF
-</pre>
-
-On Ubuntu 16.04, use
-
-<pre class="lang-bash">
-sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
-## Provides modern Erlang/OTP releases
-##
-deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu xenial main
-deb-src https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu xenial main
-
-## Provides RabbitMQ
-##
-deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu xenial main
-deb-src https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu xenial main
 EOF
 </pre>
 
@@ -1034,7 +998,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.11. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.16. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -1073,18 +1037,18 @@ The repository suports the following Ubuntu distributions:
 
  * Ubuntu 20.04 (Focal)
  * Ubuntu 18.04 (Bionic)
- * Ubuntu 16.04 (Xenial)
 
 The following Debian releases can use the same apt repository:
 
  * Debian 10 (Buster)
  * Debian 11 (Bullseye)
 
- Debian 9 (Stretch() is no longer supported as it does not provide a minimum required OpenSSL version
- and is [out of general support](https://wiki.debian.org/LTS/Using).
+ Debian 9 (Stretch) and Ubuntu 16.04 are no longer supported as they do not provide a minimum required OpenSSL version.
+ Both versions are [out of general support](https://wiki.debian.org/LTS/Using) as well.
 
 The repo currently provides most recent patch releases in the following Erlang series:
 
+ * 24.x
  * 23.x
 
 In order to use the repository, it is necessary to
@@ -1154,7 +1118,6 @@ supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
 
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
- * `xenial` for Ubuntu 16.04
  * `bionic` for Debian Buster and later versions
 
 However, not all distributions are covered (indexed).
@@ -1170,7 +1133,6 @@ with the Launchpad repository.
 |-----------------|-----------|
 | Ubuntu 20.04    | `focal`   |
 | Ubuntu 18.04    | `bionic`  |
-| Ubuntu 16.04    | `xenial`  |
 | Debian Buster   | `bionic`  |
 | Debian Bullseye | `bionic`  |
 | Debian Sid      | `bionic`  |
