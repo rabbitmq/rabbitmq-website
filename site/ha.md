@@ -821,9 +821,10 @@ starting mirrors again.
 
 Classic queue leaders perform synchronisation in
 batches. Batch can be configured via the
-`ha-sync-batch-size` queue argument.  Earlier
-versions will synchronise `1` message at a
-time by default.  By synchronising messages in batches,
+`ha-sync-batch-size` queue argument. If no value is set `mirroring_sync_batch_size` 
+is used as the default value. Earlier
+versions (prior to 3.6.0) will synchronise `1` message at a
+time by default. By synchronising messages in batches,
 the synchronisation process can be sped up considerably.
 
 To choose the right value for
