@@ -59,8 +59,6 @@ it will be mounted to the operator container, where all webhooks will run from. 
       tls.crt: # generated certificate
       tls.key: # generated key
     </pre>
-3. Add webhook ca certificate in downloaded release manifest. There are multiple admission webhooks, one for each CRD. Look for the keyword 'caBundle' in the manifest, and paste
-the webhook ca cert in there (7 places because there are 7 webhooks).
 
 Then, to install the Operator, run the following command:
 
