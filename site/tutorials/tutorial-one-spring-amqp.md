@@ -176,7 +176,7 @@ public class RabbitAmqpTutorialsApplication {
 and add the `RabbitAmqpTutorialsRunner` class as follows:
 
 <pre class="lang-java">
-package org.springframework.amqp.tutorials;
+package org.springframework.amqp.tutorials.tut1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
