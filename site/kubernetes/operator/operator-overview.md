@@ -1,5 +1,4 @@
-
-# RabbitMQ Operators for Kubernetes
+# RabbitMQ Cluster Operator for Kubernetes
 
 The RabbitMQ team develop and maintain two [kubernetes operators]((https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)):
 
@@ -21,14 +20,21 @@ used by applications running on Kubernetes or outside of Kubernetes.
 
 Documentation of Cluster Operator spans several guides:
 
- * [Quickstart RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/quickstart-operator.html)
- * [Installing RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html)
- * [RabbitMQ Plugin for kubectl](/kubernetes/operator/kubectl-plugin.html)
- * [Using RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/using-operator.html)
- * [Monitoring RabbitMQ Clusters on Kubernetes](/kubernetes/operator/operator-monitoring.html)
- * [Troubleshooting RabbitMQ Clusters on Kubernetes](/kubernetes/operator/troubleshooting-operator.html)
- 
-### <a id='features' class='anchor' href='#features'>Key Features</a>
+ * [Quickstart guide](quickstart-operator.html) for RabbitMQ Cluster Kubernetes Operator
+ * [Installing](install-operator.html) RabbitMQ Cluster Kubernetes Operator
+ * [RabbitMQ Plugin for kubectl](kubectl-plugin.html)
+ * [Using](using-operator.html) RabbitMQ Cluster Kubernetes Operator
+ * [Monitoring RabbitMQ Clusters on Kubernetes](operator-monitoring.html)
+ * [Troubleshooting RabbitMQ Clusters on Kubernetes](troubleshooting-operator.html)
+
+In addition, a separate Operator for managing cluster objects collectively
+known as the messaging topology: virtual hosts, user, queues, etc.
+It is covered in the following guides:
+
+ * [Installing](install-topology-operator.html) RabbitMQ Messaging Topology Operator
+ * [Using](using-topology-operator.html) RabbitMQ Messaging Topology Operator
+ * [Using TLS](tls-topology-operator.html) with Messaging Topology Kubernetes Operator
+ * [Troubleshooting](troubleshooting-topology-operator.html) Messaging Topology Kubernetes Operator
 
 The operator provides the following key features:
 
