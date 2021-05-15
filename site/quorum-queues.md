@@ -78,7 +78,7 @@ agree on the state of the queue and its contents.
 
 Quorum queues share many of the fundamentals with [queues](/queues.html) of other types in RabbitMQ.
 However, they are more purpose-built, focus on data safety and predictable recovery,
-and do not support certain feature.
+and do not support certain features.
 
 The differences [are covered](#feature-comparison) in this guide.
 
