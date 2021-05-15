@@ -1,4 +1,4 @@
-# Troubleshooting Messaging Topology Operator
+# Troubleshooting Messaging Topology Kubernetes Operator
 
 This guide covers the basics of troubleshooting of RabbitMQ Messaging Topology Operator.
 

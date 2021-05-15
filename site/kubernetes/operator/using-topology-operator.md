@@ -1,9 +1,9 @@
-# Using RabbitMQ Cluster Kubernetes Operator
+# Using RabbitMQ Messaging Topology Kubernetes Operator
 
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
 This guide covers how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
-If RabbitMQ Cluster Kubernetes Operator is not installed, see the [quickstart guide](/kubernetes/operator/quickstart-operator.html).
+If RabbitMQ Cluster Kubernetes Operator is not installed, see the [quickstart guide](quickstart-operator.html).
 
 This guide has the following sections:
 
@@ -11,7 +11,7 @@ This guide has the following sections:
 * [Queue and policy](#queue-policy)
 * [User and permission](#user)
 * [Binding and bindings](#exchange-binding)
-* [vhost](#vhost)
+* [vhost](#vhosts)
 * [Update a resource](#update)
 * [Delete a resource](#delete)
 * [Limitations](#limitations)
@@ -19,15 +19,15 @@ This guide has the following sections:
 
 ## <a id='requirements' class='anchor' href='requirements'>Requirements</a>
 
-* Messaging Topology Operator can only be used with RabbitMQ clusters deployed using [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
+* Messaging Topology Operator can only be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
 The minimal version required for Cluster Operator is `1.7.0`.
 * Messaging Topology Operator custom resources can only be created in the same namespace as the RabbitMQ cluster is deployed. For a RabbitmqCluster deployed in namespace
 "my-test-namespace", all Messaging Topology custom resources for this RabbitMQ cluster, such as `queues.rabbitmq.com` and `users.rabbitmq.com`, can only be created in namespace "my-test-namespace".
 
 ## <a id='queue-policy' class='anchor' href='#queue-policy'>Queue and policy</a>
 
-You can use Messaging Topology Operator to create [queues](https://www.rabbitmq.com/queues.html) and
-[policies](https://www.rabbitmq.com/parameters.html#how-policies-work) in a RabbitMQ cluster.
+Messaging Topology Operator can declare [queues](../../queues.html) and
+[policies](../../parameters.html#how-policies-work) in a RabbitMQ cluster.
 
 The following manifest will create a queue named 'test' in the default vhost:
 
@@ -45,7 +45,7 @@ spec:
     name: example-rabbit
 </pre>
 
-The following manifest will create a policy named 'lazy-queue' in default vhost:
+The following manifest will create a policy named 'lazy-queue' in default virtual host:
 
 <pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
@@ -68,7 +68,7 @@ and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main
 
 ### <a id='binding' class='anchor' href='#binding'> Exchanges and bindings</a>
 
-You can use Messaging Topology Operator to create [exchanges](https://www.rabbitmq.com/publishers.html#basics) and [bindings](https://www.rabbitmq.com/e2e.html).
+Messaging Topology Operator can manage [exchanges and bindings](../../publishers.html#basics).
 The following manifest will create a fanout exchange:
 
 <pre class="lang-bash">
@@ -108,7 +108,7 @@ and [bindings](https://github.com/rabbitmq/messaging-topology-operator/tree/main
 ### <a id='users' class='anchor' href='#users'>Users</a>
 
 You can use Messaging Topology Operator to create RabbitMQ users and assign user permissions.
-Learn more about user management in RabbitMQ [here](https://www.rabbitmq.com/access-control.html#user-management).
+Learn more about user management in the [Access Control guide](../../access-control.html#user-management).
 
 Messaging Topology Operator supports creating users with generated credentials and with provided credentials.
 When creating a user with provided username and password, create a kubernetes secret object contains keys `username` and `password` in its Data field.
@@ -175,9 +175,9 @@ spec:
 More examples on [users](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/users)
 and [permissions](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/permissions).
 
-## <a id='vhost' class='anchor' href='#vhost'>Vhost</a>
+## <a id='vhosts' class='anchor' href='#vhosts'>Virtual Hosts</a>
 
-You can use Messaging Topology Operator to create [vhosts](https://www.rabbitmq.com/vhosts.html).
+Messaging Topology Operator can create [virtual hosts](../../vhosts.html).
 
 The following manifest will create a vhost named 'test' in a RabbitmqCluster named 'example-rabbit':
 
