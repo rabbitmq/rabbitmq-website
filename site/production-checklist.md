@@ -336,28 +336,59 @@ Please refer to the [Networking Guide](/networking.html) for details.
 
 ### <a id="distribution-considerations-cluster-size" class="anchor" href="#distribution-considerations-cluster-size">Cluster Size</a>
 
-When determining cluster size, it is important to take several factors into
-consideration:
+The number of queues, queue replication factor, number of connections, maximum
+message backlog and sometimes message throughput are factors that determine how
+large should a cluster be.
 
- * Expected throughput
- * Expected replication (number of mirrors)
- * Data locality
+Single node clusters can be sufficient when simplicity is
+preferred over everything else: development, integration testing and certain QA environments.
 
-Since clients can connect to any node, RabbitMQ may need to perform inter-cluster
-routing of messages and internal operations. Try making consumers and producers
-connect to the same node, if possible: this will reduce inter-node traffic.
-Equally helpful would be making consumers connect to the node that currently hosts
-queue leader (can be inferred using [HTTP API](/management.html)).
-When data locality is taken into consideration, total cluster throughput
-can reach [non-trivial](http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine) volumes.
+Three node clusters are the next step up. They can tolerate a single node
+failure (or unavailability) and still [maintain quorum](quorum-queues.html).
+Simplicity is traded off for availability, resiliency and, in certain cases, throughput.
 
-For most environments, mirroring to more than half of cluster nodes is sufficient.
-It is recommended to use clusters with an odd number of nodes (3, 5, and so on).
+It is recommended to use clusters with an odd
+number of nodes (3, 5, 7, etc) so that when one node becomes unavailable, the
+service remains available and a clear majority of nodes can be identified.
 
-### <a id="distribution-considerations-partition-handling-strategy" class="anchor" href="#distribution-considerations-partition-handling-strategy">Partition Handling Strategy</a>
+For most environments, configuring queue replication to more than half — but not all —
+cluster nodes is sufficient.
 
-It is important to pick a [partition handling strategy](/partitions.html)
-before going into production. When in doubt, use the `autoheal` strategy.
+#### Uneven Numbers of Nodes and Cluster Majority
+
+It is important to pick a [partition handling strategy](/partitions.html) before going into production.
+When in doubt, use the `pause_minority` strategy with an odd number of nodes (3, 5, 7, and so on).
+
+Uneven number of nodes make network partition recovery more predictable, with the common option
+of the minority automatically refusing to service commands.
+#### Data Locality Considerations
+
+With multi-node clusters, data locality becomes an important consideration.
+Since [clients can connect to any node](clustering.html), RabbitMQ nodes may need to perform
+inter-cluster routing of messages and internal operations. Data locality will be best
+when producers (publishers) connect to RabbitMQ nodes where queue leaders are running.
+Such topology is difficult to achieve in practice.
+
+With classic queues, all deliveries are performed from the leader replica.
+Quorum queues can deliver messages from queue replicas as well,
+so as long as consumers connect to a node where a
+quorum queue replica is hosted, messages delivered to those consumers will be
+performed from the local node.
+#### Growing Node Count to Sustain More Concurrent Clients
+
+Environments that have to sustain a [large number of concurrent client connections](networking.html#tuning-for-large-number-of-connections)
+will benefit from more cluster nodes as long as the connections are distributed
+across them. This can be achieved using a load balancer or making clients
+randomly pick a node to connect to from the provided node list.
+#### Increasing Node Counts vs. Deploying Separate Clusters for Separate Purposes
+
+All metadata ([definitions](definitions.html): virtual hosts, users, queues, exchanges, bindings, etc.) is replicated
+across all nodes in the cluster, and most metadata changes are synchronous in nature.
+
+The cost of propagating such changes goes up with the number of cluster nodes,
+both during operations and node restarts. Users who find themselves in need of
+clusters with node counts in double digits should
+**consider using independent clusters for separate parts of the system** where possible.
 
 ### <a id="distribution-considerations-ntp" class="anchor" href="#distribution-considerations-ntp">Node Time Synchronization</a>
 

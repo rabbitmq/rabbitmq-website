@@ -56,7 +56,7 @@ published separately.
     <td>
       <ul>
         <li>We encourage all users to consult release notes but skip this release and upgrade to 3.8.16 or later</li>
-        <li>Security patches</li>
+        <li>Security vulnerability patches: <a href="https://tanzu.vmware.com/security/cve-2021-22117">CVE-2021-22117</a>, <a href="https://tanzu.vmware.com/security/cve-2021-22116">CVE-2021-22116</a></li>
         <li>Bug fixes</li>
       </ul>
     </td>

@@ -304,9 +304,9 @@ To avoid some nodes in a cluster hosting the majority of queue leader
 replicas and thus handling most of the load, queue leaders should
 be reasonably evenly distributed across cluster nodes.
 
-When a new quorum queue is declared, the set of nodes that will host it
+When a new quorum queue is declared, the set of nodes that will host its
 replicas is randomly picked. Which replica becomes the leader is decided
-by a [leader election](#leader-election) process which is is also
+by a [leader election](#leader-election) process which is also
 based on randomization.
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Quorum Group Members)

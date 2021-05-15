@@ -57,7 +57,7 @@ can optionally run mirrors (additional replicas) on other cluster nodes.
 
 Each mirrored queue consists of one **leader replica** and
 one or more **mirrors** (replicas). The leader is hosted on one
-node commonly referred as the leader node for that qeue. Each queue has
+node commonly referred as the leader node for that queue. Each queue has
 its own leader node. All operations for a given queue are first applied
 on the queue's leader node and then propagated to mirrors. This
 involves enqueueing publishes, delivering messages to consumers, tracking
@@ -821,9 +821,10 @@ starting mirrors again.
 
 Classic queue leaders perform synchronisation in
 batches. Batch can be configured via the
-`ha-sync-batch-size` queue argument.  Earlier
-versions will synchronise `1` message at a
-time by default.  By synchronising messages in batches,
+`ha-sync-batch-size` queue argument. If no value is set `mirroring_sync_batch_size` 
+is used as the default value. Earlier
+versions (prior to 3.6.0) will synchronise `1` message at a
+time by default. By synchronising messages in batches,
 the synchronisation process can be sped up considerably.
 
 To choose the right value for

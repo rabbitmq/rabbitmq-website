@@ -252,6 +252,6 @@ Now that you are up and running with the basics, you can explore what the Cluste
 
 You can do so by:
 
-1. Looking at [more examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/) such as [monitoring the deployed RabbitMQ Cluster using Prometheus](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/prometheus), [enabling TLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls), etc.
+1. Looking at [more examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/) such as [monitoring the deployed RabbitMQ Cluster using Prometheus](https://www.rabbitmq.com/prometheus.html), [enabling TLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls), etc.
 2. Looking at the [API reference documentation](/kubernetes/operator/using-operator.html).
 3. Checking out our [GitHub repository](https://github.com/rabbitmq/cluster-operator/) and contributing to this guide, other docs, and the codebase!

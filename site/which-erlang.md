@@ -63,8 +63,8 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <li>
           <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Erlang/OTP <code>24</code> support announcement</a>
         </li>
-        <li>Erlang 24 is expected to ship in May 2021</li>
-        <li>Erlang 23.3 is recommended</li>
+        <li>Erlang 24 was released on May 12, 2021</li>
+        <li>Some community plugins and tools may be incompatible with Erlang 24</li>
       </ul>
     </td>
   </tr>
