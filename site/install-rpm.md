@@ -94,7 +94,7 @@ There are three alternative sources for modern Erlang on RPM-based distributions
 
 [Zero dependency Erlang RPM package for running RabbitMQ](https://github.com/rabbitmq/erlang-rpm)
 can be installed from a [direct download](https://github.com/rabbitmq/erlang-rpm/releases) from GitHub,
-as well as Yum repositories on [Package Cloud](https://packagecloud.io/rabbitmq/erlang) and [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/rabbitmq-erlang/setup/#formats-rpm).
+as well as Yum repositories on [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/rabbitmq-erlang/setup/#formats-rpm) and [PackageCloud](https://packagecloud.io/rabbitmq/erlang).
 
 As the name suggests, the package strips off some Erlang modules and dependencies
 that are not essential for running RabbitMQ.
