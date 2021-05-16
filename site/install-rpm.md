@@ -26,13 +26,13 @@ usually outdated and [out of support](/versions.html).
 
 There are two ways to install the most recent version of RabbitMQ on an RPM distribution:
 
- * Installing the package using Yum repositories on [Package Cloud](#package-cloud) (this option is highly recommended)
+ * Installing the package using Yum repositories (this option is highly recommended) on [Cloudsmith.io](#cloudsmith) or [PackageCloud](#package-cloud)
  * [Downloading](#downloads) the package and installing it with `rpm`. This option will require manual installation of all [package dependencies](#package-dependencies).
 
 The following guide focuses on RabbitMQ installation on RPM-based distributions
 such as Fedora, RHEL and CentOS. It covers a number of topics:
 
- * Package installation from Yum repositories on [Package Cloud](#package-cloud) and [Cloudsmith.io](#cloudsmith)
+ * Package installation from Yum repositories on [Cloudsmith.io](#cloudsmith) and [PackageCloud](#package-cloud)
  * How to install a [latest supported Erlang/OTP version](#install-erlang)
  * [Package dependencies](#package-dependencies)
  * [Supported distributions](#supported-distributions)
