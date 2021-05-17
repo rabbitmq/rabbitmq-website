@@ -117,7 +117,7 @@ target="_blank">rabbitmq-server</a>, with the manifests and other components req
 a RabbitMQ cluster, Prometheus and a set of applications:
 
 <pre class="lang-bash">
-git clone git@github.com:rabbitmq/rabbitmq-server.git
+git clone https://github.com/rabbitmq/rabbitmq-server.git
 cd rabbitmq-server/deps/rabbitmq_prometheus/docker
 </pre>
 
