@@ -203,6 +203,7 @@ gpgcheck=0
 enabled=1
 # PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -217,7 +218,9 @@ baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/8/$basearch
 repo_gpgcheck=1
 gpgcheck=0
 enabled=1
+# PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -267,7 +270,6 @@ baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/SRPMS
 repo_gpgcheck=1
 gpgcheck=0
 enabled=1
-# PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -281,9 +283,11 @@ metadata_expire=300
 name=rabbitmq_server
 baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/$basearch
 repo_gpgcheck=1
-gpgcheck=0
+gpgcheck=1
 enabled=1
+# PackageCloud's repository key and RabbitMQ package signing key
 gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -428,7 +432,7 @@ between distributions (e.g. CentOS 8 and 7 vs. OpenSUSE).
 
 #### Red Hat 8, CentOS 8, Modern Fedora Releases
 
-The following example sets up a repository that will install RabbitMQ and its Erlang dependency from PackageCloud,
+The following example sets up a repository that will install RabbitMQ and its Erlang dependency from Cloudsmith,
 and targets **CentOS 8**. The same repository definition **can be used by recent Fedora releases**.
 
 <pre class="lang-ini">
@@ -443,7 +447,9 @@ name=rabbitmq_erlang
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -457,6 +463,7 @@ name=rabbitmq_erlang-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
@@ -473,8 +480,7 @@ baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
-       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-gpgcheck=1
+gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -492,7 +498,9 @@ name=rabbitmq_server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/$basearch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -506,7 +514,9 @@ name=rabbitmq_server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/noarch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -521,7 +531,7 @@ baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/8/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
-gpgcheck=1
+gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -542,6 +552,7 @@ name=rabbitmq_erlang
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/$basearch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
@@ -557,6 +568,7 @@ name=rabbitmq_erlang-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/noarch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
@@ -573,8 +585,7 @@ baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
-       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-gpgcheck=1
+gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
@@ -592,7 +603,9 @@ name=rabbitmq_server
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/$basearch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -606,7 +619,9 @@ name=rabbitmq_server-noarch
 baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/noarch
 repo_gpgcheck=1
 enabled=1
+# Cloudsmith's repository key and RabbitMQ package signing key
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 gpgcheck=1
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
@@ -621,7 +636,7 @@ baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/SRPMS
 repo_gpgcheck=1
 enabled=1
 gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
-gpgcheck=1
+gpgcheck=0
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
