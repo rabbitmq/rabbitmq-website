@@ -52,6 +52,11 @@ not be deployed to the RabbitMQ cluster. For example, if the `Secret` with admin
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
 It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)
 known as the Erlang cookie.
+
+#### RabbitMQ Cluster Feature Flags
+
+Cluster Operator does not support disabling any [RabbitMQ feature flags](https://www.rabbitmq.com/feature-flags.html#how-to-disable-feature-flags).
+The Operator lists all available feature flags and enables all of them at cluster start.
  
 ## <a id='topology-operator' class='anchor' href='#topology-operator'>RabbitMQ Messaging Topology Operator</a>
 
