@@ -12,7 +12,7 @@ In this and other Operator related guides, we use "Operator" (with a capital O) 
 pattern implementation and "operator" (with a lowercase o) to refer to a technical operations
 engineer (administrator).
 
-## RabbitMQ Cluster Kubernetes Operator
+## <a id='cluster-operator' class='anchor' href='#cluster-operator'>RabbitMQ Cluster Kubernetes Operator</a>
 
 RabbitMQ Cluster Kubernetes Operator provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and
 run them, including "day two" (continuous) operations. RabbitMQ clusters deployed using the operator can be
@@ -53,7 +53,7 @@ a new `Secret` will be created with new username and password, but those will no
 It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)
 known as the Erlang cookie.
  
-## RabbitMQ Messaging Topology Operator
+## <a id='topology-operator' class='anchor' href='#topology-operator'>RabbitMQ Messaging Topology Operator</a>
 
 RabbitMQ Messaging Topology Operator supports managing RabbitMQ messaging topologies objects through kubernetes declarative API.
 
