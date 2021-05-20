@@ -782,7 +782,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.request.cpu</code>
+        <code>spec.resources.requests.cpu</code>
       </td>
       <td>
         The CPU units required by the Kubernetes scheduler for the container running RabbitMQ.
@@ -790,7 +790,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.request.memory</code>
+        <code>spec.resources.requests.memory</code>
       </td>
       <td>
         The memory units required by the Kubernetes scheduler for the container running RabbitMQ.
@@ -798,7 +798,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.limit.cpu</code>
+        <code>spec.resources.limits.cpu</code>
       </td>
       <td>
         The CPU units used to calculate the share of CPU time available to the RabbitMQ container per 100 ms.
@@ -806,7 +806,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.limit.memory</code>
+        <code>spec.resources.limits.memory</code>
       </td>
       <td>
         The memory limit allowed to be used by RabbitMQ container. The container won't be allowed to use more than this limit.
