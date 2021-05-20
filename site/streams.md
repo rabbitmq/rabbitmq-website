@@ -113,7 +113,7 @@ Sets the maximum size of the stream in bytes. See [retention](#retention). Defau
 
 Sets the maximum age of the stream. See [retention](#retention). Default: not set.
 
-* `x-max-segment-size`
+* `x-stream-max-segment-size-bytes`
 
 Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
@@ -126,7 +126,7 @@ segment files of 100 MB:
 Map&lt;String, Object&gt; arguments = new HashMap&lt;&gt;();
 arguments.put("x-queue-type", "stream");
 arguments.put("x-max-length-bytes", 20_000_000_000); // maximum stream size: 20 GB
-arguments.put("x-max-segment-size", 100_000_000); // size of segment files: 100 MB
+arguments.put("x-stream-max-segment-size-bytes", 100_000_000); // size of segment files: 100 MB
 channel.queueDeclare(
   "my-stream",
   true,         // durable
