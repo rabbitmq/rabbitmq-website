@@ -108,6 +108,21 @@ apt repositories:
  </thead>
  <tbody>
   <tr>
+     <td>24.x</td>
+     <td>
+       <ul>
+        <li><a href="#apt-cloudsmith">Debian packages of Erlang</a> from Team RabbitMQ on Cloudsmith.io</li>
+        <li><a href="#apt-launchpad-erlang">Debian packages of Erlang</a> from Team RabbitMQ on Launchpad</li>
+         <li><a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a></li>
+       </ul>
+     </td>
+     <td>
+       <strong>Supported <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">starting with 3.8.16</a></strong>.
+       See <a href="/which-erlang.html">Erlang compatibility guide</a>.
+     </td>
+   </tr>
+
+  <tr>
      <td>23.x</td>
      <td>
        <ul>
