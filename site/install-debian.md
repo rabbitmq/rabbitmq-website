@@ -30,7 +30,7 @@ Team RabbitMQ produces our own Debian packages and distributes them [using Cloud
 Key sections of this guide are
 
  * [Ways of installing](#installation-methods) the latest RabbitMQ version on Debian and Ubuntu
- * [Supported Ubuntu and Debian distributions](#supported-debian-distributions)
+ * [Supported Ubuntu and Debian distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
  * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
@@ -71,7 +71,7 @@ on Cloudsmith or Launchpad.
 Alternatively, the package can be downloaded manually and [installed ](#manual-installation) with `dpkg -i`.
 This option will require manual installation of all RabbitMQ package dependencies and is **highly discouraged**.
 
-## <a id="supported-debian-distributions" class="anchor" href="#supported-debian-distributions">Supported Distributions</a>
+## <a id="supported-distributions" class="anchor" href="#supported-distributions">Supported Distributions</a>
 
 RabbitMQ is supported on several major Debian-based distributions that are still supported
 by their primary vendor or developer group.
