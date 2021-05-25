@@ -25,7 +25,7 @@ please refer to the [Clustering Guide](/clustering.html).
 
 This guide assumes general familiarity with [RabbitMQ clustering](/clustering.html)
 and focuses on the peer discovery subsystem.
-For example, it will not cover what [ports must be open](/networking.html) for inter-node communication, how nodes authenticate to each other, and so on.
+For example, it will not cover what [ports must be open](networking.html) for inter-node communication, how nodes authenticate to each other, and so on.
 Besides discovery mechanisms and [their configuration](#configuring),
 this guide also covers a closely related topic of [rejoining nodes](#rejoining),
 the problem of [initial cluster formation](#initial-formation-race-condition) with nodes booting in parallel as well as [additional health checks](#node-health-checks-and-cleanup) offered
@@ -82,7 +82,7 @@ to start and report those settings as unknown.
 
 ### <a id="peer-discovery-configuring-mechanism" class="anchor" href="#peer-discovery-configuring-mechanism">Specifying the Peer Discovery Mechanism</a>
 
-The discovery mechanism to use is specified in the [config file](/configure.html),
+The discovery mechanism to use is specified in the [config file](configure.html),
 as are various mechanism-specific settings, for example, discovery service hostnames, credentials, and so
 on. `cluster_formation.peer_discovery_backend` is the key
 that controls what discovery module (implementation) is used:
@@ -200,7 +200,7 @@ can be reset and will successfully join B.
 ## <a id="configuring" class="anchor" href="#configuring">How to Configure Peer Discovery</a>
 
 Peer discovery plugins are configured just like the core server and other
-plugins: using a [config file](/configure.html).
+plugins: using a [config file](configure.html).
 
 `cluster_formation.peer_discovery_backend` is the key that [controls what peer discovery backend will be used](#peer-discovery-configuring-mechanism).
 Each backend will also have a number of configuration settings specific to it.
@@ -305,7 +305,7 @@ probability of a [race condition during initial cluster formation](#initial-form
 Before a node can perform any operations on AWS, it needs to have a set of
 AWS account credentials configured. This can be done in a couple of ways:
 
-1. Via [config file](/configure.html)
+1. Via [config file](configure.html)
 2. Using environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 
 [EC2 Instance Metadata service](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) for the region will also be consulted.
@@ -808,7 +808,7 @@ cluster_formation.consul.use_longname = true
 #### Service Port
 
 Service port as registered in Consul can be overridden. This is only
-necessary if RabbitMQ uses a [non-standard port](/networking.html)
+necessary if RabbitMQ uses a [non-standard port](networking.html)
 for client (technically AMQP 0-9-1 and AMQP 1.0) connections since default value is 5672.
 
 <pre class="lang-ini">

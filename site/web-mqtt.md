@@ -145,7 +145,7 @@ port to `9001` would look like:
 web_mqtt.tcp.port = 9001
 </pre>
 
-See [RabbitMQ Networking guide](/networking.html) for more information.
+See [RabbitMQ Networking guide](networking.html) for more information.
 
 
 ### <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>

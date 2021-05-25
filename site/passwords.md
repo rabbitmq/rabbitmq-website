@@ -77,7 +77,7 @@ of an existing user is changed.
 
 Validators are modules that implement a validation
 function. To use a validator, it is necessary to specify it
-and its additional settings in the [config file](/configure.html).
+and its additional settings in the [config file](configure.html).
 
 There are three credential validators available out of the box:
 
@@ -104,7 +104,7 @@ credential_validator.regexp = ^[a-bA-Z0-9$]{20,100}
 Credential validators have limitations that have to do both with the config file grammar and shell interpretation of
 certain characters when credentials are specified on the command line.
 
-[New style configuration format](/configure.html) uses `#` as the comment character.
+[New style configuration format](configure.html) uses `#` as the comment character.
 This means that validation rules cannot
 use `#` in regular expression values. Leading and trailing spaces in values will also
 be stripped by the config file parser.

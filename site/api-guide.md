@@ -241,12 +241,12 @@ Client disconnection events can be [observed in server node logs](/networking.ht
 
 ## <a id="connection-and-channel-lifspan" class="anchor" href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a>
 
-Client [connections](/connections.html) are meant to be long-lived. The underlying protocol is designed and optimized for
+Client [connections](connections.html) are meant to be long-lived. The underlying protocol is designed and optimized for
 long running connections. That means that opening a new connection per operation,
 e.g. a message published, is unnecessary and strongly discouraged as it will introduce a lot of
 network roundtrips and overhead.
 
-[Channels](/channels.html) are also meant to be long-lived but since many recoverable protocol errors will
+[Channels](channels.html) are also meant to be long-lived but since many recoverable protocol errors will
 result in channel closure, channel lifespan could be shorter than that of its connection.
 Closing and opening new channels per operation is usually unnecessary but can be
 appropriate. When in doubt, consider reusing channels first.
@@ -288,7 +288,7 @@ Connection conn = factory.newConnection("app:audit component:event-consumer");
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
-Client applications work with [exchanges] and [queues](/queues.html),
+Client applications work with [exchanges] and [queues](queues.html),
 the high-level [building blocks of the protocol](/tutorials/amqp-concepts.html).
 These must be declared before they can be used. Declaring either type of object
 simply ensures that one of that name exists, creating it if necessary.
@@ -1000,7 +1000,7 @@ by default (and thus topology recovery as well).
 
 Topology recovery relies on a per-connection cache of entities (queues, exchanges,
 bindings, consumers). When, say, a queue is declared on a connection, it will be added to the cache.
-When it is deleted or is scheduled for deletion (e.g. because it is [auto-deleted](/queues.html))
+When it is deleted or is scheduled for deletion (e.g. because it is [auto-deleted](queues.html))
 it will be removed. This model has some limitations covered below.
 
 To disable or enable automatic connection recovery, use
@@ -1118,7 +1118,7 @@ design decisions that applications developers need to be aware of.
 
 Topology recovery relies on a per-connection cache of entities (queues, exchanges,
 bindings, consumers). When, say, a queue is declared on a connection, it will be added to the cache.
-When it is deleted or is scheduled for deletion (e.g. because it is [auto-deleted](/queues.html))
+When it is deleted or is scheduled for deletion (e.g. because it is [auto-deleted](queues.html))
 it will be removed. This makes it possible to declare and delete entities on different
 channels without having unexpected results. It also means that consumer tags (a channel-specific identifier)
 must be unique across all channels on connections that use automatic connection recovery.
@@ -1140,7 +1140,7 @@ default. This design assumes that even though a lot of
 network failures are transient and generally short
 lived, they do not go away in an instant. Having a delay
 also avoids an inherent race condition between server-side resource
-cleanup (such as [exclusive or auto-delete queue](/queues.html) deletion)
+cleanup (such as [exclusive or auto-delete queue](queues.html) deletion)
 and operations performed on a newly opened connection on the same resources.
 
 Connection recovery attempts by default will continue at identical time intervals until

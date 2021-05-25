@@ -28,7 +28,7 @@ before drawing any conclusions.
 
 Some related guides include:
 
- * [Main configuration guide](/configure.html)
+ * [Main configuration guide](configure.html)
  * [File and Directory Locations](/relocate.html)
  * [Runtime Tuning](/runtime.html)
  * [Queues](/queues.html#runtime-characteristics) and their runtime characteristics

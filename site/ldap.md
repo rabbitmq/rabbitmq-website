@@ -255,7 +255,7 @@ auth_ldap.use_ssl   = true
 ].
 </pre>
 
-An example that uses both of the above and uses the [advanced.config format](/configure.html):
+An example that uses both of the above and uses the [advanced.config format](configure.html):
 
 <pre class="lang-erlang">
 [
@@ -514,7 +514,7 @@ The `group_lookup_base` setting controls what base DN will be used to search for
 the `{in_group_nested, ...}` query only. For more info see the [section on queries](#query-reference).
 
 In the following example `ou=groups,dc=example,dc=com` is the directory that contains all groups.
-Note that it uses the [classic config format](/configure.html):
+Note that it uses the [classic config format](configure.html):
 
 <pre class="lang-erlang">
 [

@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide focuses on dynamically configured shovels. It assumes
-familiarity with the key concepts behind the [Shovel plugin](/shovel.html).
+familiarity with the key concepts behind the [Shovel plugin](shovel.html).
 
 Unlike with static shovels, dynamic shovels are configured using [runtime parameters](/parameters.html).
 They can be started and stopped at any time, including programmatically. Dynamic shovels

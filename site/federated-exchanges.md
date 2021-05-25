@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers federated exchanges, a subset of functionality offered by the [Federation plugin](/federation.html).
+This guide covers federated exchanges, a subset of functionality offered by the [Federation plugin](federation.html).
 
 Some covered topics include:
 

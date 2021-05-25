@@ -23,7 +23,7 @@ This guide covers an Erlang client for RabbitMQ (<a href="/tutorials/amqp-concep
 
 This user guide assumes that the reader is familiar with <a href="/tutorials/amqp-concepts.html">basic concepts of AMQP 0-9-1</a>.
 
-Refer to guides on [connections](/connections.html), [channels](/channels.html), [queues](/queues.html),
+Refer to guides on [connections](connections.html), [channels](channels.html), [queues](queues.html),
 [publishers](/publishers.html), and [consumers](/consumers.html) to learn about those
 key RabbitMQ concepts in more details.
 
@@ -71,7 +71,7 @@ dep_rabbit_common = hex &version-erlang-client;
 The basic usage of the client follows these broad steps:
 
 1. Make sure the `amqp_client` Erlang application is started
-2. Establish a [connection](/connections.html) to a RabbitMQ node
+2. Establish a [connection](connections.html) to a RabbitMQ node
 3. Open a new channel on the connection
 4. Execute <a href="/amqp-0-9-1-quickref.html">AMQP 0-9-1 commands</a> with a channel such as
    declaring exchanges and queues, defining bindings between them, publishing messages,
@@ -135,7 +135,7 @@ connections. This communication method assumes that the application that uses
 the client runs on the same Erlang cluster as RabbitMQ nodes.
 
 The use of direct client should be limited to applications that are deployed
-side by side with RabbitMQ. [Shovel](/shovel.html) and [Federation](/federation.thml)
+side by side with RabbitMQ. [Shovel](shovel.html) and [Federation](/federation.thml)
 plugins are two examples of such applications.
 
 In most other cases, developers should prefer the more traditional network client covered above.
@@ -165,7 +165,7 @@ amqp_client.hrl in every module that uses the Erlang client:
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
-The `amqp_connection` module is used to start a [connection](/connections.html) to a RabbitMQ node.
+The `amqp_connection` module is used to start a [connection](connections.html) to a RabbitMQ node.
 In this example we will use a network connection, which is the recommended
 option for most use cases:
 
@@ -323,7 +323,7 @@ via the query string (e.g. "?heartbeat=5" to configure a [heartbeat timeout](/he
 ## <a id="channels" class="anchor" href="#channels">Creating Channels</a>
 
 Once a connection has been established, use the `amqp_connection` module
-to open one or more [channels](/channels.html) that will be used
+to open one or more [channels](channels.html) that will be used
 to define the topology, publish and consume messages:
 
 <pre class="lang-erlang">

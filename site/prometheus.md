@@ -233,7 +233,7 @@ comes close to the orange area is considered to be in healthy state.
 
 Metric values in the **red** area need attention and may identify some form of service degradation.
 For example, metrics in the red area can indicate that an [alarm](/alarms.html) in effect
-or when the node is [out of file descriptors](/networking.html) and cannot accept any more connections or open new files.
+or when the node is [out of file descriptors](networking.html) and cannot accept any more connections or open new files.
 
 In the example above, we have a RabbitMQ cluster that runs at optimal memory
 capacity, which is just above the warning threshold. If there is a spike in published messages that should

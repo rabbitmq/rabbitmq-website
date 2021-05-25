@@ -115,7 +115,7 @@ which is in the <span class="envvar">$RABBITMQ_HOME</span>
 variable in the scripts.
 
 The node can be [instructed](/relocate.html) to use more
-conventional system directories for [configuration](/configure.html),
+conventional system directories for [configuration](configure.html),
 node data directory, [log](/logging.html) files, [plugins](/plugins.html) and so on.
 In order to make the node use operating system defaults, locate the following line
 
@@ -159,11 +159,11 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
+   server distribution port + 10010). See [networking guide](networking.html) for details.
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
@@ -172,8 +172,8 @@ Make sure the following ports are accessible:
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
  * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>

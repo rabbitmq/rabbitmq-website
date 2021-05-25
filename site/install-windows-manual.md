@@ -140,7 +140,7 @@ e.g. <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Appl
 Execute `echo %APPDATA%` at a Command Prompt
 to find this directory. Alternatively, Start&#xA0;>&#xA0;Run&#xA0;`%APPDATA%` will open this folder.
 
-A node can be [configured](/configure.html) to use a [different data directory](/relocate.html)
+A node can be [configured](configure.html) to use a [different data directory](/relocate.html)
 using one of these environment variables: `RABBITMQ_BASE`, `RABBITMQ_MNESIA_BASE` or
 `RABBITMQ_MNESIA_DIR`. Please read [the relocation guide](/relocate.html) for a description
 of how each of these variables works.
@@ -319,11 +319,11 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
+   server distribution port + 10010). See [networking guide](networking.html) for details.
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
@@ -331,8 +331,8 @@ Make sure the following ports are accessible:
  * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="windows-quirks" class="anchor" href="#windows-quirks">Windows-specific Issues</a>

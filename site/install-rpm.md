@@ -22,7 +22,7 @@ limitations under the License.
 This guide covers RabbitMQ installation on RPM-based Linux (RedHat Enterprise Linux, CentOS, Fedora, openSUSE).
 
 RabbitMQ is included in standard Fedora and RHEL repositories. However, the versions included are
-usually outdated and [out of support](/versions.html).
+usually outdated and [out of support](versions.html).
 
 There are two ways to install the most recent version of RabbitMQ on an RPM distribution:
 
@@ -79,11 +79,11 @@ is done on a best effort basis.
 
 RabbitMQ RPM package will require `sudo` privileges to install and manage.
 In environments where `sudo` isn't available, consider using the
-[generic binary build](/install-generic-unix.html).
+[generic binary build](install-generic-unix.html).
 
 ## <a id="install-erlang" class="anchor" href="#install-erlang">Install Erlang</a>
 
-Before installing RabbitMQ, you must install a [supported version](/which-erlang.html) of Erlang/OTP.
+Before installing RabbitMQ, you must install a [supported version](which-erlang.html) of Erlang/OTP.
 Standard Red Hat, Fedora, CentOS repositories provide Erlang versions that are typically [out of date](which-erlang.html)
 and cannot be used to run latest RabbitMQ releases.
 
@@ -789,7 +789,7 @@ yum install socat logrotate -y
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 </pre>
 
-[RabbitMQ public signing key](/signatures.html) can also be [downloaded from rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
+[RabbitMQ public signing key](signatures.html) can also be [downloaded from rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
 rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
@@ -889,11 +889,11 @@ yum -y install initscripts
 
 On most systems, a node should be able to start and run with all defaults.
 Please refer to the [Configuration guide](configure.html) to learn more
-and [Production Checklist](/production-checklist.html) for guidelines beyond
+and [Production Checklist](production-checklist.html) for guidelines beyond
 development environments.
 
 Note: the node is set up to run as system user `rabbitmq`.
-If [location of the node database or the logs](/relocate.html) is changed,
+If [location of the node database or the logs](relocate.html) is changed,
 the files and directories must be owned by this user.
 
 
@@ -912,21 +912,21 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
- * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
-   (only if the [management plugin](/management.html) is enabled)
- * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
- * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
- * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
- * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
- * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
+   server distribution port + 10010). See [networking guide](networking.html) for details.
+ * 15672: [HTTP API](management.html) clients, [management UI](management.html) and [rabbitmqadmin](management-cli.html)
+   (only if the [management plugin](management.html) is enabled)
+ * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](stomp.html) is enabled)
+ * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](mqtt.html) is enabled
+ * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](web-stomp.html) is enabled)
+ * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](web-mqtt.html) is enabled)
+ * 15692: Prometheus metrics (only if the [Prometheus plugin](prometheus.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="default-user-access" class="anchor" href="#default-user-access">Default User Access</a>
@@ -1087,7 +1087,7 @@ Dec 26 10:21:32 localhost.localdomain rabbitmq-server[957]: completed with 6 plu
 </pre>
 
 `rabbitmqctl`, `rabbitmq-diagnostics`,
-and other [CLI tools](/cli.html) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
+and other [CLI tools](cli.html) will be available in `PATH` and can be invoked by a `sudo`-enabled user:
 
 <pre class="lang-bash">
 # checks if the local node is running and CLI tools can successfully authenticate with it
@@ -1105,15 +1105,15 @@ sudo rabbitmq-diagnostics environment
 </pre>
 
 All `rabbitmqctl` commands will report an error if no node is running.
-See the [CLI tools](/cli.html) and [Monitoring](/monitoring.html) guides to learn more.
+See the [CLI tools](cli.html) and [Monitoring](monitoring.html) guides to learn more.
 
 
 ## <a id="server-logs" class="anchor" href="#server-logs">Log Files and Management</a>
 
-[Server logs](/logging.html) can be found under the [configurable](/relocate.html) directory, which usually
+[Server logs](logging.html) can be found under the [configurable](relocate.html) directory, which usually
 defaults to `/var/log/rabbitmq` when RabbitMQ is installed via a Linux package manager.
 
-`RABBITMQ_LOG_BASE` can be used to override [log directory location](/relocate.html).
+`RABBITMQ_LOG_BASE` can be used to override [log directory location](relocate.html).
 
 Assuming a `systemd`-based distribution, system service logs can be
 inspected using
@@ -1145,7 +1145,7 @@ Dec 26 11:03:06 localhost rabbitmq-server[968]: completed with 6 plugins.
 
 ### Log Rotation
 
-The broker always appends to the [log files](/logging.html), so a complete log history is retained.
+The broker always appends to the [log files](logging.html), so a complete log history is retained.
 
 [logrotate](https://linux.die.net/man/8/logrotate) is the recommended way of log file rotation and compression.
 By default, the package will set up `logrotate` to run weekly on files located in default

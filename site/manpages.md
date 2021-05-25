@@ -21,7 +21,7 @@ This page lists the available manual pages taken from the [latest stable release
 
 ## <a id="section5" class="anchor" href="#section5">Section 5: File formats</a>
 
-* [rabbitmq-env.conf](rabbitmq-env.conf.5.html): environment variable-based [configuration](/configure.html)
+* [rabbitmq-env.conf](rabbitmq-env.conf.5.html): environment variable-based [configuration](configure.html)
 
 
 ## <a id="section8" class="anchor" href="#section8">Section 8: System Management Commands</a>

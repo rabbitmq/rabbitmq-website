@@ -47,12 +47,12 @@ Setting up a RabbitMQ node with TLS involves modifying
 configuration. Before performing any other TLS
 troubleshooting steps it is important to verify config file
 location and effective configuration (whether the node has
-loaded it successfully). See [Configuration guide](/configure.html)
+loaded it successfully). See [Configuration guide](configure.html)
 for details.
 
 ## <a id="verify-listeners" class="anchor" href="#verify-listeners">Check TLS Listeners (Ports)</a>
 
-This step checks that the broker is listening on the [expected port(s)](/networking.html), such as
+This step checks that the broker is listening on the [expected port(s)](networking.html), such as
 5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on.
 
 To verify that TLS has been enabled on the node, use <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>

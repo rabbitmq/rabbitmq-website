@@ -54,7 +54,7 @@ There are several areas which can be configured or tuned. Each has a section in 
 This guide also covers a few topics closely related to networking:
 
 Except for OS kernel parameters and DNS, all RabbitMQ settings
-are [configured via RabbitMQ configuration file(s)](/configure.html).
+are [configured via RabbitMQ configuration file(s)](configure.html).
 
 Networking is a broad topic. There are many configuration options
 that can have positive or negative effect on certain workloads.
@@ -170,11 +170,11 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
+   server distribution port + 10010). See [networking guide](networking.html) for details.
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
@@ -183,8 +183,8 @@ Make sure the following ports are accessible:
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
  * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="listener-suspension" class="anchor" href="#listener-suspension">How to Temporarily Stop New Client Connections</a>
@@ -842,7 +842,7 @@ in the kernel tuning section.
 Workloads with high connection churn (a high rate of connections being opened and closed) will require
 TCP setting tuning to avoid exhaustion of certain resources: max number of file handles,
 Erlang processes on RabbitMQ nodes, kernel's ephemeral port range (for hosts that *open* a lot
-of connections, including [Federation](/federation.html) links and [Shovel](/shovel.html) connections), and others.
+of connections, including [Federation](federation.html) links and [Shovel](shovel.html) connections), and others.
 Nodes that are exhausted of those resources <strong>won't be able to accept new connections</strong>,
 which will negatively affect overall system availability.
 

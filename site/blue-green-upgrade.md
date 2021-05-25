@@ -24,7 +24,7 @@ The "blue" is the source cluster and the "green" one is the target.
 
 ### <a id="setup-federation" class="anchor" href="#setup-federation">Configuring Queue Federation</a>
 
-[RabbitMQ Federation plugin](/federation.html) makes it easy to move consumers
+[RabbitMQ Federation plugin](federation.html) makes it easy to move consumers
 from "blue" to "green", without disrupting message consumption or losing messages.
 The principle of [federated queues](/federated-queues.html) is that the consumers
 now connected to "green" will get messages published to "blue" as long as there are

@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The maximum length of a [queue](/queues.html) can be limited to a set number of
+The maximum length of a [queue](queues.html) can be limited to a set number of
 messages, or a set number of bytes (the total of all message
 body lengths, ignoring message properties and any overheads), or
 both.

@@ -113,7 +113,7 @@ private namespaces remaining stable across releases of the library.
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
-Before an application can use RabbitMQ, it has to open a [connection](/connections.html)
+Before an application can use RabbitMQ, it has to open a [connection](connections.html)
 to a RabbitMQ node. The connection then will be used to perform all subsequent
 operations. Connections are **meant to be long-lived**. Opening a connection
 for every operation (e.g. publishing a message) would be very inefficient and is
@@ -220,7 +220,7 @@ remains unassigned prior to creating a connection:
 Note that [user guest can only connect from localhost](/access-control.html) by default.
 This is to limit well-known credential use in production systems.
 
-The `IConnection` interface can then be used to open a [channel](/channels.html):
+The `IConnection` interface can then be used to open a [channel](channels.html):
 
 <pre class="lang-csharp">
 IModel channel = conn.CreateModel();
@@ -235,7 +235,7 @@ however, can have a shorter life span than connections. For example, certain
 protocol errors will automatically close channels. If applications can recover
 from them, they can open a new channel and retry the operation.
 
-This is covered in more detail in the [Channel guide](/channels.html) as well as other
+This is covered in more detail in the [Channel guide](channels.html) as well as other
 guides such as [Consumer Acknowledgements](/confirms.html).
 
 
@@ -318,7 +318,7 @@ IConnection conn = factory.CreateConnection();
 
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
-Client applications work with exchanges and [queues](/queues.html),
+Client applications work with exchanges and [queues](queues.html),
 the high-level [building blocks of the protocol](/tutorials/amqp-concepts.html).
 These must be "declared" before they can be
 used. Declaring either type of object simply ensures that one of that

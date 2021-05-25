@@ -45,7 +45,7 @@ worth bearing in mind:
 	 at least a few gigabytes of swap space enabled. Workloads can be simulated using [PerfTest](/java-tools.html).
    A separate guide on [reasoning about node memory usage](/memory-use.html) is available.
  * RabbitMQ generally will take advantage of all the CPU cores
-	in the system provided the workload uses [multiple queues](/queues.html).
+	in the system provided the workload uses [multiple queues](queues.html).
   Other factors should be taken into account (e.g. disk and network I/O throughput).
  * [Monitoring](/monitoring.html) RabbitMQ nodes as well as applications that use it
    on real or simulated workloads will help assess how suitable a particular instance type is.
@@ -110,7 +110,7 @@ Several other guides cover topics highly relevant for running RabbitMQ clusters 
 
  * [Clustering Fundamentals](/clustering.html)
  * [Peer Discovery](/cluster-formation.html)
- * [Configuration](/configure.html)
+ * [Configuration](configure.html)
  * [Monitoring](/monitoring.html)
  * [Production Checklist](/production-checklist.html)
  * [File and Directory Locations](/relocate.html)

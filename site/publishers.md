@@ -103,10 +103,10 @@ The difference typically have more to do with the terminology used than the sema
 
 ### AMQP 0-9-1
 
-In AMQP 0-9-1, publishing happens on a [channel](/channels.html) to an exchange.
+In AMQP 0-9-1, publishing happens on a [channel](channels.html) to an exchange.
 The exchange uses a routing topology set up by defining bindings between
 one or more queues and the exchange, or [source exchange and destination exchange](/e2e.html).
-Successfully routed messages are stored in [queues](/queues.html).
+Successfully routed messages are stored in [queues](queues.html).
 
 The role of each entity is covered in the [AMQP 0-9-1 concepts guide](/tutorials/amqp-concepts.html).
 
@@ -114,7 +114,7 @@ The role of each entity is covered in the [AMQP 0-9-1 concepts guide](/tutorials
 
 There are several common types of publisher errors that are handled using different protocol features:
 
- * Publishing to a non-existent exchange results in a [channel error](/channels.html), which closes the channel
+ * Publishing to a non-existent exchange results in a [channel error](channels.html), which closes the channel
    so that no further publishing (or any other operation) is allowed on it.
  * When a published message cannot be routed to any queue (e.g. because there are no bindings defined for the
    target exchange), and the publisher set the `mandatory` message property to `false` (this is the default), the message is discarded or republished to an [alternate exchange](/ae.html), if any.
@@ -582,7 +582,7 @@ list is by no means extensive.
 
 ### Connectivity Failures
 
-Like any client, a publisher has to successfully [connect](/connections.html) and successfully authenticate first.
+Like any client, a publisher has to successfully [connect](connections.html) and successfully authenticate first.
 
 The number of potential connectivity issues is pretty broad and has a [dedicated guide](/troubleshooting-networking.html).
 

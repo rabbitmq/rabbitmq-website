@@ -172,14 +172,14 @@ One of these options can be used to mitigate:
 
 ## <a id="configure" class="anchor" href="#configure">Node Configuration</a>
 
-The service starts using its default [settings](/configure.html), listening
+The service starts using its default [settings](configure.html), listening
 for connections on [default interfaces](/networking.html#interfaces) and [ports](#ports).
 
 Node configuration is primarily done using a [configuration file](/configure.html#configuration-file).
 A number of available [environment variables](/configure.html#customise-windows-environment) can be used
 to control node's [data location](/relocate.html), configuration file path and so on.
 
-This is covered in more detail in the [Configuration guide](/configure.html)
+This is covered in more detail in the [Configuration guide](configure.html)
 
 ### Environment Variable Changes on Windows
 
@@ -269,11 +269,11 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
+   server distribution port + 10010). See [networking guide](networking.html) for details.
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
@@ -281,8 +281,8 @@ Make sure the following ports are accessible:
  * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="upgrading-erlang" class="anchor" href="#upgrading-erlang">Upgrading Erlang VM</a>

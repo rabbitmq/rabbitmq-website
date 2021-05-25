@@ -74,7 +74,7 @@ Similarly, for the `allocated` strategy, use:
 vm_memory_calculation_strategy = allocated
 </pre>
 
-To find out what strategy a node uses, see its [effective configuration](/configure.html).
+To find out what strategy a node uses, see its [effective configuration](configure.html).
 
 ## <a id="breakdown" class="anchor" href="#breakdown">Memory Use Breakdown</a>
 
@@ -392,11 +392,11 @@ curl -s -u guest:guest http://127.0.0.1:15672/api/nodes/rabbit@mercurio/memory/r
 
 ### <a id="breakdown-connections" class="anchor" href="#breakdown-connections">Connections</a>
 
-This includes memory used by client connections (including [Shovels](/shovel.html) and [Federation links](/federation.html))
+This includes memory used by client connections (including [Shovels](shovel.html) and [Federation links](federation.html))
 and channels, and outgoing ones (Shovels and Federation upstream links). Most of the memory
 is usually used by TCP buffers, which on Linux autotune to about 100 kB in size by default.
 TCP buffer size can be reduced at the cost of a proportional decrease in connection throughput.
-See the [Networking guide](/networking.html) for details.
+See the [Networking guide](networking.html) for details.
 
 Channels also consume RAM. By optimising how many channels applications use, that amount
 can be decreased. It is possible to cap the max number of channels on a connection using
@@ -415,7 +415,7 @@ Memory used by queues, queue indices, queue state. Messages enqueued will
 in part contribute to this category.
 
 Queues will [swap their contents out to disc when under memory pressure](/memory.html).
-The exact behavior of this depends on [queue properties](/queues.html),
+The exact behavior of this depends on [queue properties](queues.html),
 whether clients publish messages as persistent or transient, and [persistence configuration](/persistence-conf.html) of the node.
 
 Message bodies do not show up here but in Binaries.

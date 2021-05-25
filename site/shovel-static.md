@@ -20,9 +20,9 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide focuses on statically configured shovels. It assumes
-familiarity with the key concepts behind the [Shovel plugin](/shovel.html).
+familiarity with the key concepts behind the [Shovel plugin](shovel.html).
 
-Unlike with [dynamic shovels](/shovel-dynamic.html), static shovels are configured using the [advanced configuration file](/configure.html).
+Unlike with [dynamic shovels](/shovel-dynamic.html), static shovels are configured using the [advanced configuration file](configure.html).
 They are started on node boot and are primarily useful for permanently
 running workloads. Any changes to static shovel configuration would require
 a node restart, which makes them highly inflexible.

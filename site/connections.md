@@ -21,8 +21,8 @@ limitations under the License.
 
 This guide covers various topics related to connections except for
 network tuning or most networking-related topics. Those
-are covered by the [Networking](/networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
-[Channels](/channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
+are covered by the [Networking](networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
+[Channels](channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
 in a separate guide.
 
 RabbitMQ supports several protocols:
@@ -65,7 +65,7 @@ Where the difference matters, a more specific term is used (e.g. "application").
 All protocols supported by RabbitMQ are TCP-based and assume long-lived connections (a new connection
 is not opened per protocol operation) for efficiency. One client library connection uses a single
 TCP connection. In order for a client to successfully connect, target RabbitMQ node must allow for
-connections on a [certain protocol-specific port](/networking.html).
+connections on a [certain protocol-specific port](networking.html).
 
 After a client [connects](#lifecycle) and successfully authenticates with a RabbitMQ node, it can
 publish and consume messages, define topology and perform other operations that are provided in the protocol
@@ -123,7 +123,7 @@ This flow doesn't change significantly from protocol to protocol but there are m
 AMQP 0-9-1 has a [model](/tutorials/amqp-concepts.html) that includes connections and channels. Channels allow for
 connection multiplexing (having multiple logical connections on a "physical" or TCP one).
 
-The maximum number of [channels](/channels.html) that can be open on a connection simultaneously
+The maximum number of [channels](channels.html) that can be open on a connection simultaneously
 is negotiated by client and server at connection time. The client cannot be configured to allow for
 more channels than the server configured maximum.
 
@@ -281,7 +281,7 @@ will refresh every 60 seconds.
 This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
 but will make management UI less convenient to use for operators.
 
-The [Networking guide](/networking.html) has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
+The [Networking guide](networking.html) has a section dedicated to [tuning for a large number of concurrent connections](/networking.html#tuning-for-large-number-of-connections).
 It explains how to reduce per-connection memory footprint.
 
 

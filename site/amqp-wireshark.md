@@ -74,7 +74,7 @@ additional information enclosed in square brackets:
 
 Wireshark automatically highlights AMQP 0-9-1 packets with:
 
- * [Connection errors](/connections.html) (server-sent `connection.close` frames) and [channel errors](/channels.html)
+ * [Connection errors](connections.html) (server-sent `connection.close` frames) and [channel errors](channels.html)
    (server-sent `channel.close` frames)
  * [Returned unroutable](/publishers.html) messages (`basic.return` frames)
 

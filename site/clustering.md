@@ -49,7 +49,7 @@ queues, exchanges, bindings, runtime parameters and other distributed state.
 
 A RabbitMQ cluster can formed in a number of ways:
 
- * Declaratively by listing cluster nodes in [config file](/configure.html)
+ * Declaratively by listing cluster nodes in [config file](configure.html)
  * Declaratively using DNS-based discovery
  * Declaratively using [AWS (EC2) instance discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) (via a plugin)
  * Declaratively using [Kubernetes discovery](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s) (via a plugin)
@@ -137,11 +137,11 @@ Make sure the following ports are accessible:
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
-   the cluster uses [federation](/federation.html) or CLI tools are used on machines outside the subnet),
-   these ports should not be publicly exposed. See [networking guide](/networking.html) for details.
+   the cluster uses [federation](federation.html) or CLI tools are used on machines outside the subnet),
+   these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](/networking.html) for details.
+   server distribution port + 10010). See [networking guide](networking.html) for details.
  * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
@@ -150,8 +150,8 @@ Make sure the following ports are accessible:
  * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
  * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
-It is possible to [configure RabbitMQ](/configure.html)
-to use [different ports and specific network interfaces](/networking.html).
+It is possible to [configure RabbitMQ](configure.html)
+to use [different ports and specific network interfaces](networking.html).
 
 
 ## <a id="cluster-membership" class="anchor" href="#cluster-membership">Nodes in a Cluster</a>
@@ -179,7 +179,7 @@ Many [CLI tool](/cli.html) operations can be executed against any node.
 An [HTTP API](/management.html) client can target any cluster node.
 
 Individual plugins can designate (elect)
-certain nodes to be "special" for a period of time. For example, [federation links](/federation.html)
+certain nodes to be "special" for a period of time. For example, [federation links](federation.html)
 are colocated on a particular cluster node. Should that node fail, the links will
 be restarted on a different node.
 
@@ -1112,7 +1112,7 @@ rabbitmqctl -n hare start_app
 </pre>
 
 will set up a two node cluster, both nodes as disc nodes.
-Note that if the node [listens on any ports](/networking.html) other
+Note that if the node [listens on any ports](networking.html) other
 than AMQP 0-9-1 and AMQP 1.0 ones, those must be configured to avoid a collision as
 well. This can be done via command line:
 
@@ -1160,7 +1160,7 @@ Nodes can have a firewall enabled on them. In such case, traffic on certain port
 allowed by the firewall in both directions, or nodes won't be able to join each other and
 perform all the operations they expect to be available on cluster peers.
 
-Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Networking guide](/networking.html).
+Learn more in the [section on ports](#ports) above and dedicated [RabbitMQ Networking guide](networking.html).
 
 
 

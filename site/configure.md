@@ -349,7 +349,7 @@ named `rabbitmq.conf.example`. It contains examples of
 most of the configuration items you might want to set (with some very obscure ones omitted), along with
 documentation for those settings.
 
-Documentation guides such as [Networking](/networking.html), [TLS](/ssl.html), or
+Documentation guides such as [Networking](networking.html), [TLS](/ssl.html), or
 [Access Control](/access-control.html) contain many examples in relevant formats.
 
 Note that this configuration file is not to be confused with the environment variable
@@ -1399,8 +1399,8 @@ dedicated documentation guides that cover plugin configuration:
  * [rabbitmq_management_agent](/management.html#configuration)
  * [rabbitmq_stomp](/stomp.html)
  * [rabbitmq_mqtt](/mqtt.html)
- * [rabbitmq_shovel](/shovel.html)
- * [rabbitmq_federation](/federation.html)
+ * [rabbitmq_shovel](shovel.html)
+ * [rabbitmq_federation](federation.html)
  * [rabbitmq_auth_backend_ldap](/ldap.html)
 
 ### <a id="configuration-encryption" class="anchor" href="#configuration-encryption">Configuration Value Encryption</a>

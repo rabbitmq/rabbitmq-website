@@ -74,7 +74,7 @@ that RabbitMQ node is unreachable due to a heartbeat, it needs
 to re-connect.
 
 It is important to not confuse the timeout value with the interval one.
-RabbitMQ [configuration](/configure.html) exposes the timeout value,
+RabbitMQ [configuration](configure.html) exposes the timeout value,
 so do the officially supported client libraries. However some clients might expose
 the interval, potentially causing confusion.
 
@@ -167,7 +167,7 @@ consult your MQTT client's documentation for examples.
 
 ## <a id="shovel-and-federation" class="anchor" href="#shovel-and-federation">Heartbeats in Shovel and Federation Plugins</a>
 
-[Shovel](/shovel.html) and [Federation](/federation.html) plugins open Erlang client
+[Shovel](shovel.html) and [Federation](federation.html) plugins open Erlang client
 connections to RabbitMQ nodes under the hood. As such, they can be configured
 to use a desired heartbeat value.
 
@@ -192,7 +192,7 @@ be configured to use a reasonably low timeout value.
 
 TCP keepalives cover all TCP connections on a host, both inbound
 and outgoing. This makes them useful in scenarios with a high outgoing
-connection churn, e.g. [Shovel](/shovel.html) or [Federation](/federation.html) plugin
+connection churn, e.g. [Shovel](shovel.html) or [Federation](federation.html) plugin
 links that are often disabled and reenabled or interrupted.
 
 TCP keepalives can also be used instead of heartbeats by configuring them to lower system-specific
@@ -200,7 +200,7 @@ values. In that case [heartbeats can be disabled](#disabling). The main benefit
 of this approach is that all TCP connections on a machine will use identical values
 regardless of the protocol and client library used.
 
-See the [Networking guide](/networking.html) for details.
+See the [Networking guide](networking.html) for details.
 
 ## <a id="tcp-proxies" class="anchor" href="#tcp-proxies">Heartbeats and TCP Proxies</a>
 

@@ -37,8 +37,8 @@ of a name and value.
 
 One special case of parameters usage is [policies](#policies), which are used for specifying
 optional arguments for groups of queues and exchanges, as well
-as plugins such as [Federation](/federation.html)
-and [Shovel](/shovel.html). Policies are vhost-scoped.
+as plugins such as [Federation](federation.html)
+and [Shovel](shovel.html). Policies are vhost-scoped.
 
 ## <a id="parameter-management" class="anchor" href="#parameter-management">Global and Per-vhost Parameters</a>
 

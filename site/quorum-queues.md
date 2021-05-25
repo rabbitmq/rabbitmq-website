@@ -76,7 +76,7 @@ agree on the state of the queue and its contents.
 
 ### Differences from Classic Mirrored Queues
 
-Quorum queues share many of the fundamentals with [queues](/queues.html) of other types in RabbitMQ.
+Quorum queues share many of the fundamentals with [queues](queues.html) of other types in RabbitMQ.
 However, they are more purpose-built, focus on data safety and predictable recovery,
 and do not support certain features.
 
@@ -91,7 +91,7 @@ confirming messages too early, potentially resulting in a data loss.
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
 
-Quorum queues share most of the fundamentals with other [queue](/queues.html) types.
+Quorum queues share most of the fundamentals with other [queue](queues.html) types.
 A client library that can use regular mirrored queues will be able to use quorum queues.
 
 The following operations works the same way for quorum queues as they do for regular queues:
@@ -113,8 +113,8 @@ Some features are not currently supported by quorum queues.
 
 | Feature | Classic Mirrored | Quorum |
 | :-------- | :------- | ------ |
-| [Non-durable queues](/queues.html) | yes | no |
-| [Exclusivity](/queues.html) | yes | no |
+| [Non-durable queues](queues.html) | yes | no |
+| [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [Message TTL](/ttl.html) | yes | no |
@@ -131,7 +131,7 @@ Some features are not currently supported by quorum queues.
 
 #### Non-durable Queues
 
-Regular queues can be [non-durable](/queues.html). Quorum queues are always durable per their
+Regular queues can be [non-durable](queues.html). Quorum queues are always durable per their
 assumed [use cases](#use-cases).
 
 #### Exclusivity
@@ -219,7 +219,7 @@ In some cases quorum queues should not be used. They typically involve:
 
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
 
-As stated earlier, quorum queues share most of the fundamentals with other [queue](/queues.html) types.
+As stated earlier, quorum queues share most of the fundamentals with other [queue](queues.html) types.
 A client library that can specify [optional queue arguments](/queues.html#optional-arguments) will be able to use quorum queues.
 
 First we will cover how to declare a quorum queue.

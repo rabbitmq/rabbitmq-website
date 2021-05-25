@@ -34,7 +34,7 @@ Starting with 3.7.0, RabbitMQ uses a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
-There are two ways to configure log file location. One is the [configuration file](/configure.html).
+There are two ways to configure log file location. One is the [configuration file](configure.html).
 The other is the `RABBITMQ_LOGS` environment variable.
 
 Use [RabbitMQ management UI](/management.html) or [`rabbitmq-diagnostics status`](/cli.html)
@@ -53,7 +53,7 @@ overriding log file location via the config file.
 As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging
 library under the hood. Lager supports logging to different sources and is highly configurable.
 
-RabbitMQ starts logging early on node start. See the [Configuration guide](/configure.html)
+RabbitMQ starts logging early on node start. See the [Configuration guide](configure.html)
 for a general overview of how to configure RabbitMQ.
 
 ### <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
@@ -70,7 +70,7 @@ messages.
 
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
 
- * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](/configure.html).
+ * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](configure.html).
  * `log.file.level`: log level for the file output. Default level is `info`.
  * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings.
 
@@ -372,7 +372,7 @@ it will get them from all categories, unless a category level is configured.
 
 There are two ways of changing effective log levels:
 
- * Via [configuration file(s)](/configure.html): this is more flexible but requires
+ * Via [configuration file(s)](configure.html): this is more flexible but requires
    a node restart between changes
  * Using [CLI tools](/cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: this option sets the same level for all
    sinks, the changes are transient (will not survive node restart) but can be used to
@@ -525,7 +525,7 @@ The examples above include two values that can be used as connection identifiers
 in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
 The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](/management.html).
 
-A [client connection](/connections.html) can be closed cleanly or abnormally. In the
+A [client connection](connections.html) can be closed cleanly or abnormally. In the
 former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
 MQTT) connection gracefully using a dedicated library function
 (method). In the latter case the client closes TCP connection
@@ -599,7 +599,7 @@ Below is a list of published events.
 
 ### Core Broker
 
-[Queue](/queues.html), Exchange and Binding events:
+[Queue](queues.html), Exchange and Binding events:
 
  * `queue.deleted`
  * `queue.created`
@@ -608,7 +608,7 @@ Below is a list of published events.
  * `binding.created`
  * `binding.deleted`
 
-[Connection](/connections.html) and [Channel](/channels.html) events:
+[Connection](connections.html) and [Channel](channels.html) events:
 
  * `connection.created`
  * `connection.closed`
@@ -656,14 +656,14 @@ User management events:
  * `alarm.set`
  * `alarm.cleared`
 
-### [Shovel Plugin](/shovel.html)
+### [Shovel Plugin](shovel.html)
 
 Worker events:
 
  * `shovel.worker.status`
  * `shovel.worker.removed`
 
-### [Federation Plugin](/federation.html)
+### [Federation Plugin](federation.html)
 
 Link events:
 
@@ -824,7 +824,7 @@ It is possible to disable RabbitMQ handlers and sinks. Setting a handler or cate
 
 To create an additional log file for errors only, create an
 additional handler with the `error` level. This has to be done using the
-[advanced config file](/configure.html):
+[advanced config file](configure.html):
 
 <pre class="lang-erlang">
 [{lager, [

@@ -137,14 +137,14 @@ of durability for exchanges, queues and of persistent messages,
 requiring that a durable object or persistent message will survive a
 restart. More details about specific flags pertaining to durability
 and persistence can be found in the
-[Queues guide](/queues.html).
+[Queues guide](queues.html).
 
 
 ## <a id="clustering" class="anchor" href="#clustering">Clustering and Message Replication</a>
 
 [Clusters of nodes](/clustering.html) offer redundancy and can tolerate failure of a single node.
 In a RabbitMQ cluster, all definitions (of exchanges, bindings, users, etc) are replicated across the entire
-cluster. [Queues](/queues.html) behave differently, by default residing only on a
+cluster. [Queues](queues.html) behave differently, by default residing only on a
 single node, but can be configured to be replicated (mirrored) across multiple
 nodes. Queues remain visible and reachable from all nodes regardless
 of what node their leader replica is located.
@@ -252,7 +252,7 @@ A failed Shovel will be restarted after a configurable delay and retry.
 
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring and Health Checks</a>
 
-Some failure scenarios are subtle and hard to observe or detect. For example, a slow [connection leak](/connections.html)
+Some failure scenarios are subtle and hard to observe or detect. For example, a slow [connection leak](connections.html)
 can build up over time and like a chronic disease, go unnoticed for a period of time. [Monitoring and metrics](/monitoring.html)
 is the way to detect many types of failures. Longer-term metric data collected using tools such as [Prometheus](/prometheus.html)
 can help spot irregularities and problematic patterns in system behaviour.
