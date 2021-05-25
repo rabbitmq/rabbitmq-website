@@ -73,7 +73,13 @@ This option will require manual installation of all RabbitMQ package dependencie
 
 ## <a id="supported-debian-distributions" class="anchor" href="#supported-debian-distributions">Supported Distributions</a>
 
-Below is a list Debian-based distributions supported by recent RabbitMQ releases:
+RabbitMQ is supported on several major Debian-based distributions that are still supported
+by their primary vendor or developer group.
+
+Note that Erlang 24 cannot be supported on older distributions because they ship with
+an older version of OpenSSL.
+
+Currently the list of supported RPM-based distributions includes
 
  * Ubuntu 18.04 through 21.04
  * Debian Buster (10), Bullseye (11), and Sid ("unstable")

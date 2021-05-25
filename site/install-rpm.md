@@ -61,6 +61,9 @@ available for which versions of the distribution.
 RabbitMQ is supported on several major RPM-based distributions that are still supported
 by their primary vendor or developer group.
 
+Note that Erlang 24 cannot be supported on older distributions because they ship with
+an older version of OpenSSL.
+
 Currently the list of supported RPM-based distributions includes
 
  * CentOS 8.x
