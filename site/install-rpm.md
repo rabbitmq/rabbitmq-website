@@ -58,11 +58,14 @@ available for which versions of the distribution.
 
 ## <a id="supported-distributions" class="anchor" href="#supported-distributions">Supported Distributions</a>
 
-Below is a list of supported RPM-based distributions:
+RabbitMQ is supported on several major RPM-based distributions that are still supported
+by their primary vendor or developer group.
 
- * CentOS 8.x, 7.x (there are separate RPM packages: one for `8.x` series, one for `7.x`)
- * RedHat Enterprise Linux 8.x, 7.x and 6.x (same packages as for CentOS)
- * Fedora 29 through 33 (use the CentOS 8.x package)
+Currently the list of supported RPM-based distributions includes
+
+ * CentOS 8.x
+ * RedHat Enterprise Linux 8.x, 7.x (there are separate RPM packages: one for `8.x` series, one for `7.x`)
+ * Fedora 31 through 33 (use the CentOS 8.x package)
 
 The packages may work on other RPM-based distributions
 if [dependencies](#package-dependencies) are satisfied but their testing and support
