@@ -76,8 +76,11 @@ This option will require manual installation of all RabbitMQ package dependencie
 RabbitMQ is supported on several major Debian-based distributions that are still supported
 by their primary vendor or developer group.
 
-Note that Erlang 24 cannot be supported on older distributions because they ship with
-an older version of OpenSSL.
+Note that modern versions of Erlang can have incompatibilities with older distributions (e.g. older than three to four years)
+or ship without much or any testing on older distributions or OS kernel versions.
+
+Older distributions can also lack a recent enough version of OpenSSL.
+Erlang 24 cannot be used on distributions that **do not** ship with OpenSSL 1.1 by default.
 
 Currently the list of supported Debian-based distributions includes
 
