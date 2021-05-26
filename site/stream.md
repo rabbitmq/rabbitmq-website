@@ -134,7 +134,7 @@ stream.advertised_port = 12345
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 To use TLS for stream connections, [TLS must be configured](/ssl.html) in the broker. To enable
-TLS-enabled stream connections, add a TLS listener for STOMP using the `stream.listeners.ssl.*` configuration keys.
+TLS-enabled stream connections, add a TLS listener for streams using the `stream.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server
 certificates and key (just like AMQP 0-9-1 and AMQP 1.0 listeners do):
