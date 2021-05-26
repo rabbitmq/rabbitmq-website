@@ -130,3 +130,44 @@ to cluster nodes:
 stream.advertised_host = rabbitmq-1
 stream.advertised_port = 12345
 </pre>
+
+## <a id="tls" class="anchor" href="#tls">TLS Support</a>
+
+To use TLS for stream connections, [TLS must be configured](/ssl.html) in the broker. To enable
+TLS-enabled stream connections, add a TLS listener for STOMP using the `stream.listeners.ssl.*` configuration keys.
+
+The plugin will use core RabbitMQ server
+certificates and key (just like AMQP 0-9-1 and AMQP 1.0 listeners do):
+
+<pre class="lang-ini">
+ssl_options.cacertfile = /path/to/tls/ca_certificate.pem
+ssl_options.certfile   = /path/to/tls/server_certificate.pem
+ssl_options.keyfile    = /path/to/tls/server_key.pem
+ssl_options.verify     =  verify_peer
+ssl_options.fail_if_no_peer_cert = true
+
+stream.listeners.tcp.1 = 5552
+# default TLS-enabled port for stream connections
+stream.listeners.ssl.1 = 5551
+</pre>
+
+This configuration creates a standard TCP listener on port 5552 and
+a TLS listener on port 5551.
+
+When a TLS listener is set up it may be desired to disable all non-TLS ones.
+This can be configured like so:
+
+<pre class="lang-ini">
+stream.listeners.tcp   = none
+stream.listeners.ssl.1 = 5551
+</pre>
+
+Just like for [plain connections](#advertised-host-port), it is possible to configure
+an advertised TLS port. The plugin will use the current TLS port for TLS connections,
+but you can override this behavior with the `advertised_tls_port` setting:
+
+<pre class="lang-ini">
+stream.advertised_host = rabbitmq-1
+stream.advertised_port = 12345
+stream.advertised_tls_port = 12344
+</pre>
