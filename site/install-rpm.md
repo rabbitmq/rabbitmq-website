@@ -39,7 +39,7 @@ such as Fedora, RHEL and CentOS. It covers a number of topics:
  * [Privilege requirements](#sudo-requirements)
  * How to [manage the service](#managing-service)
  * How to [inspect node and service logs](#server-logs)
- * Installation on [older distributions](#install-legacy)
+ * Installation on [older distributions](#yum-legacy)
  * [Package downloads](#downloads)
 
 and more.
