@@ -13,7 +13,7 @@ Before you install, you will require the following:
 ## Setup
 
 ### Installing on your registry
-If you haven't already, download the Tanzu RabbitMQ release tar file.
+If you haven't already, download the Tanzu RabbitMQ release tar file from [VMware Tanzu Network](https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/).
 
 You must then place this tar file on the filesystem of a machine within the network you are hosting your registry. On that machine, you can load the tarball into your registry by running:
 <pre class="lang-bash">
