@@ -36,6 +36,14 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](/which-erlang.html)
 
+## Preview Releases (Betas, Release Candidates)
+
+You can contribute to RabbitMQ by helping the community test preview releases.
+
+Preview releases currently available for testing:
+
+ * [`3.8.17-rc.1`](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.17-rc.1)
+
 ## Kubernetes
 
  * Open source [RabbitMQ Cluster Kubernetes Operator](kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
