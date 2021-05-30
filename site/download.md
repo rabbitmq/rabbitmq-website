@@ -36,12 +36,31 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](/which-erlang.html)
 
+## VMware Tanzu™ RabbitMQ® (Commercial Edition)
+
+ * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [Tanzu™ RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
+
 ## Kubernetes
 
- * Open source [RabbitMQ Cluster Kubernetes Operator](kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * Kubernetes Operator [quickstart guide](kubernetes/operator/quickstart-operator.html)
- * Kubernetes Operator [usage guide](kubernetes/operator/using-operator.html)
- * Kubernetes Operator [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
+### RabbitMQ Cluster Kubernetes Operator
+
+Open source [RabbitMQ Cluster Kubernetes Operator](kubernetes/operator/operator-overview.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator)):
+
+ * [quickstart guide](kubernetes/operator/quickstart-operator.html)
+ * [usage guide](kubernetes/operator/using-operator.html)
+ * [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
+
+### RabbitMQ Topology Kubernetes Operator
+
+Open source [RabbitMQ Topology Kubernetes Operator](kubernetes/operator/using-topology-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/messaging-topology-operator)):
+
+ * [installation guide](kubernetes/operator/install-topology-operator.html)
+ * [usage guide](kubernetes/operator/using-topology-operator.html)
+
+
+Other guides related to Kubernetes:
+
  * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
 
 
@@ -49,6 +68,14 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 
  * Docker community-maintained [RabbitMQ Docker image](https://registry.hub.docker.com/_/rabbitmq/) ([on GitHub](https://github.com/docker-library/rabbitmq/))
 
+
+## Cloud
+
+ * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * [Tanzu™ RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
+ * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
+ * [Amazon EC2](ec2.html)
 
 ## Downloads [on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases)
 
@@ -65,15 +92,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-manag
 ## Debian (Apt) and RPM (Yum) Repositories
 
  * [Package Cloud](https://packagecloud.io/rabbitmq/)
-
-
-## Cloud
-
- * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
- * [Amazon EC2](/ec2.html)
-
+ * [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/)
 
 ## Provisioning Tools (Chef, Puppet, etc)
 
