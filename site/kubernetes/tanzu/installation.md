@@ -162,8 +162,8 @@ ytt -f manifests/cluster-operator.yml -f manifests/messaging-topology-operator.y
 ## Observability
 
 Setting up observability for RabbitMQ clusters is [very important](../../monitoring.html#approaches-to-monitoring).
-To do so, follow the instructions [in the Cluster Operator repo](https://github.com/rabbitmq/cluster-operator/tree/v1.7.0/observability)
-or the [RabbitMQ website](../operator/operator-monitoring.html).
+To do so, follow the instructions [in the Cluster Operator repository](https://github.com/rabbitmq/cluster-operator/tree/v1.7.0/observability)
+or the [Operator monitoring guide](../operator/operator-monitoring.html).
 
 ## Deploying your RabbitmqClusters and Topology Objects
 
