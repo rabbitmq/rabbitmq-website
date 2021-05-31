@@ -54,7 +54,7 @@ for them. Queue names may be up to 255 bytes of UTF-8 characters.
 
 Queue names starting with "amq." are reserved for internal
 use by the broker. Attempts to declare a queue with a name that
-violates this rule will result in a [channel-level exception](/channels.html)
+violates this rule will result in a [channel-level exception](channels.html)
 with reply code 403 (<code>ACCESS_REFUSED</code>).
 
 ### <a id="server-named-queues" class="anchor" href="#server-named-queues">Server-named Queues</a>

@@ -24,7 +24,7 @@ RabbitMQ ships with multiple command line tools:
  * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
  * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)
  * [`rabbitmq-plugins`](/rabbitmq-plugins.8.html) for [plugin management](/plugins.html)
- * [`rabbitmq-queues`](/rabbitmq-queues.8.html) for maintenance tasks on [queues](/queues.html), in particular [quorum queues](/quorum-queues.html)
+ * [`rabbitmq-queues`](/rabbitmq-queues.8.html) for maintenance tasks on [queues](queues.html), in particular [quorum queues](/quorum-queues.html)
  * [`rabbitmq-upgrade`](/rabbitmq-upgrade.8.html) for maintenance tasks related to [upgrades](/upgrade.html)
 
 they can be found under the `sbin` directory in installation root.
@@ -145,7 +145,7 @@ take effect on node restart).
 ## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
 
 With the exception of `rabbitmqadmin`, RabbitMQ tools use a [shared secret authentication mechanism](#erlang-cookie).
-This requires that [inter-node and CLI communication ports](/networking.html) (by default)
+This requires that [inter-node and CLI communication ports](networking.html) (by default)
 is open for external connections on the target node.
 
 
@@ -535,7 +535,7 @@ Just like with any network connection, CLI-to-node connections can fail due to
 
 and so on.
 
-[RabbitMQ Networking guide](/networking.html) contains a section on troubleshooting of networking-related issues.
+[RabbitMQ Networking guide](networking.html) contains a section on troubleshooting of networking-related issues.
 
 
 ## <a id="http-api-cli" class="anchor" href="#http-api-cli">rabbitmqadmin</a>

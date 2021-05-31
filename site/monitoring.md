@@ -721,7 +721,7 @@ rabbitmq-plugins -q list --enabled --minimal
 # =&gt; [E*] rabbitmq_tracing                  3.8.0
 </pre>
 
-A health check that verifies that a specific plugin, [`rabbitmq_shovel`](/shovel.html)
+A health check that verifies that a specific plugin, [`rabbitmq_shovel`](shovel.html)
 is enabled and running:
 
 <pre class="lang-bash">

@@ -112,13 +112,13 @@ on the command line to verify that the necessary tools are available.
 
 ### Clone a Repository with Manifests
 
-First step is to clone a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-prometheus"
-target="_blank">rabbitmq-prometheus</a>, with the manifests and other components required to run
+First step is to clone a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-server"
+target="_blank">rabbitmq-server</a>, with the manifests and other components required to run
 a RabbitMQ cluster, Prometheus and a set of applications:
 
 <pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-prometheus.git
-cd rabbitmq-prometheus/docker
+git clone https://github.com/rabbitmq/rabbitmq-server.git
+cd rabbitmq-server/deps/rabbitmq_prometheus/docker
 </pre>
 
 ### Run Docker Compose
@@ -233,7 +233,7 @@ comes close to the orange area is considered to be in healthy state.
 
 Metric values in the **red** area need attention and may identify some form of service degradation.
 For example, metrics in the red area can indicate that an [alarm](/alarms.html) in effect
-or when the node is [out of file descriptors](/networking.html) and cannot accept any more connections or open new files.
+or when the node is [out of file descriptors](networking.html) and cannot accept any more connections or open new files.
 
 In the example above, we have a RabbitMQ cluster that runs at optimal memory
 capacity, which is just above the warning threshold. If there is a spike in published messages that should
@@ -285,7 +285,7 @@ It is a lot more and efficient to have RabbitMQ [push messages to the consumer](
 
 ### <a id="example-workloads" class="anchor" href="#example-workloads">Example Workloads</a>
 
-The [Prometheus plugin repository](https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker) contains example workloads that use [PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
+The [Prometheus plugin repository](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_prometheus/docker) contains example workloads that use [PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
 to simulate different workloads.
 Their goal is to exercise all metrics in the RabbitMQ Overview dashboard. These examples are meant to be
 edited and extended as developers and operators see fit when exploring various metrics, their thresholds and behaviour.
@@ -308,7 +308,7 @@ as more nitty-gritty [runtime metrics](/runtime.html) such as inter-node communi
 
 The dashboards have corresponding RabbitMQ clusters and PerfTest instances which are started and stopped the same
 as the Overview one. Feel free to experiment with the other workloads
-that are included in [the same `docker` directory](https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker).
+that are included in [the same `docker` directory](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_prometheus/docker).
 
 For example, the `docker-compose-dist-tls.yml` Compose manifest is meant to stress
 the [inter-node communication links](/clustering.html). This workload uses a lot of system resources.
@@ -544,8 +544,8 @@ maintains. Please refer to the <a href="https://grafana.com/docs/reference/expor
 on importing dashboards in Grafana.
 
 Grafana dashboards for RabbitMQ and Erlang are open source and publicly from the <a
-href="https://github.com/rabbitmq/rabbitmq-prometheus/tree/master/docker/grafana/dashboards"
-target="_blank">rabbitmq-prometheus</a> GitHub repository.
+href="https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_prometheus/docker/grafana/dashboards"
+target="_blank">rabbitmq-server</a> GitHub repository.
 
 To import **RabbitMQ-Overview** dashboard to Grafana:
 

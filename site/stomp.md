@@ -70,7 +70,7 @@ The plugin supports TCP listener option configuration.
 
 The settings use a common prefix, `stomp.tcp_listen_options`, and control
 things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
-are enabled and so on. See the [Networking guide](/networking.html) for details.
+are enabled and so on. See the [Networking guide](networking.html) for details.
 
 <pre class="lang-ini">
 stomp.listeners.tcp.1 = 127.0.0.1:61613

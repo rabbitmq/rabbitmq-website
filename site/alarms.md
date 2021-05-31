@@ -38,7 +38,7 @@ OS (out-of-memory killer) or exhausting all available free disk space:
  * When [free disk space](/disk-alarms.html) drops below the configured watermark (limit)
 
 Nodes will temporarily _block_ publishing connections
-by suspending reading from [client connection](/connections.html).
+by suspending reading from [client connection](connections.html).
 Connections that are only used to *consume* messages will not be blocked.
 
 Connection [heartbeat monitoring](/heartbeats.html) will be disabled, too.
@@ -88,7 +88,7 @@ to keep track of what messages have been successfully handled and processed by R
 
 When the server is close to using all the file descriptors
 that the OS has made available to it, it will refuse client
-connections. See [Networking guide](/networking.html) to learn more.
+connections. See [Networking guide](networking.html) to learn more.
 
 
 ## <a id="transient-flow-control" class="anchor" href="#transient-flow-control">Transient Flow Control</a>

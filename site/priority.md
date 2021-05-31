@@ -120,7 +120,7 @@ which might not be what you would expect.
 
 The most convenient way to define optional arguments for a queue is via [policies](/parameters.html).
 Policies are the recommended way to configure [TTL](/ttl.html), [queue length limits](maxlength.html) and
-other [optional queue arguments](/queues.html).
+other [optional queue arguments](queues.html).
 
 However, policies cannot be used to configure priorities because policies are dynamic
 and can be changed after a queue has been declared. Priority queues can never change the number of priorities they

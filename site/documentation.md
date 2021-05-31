@@ -173,7 +173,7 @@ for the original RabbitMQ protocol.
 
 ### Queue and Consumer Features
 
- * [Queues guide](/queues.html)
+ * [Queues guide](queues.html)
  * [Consumers guide](/consumers.html)
  * [Queue and Message TTL](/ttl.html)
  * [Queue Length Limits](/maxlength.html)
@@ -224,10 +224,10 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
 
 ### Client-Driven Features
 
- * [Client Connections](/connections.html)
+ * [Client Connections](connections.html)
  * [Consumers](/consumers.html)
  * [Publishers](/publishers.html)
- * [Channels](/channels.html)
+ * [Channels](channels.html)
  * [Publisher Confirms and Consumer Acknowledgements](confirms.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)

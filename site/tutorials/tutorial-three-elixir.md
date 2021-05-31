@@ -168,7 +168,7 @@ deleted. There's an `exclusive` flag for that:
 </pre>
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](/queues.html).
+properties in the [guide on queues](queues.html).
 
 Bindings
 --------

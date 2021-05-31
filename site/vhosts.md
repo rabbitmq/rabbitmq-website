@@ -53,7 +53,7 @@ that vhost. "Interconnection" of e.g. a queue and an exchange in different vhost
 when an application connects to two vhosts at the same time. For example, an
 application can consume from one vhost then republishes into the other. This scenario
 can involve vhosts in different clusters or the same cluster (or a single node).
-[RabbitMQ Shovel plugin](/shovel.html) is one example of such application.
+[RabbitMQ Shovel plugin](shovel.html) is one example of such application.
 
 
 ## <a id="creating" class="anchor" href="#creating">Creating a Virtual Hosts</a>

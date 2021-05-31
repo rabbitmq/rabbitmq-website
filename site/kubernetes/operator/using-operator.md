@@ -125,7 +125,7 @@ kubectl get all -l app.kubernetes.io/name=definition
 </pre>
 
 A RabbitMQ cluster is now ready to be used by applications. Continue for more advanced configuration options.
-For more information, see the [RabbitMQ documentation guides](https://www.rabbitmq.com/documentation.html).
+For more information, see the [RabbitMQ documentation guides](../../documentation.html).
 
 ### <a id='internal-labels' class='anchor' href='#internal-labels'> Internal labels and annotations</a>
 
@@ -189,7 +189,7 @@ metadata:
 ### <a name='replicas' class='anchor' href='#replicas'>Number of Replicas</a>
 
 **Description:** Specify the number of replicas for the RabbitmqCluster. [An even number of replicas
-is highly discouraged](https://www.rabbitmq.com/clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
+is highly discouraged](../../clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
 [must be used](/clustering.html#node-count).
 
 **Default Value:** 1
@@ -403,7 +403,7 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>High-water mark</td>
-		<td>The <a href="https://www.rabbitmq.com/memory.html#threshold">RabbitMQ documentation</a></td>
+		<td>The <a href="../../memory.html#threshold">RabbitMQ documentation</a></td>
 	</tr>
   </col>
 </table>
@@ -607,7 +607,7 @@ spec:
 
 **Description:** If unset, or set to false, operator will run `rabbitmq-queues rebalance all` whenever the cluster is updated.
 When set to true, operator will skip running `rabbitmq-queues rebalance all`.
-For more information, see [rabbitmq-queues rebalance all](https://www.rabbitmq.com/rabbitmq-queues.8.html#rebalance).
+For more information, see [rabbitmq-queues rebalance all](../../rabbitmq-queues.8.html#rebalance).
 
 **Default Value:** false
 
@@ -626,7 +626,7 @@ spec:
 
 **Description:** TerminationGracePeriodSeconds is the timeout that each rabbitmqcluster pod will have to run the container preStop lifecycle hook to ensure graceful termination.
 The lifecycle hook checks quorum status of existing quorum queues and synchronization of mirror queues, before safely terminates pods.
-See [rabbitmq-queues check_if_node_is_quorum_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](https://www.rabbitmq.com/rabbitmq-queues.8.html#check_if_node_is_mirror_sync_critical) for more details.
+See [rabbitmq-queues check_if_node_is_quorum_critical](../..//rabbitmq-queues.8.html#check_if_node_is_quorum_critical) and [rabbitmq-queues check_if_node_is_mirror_sync_critical](../../rabbitmq-queues.8.html#check_if_node_is_mirror_sync_critical) for more details.
 It defaults to 604800 seconds ( a week long) to ensure that the hook can finish running.
 If pods are terminated before the lifecycle hook finishes running, there could be potential data loss.
 
@@ -677,7 +677,8 @@ spec:
                     protocol: TCP
 </pre>
 
-When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and `K8S_SERVICE_NAME` variables to access container metadata. For example:
+When customizing the environment variables of a container (`env` property), you can refer to `MY_POD_NAME`, `MY_POD_NAMESPACE` and
+`K8S_SERVICE_NAME` variables to access container metadata. For example:
 
 <pre class="lang-yaml">
 - name: MY_VARIABLE
@@ -735,7 +736,7 @@ The configurations are listed in the table below.
       </td>
       <td>
       The number of replicas of RabbitMQ nodes. Even numbers are
-      <a href='https://www.rabbitmq.com/clustering.html#node-count'>highly discouraged</a>
+      <a href='../../clustering.html#node-count'>highly discouraged</a>
       and it is strongly recommended to use odd numbers.
       </td>
     </tr>
@@ -782,7 +783,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.request.cpu</code>
+        <code>spec.resources.requests.cpu</code>
       </td>
       <td>
         The CPU units required by the Kubernetes scheduler for the container running RabbitMQ.
@@ -790,7 +791,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.request.memory</code>
+        <code>spec.resources.requests.memory</code>
       </td>
       <td>
         The memory units required by the Kubernetes scheduler for the container running RabbitMQ.
@@ -798,7 +799,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.limit.cpu</code>
+        <code>spec.resources.limits.cpu</code>
       </td>
       <td>
         The CPU units used to calculate the share of CPU time available to the RabbitMQ container per 100 ms.
@@ -806,7 +807,7 @@ The configurations are listed in the table below.
     </tr>
     <tr>
       <td>
-        <code>spec.resource.limit.memory</code>
+        <code>spec.resources.limits.memory</code>
       </td>
       <td>
         The memory limit allowed to be used by RabbitMQ container. The container won't be allowed to use more than this limit.
@@ -956,7 +957,7 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>pause-minority mode</td>
-		<td>The <a href="https://www.rabbitmq.com/partitions.html#automatic-handling">RabbitMQ documentation</a></td>
+		<td>The <a href="../../partitions.html#automatic-handling">RabbitMQ documentation</a></td>
 	</tr>
   </col>
 </table>
@@ -1151,7 +1152,7 @@ kubectl delete pod perf-test
 ## <a id='use' class='anchor' href='#use'>Use the RabbitMQ Service in Your App</a>
 
 For information about how to start using your apps, see
-[RabbitMQ tutorials](https://www.rabbitmq.com/getstarted.html)
+[RabbitMQ tutorials](../../getstarted.html)
 and guides on [Connections](/consumers.html), [Publishers](/publishers.html), and [Consumers](/consumers.html).
 
 

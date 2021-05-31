@@ -126,13 +126,13 @@ Erlang must have been complied with both observer & Wx support.
 
 ## <a id="connections" class="anchor" href="#connections">Connections</a>
 
-[Connections guide](/connections.html) explains how to identify application connection leaks and other
+[Connections guide](connections.html) explains how to identify application connection leaks and other
 relevant topics.
 
 
 ## <a id="channels" class="anchor" href="#channels">Channels</a> (AMQP 0-9-1)
 
-[Channels guide](/channels.html) explains what [channel-level exceptions](/channels.html#error-handling) mean,
+[Channels guide](channels.html) explains what [channel-level exceptions](/channels.html#error-handling) mean,
 how to identify application channel leaks and other relevant topics.
 
 

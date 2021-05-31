@@ -219,7 +219,7 @@ It is **impossible to disable a feature flag** once it is enabled.
 
 ## <a id="how-to-start-new-node-disabled-feature-flags" class="anchor" href="#how-to-start-new-node-disabled-feature-flags">How to Configure the List of Feature Flags to Enable on Startup</a>
 
-By default a new and unclustered node will start with all supported feature flags enabled, but this setting can be overriden. There are two ways to [configure](/configure.html) the list of feature flags to enable out-of-the-box when starting a node for the **first** time:
+By default a new and unclustered node will start with all supported feature flags enabled, but this setting can be overriden. There are two ways to [configure](configure.html) the list of feature flags to enable out-of-the-box when starting a node for the **first** time:
 
  1. Using the `RABBITMQ_FEATURE_FLAGS` environment variable:
   <pre class="lang-bash">RABBITMQ_FEATURE_FLAGS=quorum_queue,implicit_default_bindings</pre>

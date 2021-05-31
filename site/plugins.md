@@ -37,7 +37,7 @@ and more.
 
 RabbitMQ supports plugins. Plugins extend core broker functionality in a variety of ways: with support
 for more protocols, system state [monitoring](/monitoring.html), additional AMQP 0-9-1 exchange types,
-node [federation](/federation.html), and more. A number of features are implemented as plugins
+node [federation](federation.html), and more. A number of features are implemented as plugins
 that ship in the core distribution.
 
 This guide covers the plugin mechanism and plugins that ship in the [latest release](/changelog.html) of the RabbitMQ distribution.
@@ -84,7 +84,7 @@ This option is often optimal for node provisioning automation.
 The `enabled_plugins` file is usually [located](/relocate.html) in the node
 data directory or under `/etc`, together with configuration files. The file contains
 a list of plugin names ending with a dot. For example, when [rabbitmq_management](/management.html) and
-[rabbitmq_shovel](/shovel.html) plugins are enabled,
+[rabbitmq_shovel](shovel.html) plugins are enabled,
 the file contents will look like this:
 
 <pre class="lang-erlang">
@@ -163,7 +163,7 @@ installed RabbitMQ version changes between upgrades.
 The list of currently enabled plugins on a node is stored in a file.
 The file is commonly known as the enabled plugins file. Depending on the package type
 it is usually located under the `etc` directory or under the node's
-data directory. Its path can be [overridden](/configure.html) using the `RABBITMQ_ENABLED_PLUGINS_FILE`
+data directory. Its path can be [overridden](configure.html) using the `RABBITMQ_ENABLED_PLUGINS_FILE`
 environment variable. As a user you don't usually have to think about that file as it is
 managed by the node and `rabbitmq-plugins` (when used in `--offline` mode).
 

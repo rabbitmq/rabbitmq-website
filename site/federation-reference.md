@@ -20,9 +20,9 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guides provides a reference on all the fields that can be set
-when defining various parameters related to [federation](/federation.html).
+when defining various parameters related to [federation](federation.html).
 
-Please refer to [other federation-related guides](/federation.html) to learn about the concepts
+Please refer to [other federation-related guides](federation.html) to learn about the concepts
 and how to get started.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration Reference</a>

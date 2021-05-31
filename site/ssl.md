@@ -606,7 +606,7 @@ The same example in the [classic config format](/configure.html#config-file):
 ].
 </pre>
 
-When using RabbitMQ plugins such as [Federation](/federation.html) or [Shovel](/shovel.html) with TLS,
+When using RabbitMQ plugins such as [Federation](federation.html) or [Shovel](shovel.html) with TLS,
 it may be necessary to configure verification depth for the Erlang client that those plugins use under the hood,
 as [explained below](#erlang-client).
 
@@ -688,7 +688,7 @@ public class Example1 {
 This simple example is an echo client and server. It creates a channel
 and publishes to the default direct exchange, then
 fetches back what has been published and echoes it out. It uses
-an [exclusive, non-durable, auto-delete queue](/queues.html) that will be deleted shortly
+an [exclusive, non-durable, auto-delete queue](queues.html) that will be deleted shortly
 after the connection is closed.
 
 ### <a id="java-client-connecting-with-peer-verification" class="anchor" href="#java-client-connecting-with-peer-verification">Connecting with Peer Verification Enabled</a>
@@ -1070,7 +1070,7 @@ This is a more or less direct port of the [Java client example](#java-client-con
 creates a channel and publishes to
 the default direct exchange, then reads back what has been
 published and echoes it out. Note that we use an
-[exclusive, non-durable, auto-delete queue](/queues.html) so we don't have
+[exclusive, non-durable, auto-delete queue](queues.html) so we don't have
 to worry about manually cleaning up after ourselves
 
 <pre class="lang-csharp">
@@ -1453,7 +1453,7 @@ that's only accepted in the [classic config format](/configure.html#erlang-term-
 by both config formats. Note that cipher suites are not enquoted in the new style config format
 but double quotes are required in the classic format.
 
-The cipher suites listed by the above command are in formats that can be used for inbound and outgoing (e.g. [Shovel](/shovel.html), [Federation](/federation.html))
+The cipher suites listed by the above command are in formats that can be used for inbound and outgoing (e.g. [Shovel](shovel.html), [Federation](federation.html))
 client TLS connections. They are different from those used by [configuration value encryption](/configure.html#configuration-encryption).
 
 When overriding cipher suites, it is highly recommended

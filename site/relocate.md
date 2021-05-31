@@ -29,11 +29,11 @@ This guide covers:
   * Default locations for various operating systems
   * Other topics related to file and directory locations
 
-This guide accompanies the main [Configuration guide](/configure.html).
+This guide accompanies the main [Configuration guide](configure.html).
 
 ## <a id="locations" class="anchor" href="#locations">Overriding Locations</a>
 
-A number of [environment variables](/configure.html) specifies where
+A number of [environment variables](configure.html) specifies where
 RabbitMQ should locate certain things. In most environments default
 values should work just fine.
 

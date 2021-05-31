@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers various topics related to channels, an [AMQP 0-9-1](/tutorials/amqp-concepts.html)-specific abstraction.
-Channels cannot exist without a connection, so getting familiar with the [Connections guide](/connections.html) first
+Channels cannot exist without a connection, so getting familiar with the [Connections guide](connections.html) first
 is highly recommended.
 
 This guide covers:
@@ -62,7 +62,7 @@ and not share channels between them.
 
 ### Opening Channels
 
-Applications open a channel right after successfully opening a [connection](/connections.html).
+Applications open a channel right after successfully opening a [connection](connections.html).
 
 Here's a Java client example that opens a new channel with an automatically allocated channel ID
 after opening a new connection:

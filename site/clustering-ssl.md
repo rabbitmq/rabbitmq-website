@@ -19,7 +19,7 @@ limitations under the License.
 
 ## Overview
 
-RabbitMQ nodes accept [connections from clients](/connections.html) as well as [peer cluster nodes](/clustering.html)
+RabbitMQ nodes accept [connections from clients](connections.html) as well as [peer cluster nodes](/clustering.html)
 and [CLI tools](/cli.html).
 
 The main [TLS](/ssl.html) and [Troubleshooting TLS](/troubleshooting-ssl.html) guides explain

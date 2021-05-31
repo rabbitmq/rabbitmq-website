@@ -76,9 +76,9 @@ agree on the state of the queue and its contents.
 
 ### Differences from Classic Mirrored Queues
 
-Quorum queues share many of the fundamentals with [queues](/queues.html) of other types in RabbitMQ.
+Quorum queues share many of the fundamentals with [queues](queues.html) of other types in RabbitMQ.
 However, they are more purpose-built, focus on data safety and predictable recovery,
-and do not support certain feature.
+and do not support certain features.
 
 The differences [are covered](#feature-comparison) in this guide.
 
@@ -91,7 +91,7 @@ confirming messages too early, potentially resulting in a data loss.
 
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
 
-Quorum queues share most of the fundamentals with other [queue](/queues.html) types.
+Quorum queues share most of the fundamentals with other [queue](queues.html) types.
 A client library that can use regular mirrored queues will be able to use quorum queues.
 
 The following operations works the same way for quorum queues as they do for regular queues:
@@ -113,25 +113,25 @@ Some features are not currently supported by quorum queues.
 
 | Feature | Classic Mirrored | Quorum |
 | :-------- | :------- | ------ |
-| [Non-durable queues](/queues.html) | yes | no |
-| [Exclusivity](/queues.html) | yes | no |
+| [Non-durable queues](queues.html) | yes | no |
+| [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [Message TTL](/ttl.html) | yes | no |
 | [Queue TTL](/ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](/maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](/lazy-queues.html) | yes | partial (see [Memory Limit](#memory-limit)) |
+| [Lazy behaviour](/lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature |
 | [Message priority](/priority.html) | yes | no |
 | [Consumer priority](/consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
-| Adheres to [policies](/parameters.html#policies) | yes | partial (dlx, queue length limits) |
-| Reacts to [memory alarms](/alarms.html) | yes | partial (truncates log) |
+| Adheres to [policies](/parameters.html#policies) | yes | yes (see policy support below) |
+| Reacts to [memory alarms](/alarms.html) | yes | no |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
 
 #### Non-durable Queues
 
-Regular queues can be [non-durable](/queues.html). Quorum queues are always durable per their
+Regular queues can be [non-durable](queues.html). Quorum queues are always durable per their
 assumed [use cases](#use-cases).
 
 #### Exclusivity
@@ -144,13 +144,15 @@ Quorum queues are not meant to be used as [temporary queues](/queues.html#tempor
 
 #### TTL
 
-Quorum queues do not currently support TTL, neither for queues nor messages.
+Quorum queues do not currently support Message TTL, but they do support [Queue TTL](/ttl.html#queue-ttl).
 
 #### Length Limit
 
-Quorum queues has partial support for [queue length limits](/maxlength.html).
+Quorum queues has support support for [queue length limits](/maxlength.html).
 
-Currently only the `drop-head` overflow behaviour is implemented.
+The `drop-head` and `reject-publish` overflow behaviours are supported but they
+do not support `reject-publish-dlx` configurations as Quorum queues take a different 
+implementation approach than classic queues.
 
 #### Dead Lettering
 
@@ -158,10 +160,12 @@ Quorum queues do support [dead letter exchanges](/dlx.html) (DLXs).
 
 #### Lazy Mode
 
-Quorum queues store their content on disk (per Raft requirements) as well as in memory.
+Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
+
 The [lazy mode](/lazy-queues.html) does not apply to them.
 
-It is possible to [limit how much memory a quorum queue uses](#memory-limit) using a policy.
+It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
+can achieve a behaviour similar to lazy queues.
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
@@ -176,10 +180,31 @@ Use [per-consumer QoS prefetch](/consumer-prefetch.html), which is the default i
 
 Quorum queues do not currently support [priorities](/priority.html), including [consumer priorities](/consumer-priority.html).
 
+To achieve priority processing with Quorum Queues multiple queues should be used instead;
+one for each priority.
+
 
 #### Poison Message Handling
 
-Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
+Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit. This feature is currently unique to Quorum queues.
+
+#### Policy Support
+
+Quorum queues can be configured via RabbitMQ policies. The below table summarises the
+policy keys they adhere to.
+
+
+| Definition Key | Type |
+| :-------- | :------- |
+| `max-length` | Number |
+| `max-length-bytes` | Number |
+| `overflow` | "drop-head" or "reject-publish" |
+| `expires` | Number (milliseconds) |
+| `dead-letter-exchange` | String |
+| `dead-letter-routing-key` | String |
+| `max-in-memory-length` | Number |
+| `max-in-memory-bytes` | Number |
+| `delivery-limit` | Number |
 
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
@@ -219,7 +244,7 @@ In some cases quorum queues should not be used. They typically involve:
 
 ## <a id="usage" class="anchor" href="#usage">Usage</a>
 
-As stated earlier, quorum queues share most of the fundamentals with other [queue](/queues.html) types.
+As stated earlier, quorum queues share most of the fundamentals with other [queue](queues.html) types.
 A client library that can specify [optional queue arguments](/queues.html#optional-arguments) will be able to use quorum queues.
 
 First we will cover how to declare a quorum queue.
@@ -318,8 +343,7 @@ to a member (replica) list of a quorum queue or a set of quorum queues.
 When a node has to be decomissioned (permanently removed from the cluster), it must be explicitly
 removed from the member list of all quorum queues it currently hosts replicas for.
 
-Two [CLI commands](/cli.html) are provided to perform the above operations,
-`rabbitmq-queues add_member` and `rabbitmq-queues delete_member`:
+Several [CLI commands](/cli.html) are provided to perform the above operations:
 
 <pre class="lang-bash">
 rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
@@ -327,6 +351,14 @@ rabbitmq-queues add_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
 
 <pre class="lang-bash">
 rabbitmq-queues delete_member [-p &lt;vhost&gt;] &lt;queue-name&gt; &lt;node&gt;
+</pre>
+
+<pre class="lang-bash">
+rabbitmq-queues grow &lt;node&gt; &lt;all | even&gt; [--vhost-pattern &lt;pattern&gt;] [--queue-pattern &lt;pattern&gt;]
+</pre>
+
+<pre class="lang-bash">
+rabbitmq-queues shrink &lt;node&gt; [--errors-only]
 </pre>
 
 To successfully add and remove members a quorum of replicas in the cluster must be available
@@ -524,8 +556,12 @@ The `rabbit` application has several quorum queue related configuration items av
       <td>
         This is a flow control related parameter defining
         the maximum number of unconfirmed messages a channel accepts before entering flow.
+        The current default is configured to provide good performance and stability
+        when there are multiple publishers sending to the same quorum queue. If the applications
+        typically only have a single publisher per queue this limit could be increased to provide
+        somewhat better ingress rates.
       </td>
-      <td>256</td>
+      <td>32</td>
     </tr>
   </tbody>
 </table>

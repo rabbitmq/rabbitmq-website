@@ -53,7 +53,7 @@ authorisation as "determining what the user is and isn't allowed to do."
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
-Clients use RabbitMQ features to [connect](/connections.html) to it. Every connection has
+Clients use RabbitMQ features to [connect](connections.html) to it. Every connection has
 an associated user which is authenticated. It also targets a [virtual host](/vhosts.html) for which
 the user must have a certain set of permissions.
 
@@ -106,7 +106,7 @@ With this mechanism, any client-provided password will be ignored.
 By default, the <code>guest</code> user is prohibited from
 connecting from remote hosts; it can only connect over
 a loopback interface (i.e. <code>localhost</code>). This
-applies to [connections regardless of the protocol](/connections.html).
+applies to [connections regardless of the protocol](connections.html).
 Any other users will not (by default) be restricted in this way.
 
 The recommended way to address this in production systems
@@ -122,7 +122,7 @@ from a remote host by setting the
 <code>loopback_users</code> configuration to
 <code>none</code>.
 
-A minimalistic [RabbitMQ config file](/configure.html)
+A minimalistic [RabbitMQ config file](configure.html)
 which allows remote connections for <code>guest</code> looks like so:
 
 <pre class="lang-ini">

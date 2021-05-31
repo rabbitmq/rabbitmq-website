@@ -64,7 +64,7 @@ different geographic or administrative domains that
 
 ### WAN-friendly
 
-The Shovel plugin uses [client connections](/connections.html) under the hood.
+The Shovel plugin uses [client connections](connections.html) under the hood.
 [Acknowledgements and publisher confirms](/confirms.html) are used to ensure data safety in case of connection
 and node failures.
 
@@ -86,7 +86,7 @@ There is no requirement to run the shovel on the same broker
 (or cluster) as its source or destination, although that's the most typical approach;
 the shovel can run on an entirely separate node or cluster.
 
-A comparison between [clustering](/clustering.html), [federation](/federation.html)
+A comparison between [clustering](/clustering.html), [federation](federation.html)
 is provided in the [Distributed Messaging](distributed.html) guide.
 
 
@@ -94,7 +94,7 @@ is provided in the [Distributed Messaging](distributed.html) guide.
 
 In essence, a shovel is a minimalistic message pump. Each shovel:
 
- * [Connects](/connections.html) to the source and destination clusters
+ * [Connects](connections.html) to the source and destination clusters
  * [Consumes](/consumers.html) messages from a queue
  * [Re-publishes](/publishers.html) to a destination
  * Uses [data safety features](/confirms.html) on both ends and handles failures
@@ -143,7 +143,7 @@ rabbitmq-plugins enable rabbitmq_shovel
 for [Shovel status monitoring](#status).
 
 There are two distinct ways to define shovels: [dynamic shovels](shovel-dynamic.html) are defined using
-[runtime parameters](/parameters.html) and [static shovels](shovel-static.html) are defined in the [`advanced.config` file](/configure.html).
+[runtime parameters](/parameters.html) and [static shovels](shovel-static.html) are defined in the [`advanced.config` file](configure.html).
 
 The pros and cons with each approach are covered below. Most users should consider
 dynamic shovels first for their ease of reconfiguration and management.
@@ -190,7 +190,7 @@ creation.
 
 The plugin uses [Erlang AMQP 0-9-1](/erlang-client-user-guide.html) and [Erlang AMQP 1.0](https://github.com/rabbitmq/rabbitmq-amqp1.0-client)
 clients under the hood to open connections to its source and/or destination. Just like any other
-[client library connection](/connections.html), a Shovel connection must [successfully authenticate](/access-control.html)
+[client library connection](connections.html), a Shovel connection must [successfully authenticate](/access-control.html)
 and be [authorized to access](/access-control.html) the virtual host and resources it is trying to use.
 This is true for both sources and destinations.
 

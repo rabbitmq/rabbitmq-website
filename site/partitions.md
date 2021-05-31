@@ -252,7 +252,7 @@ It's important to understand that allowing RabbitMQ to deal with
 network partitions automatically comes with trade offs.
 
 As stated in the introduction, to connect RabbitMQ clusters over generally unreliable
-links, prefer [Federation](/federation.html) or the [Shovel](/shovel.html).
+links, prefer [Federation](federation.html) or the [Shovel](shovel.html).
 
 With that said, here are some guidelines to help the operator determine
 which mode may or may not be appropriate:

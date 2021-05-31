@@ -185,7 +185,7 @@ The following manifest will create a vhost named 'test' in a RabbitmqCluster nam
 
 <pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
-kind: Queue
+kind: Vhost
 metadata:
   name: test-vhost # name of this custom resource
   namespace: rabbitmq-system

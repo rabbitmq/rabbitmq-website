@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ allows you to set TTL (time to live) for both messages and queues.
-This can be done using [optional queue arguments](/queues.html) or
+This can be done using [optional queue arguments](queues.html) or
 [policies](/parameters.html) (the latter option is recommended).
 
 Message TTL can be applied to a single queue, a group of
@@ -185,7 +185,7 @@ purging, or queue deletion).
 TTL can also be set on queues, not just queue contents.
 Queues will expire after a period of time only when they
 are not used (e.g. do not have consumers). This feature
-can be used together with the [auto-delete queue property](/queues.html).
+can be used together with the [auto-delete queue property](queues.html).
 
 Expiry time can be set for a given queue by setting the
 `x-expires` argument to `queue.declare`,

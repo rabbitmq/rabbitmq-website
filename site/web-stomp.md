@@ -132,7 +132,7 @@ web_stomp.tcp.port = 12345
 </pre>
 
 You can use the `tcp_config` section to specify any TCP option you need.
-See the [RabbitMQ Networking guide](/networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
+See the [RabbitMQ Networking guide](networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
 for details about accepted parameters.
 
 
