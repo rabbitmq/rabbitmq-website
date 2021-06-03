@@ -174,7 +174,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](/confirms.html). An ack(nowledgement) is sent back by the
+[message _acknowledgments_](../confirms.html). An ack(nowledgement) is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -215,7 +215,7 @@ unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -288,7 +288,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](https://www.rabbitmq.com/confirms.html).
+> [publisher confirms](../confirms.html).
 
 
 Fair dispatch

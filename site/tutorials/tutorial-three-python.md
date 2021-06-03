@@ -180,7 +180,7 @@ result = channel.queue_declare(queue='', exclusive=True)
 </pre>
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](queues.html).
+properties in the [guide on queues](../queues.html).
 
 Bindings
 --------
