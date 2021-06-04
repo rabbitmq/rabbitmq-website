@@ -1,6 +1,6 @@
 # RabbitMQ Cluster Operator for Kubernetes
 
-The RabbitMQ team develop and maintain two [kubernetes operators]((https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)):
+The RabbitMQ team develop and maintain two [kubernetes operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/):
 
 * RabbitMQ Cluster Kubernetes Operator automates provisioning, management, and operations of RabbitMQ clusters running on Kubernetes.
 * RabbitMQ Messaging Topology Operator manages RabbitMQ messaging topologies within a RabbitMQ cluster deployed via the RabbitMQ Cluster Kubernetes Operator.
