@@ -42,7 +42,7 @@ You can contribute to RabbitMQ by helping the community test preview releases.
 
 Preview releases currently available for testing:
 
- * [3.8.17-rc.1](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.17-rc.1)
+ * [3.8.17-rc.2](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.17-rc.2)
 
 ## VMware Tanzu™ RabbitMQ® (Commercial Edition)
 
