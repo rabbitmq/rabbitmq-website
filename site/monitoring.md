@@ -67,7 +67,7 @@ passed to an alerting system, which notifies interested parties such as the tech
 Having monitoring in place means that important deviations in system behavior,
 from degraded service in some areas to complete unavailability, is easier
 to detect and the root cause takes much less time to find.
-Operating a distributed system is a bit like trying to get out of a forest
+Operating a distributed system without metrics is a bit like trying to get out of a forest
 without a GPS navigator device or compass. It doesn't matter how brilliant or experienced
 the person is, having relevant information is very important for
 a good outcome.
