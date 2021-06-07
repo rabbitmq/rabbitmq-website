@@ -51,10 +51,11 @@ RabbitMQ Cluster Kubernetes Operator was designed with the following ideas and c
 * It should provide safe defaults
 * It should ease operability of RabbitMQ
 
-Following these ideas, the Operator will not modify an existing `RabbitmqCluster` spec. The only exception
-to this, is when a field is removed from the spec, by user action, the Operator will set back the default value.
-This also has the side-effect that, when the Operator is upgraded, it will not automatically upgrade
-existing instances of `RabbitmqCluster` to new defaults, if any, or to the latest version of RabbitMQ.
+Following these ideas, the Operator will not modify an existing `RabbitmqCluster` spec.
+This implies that, when the Operator is upgraded, it will not automatically update
+existing instances of `RabbitmqCluster` with new defaults, if any, or to the latest version of RabbitMQ.
+
+The only exception to this, is when a field is removed from the spec, by user action, the Operator will set the default value.
 
 ### <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
