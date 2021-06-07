@@ -43,6 +43,19 @@ The operator provides the following key features:
 * Monitoring of RabbitMQ clusters using [Prometheus and Grafana](/prometheus.html)
 * Scaling up and automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters
 
+### <a id='op-design-principles' class='anchor' href='#op-design-principles'>Design principles</a>
+
+RabbitMQ Cluster Kubernetes Operator was designed with the following ideas and concepts in mind:
+
+* It should provide flexible configurability of RabbitMQ
+* It should provide safe defaults
+* It should ease operability of RabbitMQ
+
+Following these ideas, the Operator will not modify an existing `RabbitmqCluster` spec. The only exception
+to this, is when a field is removed from the spec, by user action, the Operator will set back the default value.
+This also has the side-effect that, when the Operator is upgraded, it will not automatically upgrade
+existing instances of `RabbitmqCluster` to new defaults, if any, or to the latest version of RabbitMQ.
+
 ### <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
 #### RabbitMQ Cluster Reconciliation
