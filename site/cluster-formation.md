@@ -121,12 +121,6 @@ so nodes don't have to (or cannot) explicitly register. However, the list of clu
 is not predefined. Such backends usually include a no-op registration step
 and apply one of the [race condition mitigation mechanisms](#initial-formation-race-condition) described below.
 
-When a cluster is first formed and there are no registered nodes yet,
-a natural race condition between booting
-nodes occurs. Different backends [address this problem](#initial-formation-race-condition)
-differently: some try to acquire a lock with an external service, others rely on randomized
-delays. This problem does not apply to the backends that require listing all nodes ahead of time.
-
 When the configured backend supports registration, nodes unregister when they stop.
 
 If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
@@ -216,9 +210,6 @@ The most basic way for a node to discover its cluster peers is to read a list
 of nodes from the config file. The set of cluster members is assumed to be known at deployment
 time.
 
-[Race condition during initial cluster formation](#initial-formation-race-condition) is addressed
-by using a randomized startup delay.
-
 ### Configuration
 
 The peer nodes are listed using the `cluster_formation.classic_config.nodes` config setting:
@@ -295,10 +286,6 @@ The plugin provides two ways for a node to discover its peers:
 Both methods rely on AWS-specific APIs (endpoints) and features and thus cannot work in
 other IaaS environments. Once a list of cluster member instances is retrieved,
 final node names are computed using instance hostnames or IP addresses.
-
-When the AWS peer discovery mechanism is used, nodes will
-delay their startup for a randomly picked value to reduce the
-probability of a [race condition during initial cluster formation](#initial-formation-race-condition).
 
 ### <a id="peer-discovery-aws-credentials" class="anchor" href="#peer-discovery-aws-credentials">Configuration and Credentials</a>
 
@@ -445,9 +432,6 @@ This can lead to data loss and higher network traffic volume due to more frequen
 data synchronisation of both [quorum queues](/quorum-queues.html)
 and [classic queue mirrors](/ha.html) on newly joining nodes.
 
-Stateless sets are also prone to the [natural race condition](#initial-formation-race-condition) during initial
-cluster formation, unlike stateful sets that initialise pods [one by one](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization).
-
 #### Use Persistent Volumes
 
 How [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
@@ -465,25 +449,12 @@ and so on.
 It is therefore highly recommended that `/etc/rabbitmq` is mounted as writeable and owned by
 RabbitMQ's effective user (typically `rabbitmq`).
 
-#### Use `OrderedReady` Pod Management Policy
-
-Peer discovery mechanism will filter out nodes whose pods are not yet ready
-(initialised) according to their readiness probe as reported by the Kubernetes API.
-For example, if [pod management policy](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy)
-of a stateful set is set to `Parallel`, some nodes may be discovered but will not be joined.
-To work around this, the Kubernetes peer discovery plugin uses [randomized startup delays](/cluster-formation.html#initial-formation-race-condition).
-
-Deployments that use the `OrderedReady` pod management policy start pods one by one and therefore
-all discovered nodes will be ready to join. This policy is used by default by Kubernetes.
-
-However, such deployments can run into a deadlock if the readiness probe used expects
-the node to be fully booted. This is covered in the following section.
 #### Use Most Basic Health Checks for RabbitMQ Pod Readiness Probes
 
 A readiness probe that expects the node to be fully booted and have rejoined its cluster peers
 can prevent a deployment that restarts all RabbitMQ pods and relies on the `OrderedReady` pod management policy.
 Deployments that use the `Parallel` pod management policy
-will not be affected but must worry about the [natural race condition during initial cluster formation](#initial-formation-race-condition).
+will not be affected.
 
 One health check that does not expect a node to be fully booted and have schema tables synced is
 
@@ -622,23 +593,6 @@ cluster_formation.k8s.namespace_path = /var/run/secrets/kubernetes.io/serviceacc
 # overrides Kubernetes service name. Default value is "rabbitmq".
 cluster_formation.k8s.service_name = rmq-qa
 </pre>
-
-As mentioned above, stateful sets is the recommended way of running RabbitMQ on Kubernetes.
-Stateful set pods are initialised one at a time. That effectively addresses
-the natural [race condition during the initial cluster formation](#initial-formation-race-condition).
-Randomized startup delay in such scenarios can use a significantly lower delay value range (e.g. 0 to 1 second):
-
-<pre class="lang-ini">
-cluster_formation.randomized_startup_delay_range.min = 0
-cluster_formation.randomized_startup_delay_range.max = 2
-
-cluster_formation.peer_discovery_backend = k8s
-
-cluster_formation.k8s.host = kubernetes.default.example.local
-
-# ...
-</pre>
-
 
 ## <a id="peer-discovery-consul" class="anchor" href="#peer-discovery-consul">Peer Discovery Using Consul</a>
 
@@ -1238,26 +1192,14 @@ cluster_formation.etcd.ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
 
 ## <a id="initial-formation-race-condition" class="anchor" href="#initial-formation-race-condition">Race Conditions During Initial Cluster Formation</a>
 
-Consider a deployment where the entire cluster is provisioned at once and all nodes
-start in parallel. In this case there's a natural race
-condition between node registration and more than one node
-can become "first to register" (discovers no existing peers
-and thus starts as standalone).
-
-Different peer discovery backends use different approaches to
-minimize the probability of such scenario. Some use locking
-(etcd, Consul), others use a technique known as randomized startup delay.
-With randomized startup delay nodes will delay their startup
-for a randomly picked value (between 5 and 60 seconds by default).
-
-Some backends (config file, DNS) rely on a pre-configured set of peers and avoid
-the issue that way.
-
-Effective delay interval, if used, is logged on node boot.
-
-Lastly, some mechanism rely on ordered node startup provided by the underlying
-provisioning and orchestration tool. [Kubernetes stateful sets](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/#understanding-stateful-pod-initialization) is one example of an environment that offers such a guarantee.
-
+Only one node should form the cluster (i.e. starting as standalone and initializing the Mnesia database schema).
+Consider a deployment where the entire cluster is provisioned at once and all nodes start in parallel.
+In this case, a natural race condition occurs.
+To prevent multiple nodes forming the cluster (at the same time), peer discovery backends try to acquire a lock when either
+forming the cluster or joining a peer.
+The Consul peer discovery backend sets a lock in Consul.
+The etcd peer discovery backend sets a lock in etcd.
+Classic config file, K8s, and AWS backends set an [Erlang internal lock](https://erlang.org/doc/man/global.html#set_lock-3).
 
 ## <a id="node-health-checks-and-cleanup" class="anchor" href="#node-health-checks-and-cleanup">Node Health Checks and Forced Removal</a>
 
