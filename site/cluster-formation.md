@@ -1192,14 +1192,18 @@ cluster_formation.etcd.ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
 
 ## <a id="initial-formation-race-condition" class="anchor" href="#initial-formation-race-condition">Race Conditions During Initial Cluster Formation</a>
 
-Only one node should form the cluster (i.e. starting as standalone and initializing the Mnesia database schema).
+For successful cluster formation, only one node should form the cluster initially, that is,
+start as a standalone node and initializing its database. If this was not the case, multiple
+clusters would be formed instead of just one, violating operator expectations.
+
 Consider a deployment where the entire cluster is provisioned at once and all nodes start in parallel.
-In this case, a natural race condition occurs.
-To prevent multiple nodes forming the cluster (at the same time), peer discovery backends try to acquire a lock when either
-forming the cluster or joining a peer.
-The Consul peer discovery backend sets a lock in Consul.
-The etcd peer discovery backend sets a lock in etcd.
-Classic config file, K8s, and AWS backends set an [Erlang internal lock](https://erlang.org/doc/man/global.html#set_lock-3).
+In this case, a natural race condition occurs between the starting nodes.
+To prevent multiple nodes forming separate clusters, peer discovery backends try to acquire a lock when either
+forming the cluster (seeding) or joining a peer. What locks are used varies from backend to backend:
+
+ * Classic config file, K8s, and AWS backends use a built-in [locking library](https://erlang.org/doc/man/global.html#set_lock-3) provided by the runtime
+ * The Consul peer discovery backend sets a lock in Consul
+ * The etcd peer discovery backend sets a lock in etcd
 
 ## <a id="node-health-checks-and-cleanup" class="anchor" href="#node-health-checks-and-cleanup">Node Health Checks and Forced Removal</a>
 
