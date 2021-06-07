@@ -47,9 +47,9 @@ The operator provides the following key features:
 
 RabbitMQ Cluster Kubernetes Operator was designed with the following ideas and concepts in mind:
 
-* It should provide flexible configurability of RabbitMQ
-* It should provide safe defaults
-* It should ease operability of RabbitMQ
+* It should provide [RabbitMQ node configuration](../configure.html) flexibility
+* It should provide reasonably safe defaults where possible
+* It should simplify RabbitMQ operations
 
 Following these ideas, the Operator will not modify an existing `RabbitmqCluster` spec.
 This implies that, when the Operator is upgraded, it will not automatically update
