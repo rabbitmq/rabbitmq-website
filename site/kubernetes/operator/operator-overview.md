@@ -40,14 +40,14 @@ The operator provides the following key features:
 
 * Provisioning of single-node and multi-node RabbitMQ clusters
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
-* Monitoring of RabbitMQ clusters using [Prometheus and Grafana](/prometheus.html)
-* Scaling up and automated [rolling upgrades](/upgrade.html) of RabbitMQ clusters
+* Monitoring of RabbitMQ clusters using [Prometheus and Grafana](../../prometheus.html)
+* Scaling up and automated [rolling upgrades](../../upgrade.html) of RabbitMQ clusters
 
 ### <a id='op-design-principles' class='anchor' href='#op-design-principles'>Design principles</a>
 
 RabbitMQ Cluster Kubernetes Operator was designed with the following ideas and concepts in mind:
 
-* It should provide [RabbitMQ node configuration](../configure.html) flexibility
+* It should provide [RabbitMQ node configuration](../../configure.html) flexibility
 * It should provide reasonably safe defaults where possible
 * It should simplify RabbitMQ operations
 
@@ -64,12 +64,12 @@ The only exception to this, is when a field is removed from the spec, by user ac
 Deleted `Secret` objects will be recreated by the Kubernetes Operator but the newly generated secret value will
 not be deployed to the RabbitMQ cluster. For example, if the `Secret` with administrator credentials is deleted,
 a new `Secret` will be created with new username and password, but those will not be reflected in the RabbitMQ cluster.
-It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](/clustering.html#erlang-cookie)
+It works the same way for any `Secret` value, e.g. the value of the [shared inter-node authentication secret](../../clustering.html#erlang-cookie)
 known as the Erlang cookie.
 
 #### RabbitMQ Cluster Feature Flags
 
-Cluster Operator does not support disabling any [RabbitMQ feature flags](https://www.rabbitmq.com/feature-flags.html#how-to-disable-feature-flags).
+Cluster Operator does not support disabling any [RabbitMQ feature flags](../../feature-flags.html#how-to-disable-feature-flags).
 The Operator lists all available feature flags and enables all of them at cluster start.
  
 ## <a id='topology-operator' class='anchor' href='#topology-operator'>RabbitMQ Messaging Topology Operator</a>
