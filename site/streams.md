@@ -321,7 +321,8 @@ be since more work has to be done to replicate data and achieve consensus.
 
 ### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
 
-TODO
+The `x-initial-cluster-size` queue argument controls how many rabbit nodes the initial
+stream cluster should span.
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Stream Replicas</a>
 
@@ -333,7 +334,7 @@ When a node has to be decommissioned (permanently removed from the cluster), it 
 removed from the replica list of all streams it currently hosts replicas for.
 
 Two [CLI commands](/cli.html) are provided to perform the above operations,
-`rabbitmq-streams add_member` and `rabbitmq-streams delete_member`:
+`rabbitmq-streams add_replica` and `rabbitmq-streams delete_replica`:
 
 <pre class="lang-bash">
 rabbitmq-streams add_replica [-p &lt;vhost&gt;] &lt;stream-name&gt; &lt;node&gt;
@@ -349,13 +350,18 @@ available in the cluster.
 Care needs to be taken not to accidentally make a stream unavailable by losing
 the quorum whilst performing maintenance operations that involve membership changes.
 
-When replacing a cluster node, it is safer to first add a new node and then decomission the node
-it replaces.
+Because the stream membership isn't embedded in the stream itself adding a replica
+cannot be made entirely safe at the current time. Hence if there at any time is an
+out of sync replica another replica cannot be added and an error will be returned.
 
-### <a id="replica-rebalancing" class="anchor" href="#replica-rebalancing">Rebalancing Replicas</a>
+When replacing a cluster node, it is safer to first add a new node, wait for it
+to become in-sync and then de-comission the node it replaces.
 
-TODO
+The replication status of a stream can be queried using the following command:
 
+<pre class="lang-bash">
+rabbitmq-streams stream_status [-p &lt;vhost&gt;] &lt;stream-name&gt;
+</pre>
 
 ## <a id="behaviour" class="anchor" href="#behaviour">Behaviour</a>
 
@@ -454,3 +460,10 @@ will most likely need operator involvement to be recovered.
 Streams are typically more light-weight than mirrored and quorum queues.
 
 All data is stored on disk with only unwritten data stored in memory.
+
+## <a id="resource-use" class="anchor" href="#offset-tracking">Offset Tracking</a>
+
+When using the broker provided offset tracking features (currently only available
+when using the [Stream plugin](/stream.html) offsets are persisted in the stream
+itself as non-message data. This means that as offset persistence is requested the
+stream will grow on disk by some small amount per offset persistence request.
