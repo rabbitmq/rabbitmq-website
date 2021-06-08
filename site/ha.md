@@ -30,7 +30,8 @@ Classic mirrored queues will be **removed in a future version** of RabbitMQ.
 
 Topics covered in this guide include
 
- * [Classic queue mirroring](#what-is-mirroring) and how it works
+ * [Next generation replicated queue type](#interstitial) and why it should be preferred over classic queue mirroring
+ * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
  * What [replication factor](#replication-factor) is recommended
