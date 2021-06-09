@@ -1044,5 +1044,5 @@ Next, install the packages:
 ## install these dependencies from standard OS repositories
 yum install socat logrotate -y
 
-yum install --repo rabbitmq_erlang --repo rabbitmq_server erlang rabbitmq-server -y
+yum install erlang rabbitmq-server -y
 </pre>
