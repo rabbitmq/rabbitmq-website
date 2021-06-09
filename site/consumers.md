@@ -407,6 +407,11 @@ consumer_timeout = 900000
 consumer_timeout = 3600000
 </pre>
 
+<pre class="lang-ini">
+# disable the timeout
+consumer_timeout = false
+</pre>
+
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
 
 When registering a consumer with an AMQP 0-9-1 client, [the `exclusive` flag](amqp-0-9-1-reference.html#basic.consume)
