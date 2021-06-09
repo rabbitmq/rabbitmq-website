@@ -9,8 +9,8 @@ This guide has the following sections:
 
 * [Requirements](#requirements)
 * [Queue and policy](#queue-policy)
-* [User and permission](#user)
-* [Binding and bindings](#exchange-binding)
+* [User and permission](#user-permission)
+* [Exchanges and bindings](#exchange-binding)
 * [Virtual hosts](#vhosts)
 * [Update a resource](#update)
 * [Delete a resource](#delete)
@@ -66,7 +66,7 @@ spec:
 The Messaging Topology repo has more examples on [queues](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/queues)
 and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies). 
 
-### <a id='binding' class='anchor' href='#binding'> Exchanges and bindings</a>
+### <a id='exchange-binding' class='anchor' href='#binding'> Exchanges and bindings</a>
 
 Messaging Topology Operator can manage [exchanges and bindings](../../publishers.html#basics).
 The following manifest will create a fanout exchange:
@@ -195,7 +195,7 @@ spec:
     name: example-rabbit
 </pre>
 
-## <a id='updates' class='anchor' href='#updates'>Update Resources</a>
+## <a id='update' class='anchor' href='#updates'>Update Resources</a>
 
 Some custom resource properties are immutable. Messaging Topology Operator implements [validating webhooks](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 to prevent updates on immutable fields. Forbidden updates will be rejected. For example:
