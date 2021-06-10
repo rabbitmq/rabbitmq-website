@@ -199,11 +199,12 @@ spec:
 
 ## <a id='federation' class='anchor' href='#federation'>Federation</a>
 
-Messaging Topology Operator can define [Federation upstream](../../federation.html).
+Messaging Topology Operator can define [Federation upstreams](../../federation.html).
 
-Federation upstream URI is provided through a Kubernetes Secret object.
-The Secret object must contain a key 'uri', and they can be either a single, or multiple URIs separated by ','.
-The following manifest will create define an upstream named 'origin' in a RabbitmqCluster named 'example-rabbit':
+Because a Federation upstream URI contains credentials, it is provided through a Kubernetes Secret object.
+The 'uri' key is mandatory for the Secret object. Its value can be either a single URI or a comma-separated list of URIs.
+
+The following manifest will define an upstream named 'origin' in a RabbitmqCluster named 'example-rabbit':
 
 <pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
@@ -220,15 +221,17 @@ spec:
     name: example-rabbit
 </pre>
 
-More examples on [federations](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/federations).
+More [federation examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/federations).
 
 ## <a id='shovel' class='anchor' href='#shovel'>Shovel</a>
 
-Messaging Topology Operator can declare [dynamic Shovel](../../shovel-dynamic.html).
+Messaging Topology Operator can declare [dynamic Shovels](../../shovel-dynamic.html).
 
 Shovel source and destination URIs are provided through a Kubernetes Secret object.
-The Secret Object must contain keys 'srcUri' and 'destUri', and they can be either a single, or multiple URIs separated by ','.
-The following manifest will create declare a shovel named 'my-shovel' in a RabbitmqCluster named 'example-rabbit':
+The Secret Object must contain two keys, 'srcUri' and 'destUri', and the value of each key can be either a single URI
+or a comma-separated list of URIs.
+
+The following manifest will create a Shovel named 'my-shovel' in a RabbitmqCluster named 'example-rabbit':
 
 <pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
@@ -246,7 +249,7 @@ spec:
     name: example-rabbit
 </pre>
 
-More examples on [shovels](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
+More [shovelsexaples ](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
 
 ## <a id='update' class='anchor' href='#update'>Update Resources</a>
 
