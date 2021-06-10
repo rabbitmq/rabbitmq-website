@@ -195,7 +195,7 @@ spec:
     name: example-rabbit
 </pre>
 
-## <a id='update' class='anchor' href='#updates'>Update Resources</a>
+## <a id='update' class='anchor' href='#update'>Update Resources</a>
 
 Some custom resource properties are immutable. Messaging Topology Operator implements [validating webhooks](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 to prevent updates on immutable fields. Forbidden updates will be rejected. For example:
