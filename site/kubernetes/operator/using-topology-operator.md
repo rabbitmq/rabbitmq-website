@@ -215,7 +215,8 @@ metadata:
 spec:
   name: "origin"
   uriSecret:
-    name: <secret-name> # secret must be created in the same namespace as this Federation object; in this case 'rabbitmq-system'
+    # secret must be created in the same namespace as this Federation object; in this case 'rabbitmq-system'
+    name: {secret-name}
   ackMode: "on-confirm"
   rabbitmqClusterReference:
     name: example-rabbit
@@ -242,7 +243,8 @@ metadata:
 spec:
   name: "my-shovel"
   uriSecret:
-    name: <secret-name> # secret must be created in the same namespace as this Shovel object; in this case 'rabbitmq-system'
+    # secret must be created in the same namespace as this Shovel object; in this case 'rabbitmq-system'
+    name: {secret-name}
   srcQueue: "the-source-queue"
   destQueue: "the-destination-queue"
   rabbitmqClusterReference:
