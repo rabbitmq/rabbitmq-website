@@ -21,7 +21,7 @@ limitations under the License.
 <!ENTITY version-server "3.8.17">
 <!ENTITY version-server-series "v3.8.x">
 <!ENTITY version-erlang-client "3.8.7">
-<!ENTITY version-server-tag "v3.8.16">
+<!ENTITY version-server-tag "v3.8.17">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
