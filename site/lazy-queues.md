@@ -220,27 +220,17 @@ that should be considered.
 When a node is running and under normal operation, lazy queues will keep all messages on disk,
 the only exception being in-flight messages.
 
-When a RabbitMQ node starts, all queues, including the lazy ones, will load up to **16,384** messages into RAM.
-If [queue index embedding](persistence-conf.html) is enabled (the `queue_index_embed_msgs_below` configuration parameter is greater than 0),
-the payloads of those messages will be loaded into RAM as well.
+When a RabbitMQ node starts, all queues, including the lazy ones, will load up to **2,048** messages into RAM.
 
-For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **16,384** messages into memory.
-These messages will use **63MB** of system memory.
-The queue process will use another **8.4MB** of system memory, bringing the total to just over **70MB**.
+For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **2,048** messages into memory.
+These messages will use **8.2MB** of system memory.
+The queue process will use another **2MB** of system memory, bringing the total to just over **10MB**.
 
 This is an important consideration for capacity planning if the
 RabbitMQ node is memory constrained, or if there are many lazy queues
 hosted on the node.
 
 **It is important to remember that an under-provisioned RabbitMQ node in terms of memory or disk space will fail to start.**
-
-Setting `queue_index_embed_msgs_below` to `0` will disable payload embedding in the queue index.
-As a result, lazy queues will not load message payloads into memory on node startup.
-See the [Persistence Configuration guide](persistence-conf.html) for details.
-
-When setting `queue_index_embed_msgs_below` to `0` all messages will be stored
-to the message store. With many messages across many lazy queues,
-that can lead to higher disk usage and also higher file descriptor usage.
 
 Message store is append-oriented and uses a compaction mechanism to reclaim
 disk space. In extreme scenarios it can
@@ -257,31 +247,6 @@ For new installations it is possible to increase file size used by the message s
 `msg_store_file_size_limit` configuration key. **Never change segment file size for existing installations**
 as that can result in a subset of messages being ignored by the node
 and can break segment file compaction.
-
-#### Lazy Queues with Mixed Message Sizes
-
-If all messages in the first **10,000** messages are below the
-`queue_index_embed_msgs_below` value, and the rest are above this
-value, only the first **10,000** will be loaded into memory on node
-startup.
-
-#### Lazy Queues with Interleaved Message
-
-Given the following interleaved message sizes:
-
-| Position in queue | Message size in bytes |
-| -                 | -                     |
-| 1                 | 5,000                 |
-| 2                 | 100                   |
-| 3                 | 5,000                 |
-| 4                 | 200                   |
-| ...               | ...                   |
-| 79                | 4,000                 |
-| 80                | 5,000                 |
-
-Only the first **20** messages below the `queue_index_embed_msgs_below` value will be loaded into memory on node startup.
-In this scenario, messages will use **21KB** of system memory, and queue process will use another **32KB** of system memory.
-The total system memory required for the queue process to finish starting is **53KB**.
 
 
 ### Mirroring of Lazy Queues

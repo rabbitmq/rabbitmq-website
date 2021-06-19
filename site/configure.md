@@ -1111,21 +1111,6 @@ cluster_keepalive_interval = 10000
       </p>
     </td>
   </tr>
-  <tr>
-    <td><code>queue_index_embed_msgs_below</code></td>
-    <td>
-      Size in bytes of message below which messages will
-      be embedded directly in the queue index. You are advised
-      to read the <a href="persistence-conf.html">persister
-      tuning</a> documentation before changing this.
-      <p>
-        Default:
-<pre class="lang-ini">
-queue_index_embed_msgs_below = 4096
-</pre>
-      </p>
-    </td>
-  </tr>
 
   <tr>
     <td><code>mnesia_table_loading_retry_timeout</code></td>
@@ -1331,21 +1316,6 @@ under the `rabbit` section.
 <pre class="lang-erlang">
 {rabbit, [
 {msg_store_credit_disc_bound, {4000, 800}}
-]}
-</pre>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td><code>queue_index_max_journal_entries</code></td>
-    <td>
-      After how many queue index journal entries it will be
-      flushed to disk.
-      <p>
-        Default:
-<pre class="lang-erlang">
-{rabbit, [
-{queue_index_max_journal_entries, 32768}
 ]}
 </pre>
       </p>

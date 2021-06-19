@@ -77,45 +77,6 @@ memory:
    index uses a small amount of memory for every message in the
    store.
 
-### <a id="index-embedding" class="anchor" href="#index-embedding">Message Embedding in Queue Indices</a>
-
-There are advantages and disadvantages to writing messages to
-the queue index.
-
-This feature has advantages and disadvantages. Main advantages are:
-
- * Messages can be written to disk in one operation rather than
-   two; for tiny messages this can be a substantial gain.
- * Messages that are written to the queue index do not require an
-   entry in the message store index and thus do not have a memory
-   cost when paged out.
-
-Disadvantages are:
-
- * The queue index keeps blocks of a fixed number of records in
-   memory; if non-tiny messages are written to the queue index then
-   memory use can be substantial.
- * If a message is routed to multiple queues by an exchange, the
-   message will need to be written to multiple queue indices. If
-   such a message is written to the message store, only one copy
-   needs to be written.
- * Unacknowledged messages whose destination is the queue index
-   are always kept in memory.
-
-The intent is for very small messages to be stored in the queue
-index as an optimisation, and for all other messages to be
-written to the message store. This is controlled by the
-configuration item <code>queue_index_embed_msgs_below</code>. By
-default, messages with a serialised size of less than 4096 bytes
-(including properties and headers) are stored in the queue
-index.
-
-Each queue index needs to keep at least one segment file in
-memory when reading messages from disk. The segment file
-contains records for 16,384 messages. Therefore be cautious if
-increasing <code>queue_index_embed_msgs_below</code>; a small
-increase can lead to a large amount of memory used.
-
 
 ## <a id="limits" class="anchor" href="#limits">OS and Runtime Limits Affecting </a>
 
