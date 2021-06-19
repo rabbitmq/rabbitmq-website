@@ -868,7 +868,7 @@ connect to.
 
 ### <a id="clustering-subset-of-nodes" class="anchor" href="#clustering-subset-of-nodes">Running Management Plugin on a Subset of Nodes</a>
 
-It is possible deploy management plugin only on a subset of cluster nodes.
+It is possible to deploy management plugin only on a subset of cluster nodes.
 In that case only the nodes running the plugin would be able to serve client HTTP API requests.
 For every cluster node to have its metrics collected, it is still required that the
 `rabbitmq-management-agent` plugin is enabled on each node, otherwise
