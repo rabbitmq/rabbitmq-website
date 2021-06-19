@@ -140,7 +140,7 @@ as long as compatible versions are available. When that's not the case, dependen
 However, when installing a local RPM file via `yum` dependencies must be installed
 manually. The dependencies are:
 
- * `erlang`: a [supported version of Erlang](which-erlang.html) can installed from a number of [repositories](#install-erlang)
+ * `erlang`: a [supported version of Erlang](which-erlang.html) can be installed from a number of [repositories](#install-erlang)
  * `socat`
  * `logrotate`
 
@@ -607,7 +607,7 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.
 
 ## <a id="downloads" class="anchor" href="#downloads">Download the Server</a>
 
-In some cases it may easier to download the package and install it manually. The package can be downloaded
+In some cases it may be easier to download the package and install it manually. The package can be downloaded
 from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 <table>

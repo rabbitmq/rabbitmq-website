@@ -524,7 +524,7 @@ consuming from the leader.
 
 Should a mirror fail, there is little to be done other than
 some bookkeeping: the leader remains the leader and no
-client need take any action or be informed of the failure.
+client need to take any action or be informed of the failure.
 Note that mirror failures may not be detected immediately and
 the interruption of the per-connection flow control mechanism
 can delay message publication. The details are described
