@@ -23,7 +23,7 @@ The quorum queue is a modern queue type for RabbitMQ implementing a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
 It is available as of RabbitMQ 3.8.0.
 
-The quorum queue type is a alternative to durable [mirrored queues](/ha.html)
+The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
 purpose built for a [set of use cases](#use-cases) where [data safety](#data-safety) is
 a top priority. This is covered in [Motivation](#motivation).
 They should be considered the default option for a replicated queue type.
@@ -71,7 +71,7 @@ be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is
 system participants).
 
 When applied to queue mirroring in RabbitMQ [clusters](/clustering.html)
-this means that the majority of replicas (including the currently elected queue leader/leader)
+this means that the majority of replicas (including the currently elected queue leader)
 agree on the state of the queue and its contents.
 
 ### Differences from Classic Mirrored Queues
@@ -94,7 +94,7 @@ confirming messages too early, potentially resulting in a data loss.
 Quorum queues share most of the fundamentals with other [queue](queues.html) types.
 A client library that can use regular mirrored queues will be able to use quorum queues.
 
-The following operations works the same way for quorum queues as they do for regular queues:
+The following operations work the same way for quorum queues as they do for regular queues:
 
  * Consumption (subscription)
  * [Consumer acknowledgements](/confirms.html) (except for global [QoS and prefetch](#global-qos))
@@ -148,7 +148,7 @@ Quorum queues do not currently support Message TTL, but they do support [Queue T
 
 #### Length Limit
 
-Quorum queues has support support for [queue length limits](/maxlength.html).
+Quorum queues has support for [queue length limits](/maxlength.html).
 
 The `drop-head` and `reject-publish` overflow behaviours are supported but they
 do not support `reject-publish-dlx` configurations as Quorum queues take a different 

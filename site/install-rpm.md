@@ -140,7 +140,7 @@ as long as compatible versions are available. When that's not the case, dependen
 However, when installing a local RPM file via `yum` dependencies must be installed
 manually. The dependencies are:
 
- * `erlang`: a [supported version of Erlang](which-erlang.html) can installed from a number of [repositories](#install-erlang)
+ * `erlang`: a [supported version of Erlang](which-erlang.html) can be installed from a number of [repositories](#install-erlang)
  * `socat`
  * `logrotate`
 
@@ -607,7 +607,7 @@ yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.
 
 ## <a id="downloads" class="anchor" href="#downloads">Download the Server</a>
 
-In some cases it may easier to download the package and install it manually. The package can be downloaded
+In some cases it may be easier to download the package and install it manually. The package can be downloaded
 from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
 <table>
@@ -864,7 +864,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.16. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -922,7 +922,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.16. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

@@ -414,7 +414,7 @@ auth_ldap.dn_lookup_attribute = userPrincipalName
 auth_ldap.dn_lookup_base = DC=gopivotal,DC=com
 </pre>
 
-With this configuration it is possible authenticate using an email address
+With this configuration it is possible to authenticate using an email address
 (`userPrincipalName` values are typically email addresses)
 and have the local Active Directory server return an actual DN to do
 the login.

@@ -372,7 +372,7 @@ compared to [regular long-lived consumers](#consuming). As with any polling-base
 it will be **extremely wasteful** in systems where message publishing is sporadic and queues
 can stay empty for prolonged periods of time.
 
-When in doubt, prefer using a regular long-lived a consumer.
+When in doubt, prefer using a regular long-lived consumer.
 
 ### Java Client
 

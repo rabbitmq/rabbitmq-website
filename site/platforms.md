@@ -27,7 +27,7 @@ run RabbitMQ:
 
  * Linux
  * Windows versions supported by Microsoft, e.g. 10
- * Windows Server versions supported by Microsoft, e.g. Windows Servier 2019
+ * Windows Server versions supported by Microsoft, e.g. Windows Server 2019
  * macOS
  * Solaris
  * FreeBSD
