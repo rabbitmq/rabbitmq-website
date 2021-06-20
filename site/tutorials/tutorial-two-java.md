@@ -198,7 +198,7 @@ But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-[message _acknowledgments_](/confirms.html). An acknowledgement is sent back by the
+[message _acknowledgments_](../confirms.html). An acknowledgement is sent back by the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
@@ -213,7 +213,7 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-[Manual message acknowledgments](/confirms.html) are turned on by default. In previous
+[Manual message acknowledgments](../confirms.html) are turned on by default. In previous
 examples we explicitly turned them off via the `autoAck=true`
 flag. It's time to set this flag to `false` and send a proper acknowledgment
 from the worker, once we're done with a task.
@@ -242,7 +242,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
-in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html)
+in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html)
 to learn more.
 
 > #### Forgotten acknowledgment
@@ -321,7 +321,7 @@ channel.basicPublish("", "task_queue",
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](https://www.rabbitmq.com/confirms.html).
+> [publisher confirms](../confirms.html).
 
 
 Fair dispatch

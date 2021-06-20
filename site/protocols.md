@@ -76,7 +76,7 @@ RabbitMQ supports AMQP 1.0 via a [plugin](plugins.html).
 
 ## <a id="http-and-websockets" class="anchor" href="#http-and-websockets">HTTP and WebSockets</a>
 
-While HTTP is not really a messaging protocol. However,
+While HTTP is not really a messaging protocol,
 RabbitMQ can transmit messages over HTTP in three ways:
 
  * The [Web STOMP plugin](web-stomp.html) supports STOMP

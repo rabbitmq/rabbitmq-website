@@ -84,7 +84,7 @@ entities and routing schemes are primarily defined by applications
 themselves, not a broker administrator. Accordingly,
 provision is made for protocol operations that declare
 queues and exchanges, define bindings between them,
-subscribe to [queues](queues.html) and so on.
+subscribe to [queues](../queues.html) and so on.
 
 This gives application developers a lot of freedom but
 also requires them to be aware of potential definition
@@ -267,7 +267,7 @@ will not be used to evaluate matches.
 
 ## <a id="queues" class="anchor" href="#queues">Queues</a>
 
-[Queues](queues.html) in the AMQP 0-9-1 model are very similar to queues in
+[Queues](../queues.html) in the AMQP 0-9-1 model are very similar to queues in
 other message- and task-queueing systems: they store
 messages that are consumed by applications. Queues share
 some properties with exchanges, but also have some additional
@@ -372,7 +372,7 @@ messages or will sometimes just crash. There is also the possibility
 of network issues causing problems. This raises a question:
 when should the broker remove messages from queues? The
 AMQP 0-9-1 specification gives consumers control over this. There are
-two [acknowledgement modes](/confirms.html):
+two [acknowledgement modes](../confirms.html):
 
  * After broker sends a message to an application (using either `basic.deliver` or `basic.get-ok` method).
  * After the application sends back an acknowledgement (using the `basic.ack` method).
@@ -412,7 +412,7 @@ there is no way to reject multiple messages as you can do
 with acknowledgements. However, if you are using RabbitMQ,
 then there is a solution. RabbitMQ provides an AMQP 0-9-1
 extension known as _negative acknowledgements_ or _nacks_. For
-more information, please refer to the [Confirmations](/confirms.html)
+more information, please refer to the [Confirmations](../confirms.html)
 and [basic.nack extension](/nack.html) guides.
 
 ### <a id="messages-prefetch" class="anchor" href="#messages-prefetch">Prefetching Messages</a>

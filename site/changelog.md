@@ -39,6 +39,18 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.17</td>
+    <td class="centre">8 June 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Security vulnerability patch, details to be disclosed later</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.17">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.16</td>
     <td class="centre">4 May 2021</td>
     <td>

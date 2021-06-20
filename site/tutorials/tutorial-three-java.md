@@ -163,7 +163,7 @@ String queueName = channel.queueDeclare().getQueue();
 </pre>
 
 You can learn more about the `exclusive` flag and other queue
-properties in the [guide on queues](queues.html).
+properties in the [guide on queues](../queues.html).
 
 At that point `queueName` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.

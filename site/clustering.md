@@ -47,7 +47,7 @@ queues, exchanges, bindings, runtime parameters and other distributed state.
 ## <a id="cluster-formation" class="anchor" href="#cluster-formation">Cluster Formation</a>
 ### <a id="cluster-formation-options" class="anchor" href="#cluster-formation-options">Ways of Forming a Cluster</a>
 
-A RabbitMQ cluster can formed in a number of ways:
+A RabbitMQ cluster can be formed in a number of ways:
 
  * Declaratively by listing cluster nodes in [config file](configure.html)
  * Declaratively using DNS-based discovery

@@ -8,7 +8,7 @@
   </p>
   <p>
     Please take a look at the rest of the <a href="/documentation.html">documentation</a> before going live with your app.
-    We particularly recommend the following guides: <a href="/confirms.html">Publisher Confirms and Consumer Acknowledgements</a>,
+    We particularly recommend the following guides: <a href="../confirms.html">Publisher Confirms and Consumer Acknowledgements</a>,
     <a href="/production-checklist.html">Production Checklist</a> and <a href="/monitoring.html">Monitoring</a>.
   </p>
 </div>

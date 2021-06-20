@@ -372,7 +372,7 @@ compared to [regular long-lived consumers](#consuming). As with any polling-base
 it will be **extremely wasteful** in systems where message publishing is sporadic and queues
 can stay empty for prolonged periods of time.
 
-When in doubt, prefer using a regular long-lived a consumer.
+When in doubt, prefer using a regular long-lived consumer.
 
 ### Java Client
 
@@ -406,6 +406,18 @@ consumer_timeout = 900000
 # one hour in milliseconds
 consumer_timeout = 3600000
 </pre>
+
+The timeout can be disabled using [`advanced.config`]. This is **highly discouraged**:
+
+<pre class="lang-erl">
+%% advanced.config
+[
+  {rabbit, [
+    {consumer_timeout, undefined}
+  ]}
+].
+</pre>
+
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
 

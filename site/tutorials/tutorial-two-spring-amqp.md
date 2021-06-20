@@ -263,7 +263,7 @@ instance 2 [x] Received 'Hello..5'
 
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
-Spring AMQP by default takes a conservative approach to [message acknowledgement](/confirms.html).
+Spring AMQP by default takes a conservative approach to [message acknowledgement](../confirms.html).
 If the listener throws an exception the container
 calls:
 
@@ -288,7 +288,7 @@ channel.basicAck()
 
 Acknowledgement must be sent on the same channel the delivery
 was received on. Attempts to acknowledge using a different channel
-will result in a channel-level protocol exception. See the [doc guide on confirmations](/confirms.html) to learn more.
+will result in a channel-level protocol exception. See the [doc guide on confirmations](../confirms.html) to learn more.
 Spring AMQP generally takes care of this but when used in combination with code
 that uses RabbitMQ Java client directly, this is something to keep in mind.
 
@@ -335,7 +335,7 @@ is a good place to modify the message payload or headers.
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need a stronger guarantee then you can use
-> [publisher confirms](https://www.rabbitmq.com/confirms.html).
+> [publisher confirms](../confirms.html).
 
 ### Fair dispatch vs Round-robin dispatching
 
@@ -390,7 +390,7 @@ set to 1 the behavior would be the round robin delivery as described above.
 > limit consumer throughput.
 > A couple of cases where this configuration is applicable can be found in [Spring AMQP Consumer Documentation](https://docs.spring.io/spring-amqp/reference/#async-consumer)
 >
-> For more details on prefetch, please refer to the [Consumer Acknowledgements guide](/confirms.html#channel-qos-prefetch).
+> For more details on prefetch, please refer to the [Consumer Acknowledgements guide](../confirms.html#channel-qos-prefetch).
 
 However, with the `prefetchCount` set to 250 by default,
 this tells RabbitMQ not to give more than 250 messages to a worker

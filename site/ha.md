@@ -30,7 +30,8 @@ Classic mirrored queues will be **removed in a future version** of RabbitMQ.
 
 Topics covered in this guide include
 
- * [Classic queue mirroring](#what-is-mirroring) and how it works
+ * [Next generation replicated queue type](#interstitial) and why it should be preferred over classic queue mirroring
+ * What is [classic queue mirroring](#what-is-mirroring) and how it works
  * How to [enable it](#ways-to-configure)
  * What [mirroring settings are available](#mirroring-arguments)
  * What [replication factor](#replication-factor) is recommended
@@ -523,7 +524,7 @@ consuming from the leader.
 
 Should a mirror fail, there is little to be done other than
 some bookkeeping: the leader remains the leader and no
-client need take any action or be informed of the failure.
+client need to take any action or be informed of the failure.
 Note that mirror failures may not be detected immediately and
 the interruption of the per-connection flow control mechanism
 can delay message publication. The details are described

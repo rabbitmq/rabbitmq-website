@@ -93,7 +93,7 @@ Memory use breakdown reports allocated memory distribution on the target node, b
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
  * [Quorum queue](/quorum-queues.html) replicas
- * Classic mirorred queue [leader replicas](ha.html)
+ * Classic mirrored queue [leader replicas](ha.html)
  * Classic mirrored queue mirror (follower) replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)

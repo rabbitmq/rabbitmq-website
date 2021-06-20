@@ -9,9 +9,11 @@ This guide has the following sections:
 
 * [Requirements](#requirements)
 * [Queue and policy](#queue-policy)
-* [User and permission](#user)
-* [Binding and bindings](#exchange-binding)
+* [User and permission](#user-permission)
+* [Exchanges and bindings](#exchange-binding)
 * [Virtual hosts](#vhosts)
+* [Federation](#federation)
+* [Shovel](#shovel)
 * [Update a resource](#update)
 * [Delete a resource](#delete)
 * [Limitations](#limitations)
@@ -66,7 +68,7 @@ spec:
 The Messaging Topology repo has more examples on [queues](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/queues)
 and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies). 
 
-### <a id='binding' class='anchor' href='#binding'> Exchanges and bindings</a>
+### <a id='exchange-binding' class='anchor' href='#binding'> Exchanges and bindings</a>
 
 Messaging Topology Operator can manage [exchanges and bindings](../../publishers.html#basics).
 The following manifest will create a fanout exchange:
@@ -195,7 +197,63 @@ spec:
     name: example-rabbit
 </pre>
 
-## <a id='updates' class='anchor' href='#updates'>Update Resources</a>
+## <a id='federation' class='anchor' href='#federation'>Federation</a>
+
+Messaging Topology Operator can define [Federation upstreams](../../federation.html).
+
+Because a Federation upstream URI contains credentials, it is provided through a Kubernetes Secret object.
+The 'uri' key is mandatory for the Secret object. Its value can be either a single URI or a comma-separated list of URIs.
+
+The following manifest will define an upstream named 'origin' in a RabbitmqCluster named 'example-rabbit':
+
+<pre class="lang-bash">
+apiVersion: rabbitmq.com/v1beta1
+kind: Federation
+metadata:
+  name: federation-example
+  namespace: rabbitmq-system
+spec:
+  name: "origin"
+  uriSecret:
+    # secret must be created in the same namespace as this Federation object; in this case 'rabbitmq-system'
+    name: {secret-name}
+  ackMode: "on-confirm"
+  rabbitmqClusterReference:
+    name: example-rabbit
+</pre>
+
+More [federation examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/federations).
+
+## <a id='shovel' class='anchor' href='#shovel'>Shovel</a>
+
+Messaging Topology Operator can declare [dynamic Shovels](../../shovel-dynamic.html).
+
+Shovel source and destination URIs are provided through a Kubernetes Secret object.
+The Secret Object must contain two keys, 'srcUri' and 'destUri', and the value of each key can be either a single URI
+or a comma-separated list of URIs.
+
+The following manifest will create a Shovel named 'my-shovel' in a RabbitmqCluster named 'example-rabbit':
+
+<pre class="lang-bash">
+apiVersion: rabbitmq.com/v1beta1
+kind: Shovel
+metadata:
+  name: shovel-example
+  namespace: rabbitmq-system
+spec:
+  name: "my-shovel"
+  uriSecret:
+    # secret must be created in the same namespace as this Shovel object; in this case 'rabbitmq-system'
+    name: {secret-name}
+  srcQueue: "the-source-queue"
+  destQueue: "the-destination-queue"
+  rabbitmqClusterReference:
+    name: example-rabbit
+</pre>
+
+More [shovelsexaples ](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
+
+## <a id='update' class='anchor' href='#update'>Update Resources</a>
 
 Some custom resource properties are immutable. Messaging Topology Operator implements [validating webhooks](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 to prevent updates on immutable fields. Forbidden updates will be rejected. For example:

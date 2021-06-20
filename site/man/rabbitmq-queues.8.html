@@ -20,11 +20,12 @@
 <section class="Sh">
 <h2 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
 <code class="Nm">rabbitmq-queues</code> is a command line tool that provides
-  commands used to manage queues, mainly member handling for quorum queues. See
-  the <a class="Lk" href="https://www.rabbitmq.com/quorum-queues.html">RabbitMQ
-  quorum queues guide</a> and
-  <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ classic
-  mirrored queues guide</a> to learn more about queue types in RabbitMQ.
+  commands used to manage queues, for example, grow, shrink or rebalance
+  replicas of replicated queue types. See the
+  <a class="Lk" href="https://www.rabbitmq.com/quorum-queues.html">RabbitMQ
+  quorum queues guide</a> and the general
+  <a class="Lk" href="https://www.rabbitmq.com/queues.html">RabbitMQ queues
+  guide</a> to learn more about queue types in RabbitMQ.
 </section>
 <section class="Sh">
 <h2 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
@@ -107,7 +108,7 @@
     <var class="Ar">pattern</var> <code class="Fl">--queue-pattern</code>
     <var class="Ar">pattern</var></dt>
   <dd>
-    <p class="Pp">Rebalances queue leader replicas across cluster nodes.</p>
+    <p class="Pp">Rebalances queue master replicas across cluster nodes.</p>
     <p class="Pp">Supported <var class="Ar">type</var> values are:</p>
     <dl class="Bl-tag">
       <dt><b class="Sy">all</b></dt>
