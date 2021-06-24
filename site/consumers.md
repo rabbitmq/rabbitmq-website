@@ -409,7 +409,7 @@ consumer_timeout = 3600000
 
 The timeout can be disabled using [`advanced.config`]. This is **highly discouraged**:
 
-<pre class="lang-erl">
+<pre class="lang-erlang">
 %% advanced.config
 [
   {rabbit, [
@@ -417,6 +417,8 @@ The timeout can be disabled using [`advanced.config`]. This is **highly discoura
   ]}
 ].
 </pre>
+
+Instead of disabling the timeout entirely, consider using a high value (for example, a few hours).
 
 
 ## <a id="exclusivity" class="anchor" href="#exclusivity">Exclusivity</a>
