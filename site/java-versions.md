@@ -33,7 +33,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank">Java Client</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-17</td>
+    <td>8-18</td>
   </tr>
 
   <tr>
@@ -47,7 +47,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank">JMS Client</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-17</td>
+    <td>8-18</td>
   </tr>
 
   <tr>
@@ -61,21 +61,21 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-perf-test" target="_blank">PerfTest</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-17</td>
+    <td>8-18</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 3.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-17</td>
+    <td>8-18</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank">Reactor RabbitMQ</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-17</td>
+    <td>8-18</td>
   </tr>
 
 </table>
@@ -84,6 +84,6 @@ maintained by the RabbitMQ team.
 
 (2) Includes only security patches. The library reaches end of life (EOL) once the extended support period ends.
 
-(3) Long-Term Support (LTS) releases of the JDK are fully supported (currently JDK 8 and 11). Intermediate releases
+(3) Long-Term Support (LTS) releases of the JDK are fully supported (currently JDK 8, 11, and 17). Intermediate releases
 (e.g. 9 and 10) are supported on a best-effort basis, meaning bug reports are accepted and addressed as far as technically
 possible but without any service level guarantees.
