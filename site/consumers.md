@@ -407,7 +407,7 @@ consumer_timeout = 900000
 consumer_timeout = 3600000
 </pre>
 
-The timeout can be disabled using [`advanced.config`]. This is **highly discouraged**:
+The timeout can be disabled using [`advanced.config`](configure.html#advanced-config-file). This is **highly discouraged**:
 
 <pre class="lang-erlang">
 %% advanced.config
