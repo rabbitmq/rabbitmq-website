@@ -152,7 +152,7 @@ Dead-lettered messages are re-published <em>without</em> publisher
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
 that there is no chance of excessive message buildup that could exhaust broker
-resources, but messages may be lost if the target queue isn't available to accept messages.
+resources, but messages can be lost if the target queue isn't available to accept messages.
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
 
