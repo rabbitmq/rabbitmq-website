@@ -250,7 +250,7 @@ See [Runtime Parameters and Policies](/parameters.html#policies) to learn more.
 ### <a id="queue-leader-location" class="anchor" href="#queue-leader-location">Queue Leader Location</a>
 
 Every queue in RabbitMQ has a primary replica. That replica is called
-_queue leader_ (originally "queue leader"). All queue operations go through the leader
+_queue leader_ (originally "queue master"). All queue operations go through the leader
 replica first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 

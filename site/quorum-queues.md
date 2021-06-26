@@ -321,7 +321,7 @@ launched to run on a random subset of the RabbitMQ cluster.
 ### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
 
 Every quorum queue has a primary replica. That replica is called
-_queue leader_ (originally "queue leader"). All queue operations go through the leader
+_queue leader_ (originally "queue master"). All queue operations go through the leader
 first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 
