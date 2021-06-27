@@ -44,8 +44,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.18.
         </p>
         <p>
-          This is a maintenance release that includes a security patch. Details
-          will be disclosed later.
+          This is a maintenance release that includes a security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5452-hxj4-773x">CVE-2021-32719</a>.
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
@@ -79,8 +78,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.17.
         </p>
         <p>
-          This is a maintenance release that includes a security patch. Details
-          will be disclosed later.
+          This is a maintenance release that includes a security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c3hj-rg5h-2772">CVE-2021-32718</a>.
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
