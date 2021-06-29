@@ -65,6 +65,8 @@ spec:
     name: example-rabbit
 </pre>
 
+Note that it's not recommended configuring queues through arguments because they cannot be updated once set. We recommend configuring queues through policies instead.
+
 The Messaging Topology repo has more examples on [queues](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/queues)
 and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies). 
 
