@@ -22,6 +22,7 @@ This guide is structured in the following sections:
 * [Monitor RabbitMQ Clusters](#monitoring)
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
+* [Using the Cluster Operator on OpenShift](#openshift)
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -98,6 +99,11 @@ kind: RabbitmqCluster
 metadata:
   name: definition
 </pre>
+
+<p class="note">
+  <strong>Note:</strong> Note that if you are creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
+  all RabbitmqCluster manifests. See [Using the Cluster Operator on OpenShift](#openshift) for details.
+</p>
 
 Next, apply the definition by running:
 
@@ -1198,3 +1204,31 @@ To resume reconciliation, remove the label by running:
 <pre class="lang-bash">
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
+
+## <a id='openshift' class='anchor' href='#openshift'>Using the Cluster Operator on OpenShift</a>
+
+Openshift uses arbitrarily assigned User IDs when running Pods. Each Openshift project is allocated a range of possible UIDs,
+and by default Pods will fail if they are started running as a user outside of that range.
+
+By default, the RabbitMQ Cluster Operator deploys RabbitmqCluster Pods with fixed, non-root UIDs. To deploy
+on Openshift, it is necessary to override the Security Context for these Pods.
+
+For every RabbitmqCluster you plan on creating, you must add everything under the `override` field to the object manifest:
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  ...
+spec:
+  ...
+  override:
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers: []
+            securityContext: {}
+            initContainers:
+            - name: setup-container
+              securityContext: {}</pre>
+This ensures that RabbitMQ Pods are also assigned arbitrary user IDs in Openshift.

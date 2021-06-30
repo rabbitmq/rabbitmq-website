@@ -20,7 +20,6 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) in a Kubernetes cluster.
-If you are installing in OpenShift, follow the instructions in [Installation on OpenShift](#openshift) section.
 
 ## <a id='compatibility' class='anchor' href='#compatibility'>Compatibility</a>
 
@@ -167,74 +166,3 @@ rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-r
 
 Please note that the name of the Operator Service Account is not configurable and it must be `rabbitmq-cluster-operator`.
 
-### <a id='openshift' class='anchor' href='#openshift'>Installation on OpenShift</a>
-
-Openshift uses arbitrarily assigned User IDs when running Pods. Each Openshift project is allocated a range of possible UIDs,
-and by default Pods will fail if they are started running as a user outside of that range.
-
-By default, the RabbitMQ Cluster Operator, Messaging Topology Operator & RabbitmqCluster Pods all run with fixed IDs. To deploy
-on Openshift, it is necessary to override the Security Context for these Pods, as described below.
-
-#### Creating the Operator
-<strong>If you have [ytt](https://carvel.dev/ytt/) installed</strong>, you can simply run:
-<pre class="lang-bash">ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml -f https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/hack/remove-operator-securityContext.yml | oc apply -f -</pre>
-
-This will use a YTT overlay to strip out the securityContext from the operator deployment, then apply the resultant manifest. The operator Pod will then run as the user chosen by Openshift.
-
-<strong>If you do not have ytt</strong>, you will have to remove this manually. Download the installation manifest from the [release page in GitHub](https://github.com/rabbitmq/cluster-operator/releases).
-
-Remove the `securityContext` from the `Deployment` object named `rabbitmq-cluster-operator`:
-
-<pre class="lang-yaml">
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app.kubernetes.io/component: rabbitmq-operator
-    app.kubernetes.io/name: rabbitmq-cluster-operator
-    app.kubernetes.io/part-of: rabbitmq
-  name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
-spec:
-  ...
-  template:
-    ...
-    spec:
-      ...
-      securityContext:   # Remove
-        fsGroup: 1000    # Remove
-        runAsGroup: 1000 # Remove
-        runAsUser: 1000  # Remove</pre>
-
-You can then run the installation command.
-<pre class="lang-bash">
-oc apply -f cluster-operator.yml
-# namespace/rabbitmq-system created
-# customresourcedefinition.apiextensions.k8s.io/rabbitmqclusters.rabbitmq.com created
-# serviceaccount/rabbitmq-cluster-operator created
-# role.rbac.authorization.k8s.io/rabbitmq-cluster-leader-election-role created
-# clusterrole.rbac.authorization.k8s.io/rabbitmq-cluster-operator-role created
-# rolebinding.rbac.authorization.k8s.io/rabbitmq-cluster-leader-election-rolebinding created
-# clusterrolebinding.rbac.authorization.k8s.io/rabbitmq-cluster-operator-rolebinding created
-# deployment.apps/rabbitmq-cluster-operator created</pre>
-
-#### Creating the RabbitmqClusters
-For every RabbitmqCluster you plan on creating, you must add everything under the `override` field to the object manifest:
- <pre class="lang-yaml">
- apiVersion: rabbitmq.com/v1beta1
- kind: RabbitmqCluster
- metadata:
-   ...
- spec:
-   ...
-   override:
-     statefulSet:
-       spec:
-         template:
-           spec:
-             containers: []
-             securityContext: {}
-             initContainers:
-             - name: setup-container
-               securityContext: {}</pre>
-   This ensures that RabbitMQ Pods are also assigned arbitrary user IDs in Openshift.
