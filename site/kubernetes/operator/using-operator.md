@@ -101,8 +101,8 @@ metadata:
 </pre>
 
 <p class="note">
-  <strong>Note:</strong> Note that if you are creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
-  all RabbitmqCluster manifests. See [Using the Cluster Operator on OpenShift](#openshift) for details.
+<strong>Note:</strong> when creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
+all RabbitmqCluster manifests. See <a href="#openshift">Using the Cluster Operator on OpenShift</a> for details.
 </p>
 
 Next, apply the definition by running:
@@ -1211,9 +1211,9 @@ Openshift uses arbitrarily assigned User IDs when running Pods. Each Openshift p
 and by default Pods will fail if they are started running as a user outside of that range.
 
 By default, the RabbitMQ Cluster Operator deploys RabbitmqCluster Pods with fixed, non-root UIDs. To deploy
-on Openshift, it is necessary to override the Security Context for these Pods.
+on Openshift, it is necessary to override the Security Context for these Pods. This must be done
+for every RabbitmqCluster deployed under the`override` field:
 
-For every RabbitmqCluster you plan on creating, you must add everything under the `override` field to the object manifest:
 <pre class="lang-yaml">
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
@@ -1230,5 +1230,7 @@ spec:
             securityContext: {}
             initContainers:
             - name: setup-container
-              securityContext: {}</pre>
+              securityContext: {}
+</pre>
+
 This ensures that RabbitMQ Pods are also assigned arbitrary user IDs in Openshift.
