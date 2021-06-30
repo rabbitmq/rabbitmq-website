@@ -47,18 +47,17 @@ You need to generate the webhook certificate and place it in multiple places in 
 of the webhook service object defined in release manifest messaging-topology-operator.yml. rabbitmq-system is the namespace of the service.
 2. Create a k8s secret object with the name webhook-server-cert in namespace rabbitmq-system. The secret object must contain following keys: ca.crt, tls.key, and tls.key, and
 it will be mounted to the operator container, where all webhooks will run from. For example:
-    <pre class="lang-bash">
-    apiVersion: v1
-    kind: Secret
-    type: kubernetes.io/tls
-    metadata:
-      name: webhook-server-cert
-      namespace: rabbitmq-system
-    data:
-      ca.crt: # ca cert that can be used to validate the webhook's server certificate
-      tls.crt: # generated certificate
-      tls.key: # generated key
-    </pre>
+<pre class="lang-yaml">
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/tls
+metadata:
+  name: webhook-server-cert
+  namespace: rabbitmq-system
+data:
+  ca.crt: # ca cert that can be used to validate the webhook's server certificate
+  tls.crt: # generated certificate
+  tls.key: # generated key</pre>
 
 Then, to install the Operator, run the following command:
 
