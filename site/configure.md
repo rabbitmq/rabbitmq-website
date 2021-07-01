@@ -1910,9 +1910,10 @@ More variables are covered in the [File and Directory Locations guide](/relocate
     <td>
       When set to <code>true</code> this will cause RabbitMQ
       to use fully qualified names to identify nodes. This
-      may prove useful in environments that use fully-qualified domain names.
-      Note that it is not possible to switch between using short and long names without
-      resetting the node.
+      may prove useful in environments that use fully-qualified domain names or use IP addresses
+      as hostnames or part of node names.
+      Note that it is not possible to switch a node from short name to long name without
+      resetting it.
 
       <p>
         <strong>Default</strong>: <code>false</code>
