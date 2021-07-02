@@ -52,9 +52,9 @@ environments but not intended to be used in production.
 
 ## <a id="documentation" class="anchor" href="#documentation">Documentation of the 'master' branch</a>
 
-Documentation for master branch of the broker is continuously published to
+Documentation for default branch of the RabbitMQ distribution is continuously published to
 [next.rabbitmq.com](http://next.rabbitmq.com/documentation.html).
-Note that master documentation can lag behind code changes, sometimes
+Note that cutting edge branch documentation can lag behind code changes, sometimes
 intentionally so.
 
 

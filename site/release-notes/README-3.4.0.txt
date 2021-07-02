@@ -58,7 +58,7 @@ enhancements
         (see https://www.rabbitmq.com/direct-reply-to.html)
 24926 allow plugins to be enabled / disabled without restarting the server
 25884 add argument and policy to limit queue length in bytes
-26150 prevent clean master shutdown from promoting unsynchronised
+26150 prevent clean leader replica shutdown from promoting unsynchronised
       mirrors and thus losing messages; add ha-promote-on-shutdown
       to configure
 26151 make queues located on down cluster nodes visible in "rabbitmqctl

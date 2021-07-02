@@ -1406,7 +1406,7 @@ limitations under the License.
         <p>
           PackageCloud is one of the services used by the RabbitMQ team to distribute packages.
           The service signs all packages uploaded to it with their own signing key. Recently PackageCloud
-          started migrating to per-repository signing keys instead of a single master key.
+          started migrating to per-repository signing keys instead of a single primary key.
         </p>
         <p>
           On December 1st, 2018 (GMT) all repositories under the RabbitMQ account on PackageCloud will be switched to use the new

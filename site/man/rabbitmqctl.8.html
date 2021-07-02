@@ -290,8 +290,8 @@ RabbitMQ is an open source multi-protocol messaging broker.
     <p class="Pp">If the last node to go down is permanently lost then you
         should use <code class="Cm">forget_cluster_node</code>
         <code class="Fl">--offline</code> in preference to this command, as it
-        will ensure that mirrored queues which were mastered on the lost node
-        get promoted.</p>
+        will ensure that mirrored queues which had their leader replica on the
+        lost node get promoted.</p>
     <p class="Pp">For example, this will force the node not to wait for other
         nodes next time it is started:</p>
     <p class="Pp"></p>
@@ -1165,11 +1165,11 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <dl class="Bl-tag">
       <dt><a class="permalink" href="#-offline_2"><code class="Fl" id="-offline_2">--offline</code></a></dt>
       <dd>List only those durable queues that are not currently available (more
-          specifically, their master node isn't).</dd>
+          specifically, their leader node isn't).</dd>
       <dt><a class="permalink" href="#-online"><code class="Fl" id="-online">--online</code></a></dt>
-      <dd>List queues that are currently available (their master node is).</dd>
+      <dd>List queues that are currently available (their leader node is).</dd>
       <dt><a class="permalink" href="#-local"><code class="Fl" id="-local">--local</code></a></dt>
-      <dd>List only those queues whose master process is located on the current
+      <dd>List only those queues whose leader replica is located on the current
           node.</dd>
     </dl>
     <p class="Pp">The <var class="Ar">queueinfoitem</var> parameter is used to
@@ -1261,9 +1261,8 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
           Mirroring guide</a></dd>
       <dt><a class="permalink" href="#synchronised_slave_pids"><code class="Cm" id="synchronised_slave_pids">synchronised_slave_pids</code></a></dt>
       <dd>If the queue is mirrored, this gives the IDs of the mirrors (follower
-          replicas) which are synchronised with the master (leader). To learn
-          more, see the
-          <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ
+          replicas) which are in sync with the leader replica. To learn more,
+          see the <a class="Lk" href="https://www.rabbitmq.com/ha.html">RabbitMQ
           Mirroring guide</a></dd>
       <dt><a class="permalink" href="#state_2"><code class="Cm" id="state_2">state</code></a></dt>
       <dd>The state of the queue. Normally &quot;running&quot;, but may be
@@ -1292,7 +1291,7 @@ Note that all user management commands <code class="Nm">rabbitmqctl</code> only
     <p class="Pp">Tests queues to respond within timeout. Lists those which did
         not respond</p>
     <p class="Pp">For example, this command lists only those unresponsive queues
-        whose master process is located on the current node.</p>
+        whose leader replica is hosted on the target node.</p>
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl
       list_unresponsive_queues --local name</code></div>
   </dd>
