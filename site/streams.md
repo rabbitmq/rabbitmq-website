@@ -267,7 +267,7 @@ They are not meant to be used as [temporary queues](/queues.html#temporary-queue
 #### Lazy Mode
 
 Streams store all data directly on disk, after a message has been written
-it does not use any memory until it is read. Streams are inherently [lazy](/lazy-queues.html, so to speak).
+it does not use any memory until it is read. Streams are inherently [lazy](/lazy-queues.html), so to speak.
 
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
