@@ -164,6 +164,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Consumer Cancellation Notifications](/consumer-cancel.html)
  * [Consumer Prefetch](/consumer-prefetch.html)
  * [Consumer Priorities](/consumer-priority.html)
+ * [Streams](/streams.html)
 
 
 ## STOMP, MQTT, WebSockets
