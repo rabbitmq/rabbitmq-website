@@ -29,7 +29,7 @@ For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deplo
 <table class="release-series">
   <tr>
     <th>Version</th>
-    <th>Latest patch</th>
+    <th>Latest Patch</th>
     <th>First Release</th>
     <th>End of General Support<sup>1</sup></th>
     <th>End of Extended Support<sup>2</sup></th>
@@ -119,7 +119,7 @@ of RabbitMQ 3.9.0. It was **last updated on Thursday 8 July 2021**.
 <table class="release-series">
   <tr>
     <th>Version</th>
-    <th>Last patch</th>
+    <th>Final Patch</th>
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
