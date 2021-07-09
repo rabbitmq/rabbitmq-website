@@ -77,14 +77,14 @@ of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
     <td>3.9.0-rc.1 produced</td>
     <td style="white-space: nowrap;">9 July 2021</td>
     <td style="white-space: nowrap;">9 July 2021</td>
-    <td>CI produces & publishes all artefacts</td>
+    <td>CI produces &amp; publishes all artefacts</td>
   </tr>
 
   <tr>
     <td><strong>3.9.0-rc.1 announced</strong></td>
     <td style="white-space: nowrap;">12 July 2021</td>
     <td style="white-space: nowrap;">9 July 2021</td>
-    <td>First release candidate is announced & mmade public for testing</td>
+    <td>First release candidate is announced &amp; made public for testing</td>
   </tr>
 
   <tr>
@@ -98,14 +98,14 @@ of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
     <td>3.9.0 produced</td>
     <td style="white-space: nowrap;">23 July 2021</td>
     <td style="white-space: nowrap;"></td>
-    <td>Final release is built & published</td>
+    <td>Final release is built &amp; published</td>
   </tr>
 
   <tr>
     <td><strong>3.9.0 announced</strong></td>
     <td style="white-space: nowrap;">26 July 2021</td>
     <td style="white-space: nowrap;"></td>
-    <td>Final release is announced & made public</td>
+    <td>Final release is announced &amp; made public</td>
   </tr>
 </table>
 
