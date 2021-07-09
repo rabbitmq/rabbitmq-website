@@ -70,7 +70,7 @@ of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
     <td>Code freeze</td>
     <td style="white-space: nowrap;">5 July 2021</td>
     <td style="white-space: nowrap;">7 July 2021</td>
-    <td>No new features or refactorings before GA, only bug fixes</td>
+    <td>No new features or refactorings before the final release, only bug fixes</td>
   </tr>
 
   <tr>
@@ -91,7 +91,7 @@ of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
     <td>3.9.0-rc.2</td>
     <td style="white-space: nowrap;">TBD</td>
     <td style="white-space: nowrap;"></td>
-    <td>If new issues are reported, a new RC with fixed is made available for testing</td>
+    <td>If new issues are reported, a new RC with fixes is made available for testing</td>
   </tr>
 
   <tr>
