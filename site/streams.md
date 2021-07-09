@@ -465,6 +465,6 @@ All data is stored on disk with only unwritten data stored in memory.
 ## <a id="resource-use" class="anchor" href="#offset-tracking">Offset Tracking</a>
 
 When using the broker provided offset tracking features (currently only available
-when using the [Stream plugin](/stream.html) offsets are persisted in the stream
+when using the [Stream plugin](/stream.html)) offsets are persisted in the stream
 itself as non-message data. This means that as offset persistence is requested the
 stream will grow on disk by some small amount per offset persistence request.
