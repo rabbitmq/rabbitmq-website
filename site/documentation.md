@@ -183,6 +183,7 @@ for the original RabbitMQ protocol.
  * [Consumer Cancellation Notifications](/consumer-cancel.html)
  * [Consumer Prefetch](/consumer-prefetch.html)
  * [Consumer Priorities](/consumer-priority.html)
+ * [Streams](/streams.html)
 
 
 ### Publisher Features

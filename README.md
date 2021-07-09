@@ -6,7 +6,7 @@ All changes that need to be deployed right away need to be committed to the `liv
 
 Changes which should be deployed when the next patch release (a.k.a. stable) of RabbitMQ ships should be committed to the `stable` branch.
 
-Changes which should be deployed when the next minor release (a.k.a. master) of RabbitMQ ships should be committed to the `master` branch.
+Changes which should be deployed when the next minor release (a.k.a. main) of RabbitMQ ships should be committed to the `main` branch.
 
 ## Branches
 
@@ -17,7 +17,7 @@ Branch        | Description
 :-------------|:--------------------
 `live`         | The current version of the website. This must represent whatever's deployed to [www.rabbitmq.com](https://www.rabbitmq.com/).
 `stable`       | Changes to the website that will correspond to the next point (maintenance) release of RabbitMQ. This gets merged into live when a 3.8.x release occurs.
-`master`       | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
+`main`       | Changes to the website that will correspond to the next minor release of RabbitMQ. Periodically deployed to [next.rabbitmq.com](http://next.rabbitmq.com/). This gets merged into stable and then live when a minor release occurs.
 
 
 ## Development environment
@@ -61,7 +61,7 @@ To run a local copy manually on [localhost:8191](http://localhost:8191), use:
 ./driver.py
 ```
 
-To run a local copy of the "next" version of the site (usually only relevant for `master` and
+To run a local copy of the "next" version of the site (usually only relevant for `main` and
 documentation work for the next feature release):
 
 ```sh
@@ -107,7 +107,7 @@ the `$page-mode` variable in XSLT.
 
 ### Tutorial Charts (Diagrams)
 
-[diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) is a script that generates PNGs from graph descriptions
+[diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/main/code/diagrams.py) is a script that generates PNGs from graph descriptions
 embedded in files. Generally, you don't need to run this, since the generated
 PNGs are committed. To work on the diagrams please install Graphviz:
 
