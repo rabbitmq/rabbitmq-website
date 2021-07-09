@@ -380,8 +380,15 @@ cluster_formation.aws.instance_tags.environment = staging
 ### <a id="peer-discovery-aws-other-settings" class="anchor" href="#peer-discovery-aws-other-settings">Using Private EC2 Instance IPs</a>
 
 By default peer discovery will use private DNS hostnames to compute node names.
-It is possible to opt into using private IPs instead by setting
-the `cluster_formation.aws.use_private_ip` key to `true`:
+This option is most convenient and is **highly recommended**.
+
+However, it is possible to opt into using private IPs instead by setting
+the `cluster_formation.aws.use_private_ip` key to `true`. For this setup to work,
+[`RABBITMQ_NODENAME` must be set](configure.html#customise-environment) to the private IP address at node
+deployment time.
+
+`RABBITMQ_USE_LOGNAME` also has to be set to `true` or an IP address won't be considered a valid
+part of node name.
 
 <pre class="lang-ini">
 cluster_formation.peer_discovery_backend = aws

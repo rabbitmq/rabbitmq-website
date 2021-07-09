@@ -390,7 +390,7 @@ This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 Such consumers can affect node's on disk data compaction and potentially drive
 nodes out of disk space.
 
-If a consumer does not ack its delivery for more than the timeout value (15 minutes by default),
+If a consumer does not ack its delivery for more than the timeout value (30 minutes by default),
 its channel will be closed with a `PRECONDITION_FAILED` channel exception.
 The error will be [logged](logging.html) by the node that the consumer was
 connected to.
@@ -398,8 +398,8 @@ connected to.
 The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
 
 <pre class="lang-ini">
-# 15 minutes in milliseconds
-consumer_timeout = 900000
+# 30 minutes in milliseconds
+consumer_timeout = 180000
 </pre>
 
 <pre class="lang-ini">

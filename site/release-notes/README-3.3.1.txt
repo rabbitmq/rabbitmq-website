@@ -21,7 +21,7 @@ server
 ------
 bug fixes
 26084 fix race condition causing queue mirrors to occasionally not be promoted
-      on clean master shutdown (since 3.0.0)
+      on clean leader replica shutdown (since 3.0.0)
 26115 prevent badmatch crash on mirror queue init during rapid restarts
       (since 3.2.0)
 26117 prevent mirror being incorrectly considered dead when added at the same

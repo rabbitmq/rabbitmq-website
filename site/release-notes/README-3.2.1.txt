@@ -10,7 +10,7 @@ bug fixes
       (since 3.2.0)
 25846 fix queue crashes when changing multiple HA policies simultaneously
       (since 3.0.0)
-25618 ensure a mirrored queue mirror which crashes does not cause the master to
+25618 ensure a mirrored queue mirror which crashes does not cause the leader replica to
       crash (since 2.6.0)
 25838 prevent crashes due to timeouts when calling into the limiter
       (since 3.1.0)

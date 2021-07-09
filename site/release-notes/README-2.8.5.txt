@@ -10,7 +10,7 @@ bug fixes
   numbers of idle HA queues
 - rapidly declaring and then deleting HA queues no longer crashes the master
 - fixed a race condition in handling node down signals, that could result in
-  HA queues failing to restart when bringing a mirror/slave back online
+  HA queues failing to restart when bringing a follower replica (mirror) back online
 - channels no longer crash when detecting nodes that have gone offline
 - rabbitmqctl no longer garbles error messages when rendering non-ASCII
   characters

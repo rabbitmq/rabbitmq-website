@@ -52,7 +52,7 @@ this behaviour, use the `overflow` setting described below.
 ## <a id="overflow-behaviour" class="anchor" href="#overflow-behaviour">Queue Overflow Behaviour</a>
 
 Use the `overflow` setting to configure queue overflow
-behaviour. If `overflow` is set to `reject-publish`,
+behaviour. If `overflow` is set to `reject-publish` or `reject-publish-dlx`,
 the most recently published messages will be discarded. In addition, if
 [publisher confirms](confirms.html#publisher-confirms)
 are enabled, the publisher will be informed of the reject via a
@@ -60,6 +60,8 @@ are enabled, the publisher will be informed of the reject via a
 queues and rejected by at least one of them, the channel will inform
 the publisher via `basic.nack`. The message will still be
 published to all other queues which can enqueue it.
+The difference between `reject-publish` and `reject-publish-dlx` is that
+`reject-publish-dlx` also [dead-letters](dlx.html) rejected messages.
 
 
 ## <a id="definition" class="anchor" href="#definition">Define Max Queue Length Using a Policy</a>
@@ -147,8 +149,8 @@ is hit first will be enforced.
 
 Overflow behaviour can be set by supplying the
 `x-overflow` queue declaration argument with a
-string value. Possible values are `drop-head` (default) or
-`reject-publish`
+string value. Possible values are `drop-head` (default),
+`reject-publish` or `reject-publish-dlx`.
 
 This example in Java declares a queue with a maximum length
 of 10 messages:

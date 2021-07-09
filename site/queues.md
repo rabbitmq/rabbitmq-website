@@ -87,6 +87,15 @@ of mandatory properties and a map of optional ones:
  * Auto-delete (queue that has had at least one consumer is deleted when last consumer unsubscribes)
  * Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)
 
+Note that **not all property combination make sense** in practice. For example, auto-delete
+and exclusive queues should be [server-named](#server-named-queues). Such queues are supposed to
+be used for client-specific or connection (session)-specific data.
+
+When auto-delete or exclusive queues use well-known (static) names, in case of client disconnection
+and immediate reconnection there will be a natural race condition between RabbitMQ nodes
+that will delete such queues and recovering clients that will try to re-declare them.
+This can result in client-side connection recovery failure or exceptions, and create unnecessary confusion
+or affect application availability.
 
 ### <a id="property-equivalence" class="anchor" href="#property-equivalence">Declaration and Property Equivalence</a>
 

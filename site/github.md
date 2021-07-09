@@ -70,15 +70,14 @@ with the latest stable release (ie. no changes to the Mnesia
 schema or the inter-node communication), or the <code>master</code>
 branch for everything else.
 
-## <a id="default-branch" class="anchor" href="#default-branch">The master branch</a>
+## <a id="default-branch" class="anchor" href="#default-branch">The main branch</a>
 
-The <code>master</code> branch contains all the work that
+The default repository branch contains all the work that
 has been QA'd so far that is scheduled to appear in the next
-release. The <code>master</code> branch of each RabbitMQ
-repository is usually roughly in sync with the
-<code>master</code> branches of the others. Generally, you
-can track QA'd development work by tracking the
-<code>master</code> branches of the RabbitMQ repositories
+feature release.
+
+Generally, you can track QA'd development work by tracking the
+main (default) branches of the RabbitMQ repositories
 of interest.
 
 ## <a id="maintenance-branches" class="anchor" href="#maintenance-branches">Maintenance branch</a>

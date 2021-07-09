@@ -17,7 +17,7 @@ limitations under the License.
 
 # Documentation: Table of Contents
 
-This page summarises the available RabbitMQ documentation for the current release, 3.8.4.
+This page summarises the available RabbitMQ documentation for the [latest patch release](versions.html).
 
 ## Installation
 

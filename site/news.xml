@@ -36,6 +36,40 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2021-07-05T14:00:00+00:00">5 July 2021</doc:date>
+      <doc:title>RabbitMQ 3.8.19 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.19</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.19.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="/changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and
+          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">supports Erlang 24</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2021-06-25T09:00:00+00:00">25 June 2021</doc:date>
       <doc:title>RabbitMQ 3.8.18 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18</doc:link>
@@ -44,8 +78,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.18.
         </p>
         <p>
-          This is a maintenance release that includes a security patch. Details
-          will be disclosed later.
+          This is a maintenance release that includes a security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5452-hxj4-773x">CVE-2021-32719</a>.
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
@@ -79,8 +112,7 @@ limitations under the License.
           The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.17.
         </p>
         <p>
-          This is a maintenance release that includes a security patch. Details
-          will be disclosed later.
+          This is a maintenance release that includes a security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c3hj-rg5h-2772">CVE-2021-32718</a>.
           Release notes can be found <a href="/changelog.html">in the change log</a>.
         </p>
         <p>
@@ -1408,7 +1440,7 @@ limitations under the License.
         <p>
           PackageCloud is one of the services used by the RabbitMQ team to distribute packages.
           The service signs all packages uploaded to it with their own signing key. Recently PackageCloud
-          started migrating to per-repository signing keys instead of a single master key.
+          started migrating to per-repository signing keys instead of a single primary key.
         </p>
         <p>
           On December 1st, 2018 (GMT) all repositories under the RabbitMQ account on PackageCloud will be switched to use the new

@@ -8,10 +8,10 @@ server
 bug fixes
 - long-running brokers could crash due to global unique identifiers not being
   unique enough
-- promotion of HA mirrors to master could fail when using confirms
+- leader election of mirrored queues could fail when using confirms
 - there was a slow memory leak in HA queues with persistent and confirmed
   messages
-- when using HA queues with policy of 'nodes', master queues didn't recover
+- when using HA queues with policy of 'nodes', leader replica didn't recover
   properly
 - HA queues could fail when nodes were restarting frequently
 - broker sometimes hung when closing channels and connection from multiple

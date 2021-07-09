@@ -39,12 +39,23 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.19</td>
+    <td class="centre">5 July 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.19">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.18</td>
     <td class="centre">25 June 2021</td>
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>Security vulnerability patch, details to be disclosed later</li>
+        <li>Security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-5452-hxj4-773x">CVE-2021-32719</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18">Release notes</a></td>
@@ -56,7 +67,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>Security vulnerability patch, details to be disclosed later</li>
+        <li>Security vulnerability patch for <a href="https://github.com/rabbitmq/rabbitmq-server/security/advisories/GHSA-c3hj-rg5h-2772">CVE-2021-32718</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.17">Release notes</a></td>

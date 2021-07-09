@@ -151,7 +151,7 @@ of what node their leader replica is located.
 
 Mirrored queues replicate their contents across a number of configured cluster
 nodes. When a node fails, queues with leader replica hosted on that node undergo a promotion
-(new master election). Key reliability criteria in this scenario is whether there is a replica (queue mirror)
+(new leader election). Key reliability criteria in this scenario is whether there is a replica (queue mirror)
 [eligible for promotion](/ha.html#unsynchronised-mirrors).
 
 Exclusive queues are tied to the lifecycle of their connection and thus are never mirrored

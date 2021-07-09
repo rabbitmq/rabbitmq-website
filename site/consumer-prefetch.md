@@ -121,3 +121,18 @@ messages between them, with a maximum of 10 messages for each
 consumer. This will be slower than the above examples, due to
 the additional overhead of coordinating between the channel and
 the queues to enforce the global limit.
+
+## <a id="default-limit" class="anchor" href="#default-limit">Configurable Default Prefetch</a>
+
+RabbitMQ can use a default prefetch that will be applied if the consumer doesn't specify one.
+The value can be configured as `rabbit.default_consumer_prefetch` in the [advanced configuration file](configure.html#advanced-config-file):
+
+<pre class="lang-erlang">
+%% advanced.config file
+[
+ {rabbit, [
+       {default_consumer_prefetch, 250}
+     ]
+ }
+].
+</pre>

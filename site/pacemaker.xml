@@ -227,7 +227,7 @@ ha-node-2:~#
         states that the <i>drbd_fs</i> and <i>drbd_ms:Master</i>
         resources must be on the same node. Finally, we know that we
         can only mount the file-system once the node has successfully
-        become the master node for the DRBD device. Similarly, we must
+        become the leader node for the DRBD device. Similarly, we must
         un-mount the DRBD device before degrading a node to the
         secondary for the DRBD device. Both of these are achieved by
         creating the order directive which says to promote the
@@ -334,7 +334,7 @@ Online: [ ha-node-2 ha-node-1 ]
 
         <p>Thus we can see that the <i>bunny</i> and <i>drbd_fs</i>
         resources are running only on <code>ha-node-1</code> and that
-        the <i>drbd_ms</i> resource has its master as
+        the <i>drbd_ms</i> resource has its primary as
         <code>ha-node-1</code> and its mirror as
         <code>ha-node-2</code>. The output of <code>mount</code>
         should show that <code>/media/drbd1</code> is mounted only on
@@ -654,7 +654,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           The flow charts of events for the main actions are depicted below.
         </p>
         <p>
-          Promoting a new master resource:
+          Promoting a new primary resource:
         </p>
 
         <img src="img/Rabbitmq_clustering_pacemaker_promote.png"/>
@@ -665,12 +665,12 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           members will remain running as is, unless any issues discovered later (lazy joining).
         </p>
         <p>
-          Demoting a master resource:
+          Demoting a primary resource:
         </p>
         <img src="img/Rabbitmq_clustering_pacemaker_demote.png"/>
         <p>
           Nothing is done on demote, the script only removes rabbit-master attribute to remember
-          that the current node is no longer master.
+          that the current node is no longer the primary one.
         </p>
         <p>
           Starting a resource:
@@ -697,7 +697,7 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
         </p>
         <img src="img/Rabbitmq_clustering_pacemaker_split_brain.png"/>
         <p>
-          Before checking if other nodes are clustered with the master, the master first checks
+          Before checking if other nodes are clustered with the primary, the primary first checks
           its own health. Only if its health is ok, orders to restart could be given to the other
           nodes. That way we always keep at least one node (master) alive.
         </p>

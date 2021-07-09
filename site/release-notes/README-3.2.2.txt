@@ -8,7 +8,7 @@ server
 bug fixes
 25873 prevent possibility of deadlock when mirrors start up (since 2.6.0)
 25867 ensure automatic synchronisation does not fail when policy change
-      causes new mirrors to start and the master to change simultaneously
+      causes new mirrors to start and the leader replica to change simultaneously
       (since 3.1.0)
 25870 prevent the worker pool from running out of processes due to processes
       crashing (since 1.8.0)
