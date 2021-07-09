@@ -305,6 +305,8 @@ NB: retention is evaluated on per segment basis so there is one more parameter
 that comes into effect and that is the segment size of the stream. The stream will
 always leave at least one segment in place as long as the segment contains at least
 one message.
+When using broker-provided [offset-tracking](#offset-tracking), offsets for each consumer
+are persisted in the stream itself as non-message data.
 
 
 ## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
