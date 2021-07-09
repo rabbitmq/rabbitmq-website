@@ -56,61 +56,56 @@ with a [commercial support contract](/contact.html).
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
 This release calendar presents the scheduled milestones for the release cycle
-of RabbitMQ 3.9.0. It was **last updated on Thursday 8 July 2021**.
+of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
 
 <table class="release-series">
   <tr>
     <th>Milestone</th>
-    <th>Comment</th>
-    <th>Anticipated date</th>
-    <th>Actual date</th>
+    <th>Anticipated Date</th>
+    <th>Actual Date</th>
+    <th>Notes</th>
   </tr>
 
   <tr>
     <td>Code freeze</td>
-    <td>At this point, we commit to only making bug fixes to the code.</td>
-    <td style="white-space: nowrap;">Mon 5 Jul 2021</td>
-    <td style="white-space: nowrap;">Wed 7 Jul 2021</td>
+    <td style="white-space: nowrap;">5 July 2021</td>
+    <td style="white-space: nowrap;">7 July 2021</td>
+    <td>No new features or refactorings before GA, only bug fixes</td>
   </tr>
 
   <tr>
-    <td>3.9.0-rc.1 build starts</td>
-    <td>The build is started in CI one day before it is announced.</td>
-    <td style="white-space: nowrap;">Fri 9 Jul 2021</td>
-    <td style="white-space: nowrap;"></td>
+    <td>3.9.0-rc.1 produced</td>
+    <td style="white-space: nowrap;">9 July 2021</td>
+    <td style="white-space: nowrap;">9 July 2021</td>
+    <td>CI produces & publishes all artefacts</td>
   </tr>
 
   <tr>
-    <td><strong>3.9.0-rc.1 is announced</strong></td>
-    <td>The release candidate is announced so that the community can test and
-    give feedback.</td>
-    <td style="white-space: nowrap;">Mon 12 Jul 2021</td>
-    <td style="white-space: nowrap;"></td>
+    <td><strong>3.9.0-rc.1 announced</strong></td>
+    <td style="white-space: nowrap;">12 July 2021</td>
+    <td style="white-space: nowrap;">9 July 2021</td>
+    <td>First release candidate is announced & mmade public for testing</td>
   </tr>
 
   <tr>
-    <td>3.9.0-rc.2 is added to the release cycle if needed</td>
-    <td>If there are still issues after 3.9.0-rc.1 we want to fix before the
-    final release, we may add more release candidates until all known issues
-    are either fixed or documented.<br/>
-    NOTE: RabbitMQ Summit 2021 is taking place around July 13th/14th.</td>
+    <td>3.9.0-rc.2</td>
     <td style="white-space: nowrap;">TBD</td>
     <td style="white-space: nowrap;"></td>
+    <td>If new issues are reported, a new RC with fixed is made available for testing</td>
   </tr>
 
   <tr>
-    <td>3.9.0 build starts</td>
-    <td>The final build of 3.9.0 is started in CI. The content of this release
-    is exactly the same as the last release candidate.</td>
-    <td style="white-space: nowrap;">Fri 23 Jul 2021</td>
+    <td>3.9.0 produced</td>
+    <td style="white-space: nowrap;">23 July 2021</td>
     <td style="white-space: nowrap;"></td>
+    <td>Final release is built & published</td>
   </tr>
 
   <tr>
-    <td><strong>3.9.0 is announced</strong></td>
-    <td></td>
-    <td style="white-space: nowrap;">Mon 26 Jul 2021</td>
+    <td><strong>3.9.0 announced</strong></td>
+    <td style="white-space: nowrap;">26 July 2021</td>
     <td style="white-space: nowrap;"></td>
+    <td>Final release is announced & made public</td>
   </tr>
 </table>
 
