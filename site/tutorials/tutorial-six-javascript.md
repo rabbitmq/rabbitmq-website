@@ -30,7 +30,7 @@ But what if we need to run a function on a remote computer and wait for
 the result?  Well, that's a different story. This pattern is commonly
 known as _Remote Procedure Call_ or _RPC_.
 
-In this tutorial we're going to use RabbitMQ to build an RPC system: a
+In this tutorial we're going to use RabbitMQ to build a RPC system: a
 client and a scalable RPC server. As we don't have any time-consuming
 tasks that are worth distributing, we're going to create a dummy RPC
 service that returns Fibonacci numbers.
