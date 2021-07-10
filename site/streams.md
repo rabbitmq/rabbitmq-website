@@ -26,7 +26,7 @@ They can be used as a regular AMQP 0.9.1 queue or through a
 plugin and associated client(s).
 
 This page covers the concepts of streams, their usage as AMQP 0.9.1 queues, and
-their administation and maintenance operations. Please visit the [Stream plugin](/stream.html)
+their administration and maintenance operations. Please visit the [Stream plugin](/stream.html)
 page to learn more about the usage of streams with the custom binary protocol.
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
@@ -231,7 +231,7 @@ support are not supported and will never be due to the nature of the queue type.
 An AMQP 0.9.1 client library that can use regular mirrored queues will be able to use streams
 as long as it uses consumer acknowledgements.
 
-Many features will never be supported by streams due their non-destructive
+Many features will never be supported by streams due to their non-destructive
 read semantics.
 
 ### <a id="feature-matrix" class="anchor" href="#feature-matrix">Feature Matrix</a>

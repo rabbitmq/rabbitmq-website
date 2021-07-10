@@ -254,7 +254,7 @@ spec:
     name: example-rabbit
 </pre>
 
-More [shovelsexaples ](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
+More [shovels examples](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/shovels).
 
 ## <a id='update' class='anchor' href='#update'>Update Resources</a>
 

@@ -139,7 +139,7 @@ will be performed. This is true for all backends.
 A new node joining a cluster is just one possible case. Another common scenario
 is when an existing cluster member temporarily leaves and then rejoins the cluster.
 While the peer discovery subsystem does not affect the behavior described in this section,
-it important to understand how nodes behave when they rejoin their cluster after a restart or failure.
+it's important to understand how nodes behave when they rejoin their cluster after a restart or failure.
 
 Existing cluster members <strong>will not perform peer discovery</strong>. Instead they will try to
 contact their previously known peers.
@@ -1216,7 +1216,7 @@ forming the cluster (seeding) or joining a peer. What locks are used varies from
 
 Nodes in clusters formed using peer discovery can fail, become unavailable or be permanently
 removed (decomissioned). Some operators may want such nodes to be automatically removed
-from the cluster after a period of time. Such automated forced removal also can produced
+from the cluster after a period of time. Such automated forced removal also can produce
 unforeseen side effects, so RabbitMQ does not enforce this behavior. It **should be used
 with great care** and only if the side effects are fully understood and considered.
 

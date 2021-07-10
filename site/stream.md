@@ -105,7 +105,7 @@ stream.heartbeat = 120 # in seconds
 
 ### <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
-Fast publishers can overhelm the broker if it cannot keep up writing and replicating inbound messages.
+Fast publishers can overwhelm the broker if it cannot keep up writing and replicating inbound messages.
 So each connection has a maximum number of outstanding unconfirmed messages allowed before being blocked
 (`initial_credits`, defaults to 50,000). The connection is unblocked when a given number of messages
 is confirmed (`credits_required_for_unblocking`, defaults to 12,500). You can change those values
