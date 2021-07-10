@@ -59,7 +59,7 @@ available for which versions of the distribution.
 
 ## <a id="supported-distributions" class="anchor" href="#supported-distributions">Supported Distributions</a>
 
-RabbitMQ is supported on several major RPM-based distributions that are still supported
+RabbitMQ is supported on several major RPM-based distributions that are still actively maintained
 by their primary vendor or developer group.
 
 Note that modern versions of Erlang can have incompatibilities with older distributions (e.g. older than three to four years)
@@ -70,7 +70,7 @@ Erlang 24 cannot be used on distributions that **do not** ship with OpenSSL 1.1 
 
 Currently the list of supported RPM-based distributions includes
 
- * CentOS 8.x
+ * CentOS Linux 8.x and [CentOS Stream](https://centos.org/centos-stream/) 8.x
  * RedHat Enterprise Linux 8.x
  * Fedora 32 through 34 (use the CentOS 8.x package)
 
