@@ -66,7 +66,8 @@ Note that modern versions of Erlang can have incompatibilities with older distri
 or ship without much or any testing on older distributions or OS kernel versions.
 
 Older distributions can also lack a recent enough version of OpenSSL.
-Erlang 24 cannot be used on distributions that **do not** ship with OpenSSL 1.1 by default.
+Erlang 24 **cannot be used on distributions that do not provide OpenSSL 1.1** as a system library.
+CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
