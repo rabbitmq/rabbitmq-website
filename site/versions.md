@@ -56,7 +56,7 @@ with a [commercial support contract](/contact.html).
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
 This release calendar presents the scheduled milestones for the release cycle
-of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
+of RabbitMQ 3.9.0. **Last updated on Monday, 12 July 2021.**
 
 <table class="release-series">
   <tr>
@@ -74,35 +74,49 @@ of RabbitMQ 3.9.0. **Last updated on Friday, 9 July 2021.**
   </tr>
 
   <tr>
-    <td>3.9.0-rc.1 produced</td>
+    <td>3.9.0-rc.1 build starts</td>
     <td style="white-space: nowrap;">9 July 2021</td>
     <td style="white-space: nowrap;">9 July 2021</td>
     <td>CI produces &amp; publishes all artefacts</td>
   </tr>
 
   <tr>
-    <td><strong>3.9.0-rc.1 announced</strong></td>
+    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0-rc.1">3.9.0-rc.1 is announced</a></strong></td>
     <td style="white-space: nowrap;">12 July 2021</td>
     <td style="white-space: nowrap;">9 July 2021</td>
     <td>First release candidate is announced &amp; made public for testing</td>
   </tr>
 
   <tr>
-    <td>3.9.0-rc.2</td>
+    <td>3.9.0-rc.2 build starts</td>
+    <td style="white-space: nowrap;">16 July 2021</td>
+    <td style="white-space: nowrap;"></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td><strong>3.9.0-rc.2 is announced</strong></td>
+    <td style="white-space: nowrap;">19 July 2021</td>
+    <td style="white-space: nowrap;"></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>3.9.0-rc.3</td>
     <td style="white-space: nowrap;">TBD</td>
     <td style="white-space: nowrap;"></td>
     <td>If new issues are reported, a new RC with fixes is made available for testing</td>
   </tr>
 
   <tr>
-    <td>3.9.0 produced</td>
+    <td>3.9.0 build starts</td>
     <td style="white-space: nowrap;">23 July 2021</td>
     <td style="white-space: nowrap;"></td>
     <td>Final release is built &amp; published</td>
   </tr>
 
   <tr>
-    <td><strong>3.9.0 announced</strong></td>
+    <td><strong>3.9.0 is announced</strong></td>
     <td style="white-space: nowrap;">26 July 2021</td>
     <td style="white-space: nowrap;"></td>
     <td>Final release is announced &amp; made public</td>
