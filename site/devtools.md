@@ -106,6 +106,7 @@ Miscellaneous projects:
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
+ * [amqp-client.js](https://github.com/cloudamqp/amqp-client.js) AMQP 0-9-1 client both for Node.js and browsers (using WebSocket)
 
 
 ## <a id="objc-swift-dev" class="anchor" href="#objc-swift-dev">Objective-C and Swift</a>
