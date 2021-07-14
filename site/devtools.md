@@ -276,3 +276,4 @@ Miscellaneous projects:
    fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It is messaging protocol-agnostic.
  * [QDB: Persistent Message Queues with Replay](http://qdb.io/): queue backup and replay over AMQP 0-9-1. Includes REST API
  * [AMQProxy](https://github.com/cloudamqp/amqproxy): An AMQP 0-9-1 proxy, with connection and channel pooling/reusing
+ * [amqpcat](https://github.com/cloudamqp/amqpcat): A netcat-like CLI tool for producing and consuming AMQP 0-9-1 messages.
