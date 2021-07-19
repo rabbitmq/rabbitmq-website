@@ -55,13 +55,14 @@ with a [commercial support contract](/contact.html).
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-**Last updated on Monday, 19 July 2021.**
+**Last updated on Monday, 19 July 2021**
 
 This release calendar presents the scheduled milestones for the release cycle
-of RabbitMQ 3.9.0.
+of RabbitMQ 3.9.0. If you have feedback, [this is a good place for
+it](https://github.com/rabbitmq/rabbitmq-server/discussions/3184).
 
-We intend to continue general support for 3.8.x release series for another 6
-months from the date 3.9.0 is made available to the public.
+We intend to continue general support for 3.8.x for another 6 months from the
+date 3.9.0 is made available to the public.
 
 <table class="release-series">
   <tr>
@@ -100,7 +101,7 @@ months from the date 3.9.0 is made available to the public.
   </tr>
 
   <tr>
-    <td><strong>3.9.0-rc.2 is announced</strong></td>
+    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0-rc.2">3.9.0-rc.2 is announced</a></strong></td>
     <td style="white-space: nowrap;">19 July 2021</td>
     <td style="white-space: nowrap;">19 July 2021</td>
     <td>Second release candidate is announced &amp; made public for testing</td>
