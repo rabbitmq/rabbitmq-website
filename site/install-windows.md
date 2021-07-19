@@ -117,7 +117,7 @@ and run it. It installs RabbitMQ as a Windows service and starts it using the de
 
 Once both Erlang and RabbitMQ have been installed, a RabbitMQ node can be started as a Windows service.
 The RabbitMQ service starts automatically. RabbitMQ Windows service
-ca be managed from the Start menu.
+can be managed from the Start menu.
 
 
 ## <a id="cli" class="anchor" href="#cli">CLI Tools</a>
