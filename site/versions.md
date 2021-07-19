@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide explains what release series of RabbitMQ (e.g. `3.8.x`) are currently covered
+This guide explains what release series of RabbitMQ are currently covered
 by general or extended support policies, and what series are no longer supported.
 
 For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deployment Upgrade](/blue-green-upgrade.html) guides.
@@ -55,8 +55,13 @@ with a [commercial support contract](/contact.html).
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
+**Last updated on Monday, 19 July 2021.**
+
 This release calendar presents the scheduled milestones for the release cycle
-of RabbitMQ 3.9.0. **Last updated on Monday, 12 July 2021.**
+of RabbitMQ 3.9.0.
+
+We intend to continue general support for 3.8.x release series for another 6
+months from the date 3.9.0 is made available to the public.
 
 <table class="release-series">
   <tr>
@@ -90,15 +95,15 @@ of RabbitMQ 3.9.0. **Last updated on Monday, 12 July 2021.**
   <tr>
     <td>3.9.0-rc.2 build starts</td>
     <td style="white-space: nowrap;">16 July 2021</td>
-    <td style="white-space: nowrap;"></td>
-    <td></td>
+    <td style="white-space: nowrap;">16 July 2021</td>
+    <td>CI produces &amp; publishes all artefacts</td>
   </tr>
 
   <tr>
     <td><strong>3.9.0-rc.2 is announced</strong></td>
     <td style="white-space: nowrap;">19 July 2021</td>
-    <td style="white-space: nowrap;"></td>
-    <td></td>
+    <td style="white-space: nowrap;">19 July 2021</td>
+    <td>Second release candidate is announced &amp; made public for testing</td>
   </tr>
 
   <tr>
