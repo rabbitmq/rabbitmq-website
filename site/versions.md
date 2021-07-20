@@ -19,8 +19,9 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide explains what release series of RabbitMQ are currently covered
-by general or extended support policies, and what series are no longer supported.
+This guide explains what release series of RabbitMQ are currently covered by
+general or extended support policies, which release series is coming next, and
+what series are no longer supported.
 
 For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deployment Upgrade](/blue-green-upgrade.html) guides.
 
@@ -46,23 +47,18 @@ For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deplo
   </tr>
 </table>
 
-<sup>1</sup> **General Support** means patch releases that are [produced regularly](/changelog.html) based on the feedback of
-open source users and users with a [commercial support contract](/contact.html).
+<sup>1</sup> **General Support** means patch releases that are [produced
+regularly](/changelog.html) based on feedback from all users.
 
-<sup>2</sup> **Extended Support** means only *security patches* and *high-severity issues* reported by users
-with a [commercial support contract](/contact.html).
+<sup>2</sup> **Extended Support** means *security patches* and *high-severity
+issues* reported by users with a [commercial support contract](/contact.html).
 
 
-## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
+## <a id="" class="anchor" href="#next-release-series">Next Release Series - Updated on 19 July 2021</a>
 
-**Last updated on Monday, 19 July 2021**
-
-This release calendar presents the scheduled milestones for the release cycle
-of RabbitMQ 3.9.0. If you have feedback, [this is a good place for
-it](https://github.com/rabbitmq/rabbitmq-server/discussions/3184).
-
-We intend to continue general support for 3.8.x for another 6 months from the
-date 3.9.0 is made available to the public.
+This release calendar communicates milestones for the release cycle of RabbitMQ
+3.9.0. [This is a good place to give us
+feedback](https://github.com/rabbitmq/rabbitmq-server/discussions/3184).
 
 <table class="release-series">
   <tr>
@@ -128,6 +124,10 @@ date 3.9.0 is made available to the public.
     <td>Final release is announced &amp; made public</td>
   </tr>
 </table>
+
+After 3.9.0 is made available to the public, we intend to continue general
+support for 3.8.x for another 6 months.
+
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
