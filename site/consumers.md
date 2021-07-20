@@ -399,7 +399,7 @@ The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
 
 <pre class="lang-ini">
 # 30 minutes in milliseconds
-consumer_timeout = 180000
+consumer_timeout = 1800000
 </pre>
 
 <pre class="lang-ini">
