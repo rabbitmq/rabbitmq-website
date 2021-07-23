@@ -289,10 +289,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>
-          <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/ANN|sort:date/rabbitmq-users/9tc_OE1eMPk/ly1NEISwBwAJ">Erlang/OTP <code>20.x</code> support is discontinued</a>
-        </li>
-        <li>Erlang 22.x dropped support for HiPE</li>
+        <li>RabbitMQ 3.7 was released on 2017-11-28, and reached end of life on 2020-09-30, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -318,8 +315,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/vcRLhpUdg_o">Erlang/OTP <code>22.0</code> compatibility notes</a></li>
-        <li><a href="/ssl.html#tls-versions">TLSv1.0 and TLSv1.1 support</a> is disabled by default on Erlang 22.x</li>
+        <li>RabbitMQ 3.7 was released on 2017-11-28, and reached end of life on 2020-09-30, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -345,8 +341,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/G4UJ9zbIYHs">Erlang/OTP <code>19.x</code> support is discontinued</a></li>
-        <li>For the best TLS support, the latest version of Erlang/OTP 21.x is recommended</li>
+        <li>RabbitMQ 3.7 was released on 2017-11-28, and reached end of life on 2020-09-30, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -372,7 +367,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/EuRwfeTGA_o">Erlang/OTP <code>21.0</code> compatibility notes</a></li>
+        <li>RabbitMQ 3.7 was released on 2017-11-28, and reached end of life on 2020-09-30, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -401,10 +396,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>For the best TLS support, the latest version of Erlang/OTP 20.x is recommended</li>
-        <li>Erlang versions prior to 19.3.6.4 have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>) that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping</li>
-        <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
-        <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
+        <li>RabbitMQ 3.7 was released on 2017-11-28, and reached end of life on 2020-09-30, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -429,12 +421,6 @@ source, including specific tags from GitHub, a much more pleasant experience.
     <td>
       <ul class="notes">
         <li>RabbitMQ 3.6 was released on 2015-12-22, and reached end of life on 2018-05-31, we strongly discourage its use</li>
-        <li>On Windows, Erlang/OTP 20.2 changed <a href="/cli.html">default cookie file location</a></li>
-        <li>
-          Versions prior to 19.3.6.4 have known bugs (e.g. <a href="https://bugs.erlang.org/browse/ERL-430">ERL-430</a>, <a href="https://bugs.erlang.org/browse/ERL-448">ERL-448</a>)
-          that can prevent RabbitMQ nodes from accepting connections (including from CLI tools) and stopping
-        </li>
-        <li>Versions prior to 19.3.6.4 are vulnerable to the <a href="https://robotattack.org/">ROBOT attack</a> (CVE-2017-1000385)</li>
       </ul>
     </td>
   </tr>
