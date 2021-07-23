@@ -58,6 +58,32 @@ data:
   ca.crt: # ca cert that can be used to validate the webhook's server certificate
   tls.crt: # generated certificate
   tls.key: # generated key</pre>
+3. Add webhook ca certificate in downloaded release manifest `messaging-topology-operator.yaml`. There are 10 admission webhooks, one for each CRD type.
+   Look for keyword `clientConfig` in the manifest, and paste the webhook ca cert under `clientConfig.caBundle`.
+   Because there are 10 different webhooks, you need to perform this action in 10 different places.
+   The example below shows how to add ca cert to the `queues.rabbitmq.com` validating webhook:
+<pre class="lang-yaml">
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: # generated ca certificate goes in here
+    service:
+      name: webhook-service
+      namespace: rabbitmq-system
+      path: /validate-rabbitmq-com-v1beta1-queue
+  failurePolicy: Fail
+  name: vqueue.kb.io
+  rules:
+  - apiGroups:
+    - rabbitmq.com
+...</pre>
+
 
 Then, to install the Operator, run the following command:
 
