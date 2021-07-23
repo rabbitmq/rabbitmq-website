@@ -23,7 +23,8 @@ This guide explains what release series of RabbitMQ are currently covered by
 general or extended support policies, which release series is coming next, and
 what series are no longer supported.
 
-For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deployment Upgrade](/blue-green-upgrade.html) guides.
+For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green
+Deployment Upgrade](/blue-green-upgrade.html) guides.
 
 ## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
 
@@ -38,10 +39,19 @@ For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deplo
   </tr>
 
   <tr>
+    <td>3.9</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">3.9.0</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">26 July 2021</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr>
     <td>3.8</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/&version-server-tag;" target="_blank">&version-server;</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0" target="_blank">1 October 2019</a></td>
-    <td></td>
+    <td>31 January 2022</td>
     <td></td>
     <td></td>
   </tr>
@@ -51,14 +61,12 @@ For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deplo
 regularly](/changelog.html) based on feedback from all users.
 
 <sup>2</sup> **Extended Support** means *security patches* and *high-severity
-issues* reported by users with a [commercial support contract](/contact.html).
+issues* reported by users with a [commercial license](/contact.html#paid-support).
 
 
-## <a id="" class="anchor" href="#next-release-series">Next Release Series - Updated on 19 July 2021</a>
+## <a id="" class="anchor" href="#next-release-series">Next Release Series - Updated on 23 July 2021</a>
 
-This release calendar communicates milestones for the release cycle of RabbitMQ
-3.9.0. [This is a good place to give us
-feedback](https://github.com/rabbitmq/rabbitmq-server/discussions/3184).
+This release calendar contains milestones for the RabbitMQ 3.9.0 release.
 
 <table class="release-series">
   <tr>
@@ -104,16 +112,9 @@ feedback](https://github.com/rabbitmq/rabbitmq-server/discussions/3184).
   </tr>
 
   <tr>
-    <td>3.9.0-rc.3</td>
-    <td style="white-space: nowrap;">TBD</td>
-    <td style="white-space: nowrap;"></td>
-    <td>If new issues are reported, a new RC with fixes is made available for testing</td>
-  </tr>
-
-  <tr>
     <td>3.9.0 build starts</td>
     <td style="white-space: nowrap;">23 July 2021</td>
-    <td style="white-space: nowrap;"></td>
+    <td style="white-space: nowrap;">23 July 2021</td>
     <td>Final release is built &amp; published</td>
   </tr>
 
