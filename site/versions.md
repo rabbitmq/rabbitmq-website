@@ -41,7 +41,7 @@ Deployment Upgrade](/blue-green-upgrade.html) guides.
   <tr>
     <td>3.9</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">3.9.0</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">26 July 2021</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">23 July 2021</a></td>
     <td></td>
     <td></td>
     <td></td>
@@ -119,10 +119,10 @@ This release calendar contains milestones for the RabbitMQ 3.9.0 release.
   </tr>
 
   <tr>
-    <td><strong>3.9.0 is announced</strong></td>
+    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0">3.9.0 is announced</a></strong></td>
     <td style="white-space: nowrap;">26 July 2021</td>
     <td style="white-space: nowrap;"></td>
-    <td>Final release is announced &amp; made public</td>
+    <td>Final release is announced</td>
   </tr>
 </table>
 
