@@ -41,7 +41,7 @@ Deployment Upgrade](/blue-green-upgrade.html) guides.
   <tr>
     <td>3.9</td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">3.9.0</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">23 July 2021</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">26 July 2021</a></td>
     <td></td>
     <td></td>
     <td></td>
@@ -64,71 +64,9 @@ regularly](/changelog.html) based on feedback from all users.
 issues* reported by users with a [commercial license](/contact.html#paid-support).
 
 
-## <a id="" class="anchor" href="#next-release-series">Next Release Series - Updated on 23 July 2021</a>
+## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-This release calendar contains milestones for the RabbitMQ 3.9.0 release.
-
-<table class="release-series">
-  <tr>
-    <th>Milestone</th>
-    <th>Anticipated Date</th>
-    <th>Actual Date</th>
-    <th>Notes</th>
-  </tr>
-
-  <tr>
-    <td>Code freeze</td>
-    <td style="white-space: nowrap;">5 July 2021</td>
-    <td style="white-space: nowrap;">7 July 2021</td>
-    <td>No new features or refactorings before the final release, only bug fixes</td>
-  </tr>
-
-  <tr>
-    <td>3.9.0-rc.1 build starts</td>
-    <td style="white-space: nowrap;">9 July 2021</td>
-    <td style="white-space: nowrap;">9 July 2021</td>
-    <td>CI produces &amp; publishes all artefacts</td>
-  </tr>
-
-  <tr>
-    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0-rc.1">3.9.0-rc.1 is announced</a></strong></td>
-    <td style="white-space: nowrap;">12 July 2021</td>
-    <td style="white-space: nowrap;">9 July 2021</td>
-    <td>First release candidate is announced &amp; made public for testing</td>
-  </tr>
-
-  <tr>
-    <td>3.9.0-rc.2 build starts</td>
-    <td style="white-space: nowrap;">16 July 2021</td>
-    <td style="white-space: nowrap;">16 July 2021</td>
-    <td>CI produces &amp; publishes all artefacts</td>
-  </tr>
-
-  <tr>
-    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0-rc.2">3.9.0-rc.2 is announced</a></strong></td>
-    <td style="white-space: nowrap;">19 July 2021</td>
-    <td style="white-space: nowrap;">19 July 2021</td>
-    <td>Second release candidate is announced &amp; made public for testing</td>
-  </tr>
-
-  <tr>
-    <td>3.9.0 build starts</td>
-    <td style="white-space: nowrap;">23 July 2021</td>
-    <td style="white-space: nowrap;">23 July 2021</td>
-    <td>Final release is built &amp; published</td>
-  </tr>
-
-  <tr>
-    <td><strong><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0">3.9.0 is announced</a></strong></td>
-    <td style="white-space: nowrap;">26 July 2021</td>
-    <td style="white-space: nowrap;"></td>
-    <td>Final release is announced</td>
-  </tr>
-</table>
-
-After 3.9.0 is made available to the public, we intend to continue general
-support for 3.8.x for another 6 months.
-
+As of 26 July 2021, the next release series has not been announced yet.
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
