@@ -614,7 +614,7 @@ Exchanges can be bound together thanks to a [RabbitMQ extension](e2e.html).
 Note the [topic selector plugin](#plugin) must be enabled for topic selectors
 to work.
 
-## <a id="queue_browser_support"></a>QueueBrowser Support
+## <a id="queue-browser-support" class="anchor" href="#queue-browser-support">QueueBrowser Support</a>
 
 ### Overview of queue browsers
 

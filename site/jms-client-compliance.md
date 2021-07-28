@@ -1542,7 +1542,7 @@ The JMS for RabbitMQ client does not support server sessions.
 
 ## <a id="QueueBrowser" class="anchor" href="#QueueBrowser">QueueBrowser</a>
 
-See [QueueBrowser support](jms-client-api-guide.html#queue_browser_sup) for implementation details.
+See [QueueBrowser support](jms-client.html#queue-browser-support) for implementation details.
 
 <table>
 <colgroup>
