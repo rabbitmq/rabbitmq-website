@@ -135,7 +135,7 @@ connections. This communication method assumes that the application that uses
 the client runs on the same Erlang cluster as RabbitMQ nodes.
 
 The use of direct client should be limited to applications that are deployed
-side by side with RabbitMQ. [Shovel](shovel.html) and [Federation](/federation.thml)
+side by side with RabbitMQ. [Shovel](shovel.html) and [Federation](/federation.html)
 plugins are two examples of such applications.
 
 In most other cases, developers should prefer the more traditional network client covered above.

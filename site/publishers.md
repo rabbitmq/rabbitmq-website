@@ -130,7 +130,7 @@ In AMQP 1.0 publishing happens within a context of a link.
 ### MQTT 3.1
 
 In MQTT 3.1.1, messages are published on a connection to a topic. Topics perform both routing and storage.
-In RabbitMQ, a topic is backed by a [queue](/queue.html) internally.
+In RabbitMQ, a topic is backed by a [queue](/queues.html) internally.
 
 When publisher chooses to use QoS 1, published messages are acknowledged by the routing node
 using a [PUBACK frame](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718043),
@@ -628,7 +628,7 @@ routed to any queues or consumers. This can be due to
 
  * A configuration mismatch between applications, e.g. topics used by the publishers and consumers do not match
  * Publisher misconfiguration (exchange, topic, routing key are not what they should be)
- * For AMQP 0-9-1, missing [bindings](/amqp-concepts.html) on the target exchange
+ * For AMQP 0-9-1, missing [bindings](/tutorials//amqp-concepts.html) on the target exchange
  * A resource alarm is in effect: see the section below
  * Network connection has failed and the client did not recover: see the section above
 
@@ -666,7 +666,7 @@ will help spot a resource alarm in effect.
 
 When a resource alarm is in effect, all connections that publish will be blocked
 until the alarm clears. Clients can opt-in to [receive a notification](/connection-blocked.html) when they
-are blocked. Learn more in the [Resource Alarms guide](/alarm.shtml).
+are blocked. Learn more in the [Resource Alarms guide](/alarms.html).
 
 
 ### Protocol Exceptions

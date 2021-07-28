@@ -131,8 +131,8 @@ Modern versions of this library (e.g. `6.x`) are distributed as a [NuGet package
     <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
   </tr>
   <tr>
-    <td class="desc">3.x Series Binary Builds</td>
-    <td><a href="/releases/rabbitmq-dotnet-client">3.x builds</a></td>
+    <td class="desc">3.x NuGet package</td>
+    <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client NuGet package</a></td>
   </tr>
 </table>
 

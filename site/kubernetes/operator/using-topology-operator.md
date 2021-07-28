@@ -19,7 +19,7 @@ This guide has the following sections:
 * [Limitations](#limitations)
 * [TLS](#tls)
 
-## <a id='requirements' class='anchor' href='requirements'>Requirements</a>
+## <a id='requirements' class='anchor' href='#requirements'>Requirements</a>
 
 * Messaging Topology Operator can only be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
 The minimal version required for Cluster Operator is `1.7.0`.
@@ -272,7 +272,7 @@ for: "test-queue.yaml": admission webhook "vqueue.kb.io" denied the request: Que
 
 Properties that cannot be updated is documented in the [Messaging Topology Operator API docs](https://github.com/rabbitmq/messaging-topology-operator/blob/main/docs/api/rabbitmq.com.ref.asciidoc).
 
-## <a id='delete' class='anchor' href='delete'>Delete a resource</a>
+## <a id='delete' class='anchor' href='#delete'>Delete a resource</a>
 
 Deleting custom resources will delete the corresponding resources in the RabbitMQ cluster. Messaging Topology Operator sets kubernetes
 [finalizers](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#finalizers) on all custom
@@ -287,7 +287,7 @@ default user credentials and may cause Messaging Topology Operator not be able t
 you can create a RabbitmqCluster without importing definitions, or you can manually update the default user kubernetes secret to the actual
 user credentials set in the definitions.
 
-## <a id='tls' class='anchor' href='tls'>TLS</a>
+## <a id='tls' class='anchor' href='#tls'>TLS</a>
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
 steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](/kubernetes/operator/tls-topology-operator.html) to configure

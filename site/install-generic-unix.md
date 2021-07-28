@@ -25,7 +25,7 @@ This package is recommended in environments where more opinionated installation 
 (the [Debian](/install-debian.html) or [RPM packages](/install-rpm.html), [Homebrew](/install-homebrew.html), BSD ports) cannot be used.
 It is also the most convenient option for running multiple versions on the same machine
 in development environments, e.g. [preview release](/snapshots.html) testing.
-There's a separate [binary package for Windows](/install-windows-manually.html).
+There's a separate [binary package for Windows](/install-windows-manual.html).
 
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>

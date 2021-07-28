@@ -1044,7 +1044,7 @@ spec:
     caSecretName: ca-secret
 </pre>
 
-In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](ssl.html#peer-verification) using
+In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](/ssl.html#peer-verification) using
 the `ssl_options.fail_if_no_peer_cert` option in the additional config:
 
 <pre class="lang-yaml">

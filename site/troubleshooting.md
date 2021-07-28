@@ -55,7 +55,7 @@ lifecycle events that can be detected using log files, and more.
 
 ## <a id="configuration" class="anchor" href="#configuration">Node Configuration</a>
 
-[Configuration guide](/configuration.html) contains a section on [locating config file](/configure.html#verify-configuration-config-file-location).
+[Configuration guide](/configure.html) contains a section on [locating config file](/configure.html#verify-configuration-config-file-location).
 
 Effective node configuration can be inspected using <code>[rabbitmqctl](/cli.html) environment</code> as
 well as a number of [rabbitmq-diagnostics](/cli.html) commands.

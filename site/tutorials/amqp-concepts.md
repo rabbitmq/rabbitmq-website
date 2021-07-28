@@ -576,7 +576,7 @@ broker. However, it is undesirable to keep many TCP
 connections open at the same time because doing so consumes
 system resources and makes it more difficult to configure
 firewalls. AMQP 0-9-1 connections are multiplexed with
-_[channels](channels.html)_ that can be thought of as "lightweight
+_[channels](/channels.html)_ that can be thought of as "lightweight
 connections that share a single TCP connection".
 
 Every protocol operation performed by a client happens on a channel.

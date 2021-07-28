@@ -143,7 +143,7 @@ Other guides related to Kubernetes:
  * [API guide](/dotnet-api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/)
  * [License and other information](/dotnet.html)
- * [Older versions](/releases/releases/rabbitmq-dotnet-client)
+ * [Older versions](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases)
 
 ### Erlang Client
 
