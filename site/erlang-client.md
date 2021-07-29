@@ -72,7 +72,7 @@ Please refer to the [Erlang RabbitMQ user guide](/erlang-client-user-guide.html)
 
 ### Other Versions
 
-Consult [the archive](/releases/rabbitmq-erlang-client/) if you want
+Consult [the archive](https://hex.pm/packages/amqp_client/versions) if you want
 to download a version of the RabbitMQ Erlang Client library other than the above.
 
 

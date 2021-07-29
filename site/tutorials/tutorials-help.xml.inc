@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-  <div class="aside" xmlns="http://www.w3.org/1999/xhtml">
+  <div class="aside" style="margin-top: -10px;" xmlns="http://www.w3.org/1999/xhtml">
     <h3>Prerequisites</h3>
     <p>
       This tutorial assumes RabbitMQ is <a href="/download.html">installed</a> and running

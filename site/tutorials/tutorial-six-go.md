@@ -16,10 +16,10 @@ limitations under the License.
 -->
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 ## Remote procedure call (RPC)
 ### (using the Go RabbitMQ client)
 
-<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
 In the [second tutorial](tutorial-two-go.html) we learned how to

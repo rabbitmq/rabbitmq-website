@@ -16,10 +16,10 @@ limitations under the License.
 -->
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 ## Remote procedure call (RPC)
 ### (using the amqp.node client)
 
-<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
 In the [second tutorial](tutorial-two-javascript.html) we learned how to
