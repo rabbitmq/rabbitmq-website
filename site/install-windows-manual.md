@@ -103,7 +103,7 @@ directory are some scripts which run commands to control the RabbitMQ server.
 
 The RabbitMQ server can be run as either an application or service (not both).
 
- * [rabbitmq-server.bat](man/rabbitmq-server.1.html) starts the broker as an application
+ * [rabbitmq-server.bat](man/rabbitmq-server.8.html) starts the broker as an application
  * [rabbitmq-service.bat](man/rabbitmq-service.8.html) manages the service and starts the broker
  * [rabbitmqctl.bat](man/rabbitmqctl.8.html) manages a running broker
 
