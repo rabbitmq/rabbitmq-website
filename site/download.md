@@ -164,8 +164,6 @@ For your convenience, we offer binary downloads of various
 plugins developed by the community.
 
  * [Description of available plugins](community-plugins.html)
- * [Plugin downloads](/community-plugins)
-
 
 ## Snapshot (Alpha) Builds
 

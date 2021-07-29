@@ -62,7 +62,7 @@ here, please [get in touch](contact.html)!
       each routing key, and when a queue is bound, it
       automatically enqueues the last value for the binding key.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange/releases">Releases</a></li>
         <li>Maintainer: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-lvc-exchange">rabbitmq/rabbitmq-lvc-exchange</a></li>
       </ul>
@@ -78,7 +78,7 @@ here, please [get in touch](contact.html)!
       routing patterns at publishing time, instead of at
       binding time.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange/releases">Releases</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
         <li>Maintainer: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
@@ -93,7 +93,7 @@ here, please [get in touch](contact.html)!
     <td>
       A plugin that adds delayed-messaging (or scheduled-messaging) to RabbitMQ.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases">Releases</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
       </ul>
@@ -108,7 +108,7 @@ here, please [get in touch](contact.html)!
       A plugin that stamps a message with the node who first
       received it.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
       </ul>
@@ -123,7 +123,7 @@ here, please [get in touch](contact.html)!
       A plugin that adds a timestamp when a message first enters
       RabbitMQ.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-message-timestamp/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
       </ul>
@@ -137,8 +137,7 @@ here, please [get in touch](contact.html)!
     <td>
       Provides the ability for your RabbitMQ server to perform authorisation based on the client IP address.
       <ul>
-        <li>Download for <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range/releases/tag/v2.0.0">3.8.x</a></li>
-        <li>Download for <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range/releases/tag/v1.0.0">3.7.x</a></li>
+        <li><a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range/releases">Releases</a></li>
         <li>Authors: <b>Petr Gotthard</b></li>
         <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
       </ul>
@@ -158,7 +157,7 @@ here, please [get in touch](contact.html)!
       Adds an exchange type which allows you to connect to the
       management API using AMQP rather than HTTP.
       <ul>
-        <li>Download for <a href="https://github.com/rabbitmq/rabbitmq-management-exchange/releases/tag/v3.8.0">3.7.x and 3.8.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-management-exchange/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
       </ul>
@@ -172,7 +171,7 @@ here, please [get in touch](contact.html)!
     <td>
       Adds the possibility to customize the management web UI look.
       <ul>
-        <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_management_themes">3.7.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-management-themes/releases">Releases</a></li>
         <li>Author: <b>Team RabbitMQ</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
       </ul>
@@ -188,8 +187,7 @@ here, please [get in touch](contact.html)!
       in a graph. This is a debugging tool: it is of no use in a
       production broker.
       <ul>
-        <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.8.x/rabbitmq_boot_steps_visualiser">3.8.x</a></li>
-        <li>Download for <a href="https://dl.bintray.com/rabbitmq/community-plugins/3.7.x/rabbitmq_boot_steps_visualiser">3.7.x</a></li>
+        <li><a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser/releases">Releases</a></li>
         <li>Author: <b>Alvaro Videla</b></li>
         <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
       </ul>
@@ -233,8 +231,7 @@ here, please [get in touch](contact.html)!
       Maps SMTP to AMQP 0-9-1 (to convert an incoming email to an AMQP 0-9-1
       message) and AMQP 0-9-1 to SMTP (to send an email from an AMQP 0-9-1 message).
       <ul>
-        <li>Download for <a href="https://github.com/gotthardp/rabbitmq-email/releases/tag/v0.4.0">3.7.x and 3.8.x</a></li>
-        <li>Download for <a href="https://github.com/gotthardp/rabbitmq-email/releases/tag/v0.2.0">3.6.x</a></li>
+        <li><a href="https://github.com/gotthardp/rabbitmq-email/releases">Releases</a></li>
         <li>Authors: <b>Petr Gotthard</b></li>
         <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
       </ul>
