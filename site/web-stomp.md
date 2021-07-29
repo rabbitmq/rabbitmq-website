@@ -37,7 +37,7 @@ RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](/stomp.html) pl
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
-To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.man.html):
+To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_stomp

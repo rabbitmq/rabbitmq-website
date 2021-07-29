@@ -104,7 +104,7 @@ directory are some scripts which run commands to control the RabbitMQ server.
 The RabbitMQ server can be run as either an application or service (not both).
 
  * [rabbitmq-server.bat](man/rabbitmq-server.1.html) starts the broker as an application
- * [rabbitmq-service.bat](man/rabbitmq-service.html) manages the service and starts the broker
+ * [rabbitmq-service.bat](man/rabbitmq-service.8.html) manages the service and starts the broker
  * [rabbitmqctl.bat](man/rabbitmqctl.8.html) manages a running broker
 
 Log in as an administrator. To see the output, run these from a
@@ -212,7 +212,7 @@ should now appear in the Windows Services control panel
 
 To manage the service (install, remove, start, stop,
 enable, disable), use
-[`rabbitmq-service.bat`](man/rabbitmq-service.html)
+[`rabbitmq-service.bat`](man/rabbitmq-service.8.html)
 commands.  Alternatively, the Windows Services panel
 (`services.msc`) can be used to perform some of the
 same functions as the service script.
