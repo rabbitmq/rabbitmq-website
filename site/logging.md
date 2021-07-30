@@ -45,7 +45,8 @@ The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
 See [Logging to Console (Standard Output)](#logging-to-console).
 
 The environment variable takes precedence over the configuration file. When in doubt, consider
-overriding log file location via the config file.
+overriding log file location via the config file. As a consequence of the environment variable precedence,
+if the environment variable is set, the configuration key `log.file` will not have any effect.
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
