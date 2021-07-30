@@ -36,7 +36,7 @@ limitations under the License.
     -->
 
    <doc:item>
-      <doc:date iso="2021-07-23T12:00:00+00:00">1 October 2019</doc:date>
+      <doc:date iso="2021-07-23T12:00:00+00:00">23 July 2021</doc:date>
       <doc:title>RabbitMQ 3.9.0 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0</doc:link>
       <doc:text>
