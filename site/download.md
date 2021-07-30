@@ -48,7 +48,8 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.8-man
 
 You can contribute to RabbitMQ by helping the community test preview releases.
 
-Currently there are no preview releases available for testing.
+Preview releases are [distributed via GitHub](https://github.com/rabbitmq/rabbitmq-server/releases) and marked
+as pre-release.
 
 ## VMware Tanzu™ RabbitMQ® (Commercial Edition)
 
