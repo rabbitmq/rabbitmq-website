@@ -147,10 +147,7 @@ Other guides related to Kubernetes:
 
 ### Erlang Client
 
- * Quick download: Binary [client.ez](/releases/rabbitmq-erlang-client/v&version-server;/amqp_client-&version-server;.ez), [common.ez](/releases/rabbitmq-erlang-client/v&version-server;/rabbit_common-&version-server;.ez) |
-   Source [.tar.xz](/releases/rabbitmq-erlang-client/v&version-server;/amqp_client-&version-server;-src.tar.xz)
- * [All Erlang client downloads](/erlang-client.html)
- * [Older versions](https://github.com/rabbitmq/rabbitmq-erlang-client/releases)
+ * On Hex.pm: [amqp_client](https://hex.pm/packages/amqp_client)
 
 ### Clients for Other Languages
 
