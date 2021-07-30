@@ -35,6 +35,38 @@ limitations under the License.
      will give you a suitable RFC 3339 value.
     -->
 
+   <doc:item>
+      <doc:date iso="2021-07-23T12:00:00+00:00">1 October 2019</doc:date>
+      <doc:title>RabbitMQ 3.9.0 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.9.0.
+        </p>
+        <p>
+          This release has new features as well as bug fixes.
+          Release highlights and notes can be found in the <a href="changelog.html">change log</a>.
+        </p>
+        <p>
+          Binary and source distributions of the new release can be found in the
+          <a href="https://rabbitmq.com/download.html">installation guide</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          A webinar recording that covers what's new in this release is also <a href="https://content.pivotal.io/webinars/may-23-what-s-new-in-rabbitmq-3-8-webinar">available</a>.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+   </doc:item>
+
     <doc:item>
       <doc:date iso="2021-07-05T14:00:00+00:00">5 July 2021</doc:date>
       <doc:title>RabbitMQ 3.8.19 release</doc:title>

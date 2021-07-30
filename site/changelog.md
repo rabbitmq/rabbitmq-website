@@ -39,6 +39,20 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.9.0</td>
+    <td class="centre">23 July 2021</td>
+    <td>
+      <ul>
+        <li><a href="streams.html">Streams</a>: a new <a href="https://blog.rabbitmq.com/categories/streams/">messaging abstraction</a> complementary to queues</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Support for Erlang 24</a></li>
+        <li><a href="kubernetes/operator/operator-overview.html">Kubernetes Cluster Operator</a> and <a href="kubernetes/operator/using-topology-operator.html">Messaging Topology Operator</a></li>
+        <li><a href="which-erlang.html">Minimum required Erlang version</a> is now 23.2</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.8.19</td>
     <td class="centre">5 July 2021</td>
     <td>
