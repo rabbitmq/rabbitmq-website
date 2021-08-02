@@ -123,14 +123,14 @@ single broker.
       Brokers can run different (and incompatible in certain ways) versions of RabbitMQ and Erlang.
     </td>
     <td>
-      Nodes must run compatible versions RabbitMQ and Erlang.
+      Nodes must run compatible versions of RabbitMQ and Erlang.
     </td>
   </tr>
   <tr>
     <td>
       Brokers can be connected via unreliable WAN
       links. Communication is via AMQP 0-9-1 (optionally secured by
-      <a href="/ssl.html">TLS</a>, requiring appropriate users and permissions to be set up.
+      <a href="/ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
     </td>
     <td>
       Brokers must be connected via reasonably reliable LAN
