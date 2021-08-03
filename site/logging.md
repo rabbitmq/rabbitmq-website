@@ -205,7 +205,7 @@ When console output is enabled, the file output will also be enabled by default.
 To disable the file output, set `log.file` to `false`.
 
 Please note that `RABBITMQ_LOGS=-` will disable the file output
-even in `log.file` is configured.
+even if `log.file` is configured.
 
 ### <a id="logging-to-syslog" class="anchor" href="#logging-to-syslog">Logging to Syslog</a>
 
