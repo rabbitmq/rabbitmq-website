@@ -51,7 +51,7 @@ published separately.
 
   <tr>
     <td class="centre">3.9.0</td>
-    <td class="centre">236July 2021</td>
+    <td class="centre">23 July 2021</td>
     <td>
       <ul>
         <li><a href="streams.html">Streams</a>: a new <a href="https://blog.rabbitmq.com/categories/streams/">messaging abstraction</a> complementary to queues</li>
