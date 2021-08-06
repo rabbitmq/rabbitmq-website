@@ -27,7 +27,8 @@ that offers high availability via replication and focuses on data safety.
 and is also replicated.
 
 Quorum queues should be the **default choice** for a replicated queue type.
-Classic mirrored queues will be **removed in a future version** of RabbitMQ.
+Classic queue mirroring will be **removed in a future version** of RabbitMQ:
+classic queues will remain a supported non-replicated queue type.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
