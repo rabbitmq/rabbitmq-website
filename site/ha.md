@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
-[Quorum queues](/quorum-queues.html) is an alternative, more modern queue type
+[Quorum queues](quorum-queues.html) is an alternative, more modern queue type
 that offers high availability via replication and focuses on data safety.
 
 [Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
