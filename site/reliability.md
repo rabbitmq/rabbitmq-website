@@ -31,13 +31,13 @@ topics imported to each part of a messaging-based system.
 
 The following guides discuss data safety and resilience topics in more detail:
 
- * [Acknowledgements and Confirms](/confirms.html)
- * [Clustering](/clustering.html)
- * [Queue Mirroring](/ha.html)
- * [Publishers](/publishers.html)
- * [Consumers](/consumers.html)
- * [Alarms](/alarms.html)
- * [Monitoring, Metrics and Health Checks](/monitoring.html)
+ * [Acknowledgements and Confirms](confirms.html)
+ * [Clustering](clustering.html)
+ * [Replicated Queues](quorum-queues.html) and [Streams](streams.html)
+ * [Publishers](publishers.html)
+ * [Consumers](consumers.html)
+ * [Resource Alarms](alarms.html)
+ * [Monitoring, Metrics and Health Checks](monitoring.html)
 
 ## <a id="what-can-fail" class="anchor" href="#what-can-fail">What Can Fail?</a>
 
