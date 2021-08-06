@@ -17,7 +17,7 @@ limitations under the License.
 
 # Classic Queue Mirroring
 
-## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues</a>
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues and Streams</a>
 
 This guide covers mirroring (queue contents replication) of classic queues.
 [Quorum queues](quorum-queues.html) is an alternative, more modern queue type
