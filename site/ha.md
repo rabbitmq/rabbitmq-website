@@ -23,6 +23,9 @@ This guide covers mirroring (queue contents replication) of classic queues.
 [Quorum queues](/quorum-queues.html) is an alternative, more modern queue type
 that offers high availability via replication and focuses on data safety.
 
+[Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
+and is also replicated.
+
 Quorum queues should be the **default choice** for a replicated queue type.
 Classic mirrored queues will be **removed in a future version** of RabbitMQ.
 
