@@ -356,6 +356,11 @@ public RpcClient()
                 respQueue.Add(response);
             }
         };
+
+        channel.BasicConsume(
+            consumer: consumer,
+            queue: replyQueueName,
+            autoAck: true);
     }
 
     public string Call(string message)
@@ -366,11 +371,6 @@ public RpcClient()
             routingKey: "rpc_queue",
             basicProperties: props,
             body: messageBytes);
-
-        channel.BasicConsume(
-            consumer: consumer,
-            queue: replyQueueName,
-            autoAck: true);
 
         return respQueue.Take();
     }
