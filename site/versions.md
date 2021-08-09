@@ -49,7 +49,7 @@ Deployment Upgrade](/blue-green-upgrade.html) guides.
 
   <tr>
     <td>3.8</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.19" target="_blank">3.8.19</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.20" target="_blank">3.8.20</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0" target="_blank">1 October 2019</a></td>
     <td>31 January 2022</td>
     <td></td>
@@ -57,11 +57,9 @@ Deployment Upgrade](/blue-green-upgrade.html) guides.
   </tr>
 </table>
 
-<sup>1</sup> **General Support** means patch releases that are [produced
-regularly](/changelog.html) based on feedback from all users.
+<sup>1</sup> **General Support** means patch releases that are [produced regularly](/changelog.html) based on feedback from all users.
 
-<sup>2</sup> **Extended Support** means *security patches* and *high-severity
-issues* reported by users with a [commercial license](/contact.html#paid-support).
+<sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](/contact.html#paid-support).
 
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
