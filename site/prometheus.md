@@ -465,14 +465,12 @@ or [tools such as `lsof`, `ss` or `netstat`](/troubleshooting-networking.html#po
 
 ### <a id="metric-aggregation" class="anchor" href="#metric-aggregation">Aggregated and Per-Object Metrics</a>
 
-The scraping HTTP endpoint can produce metrics as aggregated rows or individual rows.
+RabbitMQ can return Prometheus metrics in two modes:
 
-By default, returned rows are aggregated by metric name. This significantly reduces the size of the output
-and makes it constant even as the number of objects (e.g. connections and queues) grows.
-
-In the per-object mode, there will be an output row for **each object-metric pair**.
-With a large number of stats-emitting entities, e.g. a lot of connections and queues,
-this can result in very large payloads and a lot of CPU resources spent serialising
+1. Aggregated: metrics are aggregated by name. This mode has lower performance overhead with the output size
+constant, even as the number of objects (e.g. connections and queues) grows.
+2. Per-object: individual metric for **each object-metric pair**. With a large number of stats-emitting entities,
+e.g. a lot of connections and queues, this can result in very large payloads and a lot of CPU resources spent serialising
 data to output.
 
 Metric aggregation is a more predictable and practical option for larger deployments.
@@ -485,7 +483,12 @@ and alerting are not possible with aggregation. Individual object metrics, while
 in some cases, are also hard to visualise. Consider what a chart with 200K connections
 charted on it would look like and whether an operator would be able to make sense of it.
 
-To enable per-object (unaggregated) metrics, use the `prometheus.return_per_object_metrics` key:
+### <a id="default-endpoint" class="anchor" href="#default-endpoint">Prometheus endpoints: `/metrics`</a>
+
+By default, Prometheus (and other Prometheus-compatible solutions), expects metrics to be available on a path of `/metrics`.
+RabbitMQ returns aggregated metrics on this endpoint by default.
+
+If you prefer to return per-object (unaggregated) metrics on the `/metrics` endpoint, set `prometheus.return_per_object_metrics` to `true`:
 
 <pre class="lang-ini">
 # can result in a really excessive output produced,
@@ -494,14 +497,10 @@ To enable per-object (unaggregated) metrics, use the `prometheus.return_per_obje
 prometheus.return_per_object_metrics = true
 </pre>
 
-For the sake of completeness, the default used by the plugin is
+### <a id="per-object-endpoint" class="anchor" href="#per-object-endpoint">Prometheus endpoints: `/metrics/per-object`</a>
 
-<pre class="lang-ini">
-# Enables metric aggregation. Individual object (e.g. connection or queue) metrics
-# will not be emitted to significantly reduce output size.
-# This option is recommended for most environments.
-prometheus.return_per_object_metrics = false
-</pre>
+RabbitMQ offers a dedicated endpoint, `/metrics/per-object`, which always returns per-object metrics, regardless of the value of `prometheus.return_per_object_metrics`.
+You can therefore keep the default value of `prometheus.return_per_object_metrics`, which is `false`, and still scrape per-object metrics when necessary, by setting `metrics_path = /metrics/per-object` in the Prometheus target configuration (check [Prometheus Documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for additional information).
 
 ### <a id="timeout-configuration" class="anchor" href="#timeout-configuration">Scraping Endpoint Timeouts</a>
 
