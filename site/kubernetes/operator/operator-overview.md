@@ -15,7 +15,7 @@ engineer (administrator).
 ## <a id='cluster-operator' class='anchor' href='#cluster-operator'>RabbitMQ Cluster Kubernetes Operator</a>
 
 RabbitMQ Cluster Kubernetes Operator provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and
-run them, including "day two" (continuous) operations. RabbitMQ clusters deployed using the operator can be
+run them, including "day two" (continuous) operations. RabbitMQ clusters deployed using the Operator can be
 used by applications running on Kubernetes or outside of Kubernetes.
 
 Documentation of Cluster Operator spans several guides:
@@ -36,7 +36,7 @@ It is covered in the following guides:
  * [Using TLS](tls-topology-operator.html) with Messaging Topology Kubernetes Operator
  * [Troubleshooting](troubleshooting-topology-operator.html) Messaging Topology Kubernetes Operator
 
-The operator provides the following key features:
+The Operator provides the following key features:
 
 * Provisioning of single-node and multi-node RabbitMQ clusters
 * Automatic reconciliation of deployed clusters whenever their actual state does not match the expected state
@@ -99,5 +99,5 @@ Both Operators are released under the [Mozilla Public License 2.0](https://www.m
 RabbitMQ Operators are intended to be used with any Kubernetes-compliant platform. If you encounter an issue with
 a particular distribution of Kubernetes, please [check for known issues in the GitHub repo](https://github.com/rabbitmq/cluster-operator/issues).
 
-For more information on which Kubernetes & RabbitMQ server versions are supported by the operator,
+For more information on which Kubernetes & RabbitMQ server versions are supported by the Operator,
 please consult the [README](https://github.com/rabbitmq/cluster-operator#supported-versions).
