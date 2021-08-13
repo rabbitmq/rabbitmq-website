@@ -34,19 +34,35 @@ Then, to install the Operator, run the following command:
 kubectl apply -f https://github.com/rabbitmq/messaging-topology-operator/releases/latest/download/messaging-topology-operator-with-certmanager.yaml
 </pre>
 
-### Install with generated certificates
+### Install with Generated Certificates
 
 Without cert-manager installed, you will need to generate certificates used by admission webhooks yourself and include them in the operator and webhooks manifests.
 
 Download the latest release manifest https://github.com/rabbitmq/messaging-topology-operator/releases/latest/download/messaging-topology-operator.yaml.
 
 The Messaging Topology Operator has multiple [admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
-You need to generate the webhook certificate and place it in multiple places in the downloaded release manifest:
+Their endpoints are TLS-enabled and require a webhook certificate that must be used in multiple places in the downloaded release manifest.
 
-1. Generate certificates for the Webhook. Certificates must be valid for webhook-service.rabbitmq-system.svc. webhook-service is the name
-of the webhook service object defined in release manifest messaging-topology-operator.yml. rabbitmq-system is the namespace of the service.
-2. Create a k8s secret object with the name webhook-server-cert in namespace rabbitmq-system. The secret object must contain following keys: ca.crt, tls.key, and tls.key, and
-it will be mounted to the operator container, where all webhooks will run from. For example:
+Sections below explain the steps involved into installing certificates for webhook admission.
+
+#### Generate Key/Certificate Pair
+
+First, generate one or more key/certificate pairs for webhook admission.
+These certificates must be valid for `webhook-service.rabbitmq-system.svc`.
+
+#### Create a K8S Secret
+
+Next, create a Kubernetes secret object with the name of `webhook-server-cert` in the `rabbitmq-system` namespace.
+The secret object must contain the following keys:
+
+ * `ca.crt` (CA certificate)
+ * `tls.crt` (leaf/webhook certificate)
+ * `tls.key` (leaf/webhook private key)
+
+The secret will be mounted to the Operator container, where all webhooks will run from.
+
+For example:
+
 <pre class="lang-yaml">
 apiVersion: v1
 kind: Secret
@@ -57,11 +73,19 @@ metadata:
 data:
   ca.crt: # ca cert that can be used to validate the webhook's server certificate
   tls.crt: # generated certificate
-  tls.key: # generated key</pre>
-3. Add webhook ca certificate in downloaded release manifest `messaging-topology-operator.yaml`. There are 10 admission webhooks, one for each CRD type.
-   Look for keyword `clientConfig` in the manifest, and paste the webhook ca cert under `clientConfig.caBundle`.
-   Because there are 10 different webhooks, you need to perform this action in 10 different places.
-   The example below shows how to add ca cert to the `queues.rabbitmq.com` validating webhook:
+  tls.key: # generated private key
+</pre>
+
+#### Use Generated Certificates in Release Manifest
+
+Finally, add webhook's CA certificate to the release manifest, `messaging-topology-operator.yaml`.
+There are multiple admission webhooks, one for each CRD type.
+
+Look for keyword `clientConfig` in the manifest, and paste the webhook CA certificate under `clientConfig.caBundle`.
+Because there are several webhooks, perform this action in several places.
+
+The example below shows how to add a CA certificate to the `queues.rabbitmq.com` validating webhook:
+
 <pre class="lang-yaml">
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
@@ -93,5 +117,8 @@ kubectl apply -f messaging-topology-operator.yaml
 
 At this point, the RabbitMQ Messaging Topology Operator is successfully installed.
 
-If you want to install a specific version of the Operator, you will have to obtain the manifest link from the
-[Operator Releases](https://github.com/rabbitmq/messaging-topology-operator/releases). We strongly recommend installing the latest version.
+### Older Operator Versions
+
+To install a specific version of the Operator, obtain the manifest link from the
+[Operator Releases](https://github.com/rabbitmq/messaging-topology-operator/releases).
+Using the latest version is strongly recommended.
