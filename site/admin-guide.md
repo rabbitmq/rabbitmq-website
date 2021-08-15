@@ -121,12 +121,11 @@ see <a href="/documentation.html">All Documentation Guides</a>.
 
 ## Distributed RabbitMQ
 
- * [Replication and Distributed Feature Overview](/distributed.html)
- * [Clustering](/clustering.html)
- * [Quorum Queues](/quorum-queues.html): a modern highly available replicated queue type
- * [Classic Mirrored Queues](/ha.html)
- * [Reliable Message Delivery](/reliability.html)
- * Active-passive [standby configuration with Pacemaker](/pacemaker.html) (legacy)
+ * [Replication and Distributed Feature Overview](distributed.html)
+ * [Clustering](clustering.html)
+ * [Quorum Queues](quorum-queues.html): a modern replicated queue type
+ * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
+ * [Reliable Message Delivery](reliability.html)
 
 
 ## Guidance

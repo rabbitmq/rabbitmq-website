@@ -177,12 +177,14 @@ Policies are matched and applied every time an exchange or
 queue is created, not just when the policy is created.
 
 Policies can be used to configure
-the [federation plugin](federation.html),
-[mirroring of classic queues](/ha.html),
-[alternate exchanges](/ae.html),
-[dead lettering](/dlx.html),
-[per-queue TTLs](/ttl.html),
-and [queue length limit](/maxlength.html).
+
+ * [federation](federation.html)
+ * [alternate exchanges](ae.html)
+ * [dead lettering](dlx.html),
+ * [per-queue TTLs](ttl.html)
+ * [queue length limit](maxlength.html)
+
+ and other features.
 
 An example of defining a policy looks like:
 

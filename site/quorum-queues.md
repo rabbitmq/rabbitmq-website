@@ -23,10 +23,10 @@ The quorum queue is a modern queue type for RabbitMQ implementing a durable,
 replicated FIFO queue based on the [Raft consensus algorithm](https://raft.github.io/).
 It is available as of RabbitMQ 3.8.0.
 
-The quorum queue type is an alternative to durable [mirrored queues](/ha.html)
+The quorum queue type is an alternative to durable [mirrored queues](ha.html)
 purpose built for a [set of use cases](#use-cases) where [data safety](#data-safety) is
 a top priority. This is covered in [Motivation](#motivation).
-They should be considered the default option for a replicated queue type.
+Quorum queues should be considered the default option for a replicated queue type.
 
 Quorum queues also have important [differences in behaviour](#behaviour)
 and some [limitations](#feature-comparison) compared to classic mirrored queues,
@@ -35,6 +35,8 @@ including workload-specific ones, e.g. when consumers [repeatedly requeue the sa
 Some features, such as [poison message handling](#poison-message-handling), are specific
 to quorum queues.
 
+For cases that would benefit from replication and repeatable reads, [streams](streams.html) may
+be a better option than quorum queues.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 

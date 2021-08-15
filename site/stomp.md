@@ -484,10 +484,9 @@ be used with queues used by the STOMP plugin.
 
 Policies make it possible to use more RabbitMQ features with STOMP:
 
- * [Mirrored queues](/ha.html)
- * [Dead lettering](/dlx.html)
- * [Queue leases and per-queue message TTL](/ttl.html)
- * [Queue length limits](/maxlength.html)
+ * [Dead lettering](dlx.html)
+ * [Queue leases and per-queue message TTL](ttl.html)
+ * [Queue length limits](maxlength.html)
 
 All server-named queues created by the STOMP plugin are prefixed with `stomp-`
 which makes it easy to match the queues in a policy. For example, to limit

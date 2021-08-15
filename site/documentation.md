@@ -138,14 +138,13 @@ for the original RabbitMQ protocol.
 
 ### Distributed RabbitMQ
 
- * [Replication and Distributed Feature Overview](/distributed.html)
- * [Clustering](/clustering.html)
+ * [Replication and Distributed Feature Overview](distributed.html)
+ * [Clustering](clustering.html)
  * [Cluster Formation and Peer Discovery](cluster-formation.html)
  * [Inter-node traffic compression](clustering-compression.html)
- * [Quorum Queues](/quorum-queues.html): a modern highly available replicated queue type
- * [Reliability](/reliability.html) of distributed deployments, publishers and consumers
- * [Classic Mirrored Queues](/ha.html) (legacy)
- * Active-passive [standby configuration with Pacemaker](/pacemaker.html) (legacy)
+ * [Quorum Queues](quorum-queues.html): a modern highly available replicated queue type
+ * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
+ * [Reliability](reliability.html) of distributed deployments, publishers and consumers
 
 
 ### Guidance
