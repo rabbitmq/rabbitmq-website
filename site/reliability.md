@@ -150,7 +150,7 @@ Queues and streams remain visible and reachable from all nodes regardless
 of what node their leader replica is located.
 
 Historically [classic queue mirroring](ha.html) was the only queue replication option.
-It is now [**deprecated** in favor of quorum queues](ha.html#interstitial) and streams.
+It is now [**deprecated** in favor of quorum queues](ha.html#interstitial) and [streams](streams.html).
 
 [Exclusive queues](queues.html#exclusive-queues) are tied to the lifecycle of their connection and thus are never mirrored
 and by definition will not survive a node restart.
