@@ -172,6 +172,24 @@ gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 </pre>
 
 
+## <a id="cloudsmith" class="anchor" href="#cloudsmith">Cloudsmith</a>
+
+[Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) is a hosted package distribution
+service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
+must be imported with GPG, `apt-key` and similar tools. Cloudsmith provides repository
+setup script that include signing key import.
+
+To import the key:
+
+<pre class="lang-bash">
+# import the Cloudsmith key
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key -o cloudsmith-rabbitmq-key.asc
+gpg --import cloudsmith-rabbitmq-key.asc
+</pre>
+
+After importing the key please follow the installation instructions in the [Debian](install-debian.html) or [RPM-based Linux](install-rpm.html) guides.
+
+
 
 ## <a id="package-cloud" class="anchor" href="#package-cloud">Package Cloud</a>
 
@@ -184,9 +202,8 @@ To import the key:
 
 <pre class="lang-bash">
 # import the PackageCloud key
-curl -L https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey -O packagecloud-rabbitmq-key.asc -s
-gpg --import packagecloud-rabbitmq-gpg-key.asc
+curl -1sLf https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey -o packagecloud-rabbitmq-key.asc
+gpg --import packagecloud-rabbitmq-key.asc
 </pre>
 
-After importing the key please follow the [Package Cloud](https://packagecloud.io/rabbitmq) repository
-setup instructions.
+After importing the key please follow the installation instructions in the [Debian](install-debian.html) or [RPM-based Linux](install-rpm.html) guides.
