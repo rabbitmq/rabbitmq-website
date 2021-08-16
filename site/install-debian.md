@@ -185,7 +185,7 @@ Below is shell snippet that performs those steps. They are documented in more de
 <pre class="lang-bash">
 #!/bin/sh
 
-sudo apt-get install curl gnupg debian-keyring debian-archive-keyring apt-transport-https -y
+sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
@@ -380,7 +380,7 @@ In order to use the repositories, their signing keys must be added to `apt-key`.
 This will instruct apt to trust packages signed by that key.
 
 <pre class="lang-bash">
-sudo apt-get install curl gnupg debian-keyring debian-archive-keyring apt-transport-https -y
+sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
@@ -399,7 +399,7 @@ Below is shell snippet that performs those steps. They are documented in more de
 <pre class="lang-bash">
 #!/bin/sh
 
-sudo apt-get install curl gnupg debian-keyring debian-archive-keyring apt-transport-https -y
+sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
@@ -441,7 +441,7 @@ All steps covered below are **mandatory** unless otherwise specified.
 <pre class="lang-bash">
 sudo apt-get update -y
 
-sudo apt-get install curl gnupg debian-keyring debian-archive-keyring -y
+sudo apt-get install curl gnupg -y
 </pre>
 
 ### Enable apt HTTPS Transport
@@ -1023,7 +1023,7 @@ In order to use the repository, it is necessary to
 <pre class="lang-bash">
 sudo apt-get update -y
 
-sudo apt-get install curl gnupg debian-keyring debian-archive-keyring -y
+sudo apt-get install curl gnupg -y
 </pre>
 
 ### <a id="erlang-apt-repo-signing-key" class="anchor" href="#erlang-apt-repo-signing-key">Add Repository Signing Key</a>
