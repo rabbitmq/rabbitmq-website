@@ -63,7 +63,7 @@ There are two options available for installing modern RabbitMQ on Debian and Ubu
  * Option A: using apt repositories [on Cloudsmith](#apt-cloudsmith) ([quick start script](#apt-quick-start-cloudsmith))
  * Option B: using a combination of apt repositories [on PackageCloud](#apt-packagecloud) and Launchpad ([quick start script](#apt-quick-start-packagecloud))
 
-Both options will install a modern version of Erlang using [Erlang apt repositories](#erlang-repositories)
+Both options will install a [modern version of Erlang](which-erlang.html) using [Erlang apt repositories](#erlang-repositories)
 on Cloudsmith or Launchpad.
 
 ### Manually Using Dpkg
@@ -76,7 +76,8 @@ This option will require manual installation of all RabbitMQ package dependencie
 RabbitMQ is supported on several major Debian-based distributions that are still supported
 by their primary vendor or developer group.
 
-Team RabbitMQ support and packaging efforts are focused on the current and prior release of Debian-based distributions, i.e. inline with distribution EOL policy.
+For Debian, this means that RabbitMQ core team focus around package is on the current and prior release of Debian-based distributions,
+i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianReleases).
 
 Currently the list of supported Debian-based distributions includes
 
@@ -152,7 +153,10 @@ a package hosting service. It provides packages for most recent RabbitMQ release
 
 PackageCloud provides [repository setup instructions](https://packagecloud.io/rabbitmq/rabbitmq-server/install) that include
 a convenient one-liner. Please **always inspect scripts** that are downloaded from the Internet and executed via
-a privileged shell!  Please also note that the PackageCloud script **does not** currently follow Debian best-practice in terms of GPG key handling and therefore you may wish to follow our guide instead.
+a privileged shell!
+
+Note that the PackageCloud script **does not** currently follow Debian best practices in terms of GPG key handling
+and the rest of this section does.
 
 This guide will focus on a more traditional and explicit way of setting up an additional apt repository
 and installing packages.
