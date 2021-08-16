@@ -42,8 +42,7 @@ instead of those used by the RabbitMQ team.
 ### <a id="importing-gpg" class="anchor" href="#importing-gpg">With GPG</a>
 
 Before signatures can be verified, RabbitMQ [signing key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc)
-must be downloaded. The key can be obtained directly or using [keys.openpgp.org](https://keys.openpgp.org/)
-or the [SKS keyservers pool](https://sks-keyservers.net/overview-of-pools.php).
+must be downloaded. The key can be obtained directly or using [keys.openpgp.org](https://keys.openpgp.org/).
 The direct download method is recommended because most key servers are prone to overload, abuse and attacks.
 
 #### Direct Download
@@ -64,12 +63,7 @@ The key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
 gpg --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
 </pre>
 
-In case the above key servers are overloaded, [under attack](https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f) or
-[unavailable](https://medium.com/@mdrahony/are-sks-keyservers-safe-do-we-need-them-7056b495101c) for [any other reason](https://en.wikipedia.org/wiki/Key_server_(cryptographic)#Problems_with_keyservers), an alternative server can be used:
-
-<pre class="lang-bash">
-gpg --keyserver "sks-keyservers.net" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
-</pre>
+Alternative keyservers:
 
 <pre class="lang-bash">
 gpg --keyserver "keyserver.ubuntu.com" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
@@ -96,7 +90,7 @@ Main RabbitMQ signing key is distributed via [GitHub](https://github.com/rabbitm
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
-curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
+curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 </pre>
 
 #### Using a Key Server
@@ -104,13 +98,7 @@ curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 The same main RabbitMQ signing key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
 
 <pre class="lang-bash">
-apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
-</pre>
-
-or the SKS key server pool:
-
-<pre class="lang-bash">
-apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 </pre>
 
 When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
@@ -118,12 +106,12 @@ and [PackageCloud apt repository](https://packagecloud.io/rabbitmq/rabbitmq-serv
 to be added:
 
 <pre class="lang-bash">
-## Team RabbitMQ's main signing keys
-sudo apt-key adv --keyserver "hkps://keys.openpgp.org" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E6026DFCA"
-## Launchpad Erlang PPA key
-sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F77F1EDA57EBB1CC"
-## PackageCloud RabbitMQ repository key
-sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F6609E60DC62814E"
+## Team RabbitMQ's main signing key
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+## Launchpad PPA that provides modern Erlang releases
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+## PackageCloud RabbitMQ repository
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
 </pre>
 
 ### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
