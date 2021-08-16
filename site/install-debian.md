@@ -530,7 +530,7 @@ EOF
 
 where `$distribution` is the name of the Debian or Ubuntu distribution used (see the table above).
 
-On, for example, on Debian Buster it would be
+For example, on Debian Buster it would be
 
 <pre class="lang-bash">
 sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
