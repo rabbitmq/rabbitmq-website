@@ -152,7 +152,7 @@ a package hosting service. It provides packages for most recent RabbitMQ release
 
 PackageCloud provides [repository setup instructions](https://packagecloud.io/rabbitmq/rabbitmq-server/install) that include
 a convenient one-liner. Please **always inspect scripts** that are downloaded from the Internet and executed via
-a privileged shell!
+a privileged shell!  Please also note that the PackageCloud script **does not** currently follow Debian best-practice in terms of GPG key handling and therefore you may wish to follow our guide instead.
 
 This guide will focus on a more traditional and explicit way of setting up an additional apt repository
 and installing packages.
