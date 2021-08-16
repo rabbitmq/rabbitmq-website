@@ -109,7 +109,7 @@ to be added:
 ## Team RabbitMQ's main signing key
 curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 ## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
 ## PackageCloud RabbitMQ repository
 curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
 </pre>
@@ -132,7 +132,7 @@ rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabb
 
 To check signatures for the packages, download the RabbitMQ signing key
 and a signature file. Signature files use the `.asc` extension that follows their artifact filename,
-e.g. the signature file of `rabbitmq-server-generic-unix-3.7.8.tar.xz` would be `rabbitmq-server-generic-unix-3.7.8.tar.xz.asc`.
+e.g. the signature file of `rabbitmq-server-generic-unix-3.9.3.tar.xz` would be `rabbitmq-server-generic-unix-3.9.3.tar.xz.asc`.
 
 Then use `gpg --verify`:
 
@@ -143,9 +143,9 @@ source archive and its associated detached signature from
 the download area:
 
 <pre class="lang-bash">
-gpg --verify rabbitmq-server_3.7.15-1_all.deb.asc rabbitmq-server_3.7.15-1_all.deb
-gpg: Signature made Sun May 19 03:17:41 2019 MSK
-gpg:                using RSA key 6B73A36E6026DFCA
+gpg --verify rabbitmq-server_3.9.3-1_all.deb.asc rabbitmq-server_3.9.3-1_all.deb
+gpg: Signature made Wed Aug 11 16:20:14 2021 MSK
+gpg:                using RSA key 0A9AF2115F4687BD29803A206B73A36E6026DFCA
 gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA
 gpg: using PGP trust model
 gpg: Good signature from "RabbitMQ Signing Key &lt;info@rabbitmq.com&gt;" [full]
@@ -172,6 +172,7 @@ gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 </pre>
 
 
+
 ## <a id="package-cloud" class="anchor" href="#package-cloud">Package Cloud</a>
 
 [Package Cloud](https://packagecloud.io/rabbitmq) is a hosted package distribution
@@ -183,8 +184,7 @@ To import the key:
 
 <pre class="lang-bash">
 # import the PackageCloud key
-curl -L https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey \
-  -O packagecloud-rabbitmq-key.asc -s
+curl -L https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey -O packagecloud-rabbitmq-key.asc -s
 gpg --import packagecloud-rabbitmq-gpg-key.asc
 </pre>
 
