@@ -80,7 +80,7 @@ gpg --keyserver "pgp.mit.edu" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E602
 ### <a id="importing-apt" class="anchor" href="#importing-apt">With apt</a>
 
 On Debian and Ubuntu systems, assuming that [apt repositories](/install-debian.html) are used for installation,
-trusted repository signing keys must be added to `apt-key` before any packages can be installed.
+trusted repository signing keys must be added to the system before any packages can be installed.
 
 This can be done using key servers or (for the RabbitMQ main signing key) a direct download.
 
@@ -176,8 +176,10 @@ gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 
 [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) is a hosted package distribution
 service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be imported with GPG, `apt-key` and similar tools. Cloudsmith provides repository
-setup script that include signing key import.
+must be added to the system. 
+
+Cloudsmith provides repository setup script that include signing key import. However,
+note that the script **does not** currently follow Debian best practices in terms of GPG key handling.
 
 To import the key:
 
@@ -195,8 +197,10 @@ After importing the key please follow the installation instructions in the [Debi
 
 [Package Cloud](https://packagecloud.io/rabbitmq) is a hosted package distribution
 service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be imported with GPG, `apt-key` and similar tools. Package Cloud provides repository
-setup script that include signing key import.
+must be added to the system. 
+
+Package Cloud provides repository setup script that include signing key import. However,
+note that the script **does not** currently follow Debian best practices in terms of GPG key handling.
 
 To import the key:
 
