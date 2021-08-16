@@ -376,8 +376,8 @@ All steps covered below are **mandatory** unless otherwise specified.
 
 Cloudsmith signs distributed packages using their own GPG keys, one per repository.
 
-In order to use the repositories, their signing keys must be added to `apt-key`.
-This will instruct apt to trust packages signed by that key.
+In order to use the repositories, their signing keys must be added to the system.
+This will enable apt to trust packages signed by that key.
 
 <pre class="lang-bash">
 sudo apt-get install curl gnupg apt-transport-https -y
@@ -1028,15 +1028,15 @@ sudo apt-get install curl gnupg -y
 
 ### <a id="erlang-apt-repo-signing-key" class="anchor" href="#erlang-apt-repo-signing-key">Add Repository Signing Key</a>
 
-In order to use the repository, add [RabbitMQ signing key](signatures.html) to `apt-key`.
-This will instruct apt to trust packages signed by that key.
+In order to use the repository, add [RabbitMQ signing key](signatures.html) to the system.
+This will enable apt to trust packages signed by that key.
 
 <pre class="lang-bash">
 # primary RabbitMQ signing key
-curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo apt-key add -
+curl -1sLf "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | gpg --dearmor &gt; /usr/share/keyrings/com.github.rabbitmq.signing.gpg
 
 # Launchpad PPA signing key for apt
-sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv-keys "F77F1EDA57EBB1CC"
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
 </pre>
 
 See the [guide on signatures](signatures.html) to learn more.
@@ -1063,8 +1063,8 @@ pattern:
 #
 # Replace $distribution with the name of the Ubuntu release used. On Debian,
 # use "bionic"
-deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
-deb-src http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
+deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
+deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu $distribution main
 </pre>
 
 The next section discusses what distribution values are supported by the Launchpad PPA.
