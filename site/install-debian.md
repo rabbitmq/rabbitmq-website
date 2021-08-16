@@ -992,18 +992,17 @@ Standard Debian and Ubuntu repositories tend to provide outdated versions of Erl
 an apt repository that includes [packages of latest Erlang/OTP releases](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
 on Launchpad.
 
-The repository supports the following Ubuntu distributions:
+RabbitMQ core team focus around package is on the current and prior release of Debian-based distributions, i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianReleases).
+
+The repository currently supports the following Ubuntu distributions:
 
  * Ubuntu 20.04 (Focal)
  * Ubuntu 18.04 (Bionic)
 
-The following Debian releases can use the same apt repository:
+The following Debian releases can currently use the same apt repository:
 
  * Debian 10 (Buster)
  * Debian 11 (Bullseye)
-
- Debian 9 (Stretch) and Ubuntu 16.04 are no longer supported as they do not provide a minimum required OpenSSL version.
- Both versions are [out of general support](https://wiki.debian.org/LTS/Using) as well.
 
 The repo currently provides most recent patch releases in the following Erlang series:
 
@@ -1013,7 +1012,7 @@ The repo currently provides most recent patch releases in the following Erlang s
 In order to use the repository, it is necessary to
 
  * Install prerequisites needed to download signing keys and packages over HTTPS
- * Add (import) repository signing key. `apt` will verify package signatures during installation.
+ * Add repository signing key to your system. `apt` will verify package signatures during installation.
  * Add a source list file for the repository
  * Update package metadata
  * Install Erlang packages required by RabbitMQ
