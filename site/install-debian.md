@@ -820,26 +820,6 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 }
 </pre>
 
-### Without systemd (Older Linux Distributions)
-
-The most straightforward way to adjust the per-user limit for
-RabbitMQ on distributions that do not use systemd is to edit the `/etc/default/rabbitmq-server`
-(provided by the RabbitMQ Debian package) or [rabbitmq-env.conf](https://www.rabbitmq.com/configure.html)
-to invoke `ulimit` before the service is started.
-
-<pre class="lang-bash">
-ulimit -S -n 4096
-</pre>
-
-This <em>soft</em> limit cannot go higher than the <em>hard</em> limit (which defaults to 4096 in many distributions).
-[The hard limit can be increased](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) via
-`/etc/security/limits.conf`. This also requires enabling the [pam_limits.so](http://askubuntu.com/a/34559) module
-and re-login or reboot. Note that limits cannot be changed for running OS processes.
-
-For more information about controlling `fs.file-max`
-with `sysctl`, please refer to the excellent
-[Riak guide on open file limit tuning](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md#debian--ubuntu).
-
 ### <a id="verifying-limits" class="anchor" href="#verifying-limits">Verifying the Limit</a>
 
 [RabbitMQ management UI](management.html) displays the number of file descriptors available
