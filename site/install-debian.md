@@ -372,26 +372,6 @@ and installing packages.
 
 All steps covered below are **mandatory** unless otherwise specified.
 
-### <a id="cloudsmith-signing-keys" class="anchor" href="#cloudsmith-signing-keys">Add Repository Signing Keys</a>
-
-Cloudsmith signs distributed packages using their own GPG keys, one per repository.
-
-In order to use the repositories, their signing keys must be added to the system.
-This will enable apt to trust packages signed by that key.
-
-<pre class="lang-bash">
-sudo apt-get install curl gnupg apt-transport-https -y
-
-## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
-## Cloudsmith: modern Erlang repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg
-## Cloudsmith: RabbitMQ repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg
-</pre>
-
-See the [guide on signatures](signatures.html) to learn more.
-
 ### <a id="apt-quick-start-cloudsmith" class="anchor" href="#apt-quick-start-cloudsmith">Cloudsmith Quick Start Script</a>
 
 Below is shell snippet that performs those steps. They are documented in more detail below.
@@ -452,6 +432,26 @@ the `apt-transport-https` package must be installed:
 <pre class="lang-bash">
 sudo apt-get install apt-transport-https
 </pre>
+
+### <a id="cloudsmith-signing-keys" class="anchor" href="#cloudsmith-signing-keys">Add Repository Signing Keys</a>
+
+Cloudsmith signs distributed packages using their own GPG keys, one per repository.
+
+In order to use the repositories, their signing keys must be added to the system.
+This will enable apt to trust packages signed by that key.
+
+<pre class="lang-bash">
+sudo apt-get install curl gnupg apt-transport-https -y
+
+## Team RabbitMQ's main signing key
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+## Cloudsmith: modern Erlang repository
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg
+## Cloudsmith: RabbitMQ repository
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg
+</pre>
+
+See the [guide on signatures](signatures.html) to learn more.
 
 #### Add a Source List File
 
