@@ -712,7 +712,7 @@ As an administrator, start and stop the
 server as usual for Debian-based systems:
 
 <pre class="lang-bash">
-service rabbitmq-server start
+systemctl start rabbitmq-server
 </pre>
 
 
@@ -852,7 +852,7 @@ sudo systemctl stop rabbitmq-server
 sudo systemctl start rabbitmq-server
 </pre>
 
-`service rabbitmq-server status` will report service status
+`systemctl status rabbitmq-server` will report service status
 as observed by systemd (or similar service manager):
 
 <pre class="lang-bash">
