@@ -90,7 +90,7 @@ Main RabbitMQ signing key is distributed via [GitHub](https://github.com/rabbitm
 [rabbitmq.com](https://www.rabbitmq.com/rabbitmq-release-signing-key.asc):
 
 <pre class="lang-bash">
-curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 </pre>
 
 #### Using a Key Server
@@ -98,7 +98,7 @@ curl -1sLf https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbit
 The same main RabbitMQ signing key can be imported from [keys.openpgp.org](https://keys.openpgp.org/):
 
 <pre class="lang-bash">
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 </pre>
 
 When using the [Team RabbitMQ modern Erlang PPA](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang)
@@ -107,11 +107,11 @@ to be added:
 
 <pre class="lang-bash">
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
 ## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
 ## PackageCloud RabbitMQ repository
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
 </pre>
 
 ### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
