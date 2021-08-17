@@ -841,15 +841,15 @@ is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmqctl sta
 
 ## <a id="managing-service" class="anchor" href="#managing-service">Managing the Service</a>
 
-To start and stop the server, use the `service` tool.
+To start and stop the server, use the `systemctl` tool.
 The service name is `rabbitmq-server`:
 
 <pre class="lang-bash">
 # stop the local node
-sudo service rabbitmq-server stop
+sudo systemctl stop rabbitmq-server
 
 # start it back
-sudo service rabbitmq-server start
+sudo systemctl start rabbitmq-server
 </pre>
 
 `service rabbitmq-server status` will report service status
@@ -857,7 +857,7 @@ as observed by systemd (or similar service manager):
 
 <pre class="lang-bash">
 # check on service status as observed by service manager
-sudo service rabbitmq-server status
+sudo systemctl status rabbitmq-server
 </pre>
 
 It will produce output similar to this:
