@@ -66,7 +66,8 @@ Current release series upgrade compatibility with full stop upgrade:
 
 | From     | To     |
 |----------|--------|
-| 3.7.x    | 3.9.x  |
+| 3.8.x    | 3.9.x  |
+| 3.7.27   | 3.9.x  |
 | 3.6.x    | 3.8.x  |
 | 3.6.x    | 3.7.x  |
 | 3.5.x    | 3.7.x  |
