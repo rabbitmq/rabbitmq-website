@@ -26,6 +26,7 @@ Documentation of Cluster Operator spans several guides:
  * [Using](using-operator.html) RabbitMQ Cluster Kubernetes Operator
  * [Monitoring RabbitMQ Clusters on Kubernetes](operator-monitoring.html)
  * [Troubleshooting RabbitMQ Clusters on Kubernetes](troubleshooting-operator.html)
+ * [Upgrading the RabbitMQ Kubernetes Operators](upgrade-operator.html)
  * [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html)
 
 In addition, a separate Operator for managing cluster objects collectively
