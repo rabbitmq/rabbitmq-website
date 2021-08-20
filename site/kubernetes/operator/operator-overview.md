@@ -26,6 +26,7 @@ Documentation of Cluster Operator spans several guides:
  * [Using](using-operator.html) RabbitMQ Cluster Kubernetes Operator
  * [Monitoring RabbitMQ Clusters on Kubernetes](operator-monitoring.html)
  * [Troubleshooting RabbitMQ Clusters on Kubernetes](troubleshooting-operator.html)
+ * [Upgrading the RabbitMQ Kubernetes Operators](upgrade-operator.html)
 
 In addition, a separate Operator for managing cluster objects collectively
 known as the messaging topology: virtual hosts, user, queues, etc.
