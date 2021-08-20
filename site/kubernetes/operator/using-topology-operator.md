@@ -19,6 +19,11 @@ This guide has the following sections:
 * [Limitations](#limitations)
 * [TLS](#tls)
 
+<p class="note">
+  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
+  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
+</p>
+
 ## <a id='requirements' class='anchor' href='#requirements'>Requirements</a>
 
 * Messaging Topology Operator can only be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).

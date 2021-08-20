@@ -23,6 +23,11 @@ This guide is structured in the following sections:
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
 
+<p class="note">
+  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
+  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
+</p>
+
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
 Before configuring your app to use RabbitMQ Cluster Kubernetes Operator, ensure that RabbitmqCluster Custom Resource is deployed
