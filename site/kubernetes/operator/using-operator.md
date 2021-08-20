@@ -22,7 +22,11 @@ This guide is structured in the following sections:
 * [Monitor RabbitMQ Clusters](#monitoring)
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
-* [Using the Cluster Operator on OpenShift](#openshift)
+
+<p class="note">
+  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
+  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
+</p>
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -102,7 +106,7 @@ metadata:
 
 <p class="note">
 <strong>Note:</strong> when creating RabbitmqClusters on Openshift, there are extra parameters that must be added to
-all RabbitmqCluster manifests. See <a href="#openshift">Using the Cluster Operator on OpenShift</a> for details.
+all RabbitmqCluster manifests. See <a href="./using-on-openshift.html#arbitrary-user-ids">Support for Arbitrary User IDs</a> for details.
 </p>
 
 Next, apply the definition by running:
@@ -1205,32 +1209,3 @@ To resume reconciliation, remove the label by running:
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
 
-## <a id='openshift' class='anchor' href='#openshift'>Using the Cluster Operator on OpenShift</a>
-
-Openshift uses arbitrarily assigned User IDs when running Pods. Each Openshift project is allocated a range of possible UIDs,
-and by default Pods will fail if they are started running as a user outside of that range.
-
-By default, the RabbitMQ Cluster Operator deploys RabbitmqCluster Pods with fixed, non-root UIDs. To deploy
-on Openshift, it is necessary to override the Security Context for these Pods. This must be done
-for every RabbitmqCluster deployed under the`override` field:
-
-<pre class="lang-yaml">
-apiVersion: rabbitmq.com/v1beta1
-kind: RabbitmqCluster
-metadata:
-  ...
-spec:
-  ...
-  override:
-    statefulSet:
-      spec:
-        template:
-          spec:
-            containers: []
-            securityContext: {}
-            initContainers:
-            - name: setup-container
-              securityContext: {}
-</pre>
-
-This ensures that RabbitMQ Pods are also assigned arbitrary user IDs in Openshift.
