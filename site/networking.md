@@ -86,10 +86,10 @@ TCP listeners configure both an interface and port. The following example
 demonstrates how to configure AMQP 0-9-1 and AMQP 1.0 listener to use a specific IP and the standard port:
 
 <pre class="lang-ini">
-listeners.tcp.1 = 192.168.1.99:5672
+listeners.tcp.1 = 192.168.1.99:15672
 </pre>
 
-By default, RabbitMQ will listen on port 5672 on **all available interfaces**. It is possible to
+By default, RabbitMQ will listen on port 15672 on **all available interfaces**. It is possible to
 limit client connections to a subset of the interfaces or even just one, for example, IPv6-only
 interfaces. The following few sections demonstrate how to do it.
 
@@ -99,8 +99,8 @@ The following example demonstrates how to configure RabbitMQ
 to listen on localhost only for both IPv4 and IPv6:
 
 <pre class="lang-ini">
-listeners.tcp.1 = 127.0.0.1:5672
-listeners.tcp.2 = ::1:5672
+listeners.tcp.1 = 127.0.0.1:15672
+listeners.tcp.2 = ::1:15672
 </pre>
 
 With modern Linux kernels and Windows releases,
@@ -109,14 +109,14 @@ listen on all IPv6 addresses but IPv4 is not disabled
 explicitly, IPv4 address will be included, so
 
 <pre class="lang-ini">
-listeners.tcp.1 = :::5672
+listeners.tcp.1 = :::15672
 </pre>
 
 is equivalent to
 
 <pre class="lang-ini">
-listeners.tcp.1 = 0.0.0.0:5672
-listeners.tcp.2 = :::5672
+listeners.tcp.1 = 0.0.0.0:15672
+listeners.tcp.2 = :::15672
 </pre>
 
 ### <a id="single-stack-ipv6" class="anchor" href="#single-stack-ipv6">Listening on IPv6 Interfaces Only</a>
@@ -124,7 +124,7 @@ listeners.tcp.2 = :::5672
 In this example RabbitMQ will listen on an IPv6 interface only:
 
 <pre class="lang-ini">
-listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
+listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:15672
 </pre>
 
 In IPv6-only environments the node must also be configured
@@ -135,7 +135,7 @@ to [use IPv6 for inter-node communication and CLI tool connections](#distributio
 In this example RabbitMQ will listen on an IPv4 interface only:
 
 <pre class="lang-ini">
-listeners.tcp.1 = 192.168.1.99:5672
+listeners.tcp.1 = 192.168.1.99:15672
 </pre>
 
 It is possible to disable non-TLS connections by disabling all regular TCP listeners.
