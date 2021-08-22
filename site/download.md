@@ -64,6 +64,7 @@ Open source [RabbitMQ Cluster Kubernetes Operator](kubernetes/operator/operator-
 
  * [quickstart guide](kubernetes/operator/quickstart-operator.html)
  * [usage guide](kubernetes/operator/using-operator.html)
+ * [OpenShift-specific topics](kubernetes/operator/using-on-openshift.html)
  * [examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
 
 ### RabbitMQ Topology Kubernetes Operator
