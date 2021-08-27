@@ -26,6 +26,7 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-one-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-one-java.html">Java</a></li>
+      <li><a href="/tutorials/tutorial-one-spring-amqp.html">Spring AMQP</a></li>
       <li><a href="/tutorials/tutorial-one-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-one-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-one-dotnet.html">C#</a></li>
@@ -33,8 +34,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-one-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-one-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-one-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-one-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-one-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="/tutorials/tutorial-one-swift.html">Swift</a></li>      
     </ul>
   </td>
 
@@ -47,6 +47,7 @@ limitations under the License.
     <ul>
         <li><a href="/tutorials/tutorial-two-python.html">Python</a></li>
         <li><a href="/tutorials/tutorial-two-java.html">Java</a></li>
+        <li><a href="/tutorials/tutorial-two-spring-amqp.html">Spring AMQP</a></li>
         <li><a href="/tutorials/tutorial-two-ruby.html">Ruby</a></li>
         <li><a href="/tutorials/tutorial-two-php.html">PHP</a></li>
         <li><a href="/tutorials/tutorial-two-dotnet.html">C#</a></li>
@@ -54,8 +55,7 @@ limitations under the License.
         <li><a href="/tutorials/tutorial-two-go.html">Go</a></li>
         <li><a href="/tutorials/tutorial-two-elixir.html">Elixir</a></li>
         <li><a href="/tutorials/tutorial-two-objectivec.html">Objective-C</a></li>
-        <li><a href="/tutorials/tutorial-two-swift.html">Swift</a></li>
-        <li><a href="/tutorials/tutorial-two-spring-amqp.html">Spring AMQP</a></li>
+        <li><a href="/tutorials/tutorial-two-swift.html">Swift</a></li>        
     </ul>
   </td>
 
@@ -68,6 +68,7 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-three-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-three-java.html">Java</a></li>
+      <li><a href="/tutorials/tutorial-three-spring-amqp.html">Spring AMQP</a></li>
       <li><a href="/tutorials/tutorial-three-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-three-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-three-dotnet.html">C#</a></li>
@@ -75,8 +76,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-three-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-three-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-three-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-three-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-three-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="/tutorials/tutorial-three-swift.html">Swift</a></li>      
     </ul>
   </td>
   </tr>
@@ -91,6 +91,7 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-four-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-four-java.html">Java</a></li>
+      <li><a href="/tutorials/tutorial-four-spring-amqp.html">Spring AMQP</a></li>
       <li><a href="/tutorials/tutorial-four-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-four-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-four-dotnet.html">C#</a></li>
@@ -98,8 +99,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-four-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-four-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-four-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-four-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-four-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="/tutorials/tutorial-four-swift.html">Swift</a></li>      
     </ul>
   </td>
 
@@ -112,6 +112,7 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-five-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-five-java.html">Java</a></li>
+      <li><a href="/tutorials/tutorial-five-spring-amqp.html">Spring AMQP</a></li>
       <li><a href="/tutorials/tutorial-five-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-five-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-five-dotnet.html">C#</a></li>
@@ -119,8 +120,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-five-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-five-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-five-swift.html">Swift</a></li>
-      <li><a href="/tutorials/tutorial-five-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="/tutorials/tutorial-five-swift.html">Swift</a></li>      
     </ul>
   </td>
 
@@ -133,13 +133,13 @@ limitations under the License.
     <ul>
       <li><a href="/tutorials/tutorial-six-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-six-java.html">Java</a></li>
+      <li><a href="/tutorials/tutorial-six-spring-amqp.html">Spring AMQP</a></li>
       <li><a href="/tutorials/tutorial-six-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-six-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-six-dotnet.html">C#</a></li>
       <li><a href="/tutorials/tutorial-six-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-six-go.html">Go</a></li>
-      <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>
-      <li><a href="/tutorials/tutorial-six-spring-amqp.html">Spring AMQP</a></li>
+      <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>      
     </ul>
   </td>
   </tr>
