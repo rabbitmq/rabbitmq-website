@@ -115,6 +115,10 @@ NAME                                  READY   AGE
 statefulset.apps/hello-world-server   1/1     2m
 </pre>
 
+If the pod is not running (its state is `Pending`) and you are deploying to a resource-constrained cluster (eg. local environments like `kind` or `minikube`),
+you may need to adjust CPU and/or memory limits of the cluster. By default, the Operator configures `RabbitmqCluster` pods to request 1CPU and 2GB of memory.
+Check the [resource-limits example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/resource-limits) to see how to adjust these values.
+
 You will also be able to see an instance of the `rabbitmqclusters.rabbitmq.com` custom resource created.
 
 <pre class="lang-bash">
