@@ -17,15 +17,17 @@ Certain errors have dedicated sections:
 
 ### <a id="cluster-fails-to-deploy" class="anchor" href="#cluster-fails-to-deploy">RabbitMQ Cluster Fails to Deploy</a>
 
-After creating a RabbitMQ instance, it is not available within a few minutes and RabbitMQ Pods do not run.
+After creating a RabbitMQ instance, it is not available within a few minutes and RabbitMQ pods are not running.
 
 Common reasons for such failure are:
 
+ * Insufficient CPU or memory in the cluster
  * Incorrect `imagePullSecrets` configuration. This prevents the image from being pulled from a Docker registry.
  * Incorrect `storageClassName` configuration.
 
 Potential solution to resolve this issue:
 
+ * Run `kubectl describe pod POD-NAME` to see if there are any warnings (eg. `0/1 nodes are available: 1 Insufficient memory.`)
  * Correct the <code>imagePullSecrets</code> and <code>storageClassName</code>
    configurations. See [imagePullSecrets](/kubernetes/operator/using-operator.html#image-pull-secrets),
    [Persistence](/kubernetes/operator/using-operator.html#persistence), and
@@ -33,6 +35,9 @@ Potential solution to resolve this issue:
  * If the issue persists after updating the above configurations, view the status
    of your RabbitMQ cluster resources by following in the procedure in
    [Check the Status of an Instance](#check-instance-status)
+
+If deploying to a resource-constrained cluster (eg. local environments like `kind` or `minikube`), you may need to adjust CPU and/or memory limits of the cluster.
+Check the [resource-limits example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/resource-limits) to see how to do this.
 
 ### <a id="pods-are-not-created" class="anchor" href="#pods-are-not-created">Pods Are Not Being Created</a>
 
