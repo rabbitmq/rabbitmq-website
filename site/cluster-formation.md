@@ -433,6 +433,7 @@ A RabbitMQ cluster deployed to Kubernetes will use a set of pods. The set must b
 A [headless service](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations) must be used to
 control [network identity of the pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 (their hostnames), which in turn affect RabbitMQ node names.
+On the headless service `spec`, field `publishNotReadyAddresses` must be set to `true` to propagate SRV DNS records for its Pods for the purpose of peer discovery.
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
