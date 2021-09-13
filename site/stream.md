@@ -28,7 +28,7 @@ plugin and associated client(s).
 This page covers the Stream plugin, which allows to interact with streams using this
 [new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
-[streams page](streams.html).
+[guide on RabbitMQ streams](streams.html).
 
 The current known client libraries for the stream protocol are the
 [RabbitMQ Stream Java Client](https://github.com/rabbitmq/rabbitmq-stream-java-client)

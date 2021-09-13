@@ -21,13 +21,14 @@ limitations under the License.
 
 Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ which models
 an append-only log with non-destructive consumer semantics.
-They can be used as a regular AMQP 0.9.1 queue or through a
+They can be used via a RabbitMQ client library as if  it was a queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
-plugin and associated client(s).
+plugin and associated client(s). The latter option is recommended as it
+provides access to all stream-specific features and offers best possible throughput (performance).
 
-This page covers the concepts of streams, their usage as AMQP 0.9.1 queues, and
+This page covers the concepts of streams, their usage, and
 their administration and maintenance operations. Please visit the [Stream plugin](/stream.html)
-page to learn more about the usage of streams with the custom binary protocol.
+page to learn more about the usage of streams with the binary RabbitMQ Stream protocol.
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
@@ -69,7 +70,7 @@ existing queue types either can not provide or provide with downsides:
 An AMQP 0.9.1 client library that can specify [optional queue and consumer arguments](/queues.html#optional-arguments)
 will be able to use streams as regular AMQP 0.9.1 queues.
 
-First we will cover how to declare a stream.
+Just like queues, streams have to be declared first.
 
 ### <a id="declaring" class="anchor" href="#declaring">Declaring</a>
 
@@ -118,7 +119,7 @@ Sets the maximum age of the stream. See [retention](#retention). Default: not se
 
 Unit: bytes. A stream is divided up into fixed size segment files on disk.
 This setting controls the size of these.
-Default: (500000000 bytes). 
+Default: (500000000 bytes).
 
 The following snippet shows how to set the maximum size of a stream to 20 GB, with
 segment files of 100 MB:
@@ -284,14 +285,14 @@ Use [per-consumer QoS prefetch](/consumer-prefetch.html), which is the default i
 
 Streams are implemented as an immutable append-only disk log. This means that
 the log will grow indefinitely until the disk runs out. To avoid this undesirable
-scenario it is possible to set a retention configuration per stream which will 
+scenario it is possible to set a retention configuration per stream which will
 discard the oldest data in the log based on total log data size and/or age.
 
 There are two parameters that control the retention of a stream. These can be combined.
 These are either set at declaration time using a queue argument or as a policy which
 can be dynamically updated.
 
- * `max-age`: 
+ * `max-age`:
 
     valid units: Y, M, D, h, m, s
 
@@ -320,7 +321,6 @@ as message sizes increase.
 Just like quorum queues, streams are also affected by cluster sizes.
 The more replicas a stream has, the lower its throughput generally will
 be since more work has to be done to replicate data and achieve consensus.
-
 
 ### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
 
@@ -457,6 +457,8 @@ will most likely need operator involvement to be recovered.
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
+For stream protocol port, TLS and other configuration, see the [Stream plugin guide](stream.html).
+
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
@@ -464,7 +466,7 @@ Streams are typically more light-weight than mirrored and quorum queues.
 
 All data is stored on disk with only unwritten data stored in memory.
 
-## <a id="resource-use" class="anchor" href="#offset-tracking">Offset Tracking</a>
+## <a id="offset-tracking" class="anchor" href="#offset-tracking">Offset Tracking</a>
 
 When using the broker provided offset tracking features (currently only available
 when using the [Stream plugin](/stream.html)) offsets are persisted in the stream
