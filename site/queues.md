@@ -32,6 +32,9 @@ For them, queues act as data accumulation buffer for consumers.
 However, it is still important to understand the role queues play
 because many features still operate at the queue level, even for those protocols.
 
+[Streams](streams.html) is an alternative messaging data structure available in RabbitMQ.
+Streams provide different features from queues.
+
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure
