@@ -392,6 +392,11 @@ both during operations and node restarts. Users who find themselves in need of
 clusters with node counts in double digits should
 **consider using independent clusters for separate parts of the system** where possible.
 
+From a performance standpoint, the maximum nodes recommended is 9 nodes in one RabbitMQ cluster.
+If you are attempting to increase performance and throughput,
+anything in the double digit node counts is not the solution.
+Instead, it is optimal to create new RabbitMQ cluster to improve messaging performance
+
 ### <a id="distribution-considerations-ntp" class="anchor" href="#distribution-considerations-ntp">Node Time Synchronization</a>
 
 A RabbitMQ cluster will typically function well without clocks
