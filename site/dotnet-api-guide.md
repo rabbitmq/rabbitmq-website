@@ -142,7 +142,7 @@ IConnection conn = factory.CreateConnection();
 
 <pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
-factory.Uri = "amqp://user:pass@hostName:port/vhost";
+factory.Uri = new Uri("amqp://user:pass@hostName:port/vhost");
 
 IConnection conn = factory.CreateConnection();
 </pre>
