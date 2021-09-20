@@ -38,7 +38,7 @@ Messaging Topology Operator can reconcile its objects in *any* namespace. Howeve
 same namespace as the topology object, for example `Queue`. In other words, Messaging Topology Operator will reconcile a `Queue` object, in namespace `default`,
 only if `RabbitmqCluster` object is also in namespace `default`.
 
-This is the default behaviour, and it can be customised to allow a specific list of namespaces to allow reconcilliation from. To create a list of
+This is the default behaviour, and it can be customised to allow a specific list of namespaces to allow reconciliation from. To create a list of
 allowed namespaces, the `RabbitmqCluster` object has to be annotated with key `rabbitmq.com/topology-allowed-namespaces`, and value a comma-separated list,
 without spaces, of namespace names; for example `default,ns1,my-namespace`. The value asterisk `*` can be used to allow **all** namespaces.
 
@@ -76,7 +76,7 @@ spec:
 
 ### <a id='namespace-scope-note' class='anchor' href='#namespace-scope-note'>A note about forbidden cross-namespace objects</a>
 
-If topology obects, for example `Queue`, target a `RabbitmqCluster`, and such `RabbitmqCluster` does not allow requests from the topology object's
+If topology objects, for example `Queue`, target a `RabbitmqCluster`, and such `RabbitmqCluster` does not allow requests from the topology object's
 namespace, a [status condition](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) will be created with an error message,
 and the object **will not be reconciled**, until it is updated.
 
