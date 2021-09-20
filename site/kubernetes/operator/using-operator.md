@@ -17,6 +17,7 @@ This guide is structured in the following sections:
 * [Set a Pod Disruption Budget](#set-pdb)
 * [Configure TLS](#tls)
 * [Find Your RabbitmqCluster Service Name and Admin Credentials](#find)
+* [Use HashiCorp Vault](#vault)
 * [Verify the Instance is Running](#verify-instance)
 * [Use the RabbitMQ Service in Your App](#use)
 * [Monitor RabbitMQ Clusters](#monitoring)
@@ -1113,6 +1114,26 @@ Next, display the password by running:
 kubectl -n NAMESPACE get secret INSTANCE-default-user -o jsonpath="{.data.password}" | base64 --decode
 </pre>
 
+## <a id='vault' class='anchor' href='#vault'>(Optional) Use HashiCorp Vault</a>
+The RabbitMQ Cluster Operator supports storing RabbitMQ admin credentials and RabbitMQ server certificates
+in [HashiCorp Vault](https://www.vaultproject.io/).
+
+### <a id='vault-default-user' class='anchor' href='#vault-default-user'>Read RabbitMQ Admin Credentials from Vault</a>
+Instead of having the Operator create RabbitMQ admin credentials putting them into a Kubernetes Secret object
+as described in [Retrieve Your RabbitMQ Admin Credentials](#creds), you can configure a RabbitmqCluster to
+read RabbitMQ admin credentials from Vault.
+To do so, follow the [vault-default-user example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-default-user).
+
+The credentials must have been written to Vault before the RabbitmqCluster is created.
+As described in the example, RabbitMQ admin password rotation is supported without the need to restart the RabbitMQ server.
+
+### <a id='vault-tls' class='anchor' href='#vault-tls'>Issue RabbitMQ Sever Certificates from Vault</a>
+To configure TLS, instead of providing a Kubernetes Secret object containing RabbitMQ server private key, certificate, and certificate authority
+as described in [TLS Configuration](#tls-conf), you can configure a RabbitmqCluster to request new short-lived server certificates from
+[Vault PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki) upon every RabbitMQ Pod (re)start.
+To do so, follow the [vault-tls example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-tls).
+
+The RabbitMQ server private key will never be stored in Vault.
 
 ## <a id='verify-instance' class='anchor' href='#verify-instance'>Verify the Instance is Running</a>
 
