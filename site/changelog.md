@@ -46,7 +46,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.5">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.6">Release notes</a></td>
   </tr>
 
   <tr>
