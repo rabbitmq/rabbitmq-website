@@ -1004,7 +1004,7 @@ To enable TLS, create a Kubernetes secret containing the PEM-encoded server cert
 kubectl create secret tls tls-secret --cert=server.pem --key=server-key.pem
 </pre>
 
-or use a tool such as <a href="https://cert-manager.io/">Cert Manger</a> to generate a TLS secret.
+or use a tool such as <a href="https://cert-manager.io/">Cert Manager</a> to generate a TLS secret.
 
 Once this secret exists, a RabbitMQ cluster can be deployed following the <a href="https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/tls">TLS example</a>.
 

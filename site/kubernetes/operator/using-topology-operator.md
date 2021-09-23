@@ -8,6 +8,7 @@ If RabbitMQ Cluster Kubernetes Operator is not installed, see the [quickstart gu
 This guide has the following sections:
 
 * [Requirements](#requirements)
+* [Scope across multiple namespaces](#namespace-scope)
 * [Queues and policies](#queues-policies)
 * [Users and user permissions](#users-permissions)
 * [Exchanges and bindings](#exchanges-bindings)
@@ -30,6 +31,59 @@ This guide has the following sections:
 The minimal version required for Cluster Operator is `1.7.0`.
 * Messaging Topology Operator custom resources can only be created in the same namespace as the RabbitMQ cluster is deployed. For a RabbitmqCluster deployed in namespace
 "my-test-namespace", all Messaging Topology custom resources for this RabbitMQ cluster, such as `queues.rabbitmq.com` and `users.rabbitmq.com`, can only be created in namespace "my-test-namespace".
+
+## <a id='namespace-scope' class='anchor' href='#namespace-scope'>Scope across multiple namespaces</a>
+
+Messaging Topology Operator can reconcile its objects in *any* namespace. However, by default, it will limit its interactions to `RabbitmqCluster` objects within
+same namespace as the topology object, for example `Queue`. In other words, Messaging Topology Operator will reconcile a `Queue` object, in namespace `default`,
+only if `RabbitmqCluster` object is also in namespace `default`.
+
+This is the default behaviour, and it can be customised to allow a specific list of namespaces to allow reconciliation from. To create a list of
+allowed namespaces, the `RabbitmqCluster` object has to be annotated with key `rabbitmq.com/topology-allowed-namespaces`, and value a comma-separated list,
+without spaces, of namespace names; for example `default,ns1,my-namespace`. The value asterisk `*` can be used to allow **all** namespaces.
+
+Any topology object can be declared to target a `RabbitmqCluster` in a different namespace using `.spec.rabbitmqClusterReference.namespace`. Topology
+objects within the same namespace as `RabbitmqCluster` are **always** allowed.
+
+The following YAML declares a `RabbitmqCluster` object that allows topology objects from namespace `my-app`:
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: example-rabbit
+  namespace: rabbitmq-service
+  annotations:
+    rabbitmq.com/topology-allowed-namespaces: "my-app"
+spec:
+  replicas: 1
+</pre>
+
+Note that the above YAML specifies namespace `rabbitmq-service`. Then the following YAML will target the above RabbitMQ, from namespace `my-app`.
+
+<pre class="lang-yaml">
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: test # name of this custom resource; does not have to the same as the actual queue name
+  namespace: my-app
+spec:
+  name: test-queue # name of the queue
+  rabbitmqClusterReference:
+    name: example-rabbit
+    namespace: rabbitmq-service
+</pre>
+
+### <a id='namespace-scope-note' class='anchor' href='#namespace-scope-note'>A note about forbidden cross-namespace objects</a>
+
+If topology objects, for example `Queue`, target a `RabbitmqCluster`, and such `RabbitmqCluster` does not allow requests from the topology object's
+namespace, a [status condition](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) will be created with an error message,
+and the object **will not be reconciled**, until it is updated.
+
+For example, `RabbitmqCluster` in namespace `ns1` allows topologies from `my-app`, and topology object `Queue` in namespace `not-allowed` targets said
+`RabbitmqCluster`, Messaging Topology Operator will log an error message, update a status condition in the `Queue` object, and give up reconciling the
+`Queue` object. If the `RabbitmqCluster` object is updated to allow topology objects from namespace `not-allowed`, the `Queue` object **must be manually
+updated** to trigger a reconciliation; for example, by adding a label to the `Queue` object.
 
 ## <a id='queues-policies' class='anchor' href='#queues-policies'>Queues and Policies</a>
 

@@ -68,7 +68,7 @@ and consensus protocol and give up support for certain "transient" in nature fea
 These constraints and limitations are covered later in this guide.
 ### <a id="what-is-quorum" class="anchor" href="#what-is-quorum">What is a Quorum?</a>
 
-If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum) in a distributed system can
+If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum_(distributed_computing)) in a distributed system can
 be defined as an agreement between the majority of nodes (`(N/2)+1` where `N` is the total number of
 system participants).
 
