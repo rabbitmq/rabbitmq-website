@@ -3,7 +3,7 @@
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Log files is a very important aspect of system observability,
-much like [monitoring](/monitoring.html).
+much like [monitoring](monitoring.html).
 
 Developers and operators should inspect logs when troubleshooting an issue or assessing the
 state of the system.
@@ -23,13 +23,11 @@ This guide covers topics such as:
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
- * Advanced configuration topics (custom log handlers, sinks, etc)
 
 and more.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
-Before version 3.7.0 there were two log files: for regular messages and unhandled exceptions.
 Starting with 3.7.0, RabbitMQ uses a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
@@ -50,9 +48,6 @@ if the environment variable is set, the configuration key `log.file` will not ha
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
-
-As of 3.7.0 RabbitMQ uses the [Lager](https://github.com/erlang-lager/lager) logging
-library under the hood. Lager supports logging to different sources and is highly configurable.
 
 RabbitMQ starts logging early on node start. See the [Configuration guide](configure.html)
 for a general overview of how to configure RabbitMQ.
@@ -106,7 +101,7 @@ The rest of this guide describes more options, including [more advanced ones](#a
 ### <a id="log-rotation" class="anchor" href="#log-rotation">Log Rotation</a>
 
 RabbitMQ nodes always append to the log files, so a complete log history is preserved.
-Lager will not perform log file rotation by default. [Debian](/install-debian.html) and [RPM](/install-rpm.html) packages will set up
+Log file rotation is not performed by default. [Debian](install-debian.html) and [RPM](install-rpm.html) packages will set up
 log [rotation via `logrotate`](#logrotate) after package installation.
 
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
@@ -375,11 +370,10 @@ There are two ways of changing effective log levels:
 
  * Via [configuration file(s)](configure.html): this is more flexible but requires
    a node restart between changes
- * Using [CLI tools](/cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: this option sets the same level for all
-   sinks, the changes are transient (will not survive node restart) but can be used to
+ * Using [CLI tools](/cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
    enable and disable e.g. [debug logging](#debug-logging) at runtime for a period of time.
 
-To set log level of all sinks to `debug` on a running node:
+To set log level to `debug` on a running node:
 
 <pre class="lang-bash">
 rabbitmqctl -n rabbit@target-host set_log_level debug
@@ -406,7 +400,7 @@ To tail three hundred last lines on a node `rabbitmq@target-host`, use `rabbitmq
 rabbitmq-diagnostics -n rabbit@target-host log_tail -N 300
 </pre>
 
-This will load and print last lines from the log file for the default sink.
+This will load and print last lines from the log file.
 If only console logging is enabled, this command will fail with a "file not found" (`enoent`) error.
 
 To continuously inspect as a stream of log messages as they are appended to a file,
@@ -418,7 +412,7 @@ similarly to `tail -f` or console logging, use `rabbitmq-diagnostics log_tail_st
 rabbitmq-diagnostics -n rabbit@target-host log_tail_stream
 </pre>
 
-This will continuously tail and stream lines added to the log file for the default sink.
+This will continuously tail and stream lines added to the log file.
 If only console logging is enabled, this command will fail with a "file not found" (`enoent`) error.
 
 The `rabbitmq-diagnostics log_tail_stream` command can only be used against a running RabbitMQ node
@@ -670,209 +664,3 @@ Link events:
 
  * `federation.link.status`
  * `federation.link.removed`
-
-
-## <a id="advanced-configuration" class="anchor" href="#advanced-configuration">Advanced Configuration</a>
-
-This section describes the nitty gritty details of the logging
-subsystem. Most RabbitMQ installations won't need the advanced configuration explained here.
-
-### Lager Handlers and Sinks
-
-RabbitMQ logging subsystem is built on top of [Lager](https://github.com/erlang-lager/lager), a powerful logging
-library with several advanced features. Some of them are accessible via
-the [log handler and sink abstractions](https://github.com/erlang-lager/lager#configuration).
-
-A sink is an "endpoint" where log entries are written by connections, queues and so on. A handler is
-stateful entity that consumes log entries and processes them. For example, a handler can write log
-entries to a file, send them to a log collection service or discards them.
-
-By default RabbitMQ creates one file backend handler and one sink per log category (see above).
-Changing RabbitMQ log configuration parameters changes log handler used under the hood. The number
-of sinks used by RabbitMQ core is fixed. 3rd party plugins can use custom sinks. With a certain
-amount of configuration it may be possible e.g. to log those messages separately from the rest.
-
-When RabbitMQ is started with default logging settings, a Lager handler is configured
-under the hood and it looks like this:
-
-<pre class="lang-erlang">
-[{lager, [
-    {handlers,
-       [{lager_file_backend,
-            [{file,
-                 "/var/log/rabbitmq/log/rabbit.log"},
-             {formatter_config,
-                 [date," ",time," ",color,"[",severity,"] ",
-                  {pid,[]},
-                  " ",message,"\n"]},
-             {level,info},
-             {date,""},
-             {size,0}]}]},
-    {extra_sinks,
-       [{error_logger_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_channel_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_connection_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_mirroring_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_queue_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_federation_lager_event,
-            [{handlers, [{lager_forwarder_backend,[lager_event,inherit]}]}]},
-        {rabbit_log_upgrade_lager_event,
-            [{handlers,
-                [{lager_file_backend,
-                    [{date,[]},
-                     {file,
-                           "/var/log/rabbitmq/rabbit_upgrade.log"},
-                     {formatter_config,
-                        [date," ",time," ",color,"[",severity,
-                         "] ",
-                         {pid,[]},
-                         " ",message,"\n"]},
-                     {level,info},
-                     {size,0}]}]}]}]}
-]}].
-</pre>
-
-Most sinks use `lager_forwarder_backend`. This backend will redirect all messages
-with matching level to default lager sink (`lager_event`). Upgrade messages use
-a separate sink with its own log file.
-
-For instance, if console logging is enabled with
-
-<pre class="lang-ini">
-log.console = true
-log.console.level = warning
-</pre>
-
-then generated handlers configuration will look something like this:
-
-<pre class="lang-erlang">
-[{lager,
-    [{handlers,
-        [{lager_console_backend,
-            [{formatter_config,[date," ", time," ",color,"[",severity,"] ", {pid,[]}, " ",message,"\n"]},
-             {level,warning}]},
-         {lager_file_backend,
-            [{date,[]},
-            {file,"/var/folders/cl/jnydxpf92rg76z05m12hlly80000gq/T/rabbitmq-test-instances/rabbit/log/rabbit.log"},
-            {formatter_config,[date," ",time," ",color,"[",severity, "] ", {pid,[]}, " ",message,"\n"]},
-            {level,info},
-            {size,0}]
-        }]},
-     {extra_sinks,
-        [{error_logger_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event, inherit]}]}]},
-         {rabbit_log_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                       inherit]}]}]},
-         {rabbit_log_channel_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                               inherit]}]}]},
-         {rabbit_log_connection_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                  inherit]}]}]},
-         {rabbit_log_mirroring_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                 inherit]}]}]},
-         {rabbit_log_queue_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                             inherit]}]}]},
-         {rabbit_log_federation_lager_event,[{handlers,[{lager_forwarder_backend,[lager_event,
-                                                                                  inherit]}]}]},
-         {rabbit_log_upgrade_lager_event,
-            [{handlers,
-                [{lager_console_backend,
-                    [{formatter_config,[date," ", time," ",color,"[",severity,"] ", {pid,[]}, " ",message,"\n"]},
-                     {level,warning}]},
-                 {lager_file_backend,
-                    [{date,[]},
-                     {file,"/var/folders/cl/jnydxpf92rg76z05m12hlly80000gq/T/rabbitmq-test-instances/rabbit/log/rabbit_upgrade.log"},
-                     {formatter_config,[date," ", time," ",color,"[",severity,"] ", {pid,[]}, " ",message,"\n"]},
-                     {level,info},
-                     {size,0}]}]}]
-         }]
-    }]
-}].
-</pre>
-
-Here a new handler is added to the `handlers` and `upgrade_lager_event` sink handlers.
-Because the `upgrade` category uses a separate file by default, all default handlers are copied to the sink handlers.
-
-If a target log file is configured for a category via a `log.<category>.file` config entry, all log messages
-in that category will be written to **this file only** as well as non-file backends.
-
-To include upgrade logs in the default log file, disable file logging for that category.
-
-<pre class="lang-ini">
-log.upgrade.file = false
-</pre>
-
-Logging settings must go into the `lager` application section. To add extra handlers to default
-configuration or sinks, use the `handlers` to `extra_sinks` keys.
-
-Handlers configured in the `lager` config will be **merged** with those generated by RabbitMQ. Log
-messages will be logged both by the custom handlers as well as the standard ones.
-
-If a sink uses a name of a known RabbitMQ category, its handlers will be **merged** with the
-generated category sink. Log messages in the category will be sent both to the custom handlers and
-the default sink.
-
-It is possible to disable RabbitMQ handlers and sinks. Setting a handler or category's `level` to
-`none` will disable them.
-
-
-### Custom Handler Examples
-
-To create an additional log file for errors only, create an
-additional handler with the `error` level. This has to be done using the
-[advanced config file](configure.html):
-
-<pre class="lang-erlang">
-[{lager, [
-    {handlers, [
-        {lager_file_backend,
-            [{file, "rabbit_errors.log"},
-             {level,error},
-             %% The formatter and rotation config is optional
-             {formatter_config,
-                 [date," ",time," ",color,"[",severity,"] ",
-                  {pid,[]},
-                  " ",message,"\n"]},
-             {date,""},
-             {size,0}]}
-    ]}]
-}].
-</pre>
-
-To use a custom lager backend and disable RabbitMQ default handlers:
-
-<pre class="lang-erlang">
-[{lager,
-    [{handlers,
-        [{lager_custom_backend,
-            [{level,info},
-             {custom,settings}]}]
-    }]},
- {rabbit,
-    [{log,
-        [{file, [{file, false}]}] %% Disable RabbitMQ file handler
-    }]}
-].
-</pre>
-
-To log direct Erlang AMQP 0-9-1 client messages to console instead of default output:
-
-<pre class="lang-erlang">
-[{lager,
-    [{extra_sinks,
-        [{rabbit_log_connection_lager_event,
-            [{handlers,
-                [{lager_console_backend, info}]}]}]
-    }]},
- {rabbit,
-    [{log,
-        [{categories,
-            [{connection, [{level, none}]}]}] %% Block connection category forwarder
-    }]}
-].
-</pre>
