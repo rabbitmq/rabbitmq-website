@@ -218,7 +218,7 @@ even if the workers occasionally die.
 A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 You can increase this timeout as described in
-[acknowledgement-timeout](../consumers.html#acknowledgement-timeout).
+[Delivery Acknowledgement Timeout](../consumers.html#acknowledgement-timeout).
 
 Manual consumer acknowledgments have been turned off in previous examples.
 It's time to turn them on using the `{noAck: false}` option and send a proper acknowledgment
