@@ -238,9 +238,10 @@ If there are other consumers online at the same time, it will then quickly redel
 to another consumer. That way you can be sure that no message is lost,
 even if the workers occasionally die.
 
-There aren't any message timeouts; RabbitMQ will redeliver the message when
-the consumer dies. It's fine even if processing a message takes a very, very
-long time.
+A timeout (30 minutes by default) is enforced on consumer delivery acknowledgement.
+This helps detect buggy (stuck) consumers that never acknowledge deliveries.
+You can increase this timeout as described in
+[acknowledgement-timeout](../consumers.html#acknowledgement-timeout).
 
 In this tutorial we will use manual message acknowledgements by passing
 a `false` for the "auto-ack" argument and then send a proper acknowledgment
