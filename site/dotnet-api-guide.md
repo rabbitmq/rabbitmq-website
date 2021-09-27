@@ -578,8 +578,8 @@ The returned value is an instance of `BasicGetResult`, from which the header
 information (properties) and message body can be extracted:
 
 <pre class="lang-csharp">
-bool noAck = false;
-BasicGetResult result = channel.BasicGet(queueName, noAck);
+bool autoAck = false;
+BasicGetResult result = channel.BasicGet(queueName, autoAck);
 if (result == null) {
     // No message available at this time.
 } else {
@@ -588,7 +588,7 @@ if (result == null) {
     ...
 </pre>
 
-The above example uses [automatic acknowledgements](/confirms.html) (`noAck = false`), so the application must also call
+The above example uses [automatic acknowledgements](/confirms.html) (`autoAck = false`), so the application must also call
 `IModel.BasicAck` to acknowledge the delivery after processing:
 
 <pre class="lang-csharp">
