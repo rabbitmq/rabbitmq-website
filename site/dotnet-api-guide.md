@@ -588,7 +588,7 @@ if (result == null) {
     ...
 </pre>
 
-The above example uses [automatic acknowledgements](/confirms.html) (`autoAck = false`), so the application must also call
+The above example uses [manual acknowledgements](/confirms.html) (`autoAck = false`), so the application must also call
 `IModel.BasicAck` to acknowledge the delivery after processing:
 
 <pre class="lang-csharp">
