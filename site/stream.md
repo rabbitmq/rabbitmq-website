@@ -137,6 +137,8 @@ stream.advertised_host = rabbitmq-1
 stream.advertised_port = 12345
 </pre>
 
+The [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-to-streams/) blog post covers why the `advertised_host` and `advertised_port` settings are necessary in some deployments.
+
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 To use TLS for stream connections, [TLS must be configured](/ssl.html) in the broker. To enable
