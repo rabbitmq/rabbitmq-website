@@ -296,7 +296,7 @@ the cookie file will be looked for, and created by the node on first boot if it 
 
 In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
-### <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
+### <a id="peer-authentication-failures" class="anchor" href="#peer-authentication-failures">Authentication Failures</a>
 
 When the cookie is misconfigured (for example, not identical), RabbitMQ nodes will log errors
 such as "Connection attempt from disallowed node", "", "Could not auto-cluster".
