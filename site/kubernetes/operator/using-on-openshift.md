@@ -53,9 +53,6 @@ spec:
           spec:
             containers: []
             securityContext: {}
-            initContainers:
-            - name: setup-container
-              securityContext: {}
 </pre>
 
 This resets the securityContext for the Pods to default, and ensures that RabbitMQ Pods are also assigned arbitrary user IDs in Openshift.
