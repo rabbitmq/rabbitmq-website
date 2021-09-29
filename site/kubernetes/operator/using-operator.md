@@ -21,6 +21,7 @@ This guide is structured in the following sections:
 * [Verify the Instance is Running](#verify-instance)
 * [Use the RabbitMQ Service in Your App](#use)
 * [Monitor RabbitMQ Clusters](#monitoring)
+* [Restrict traffic using Network Policies](#network-policies)
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
 
@@ -1194,6 +1195,15 @@ For production systems, it is critically important to enable RabbitMQ cluster [m
 See [Monitoring RabbitMQ in Kubernetes](/kubernetes/operator/operator-monitoring.html) to learn about
 the recommended monitoring options for Kubernetes-deployed clusters.
 
+
+## <a id='network-policies' class='anchor' href='#network-policies'>Restrict traffic using Network Policies</a>
+
+[Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/), akin to firewalls, allow you to restrict traffic to/from Pods in your RabbitmqCluster at the IP address or port level.
+You may wish to do this on a production cluster, for example, to ensure only Pods in the RabbitmqCluster can access the inter-node epmd or clustering ports, or to restrict messaging traffic to only be permitted from known
+trusted client Pods.
+
+The cluster-operator repo has [a documented example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/network-policies) with several sample NetworkPolicies that you can use as guides for
+defining your own secure network topology.
 
 ## <a id='delete' class='anchor' href='#delete'>Delete a RabbitMQ Instance</a>
 
