@@ -1123,7 +1123,19 @@ in [HashiCorp Vault](https://www.vaultproject.io/).
 Instead of having the Operator create RabbitMQ admin credentials putting them into a Kubernetes Secret object
 as described in [Retrieve Your RabbitMQ Admin Credentials](#creds), you can configure a RabbitmqCluster to
 read RabbitMQ admin credentials from Vault.
-To do so, follow the [vault-default-user example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-default-user).
+To do so, follow the [vault-default-user example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-default-user) and configure the Vault secret backend:
+
+<pre class='lang-yaml'>
+spec:
+  secretBackend:
+    vault:
+      role: rabbitmq
+      # Optionally, set Vault annotations as listed in
+      # https://www.vaultproject.io/docs/platform/k8s/injector/annotations
+      annotations:
+        vault.hashicorp.com/template-static-secret-render-interval: "15s"
+      defaultUserPath: secret/data/rabbitmq/config
+</pre>
 
 The credentials must have been written to Vault before the RabbitmqCluster is created.
 As described in the example, RabbitMQ admin password rotation is supported without the need to restart the RabbitMQ server.
@@ -1132,7 +1144,16 @@ As described in the example, RabbitMQ admin password rotation is supported witho
 To configure TLS, instead of providing a Kubernetes Secret object containing RabbitMQ server private key, certificate, and certificate authority
 as described in [TLS Configuration](#tls-conf), you can configure a RabbitmqCluster to request new short-lived server certificates from
 [Vault PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki) upon every RabbitMQ Pod (re)start.
-To do so, follow the [vault-tls example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-tls).
+To do so, follow the [vault-tls example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/vault-tls) and configure the vault secret backend:
+
+<pre class='lang-yaml'>
+spec:
+  secretBackend:
+    vault:
+      role: rabbitmq
+      tls:
+        pkiIssuerPath: pki/issue/cert-issuer
+</pre>
 
 The RabbitMQ server private key will never be stored in Vault.
 
