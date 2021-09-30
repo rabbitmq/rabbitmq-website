@@ -12,7 +12,7 @@ endif
 
 PLATFORM := $(shell uname)
 
-PYTHON_VERSION := 3.9
+PYTHON_VERSION := 3
 
 ifeq ($(PLATFORM),Darwin)
 OPEN := open
