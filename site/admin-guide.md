@@ -119,13 +119,24 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
 
 
-## Distributed RabbitMQ
+### Clustering
+
+ * [Clustering](clustering.html)
+ * [Cluster Formation and Peer Discovery](cluster-formation.html)
+ * [Inter-node traffic compression](clustering-compression.html)
+
+### Replicated Queue Types, Streams, High Availability
+
+ * [Quorum Queues](quorum-queues.html): a modern highly available replicated queue type
+ * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
+ * [RabbitMQ Stream plugin](stream.html): the plugin and binary protocol behind RabbitMQ streams
+
+### Distributed RabbitMQ
 
  * [Replication and Distributed Feature Overview](distributed.html)
- * [Clustering](clustering.html)
- * [Quorum Queues](quorum-queues.html): a modern replicated queue type
- * [Streams](streams.html): a messaging abstraction that allows for repeatable consumption
- * [Reliable Message Delivery](reliability.html)
+ * [Reliability](reliability.html) of distributed deployments, publishers and consumers
+ * [Federation](federation.html)
+ * [Shovel](shovel.html)
 
 
 ## Guidance
