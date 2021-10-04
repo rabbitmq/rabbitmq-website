@@ -173,11 +173,11 @@ Below is shell snippet that performs those steps. They are documented in more de
 sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
 ## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
 ## PackageCloud RabbitMQ repository
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.packagecloud.rabbitmq.gpg > /dev/null
 
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
@@ -225,11 +225,11 @@ In order for `apt` to use the repository, [RabbitMQ signing key](signatures.html
 
 <pre class="lang-bash">
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
 ## Launchpad PPA that provides modern Erlang releases
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
 ## PackageCloud RabbitMQ repository
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor &gt; /usr/share/keyrings/io.packagecloud.rabbitmq.gpg
+curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.packagecloud.rabbitmq.gpg > /dev/null
 </pre>
 
 See the [guide on signatures](signatures.html) to learn more.
@@ -382,11 +382,11 @@ Below is shell snippet that performs those steps. They are documented in more de
 sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
 ## Cloudsmith: modern Erlang repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg > /dev/null
 ## Cloudsmith: RabbitMQ repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg > /dev/null
 
 ## Add apt repositories maintained by Team RabbitMQ
 sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
@@ -444,11 +444,11 @@ This will enable apt to trust packages signed by that key.
 sudo apt-get install curl gnupg apt-transport-https -y
 
 ## Team RabbitMQ's main signing key
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.rabbitmq.team.gpg
+curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
 ## Cloudsmith: modern Erlang repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.cloudsmith.rabbitmq.E495BB49CC4BBE5B.gpg > /dev/null
 ## Cloudsmith: RabbitMQ repository
-curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo gpg --dearmor &gt; /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg
+curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.cloudsmith.rabbitmq.9F4587F226208342.gpg > /dev/null
 </pre>
 
 See the [guide on signatures](signatures.html) to learn more.
@@ -1012,10 +1012,10 @@ This will enable apt to trust packages signed by that key.
 
 <pre class="lang-bash">
 # primary RabbitMQ signing key
-curl -1sLf "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo gpg --dearmor &gt; /usr/share/keyrings/com.github.rabbitmq.signing.gpg
+curl -1sLf "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.github.rabbitmq.signing.gpg > /dev/null
 
 # Launchpad PPA signing key for apt
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor &gt; /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg
+curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
 </pre>
 
 See the [guide on signatures](signatures.html) to learn more.
