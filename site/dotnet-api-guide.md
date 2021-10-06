@@ -310,7 +310,7 @@ factory.HostName = hostName;
 
 // this name will be shared by all connections instantiated by
 // this factory
-factory.ClientProvidedName = "app:audit component:event-consumer"
+factory.ClientProvidedName = "app:audit component:event-consumer";
 
 IConnection conn = factory.CreateConnection();
 </pre>
@@ -410,7 +410,7 @@ channel.QueueDelete("queue-name", true, false);
 A queue can be purged (all of its messages deleted):
 
 <pre class="lang-csharp">
-channel.QueuePurge("queue-name")
+channel.QueuePurge("queue-name");
 </pre>
 
 
@@ -462,7 +462,7 @@ byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-props.Expiration = "36000000"
+props.Expiration = "36000000";
 
 channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
 </pre>
