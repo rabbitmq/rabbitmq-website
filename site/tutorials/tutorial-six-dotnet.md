@@ -333,8 +333,8 @@ public class RpcClient
     private readonly BlockingCollection&lt;string&gt; respQueue = new BlockingCollection&lt;string&gt;();
     private readonly IBasicProperties props;
 
-public RpcClient()
-{
+    public RpcClient()
+    {
         var factory = new ConnectionFactory() { HostName = "localhost" };
 
         connection = factory.CreateConnection();
