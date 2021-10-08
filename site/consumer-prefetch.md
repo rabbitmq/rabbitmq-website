@@ -131,7 +131,7 @@ The value can be configured as `rabbit.default_consumer_prefetch` in the [advanc
 %% advanced.config file
 [
  {rabbit, [
-       {default_consumer_prefetch, 250}
+       {default_consumer_prefetch, {false,250}}
      ]
  }
 ].
