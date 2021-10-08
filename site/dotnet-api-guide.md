@@ -491,7 +491,7 @@ consumer.Received += (ch, ea) =>
                 };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
-String consumerTag = channel.BasicConsume(queueName, false, consumer);
+string consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
 Another option is to subclass `DefaultBasicConsumer`,
@@ -555,13 +555,13 @@ consumer.Received += async (ch, ea) =>
         // and process the message
         // ...
 
-        ch.BasicAck(ea.DeliveryTag, false);
+        channel.BasicAck(ea.DeliveryTag, false);
         await Task.Yield();
 
     };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
-string tag = m.BasicConsume(queueName, false, consumer);
+string consumerTag = channel.BasicConsume(queueName, false, consumer);
 // ensure we get a delivery
 bool waitRes = latch.WaitOne(2000);
 </pre>
@@ -712,7 +712,9 @@ To be notified of such returns, clients can subscribe to the
 event, then returned messages will be silently dropped.
 
 <pre class="lang-csharp">
-model.BasicReturn += new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
+channel.BasicReturn += (sender, ea) => {
+    ...
+};
 </pre>
 
 The `BasicReturn` event will fire, for example, if the client
@@ -786,7 +788,7 @@ ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
 try {
-  Connection conn = factory.CreateConnection();
+  IConnection conn = factory.CreateConnection();
 } catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e) {
   Thread.Sleep(5000);
   // apply retry logic
@@ -815,7 +817,7 @@ and consumers. It is enabled by default but can be disabled:
 <pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 
-Connection conn = factory.CreateConnection();
+IConnection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
 </pre>
