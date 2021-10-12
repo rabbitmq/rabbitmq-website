@@ -684,23 +684,6 @@ in this order on the same channel, they will be processed in this order. If mess
 were delivered on different channels, they can be processed in any order (or in parallel).
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
 
-### <a id="custom-task-scheduler" class="anchor" href="#custom-task-scheduler">Using a Custom Task Scheduler</a>
-
-It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
-
-<pre class="lang-csharp">
-public class CustomTaskScheduler : TaskScheduler
-{
-  // ...
-}
-
-var cf = new ConnectionFactory();
-cf.TaskScheduler = new CustomTaskScheduler();
-</pre>
-
-This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).
-
-
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
 
 If a message is published with the "mandatory" flag
