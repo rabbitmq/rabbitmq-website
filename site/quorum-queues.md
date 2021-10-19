@@ -127,7 +127,6 @@ Some features are not currently supported by quorum queues.
 | [Consumer priority](/consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
 | Adheres to [policies](/parameters.html#policies) | yes | yes (see policy support below) |
-| Reacts to [memory alarms](/alarms.html) | yes | no |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
 

@@ -237,8 +237,8 @@ For instance, this can be seen in the [RabbitMQ on Kubernetes examples repositor
 
 On Windows, the cookie location depends on a few factors:
 
- * Erlang version: prior to 20.2 or 20.2 and later
  * Whether the `HOMEDRIVE` and `HOMEPATH` environment variables are both set
+ * Erlang version: prior to 20.2 (these are no longer supported by any [maintained release series of RabbitMQ](versions.html)) or 20.2 and later
 
 ##### Erlang 20.2 or later
 
@@ -251,18 +251,6 @@ With Erlang versions starting with 20.2, the cookie file locations are:
 If the Windows service is used, the cookie should be copied from
 `C:\Windows\system32\config\systemprofile\.erlang.cookie` to the expected
 location for users running commands like `rabbitmqctl.bat`.
-
-##### Erlang 19.3 through 20.2
-
-With Erlang versions prior to 20.2, the cookie file locations are:
-
- * `%HOMEDRIVE%%HOMEPATH%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie` for user `%USERNAME%`) if both the `HOMEDRIVE` and `HOMEPATH` environment variables are set
- * `%USERPROFILE%\.erlang.cookie` (usually `C:\Users\%USERNAME%\.erlang.cookie`) if `HOMEDRIVE` and `HOMEPATH` are not both set
- * For the RabbitMQ Windows service - `%WINDIR%\.erlang.cookie` (usually `C:\Windows\.erlang.cookie`)
-
-If the Windows service is used, the cookie should be copied from
-`C:\Windows\.erlang.cookie` to the expected location for users
-running commands like `rabbitmqctl.bat`.
 
 ### Overriding Using CLI and Runtime Command Line Arguments
 
@@ -296,7 +284,7 @@ the cookie file will be looked for, and created by the node on first boot if it 
 
 In the example above, the cookie file location will be `/var/lib/rabbitmq/.erlang.cookie`.
 
-### <a id="cli-authentication-failures" class="anchor" href="#cli-authentication-failures">Authentication Failures</a>
+### <a id="peer-authentication-failures" class="anchor" href="#peer-authentication-failures">Authentication Failures</a>
 
 When the cookie is misconfigured (for example, not identical), RabbitMQ nodes will log errors
 such as "Connection attempt from disallowed node", "", "Could not auto-cluster".

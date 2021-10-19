@@ -61,7 +61,7 @@ that is, publishing a message and waiting synchronously for its confirmation:
 while (ThereAreMessagesToPublish())
 {
     byte[] body = ...;
-    BasicProperties properties = ...;
+    IBasicProperties properties = ...;
     channel.BasicPublish(exchange, queue, properties, body);
     // uses a 5 second timeout
     channel.WaitForConfirmsOrDie(new TimeSpan(0, 0, 5));
@@ -107,7 +107,7 @@ var outstandingMessageCount = 0;
 while (ThereAreMessagesToPublish())
 {
     byte[] body = ...;
-    BasicProperties properties = ...;
+    IBasicProperties properties = ...;
     channel.BasicPublish(exchange, queue, properties, body);
     outstandingMessageCount++;
     if (outstandingMessageCount == batchSize)
