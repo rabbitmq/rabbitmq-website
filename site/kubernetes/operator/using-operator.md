@@ -24,6 +24,7 @@ This guide is structured in the following sections:
 * [Restrict traffic using Network Policies](#network-policies)
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
+* [Configure Log Level for the Operator](#operator-log)
 
 <p class="note">
   <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
@@ -1261,3 +1262,27 @@ To resume reconciliation, remove the label by running:
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
 
+## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
+
+The Operator logs reconciliation results and errors. Operator logs can be inspected by `kubectl -n rabbitmq-system logs -l app.kubernetes.io/name=rabbitmq-cluster-operator`.
+It uses zap logger which can be configured via passing command line flags in the Operator deployment manifest.
+
+For example, to configure the log level to 'debug':
+
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-cluster-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - --zap-log-level=debug
+        command:
+        - /manager
+</pre>
+
+Other available command line flags for the zap logger can be found documented in [controller runtime](https://github.com/kubernetes-sigs/controller-runtime/blob/v0.10.2/pkg/log/zap/zap.go#L240-L246).
