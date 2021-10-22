@@ -79,14 +79,20 @@ Let's try it:
 <pre class="lang-java">
 callbackQueueName = channel.queueDeclare().getQueue();
 
-BasicProperties props = new BasicProperties
-                            .Builder()
+BasicProperties props = new BasicProperties()
+                            .builder()
                             .replyTo(callbackQueueName)
                             .build();
 
 channel.basicPublish("", "rpc_queue", props, message.getBytes());
 
 // ... then code to read a response message from the callback_queue ...
+</pre>
+
+We need this new import:
+
+<pre class="lang-java">
+import com.rabbitmq.client.AMQP.BasicProperties;
 </pre>
 
 > #### Message properties
@@ -103,12 +109,6 @@ channel.basicPublish("", "rpc_queue", props, message.getBytes());
 >    to set this property to: `application/json`.
 > * `replyTo`: Commonly used to name a callback queue.
 > * `correlationId`: Useful to correlate RPC responses with requests.
-
-We need this new import:
-
-<pre class="lang-java">
-import com.rabbitmq.client.AMQP.BasicProperties;
-</pre>
 
 ### Correlation Id
 
