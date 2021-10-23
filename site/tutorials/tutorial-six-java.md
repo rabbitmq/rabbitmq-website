@@ -80,7 +80,7 @@ Let's try it:
 callbackQueueName = channel.queueDeclare().getQueue();
 
 BasicProperties props = new BasicProperties()
-                            .builder()
+                            .Builder()
                             .replyTo(callbackQueueName)
                             .build();
 
