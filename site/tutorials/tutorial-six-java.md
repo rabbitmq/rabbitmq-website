@@ -263,17 +263,6 @@ The client code is slightly more involved:
   * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
   * Finally we return the response back to the user.
 
-Making the Client request:
-
-<pre class="lang-java">
-RPCClient fibonacciRpc = new RPCClient();
-
-System.out.println(" [x] Requesting fib(30)");
-String response = fibonacciRpc.call("30");
-System.out.println(" [.] Got '" + response + "'");
-
-fibonacciRpc.close();
-</pre>
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
