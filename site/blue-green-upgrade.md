@@ -2,7 +2,7 @@
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Blue-green deployment is an upgrade strategy that is based on the idea of to setting up
+Blue-green deployment is an upgrade strategy that is based on the idea of setting up
 a second RabbitMQ cluster (the "green" one) next to the current production
 cluster (the "blue" one). Applications are then switched to the "green"
 cluster. When that migration is done, the "blue" cluster is decomissioned (shut down).

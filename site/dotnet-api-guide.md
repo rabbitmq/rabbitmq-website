@@ -154,7 +154,7 @@ reachable endpoint will be used. In case of [connection failures](#recovery), us
 a list of endpoints makes it possible for the application to connect to a different
 node if the original one is down.
 
-To use multiple of endpoint, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
+To use multiple endpoints, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
 An `AmqpTcpEndpoint` represents a hostname and port pair.
 
 <pre class="lang-csharp">
