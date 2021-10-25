@@ -157,7 +157,7 @@ this offset does not exist it will clamp to either the start or end of the log r
  * Timestamp - a timestamp value specifying the point in time to attach to the log at. It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively. With AMQP 0.9.1, the timestamp used is POSIX
  time with an accuracy of one second, that is the number of seconds since 00:00:00 UTC, 1970-01-01.
 
-The following snippet shows on to use the `first` offset specification:
+The following snippet shows how to use the `first` offset specification:
 
 <pre class="lang-java">
 channel.basicQos(100); // QoS must be specified
@@ -173,7 +173,7 @@ channel.basicConsume(
   consumerTag -> { });
 </pre>
 
-The following snippet shows on to specify a specific offset to consume from:
+The following snippet shows how to specify a specific offset to consume from:
 
 <pre class="lang-java">
 channel.basicQos(100); // QoS must be specified
@@ -189,7 +189,7 @@ channel.basicConsume(
   consumerTag -> { });
 </pre>
 
-The following snippet shows on to specify a specific timestamp to consume from:
+The following snippet shows how to specify a specific timestamp to consume from:
 
 <pre class="lang-java">
 // an hour ago
