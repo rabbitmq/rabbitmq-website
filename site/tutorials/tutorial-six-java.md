@@ -79,7 +79,7 @@ Let's try it:
 <pre class="lang-java">
 callbackQueueName = channel.queueDeclare().getQueue();
 
-BasicProperties props = new BasicProperties()
+BasicProperties props = new BasicProperties
                             .Builder()
                             .replyTo(callbackQueueName)
                             .build();
