@@ -99,7 +99,7 @@ AMQP 0-9-1 entities when they are no longer used.
 ## <a id="exchanges" class="anchor" href="#exchanges">Exchanges and Exchange Types</a>
 
 _Exchanges_ are AMQP 0-9-1 entities where messages are
-sent. Exchanges take a message and route it into zero or
+sent to. Exchanges take a message and route it into zero or
 more queues. The routing algorithm used depends on the
 _exchange type_ and rules called _bindings_.
 AMQP 0-9-1 brokers provide four exchange types:

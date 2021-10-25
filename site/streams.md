@@ -157,7 +157,7 @@ this offset does not exist it will clamp to either the start or end of the log r
  * Timestamp - a timestamp value specifying the point in time to attach to the log at. It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively. With AMQP 0.9.1, the timestamp used is POSIX
  time with an accuracy of one second, that is the number of seconds since 00:00:00 UTC, 1970-01-01.
 
-The following snippet shows on to use the `first` offset specification:
+The following snippet shows how to use the `first` offset specification:
 
 <pre class="lang-java">
 channel.basicQos(100); // QoS must be specified
@@ -173,7 +173,7 @@ channel.basicConsume(
   consumerTag -> { });
 </pre>
 
-The following snippet shows on to specify a specific offset to consume from:
+The following snippet shows how to specify a specific offset to consume from:
 
 <pre class="lang-java">
 channel.basicQos(100); // QoS must be specified
@@ -189,7 +189,7 @@ channel.basicConsume(
   consumerTag -> { });
 </pre>
 
-The following snippet shows on to specify a specific timestamp to consume from:
+The following snippet shows how to specify a specific timestamp to consume from:
 
 <pre class="lang-java">
 // an hour ago
@@ -472,3 +472,12 @@ When using the broker provided offset tracking features (currently only availabl
 when using the [Stream plugin](/stream.html)) offsets are persisted in the stream
 itself as non-message data. This means that as offset persistence is requested the
 stream will grow on disk by some small amount per offset persistence request.
+
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+Streams internally store their messages as AMQP 1.0 encoded data. This means when
+publishing using AMQP 0.9.1 a conversion takes place. Although the AMQP 1.0 data
+model is mostly capable of containing all of AMQP 0.9.1's data model there are some
+limitations. If an AMQP 0.9.1 message contains header entries with complex values
+such as arrays or tables these headers will not be converted. That is because headers are stored as application properties inside the AMQP 1.0 message and these can only
+contain values of simple types, such as strings and numbers.

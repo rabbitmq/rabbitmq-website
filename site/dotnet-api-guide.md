@@ -154,7 +154,7 @@ reachable endpoint will be used. In case of [connection failures](#recovery), us
 a list of endpoints makes it possible for the application to connect to a different
 node if the original one is down.
 
-To use multiple of endpoint, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
+To use multiple endpoints, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
 An `AmqpTcpEndpoint` represents a hostname and port pair.
 
 <pre class="lang-csharp">
@@ -310,7 +310,7 @@ factory.HostName = hostName;
 
 // this name will be shared by all connections instantiated by
 // this factory
-factory.ClientProvidedName = "app:audit component:event-consumer"
+factory.ClientProvidedName = "app:audit component:event-consumer";
 
 IConnection conn = factory.CreateConnection();
 </pre>
@@ -410,7 +410,7 @@ channel.QueueDelete("queue-name", true, false);
 A queue can be purged (all of its messages deleted):
 
 <pre class="lang-csharp">
-channel.QueuePurge("queue-name")
+channel.QueuePurge("queue-name");
 </pre>
 
 
@@ -462,7 +462,7 @@ byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 IBasicProperties props = channel.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-props.Expiration = "36000000"
+props.Expiration = "36000000";
 
 channel.BasicPublish(exchangeName, routingKey, props, messageBodyBytes);
 </pre>
@@ -491,7 +491,7 @@ consumer.Received += (ch, ea) =>
                 };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
-String consumerTag = channel.BasicConsume(queueName, false, consumer);
+string consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
 Another option is to subclass `DefaultBasicConsumer`,
@@ -555,13 +555,13 @@ consumer.Received += async (ch, ea) =>
         // and process the message
         // ...
 
-        ch.BasicAck(ea.DeliveryTag, false);
+        channel.BasicAck(ea.DeliveryTag, false);
         await Task.Yield();
 
     };
 // this consumer tag identifies the subscription
 // when it has to be cancelled
-string tag = m.BasicConsume(queueName, false, consumer);
+string consumerTag = channel.BasicConsume(queueName, false, consumer);
 // ensure we get a delivery
 bool waitRes = latch.WaitOne(2000);
 </pre>
@@ -684,23 +684,6 @@ in this order on the same channel, they will be processed in this order. If mess
 were delivered on different channels, they can be processed in any order (or in parallel).
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
 
-### <a id="custom-task-scheduler" class="anchor" href="#custom-task-scheduler">Using a Custom Task Scheduler</a>
-
-It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
-
-<pre class="lang-csharp">
-public class CustomTaskScheduler : TaskScheduler
-{
-  // ...
-}
-
-var cf = new ConnectionFactory();
-cf.TaskScheduler = new CustomTaskScheduler();
-</pre>
-
-This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).
-
-
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
 
 If a message is published with the "mandatory" flag
@@ -712,7 +695,9 @@ To be notified of such returns, clients can subscribe to the
 event, then returned messages will be silently dropped.
 
 <pre class="lang-csharp">
-model.BasicReturn += new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
+channel.BasicReturn += (sender, ea) => {
+    ...
+};
 </pre>
 
 The `BasicReturn` event will fire, for example, if the client
@@ -786,7 +771,7 @@ ConnectionFactory factory = new ConnectionFactory();
 // configure various connection settings
 
 try {
-  Connection conn = factory.CreateConnection();
+  IConnection conn = factory.CreateConnection();
 } catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e) {
   Thread.Sleep(5000);
   // apply retry logic
@@ -815,7 +800,7 @@ and consumers. It is enabled by default but can be disabled:
 <pre class="lang-csharp">
 ConnectionFactory factory = new ConnectionFactory();
 
-Connection conn = factory.CreateConnection();
+IConnection conn = factory.CreateConnection();
 factory.AutomaticRecoveryEnabled = true;
 factory.TopologyRecoveryEnabled  = false;
 </pre>

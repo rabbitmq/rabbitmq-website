@@ -12,6 +12,8 @@ endif
 
 PLATFORM := $(shell uname)
 
+PYTHON_VERSION := 3
+
 ifeq ($(PLATFORM),Darwin)
 OPEN := open
 
@@ -20,7 +22,6 @@ export PATH := $(LIBXSLT)/bin:$(PATH)
 export LDFLAGS := "-L$(LIBXSLT)/lib"
 export CPPFLAGS := "-I$(LIBXSLT)/include"
 
-PYTHON := /usr/local/bin/python3
 PIPENV := /usr/local/bin/pipenv
 endif
 
@@ -29,7 +30,6 @@ OPEN ?= xdg-open
 
 LIBXSLT ?= /usr/include/libxslt
 
-PYTHON ?= /usr/bin/python3
 PIPENV ?= /usr/bin/pipenv
 endif
 
@@ -50,20 +50,13 @@ ifeq ($(PLATFORM),Darwin)
 	@brew install libxslt
 endif
 
-$(PYTHON):
+$(PIPENV):
 ifeq ($(PLATFORM),Darwin)
-	@brew install python
-endif
-
-$(PIPENV): $(PYTHON)
-ifeq ($(PLATFORM),Darwin)
-  ifeq ($(wildcard $(PIPENV_BIN)),)
-	@brew list pipenv || brew install pipenv
-  endif
+	@brew install pipenv
 endif
 
 deps: $(LIBXSLT) $(PIPENV)
-	@$(PIPENV) --python $(PYTHON) --venv || $(PIPENV) --python $(PYTHON) install
+	$(PIPENV) --python $(PYTHON_VERSION) install
 
 preview: deps ## Preview docs
 	@$(PIPENV) run ./driver.py
