@@ -21,10 +21,14 @@ limitations under the License.
 
 This guide covers RabbitMQ installation on RPM-based Linux (RedHat Enterprise Linux, CentOS, Fedora, openSUSE).
 
-RabbitMQ is included in standard Fedora and RHEL repositories. However, the versions included are
-usually outdated and [out of support](versions.html).
+RabbitMQ is included in standard Fedora and RHEL repositories.
+However, the versions included are
+many releases behind [latest RabbitMQ releases](changelog.html)
+and may provide RabbitMQ versions that are already [out of support](versions.html).
 
-There are two ways to install the most recent version of RabbitMQ on an RPM distribution:
+Team RabbitMQ produces our own RPM packages and distributes them [using Cloudsmith](#apt-cloudsmith) and [PackageCloud](#apt-packagecloud).
+
+There are two ways of installing these RPMs:
 
  * Installing the package using Yum repositories (this option is highly recommended) on [Cloudsmith.io](#cloudsmith) or [PackageCloud](#package-cloud)
  * [Downloading](#downloads) the package and installing it with `rpm`. This option will require manual installation of all [package dependencies](#package-dependencies).
