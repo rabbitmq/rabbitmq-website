@@ -111,6 +111,19 @@ Miscellaneous projects:
  * [amqp-client.js](https://github.com/cloudamqp/amqp-client.js) AMQP 0-9-1 client both for Node.js and browsers (using WebSocket)
 
 
+## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
+
+ * [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
+ * [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
+ * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
+ * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
+
+
+## <a id="ios-android" class="anchor" href="#ios-android">iOS and Android</a>
+
+ * [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
+ * [Get Started with RabbitMQ on Android](https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html)
+
 ## <a id="objc-swift-dev" class="anchor" href="#objc-swift-dev">Objective-C and Swift</a>
 
  * [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
@@ -159,20 +172,6 @@ Miscellaneous projects:
  * [SimpleAmqpClient](https://github.com/alanxz/SimpleAmqpClient), a C++ wrapper around rabbitmq-c
  * [amqpcpp](https://github.com/akalend/amqpcpp), a C++ message library for RabbitMQ
  * [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP), a C++ RabbitMQ client
-
-
-## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
-
- * [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
- * [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
- * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
- * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
-
-
-## <a id="ios-android" class="anchor" href="#ios-android">iOS and Android</a>
-
- * [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
- * [Get Started with RabbitMQ on Android](https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html)
 
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring</a>
