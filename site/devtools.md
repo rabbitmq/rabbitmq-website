@@ -32,6 +32,7 @@ would like to see added to this list.
 ### Java
 
  * [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
+ * [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
  * [RabbitMQ JMS client](jms-client.html)
  * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on [Reactor](https://projectreactor.io/)
  and [RabbitMQ Java Client](java-client.html)
@@ -50,6 +51,7 @@ would like to see added to this list.
 Client libraries:
 
  * [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.5.1+)
+ * [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
  * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
 
 Higher level frameworks:
@@ -117,6 +119,7 @@ Miscellaneous projects:
 ## <a id="rust-dev" class="anchor" href="#rust-dev">Rust</a>
 
  * [Lapin](https://github.com/sozu-proxy/lapin), a Rust client
+ * [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
 
 ## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
@@ -160,7 +163,8 @@ Miscellaneous projects:
 
 ## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
 
- * [Go RabbitMQ client](https://github.com/streadway/amqp)
+ * [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
+ * [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
  * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
  * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
 
