@@ -167,6 +167,62 @@ on how many messages are in flight at the time.
 
 Quorum queues do support [dead letter exchanges](/dlx.html) (DLXs).
 
+As of 3.10 quorum queues support a safer form of dead-lettering that uses
+`at-least-once` guarantees (with a couple of caveats, outlined below) for the message
+transfer between queues instead of `at-most-once` as in 3.8 and 3.9.
+
+This is done by implementing a special, internal "dead-letter" consumer type
+that works similarly to normal queue consumer with manual acknowledgements apart
+from it only consuming messages that have been dead-lettered.
+
+This means that the source queue will retain the
+dead-lettered messages until they have been acknowledged. This internal consumer
+will consume dead-lettered messages and publish them to the target queues using
+publisher confirms. It will only acknowledge once publisher confirms have been
+received, hence providing `at-least-once` guarantees.
+
+`at-least-once` guarantees opens up some specific failure cases that needs handling.
+As dead-lettered messages are now retained by the source quorum queue until they have been
+safely accepted by the dead-letter target queue this means they have to contribute to the
+queue resource limits, such as max length limits so that the queue can refuse to accept
+more messages until some have been removed. Theoretically it is then possible for a queue
+to _only_ contain dead-lettered messages, in the case where, say the target dead-letter
+queue isn't available to accept messages for a long time and normal queue consumers
+consume most of the messages.
+
+Dead lettered messages are considered "live" until they have been confirmed to have
+been accepted by the dead-letter target queue.
+
+There are few cases which for which dead lettered messages will not be removed
+from the source queue in a timely manner:
+
+* the configured dead-letter exchange does not exist
+* no queues can be routed (equivalent to "mandatory")
+* the routed queues do not confirm receipt of the message
+
+The dead letter processes will retry periodically if either of the scenarios above
+occur which means there is a possibility of duplicates appearing at the dlx target.
+
+`at-least-once` is the default dead-letter strategy for quorum queues as of
+RabbitMQ 3.10 but `at-most-once` is still
+available and can be configured by using the `x-dead-letter-strategy` queue arguments
+or the `dead-letter-strategy` policy and setting the value to `at-most-once`.
+
+This could be useful for scenarios where the dead letter messages are more of an
+informational nature and it does not matter so much if they are lost in transit
+between queues. Also see limitations below.
+
+#####Limitations
+
+`at-least-once` dead lettering does not work well with the `drop_head` overflow
+strategy. Hence if `drop_head` is configured the dead-lettering will fall back
+to `at-most-once`. Use the overflow strategy `reject_publish` instead.
+
+
+
+
+
+
 #### Lazy Mode
 
 Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
