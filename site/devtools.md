@@ -81,6 +81,7 @@ Miscellaneous projects:
 
  * [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
+ * [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
  * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
@@ -192,6 +193,7 @@ Miscellaneous projects:
 ## <a id="erlang-dev" class="anchor" href="#erlang-dev">Erlang</a>
 
  * [RabbitMQ Erlang client guide](erlang-client-user-guide.html)
+ * [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
  * [bunny_farm](https://github.com/muxspace/bunny_farm), a simplifying wrapper for the Erlang client
  * [RabbitMQ Messaging Patterns](https://github.com/videlalvaro/rmq_patterns), a library of messaging patterns implemented in Erlang
 
