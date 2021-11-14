@@ -147,7 +147,7 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 
 
-## <a id="apt-packagecloud" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on PackageCloud</a>
+## <a id="apt-packagecloud" class="anchor" href="#apt-packagecloud">Using RabbitMQ Apt Repositories on PackageCloud</a>
 
 Team RabbitMQ maintains an [apt repository on PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server),
 a package hosting service. It provides packages for most recent RabbitMQ releases.
@@ -355,7 +355,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 
 
 
-## <a id="apt-cloudsmith" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on Cloudsmith</a>
+## <a id="apt-cloudsmith" class="anchor" href="#apt-cloudsmith">Using RabbitMQ Apt Repositories on Cloudsmith</a>
 
 Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
 a package hosting service. They provide packages for most recent RabbitMQ and modern Erlang releases.
