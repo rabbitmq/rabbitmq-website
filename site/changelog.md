@@ -39,6 +39,17 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.25</td>
+    <td class="centre">12 November 2021</td>
+    <td>
+      <ul>
+        <li>Minor improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.25">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.9.9</td>
     <td class="centre">11 November 2021</td>
     <td>
