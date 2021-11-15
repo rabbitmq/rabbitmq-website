@@ -280,6 +280,19 @@ one of the tier-1 plugins bundled with RabbitMQ.
   </tr>
 
   <tr>
+    <td><a id="ff-stream_queue" class="anchor" href="#ff-stream_queue">stream_queue</a></td>
+    <td>
+      Enables <a href="/streams.html">streams</a>.
+    </td>
+    <td>
+      <table class="feature-flag-lifecycle">
+        <tr><th>Introduction:</th><td>3.9.0</td></tr>
+        <tr><th>Removal:</th><td>-</td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
     <td><a id="ff-drop_unroutable_metric" class="anchor" href="#ff-drop_unroutable_metric">drop_unroutable_metric</a></td>
     <td>
       Dropped <a href="/publishers.html#unroutable">unroutable message</a> metrics.
@@ -318,6 +331,18 @@ one of the tier-1 plugins bundled with RabbitMQ.
     </td>
   </tr>
 
+  <tr>
+    <td><a id="ff-virtual_host_metadata" class="anchor" href="#ff-virtual_host_metadata">virtual_host_metadata</a></td>
+    <td>
+      Enable virtual host metadata.
+    </td>
+    <td>
+    <table class="feature-flag-lifecycle">
+      <tr><th>Introduction:</th><td>3.8.0</td></tr>
+      <tr><th>Removal:</th><td>-</td></tr>
+    </table>
+    </td>
+  </tr>
 </table>
 
 ## <a id="implementation" class="anchor" href="#implementation">How Do Feature Flags Work?</a>

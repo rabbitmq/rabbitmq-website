@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ ships with multiple command line tools:
+RabbitMQ ships with multiple command line tools, each with a set of related commands:
 
  * [`rabbitmqctl`](/rabbitmqctl.8.html) for service management and general operator tasks
  * [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) for diagnostics and [health checking](/monitoring.html)

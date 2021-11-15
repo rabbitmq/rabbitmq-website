@@ -21,9 +21,10 @@ limitations under the License.
 
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
-RabbitMQ is included in standard Debian and Ubuntu repositories. However, the versions included are
-many releases behind [latest RabbitMQ releases](changelog.html).
-Older distributions, in fact, provide RabbitMQ versions that are already [out of support](versions.html).
+RabbitMQ is included in standard Debian and Ubuntu repositories.
+However, the versions included are
+many releases behind [latest RabbitMQ releases](changelog.html)
+and may provide RabbitMQ versions that are already [out of support](versions.html).
 
 Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith) and [PackageCloud](#apt-packagecloud).
 
@@ -146,7 +147,7 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 
 
-## <a id="apt-packagecloud" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on PackageCloud</a>
+## <a id="apt-packagecloud" class="anchor" href="#apt-packagecloud">Using RabbitMQ Apt Repositories on PackageCloud</a>
 
 Team RabbitMQ maintains an [apt repository on PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server),
 a package hosting service. It provides packages for most recent RabbitMQ releases.
@@ -354,7 +355,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 
 
 
-## <a id="apt-cloudsmith" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on Cloudsmith</a>
+## <a id="apt-cloudsmith" class="anchor" href="#apt-cloudsmith">Using RabbitMQ Apt Repositories on Cloudsmith</a>
 
 Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
 a package hosting service. They provide packages for most recent RabbitMQ and modern Erlang releases.
