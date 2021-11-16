@@ -201,7 +201,7 @@ from the source queue in a timely manner:
 * the routed queues do not confirm receipt of the message
 
 The dead letter processes will retry periodically if either of the scenarios above
-occur which means there is a possibility of duplicates appearing at the dlx target.
+occur which means there is a possibility of duplicates appearing at the dlx target.
 
 `at-least-once` is the default dead-letter strategy for quorum queues as of
 RabbitMQ 3.10 but `at-most-once` is still
@@ -212,7 +212,7 @@ This could be useful for scenarios where the dead letter messages are more of an
 informational nature and it does not matter so much if they are lost in transit
 between queues. Also see limitations below.
 
-#####Limitations
+##### Limitations
 
 `at-least-once` dead lettering does not work well with the `drop_head` overflow
 strategy. Hence if `drop_head` is configured the dead-lettering will fall back
