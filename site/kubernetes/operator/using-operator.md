@@ -1141,7 +1141,7 @@ spec:
 The credentials must have been written to Vault before the RabbitmqCluster is created.
 As described in the example, RabbitMQ admin password rotation is supported without the need to restart the RabbitMQ server.
 
-### <a id='vault-tls' class='anchor' href='#vault-tls'>Issue RabbitMQ Sever Certificates from Vault</a>
+### <a id='vault-tls' class='anchor' href='#vault-tls'>Issue RabbitMQ Server Certificates from Vault</a>
 To configure TLS, instead of providing a Kubernetes Secret object containing RabbitMQ server private key, certificate, and certificate authority
 as described in [TLS Configuration](#tls-conf), you can configure a RabbitmqCluster to request new short-lived server certificates from
 [Vault PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki) upon every RabbitMQ Pod (re)start.
