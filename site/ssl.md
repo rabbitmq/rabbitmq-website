@@ -65,7 +65,8 @@ For client connections, there are two common approaches:
    to perform [TLS termination](https://en.wikipedia.org/wiki/TLS_termination_proxy) of client connections and use plain TCP connections to RabbitMQ nodes.
 
 Both approaches are valid and have pros and cons. This guide will focus on the
-first option.
+first option. Certain parts of this guide would still be relevant for environments
+that choose the second option.
 
 ### <a id="erlang-otp-requirements" class="anchor" href="#erlang-otp-requirements">Erlang/OTP Requirements for TLS Support</a>
 
