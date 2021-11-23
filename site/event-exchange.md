@@ -24,7 +24,7 @@ system naturally generate events. For example, when a connection is
 accepted, authenticated and access to the target virtual host is
 authorised, it will emit an event of type `connection_created`. When a
 connection is closed or fails for any reason, a `connection_closed`
-event is deleted.
+event is emitted.
 
 
 Monitoring and auditing services can be interested in observing those
