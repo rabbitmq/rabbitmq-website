@@ -22,21 +22,23 @@ limitations under the License.
 This guide covers various topics related to connections except for
 network tuning or most networking-related topics. Those
 are covered by the [Networking](networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
-[Channels](channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
-in a separate guide.
 
 RabbitMQ supports several protocols:
 
- * [AMQP 0-9-1](/specification.html) with [extensions](/extensions.html)
+ * [AMQP 0-9-1](specification.html) with [extensionsextensions.html)
  * AMQP 1.0
- * [MQTT](/mqtt.html) 3.1.1
- * [STOMP](/stomp.html) 1.0 through 1.2
+ * [RabbitMQ Stream Protocol](stream.html)
+ * [MQTT](mqtt.html) 3.1.1
+ * [STOMP](stomp.html) 1.0 through 1.2
+
+Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
+different versions of the same protocol.
 
 Many topics in this guide are equally applicable to all protocols. When that's not the case, the guide tries
 to highlight protocol-specific features and practices.
 
-Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
-different versions of the same protocol.
+[Channels](channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
+in a separate guide.
 
 This guide covers:
 
