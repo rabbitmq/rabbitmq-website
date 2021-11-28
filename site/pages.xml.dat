@@ -127,7 +127,6 @@ limitations under the License.
          <x:page url="/troubleshooting-networking.html" text="Troubleshooting Networking"/>
        </x:page>
        <x:page url="/vhosts.html" text="Virtual Hosts"/>
-       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control (Authorisation)"/>
        <x:page url="/authentication.html" text="Authentication Mechanisms"/>
        <x:page url="/ldap.html" text="LDAP"/>
