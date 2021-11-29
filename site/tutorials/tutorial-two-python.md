@@ -206,7 +206,7 @@ from the worker, once we're done with a task.
 <pre class="lang-python">
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body.decode())
-    time.sleep( body.count('.') )
+    time.sleep(body.count(b'.') )
     print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
 

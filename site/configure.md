@@ -2032,6 +2032,48 @@ More variables are covered in the [File and Directory Locations guide](/relocate
       </p>
     </td>
   </tr>
+
+  <tr>
+    <td>RABBITMQ_DEFAULT_USER</td>
+    <td>
+      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This has the same meaning as <code>default_user</code> in <code>rabbitmq.conf</code> but higher
+      priority. This option may be more convenient in cases where providing a config file is impossible,
+      and environment variables is the only way to <a href="access-control.html#seeding">seed a user</a>.
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_DEFAULT_PASS</td>
+    <td>
+      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This has the same meaning as <code>default_pass</code> in <code>rabbitmq.conf</code> but higher
+      priority. This option may be more convenient in cases where providing a config file is impossible,
+      and environment variables is the only way to <a href="access-control.html#seeding">seed a user</a>.
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_DEFAULT_VHOST</td>
+    <td>
+      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This has the same meaning as <code>default_vhost</code> in <code>rabbitmq.conf</code> but higher
+      priority. This option may be more convenient in cases where providing a config file is impossible,
+      and environment variables is the only way to <a href="access-control.html#seeding">seed users</a> and virtual hosts.
+
+      <p>
+        <strong>Default</strong>: (none)
+      </p>
+    </td>
+  </tr>
 </table>
 
 Besides the variables listed above, there are several environment variables which

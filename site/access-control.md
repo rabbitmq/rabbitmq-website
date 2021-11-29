@@ -369,7 +369,7 @@ perform permission checks.
     <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>exchange.declare</td><td>(with [AE](ae.html))</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
+    <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
   </tr>
   <tr>
     <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
@@ -381,7 +381,7 @@ perform permission checks.
     <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>queue.declare</td><td>(with [DLX](dlx.html))</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
+    <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
   </tr>
   <tr>
     <td>queue.delete</td><td/><td>queue</td><td/><td/>
