@@ -107,10 +107,9 @@ log [rotation via `logrotate`](#logrotate) after package installation.
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
 for the file output.
 
-#### Periodic Rotation
+#### Built-in Periodic Rotation
 
-Use `log.file.rotation.date` to set up periodic (date and time-based) rotation.
-It uses [the same syntax as newsyslog.conf](https://github.com/basho/lager#internal-log-rotation):
+Use `log.file.rotation.date` to set up minimalistic periodic rotation:
 
 <pre class="lang-ini">
 # rotate every night at midnight
@@ -126,31 +125,11 @@ log.file.rotation.date = $D23
 </pre>
 
 <pre class="lang-ini">
-# rotate every hour at HH:00
-log.file.rotation.date = $H00
-</pre>
-
-<pre class="lang-ini">
-# rotate every day at 12:30 (00:30 p.m.)
-log.file.rotation.date = $D12H30
-</pre>
-
-<pre class="lang-ini">
-# rotate every week on Sunday at 00:00
-log.file.rotation.date = $W0D0H0
-</pre>
-
-<pre class="lang-ini">
-# rotate every week on Friday at 16:00 (4:00 p.m.)
-log.file.rotation.date = $W5D16
-</pre>
-
-<pre class="lang-ini">
 # rotate every night at midnight
 log.file.rotation.date = $D0
 </pre>
 
-#### File Size-based Rotation
+#### Built-in File Size-based Rotation
 
 `log.file.rotation.size` controls rotation based on the current log file size:
 
