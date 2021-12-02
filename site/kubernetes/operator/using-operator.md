@@ -26,10 +26,8 @@ This guide is structured in the following sections:
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
 * [Configure Log Level for the Operator](#operator-log)
 
-<p class="note">
-  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
-</p>
+Additional information about using the operator on Openshift can be found at
+[Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
