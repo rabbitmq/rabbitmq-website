@@ -38,7 +38,7 @@ kubectl apply -f https://github.com/rabbitmq/messaging-topology-operator/release
 
 Without cert-manager installed, you will need to generate certificates used by admission webhooks yourself and include them in the operator and webhooks manifests.
 
-Download the latest release manifest https://github.com/rabbitmq/messaging-topology-operator/releases/latest/download/messaging-topology-operator.yaml.
+Download the [latest release manifest](https://github.com/rabbitmq/messaging-topology-operator/releases/latest/download/messaging-topology-operator.yaml).
 
 The Messaging Topology Operator has multiple [admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
 Their endpoints are TLS-enabled and require a webhook certificate that must be used in multiple places in the downloaded release manifest.
