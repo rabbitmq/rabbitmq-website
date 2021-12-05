@@ -20,8 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ allows you to set TTL (time to live) for both messages and queues.
-This can be done using [optional queue arguments](queues.html) or
-[policies](/parameters.html) (the latter option is recommended).
+This is controlled by [optional queue arguments](queues.html) and best done using a [policy](/parameters.html).
 
 Message TTL can be applied to a single queue, a group of
 queues or applied on the message-by-message basis.
