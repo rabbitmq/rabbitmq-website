@@ -154,7 +154,7 @@ script in `sbin`.
 ### Customise RabbitMQ Environment Variables
 
 The service will run fine using its default settings. It is possible to [customise the RabbitMQ environment](/configure.html#customise-windows-environment)
-or edit [configuration](/configure.html#configuration-file).
+or edit [configuration](/configure.html#configuration-files).
 
 **Important**: after setting environment variables, it is necessary to restart the node.
 
@@ -194,7 +194,7 @@ The service runs using the `rabbitmq-service.bat` script in `sbin`.
 ### Customise RabbitMQ Environment Variables
 
 The service will run fine using its default settings. It is possible to [customise the RabbitMQ environment](/configure.html#customise-windows-environment)
-or edit [configuration](/configure.html#configuration-file).
+or edit [configuration](/configure.html#configuration-files).
 
 **Important**: after setting environment variables, it is necessary to reinstall the service.
 

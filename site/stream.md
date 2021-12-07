@@ -52,7 +52,7 @@ all interfaces on port 5552 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change this, edit your
-[Configuration file](/configure.html#configuration-file),
+[Configuration file](/configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_stream` application.
 
 For example, a minimalistic configuration file which changes the listener

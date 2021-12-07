@@ -266,7 +266,7 @@ all interfaces on port 1883 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change the listener port, edit your
-[Configuration file](/configure.html#configuration-file),
+[Configuration file](/configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_mqtt` application.
 
 For example, a minimalistic configuration file which changes the listener

@@ -218,7 +218,7 @@ partitions is chosen in an unspecified way).
 
 You can enable either mode by setting the configuration
 parameter <code>cluster_partition_handling</code>
-for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-file) to:
+for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-files) to:
 
 <ul>
   <li><code>autoheal</code></li>

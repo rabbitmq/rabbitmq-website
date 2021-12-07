@@ -373,7 +373,7 @@ by filtering what columns are returned by `HTTP GET` requests. See
 
 There are several configuration options which affect the
 management plugin. These are managed through the main
-RabbitMQ [configuration file](configure.html#configuration-file).
+RabbitMQ [configuration file](configure.html#configuration-files).
 
 It is possible to configure HTTP API and management UI to
 use a different port or network interface, enable HTTPS
