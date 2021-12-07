@@ -72,9 +72,16 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 3.x</td>
+    <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 4.x</td>
     <td>Currently supported</td>
     <td></td>
+    <td>11-18</td>
+  </tr>
+
+  <tr>
+    <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 3.x</td>
+    <td>31 March 2021</td>
+    <td>31 July 2020</td>
     <td>8-18</td>
   </tr>
 

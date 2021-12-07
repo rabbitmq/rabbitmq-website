@@ -735,7 +735,7 @@ result, as illustrated here:
 </pre>
 
 Note that the previous example sets the no_ack flag on the
-#'basic.get'{} command. This tells the broker that the receiver
+`#'basic.get'{}` command. This tells the broker that the receiver
 will not send an acknowledgement of the message. In doing so, the
 broker can absolve itself of the responsibility for delivery -
 once it believes it has delivered a message, then it is free to
@@ -753,7 +753,7 @@ Get = #'basic.get'{queue = Q},
 amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag})
 </pre>
 
-Notice that the #'basic.ack'{} method was sent using
+Notice that the `#'basic.ack'{}` method was sent using
 `amqp_channel:cast/2` instead of `amqp_channel:call/2`. This is
 because acknowledgements are entirely asynchronous and the server
 will not produce a response for them.
