@@ -84,7 +84,7 @@ the display filter:
 
 <img src="img/wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
 
-## <a id="more-metrics" class="anchor" href="#more-metrics">Inspecting Traffic on TLS-enabled Connections</a>
+## <a id="more-metrics" class="anchor" href="#inspecting-tls-connections">Inspecting Traffic on TLS-enabled Connections</a>
 
 Wireshark enables you to inspect the AMQPS traffic, however you
 can decrypt only the traffic that have been encrypted using the
