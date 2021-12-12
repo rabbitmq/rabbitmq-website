@@ -39,7 +39,7 @@ limitations under the License.
 
   <ul class="compact">
     <li>
-      the <a href="http://www.erlang.org/download.html">Erlang</a>
+      the <a href="https://www.erlang.org/downloads">Erlang</a>
       development and runtime tools<br/> If you are on a Debian-based
       system then you need the <i>erlang-nox</i>, <i>erlang-dev</i> and
       <i>erlang-src</i> packages installed. If you are building and
@@ -50,7 +50,7 @@ limitations under the License.
     <li>
       a recent version of <a href="https://elixir-lang.org/">Elixir</a>
     </li>
-      
+
     <li>
       a recent version of <a
       href="http://www.gnu.org/software/make/">GNU make</a>
