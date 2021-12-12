@@ -33,8 +33,8 @@ for generating AMQP 0-9-1 framing code.
 
 Additionally, you will need
 
-* The [Erlang](http://www.erlang.org/download.html)
-  development and runtime tools. If you are on a Debian-based
+* The [Erlang](https://www.erlang.org/downloads)
+  development and runtime tools. On a Debian-based
   system then you need the `erlang-nox`, `erlang-dev` and
   `erlang-src` packages installed. See [Erlang Version Requirements guide](/which-erlang.html) to learn
   about the recommended ways of provisioning a recent supported version of Erlang.
