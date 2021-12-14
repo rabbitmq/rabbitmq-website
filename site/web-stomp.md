@@ -121,7 +121,7 @@ all interfaces on port 15674 and have a default user login/passcode of
 We highly recommend creating a separate user for production systems.
 
 To change the listener port, edit your
-[Advanced configuration file](/configure.html#configuration-file),
+[Advanced configuration file](/configure.html#configuration-files),
 to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_stomp` application.
 
 For example, a complete configuration file which changes the listener
@@ -209,7 +209,7 @@ present, these credentials will be used. Otherwise, the
 default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.
 
-This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-file)
+This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-files)
 or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="lang-erlang">

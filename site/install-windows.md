@@ -175,7 +175,7 @@ One of these options can be used to mitigate:
 The service starts using its default [settings](configure.html), listening
 for connections on [default interfaces](/networking.html#interfaces) and [ports](#ports).
 
-Node configuration is primarily done using a [configuration file](/configure.html#configuration-file).
+Node configuration is primarily done using a [configuration file](/configure.html#configuration-files).
 A number of available [environment variables](/configure.html#customise-windows-environment) can be used
 to control node's [data location](/relocate.html), configuration file path and so on.
 

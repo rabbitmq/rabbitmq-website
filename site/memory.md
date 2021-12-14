@@ -64,7 +64,7 @@ only has a maximum address space of 2GB.
 
 The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration
-file](configure.html#configuration-file).
+file](configure.html#configuration-files).
 
 The example below sets the threshold to the default value of 0.4:
 <pre class="lang-ini">

@@ -254,7 +254,7 @@ Here are the essential configuration settings related to TLS:
   </tr>
 </table>
 
-The options are provided in the <a href="configure.html#configuration-file">configuration
+The options are provided in the <a href="configure.html#configuration-files">configuration
 file</a>. An example of the config file is below, which
 will start one TLS listener on port 5671 on all interfaces
 on this hostname:

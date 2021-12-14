@@ -115,7 +115,7 @@ to access the necessary virtual hosts. This can be done
 using [CLI tools](/cli.html), [HTTP API or definitions import](/management.html).
 
 This is configured via the <code>loopback_users</code> item
-in the [configuration file](configure.html#configuration-file).
+in the [configuration file](configure.html#configuration-files).
 
 It is possible to allow the <code>guest</code> user to connect
 from a remote host by setting the
@@ -701,7 +701,7 @@ variable should be a list of atoms corresponding to
 mechanism names, for example
 <code>['PLAIN', 'AMQPLAIN']</code> by default. The server-side list is not
 considered to be in any particular order. See the
-[configuration file](configure.html#configuration-file)
+[configuration file](configure.html#configuration-files)
 documentation.
 
 
