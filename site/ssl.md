@@ -1601,11 +1601,11 @@ or [disable TLSv1.0 support](#disabling-tls-versions).
 affects TLSv1.0. To mitigate it, [disable TLSv1.0 support](#disabling-tls-versions).
 
 
-## <a id="tls-evaluation-tools" class="anchor" href="#tls-evaluation-tools">Evaluating TLS Setups</a>
+## <a id="tls-evaluation-tools" class="anchor" href="#tls-evaluation-tools">Evaluating TLS Setup Security</a>
 
 Because TLS has many configurable parameters
 and some of them have suboptimal defaults for historical
-reasons, TLS setup evaluation is a recommended practice.
+reasons, TLS setup security evaluation is a recommended practice.
 Multiple tools exist that perform various tests on TLS-enabled
 server endpoints, for example, testing whether it is prone
 to known attacks such as POODLE, BEAST, and others.
