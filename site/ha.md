@@ -448,8 +448,7 @@ rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
         </li>
         <li>
           Enter "ha-all" next to Name, "^ha\." next to Pattern,
-          and "ha-mode" = "all" in the first line next to
-          Policy.
+          and "ha-mode" = "all" into Definition properties (or press Queues[Classic] -> "HA mode" and enter word "all" into value)
         </li>
         <li>
           Click <code>Add policy</code>.
