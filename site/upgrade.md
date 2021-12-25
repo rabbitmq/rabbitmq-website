@@ -673,7 +673,7 @@ on how to upgrade RabbitMQ.
     topology that are relevant. This data will help verify that the
     system operates within reasonable parameters after the upgrade.
 
-    Use [node health checks](https://rabbitmq.com/monitoring.html#health-checks) to
+    Use [node health checks](monitoring.html#health-checks) to
     vet individual nodes.
 
     Queues in flow state or blocked/blocking connections might be ok,
