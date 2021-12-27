@@ -28,7 +28,7 @@ and more.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
-Starting with 3.7.0, RabbitMQ uses a single log file by default.
+Modern RabbitMQ versions use a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
