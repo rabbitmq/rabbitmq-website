@@ -596,164 +596,167 @@ for instructions on how to upgrade RabbitMQ.
 
 ## <a id="recommended-upgrade-steps" class="anchor" href="#recommended-upgrade-steps">Recommended Upgrade Steps</a>
 
-1. Select a version to upgrade to.
+### Select a Version to Upgrade to
 
-    Patch releases contain bugfixes and features which do not break
-    compatibility with plugins and clusters. Rarely there are exceptions
-    to this statement: when this happens, the release notes will
-    indicate when two patch releases are incompatible.
+Patch releases contain bugfixes and features which do not break
+compatibility with plugins and clusters. Rarely there are exceptions
+to this statement: when this happens, the release notes will
+indicate when two patch releases are incompatible.
 
-    Minor version releases contain new features and bugfixes
-    which do not fit a patch release.
+Minor version releases contain new features and bugfixes
+which do not fit a patch release.
 
-    As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
-    will have patch releases for critical bug fixes only.
+As soon as a new minor version is released (e.g. 3.7.0), previous version series (3.6)
+will have patch releases for critical bug fixes only.
 
-    There will be no new patch releases for [versions after EOL](versions.html).
+There will be no new patch releases for [versions after EOL](versions.html).
 
-    Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
-    It's recommended to always upgrade at least to the latest patch release in a series.
+Version 3.5.x reached its end of life on 2017-09-11, 3.5.8 is the last patch for 3.5.
+It's recommended to always upgrade at least to the latest patch release in a series.
 
-1. Read carefully the release notes up to the selected RabbitMQ version.
 
-    The release notes may indicate specific additional upgrade steps.
-    Always consult with the release notes of all versions between the
-    one currently deployed and the target one.
 
-1. Check RabbitMQ version.
+### Carefully Read the Release Notes Up to the Selected RabbitMQ Version
 
-    To upgrade from 3.4.x to 3.7.x, the intermediate upgrade is required.
-    See the [RabbitMQ Version Upgradability](#rabbitmq-version-upgradability) section above.
+The release notes may indicate specific additional upgrade steps.
+Always consult with the release notes of all versions between the
+one currently deployed and the target one.
 
-1. Check Erlang version requirements.
 
-    Check if the current Erlang version is supported by the new RabbitMQ version.
-    See the [Erlang Version Requirements](which-erlang.html) guide.
-    If not, Erlang should be upgraded together with RabbitMQ.
+### Check Currently Used RabbitMQ Version
 
-    It's generally recommended to upgrade to the latest Erlang version supported to
-    get all the latest bugfixes.
+To upgrade from 3.4.x to 3.7.x, the intermediate upgrade is required.
+See the [RabbitMQ Version Upgradability](#rabbitmq-version-upgradability) section above.
 
-1. Make sure all package dependencies (in particular Erlang) are available.
 
-    If you are using Debian or RPM packages, you must ensure
-    that all dependencies are available. In particular, the
-    correct version of Erlang. You may have to setup additional
-    third-party package repositories to achieve that.
+### Check Erlang Version Requirements
 
-    Please read recommendations for
-    [Debian-based](which-erlang.html#debian) and
-    [RPM-based](which-erlang.html#redhat) distributions to find the
-    appropriate repositories for Erlang.
+Check if the current Erlang version is supported by the new RabbitMQ version.
+See the [Erlang Version Requirements](which-erlang.html) guide.
+If not, Erlang should be upgraded together with RabbitMQ.
 
-1. If running RabbitMQ in a cluster, select the cluster upgrade strategy.
+It's generally recommended to upgrade to the latest Erlang version supported to
+get all the latest bugfixes.
+
+### Make Sure All Package Dependencies (including Erlang) are Available.
+
+If you are using Debian or RPM packages, you must ensure
+that all dependencies are available. In particular, the
+correct version of Erlang. You may have to setup additional
+third-party package repositories to achieve that.
+
+Please read recommendations for
+[Debian-based](which-erlang.html#debian) and
+[RPM-based](which-erlang.html#redhat) distributions to find the
+appropriate repositories for Erlang.
+
+### If running RabbitMQ in a cluster, select the cluster upgrade strategy.
 
     It can be possible to do a rolling upgrade,
     if Erlang version and RabbitMQ version changes support it.
 
     See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
 
-1. Verify broker health.
+### Assess Cluster Health
 
-    Make sure nodes are healthy and there are no [network
-    partition](/partitions.html) or [disk or memory
-    alarms](/alarms.html) in effect.
+Make sure nodes are healthy and there are no [network partition](/partitions.html) or [disk or memory alarms](/alarms.html) in effect.
 
-    RabbitMQ management UI, CLI tools or HTTP API can be used for
-    assessing the health of the system.
+RabbitMQ management UI, CLI tools or HTTP API can be used for
+assessing the health of the system.
 
-    The overview page in the management UI displays effective RabbitMQ
-    and Erlang versions, multiple cluster-wide metrics and rates. From
-    this page ensure that all nodes are running and they are all "green"
-    (w.r.t. file descriptors, memory, disk space, and so on).
+The overview page in the management UI displays effective RabbitMQ
+and Erlang versions, multiple cluster-wide metrics and rates. From
+this page ensure that all nodes are running and they are all "green"
+(w.r.t. file descriptors, memory, disk space, and so on).
 
-    We recommend recording the number of durable queues, the number
-    of messages they hold and other pieces of information about the
-    topology that are relevant. This data will help verify that the
-    system operates within reasonable parameters after the upgrade.
+We recommend recording the number of durable queues, the number
+of messages they hold and other pieces of information about the
+topology that are relevant. This data will help verify that the
+system operates within reasonable parameters after the upgrade.
 
-    Use [node health checks](monitoring.html#health-checks) to
-    vet individual nodes.
+Use [node health checks](monitoring.html#health-checks) to
+vet individual nodes.
 
-    Queues in flow state or blocked/blocking connections might be ok,
-    depending on your workload. It's up to you to determine if this is
-    a normal situation or if the cluster is under unexpected load and
-    thus, decide if it's safe to continue with the upgrade.
+Queues in flow state or blocked/blocking connections might be ok,
+depending on your workload. It's up to you to determine if this is
+a normal situation or if the cluster is under unexpected load and
+thus, decide if it's safe to continue with the upgrade.
 
-    However, if there are queues in an undefined state (a.k.a. `NaN` or
-    "ghost" queues), you should first start by understanding what is
-    wrong before starting an upgrade.
+However, if there are queues in an undefined state (a.k.a. `NaN` or
+"ghost" queues), you should first start by understanding what is
+wrong before starting an upgrade.
 
-1. Make sure the broker has a capacity to upgrade.
+### Ensure Cluster Has the Capacity for Upgrading
 
-    The upgrade process can require additional resources.
-    Make sure there are enough resources available to proceed, in particular free
-    memory and free disk space.
+The upgrade process can require additional resources.
+Make sure there are enough resources available to proceed, in particular free
+memory and free disk space.
 
-    It's recommended to have at least half of the system memory free
-    before the upgrade. Default memory watermark is 0.4 so it should be
-    ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
-    the way nodes [calculate their total RAM consumption](memory-use.html) has changed.
+It's recommended to have at least half of the system memory free
+before the upgrade. Default memory watermark is 0.4 so it should be
+ok, but you should still double-check. Starting with RabbitMQ `3.6.11`
+the way nodes [calculate their total RAM consumption](memory-use.html) has changed.
 
-    When upgrading from an earlier version,
-    it is required that the node has enough free disk space to fit at
-    least a full copy of the node data directory. Nodes create backups
-    before proceeding to upgrade their database. If disk space is
-    depleted, the node will abort upgrading and may fail to start
-    until the data directory is restored from the backup.
+When upgrading from an earlier version,
+it is required that the node has enough free disk space to fit at
+least a full copy of the node data directory. Nodes create backups
+before proceeding to upgrade their database. If disk space is
+depleted, the node will abort upgrading and may fail to start
+until the data directory is restored from the backup.
 
-    For example, if you have 10 GiB of free system memory and the Erlang
-    process (i.e. `beam.smp`) memory footprint is around 6 GiB, then it
-    can be unsafe to proceed. Likewise w.r.t. disk if you have 10 GiB of
-    free space and the data directory (e.g. `/var/lib/rabbitmq`) takes
-    10 GiB.
+For example, if you have 10 GiB of free system memory and the Erlang
+process (i.e. `beam.smp`) memory footprint is around 6 GiB, then it
+can be unsafe to proceed. Likewise w.r.t. disk if you have 10 GiB of
+free space and the data directory (e.g. `/var/lib/rabbitmq`) takes
+10 GiB.
 
-    When upgrading a cluster using the rolling upgrade strategy,
-    be aware that queues and connections can migrate to other nodes
-    during the upgrade.
+When upgrading a cluster using the rolling upgrade strategy,
+be aware that queues and connections can migrate to other nodes
+during the upgrade.
 
-    If queues are mirrored to a subset of the cluster only (as opposed
-    to all nodes), new mirrors will be created on running nodes when
-    the to-be-upgraded node shuts down. If clients support connections
-    recovery and can connect to different nodes, they will reconnect
-    to the nodes that are still running. If clients are configured to create
-    exclusive queues, these queues might be recreated on different nodes
-    after client reconnection.
+If queues are mirrored to a subset of the cluster only (as opposed
+to all nodes), new mirrors will be created on running nodes when
+the to-be-upgraded node shuts down. If clients support connections
+recovery and can connect to different nodes, they will reconnect
+to the nodes that are still running. If clients are configured to create
+exclusive queues, these queues might be recreated on different nodes
+after client reconnection.
 
-    To handle such migrations, make sure you have enough
-    spare resources on the remaining nodes so they can handle the extra load.
-    Depending on the load balancing strategy all the connections from
-    the stopped node can go to a single node, so it should be able to
-    handle up to twice as many.
-    It's generally a good practice to run a cluster with N+1 redundancy
-    (resource-wise), so you always have a capacity to handle a single
-    node being down.
+To handle such migrations, make sure you have enough
+spare resources on the remaining nodes so they can handle the extra load.
+Depending on the load balancing strategy all the connections from
+the stopped node can go to a single node, so it should be able to
+handle up to twice as many.
+It's generally a good practice to run a cluster with N+1 redundancy
+(resource-wise), so you always have a capacity to handle a single
+node being down.
 
-1. Take a backup.
+### Take a Backup
 
-    It's always good to have a backup before upgrading.
-    See [backup](backup.html) guide for instructions.
+It's always good to have a backup before upgrading.
+See [backup](backup.html) guide for instructions.
 
-    To make a proper backup, you may need to stop the entire cluster.
-    Depending on your use case, you may make the backup while the
-    cluster is stopped for the upgrade.
+To make a proper backup, you may need to stop the entire cluster.
+Depending on your use case, you may make the backup while the
+cluster is stopped for the upgrade.
 
-1. Perform the upgrade.
 
-    It's recommended to upgrade Erlang version together with RabbitMQ, because both
-    actions require restart and recent RabbitMQ work better with recent Erlang.
+### Perform the Upgrade
 
-    Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
-    [rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrades) strategy.
+It's recommended to upgrade Erlang version together with RabbitMQ, because both
+actions require restart and recent RabbitMQ work better with recent Erlang.
 
-1. Verify that the upgrade has succeeded
+Depending on cluster configuration, you can use either [single node upgrade](#single-node-upgrade),
+[rolling upgrade](#multiple-nodes-upgrade) or [full-stop upgrade](#full-stop-upgrades) strategy.
 
-    Like you did before the upgrade, verify the health and data to
-    make sure your RabbitMQ nodes are in good shape and the service is
-    running again.
+### Verify that the Upgrade Has Succeeded
 
-1. Check new feature flags
+Like you did before the upgrade, verify the health and data to
+make sure your RabbitMQ nodes are in good shape and the service is
+running again.
 
-    If the new version provides new feature flags, you can
-    now enable them if you upgraded all nodes and you are
-    sure you do not want to rollback. See the [feature flags guide](feature-flags.html).
+### Check New Feature Flags
+
+If the new version provides new feature flags, you can
+now enable them if you upgraded all nodes and you are
+sure you do not want to rollback. See the [feature flags guide](feature-flags.html).
