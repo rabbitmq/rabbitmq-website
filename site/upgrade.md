@@ -625,7 +625,7 @@ one currently deployed and the target one.
 
 ### Check Currently Used RabbitMQ Version
 
-To upgrade from 3.4.x to 3.7.x, the intermediate upgrade is required.
+Some upgrade paths, e.g. from 3.4.x to 3.7.x, will require an intermediate upgrade.
 See the [RabbitMQ Version Upgradability](#rabbitmq-version-upgradability) section above.
 
 
