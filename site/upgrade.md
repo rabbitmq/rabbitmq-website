@@ -581,7 +581,7 @@ will be disconnected using a server-sent `connection.close` method and should re
 This can be achieved by using a load balancer or proxy in front of the cluster
 or by specifying multiple server hosts if client library supports this feature.
 
-The following libraries support host lists:
+Many client libraries libraries support host lists, for example:
 
 * [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
 * [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
