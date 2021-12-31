@@ -387,7 +387,7 @@ the `cluster_formation.aws.use_private_ip` key to `true`. For this setup to work
 [`RABBITMQ_NODENAME` must be set](configure.html#customise-environment) to the private IP address at node
 deployment time.
 
-`RABBITMQ_USE_LOGNAME` also has to be set to `true` or an IP address won't be considered a valid
+`RABBITMQ_USE_LONGNAME` also has to be set to `true` or an IP address won't be considered a valid
 part of node name.
 
 <pre class="lang-ini">
