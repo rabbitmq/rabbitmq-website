@@ -176,7 +176,7 @@ gpg --sign-key 0x0A9AF2115F4687BD29803A206B73A36E6026DFCA
 
 [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/) is a hosted package distribution
 service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be added to the system. 
+must be added to the system.
 
 Cloudsmith provides repository setup script that include signing key import. However,
 note that the script **does not** currently follow Debian best practices in terms of GPG key handling.
@@ -197,7 +197,7 @@ After importing the key please follow the installation instructions in the [Debi
 
 [Package Cloud](https://packagecloud.io/rabbitmq) is a hosted package distribution
 service that uses their own signing keys to sign the artifacts uploaded to it. The key(s) then
-must be added to the system. 
+must be added to the system.
 
 Package Cloud provides repository setup script that include signing key import. However,
 note that the script **does not** currently follow Debian best practices in terms of GPG key handling.

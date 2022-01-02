@@ -27,46 +27,46 @@ see <a href="/documentation.html">All Documentation Guides</a>.
 
 ## [Installation and Provisioning](download.html):
 
- * [Packages and repositories](/download.html)
- * [Provisioning Tools](/download.html) (e.g. Chef cookbook, Puppet module, Docker image)
- * [Package Signatures](/signatures.html)
- * [Supported Erlang/OTP Versions](/which-erlang.html)
- * [Supported RabbitMQ Versions](/versions.html)
- * [Changelog](/changelog.html)
+ * [Packages and repositories](download.html)
+ * [Provisioning Tools](download.html) (e.g. Chef cookbook, Puppet module, Docker image)
+ * [Package Signatures](signatures.html)
+ * [Supported Erlang/OTP Versions](which-erlang.html)
+ * [Supported RabbitMQ Versions](versions.html)
+ * [Changelog](changelog.html)
 
 ### Operating Systems and Platforms
 
- * [Debian and Ubuntu](/install-debian.html)
- * [Red Hat Enterprise Linux, CentOS, Fedora](/install-rpm.html)
- * [Windows Installer](/install-windows.html), [Windows-specific Issues](/windows-quirks.html)
- * [Generic UNIX Binary Build](/install-generic-unix.html)
- * [MacOS via Standalone Binary Build](/install-standalone-mac.html)
- * [MacOS via Homebrew](/install-homebrew.html)
- * [Amazon EC2](/ec2.html)
- * [Solaris](/install-solaris.html)
+ * [Debian and Ubuntu](install-debian.html)
+ * [Red Hat Enterprise Linux, CentOS, Fedora](install-rpm.html)
+ * [Windows Installer](install-windows.html), [Windows-specific Issues](windows-quirks.html)
+ * [Generic UNIX Binary Build](install-generic-unix.html)
+ * [MacOS via Standalone Binary Build](install-standalone-mac.html)
+ * [MacOS via Homebrew](install-homebrew.html)
+ * [Amazon EC2](ec2.html)
+ * [Solaris](install-solaris.html)
 
 ### Snapshots
 
- * [Snapshot (Nightly) Builds](/snapshots.html)
+ * [Snapshot (Nightly) Builds](snapshots.html)
 
 
 ## Upgrading
 
- * Main [Upgrading guide](/upgrade.html)
- * [Schema Definitions](/definitions.html)
- * [Blue-green deployment-based upgrade](/blue-green-upgrade.html)
+ * Main [Upgrading guide](upgrade.html)
+ * [Schema Definitions](definitions.html)
+ * [Blue-green deployment-based upgrade](blue-green-upgrade.html)
 
 
 
 ## CLI tools
 
- * [RabbitMQ CLI Tools](/cli.html): general installation and usage topics
- * [rabbitmqctl](/rabbitmqctl.8.html): primary RabbitMQ CLI tool
- * [rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html): [monitoring](/monitoring.html), [health checking](/monitoring.html#health-checks), observability tooling
- * [rabbitmq-plugins](/rabbitmq-plugins.8.html): plugin management
- * [rabbitmq-queues](/rabbitmq-queues.8.html): operations on quorum queues
- * [rabbitmqadmin](/management-cli.html) ([HTTP API](/management.html)-based zero dependency management tool)
- * [man pages](/manpages.html)
+ * [RabbitMQ CLI Tools](cli.html): general installation and usage topics
+ * [rabbitmqctl](rabbitmqctl.8.html): primary RabbitMQ CLI tool
+ * [rabbitmq-diagnostics](rabbitmq-diagnostics.8.html): [monitoring](monitoring.html), [health checking](monitoring.html#health-checks), observability tooling
+ * [rabbitmq-plugins](rabbitmq-plugins.8.html): plugin management
+ * [rabbitmq-queues](rabbitmq-queues.8.html): operations on quorum queues
+ * [rabbitmqadmin](management-cli.html) ([HTTP API](management.html)-based zero dependency management tool)
+ * [man pages](manpages.html)
 
 
 ## Configuration
@@ -75,7 +75,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [File and Directory Locations](relocate.html)
  * [Logging](logging.html)
  * [Policies and Runtime Parameters](parameters.html)
- * [Schema Definitions](/definitions.html)
+ * [Schema Definitions](definitions.html)
  * [Per Virtual Host Limits](vhosts.html)
  * [Client Connection Heartbeats](heartbeats.html)
  * [Inter-node Connection Heartbeats](nettick.html)
@@ -91,8 +91,8 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Credentials and Passwords](passwords.html)
  * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.8.x)
  * [LDAP](ldap.html)
- * [Validated User ID](/validated-user-id.html)
- * [Authentication Failure Notifications](/auth-notification.html)
+ * [Validated User ID](validated-user-id.html)
+ * [Authentication Failure Notifications](auth-notification.html)
 
 
 ## Networking and TLS
@@ -101,7 +101,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Networking](networking.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
  * [Using TLS for Client Connections](ssl.html)
- * [Using TLS for Inter-node Traffic](/clustering-ssl.html)
+ * [Using TLS for Inter-node Traffic](clustering-ssl.html)
  * [Troubleshooting TLS](troubleshooting-ssl.html)
 
 
@@ -116,7 +116,7 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Internal Event Exchange](event-exchange.html)
  * [Per Virtual Host Limits](vhosts.html)
  * [Message Tracing](firehose.html)
- * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
+ * [Capturing Traffic with Wireshark](amqp-wireshark.html)
 
 
 ### Clustering
@@ -145,47 +145,47 @@ see <a href="/documentation.html">All Documentation Guides</a>.
  * [Production Checklist](production-checklist.html)
  * [Backup and Restore](backup.html)
  * [Troubleshooting guidance](troubleshooting.html)
- * [Reliable Message Delivery](/reliability.html)
+ * [Reliable Message Delivery](reliability.html)
 
 
 ## Message Store and Resource Management
 
- * [Memory Usage Analysis](/memory-use.html)
- * [Memory Management](/memory.html)
- * [Resource Alarms](/alarms.html)
- * [Free Disk Space Alarms](/disk-alarms.html)
+ * [Memory Usage Analysis](memory-use.html)
+ * [Memory Management](memory.html)
+ * [Resource Alarms](alarms.html)
+ * [Free Disk Space Alarms](disk-alarms.html)
  * [Runtime Tuning](runtime.html)
- * [Flow Control](/flow-control.html)
- * [Message Store Configuration](/persistence-conf.html)
- * [Queue and Message TTL](/ttl.html)
- * [Queue Length Limits](/maxlength.html)
- * [Lazy Queues](/lazy-queues.html)
+ * [Flow Control](flow-control.html)
+ * [Message Store Configuration](persistence-conf.html)
+ * [Queue and Message TTL](ttl.html)
+ * [Queue Length Limits](maxlength.html)
+ * [Lazy Queues](lazy-queues.html)
 
 
 ## Queue and Consumer Features
 
  * [Queues guide](queues.html)
- * [Consumers guide](/consumers.html)
- * [Queue and Message TTL](/ttl.html)
- * [Queue Length Limits](/maxlength.html)
- * [Lazy Queues](/lazy-queues.html)
- * [Dead Lettering](/dlx.html)
- * [Priority Queues](/priority.html)
- * [Consumer Cancellation Notifications](/consumer-cancel.html)
- * [Consumer Prefetch](/consumer-prefetch.html)
- * [Consumer Priorities](/consumer-priority.html)
- * [Streams](/streams.html)
+ * [Consumers guide](consumers.html)
+ * [Queue and Message TTL](ttl.html)
+ * [Queue Length Limits](maxlength.html)
+ * [Lazy Queues](lazy-queues.html)
+ * [Dead Lettering](dlx.html)
+ * [Priority Queues](priority.html)
+ * [Consumer Cancellation Notifications](consumer-cancel.html)
+ * [Consumer Prefetch](consumer-prefetch.html)
+ * [Consumer Priorities](consumer-priority.html)
+ * [Streams](streams.html)
 
 
 ## STOMP, MQTT, WebSockets
 
  * [Client Connections](connections.html)
- * [STOMP](/stomp.html)
- * [MQTT](/mqtt.html)
+ * [STOMP](stomp.html)
+ * [MQTT](mqtt.html)
  * [STOMP over WebSockets](web-stomp.html)
  * [MQTT over WebSockets](web-mqtt.html)
 
 
 ## Man Pages
 
- * [man Pages](/manpages.html)
+ * [man Pages](manpages.html)
