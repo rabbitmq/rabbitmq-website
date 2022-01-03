@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-During operation, RabbitMQ nodes will consume varying amount of [memory](/memory-use.html) and disk
+During operation, RabbitMQ nodes will consume varying amount of [memory](memory-use.html) and disk
 space based on the workload. When usage spikes, both memory and free disk space can reach
 potentially dangerous levels. In case of memory, the node can be killed
 by the operating system's low-on-memory process termination mechanism
@@ -35,13 +35,13 @@ publish messages in order to avoid being killed by the
 OS (out-of-memory killer) or exhausting all available free disk space:
 
  * When [memory use](memory-use.html) goes above the configured watermark (limit)
- * When [free disk space](/disk-alarms.html) drops below the configured watermark (limit)
+ * When [free disk space](disk-alarms.html) drops below the configured watermark (limit)
 
 Nodes will temporarily _block_ publishing connections
 by suspending reading from [client connection](connections.html).
 Connections that are only used to *consume* messages will not be blocked.
 
-Connection [heartbeat monitoring](/heartbeats.html) will be disabled, too.
+Connection [heartbeat monitoring](heartbeats.html) will be disabled, too.
 All network connections will show in `rabbitmqctl` and the
 management UI as either `blocking`, meaning they
 have not attempted to publish and can thus continue, or
@@ -55,7 +55,7 @@ to them continue as usual.
 
 ## <a id="client-notifications" class="anchor" href="#client-notifications">Client Notifications</a>
 
-Modern client libraries support [connection.blocked notification](/connection-blocked.html)
+Modern client libraries support [connection.blocked notification](connection-blocked.html)
 (a protocol extension), so applications can monitor when they are blocked.
 
 
@@ -80,7 +80,7 @@ producing or consuming.
 
 When an alarm is in effect, publishing connections will be blocked by TCP back pressure.
 In practice this means that publish operations will eventually time out of fail outright.
-Application developers must be prepared to handle such failures and use [publisher confirms](/confirms.html)
+Application developers must be prepared to handle such failures and use [publisher confirms](confirms.html)
 to keep track of what messages have been successfully handled and processed by RabbitMQ.
 
 
@@ -94,12 +94,12 @@ connections. See [Networking guide](networking.html) to learn more.
 ## <a id="transient-flow-control" class="anchor" href="#transient-flow-control">Transient Flow Control</a>
 
 When clients attempt to publish faster than the server can
-accept their messages, they go into transient [flow control](/flow-control.html).
+accept their messages, they go into transient [flow control](flow-control.html).
 
 
 ## <a id="related-topics" class="anchor" href="#related-topics">Relevant Topics</a>
 
- * [Determining what uses memory](/memory-use.html) on a running node
- * [Memory alarms](/memory.html)
- * [Free disk space alarms](/disk-alarms.html)
- * [How clients can determine if they are blocked](/connection-blocked.html)
+ * [Determining what uses memory](memory-use.html) on a running node
+ * [Memory alarms](memory.html)
+ * [Free disk space alarms](disk-alarms.html)
+ * [How clients can determine if they are blocked](connection-blocked.html)
