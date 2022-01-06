@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -387,7 +387,7 @@ the `cluster_formation.aws.use_private_ip` key to `true`. For this setup to work
 [`RABBITMQ_NODENAME` must be set](configure.html#customise-environment) to the private IP address at node
 deployment time.
 
-`RABBITMQ_USE_LOGNAME` also has to be set to `true` or an IP address won't be considered a valid
+`RABBITMQ_USE_LONGNAME` also has to be set to `true` or an IP address won't be considered a valid
 part of node name.
 
 <pre class="lang-ini">

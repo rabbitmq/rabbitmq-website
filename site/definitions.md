@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -39,7 +39,7 @@ Definition import on node boot is the recommended way of [pre-configuring nodes 
 ## <a id="export" class="anchor" href="#export">Definition Export</a>
 
 Definitions are exported as a JSON file in a number of ways.
- 
+
  * [`rabbitmqctl export_definitions`](/cli.html) is the only option that does not require [management plugin](/management.html) to be enabled
  * The `GET /api/definitions` API endpoint
  * [`rabbitmqadmin export`](/management-cli.html) which uses the above HTTP API endpoint

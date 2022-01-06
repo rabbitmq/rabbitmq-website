@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -448,8 +448,7 @@ rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
         </li>
         <li>
           Enter "ha-all" next to Name, "^ha\." next to Pattern,
-          and "ha-mode" = "all" in the first line next to
-          Policy.
+          and "ha-mode" = "all" into Definition properties (or press Queues[Classic] -> "HA mode" and enter word "all" into value)
         </li>
         <li>
           Click <code>Add policy</code>.

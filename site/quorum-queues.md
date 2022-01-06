@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -152,7 +152,7 @@ Quorum queues do not currently support Message TTL, but they do support [Queue T
 Quorum queues has support for [queue length limits](/maxlength.html).
 
 The `drop-head` and `reject-publish` overflow behaviours are supported but they
-do not support `reject-publish-dlx` configurations as Quorum queues take a different 
+do not support `reject-publish-dlx` configurations as Quorum queues take a different
 implementation approach than classic queues.
 
 When a quorum queue reaches the max-length limit and `reject-publish` is configured
