@@ -225,12 +225,12 @@ In environments where the MQTT plugin is the only Raft-based feature used
 the log stored in memory will reduce memory footprint of the plugin in case of
 [high connection churn](/connections.html#high-connection-churn).
 
-The configuration key of interest is `raft.wal_max_size_bytes`:
+The configuration key of interest is `ra.wal_max_size_bytes`:
 
 <pre class="lang-ini">
 # if quorum queues are not used, configure a lower max WAL segment
 # limit compared to the default of 512 MiB, e.g. 64 MiB
-raft.wal_max_size_bytes = 67108864
+ra.wal_max_size_bytes = 67108864
 </pre>
 
 If [quorum queues](/quorum-queues.html) are adopted at a later point, this setting
