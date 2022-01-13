@@ -28,7 +28,7 @@ and more.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
-Starting with 3.7.0, RabbitMQ uses a single log file by default.
+Modern RabbitMQ versions use a single log file by default.
 
 Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
 
@@ -107,10 +107,9 @@ log [rotation via `logrotate`](#logrotate) after package installation.
 `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` settings control log file rotation
 for the file output.
 
-#### Periodic Rotation
+#### Built-in Periodic Rotation
 
-Use `log.file.rotation.date` to set up periodic (date and time-based) rotation.
-It uses [the same syntax as newsyslog.conf](https://github.com/basho/lager#internal-log-rotation):
+Use `log.file.rotation.date` to set up minimalistic periodic rotation:
 
 <pre class="lang-ini">
 # rotate every night at midnight
@@ -126,31 +125,11 @@ log.file.rotation.date = $D23
 </pre>
 
 <pre class="lang-ini">
-# rotate every hour at HH:00
-log.file.rotation.date = $H00
-</pre>
-
-<pre class="lang-ini">
-# rotate every day at 12:30 (00:30 p.m.)
-log.file.rotation.date = $D12H30
-</pre>
-
-<pre class="lang-ini">
-# rotate every week on Sunday at 00:00
-log.file.rotation.date = $W0D0H0
-</pre>
-
-<pre class="lang-ini">
-# rotate every week on Friday at 16:00 (4:00 p.m.)
-log.file.rotation.date = $W5D16
-</pre>
-
-<pre class="lang-ini">
 # rotate every night at midnight
 log.file.rotation.date = $D0
 </pre>
 
-#### File Size-based Rotation
+#### Built-in File Size-based Rotation
 
 `log.file.rotation.size` controls rotation based on the current log file size:
 
@@ -480,7 +459,7 @@ The output of <code>journalctl --system</code> will look similar to this:
 
 <pre class="lang-plaintext">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.5. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.5. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

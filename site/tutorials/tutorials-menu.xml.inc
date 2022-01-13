@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -34,7 +34,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-one-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-one-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-one-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-one-swift.html">Swift</a></li>      
+      <li><a href="/tutorials/tutorial-one-swift.html">Swift</a></li>
     </ul>
   </td>
 
@@ -55,7 +55,7 @@ limitations under the License.
         <li><a href="/tutorials/tutorial-two-go.html">Go</a></li>
         <li><a href="/tutorials/tutorial-two-elixir.html">Elixir</a></li>
         <li><a href="/tutorials/tutorial-two-objectivec.html">Objective-C</a></li>
-        <li><a href="/tutorials/tutorial-two-swift.html">Swift</a></li>        
+        <li><a href="/tutorials/tutorial-two-swift.html">Swift</a></li>
     </ul>
   </td>
 
@@ -76,7 +76,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-three-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-three-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-three-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-three-swift.html">Swift</a></li>      
+      <li><a href="/tutorials/tutorial-three-swift.html">Swift</a></li>
     </ul>
   </td>
   </tr>
@@ -99,7 +99,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-four-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-four-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-four-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-four-swift.html">Swift</a></li>      
+      <li><a href="/tutorials/tutorial-four-swift.html">Swift</a></li>
     </ul>
   </td>
 
@@ -120,7 +120,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-five-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-five-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
-      <li><a href="/tutorials/tutorial-five-swift.html">Swift</a></li>      
+      <li><a href="/tutorials/tutorial-five-swift.html">Swift</a></li>
     </ul>
   </td>
 
@@ -139,7 +139,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-six-dotnet.html">C#</a></li>
       <li><a href="/tutorials/tutorial-six-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-six-go.html">Go</a></li>
-      <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>      
+      <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>
     </ul>
   </td>
   </tr>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -152,7 +152,7 @@ Quorum queues do not currently support Message TTL, but they do support [Queue T
 Quorum queues has support for [queue length limits](/maxlength.html).
 
 The `drop-head` and `reject-publish` overflow behaviours are supported but they
-do not support `reject-publish-dlx` configurations as Quorum queues take a different 
+do not support `reject-publish-dlx` configurations as Quorum queues take a different
 implementation approach than classic queues.
 
 When a quorum queue reaches the max-length limit and `reject-publish` is configured
@@ -298,13 +298,14 @@ With some queue operations there are minor differences:
 When a quorum queue is declared, an initial number of replicas for it must be started in the cluster.
 By default the number of replicas to be started is up to three, one per RabbitMQ node in the cluster.
 
-Three nodes is the practical minimum of replicas for a quorum queue. In RabbitMQ clusters with a larger
+Three nodes is the **practical minimum** of replicas for a quorum queue. In RabbitMQ clusters with a larger
 number of nodes, adding more replicas than a [quorum](#what-is-quorum) (majority) will not provide
 any improvements in terms of [quorum queue availability](#quorum-requirements) but it will consume
 more cluster resources.
 
 Therefore the **recommended number of replicas** for a quorum queue is the quorum of cluster nodes
-(but no fewer than three).
+(but no fewer than three). This assumes a [fully formed](cluster-formation.html) cluster of at least three nodes.
+
 ### <a id="replication-factor" class="anchor" href="#replication-factor">Controlling the Initial Replication Factor</a>
 
 For example, a cluster of three nodes will have three replicas, one on each node.
@@ -324,7 +325,12 @@ nodes. To control the number of quorum queue members set the
 `x-quorum-initial-group-size` queue argument when declaring the queue. The
 group size argument provided should be an integer that is greater than zero and smaller or
 equal to the current RabbitMQ cluster size. The quorum queue will be
-launched to run on a random subset of the RabbitMQ cluster.
+launched to run on a random subset of RabbitMQ nodes present in the cluster at declaration time.
+
+In case a quorum queue is declared before all cluster nodes have joined the cluster, and the initial replica
+count is greater than the total number of cluster members, the effective value used will
+be equal to the total number of cluster nodes. When more nodes join the cluster, the replica count
+will not be automatically increased but it can be [increased by the operator](#replica-management).
 
 ### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
 

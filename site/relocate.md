@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -80,7 +80,7 @@ file and directories have sufficient permissions
     <td>
       The path to the configuration file, without
       the <code>.config</code> extension. If
-      the <a href="configure.html#configuration-file">configuration
+      the <a href="configure.html#configuration-files">configuration
       file</a> is present it is used by the server to configure
       RabbitMQ components. See <a href="/configure.html">Configuration guide</a>
       for more information.

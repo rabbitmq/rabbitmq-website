@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -89,6 +89,12 @@ channel.basicPublish("", "rpc_queue", props, message.getBytes());
 // ... then code to read a response message from the callback_queue ...
 </pre>
 
+We need this new import:
+
+<pre class="lang-java">
+import com.rabbitmq.client.AMQP.BasicProperties;
+</pre>
+
 > #### Message properties
 >
 > The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
@@ -103,12 +109,6 @@ channel.basicPublish("", "rpc_queue", props, message.getBytes());
 >    to set this property to: `application/json`.
 > * `replyTo`: Commonly used to name a callback queue.
 > * `correlationId`: Useful to correlate RPC responses with requests.
-
-We need this new import:
-
-<pre class="lang-java">
-import com.rabbitmq.client.AMQP.BasicProperties;
-</pre>
 
 ### Correlation Id
 
@@ -263,17 +263,6 @@ The client code is slightly more involved:
   * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
   * Finally we return the response back to the user.
 
-Making the Client request:
-
-<pre class="lang-java">
-RPCClient fibonacciRpc = new RPCClient();
-
-System.out.println(" [x] Requesting fib(30)");
-String response = fibonacciRpc.call("30");
-System.out.println(" [.] Got '" + response + "'");
-
-fibonacciRpc.close();
-</pre>
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).

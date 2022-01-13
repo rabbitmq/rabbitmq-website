@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -154,7 +154,7 @@ reachable endpoint will be used. In case of [connection failures](#recovery), us
 a list of endpoints makes it possible for the application to connect to a different
 node if the original one is down.
 
-To use multiple of endpoint, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
+To use multiple endpoints, provide a list of `AmqpTcpEndpoint`s to `ConnectionFactory#CreateConnection`.
 An `AmqpTcpEndpoint` represents a hostname and port pair.
 
 <pre class="lang-csharp">
@@ -683,23 +683,6 @@ However, per-channel operation order is preserved. In other words, if messages A
 in this order on the same channel, they will be processed in this order. If messages A and B
 were delivered on different channels, they can be processed in any order (or in parallel).
 Consumer callbacks are invoked in tasks dispatched a [TaskScheduler](https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx).
-
-### <a id="custom-task-scheduler" class="anchor" href="#custom-task-scheduler">Using a Custom Task Scheduler</a>
-
-It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
-
-<pre class="lang-csharp">
-public class CustomTaskScheduler : TaskScheduler
-{
-  // ...
-}
-
-var cf = new ConnectionFactory();
-cf.TaskScheduler = new CustomTaskScheduler();
-</pre>
-
-This, for example, can be used to [limit concurrency degree with a custom TaskScheduler](https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx).
-
 
 ## <a id="basic-return" class="anchor" href="#basic-return">Handling Unroutable Messages</a>
 

@@ -568,7 +568,7 @@ Congratulations! Your RabbitMQ is now monitored with Prometheus & Grafana!
 ## <a id="tls" class="anchor" href="#tls">Securing Prometheus Scraping Endpoint with TLS</a>
 
 The Prometheus metrics can be secured with TLS similar to the other listeners.
-For example, in the [configuration file](/configure.html#configuration-file)
+For example, in the [configuration file](/configure.html#configuration-files)
 
 <pre class="lang-ini">
 prometheus.ssl.port       = 15691

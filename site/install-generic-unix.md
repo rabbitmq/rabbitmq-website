@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -96,7 +96,7 @@ it will exit with an error.
 
 #### Configuring the Server
 
-[RabbitMQ configuration file](configure.html#configuration-file) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
+[RabbitMQ configuration file](configure.html#configuration-files) located at `$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.conf`
 is the primary way of configuring the node.
 
 It is possible to [use environment variables](configure.html#customise-general-unix-environment) to control certain settings.

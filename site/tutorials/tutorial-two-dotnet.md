@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -335,7 +335,7 @@ and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `IBasicProperties.SetPersistent` to `true`.
+- by setting `IBasicProperties.Persistent` to `true`.
 
 <pre class="lang-csharp">
 var properties = channel.CreateBasicProperties();

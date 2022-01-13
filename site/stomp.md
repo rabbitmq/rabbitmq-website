@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -46,7 +46,7 @@ all interfaces on port 61613 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change the listener port, edit your
-[Configuration file](/configure.html#configuration-file),
+[Configuration file](/configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 
 For example, a minimalistic configuration file which changes the listener

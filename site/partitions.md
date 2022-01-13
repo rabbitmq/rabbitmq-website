@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -218,7 +218,7 @@ partitions is chosen in an unspecified way).
 
 You can enable either mode by setting the configuration
 parameter <code>cluster_partition_handling</code>
-for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-file) to:
+for the <code>rabbit</code> application in the [configuration file](configure.html#configuration-files) to:
 
 <ul>
   <li><code>autoheal</code></li>

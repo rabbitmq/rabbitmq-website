@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -17,4 +17,4 @@ limitations under the License.
 
 # Authentication Mechanisms
 
-Authentication mechanisms are now documented in the <a href="/access-control.html">Access Control</a> guide.
+Authentication mechanisms are now documented in the <a href="access-control.html">Access Control</a> guide.

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -206,7 +206,7 @@ from the worker, once we're done with a task.
 <pre class="lang-python">
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body.decode())
-    time.sleep( body.count('.') )
+    time.sleep(body.count(b'.') )
     print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
@@ -278,15 +278,15 @@ This `queue_declare` change needs to be applied to both the producer
 and consumer code.
 
 At that point we're sure that the `task_queue` queue won't be lost
-even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by supplying a `delivery_mode` property with a value `2`.
+even if RabbitMQ restarts. Now we need to mark our messages as persistent -
+by supplying a `delivery_mode` property with the value of `pika.spec.PERSISTENT_DELIVERY_MODE`
 
 <pre class="lang-python">
 channel.basic_publish(exchange='',
                       routing_key="task_queue",
                       body=message,
                       properties=pika.BasicProperties(
-                         delivery_mode = 2, # make message persistent
+                         delivery_mode = pika.spec.PERSISTENT_DELIVERY_MODE
                       ))
 </pre>
 
@@ -379,7 +379,7 @@ channel.basic_publish(
     routing_key='task_queue',
     body=message,
     properties=pika.BasicProperties(
-        delivery_mode=2,  # make message persistent
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
     ))
 print(" [x] Sent %r" % message)
 connection.close()

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -24,7 +24,7 @@ system naturally generate events. For example, when a connection is
 accepted, authenticated and access to the target virtual host is
 authorised, it will emit an event of type `connection_created`. When a
 connection is closed or fails for any reason, a `connection_closed`
-event is deleted.
+event is emitted.
 
 
 Monitoring and auditing services can be interested in observing those

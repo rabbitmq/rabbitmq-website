@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -21,13 +21,13 @@ limitations under the License.
 
 This guide covers various automation-oriented cluster formation and
 peer discovery features. For a general overview of RabbitMQ clustering,
-please refer to the [Clustering Guide](/clustering.html).
+please refer to the [Clustering Guide](clustering.html).
 
-This guide assumes general familiarity with [RabbitMQ clustering](/clustering.html)
+This guide assumes general familiarity with [RabbitMQ clustering](clustering.html)
 and focuses on the peer discovery subsystem.
 For example, it will not cover what [ports must be open](networking.html) for inter-node communication, how nodes authenticate to each other, and so on.
 Besides discovery mechanisms and [their configuration](#configuring),
-this guide also covers a closely related topic of [rejoining nodes](#rejoining),
+this guide also covers closely related topics of [feature availability during cluster formation](#formation-and-availablility), [rejoining nodes](#rejoining),
 the problem of [initial cluster formation](#initial-formation-race-condition) with nodes booting in parallel as well as [additional health checks](#node-health-checks-and-cleanup) offered
 by some discovery implementations.
 
@@ -54,18 +54,18 @@ The following mechanisms are built into the core and always available:
  * [Pre-configured DNS A/AAAA records](#peer-discovery-dns)
 
 Additional peer discovery mechanisms are available via plugins. The following
-peer discovery plugins ship with [supported RabbitMQ versions](/versions.html):
+peer discovery plugins ship with [supported RabbitMQ versions](versions.html):
 
  * [AWS (EC2)](#peer-discovery-aws)
  * [Kubernetes](#peer-discovery-k8s)
  * [Consul](#peer-discovery-consul)
  * [etcd](#peer-discovery-etcd)
 
-The above plugins do not need to be installed but like all [plugins](/plugins.html) they must be [enabled](/plugins.html#basics)
-or [preconfigured](/plugins.html#enabled-plugins-file) before they can be used.
+The above plugins do not need to be installed but like all [plugins](plugins.html) they must be [enabled](plugins.html#basics)
+or [preconfigured](plugins.html#enabled-plugins-file) before they can be used.
 
 For peer discovery plugins, which must be available on node boot, this means they must be enabled before first node boot.
-The example below uses [rabbitmq-plugins](/cli.html)' `--offline` mode:
+The example below uses [rabbitmq-plugins](cli.html)' `--offline` mode:
 
 <pre class="lang-bash">
 rabbitmq-plugins --offline enable &lt;plugin name&gt;
@@ -126,12 +126,24 @@ When the configured backend supports registration, nodes unregister when they st
 If peer discovery isn't configured, or it [repeatedly fails](#discovery-retries),
 or no peers are reachable, a node that wasn't a cluster member in the past
 will initialise from scratch and proceed as a standalone node.
-Peer discovery progress and outcomes will be [logged](/logging.html)
+Peer discovery progress and outcomes will be [logged](logging.html)
 by the node.
 
 If a node previously was a cluster member, it will try to contact and rejoin
 its "last seen" peer for a period of time. In this case, no peer discovery
 will be performed. This is true for all backends.
+
+
+## <a id="formation-and-availablility" class="anchor" href="#formation-and-availablility">Cluster Formation and Feature Availability</a>
+
+As a rule of thumb, a cluster that has only been partially formed — that is, only a subset of
+nodes has joined it — **must be considered fully available** by clients.
+
+Individual nodes will accept [client connections](connections.html) before the cluster is formed. In such cases,
+clients should be prepared to certain features not being available. For instance, [quorum queues](quorum-queues.html)
+won't be available unless the number of cluster nodes matches or exceeds the quorum of configured repliica count.
+
+Features behind [feature flags](feature-flags.html) may also be unavailable until cluster formation completes.
 
 
 ## <a id="rejoining" class="anchor" href="#rejoining">Nodes Rejoining Their Existing Cluster</a>
@@ -156,7 +168,7 @@ time to start it is recommended that the number of retries is increased.
 If a node is reset since losing contact with the cluster, it will behave [like a blank node](#peer-discovery-how-does-it-work).
 Note that other cluster members might still consider it to be a cluster member, in which case
 the two sides will disagree and the node will fail to join. Such reset nodes must also be
-removed from the cluster using [`rabbitmqctl forget_cluster_node`](/cli.html) executed against
+removed from the cluster using [`rabbitmqctl forget_cluster_node`](cli.html) executed against
 an existing cluster member.
 
 If a node was explicitly removed from the cluster by the operator and then reset,
@@ -270,9 +282,9 @@ cluster_formation.dns.hostname = discovery.eng.example.local
 An [AWS (EC2)-specific](https://github.com/rabbitmq/rabbitmq-peer-discovery-aws) discovery mechanism
 is available via a plugin.
 
-As with any [plugin](/plugins.html), it must be enabled before it
-can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
-or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+As with any [plugin](plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](plugins.html#basics)
+or [preconfigured](plugins.html#enabled-plugins-file) before first node boot:
 
 <pre class="lang-bash">
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_aws
@@ -312,7 +324,7 @@ cluster_formation.aws.secret_key = WjalrxuTnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY
 </pre>
 
 If region is left unconfigured, `us-east-1` will be used by default.
-Sensitive values in configuration file can optionally [be encrypted](/configure.html#configuration-encryption).
+Sensitive values in configuration file can optionally [be encrypted](configure.html#configuration-encryption).
 
 If an [IAM role is assigned to EC2 instances](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) running RabbitMQ nodes,
 a policy has to be used to [allow said instances use EC2 Instance Metadata Service](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html).
@@ -387,7 +399,7 @@ the `cluster_formation.aws.use_private_ip` key to `true`. For this setup to work
 [`RABBITMQ_NODENAME` must be set](configure.html#customise-environment) to the private IP address at node
 deployment time.
 
-`RABBITMQ_USE_LOGNAME` also has to be set to `true` or an IP address won't be considered a valid
+`RABBITMQ_USE_LONGNAME` also has to be set to `true` or an IP address won't be considered a valid
 part of node name.
 
 <pre class="lang-ini">
@@ -409,9 +421,9 @@ cluster_formation.aws.use_private_ip = true
 A [Kubernetes](https://kubernetes.io/)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-k8s).
 
-As with any [plugin](/plugins.html), it must be enabled before it
-can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
-or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+As with any [plugin](plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](plugins.html#basics)
+or [preconfigured](plugins.html#enabled-plugins-file) before first node boot:
 
 <pre class="lang-bash">
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_k8s
@@ -437,21 +449,21 @@ On the headless service `spec`, field `publishNotReadyAddresses` must be set to 
 
 If a stateless set is used recreated nodes will not have their persisted data and will start as blank nodes.
 This can lead to data loss and higher network traffic volume due to more frequent
-data synchronisation of both [quorum queues](/quorum-queues.html)
-and [classic queue mirrors](/ha.html) on newly joining nodes.
+data synchronisation of both [quorum queues](quorum-queues.html)
+and [classic queue mirrors](ha.html) on newly joining nodes.
 
 #### Use Persistent Volumes
 
 How [storage is configured](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 is generally orthogonal to peer discovery. However, it does not make sense to run a stateful
-data service such as RabbitMQ with [node data directory](/relocate.html) stored on a transient volume.
+data service such as RabbitMQ with [node data directory](relocate.html) stored on a transient volume.
 Use of transient volumes can lead nodes to not have their persisted data after a restart.
 This has the same consequences as with stateless sets covered above.
 
 #### Make Sure `/etc/rabbitmq` is Mounted as Writeable
 
-RabbitMQ nodes and images may need to update a file under `/etc/rabbitmq`, the default [configuration file location](/configure.html#config-location) on Linux. This may involve configuration file generation
-performed by the image used, [enabled plugins file](/plugins.html#enabled-plugins-file) updates,
+RabbitMQ nodes and images may need to update a file under `/etc/rabbitmq`, the default [configuration file location](configure.html#config-location) on Linux. This may involve configuration file generation
+performed by the image used, [enabled plugins file](plugins.html#enabled-plugins-file) updates,
 and so on.
 
 It is therefore highly recommended that `/etc/rabbitmq` is mounted as writeable and owned by
@@ -473,9 +485,9 @@ rabbitmq-diagnostics ping
 </pre>
 
 This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
-assuming they are [compatible](/upgrade.html).
+assuming they are [compatible](upgrade.html).
 
-See [Schema Syncing from Online Peers](/clustering.html#restarting-schema-sync) in the [Clustering guide](/clustering.html).
+See [Schema Syncing from Online Peers](clustering.html#restarting-schema-sync) in the [Clustering guide](clustering.html).
 
 
 ### Examples
@@ -609,9 +621,9 @@ cluster_formation.k8s.service_name = rmq-qa
 A [Consul](https://www.consul.io)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-consul).
 
-As with any [plugin](/plugins.html), it must be enabled before it
-can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
-or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+As with any [plugin](plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](plugins.html#basics)
+or [preconfigured](plugins.html#enabled-plugins-file) before first node boot:
 
 <pre class="lang-bash">
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_consul
@@ -926,9 +938,9 @@ is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-
 As of RabbitMQ `3.8.4`, the plugin uses a v3 API, gRPC-based etcd client and
 **requires etcd 3.4 or a later version**.
 
-As with any [plugin](/plugins.html), it must be enabled before it
-can be used. For peer discovery plugins it means they must be [enabled](/plugins.html#basics)
-or [preconfigured](/plugins.html#enabled-plugins-file) before first node boot:
+As with any [plugin](plugins.html), it must be enabled before it
+can be used. For peer discovery plugins it means they must be [enabled](plugins.html#basics)
+or [preconfigured](plugins.html#enabled-plugins-file) before first node boot:
 
 <pre class="lang-bash">
 rabbitmq-plugins --offline enable rabbitmq_peer_discovery_etcd
@@ -993,7 +1005,7 @@ cluster_formation.etcd.username = rabbitmq
 cluster_formation.etcd.password = s3kR37
 </pre>
 
-It is possible to use [advanced.config](/configure.html#advanced-config-file) file to [encrypt the password value](/configure.html#configuration-encryption)
+It is possible to use [advanced.config](configure.html#advanced-config-file) file to [encrypt the password value](configure.html#configuration-encryption)
 listed in the config. In this case all plugin settings must be moved to the advanced config:
 
 <pre class="lang-erlang">
@@ -1127,11 +1139,11 @@ etcdctl get --prefix=true "/rabbitmq"
 
 #### TLS
 
-It is possible to configure the plugin to [use TLS](/ssl.html) when connecting to etcd.
+It is possible to configure the plugin to [use TLS](ssl.html) when connecting to etcd.
 TLS will be enabled if any of the TLS options listed below are configured, otherwise
 connections will use "plain TCP" without TLS.
 
-The plugin acts as a TLS client. A [trusted CA certificate](/ssl.html#peer-verification) file must
+The plugin acts as a TLS client. A [trusted CA certificate](ssl.html#peer-verification) file must
 be provided as well as a client certificate and private key pair:
 
 <pre class="lang-ini">
@@ -1155,7 +1167,7 @@ cluster_formation.etcd.ssl_options.verify               = verify_peer
 cluster_formation.etcd.ssl_options.fail_if_no_peer_cert = true
 </pre>
 
-More [TLS options](/ssl.html) are supported such as cipher suites and
+More [TLS options](ssl.html) are supported such as cipher suites and
 client-side session renegotiation options:
 
 <pre class="lang-ini">
@@ -1282,7 +1294,7 @@ cluster_formation.node_cleanup.interval = 90
 </pre>
 
 Some backends (Consul, etcd) support node health checks or TTL. These checks
-should not to be confused with [monitoring health checks](/monitoring.html#health-checks).
+should not to be confused with [monitoring health checks](monitoring.html#health-checks).
 They allow peer discovery services (such as etcd or Consul) keep track of what
 nodes are still around (have checked in recently).
 
@@ -1299,7 +1311,7 @@ Automatic cleanup of absent nodes makes most sense in environments where failed/
 will be replaced with brand new ones (including cases when persistent storage won't be re-attached).
 
 When automatic node cleanup is disabled (switched to the warning mode), operators have to
-explicitly remove absent cluster nodes using [`rabbitmqctl forget_cluster_node`](/cli.html).
+explicitly remove absent cluster nodes using [`rabbitmqctl forget_cluster_node`](cli.html).
 
 ### Negative Side Effects of Automatic Removal
 
@@ -1313,7 +1325,7 @@ log a similar message:
 Node 'rabbit@node1.local' thinks it's clustered with node 'rabbit@node2.local', but 'rabbit@node2.local' disagrees
 </pre>
 
-In addition, such nodes can begin to fail their [monitoring health checks](/monitoring.html#health-checks),
+In addition, such nodes can begin to fail their [monitoring health checks](monitoring.html#health-checks),
 as they would be in a permanent "partitioned off" state. Even though such nodes might have been
 replaced with a new one and the cluster would be operating as expected, such automatically removed
 and replaced nodes can produce monitoring false positives.
@@ -1326,7 +1338,7 @@ of its cluster. Monitoring systems and operators won't be immediately aware of t
 
 In latest releases if a peer discovery attempt fail, it will be retried up to a certain number
 of times with a delay between each attempt. This is similar to the peer sync retries nodes
-perform [when they come online after a restart](/clustering.html#restarting).
+perform [when they come online after a restart](clustering.html#restarting).
 
 For example, with the [Kubernetes peer discovery mechanism](#peer-discovery-k8s) this means that
 Kubernetes API requests that list pods will be retried should they fail. With the AWS mechanism,
@@ -1334,10 +1346,10 @@ EC2 API requests are retried, and so on.
 
 Such retries by no means handle every possible failure scenario but they improve the resilience
 of peer discovery and thus cluster and node deployments in practice. However, if clustered
-nodes [fail to authenticate](/clustering.html#erlang-cookie) with each other, retries
+nodes [fail to authenticate](clustering.html#erlang-cookie) with each other, retries
 will simply merely the inevitable failure of cluster formation.
 
-Nodes that fail to perform peer discovery will [log](/logging.html) their remaining recovery attempts:
+Nodes that fail to perform peer discovery will [log](logging.html) their remaining recovery attempts:
 
 <pre class="lang-plaintext">
 2020-06-27 06:35:36.426 [error] &lt;0.277.0&gt; Trying to join discovered peers failed. Will retry after a delay of 500 ms, 4 retries left...
@@ -1348,7 +1360,7 @@ Nodes that fail to perform peer discovery will [log](/logging.html) their remain
 2020-06-27 06:35:37.434 [warning] &lt;0.277.0&gt; Could not auto-cluster with node rabbit@hostname3: {badrpc,nodedown}
 </pre>
 
-If a node fails to perform peer discovery and exhausts all retries, [enable debug logging](/logging.html#debug-logging) is highly recommended for [troubleshooting](#troubleshooting).
+If a node fails to perform peer discovery and exhausts all retries, [enable debug logging](logging.html#debug-logging) is highly recommended for [troubleshooting](#troubleshooting).
 
 The number of retries and the delay can be configured:
 
@@ -1404,7 +1416,7 @@ The peer discovery subsystem and individual mechanism implementations log import
 discovery procedure steps at the `info` log level. More extensive logging
 is available at the `debug` level. Mechanisms that depend on external services
 accessible over HTTP will log all outgoing HTTP requests and response codes at `debug` level.
-See the [logging guide](/logging.html) for more information about logging configuration.
+See the [logging guide](logging.html) for more information about logging configuration.
 
 If the log does not contain any entries that demonstrate peer discovery progress, for example, the list
 of nodes retrieved by the mechanism or clustering attempts, it may mean that the node already has

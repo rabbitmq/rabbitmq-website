@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache license,
@@ -65,7 +65,8 @@ For client connections, there are two common approaches:
    to perform [TLS termination](https://en.wikipedia.org/wiki/TLS_termination_proxy) of client connections and use plain TCP connections to RabbitMQ nodes.
 
 Both approaches are valid and have pros and cons. This guide will focus on the
-first option.
+first option. Certain parts of this guide would still be relevant for environments
+that choose the second option.
 
 ### <a id="erlang-otp-requirements" class="anchor" href="#erlang-otp-requirements">Erlang/OTP Requirements for TLS Support</a>
 
@@ -253,7 +254,7 @@ Here are the essential configuration settings related to TLS:
   </tr>
 </table>
 
-The options are provided in the <a href="configure.html#configuration-file">configuration
+The options are provided in the <a href="configure.html#configuration-files">configuration
 file</a>. An example of the config file is below, which
 will start one TLS listener on port 5671 on all interfaces
 on this hostname:
@@ -1473,48 +1474,24 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.versions.1 = tlsv1.2
-ssl_options.versions.2 = tlsv1.1
 
 ssl_options.verify = verify_peer
 ssl_options.fail_if_no_peer_cert = false
 
 ssl_options.ciphers.1  = ECDHE-ECDSA-AES256-GCM-SHA384
 ssl_options.ciphers.2  = ECDHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.3  = ECDHE-ECDSA-AES256-SHA384
-ssl_options.ciphers.4  = ECDHE-RSA-AES256-SHA384
-ssl_options.ciphers.5  = ECDH-ECDSA-AES256-GCM-SHA384
-ssl_options.ciphers.6  = ECDH-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.7  = ECDH-ECDSA-AES256-SHA384
-ssl_options.ciphers.8  = ECDH-RSA-AES256-SHA384
-ssl_options.ciphers.9  = DHE-RSA-AES256-GCM-SHA384
-ssl_options.ciphers.10 = DHE-DSS-AES256-GCM-SHA384
-ssl_options.ciphers.11 = DHE-RSA-AES256-SHA256
-ssl_options.ciphers.12 = DHE-DSS-AES256-SHA256
-ssl_options.ciphers.13 = ECDHE-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.14 = ECDHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.15 = ECDHE-ECDSA-AES128-SHA256
-ssl_options.ciphers.16 = ECDHE-RSA-AES128-SHA256
-ssl_options.ciphers.17 = ECDH-ECDSA-AES128-GCM-SHA256
-ssl_options.ciphers.18 = ECDH-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.19 = ECDH-ECDSA-AES128-SHA256
-ssl_options.ciphers.20 = ECDH-RSA-AES128-SHA256
-ssl_options.ciphers.21 = DHE-RSA-AES128-GCM-SHA256
-ssl_options.ciphers.22 = DHE-DSS-AES128-GCM-SHA256
-ssl_options.ciphers.23 = DHE-RSA-AES128-SHA256
-ssl_options.ciphers.24 = DHE-DSS-AES128-SHA256
-ssl_options.ciphers.25 = ECDHE-ECDSA-AES256-SHA
-ssl_options.ciphers.26 = ECDHE-RSA-AES256-SHA
-ssl_options.ciphers.27 = DHE-RSA-AES256-SHA
-ssl_options.ciphers.28 = DHE-DSS-AES256-SHA
-ssl_options.ciphers.29 = ECDH-ECDSA-AES256-SHA
-ssl_options.ciphers.30 = ECDH-RSA-AES256-SHA
-ssl_options.ciphers.31 = ECDHE-ECDSA-AES128-SHA
-ssl_options.ciphers.32 = ECDHE-RSA-AES128-SHA
-ssl_options.ciphers.33 = DHE-RSA-AES128-SHA
-ssl_options.ciphers.34 = DHE-DSS-AES128-SHA
-ssl_options.ciphers.35 = ECDH-ECDSA-AES128-SHA
-ssl_options.ciphers.36 = ECDH-RSA-AES128-SHA
+ssl_options.ciphers.3  = ECDH-ECDSA-AES256-GCM-SHA384
+ssl_options.ciphers.4  = ECDH-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.5  = DHE-RSA-AES256-GCM-SHA384
+ssl_options.ciphers.6  = DHE-DSS-AES256-GCM-SHA384
+ssl_options.ciphers.7  = ECDHE-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.8  = ECDHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.9  = ECDH-ECDSA-AES128-GCM-SHA256
+ssl_options.ciphers.10 = ECDH-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.11 = DHE-RSA-AES128-GCM-SHA256
+ssl_options.ciphers.12 = DHE-DSS-AES128-GCM-SHA256
 
+# these MUST be disabled if TLSv1.3 is used
 ssl_options.honor_cipher_order = true
 ssl_options.honor_ecc_order    = true
 </pre>
@@ -1539,40 +1516,16 @@ In the [classic config format](/configure.html#erlang-term-config-file):
                           {ciphers,  [
                             "ECDHE-ECDSA-AES256-GCM-SHA384",
                             "ECDHE-RSA-AES256-GCM-SHA384",
-                            "ECDHE-ECDSA-AES256-SHA384",
-                            "ECDHE-RSA-AES256-SHA384",
                             "ECDH-ECDSA-AES256-GCM-SHA384",
                             "ECDH-RSA-AES256-GCM-SHA384",
-                            "ECDH-ECDSA-AES256-SHA384",
-                            "ECDH-RSA-AES256-SHA384",
                             "DHE-RSA-AES256-GCM-SHA384",
                             "DHE-DSS-AES256-GCM-SHA384",
-                            "DHE-RSA-AES256-SHA256",
-                            "DHE-DSS-AES256-SHA256",
                             "ECDHE-ECDSA-AES128-GCM-SHA256",
                             "ECDHE-RSA-AES128-GCM-SHA256",
-                            "ECDHE-ECDSA-AES128-SHA256",
-                            "ECDHE-RSA-AES128-SHA256",
                             "ECDH-ECDSA-AES128-GCM-SHA256",
                             "ECDH-RSA-AES128-GCM-SHA256",
-                            "ECDH-ECDSA-AES128-SHA256",
-                            "ECDH-RSA-AES128-SHA256",
                             "DHE-RSA-AES128-GCM-SHA256",
-                            "DHE-DSS-AES128-GCM-SHA256",
-                            "DHE-RSA-AES128-SHA256",
-                            "DHE-DSS-AES128-SHA256",
-                            "ECDHE-ECDSA-AES256-SHA",
-                            "ECDHE-RSA-AES256-SHA",
-                            "DHE-RSA-AES256-SHA",
-                            "DHE-DSS-AES256-SHA",
-                            "ECDH-ECDSA-AES256-SHA",
-                            "ECDH-RSA-AES256-SHA",
-                            "ECDHE-ECDSA-AES128-SHA",
-                            "ECDHE-RSA-AES128-SHA",
-                            "DHE-RSA-AES128-SHA",
-                            "DHE-DSS-AES128-SHA",
-                            "ECDH-ECDSA-AES128-SHA",
-                            "ECDH-RSA-AES128-SHA"
+                            "DHE-DSS-AES128-GCM-SHA256"
                             ]}
                          ]}
           ]}
@@ -1595,7 +1548,6 @@ ssl_options.cacertfile = /path/to/ca_certificate.pem
 ssl_options.certfile   = /path/to/server_certificate.pem
 ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.versions.1 = tlsv1.2
-ssl_options.versions.2 = tlsv1.1
 
 ssl_options.honor_cipher_order = true
 ssl_options.honor_ecc_order    = true
@@ -1649,11 +1601,11 @@ or [disable TLSv1.0 support](#disabling-tls-versions).
 affects TLSv1.0. To mitigate it, [disable TLSv1.0 support](#disabling-tls-versions).
 
 
-## <a id="tls-evaluation-tools" class="anchor" href="#tls-evaluation-tools">Evaluating TLS Setups</a>
+## <a id="tls-evaluation-tools" class="anchor" href="#tls-evaluation-tools">Evaluating TLS Setup Security</a>
 
 Because TLS has many configurable parameters
 and some of them have suboptimal defaults for historical
-reasons, TLS setup evaluation is a recommended practice.
+reasons, TLS setup security evaluation is a recommended practice.
 Multiple tools exist that perform various tests on TLS-enabled
 server endpoints, for example, testing whether it is prone
 to known attacks such as POODLE, BEAST, and others.

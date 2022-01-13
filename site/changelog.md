@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -36,6 +36,105 @@ published separately.
     <th class="centre">Release Date</th>
     <th>Highlights</th>
     <th class="centre">Release Notes</th>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.12</td>
+    <td class="centre">6 January 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.12">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.27</td>
+    <td class="centre">5 January 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.27">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.11</td>
+    <td class="centre">2 December 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.11">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.10</td>
+    <td class="centre">20 November 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.10">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.26</td>
+    <td class="centre">20 November 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.26">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.25</td>
+    <td class="centre">12 November 2021</td>
+    <td>
+      <ul>
+        <li>Minor improvements</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.25">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.9</td>
+    <td class="centre">11 November 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.9">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.24</td>
+    <td class="centre">11 November 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.24">Release notes</a></td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.8</td>
+    <td class="centre">19 October 2021</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.8">Release notes</a></td>
   </tr>
 
   <tr>

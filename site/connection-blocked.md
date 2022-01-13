@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -79,11 +79,8 @@ connection.addBlockedListener(new BlockedListener() {
 ## <a id="dotnet" class="anchor" href="#dotnet">Using Blocked Connection Notifications with .NET Client</a>
 
 With the [official .NET client](/dotnet-api-guide.html), blocked connection
-notifications are handled by the
-`RabbitMQ.Client.Events.ConnectionBlockedEventHandler`
-delegate. `IConnection` provides
-`IConnection.ConnectionBlocked` and
-`IConnection.ConnectionUnblocked` events:
+notifications can be received by registering for the
+`ConnectionBlocked` and `ConnectionUnblocked` events in `IConnection`:
 
 <pre class="lang-csharp">
   public void HandleBlocked(object sender, ConnectionBlockedEventArgs args)

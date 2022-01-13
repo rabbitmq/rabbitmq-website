@@ -84,6 +84,23 @@ kubectl rabbitmq install-cluster-operator
 # deployment.apps/rabbitmq-cluster-operator created
 </pre>
 
+### <a id='helm-chart' class='anchor' href='#helm-chart'>Installation using Helm chart</a>
+
+To install the Operator using [Bitnami Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq-cluster-operator), run the following command:
+
+<pre class="lang-bash">
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-release bitnami/rabbitmq-cluster-operator
+</pre>
+
+The last command deploys the RabbitMQ Cluster Kubernetes Operator on the Kubernetes cluster in the default configuration. The [Parameters](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq-cluster-operator#parameters) section lists the parameters that can be configured during installation.
+
+The Operator's Helm chart requires
+
+* Helm chart 3.1.0
+* PV provisioner support in the underlying infrastructure
+
+
 -----
 
 ### <a id='relocate-image' class='anchor' href='#relocate-image'>(Optional) Relocate the Image</a>

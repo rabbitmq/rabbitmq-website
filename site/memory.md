@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -64,7 +64,7 @@ only has a maximum address space of 2GB.
 
 The memory threshold at which the flow control is triggered
 can be adjusted by editing the [configuration
-file](configure.html#configuration-file).
+file](configure.html#configuration-files).
 
 The example below sets the threshold to the default value of 0.4:
 <pre class="lang-ini">

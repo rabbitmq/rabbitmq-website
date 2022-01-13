@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -175,7 +175,7 @@ One of these options can be used to mitigate:
 The service starts using its default [settings](configure.html), listening
 for connections on [default interfaces](/networking.html#interfaces) and [ports](#ports).
 
-Node configuration is primarily done using a [configuration file](/configure.html#configuration-file).
+Node configuration is primarily done using a [configuration file](/configure.html#configuration-files).
 A number of available [environment variables](/configure.html#customise-windows-environment) can be used
 to control node's [data location](/relocate.html), configuration file path and so on.
 

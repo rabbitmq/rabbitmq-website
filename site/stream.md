@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -52,7 +52,7 @@ all interfaces on port 5552 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change this, edit your
-[Configuration file](/configure.html#configuration-file),
+[Configuration file](/configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_stream` application.
 
 For example, a minimalistic configuration file which changes the listener
@@ -170,12 +170,17 @@ stream.listeners.tcp   = none
 stream.listeners.ssl.1 = 5551
 </pre>
 
-Just like for [plain connections](#advertised-host-port), it is possible to configure
-an advertised TLS port. The plugin will use the current TLS port for TLS connections,
-but you can override this behavior with the `advertised_tls_port` setting:
+Just like for [plain connections](#advertised-host-port), it is possible to configure advertised TLS host and port.
+When TLS is used, the plugin returns the following metadata:
+
+* hostname: if set, the `advertised_host`, or the hostname if `advertised_host` is not set
+* port: the current TLS port
+
+It is possible to override this behavior by setting together or individually the `advertised_tls_host` and `advertised_tls_port` configuration entries:
 
 <pre class="lang-ini">
-stream.advertised_host = rabbitmq-1
+stream.advertised_host = private-rabbitmq-1
 stream.advertised_port = 12345
+stream.advertised_tls_host = public-rabbitmq-1
 stream.advertised_tls_port = 12344
 </pre>

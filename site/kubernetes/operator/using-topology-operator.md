@@ -19,6 +19,7 @@ This guide has the following sections:
 * [Delete a resource](#delete)
 * [Limitations](#limitations)
 * [TLS](#tls)
+* [Configure Log Level for the Operator](#operator-log)
 
 <p class="note">
   <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
@@ -351,3 +352,28 @@ user credentials set in the definitions.
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
 steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](/kubernetes/operator/tls-topology-operator.html) to configure
 the Operator.
+
+## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
+
+Messaging Topology Operator logs reconciliation results and errors. Operator logs can be inspected by `kubectl -n rabbitmq-system logs -l app.kubernetes.io/name=messaging-topology-operator`.
+It uses zap logger which can be configured via passing command line flags in the Operator deployment manifest.
+
+For example, to configure the log level to 'debug':
+
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging-topology-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - --zap-log-level=debug
+        command:
+        - /manager
+</pre>
+
+Other available command line flags for the zap logger can be found documented in [controller runtime](https://github.com/kubernetes-sigs/controller-runtime/blob/v0.10.2/pkg/log/zap/zap.go#L240-L246).

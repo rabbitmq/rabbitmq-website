@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -21,9 +21,10 @@ limitations under the License.
 
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
-RabbitMQ is included in standard Debian and Ubuntu repositories. However, the versions included are
-many releases behind [latest RabbitMQ releases](changelog.html).
-Older distributions, in fact, provide RabbitMQ versions that are already [out of support](versions.html).
+RabbitMQ is included in standard Debian and Ubuntu repositories.
+However, the versions included are
+many releases behind [latest RabbitMQ releases](changelog.html)
+and may provide RabbitMQ versions that are already [out of support](versions.html).
 
 Team RabbitMQ produces our own Debian packages and distributes them [using Cloudsmith](#apt-cloudsmith) and [PackageCloud](#apt-packagecloud).
 
@@ -146,7 +147,7 @@ and <a href="#apt-cloudsmith-erlang">on Cloudsmith.io</a>.
 
 
 
-## <a id="apt-packagecloud" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on PackageCloud</a>
+## <a id="apt-packagecloud" class="anchor" href="#apt-packagecloud">Using RabbitMQ Apt Repositories on PackageCloud</a>
 
 Team RabbitMQ maintains an [apt repository on PackageCloud](https://packagecloud.io/rabbitmq/rabbitmq-server),
 a package hosting service. It provides packages for most recent RabbitMQ releases.
@@ -354,7 +355,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 
 
 
-## <a id="apt-cloudsmith" class="anchor" href="#apt">Using RabbitMQ Apt Repositories on Cloudsmith</a>
+## <a id="apt-cloudsmith" class="anchor" href="#apt-cloudsmith">Using RabbitMQ Apt Repositories on Cloudsmith</a>
 
 Team RabbitMQ maintains two [apt repositories on Cloudsmith](https://cloudsmith.io/~rabbitmq/repos/),
 a package hosting service. They provide packages for most recent RabbitMQ and modern Erlang releases.
@@ -879,7 +880,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -937,7 +938,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

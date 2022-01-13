@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -266,7 +266,7 @@ Queue leaders can be distributed between nodes using several
 strategies. Which strategy is used is controlled in three ways,
 namely, using the `x-queue-master-locator` [optional queue argument](queues.html#optional-arguments), setting the `queue-master-locator`
 policy key or by defining the `queue_master_locator`
-key in [`the configuration file`](configure.html#configuration-file). Here are the possible strategies and how to set them:
+key in [`the configuration file`](configure.html#configuration-files). Here are the possible strategies and how to set them:
 
  * Pick the node hosting the minimum number of leaders:
  `min-masters`
@@ -448,8 +448,7 @@ rabbitmqctl.bat set_policy ha-all "^ha\." "{""ha-mode"":""all""}"
         </li>
         <li>
           Enter "ha-all" next to Name, "^ha\." next to Pattern,
-          and "ha-mode" = "all" in the first line next to
-          Policy.
+          and "ha-mode" = "all" into Definition properties (or press Queues[Classic] -> "HA mode" and enter word "all" into value)
         </li>
         <li>
           Click <code>Add policy</code>.

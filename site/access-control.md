@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -115,7 +115,7 @@ to access the necessary virtual hosts. This can be done
 using [CLI tools](/cli.html), [HTTP API or definitions import](/management.html).
 
 This is configured via the <code>loopback_users</code> item
-in the [configuration file](configure.html#configuration-file).
+in the [configuration file](configure.html#configuration-files).
 
 It is possible to allow the <code>guest</code> user to connect
 from a remote host by setting the
@@ -369,7 +369,7 @@ perform permission checks.
     <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>exchange.declare</td><td>(with [AE](ae.html))</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
+    <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
   </tr>
   <tr>
     <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
@@ -381,7 +381,7 @@ perform permission checks.
     <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
   </tr>
   <tr>
-    <td>queue.declare</td><td>(with [DLX](dlx.html))</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
+    <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
   </tr>
   <tr>
     <td>queue.delete</td><td/><td>queue</td><td/><td/>
@@ -701,7 +701,7 @@ variable should be a list of atoms corresponding to
 mechanism names, for example
 <code>['PLAIN', 'AMQPLAIN']</code> by default. The server-side list is not
 considered to be in any particular order. See the
-[configuration file](configure.html#configuration-file)
+[configuration file](configure.html#configuration-files)
 documentation.
 
 

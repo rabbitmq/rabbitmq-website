@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -373,7 +373,7 @@ by filtering what columns are returned by `HTTP GET` requests. See
 
 There are several configuration options which affect the
 management plugin. These are managed through the main
-RabbitMQ [configuration file](configure.html#configuration-file).
+RabbitMQ [configuration file](configure.html#configuration-files).
 
 It is possible to configure HTTP API and management UI to
 use a different port or network interface, enable HTTPS

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -134,11 +134,9 @@ class Send
     {
         var factory = new ConnectionFactory() { HostName = "localhost" };
         using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
         {
-            using (var channel = connection.CreateModel())
-            {
-                ...
-            }
+            ...
         }
     }
 }
@@ -243,16 +241,14 @@ class Receive
     {
         var factory = new ConnectionFactory() { HostName = "localhost" };
         using (var connection = factory.CreateConnection())
+        using (var channel = connection.CreateModel())
         {
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "hello",
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-                ...
-            }
+            channel.QueueDeclare(queue: "hello",
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
+            ...
         }
     }
 }

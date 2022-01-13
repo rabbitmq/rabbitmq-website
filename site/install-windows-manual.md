@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -154,7 +154,7 @@ script in `sbin`.
 ### Customise RabbitMQ Environment Variables
 
 The service will run fine using its default settings. It is possible to [customise the RabbitMQ environment](/configure.html#customise-windows-environment)
-or edit [configuration](/configure.html#configuration-file).
+or edit [configuration](/configure.html#configuration-files).
 
 **Important**: after setting environment variables, it is necessary to restart the node.
 
@@ -194,7 +194,7 @@ The service runs using the `rabbitmq-service.bat` script in `sbin`.
 ### Customise RabbitMQ Environment Variables
 
 The service will run fine using its default settings. It is possible to [customise the RabbitMQ environment](/configure.html#customise-windows-environment)
-or edit [configuration](/configure.html#configuration-file).
+or edit [configuration](/configure.html#configuration-files).
 
 **Important**: after setting environment variables, it is necessary to reinstall the service.
 

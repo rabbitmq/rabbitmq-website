@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -22,21 +22,23 @@ limitations under the License.
 This guide covers various topics related to connections except for
 network tuning or most networking-related topics. Those
 are covered by the [Networking](networking.html) and [Troubleshooting Networking](/troubleshooting-networking.html) guides.
-[Channels](channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
-in a separate guide.
 
 RabbitMQ supports several protocols:
 
- * [AMQP 0-9-1](/specification.html) with [extensions](/extensions.html)
+ * [AMQP 0-9-1](specification.html) with [extensionsextensions.html)
  * AMQP 1.0
- * [MQTT](/mqtt.html) 3.1.1
- * [STOMP](/stomp.html) 1.0 through 1.2
+ * [RabbitMQ Stream Protocol](stream.html)
+ * [MQTT](mqtt.html) 3.1.1
+ * [STOMP](stomp.html) 1.0 through 1.2
+
+Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
+different versions of the same protocol.
 
 Many topics in this guide are equally applicable to all protocols. When that's not the case, the guide tries
 to highlight protocol-specific features and practices.
 
-Note that despite the similarities in naming, AMQP 0-9-1 and AMQP 1.0 are different protocols, not
-different versions of the same protocol.
+[Channels](channels.html) is a closely related concept in AMQP 0-9-1 which is also covered
+in a separate guide.
 
 This guide covers:
 
@@ -396,7 +398,7 @@ actual table encoding is in a binary format and would not be human-friendly):
 { "product"      = (longstr) "RabbitMQ",
   "platform"     = (longstr) "Erlang/OTP",
   "information"  = (longstr) "Licensed under the MPL.  See https://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (c) 2007-2021 VMware, Inc. or its affiliates.",
+  "copyright"    = (longstr) "Copyright (c) 2007-2022 VMware, Inc. or its affiliates.",
   "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,

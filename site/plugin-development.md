@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -202,7 +202,7 @@ The following table should explain the purpose of the various files in the repos
     <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
     <td>
       A <a href="https://github.com/Kyorai/cuttlefish">Cuttlefish</a> configuration schema.
-      Used to translate <a href="/configure.html#configuration-file">configuration file</a>
+      Used to translate <a href="/configure.html#configuration-files">configuration file</a>
       to the internal format used by RabbitMQ and its runtime.
 
       Metronome schema contains mappings for the <code>metronome.exchange</code> setting,

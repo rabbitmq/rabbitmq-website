@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -135,7 +135,7 @@ all interfaces on port 15675 and have a default user login and password of
 We highly recommend creating a separate user for production systems.
 
 To change the listener port, edit your
-[Configuration file](/configure.html#configuration-file),
+[Configuration file](/configure.html#configuration-files),
 to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 
 For example, a complete configuration file which changes the listener

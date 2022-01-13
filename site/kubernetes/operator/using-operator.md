@@ -24,11 +24,10 @@ This guide is structured in the following sections:
 * [Restrict traffic using Network Policies](#network-policies)
 * [Delete a RabbitMQ Instance](#delete)
 * [Pause Reconciliation for a RabbitMQ Instance](#pause)
+* [Configure Log Level for the Operator](#operator-log)
 
-<p class="note">
-  <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
-</p>
+Additional information about using the operator on Openshift can be found at
+[Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
 
 ## <a id='service-availability' class='anchor' href='#service-availability'>Confirm Service Availability</a>
 
@@ -315,7 +314,7 @@ The available settings are:
       <strong>Note:</strong> If your cluster does not have a default StorageClass, this property
       must be set, otherwise RabbitMQ Pods will not be scheduled because they require a Persistent Volume.
     </p>
-* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity.
+* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to disable persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
 
 **Default Values:**
 
@@ -782,7 +781,7 @@ The configurations are listed in the table below.
         <code>spec.persistence.storage</code>
       </td>
       <td>
-      The capacity of the persistent volume, expressed as a Kubernetes resource quantity.
+      The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to disable persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
       </td>
     </tr>
     <tr>
@@ -1140,7 +1139,7 @@ spec:
 The credentials must have been written to Vault before the RabbitmqCluster is created.
 As described in the example, RabbitMQ admin password rotation is supported without the need to restart the RabbitMQ server.
 
-### <a id='vault-tls' class='anchor' href='#vault-tls'>Issue RabbitMQ Sever Certificates from Vault</a>
+### <a id='vault-tls' class='anchor' href='#vault-tls'>Issue RabbitMQ Server Certificates from Vault</a>
 To configure TLS, instead of providing a Kubernetes Secret object containing RabbitMQ server private key, certificate, and certificate authority
 as described in [TLS Configuration](#tls-conf), you can configure a RabbitmqCluster to request new short-lived server certificates from
 [Vault PKI Secrets Engine](https://www.vaultproject.io/docs/secrets/pki) upon every RabbitMQ Pod (re)start.
@@ -1261,3 +1260,27 @@ To resume reconciliation, remove the label by running:
 kubectl label rabbitmqclusters INSTANCE-NAME rabbitmq.com/pauseReconciliation-
 </pre>
 
+## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
+
+The Operator logs reconciliation results and errors. Operator logs can be inspected by `kubectl -n rabbitmq-system logs -l app.kubernetes.io/name=rabbitmq-cluster-operator`.
+It uses zap logger which can be configured via passing command line flags in the Operator deployment manifest.
+
+For example, to configure the log level to 'debug':
+
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-cluster-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - --zap-log-level=debug
+        command:
+        - /manager
+</pre>
+
+Other available command line flags for the zap logger can be found documented in [controller runtime](https://github.com/kubernetes-sigs/controller-runtime/blob/v0.10.2/pkg/log/zap/zap.go#L240-L246).
