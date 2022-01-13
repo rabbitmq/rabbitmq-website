@@ -22,6 +22,7 @@ Documentation of Cluster Operator spans several guides:
 
  * [Quickstart guide](quickstart-operator.html) for RabbitMQ Cluster Kubernetes Operator
  * [Installing](install-operator.html) RabbitMQ Cluster Kubernetes Operator
+ * [Configuring Defaults](configure-operator-defaults.html) for RabbitMQ Cluster Operator
  * [RabbitMQ Plugin for kubectl](kubectl-plugin.html)
  * [Using](using-operator.html) RabbitMQ Cluster Kubernetes Operator
  * [Monitoring RabbitMQ Clusters on Kubernetes](operator-monitoring.html)
