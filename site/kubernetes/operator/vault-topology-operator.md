@@ -12,7 +12,7 @@ This guide assumes you have the following:
 3. A *Vault role* must be declared in Vault for the topology operator to use. By default, the topology operator will use a vault role with the name `messaging-topology-operator`. Should we declared a *Vault role* with a different name, we have to configure the operator by overriding the environment variable `OPERATOR_VAULT_ROLE`
 
 
-### Additional configuration (optional)
+### Additional configuration 
 
 In order for the RabbitMQ Messaging Topology operator to authenticate with a Vault server and access RabbitMQ cluster default user credentials it is necessary for the operator container to have the `VAULT_ADDR` environment
 variable set to the URL of the Vault server API.
