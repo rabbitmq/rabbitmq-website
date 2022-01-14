@@ -340,7 +340,7 @@ mirrors can be configured to be [promoted to leader even when not in sync](#unsy
 
 Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
-cluster, with [automatic synchronisation](#eager-synchronisation):
+cluster, with [automatic synchronisation](#configuring-synchronisation):
 
 <table>
   <tr>
