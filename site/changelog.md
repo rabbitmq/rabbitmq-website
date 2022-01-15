@@ -1468,7 +1468,7 @@ published separately.
     <td class="centre">1 May 2013</td>
     <td>
       <ul>
-        <li><a href="ha.html#eager-synchronisation">Eager synchronisation</a> of queue mirrors</li>
+        <li><a href="ha.html#configuring-synchronisation">Eager synchronisation</a> of queue mirrors</li>
         <li>Automatic <a href="partitions.html#automatic-handling">cluster partition healing</a></li>
         <li>Charts in the <a href="management.html">management plugin</a></li>
         <li><a href="maxlength.html">Queue length limits</a></li>
