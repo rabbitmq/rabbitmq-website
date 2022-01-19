@@ -51,12 +51,11 @@ When no configuration is specified the Stream Adapter will listen on
 all interfaces on port 5552 and have a default user login/passcode
 of `guest`/`guest`.
 
-To change this, edit your
-[Configuration file](/configure.html#configuration-files),
-to contain a `tcp_listeners` variable for the `rabbitmq_stream` application.
+The port stream listener will listen on can be changed
+via [`rabbitmq.conf`](/configure.html#configuration-files).
 
-For example, a minimalistic configuration file which changes the listener
-port to 12345 would look like:
+Below is a minimalistic configuration file which changes the listener
+port to 12345:
 
 <pre class="lang-ini">
 stream.listeners.tcp.1 = 12345
