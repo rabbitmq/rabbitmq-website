@@ -27,6 +27,8 @@ use the [Docker image](https://registry.hub.docker.com/_/rabbitmq/).
 Executable versions of these tutorials [are open source](https://github.com/rabbitmq/rabbitmq-tutorials),
 as is [this website](https://github.com/rabbitmq/rabbitmq-website).
 
+You can find examples for [streams](streams.html) on the [RabbitMQ blog](https://blog.rabbitmq.com/categories/streams/).
+
 <table id="tutorials">
   <tr>
   <td id="tutorial-one">
