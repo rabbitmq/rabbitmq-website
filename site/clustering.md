@@ -124,16 +124,16 @@ See [Node Names](#node-names) above.
 
 ## <a id="ports" class="anchor" href="#ports">Port Access</a>
 
-RabbitMQ nodes bind to ports (open server TCP sockets) in order to accept client and CLI tool connections.
+RabbitMQ nodes [bind to ports](networking.html#ports) (open server TCP sockets) in order to accept client and CLI tool connections.
 Other processes and tools such as SELinux may prevent RabbitMQ from binding to a port. When that happens,
 the node will fail to start.
 
 CLI tools, client libraries and RabbitMQ nodes also open connections (client TCP sockets).
 Firewalls can prevent nodes and CLI tools from communicating with each other.
-Make sure the following ports are accessible:
+The following ports are most relevant to inter-node communication in a cluster:
 
- * 4369: [epmd](/networking.html#epmd), a helper discovery daemon used by RabbitMQ nodes and CLI tools
- * 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS
+ * 4369: [epmd](networking.html#epmd), a helper discovery daemon used by RabbitMQ nodes and CLI tools
+ * 6000 through 6500 (usually 6000, 6001, 6002, and so on through 6005): used by [RabbitMQ Stream](stream.html) replication
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.
@@ -141,17 +141,11 @@ Make sure the following ports are accessible:
    these ports should not be publicly exposed. See [networking guide](networking.html) for details.
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
-   server distribution port + 10010). See [networking guide](networking.html) for details.
- * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
-   (only if the [management plugin](/management.html) is enabled)
- * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
- * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
- * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
- * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
- * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
+   server distribution port + 10010).
 
 It is possible to [configure RabbitMQ](configure.html)
-to use [different ports and specific network interfaces](networking.html).
+to use different ports and specific network interfaces.
+See [RabbitMQ Networking guide](networking.html) to learn more.
 
 
 ## <a id="cluster-membership" class="anchor" href="#cluster-membership">Nodes in a Cluster</a>
