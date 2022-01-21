@@ -4,7 +4,7 @@ This is the fastest way to get up and running with a RabbitMQ cluster deployed b
 
 ## Prerequisites
 
-- Access to a Kubernetes cluster version 1.18 or above
+- Access to a Kubernetes cluster version 1.19 or above
 - `kubectl` configured to access the cluster
 
 ## Quickstart Steps
