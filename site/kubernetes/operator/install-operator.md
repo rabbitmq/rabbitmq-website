@@ -186,5 +186,5 @@ Please note that the name of the Operator Service Account is not configurable an
 #### <a id='custom-configuration' class='anchor' href='#custom-configuration'>Configure operator to use private registry</a>
 
 You will need to modify the configuration of the operator to use the relocated images by default for new RabbitmqCluster instances.
-Follow [the instructions](./configure-operator-defaults.html) to set the values of DEFAULT_RABBITMQ_IMAGE, DEFAULT_USER_UPDATER_IMAGE and DEFAULT_IMAGE_PULL_SECRETS
-on the operator deployment.
+T set the values of `DEFAULT_RABBITMQ_IMAGE`, `DEFAULT_USER_UPDATER_IMAGE` and `DEFAULT_IMAGE_PULL_SECRETS`
+at Operator deployment time, see [Configuring Defaults for RabbitMQ Cluster Operator](./configure-operator-defaults.html).
