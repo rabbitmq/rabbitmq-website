@@ -21,7 +21,7 @@ limitations under the License.
 
 This guide covers how to modify the default configuration of the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) in a Kubernetes cluster.
 
-It is possible to set environment variables on the operator Deployment in order to influence how the operator configures created RabbitmqClusters.
+Environment variables used by the operator can be overriden in order to influence how the operator configures created RabbitmqClusters.
 This can be useful when configuring the operator to automatically use RabbitMQ container images stored in a private registry.
 
 ## <a id='parameters' class='anchor' href='#parameters'>Configurable Parameters</a>
