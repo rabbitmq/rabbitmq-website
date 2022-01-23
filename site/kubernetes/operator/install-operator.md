@@ -134,7 +134,7 @@ grep -C3 image: releases/cluster-operator.yml
 #           limits:
 </pre>
 
-### <a id='private-images' class='anchor' href='#private-images'>(Optional) Configure Kubernetes Cluster Access to Private Images</a>
+#### <a id='private-images' class='anchor' href='#private-images'>Configure Kubernetes Cluster Access to Private Images</a>
 
 If you relocated the image to a private registry and your registry requires authentication, you need to follow these steps to allow Kubernetes to pull the image.
 
@@ -182,3 +182,9 @@ rabbitmq-cluster-operator -p '{"imagePullSecrets": [{"name": "rabbitmq-cluster-r
 </pre>
 
 Please note that the name of the Operator Service Account is not configurable and it must be `rabbitmq-cluster-operator`.
+
+#### <a id='custom-configuration' class='anchor' href='#custom-configuration'>Configure operator to use private registry</a>
+
+You will need to modify the configuration of the operator to use the relocated images by default for new RabbitmqCluster instances.
+T set the values of `DEFAULT_RABBITMQ_IMAGE`, `DEFAULT_USER_UPDATER_IMAGE` and `DEFAULT_IMAGE_PULL_SECRETS`
+at Operator deployment time, see [Configuring Defaults for RabbitMQ Cluster Operator](./configure-operator-defaults.html).
