@@ -132,6 +132,7 @@ You may consider using templating to add these variables in automatically; for e
 such as:
 
 <code>values.yaml</code>
+
 <pre class="lang-yaml">
 #@ load("@ytt:overlay", "overlay")
 #@ deployment = overlay.subset({"kind": "Deployment"})
