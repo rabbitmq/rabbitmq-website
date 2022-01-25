@@ -8,7 +8,7 @@ This guide covers the installation of the RabbitMQ Messaging Topology Operator i
 
 The Operator requires
 
-* Kubernetes 1.18 or above
+* Kubernetes 1.19 or above
 * [RabbitMQ Cluster Operator](https://github.com/rabbitmq/cluster-operator) 1.7.0+ (if not, RabbitMQ Messaging Topology Operator will fail to start)
 
 -----

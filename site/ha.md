@@ -295,18 +295,14 @@ will shut down.
 
 ### <a id="exclusive-queues-are-not-mirrored" class="anchor" href="#exclusive-queues-are-not-mirrored">Mirroring of Exclusive Queues</a>
 
-Exclusive queues will be deleted when the connection that
-declared them is closed. For this reason, it is not useful
-for an exclusive queue to be mirrored (or durable for that
-matter) since when the node hosting it goes down, the
-connection will close and the queue will need to be deleted
-anyway.
+Exclusive queues will be deleted when the connection that declared them is
+closed. For this reason, it is not useful for an exclusive queue to be mirrored
+(or a non-durable queue, for that matter) since when the node hosting it goes
+down, the connection will close and the queue will need to be deleted anyway.
 
-For this reason, exclusive queues are never mirrored (even
-if they match a policy stating that they should be). They
-are also never durable (even if declared as such).
-
-
+For this reason, exclusive queues are never mirrored (even if they match a
+policy stating that they should be). They are also never durable (even if
+declared as such).
 
 ## <a id="non-mirrored-queue-behavior-on-node-failure" class="anchor" href="#non-mirrored-queue-behavior-on-node-failure">Non-mirrored Queue Behavior in a Cluster</a>
 
@@ -340,7 +336,7 @@ mirrors can be configured to be [promoted to leader even when not in sync](#unsy
 
 Below is a policy where queues whose names begin with
 "`two.`" are mirrored to any two nodes in the
-cluster, with [automatic synchronisation](#eager-synchronisation):
+cluster, with [automatic synchronisation](#configuring-synchronisation):
 
 <table>
   <tr>

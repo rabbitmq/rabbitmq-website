@@ -39,6 +39,17 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.9.13</td>
+    <td class="centre">19 January 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.13">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.9.12</td>
     <td class="centre">6 January 2022</td>
     <td>
@@ -1468,7 +1479,7 @@ published separately.
     <td class="centre">1 May 2013</td>
     <td>
       <ul>
-        <li><a href="ha.html#eager-synchronisation">Eager synchronisation</a> of queue mirrors</li>
+        <li><a href="ha.html#configuring-synchronisation">Eager synchronisation</a> of queue mirrors</li>
         <li>Automatic <a href="partitions.html#automatic-handling">cluster partition healing</a></li>
         <li>Charts in the <a href="management.html">management plugin</a></li>
         <li><a href="maxlength.html">Queue length limits</a></li>

@@ -19,6 +19,7 @@ This guide has the following sections:
 * [Delete a resource](#delete)
 * [Limitations](#limitations)
 * [TLS](#tls)
+* [Use HashiCorp Vault](#vault)
 * [Configure Log Level for the Operator](#operator-log)
 
 <p class="note">
@@ -129,7 +130,7 @@ Note that it's not recommended setting [optional queue arguments](../../queues.h
 queue properties cannot be changed. Use [policies](../../parameters.html#policies) instead.
 
 The Messaging Topology repo has more examples on [queues](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/queues)
-and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies). 
+and [policies](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/policies).
 
 ### <a id='exchanges-bindings' class='anchor' href='#exchanges-bindings'> Exchanges and Bindings</a>
 
@@ -168,7 +169,7 @@ spec:
 </pre>
 
 More examples on [exchanges](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/exchanges)
-and [bindings](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/bindings). 
+and [bindings](https://github.com/rabbitmq/messaging-topology-operator/tree/main/docs/examples/bindings).
 
 ### <a id='users-permissions' class='anchor' href='#users-permissions'>Users and User Permissions</a>
 
@@ -180,7 +181,7 @@ Messaging Topology Operator creates users with generated credentials by default.
 The following manifest will create a user with generated username and password and the generated username and password can be
 accessed via a Kubernetes secret object:
 
-<pre class="lang-bash"> 
+<pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
 kind: User
 metadata:
@@ -195,7 +196,7 @@ spec:
 
 To get the name of the kubernetes secret object that contains the generated username and password, run the following command:
 
-<pre class="lang-bash"> 
+<pre class="lang-bash">
 kubectl get users.rabbitmq.com user-example -o jsonpath='{.status.credentials.name}'
 </pre>
 
@@ -222,7 +223,7 @@ spec:
 To set user permissions on an existing user, create `permissions.rabbitmq.com` resources.
 The following example will assign permissions to user `rabbit-user-1`:
 
-<pre class="lang-bash"> 
+<pre class="lang-bash">
 apiVersion: rabbitmq.com/v1beta1
 kind: Permission
 metadata:
@@ -352,6 +353,10 @@ user credentials set in the definitions.
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
 steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](/kubernetes/operator/tls-topology-operator.html) to configure
 the Operator.
+
+## <a id='vault' class='anchor' href='#vault'>(Optional) Use HashiCorp Vault</a>
+
+If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](/kubernetes/operator/vault-topology-operator.html) to configure the operator.
 
 ## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
 
