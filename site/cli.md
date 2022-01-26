@@ -487,7 +487,7 @@ to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rab
 as its name but `rabbitmqctl` is invoked as
 
 <pre class="lang-bash">
-rabbitmqctl status -n rabbit@rmq-dev.eng.megacorp.local
+rabbitmq-diagnostics status -n rabbit@rmq-dev.eng.megacorp.local
 </pre>
 
 then even if `rmq-dev.eng.megacorp.local` and `rmq1.eng.megacorp.local` resolve to the same IP address,

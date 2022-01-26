@@ -78,7 +78,7 @@ and specify what build was used plus as much context as possible:
  * Server [log file(s)](/logging.html)
  * A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations
  * `rabbitmqctl environment` output
- * `rabbitmqctl status` output
+ * `rabbitmq-diagnostics status` output
  * OS and distribution version
  * Erlang version used
 

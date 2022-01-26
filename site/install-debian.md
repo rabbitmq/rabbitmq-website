@@ -826,7 +826,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 [RabbitMQ management UI](management.html) displays the number of file descriptors available
 for it to use on the Overview tab.
 
-<pre class="lang-bash">rabbitmqctl status</pre>
+<pre class="lang-bash">rabbitmq-diagnostics status</pre>
 
 includes the same value.
 
@@ -837,7 +837,7 @@ cat /proc/$RABBITMQ_BEAM_PROCESS_PID/limits
 </pre>
 
 can be used to display effective limits of a running process. `$RABBITMQ_BEAM_PROCESS_PID`
-is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmqctl status`.
+is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagnostics status`.
 
 
 ## <a id="managing-service" class="anchor" href="#managing-service">Managing the Service</a>

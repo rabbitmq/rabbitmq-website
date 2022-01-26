@@ -104,7 +104,7 @@ starts:
 </pre>
 
 The memory limit may also be queried using the
-`rabbitmq-diagnostics memory_breakdown` and `rabbitmqctl status` commands.
+`rabbitmq-diagnostics memory_breakdown` and `rabbitmq-diagnostics status` commands.
 
 The threshold can be changed while the broker is running
 using the

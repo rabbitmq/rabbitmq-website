@@ -195,7 +195,7 @@ To stop the server or check its status, etc., you can invoke
 commands will report the node absence if no broker is running.
 
  * Invoke `rabbitmqctl stop` or `rabbitmqctl shutdown` to stop the server
- * Invoke `rabbitmqctl status` to check whether it is running
+ * Invoke `rabbitmq-diagnostics status` to check whether it is running
 
 See [CLI tools guide](/cli.html) to learn more.
 
@@ -222,7 +222,7 @@ please refer to the excellent [Riak guide on open file limit tuning](https://git
 
 [RabbitMQ management UI](management.html) displays the number of file descriptors available for it to use on the Overview tab.
 
-<pre class="lang-plaintext">rabbitmqctl status</pre>
+<pre class="lang-plaintext">rabbitmq-diagnostics status</pre>
 
 includes the same value. The following command
 

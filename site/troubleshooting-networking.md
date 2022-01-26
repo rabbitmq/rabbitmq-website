@@ -233,7 +233,7 @@ For the list of ports used by RabbitMQ and its various
 plugins, see above. Generally all ports used for external
 connections must be allowed by the firewalls and proxies.
 
-`rabbitmq-diagnostics listeners` and `rabbitmqctl status` can be
+`rabbitmq-diagnostics listeners` and `rabbitmq-diagnostics status` can be
 used to list enabled listeners and their ports on a RabbitMQ node.
 
 ## <a id="ip-routing" class="anchor" href="#ip-routing">IP Routing</a>
