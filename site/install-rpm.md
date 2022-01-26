@@ -75,9 +75,10 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 
 Currently the list of supported RPM-based distributions includes
 
- * CentOS Linux 8.x and [CentOS Stream](https://centos.org/centos-stream/) 8.x
+ * [CentOS Stream](https://centos.org/centos-stream/) 9.x
+ * CentOS Linux 8.x
  * RedHat Enterprise Linux 8.x
- * Fedora 32 through 34 (use the CentOS 8.x package)
+ * Fedora 32 through 35 (use the CentOS 8.x package)
 
 The packages may work on other RPM-based distributions
 if [dependencies](#package-dependencies) are satisfied but their testing and support
@@ -183,12 +184,12 @@ rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
-between distributions (e.g. CentOS 8 and 7 vs. OpenSUSE).
+between distributions (e.g. CentOS Stream, CentOS 8, CentOS 7 or OpenSUSE).
 
-#### Red Hat 8, CentOS 8, Modern Fedora Releases
+#### Red Hat 8, CentOS Stream 9, CentOS 8, Modern Fedora Releases
 
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from PackageCloud,
-and targets **CentOS 8**. The same repository definition **can be used by recent Fedora releases**.
+and targets **CentOS Stream and CentOS 8**. The same repository definition **can be used by recent Fedora releases**.
 
 <pre class="lang-ini">
 # In /etc/yum.repos.d/rabbitmq.repo
@@ -282,7 +283,7 @@ type=rpm-md
 
 ### Install Packages with Yum
 
-#### CentOS 8, RHEL 8, Modern Fedora
+#### Red Hat 8, CentOS Stream, CentOS 8, Modern Fedora
 
 Update Yum package metadata:
 
@@ -359,7 +360,7 @@ rpm --import 'https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F458
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
-between distributions (e.g. CentOS 8 and 7 vs. OpenSUSE).
+between distributions (e.g. CentOS Stream, CentOS 8, CentOS 7 or OpenSUSE).
 
 #### Red Hat 8, CentOS 8, Modern Fedora Releases
 
