@@ -527,7 +527,7 @@ type=rpm-md
 
 ### Install Packages with Yum
 
-#### CentOS 8, RHEL 8, modern Fedora
+#### Red Hat 8, CentOS Stream 9, CentOS 8, Modern Fedora
 
 Update Yum package metadata:
 
@@ -590,7 +590,7 @@ rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabb
 yum install socat logrotate -y
 
 # This example assumes the CentOS 8 version of the package, suitable for
-# Red Hat 8, CentOS 8 and modern Fedora releases.
+# Red Hat 8, CentOS Stream 9, CentOS 8 and modern Fedora releases.
 #
 # For Red Hat 7 or CentOS 7, replace "el8" with "el7".
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
@@ -605,7 +605,7 @@ rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 yum install socat logrotate -y
 
 # This example assumes the CentOS 8 version of the package, suitable for
-# Red Hat 8, CentOS 8 and modern Fedora releases.
+# Red Hat 8, CentOS Stream 9, CentOS 8 and modern Fedora releases.
 #
 # For Red Hat 7 or CentOS 7, replace "el8" with "el7".
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
@@ -625,7 +625,7 @@ from [GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
 
   <tr>
     <td>
-      RPM for RHEL Linux 8.x, CentOS 8.x, Fedora 31+ (supports systemd)
+      RPM for RHEL Linux 8.x, CentOS Stream 9, CentOS 8.x, Fedora 32+ (supports systemd)
     </td>
     <td>
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm">rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm</a>
@@ -793,7 +793,7 @@ RabbitMQ on distributions that do not use systemd is to edit the `/etc/default/r
 to invoke `ulimit` before the service is started.
 
 <pre class="lang-bash">
-ulimit -S -n 4096
+ulimit -S -n 64000
 </pre>
 
 This <em>soft</em> limit cannot go higher than the <em>hard</em> limit (which defaults to 4096 in many distributions).
@@ -810,7 +810,7 @@ with `sysctl`, please refer to the excellent
 [RabbitMQ management UI](management.html) displays the number of file descriptors available
 for it to use on the Overview tab.
 
-<pre class="lang-bash">rabbitmqctl status</pre>
+<pre class="lang-bash">rabbitmq-diagnostics status</pre>
 
 includes the same value.
 
@@ -821,7 +821,7 @@ cat /proc/$RABBITMQ_BEAM_PROCESS_PID/limits
 </pre>
 
 can be used to display effective limits of a running process. `$RABBITMQ_BEAM_PROCESS_PID`
-is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmqctl status`.
+is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagnostics status`.
 
 ### <a id="chef-puppet-bosh" class="anchor" href="#chef-puppet-bosh">Configuration Management Tools</a>
 
