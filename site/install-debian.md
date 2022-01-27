@@ -289,7 +289,7 @@ with the RabbitMQ apt repository on PackageCloud.
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
-| Debian Bullseye | `buster`     |
+| Debian Bullseye | `bullseye`   |
 | Debian Sid      | `buster`     |
 
 To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
@@ -506,7 +506,7 @@ with the RabbitMQ apt repository on PackageCloud.
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
-| Debian Bullseye | `buster`     |
+| Debian Bullseye | `bullseye`   |
 | Debian Sid      | `buster`     |
 
 To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
