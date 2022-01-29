@@ -569,6 +569,20 @@ semantically identical results. "Node-local" commands, however, likely will not 
 identical results since two nodes rarely have entirely identical state.
 
 
+## <a id="command-discovery" class="anchor" href="#command-discovery">Commands Provided by Plugins</a>
+
+A RabbitMQ plugin can provide CLI commands that will be discovered by tools such as `rabbitmq-diagnostics`,
+`rabbitmq-queues`, `rabbitmqctl`, and others. For plugin commands to be discoverable, the plugin
+**must be explicitly enabled**.
+
+When performing command discovery, CLI tools will consult the [Enabled Plugins File](#enabled-plugins-file) to determine
+what plugins to scan for commands. If a plugin is not included into that file, e.g. because it was enabled implicitly as
+a dependency, it won't be listed in the enabled plugins file and thus its CLI commands **will not be discovered**
+and will not be available.
+
+Use the `help` command to see what commands are available, both core and provided by plugins.
+
+
 ## <a id="aliases" class="anchor" href="#aliases">Command Aliases</a>
 
 `rabbitmqctl`, `rabbitmq-diagnostics` and `rabbitmq-plugins` support command aliases. Aliases provide
