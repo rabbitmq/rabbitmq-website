@@ -47,6 +47,7 @@ on node's data and so on.
 requires that the [HTTP API](/management.html) port is open for outside connections.
 
 Even though CLI tools ship with the server, most commands [can be used to operate on remote nodes](#remote-nodes).
+Plugins can [provide CLI commands](#command-discovery) that will be discovered by CLI tools for explicitly enabled plugins.
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
