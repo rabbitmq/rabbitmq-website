@@ -99,7 +99,7 @@ The command can display usage information for a particular command:
 rabbitmq-diagnostics help status
 </pre>
 
-Alternatively a `--help` option can be used:
+Alternatively, the `--help` option can be used:
 
 <pre class="lang-bash">
 rabbitmqctl --help
