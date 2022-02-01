@@ -69,6 +69,7 @@ Miscellaneous projects:
 ## <a id="ruby-dev" class="anchor" href="#ruby-dev">Ruby</a>
 
  * [Bunny](http://rubybunny.info), a dead easy to use RabbitMQ Ruby client
+ * [AMQP::Client](https://github.com/cloudamqp/amqp-client.rb), a lightweight and high performance AMQP Ruby client
  * [March Hare](http://rubymarchhare.info), a JRuby RabbitMQ client
  * [Sneakers](http://jondot.github.io/sneakers/), a fast background processing framework for Ruby and RabbitMQ
  * [Hutch](https://github.com/gocardless/hutch), a conventions-based framework for writing (Ruby) services that communicate over RabbitMQ.
@@ -104,6 +105,7 @@ Miscellaneous projects:
 
 ## <a id="node-dev" class="anchor" href="#node-dev">JavaScript and Node</a>
 
+ * [amqp-client](https://github.com/cloudamqp/amqp-client.js): High performance client for both NodeJS and browsers (WebSocket), written in TypeScript
  * [amqp.node](https://github.com/squaremo/amqp.node): RabbitMQ (AMQP 0-9-1) client for Node.js
  * [rabbit.js](https://github.com/squaremo/rabbit.js): message patterns in node.js using RabbitMQ.
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
