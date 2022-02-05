@@ -56,7 +56,7 @@ user records should be **considered sensitive information**.
 To export definitions using [`rabbitmqctl`](cli.html), use `rabbitmqctl export_definitions`:
 
 <pre class="lang-bash">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
+# Does not require management plugin to be enabled
 rabbitmqctl export_definitions /path/to/definitions.file.json
 </pre>
 
@@ -96,7 +96,7 @@ curl -u {username}:{password} -X GET http://{hostname}:15672/api/definitions | j
 To import definitions using [`rabbitmqctl`](cli.html), use `rabbitmqctl import_definitions`:
 
 <pre class="lang-ini">
-# Does not require management plugin to be enabled, new in RabbitMQ 3.8.2
+# Does not require management plugin to be enabled
 rabbitmqctl import_definitions /path/to/definitions.file.json
 </pre>
 
@@ -131,7 +131,6 @@ To import definitions from a local file on node boot,
 set the `load_definitions` config key to a path of a previously exported JSON file with definitions:
 
 <pre class="lang-ini">
-# New in RabbitMQ 3.8.2.
 # Does not require management plugin to be enabled.
 load_definitions = /path/to/definitions/file.json
 </pre>
