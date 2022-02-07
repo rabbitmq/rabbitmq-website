@@ -35,6 +35,23 @@ because many features still operate at the queue level, even for those protocols
 [Streams](streams.html) is an alternative messaging data structure available in RabbitMQ.
 Streams provide different features from queues.
 
+Some key topics covered in this guide are
+
+ * [Queue basics](#basics)
+ * [Queue names](#names)
+ * [Queue properties](#properties)
+ * [Message ordering](#message-ordering) in a queue
+ * [Queue durability](#durability) and how it relates to message persistence
+ * [Replicated queue types](#distributed)
+ * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
+ * [Runtime resource](#runtime-characteristics) usage by queue replicas
+ * [Queue metrics](#metrics)
+ * [TTL](#ttl-and-limits) and length limits
+ * [Priority queues](#priorities)
+
+For topics related to consumers, see the [Consumers guide](consumers.html). [Quorum queues](quorum-queues.html)
+and [streams](streams.html) also have dedicated guides.
+
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure
