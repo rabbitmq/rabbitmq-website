@@ -200,8 +200,9 @@ limitations under the License.
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
                 <a href="https://acemq.com/rabbitmq/">AceMQ</a>,
-                <a href="http://www.visualintegrator.com/rmq/">Visual Integrator, Inc</a> and
-                <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq">Google Cloud Platform</a>.
+                <a href="http://www.visualintegrator.com/rmq/">Visual Integrator, Inc</a>,
+                <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq">Google Cloud Platform</a> and
+                <a href="https://northflank.com/changelog/introducing-managed-rabbit-mq-build-and-scale-with-queues-and-message-brokers">Northflank</a>.
                 RabbitMQ can also be deployed in AWS and Microsoft Azure.
               </p>
               <img src="img/testing-phone.svg" height="109" width="94" />
