@@ -14,7 +14,7 @@
           <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
         </ul>
         <p id="copyright">
-          Copyright &#169; 2007-2021 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
+          Copyright &#169; 2007-2022 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
           <a href="https://pivotal.io/terms-of-use">Terms of Use</a>,
           <a href="https://pivotal.io/privacy-policy">Privacy</a> and
           <a href="/trademark-guidelines.html">Trademark Guidelines</a>
