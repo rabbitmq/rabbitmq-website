@@ -93,6 +93,11 @@ or fail.
     client disconnects or rejects the reply message.
   </li>
   <li>
+    The RPC client must use the same connection and channel for 
+    both consuming from <code>amq.rabbitmq.reply-to</code> and
+    for publishing the request message.
+  </li>
+  <li>
     Reply messages sent using this mechanism are in general not
     fault-tolerant; they will be discarded if the client that
     published the original request subsequently disconnects. The
