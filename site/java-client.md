@@ -50,7 +50,7 @@ library.
 
 ### Latest Version
 
-The current release of the RabbitMQ Java client is `5.14.1`.
+The current release of the RabbitMQ Java client is `5.14.2`.
 
 ### Adding Library Dependency
 
@@ -63,7 +63,7 @@ If you're using Maven, add this dependency to the POM file of your project:
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
-  &lt;version&gt;5.14.1&lt;/version&gt;
+  &lt;version&gt;5.14.2&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 
@@ -71,7 +71,7 @@ If using Gradle:
 
 <pre class="lang-groovy">
 dependencies {
-  compile 'com.rabbitmq:amqp-client:5.14.1'
+  compile 'com.rabbitmq:amqp-client:5.14.2'
 }
 </pre>
 
@@ -99,20 +99,20 @@ source.
   <tr>
     <td>Binary, compiled for JDK 8 (Android 7.0) or newer</td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1.jar">amqp-client-5.14.1.jar</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.2/amqp-client-5.14.2.jar">amqp-client-5.14.2.jar</a>
     </td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1.jar.asc">Signature file</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.2/amqp-client-5.14.2.jar.asc">Signature file</a>
     </td>
   </tr>
 
   <tr>
     <td>Source code</td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1-sources.jar">amqp-client-5.14.1-sources.jar</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.2/amqp-client-5.14.2-sources.jar">amqp-client-5.14.2-sources.jar</a>
     </td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1-sources.jar.asc">Signature file</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.2/amqp-client-5.14.2-sources.jar.asc">Signature file</a>
     </td>
   </tr>
 </table>
@@ -138,10 +138,10 @@ download it for off-line use:
   <tr>
     <td> A JAR file containing generated Javadoc documentation </td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1-javadoc.jar">amqp-client-5.14.1-javadoc.jar</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.2/amqp-client-5.14.2-javadoc.jar">amqp-client-5.14.2-javadoc.jar</a>
     </td>
     <td>
-      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.1/amqp-client-5.14.1-javadoc.jar.asc">Signature file</a>
+      <a href="https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.14.0/amqp-client-5.14.0-javadoc.jar.asc">Signature file</a>
     </td>
   </tr>
 </table>
