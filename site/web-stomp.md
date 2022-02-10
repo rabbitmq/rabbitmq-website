@@ -67,7 +67,7 @@ you may use code like:
 
 <pre class="lang-html">
 &lt;!-- include the client library --&gt;
-&lt;script src=stomp.js"&gt;&lt;/script&gt;
+&lt;script src="stomp.js"&gt;&lt;/script&gt;
 </pre>
 
 <pre class="lang-javascript">
