@@ -25,7 +25,7 @@ are covered by the [Networking](networking.html) and [Troubleshooting Networking
 
 RabbitMQ supports several protocols:
 
- * [AMQP 0-9-1](specification.html) with [extensionsextensions.html)
+ * [AMQP 0-9-1](specification.html) with [extensions](extensions.html)
  * AMQP 1.0
  * [RabbitMQ Stream Protocol](stream.html)
  * [MQTT](mqtt.html) 3.1.1
@@ -129,7 +129,7 @@ The maximum number of [channels](channels.html) that can be open on a connection
 is negotiated by client and server at connection time. The client cannot be configured to allow for
 more channels than the server configured maximum.
 
-After successfully opening a connection and authenticating, applications open one or more channels and uses them
+After successfully opening a connection and authenticating, applications open one or more channels and use them
 to perform protocol operations, e.g. define topology, consume and publish messages.
 
 AMQP 0-9-1 supports different authentication mechanisms. While it's most common for applications
@@ -204,7 +204,7 @@ This chart demonstrates a monotonically growing number of connections after a dr
 If the number of sockets used by a node keeps growing and growing, it is likely an indication
 of a connection leak in one of the applications.
 
-Some client libraries, [such has the Java client](/api-guide.html#metrics), expose metrics including the number of currently
+Some client libraries, [such as the Java client](/api-guide.html#metrics), expose metrics including the number of currently
 opened connections. Charting and monitoring application metrics around connections is the best way
 to identify what app leaks connections or uses them in a suboptimal way.
 
