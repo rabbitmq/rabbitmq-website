@@ -278,18 +278,18 @@ To make sure it will be located on the same cluster node that the connection is 
 
 ## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 
-Queues can be replicated to multiple cluster nodes and [federated](https://www.rabbitmq.com/federated-queues.html)
-across loosely coupled nodes or clusters. There are two replicated queue types provided:
+[Quorum queues](quorum-queues.html) is replicated, data safety and consistency-oriented queue type.
+Classic queues historically supported replication but it is **deprecated** and should be avoided.
 
- * [Quorum queues](/quorum-queues.html)
- * Classic queues with [mirroring](/ha.html) enabled
 
-The difference between them is covered in the [Quorum queues](/quorum-queues.html) guide.
-Quorum queues is the recommended option for most workloads and use cases.
+Queues can beso be [federated](federated-queues.html)
+across loosely coupled nodes or clusters.
 
 Note that intra-cluster replication and federation
 are orthogonal features and should not be considered direct alternatives.
 
+[Streams](streams.html) is another replicated data structure supported by RabbitMQ, with a different
+set of supported operations and features.
 
 ## <a id="ttl-and-limits" class="anchor" href="#ttl-and-limits">Time-to-Live and Length Limit</a>
 
