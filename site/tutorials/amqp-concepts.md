@@ -255,15 +255,16 @@ argument is set to "any", just one matching header value
 is sufficient. Alternatively, setting "x-match" to "all"
 mandates that all the values must match.
 
+For "any" and "all", headers beginning with the string `x-`
+will not be used to evaluate matches.
+Setting "x-match" to "any-with-x" behaves like "any" but
+will also use headers beginning with the string `x-` to evaluate matches.
+
 Headers exchanges can be looked upon as "direct exchanges
 on steroids". Because they route based on header values,
 they can be used as direct exchanges where the routing key
 does not have to be a string; it could be an integer or a
 hash (dictionary) for example.
-
-Note that headers beginning with the string `x-`
-will not be used to evaluate matches.
-
 
 ## <a id="queues" class="anchor" href="#queues">Queues</a>
 
