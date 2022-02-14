@@ -168,7 +168,7 @@ Listing queues for vhost / ...
 default	[]	417421592	386307	386307000	1000000	1000000000
 
 # Node memory stats
-rabbitmqctl status | grep rss,
+rabbitmq-diagnostics status | grep rss,
       {total,[{erlang,1043205272},{rss,770306048},{allocated,1103822848}]}]},
 
 # Stop our temporary RabbitMQ node &amp; clean all persistent files

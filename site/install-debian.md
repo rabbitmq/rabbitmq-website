@@ -274,12 +274,14 @@ matches the Debian or Ubuntu release used:
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
  * `buster` for Debian Buster
+ * `bullseye` for Debian Bullseye
 
-However, not all distributions are covered (indexed).
-But there are good news: since the package indexed for these distributions is identical,
+Not all distributions are covered (indexed). For example, freshly released ones usually
+won't be recognized by the package hosting services.
+But there are good news: since the package indexed for these distributions is the same,
 any reasonably recent distribution name would suffice in practice.
-For example, users of Debian Buster or Debian Bullseye
-can both use `buster` for distribution name.
+For example, users of Debian Sid or Debian Bullseye
+can both use `bullseye` for distribution name.
 
 Below is a table of OS release and distribution names that should be used
 with the RabbitMQ apt repository on PackageCloud.
@@ -289,8 +291,8 @@ with the RabbitMQ apt repository on PackageCloud.
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
-| Debian Bullseye | `buster`     |
-| Debian Sid      | `buster`     |
+| Debian Bullseye | `bullseye`   |
+| Debian Sid      | `bullseye`     |
 
 To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
 
@@ -320,6 +322,7 @@ So, for example, on Debian Buster it would be
 sudo tee /etc/apt/sources.list.d/rabbitmq.list &lt;&lt;EOF
 ## Provides modern Erlang/OTP releases
 ##
+## The Ubuntu PPA is not aware of Debian distribution names.
 ## "bionic" as distribution name should work for any reasonably recent Ubuntu or Debian release.
 deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
 deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
@@ -492,11 +495,12 @@ matches the Debian or Ubuntu release used:
  * `bionic` for Ubuntu 18.04
  * `buster` for Debian Buster
 
-However, not all distributions are covered (indexed).
-But there are good news: since the package indexed for these distributions is identical,
+Not all distributions are covered (indexed). For example, freshly released ones usually
+won't be recognized by the package hosting services.
+But there are good news: since the package indexed for these distributions is the same,
 any reasonably recent distribution name would suffice in practice.
-For example, users of Debian Buster or Debian Bullseye
-can both use `buster` for distribution name.
+For example, users of Debian Sid or Debian Bullseye
+can both use `bullseye` for distribution name.
 
 Below is a table of OS release and distribution names that should be used
 with the RabbitMQ apt repository on PackageCloud.
@@ -506,8 +510,8 @@ with the RabbitMQ apt repository on PackageCloud.
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
-| Debian Bullseye | `buster`     |
-| Debian Sid      | `buster`     |
+| Debian Bullseye | `bullseye`   |
+| Debian Sid      | `bullseye`   |
 
 To add the apt repository to the source list directory (`/etc/apt/sources.list.d`), use:
 
@@ -826,7 +830,7 @@ The file has to be installed on Docker hosts at `/etc/docker/daemon.json`:
 [RabbitMQ management UI](management.html) displays the number of file descriptors available
 for it to use on the Overview tab.
 
-<pre class="lang-bash">rabbitmqctl status</pre>
+<pre class="lang-bash">rabbitmq-diagnostics status</pre>
 
 includes the same value.
 
@@ -837,7 +841,7 @@ cat /proc/$RABBITMQ_BEAM_PROCESS_PID/limits
 </pre>
 
 can be used to display effective limits of a running process. `$RABBITMQ_BEAM_PROCESS_PID`
-is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmqctl status`.
+is the OS PID of the Erlang VM running RabbitMQ, as returned by `rabbitmq-diagnostics status`.
 
 
 ## <a id="managing-service" class="anchor" href="#managing-service">Managing the Service</a>

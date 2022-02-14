@@ -88,10 +88,10 @@ If you want to ask a question about how to use RabbitMQ please use
 
 ## <a id="paid-support" class="anchor" href="#paid-support">Paid Commercial Support Enquiries</a>
 
-For enquiries about Pivotal’s commercial licensing and support,
-there is information about offerings, subscription fees, and a contact form [on this page](https://pivotal.io/rabbitmq).
-Alternatively, if you already have a support contract established with Pivotal,
-please see the [VMware support page](https://support.pivotal.io/hc/en-us).
+For enquiries about VMware’s commercial licensing and support,
+there is information about offerings, subscription fees, and a contact form [on this page](https://tanzu.vmware.com/rabbitmq).
+Alternatively, if you already have a support contract established with VMware,
+please see the [VMware support page](https://tanzu.vmware.com/support).
 For questions about booking training or consulting,
 please contact the [appropriate vendor](https://www.rabbitmq.com/services.html).
 

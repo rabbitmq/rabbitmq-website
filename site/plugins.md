@@ -284,6 +284,12 @@ and/or [plugin expansion](#plugin-expansion)
 directories permissions not having sufficient privileges for the effective user of the server node. In other words,
 the node cannot use those directories to complete plugin activation and loading.
 
+### <a id="troubleshooting-cli-command-discovery" class="anchor" href="#troubleshooting-cli-command-discovery">CLI Commands From a Plugin are Not Discovered</a>
+
+When performing command discovery, CLI tools will consult the [Enabled Plugins File](#enabled-plugins-file) to determine
+what plugins to scan for commands. If a plugin is not included into that file, e.g. because it was enabled implicitly as
+a dependency, it won't be listed in the enabled plugins file and thus its CLI commands **will not be discovered**.
+
 
 ## <a id="plugin-tiers" class="anchor" href="#plugin-tiers">Plugin Tiers</a>
 

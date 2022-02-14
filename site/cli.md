@@ -47,6 +47,7 @@ on node's data and so on.
 requires that the [HTTP API](/management.html) port is open for outside connections.
 
 Even though CLI tools ship with the server, most commands [can be used to operate on remote nodes](#remote-nodes).
+Plugins can [provide CLI commands](#command-discovery) that will be discovered by CLI tools for explicitly enabled plugins.
 
 
 ## <a id="requirements" class="anchor" href="#requirements">System and Environment Requirements</a>
@@ -98,7 +99,7 @@ The command can display usage information for a particular command:
 rabbitmq-diagnostics help status
 </pre>
 
-Alternatively a `--help` option can be used:
+Alternatively, the `--help` option can be used:
 
 <pre class="lang-bash">
 rabbitmqctl --help
@@ -487,7 +488,7 @@ to the CLI tool (e.g. via the `-n` flag). For example, if a node runs using `rab
 as its name but `rabbitmqctl` is invoked as
 
 <pre class="lang-bash">
-rabbitmqctl status -n rabbit@rmq-dev.eng.megacorp.local
+rabbitmq-diagnostics status -n rabbit@rmq-dev.eng.megacorp.local
 </pre>
 
 then even if `rmq-dev.eng.megacorp.local` and `rmq1.eng.megacorp.local` resolve to the same IP address,
@@ -567,6 +568,20 @@ opened), two CLI commands executed against two different
 nodes one after another will produce identical or
 semantically identical results. "Node-local" commands, however, likely will not produce
 identical results since two nodes rarely have entirely identical state.
+
+
+## <a id="command-discovery" class="anchor" href="#command-discovery">Commands Provided by Plugins</a>
+
+A RabbitMQ plugin can provide CLI commands that will be discovered by tools such as `rabbitmq-diagnostics`,
+`rabbitmq-queues`, `rabbitmqctl`, and others. For plugin commands to be discoverable, the plugin
+**must be explicitly enabled**.
+
+When performing command discovery, CLI tools will consult the [Enabled Plugins File](#enabled-plugins-file) to determine
+what plugins to scan for commands. If a plugin is not included into that file, e.g. because it was enabled implicitly as
+a dependency, it won't be listed in the enabled plugins file and thus its CLI commands **will not be discovered**
+and will not be available.
+
+Use the `help` command to see what commands are available, both core and provided by plugins.
 
 
 ## <a id="aliases" class="anchor" href="#aliases">Command Aliases</a>

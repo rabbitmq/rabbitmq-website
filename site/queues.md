@@ -35,6 +35,23 @@ because many features still operate at the queue level, even for those protocols
 [Streams](streams.html) is an alternative messaging data structure available in RabbitMQ.
 Streams provide different features from queues.
 
+Some key topics covered in this guide are
+
+ * [Queue basics](#basics)
+ * [Queue names](#names)
+ * [Queue properties](#properties)
+ * [Message ordering](#message-ordering) in a queue
+ * [Queue durability](#durability) and how it relates to message persistence
+ * [Replicated queue types](#distributed)
+ * [Temporary](#temporary-queues) and [exclusive](#exclusive-queues) queues
+ * [Runtime resource](#runtime-characteristics) usage by queue replicas
+ * [Queue metrics](#metrics)
+ * [TTL](#ttl-and-limits) and length limits
+ * [Priority queues](#priorities)
+
+For topics related to consumers, see the [Consumers guide](consumers.html). [Quorum queues](quorum-queues.html)
+and [streams](streams.html) also have dedicated guides.
+
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 A [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) is a sequential data structure
@@ -259,18 +276,18 @@ the queue is connected to), regardless of the `queue_master_locator` value.
 
 ## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 
-Queues can be replicated to multiple cluster nodes and [federated](https://www.rabbitmq.com/federated-queues.html)
-across loosely coupled nodes or clusters. There are two replicated queue types provided:
+[Quorum queues](quorum-queues.html) is replicated, data safety and consistency-oriented queue type.
+Classic queues historically supported replication but it is **deprecated** and should be avoided.
 
- * [Quorum queues](/quorum-queues.html)
- * Classic queues with [mirroring](/ha.html) enabled
 
-The difference between them is covered in the [Quorum queues](/quorum-queues.html) guide.
-Quorum queues is the recommended option for most workloads and use cases.
+Queues can beso be [federated](federated-queues.html)
+across loosely coupled nodes or clusters.
 
 Note that intra-cluster replication and federation
 are orthogonal features and should not be considered direct alternatives.
 
+[Streams](streams.html) is another replicated data structure supported by RabbitMQ, with a different
+set of supported operations and features.
 
 ## <a id="ttl-and-limits" class="anchor" href="#ttl-and-limits">Time-to-Live and Length Limit</a>
 
