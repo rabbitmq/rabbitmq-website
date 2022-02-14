@@ -177,7 +177,7 @@ Make sure the following ports are accessible:
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
    server distribution port + 10010). See [networking guide](networking.html) for details.
- * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
+ * 15672, 15671: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html), without and with TLS
    (only if the [management plugin](/management.html) is enabled)
  * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
  * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
