@@ -79,26 +79,24 @@ Now we call some send and receive methods from `viewDidLoad`:
     [self receive];
 </pre>
 
-The send method begins with a connection to the RabbitMQ broker:
+The send method begins with a connection to a RabbitMQ node:
 
 <pre class="lang-objectivec">
 - (void)send {
-    RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
-    [conn start];
+    RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://localhost:5672"
+                                                 delegate:[RMQConnectionDelegateLogger new]];
+}
 </pre>
 
 The connection abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a broker on the local machine with all default settings. A
-logging delegate is used so we can see any errors in the Xcode console.
+protocol version negotiation and authentication and so on for us.
 
-If we wanted to connect to a broker on a different
-machine we'd simply specify its name or IP address using the `initWithUri:delegate:`
+We have to specify its name or IP address using the `initWithUri:delegate:`
 convenience initializer:
 
 <pre class="lang-objectivec">
-RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://myrabbitserver.com:1234"
-                                                delegate:[RMQConnectionDelegateLogger new]];
+RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://localhost:5672"
+                                             delegate:[RMQConnectionDelegateLogger new]];
 </pre>
 
 Next we create a channel, which is where most of the API for getting
