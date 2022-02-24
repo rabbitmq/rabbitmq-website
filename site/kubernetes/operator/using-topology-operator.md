@@ -7,8 +7,9 @@ If RabbitMQ Cluster Kubernetes Operator is not installed, see the [quickstart gu
 
 This guide has the following sections:
 
-* [Requirements](#requirements)
+* [Cluster Operator Requirements](#requirements)
 * [Scope across multiple namespaces](#namespace-scope)
+* [Non Operator managed RabbitMQ](#non-operator)
 * [Queues and policies](#queues-policies)
 * [Users and user permissions](#users-permissions)
 * [Exchanges and bindings](#exchanges-bindings)
@@ -27,9 +28,9 @@ This guide has the following sections:
   [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
 </p>
 
-## <a id='requirements' class='anchor' href='#requirements'>Requirements</a>
+## <a id='requirements' class='anchor' href='#requirements'> Cluster Operator Requirements</a>
 
-* Messaging Topology Operator can only be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
+* Messaging Topology Operator can be used with RabbitMQ clusters deployed using the Kubernetes [Cluster Operator](https://github.com/rabbitmq/cluster-operator).
 The minimal version required for Cluster Operator is `1.7.0`.
 * Messaging Topology Operator custom resources can only be created in the same namespace as the RabbitMQ cluster is deployed. For a RabbitmqCluster deployed in namespace
 "my-test-namespace", all Messaging Topology custom resources for this RabbitMQ cluster, such as `queues.rabbitmq.com` and `users.rabbitmq.com`, can only be created in namespace "my-test-namespace".
@@ -86,6 +87,37 @@ For example, `RabbitmqCluster` in namespace `ns1` allows topologies from `my-app
 `RabbitmqCluster`, Messaging Topology Operator will log an error message, update a status condition in the `Queue` object, and give up reconciling the
 `Queue` object. If the `RabbitmqCluster` object is updated to allow topology objects from namespace `not-allowed`, the `Queue` object **must be manually
 updated** to trigger a reconciliation; for example, by adding a label to the `Queue` object.
+
+## <a id='non-operator' class='anchor' href='#non-operator'>Non Operator managed RabbitMQ</a>
+
+* For any RabbitMQ that's not deployed by [Cluster Operator](https://github.com/rabbitmq/cluster-operator), a connection secret can be provided to create RabbitMQ topology objects.
+* This feature is released since Messaging Topology Operator `1.4.0`.
+* The following manifest creates a queue and uses credentials in kubernetes secret `my-rabbit-creds` to connect to the RabbitMQ server:
+
+<pre class="lang-bash">
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-rabbit-creds
+type: Opaque
+stringData:
+  username: a-user # has to be an existing user
+  password: a-secure-password
+  uri: https://my.rabbit:15672 # uri for the management api; when scheme is not provided in uri, operator defalts to 'http'
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: qq-example
+spec:
+  name: my-queue
+  rabbitmqClusterReference:
+    connectionSecret:
+      name: my-rabbit-creds # has to an existing secret in the same namespace as this Queue object
+</pre>
+
+Note that `spec.rabbitmqClusterReference` is an immutable field. You cannot update the connectionSecret name after creation.
 
 ## <a id='queues-policies' class='anchor' href='#queues-policies'>Queues and Policies</a>
 
