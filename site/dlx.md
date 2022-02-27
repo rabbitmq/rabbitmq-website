@@ -193,7 +193,7 @@ message was dead-lettered and is one of the following:
  * `rejected`: the message was rejected with `requeue` parameter set to `false`
  * `expired`: the [message TTL](/ttl.html) has expired
  * `maxlen`: the [maximum allowed queue length](/maxlength.html) was exceeded
- * `delivery-limit`: the message has been returned more times than the limit (set by policy argument [delivery-limit](/quorum-queues.html#poison-message-handling) of quorum queues).
+ * `delivery_limit`: the message has been returned more times than the limit (set by policy argument [delivery-limit](/quorum-queues.html#poison-message-handling) of quorum queues).
 
 Three top-level headers are added for the very first dead-lettering
 event. They are
