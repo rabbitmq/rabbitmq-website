@@ -257,8 +257,8 @@ mandates that all the values must match.
 
 For "any" and "all", headers beginning with the string `x-`
 will not be used to evaluate matches.
-Setting "x-match" to "any-with-x" behaves like "any" but
-will also use headers beginning with the string `x-` to evaluate matches.
+Setting "x-match" to "any-with-x" or "all-with-x" will also use headers
+beginning with the string `x-` to evaluate matches.
 
 Headers exchanges can be looked upon as "direct exchanges
 on steroids". Because they route based on header values,
