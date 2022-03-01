@@ -119,7 +119,7 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [Message TTL](/ttl.html) | yes | no |
+| [Message TTL](/ttl.html) | yes | yes (since 3.10.x) |
 | [Queue TTL](/ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](/maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](/lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature |
@@ -144,9 +144,15 @@ no sense in their context. Therefore quorum queues cannot be exclusive.
 
 Quorum queues are not meant to be used as [temporary queues](/queues.html#temporary-queues).
 
-#### TTL
+#### TTL (Before RabbitMQ 3.10)
 
-Quorum queues do not currently support Message TTL, but they do support [Queue TTL](/ttl.html#queue-ttl).
+Quorum queues do not currently support Message TTL, as well as [Queue TTL](/ttl.html#queue-ttl).
+
+The per-message memory overhead is slightly higher when using any form of message ttl.
+
+#### TTL (Since RabbitMQ 3.10.x)
+
+Quorum queues support [Message TTL](/ttl.html#message-ttl-using-policy), but they do support [Queue TTL](/ttl.html#queue-ttl).
 
 #### Length Limit
 
@@ -203,14 +209,19 @@ from the source queue in a timely manner:
 The dead letter processes will retry periodically if either of the scenarios above
 occur which means there is a possibility of duplicates appearing at the dlx target.
 
-`at-least-once` is the default dead-letter strategy for quorum queues as of
-RabbitMQ 3.10 but `at-most-once` is still
-available and can be configured by using the `x-dead-letter-strategy` queue arguments
-or the `dead-letter-strategy` policy and setting the value to `at-most-once`.
+`at-most-once` remains the default dead-letter strategy for quorum queues in
+RabbitMQ 3.10 which means `at-least-once` needs to be configured by
+using the `x-dead-letter-strategy` queue arguments
+or the `dead-letter-strategy` policy and setting the value to `at-least-once`.
 
-This could be useful for scenarios where the dead letter messages are more of an
+When using `at-least-once` it is also necessary to set the `x-overflow` argument
+to `reject-publish` even if a queue length limit is not used. This is because the
+`x-overflow` option `drop_head` is _not_ supported by the `at-least-once` dead letter
+mode and will cause the queue to revert to `at-most-once`.
+
+`at-least-once` could still be useful for scenarios where the dead letter messages are more of an
 informational nature and it does not matter so much if they are lost in transit
-between queues. Also see limitations below.
+between queues or when the overflow configuration restrictions are not suitable.
 
 ##### Limitations
 
@@ -223,7 +234,7 @@ to `at-most-once`. Use the overflow strategy `reject_publish` instead.
 
 
 
-#### Lazy Mode
+#### Lazy Mode (Before RabbitMQ 3.10)
 
 Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
 
@@ -231,6 +242,19 @@ The [lazy mode](/lazy-queues.html) does not apply to them.
 
 It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
 can achieve a behaviour similar to lazy queues.
+
+#### Lazy Mode (Since RabbitMQ 3.10)
+
+Quorum queues store their message content on disk (per Raft requirements) and 
+only keep a small record of each message in memory. This is a change from
+prior versions of quorum queues where there was an option to keep the message bodies
+in memory as well. This never proved to be beneficial especially when the queue length
+was large.
+
+The [memory limit](#memory-limit) configuration is still permitted but has no
+effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
+
+The [lazy mode](/lazy-queues.html) does not apply.
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
