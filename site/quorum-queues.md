@@ -119,10 +119,10 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [Message TTL](/ttl.html) | yes | yes (since 3.10.x) |
+| [Message TTL (Time-To-Live)](/ttl.html) | yes | yes (since 3.10) |
 | [Queue TTL](/ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](/maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](/lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature |
+| [Lazy behaviour](/lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature (before 3.10); always (since 3.10) |
 | [Message priority](/priority.html) | yes | no |
 | [Consumer priority](/consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](/dlx.html) | yes | yes |
@@ -144,15 +144,16 @@ no sense in their context. Therefore quorum queues cannot be exclusive.
 
 Quorum queues are not meant to be used as [temporary queues](/queues.html#temporary-queues).
 
-#### TTL (Before RabbitMQ 3.10)
+#### TTL (before RabbitMQ 3.10)
 
-Quorum queues do not currently support Message TTL, as well as [Queue TTL](/ttl.html#queue-ttl).
+Quorum queues support [Queue TTL](/ttl.html#queue-ttl), but do not support message TTL.
 
-The per-message memory overhead is slightly higher when using any form of message ttl.
+#### TTL (since RabbitMQ 3.10)
 
-#### TTL (Since RabbitMQ 3.10.x)
-
-Quorum queues support [Message TTL](/ttl.html#message-ttl-using-policy), but they do support [Queue TTL](/ttl.html#queue-ttl).
+Quorum queues support both [Queue TTL](/ttl.html#queue-ttl) and message TTL
+(including [Per-Queue Message TTL in Queues](/ttl.html#per-queue-message-ttl) and
+[Per-Message TTL in Publishers](/ttl.html#per-message-ttl-in-publishers)).
+When using any form of message TTL, the memory overhead increases by 2 bytes per message.
 
 #### Length Limit
 
@@ -169,84 +170,111 @@ of messages as there may be messages in flight whilst the channels are notified.
 The number of additional messages that are accepted by the queue will vary depending
 on how many messages are in flight at the time.
 
-#### Dead Lettering
+#### <a id="dead-lettering" class="anchor" href="#dead-lettering">Dead Lettering</a>
 
-Quorum queues do support [dead letter exchanges](/dlx.html) (DLXs).
+Quorum queues support [dead letter exchanges](/dlx.html) (DLXs).
 
-As of 3.10 quorum queues support a safer form of dead-lettering that uses
-`at-least-once` guarantees (with a couple of caveats, outlined below) for the message
-transfer between queues instead of `at-most-once` as in 3.8 and 3.9.
+Traditionally, using DLXs in a clustered environment has not been [safe](/dlx.html#safety).
 
-This is done by implementing a special, internal "dead-letter" consumer type
-that works similarly to normal queue consumer with manual acknowledgements apart
+Since RabbitMQ 3.10 quorum queues support a safer form of dead-lettering that uses
+`at-least-once` guarantees for the message transfer between queues
+(with the limitations and caveats outlined below).
+
+This is done by implementing a special, internal dead-letter consumer process
+that works similarly to a normal queue consumer with manual acknowledgements apart
 from it only consuming messages that have been dead-lettered.
 
-This means that the source queue will retain the
-dead-lettered messages until they have been acknowledged. This internal consumer
-will consume dead-lettered messages and publish them to the target queues using
+This means that the source quorum queue will retain the
+dead-lettered messages until they have been acknowledged. The internal consumer
+will consume dead-lettered messages and publish them to the target queue(s) using
 publisher confirms. It will only acknowledge once publisher confirms have been
 received, hence providing `at-least-once` guarantees.
 
-`at-least-once` guarantees opens up some specific failure cases that needs handling.
-As dead-lettered messages are now retained by the source quorum queue until they have been
-safely accepted by the dead-letter target queue this means they have to contribute to the
-queue resource limits, such as max length limits so that the queue can refuse to accept
-more messages until some have been removed. Theoretically it is then possible for a queue
-to _only_ contain dead-lettered messages, in the case where, say the target dead-letter
-queue isn't available to accept messages for a long time and normal queue consumers
-consume most of the messages.
+`at-most-once` remains the default dead-letter-strategy for quorum queues and is useful for scenarios
+where the dead lettered messages are more of an informational nature and where it does not matter so much
+if they are lost in transit between queues or when below outlined overflow
+configuration restriction is not suitable.
 
-Dead lettered messages are considered "live" until they have been confirmed to have
-been accepted by the dead-letter target queue.
+##### Enabling at-least-once dead-lettering
 
-There are few cases which for which dead lettered messages will not be removed
-from the source queue in a timely manner:
+To enable `at-least-once` dead-lettering for a source quorum queue, apply all of the following policies
+(or the equivalent queue arguments starting with `x-`):
 
-* the configured dead-letter exchange does not exist
-* no queues can be routed (equivalent to "mandatory")
-* the routed queues do not confirm receipt of the message
+* Set `dead-letter-strategy` to `at-least-once` (default is `at-most-once`).
+* Set `overflow` to `reject-publish` (default is `drop-head`).
+* Configure a `dead-letter-exchange`.
+* Enable [feature flag](/feature-flags.html) `stream_queue` (enabled by default
+for RabbitMQ clusters created in 3.9 or later).
 
-The dead letter processes will retry periodically if either of the scenarios above
-occur which means there is a possibility of duplicates appearing at the dlx target.
+It is recommended to additionally configure `max-length` or `max-length-bytes`
+to prevent excessive message buildup in the source quorum queue (see caveats below).
 
-`at-most-once` remains the default dead-letter strategy for quorum queues in
-RabbitMQ 3.10 which means `at-least-once` needs to be configured by
-using the `x-dead-letter-strategy` queue arguments
-or the `dead-letter-strategy` policy and setting the value to `at-least-once`.
-
-When using `at-least-once` it is also necessary to set the `x-overflow` argument
-to `reject-publish` even if a queue length limit is not used. This is because the
-`x-overflow` option `drop_head` is _not_ supported by the `at-least-once` dead letter
-mode and will cause the queue to revert to `at-most-once`.
-
-`at-least-once` could still be useful for scenarios where the dead letter messages are more of an
-informational nature and it does not matter so much if they are lost in transit
-between queues or when the overflow configuration restrictions are not suitable.
+Optionally, configure a `dead-letter-routing-key`.
 
 ##### Limitations
 
-`at-least-once` dead lettering does not work well with the `drop_head` overflow
-strategy. Hence if `drop_head` is configured the dead-lettering will fall back
-to `at-most-once`. Use the overflow strategy `reject_publish` instead.
+`at-least-once` dead lettering does not work with the default `drop-head` overflow
+strategy even if a queue length limit is not set.
+Hence if `drop-head` is configured the dead-lettering will fall back
+to `at-most-once`. Use the overflow strategy `reject-publish` instead.
 
+##### Caveats
 
+`at-least-once` dead-lettering will require more system resources such as memory and CPU.
+Therefore, enable `at-least-once` only if dead lettered messages should not be lost.
 
+`at-least-once` guarantees opens up some specific failure cases that needs handling.
+As dead-lettered messages are now retained by the source quorum queue until they have been
+safely accepted by the dead-letter target queue(s) this means they have to contribute to the
+queue resource limits, such as max length limits so that the queue can refuse to accept
+more messages until some have been removed. Theoretically it is then possible for a queue
+to _only_ contain dead-lettered messages, in the case where, say a target dead-letter
+queue isn't available to accept messages for a long time and normal queue consumers
+consume most of the messages.
 
+Dead-lettered messages are considered "live" until they have been confirmed
+by the dead-letter target queue(s).
 
+There are few cases for which dead lettered messages will not be removed
+from the source queue in a timely manner:
 
-#### Lazy Mode (Before RabbitMQ 3.10)
+* The configured dead-letter exchange does not exist.
+* No queues can be routed (equivalent to the `mandatory` message property).
+* One (of possibly many) routed target queues does not confirm receipt of the message.
+This can happen when a target queue is not available or when a target queue rejects a message
+(e.g. due to exceeded queue length limit).
+
+The dead-letter consumer process will retry periodically if either of the scenarios above
+occur which means there is a possibility of duplicates appearing at the DLX target queue(s).
+
+For each quorum queue with `at-least-once` dead-lettering enabled, there will be one internal dead-letter
+consumer process. The internal dead-letter consumer process is co-located on the quorum queue leader node.
+It keeps all dead-lettered message bodies in memory.
+It uses a prefetch size of 32 messages to limit the amount of message bodies kept in memory if no confirms
+are received from the target queues.
+
+That prefetch size can be increased by the `dead_letter_worker_consumer_prefetch` setting in the `rabbit` app section of the
+[advanced config file](/configure.html#advanced-config-file) if high dead-lettering throughput
+(thousands of messages per second) is required.
+
+For a source quorum queue, it is possible to switch dead-letter strategy dynamically from `at-most-once`
+to `at-least-once` and vice versa. If the dead-letter strategy is changed either directly
+from `at-least-once` to `at-most-once` or indirectly, for example by changing overflow from `reject-publish`
+to `drop-head`, any dead-lettered messages that have not yet been confirmed by all target queues will be deleted.
+
+#### Lazy Mode (before RabbitMQ 3.10)
 
 Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
 
-The [lazy mode](/lazy-queues.html) does not apply to them.
+The [`lazy` mode configuration](/lazy-queues.html#configuration) does not apply.
 
 It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
 can achieve a behaviour similar to lazy queues.
 
-#### Lazy Mode (Since RabbitMQ 3.10)
+#### Lazy Mode (since RabbitMQ 3.10)
 
-Quorum queues store their message content on disk (per Raft requirements) and 
-only keep a small record of each message in memory. This is a change from
+Quorum queues store their message content on disk (per Raft requirements) and
+only keep a small metadata record of each message in memory. This is a change from
 prior versions of quorum queues where there was an option to keep the message bodies
 in memory as well. This never proved to be beneficial especially when the queue length
 was large.
@@ -254,7 +282,7 @@ was large.
 The [memory limit](#memory-limit) configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
-The [lazy mode](/lazy-queues.html) does not apply.
+The [`lazy` mode configuration](/lazy-queues.html#configuration) does not apply.
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
@@ -715,7 +743,7 @@ More will be required in high-throughput systems. 4 times is a good starting poi
 
 ### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
 
-It is possible to limit the amount of memory each quorum queue will use for the part of its log that
+Before RabbitMQ 3.10 it was possible to limit the amount of memory each quorum queue will use for the part of its log that
 is kept in memory. Note that these limits are different from those of the [in-memory Raft WAL table](#resource-use)
 and [queue length limits](/maxlength.html).
 
@@ -725,6 +753,9 @@ that are best configured using a [policy](/parameters.html#policies).
  * `x-max-in-memory-length` sets a limit as a number of messages. Must be a non-negative integer.
  * `x-max-in-memory-bytes` sets a limit as the total size of message bodies (payloads), in bytes. Must be a non-negative integer.
 
+Since RabbitMQ 3.10 these settings are deprecated.
+They can still be set but have no effect.
+The new behaviour is effectively the same as setting `x-max-in-memory-length=0` keeping no message bodies in memory.
 
 ### <a id="repeated-requeues" class="anchor" href="#repeated-requeues">Repeated Requeues</a>
 

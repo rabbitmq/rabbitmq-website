@@ -147,12 +147,15 @@ dropped <em>if there was no rejections in the entire cycle</em>.
 
 ## <a id="safety" class="anchor" href="#safety">Safety</a>
 
-Dead-lettered messages are re-published <em>without</em> publisher
+By default, dead-lettered messages are re-published <em>without</em> publisher
 [confirms](confirms.html) turned on internally. Therefore using DLX in a clustered
 RabbitMQ environment is not guaranteed to be safe. Messages are removed from the
 original queue immediately after publishing to the DLX target queue. This ensures
 that there is no chance of excessive message buildup that could exhaust broker
 resources, but messages can be lost if the target queue isn't available to accept messages.
+
+Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](/quorum-queues.html#dead-lettering)
+where messages are re-published with publisher confirms turned on internally.
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
 
