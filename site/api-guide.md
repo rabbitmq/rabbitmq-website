@@ -1444,7 +1444,7 @@ read [the appropriate section](ssl.html#java-client) of the TLS guide.
 ## <a id="oauth2-support" class="anchor" href="#oauth2-support">OAuth 2 Support</a>
 
 The client can authenticate against an OAuth 2 server like [UAA](https://github.com/cloudfoundry/uaa).
-The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
+The [OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_auth_backend_oauth2)
 must be enabled on the server side and configured to use the same
 OAuth 2 server as the client.
 
@@ -1461,7 +1461,7 @@ Prefer the use of `OAuth2ClientCredentialsGrantCredentialsProviderBuilder`
 to create an `OAuth2ClientCredentialsGrantCredentialsProvider` instance and
 then set it up on the `ConnectionFactory`. The
 following snippet shows how to configure and create an instance of the OAuth 2 credentials provider
-for the [example setup of the OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#examples):
+for the [example setup of the OAuth 2 plugin](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_auth_backend_oauth2#examples):
 
 
 <pre class="lang-java">

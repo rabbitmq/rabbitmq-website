@@ -393,7 +393,8 @@ nodes out of disk space.
 If a consumer does not ack its delivery for more than the timeout value (30 minutes by default),
 its channel will be closed with a `PRECONDITION_FAILED` channel exception.
 The error will be [logged](logging.html) by the node that the consumer was
-connected to.
+connected to. All outstanding deliveries on that channel, from all consumers,
+will be [requeued](confirms.html#automatic-requeueing).
 
 The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
 
