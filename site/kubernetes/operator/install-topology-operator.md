@@ -117,6 +117,50 @@ kubectl apply -f messaging-topology-operator.yaml
 
 At this point, the RabbitMQ Messaging Topology Operator is successfully installed.
 
+### <a id="non-default-k8s-domain" class='anchor' href="#non-default-k8s-domain">Using a non-default Kubernetes internal domain</a>
+
+By default, Kubernetes internal domain name is `.cluster.local`. This can be configured
+in `kubeadm` to be something else e.g. `my.cluster.domain`. In such cases, the Messaging
+Topology Operator can append the domain name to the connection strings it uses to interact
+with RabbitMQ.
+
+To configure the Messaging Topology Operator to append the domain name in the connection string,
+set the environment variable `MESSAGING_DOMAIN_NAME` to your domain name e.g. `".my.cluster.domain"`.
+
+To set this environment variable:
+
+- Download the installation manifest from the [releases](https://github.com/rabbitmq/messaging-topology-operator/releases)
+- Open the manifest and search for the Deployment with name `messaging-topology-operator`
+- Add a new element to the `env` list, with name `MESSAGING_DOMAIN_NAME` and value your domain name
+
+The manifest related to the `Deployment` should look similar to this:
+
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  [...]
+  name: messaging-topology-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    [...]
+    spec:
+      containers:
+      - command:
+        - /manager
+        env:
+        - name: OPERATOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MESSAGING_DOMAIN_NAME
+          value: "my.cluster.domain"
+</pre>
+
+Apply the edited manifest. Once the Pod has applied the changes, subsequent HTTP API requests to
+RabbitMQ will append the domain name to the connection string.
+
 ### Older Operator Versions
 
 To install a specific version of the Operator, obtain the manifest link from the
