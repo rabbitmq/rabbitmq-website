@@ -262,6 +262,11 @@ to `at-least-once` and vice versa. If the dead-letter strategy is changed either
 from `at-least-once` to `at-most-once` or indirectly, for example by changing overflow from `reject-publish`
 to `drop-head`, any dead-lettered messages that have not yet been confirmed by all target queues will be deleted.
 
+Messages published to the source quorum queue are persisted on disk regardless of the message delivery mode (transient or persistent).
+However, messages that are dead lettered by the source quorum queue will keep the original message delivery mode.
+This means if dead lettered messages in the target queue should survive a broker restart, the target queue must be durable and
+the message delivery mode must be set to persistent when publishing messages to the source quorum queue.
+
 #### Lazy Mode (before RabbitMQ 3.10)
 
 Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
