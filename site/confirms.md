@@ -253,9 +253,11 @@ and handle it. `basic.reject` and `basic.nack` are two protocol
 methods that are used for that.
 
 The methods are generally used to negatively acknowledge a delivery. Such deliveries can
-be discarded by the broker or requeued. This behaviour is controlled by the `requeue` field.
+be discarded or dead-lettered or requeued by the broker. This behaviour is controlled by the `requeue` field.
 When the field is set to `true`, the broker will requeue the delivery (or multiple
 deliveries, as will be explained shortly) with the specified delivery tag.
+Alternatively, when this field is set to `false`, the message will be routed to a [Dead Letter Exchange](/dlx.html) if it
+is configured, otherwise it will be discarded.
 
 Both methods are usually exposed as operations on a channel in client libraries. Java
 client users will use `Channel#basicReject` and `Channel#basicNack`
