@@ -308,7 +308,8 @@ one for each priority.
 
 #### Poison Message Handling
 
-Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit. This feature is currently unique to Quorum queues.
+Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
+This feature is currently unique to Quorum queues.
 
 #### Policy Support
 
@@ -771,6 +772,12 @@ in that section needs to be acknowledged. Usage patterns that continuously
 [reject or nack](/nack.html) the same message with the `requeue` flag set to true
 could cause the log to grow in an unbounded fashion and eventually fill
 up the disks.
+
+Since RabbitMQ 3.10 messages that are rejected or nacked back to a quorum queue will be
+returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling) is set. This avoids
+the above scenario where repeated re-queues causes the Raft log to grow in an
+unbounded manner. If a `delivery-limit` is set it will use the original behaviour
+of returning the message near the head of the queue.
 
 ### <a id="atom-use" class="anchor" href="#atom-use">Increased Atom Use</a>
 
