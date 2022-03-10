@@ -181,7 +181,7 @@ Since RabbitMQ 3.10 quorum queues support a safer form of dead-lettering that us
 
 This is done by implementing a special, internal dead-letter consumer process
 that works similarly to a normal queue consumer with manual acknowledgements apart
-from it only consuming messages that have been dead-lettered.
+from it only consumes messages that have been dead-lettered.
 
 This means that the source quorum queue will retain the
 dead-lettered messages until they have been acknowledged. The internal consumer
@@ -191,8 +191,8 @@ received, hence providing `at-least-once` guarantees.
 
 `at-most-once` remains the default dead-letter-strategy for quorum queues and is useful for scenarios
 where the dead lettered messages are more of an informational nature and where it does not matter so much
-if they are lost in transit between queues or when below outlined overflow
-configuration restriction is not suitable.
+if they are lost in transit between queues or when the overflow
+configuration restriction outlined below is not suitable.
 
 ##### Enabling at-least-once dead-lettering
 
@@ -238,7 +238,7 @@ There are few cases for which dead lettered messages will not be removed
 from the source queue in a timely manner:
 
 * The configured dead-letter exchange does not exist.
-* No queues can be routed (equivalent to the `mandatory` message property).
+* The messages cannot be routed to any queue (equivalent to the `mandatory` message property).
 * One (of possibly many) routed target queues does not confirm receipt of the message.
 This can happen when a target queue is not available or when a target queue rejects a message
 (e.g. due to exceeded queue length limit).
@@ -308,7 +308,7 @@ one for each priority.
 #### Poison Message Handling
 
 Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
-This feature is currently unique to Quorum queues.
+This feature is currently unique to quorum queues.
 
 #### Policy Support
 
