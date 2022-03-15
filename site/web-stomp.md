@@ -111,7 +111,7 @@ The examples will be available under
  * "echo" - shows how to use STOMP to do simple message broadcasting
  * "bunny" - example of a simple collaboration canvas painting app
 
-We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/tree/master/priv).
+We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_web_stomp_examples/priv).
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
