@@ -23,6 +23,7 @@ This guide covers topics such as:
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
  * [Logging to Syslog](#logging-to-syslog)
+ * [Logging to a system topic exchange](#log-exchange), `amq.rabbitmq.log`
 
 and more.
 
