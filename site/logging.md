@@ -643,3 +643,34 @@ Link events:
 
  * `federation.link.status`
  * `federation.link.removed`
+
+
+## <a id="log-exchange" class="anchor" href="#log-exchange">Consuming Log Entries Using a System Log Exchange</a>
+
+RabbitMQ can forward log entries to a system exchange, `amq.rabbitmq.log`, which
+will be declared in the default [virtual host](vhosts.html).
+
+This feature is disabled by default.
+To enable this logging, set the `log.exchange` configuration key to `true`:
+
+<pre class="lang-ini">
+# enable log forwarding to amq.rabbitmq.log, a topic exchange
+log.exchange = true
+</pre>
+
+`log.exchange.level` can be used to control the [log level](#log-levels) that
+will be used by this logging target:
+
+<pre class="lang-ini">
+log.exchange = true
+log.exchange.level = warning
+</pre>
+
+
+`amq.rabbitmq.log` is a regular topic exchange and can be used as such.
+Log entries are published as messages. Message body contains the logged message
+and routing key is set to the log level.
+
+Application that would like to consume log entries need to declare a queue
+and bind it to the exchange, using a routing key to filter a specific log level,
+or `#` to consume all log entries allowed by the configured log level.
