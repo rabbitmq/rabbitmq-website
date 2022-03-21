@@ -27,7 +27,7 @@ there is a way to configure many things in the broker as well as [plugins](/plug
 This guide covers a number of topics related to configuration:
 
  * [Different ways](#means-of-configuration) in which various settings of the server and plugins are configured
- * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) and optional [advanced.config](#advanced-config-file)
+ * [Configuration file(s)](#configuration-files): primary [rabbitmq.conf](#config-file) or [a directory of .conf files](#config-confd-directory), and optional [advanced.config](#advanced-config-file)
  * Default [configuration file location(s)](#config-location) on various platforms
  * Configuration troubleshooting: how to [find config file location](#verify-configuration-config-file-location) and [inspect and verify effective configuration](#verify-configuration-effective-configuration)
  * [Environment variables](#customise-environment)
@@ -79,7 +79,8 @@ for different areas:
       <a href="#customise-environment">Environment Variables</a>
     </td>
     <td>
-      define <a href="/cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
+      define <a href="/cli.html#node-names">node name</a>, file and directory locations, runtime flags taken from the shell, or set in
+      the environment configuration file, <code>rabbitmq-env.conf</code> (Linux, MacOS, BSD)
       and <code>rabbitmq-env-conf.bat</code> (Windows)
     </td>
   </tr>
@@ -357,9 +358,34 @@ configuration files, [rabbitmq-env.conf](#environment-env-file-unix)
 and [rabbitmq-env-conf.bat](#environment-env-file-windows).
 
 To override the main RabbitMQ config file location, use the `RABBITMQ_CONFIG_FILE`
-[environment variable](#customise-environment). Use `.conf` as file extension
-for the new style config format, e.g. `/etc/rabbitmq/rabbitmq.conf` or
+(or `RABBITMQ_CONFIG_FILES` to use a `conf.d`-style directory of sorted files) [environment variables](#customise-environment).
+Use `.conf` as file extension for the new style config format, e.g. `/etc/rabbitmq/rabbitmq.conf` or
 `/data/configuration/rabbitmq/rabbitmq.conf`
+
+### <a id="config-confd-directory" class="anchor" href="#config-confd-directory">Using a Directory of .conf Files</a>
+
+A `conf.d`-style directory of files can also be used. Use `RABBITMQ_CONFIG_FILES` (note the plural "files")
+to point the node at a directory of such files:
+
+<pre class="lang-ini">
+# uses a directory of .conf files loaded in alphabethical order
+RABBITMQ_CONFIG_FILES=/path/to/a/custom/location/rabbitmq/conf.d
+</pre>
+
+Target directory must contain a number of `.conf` files with the same syntax as `rabbitmq.conf`.
+
+
+They will be **loaded in alphabethical order**. A common naming practice uses numerical prefixes
+in filenames to make it easier to reason about the order, or make sure a "defaults file"
+is always loaded first, regardless of how many extra files are generated at deployment time:
+
+<pre class="lang-bash">
+ls -lh /path/to/a/custom/location/rabbitmq/conf.d
+# => -r--r--r--  1 rabbitmq  rabbitmq    87B Mar 21 19:50 00-defaults.conf
+# => -r--r--r--  1 rabbitmq  rabbitmq   4.6K Mar 21 19:52 10-main.conf
+# => -r--r--r--  1 rabbitmq  rabbitmq   1.6K Mar 21 19:52 20-tls.conf
+# => -r--r--r--  1 rabbitmq  rabbitmq   1.6K Mar 21 19:52 30-federation.conf
+</pre>
 
 ### <a id="advanced-config-file" class="anchor" href="#advanced-config-file">The advanced.config File</a>
 
@@ -458,6 +484,7 @@ RABBITMQ_ADVANCED_CONFIG_FILE=/path/to/a/custom/location/advanced.config
 # overrides environment variable file location
 RABBITMQ_CONF_ENV_FILE=/path/to/a/custom/location/rabbitmq-env.conf
 </pre>
+
 
 ### <a id="config-changes-effects" class="anchor" href="#config-changes-effects">When Will Configuration File Changes Be Applied</a>
 
@@ -1750,6 +1777,19 @@ More variables are covered in the [File and Directory Locations guide](/relocate
           </li>
           <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\rabbitmq.conf</code></li>
         </ul>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>RABBITMQ_CONFIG_FILES</td>
+    <td>
+      Path to a directory of RabbitMQ configuration files in the new-style (.conf) format.
+      The files will be loaded in alphabetical order. Prefixing each files with a number
+      is a common practice.
+
+      <p>
+        <strong>Default</strong>: (none)
       </p>
     </td>
   </tr>
