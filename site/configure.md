@@ -364,7 +364,7 @@ Use `.conf` as file extension for the new style config format, e.g. `/etc/rabbit
 
 ### <a id="config-confd-directory" class="anchor" href="#config-confd-directory">Using a Directory of .conf Files</a>
 
-A `conf.d`-style directory of files can also be used. Use `RABBITMQ_CONFIG_FILES` (note the plural "files")
+A `conf.d`-style directory of files can also be used. Use `RABBITMQ_CONFIG_FILES` (note the plural "_FILES")
 to point the node at a directory of such files:
 
 <pre class="lang-ini">
@@ -1789,7 +1789,19 @@ More variables are covered in the [File and Directory Locations guide](/relocate
       is a common practice.
 
       <p>
-        <strong>Default</strong>: (none)
+        <strong>Default</strong>:
+
+        <ul>
+          <li><b>Generic UNIX</b>: <code>$RABBITMQ_HOME/etc/rabbitmq/conf.d</code>
+          </li>
+          <li><b>Debian</b>: <code>/etc/rabbitmq/conf.d</code></li>
+          <li><b>RPM</b>: <code>/etc/rabbitmq/conf.d</code></li>
+          <li>
+            <b>MacOS(Homebrew)</b>: <code>${install_prefix}/etc/rabbitmq/conf.d</code>,
+            the Homebrew prefix is usually <code>/usr/local</code>
+          </li>
+          <li><b>Windows</b>: <code>%APPDATA%\RabbitMQ\conf.d</code></li>
+        </ul>
       </p>
     </td>
   </tr>
