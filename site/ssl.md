@@ -175,7 +175,7 @@ This guides assumes the user has access to a CA certificate bundle file and two 
 The certificate/key pairs are used by RabbitMQ and clients that connect to the server on a
 TLS-enabled port. The process of generating a Certificate Authority and two key pairs is fairly labourious
 and can be error-prone. An easier way of generating all that
-stuff on MacOS or Linux is with <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
+stuff on MacOS or Linux is with <a href="https://github.com/rabbitmq/tls-gen">tls-gen</a>:
 it requires `Python 3.5+`, `make` and `openssl` in `PATH`.
 
 Note that `tls-gen` and the certificate/key pairs
@@ -193,7 +193,7 @@ Below is an example that generates a CA and uses it to produce two certificate/k
 for the server and another for clients. This is the setup that is expected by the rest of this guide.
 
 <pre class="lang-bash">
-git clone https://github.com/michaelklishin/tls-gen tls-gen
+git clone https://github.com/rabbitmq/tls-gen tls-gen
 cd tls-gen/basic
 # private key password
 make PASSWORD=bunnies

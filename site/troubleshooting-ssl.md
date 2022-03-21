@@ -200,7 +200,7 @@ establish a TLS connection by connecting an <code>s_client</code> client to an <
 in two separate shells (terminal windows).
 
 The example will assume you have the following [certificate and key files](/ssl.html#certificates-and-keys)
-(these filenames are used by [tls-gen](https://github.com/michaelklishin/tls-gen)):
+(these filenames are used by [tls-gen](https://github.com/rabbitmq/tls-gen)):
 
 <table>
   <tr>
@@ -273,7 +273,7 @@ at generation time. This means a certificate meant to be used by clients to auth
 will be rejected by a server, such as a RabbitMQ node.
 
 For environments where self-signed certificates are appropriate,
-we recommend using [tls-gen](https://github.com/michaelklishin/tls-gen) for generation.
+we recommend using [tls-gen](https://github.com/rabbitmq/tls-gen) for generation.
 
 ## <a id="verify-cipher-suites" class="anchor" href="#verify-cipher-suites">Validate Available Cipher Suites</a>
 
