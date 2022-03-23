@@ -39,6 +39,17 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.8.28</td>
+    <td class="centre">23 March 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.28">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.9.13</td>
     <td class="centre">19 January 2022</td>
     <td>
@@ -62,7 +73,7 @@ published separately.
 
   <tr>
     <td class="centre">3.8.27</td>
-    <td class="centre">5 January 2021</td>
+    <td class="centre">5 January 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>
