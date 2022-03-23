@@ -287,8 +287,8 @@ and interpret.
 Message types in practice naturally fall into groups, a dot-separated naming convention is
 common (but not required by RabbitMQ or clients), e.g. `orders.created` or `logs.line` or `profiles.image.changed`.
 
-If a consumer gets a delivery of an unknown type it is highly advised to log such events to make troubleshooting
-easier.
+If a consumer gets a delivery of a type it cannot handle, it is highly advised to log
+such events to make troubleshooting easier.
 
 
 ### Content Type and Encoding

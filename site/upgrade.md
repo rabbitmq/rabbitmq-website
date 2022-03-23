@@ -652,10 +652,10 @@ appropriate repositories for Erlang.
 
 ### If running RabbitMQ in a cluster, select the cluster upgrade strategy.
 
-    It can be possible to do a rolling upgrade,
-    if Erlang version and RabbitMQ version changes support it.
+It can be possible to do a rolling upgrade,
+if Erlang version and RabbitMQ version changes support it.
 
-    See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
+See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
 
 ### Assess Cluster Health
 

@@ -87,6 +87,15 @@ file and directories have sufficient permissions
     </td>
   </tr>
   <tr>
+    <td>RABBITMQ_CONFIG_FILES</td>
+    <td>
+      Path to a directory of RabbitMQ configuration files in the new-style (.conf) format.
+      The files will be loaded in alphabetical order. Prefixing each files with a number
+      is a common practice. See <a href="/configure.html">Configuration guide</a>
+      for more information.
+    </td>
+  </tr>
+  <tr>
     <td>RABBITMQ_GENERATED_CONFIG_DIR</td>
     <td>
       The directory where RabbitMQ writes its generated configuration

@@ -313,7 +313,7 @@ which in some cases can mean public networks, for example, behind a load balance
 
 We recommend using [TLS connections](ssl.html) when possible,
 at least to encrypt traffic. Peer verification (authentication) is also recommended.
-Development and QA environments can use [self-signed TLS certificates](https://github.com/michaelklishin/tls-gen/).
+Development and QA environments can use [self-signed TLS certificates](https://github.com/rabbitmq/tls-gen/).
 Self-signed certificates can be appropriate in production environments when
 RabbitMQ and all applications run on a trusted network or isolated using technologies
 such as VMware NSX.
