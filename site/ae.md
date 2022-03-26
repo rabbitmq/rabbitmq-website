@@ -63,6 +63,8 @@ This will apply an AE of "my-ae" to the exchange called
 "my-direct". Policies can also be defined using the management
 plugin, see the [policy documentation](parameters.html#policies) for more details.
 
+
+
 ### <a id="define-using-arguments" class="anchor" href="#define-using-arguments">Configuration Using Client-provided Arguments</a>
 
 This way of defining an alternate exchange is discouraged. Consider
