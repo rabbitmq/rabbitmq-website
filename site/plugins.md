@@ -331,7 +331,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-amqp1.0/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-amqp1.0/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -356,7 +356,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -370,7 +370,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -383,7 +383,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -408,6 +408,13 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
         of use when using rabbitmq_federation in conjunction with
         <code>rabbitmq_management</code>. In a heterogenous cluster this
         should be installed on the same nodes as rabbitmq_management.
+      </td>
+    </tr>
+
+    <tr>
+      <th>rabbitmq_jms_topic_exchange</th>
+      <td>
+        A special exchange type to be used with the <a href="https://github.com/rabbitmq/rabbitmq-jms-client">RabbitMQ JMS client</a>.
       </td>
     </tr>
 
@@ -506,7 +513,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
         Provides a client x509 certificate trust store.
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-trust-store/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-trust-store/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -545,7 +552,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/v3.7.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/v3.9.x/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
