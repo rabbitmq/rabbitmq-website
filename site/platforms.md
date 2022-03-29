@@ -39,7 +39,7 @@ following platforms:
  * [Fedora, RHEL, CentOS and RPM-based](/install-rpm.html) Linux distributions
  * [Windows Server](/install-windows.html)
  * [macOS](/install-generic-unix.html)
- * openSUSE and derived distributions (including SLES and SLERT)
+ * openSUSE Leap
 
 
 ## <a id="commercial-support" class="anchor" href="#commercial-support">Commercially Supported Platforms</a>

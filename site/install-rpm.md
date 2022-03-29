@@ -102,7 +102,7 @@ There are three alternative sources for modern Erlang on RPM-based distributions
  * Team RabbitMQ produces [a package](https://github.com/rabbitmq/erlang-rpm) stripped
    down to only provide those components needed to run
    RabbitMQ. This is the recommended option.
- * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for both openSUSE and SLES
+ * [openSUSE](https://www.opensuse.org/) produces [Erlang packages](https://software.opensuse.org/download.html?project=devel%3Alanguages%3Aerlang%3AFactory&package=erlang) for openSUSE Leap
  * [Erlang Solutions](https://www.erlang-solutions.com/resources/download.html) produces packages that are usually reasonably up to
    date and involve installation of a potentially excessive list of dependencies
 
@@ -184,7 +184,7 @@ rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
-between distributions (e.g. CentOS Stream, CentOS 8, CentOS 7 or OpenSUSE).
+between distributions (e.g. CentOS Stream 9, CentOS Stream 8, or OpenSUSE).
 
 #### Red Hat 8, CentOS Stream 9, CentOS 8, Modern Fedora Releases
 
@@ -360,12 +360,13 @@ rpm --import 'https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F458
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
 added under the `/etc/yum.repos.d/` directory. The contents of the file will vary slightly
-between distributions (e.g. CentOS Stream, CentOS 8, CentOS 7 or OpenSUSE).
+between distributions (e.g. CentOS Stream 9, CentOS Stream 8, or OpenSUSE).
 
 #### Red Hat 8, CentOS 8, Modern Fedora Releases
 
 The following example sets up a repository that will install RabbitMQ and its Erlang dependency from Cloudsmith,
-and targets **CentOS 8**. The same repository definition **can be used by recent Fedora releases**.
+and targets **CentOS Stream 8**. The same repository definition **can be used by recent Fedora releases**
+and CentOS Stream 9.
 
 <pre class="lang-ini">
 # In /etc/yum.repos.d/rabbitmq.repo
@@ -589,10 +590,8 @@ rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabb
 ## install these dependencies from standard OS repositories
 yum install socat logrotate -y
 
-# This example assumes the CentOS 8 version of the package, suitable for
-# Red Hat 8, CentOS Stream 9, CentOS 8 and modern Fedora releases.
-#
-# For Red Hat 7 or CentOS 7, replace "el8" with "el7".
+# This example assumes the CentOS Stream 8 version of the package, suitable for
+# Red Hat 8, CentOS Stream 9, CentOS Stream 8 and modern Fedora releases.
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 </pre>
 
@@ -605,9 +604,7 @@ rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 yum install socat logrotate -y
 
 # This example assumes the CentOS 8 version of the package, suitable for
-# Red Hat 8, CentOS Stream 9, CentOS 8 and modern Fedora releases.
-#
-# For Red Hat 7 or CentOS 7, replace "el8" with "el7".
+# Red Hat 8, CentOS Stream 9, CentOS Stream 8 and modern Fedora releases.
 yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el8.noarch.rpm
 </pre>
 
@@ -946,109 +943,3 @@ The broker always appends to the [log files](logging.html), so a complete log hi
 By default, the package will set up `logrotate` to run weekly on files located in default
 `/var/log/rabbitmq` directory. Rotation configuration can be found in
 `/etc/logrotate.d/rabbitmq-server`.
-
-
-## <a id="yum-legacy" class="anchor" href="#yum-legacy">Install on Older Distributions (CentOS 7, RHEL 7) Using PackageCloud Yum Repository</a>
-
-This section covers installation on RHEL 7 and CentOS 7. CentOS 7 has
-reached the [end of general support](https://wiki.centos.org/About/Product) and is no
-longer supported. Its use is therefore **highly discouraged**.
-
-Yum will verify signatures of any packages it installs, therefore the first step
-in the process is to import the signing key
-
-<pre class="lang-bash">
-## primary RabbitMQ signing key
-rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-## modern Erlang repository
-rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
-## RabbitMQ server repository
-rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
-</pre>
-
-### Add Yum Repositories for RabbitMQ and Modern Erlang
-
-In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
-added under the `/etc/yum.repos.d/` directory.
-#### Red Hat 7, CentOS 7
-
-The following example sets up a repository that will install RabbitMQ and its Erlang dependency from PackageCloud,
-and targets **CentOS 7**. There are slight differences to CentOS 8 instructions.
-
-<pre class="lang-ini">
-# In /etc/yum.repos.d/rabbitmq.repo
-
-##
-## Zero dependency Erlang
-##
-
-[rabbitmq_erlang]
-name=rabbitmq_erlang
-baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/$basearch
-repo_gpgcheck=1
-gpgcheck=1
-enabled=1
-# PackageCloud's repository key and RabbitMQ package signing key
-gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
-       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-
-[rabbitmq_erlang-source]
-name=rabbitmq_erlang-source
-baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/SRPMS
-repo_gpgcheck=1
-gpgcheck=0
-enabled=1
-gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-
-##
-## RabbitMQ server
-##
-
-[rabbitmq_server]
-name=rabbitmq_server
-baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/$basearch
-repo_gpgcheck=1
-gpgcheck=1
-enabled=1
-# PackageCloud's repository key and RabbitMQ package signing key
-gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
-       https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-
-[rabbitmq_server-source]
-name=rabbitmq_server-source
-baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/SRPMS
-repo_gpgcheck=1
-gpgcheck=0
-enabled=1
-gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-</pre>
-
-### Install Packages with Yum
-#### CentOS 7
-
-Update Yum package metadata:
-
-<pre class="lang-bash">
-yum update -y
-</pre>
-
-Next, install the packages:
-
-<pre class="lang-bash">
-## install these dependencies from standard OS repositories
-yum install socat logrotate -y
-
-yum install erlang rabbitmq-server -y
-</pre>
