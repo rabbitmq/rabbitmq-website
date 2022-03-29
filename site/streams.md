@@ -482,3 +482,8 @@ model is mostly capable of containing all of AMQP 0.9.1's data model there are s
 limitations. If an AMQP 0.9.1 message contains header entries with complex values
 such as arrays or tables these headers will not be converted. That is because headers are stored as application properties inside the AMQP 1.0 message and these can only
 contain values of simple types, such as strings and numbers.
+
+
+The management UI could show a message count bigger than the actual messages.
+Streams use the store messages files to track the offsets, so the offsets are included in the messages count.
+This limitation affects only the statistics.
