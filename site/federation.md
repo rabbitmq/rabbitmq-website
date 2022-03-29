@@ -108,10 +108,10 @@ In practice, for simple use cases you can almost ignore the
 existence of upstream sets, since there is an implicitly-defined upstream set called <code>all</code>
 to which all upstreams are added.
 
-Upstreams and upstream sets are both instances of [runtime parameters](/parameters.html).
+Upstreams and upstream sets are both instances of [runtime parameters](parameters.html).
 Like exchanges and queues, each virtual host has its own distinct set of parameters and policies. For more
 generic information on parameters and policies, see the guide on
-[parameters and policies](/parameters.html).
+[parameters and policies](parameters.html).
 For full details on the parameters used by federation, see the [federation reference](federation-reference.html).
 
 Parameters and policies can be set in three ways - either with
@@ -134,7 +134,7 @@ First let's define an upstream:
     <th>rabbitmqctl</th>
     <td>
 <pre class="lang-bash">
-rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://server-name","expires":3600000}'
+rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://target.hostname","expires":3600000}'
 </pre>
     </td>
   </tr>
@@ -142,7 +142,7 @@ rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://
     <th>rabbitmqctl.bat (Windows)</th>
     <td>
 <pre class="lang-powershell">
-rabbitmqctl.bat set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://server-name"",""expires"":3600000}"
+rabbitmqctl.bat set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://target.hostname"",""expires"":3600000}"
 </pre>
     </td>
   </tr>
@@ -151,7 +151,7 @@ rabbitmqctl.bat set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""
     <td>
 <pre class="lang-bash">
 PUT /api/parameters/federation-upstream/%2f/my-upstream
-{"value":{"uri":"amqp://server-name","expires":3600000}}
+{"value":{"uri":"amqp://target.hostname","expires":3600000}}
 </pre>
     </td>
   </tr>
@@ -160,7 +160,7 @@ PUT /api/parameters/federation-upstream/%2f/my-upstream
     <td>
       Navigate to <code>Admin</code> > <code>Federation Upstreams</code> >
       <code>Add a new upstream</code>. Enter "my-upstream" next to Name,
-      "amqp://server-name" next to URI, and 36000000 next to
+      "amqp://target.hostname" next to URI, and 36000000 next to
       Expiry. Click Add upstream.
     </td>
   </tr>
@@ -295,15 +295,15 @@ can. To summarise how clustering and federation interact:
 
 Federation connections (links) can be secured with TLS. Because Federation uses
 a RabbitMQ client under the hood, it is necessary to both configure
-source broker to [listen for TLS connections](/ssl.html)
+source broker to [listen for TLS connections](ssl.html)
 and Federation/Erlang client to use TLS.
 
 To configure Federation to use TLS, one needs to
 
  * Use the <code>amqps</code> URI scheme instead of <code>amqp</code>
- * Specify CA certificate and client certificate/key pair via [URI query parameters](/uri-query-parameters.html)
+ * Specify CA certificate and client certificate/key pair via [URI query parameters](uri-query-parameters.html)
    when configuring upstream(s)
- * [Configure Erlang client to use TLS](/ssl.html)
+ * [Configure Erlang client to use TLS](ssl.html)
 
 Just like with "regular" client connections, server's CA should be
 trusted on the node where federation link(s) runs, and vice versa.
@@ -319,7 +319,7 @@ plugin.
 
 ### Using CLI Tools
 
-Federation link status can be inspected using [RabbitMQ CLI tools](/cli.html).
+Federation link status can be inspected using [RabbitMQ CLI tools](cli.html).
 
 Invoke:
 
@@ -413,7 +413,7 @@ rabbitmqctl federation_status
 
 ### Using the Management UI
 
-Enable the <code>rabbitmq_federation_management</code> [plugin](/plugins.html) that extends
-[management UI](/management.html) with a new page that displays federation links in the cluster.
+Enable the <code>rabbitmq_federation_management</code> [plugin](plugins.html) that extends
+[management UI](management.html) with a new page that displays federation links in the cluster.
 It can be found under `Admin` > `Federation Status`, or by using the
 <code>GET /api/federation-links</code> HTTP API endpoint.

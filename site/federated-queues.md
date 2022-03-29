@@ -48,7 +48,7 @@ need to be reconfigured. They are assumed to be located on a separate node or in
 cluster.
 
 An upstream definition is a URI with certain recognised query parameters that
-control link connection parameters. Upstreams can be managed using [CLI tools](/cli.html)
+control link connection parameters. Upstreams can be managed using [CLI tools](cli.html)
 or the HTTP API with [an additional plugin](https://github.com/rabbitmq/rabbitmq-federation-management).
 
 The following diagram demonstrates several federated and unfederated
@@ -105,7 +105,7 @@ and what other nodes messages should be consumed from, _downstream_
 
 <img src="/img/federation/federated_queues01.png" width="700" alt="Federated queue policies" />
 
-Federation configuration uses [runtime parameters and policies](/parameters.html), which means it can be configured
+Federation configuration uses [runtime parameters and policies](parameters.html), which means it can be configured
 and reconfigured on the fly as system topology changes. There are two key pieces of configuration involved:
 
 * Upstreams: these are remote endpoints in a federated system
@@ -134,13 +134,11 @@ rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://loca
 </pre>
 
 Once an upstream has been specified, a policy that controls federation can be added.
-It is added just like any other [policy](/parameters.html#policies), using `rabbitmqctl set_policy`:
+It is added just like any other [policy](parameters.html#policies), using `rabbitmqctl set_policy`:
 
 <pre class="lang-bash">
 # Adds a policy named "queue-federation"
-rabbitmqctl set_policy queue-federation \
-    "^federated\." \
-    '{"federation-upstream-set":"all"}' \
+rabbitmqctl set_policy queue-federation "^federated\." '{"federation-upstream-set":"all"}' \
     --priority 10 \
     --apply-to queues
 </pre>
@@ -149,9 +147,7 @@ Here's a Windows version of the above example:
 
 <pre class="lang-powershell">
 # Adds a policy named "queue-federation"
-rabbitmqctl.bat set_policy queue-federation ^
-    "^federated\." ^
-    "{""federation-upstream-set"":""all""}" ^
+rabbitmqctl.bat set_policy queue-federation "^federated\." "{""federation-upstream-set"":""all""}" ^
     --priority 10 ^
     --apply-to queues
 </pre>
@@ -163,7 +159,7 @@ the one with the highest priority will be used. Multiple policy definitions will
 priorities are equal.
 
 Once configured, a federation link (connection) will be opened for every matching queue and upstream pair.
-By "matching queue" here we mean a queue that is matched by the [federation policy pattern](/parameters.html#policies).
+By "matching queue" here we mean a queue that is matched by the [federation policy pattern](parameters.html#policies).
 If no queues matched, no links will be started.
 
 To disable federation for the matching queues, delete the policy using its name:
