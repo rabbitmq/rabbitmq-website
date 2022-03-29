@@ -483,7 +483,8 @@ limitations. If an AMQP 0.9.1 message contains header entries with complex value
 such as arrays or tables these headers will not be converted. That is because headers are stored as application properties inside the AMQP 1.0 message and these can only
 contain values of simple types, such as strings and numbers.
 
+### <a id="limitations-ui-metrics" class="anchor" href="#limitations-ui-metrics">UI Metric Accuracy</a>
 
-The management UI could show a message count bigger than the actual messages.
-Streams use the store messages files to track the offsets, so the offsets are included in the messages count.
-This limitation affects only the statistics.
+Management UI can show a message count that slightly exceeds the actual stream size.
+Due to current implementation limitations, the offsets will be included into the messages count.
+This should make no practical difference in most systems.
