@@ -476,15 +476,18 @@ stream will grow on disk by some small amount per offset persistence request.
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
+### <a id="limitations-message-encoding" class="anchor" href="#limitations-message-encoding">Message Encoding</a>
+
 Streams internally store their messages as AMQP 1.0 encoded data. This means when
 publishing using AMQP 0.9.1 a conversion takes place. Although the AMQP 1.0 data
 model is mostly capable of containing all of AMQP 0.9.1's data model there are some
 limitations. If an AMQP 0.9.1 message contains header entries with complex values
-such as arrays or tables these headers will not be converted. That is because headers are stored as application properties inside the AMQP 1.0 message and these can only
+such as arrays or tables these headers will not be converted.
+That is because headers are stored as application properties inside the AMQP 1.0 message and these can only
 contain values of simple types, such as strings and numbers.
 
 ### <a id="limitations-ui-metrics" class="anchor" href="#limitations-ui-metrics">UI Metric Accuracy</a>
 
-Management UI can show a message count that slightly exceeds the actual stream size.
-Due to current implementation limitations, the offsets will be included into the messages count.
+Management UI can show a message count that slightly exceeds the actual count in the stream.
+Due to the way stream storage is implemented, offset tracking information is also counted as messages, making the message count artificially larger than it is.
 This should make no practical difference in most systems.
