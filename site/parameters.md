@@ -111,7 +111,6 @@ Vhost-scoped parameters are used by the federation and shovel plugins.
 Global parameters are used by the MQTT plugin.
 
 ## <a id="policies" class="anchor" href="#policies">Policies</a>
-
 ### <a id="why-policies-exist" class="anchor" href="#why-policies-exist">Why Policies Exist</a>
 
 Before we explain what policies are and how to use them it would
@@ -123,8 +122,8 @@ queues and exchanges in RabbitMQ have optional parameters
 (arguments), sometimes referred to as
 `x-arguments`. Those are provided by clients when
 they declare queues (exchanges) and control various optional
-features, such as [queue length limit](/maxlength.html) or
-[TTL](/ttl.html).
+features, such as [queue length limit](maxlength.html) or
+[TTL](ttl.html).
 
 Client-controlled properties in some of the protocols RabbitMQ supports
 generally work well but they can be inflexible: updating TTL values
@@ -154,19 +153,17 @@ Key policy attributes are
   Any regular expression can be used.
 * definition: a set of key/value pairs (think a JSON document) that will be injected
   into the map of optional arguments of the matching queues and exchanges
-* priority: see below
+* [policy priority](#policy-priorities) used to determine which policy should be
+  applied to a queue or exchange if multiple policies match its name
 
 Policies automatically match against exchanges and queues,
 and help determine how they behave. Each exchange or queue
-will have at most one policy matching (see <a
-href="#combining-policy-definitions">Combining Policy
-Definitions</a> below), and each policy then injects a set
-of key-value pairs (policy definition) on to the matching
+will have at most one policy matching (see <a href="#combining-policy-definitions">Combining Policy Definitions</a> below),
+and each policy then injects a set of key-value pairs (policy definition) on to the matching
 queues (exchanges).
 
 Policies can match only queues, only exchanges, or both.
-This is controlled using the `apply-to` flag
-when a policy is created.
+This is controlled using the `apply-to` flag when a policy is created.
 
 Policies can change at any time. When a policy definition is
 updated, its effect on matching exchanges and queues will be
@@ -262,6 +259,24 @@ The `"apply-to"` argument can be `"exchanges"`,
 `"queues"` or `"all"`. The `"apply-to"`
 and `"priority"` settings are optional, in which case the
 defaults are `"all"` and `"0"` respectively.
+
+### <a id="policy-priorities" class="anchor" href="#policy-priorities">Policy Priorities</a>
+
+Policy **patterns** are matched against exchange and queue **names** to determine what policy (if any)
+should then inject a set of key-value pairs (the definition of that policy) into the [optional arguments](queues.html#optional-arguments)
+of matching queues (exchanges).
+
+**At most one policy matches** a queue or exchange. Since multiple policies can match a single
+name, a mechanism is needed to resolve such policy conflicts. This mechanism is called policy priorities.
+Every policy has a a numeric priority associated with it. This priority can be specified when declaring
+a policy. If not explicitly provided, the priority of 1 will be used.
+
+Matching policies are then sorted by priority and the one with the highest priority will take
+effect.
+
+When multiple policies match an entity and they all have equal priorities, the effective one
+will be chosen undeterministically. **Such cases should be avoided** by paying attention
+to what priorities various policies use.
 
 ### <a id="combining-policy-definitions" class="anchor" href="#combining-policy-definitions">Combining Policy Definitions</a>
 

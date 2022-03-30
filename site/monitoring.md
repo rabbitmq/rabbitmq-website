@@ -410,7 +410,7 @@ via the `GET /api/queues/{vhost}/{qname}` endpoint.
     </tr>
     <tr>
       <td>Message delivery rate</td>
-      <td><code>message_stats.deliver_get.rate</code></td>
+      <td><code>message_stats.deliver_get_details.rate</code></td>
     </tr>
     <tr>
       <td>Other message stats</td>

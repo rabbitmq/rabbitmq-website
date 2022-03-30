@@ -32,7 +32,12 @@ Alternate Exchange ("AE") is a feature that addresses these use cases.
 ## <a id="define" class="anchor" href="#define">How to Define an Alternate Exchange</a>
 
 For any given exchange, an AE can be defined by clients using
-[policies](/parameters.html#policies) or the exchange's client-provided options arguments ("x-args").
+[policies](parameters.html#policies). This is the recommended option
+as policies are significantly simplify changes to such options (e.g. during
+upgrades).
+
+Alternatively, optional exchange arguments can be provided by client
+at exchange declaration time.
 In the case where both policy and arguments specify an AE, the one
 specified in arguments overrules the one specified in policy.
 
@@ -45,18 +50,20 @@ to a policy definition and make sure that the policy matches the exchange(s)
 that need the AE defined. For example:
 
 <pre class="lang-bash">
-rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}'
+rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}' --apply-to exchanges
 </pre>
 
 Or, on Windows:
 
 <pre class="lang-powershell">
-rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}"
+rabbitmqctl.bat set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}" --apply-to exchanges
 </pre>
 
 This will apply an AE of "my-ae" to the exchange called
 "my-direct". Policies can also be defined using the management
 plugin, see the [policy documentation](parameters.html#policies) for more details.
+
+
 
 ### <a id="define-using-arguments" class="anchor" href="#define-using-arguments">Configuration Using Client-provided Arguments</a>
 
