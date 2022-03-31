@@ -19,6 +19,7 @@ This guide covers topics such as:
  * How to [tail logs of a running node](#log-tail) without having access to the log file
  * Watching [internal events](#internal-events)
  * [Connection lifecycle events](#logged-events) logged
+ * [Logging in JSON](#json)
  * [Log categories](#log-message-categories)
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
@@ -261,7 +262,7 @@ log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
 </pre>
 
-To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
+To use TLS, a standard set of <a href="ssl.html">TLS options</a> must be provided:
 
 <pre class="lang-ini">
 log.syslog = true
@@ -301,9 +302,46 @@ log.syslog.identity = my_rabbitmq
 log.syslog.facility = user
 </pre>
 
+Logging to Syslog in JSON format:
+
+<pre class="lang-ini">
+log.syslog = true
+
+log.syslog.formatter = json
+</pre>
+
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
 be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
+
+## <a id="json" class="anchor" href="#json">JSON Logging</a>
+
+RabbitMQ nodes can format log messages as JSON, which can be convenient for parsing by other pieces of software.
+
+Logging to a file in JSON format:
+
+<pre class="lang-ini">
+log.file.level = info
+log.file.formatter = json
+</pre>
+
+Logging to the console in JSON format:
+
+<pre class="lang-ini">
+log.console = true
+log.console.level = info
+log.console.formatter = json
+
+log.file = false
+</pre>
+
+Logging to Syslog in JSON format:
+
+<pre class="lang-ini">
+log.syslog = true
+
+log.syslog.formatter = json
+</pre>
 
 ## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
 
