@@ -56,7 +56,7 @@ can involve vhosts in different clusters or the same cluster (or a single node).
 [RabbitMQ Shovel plugin](shovel.html) is one example of such application.
 
 
-## <a id="creating" class="anchor" href="#creating">Creating a Virtual Hosts</a>
+## <a id="creating" class="anchor" href="#creating">Creating a Virtual Host</a>
 
 A virtual host can be created using CLI tools or an [HTTP API](/management.html) endpoint.
 
@@ -103,7 +103,7 @@ and delays should be introduced between operations.
 way of pre-configuring many virtual hosts at deployment time.
 
 
-## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Hosts</a>
+## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Host</a>
 
 A virtual host can be deleted using CLI tools or an [HTTP API](/management.html) endpoint.
 
