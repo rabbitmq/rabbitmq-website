@@ -105,7 +105,7 @@ way of pre-configuring many virtual hosts at deployment time.
 
 ## <a id="deleting" class="anchor" href="#deleting">Deleting a Virtual Hosts</a>
 
-A virtual host can be created using CLI tools or an [HTTP API](/management.html) endpoint.
+A virtual host can be deleted using CLI tools or an [HTTP API](/management.html) endpoint.
 
 Deleting a virtual host will permanently delete all entities (queues, exchanges, bindings, policies, permissions, etc) in it.
 
