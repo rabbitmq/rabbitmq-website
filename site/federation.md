@@ -98,9 +98,9 @@ Information about federation upstreams is stored in the RabbitMQ
 database, along with users, permissions, queues, etc. There
 are three levels of configuration involved in federation:
 
-* **Upstreams**: each upstream defines how to connect to another broker.
-* **Upstream sets**: each upstream set groups together a set of upstreams to use for federation.
-* **Policies**: each [policy](/parameters.html#policies) selects a set of exchanges,
+* **Upstreams**: each [upstream](federation-reference.html#upstreams) defines a remote connection endpoint.
+* **Upstream sets**: each [upstream set groups](federation-reference.html#upstream-sets) together a set of upstreams to use for federation.
+* **Policies**: each [policy](parameters.html#policies) selects a set of exchanges,
   queues or both, and applies a single upstream or an upstream
   set to those objects.
 
