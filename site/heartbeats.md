@@ -86,7 +86,10 @@ connection but some only do it when necessary.
 
 ## <a id="disabling" class="anchor" href="#disabling">How to Disable Heartbeats</a>
 
-Heartbeats can be disabled by setting the timeout interval to `0` on the client side at connection time, providing the server heartbeat has also been set to zero.
+Heartbeats can be disabled by setting the timeout interval to `0` on the client side at connection time,
+providing the server heartbeat has also been set to zero.
+This is **highly recommended against**
+unless the environment is known to use [TCP keepalives](#tcp-keepalives) on every host (both RabbitMQ nodes and applications).
 
 Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively disable heartbeats
 as frame delivery will be too infrequent to make a practical difference.
