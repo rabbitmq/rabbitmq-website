@@ -603,16 +603,20 @@ can safely call blocking methods on the
 `Connection` or `Channel`, such as
 `Channel#queueDeclare` or `Channel#basicCancel`.
 
-Each `Channel` has its own dispatch thread. For the
-most common use case of one `Consumer` per
+Each `Channel` will dispatch all deliveries to its `Consumer` handler methods on it
+in order they were sent by RabbitMQ.
+Ordering of deliveries between channels is not guaranteed: those
+deliveries can be dispatched in parallel.
+
+For the most common use case of one `Consumer` per
 `Channel`, this means `Consumer`s do
-not hold up other `Consumer`s. If you have multiple
-`Consumer`s per `Channel` be aware that
+not hold up other `Consumer`s.
+With multiple `Consumer`s per `Channel` be aware that
 a long-running `Consumer` may hold up dispatch of
 callbacks to other `Consumer`s on that
 `Channel`.
 
-Please refer to the Concurrency Considerations (Thread Safety)
+Please refer to the [Concurrency Considerations](#concurrency) (Thread Safety)
 section for other topics related to concurrency and
 concurrency hazard safety.
 
