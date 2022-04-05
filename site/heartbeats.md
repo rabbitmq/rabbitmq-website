@@ -86,7 +86,8 @@ connection but some only do it when necessary.
 
 ## <a id="disabling" class="anchor" href="#disabling">How to Disable Heartbeats</a>
 
-Heartbeats can be disabled by setting the timeout interval to `0` on the client side at connection time.
+To disable heartbeats, both peers have to opt in and use the value of `0`. This is **highly recommended against**
+unless the environment is known to use [TCP keepalives](#tcp-keepalives) on every host.
 
 Alternatively a very high (say, 1800 seconds) value can be used on both ends to effectively disable heartbeats
 as frame delivery will be too infrequent to make a practical difference.
