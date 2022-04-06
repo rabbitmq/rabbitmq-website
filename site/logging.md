@@ -19,6 +19,7 @@ This guide covers topics such as:
  * How to [tail logs of a running node](#log-tail) without having access to the log file
  * Watching [internal events](#internal-events)
  * [Connection lifecycle events](#logged-events) logged
+ * [Logging in JSON](#json)
  * [Log categories](#log-message-categories)
  * How to [inspect service logs](#service-logs) on systemd-based Linux systems
  * [Log rotation](#log-rotation)
@@ -31,12 +32,12 @@ and more.
 
 Modern RabbitMQ versions use a single log file by default.
 
-Please see the [File and Directory Location](/relocate.html) guide to find default log file location for various platforms.
+Please see the [File and Directory Location](relocate.html) guide to find default log file location for various platforms.
 
-There are two ways to configure log file location. One is the [configuration file](configure.html).
-The other is the `RABBITMQ_LOGS` environment variable.
+There are two ways to configure log file location. One is the [configuration file](configure.html). This option is recommended.
+The other is the `RABBITMQ_LOGS` environment variable. It can be useful in development environments.
 
-Use [RabbitMQ management UI](/management.html) or [`rabbitmq-diagnostics status`](/cli.html)
+Use [RabbitMQ management UI](management.html) or [`rabbitmq-diagnostics -q log_location`](cli.html)
 to find when a node stores its log file(s).
 
 The `RABBITMQ_LOGS` variable value can be either a file path or a hyphen (`-`).
@@ -67,9 +68,11 @@ messages.
 
 ### <a id="logging-to-a-file" class="anchor" href="#logging-to-a-file">Logging to a File</a>
 
- * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](configure.html).
- * `log.file.level`: log level for the file output. Default level is `info`.
- * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings.
+ * `log.file`: log file path or `false` to disable the file output. Default value is taken from the `RABBITMQ_LOGS` [environment variable or configuration file](configure.html)
+ * `log.file.level`: log level for the file output. Default level is `info`
+ * `log.file.formatter`: controls log entry format, text lines or JSON
+ * `log.file.rotation.date`, `log.file.rotation.size`, `log.file.rotation.count` for log file rotation settings
+ * `log.file.formatter.time_format`: controls timestamp formatting
 
 The following example overrides log file name:
 
@@ -89,13 +92,30 @@ The following example instructs RabbitMQ to log to a file at the `debug` level:
 log.file.level = debug
 </pre>
 
+Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbit/docs/rabbitmq.conf.example).
+
 Logging to a file can be disabled with
 
 <pre class="lang-ini">
 log.file = false
 </pre>
 
-Find supported log levels in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/rabbitmq.conf.example).
+Logging in JSON format to a file:
+
+<pre class="lang-ini">
+log.file.formatter = json
+</pre>
+
+By default, RabbitMQ will use RFC 3339 timestamp format. It is possible
+to switch to a UNIX epoch-based format:
+
+<pre class="lang-ini">
+log.file = true
+log.file.level = info
+
+# use microseconds since UNIX epoch for timestamp format
+log.file.formatter.time_format = epoch_usecs
+</pre>
 
 The rest of this guide describes more options, including [more advanced ones](#advanced-configuration).
 
@@ -155,8 +175,10 @@ located in default `/var/log/rabbitmq` directory. Rotation configuration can be 
 
 Here are the main settings that control console (standard output) logging:
 
- * `log.console` (boolean): set to `true` to enable console output. Default is `false`
- * `log.console.level`: log level for the console output. Default level is `info`.
+ * `log.console` (boolean): set to `true` to enable console output. Default is `false
+ * `log.console.level`: log level for the console output. Default level is `info`
+ * `log.console.formatter`: controls log entry format, text lines or JSON
+ * `log.console.formatter.time_format`: controls timestamp formatting
 
 To enable console logging, use the following config snippet:
 
@@ -176,8 +198,36 @@ The following example instructs RabbitMQ to use the `debug` logging level when l
 log.console.level = debug
 </pre>
 
+Supported log levels ca be found in the [example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbit/docs/rabbitmq.conf.example).
+
+Logging to console in JSON format:
+
+<pre class="lang-ini">
+log.console.formatter = json
+</pre>
+
 When console output is enabled, the file output will also be enabled by default.
-To disable the file output, set `log.file` to `false`.
+To disable the file output, set `log.file` to `false`:
+
+<pre class="lang-ini">
+log.console = true
+log.console.level = info
+
+log.file = false
+</pre>
+
+By default, RabbitMQ will use RFC 3339 timestamp format. It is possible
+to switch to a UNIX epoch-based format:
+
+<pre class="lang-ini">
+log.console = true
+log.console.level = info
+
+log.file = false
+
+# use microseconds since UNIX epoch for timestamp format
+log.console.formatter.time_format = epoch_usecs
+</pre>
 
 Please note that `RABBITMQ_LOGS=-` will disable the file output
 even if `log.file` is configured.
@@ -212,7 +262,7 @@ log.syslog.transport = tcp
 log.syslog.protocol = rfc5424
 </pre>
 
-To TLS, a standard set of <a href="/ssl.html">TLS options</a> must be provided:
+To use TLS, a standard set of <a href="ssl.html">TLS options</a> must be provided:
 
 <pre class="lang-ini">
 log.syslog = true
@@ -252,9 +302,46 @@ log.syslog.identity = my_rabbitmq
 log.syslog.facility = user
 </pre>
 
+Logging to Syslog in JSON format:
+
+<pre class="lang-ini">
+log.syslog = true
+
+log.syslog.formatter = json
+</pre>
+
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
 be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
+
+## <a id="json" class="anchor" href="#json">JSON Logging</a>
+
+RabbitMQ nodes can format log messages as JSON, which can be convenient for parsing by other pieces of software.
+
+Logging to a file in JSON format:
+
+<pre class="lang-ini">
+log.file.level = info
+log.file.formatter = json
+</pre>
+
+Logging to the console in JSON format:
+
+<pre class="lang-ini">
+log.console = true
+log.console.level = info
+log.console.formatter = json
+
+log.file = false
+</pre>
+
+Logging to Syslog in JSON format:
+
+<pre class="lang-ini">
+log.syslog = true
+
+log.syslog.formatter = json
+</pre>
 
 ## <a id="log-message-categories" class="anchor" href="#log-message-categories">Log Message Categories</a>
 

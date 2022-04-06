@@ -135,7 +135,19 @@ set the `load_definitions` config key to a path of a previously exported JSON fi
 load_definitions = /path/to/definitions/file.json
 </pre>
 
-In modern RabbitMQ versions, definition import happens after plugin activation.
+From RabbitMQ `3.9.4` you can import definitions from a URL accessible over HTTPS on node boot.
+Set the `definitions.import_backend` and `definitions.https.url` config keys to https and a valid URL where a JSON definition is located.
+
+<pre class="lang-ini">
+# Does not require management plugin to be enabled.
+definitions.import_backend = https
+definitions.https.url = https://raw.githubusercontent.com/rabbitmq/sample-configs/main/lot-of-queues/5k-queues.json
+# client-side TLS options for definition import   
+definitions.tls.versions.1 = tlsv1.2
+</pre>
+
+
+As of RabbitMQ `3.8.6`, definition import happens after plugin activation.
 This means that definitions related to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on)
 can be imported at boot time.
 

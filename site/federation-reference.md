@@ -30,25 +30,27 @@ and how to get started.
 ### <a id="policies" class="anchor" href="#policies">Policies</a>
 
 A policy can apply an upstream set (including the
-implicitly-defined upstream set "all") or a single upstream
-to a set of exchanges and / or queues.
+implicitly-defined upstream set named "all") or a single upstream
+to a set of exchanges and/or queues.
 
 To apply all upstreams:
 
 <pre class="lang-bash">
-rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"all"}'
+rabbitmqctl set_policy federate-me '^federated\.' '{"federation-upstream-set":"all"}'
 </pre>
 
 To apply a named set of upstreams:
 
 <pre class="lang-bash">
-rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"my-set"}'
+rabbitmqctl set_parameter federation-upstream-set location-1 '[{"upstream": "up-1"}, {"upstream": "up-2"}]'
+
+rabbitmqctl set_policy federate-me '^federated\.' '{"federation-upstream-set":"location-1"}'
 </pre>
 
 To apply a single upstream:
 
 <pre class="lang-bash">
-rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream":"my-upstream"}'
+rabbitmqctl set_policy federate-me '^federated\.' '{"federation-upstream":"up-1"}'
 </pre>
 
 Note that you cannot use the <code>federation-upstream</code>
@@ -254,7 +256,8 @@ Each <code>upstream-set</code> is a set of upstreams. It can be more convenient 
 and refer to it in a federation policy definition that repeatedly listing upstreams.
 
 <pre class="lang-bash">
-rabbitmqctl set_parameter federation-upstream-set [name] '[object1, object2, ...]'
+# up-1 and up-2 are previously declared upstreams
+rabbitmqctl set_parameter federation-upstream-set location-1 '[{"upstream": "up-1"}, {"upstream": "up-2"}]'
 </pre>
 
 Supported keys of the JSON objects are
