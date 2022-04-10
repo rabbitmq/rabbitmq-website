@@ -55,7 +55,7 @@ a [plugin](stomp.html).
 
 [MQTT](http://mqtt.org/) is a binary protocol
 emphasising lightweight publish / subscribe messaging,
-targetted towards clients in constrained devices. It has
+targeted towards clients in constrained devices. It has
 well defined messaging semantics for publish / subscribe,
 but not for other messaging idioms.
 

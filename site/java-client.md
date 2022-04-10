@@ -125,7 +125,7 @@ See the [Signatures guide](/signatures.html) for details on how to verify packag
 
 Please refer to the [API guide](api-guide.html).
 
-The Javadoc documentation is <a href="https://rabbitmq.github.io/rabbitmq-java-client/api/current/">browseable on-line</a>, or you can
+The Javadoc documentation is <a href="https://rabbitmq.github.io/rabbitmq-java-client/api/current/">browsable on-line</a>, or you can
 download it for off-line use:
 
 <table>

@@ -146,13 +146,13 @@
     We use the 'name' attribute as an identifier, usually within the context
     of the surrounding entities.
 
-    We use spaces to seperate words in names, so that we can print names in
+    We use spaces to separate words in names, so that we can print names in
     their natural form depending on the context - underlines for source code,
     hyphens for written text, etc.
 
     We do not enforce any particular validation mechanism but we support all
     mechanisms.  The protocol definition conforms to a formal grammar that is
-    published seperately in several technologies.
+    published separately in several technologies.
 
  -->
 
@@ -911,7 +911,7 @@
       </doc>
       <chassis name = "server" implement = "MUST"/>
       <chassis name = "client" implement = "MUST"/>
-      <field name="reason" domain="shortstr" label="Block reason" requred="0">
+      <field name="reason" domain="shortstr" label="Block reason" required="0">
           <doc>
               The reason the connection was blocked.
           </doc>

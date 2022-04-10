@@ -197,7 +197,7 @@ be configured to use a reasonably low timeout value.
 TCP keepalives cover all TCP connections on a host, both inbound
 and outgoing. This makes them useful in scenarios with a high outgoing
 connection churn, e.g. [Shovel](shovel.html) or [Federation](federation.html) plugin
-links that are often disabled and reenabled or interrupted.
+links that are often disabled and re-enabled or interrupted.
 
 TCP keepalives can also be used instead of heartbeats by configuring them to lower system-specific
 values. In that case [heartbeats can be disabled](#disabling). The main benefit

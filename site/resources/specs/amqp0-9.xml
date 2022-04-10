@@ -144,13 +144,13 @@
     We use the 'name' attribute as an identifier, usually within the context
     of the surrounding entities.
 
-    We use spaces to seperate words in names, so that we can print names in
+    We use spaces to separate words in names, so that we can print names in
     their natural form depending on the context - underlines for source code,
     hyphens for written text, etc.
 
     We do not enforce any particular validation mechanism but we support all
     mechanisms.  The protocol definition conforms to a formal grammar that is
-    published seperately in several technologies.
+    published separately in several technologies.
 
  -->
 
@@ -1962,7 +1962,7 @@
         TODO: Find correct on-failure code. The on-failure code returned should depend on why the bind
         failed. Assuming that failures owing to bad parameters are covered in the rules relating
         to those parameters, the only remaining reason for a failure would be the lack of
-        server resorces or some internal error - such as too many queues open. Would these
+        server resources or some internal error - such as too many queues open. Would these
         cases qualify as "resource error" 506 or "internal error" 541?
         -->
         <doc>If a bind fails, the server MUST raise a connection exception.</doc>
@@ -4670,7 +4670,7 @@
         </doc>
         <rule name = "01">
           <doc>
-            If a message is transfered between brokers before delivery
+            If a message is transferred between brokers before delivery
             to a final consumer the ttl should be decremented before
             peer to peer transfer and both timestamp and expiration
             should be cleared.
