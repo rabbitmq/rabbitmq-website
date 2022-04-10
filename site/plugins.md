@@ -406,7 +406,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
       <td>
         Shows federation status in the management API and UI. Only
         of use when using rabbitmq_federation in conjunction with
-        <code>rabbitmq_management</code>. In a heterogenous cluster this
+        <code>rabbitmq_management</code>. In a heterogeneous cluster this
         should be installed on the same nodes as rabbitmq_management.
       </td>
     </tr>
@@ -483,7 +483,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
         Shows <a href="/shovel.html">Shovel</a> status in the management API and UI.
         Only of use when using <code>rabbitmq_shovel</code> in
         conjunction with <code>rabbitmq_management</code>. In a
-        heterogenous cluster this should be installed on the same
+        heterogeneous cluster this should be installed on the same
         nodes as <a href="">RabbitMQ management plugin</a>.
       </td>
     </tr>

@@ -3893,7 +3893,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
         </ul>
         <p>
           In all cases, the attacker needs a valid user account on the
-          targetted RabbitMQ cluster.
+          targeted RabbitMQ cluster.
         </p>
 
         <p>
@@ -6590,7 +6590,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
     </doc:title>
     <doc:link>resources/AMQP_Solution_Brief_final.pdf</doc:link>
     <doc:text>
-      Intel believe the remarkable results of RabbitMQ perfomance tests in their Low Latency Lab indicate that AMQP is set to revolutionise the financial messaging industry <a href="resources/AMQP_Solution_Brief_final.pdf">AMQP: Secure business messaging for the future</a>.
+      Intel believe the remarkable results of RabbitMQ performance tests in their Low Latency Lab indicate that AMQP is set to revolutionise the financial messaging industry <a href="resources/AMQP_Solution_Brief_final.pdf">AMQP: Secure business messaging for the future</a>.
     </doc:text>
       </doc:item>
       <doc:item>

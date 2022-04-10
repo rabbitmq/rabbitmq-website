@@ -1228,7 +1228,7 @@ forming the cluster (seeding) or joining a peer. What locks are used varies from
 ## <a id="node-health-checks-and-cleanup" class="anchor" href="#node-health-checks-and-cleanup">Node Health Checks and Forced Removal</a>
 
 Nodes in clusters formed using peer discovery can fail, become unavailable or be permanently
-removed (decomissioned). Some operators may want such nodes to be automatically removed
+removed (decommissioned). Some operators may want such nodes to be automatically removed
 from the cluster after a period of time. Such automated forced removal also can produce
 unforeseen side effects, so RabbitMQ does not enforce this behavior. It **should be used
 with great care** and only if the side effects are fully understood and considered.
