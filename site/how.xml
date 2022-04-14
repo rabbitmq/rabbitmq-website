@@ -554,7 +554,7 @@ limitations under the License.
     </li>
     <li>
       <a href="/resources/Queuevol5no4_May2007.pdf">Toward a commodity enterprise middleware</a><br />
-      Article in ACM Queue from June 2007 by John O'Hara, one of the orginal creators
+      Article in ACM Queue from June 2007 by John O'Hara, one of the original creators
       of AMQP. John discusses the origins of AMQP, how it came to be, and how you
       might go about integrating AMQP messaging with legacy middleware. The article entitled 'Toward a
      Commodity Enterprise Middleware' begins on the 50th page of the PDF.

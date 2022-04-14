@@ -397,7 +397,7 @@ The following operations work the same way for quorum queues as they do for clas
 
  * [Consumption](/consumers.html) (subscription)
  * [Consumer acknowledgements](/confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
- * Cancelation of consumers
+ * Cancellation of consumers
  * Purging of queue messages
  * Queue deletion
 
@@ -468,7 +468,7 @@ Replicas of a quorum queue are explicitly managed by the operator. When a new no
 to the cluster, it will host no quorum queue replicas unless the operator explicitly adds it
 to a member (replica) list of a quorum queue or a set of quorum queues.
 
-When a node has to be decomissioned (permanently removed from the cluster), it must be explicitly
+When a node has to be decommissioned (permanently removed from the cluster), it must be explicitly
 removed from the member list of all quorum queues it currently hosts replicas for.
 
 Several [CLI commands](/cli.html) are provided to perform the above operations:
@@ -501,7 +501,7 @@ it replaces.
 ### <a id="replica-rebalancing" class="anchor" href="#replica-rebalancing">Rebalancing Replicas</a>
 
 Once declared, the RabbitMQ nodes a quorum queue resides on won't change even if the
-members of the RabbitMQ cluster change (e.g. a node is decomissioned or added).
+members of the RabbitMQ cluster change (e.g. a node is decommissioned or added).
 To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
 [command line tool](/cli.html):
 

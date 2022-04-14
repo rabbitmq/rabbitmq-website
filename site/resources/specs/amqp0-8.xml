@@ -819,7 +819,7 @@ localised reply text
   <doc>
     This method asks the peer to pause or restart the flow of content
     data. This is a simple flow-control mechanism that a peer can use
-    to avoid oveflowing its queues or otherwise finding itself receiving
+    to avoid overflowing its queues or otherwise finding itself receiving
     more messages than it can process.  Note that this method is not
     intended for window control.  The peer that receives a request to
     stop sending content should finish sending the current content, if
@@ -2360,7 +2360,7 @@ localised reply text
       so that the client can acknowledge multiple messages with a single
       method.  If set to zero, the delivery tag refers to a single
       message.  If the multiple field is 1, and the delivery tag is zero,
-      tells the server to acknowledge all outstanding mesages.
+      tells the server to acknowledge all outstanding messages.
     </doc>
     <doc name = "rule" test = "amq_basic_20">
       The server MUST validate that a non-zero delivery-tag refers to an
@@ -3002,7 +3002,7 @@ localised reply text
       so that the client can acknowledge multiple messages with a single
       method.  If set to zero, the delivery tag refers to a single
       message.  If the multiple field is 1, and the delivery tag is zero,
-      tells the server to acknowledge all outstanding mesages.
+      tells the server to acknowledge all outstanding messages.
     </doc>
     <doc name = "rule">
       The server MUST validate that a non-zero delivery-tag refers to an
@@ -3067,7 +3067,7 @@ localised reply text
 <doc>
   The stream class provides methods that support multimedia streaming.
   The stream class uses the following semantics: one message is one
-  packet of data; delivery is unacknowleged and unreliable; the consumer
+  packet of data; delivery is unacknowledged and unreliable; the consumer
   can specify quality of service parameters that the server can try to
   adhere to; lower-priority messages may be discarded in favour of high
   priority messages.
@@ -3797,7 +3797,7 @@ confirm transaction mode
       test fields and return the result.
     </doc>
         <assert check="enum">
-          <value name="add">return concatentation of test strings</value>
+          <value name="add">return concatenation of test strings</value>
           <value name="min">return shortest of test strings</value>
           <value name="max">return longest of test strings</value>
         </assert>
