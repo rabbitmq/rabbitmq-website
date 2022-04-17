@@ -29,6 +29,7 @@ Key covered topics are:
  * [Users and authentication](#authentication), [remote connection](#local-vs-remote) limitations of the default user
  * [Implementation overview](#implementation)
  * [Subscription durability](#durability) and [session stickiness](#stickiness)
+ * How to [use quorum queues](#quorum-queues) for durable subscriptions and when not to do it
  * [Consensus-based Features](#consensus)
  * [Key configurable settings](#config) of the plugin
  * [TLS support](#tls)
