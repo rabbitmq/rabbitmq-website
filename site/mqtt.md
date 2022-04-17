@@ -172,7 +172,7 @@ The use of anonymous connections is highly discouraged and it is a subject
 to certain limitations (see above) enforced for a reasonable level of security
 by default.
 
-### <a id="durability" class="anchor" href="#durability"> Subscription Durability</a>
+### <a id="durability" class="anchor" href="#durability">Subscription Durability</a>
 
 MQTT 3.1 assumes two primary usage scenarios:
 
@@ -194,7 +194,7 @@ For transient (QoS0) publishes, the plugin will publish messages as transient
 messages will be used internally.
 
 Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
-one per subscription QoS level. The queues will have [queue TTL](/ttl.html) depending
+one per subscription QoS level. The queues will have [queue TTL](ttl.html) depending
 on MQTT plugin configuration, 24 hours by default.
 
 **RabbitMQ does not support QoS2 subscriptions**. RabbitMQ
@@ -203,6 +203,34 @@ automatically downgrades QoS 2 publishes and subscribes to QoS
 Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
 request (SUBACK responses will contain the actually provided QoS
 level).
+
+
+### <a id="quorum-queues" class="anchor" href="#quorum-queues">Using Quorum Queues</a>
+
+Starting with RabbitMQ 3.10, it is possible to opt in to use [quorum queues](quorum-queues.html) for durable subscriptions
+using the  `mqtt.durable_queue_type` option.
+
+**This value must only be enabled for new clusters**, before any clients declare durable subscriptions.
+Because queue type cannot be changed after
+declaration, if the value of this setting is changed for
+an existing cluster, clients with existing durable state would run into a queue type mismatch
+error and **fail to subscribe**.
+
+Below is a `rabbitmq.conf` example that opts in to use quorum queues for durable subscriptions:
+
+<pre class="">
+# must ONLY be enabled for new clusters before any clients declare durable
+# subscriptions
+mqtt.durable_queue_type = quorum
+</pre>
+
+While quorum queues are designed for data safety and predictable efficient recovery
+from replica failures, they also have downsides. A quorum queue by definition requires
+at least three replicas in the cluster. Therefore quorum queues take longer to declare
+and delete, and are not a good fit for environments with [high client connection churn](networking.html#dealing-with-high-connection-).
+
+Quorum queues are a great fit for longer lived clients that actually care a great deal
+about the durability of their state.
 
 
 ## <a id="consensus" class="anchor" href="#consensus">Consensus Features</a>
