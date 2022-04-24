@@ -19,12 +19,11 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ can use LDAP to perform [authentication and
-authorisation](/access-control.html) by deferring to an external LDAP
-server. This functionality is provided by a
-plugin that ships with RabbitMQ but [has to be enabled](#enabling-the-plugin).
-Authentication and authorisation operations are
-translated into [LDAP queries](#authorisation) configured by the user.
+RabbitMQ can use LDAP to perform [authentication and authorisation](access-control.html) by deferring to external LDAP
+servers. This functionality is provided by a built-in plugin that [has to be enabled](#enabling-the-plugin).
+
+Authentication and authorisation operations are translated into [LDAP queries](#authorisation) using
+templates configured by the RabbitMQ operator.
 
 LDAP queries can be [cached](#query-caching) for a period of time for efficiency and reduced
 load on LDAP servers.
@@ -47,8 +46,9 @@ for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP request
 ## <a id="prerequisites" class="anchor" href="#prerequisites">Prerequisites</a>
 
 RabbitMQ LDAP plugin depends on an LDAP client called `eldap`. The library
-ships with [Erlang/OTP](/which-erlang.html). On some operating systems, some Erlang
-components must be installed separately from the core runtime.
+ships with [Erlang/OTP](which-erlang.html). On some operating systems, Erlang
+is provided as a group of packages instead of one monolithic package, so
+components such as `eldap` **must be installed separately** from the main runtime.
 
 On Debian and Ubuntu, `eldap` is provided by the `erlang-eldap` package:
 
@@ -56,7 +56,10 @@ On Debian and Ubuntu, `eldap` is provided by the `erlang-eldap` package:
 sudo apt-get install -y erlang-eldap
 </pre>
 
-Please see the [Erlang compatibility guide](/which-erlang.html) to learn more.
+LDAP support **cannot** be used on Erlang installations where the library is not available.
+
+Please see the [Erlang compatibility guide](which-erlang.html) to learn more.
+
 
 ## <a id="enabling-the-plugin" class="anchor" href="#enabling-the-plugin">Enabling the Plugin</a>
 
