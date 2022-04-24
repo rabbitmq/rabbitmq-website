@@ -20,36 +20,40 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The RabbitMQ management plugin provides an HTTP-based API
-for management and monitoring of RabbitMQ nodes and clusters, along
+for management and [monitoring](monitoring.html) of RabbitMQ nodes and clusters, along
 with a browser-based UI and a command line tool, [rabbitmqadmin](management-cli.html).
 
 It periodically collects and aggregates data about many aspects of the system. Those metrics
-are exposed to both operators in the UI and [monitoring systems](/monitoring.html) for
-long term storage, alerting, visualisation, chart analysis and so on.
-
-The plugin can be [configured](#configuration) to [use HTTPS](#single-listener-https), [OAuth 2](#oauth2-authentication),
-a non-standard port, path prefix, HTTP server options, custom [strict transport security](#hsts) settings,
-[cross-origin resource sharing](#cors), and more.
-
-Some settings directly affect CPU resource usage of the metric collection system and this plugin:
-
- * [Stats collection interval](#statistics-interval)
- * [Message rate mode](#rates-mode) (rate fidelity) used
+are exposed to human operators in the UI. The API it provides can be used by [monitoring systems](monitoring.html),
+however, [Prometheus](prometheus.html) is the **recommended option** for long term storage,
+alerting, visualisation, chart analysis and so on.
 
 The plugin also provides tools for [analysing memory usage](#memory) of the node,
 and other features related to monitoring, metrics, user, permission, and topology management.
-Previously it also provided [definition export and import functionality](/definitions.html). Those are now
+Previously it also provided [definition export and import functionality](definitions.html). Those are now
 core RabbitMQ features and do not require or rely on this plugin.
 
-In a multi-node cluster, management plugin is most commonly [enabled on every node](#clustering).
+This guide covers:
+
+ * [Basic usage](#usage) of management UI and [HTTP API](#http-api)
+ * General plugin [configuration](#configuration)
+ * How to [enable HTTPS for management UI](#single-listener-https) and its underlying API
+ * How this plugin [operates in multi-node clusters](#clustering)
+ * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
+ * [OAuth 2](#oauth2-authentication) support
+ * [HTTP API request logging](#http-logging)
+ * [Strict transport security](#hsts), [Content security policy](#csp) and [cross-origin resource sharing](#cors) settings
+ * How to [reset statistics database](#reset-stats) used by this plugin
+ * How to set a [management UI login session timeout](login-session-timeout)
+ * [Statistics collection interval](#statistics-interval)
+ * [Message rate mode](#rates-mode) (rate fidelity)
+
+as well as other related topics.
 
 The plugin also provides extension points that other plugins, such as
 [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) or
 [rabbitmq-shovel-management](https://github.com/rabbitmq/rabbitmq-shovel-management),
 use to extend the UI.
-
-While a monitoring option, management UI lacks certain features that external monitoring solutions
-such as [Prometheus and Grafana](/prometheus.html) provide.
 
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
@@ -250,7 +254,7 @@ Note that since "administrator" does everything "monitoring"
 does, and "monitoring" does everything "management" does,
 each user often needs a maximum of one tag.
 
-Normal RabbitMQ [permissions to resources](/access-control.html) still apply to monitors and
+Normal RabbitMQ [permissions to resources](access-control.html) still apply to monitors and
 administrators; just because a user is a monitor or
 administrator does not grant them full access to exchanges,
 queues and bindings through the management
@@ -260,9 +264,9 @@ All users can only list objects within the virtual
 hosts they have any permissions for.
 
 If access to management UI is impossible to due the lack of users
-with sufficient permissions or forgotten/incorrect permissions, [CLI tools](/cli.html) must
-be used to manage the users and their credentials. [rabbitmqctl add_user](/man/rabbitmqctl.8.html#)
-should be used to create a user, [rabbitmqctl set_permissions](/man/rabbitmqctl.8.html#) to grant the
+with sufficient permissions or forgotten/incorrect permissions, [CLI tools](cli.html) must
+be used to manage the users and their credentials. [rabbitmqctl add_user](man/rabbitmqctl.8.html#)
+should be used to create a user, [rabbitmqctl set_permissions](man/rabbitmqctl.8.html#) to grant the
 user the desired permissions and finally, [rabbitmqctl
 set_user_tags](/man/rabbitmqctl.8.html#set_user_tags) should be used to give the user management UI access permissions.
 
@@ -343,16 +347,15 @@ location for more information on the API. For convenience the same API reference
 
 ### <a id="http-api-monitoring" class="anchor" href="#http-api-monitoring">HTTP API and Monitoring</a>
 
-The API is intended to be used for monitoring and alerting purposes. It provides
-access to detailed information about the state of nodes, connections, channels, queues,
-consumers, and so on.
+The API is intended to be used for basic observability tasks. [Prometheus and Grafana](prometheus.html)
+are recommended for long term metric storage, alerting, anomaly detection, and so on.
 
 Any cluster node with `rabbitmq-management` plugin enabled can be
-used for management UI access or data collection by monitoring tools.
+used for management UI access or HTTP API access.
 It will reach out to other nodes and collect their stats, then aggregate and return a response
 to the client.
 
-When monitoring a cluster of nodes, there is no need to contact each node via HTTP API
+When using the API in a cluster of nodes, there is no need to contact each node via HTTP API
 individually. Instead, contact a random node or a load balancer that sits in front
 of the cluster.
 
@@ -407,11 +410,11 @@ rabbitmq-diagnostics -s listeners
 # => Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 </pre>
 
-or [tools such as `lsof`, `ss` or `netstat`](/troubleshooting-networking.html#ports).
+or [tools such as `lsof`, `ss` or `netstat`](troubleshooting-networking.html#ports).
 
 ### <a id="single-listener-https" class="anchor" href="#single-listener-https">HTTPS</a>
 
-The management plugin can be configured to use HTTPS. See the guide [on TLS](/ssl.html)
+The management plugin can be configured to use HTTPS. See the guide [on TLS](ssl.html)
 to learn more about certificate authorities, certificates and private key files.
 
 <pre class="lang-ini">
@@ -423,7 +426,7 @@ management.ssl.keyfile    = /path/to/server_key.pem
 # management.ssl.password   = bunnies
 </pre>
 
-More [TLS options](/ssl.html) can be configured for the HTTPS listener.
+More [TLS options](ssl.html) can be configured for the HTTPS listener.
 
 <pre class="lang-ini">
 management.ssl.port       = 15671
@@ -534,7 +537,7 @@ management.tcp.compress = true
 
 Some HTTP API endpoints respond quickly, others may need to return or stream
 a sizeable data set to the client (e.g. many thousands of connections) or perform
-an operation that takes time proportionally to the input (e.g. [import a large definitions file](/definitions.html)).
+an operation that takes time proportionally to the input (e.g. [import a large definitions file](definitions.html)).
 In those cases the amount of time it takes to process the request can exceed certain
 timeouts in the Web server as well as HTTP client.
 
@@ -679,11 +682,12 @@ resolution for 1 minute, at a 1 minute (60 second) resolution for
 All three policies are mandatory, and must contain
 at least one retention setting (period).
 
-### <a id="disable-stats" class="anchor" href="#disable-stats">Disable statistics and metrics collection</a>
+### <a id="disable-stats" class="anchor" href="#disable-stats">Disable Statistics and Metric Collection</a>
 
 It is possible to disable the statistics in the UI and [HTTP API](#http-api) in order for these to be used only for operations. This can be a useful feature if external monitoring solutions such as [Prometheus and Grafana](/prometheus.html) are being used. If statistics are disabled in any of the following ways, all charts and detailed statistics will be hidden in the UI.
 
-In order to completely disable the internal metrics collection, the `disable_metrics_collector` flag must be set in the `rabbitmq_management_agent` plugin. The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
+In order to completely disable the internal metrics collection, the `disable_metrics_collector` flag must be set in the `rabbitmq_management_agent` plugin.
+The [Prometheus plugin](/prometheus.html) will still work even if collection is disabled.
 
 <pre class="lang-ini">
 management_agent.disable_metrics_collector = true
@@ -897,52 +901,40 @@ ProxyPassReverse  "/"    http://localhost:15672/
 </pre>
 
 
-## <a id="stats-db" class="anchor" href="#stats-db">Restarting Statistics Database</a>
+## <a id="reset-stats" class="anchor" href="#reset-stats">Restarting Statistics Database</a>
 
 Statistics database is stored entirely in memory. All of its contents
 is transient and should be treated as such.
 
-Prior to version 3.6.7 stats database is stored on a single node.
-
-Starting from version 3.6.7, each node has its own statistics database
+In modern versions, ach node has its own statistics database
 containing a fraction of stats recorded on this node.
 
-It is possible to restart the stats database.
+It is possible to restart the stats database on a given node using
+`rabbitmqctl` or an HTTP API endpoint:
 
-The statistics database is stored in the memory of the stats process
-previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
-3.6.2. To restart the database with versions earlier than 3.6.2, use
-
-<pre class="lang-bash">
-rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
+<pre class="lang-plaintext">
+DELETE /api/reset/:node
 </pre>
 
-Starting with RabbitMQ 3.6.7, the database can be reset per node using
 <pre class="lang-bash">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
 
-To reset the entire management database on all nodes
-<pre class="lang-bash">
-rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
-</pre>
+To reset the entire statistics database on all nodes, use
 
-There are also HTTP API endpoints to reset a database.
-For the entire database
 <pre class="lang-plaintext">
 DELETE /api/reset
 </pre>
 
-For a single node
-<pre class="lang-plaintext">
-DELETE /api/reset/:node
+<pre class="lang-bash">
+rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
 </pre>
 
 
 ## <a id="memory" class="anchor" href="#memory">Memory Usage Analysis and Memory Management</a>
 
 Management UI can be used to inspect node's memory use, including displaying
-a per-category breakdown. See the [Memory Use Analysis](/memory-use.html) guide
+a per-category breakdown. See the [Memory Use Analysis](memory-use.html) guide
 for details.
 
 Management database builds around periodically emitted stats,
