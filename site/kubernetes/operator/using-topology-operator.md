@@ -3,7 +3,7 @@
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
 This guide covers how to deploy Custom Resource objects that will be managed by the Messaging Topology Operator.
-If RabbitMQ Cluster Kubernetes Operator is not installed, see the [quickstart guide](quickstart-operator.html).
+If RabbitMQ Messaging Topology Operator is not installed, see the [quickstart guide](https://github.com/rabbitmq/messaging-topology-operator/#quickstart).
 
 This guide has the following sections:
 
