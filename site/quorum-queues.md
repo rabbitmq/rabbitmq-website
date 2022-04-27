@@ -460,15 +460,18 @@ be reasonably evenly distributed across cluster nodes.
 When a new quorum queue is declared, the set of nodes that will host its
 replicas is randomly picked, but will always include the node the client that declares the queue is connected to.
 
-Which replica becomes the initial leader is controlled in three ways,
-namely, using the `x-queue-leader-locator` [optional queue argument](queues.html#optional-arguments), setting the `queue-leader-locator`
-policy key or by defining the `queue_leader_locator`
-key in [the configuration file](configure.html#configuration-files). Here are the possible values:
+Which replica becomes the initial leader can controlled using three options:
+
+1. Setting the `queue-leader-locator` [policy](parameters.html#policies) key (recommended)
+2. By defining the `queue_leader_locator` key in [the configuration file](configure.html#configuration-files) (recommended)
+3. Using the `x-queue-leader-locator` [optional queue argument](queues.html#optional-arguments)
+
+Supported queue leader locator values are
 
  * `client-local`: Pick the node the client that declares the queue is connected to. This is the default value.
  * `balanced`: If there are overall less than 1000 queues (classic queues, quorum queues, and streams),
- pick the node hosting the minimum number of quorum queue leaders.
- If there are overall more than 1000 queues, pick a random node.
+   pick the node hosting the minimum number of quorum queue leaders.
+   If there are overall more than 1000 queues, pick a random node.
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Quorum Group Members)
 
