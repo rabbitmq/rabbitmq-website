@@ -449,7 +449,7 @@ will not be automatically increased but it can be [increased by the operator](#r
 ### <a id="leader-placement" class="anchor" href="#leader-placement">Queue Leader Location</a>
 
 Every quorum queue has a primary replica. That replica is called
-_queue leader_ (originally "queue master"). All queue operations go through the leader
+_queue leader_. All queue operations go through the leader
 first and then are replicated to followers (mirrors). This is necessary to
 guarantee FIFO ordering of messages.
 
@@ -458,9 +458,20 @@ replicas and thus handling most of the load, queue leaders should
 be reasonably evenly distributed across cluster nodes.
 
 When a new quorum queue is declared, the set of nodes that will host its
-replicas is randomly picked. Which replica becomes the leader is decided
-by a [leader election](#leader-election) process which is also
-based on randomization.
+replicas is randomly picked, but will always include the node the client that declares the queue is connected to.
+
+Which replica becomes the initial leader can controlled using three options:
+
+1. Setting the `queue-leader-locator` [policy](parameters.html#policies) key (recommended)
+2. By defining the `queue_leader_locator` key in [the configuration file](configure.html#configuration-files) (recommended)
+3. Using the `x-queue-leader-locator` [optional queue argument](queues.html#optional-arguments)
+
+Supported queue leader locator values are
+
+ * `client-local`: Pick the node the client that declares the queue is connected to. This is the default value.
+ * `balanced`: If there are overall less than 1000 queues (classic queues, quorum queues, and streams),
+   pick the node hosting the minimum number of quorum queue leaders.
+   If there are overall more than 1000 queues, pick a random node.
 
 ### <a id="replica-management" class="anchor" href="#replica-management">Managing Replicas</a> (Quorum Group Members)
 
