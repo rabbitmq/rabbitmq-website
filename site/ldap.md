@@ -26,6 +26,9 @@ plugin that ships with RabbitMQ but [has to be enabled](#enabling-the-plugin).
 Authentication and authorisation operations are
 translated into [LDAP queries](#authorisation) configured by the user.
 
+LDAP queries can be [cached](#query-caching) for a period of time for efficiency and reduced
+load on LDAP servers.
+
 [LDAP Operation Flow](#ldap-operation-flow) section
 provides a more detailed overview of how the plugin works.
 
@@ -40,7 +43,6 @@ LDAP primers are available elsewhere on the Web, for example, [one](https://www.
 This guide covers the [LDAP operation flow](#ldap-operation-flow) used by RabbitMQ, how the LDAP model
 [maps to the RabbitMQ permission model](#authorisation) and what tools are available
 for [troubleshooting](#troubleshooting) and [proxying](#proxies) of LDAP requests.
-
 
 ## <a id="prerequisites" class="anchor" href="#prerequisites">Prerequisites</a>
 
@@ -270,7 +272,18 @@ An example that uses both of the above and uses the [advanced.config format](con
 ].
 </pre>
 
-### <a id="ldap-essentials-and-terminology" class="anchor" href="#ldap-essentials-and-terminology">LDAP Essentials and Terminology</a>
+## <a id="query-caching" class="anchor" href="#query-caching">LDAP Query Caching for Efficiency and Reduced Load</a>
+
+A special [cache backend](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_auth_backend_cache)
+can be used in [combination](access-control.html#combined-backends) with other backends to significantly
+reduce the load they generate on LDAP servers.
+
+It is recommended that production clusters that rely on LDAP for authentication and authorization
+use it in combination with the caching backend. Caching intervals in the range of 15 to 60 seconds
+strike a good security and efficiency balance for most systems.
+
+
+## <a id="ldap-essentials-and-terminology" class="anchor" href="#ldap-essentials-and-terminology">LDAP Essentials and Terminology</a>
 
 This section covers some basic LDAP terminology used in this document. For an LDAP primer, please
 refer to [this overview](https://www.digitalocean.com/community/tutorials/understanding-the-ldap-protocol-data-hierarchy-and-entry-components) by Digital Ocean and the [LDAP glossary](https://www.ldap.com/glossary-of-ldap-terms) from ldap.com.
