@@ -71,7 +71,7 @@ aware of certain assumptions and requirements in the installer:
  * Erlang must be installed **using an administrative account**
  * It is **highly recommended** that RabbitMQ is also installed as an administrative account
  * Installation path must only contain ASCII characters. It is **highly recommended** that the path does not contain spaces in any directory names.
- * It may be necessary to manually copy the [shared secret]() file used by CLI tools
+ * It may be necessary to manually copy the [shared secret](cli.html#erlang-cookie) file used by CLI tools
  * CLI tools require Windows console to operate in UTF-8 mode
 
 When these conditions are not met, Windows service and CLI tools may require
