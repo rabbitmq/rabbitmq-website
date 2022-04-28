@@ -1697,6 +1697,33 @@ mv \
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl set_user_limits
       limited_user '{&quot;max-connections&quot;: 0}'</code></div>
   </dd>
+  <dt id="clear_user_limits"><a class="permalink" href="#clear_user_limits"><code class="Cm">clear_user_limits</code></a>
+    <var class="Ar">username</var> <var class="Ar">limit</var></dt>
+  <dd>
+    <p class="Pp">Clears user limits.</p>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user to clear limits of</dd>
+      <dt><var class="Ar">limit</var></dt>
+      <dd>The name of the limit or &quot;all&quot; to clear all limits at
+        once.</dd>
+    </dl>
+    <p class="Pp">Recognised limits are:</p>
+    <ul class="Bl-bullet Bl-compact">
+      <li>max-connections</li>
+      <li>max-channels</li>
+    </ul>
+    <p class="Pp">For example, this command clears max connection limits of user
+        &quot;limited_user&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_user_limits
+      limited_user 'max-connections'</code></div>
+    <p class="Pp">This command clears all limits of user
+        &quot;limited_user&quot;:</p>
+    <p class="Pp"></p>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmqctl clear_user_limits
+      limited_user all</code></div>
+  </dd>
   <dt id="trace_off"><a class="permalink" href="#trace_off"><code class="Cm">trace_off</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]</dt>
   <dd>
