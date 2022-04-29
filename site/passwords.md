@@ -30,11 +30,10 @@ that perform authentication. One of the backends, known as internal or built-in,
 to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
 and hashed.
 
-RabbitMQ can be configured to use several password hashing functions:
+RabbitMQ can be configured to use different password hashing functions:
 
  * SHA-256
  * SHA-512
- * MD5 (only for backwards compatibility)
 
 SHA-256 is used by default. More algorithms can be provided by plugins.
 
@@ -162,12 +161,15 @@ To do so:
 
 ## <a id="computing-password-hash" class="anchor" href="#computing-password-hash">Computing Password Hashes</a>
 
-In order to update a user's password hash via the [HTTP API](/management.html),
-the password hash must be generated using the following algorithm:
+Sometimes it is necessary to compute a user's password hash, to updated via the [HTTP API](management.html)
+or generate a [definitions file](definitions.html) to import.
 
- * Generate a random 32 bit salt: `908D C60A`
- * Concatenate that with the UTF-8 representation of the password (in this case `test12`): `908D C60A 7465 7374 3132`
- * Take the SHA-256 hash (assuming the hashing function wasn't modified): `A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
+This is the algorithm:
+
+ * Generate a random 32 bit salt. In this example, we will use `908D C60A`. When RabbitMQ creates or updates a user, a random salt is generated.
+ * Concatenate the generated salt with the UTF-8 representation of the desired password.
+   If the password is `test12`, at this step, the intermediate result would be `908D C60A 7465 7374 3132`
+ * Take the hash (this example assumes the default [hashing function](#changing-algorithm), SHA-256): `A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
  * Concatenate the salt again: `908D C60A A5B9 24B3 096B 8897 D65A 3B5F 80FA 5DB62 A94 B831 22CD F4F8 FEAD 10D5 15D8 F391`
- * Convert to base64 encoding: `kI3GCqW5JLMJa4iX1lo7X4D6XbYqlLgxIs30+P6tENUV2POR`
- * Use the base64-encoded value as the `password_hash` value in the request JSON.
+ * Convert the value to base64 encoding: `kI3GCqW5JLMJa4iX1lo7X4D6XbYqlLgxIs30+P6tENUV2POR`
+ * Use the finaly base64-encoded value as the `password_hash` value in HTTP API requests and generated definition files
