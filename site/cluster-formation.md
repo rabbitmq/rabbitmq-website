@@ -27,7 +27,7 @@ This guide assumes general familiarity with [RabbitMQ clustering](clustering.htm
 and focuses on the peer discovery subsystem.
 For example, it will not cover what [ports must be open](networking.html) for inter-node communication, how nodes authenticate to each other, and so on.
 Besides discovery mechanisms and [their configuration](#configuring),
-this guide also covers closely related topics of [feature availability during cluster formation](#formation-and-availablility), [rejoining nodes](#rejoining),
+this guide also covers closely related topics of [feature availability during cluster formation](#formation-and-availability), [rejoining nodes](#rejoining),
 the problem of [initial cluster formation](#initial-formation-race-condition) with nodes booting in parallel as well as [additional health checks](#node-health-checks-and-cleanup) offered
 by some discovery implementations.
 
@@ -134,14 +134,14 @@ its "last seen" peer for a period of time. In this case, no peer discovery
 will be performed. This is true for all backends.
 
 
-## <a id="formation-and-availablility" class="anchor" href="#formation-and-availablility">Cluster Formation and Feature Availability</a>
+## <a id="formation-and-availability" class="anchor" href="#formation-and-availability">Cluster Formation and Feature Availability</a>
 
 As a rule of thumb, a cluster that has only been partially formed — that is, only a subset of
 nodes has joined it — **must be considered fully available** by clients.
 
 Individual nodes will accept [client connections](connections.html) before the cluster is formed. In such cases,
 clients should be prepared to certain features not being available. For instance, [quorum queues](quorum-queues.html)
-won't be available unless the number of cluster nodes matches or exceeds the quorum of configured repliica count.
+won't be available unless the number of cluster nodes matches or exceeds the quorum of configured replica count.
 
 Features behind [feature flags](feature-flags.html) may also be unavailable until cluster formation completes.
 
