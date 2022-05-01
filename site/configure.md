@@ -368,14 +368,13 @@ A `conf.d`-style directory of files can also be used. Use `RABBITMQ_CONFIG_FILES
 to point the node at a directory of such files:
 
 <pre class="lang-ini">
-# uses a directory of .conf files loaded in alphabethical order
+# uses a directory of .conf files loaded in alphabetical order
 RABBITMQ_CONFIG_FILES=/path/to/a/custom/location/rabbitmq/conf.d
 </pre>
 
 Target directory must contain a number of `.conf` files with the same syntax as `rabbitmq.conf`.
 
-
-They will be **loaded in alphabethical order**. A common naming practice uses numerical prefixes
+They will be **loaded in alphabetical order**. A common naming practice uses numerical prefixes
 in filenames to make it easier to reason about the order, or make sure a "defaults file"
 is always loaded first, regardless of how many extra files are generated at deployment time:
 
@@ -2088,7 +2087,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_DEFAULT_USER</td>
     <td>
-      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This environment variable is <strong>only meant to be used in development and CI environments</strong>.
       This has the same meaning as <code>default_user</code> in <code>rabbitmq.conf</code> but higher
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="access-control.html#seeding">seed a user</a>.
@@ -2102,7 +2101,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_DEFAULT_PASS</td>
     <td>
-      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This environment variable is <strong>only meant to be used in development and CI environments</strong>.
       This has the same meaning as <code>default_pass</code> in <code>rabbitmq.conf</code> but higher
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="access-control.html#seeding">seed a user</a>.
@@ -2116,7 +2115,7 @@ More variables are covered in the [File and Directory Locations guide](/relocate
   <tr>
     <td>RABBITMQ_DEFAULT_VHOST</td>
     <td>
-      This environment variable is <strong>only mean to be used in development and CI environments</strong>.
+      This environment variable is <strong>only meant to be used in development and CI environments</strong>.
       This has the same meaning as <code>default_vhost</code> in <code>rabbitmq.conf</code> but higher
       priority. This option may be more convenient in cases where providing a config file is impossible,
       and environment variables is the only way to <a href="access-control.html#seeding">seed users</a> and virtual hosts.
