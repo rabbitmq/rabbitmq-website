@@ -226,6 +226,8 @@ rabbitmqctl delete_user 'username'
 rabbitmqctl.bat delete_user 'username'
 </pre>
 
+When a user is deleted, RabbitMQ will close all of its existing connections.
+
 ### Granting Permissions to a User
 
 To grant [permissions](#authorisation) to a user in a [virtual host](/vhosts.html), use `rabbitmqctl set_permissions`:
@@ -257,6 +259,14 @@ rabbitmqctl clear_permissions -p "custom-vhost" "username"
 # Revokes permissions in a virtual host
 rabbitmqctl.bat clear_permissions -p 'custom-vhost' 'username'
 </pre>
+
+RabbitMQ does not guarantee if or when the permission change will take
+effect on existing connections. However any reasonably realistic
+client would run into a permission violation exception soon enough.
+If one needs guarantees, that a user's permissions are revoked
+effective immediately, then deleting the user will close all of its
+existing connections and new connections will obviously use the most
+up-to-date authentication and authorization configuration.
 
 ### Operations on Multiple Virtual Hosts
 
