@@ -271,10 +271,8 @@ are only suitable for client-specific transient state.
 
 It is common to make exclusive queues server-named.
 
-In RabbitMQ versions up to and including 3.9, exclusive queues are subject to the
-[leader location selection process](ha.html#queue-leader-location).
-To make sure it will be located on the same cluster node that the connection is established to, set
-`x-queue-master-locator="client-local"` when declaring the queue.
+Exclusive queues are declared on the "client-local" node (the node that the client declaring
+the queue is connected to), regardless of the `queue_master_locator` value.
 
 ## <a id="distributed" class="anchor" href="#distributed">Replicated and Distributed Queues</a>
 

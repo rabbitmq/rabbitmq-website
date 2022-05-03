@@ -144,7 +144,7 @@ including production systems.
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
-RabbitMQ comes with a [management UI and HTTP API](/monitoring.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
+RabbitMQ comes with a [management UI and HTTP API](/management.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
 for nodes, connections, queues, message rates and so on. This is a convenient option for development
 and in environments where external monitoring is difficult or impossible to introduce.
 

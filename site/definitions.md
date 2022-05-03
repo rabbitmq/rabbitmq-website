@@ -155,6 +155,52 @@ The definitions in the file will not overwrite anything already in the broker.
 However, if a blank (uninitialised) node imports a definition file, it will
 not create the default virtual host and user.
 
+### <a id="import-on-boot-skip-if-unchanged" class="anchor" href="#import-on-boot-skip-if-unchanged">Avoid Boot Time Import if Definition Contents Have Not Changed</a>
+
+By default definitions are imported by every cluster node, unconditionally.
+In many environments definition file rarely changes. In that case it makes
+sense to only perform an import when definition file contents actually change.
+Starting with RabbitMQ 3.10, this can be done by setting the `definitions.skip_if_unchanged` configuration key
+to `true`:
+
+<pre class="lang-ini">
+# when set to true, definition import will only happen
+# if definition file contents change
+definitions.skip_if_unchanged = true
+
+definitions.import_backend = local_filesystem
+definitions.local.path = /path/to/definitions/defs.json
+</pre>
+
+This feature works for both individual files and directories:
+
+<pre class="lang-ini">
+# when set to true, definition import will only happen
+# if definition file contents change
+definitions.skip_if_unchanged = true
+
+definitions.import_backend = local_filesystem
+definitions.local.path = /path/to/definitions/conf.d/
+</pre>
+
+ It is also supported by the HTTPS endpoint import mechanism:
+
+<pre class="lang-ini">
+# when set to true, definition import will only happen
+# if definition file contents change
+definitions.skip_if_unchanged = true
+
+definitions.import_backend = https
+definitions.https.url = https://some.endpoint/path/to/rabbitmq.definitions.json
+
+definitions.tls.verify     = verify_peer
+definitions.tls.fail_if_no_peer_cert = true
+
+definitions.tls.cacertfile = /path/to/ca_certificate.pem
+definitions.tls.certfile   = /path/to/client_certificate.pem
+definitions.tls.keyfile    = /path/to/client_key.pem
+</pre>
+
 
 ## <a id="import-after-boot" class="anchor" href="#import-after-boot">Definition Import After Node Boot</a>
 
