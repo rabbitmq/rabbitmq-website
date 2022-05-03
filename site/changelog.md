@@ -39,6 +39,21 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.0</td>
+    <td class="centre">3 May 2022</td>
+    <td>
+      <ul>
+        <li>Improved efficiency, significantly reduced memory footprint of quorum queues</li>
+        <li><a href="https://rabbitmq.com/ttl.html">Message TTL</a> support in quorum queues</li>
+        <li>New classic queue message store and index, "CQv2"</li>
+        <li>Much faster (or idempotent) definition import on boot</li>
+        <li>Scope aliases in OAuth 2 plugin</li>
+      </ul>
+    </td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">Release notes</a></td>
+  </tr>
+
+  <tr>
     <td class="centre">3.9.16</td>
     <td class="centre">27 April 2022</td>
     <td>
