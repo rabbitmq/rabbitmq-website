@@ -41,12 +41,12 @@ This guide covers:
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
  * [OAuth 2](#oauth2-authentication) support
- * [HTTP API request logging](#http-logging)
  * [Strict transport security](#hsts), [Content security policy](#csp) and [cross-origin resource sharing](#cors) settings
- * How to [reset statistics database](#reset-stats) used by this plugin
- * How to set a [management UI login session timeout](login-session-timeout)
  * [Statistics collection interval](#statistics-interval)
- * [Message rate mode](#rates-mode) (rate fidelity)
+ * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
+ * [HTTP API request logging](#http-logging)
+ * How to set a [management UI login session timeout](login-session-timeout)
+ * How to [reset statistics database](#reset-stats) used by this plugin
 
 as well as other related topics.
 

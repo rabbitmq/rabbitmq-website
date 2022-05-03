@@ -94,7 +94,7 @@ The upstream definition object can contain the following keys:
         plugin will randomly pick <b>one</b> URI from the list when attempting to connect. This can
         be used to connect to an upstream cluster and ensure the link
         will eventually find another node in the event that one fails.
-        All URIs are assumed to be point to nodes in a single clustr.
+        All URIs are assumed to be pointed at nodes in a single cluster.
         To connect to multiple endpoints in separate clusters simultaneously use multiple upstreams.
       </td>
     </tr>

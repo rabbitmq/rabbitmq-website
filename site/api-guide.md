@@ -29,7 +29,7 @@ Key sections of the guide are:
  * [JDK and Android versions](#jdk-versions) supported
  * [Support Timeline](#support-timeline)
  * [Connecting to RabbitMQ](#connecting)
- * [Connection and Channel Lifespan](#connection-and-channel-lifspan)
+ * [Connection and Channel Lifespan](#connection-and-channel-lifespan)
  * [Client-provided connection name](#client-provided-names)
  * [Using Exchanges and Queues](#exchanges-and-queues)
  * [Publishing Messages](#publishing)
@@ -239,7 +239,7 @@ automatically anyway when the underlying connection is closed.
 
 Client disconnection events can be [observed in server node logs](/networking.html#logging).
 
-## <a id="connection-and-channel-lifspan" class="anchor" href="#connection-and-channel-lifspan">Connection and Channel Lifespan</a>
+## <a id="connection-and-channel-lifespan" class="anchor" href="#connection-and-channel-lifespan">Connection and Channel Lifespan</a>
 
 Client [connections](connections.html) are meant to be long-lived. The underlying protocol is designed and optimized for
 long running connections. That means that opening a new connection per operation,

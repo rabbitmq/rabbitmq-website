@@ -23,14 +23,8 @@ See [RabbitMQ support timeline](/versions.html) to find out what release series 
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://registry.hub.docker.com/_/rabbitmq/):
 
 <pre class="lang-bash">
-# for RabbitMQ 3.9, the latest series
+# latest RabbitMQ 3.9
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
-</pre>
-
-<pre class="lang-bash">
-# for RabbitMQ 3.8,
-# 3.8.x support timeline: https://www.rabbitmq.com/versions.html
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.8-management
 </pre>
 
 
