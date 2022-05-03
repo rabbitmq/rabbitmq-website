@@ -77,6 +77,30 @@ memory:
    index uses a small amount of memory for every message in the
    store.
 
+### <a id="queue-version" class="anchor" href="#queue-version">Queue Version</a>
+
+Since **RabbitMQ 3.10.0**, the broker has a new implementation of
+classic queues, named **version 2**. Version 2 queues have a new
+index file format and implementation as well as a new per-queue
+storage file format to replace the embedding of messages directly
+in the index.
+
+The main improvement from version 2 is improved stability while
+under high memory pressure.
+
+In **RabbitMQ 3.10.0** version 1 remains the default. It is possible
+to switch back and forth between version 1 and version 2.
+
+The version can be changed using the `queue-version` policy.
+When setting a new version via policy the queue will immediately
+convert its data on disk. It is possible to upgrade to version 2
+or downgrade to version 1. Note that for large queues the conversion
+may take some time and results in the queue being unavailable while
+the conversion is running.
+
+The default version can be set through configuration by setting
+`classic_queue.default_version` in rabbitmq.conf.
+
 ### <a id="index-embedding" class="anchor" href="#index-embedding">Message Embedding in Queue Indices</a>
 
 There are advantages and disadvantages to writing messages to
@@ -101,6 +125,7 @@ Disadvantages are:
    needs to be written.
  * Unacknowledged messages whose destination is the queue index
    are always kept in memory.
+ * Two writes are still required when **version 2** is used.
 
 The intent is for very small messages to be stored in the queue
 index as an optimisation, and for all other messages to be
