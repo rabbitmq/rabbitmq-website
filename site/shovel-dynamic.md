@@ -63,7 +63,7 @@ name and a definition body which is a JSON document:
 <pre class="lang-bash">
 # my-shovel is here is the name of the shovel
 rabbitmqctl set_parameter shovel my-shovel \
-  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "my-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue"}'
+  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "my-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server"}'
 </pre>
 
 On Windows `rabbitmqctl` is named `rabbitmqctl.bat` and command line value escaping will be
@@ -72,8 +72,7 @@ different:
 <pre class="lang-powershell">
 rabbitmqctl.bat set_parameter shovel my-shovel ^
   "{""src-protocol"": ""amqp091"", ""src-uri"":""amqp://localhost"", ""src-queue"": ""source-queue"", ^
-   ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local"", ^
-   ""dest-queue"": ""target-queue""}"
+   ""dest-protocol"": ""amqp091"", ""dest-uri"": ""amqp://remote.rabbitmq.local""}"
 </pre>
 
 The body in this example includes a few keys:
@@ -145,23 +144,11 @@ The body in this example includes a few keys:
         See protocol specific properties below.
       </td>
     </tr>
-    <tr>
-      <td>dest-queue</td>
-      <td>
-        <p>
-            The queue to which messages should be published. Either this
-            or <code>dest-exchange</code> (but not both) may be set. If
-            neither is set then messages are republished with their original
-            exchange and routing key.
-          </p>
-          <p>
-            If the destination queue does not exist in the destination virtual host, it
-            it will be declared as a classic durable queue with no optional arguments.
-          </p>
-      </td>
-    </tr>
   </tbody>
 </table>
+
+When using the settings above, shoveled messages will be routed according to their
+original exchange and routing key.  This is generally the desired behavior.
 
 There are other Shovel definition keys that will be covered later in this guide.
 
@@ -187,8 +174,7 @@ The request body is a JSON document similar in structure to that described earli
     "src-uri":  "amqp://localhost",
     "src-queue":  "source-queue",
     "dest-protocol": "amqp091",
-    "dest-uri": "amqp://remote.rabbitmq.local",
-    "dest-queue": "destination-queue"
+    "dest-uri": "amqp://remote.rabbitmq.local"
   }
 }
 </pre>
@@ -212,8 +198,7 @@ curl -v -u guest:guest -X PUT http://localhost:15672/api/parameters/shovel/%2f/m
     "src-uri": "amqp://localhost",
     "src-queue": "source-queue",
     "dest-protocol": "amqp091",
-    "dest-uri": "amqp://localhost",
-    "dest-queue": "destination-queue"
+    "dest-uri": "amqp://localhost"
   }
 }
 EOF
@@ -444,6 +429,22 @@ the declaration process.
       <td>src-exchange-key</td>
       <td>
         Routing key when using <code>src-exchange</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>dest-queue</td>
+      <td>
+        <p>
+            The queue to which messages should be published. Either this
+            or <code>dest-exchange</code> (but not both) may be set.
+            
+            If neither is set then messages are republished with their original
+            exchange and routing key.
+          </p>
+          <p>
+            If the destination queue does not exist in the destination virtual host, it
+            it will be declared as a classic durable queue with no optional arguments.
+          </p>
       </td>
     </tr>
     <tr>
