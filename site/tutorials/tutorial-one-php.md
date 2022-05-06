@@ -38,7 +38,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The php-amqplib client library
@@ -75,7 +75,7 @@ code.
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
 We'll call our message publisher (sender) `send.php` and our message receiver
@@ -153,7 +153,7 @@ RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep the receiver running to listen for messages and print them out.
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+  <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
 The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)) has almost the same

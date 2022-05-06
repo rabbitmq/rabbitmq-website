@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers how to modify the default configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster.
+This guide covers how to modify the default configuration of the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) in a Kubernetes cluster.
 
 Environment variables used by the operator can be overridden in order to influence how the operator configures created RabbitmqClusters.
 This can be useful when configuring the operator to automatically use RabbitMQ container images stored in a private registry.

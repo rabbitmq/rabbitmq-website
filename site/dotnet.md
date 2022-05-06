@@ -98,7 +98,7 @@ Release notes can be found [on GitHub](https://github.com/rabbitmq/rabbitmq-dotn
 
 ## <a id="documentation" class="anchor" href="#documentation">Documentation</a>
 
-Please refer to the [RabbitMQ tutorials](./getstarted.html) and [.NET client user guide](./dotnet-api-guide.html).
+Please refer to the [RabbitMQ tutorials](/getstarted.html) and [.NET client user guide](/dotnet-api-guide.html).
 
 There's also [an online API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html).
 
@@ -141,7 +141,7 @@ Modern versions of this library (e.g. `6.x`) are distributed as a [NuGet package
 
 The .NET RabbitMQ client library is [hosted and developed on GitHub](https://github.com/rabbitmq/rabbitmq-dotnet-client).
 
-Please see the [.NET client build guide](./build-dotnet-client.html) for
+Please see the [.NET client build guide](/build-dotnet-client.html) for
 instructions on compiling from source.
 
 To clone the repo from GitHub:
@@ -151,7 +151,7 @@ git clone https://github.com/rabbitmq/rabbitmq-dotnet-client
 </pre>
 
 In order to compile or run the RabbitMQ .NET/C# client library,
-please follow the [build instructions](./build-dotnet-client.html).
+please follow the [build instructions](/build-dotnet-client.html).
 
 
 ## <a id="signing" class="anchor" href="#signing">Strong Naming</a>

@@ -163,7 +163,7 @@ limitations under the License.
         <li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
           Alexis' presentation on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
           and why it is useful for cloud computing by way of illustrating use cases from RabbitMQ customers. (Download a
-          <a href="./resources/SkillsMatterCloudAndGridExchange2010RabbitMQCloudMessagingUseCases.pdf">PDF of the slides</a>, 3.2MB).
+          <a href="/resources/SkillsMatterCloudAndGridExchange2010RabbitMQCloudMessagingUseCases.pdf">PDF of the slides</a>, 3.2MB).
     </li>
     <li>
     <a href="https://web.archive.org/web/20170115215106/http://helenaedelson.com/?p=685">Why RabbitMQ for Cloud?</a><br/>
@@ -395,7 +395,7 @@ limitations under the License.
       An excellent presentation describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
     </li>
     <li>
-      <a href="./resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
+      <a href="/resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
       Stefan Norberg's presentation on use of RabbitMQ and Kaazing and Terracotta for European scale real time betting at Unibet.
     </li>
     <li>
@@ -464,7 +464,7 @@ limitations under the License.
       Walk through of how you might build a RabbitMQ management tool.
     </li>
     <li>
-      <a href="./resources/ErlangFactorySFBay2010-TonyGarnock-Jones.pdf">HOWTO: Extend RabbitMQ with custom exchange types</a> [PDF 7MB]<br />
+      <a href="/resources/ErlangFactorySFBay2010-TonyGarnock-Jones.pdf">HOWTO: Extend RabbitMQ with custom exchange types</a> [PDF 7MB]<br />
       Tony Garnock-Jones' slides from Erlang Factory SF 2010 that explain how you can build your own
       custom exchange implementations to extend the functionality of RabbitMQ.
     </li>
@@ -553,7 +553,7 @@ limitations under the License.
       A short presentation from Bob Pasker on what messaging systems are for.
     </li>
     <li>
-      <a href="./resources/Queuevol5no4_May2007.pdf">Toward a commodity enterprise middleware</a><br />
+      <a href="/resources/Queuevol5no4_May2007.pdf">Toward a commodity enterprise middleware</a><br />
       Article in ACM Queue from June 2007 by John O'Hara, one of the original creators
       of AMQP. John discusses the origins of AMQP, how it came to be, and how you
       might go about integrating AMQP messaging with legacy middleware. The article entitled 'Toward a

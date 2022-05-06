@@ -19,17 +19,17 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The Web MQTT plugin makes it possible to use
-[MQTT](./mqtt.html) over a WebSocket connection.
+[MQTT](/mqtt.html) over a WebSocket connection.
 
 The goal of this plugin is to enable MQTT messaging in Web applications.
 
-A similar plugin, [Web STOMP plugin](./web-stomp.html), makes it possible to use [STOMP](./stomp.html) over
+A similar plugin, [Web STOMP plugin](/web-stomp.html), makes it possible to use [STOMP](/stomp.html) over
 WebSockets.
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How It Works</a>
 
 RabbitMQ Web MQTT plugin is rather simple. It takes the MQTT protocol,
-as provided by [RabbitMQ MQTT plugin](./mqtt.html) and exposes it using
+as provided by [RabbitMQ MQTT plugin](/mqtt.html) and exposes it using
 WebSockets.
 
 
@@ -37,7 +37,7 @@ WebSockets.
 
 `rabbitmq_web_mqtt` plugin ships with RabbitMQ.
 
-To enable the plugin run [rabbitmq-plugins](./man/rabbitmq-plugins.8.html):
+To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_mqtt
@@ -131,11 +131,11 @@ We encourage you to take a look [at the source code](https://github.com/rabbitmq
 
 When no configuration is specified the Web MQTT plugin will listen on
 all interfaces on port 15675 and have a default user login and password of
-`guest`/`guest`. Note that this user is only [allowed to connect from localhost](./access-control.html) by default.
+`guest`/`guest`. Note that this user is only [allowed to connect from localhost](/access-control.html) by default.
 We highly recommend creating a separate user for production systems.
 
 To change the listener port, edit your
-[Configuration file](./configure.html#configuration-files),
+[Configuration file](/configure.html#configuration-files),
 to contain a `port` variable for the `rabbitmq_web_mqtt` application.
 
 For example, a complete configuration file which changes the listener
@@ -150,7 +150,7 @@ See [RabbitMQ Networking guide](networking.html) for more information.
 
 ### <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
-The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](./ssl.html)
+The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
 to learn more about TLS support in RabbitMQ.
 
 TLS configuration parameters are provided in the `web_mqtt.ssl` section:
@@ -167,10 +167,10 @@ web_mqtt.ssl.keyfile    = /path/to/server_key.pem
 
 The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
 Password is also mandatory if the private key uses one.
-An extended list of TLS settings is largely identical to those [for the core server](./ssl.html).
+An extended list of TLS settings is largely identical to those [for the core server](/ssl.html).
 Full list of options accepted by this plugin can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.7/manual/ranch_ssl/).
 
-A separate guide on [troubleshooting TLS](./troubleshooting-ssl.html) is also available.
+A separate guide on [troubleshooting TLS](/troubleshooting-ssl.html) is also available.
 
 
 #### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
@@ -178,10 +178,10 @@ A separate guide on [troubleshooting TLS](./troubleshooting-ssl.html) is also av
 It is possible to configure what TLS versions and cipher suites will be used by RabbitMQ. Note that not all
 suites will be available on all systems.
 
-RabbitMQ TLS guide has [a section on TLS versions](./ssl.html#disabling-tls-versions) and another one
-[on cipher suites](./ssl.html#cipher-suites). Below is an example
-in the [advanced config format](./configure.html#advanced-config-file) that configures cipher suites
-and a number of other [TLS options](./ssl.html) for the plugin:
+RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
+[on cipher suites](/ssl.html#cipher-suites). Below is an example
+in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
+and a number of other [TLS options](/ssl.html) for the plugin:
 
 <pre class="lang-ini">
 web_mqtt.ssl.port       = 15676
@@ -212,7 +212,7 @@ web_mqtt.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 
 #### Troubleshooting TLS (WSS)
 
-See [RabbitMQ TLS](./ssl.html) and [TLS Troubleshooting](./troubleshooting-ssl.html) for additional
+See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
 information.
 
 ## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
@@ -224,7 +224,7 @@ This feature is disabled by default, to enable it for MQTT clients:
 web_mqtt.proxy_protocol = true
 </pre>
 
-See the [Networking Guide](./networking.html#proxy-protocol) for more information
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 ## <a id="advanced-options" class="anchor" href="#advanced-options">Advanced Options</a>

@@ -167,7 +167,7 @@ log.file.rotation.count = 5
 On Linux, BSD and other UNIX-like systems, [logrotate](https://linux.die.net/man/8/logrotate) is an alternative
 way of log file rotation and compression.
 
-RabbitMQ [Debian](./install-debian.html) and [RPM](./install-rpm.html) packages will set up `logrotate` to run weekly on files
+RabbitMQ [Debian](/install-debian.html) and [RPM](/install-rpm.html) packages will set up `logrotate` to run weekly on files
 located in default `/var/log/rabbitmq` directory. Rotation configuration can be found in `/etc/logrotate.d/rabbitmq-server`.
 
 
@@ -311,7 +311,7 @@ log.syslog.formatter = json
 </pre>
 
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
-be configured using the <a href="./configure.html#configuration-files">advanced config file</a>.
+be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
 
 
 ## <a id="json" class="anchor" href="#json">JSON Logging</a>
@@ -437,7 +437,7 @@ There are two ways of changing effective log levels:
 
  * Via [configuration file(s)](configure.html): this is more flexible but requires
    a node restart between changes
- * Using [CLI tools](./cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
+ * Using [CLI tools](/cli.html), `rabbitmqctl set_log_level &lt;level&gt;`: the changes are transient (will not survive node restart) but can be used to
    enable and disable e.g. [debug logging](#debug-logging) at runtime for a period of time.
 
 To set log level to `debug` on a running node:
@@ -455,7 +455,7 @@ rabbitmqctl -n rabbit@target-host set_log_level info
 
 ## <a id="log-tail" class="anchor" href="#log-tail">Tailing Logs Using CLI Tools</a>
 
-Modern releases support tailing logs of a node using [CLI tools](./cli.html). This is convenient
+Modern releases support tailing logs of a node using [CLI tools](/cli.html). This is convenient
 when log file location is not known or is not easily accessible but CLI tool connectivity
 is allowed.
 
@@ -576,7 +576,7 @@ The entry includes client IP address and port (<code>127.0.0.1:52771</code>) as 
 IP address and port of the server (<code>127.0.0.1:5672</code>). This information can be useful
 when troubleshooting client connections.
 
-Once a connection successfully authenticates and is granted access to a [virtual host](./vhosts.html),
+Once a connection successfully authenticates and is granted access to a [virtual host](/vhosts.html),
 that is also logged:
 
 <pre class="lang-plaintext">
@@ -585,7 +585,7 @@ that is also logged:
 
 The examples above include two values that can be used as connection identifiers
 in various scenarios: connection name (`127.0.0.1:57919 -> 127.0.0.1:5672`) and an Erlang process ID of the connection (`&lt;0.620.0&gt;`).
-The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](./management.html).
+The latter is used by [rabbitmqctl](./cli.html) and the former is used by the [HTTP API](/management.html).
 
 A [client connection](connections.html) can be closed cleanly or abnormally. In the
 former case the client closes AMQP 0-9-1 (or 1.0, or STOMP, or
@@ -651,7 +651,7 @@ When used interactively, results can be piped to a command line JSON processor s
 rabbitmq-diagnostics consume_event_stream | jq
 </pre>
 
-The events can also be exposed to applications for [consumption](./consumers.html)
+The events can also be exposed to applications for [consumption](/consumers.html)
 with a plugin, [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/).
 
 Events are published as messages with blank bodies. All event metadata is stored in
@@ -677,19 +677,19 @@ Below is a list of published events.
  * `channel.created`
  * `channel.closed`
 
-[Consumer](./consumers.html) events:
+[Consumer](/consumers.html) events:
 
  * `consumer.created`
  * `consumer.deleted`
 
-[Policy and Parameter](./parameters.html) events:
+[Policy and Parameter](/parameters.html) events:
 
  * `policy.set`
  * `policy.cleared`
  * `parameter.set`
  * `parameter.cleared`
 
-[Virtual host](./vhosts.html) events:
+[Virtual host](/vhosts.html) events:
 
  * `vhost.created`
  * `vhost.deleted`
@@ -706,14 +706,14 @@ User management events:
  * `user.password.cleared`
  * `user.tags.set`
 
-[Permission](./access-control.html) events:
+[Permission](/access-control.html) events:
 
  * `permission.created`
  * `permission.deleted`
  * `topic.permission.created`
  * `topic.permission.deleted`
 
-[Alarm](./alarms.html) events:
+[Alarm](/alarms.html) events:
 
  * `alarm.set`
  * `alarm.cleared`

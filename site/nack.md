@@ -19,10 +19,10 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Consumers in AMQP 0-9-1 can choose to use [manual acknowledgements](./confirms.html)
+Consumers in AMQP 0-9-1 can choose to use [manual acknowledgements](/confirms.html)
 of deliveries.
 
-The [AMQP 0-9-1 specification](./specification.html) defines the `basic.reject`
+The [AMQP 0-9-1 specification](/specification.html) defines the `basic.reject`
 method that allows clients to reject individual, delivered
 messages, instructing the broker to either discard them or
 requeue them. Unfortunately, `basic.reject`
@@ -43,7 +43,7 @@ unacknowledged, delivered messages up to and including the
 message specified in the `delivery_tag` field of the `basic.nack` method. In this respect,
 `basic.nack` complements the bulk acknowledgement semantics of `basic.ack`.
 
-Negative acknowledgements work for both [long running consumers](./consumers.html)
+Negative acknowledgements work for both [long running consumers](/consumers.html)
 and polling-based ones (that use `basic.get`).
 
 When a message is requeued, it will be placed to its original

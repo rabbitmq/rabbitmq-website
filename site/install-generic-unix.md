@@ -22,10 +22,10 @@ limitations under the License.
 RabbitMQ releases include a binary package for Linux, MacOS, and *BSD systems.
 It is minimalistic and not opinionated in how it is installed, configured and managed.
 This package is recommended in environments where more opinionated installation options
-(the [Debian](./install-debian.html) or [RPM packages](./install-rpm.html), [Homebrew](./install-homebrew.html), BSD ports) cannot be used.
+(the [Debian](/install-debian.html) or [RPM packages](/install-rpm.html), [Homebrew](/install-homebrew.html), BSD ports) cannot be used.
 It is also the most convenient option for running multiple versions on the same machine
-in development environments, e.g. [preview release](./snapshots.html) testing.
-There's a separate [binary package for Windows](./install-windows-manual.html).
+in development environments, e.g. [preview release](/snapshots.html) testing.
+There's a separate [binary package for Windows](/install-windows-manual.html).
 
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
@@ -55,7 +55,7 @@ There's a separate [binary package for Windows](./install-windows-manual.html).
 
 ### <a id="install-erlang" class="anchor" href="#install-erlang">Make Sure Erlang/OTP is Installed</a>
 
-This package requires a [supported version of Erlang](./which-erlang.html) to be installed
+This package requires a [supported version of Erlang](/which-erlang.html) to be installed
 in order to run.
 
 ### <a id="install" class="anchor" href="#install">Install the Server</a>
@@ -64,7 +64,7 @@ in order to run.
 
 Contained in the tarball is a directory named `rabbitmq_server-&version-server;`. This directory is the node base directory. It should be
 moved to a suitable application directory on the system, such as `/usr/local`.
-The `sbin` directory in that directory contains server and [CLI tool](./cli.html) scripts.
+The `sbin` directory in that directory contains server and [CLI tool](/cli.html) scripts.
 It is a good candidate for including into `PATH`.
 
 
@@ -72,10 +72,10 @@ It is a good candidate for including into `PATH`.
 
 ### <a id="running-generic-unix" class="anchor" href="#running-generic-unix">Running and Managing the Node</a>
 
-Unlike some other installation methods, namely the [Debian](./install-debian.html) and [RPM packages](./install-rpm.html), RabbitMQ
+Unlike some other installation methods, namely the [Debian](/install-debian.html) and [RPM packages](/install-rpm.html), RabbitMQ
 generic UNIX binary build does not require `sudo`. It can be uncompressed
-into any location and started and managed using the scripts and [CLI tools](./cli.html) under `sbin`.
-Default [data directory location](./relocate.html) will be under `./var`,
+into any location and started and managed using the scripts and [CLI tools](/cli.html) under `sbin`.
+Default [data directory location](/relocate.html) will be under `./var`,
 that is, in the installation directory.
 
 #### Starting the Server
@@ -109,14 +109,14 @@ See RabbitMQ [configuration guide](configure.html) to learn more.
 ### <a id="file-locations" class="anchor" href="#file-locations">File Locations</a>
 
 The generic binary build is designed to run without granted
-permissions to directories outside of its base one. The [directories and files](./relocate.html) used by default are
+permissions to directories outside of its base one. The [directories and files](/relocate.html) used by default are
 all held under the installation directory `rabbitmq_server-&version-server;`
 which is in the <span class="envvar">$RABBITMQ_HOME</span>
 variable in the scripts.
 
-The node can be [instructed](./relocate.html) to use more
+The node can be [instructed](/relocate.html) to use more
 conventional system directories for [configuration](configure.html),
-node data directory, [log](./logging.html) files, [plugins](./plugins.html) and so on.
+node data directory, [log](/logging.html) files, [plugins](/plugins.html) and so on.
 In order to make the node use operating system defaults, locate the following line
 
 <pre class="lang-bash">
@@ -138,8 +138,8 @@ node user won't have permissions for.
 
 In particular `RABBITMQ_MNESIA_BASE` and
 `RABBITMQ_LOG_BASE` may need to be created (the server will attempt to create them at startup), and the
-[enabled plugins file](./plugins.html) (`RABBITMQ_ENABLED_PLUGINS_FILE`) will need
-to be writable by [rabbitmq-plugins](./cli.html).
+[enabled plugins file](/plugins.html) (`RABBITMQ_ENABLED_PLUGINS_FILE`) will need
+to be writable by [rabbitmq-plugins](/cli.html).
 
 The configuration files will be looked for in `/etc/rabbitmq/`.
 
@@ -164,13 +164,13 @@ Make sure the following ports are accessible:
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
    server distribution port + 10010). See [networking guide](networking.html) for details.
- * 15672: [HTTP API](./management.html) clients, [management UI](./management.html) and [rabbitmqadmin](./management-cli.html)
-   (only if the [management plugin](./management.html) is enabled)
- * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](./stomp.html) is enabled)
- * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](./mqtt.html) is enabled
- * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](./web-stomp.html) is enabled)
- * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](./web-mqtt.html) is enabled)
- * 15692: Prometheus metrics (only if the [Prometheus plugin](./prometheus.html) is enabled)
+ * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
+   (only if the [management plugin](/management.html) is enabled)
+ * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
+ * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
+ * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
+ * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
+ * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
 It is possible to [configure RabbitMQ](configure.html)
 to use [different ports and specific network interfaces](networking.html).
@@ -197,7 +197,7 @@ commands will report the node absence if no broker is running.
  * Invoke `rabbitmqctl stop` or `rabbitmqctl shutdown` to stop the server
  * Invoke `rabbitmq-diagnostics status` to check whether it is running
 
-See [CLI tools guide](./cli.html) to learn more.
+See [CLI tools guide](/cli.html) to learn more.
 
 
 ## <a id="kernel-resource-limits" class="anchor" href="#kernel-resource-limits">Controlling System Limits on Linux</a>

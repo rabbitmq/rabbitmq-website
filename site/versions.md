@@ -23,8 +23,8 @@ This guide explains what release series of RabbitMQ are currently covered by
 general or extended support policies, which release series is coming next, and
 what series are no longer supported.
 
-For guidance on upgrades, see the [Upgrade](./upgrade.html) and [Blue/Green
-Deployment Upgrade](./blue-green-upgrade.html) guides.
+For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green
+Deployment Upgrade](/blue-green-upgrade.html) guides.
 
 ## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
 
@@ -66,9 +66,9 @@ Deployment Upgrade](./blue-green-upgrade.html) guides.
   </tr>
 </table>
 
-<sup>1</sup> **General Support** means patch releases that are [produced regularly](./changelog.html) based on feedback from all users.
+<sup>1</sup> **General Support** means patch releases that are [produced regularly](/changelog.html) based on feedback from all users.
 
-<sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](./contact.html#paid-support).
+<sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](/contact.html#paid-support).
 
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
@@ -151,7 +151,7 @@ As of 6 January 2022, the next release series has not been announced yet.
   </tr>
 </table>
 
-To learn more about individual releases, please see the [change log](./changelog.html).
+To learn more about individual releases, please see the [change log](/changelog.html).
 
 
 ## <a id="prior-to-v3x" class="anchor" href="#prior-to-v3x">Versions prior to v3.x</a>

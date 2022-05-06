@@ -20,13 +20,13 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 Direct reply-to is a feature that allows RPC (request/reply) clients with a design
-similar to that demonstrated in [tutorial 6](./getstarted.html) to avoid
+similar to that demonstrated in [tutorial 6](/getstarted.html) to avoid
 declaring a response queue per request.
 
 ### <a id="motivation" class="anchor" href="#motivation">Motivation</a>
 
 RPC (request/reply) is a popular pattern to implement with a messaging broker
-like RabbitMQ. [Tutorial 6](./getstarted.html) demonstrates its implementation
+like RabbitMQ. [Tutorial 6](/getstarted.html) demonstrates its implementation
 with a variety of clients. The typical way to do this is for RPC clients to
 send requests that are routed to a long lived (known) server queue. The RPC server(s)
 consume requests from this queue and then send replies to each client

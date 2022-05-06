@@ -19,7 +19,7 @@ limitations under the License.
 
 
 The routing logic in AMQP 0-9-1 does not offer a way for message
-[publishers](./publishers.html) to select intended recipients unless they
+[publishers](/publishers.html) to select intended recipients unless they
 bind their queues to the target destination (an exchange).
 
 The RabbitMQ broker treats the "CC" and "BCC" message headers
@@ -33,7 +33,7 @@ will be routed to all destinations matching the routing key
 supplied as a parameter to the `basic.publish`
 method, as well as the routes supplied in the "CC" and "BCC"
 headers. The type of "CC" and "BCC" values must be an array
-of [longstr](./amqp-0-9-1-reference.html#domain.longstr)
+of [longstr](/amqp-0-9-1-reference.html#domain.longstr)
 and these keys are case-sensitive. If the header does not
 contain "CC" or "BCC" keys then this extension has no effect.
 

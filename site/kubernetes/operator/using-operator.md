@@ -3,9 +3,9 @@
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
 This guide covers how to deploy Custom Resource objects that will
-be managed by the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html).
+be managed by the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
 If RabbitMQ Cluster Kubernetes Operator is not installed,
-see the [installation guide](./install-operator.html). For instructions on getting started quickly, see the [quickstart guide](./quickstart-operator.html).
+see the [installation guide](/kubernetes/operator/install-operator.html). For instructions on getting started quickly, see the [quickstart guide](/kubernetes/operator/quickstart-operator.html).
 This guide is structured in the following sections:
 
 * [Confirm Service Availability](#service-availability)
@@ -48,7 +48,7 @@ kubectl get customresourcedefinitions.apiextensions.k8s.io
 # rabbitmqclusters.rabbitmq.com   2019-10-23T10:11:06Z
 </pre>
 
-If it is not, install it by following the steps in the [installation guide](./install-operator.html).
+If it is not, install it by following the steps in the [installation guide](/kubernetes/operator/install-operator.html).
 
 
 ## <a id='psp' class='anchor' href='#psp'>(Optional) Apply Pod Security Policies</a>
@@ -201,7 +201,7 @@ metadata:
 
 **Description:** Specify the number of replicas for the RabbitmqCluster. [An even number of replicas
 is highly discouraged](../../clustering.html#node-count). Odd numbers (1, 3, 5, 7, and so on)
-[must be used](../../clustering.html#node-count).
+[must be used](/clustering.html#node-count).
 
 **Default Value:** 1
 
@@ -573,10 +573,10 @@ If community plugins need to be provisioned, they should be included into a cust
 already exist in the same Namespace as the `RabbitmqCluster` object. It is expected that the Secret contains `tls.key`
 and `tls.crt` for the private key and public certificate respectively.
 
-By default, enabling [TLS for client connections](../../ssl.html) does not disable non-TLS listeners. Therefore, unencrypted connections will still be accepted.
+By default, enabling [TLS for client connections](/ssl.html) does not disable non-TLS listeners. Therefore, unencrypted connections will still be accepted.
 To disable non-TLS listeners and only accept TLS connections, set `spec.tls.disableNonTLSListeners: true`.
 
-It is also possible to make RabbitMQ [verify peer certificates](../../ssl.html#peer-verification) against a provided CA certificate.
+It is also possible to make RabbitMQ [verify peer certificates](/ssl.html#peer-verification) against a provided CA certificate.
 The same can be done by clients, so peer verification can be mutual ("mTLS").
 This certificate must be stored in a Secret of name `spec.tls.caSecretName`, in the same Namespace as the `RabbitmqCluster`
 object. Note that this can be the same Secret as `spec.tls.secretName`. This Secret **must** have a key `ca.crt` containing
@@ -975,10 +975,10 @@ For more information about concepts mentioned above, see:
 
 ## <a id='tls' class='anchor' href='#tls'>(Optional) Configure TLS</a>
 
-Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="../../ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
+Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="/ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
 [mutual TLS (mTLS)](#mutual-tls) encrypted traffic between clients and the cluster, as well
 as supporting [encrypting RabbitMQ inter-node traffic with mTLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node).
-A [basic overview of TLS](../../ssl.html#certificates-and-keys) is helpful for understanding this guide.
+A [basic overview of TLS](/ssl.html#certificates-and-keys) is helpful for understanding this guide.
 
 ### <a id='one-way-tls' class='anchor' href='#one-way-tls'>TLS encrypting traffic between clients and RabbitMQ</a>
 
@@ -1024,7 +1024,7 @@ spec:
 
 Mutual TLS (mTLS) enhances TLS by requiring that the server verify the identity of the client, in addition to the client verifying the server, which already occurs in TLS encryption. In order for this mutual verification to occur, both the client and server must be configured with certificate and key pairs, with the client pair signed by a CA trusted by the server and the server pair signed by a CA trusted by the client. The mutual verification process is shown in the following diagram:
 
-<img src="../../img/mTLS.png"/>
+<img src="/img/mTLS.png"/>
 
 In addition to the [configuration required to support TLS](#one-way-tls), configuring mutual TLS requires the RabbitMQ cluster to be configured with the CA certificate
 used to sign the client certificate and key pair, `ca.pem`. Create a Kubernetes secret with key `ca.crt` containing this secret
@@ -1049,7 +1049,7 @@ spec:
     caSecretName: ca-secret
 </pre>
 
-In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](../../ssl.html#peer-verification) using
+In order to enforce client verification, RabbitMQ must be configured to reject clients that do not present certificates. This can be done by enabling [TLS peer verification](/ssl.html#peer-verification) using
 the `ssl_options.fail_if_no_peer_cert` option in the additional config:
 
 <pre class="lang-yaml">
@@ -1205,14 +1205,14 @@ kubectl delete pod perf-test
 
 For information about how to start using your apps, see
 [RabbitMQ tutorials](../../getstarted.html)
-and guides on [Connections](../../consumers.html), [Publishers](../../publishers.html), and [Consumers](../../consumers.html).
+and guides on [Connections](/consumers.html), [Publishers](/publishers.html), and [Consumers](/consumers.html).
 
 
 ## <a id='monitoring' class='anchor' href='#monitoring'>Monitor RabbitMQ Clusters</a>
 
-For production systems, it is critically important to enable RabbitMQ cluster [monitoring](../../monitoring.html).
+For production systems, it is critically important to enable RabbitMQ cluster [monitoring](/monitoring.html).
 
-See [Monitoring RabbitMQ in Kubernetes](./operator-monitoring.html) to learn about
+See [Monitoring RabbitMQ in Kubernetes](/kubernetes/operator/operator-monitoring.html) to learn about
 the recommended monitoring options for Kubernetes-deployed clusters.
 
 

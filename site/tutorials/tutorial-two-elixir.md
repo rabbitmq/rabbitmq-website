@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 <div class="diagram">
-  <img src="../img/tutorials/python-two.png" height="110" />
+  <img src="/img/tutorials/python-two.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -327,7 +327,7 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/prefetch-count.png" height="110" />
+  <img src="/img/tutorials/prefetch-count.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -364,7 +364,7 @@ AMQP.Basic.qos(channel, prefetch_count: 1)
 > #### Note about queue size
 >
 > If all the workers are busy, your queue can fill up. You will want to keep an
-> eye on that, and maybe add more workers, or use [message TTL](../ttl.html).
+> eye on that, and maybe add more workers, or use [message TTL](/ttl.html).
 
 Putting it all together
 -----------------------

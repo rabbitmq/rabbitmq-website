@@ -79,7 +79,7 @@ gpg --keyserver "pgp.mit.edu" --recv-keys "0x0A9AF2115F4687BD29803A206B73A36E602
 
 ### <a id="importing-apt" class="anchor" href="#importing-apt">With apt</a>
 
-On Debian and Ubuntu systems, assuming that [apt repositories](./install-debian.html) are used for installation,
+On Debian and Ubuntu systems, assuming that [apt repositories](/install-debian.html) are used for installation,
 trusted repository signing keys must be added to the system before any packages can be installed.
 
 This can be done using key servers or (for the RabbitMQ main signing key) a direct download.
@@ -116,7 +116,7 @@ curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg 
 
 ### <a id="importing-rpm" class="anchor" href="#importing-rpm">With RPM</a>
 
-On RPM-based systems (RHEL, Fedora, CentOS), assuming that [yum repositories](./install-rpm.html) are used for installation,
+On RPM-based systems (RHEL, Fedora, CentOS), assuming that [yum repositories](/install-rpm.html) are used for installation,
 `rpm --import` should be used to import the key.
 
 #### Direct Download

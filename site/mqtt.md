@@ -69,7 +69,7 @@ The plugin must be enabled on all cluster nodes.
 * Retained messages with pluggable storage backends
 
 MQTT clients can interoperate with other protocols. All the functionality in
-the [management UI](./management.html) and several other plugins can be
+the [management UI](/management.html) and several other plugins can be
 used with MQTT, although there may be some limitations or the need to
 tweak the defaults.
 
@@ -77,7 +77,7 @@ tweak the defaults.
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The MQTT plugin is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](./cli.html):
+connect, it must be enabled using [rabbitmq-plugins](/cli.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_mqtt
@@ -89,7 +89,7 @@ they have a set of credentials for an existing user with the appropriate permiss
 ### <a id="authentication" class="anchor" href="#authentication">Users and Authentication</a>
 
 For an MQTT connection to succeed, it must successfully authenticate and the user must
-have the [appropriate permissions](./access-control.html) to the virtual host used by the
+have the [appropriate permissions](/access-control.html) to the virtual host used by the
 plugin (see below).
 
 MQTT clients can (and usually do) specify a set of credentials when they connect.
@@ -98,11 +98,11 @@ The plugin supports anonymous authentication but its use is highly discouraged a
 to certain limitations (listed below) enforced for a reasonable level of security
 by default.
 
-Users and their permissions can be managed using [rabbitmqctl](./cli.html), [management UI](./management.html)
+Users and their permissions can be managed using [rabbitmqctl](/cli.html), [management UI](/management.html)
 or HTTP API.
 
 For example, the following commands create a new user for MQTT connections with full access
-to the default [virtual host](./vhosts.html) used by this plugin:
+to the default [virtual host](/vhosts.html) used by this plugin:
 
 <pre class="lang-bash">
 # username and password are both "mqtt-test"
@@ -124,7 +124,7 @@ There is also support for multi-tenancy.
 The plugin builds on top of RabbitMQ core protocol's entities: exchanges and queues. Messages published
 to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
 RabbitMQ queues bound to the topic exchange. This both enables interoperability
-with other protocols and makes it possible to use the [Management plugin](./management.html)
+with other protocols and makes it possible to use the [Management plugin](/management.html)
 to inspect queue sizes, message rates, and so on.
 
 Note that MQTT uses slashes ("/") for topic segment separators and
@@ -145,7 +145,7 @@ that make sure remote clients can successfully connect:
  * Create one or more new user(s), grant them full permissions to the virtual host used by the MQTT plugin and make clients
    that connect from remote hosts use those credentials. This is the recommended option.
  * Set `default_user` and `default_pass` via [MQTT plugin configuration](#config) to a non-`guest` user who has the
-[appropriate permissions](./access-control.html).
+[appropriate permissions](/access-control.html).
 
 
 ### <a id="anonymous-connections" class="anchor" href="#anonymous-connections">Anonymous Connections</a>
@@ -250,9 +250,9 @@ node out of two means the loss of a quorum of online nodes.
 
 RabbitMQ's Raft implementation keeps a portion of the operation log in memory as well as on disk.
 In environments where the MQTT plugin is the only Raft-based feature used
-(namely where [quorum queues](./quorum-queues.html) are not used), reducing the portion of
+(namely where [quorum queues](/quorum-queues.html) are not used), reducing the portion of
 the log stored in memory will reduce memory footprint of the plugin in case of
-[high connection churn](./connections.html#high-connection-churn).
+[high connection churn](/connections.html#high-connection-churn).
 
 The configuration key of interest is `raft.wal_max_size_bytes`:
 
@@ -262,13 +262,13 @@ The configuration key of interest is `raft.wal_max_size_bytes`:
 raft.wal_max_size_bytes = 67108864
 </pre>
 
-If [quorum queues](./quorum-queues.html) are adopted at a later point, this setting
+If [quorum queues](/quorum-queues.html) are adopted at a later point, this setting
 should be revisited to be closer to the default one.
 
 
 ## <a id="config" class="anchor" href="#config">Plugin Configuration</a>
 
-Here is a sample [configuration](./configure.html#config-file) that demonstrates a number of MQTT plugin settings:
+Here is a sample [configuration](/configure.html#config-file) that demonstrates a number of MQTT plugin settings:
 
 <pre class="lang-ini">
 mqtt.listeners.tcp.default = 1883
@@ -295,7 +295,7 @@ all interfaces on port 1883 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change the listener port, edit your
-[Configuration file](./configure.html#configuration-files),
+[Configuration file](/configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_mqtt` application.
 
 For example, a minimalistic configuration file which changes the listener
@@ -318,7 +318,7 @@ mqtt.listeners.tcp.2 = ::1:1883
 The plugin supports TCP listener option configuration.
 
 The settings use a common prefix, `mqtt.tcp_listen_options`, and control
-things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](./heartbeats.html#tcp-keepalives)
+things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
 are enabled and so on. See the [Networking guide](networking.html) for details.
 
 <pre class="lang-ini">
@@ -338,7 +338,7 @@ mqtt.tcp_listen_options.send_timeout  = 120
 
 ### <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
-To use TLS for MQTT connections, [TLS must be configured](./ssl.html) in the broker. To enable
+To use TLS for MQTT connections, [TLS must be configured](/ssl.html) in the broker. To enable
 TLS-enabled MQTT connections, add a TLS listener for MQTT using the `mqtt.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server
@@ -377,7 +377,7 @@ connect to.
 #### Port to Virtual Host Mapping
 
 First way is mapping MQTT plugin (TCP or TLS) listener ports to vhosts. The mapping
-is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](./parameters.html).
+is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](/parameters.html).
 Let's take the following plugin configuration:
 
 <pre class="lang-ini">
@@ -479,7 +479,7 @@ Note that:
 * Clients **must not** supply username and password.
 
 You can optionally specify a virtual host for a client certificate by using the `mqtt_default_vhosts`
-[global runtime parameter](./parameters.html). The value of this global parameter must contain a JSON document that
+[global runtime parameter](/parameters.html). The value of this global parameter must contain a JSON document that
 maps certificates' subject's Distinguished Name to their target virtual host. Let's see how to
 map 2 certificates, `O=client,CN=guest` and `O=client,CN=rabbit`, to the `vhost1` and `vhost2`
 virtual hosts, respectively.
@@ -563,7 +563,7 @@ This feature is disabled by default, to enable it for MQTT clients:
 mqtt.proxy_protocol = true
 </pre>
 
-See the [Networking Guide](./networking.html#proxy-protocol) for more information
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 ## <a id="sparkplug-support" class="anchor" href="#sparkplug-support">Sparkplug Support</a>
@@ -605,7 +605,7 @@ different benefits, trade-offs, and limitations.
 
 ## <a id="disabling-plugin" class="anchor" href="#disabling-plugin">Disabling the Plugin</a>
 
-Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](./cli.html):
+Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned using [`rabbitmqctl`](/cli.html):
 
 <pre class="lang-bash">
 rabbitmqctl decommission_mqtt_node &lt;node&gt;

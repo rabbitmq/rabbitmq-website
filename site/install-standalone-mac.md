@@ -23,6 +23,6 @@ RabbitMQ releases used to include a special binary package for macOS that bundle
 a supported version of Erlang/OTP. As of September 2019, this package has been discontinued.
 It will no longer be produced for new RabbitMQ releases.
 
-macOS users should use the [Homebrew formula](./install-homebrew.html)
-or the [generic binary build](./install-generic-unix.html) (requires a [supported version of Erlang](./which-erlang.html)
+macOS users should use the [Homebrew formula](/install-homebrew.html)
+or the [generic binary build](/install-generic-unix.html) (requires a [supported version of Erlang](/which-erlang.html)
 to be installed separately) to provision RabbitMQ.

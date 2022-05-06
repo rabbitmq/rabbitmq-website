@@ -88,7 +88,7 @@ limitations under the License.
                   <xsl:with-param name="date" select="substring($itemdate, 0, 11)"/>
                 </xsl:call-template>
               </span>
-              <a href="./news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
+              <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
               <br/>
             </xsl:when>
 

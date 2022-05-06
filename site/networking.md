@@ -36,7 +36,7 @@ There are several areas which can be configured or tuned. Each has a section in 
 
  * [Interfaces](#interfaces) the node listens on for client connections
  * IP version preferences: [dual stack](#dual-stack), [IPv6-only](#single-stack-ipv6) and [IPv4-only](#single-stack-ipv4)
- * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](./cli.html)
+ * [Ports](#ports) used by clients, [inter-node traffic](#epmd-inet-dist-port-range) in clusters and [CLI tools](/cli.html)
  * [IPv6 support](#distribution-ipv6) for inter-node traffic
  * [TLS](#tls-support) for client connections
  * Tuning for a [large number of concurrent connections](#tuning-for-large-number-of-connections)
@@ -72,7 +72,7 @@ such as
 
 [Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
-A methodology for [troubleshooting of networking-related issues](./troubleshooting-networking.html)
+A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.
 
 
@@ -139,7 +139,7 @@ listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 It is possible to disable non-TLS connections by disabling all regular TCP listeners.
-Only [TLS-enabled](./ssl.html) clients will be able to connect:
+Only [TLS-enabled](/ssl.html) clients will be able to connect:
 
 <pre class="lang-ini">
 # disables non-TLS listeners, only TLS-enabled clients will be able to connect
@@ -177,13 +177,13 @@ Make sure the following ports are accessible:
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
    server distribution port + 10010). See [networking guide](networking.html) for details.
- * 15672, 15671: [HTTP API](./management.html) clients, [management UI](./management.html) and [rabbitmqadmin](./management-cli.html), without and with TLS
-   (only if the [management plugin](./management.html) is enabled)
- * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](./stomp.html) is enabled)
- * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](./mqtt.html) is enabled
- * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](./web-stomp.html) is enabled)
- * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](./web-mqtt.html) is enabled)
- * 15692: Prometheus metrics (only if the [Prometheus plugin](./prometheus.html) is enabled)
+ * 15672, 15671: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html), without and with TLS
+   (only if the [management plugin](/management.html) is enabled)
+ * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
+ * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
+ * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
+ * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
+ * 15692: Prometheus metrics (only if the [Prometheus plugin](/prometheus.html) is enabled)
 
 It is possible to [configure RabbitMQ](configure.html)
 to use [different ports and specific network interfaces](networking.html).
@@ -195,7 +195,7 @@ Starting with RabbitMQ `3.8.8`, client connection listeners can be *suspended* t
 connections from being accepted. Existing connections will not be affected in any way.
 
 This can be useful during node operations and is one of the steps performed
-when a node is [put into maintenance mode](./upgrade.html#maintenance-mode).
+when a node is [put into maintenance mode](/upgrade.html#maintenance-mode).
 
 To suspend all listeners on a node and prevent new client connections to it, use `rabbitmqctl suspend_listeners`:
 
@@ -222,7 +222,7 @@ rabbitmqctl resume_listeners
 rabbitmqctl resume_listeners -n rabbit@node2.cluster.rabbitmq.svc
 </pre>
 
-Both operations will leave [log entries](./logging.html) in the node's log.
+Both operations will leave [log entries](/logging.html) in the node's log.
 
 
 ## <a id="epmd" class="anchor" href="#epmd">EPMD and Inter-node Communication</a>
@@ -231,8 +231,8 @@ Both operations will leave [log entries](./logging.html) in the node's log.
 
 [epmd](http://www.erlang.org/doc/man/epmd.html) (for Erlang Port Mapping Daemon)
 is a small additional daemon that runs alongside every RabbitMQ node and is used by
-the [runtime](./runtime.html) to discover what port a particular node listens on for
-inter-node communication. The port is then used by peer nodes and [CLI tools](./cli.html).
+the [runtime](/runtime.html) to discover what port a particular node listens on for
+inter-node communication. The port is then used by peer nodes and [CLI tools](/cli.html).
 
 When a node or CLI tool needs to contact node `rabbit@hostname2` it will do the following:
 
@@ -277,7 +277,7 @@ variable:
 export ERL_EPMD_PORT="4369"
 </pre>
 
-All hosts in a [cluster](./clustering.html) must use the same port.
+All hosts in a [cluster](/clustering.html) must use the same port.
 
 When `ERL_EPMD_PORT` is changed, both RabbitMQ node and `epmd` on the host must be stopped.
 For `epmd`, use
@@ -303,7 +303,7 @@ For RabbitMQ, the default range is limited to a single value computed as
 in using port 25672. This single port can be [configured](configure.html)
 using the `RABBITMQ_DIST_PORT` environment variable.
 
-RabbitMQ [command line tools](./cli.html) also use a range of ports. The default range is computed by taking the RabbitMQ
+RabbitMQ [command line tools](/cli.html) also use a range of ports. The default range is computed by taking the RabbitMQ
 distribution port value and adding 10000 to it. The next 10 ports are also part
 of this range. Thus, by default, this range is 35672 through 35682. This range
 can be configured using the <span class="envvar">RABBITMQ_CTL_DIST_PORT_MIN</span>
@@ -319,7 +319,7 @@ CLI tools might be used. epmd port must be open for CLI tools and clustering
 to function.
 
 On Windows, the following settings have no effect when RabbitMQ runs as a service.
-Please see <a href="./windows-quirks.html">Windows Quirks</a> for details.
+Please see <a href="/windows-quirks.html">Windows Quirks</a> for details.
 
 The range used by RabbitMQ can also be controlled via two configuration keys:
 
@@ -361,7 +361,7 @@ name rabbit at port 25672
 Inter-node connections use a buffer for data pending to be sent. Temporary
 throttling on inter-node traffic is applied when the buffer is at max allowed
 capacity. The limit is controlled via the `RABBITMQ_DISTRIBUTION_BUFFER_SIZE`
-[environment variable](./configure.html#supported-environment-variables)
+[environment variable](/configure.html#supported-environment-variables)
 in kilobytes. Default value is 128 MB (`128000` kB).
 
 In clusters with heavy inter-node traffic increasing this value may
@@ -464,7 +464,7 @@ systemctl restart epmd.socket epmd.service
 ## <a id="intermediaries" class="anchor" href="#intermediaries">Intermediaries: Proxies and Load Balancers</a>
 
 Proxies and load balancers are fairly commonly used to distribute client connections
-between [cluster nodes](./clustering.html). Proxies can also be useful
+between [cluster nodes](/clustering.html). Proxies can also be useful
 to make it possible for clients to access RabbitMQ nodes without exposing them publicly.
 Intermediaries can also have side effects on connections.
 
@@ -479,10 +479,10 @@ are therefore very important.
 Intermediaries also may terminate "idle" TCP connections
 when there's no activity on them for a certain period of
 time. Most of the time it is not desirable. Such events will result in
-[abrupt connection closure log messages](./logging.html#connection-lifecycle-events)
+[abrupt connection closure log messages](/logging.html#connection-lifecycle-events)
 on the server end and I/O exceptions on the client end.
 
-When [heartbeats](./heartbeats.html) are enabled on a connection, it results in
+When [heartbeats](/heartbeats.html) are enabled on a connection, it results in
 periodic light network traffic. Therefore heartbeats have a side effect
 of guarding client connections that can go idle for periods of
 time against premature closure by proxies and load balancers.
@@ -530,7 +530,7 @@ have their own settings that enable support for the proxy protocol.
 ## <a id="tls-support" class="anchor" href="#tls-support">TLS (SSL) Support</a>
 
 It is possible to encrypt connections using TLS with RabbitMQ. Authentication
-using peer certificates is also possible. Please refer to the [TLS/SSL guide](./ssl.html)
+using peer certificates is also possible. Please refer to the [TLS/SSL guide](/ssl.html)
 for more information.
 
 
@@ -563,7 +563,7 @@ For maximum throughput, it is possible to increase buffer size using a group of 
  * `mqtt.tcp_listen_options` for MQTT
  * `stomp.tcp_listen_options` for STOMP
 
-Note that increasing TCP buffer size will increase how much [RAM the node uses](./memory-use.html)
+Note that increasing TCP buffer size will increase how much [RAM the node uses](/memory-use.html)
 for every client connection.
 
 The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
@@ -621,7 +621,7 @@ total throughput.
 Several factors can limit how many concurrent connections a single node can support:
 
  * Maximum number of [open file handles](#open-file-handle-limit) (including sockets) as well as other kernel-enforced resource limits
- * Amount of [RAM used by each connection](./memory-use.html)
+ * Amount of [RAM used by each connection](/memory-use.html)
  * Amount of CPU resources used by each connection
  * Maximum number of Erlang processes the VM is configured to allow.
 
@@ -634,7 +634,7 @@ TCP connections.
 
 How the limit is configured [varies from OS to OS](https://github.com/basho/basho_docs/blob/master/content/riak/kv/2.2.3/using/performance/open-files-limit.md) and distribution to distribution, e.g. depending on whether systemd is used.
 For Linux, Controlling System Limits on Linux
-in our [Debian](./install-debian.html#kernel-resource-limits) and [RPM](./install-rpm.html#kernel-resource-limits)
+in our [Debian](/install-debian.html#kernel-resource-limits) and [RPM](/install-rpm.html#kernel-resource-limits)
 installation guides provides. Linux kernel limit management is covered by many resources on the Web,
 including the [open file handle limit](https://ro-che.info/articles/2017-03-26-increase-open-files-limit).
 
@@ -666,7 +666,7 @@ using a group of config options:
  * `mqtt.tcp_listen_options` for MQTT
  * `stomp.tcp_listen_options` for STOMP
 
-Decreasing TCP buffer size will decrease how much [RAM the node uses](./memory-use.html)
+Decreasing TCP buffer size will decrease how much [RAM the node uses](/memory-use.html)
 for every client connection.
 
 This is often necessary in environments where the number of concurrent connections
@@ -729,7 +729,7 @@ Increasing the interval value to 30-60s will reduce CPU footprint and peak memor
 This comes with a downside: with the value in the example above, metrics of said entities
 will refresh every 60 seconds.
 
-This can be perfectly reasonable in an [externally monitored](./monitoring.html#monitoring-frequency) production system
+This can be perfectly reasonable in an [externally monitored](/monitoring.html#monitoring-frequency) production system
 but will make management UI less convenient to use for operators.
 
 ### <a id="tuning-for-large-number-of-connections-channel-max" class="anchor" href="#tuning-for-large-number-of-connections-channel-max">Limiting Number of Channels on a Connection</a>
@@ -766,7 +766,7 @@ tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
-which should be used together with the following bits in the [advanced config file](./configure.html#advanced-config-file):
+which should be used together with the following bits in the [advanced config file](/configure.html#advanced-config-file):
 
 <pre class="lang-erlang">
 [
@@ -776,7 +776,7 @@ which should be used together with the following bits in the [advanced config fi
   ]}].
 </pre>
 
-When using the [classic config format](./configure.html#erlang-term-config-file),
+When using the [classic config format](/configure.html#erlang-term-config-file),
 everything is configured in a single file:
 
 <pre class="lang-erlang">
@@ -817,7 +817,7 @@ tcp_listen_options.backlog = 4096
 tcp_listen_options.nodelay = true
 </pre>
 
-In the [classic config format](./configure.html#erlang-term-config-file):
+In the [classic config format](/configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
@@ -850,7 +850,7 @@ which will negatively affect overall system availability.
 
 Due to a combination of certain TCP features
 and defaults of most modern Linux distributions, closed connections can be detected after
-a prolonged period of time. This is covered in the [heartbeats guide](./heartbeats.html).
+a prolonged period of time. This is covered in the [heartbeats guide](/heartbeats.html).
 This can be one contributing factor to connection build-up. Another is the `TIME_WAIT` TCP
 connection state. The state primarily exists to make sure that retransmitted segments from closed
 connections won't "reappear" on a different (newer) connection with the same client host and port.
@@ -874,11 +874,11 @@ If a node fails to accept connections it is important to first gather data (metr
 determine the state of the system and the limiting factor (exhausted resource).
 Tools such as [netstat](https://en.wikipedia.org/wiki/Netstat),
 [ss](https://linux.die.net/man/8/ss), [lsof](https://en.wikipedia.org/wiki/Lsof) can be used
-to inspect TCP connections of a node. See [Troubleshooting Networking](./troubleshooting-networking.html) for examples.
+to inspect TCP connections of a node. See [Troubleshooting Networking](/troubleshooting-networking.html) for examples.
 
 ### <a id="dealing-with-high-connection-churn-tcp-keepalives" class="anchor" href="#dealing-with-high-connection-churn-tcp-keepalives"></a>
 
-While [heartbeats](./heartbeats.html) are sufficient for detecting defunct connections,
+While [heartbeats](/heartbeats.html) are sufficient for detecting defunct connections,
 they are not going to be sufficient in high connection churn scenarios. In those cases
 heartbeats should be combined with [TCP keepalives](#tcp-keepalives) to speed
 up disconnected client detection.
@@ -997,7 +997,7 @@ are effective for both IPv4 and IPv6 connections):
         <code>net.ipv4.tcp_keepalive_time</code>, <code>net.ipv4.tcp_keepalive_intvl</code>,
         and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
 
-        AMQP 0-9-1 and STOMP have <a href="./heartbeats.html">Heartbeats</a> which partially
+        AMQP 0-9-1 and STOMP have <a href="/heartbeats.html">Heartbeats</a> which partially
         undo its effect, namely that it can take minutes to detect an unresponsive peer,
         e.g. in case of a hardware or power failure. MQTT also has its own keepalives
         mechanism which is the same idea under a different name.
@@ -1097,7 +1097,7 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
         When set to <code>true</code>, enables TCP keepalives (see above).
         Default is <code>false</code>. Makes sense for environments where
         connections can go idle for a long time (at least 10 minutes),
-        although using <a href="./heartbeats.html">heartbeats</a> is still recommended over
+        although using <a href="/heartbeats.html">heartbeats</a> is still recommended over
         this option.
       </td>
     </tr>
@@ -1116,14 +1116,14 @@ Below is the default TCP socket option configuration used by RabbitMQ:
 ## <a id="heartbeats" class="anchor" href="#heartbeats">Heartbeats</a>
 
 Some protocols supported by RabbitMQ, including AMQP 0-9-1, support <em>heartbeats</em>, a way to detect dead
-TCP peers quicker. Please refer to the [Heartbeats guide](./heartbeats.html)
+TCP peers quicker. Please refer to the [Heartbeats guide](/heartbeats.html)
 for more information.
 
 
 ## <a id="nettick" class="anchor" href="#nettick">Net Tick Time</a>
 
-[Heartbeats](./heartbeats.html) are used to detect peer or connection failure
-between clients and RabbitMQ nodes. [net_ticktime](./nettick.html) serves
+[Heartbeats](/heartbeats.html) are used to detect peer or connection failure
+between clients and RabbitMQ nodes. [net_ticktime](/nettick.html) serves
 the same purpose but for cluster node communication. Values lower than 5 (seconds)
 may result in false positive and are not recommended.
 
@@ -1216,7 +1216,7 @@ e.g. `rmq1.dev.megacorp.local`.
 
 If the `reverse_dns_lookups` configuration option is set to `true`,
 RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
-in connection information (e.g. in the [Management UI](./management.html)).
+in connection information (e.g. in the [Management UI](/management.html)).
 
 Reverse DNS lookups can potentially take a long time if node's hostname resolution is not
 optimally configured. This can increase latency when accepting client connections.
@@ -1235,8 +1235,8 @@ reverse_dns_lookups = false
 
 ### <a id="dns-verify-resolution" class="anchor" href="#dns-verify-resolution">Verify Hostname Resolution</a> on a Node or Locally
 
-Since hostname resolution is a [prerequisite for successful inter-node communication](./clustering.html#hostname-resolution-requirement),
-starting with [RabbitMQ `3.8.6`](./changelog.html), CLI tools provide two commands that help verify
+Since hostname resolution is a [prerequisite for successful inter-node communication](/clustering.html#hostname-resolution-requirement),
+starting with [RabbitMQ `3.8.6`](/changelog.html), CLI tools provide two commands that help verify
 that hostname resolution on a node works as expected. The commands are not meant to replace
 [`dig`](https://en.wikipedia.org/wiki/Dig_(command)) and other specialised DNS tools but rather
 provide a way to perform most basic checks while taking [Erlang runtime hostname resolver features](https://erlang.org/doc/apps/erts/inet_cfg.html)
@@ -1277,12 +1277,12 @@ inetrc File Host Entries
 
 ## <a id="logging" class="anchor" href="#logging">Connection Event Logging</a>
 
-See [Connection Lifecycle Events](./logging.html#connection-lifecycle-events) in the logging guide.
+See [Connection Lifecycle Events](/logging.html#connection-lifecycle-events) in the logging guide.
 
 
 ## <a id="troubleshooting-where-to-start" class="anchor" href="#troubleshooting-where-to-start">Troubleshooting Network Connectivity</a>
 
-A methodology for [troubleshooting of networking-related issues](./troubleshooting-networking.html)
+A methodology for [troubleshooting of networking-related issues](/troubleshooting-networking.html)
 is covered in a separate guide.
 
 

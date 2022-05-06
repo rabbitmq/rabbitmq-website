@@ -27,7 +27,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 [version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 <div class="diagram">
-  <img src="../img/tutorials/python-two.png" height="110" />
+  <img src="/img/tutorials/python-two.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -318,7 +318,7 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/prefetch-count.png" height="110" />
+  <img src="/img/tutorials/prefetch-count.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -355,7 +355,7 @@ channel.basic_qos(prefetch_count=1)
 > #### Note about queue size
 >
 > If all the workers are busy, your queue can fill up. You will want to keep an
-> eye on that, and maybe add more workers, or use [message TTL](../ttl.html).
+> eye on that, and maybe add more workers, or use [message TTL](/ttl.html).
 
 Putting it all together
 -----------------------

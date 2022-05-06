@@ -7,7 +7,7 @@ stored in Vault, it may be necessary to configure the Topology Operator with som
 
 This guide assumes you have the following:
 
-1. The [RabbitMQ Cluster Operator](./operator-overview.html) and [Messaging Topology Operator](./install-topology-operator.html) are installed on the Kubernetes cluster
+1. The [RabbitMQ Cluster Operator](operator-overview.html) and [Messaging Topology Operator](install-topology-operator.html) are installed on the Kubernetes cluster
 2. A Vault server is installed on the Kubernetes cluster
 3. A *Vault role* must be declared in Vault for the topology operator to use. By default, the topology operator will use a vault role with the name `messaging-topology-operator`. Should we declared a *Vault role* with a different name, we have to configure the operator by overriding the environment variable `OPERATOR_VAULT_ROLE`
 

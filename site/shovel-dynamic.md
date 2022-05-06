@@ -22,29 +22,29 @@ limitations under the License.
 This guide focuses on dynamically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](shovel.html).
 
-Unlike with static shovels, dynamic shovels are configured using [runtime parameters](./parameters.html).
+Unlike with static shovels, dynamic shovels are configured using [runtime parameters](/parameters.html).
 They can be started and stopped at any time, including programmatically. Dynamic shovels
 can be used for both transient (one-off) and permanently running workloads.
 
 Information about dynamic shovels is stored in RabbitMQ's schema database,
 along with users, permissions, queues, etc. They therefore can be
-exported together with other [schema definitions](./definitions.html).
+exported together with other [schema definitions](/definitions.html).
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 
-Parameters can be defined using [`rabbitmqctl`](./cli.html), through the
-[management HTTP API](./management.html), or (with the `rabbitmq_shovel_management` plugin [enabled](./plugins.html)) through
+Parameters can be defined using [`rabbitmqctl`](/cli.html), through the
+[management HTTP API](/management.html), or (with the `rabbitmq_shovel_management` plugin [enabled](/plugins.html)) through
 the management UI's administrative section.
 
 A shovel is declared with a definition body, which is a JSON object. Some keys are mandatory, others are optional.
 They control connection parameters, protocol used, message transfer source and destination,
-[data safety](./confirms.html) protocol features, and more.
+[data safety](/confirms.html) protocol features, and more.
 
 Every shovel belongs to a virtual host. Note that a Shovel can consume from and publish
 to not only a different virtual host but an entirely different cluster, so
 virtual host selection primarily acts as a way of organising shovels and access to them,
-much like with the rest of [permission in RabbitMQ](./access-control.html).
+much like with the rest of [permission in RabbitMQ](/access-control.html).
 
 Every shovel is also named. The name is used to identify shovels when [inspecting their status](#status),
 [deleting them](#deleting) or [restarting them](#restarting).
@@ -167,7 +167,7 @@ There are other Shovel definition keys that will be covered later in this guide.
 
 ### Using HTTP API
 
-To declare a shovel using the HTTP API, make sure that the [management](./management.html) plugin
+To declare a shovel using the HTTP API, make sure that the [management](/management.html) plugin
 is enabled, then use the following endpoint:
 
 <pre class="lang-ini">
@@ -194,11 +194,11 @@ The request body is a JSON document similar in structure to that described earli
 </pre>
 
 Below is an example that uses `curl` to declare a shovel on a local node using
-[default user credentials](./access-control.html#default-state). The shovel will
+[default user credentials](/access-control.html#default-state). The shovel will
 transfer messages between two queues, `"source-queue"` and `"destination-queue"`, in the default virtual host.
 
 Note that this exact command would fail if invoked against
-a remote node. Please [add a new user](./access-control.html) tagged as `policymaker`
+a remote node. Please [add a new user](/access-control.html) tagged as `policymaker`
 for your own experiments.
 
 <pre class="lang-bash">
@@ -221,7 +221,7 @@ EOF
 
 ### Using Management UI
 
-To declare a shovel using the management UI, first make sure that the [management](./management.html) plugin
+To declare a shovel using the management UI, first make sure that the [management](/management.html) plugin
 is enabled.
 
 Then
@@ -285,7 +285,7 @@ is the name of the shovel.  Both values must be percent-encoded.
 ## <a id="restarting" class="anchor" href="#restarting">Restarting a Shovel</a>
 
 A dynamic Shovel can be restarted. Restarting a shovel briefly interrupts its operations
-and makes it reconnect to both source and destination. When an appropriate [acknowledgement mode](./confirms.html) is
+and makes it reconnect to both source and destination. When an appropriate [acknowledgement mode](/confirms.html) is
 used by a shovel, the interruption is safe: any unacknowledged or unconfirmed ("in flight") messages
 consumed from the source or published to the destination will be automatically requeued
 when the shovel is stopped, and consumed again after the restart.
@@ -371,7 +371,7 @@ the declaration process.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms.html">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="/confirms.html">acknowledge</a> consumed messages.
           If set to <code>on-confirm</code> (the default), messages are
           acknowledged to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
@@ -513,8 +513,8 @@ counterparts.
       <td>src-uri</td>
       <td>
         The AMQP URI for the source. Mandatory. AMQP 1.0 URIs implement
-        as subset of what is described in the <a href="./uri-spec.html">AMQP URI reference</a>.
-        There is no <a href="./vhosts.html">virtual host</a> concept in AMQP 1.0, so URI path
+        as subset of what is described in the <a href="/uri-spec.html">AMQP URI reference</a>.
+        There is no <a href="/vhosts.html">virtual host</a> concept in AMQP 1.0, so URI path
         segments are not supported. The set of query parameters it supports are different from AMQP 0.9.1
         URI(s):
 
@@ -612,7 +612,7 @@ counterparts.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="./confirms.html">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="/confirms.html">acknowledge</a> consumed messages.
           If set to <code>on-confirm</code> (the default), messages are
           acknowledged to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
@@ -661,4 +661,4 @@ counterparts.
 
 ## <a id="status" class="anchor" href="#status">Monitoring Shovels</a>
 
-See [Monitoring Shovels](./shovel.html#status) in the overview Shovel plugin guide.
+See [Monitoring Shovels](/shovel.html#status) in the overview Shovel plugin guide.

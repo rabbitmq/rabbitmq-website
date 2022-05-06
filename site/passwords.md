@@ -24,8 +24,8 @@ and passwords used by the internal authentication backend. If
 a different authentication backend is used, most
 material in this guide will not be applicable.
 
-RabbitMQ supports multiple [authentication mechanisms](./access-control.html#mechanisms). Some of them use
-username/password pairs. These credential pairs are then handed over to [authentication backends](./access-control.html#backends)
+RabbitMQ supports multiple [authentication mechanisms](/access-control.html#mechanisms). Some of them use
+username/password pairs. These credential pairs are then handed over to [authentication backends](/access-control.html#backends)
 that perform authentication. One of the backends, known as internal or built-in, uses internal RabbitMQ data store
 to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
 and hashed.
@@ -39,7 +39,7 @@ SHA-256 is used by default. More algorithms can be provided by plugins.
 
 ## <a id="changing-algorithm" class="anchor" href="#changing-algorithm">Configuring Algorithm to Use</a>
 
-It is possible to change what algorithm is used via [RabbitMQ configuration file](./configure.html#config-file),
+It is possible to change what algorithm is used via [RabbitMQ configuration file](/configure.html#config-file),
 for example, to use SHA-512:
 
 <pre class="lang-plaintext">
@@ -53,7 +53,7 @@ Out of the box, the following hashing modules are provided:
  * `rabbit_password_hashing_md5` (for backwards compatibility)
 
 Updated hashing algorithm will be applied to newly created users
-or when password is changed using [rabbitmqctl](./man/rabbitmqctl.8.html).
+or when password is changed using [rabbitmqctl](/man/rabbitmqctl.8.html).
 
 
 ## <a id="upgrading-to-3-6-x" class="anchor" href="#upgrading-to-3-6-x">Upgrading from pre-3.6.0 Versions</a>
@@ -65,7 +65,7 @@ therefore they will be able to authenticate. No upgrade steps are required.
 When importing definitions exported from versions earlier than
 3.6.0 into a 3.6.1 or later release, existing user records will use
 MD5 for password hashing. In order to migrate them to a more secure algorithm,
-use [rabbitmqctl](./man/rabbitmqctl.8.html) to update their passwords.
+use [rabbitmqctl](/man/rabbitmqctl.8.html) to update their passwords.
 
 
 ## <a id="credential-validation" class="anchor" href="#credential-validation">Credential Validation</a>
@@ -108,8 +108,8 @@ This means that validation rules cannot
 use `#` in regular expression values. Leading and trailing spaces in values will also
 be stripped by the config file parser.
 
-Also note that when passwords are used with CLI tools commands that [manage users](./access-control.html#user-management),
-shell escaping of certain characters [must be taken into account](./access-control.html#passwords-and-shell-escaping).
+Also note that when passwords are used with CLI tools commands that [manage users](/access-control.html#user-management),
+shell escaping of certain characters [must be taken into account](/access-control.html#passwords-and-shell-escaping).
 
 
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
@@ -124,12 +124,12 @@ Credential validators can also validate usernames or apply any other logic
 
 ## <a id="passwordless-users" class="anchor" href="#passwordless-users">Passwordless Users</a>
 
-[Internal authentication backend](./access-control.html) allows for users without a password
+[Internal authentication backend](/access-control.html) allows for users without a password
 or with a blank one (assuming credential validator also allows it). Such users are only meant to be used
-with passwordless [authentication mechanisms](./authentication.html) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+with passwordless [authentication mechanisms](/authentication.html) such as [authentication using x509 certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
 
 In order to create a passwordless user, create one with any password that passes validation and clear
-the password using [rabbitmqctl](./cli.html)'s `clear_password` command:
+the password using [rabbitmqctl](/cli.html)'s `clear_password` command:
 
 <pre class="lang-bash">
 rabbitmqctl add_user passwordless-user "pa$$wordless"
@@ -139,9 +139,9 @@ rabbitmqctl clear_password passwordless-user
 </pre>
 
 Starting with versions `3.6.15` and `3.7.3`, authentication attempts that use a blank password
-will be unconditionally rejected by the [internal authentication backend](./access-control.html) with a distinctive error
-message in the [server log](./logging.html). Connections that authenticate using x509 certificates or use an external service
-for authentication (e.g. [LDAP](./ldap.html)) can use blank passwords.
+will be unconditionally rejected by the [internal authentication backend](/access-control.html) with a distinctive error
+message in the [server log](/logging.html). Connections that authenticate using x509 certificates or use an external service
+for authentication (e.g. [LDAP](/ldap.html)) can use blank passwords.
 
 
 ## <a id="x509-certificate-authentication" class="anchor" href="#x509-certificate-authentication">Authentication Using TLS (x509) Certificates</a>

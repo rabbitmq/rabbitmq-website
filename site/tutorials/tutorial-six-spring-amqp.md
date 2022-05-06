@@ -122,7 +122,7 @@ and the RPC should ideally be idempotent.
 ### Summary
 
 <div class="diagram">
-  <img src="../img/tutorials/python-six.png" height="200" />
+  <img src="/img/tutorials/python-six.png" height="200" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -391,5 +391,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 
->If you want to experiment, you may find the [management UI](../management.html)
+>If you want to experiment, you may find the [management UI](/management.html)
 > useful for viewing the queues.

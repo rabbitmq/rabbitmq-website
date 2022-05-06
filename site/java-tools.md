@@ -33,7 +33,7 @@ PerfTest documentation is hosted on GitHub Pages:
 ## <a id="tracer" class="anchor" href="#tracer">Tracer</a>
 
 The tracer is a very basic, very simple AMQP 0-9-1 protocol analyzer, similar in
-purpose to [Wireshark](./amqp-wireshark.html).
+purpose to [Wireshark](/amqp-wireshark.html).
 Use it with the `runtracer` or `runtracer.bat` script:
 
 <pre class="lang-bash">

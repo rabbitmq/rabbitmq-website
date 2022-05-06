@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers two related features related to [data safety](./reliability.html), consumer Acknowledgements
+This guide covers two related features related to [data safety](/reliability.html), consumer Acknowledgements
 and publisher confirms:
 
  * [Why acknowledgements exist](#basics)
@@ -33,7 +33,7 @@ and publisher confirms:
 and more. Acknowledgements on both consumer and publisher side are important for
 data safety in applications that use messaging.
 
-More related topics are covered in the [Publisher](./publishers.html) and [Consumer](./consumers.html) guides.
+More related topics are covered in the [Publisher](/publishers.html) and [Consumer](/consumers.html) guides.
 
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
@@ -47,9 +47,9 @@ protocols supported by RabbitMQ provide such features.
 This guide covers the features in AMQP 0-9-1 but the idea
 is largely the same in other supported protocols.
 
-Delivery processing acknowledgements from [consumers](./consumers.html) to RabbitMQ
+Delivery processing acknowledgements from [consumers](/consumers.html) to RabbitMQ
 are known as acknowledgements in messaging protocols; broker
-acknowledgements to [publishers](./publishers.html) are a protocol extension called
+acknowledgements to [publishers](/publishers.html) are a protocol extension called
 [publisher confirms](#publisher-confirms).
 Both features build on the same idea and are inspired by TCP.
 
@@ -69,7 +69,7 @@ the `basic.consume` method or a message is fetched on demand
 with the `basic.get` method.
 
 If you prefer a more example-oriented and step-by-step material, consumer acknowledgements are
-also covered in [RabbitMQ tutorial #2](./getstarted.html).
+also covered in [RabbitMQ tutorial #2](/getstarted.html).
 
 ### <a id="consumer-acks-delivery-tags" class="anchor" href="#consumer-acks-delivery-tags">Delivery Identifiers: Delivery Tags</a>
 
@@ -108,7 +108,7 @@ or when an explicit ("manual") client acknowledgement is received. Manually sent
 acknowledgements can be positive or negative and use one of the following protocol methods:
 
  * `basic.ack` is used for positive acknowledgements
- * `basic.nack` is used for negative acknowledgements (note: this is a [RabbitMQ extension to AMQP 0-9-1](./nack.html))
+ * `basic.nack` is used for negative acknowledgements (note: this is a [RabbitMQ extension to AMQP 0-9-1](/nack.html))
  * `basic.reject` is used for negative acknowledgements but has one limitation compared to `basic.nack`
 
 How these methods are exposed in client library APIs will be discussed below.
@@ -256,7 +256,7 @@ The methods are generally used to negatively acknowledge a delivery. Such delive
 be discarded or dead-lettered or requeued by the broker. This behaviour is controlled by the `requeue` field.
 When the field is set to `true`, the broker will requeue the delivery (or multiple
 deliveries, as will be explained shortly) with the specified delivery tag.
-Alternatively, when this field is set to `false`, the message will be routed to a [Dead Letter Exchange](./dlx.html) if it
+Alternatively, when this field is set to `false`, the message will be routed to a [Dead Letter Exchange](/dlx.html) if it
 is configured, otherwise it will be discarded.
 
 Both methods are usually exposed as operations on a channel in client libraries. Java
@@ -429,7 +429,7 @@ prefetch count unacknowledged messages on a channel.
 #### Per-channel, Per-consumer and Global Prefetch
 
 The QoS setting can be configured for a specific channel or a specific consumer.
-The [Consumer Prefetch](./consumer-prefetch.html) guide explains
+The [Consumer Prefetch](/consumer-prefetch.html) guide explains
 the effects of this scoping.
 
 #### Prefetch and Polling Consumers
@@ -470,7 +470,7 @@ is closed. This includes TCP connection loss by clients,
 consumer application (process) failures, and channel-level
 protocol exceptions (covered below).
 
-Note that it takes a period of time to [detect an unavailable client](./heartbeats.html).
+Note that it takes a period of time to [detect an unavailable client](/heartbeats.html).
 
 Due to this behavior, consumers must be prepared to handle redeliveries and otherwise
 be implemented with [idempotence](https://en.wikipedia.org/wiki/Idempotence) in mind.
@@ -492,7 +492,7 @@ channel.
 
 ## <a id="publisher-confirms" class="anchor" href="#publisher-confirms">Publisher Confirms</a>
 
-Networks can fail in less-than-obvious ways and detecting some failures [takes time](./heartbeats.html).
+Networks can fail in less-than-obvious ways and detecting some failures [takes time](/heartbeats.html).
 Therefore a client that's written a protocol frame or a set of frames (e.g. a published message) to
 its socket cannot assume that the message has reached the server and was successfully processed.
 It could have been lost along the way or its delivery can be significantly delayed.

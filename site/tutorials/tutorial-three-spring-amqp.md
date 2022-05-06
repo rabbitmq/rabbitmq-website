@@ -65,7 +65,7 @@ Or should it get discarded. The rules for that are defined by the
 _exchange type_.
 
 <div class="diagram">
-  <img src="../img/tutorials/exchanges.png" height="110" />
+  <img src="/img/tutorials/exchanges.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -242,7 +242,7 @@ Bindings
 --------
 
 <div class="diagram">
-  <img src="../img/tutorials/bindings.png" height="90" />
+  <img src="/img/tutorials/bindings.png" height="90" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -288,7 +288,7 @@ Putting it all together
 -----------------------
 
 <div class="diagram">
-  <img src="../img/tutorials/python-three-overall.png" height="160" />
+  <img src="/img/tutorials/python-three-overall.png" height="160" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;

@@ -48,7 +48,7 @@ Therefore for each queue, at least one of three things must be true:
 Note that consumers can switch between active and blocked many
 times per second. We therefore don't expose whether a consumer
 is active or blocked through the management plugin or
-[rabbitmqctl](./cli.html).
+[rabbitmqctl](/cli.html).
 
 When consumer priorities are in use, you can expect your highest
 priority consumers to receive all the messages until they become

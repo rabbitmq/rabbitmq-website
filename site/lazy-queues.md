@@ -251,7 +251,7 @@ All messages in the message store are stored in 16MB files called segment files 
 Each queue has its own file descriptor for each segment file it has to access.
 For example, if 100 queues store 10GB worth of messages, there will
 be 640 files in the message store and up to 64000 file descriptors.
-Make sure the nodes have a high enough [open file limit](./production-checklist.html#resource-limits-file-handle-limit)
+Make sure the nodes have a high enough [open file limit](/production-checklist.html#resource-limits-file-handle-limit)
 and overprovision it when in doubt (e.g. to 300K or 500K).
 For new installations it is possible to increase file size used by the message store using
 `msg_store_file_size_limit` configuration key. **Never change segment file size for existing installations**
@@ -286,7 +286,7 @@ The total system memory required for the queue process to finish starting is **5
 
 ### Mirroring of Lazy Queues
 
-When enabling [automatic queue mirroring](./ha.html#unsynchronised-mirrors), consider the expected on disk
+When enabling [automatic queue mirroring](/ha.html#unsynchronised-mirrors), consider the expected on disk
 data set of the queues involved. Queues with a sizeable data set
 (say, tens of gigabytes or more) will have to replicate it to
 the newly added mirror(s), which can put a significant load on

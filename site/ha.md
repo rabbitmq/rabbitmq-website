@@ -46,7 +46,7 @@ Topics covered in this guide include
 
 and more.
 
-This guide assumes general familiarity with [RabbitMQ clustering](./clustering.html).
+This guide assumes general familiarity with [RabbitMQ clustering](/clustering.html).
 
 
 ## <a id="what-is-mirroring" class="anchor" href="#what-is-mirroring">What is Queue Mirroring</a>
@@ -66,9 +66,9 @@ node commonly referred as the leader node for that queue. Each queue has
 its own leader node. All operations for a given queue are first applied
 on the queue's leader node and then propagated to mirrors. This
 involves enqueueing publishes, delivering messages to consumers, tracking
-[acknowledgements from consumers](./confirms.html) and so on.
+[acknowledgements from consumers](/confirms.html) and so on.
 
-Queue mirroring implies [a cluster of nodes](./clustering.html).
+Queue mirroring implies [a cluster of nodes](/clustering.html).
 It is therefore not recommended for use
 across a WAN (though of course, clients can still connect
 from as near and as far as needed).
@@ -98,12 +98,12 @@ replaced or removed in a future version.
 
 ## <a id="ways-to-configure" class="anchor" href="#ways-to-configure">How Mirroring is Configured</a>
 
-Mirroring parameters are configured using [policies](./parameters.html#policies). A policy matches
+Mirroring parameters are configured using [policies](/parameters.html#policies). A policy matches
 one or more queues by name (using a regular expression pattern) and
 contains a definition (a map of optional arguments) that are added to the total set of
 properties of the matching queues.
 
-Please see [Runtime Parameters and Policies](./parameters.html#policies) for more information on policies.
+Please see [Runtime Parameters and Policies](/parameters.html#policies) for more information on policies.
 
 
 ## <a id="mirroring-arguments" class="anchor" href="#mirroring-arguments">Queue Arguments that Control Mirroring</a>
@@ -211,7 +211,7 @@ for some queues (or even not use any mirroring).
 ## <a id="how-to-check-i-a-queue-is-mirrored" class="anchor" href="#how-to-check-i-a-queue-is-mirrored">How to Check if a Queue is Mirrored?</a>
 
 Mirrored queues will have a policy name and the number of additional replicas (mirrors)
-next to it on the queue page in the [management UI](./management.html).
+next to it on the queue page in the [management UI](/management.html).
 
 Below is an example of a queue named `two.replicas` which has a leader
 and a mirror:
@@ -247,7 +247,7 @@ rabbitmqctl list_queues name policy pid slave_pids
 If a queue that's expected to be mirroring is not, this usually means that its name
 doesn't match that specified in the policy that controls mirroring or that another
 policy takes priority (and does not enable mirroring).
-See [Runtime Parameters and Policies](./parameters.html#policies) to learn more.
+See [Runtime Parameters and Policies](/parameters.html#policies) to learn more.
 
 
 ## <a id="leader-migration-data-locality" class="anchor" href="#leader-migration-data-locality">Queue Leader Replicas, Leader Migration, Data Locality</a>
@@ -562,7 +562,7 @@ leader as follows:
    by the publisher. From the point of view of the publisher,
    publishing to a mirrored queue is no different from publishing to a non-mirrored one.
 
-If consumers use [automatic acknowledgement mode](./confirms.html), then messages can be lost. This is no different
+If consumers use [automatic acknowledgement mode](/confirms.html), then messages can be lost. This is no different
 from non-mirrored queues, of course: the broker considers a message
 _acknowledged_ as soon as it has been sent to a consumer in automatic acknowledgement mode.
 
@@ -723,7 +723,7 @@ which means permanent loss of a leader with this promotion strategy equates to l
 queue contents.
 
 Systems that use the `when-synced` promotion strategy must use
-[publisher confirms](./confirms.html) in order to detect queue unavailability
+[publisher confirms](/confirms.html) in order to detect queue unavailability
 and broker's inability to enqueue messages.
 
 ### <a id="start-stop" class="anchor" href="#start-stop">Stopping Nodes and Synchronisation</a>

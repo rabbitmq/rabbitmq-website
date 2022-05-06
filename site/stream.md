@@ -37,7 +37,7 @@ and the [RabbitMQ Stream Go Client](https://github.com/rabbitmq/rabbitmq-stream-
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The Stream plugin is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](./cli.html):
+connect, it must be enabled using [rabbitmq-plugins](/cli.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_stream
@@ -52,7 +52,7 @@ all interfaces on port 5552 and have a default user login/passcode
 of `guest`/`guest`.
 
 The port stream listener will listen on can be changed
-via [`rabbitmq.conf`](./configure.html#configuration-files).
+via [`rabbitmq.conf`](/configure.html#configuration-files).
 
 Below is a minimalistic configuration file which changes the listener
 port to 12345:
@@ -74,8 +74,8 @@ stream.listeners.tcp.2 = ::1:5552
 The plugin supports TCP listener option configuration.
 
 The settings use a common prefix, `stream.tcp_listen_options`, and control
-things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](./heartbeats.html#tcp-keepalives)
-are enabled and so on. See the [Networking guide](./networking.html) for details.
+things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
+are enabled and so on. See the [Networking guide](/networking.html) for details.
 
 <pre class="lang-ini">
 stream.listeners.tcp.1 = 127.0.0.1:5552
@@ -140,7 +140,7 @@ The [Connecting to Streams](https://blog.rabbitmq.com/posts/2021/07/connecting-t
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
-To use TLS for stream connections, [TLS must be configured](./ssl.html) in the broker. To enable
+To use TLS for stream connections, [TLS must be configured](/ssl.html) in the broker. To enable
 TLS-enabled stream connections, add a TLS listener for streams using the `stream.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server

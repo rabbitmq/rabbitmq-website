@@ -178,12 +178,12 @@ Miscellaneous projects:
 
 ## <a id="monitoring-tools" class="anchor" href="#monitoring-tools">Monitoring</a>
 
- * See [Monitoring](./monitoring.html) and [Prometheus](./prometheus.html) guides.
+ * See [Monitoring](/monitoring.html) and [Prometheus](/prometheus.html) guides.
 
 
 ## <a id="viz" class="anchor" href="#viz">Visualisation</a>
 
- * [Rabbit Viz](https://plexsystems.github.io/rabbit-viz/), a tool for visualizing [exported definition files](./backup.html#rabbitmq-definitions).
+ * [Rabbit Viz](https://plexsystems.github.io/rabbit-viz/), a tool for visualizing [exported definition files](/backup.html#rabbitmq-definitions).
 
 
 ## <a id="unity-dev" class="anchor" href="#unity-dev">Unity 3D</a>
@@ -226,8 +226,8 @@ Miscellaneous projects:
 
 ## <a id="rabbitmq-cli" class="anchor" href="#rabbitmq-cli">CLI Tools</a>
 
- * [RabbitMQ CLI tools](./cli.html)
- * [rabbitmqadmin](./management-cli.html), a command line tool that targets RabbitMQ HTTP API
+ * [RabbitMQ CLI tools](/cli.html)
+ * [rabbitmqadmin](/management-cli.html), a command line tool that targets RabbitMQ HTTP API
  * [amqp-utils](https://github.com/dougbarth/amqp-utils), command line utils for interacting with an AMQP based queue (in Ruby)
  * [amqptools](https://github.com/rmt/amqptools), command line AMQP clients (in C)
  * [rabtap](https://github.com/jandelgado/rabtap), RabbitMQ wire tap and swiss army knife command line tool (in go)

@@ -87,7 +87,7 @@ a `direct` exchange is simple - a message goes to the queues whose
 To illustrate that, consider the following setup:
 
 <div class="diagram">
-  <img src="../img/tutorials/direct-exchange.png" height="170" />
+  <img src="/img/tutorials/direct-exchange.png" height="170" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -137,7 +137,7 @@ or `green` will go to `Q2`. All other messages will be discarded.
 Multiple bindings
 -----------------
 <div class="diagram">
-  <img src="../img/tutorials/direct-exchange-multiple.png" height="170" />
+  <img src="/img/tutorials/direct-exchange-multiple.png" height="170" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -273,7 +273,7 @@ Putting it all together
 -----------------------
 
 <div class="diagram">
-  <img src="../img/tutorials/python-four.png" height="170" />
+  <img src="/img/tutorials/python-four.png" height="170" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;

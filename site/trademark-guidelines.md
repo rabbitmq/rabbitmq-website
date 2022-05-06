@@ -35,7 +35,7 @@ limitations under the License.
         <p>
           <strong>Logos:</strong>
         </p>
-        <img src="./img/rabbitmq_logo_strap.png"/>
+        <img src="/img/rabbitmq_logo_strap.png"/>
       </li>
     </ol>
     <p>

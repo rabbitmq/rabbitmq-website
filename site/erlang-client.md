@@ -24,7 +24,7 @@ to connect to and interact with RabbitMQ nodes.
 
 The library is [open-source](https://github.com/rabbitmq/rabbitmq-erlang-client/),
 and is dual-licensed under [the Apache License v2](https://www.apache.org/licenses/LICENSE-2.0)
-and [the Mozilla Public License v2.0](./mpl.html).
+and [the Mozilla Public License v2.0](/mpl.html).
 
 
 ## <a id="releases" class="anchor" href="#releases">Releases</a>
@@ -55,7 +55,7 @@ dep_rabbit_common = hex &version-erlang-client;
 
 RabbitMQ Erlang client connects to RabbitMQ server nodes.
 
-You will need a running [RabbitMQ node](./download.html) to use with the client
+You will need a running [RabbitMQ node](/download.html) to use with the client
 library.
 
 ## Download the Library and Documentation
@@ -66,7 +66,7 @@ The library is distributed [via hex.pm](https://hex.pm/packages/amqp_client).
 
 ### Documentation
 
-Please refer to the [Erlang RabbitMQ user guide](./erlang-client-user-guide.html).
+Please refer to the [Erlang RabbitMQ user guide](/erlang-client-user-guide.html).
 
 <a href="https://hexdocs.pm/amqp_client/3.8.6/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
 
@@ -81,7 +81,7 @@ to download a version of the RabbitMQ Erlang Client library other than the above
 The RabbitMQ Erlang client depends on the RabbitMQ server repository,
 a shared library and a code generation library.
 
-Please see the <a href="./build-erlang-client.html">Erlang client build guide</a> for instructions on
+Please see the <a href="/build-erlang-client.html">Erlang client build guide</a> for instructions on
 compiling from source code.
 
 <table>

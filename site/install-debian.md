@@ -119,7 +119,7 @@ apt repositories:
      </td>
      <td>
        <strong>Supported <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">starting with 3.8.16</a></strong>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+       See <a href="/which-erlang.html">Erlang compatibility guide</a>.
      </td>
    </tr>
 
@@ -134,7 +134,7 @@ apt repositories:
      </td>
      <td>
        <strong>Supported <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">starting with 3.8.4</a></strong>.
-       See <a href="./which-erlang.html">Erlang compatibility guide</a>.
+       See <a href="/which-erlang.html">Erlang compatibility guide</a>.
      </td>
    </tr>
  </tbody>

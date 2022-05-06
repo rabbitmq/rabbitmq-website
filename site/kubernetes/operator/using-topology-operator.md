@@ -25,7 +25,7 @@ This guide has the following sections:
 
 <p class="note">
   <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift.html).
+  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
 </p>
 
 ## <a id='requirements' class='anchor' href='#requirements'> Cluster Operator Requirements</a>
@@ -383,12 +383,12 @@ user credentials set in the definitions.
 ## <a id='tls' class='anchor' href='#tls'>TLS</a>
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
-steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](./tls-topology-operator.html) to configure
+steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](/kubernetes/operator/tls-topology-operator.html) to configure
 the Operator.
 
 ## <a id='vault' class='anchor' href='#vault'>(Optional) Use HashiCorp Vault</a>
 
-If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](./vault-topology-operator.html) to configure the operator.
+If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](/kubernetes/operator/vault-topology-operator.html) to configure the operator.
 
 ## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
 

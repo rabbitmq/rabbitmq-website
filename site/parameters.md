@@ -365,7 +365,7 @@ and the policy definitions applied to them.
 ### <a id="why-operator-policies-exist" class="anchor" href="#why-operator-policies-exist">Difference From Regular Policies</a>
 
 Sometimes it is necessary for the operator to enforce certain policies.
-For example, it may be desirable to force [queue TTL](./ttl.html) but
+For example, it may be desirable to force [queue TTL](/ttl.html) but
 still let other users manage policies. Operator policies allow for that.
 
 Operator policies are much like regular ones but their

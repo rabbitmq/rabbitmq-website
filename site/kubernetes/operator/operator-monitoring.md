@@ -1,13 +1,13 @@
 # Monitoring RabbitMQ in Kubernetes
 
-This guide describes how to [monitor](../../monitoring.html) RabbitMQ instances deployed by the [Kubernetes Cluster Operator](./operator-overview.html).
+This guide describes how to [monitor](/monitoring.html) RabbitMQ instances deployed by the [Kubernetes Cluster Operator](/kubernetes/operator/operator-overview.html).
 
 ## <a id='overview' class='anchor' href='#overview'>Overview</a>
 
-Cluster Operator deploys RabbitMQ clusters with the [rabbitmq_prometheus plugin](../../prometheus.html) enabled.
+Cluster Operator deploys RabbitMQ clusters with the [rabbitmq_prometheus plugin](/prometheus.html) enabled.
 The plugin exposes a Prometheus-compatible metrics endpoint.
 
-For a detailed guide on RabbitMQ Prometheus configuration, check the [Prometheus guide](../../prometheus.html).
+For a detailed guide on RabbitMQ Prometheus configuration, check the [Prometheus guide](/prometheus.html).
 
 The following sections assume Prometheus is deployed and functional.
 How to configure Prometheus to monitor RabbitMQ depends on whether Prometheus is installed by Prometheus Operator or by other means.
@@ -131,7 +131,7 @@ for the [Alertmanager configuration file](https://prometheus.io/docs/alerting/la
 
 RabbitMQ provides Grafana dashboards to visualize the metrics scraped by Prometheus.
 
-Follow the instructions in the [Prometheus guide](../../prometheus.html#grafana-configuration) to import dashboards to Grafana.
+Follow the instructions in the [Prometheus guide](/prometheus.html#grafana-configuration) to import dashboards to Grafana.
 
 Alternatively, if Grafana is deployed by the [Grafana Helm chart](https://github.com/grafana/helm-charts/tree/main/charts/grafana), `kubectl apply` the `ConfigMaps` in directory [grafana/dashboards](https://github.com/rabbitmq/cluster-operator/tree/main/observability/grafana/dashboards)
 to import RabbitMQ Grafana dashboards [using a sidecar container](https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards).

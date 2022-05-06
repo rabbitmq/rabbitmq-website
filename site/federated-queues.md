@@ -29,7 +29,7 @@ Some covered topics include:
 * [Limitations](#limitations) and [pitfalls](#pitfalls) of queue federation
 * [Implementation details](#details)
 
-A separate [Federation plugin reference](./federation-reference.html) guide is available.
+A separate [Federation plugin reference](/federation-reference.html) guide is available.
 
 In addition to [federated exchanges](federated-exchanges.html), RabbitMQ supports federated queues.
 This feature provides a way of balancing the load of a single logical queue
@@ -54,7 +54,7 @@ or the HTTP API with [an additional plugin](https://github.com/rabbitmq/rabbitmq
 The following diagram demonstrates several federated and unfederated
 queues in two RabbitMQ nodes connected using queue federation:
 
-<img src="./img/federation/federated_queues00.png" width="700" alt="Overview of federated queues" />
+<img src="/img/federation/federated_queues00.png" width="700" alt="Overview of federated queues" />
 
 When queue federation is used, usually only a subset of queues in a cluster is federated.
 Some queues can be inherently local to the "site" (cluster) and its uses.
@@ -81,7 +81,7 @@ around in order to perform load balancing.
 Federated queues include a number of limitations or differences compared to their non-federated peers
 as well as federated exchanges.
 
-Queue federation will not propagate [bindings](./tutorials/amqp-concepts.html) from the downstream to the upstreams.
+Queue federation will not propagate [bindings](/tutorials/amqp-concepts.html) from the downstream to the upstreams.
 
 Applications that use <code>basic.get</code> (consume via polling, a highly discouraged practice)
 cannot retrieve messages over federation if there aren't any in a local queue (on the node the client is connected to).
@@ -103,7 +103,7 @@ In order for RabbitMQ to recognize that a queue needs to be federated,
 and what other nodes messages should be consumed from, _downstream_
 (consuming) nodes need to be configured.
 
-<img src="./img/federation/federated_queues01.png" width="700" alt="Federated queue policies" />
+<img src="/img/federation/federated_queues01.png" width="700" alt="Federated queue policies" />
 
 Federation configuration uses [runtime parameters and policies](parameters.html), which means it can be configured
 and reconfigured on the fly as system topology changes. There are two key pieces of configuration involved:

@@ -87,7 +87,7 @@ The upstream definition object can contain the following keys:
       <td>
         The  <a href="uri-spec.html">AMQP URI(s)</a> for the upstream.
         See the <a href="uri-query-parameters.html">query parameter reference</a> for the underlying client library extensions
-        (including those for <a href="./ssl.html">TLS</a>) which are available to federation.
+        (including those for <a href="/ssl.html">TLS</a>) which are available to federation.
 
         The value can either be a string, or a list of
         strings. If more than one string is provided, the federation
@@ -102,7 +102,7 @@ The upstream definition object can contain the following keys:
     <tr>
       <td><code>prefetch-count</code></td>
       <td>
-        The <a href="./confirms.html">maximum number of deliveries pending acknowledgement</a> on a link at
+        The <a href="/confirms.html">maximum number of deliveries pending acknowledgement</a> on a link at
         any given time. Default is <code>1000</code>. Increasing this value can improve link
         throughput up to a point but will also result in higher memory usage of the link.
       </td>
@@ -158,7 +158,7 @@ The upstream definition object can contain the following keys:
 
 #### Applying to Federated Exchanges Only
 
-The following upstream parameters are only applicable to <a href="./federated-exchanges.html">federated exchanges</a>.
+The following upstream parameters are only applicable to <a href="/federated-exchanges.html">federated exchanges</a>.
 
 <table>
   <thead>
@@ -202,7 +202,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
         This setting controls how long the upstream queue will
         last before it is eligible for deletion if the connection is lost.
 
-        This value controls <a href="./ttl.html">TTL settings</a> for the upstream queue.
+        This value controls <a href="/ttl.html">TTL settings</a> for the upstream queue.
       </td>
     </tr>
 
@@ -214,7 +214,7 @@ The following upstream parameters are only applicable to <a href="./federated-ex
         Default is <code>'none'</code>, meaning messages should never expire.
         This does not apply to federated queues.
 
-        This value controls <a href="./ttl.html">TTL settings</a> for the messages in the upstream queue.
+        This value controls <a href="/ttl.html">TTL settings</a> for the messages in the upstream queue.
       </td>
     </tr>
   </tbody>

@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ has priority queue implementation in the core as of version `3.5.0`.
-Any queue can be turned into a priority one using client-provided [optional arguments](./queues.html#optional-arguments)
+Any queue can be turned into a priority one using client-provided [optional arguments](/queues.html#optional-arguments)
 (but, unlike other features that use optional arguments, not policies).
 The implementation supports a limited number of priorities: 255. Values between 1 and 10 are recommended.
 
@@ -77,7 +77,7 @@ published with the maximum priority.
 
 If priority queues are desired, we recommend using between 1 and 10.
 Currently using more priorities will consume more CPU resources by using more Erlang processes.
-[Runtime scheduling](./runtime.html) would also be affected.
+[Runtime scheduling](/runtime.html) would also be affected.
 
 ## <a id="interaction-with-consumers" class="anchor" href="#interaction-with-consumers">Interaction with Consumers</a>
 
@@ -103,14 +103,14 @@ RabbitMQ queues: they support persistence, paging, mirroring,
 and so on. There are a couple of interactions that developers should be
 aware of.
 
-[Messages which should expire](./ttl.html) will still
+[Messages which should expire](/ttl.html) will still
 only expire from the head of the queue. This means that unlike
 with normal queues, even per-queue TTL can lead to expired
 lower-priority messages getting stuck behind non-expired
 higher priority ones. These messages will never be delivered,
 but they will appear in queue statistics.
 
-[Queues which have a max-length set](./maxlength.html) will, as usual, drop messages from the head of the
+[Queues which have a max-length set](/maxlength.html) will, as usual, drop messages from the head of the
 queue to enforce the limit. This means that higher priority
 messages might be dropped to make way for lower priority ones,
 which might not be what you would expect.
@@ -118,8 +118,8 @@ which might not be what you would expect.
 
 ## <a id="using-policies" class="anchor" href="#using-policies">Why Policy Definition is not Supported</a>
 
-The most convenient way to define optional arguments for a queue is via [policies](./parameters.html).
-Policies are the recommended way to configure [TTL](./ttl.html), [queue length limits](maxlength.html) and
+The most convenient way to define optional arguments for a queue is via [policies](/parameters.html).
+Policies are the recommended way to configure [TTL](/ttl.html), [queue length limits](maxlength.html) and
 other [optional queue arguments](queues.html).
 
 However, policies cannot be used to configure priorities because policies are dynamic

@@ -81,10 +81,10 @@ RabbitMQ Messaging Topology Operator supports managing RabbitMQ messaging topolo
 
 Documentation of Messaging Topology Operator structured as following:
 
- * [Installing RabbitMQ Messaging Topology Operator](./install-topology-operator.html)
- * [Using RabbitMQ Messaging Topology Operator](./using-topology-operator.html)
- * [TLS for Messaging Topology Operator](./tls-topology-operator.html)
- * [Troubleshooting Messaging Topology Operator](./troubleshooting-topology-operator.html)
+ * [Installing RabbitMQ Messaging Topology Operator](/kubernetes/operator/install-topology-operator.html)
+ * [Using RabbitMQ Messaging Topology Operator](/kubernetes/operator/using-topology-operator.html)
+ * [TLS for Messaging Topology Operator](/kubernetes/operator/tls-topology-operator.html)
+ * [Troubleshooting Messaging Topology Operator](/kubernetes/operator/troubleshooting-topology-operator.html)
 
 ## <a id='source' class='anchor' href='#source'>Source Code</a>
 

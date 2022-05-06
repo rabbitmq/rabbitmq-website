@@ -35,7 +35,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The Bunny client library
@@ -58,7 +58,7 @@ code.
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
 We'll call our message producer `send.rb` and our message consumer
@@ -142,7 +142,7 @@ RabbitMQ, so unlike the producer which publishes a single message, we'll
 keep the consumer running to listen for messages and print them out.
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+  <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
 The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb)) has the same require as `send`:

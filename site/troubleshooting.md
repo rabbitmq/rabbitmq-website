@@ -43,49 +43,49 @@ TLS, and more.
 
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring, Metrics, Health Checks</a>
 
-A very important aspect of troubleshooting a production system is [monitoring and health checks](./monitoring.html).
+A very important aspect of troubleshooting a production system is [monitoring and health checks](/monitoring.html).
 They collect data that can be inspected and analysed, helping identify and detect anomalies.
 
 ## <a id="logging" class="anchor" href="#logging">Logging</a>
 
-Logs is another important source of information for troubleshooting. Separate [guide on logging](./logging.html)
+Logs is another important source of information for troubleshooting. Separate [guide on logging](/logging.html)
 explains where to find log files, how to adjust log levels, what log categories exist, connection
 lifecycle events that can be detected using log files, and more.
 
 
 ## <a id="configuration" class="anchor" href="#configuration">Node Configuration</a>
 
-[Configuration guide](./configure.html) contains a section on [locating config file](./configure.html#verify-configuration-config-file-location).
+[Configuration guide](/configure.html) contains a section on [locating config file](/configure.html#verify-configuration-config-file-location).
 
-Effective node configuration can be inspected using <code>[rabbitmqctl](./cli.html) environment</code> as
-well as a number of [rabbitmq-diagnostics](./cli.html) commands.
+Effective node configuration can be inspected using <code>[rabbitmqctl](/cli.html) environment</code> as
+well as a number of [rabbitmq-diagnostics](/cli.html) commands.
 
 
 ## <a id="cli" class="anchor" href="#cli">CLI Tools Connectivity and Authentication</a>
 
-[CLI Tools guide](./cli.html#erlang-cookie) explains how CLI tools authenticate to nodes, what the Erlang
+[CLI Tools guide](/cli.html#erlang-cookie) explains how CLI tools authenticate to nodes, what the Erlang
 cookie file is, and most common reasons why CLI tools fail to perform operations on server nodes.
 
 
 ## <a id="cluster-formation" class="anchor" href="#cluster-formation">Cluster Formation</a>
 
-[Cluster Formation guide](./cluster-formation.html) contains a [troubleshooting section](./cluster-formation.html#troubleshooting-cluster-formation).
+[Cluster Formation guide](/cluster-formation.html) contains a [troubleshooting section](/cluster-formation.html#troubleshooting-cluster-formation).
 
 
 ## <a id="memory-usage" class="anchor" href="#memory-usage">Memory Usage Analysis</a>
 
-[Reasoning About Memory Use](./memory-use.html) is a dedicated guide on the topic.
+[Reasoning About Memory Use](/memory-use.html) is a dedicated guide on the topic.
 
 
 ## <a id="networking" class="anchor" href="#networking">Networking and Connectivity</a>
 
-[Troubleshooting Networking](./troubleshooting-networking.html) is a dedicated guide on the topic of networking and connectivity.
+[Troubleshooting Networking](/troubleshooting-networking.html) is a dedicated guide on the topic of networking and connectivity.
 
 
 ## <a id="authentication" class="anchor" href="#authentication">Authentication and Authorisation</a>
 
-[Access Control guide](./access-control.html) contains sections on [troubleshooting client authentication](./access-control.html#troubleshooting-authn)
-and [troubleshooting authorisation](./access-control.html#troubleshooting-authz).
+[Access Control guide](/access-control.html) contains sections on [troubleshooting client authentication](/access-control.html#troubleshooting-authn)
+and [troubleshooting authorisation](/access-control.html#troubleshooting-authz).
 
 
 ## <a id="crash-dumps" class="anchor" href="#crash-dumps">Runtime Crash Dump Files</a>
@@ -103,7 +103,7 @@ head -n 3 ./erl_crash.dump
 </pre>
 
 In this specific example, the slogan (uncaught exception message) says that a started node
-timed out [syncing schema metadata from its peers](./clustering.html#restarting), likely because they did not come online
+timed out [syncing schema metadata from its peers](/clustering.html#restarting), likely because they did not come online
 in the configured window of time.
 
 To better understand the state of the Erlang runtime from a <a href="http://erlang.org/doc/apps/erts/crash_dump.html" target="_blank">crash dump file</a>, it
@@ -118,7 +118,7 @@ This is an example of how to invoke it:
 
 A successful result of the above command will open a new application window similar to this:
 
-![Erlang Crash Dump Viewer](./img/erlang-crash-dump-viewer.png)
+![Erlang Crash Dump Viewer](/img/erlang-crash-dump-viewer.png)
 
 For the above to work, the system must have a graphical user interface, and
 Erlang must have been complied with both observer & Wx support.
@@ -132,22 +132,22 @@ relevant topics.
 
 ## <a id="channels" class="anchor" href="#channels">Channels</a> (AMQP 0-9-1)
 
-[Channels guide](channels.html) explains what [channel-level exceptions](./channels.html#error-handling) mean,
+[Channels guide](channels.html) explains what [channel-level exceptions](/channels.html#error-handling) mean,
 how to identify application channel leaks and other relevant topics.
 
 
 ## <a id="tls" class="anchor" href="#tls">TLS</a>
 
-[Troubleshooting TLS](./troubleshooting-ssl.html) is a dedicated guide on the topic of TLS.
+[Troubleshooting TLS](/troubleshooting-ssl.html) is a dedicated guide on the topic of TLS.
 
 
 ## <a id="ldap" class="anchor" href="#ldap">LDAP</a>
 
-[LDAP guide](./ldap.html#troubleshooting) explains how to enable LDAP decision and query logging.
+[LDAP guide](/ldap.html#troubleshooting) explains how to enable LDAP decision and query logging.
 
 
 ## <a id="capturing-traffic" class="anchor" href="#capturing-traffic">Capturing Traffic</a>
 
-A [traffic capture](./amqp-wireshark.html) can provide a lot of information useful when troubleshooting network connectivity, application behaviour,
+A [traffic capture](/amqp-wireshark.html) can provide a lot of information useful when troubleshooting network connectivity, application behaviour,
 connection leaks, channel leaks and more. tcpdump and Wireshark and industry standard open source tools
 for capturing and analyzing network traffic.

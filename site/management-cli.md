@@ -17,15 +17,15 @@ limitations under the License.
 
 # Management Command Line Tool NOSYNTAX
 
-The [management plugin](./management.html) ships with a command line
+The [management plugin](/management.html) ships with a command line
 tool **rabbitmqadmin** which can perform some of the same actions as the
 Web-based UI, and which may be more convenient for automation tasks.
 Note that rabbitmqadmin is just a specialised HTTP client;
 if you are contemplating invoking rabbitmqadmin from your own program
 you may want to consider using an HTTP API client library instead.
 
-Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](./man/rabbitmqctl.8.html) or
-[rabbitmq-plugins](./man/rabbitmq-plugins.8.html).
+Note that `rabbitmqadmin` is not a replacement for [rabbitmqctl](/man/rabbitmqctl.8.html) or
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.html).
 HTTP API intentionally doesn't expose certain operations.
 
 
@@ -56,8 +56,8 @@ Invoke `rabbitmqadmin --help` for usage instructions. You can:
 * close connections and purge queues
 * import and export configuration
 
-For other tasks, see [rabbitmqctl](./man/rabbitmqctl.8.html) and
-[rabbitmq-plugins](./man/rabbitmq-plugins.8.html).
+For other tasks, see [rabbitmqctl](/man/rabbitmqctl.8.html) and
+[rabbitmq-plugins](/man/rabbitmq-plugins.8.html).
 
 
 ## rabbitmqadmin and RabbitMQ HTTP API Compatibility

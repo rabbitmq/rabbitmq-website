@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster.
+This guide covers the installation of the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html) in a Kubernetes cluster.
 
 ## <a id='compatibility' class='anchor' href='#compatibility'>Compatibility</a>
 
@@ -47,7 +47,7 @@ kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/d
 </pre>
 
 At this point, the RabbitMQ Cluster Kubernetes Operator is successfully installed.
-Once the RabbitMQ Cluster Kubernetes Operator pod is running, head over to [Using Kubernetes RabbitMQ Cluster Kubernetes Operator](./using-operator.html) for instructions on how to deploy RabbitMQ using a Kubernetes Custom Resource.
+Once the RabbitMQ Cluster Kubernetes Operator pod is running, head over to [Using Kubernetes RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/using-operator.html) for instructions on how to deploy RabbitMQ using a Kubernetes Custom Resource.
 
 If you want to install a specific version of the Operator, you will have to obtain the manifest link from the
 [Operator Releases](https://github.com/rabbitmq/cluster-operator/releases). Please note that releases prior to 0.46.0

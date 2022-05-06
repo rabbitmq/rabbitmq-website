@@ -16,7 +16,7 @@ the middle is a queue - a message buffer that RabbitMQ keeps on behalf of the
 consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The Objective-C client library
@@ -51,7 +51,7 @@ Once the client is added as a dependency, build the project with **Product** ->
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
 To keep things easy for the tutorial, we'll put our send and receive code in
@@ -149,7 +149,7 @@ be pushed messages from RabbitMQ, so unlike `send` which publishes a single
 message, it will wait for a message, log it and then quit.
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+  <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
 Setting up is the same as `send`; we open a connection and a
