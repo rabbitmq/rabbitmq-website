@@ -40,9 +40,9 @@ Inter-node communication is performed transparently to clients.
 The design of clustering assumes that network connections are reasonably reliable
 and provides a LAN-like latency.
 
-All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](/which-erlang.html).
+All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](./which-erlang.html).
 
-Nodes authenticate to each other using [a pre-shared secret](/clustering.html#erlang-cookie)
+Nodes authenticate to each other using [a pre-shared secret](./clustering.html#erlang-cookie)
 typically installed by deployment automation tools.
 
 Virtual hosts, exchanges, users, and permissions are
@@ -131,12 +131,12 @@ single broker.
     <td>
       Brokers can be connected via unreliable WAN
       links. Communication is via AMQP 0-9-1 (optionally secured by
-      <a href="/ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
+      <a href="./ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
     </td>
     <td>
       Brokers must be connected via reasonably reliable LAN
       links. Nodes will authenticate to each other using a shared secret
-      and optionally <a href="/clustering-ssl.html">use TLS-enabled links</a>.
+      and optionally <a href="./clustering-ssl.html">use TLS-enabled links</a>.
     </td>
   </tr>
   <tr>

@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers various topics related to channels, an [AMQP 0-9-1](/tutorials/amqp-concepts.html)-specific abstraction.
+This guide covers various topics related to channels, an [AMQP 0-9-1](./tutorials/amqp-concepts.html)-specific abstraction.
 Channels cannot exist without a connection, so getting familiar with the [Connections guide](connections.html) first
 is highly recommended.
 
@@ -136,18 +136,18 @@ Certain scenarios are assumed to be recoverable ("soft") errors in the protocol.
 the channel closed but applications can open another one and try to recover or retry a number of
 times. Most common examples are:
 
- * [Redeclaring an existing queue](/queues.html#property-equivalence) or exchange with non-matching properties
+ * [Redeclaring an existing queue](./queues.html#property-equivalence) or exchange with non-matching properties
    will fail with a `406 PRECONDITION_FAILED` error
- * [Accessing a resource](/access-control.html) the user is not allowed to access will fail
+ * [Accessing a resource](./access-control.html) the user is not allowed to access will fail
    with a `403 ACCESS_REFUSED` error
  * Binding a non-existing queue or a non-existing exchange will fail with a `404 NOT_FOUND` error
  * Consuming from a queue that does not exist will fail with a `404 NOT_FOUND` error
  * Publishing to an exchange that does not exist will fail with a `404 NOT_FOUND` error
- * Accessing an [exclusive queue](/queues.html#exclusive-queues) from a connection other than its declaring one will
+ * Accessing an [exclusive queue](./queues.html#exclusive-queues) from a connection other than its declaring one will
    fail with a `405 RESOURCE_LOCKED`
 
 Client libraries provide a way to observe and react to channel exceptions. For example, in the Java
-client there is [a way to register an error handler](/api-guide.html#shutdown) and access a channel
+client there is [a way to register an error handler](./api-guide.html#shutdown) and access a channel
 shutdown (closure) reason.
 
 Any attempted operation on a closed channel will fail with an exception. Note that when RabbitMQ
@@ -159,7 +159,7 @@ Some client libraries may use blocking operations that wait for
 a response. In this case they may communicate channel exceptions differently, e.g. using
 runtime exceptions, an error type, or other means appropriate for the language.
 
-See the [AMQP 0-9-1 Reference](/amqp-0-9-1-reference.html) for a more complete list of
+See the [AMQP 0-9-1 Reference](./amqp-0-9-1-reference.html) for a more complete list of
 error codes.
 
 
@@ -176,7 +176,7 @@ and not those of clients.
 
 Given both of these factors, limiting the number of channels used per connection is highly recommended.
 As a rule of thumb, most applications can use a single digit number of channels per connection.
-Those with particularly high concurrency rates (usually such applications are [consumers](/consumers.html))
+Those with particularly high concurrency rates (usually such applications are [consumers](./consumers.html))
 can start with one channel per thread/process/coroutine and switch to channel pooling
 when metrics suggest that the original model is no longer sustainable, e.g. because it consumes
 too much memory.
@@ -205,7 +205,7 @@ error:
  operation none caused a connection exception not_allowed: "number of channels opened (22) has reached the negotiated channel_max (22)"
 </pre>
 
-Clients can be configured to allow fewer channels per connection. With [RabbitMQ Java client](/api-guide.html),
+Clients can be configured to allow fewer channels per connection. With [RabbitMQ Java client](./api-guide.html),
 `ConnectionFactory#setRequestedChannelMax` is the method that controls the limit:
 
 <pre class="lang-java">
@@ -215,7 +215,7 @@ ConnectionFactory cf = new ConnectionFactory();
 cf.setRequestedChannelMax(32);
 </pre>
 
-With [RabbitMQ .NET client](/dotnet-api-guide.html), use the `ConnectionFactory#RequestedChannelMax`
+With [RabbitMQ .NET client](./dotnet-api-guide.html), use the `ConnectionFactory#RequestedChannelMax`
 property:
 
 <pre class="lang-csharp">
@@ -238,7 +238,7 @@ failed to negotiate connection parameters: negotiated channel_max = 2047 is high
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring, Metrics and Diagnostics</a>
 
 Number of currently open channels and channel opening/closure rates are important metrics
-of the system that should be [monitored](/monitoring.html). Monitoring them will help detect a number of
+of the system that should be [monitored](./monitoring.html). Monitoring them will help detect a number of
 common problems:
 
  * Channel leaks
@@ -246,22 +246,22 @@ common problems:
 
 Both problems eventually lead to node exhaustion of [resources](#resource-usage).
 
-Individual channel metrics such as the number of [unacknowledged messages](/confirms.html#acknowledgement-modes)
+Individual channel metrics such as the number of [unacknowledged messages](./confirms.html#acknowledgement-modes)
 or `basic.get` operation rate can help identify irregularities and inefficiencies
 in application behavior.
 
 ### <a id="memory-use" class="anchor" href="#memory-use">Memory Use</a>
 
-[Monitoring systems](/monitoring.html) and operators alike may need to inspect how much memory
+[Monitoring systems](./monitoring.html) and operators alike may need to inspect how much memory
 channels consume on a node, the total
 number of channels on a node and then identify how many there are on each connection.
 
-The number of channels is displayed in the [management UI](/management.html) on the Overview tab,
-as is the [number of connections](/connections.html#monitoring).
+The number of channels is displayed in the [management UI](./management.html) on the Overview tab,
+as is the [number of connections](./connections.html#monitoring).
 By dividing the number of channels by the number of connections
 the operator can determine an average number of channels per connection.
 
-To find out how much memory on a node is used by channels, use [`rabbitmq-diagnostics memory_breakdown`](/rabbitmq-diagnostics.8.html):
+To find out how much memory on a node is used by channels, use [`rabbitmq-diagnostics memory_breakdown`](./rabbitmq-diagnostics.8.html):
 
 <pre class="lang-bash">
 rabbitmq-diagnostics memory_breakdown -q --unit mb
@@ -272,7 +272,7 @@ rabbitmq-diagnostics memory_breakdown -q --unit mb
 # => [elided for brevity]
 </pre>
 
-See the [RabbitMQ Memory Use Analysis guide](/memory-use.html) for details.
+See the [RabbitMQ Memory Use Analysis guide](./memory-use.html) for details.
 
 
 ### <a id="channel-leaks" class="anchor" href="#channel-leaks">Channel Leaks</a>
@@ -294,7 +294,7 @@ to the Connections tab and enable the relevant columns if they are not displayed
 
 <img class="screenshot" src="img/monitoring/channels/mgmt-ui-per-connection-channel-max-and-count.png" alt="Per connection channel count in management UI" title="Per connection channel count in management UI" />
 
-Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](/changelog.html).
+Overview and individual node pages provide a chart of channel churn rate as of [RabbitMQ 3.7.9](./changelog.html).
 If the rate of channel open operations is consistently higher than that of channel close operations,
 this is evidence of a channel leak in one of the applications:
 
@@ -312,7 +312,7 @@ uses short lived channels or channels are often closed due to channel-level exce
 While with some workloads this is a natural state of the system,
 long lived channels should be used instead when possible.
 
-[Management UI](/management.html) provides a chart of channel churn rate.
+[Management UI](./management.html) provides a chart of channel churn rate.
 Below is a chart that demonstrates a fairly low channel churn with a virtually identical number of channel open and closed
 in the given period of time:
 
@@ -335,9 +335,9 @@ as needed:
 
 ### <a id="inspect-using-cli-tools" class="anchor" href="#inspect-using-cli-tools">Inspecting Channels and Their State Using CLI Tools</a>
 
-[`rabbitmqctl list_connections`](/rabbitmqctl.8.html) and [`rabbitmqctl list_channels`](/rabbitmqctl.8.html) are the
+[`rabbitmqctl list_connections`](./rabbitmqctl.8.html) and [`rabbitmqctl list_channels`](./rabbitmqctl.8.html) are the
 primary commands for inspecting per-connection channel count and channel details such as the number of
-consumers, [unacknowledged messages](/confirms.html#acknowledgement-modes), [prefetch](/confirms.html#channel-qos-prefetch) and so on.
+consumers, [unacknowledged messages](./confirms.html#acknowledgement-modes), [prefetch](./confirms.html#channel-qos-prefetch) and so on.
 
 <pre class="lang-bash">
 rabbitmqctl list_connections name channels -q
@@ -356,7 +356,7 @@ rabbitmqctl list_connections name channels -q --no-table-headers
 # =&gt; 127.0.0.1:52964 -&gt; 127.0.0.1:5672	33
 </pre>
 
-To inspect individual channels, use [`rabbitmqctl list_channels`](/rabbitmqctl.8.html):
+To inspect individual channels, use [`rabbitmqctl list_channels`](./rabbitmqctl.8.html):
 
 <pre class="lang-bash">
 rabbitmqctl list_channels -q
@@ -416,14 +416,14 @@ rabbitmqctl list_channels -s vhost connection number confirm
 ## <a id="flow-control" class="anchor" href="#flow-control">Publisher Flow Control</a>
 
 Channels that publish messages can outpace other parts of the system, most likely busy queues and queues
-that perform replication. When that happens, [flow control](/flow-control.html) is applied to
+that perform replication. When that happens, [flow control](./flow-control.html) is applied to
 publishing channels and, in turn, connections. Channels and connections that only consume messages
 are not affected.
 
-With slower consumers that use [automatic acknowledgement mode](/confirms.html#acknowledgement-modes)
+With slower consumers that use [automatic acknowledgement mode](./confirms.html#acknowledgement-modes)
 it is very likely that connections and channels will experience flow control when writing to
 the TCP socket.
 
-[Monitoring](/monitoring.html) systems can collect metrics on the number of connections in flow state.
+[Monitoring](./monitoring.html) systems can collect metrics on the number of connections in flow state.
 Applications that experience flow control regularly may consider to use separate connections
 to publish and consume to avoid flow control effects on non-publishing operations (e.g. queue management).

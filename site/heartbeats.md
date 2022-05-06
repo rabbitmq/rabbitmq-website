@@ -78,7 +78,7 @@ RabbitMQ [configuration](configure.html) exposes the timeout value,
 so do the officially supported client libraries. However some clients might expose
 the interval, potentially causing confusion.
 
-Any traffic (e.g. protocol operations, published messages, [acknowledgements](/confirms.html)) counts for a valid
+Any traffic (e.g. protocol operations, published messages, [acknowledgements](./confirms.html)) counts for a valid
 heartbeat. Clients may choose to send heartbeat frames
 regardless of whether there was any other traffic on the
 connection but some only do it when necessary.
@@ -97,7 +97,7 @@ as frame delivery will be too infrequent to make a practical difference.
 
 Unless [TCP keepalives](#tcp-keepalives) are used instead with an adequately low inactivity detection period,
 *disabling heartbeats is highly discouraged*. If heartbeats are disabled, it will make timely peer unavailability
-detection much less likely. That *would pose a significant risk to data safety*, in particular for [publishers](/publishers.html).
+detection much less likely. That *would pose a significant risk to data safety*, in particular for [publishers](./publishers.html).
 
 
 ## <a id="using-heartbeats-in-java" class="anchor" href="#using-heartbeats-in-java">Enabling Heartbeats with Java Client</a>
@@ -175,7 +175,7 @@ consult your MQTT client's documentation for examples.
 connections to RabbitMQ nodes under the hood. As such, they can be configured
 to use a desired heartbeat value.
 
-Please refer to the [AMQP 0-9-1 URI query parameters reference](/uri-query-parameters.html)
+Please refer to the [AMQP 0-9-1 URI query parameters reference](./uri-query-parameters.html)
 for details.
 
 ## <a id="tcp-keepalives" class="anchor" href="#tcp-keepalives">TCP Keepalives</a>
@@ -225,11 +225,11 @@ Also see the section on low timeouts and false positives above.
 
 ## <a id="troubleshooting" class="anchor" href="#troubleshooting">Troubleshooting Active and Defunct Connections</a>
 
-RabbitMQ nodes will [log connections](/logging.html#connection-lifecycle-events) closed due to missed heartbeats. So will all
+RabbitMQ nodes will [log connections](./logging.html#connection-lifecycle-events) closed due to missed heartbeats. So will all
 officially supported client libraries. Inspecting server and client logs will provide
 valuable information and should be the first troubleshooting step.
 
 It may be necessary to inspect the connections open to or from a node,
 their state, origin, username and effective heartbeat timeout value.
-[Network Troubleshooting](/troubleshooting-networking.html) guide
+[Network Troubleshooting](./troubleshooting-networking.html) guide
 provides an overview of the tools available to help with that.

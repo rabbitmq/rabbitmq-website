@@ -252,13 +252,13 @@ and set by RabbitMQ at routing and delivery time:
       <td>Delivery tag</td>
       <td>Positive integer</td>
       <td>
-        Delivery identifier, see <a href="/confirms.html">Confirms</a>.
+        Delivery identifier, see <a href="./confirms.html">Confirms</a>.
       </td>
     </tr>
     <tr>
       <td>Redelivered</td>
       <td>Boolean</td>
-      <td>Set to `true` if this message was previously <a href="/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+      <td>Set to `true` if this message was previously <a href="./confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
     </tr>
     <tr>
       <td>Exchange</td>
@@ -333,19 +333,19 @@ at the time of publishing:
     <tr>
       <td>Correlation ID</td>
       <td>String</td>
-      <td>Helps correlate requests with responses, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>Helps correlate requests with responses, see <a href="./getstarted.html">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Reply To</td>
       <td>String</td>
-      <td>Carries response queue name, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>Carries response queue name, see <a href="./getstarted.html">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Expiration</td>
       <td>String</td>
-      <td><a href="/ttl.html">Per-message TTL</a></td>
+      <td><a href="./ttl.html">Per-message TTL</a></td>
       <td>No</td>
     </tr>
     <tr>
@@ -357,7 +357,7 @@ at the time of publishing:
     <tr>
       <td>User ID</td>
       <td>String</td>
-      <td>User ID, <a href="/validated-user-id.html">validated</a> if set</td>
+      <td>User ID, <a href="./validated-user-id.html">validated</a> if set</td>
       <td>No</td>
     </tr>
     <tr>

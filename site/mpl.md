@@ -18,7 +18,7 @@ limitations under the License.
 # Mozilla Public License
 
 This page contains the complete license text as used in the
-RabbitMQ [distributions](/download.html).
+RabbitMQ [distributions](./download.html).
 
 
 ## The License

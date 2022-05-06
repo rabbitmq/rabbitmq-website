@@ -68,10 +68,10 @@ exchanges</a> and [federated queues](federated-queues.html).
 To use federation, one needs to configure two things
 
 * One or more upstreams that define federation connections
-  to other nodes. This can be done via [runtime parameters](/parameters.html)
+  to other nodes. This can be done via [runtime parameters](./parameters.html)
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
-  adds a federation management tab to the [management UI](/management.html).
-* One or more [policies](/parameters.html#policies) that match exchanges/queues and makes them
+  adds a federation management tab to the [management UI](./management.html).
+* One or more [policies](./parameters.html#policies) that match exchanges/queues and makes them
   federated.
 
 
@@ -238,10 +238,10 @@ three exchanges and two upstreams for each there will be six
 links.
 
 For simple use this should be all you need - you will probably
-want to look at the <a href="/uri-spec.html">AMQP URI
+want to look at the <a href="./uri-spec.html">AMQP URI
 reference</a>.
 
-The <a href="/federation-reference.html">federation reference</a> contains
+The <a href="./federation-reference.html">federation reference</a> contains
 more details on upstream parameters and upstream sets.
 
 

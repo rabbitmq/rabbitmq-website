@@ -25,14 +25,14 @@ body lengths, ignoring message properties and any overheads), or
 both.
 
 For any given queue, the maximum length (of either type) can be
-defined using a [policy](/parameters.html#policies) (this option is highly recommended)
-or by clients using the [queue's optional arguments](/queues.html#optional-arguments).
+defined using a [policy](./parameters.html#policies) (this option is highly recommended)
+or by clients using the [queue's optional arguments](./queues.html#optional-arguments).
 In the case where both the effective queue policy and arguments specify a maximum length,
 the minimum of the two values will be used.
 
-Queue length settings also can be enforced by [operator policies](/parameters.html#operator-policies).
+Queue length settings also can be enforced by [operator policies](./parameters.html#operator-policies).
 
-In all cases the number of messages in the **ready** state is used; [messages unacknowledged by consumers](/confirms.html)
+In all cases the number of messages in the **ready** state is used; [messages unacknowledged by consumers](./confirms.html)
 do not count towards the limit.
 
 The number of **ready** messages and their footprint in bytes can be observed
@@ -164,8 +164,8 @@ channel.queueDeclare("myqueue", false, false, false, args);
 
 ## <a id="inspecting" class="anchor" href="#inspecting">Inspecting Queue Length Limits</a>
 
-To inspect effective limits for a queue, inspect its [optional arguments](/queues.html#optional-arguments) and
-[effective policy](/parameters.html#policies).
+To inspect effective limits for a queue, inspect its [optional arguments](./queues.html#optional-arguments) and
+[effective policy](./parameters.html#policies).
 
 This can be done using CLI tools or the management UI.
 

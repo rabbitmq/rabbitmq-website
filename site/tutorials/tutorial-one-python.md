@@ -21,7 +21,7 @@ on behalf of the consumer.
 Our overall design will look like:
 
 <div class="diagram">
-  <img src="/img/tutorials/python-one-overall.png" height="100" />
+  <img src="../img/tutorials/python-one-overall.png" height="100" />
   <div class="diagram_source">
 digraph G {
       bgcolor=transparent;
@@ -49,7 +49,7 @@ messages from that queue.
 >
 > RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients for RabbitMQ
-> in [many different languages](/devtools.html).  In this tutorial
+> in [many different languages](../devtools.html).  In this tutorial
 > series we're going to use [Pika 1.0.0](https://pika.readthedocs.org/en/stable/),
 > which is the Python client recommended
 > by the RabbitMQ team. To install it you can use the
@@ -65,7 +65,7 @@ code.
 ### Sending
 
 <div class="diagram">
-  <img src="/img/tutorials/sending.png" height="100" />
+  <img src="../img/tutorials/sending.png" height="100" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;
@@ -153,7 +153,7 @@ connection.close()
 ### Receiving
 
 <div class="diagram">
-  <img src="/img/tutorials/receiving.png" height="100" />
+  <img src="../img/tutorials/receiving.png" height="100" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;

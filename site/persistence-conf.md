@@ -29,9 +29,9 @@ before drawing any conclusions.
 Some related guides include:
 
  * [Main configuration guide](configure.html)
- * [File and Directory Locations](/relocate.html)
- * [Runtime Tuning](/runtime.html)
- * [Queues](/queues.html#runtime-characteristics) and their runtime characteristics
+ * [File and Directory Locations](./relocate.html)
+ * [Runtime Tuning](./runtime.html)
+ * [Queues](./queues.html#runtime-characteristics) and their runtime characteristics
 
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How Persistence Works</a>
@@ -152,7 +152,7 @@ simultaneously.
 
 ### <a id="file-handles" class="anchor" href="#file-handles">Too Few File Handles</a>
 
-The RabbitMQ server is limited in the [number of file handles](/networking.html#open-file-handle-limit) it can open.
+The RabbitMQ server is limited in the [number of file handles](./networking.html#open-file-handle-limit) it can open.
 Every running network connection requires one file handle, and the rest are available
 for queues to use. If there are more disk-accessing queues than
 file handles after network connections have been taken into
@@ -172,7 +172,7 @@ notably if given more file handles.
 
 ### <a id="async-threads" class="anchor" href="#async-threads">I/O Thread Pool Size</a>
 
-[The runtime](/runtime.html) uses a pool threads to handle
+[The runtime](./runtime.html) uses a pool threads to handle
 long-running file I/O operations. These are shared among all virtual hosts and queues.
 Every active file I/O operation uses one async thread while it is occurring.
 Having too few async threads can therefore hurt performance.
@@ -200,7 +200,7 @@ when the server should be busy with persistence, while the
 reported time per I/O operation increases.
 
 The number of async threads is configured by the `+A`
-[runtime flag](/runtime.html). It is likely to be a good idea to experiment
+[runtime flag](./runtime.html). It is likely to be a good idea to experiment
 with several different values before changing this.
 
 

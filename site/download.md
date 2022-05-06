@@ -18,7 +18,7 @@ limitations under the License.
 # Downloading and Installing RabbitMQ
 
 The latest [release](https://github.com/rabbitmq/rabbitmq-server/releases) of RabbitMQ is **&version-server;**. See [change log](changelog.html) for release notes.
-See [RabbitMQ support timeline](/versions.html) to find out what release series are supported.
+See [RabbitMQ support timeline](./versions.html) to find out what release series are supported.
 
 Experimenting with RabbitMQ on your workstation? Try the [community Docker image](https://registry.hub.docker.com/_/rabbitmq/):
 
@@ -36,7 +36,7 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-man
  * Linux, BSD, UNIX: [Debian, Ubuntu](install-debian.html) | [RHEL, CentOS, Fedora](install-rpm.html) | [Generic binary build](install-generic-unix.html) | [Solaris](install-solaris.html)
  * Windows: [Chocolatey or Installer](install-windows.html) (recommended) | [Binary build](install-windows-manual.html)
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
- * [Erlang/OTP for RabbitMQ](/which-erlang.html)
+ * [Erlang/OTP for RabbitMQ](./which-erlang.html)
 
 ### Preview Releases (Betas, Release Candidates)
 
@@ -71,7 +71,7 @@ Open source [RabbitMQ Topology Kubernetes Operator](kubernetes/operator/using-to
 
 Other guides related to Kubernetes:
 
- * A [peer discovery](/cluster-formation.html) mechanism [for Kubernetes](/cluster-formation.html#peer-discovery-k8s)
+ * A [peer discovery](./cluster-formation.html) mechanism [for Kubernetes](./cluster-formation.html#peer-discovery-k8s)
 
 
 ## Docker
@@ -82,7 +82,7 @@ Other guides related to Kubernetes:
 ## Cloud
 
  * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
+ * [RabbitMQ Cluster Kubernetes Operator](./kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
  * [Tanzu™ RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
  * [Amazon EC2](ec2.html)
@@ -112,8 +112,8 @@ Other guides related to Kubernetes:
 ## Release Signing Key
 
  * [Release Signing Key](https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc) <code>0x6B73A36E6026DFCA</code> (on GitHub)
- * [How to Verify Release Artifact Signatures](/signatures.html)
- * [Release Signing Key](/rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
+ * [How to Verify Release Artifact Signatures](./signatures.html)
+ * [Release Signing Key](./rabbitmq-release-signing-key.asc) (alternative download location on rabbitmq.com)
 
 
 ## Client Libraries
@@ -123,9 +123,9 @@ Other guides related to Kubernetes:
  * On Maven Central: [RabbitMQ Java client](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22)
  * Quick download: [Maven.org](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar) |
    [Source](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar)
- * [API guide](/api-guide.html)
+ * [API guide](./api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc)
- * [License and other information](/java-client.html)
+ * [License and other information](./java-client.html)
  * [Older versions](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
 
 ### JMS Client
@@ -135,9 +135,9 @@ Other guides related to Kubernetes:
 ### .NET/C# Client
 
  * On NuGet: [RabbitMQ .NET Client](https://www.nuget.org/packages/RabbitMQ.Client)
- * [API guide](/dotnet-api-guide.html)
+ * [API guide](./dotnet-api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/)
- * [License and other information](/dotnet.html)
+ * [License and other information](./dotnet.html)
  * [Older versions](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases)
 
 ### Erlang Client
