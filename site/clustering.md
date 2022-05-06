@@ -249,7 +249,7 @@ location for users running commands like `rabbitmqctl.bat`.
 ### Overriding Using CLI and Runtime Command Line Arguments
 
 As an alternative, the option "`-setcookie <value>`" can be added
-to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="/configure.html">environment variable value</a>
+to `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` <a href="./configure.html">environment variable value</a>
 to override the cookie value used by a RabbitMQ node:
 
 <pre class="lang-bash">

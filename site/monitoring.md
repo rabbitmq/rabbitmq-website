@@ -246,7 +246,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
       <td><code>queue_totals.messages_ready</code></td>
     </tr>
     <tr>
-      <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+      <td>Number of <a href="./confirms.html">unacknowledged</a> messages</td>
       <td><code>queue_totals.messages_unacknowledged</code></td>
     </tr>
     <tr>
@@ -296,7 +296,7 @@ compared to their previous values and historical mean/percentile values.
   </thead>
   <tbody>
     <tr>
-      <td>Total amount of <a href="/memory-use.html">memory used</a></td>
+      <td>Total amount of <a href="./memory-use.html">memory used</a></td>
       <td><code>mem_used</code></td>
     </tr>
     <tr>
@@ -304,7 +304,7 @@ compared to their previous values and historical mean/percentile values.
       <td><code>mem_limit</code></td>
     </tr>
     <tr>
-      <td>Is a <a href="/memory.html">memory alarm</a> in effect?</td>
+      <td>Is a <a href="./memory.html">memory alarm</a> in effect?</td>
       <td><code>mem_alarm</code></td>
     </tr>
     <tr>
@@ -312,11 +312,11 @@ compared to their previous values and historical mean/percentile values.
       <td><code>disk_free_limit</code></td>
     </tr>
     <tr>
-      <td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td>
+      <td>Is a <a href="./disk-alarms.html">disk alarm</a> in effect?</td>
       <td><code>disk_free_alarm</code></td>
     </tr>
     <tr>
-      <td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td>
+      <td><a href="./networking.html#open-file-handle-limit">File descriptors available</a></td>
       <td><code>fd_total</code></td>
     </tr>
     <tr>
@@ -393,7 +393,7 @@ via the `GET /api/queues/{vhost}/{qname}` endpoint.
       <td><code>messages_ready</code></td>
     </tr>
     <tr>
-      <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+      <td>Number of <a href="./confirms.html">unacknowledged</a> messages</td>
       <td><code>messages_unacknowledged</code></td>
     </tr>
     <tr>
@@ -867,7 +867,7 @@ Note that this list is by no means complete.
     <tr>
       <td>Prometheus</td>
       <td>
-        <a href="/prometheus.html">Prometheus guide</a>,
+        <a href="./prometheus.html">Prometheus guide</a>,
         <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
       </td>
     </tr>

@@ -14,7 +14,7 @@ the workload.
 <p class="box-info">
 Inter-node traffic compression is <strong>available in VMware Tanzu RabbitMQ
 only</strong>, not in the standard FOSS RabbitMQ.
-<a href="/tanzu/">Learn more about VMware Tanzu RabbitMQ</a>
+<a href="./tanzu/">Learn more about VMware Tanzu RabbitMQ</a>
 </p>
 
 ## <a id="how-to-use-it" class="anchor" href="#how-to-use-it">How to use it</a>

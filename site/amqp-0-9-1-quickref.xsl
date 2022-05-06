@@ -48,7 +48,7 @@ limitations under the License.
         specification downloads can be found on the <a href="protocol.html">protocol page</a>.
       </p>
       <p>
-        A brief <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 overview</a> is also available.
+        A brief <a href="./tutorials/amqp-concepts.html">AMQP 0-9-1 overview</a> is also available.
       </p>
       <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides

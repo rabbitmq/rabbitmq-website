@@ -212,7 +212,7 @@ remains unassigned prior to creating a connection:
 
     <td>
       <code>5672</code> for regular ("plain TCP") connections,
-      <code>5671</code> for <a href="/ssl.html">connections with TLS enabled</a>
+      <code>5671</code> for <a href="./ssl.html">connections with TLS enabled</a>
     </td>
   </tr>
 </table>

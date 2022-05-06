@@ -111,7 +111,7 @@ against the hostname `myhost`.
   <tr>
     <td><code>heartbeat</code></td>
     <td>
-      <a href="/heartbeats.html">Heartbeat</a> timeout value in seconds (an integer)
+      <a href="./heartbeats.html">Heartbeat</a> timeout value in seconds (an integer)
       to negotiate with the server.
     </td>
   </tr>

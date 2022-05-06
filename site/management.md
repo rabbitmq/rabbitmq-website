@@ -126,27 +126,27 @@ Some of the features include:
 
 <ul>
   <li>
-    Declare, list and delete exchanges, <a href="/queues.html">queues</a>, bindings,
-    users, <a href="/vhosts.html">virtual hosts</a> and <a href="/access-control.html">user permissions</a>.
+    Declare, list and delete exchanges, <a href="./queues.html">queues</a>, bindings,
+    users, <a href="./vhosts.html">virtual hosts</a> and <a href="./access-control.html">user permissions</a>.
   </li>
   <li>
     Monitor queue length, message rates (globally and per queue, exchange or channel), resource usage of queue,
     node GC activity, data rates of client connections, and more.
   </li>
   <li>
-    Monitor node resource use: <a href="/networking.html#open-file-handle-limit">sockets and file descriptors</a>,
-    <a href="/memory-use.html">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
+    Monitor node resource use: <a href="./networking.html#open-file-handle-limit">sockets and file descriptors</a>,
+    <a href="./memory-use.html">memory usage breakdown</a>, available disk space and bandwidth usage on inter-node communication
     links.
   </li>
   <li>
     Manage users (provided administrative permissions of the current user).
   </li>
   <li>
-    Manage <a href="/parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
+    Manage <a href="./parameters.html">policies and runtime parameters</a> (provided sufficient permissions of the current user).
   </li>
   <li>
-    <a href="/backup.html">Export schema</a> (vhosts, users, permissions, queues, exchanges, bindings, parameters,
-    policies) and <a href="/definitions.html">import it on node start</a>. This can be used for <a href="/backup.html">recovery purposes</a>
+    <a href="./backup.html">Export schema</a> (vhosts, users, permissions, queues, exchanges, bindings, parameters,
+    policies) and <a href="./definitions.html">import it on node start</a>. This can be used for <a href="./backup.html">recovery purposes</a>
     or setup automation of new nodes and clusters.
   </li>
   <li>

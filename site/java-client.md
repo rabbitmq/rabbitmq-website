@@ -167,7 +167,7 @@ This means it is no longer necessary to <i>bundleise</i> or
 ## GitHub Repositories
 
 The RabbitMQ Java client depends on the code generation library module.
-Please see the <a href="/build-java-client.html">build page</a> for instructions on
+Please see the <a href="./build-java-client.html">build page</a> for instructions on
 compiling from source code.
 
 <table>

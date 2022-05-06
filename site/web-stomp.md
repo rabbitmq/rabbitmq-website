@@ -210,7 +210,7 @@ default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.
 
 This is an advanced feature that is only exposed via the [advanced configuration file](./configure.html#configuration-files)
-or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+or the <a href="./configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="lang-erlang">
 [

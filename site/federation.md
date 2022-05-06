@@ -238,10 +238,10 @@ three exchanges and two upstreams for each there will be six
 links.
 
 For simple use this should be all you need - you will probably
-want to look at the <a href="/uri-spec.html">AMQP URI
+want to look at the <a href="./uri-spec.html">AMQP URI
 reference</a>.
 
-The <a href="/federation-reference.html">federation reference</a> contains
+The <a href="./federation-reference.html">federation reference</a> contains
 more details on upstream parameters and upstream sets.
 
 

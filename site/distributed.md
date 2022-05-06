@@ -131,12 +131,12 @@ single broker.
     <td>
       Brokers can be connected via unreliable WAN
       links. Communication is via AMQP 0-9-1 (optionally secured by
-      <a href="/ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
+      <a href="./ssl.html">TLS</a>), requiring appropriate users and permissions to be set up.
     </td>
     <td>
       Brokers must be connected via reasonably reliable LAN
       links. Nodes will authenticate to each other using a shared secret
-      and optionally <a href="/clustering-ssl.html">use TLS-enabled links</a>.
+      and optionally <a href="./clustering-ssl.html">use TLS-enabled links</a>.
     </td>
   </tr>
   <tr>

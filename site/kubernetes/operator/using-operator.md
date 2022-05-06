@@ -975,7 +975,7 @@ For more information about concepts mentioned above, see:
 
 ## <a id='tls' class='anchor' href='#tls'>(Optional) Configure TLS</a>
 
-Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="/ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
+Transport Layer Security (TLS) is a protocol for encrypting network traffic. <a href="../../ssl.html">RabbitMQ supports TLS</a>, and the cluster operator simplifies the process of configuring a RabbitMQ cluster with [TLS](#one-way-tls) or
 [mutual TLS (mTLS)](#mutual-tls) encrypted traffic between clients and the cluster, as well
 as supporting [encrypting RabbitMQ inter-node traffic with mTLS](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/mtls-inter-node).
 A [basic overview of TLS](../../ssl.html#certificates-and-keys) is helpful for understanding this guide.

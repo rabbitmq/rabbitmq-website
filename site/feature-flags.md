@@ -27,7 +27,7 @@ compatible with older release series. Therefore, <strong>a future
 version of RabbitMQ might still require a cluster-wide shutdown for
 upgrading</strong>.
 
-Please always read <a href="/changelog.html">release notes</a> to see if a rolling
+Please always read <a href="./changelog.html">release notes</a> to see if a rolling
 upgrade to the next minor or major RabbitMQ version is possible.
 </p>
 
@@ -269,7 +269,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-quorum_queue" class="anchor" href="#ff-quorum_queue">quorum_queue</a></td>
     <td>
-      Enables <a href="/quorum-queues.html">quorum queue</a> type.
+      Enables <a href="./quorum-queues.html">quorum queue</a> type.
     </td>
     <td>
       <table class="feature-flag-lifecycle">
@@ -282,7 +282,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-stream_queue" class="anchor" href="#ff-stream_queue">stream_queue</a></td>
     <td>
-      Enables <a href="/streams.html">streams</a>.
+      Enables <a href="./streams.html">streams</a>.
     </td>
     <td>
       <table class="feature-flag-lifecycle">
@@ -295,7 +295,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-drop_unroutable_metric" class="anchor" href="#ff-drop_unroutable_metric">drop_unroutable_metric</a></td>
     <td>
-      Dropped <a href="/publishers.html#unroutable">unroutable message</a> metrics.
+      Dropped <a href="./publishers.html#unroutable">unroutable message</a> metrics.
     </td>
     <td>
     <table class="feature-flag-lifecycle">
@@ -308,7 +308,7 @@ one of the tier-1 plugins bundled with RabbitMQ.
   <tr>
     <td><a id="ff-maintenance_mode_status" class="anchor" href="#ff-maintenance_mode_status">maintenance_mode_status</a></td>
     <td>
-      Enable <a href="/upgrade.html#maintenance-mode">maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
+      Enable <a href="./upgrade.html#maintenance-mode">maintenance mode</a>, so nodes can be drained for maintenance or upgrade operations.
     </td>
     <td>
     <table class="feature-flag-lifecycle">

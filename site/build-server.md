@@ -132,7 +132,7 @@ make run-broker TEST_TMPDIR="/some/other/location/for/rabbitmq-test-instances"
 make run-broker RABBITMQ_NODENAME=rmq
 </pre>
 
-        See <a href="/configure.html">Configuration guide</a> for other
+        See <a href="./configure.html">Configuration guide</a> for other
         variables that may be useful.
       </td>
     </tr>

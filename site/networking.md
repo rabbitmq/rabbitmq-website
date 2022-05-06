@@ -319,7 +319,7 @@ CLI tools might be used. epmd port must be open for CLI tools and clustering
 to function.
 
 On Windows, the following settings have no effect when RabbitMQ runs as a service.
-Please see <a href="/windows-quirks.html">Windows Quirks</a> for details.
+Please see <a href="./windows-quirks.html">Windows Quirks</a> for details.
 
 The range used by RabbitMQ can also be controlled via two configuration keys:
 
@@ -997,7 +997,7 @@ are effective for both IPv4 and IPv6 connections):
         <code>net.ipv4.tcp_keepalive_time</code>, <code>net.ipv4.tcp_keepalive_intvl</code>,
         and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
 
-        AMQP 0-9-1 and STOMP have <a href="/heartbeats.html">Heartbeats</a> which partially
+        AMQP 0-9-1 and STOMP have <a href="./heartbeats.html">Heartbeats</a> which partially
         undo its effect, namely that it can take minutes to detect an unresponsive peer,
         e.g. in case of a hardware or power failure. MQTT also has its own keepalives
         mechanism which is the same idea under a different name.
@@ -1097,7 +1097,7 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
         When set to <code>true</code>, enables TCP keepalives (see above).
         Default is <code>false</code>. Makes sense for environments where
         connections can go idle for a long time (at least 10 minutes),
-        although using <a href="/heartbeats.html">heartbeats</a> is still recommended over
+        although using <a href="./heartbeats.html">heartbeats</a> is still recommended over
         this option.
       </td>
     </tr>

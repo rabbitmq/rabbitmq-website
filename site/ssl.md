@@ -137,11 +137,11 @@ Chains of CA certificates are usually distributed together in a single file. Suc
 
 Here's an example of the most basic chain with one root CA and one leaf (server or client) certificate:
 
-<img class="figure" src="/img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
+<img class="figure" src="./img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
 
 A chain with intermediate certificates might look like this:
 
-<img class="figure" src="/img/root_intermediate_ca_and_leaf.png" alt="Root CA, intermediate and leaf certificates" />
+<img class="figure" src="./img/root_intermediate_ca_and_leaf.png" alt="Root CA, intermediate and leaf certificates" />
 
 There are organizations that sign and issue certificate/key pairs. Most of them are widely trusted CAs and charge a fee for their services.
 
@@ -204,7 +204,7 @@ ls -l ./result
 
 The certificate chain produced by this basic tls-gen profile looks like this:
 
-<img class="figure" src="/img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
+<img class="figure" src="./img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
 
 
 ## <a id="enabling-tls" class="anchor" href="#enabling-tls">Enabling TLS Support in RabbitMQ</a>
@@ -226,7 +226,7 @@ Here are the essential configuration settings related to TLS:
     <td><code>listeners.ssl</code></td>
     <td>
       A list of ports to listen on for TLS
-      connections. RabbitMQ can listen on a <a href="/networking.html">single interface or multiple ones</a>.
+      connections. RabbitMQ can listen on a <a href="./networking.html">single interface or multiple ones</a>.
     </td>
   </tr>
   <tr>
@@ -400,11 +400,11 @@ to as the <em>root CA</em> for the chain. Root CAs can be issued by well-known C
 
 Here's an example of the most basic chain with one root CA and one leaf (server or client) certificate:
 
-<img class="figure" src="/img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
+<img class="figure" src="./img/root_ca_and_leaf.png" alt="Root CA and leaf certificates" />
 
 A chain with intermediate certificates might look like this:
 
-<img class="figure" src="/img/root_intermediate_ca_and_leaf.png" alt="Root CA, intermediate and leaf certificates" />
+<img class="figure" src="./img/root_intermediate_ca_and_leaf.png" alt="Root CA, intermediate and leaf certificates" />
 
 During peer verification TLS connection client (or server) traverses
 the chain of certificates presented by the peer

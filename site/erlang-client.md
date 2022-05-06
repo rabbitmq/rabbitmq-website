@@ -81,7 +81,7 @@ to download a version of the RabbitMQ Erlang Client library other than the above
 The RabbitMQ Erlang client depends on the RabbitMQ server repository,
 a shared library and a code generation library.
 
-Please see the <a href="/build-erlang-client.html">Erlang client build guide</a> for instructions on
+Please see the <a href="./build-erlang-client.html">Erlang client build guide</a> for instructions on
 compiling from source code.
 
 <table>

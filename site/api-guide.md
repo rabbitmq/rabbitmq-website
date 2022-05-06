@@ -161,7 +161,7 @@ remains unassigned prior to creating a connection:
 
     <td>
       <code>5672</code> for regular connections,
-      <code>5671</code> for <a href="/ssl.html">connections that use TLS</a>
+      <code>5671</code> for <a href="./ssl.html">connections that use TLS</a>
     </td>
   </tr>
 </table>

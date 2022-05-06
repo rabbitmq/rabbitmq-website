@@ -156,7 +156,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>
       Processes responsible for connection parser and most of connection state. Most of their memory attributes
       to TCP buffers. The more client connections a node has, the more memory will be used by this category.
-      See <a href="/networking.html">Networking guide</a> for more information.
+      See <a href="./networking.html">Networking guide</a> for more information.
     </td>
   </tr>
 
@@ -166,7 +166,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>
       Processes responsible for serialisation of outgoing protocol frames and writing to client connection sockets.
       The more client connections a node has, the more memory will be used by this category.
-      See <a href="/networking.html">Networking guide</a> for more information.
+      See <a href="./networking.html">Networking guide</a> for more information.
     </td>
   </tr>
 
@@ -186,9 +186,9 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>quorum_queue_procs</td>
     <td>Queues</td>
     <td>
-      <a href="//quorum-queues.html">Quorum queue</a> processes, both currently elected leaders and followers.
+      <a href=".//quorum-queues.html">Quorum queue</a> processes, both currently elected leaders and followers.
       Memory footprint can be capped on a per-queue basis.
-      See the <a href="/quorum-queues.html">Quorum Queues</a> guide for more information.
+      See the <a href="./quorum-queues.html">Quorum Queues</a> guide for more information.
     </td>
   </tr>
 
@@ -199,7 +199,7 @@ reserved_unallocated: 0.0 gb (0.0%)
       Classic queue leaders, indices and messages kept in memory. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
-      See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
+      See <a href="./memory.html">Memory</a>, <a href="./queues.html">Queues</a>, and <a href="./lazy-queues.html">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>
@@ -212,17 +212,17 @@ reserved_unallocated: 0.0 gb (0.0%)
       inherently transient data can reduce the amount of RAM used by mirrors. The greater the number of messages enqueued,
       the more memory will generally be attributed to this section. However, this greatly depends on
       queue properties and whether messages were published as transient.
-      See <a href="/memory.html">Memory</a>, <a href="/queues.html">Queues</a>, <a href="/ha.html">Mirroring</a>, and <a href="/lazy-queues.html">Lazy Queues</a> guides
+      See <a href="./memory.html">Memory</a>, <a href="./queues.html">Queues</a>, <a href="./ha.html">Mirroring</a>, and <a href="./lazy-queues.html">Lazy Queues</a> guides
       for more information.
     </td>
   </tr>
 
   <tr>
     <td>metrics</td>
-    <td><a href="/management.html">Stats DB</a></td>
+    <td><a href="./management.html">Stats DB</a></td>
     <td>
       Node-local metrics. The more connections, channels, queues are node hosts, the more stats there are to collect and keep.
-      See <a href="/management.html">management plugin guide</a> for more information.
+      See <a href="./management.html">management plugin guide</a> for more information.
     </td>
   </tr>
 
@@ -231,7 +231,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>Stats DB</td>
     <td>
       Aggregated and pre-computed metrics, inter-node HTTP API request cache and everything else related to the stats DB.
-      See <a href="/management.html">management plugin guide</a> for more information.
+      See <a href="./management.html">management plugin guide</a> for more information.
     </td>
   </tr>
 
@@ -245,7 +245,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>plugins</td>
     <td>Plugins</td>
     <td>
-      Plugins such as <a href="/shovel.html">Shovel</a>, <a href="/federation.html">Federation</a>, or protocol implementations such as <a href="">STOMP</a>
+      Plugins such as <a href="./shovel.html">Shovel</a>, <a href="./federation.html">Federation</a>, or protocol implementations such as <a href="">STOMP</a>
       can accumulate messages in memory.
     </td>
   </tr>

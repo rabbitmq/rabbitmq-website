@@ -150,15 +150,15 @@ dynamic shovels first for their ease of reconfiguration and management.
 
 <table>
   <tr>
-    <th><a href="/shovel-static.html">Static Shovels</a></th>
-    <th><a href="/shovel-dynamic.html">Dynamic Shovels</a></th>
+    <th><a href="./shovel-static.html">Static Shovels</a></th>
+    <th><a href="./shovel-dynamic.html">Dynamic Shovels</a></th>
   </tr>
   <tr>
     <td>
-      Defined in the broker <a href="/configure.html">advanced configuration file</a>.
+      Defined in the broker <a href="./configure.html">advanced configuration file</a>.
     </td>
     <td>
-      Defined using <a href="/parameters.html">runtime parameters</a>.
+      Defined using <a href="./parameters.html">runtime parameters</a>.
     </td>
   </tr>
   <tr>

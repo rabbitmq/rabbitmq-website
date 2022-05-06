@@ -311,7 +311,7 @@ log.syslog.formatter = json
 </pre>
 
 Less commonly used [Syslog client](https://github.com/schlagert/syslog) options can
-be configured using the <a href="/configure.html#configuration-files">advanced config file</a>.
+be configured using the <a href="./configure.html#configuration-files">advanced config file</a>.
 
 
 ## <a id="json" class="anchor" href="#json">JSON Logging</a>

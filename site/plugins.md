@@ -471,7 +471,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="/shovel.html">Documentation for the Shovel plugin</a>
+            <a href="./shovel.html">Documentation for the Shovel plugin</a>
           </li>
         </ul>
       </td>
@@ -480,7 +480,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_shovel_management</th>
       <td>
-        Shows <a href="/shovel.html">Shovel</a> status in the management API and UI.
+        Shows <a href="./shovel.html">Shovel</a> status in the management API and UI.
         Only of use when using <code>rabbitmq_shovel</code> in
         conjunction with <code>rabbitmq_management</code>. In a
         heterogeneous cluster this should be installed on the same
@@ -534,7 +534,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_web_mqtt</th>
       <td>
-        MQTT-over-WebSockets: a bridge exposing <a href="/mqtt.html">rabbitmq_mqtt</a> to Web
+        MQTT-over-WebSockets: a bridge exposing <a href="./mqtt.html">rabbitmq_mqtt</a> to Web
         browsers using WebSockets.
         <ul>
           <li><a href="web-mqtt.html">Documentation for the

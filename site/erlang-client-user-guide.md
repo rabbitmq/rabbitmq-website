@@ -19,9 +19,9 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers an Erlang client for RabbitMQ (<a href="/tutorials/amqp-concepts.html">AMQP 0-9-1</a>).
+This guide covers an Erlang client for RabbitMQ (<a href="./tutorials/amqp-concepts.html">AMQP 0-9-1</a>).
 
-This user guide assumes that the reader is familiar with <a href="/tutorials/amqp-concepts.html">basic concepts of AMQP 0-9-1</a>.
+This user guide assumes that the reader is familiar with <a href="./tutorials/amqp-concepts.html">basic concepts of AMQP 0-9-1</a>.
 
 Refer to guides on [connections](connections.html), [channels](channels.html), [queues](queues.html),
 [publishers](./publishers.html), and [consumers](./consumers.html) to learn about those
@@ -73,7 +73,7 @@ The basic usage of the client follows these broad steps:
 1. Make sure the `amqp_client` Erlang application is started
 2. Establish a [connection](connections.html) to a RabbitMQ node
 3. Open a new channel on the connection
-4. Execute <a href="/amqp-0-9-1-quickref.html">AMQP 0-9-1 commands</a> with a channel such as
+4. Execute <a href="./amqp-0-9-1-quickref.html">AMQP 0-9-1 commands</a> with a channel such as
    declaring exchanges and queues, defining bindings between them, publishing messages,
    registering consumers (subscribing), and so on
 5. Register optional event handlers such as [returned message handler](#returns)
@@ -219,11 +219,11 @@ The `#amqp_params_network` record sets the following default values:
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="/heartbeats.html">heartbeat</a></td>
+      <td><a href="./heartbeats.html">heartbeat</a></td>
       <td>0</td>
     </tr>
     <tr>
-      <td><a href="/ssl.html">ssl_options</a></td>
+      <td><a href="./ssl.html">ssl_options</a></td>
       <td>none</td>
     </tr>
     <tr>
@@ -308,7 +308,7 @@ The `#amqp_params_direct` record sets the following default values:
 ### <a id="amqp-uris" class="anchor" href="#amqp-uris">Connecting to RabbitMQ Using an AMQP URI</a>
 
 Instead of working with records such `#amqp_params_network` directly,
-<a href="/uri-spec.html">AMQP URIs</a> may be used.
+<a href="./uri-spec.html">AMQP URIs</a> may be used.
 
 The `amqp_uri:parse/1` function is provided for this purpose.
 It parses an URI and returns the equivalent `#amqp_params_network` or `#amqp_params_direct` record.

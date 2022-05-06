@@ -371,7 +371,7 @@ the declaration process.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="/confirms.html">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms.html">acknowledge</a> consumed messages.
           If set to <code>on-confirm</code> (the default), messages are
           acknowledged to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
@@ -513,8 +513,8 @@ counterparts.
       <td>src-uri</td>
       <td>
         The AMQP URI for the source. Mandatory. AMQP 1.0 URIs implement
-        as subset of what is described in the <a href="/uri-spec.html">AMQP URI reference</a>.
-        There is no <a href="/vhosts.html">virtual host</a> concept in AMQP 1.0, so URI path
+        as subset of what is described in the <a href="./uri-spec.html">AMQP URI reference</a>.
+        There is no <a href="./vhosts.html">virtual host</a> concept in AMQP 1.0, so URI path
         segments are not supported. The set of query parameters it supports are different from AMQP 0.9.1
         URI(s):
 
@@ -612,7 +612,7 @@ counterparts.
       <td>ack-mode</td>
       <td>
         <p>
-          Determines how the shovel should <a href="/confirms.html">acknowledge</a> consumed messages.
+          Determines how the shovel should <a href="./confirms.html">acknowledge</a> consumed messages.
           If set to <code>on-confirm</code> (the default), messages are
           acknowledged to the source broker after they have been confirmed
           by the destination. This handles network errors and broker
