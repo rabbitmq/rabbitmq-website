@@ -48,10 +48,10 @@ A number of beginner-oriented primers are available elsewhere on the Web:
 [four](https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html).
 
 TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
-which this guide focuses on. [HTTP API](/management.html), [inter-node and CLI tool traffic](/clustering-ssl.html) can be configured
+which this guide focuses on. [HTTP API](./management.html), [inter-node and CLI tool traffic](./clustering-ssl.html) can be configured
 to use TLS (HTTPS) as well.
 
-To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](/kubernetes/operator/using-operator.html#tls).
+To configure TLS on Kubernetes using the RabbitMQ Cluster Operator, see the guide for [Configuring TLS](./kubernetes/operator/using-operator.html#tls).
 
 For an overview of common TLS troubleshooting techniques, see [Troubleshooting TLS-related issues](troubleshooting-ssl.html)
 and [Troubleshooting Networking](troubleshooting-networking.html).
@@ -73,7 +73,7 @@ that choose the second option.
 In order to support TLS connections, RabbitMQ needs TLS and
 crypto-related modules to be available in the Erlang/OTP
 installation. The recommended Erlang/OTP version to use with
-TLS is the most recent [supported Erlang release](/which-erlang.html).
+TLS is the most recent [supported Erlang release](./which-erlang.html).
 Earlier versions, even if they are supported, may work for most certificates
 but have known limitations (see below).
 
@@ -97,7 +97,7 @@ more information first.
 ### <a id="known-compatibility-issues" class="anchor" href="#known-compatibility-issues">Known Incompatibilities and Limitations</a>
 
 If Elliptic curve cryptography (ECC) cipher suites is
-expected to be used, a recent [supported Erlang release](/which-erlang.html)
+expected to be used, a recent [supported Erlang release](./which-erlang.html)
 is highly recommended. Earlier releases have known limitations around ECC support.
 
 If you face the above limitations or any other incompatibilities,
@@ -288,7 +288,7 @@ ssl_options.verify     = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>
 
-TLS settings can also be configured using the [classic config format](/configure.html#erlang-term-config-file):
+TLS settings can also be configured using the [classic config format](./configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
@@ -317,7 +317,7 @@ would need to use `"c:\\ca_certificate.pem"` or `"c:/ca_certificate.pem"`.
 
 ### <a id="enabling-tls-verify-configuration" class="anchor" href="#enabling-tls-verify-configuration">How to Verify that TLS is Enabled</a>
 
-To verify that TLS has been enabled on the node, restart it and inspect its [log file](/logging.html).
+To verify that TLS has been enabled on the node, restart it and inspect its [log file](./logging.html).
 It should contain an entry about a TLS listener being enabled, looking like this:
 
 <pre class="lang-plaintext">
@@ -349,7 +349,7 @@ ssl_options.keyfile    = /path/to/server_key.pem
 ssl_options.password   = t0p$3kRe7
 </pre>
 
-The same example using the [classic config format](/configure.html#erlang-term-config-file):
+The same example using the [classic config format](./configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 [
@@ -522,7 +522,7 @@ ssl_options.verify = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>
 
-The same example in the [classic config format](/configure.html#config-file):
+The same example in the [classic config format](./configure.html#config-file):
 
 <pre class="lang-erlang">
 [
@@ -591,7 +591,7 @@ ssl_options.depth  = 2
 ssl_options.fail_if_no_peer_cert = false
 </pre>
 
-The same example in the [classic config format](/configure.html#config-file):
+The same example in the [classic config format](./configure.html#config-file):
 
 <pre class="lang-erlang">
 [
@@ -1183,7 +1183,7 @@ TLS version by default, as demonstrated in the below table.
   </tbody>
 </table>
 
-Users of [older supported Erlang releases](/which-erlang.html)
+Users of [older supported Erlang releases](./which-erlang.html)
 are encouraged to limit supported TLS versions to 1.2 and later versions only, if possible.
 Consider TLSv1.0 and TLSv1.1 to be **deprecated by the industry**.
 
@@ -1270,10 +1270,10 @@ SSL-Session:
 ### <a id="tls1.3" class="anchor" href="#tls1.3">TLSv1.3</a>
 
 [TLSv1.3](https://wiki.openssl.org/index.php/TLS1.3) is a major revision to the TLS protocol. It is the most recent
-and secure option. Prior to [RabbitMQ `3.8.11`](/changelog.html), TLSv1.3 support was considered
+and secure option. Prior to [RabbitMQ `3.8.11`](./changelog.html), TLSv1.3 support was considered
 experimental and was disabled.
 
-TLSv1.3 support requires the node to be [running on Erlang 23](/which-erlang.html) compiled against a very recent OpenSSL.
+TLSv1.3 support requires the node to be [running on Erlang 23](./which-erlang.html) compiled against a very recent OpenSSL.
 
 
 Clients that use older runtimes (e.g. JDK, .NET, Python) without TLSv1.3 support
@@ -1427,7 +1427,7 @@ X509v3 extensions:
 
 It is possible to configure what cipher suites will be used by RabbitMQ. Note that not all
 suites will be available on all systems. For example, to use Elliptic curve ciphers,
-a recent [supported Erlang release](/which-erlang.html) must be used.
+a recent [supported Erlang release](./which-erlang.html) must be used.
 
 What cipher suites RabbitMQ nodes and clients used can also be effectively limited by the [public key usage fields](#key-usage)
 and their values. It is important to make sure that those key usage options are acceptable before proceeding
@@ -1450,12 +1450,12 @@ rabbitmq-diagnostics cipher_suites --format erlang -q
 </pre>
 
 then `rabbitmq-diagnostics cipher_suites` will list cipher suites in the format
-that's only accepted in the [classic config format](/configure.html#erlang-term-config-file). The OpenSSL format is accepted
+that's only accepted in the [classic config format](./configure.html#erlang-term-config-file). The OpenSSL format is accepted
 by both config formats. Note that cipher suites are not enquoted in the new style config format
 but double quotes are required in the classic format.
 
 The cipher suites listed by the above command are in formats that can be used for inbound and outgoing (e.g. [Shovel](shovel.html), [Federation](federation.html))
-client TLS connections. They are different from those used by [configuration value encryption](/configure.html#configuration-encryption).
+client TLS connections. They are different from those used by [configuration value encryption](./configure.html#configuration-encryption).
 
 When overriding cipher suites, it is highly recommended
 that server-preferred [cipher suite ordering is enforced](#cipher-suite-order).
@@ -1496,7 +1496,7 @@ ssl_options.honor_cipher_order = true
 ssl_options.honor_ecc_order    = true
 </pre>
 
-In the [classic config format](/configure.html#erlang-term-config-file):
+In the [classic config format](./configure.html#erlang-term-config-file):
 
 <pre class="lang-erlang">
 %% list allowed ciphers
@@ -1583,7 +1583,7 @@ Or, in the classic config format:
 
 [ROBOT attack](https://robotattack.org/) affects RabbitMQ installations that rely on RSA
 cipher suites and run on Erlang/OTP versions prior to
-19.3.6.4 and 20.1.7. To mitigate, [upgrade Erlang/OTP](/which-erlang.html) to a patched version
+19.3.6.4 and 20.1.7. To mitigate, [upgrade Erlang/OTP](./which-erlang.html) to a patched version
 and consider [limiting the list of supported cipher suites](#cipher-suites).
 
 #### POODLE

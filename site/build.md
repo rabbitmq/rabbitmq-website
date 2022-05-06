@@ -24,7 +24,7 @@ of the RabbitMQ server and available client libraries:
 
 ## RabbitMQ Server
 
- * [RabbitMQ server](/build-server.html)
- * [Java client library](/build-java-client.html)
- * [.NET client library](/build-dotnet-client.html)
- * [Erlang client library](/build-erlang-client.html)
+ * [RabbitMQ server](./build-server.html)
+ * [Java client library](./build-java-client.html)
+ * [.NET client library](./build-dotnet-client.html)
+ * [Erlang client library](./build-erlang-client.html)

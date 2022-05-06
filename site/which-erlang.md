@@ -315,7 +315,7 @@ Most recent versions can be obtained from a number of sources:
 Standard Debian and Ubuntu repositories provide Erlang/OTP but it is
 heavily sliced and diced into dozens of packages. In addition, unless the system
 has backport repositories enabled, the versions tend to be quite old.
-See [Debian and Ubuntu installation guide](/install-debian.html) for
+See [Debian and Ubuntu installation guide](./install-debian.html) for
 more information on the essential packages, dependencies, and alternative apt repositories.
 
 ## <a id="redhat" class="anchor" href="#redhat">Installing Erlang/OTP on RHEL, CentOS and Fedora</a>
@@ -324,7 +324,7 @@ There are multiple RPM packages available for Erlang/OTP. The recommended option
 the [zero-dependency Erlang RPM](https://github.com/rabbitmq/erlang-rpm) from the RabbitMQ team.
 It closely follows the latest Erlang/OTP patch release schedule.
 
-See [CentOS, RHEL and Fedora installation guide](/install-rpm.html) for more information on the available options.
+See [CentOS, RHEL and Fedora installation guide](./install-rpm.html) for more information on the available options.
 
 
 ## <a id="clusters" class="anchor" href="#clusters">Erlang Versions in Clusters</a>

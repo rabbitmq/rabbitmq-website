@@ -23,7 +23,7 @@ limitations under the License.
 [RabbitMQ formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/rabbitmq.rb) is available from
 [Homebrew](https://brew.sh/)'s core tap (out of the box).
 
-The formula will also install a reasonably recent [supported Erlang/OTP version](/which-erlang.html)
+The formula will also install a reasonably recent [supported Erlang/OTP version](./which-erlang.html)
 as a dependency.
 
 
@@ -41,11 +41,11 @@ Then, install RabbitMQ server with:
 brew install rabbitmq
 </pre>
 
-Installing the RabbitMQ formula will install key dependencies such as a [supported Erlang/OTP version](/which-erlang.html).
+Installing the RabbitMQ formula will install key dependencies such as a [supported Erlang/OTP version](./which-erlang.html).
 
 ## <a id="operations" class="anchor" href="#operations">Operations</a>
 
-The RabbitMQ server scripts and [CLI tools](/cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/<version>/`,
+The RabbitMQ server scripts and [CLI tools](./cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/<version>/`,
 which is accessible from `/usr/local/opt/rabbitmq/sbin`. Links to binaries have been created under `/usr/local/sbin`.
 In case that directory is not in `PATH` it's recommended to append it:
 

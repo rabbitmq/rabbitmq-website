@@ -22,7 +22,7 @@ limitations under the License.
 This guide focuses on statically configured shovels. It assumes
 familiarity with the key concepts behind the [Shovel plugin](shovel.html).
 
-Unlike with [dynamic shovels](/shovel-dynamic.html), static shovels are configured using the [advanced configuration file](configure.html).
+Unlike with [dynamic shovels](./shovel-dynamic.html), static shovels are configured using the [advanced configuration file](configure.html).
 They are started on node boot and are primarily useful for permanently
 running workloads. Any changes to static shovel configuration would require
 a node restart, which makes them highly inflexible.
@@ -664,7 +664,7 @@ to the other source broker on failure, after a delay of 5
 seconds.
 
 When connected to the source it will declare a direct, fanout exchange
-called `"my_fanout"`, an anonymous queue with a [per-queue message ttl](/ttl.html#per-queue-message-ttl),
+called `"my_fanout"`, an anonymous queue with a [per-queue message ttl](./ttl.html#per-queue-message-ttl),
 and bind the queue to the exchange.
 
 When connected to the destination (the local broker) it will declare a

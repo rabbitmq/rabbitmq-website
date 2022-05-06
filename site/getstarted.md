@@ -37,7 +37,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       The simplest thing that does <em>something</em>
     </p>
-    <p><img src="/img/tutorials/python-one.png" width="180"  /></p>
+    <p><img src="./img/tutorials/python-one.png" width="180"  /></p>
     <ul>
       <li><a href="/tutorials/tutorial-one-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-one-java.html">Java</a></li>
@@ -58,7 +58,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
-    <p><img src="/img/tutorials/python-two.png" width="180" /></p>
+    <p><img src="./img/tutorials/python-two.png" width="180" /></p>
     <ul>
         <li><a href="/tutorials/tutorial-two-python.html">Python</a></li>
         <li><a href="/tutorials/tutorial-two-java.html">Java</a></li>
@@ -79,7 +79,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Sending messages to many consumers at once
     </p>
-    <p><img src="/img/tutorials/python-three.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-three.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-three-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-three-java.html">Java</a></li>
@@ -102,7 +102,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Receiving messages selectively
     </p>
-    <p><img src="/img/tutorials/python-four.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-four.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-four-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-four-java.html">Java</a></li>
@@ -123,7 +123,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Receiving messages based on a pattern (topics)
     </p>
-    <p><img src="/img/tutorials/python-five.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-five.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-five-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-five-java.html">Java</a></li>
@@ -144,7 +144,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
-    <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-six.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-six-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-six-java.html">Java</a></li>
@@ -187,7 +187,7 @@ or the public [RabbitMQ community Slack](https://rabbitmq-slack.herokuapp.com/).
 
 Once you have been through the tutorials (or if you want to
 skip ahead), you may wish to read an
-[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts.html)
+[Introduction to RabbitMQ Concepts](./tutorials/amqp-concepts.html)
 and browse our
 [AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
 
@@ -205,5 +205,5 @@ many more languages and client libraries, for example:
  * [Perl](https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl) (using [Net::AMQP::RabbitMQ](http://p3rl.org/Net::AMQP::RabbitMQ))
  * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
 
-We also maintain a list of community-developed [clients and developer tools](/devtools.html)
+We also maintain a list of community-developed [clients and developer tools](./devtools.html)
 for a range of platforms.

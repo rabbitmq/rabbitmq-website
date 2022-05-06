@@ -17,7 +17,7 @@ to determine if they are compatible and then communicate together,
 regardless of their version.
 
 This subsystem was introduced in RabbitMQ 3.8.0 to allow **[rolling
-upgrades](/upgrade.html#rolling-upgrades) of cluster members without
+upgrades](./upgrade.html#rolling-upgrades) of cluster members without
 shutting down the entire cluster**.
 
 <p class="box-warning">
@@ -51,14 +51,14 @@ feature flags are enabled.
     <pre class="lang-bash">rabbitmqctl enable_feature_flag &lt;all | name&gt;</pre>
 
 It is also possible to list and enable feature flags from the
-[Management plugin UI](/management.html), in "*Admin > Feature flags*".
+[Management plugin UI](./management.html), in "*Admin > Feature flags*".
 
 ### The Two Examples
 
 #### Example 1: Compatible Nodes
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/compatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
+<img src="./img/feature-flags/compatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
 </div>
 
  * If nodes A and B are not clustered, they can be clustered.
@@ -69,7 +69,7 @@ It is also possible to list and enable feature flags from the
 #### Example 2: Incompatible Nodes
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/incompatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
+<img src="./img/feature-flags/incompatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
 </div>
 
  * If nodes A and B are not clustered, they cannot be clustered because
@@ -88,7 +88,7 @@ in the release notes. Indeed, there are some changes which cannot be
 implemented as feature flags.
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;"/>
+<img src="./img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;"/>
 </div>
 
 It is also possible to upgrade from RabbitMQ 3.7.x to 3.8.x. Indeed,
@@ -207,10 +207,10 @@ rabbitmqctl -q --formatter pretty_table list_feature_flags
 </pre>
 
 It is also possible to list and enable feature flags from the
-[Management plugin UI](/management.html), in "*Admin > Feature flags*":
+[Management plugin UI](./management.html), in "*Admin > Feature flags*":
 
 <div style="text-align: center;">
-<img src="/img/feature-flags/management-ui-ff-panel.png" style="width: 100%; border: solid 1px #75757f;"/>
+<img src="./img/feature-flags/management-ui-ff-panel.png" style="width: 100%; border: solid 1px #75757f;"/>
 </div>
 
 ## <a id="how-to-disable-feature-flags" class="anchor" href="#how-to-disable-feature-flags">How to Disable Feature Flags</a>
@@ -353,11 +353,11 @@ one of the tier-1 plugins bundled with RabbitMQ.
 
 There are two times when an operator has to consider feature flags:
 
- * When [extending an existing cluster](/clustering.html) by adding
+ * When [extending an existing cluster](./clustering.html) by adding
    nodes using a different version of RabbitMQ (older or newer), the
    operator needs to pay attention to feature flags: they might prevent
    clustering.
- * After [upgrading a cluster](/upgrade.html), the operator should take
+ * After [upgrading a cluster](./upgrade.html), the operator should take
    a look at the new feature flags and perhaps enable them.
 
 A node compares its own list of feature flags with remote nodes' list
@@ -395,14 +395,14 @@ Controlling a remote node with `rabbitmqctl` is only supported if the
 remote node is running the same version of RabbitMQ than `rabbitmqctl`
 comes from.
 
-If [CLI tools](/cli.html) from a different minor/major version of RabbitMQ is
+If [CLI tools](./cli.html) from a different minor/major version of RabbitMQ is
 used on a remote node, they may fail to work as expected or even have unexpected
 side effects on the node.
 
 ##### Load-balancing Requests to the HTTP API
 
 If a request sent to the HTTP API exposed by the [Management
-plugin](/management.html) goes through a load balancer, including one
+plugin](./management.html) goes through a load balancer, including one
 from the management plugin UI, the API's behavior and its response may
 be different, depending on the version of the node which handled the
 request. This is exactly the same if the domain name of the HTTP API

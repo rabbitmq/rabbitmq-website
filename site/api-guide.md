@@ -19,9 +19,9 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers [RabbitMQ Java client](/java-client.html) and its public API.
+This guide covers [RabbitMQ Java client](./java-client.html) and its public API.
 It assumes that the [most recent major version of the client](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22amqp-client%22) is used
-and the reader is familiar with [the basics](/getstarted.html).
+and the reader is familiar with [the basics](./getstarted.html).
 
 Key sections of the guide are:
 
@@ -48,14 +48,14 @@ An [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/)
 
 ## <a id="support-timeline" class="anchor" href="#support-timeline">Support Timeline</a>
 
-Please see the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline.
+Please see the [RabbitMQ Java libraries support page](./java-versions.html) for the support timeline.
 
 ## <a id="jdk-versions" class="anchor" href="#jdk-versions">JDK and Android Version Support</a>
 
-5.x release series of this library [require JDK 8](/java-versions.html), both for compilation and at runtime. On Android,
+5.x release series of this library [require JDK 8](./java-versions.html), both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
 
-4.x release series [support JDK 6](/java-versions.html) and Android versions prior to 7.0.
+4.x release series [support JDK 6](./java-versions.html) and Android versions prior to 7.0.
 
 
 ## <a id="license" class="anchor" href="#license">License</a>
@@ -73,7 +73,7 @@ a commercial product. Codebases that are licensed under the GPLv2 may choose GPL
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-The client API exposes key entities in the [AMQP 0-9-1 protocol model](/tutorials/amqp-concepts.html),
+The client API exposes key entities in the [AMQP 0-9-1 protocol model](./tutorials/amqp-concepts.html),
 with additional abstractions for ease of use.
 
 RabbitMQ Java client uses `com.rabbitmq.client` as its top-level package.
@@ -179,13 +179,13 @@ Connection conn = factory.newConnection();
 All of these parameters have sensible defaults for a stock
 RabbitMQ server running locally.
 
-Successful and unsuccessful client connection events can be [observed in server node logs](/logging.html).
+Successful and unsuccessful client connection events can be [observed in server node logs](./logging.html).
 
-Note that [user guest can only connect from localhost](/access-control.html) by default.
+Note that [user guest can only connect from localhost](./access-control.html) by default.
 This is to limit well-known credential use in production systems.
 
 Application developers can [assign a custom name to a connection](#client-provided-names). If set,
-the name will be mentioned in RabbitMQ node logs as well as [management UI](/management.html).
+the name will be mentioned in RabbitMQ node logs as well as [management UI](./management.html).
 
 The `Connection` interface can then be used to open a channel:
 
@@ -237,7 +237,7 @@ conn.close();
 Note that closing the channel may be considered good practice, but is not strictly necessary here - it will be done
 automatically anyway when the underlying connection is closed.
 
-Client disconnection events can be [observed in server node logs](/networking.html#logging).
+Client disconnection events can be [observed in server node logs](./networking.html#logging).
 
 ## <a id="connection-and-channel-lifespan" class="anchor" href="#connection-and-channel-lifespan">Connection and Channel Lifespan</a>
 
@@ -251,7 +251,7 @@ result in channel closure, channel lifespan could be shorter than that of its co
 Closing and opening new channels per operation is usually unnecessary but can be
 appropriate. When in doubt, consider reusing channels first.
 
-[Channel-level exceptions](/channels.html#error-handling) such as attempts to consume from a
+[Channel-level exceptions](./channels.html#error-handling) such as attempts to consume from a
 queue that does not exist will result in channel closure. A closed channel can no
 longer be used and will not receive any more events from the server (such
 as message deliveries). Channel-level exceptions will be logged by RabbitMQ
@@ -265,9 +265,9 @@ RabbitMQ nodes have a limited amount of information about their clients:
  * the credentials used
 
 This information alone can make identifying applications and instances problematic, in particular when credentials can be
-shared and clients connect over a load balancer but [Proxy protocol](/networking.html#proxy-protocol) cannot be enabled.
+shared and clients connect over a load balancer but [Proxy protocol](./networking.html#proxy-protocol) cannot be enabled.
 
-To make it easier to identify clients in [server logs](/logging.html) and [management UI](/management.html),
+To make it easier to identify clients in [server logs](./logging.html) and [management UI](./management.html),
 AMQP 0-9-1 client connections, including the RabbitMQ Java client, can provide a custom identifier.
 If set, the identifier will be mentioned in log entries and management UI. The identifier is known as
 the **client-provided connection name**. The name can be used to identify an application or a specific component
@@ -289,11 +289,11 @@ Connection conn = factory.newConnection("app:audit component:event-consumer");
 ## <a id="exchanges-and-queues" class="anchor" href="#exchanges-and-queues">Using Exchanges and Queues</a>
 
 Client applications work with [exchanges] and [queues](queues.html),
-the high-level [building blocks of the protocol](/tutorials/amqp-concepts.html).
+the high-level [building blocks of the protocol](./tutorials/amqp-concepts.html).
 These must be declared before they can be used. Declaring either type of object
 simply ensures that one of that name exists, creating it if necessary.
 
-Continuing the previous example, the following code declares an exchange and a [server-named queue](/queues.html#server-named-queues),
+Continuing the previous example, the following code declares an exchange and a [server-named queue](./queues.html#server-named-queues),
 then binds them together.
 
 <pre class="lang-java">channel.exchangeDeclare(exchangeName, "direct", true);
@@ -337,7 +337,7 @@ This "short form, long form" pattern is used throughout the client API uses.
 Queues and exchanges can be declared "passively". A passive declare simply checks that the entity
 with the provided name exists. If it does, the operation is a no-op. For queues successful
 passive declares will return the same information as non-passive ones, namely the number of
-consumers and messages in [ready state](/confirms.html) in the queue.
+consumers and messages in [ready state](./confirms.html) in the queue.
 
 If the entity does not exist, the operation fails with a channel level exception. The channel
 cannot be used after that. A new channel should be opened. It is common to use one-off (temporary)
@@ -366,7 +366,7 @@ response, use
 <pre class="lang-java">channel.queueDeclareNoWait(queueName, true, false, false, null);</pre>
 
 The "no wait" versions are more efficient but offer lower safety guarantees, e.g. they
-are more dependent on the [heartbeat mechanism](/heartbeats.html) for detection of failed operations.
+are more dependent on the [heartbeat mechanism](./heartbeats.html) for detection of failed operations.
 When in doubt, start with the standard version. The "no wait" versions are only needed in scenarios
 with high topology (queue, binding) churn.
 
@@ -399,7 +399,7 @@ channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);
 </pre>
 
 For fine control, use overloaded variants to specify the `mandatory` flag,
-or send messages with pre-set message properties (see the [Publishers guide](/publishers.html) for details):
+or send messages with pre-set message properties (see the [Publishers guide](./publishers.html) for details):
 
 <pre class="lang-java">
 channel.basicPublish(exchangeName, routingKey, mandatory,
@@ -644,7 +644,7 @@ if (response == null) {
     // ...
 </pre>
 
-and since this example uses [manual acknowledgements](/confirms.html) (the `autoAck = false` above),
+and since this example uses [manual acknowledgements](./confirms.html) (the `autoAck = false` above),
 you must also call `Channel.basicAck` to acknowledge that you have successfully received the message:
 
 <pre class="lang-java">
@@ -1047,7 +1047,7 @@ Automatic connection recovery, if enabled, will be triggered by the following ev
 
  * An I/O exception is thrown in connection's I/O loop
  * A socket read operation times out
- * Missed server [heartbeats](/heartbeats.html) are detected
+ * Missed server [heartbeats](./heartbeats.html) are detected
  * Any other unexpected exception is thrown in connection's I/O loop
 
 whichever happens first.
@@ -1127,14 +1127,14 @@ it will be removed. This makes it possible to declare and delete entities on dif
 channels without having unexpected results. It also means that consumer tags (a channel-specific identifier)
 must be unique across all channels on connections that use automatic connection recovery.
 
-When a connection is down or lost, it [takes time to detect](/heartbeats.html).
+When a connection is down or lost, it [takes time to detect](./heartbeats.html).
 Therefore there is a window of time in which both the
 library and the application are unaware of effective
 connection failure.  Any messages published during this
 time frame are serialised and written to the TCP socket
 as usual. Their delivery to the broker can only be
 guaranteed via [publisher
-confirms](/confirms.html): publishing in AMQP 0-9-1 is entirely
+confirms](./confirms.html): publishing in AMQP 0-9-1 is entirely
 asynchronous by design.
 
 When a socket or I/O operation error is detected by a
@@ -1160,7 +1160,7 @@ with an exception. The client currently does not perform
 any internal buffering of such outgoing messages. It is
 an application developer's responsibility to keep track of such
 messages and republish them when recovery succeeds.
-[Publisher confirms](/confirms.html) is a protocol extension
+[Publisher confirms](./confirms.html) is a protocol extension
 that should be used by publishers that cannot afford message loss.
 
 Connection recovery will not kick in when a channel is closed due to a
@@ -1377,7 +1377,7 @@ being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in
 
 As a programming convenience, the Java client API offers a
 class `RpcClient` which uses a temporary reply
-queue to provide simple [RPC-style communication](/tutorials/tutorial-six-java.html) facilities via AMQP 0-9-1.
+queue to provide simple [RPC-style communication](./tutorials/tutorial-six-java.html) facilities via AMQP 0-9-1.
 
 The class doesn't impose any particular format on the RPC arguments and return values.
 It simply provides a mechanism for sending a message to a given exchange with a particular
@@ -1420,7 +1420,7 @@ transport mechanism, and just provide a wrapping layer on top of it.
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
 It's possible to encrypt the communication between the client and the broker
-[using TLS](/ssl.html). Client and server authentication (a.k.a. peer verification) is also supported.
+[using TLS](./ssl.html). Client and server authentication (a.k.a. peer verification) is also supported.
 Here is the simplest, most naive way to use encryption with the Java client:
 
 <pre class="lang-java">
@@ -1435,10 +1435,10 @@ factory.setPort(5671);
 factory.useSslProtocol();
 </pre>
 
-Note the client doesn't enforce any server authentication ([peer certificate chain verification](/ssl.html#peer-verification)) in the above
+Note the client doesn't enforce any server authentication ([peer certificate chain verification](./ssl.html#peer-verification)) in the above
 sample as the default, "trust all certificates" `TrustManager` is used.
 This is convenient for local development but **prone to man-in-the-middle attacks**
-and therefore [not recommended for production](/production-checklist.html).
+and therefore [not recommended for production](./production-checklist.html).
 
 To learn more about TLS support in RabbitMQ, see
 the [TLS guide](ssl.html). If you only want to configure

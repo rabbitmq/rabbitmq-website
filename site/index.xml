@@ -97,7 +97,7 @@ limitations under the License.
           <div class='features'>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/messaging.svg" height="62" width="71" alt="Asynchronous Messaging" title="Asynchronous Messaging" />
+                <img src="./img/messaging.svg" height="62" width="71" alt="Asynchronous Messaging" title="Asynchronous Messaging" />
                 <h2>Asynchronous Messaging</h2>
                 <p>
                   Supports <a href='/protocols.html'>multiple messaging protocols</a>, <a href='/tutorials/tutorial-two-python.html'>message queuing</a>, <a href='/reliability.html'>delivery acknowledgement</a>, <a href='/tutorials/tutorial-four-python.html'>flexible routing to queues</a>, <a href='/tutorials/amqp-concepts.html'>multiple exchange type</a>.
@@ -106,7 +106,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/monitor.svg" height="62" width="71" alt="Developer Experience" title="Developer Experience" />
+                <img src="./img/monitor.svg" height="62" width="71" alt="Developer Experience" title="Developer Experience" />
                 <h2>Developer Experience</h2>
                 <p>
                   Deploy with <a href='/download.html'>BOSH, Chef, Docker and Puppet</a>. Develop cross-language messaging with favorite programming languages such as: Java, .NET, PHP, Python, JavaScript, Ruby, Go, <a href='/devtools.html'>and many others</a>.
@@ -115,7 +115,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/network.svg" height="62" width="71" alt="Distributed Deployment" title="Distributed Deployment" />
+                <img src="./img/network.svg" height="62" width="71" alt="Distributed Deployment" title="Distributed Deployment" />
                 <h2>Distributed Deployment</h2>
                 <p>
                   Deploy as <a href='/clustering.html'>clusters</a> for high availability and throughput; <a href='/federation.html'>federate</a> across multiple availability zones and regions.
@@ -124,7 +124,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/clouds.svg" height="62" width="71" alt="Enterprise &amp; Cloud Ready" title="Enterprise &amp; Cloud Ready" />
+                <img src="./img/clouds.svg" height="62" width="71" alt="Enterprise &amp; Cloud Ready" title="Enterprise &amp; Cloud Ready" />
                 <h2>Enterprise &amp; Cloud Ready</h2>
                 <p>
                   Pluggable <a href='/authentication.html'>authentication</a>, <a href='/access-control.html'>authorisation</a>, supports <a href='/ssl.html'>TLS</a> and <a href='/ldap.html'>LDAP</a>. Lightweight and easy to deploy in public and private clouds.
@@ -133,7 +133,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/tools.svg" height="62" width="71" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
+                <img src="./img/tools.svg" height="62" width="71" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
                 <h2>Tools &amp; Plugins</h2>
                 <p>
                   Diverse array of <a href='/devtools.html'>tools and plugins</a> supporting continuous integration, operational metrics, and integration to other enterprise systems. Flexible <a href='/plugins.html'>plug-in approach</a> for extending RabbitMQ functionality.
@@ -142,7 +142,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="img/gauge.svg" height="62" width="71" alt="Management &amp; Monitoring" title="Management &amp; Monitoring" />
+                <img src="./img/gauge.svg" height="62" width="71" alt="Management &amp; Monitoring" title="Management &amp; Monitoring" />
                 <h2>Management &amp; Monitoring</h2>
                 <p>
                   HTTP-API, command line tool, and UI for <a href='/management.html'>managing and monitoring</a> RabbitMQ.
@@ -183,7 +183,7 @@ limitations under the License.
               <div id='commercialservicesillustration'></div>
             </div>
             <div class='column threequarters'>
-              <img src="img/commercial-distribution-phone.svg" height="111" width="88" />
+              <img src="./img/commercial-distribution-phone.svg" height="111" width="88" />
               <h2>Commercial Distribution</h2>
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
@@ -192,7 +192,7 @@ limitations under the License.
                 and a forthcoming <a href="https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes">version for Kubernetes</a>.
                 These distributions include all of the features of the open source version, with some additional management features. Support agreements are part of the commercial licensing.
               </p>
-              <img src="img/support-and-hosting-phone.svg" height="94" width="109" />
+              <img src="./img/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
                 VMware provides <a href="https://pivotal.io/rabbitmq">support for open source RabbitMQ</a>,
@@ -205,7 +205,7 @@ limitations under the License.
                 <a href="https://northflank.com/changelog/introducing-managed-rabbit-mq-build-and-scale-with-queues-and-message-brokers">Northflank</a>.
                 RabbitMQ can also be deployed in AWS and Microsoft Azure.
               </p>
-              <img src="img/testing-phone.svg" height="109" width="94" />
+              <img src="./img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
                 <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank">VMware</a>,

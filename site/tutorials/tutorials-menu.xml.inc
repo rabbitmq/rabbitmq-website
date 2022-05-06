@@ -22,7 +22,7 @@ limitations under the License.
     <p>
       The simplest thing that does <em>something</em>
     </p>
-    <p><img src="/img/tutorials/python-one.png" width="180"  /></p>
+    <p><img src="../img/tutorials/python-one.png" width="180"  /></p>
     <ul>
       <li><a href="/tutorials/tutorial-one-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-one-java.html">Java</a></li>
@@ -43,7 +43,7 @@ limitations under the License.
     <p>
       Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
-    <p><img src="/img/tutorials/python-two.png" width="180" /></p>
+    <p><img src="../img/tutorials/python-two.png" width="180" /></p>
     <ul>
         <li><a href="/tutorials/tutorial-two-python.html">Python</a></li>
         <li><a href="/tutorials/tutorial-two-java.html">Java</a></li>
@@ -64,7 +64,7 @@ limitations under the License.
     <p>
       Sending messages to many consumers at once
     </p>
-    <p><img src="/img/tutorials/python-three.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-three.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-three-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-three-java.html">Java</a></li>
@@ -87,7 +87,7 @@ limitations under the License.
     <p>
       Receiving messages selectively
     </p>
-    <p><img src="/img/tutorials/python-four.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-four.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-four-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-four-java.html">Java</a></li>
@@ -108,7 +108,7 @@ limitations under the License.
     <p>
       Receiving messages based on a pattern (topics)
     </p>
-    <p><img src="/img/tutorials/python-five.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-five.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-five-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-five-java.html">Java</a></li>
@@ -129,7 +129,7 @@ limitations under the License.
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
-    <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-six.png" height="50" width="180" /></p>
     <ul>
       <li><a href="/tutorials/tutorial-six-python.html">Python</a></li>
       <li><a href="/tutorials/tutorial-six-java.html">Java</a></li>

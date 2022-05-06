@@ -26,7 +26,7 @@ The "blue" is the source cluster and the "green" one is the target.
 
 [RabbitMQ Federation plugin](federation.html) makes it easy to move consumers
 from "blue" to "green", without disrupting message consumption or losing messages.
-The principle of [federated queues](/federated-queues.html) is that the consumers
+The principle of [federated queues](./federated-queues.html) is that the consumers
 now connected to "green" will get messages published to "blue" as long as there are
 no consumers in "blue" (local consumers take precedence).
 
@@ -48,7 +48,7 @@ rabbitmqctl set_policy --apply-to queues blue-green-migration ".*" \
 </pre>
 
 Please read the guides linked above and the
-[federation reference](/federation-reference.html) for further details.
+[federation reference](./federation-reference.html) for further details.
 
 ## <a id="migrate-consumers" class="anchor" href="#migrate-consumers">Migrate Consumers Over</a>
 
@@ -67,7 +67,7 @@ still have a backlog of messages in "blue". The federation plugin doesn't help
 here because it doesn't **move** messages, it only allows remote consumers to
 dequeue messages.
 
-In case of a large backlog, use the [Shovel plugin](/shovel-dynamic.html)
+In case of a large backlog, use the [Shovel plugin](./shovel-dynamic.html)
 on "green" to really drain messages in "blue". This would require doing something
 like the following for each queue with a backlog:
 

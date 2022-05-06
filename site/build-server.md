@@ -56,17 +56,17 @@ core since 2.6 release.
 ### Erlang/OTP Toolchain and Headers
 
 The [Erlang](http://www.erlang.org/download.html) development and runtime tools
-are needed to compile RabbitMQ server, tools and [tier 1 plugins](/plugins.html).
+are needed to compile RabbitMQ server, tools and [tier 1 plugins](./plugins.html).
 
 On a Debian-based system, install the `erlang-nox`, `erlang-dev` and
 `erlang-src` packages.
 
-See [Erlang compatibility guide](/which-erlang.html) to learn more about supported versions of Erlang/OTP.
+See [Erlang compatibility guide](./which-erlang.html) to learn more about supported versions of Erlang/OTP.
 
 ### Elixir
 
 A recent version of [Elixir](https://elixir-lang.org/) is needed
-to build [RabbitMQ CLI tools](/cli.html).
+to build [RabbitMQ CLI tools](./cli.html).
 
 ### GNU Make
 

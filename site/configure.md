@@ -21,8 +21,8 @@ limitations under the License.
 
 RabbitMQ comes with default built-in settings. Those can be entirely
 sufficient in some environment (e.g. development and QA).
-For all other cases, as well as [production deployment tuning](/production-checklist.html),
-there is a way to configure many things in the broker as well as [plugins](/plugins.html).
+For all other cases, as well as [production deployment tuning](./production-checklist.html),
+there is a way to configure many things in the broker as well as [plugins](./plugins.html).
 
 This guide covers a number of topics related to configuration:
 
@@ -38,9 +38,9 @@ This guide covers a number of topics related to configuration:
 
 and more.
 
-Since configuration affects many areas of the system, including plugins, individual [documentation guides](/documentation.html)
-dive deeper into what can be configured. [Runtime Tuning](/runtime.html) is a companion to this guide that focuses
-on the configurable parameters in the runtime. [Production Checklist](/production-checklist.html) is a related guide
+Since configuration affects many areas of the system, including plugins, individual [documentation guides](./documentation.html)
+dive deeper into what can be configured. [Runtime Tuning](./runtime.html) is a companion to this guide that focuses
+on the configurable parameters in the runtime. [Production Checklist](./production-checklist.html) is a related guide
 that outlines what settings will likely need tuning in most production environments.
 
 
@@ -174,8 +174,8 @@ where to find examples, and more.
 
 ### <a id="config-file-location" class="anchor" href="#config-file-location">Config File Locations</a>
 
-[Default config file locations](/configure.html#config-location)
-vary between operating systems and [package types](/download.html).
+[Default config file locations](./configure.html#config-location)
+vary between operating systems and [package types](./download.html).
 
 This topic is covered in more detail in the rest of this guide.
 
@@ -204,7 +204,7 @@ home dir       : /var/lib/rabbitmq
 config file(s) : /var/lib/rabbitmq/hare.conf (not found)
 </pre>
 
-Alternatively, the location of configuration files used by a local node, use the [rabbitmq-diagnostics status](/rabbitmq-diagnostics.8.html) command:
+Alternatively, the location of configuration files used by a local node, use the [rabbitmq-diagnostics status](./rabbitmq-diagnostics.8.html) command:
 
 <pre class="lang-bash">
 # displays key
@@ -226,7 +226,7 @@ To inspect the locations of a specific node, including nodes running remotely, u
 rabbitmq-diagnostics status -n [node name]
 </pre>
 
-Finally, config file location can be found in the [management UI](/management.html),
+Finally, config file location can be found in the [management UI](./management.html),
 together with other details about nodes.
 
 When troubleshooting configuration settings, it is very useful to verify that the config file
@@ -235,13 +235,13 @@ Together, these steps help quickly narrow down most common misconfiguration prob
 
 ### <a id="config-file-formats" class="anchor" href="#config-file-formats">The New and Old Config File Formats</a>
 
-All [supported RabbitMQ versions](/versions.html) use an [ini-like, sysctl configuration file format](#config-file)
+All [supported RabbitMQ versions](./versions.html) use an [ini-like, sysctl configuration file format](#config-file)
 for the main configuration file. The file is typically named `rabbitmq.conf`.
 
 The new config format is much simpler, easier for humans to read
 and machines to generate. It is also relatively limited compared
 to the classic config format used prior to RabbitMQ 3.7.0.
-For example, when configuring [LDAP support](/ldap.html), it may be necessary to use deeply nested data structures to
+For example, when configuring [LDAP support](./ldap.html), it may be necessary to use deeply nested data structures to
 express desired configuration.
 
 To accommodate this need, modern RabbitMQ versions allow for both formats to be used at the same time
@@ -342,7 +342,7 @@ The same example in the <a href="#config-file-formats">classic config format</a>
 ].
 </pre>
 
-This example will alter the [port RabbitMQ listens on](/networking.html#ports) for
+This example will alter the [port RabbitMQ listens on](./networking.html#ports) for
 AMQP 0-9-1 and AMQP 1.0 client connections from 5672 to 5673.
 
 The RabbitMQ server source repository contains [an example rabbitmq.conf file](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/rabbitmq.conf.example)
@@ -350,8 +350,8 @@ named `rabbitmq.conf.example`. It contains examples of
 most of the configuration items you might want to set (with some very obscure ones omitted), along with
 documentation for those settings.
 
-Documentation guides such as [Networking](networking.html), [TLS](/ssl.html), or
-[Access Control](/access-control.html) contain many examples in relevant formats.
+Documentation guides such as [Networking](networking.html), [TLS](./ssl.html), or
+[Access Control](./access-control.html) contain many examples in relevant formats.
 
 Note that this configuration file is not to be confused with the environment variable
 configuration files, [rabbitmq-env.conf](#environment-env-file-unix)
@@ -504,7 +504,7 @@ This would help avoid unnecessary confusion and Windows service re-installations
 ### <a id="verify-configuration-effective-configuration" class="anchor" href="#verify-configuration-effective-configuration">How to Inspect and Verify Effective Configuration of a Running Node</a>
 
 It is possible to print effective configuration (user provided values from all configuration files merged into defaults) using
-the [rabbitmq-diagnostics environment](/rabbitmq-diagnostics.8.html) command:
+the [rabbitmq-diagnostics environment](./rabbitmq-diagnostics.8.html) command:
 
 <pre class="lang-bash">
 # inspect effective configuration on a node
@@ -1418,16 +1418,16 @@ under the `rabbit` section.
   </tr>
 </table>
 
-Several [plugins](/plugins.html) that ship with RabbitMQ have
+Several [plugins](./plugins.html) that ship with RabbitMQ have
 dedicated documentation guides that cover plugin configuration:
 
- * [rabbitmq_management](/management.html#configuration)
- * [rabbitmq_management_agent](/management.html#configuration)
- * [rabbitmq_stomp](/stomp.html)
- * [rabbitmq_mqtt](/mqtt.html)
+ * [rabbitmq_management](./management.html#configuration)
+ * [rabbitmq_management_agent](./management.html#configuration)
+ * [rabbitmq_stomp](./stomp.html)
+ * [rabbitmq_mqtt](./mqtt.html)
  * [rabbitmq_shovel](shovel.html)
  * [rabbitmq_federation](federation.html)
- * [rabbitmq_auth_backend_ldap](/ldap.html)
+ * [rabbitmq_auth_backend_ldap](./ldap.html)
 
 ### <a id="configuration-encryption" class="anchor" href="#configuration-encryption">Configuration Value Encryption</a>
 
@@ -1483,7 +1483,7 @@ it can be in a separate file:
 RabbitMQ can also request an operator to enter the passphrase
 when it starts by using `{passphrase, prompt}`.
 
-Use [rabbitmqctl](/cli.html) and the `encode`
+Use [rabbitmqctl](./cli.html) and the `encode`
 command to encrypt values:
 
 <pre class="lang-bash">
@@ -1544,7 +1544,7 @@ These defaults can be changed in the configuration file:
     ]}
 ].</pre>
 
-Or using [CLI tools](/cli.html):
+Or using [CLI tools](./cli.html):
 
 <pre class="lang-bash">
 rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
@@ -1562,12 +1562,12 @@ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
 ## <a id="customise-environment" class="anchor" href="#customise-environment">Configuration Using Environment Variables</a>
 
 Certain server parameters can be configured using environment variables:
-[node name](/cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
-[inter-node communication ports](/networking.html#ports), Erlang VM flags, and so on.
+[node name](./cli.html#node-names), RabbitMQ [configuration file location](#configuration-files),
+[inter-node communication ports](./networking.html#ports), Erlang VM flags, and so on.
 
 ### <a id="directory-and-path-restrictions" class="anchor" href="#directory-and-path-restrictions">Path and Directory Name Restrictions</a>
 
-Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
+Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](./plugins.html),
 and so on). Those paths have must exclude a number of characters:
 
  * `*` and `?` (on Linux, macOS, BSD and other UNIX-like systems)
@@ -1650,7 +1650,7 @@ in [rabbitmq-env.conf](#environment-env-file-unix) or
 RabbitMQ built-in defaults.
 
 The table below describes key environment variables that can be used to configure RabbitMQ.
-More variables are covered in the [File and Directory Locations guide](/relocate.html).
+More variables are covered in the [File and Directory Locations guide](./relocate.html).
 
 <table class="name-description">
   <tr>
@@ -2192,9 +2192,9 @@ Finally, some environment variables are operating system-specific.
 Most operating systems enforce limits on kernel resources: virtual memory, stack size, open file handles
 and more. To Linux users these limits can be known as "ulimit limits".
 
-RabbitMQ nodes are most commonly affected by the maximum [open file handle limit](/networking.html#open-file-handle-limit).
+RabbitMQ nodes are most commonly affected by the maximum [open file handle limit](./networking.html#open-file-handle-limit).
 Default limit value on most Linux distributions is usually 1024, which is very low for a messaging broker (or generally, any data service).
-See [Production Checklist](/production-checklist.html) for recommended values.
+See [Production Checklist](./production-checklist.html) for recommended values.
 
 ### Modifying Limits
 

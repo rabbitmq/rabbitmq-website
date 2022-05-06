@@ -39,7 +39,7 @@ values should work just fine.
 
 ### <a id="directory-and-path-restrictions" class="anchor" href="#directory-and-path-restrictions">Path and Directory Name Restrictions</a>
 
-Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](/plugins.html),
+Some of the environment variable configure paths and locations (node's base or data directory, [plugin source and expansion directories](./plugins.html),
 and so on). Those paths have must exclude a number of characters:
 
  * `*` and `?` (on Linux, macOS, BSD and other UNIX-like systems)
@@ -53,8 +53,8 @@ When changing file or directory locations, it is important to
 make sure that they have sufficient permissions for RabbitMQ
 node OS process to read and write from. It's best to assume
 that most directories and files used by RabbitMQ require read,
-write, and file creation permissions. [Debian](/install-debian.html),
-[RPM](/install-rpm.html) and [Windows installer](/install-windows.html) scripts
+write, and file creation permissions. [Debian](./install-debian.html),
+[RPM](./install-rpm.html) and [Windows installer](./install-windows.html) scripts
 will set up file system permissions suitable for most
 environments, however, when strict default permissions are
 used system-wide, it may be necessary to run additional

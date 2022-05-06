@@ -68,10 +68,10 @@ exchanges</a> and [federated queues](federated-queues.html).
 To use federation, one needs to configure two things
 
 * One or more upstreams that define federation connections
-  to other nodes. This can be done via [runtime parameters](/parameters.html)
+  to other nodes. This can be done via [runtime parameters](./parameters.html)
   or the [federation management plugin](https://github.com/rabbitmq/rabbitmq-federation-management) which
-  adds a federation management tab to the [management UI](/management.html).
-* One or more [policies](/parameters.html#policies) that match exchanges/queues and makes them
+  adds a federation management tab to the [management UI](./management.html).
+* One or more [policies](./parameters.html#policies) that match exchanges/queues and makes them
   federated.
 
 

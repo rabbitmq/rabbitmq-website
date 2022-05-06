@@ -40,9 +40,9 @@ Inter-node communication is performed transparently to clients.
 The design of clustering assumes that network connections are reasonably reliable
 and provides a LAN-like latency.
 
-All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](/which-erlang.html).
+All nodes in the cluster must run compatible versions of RabbitMQ and [Erlang](./which-erlang.html).
 
-Nodes authenticate to each other using [a pre-shared secret](/clustering.html#erlang-cookie)
+Nodes authenticate to each other using [a pre-shared secret](./clustering.html#erlang-cookie)
 typically installed by deployment automation tools.
 
 Virtual hosts, exchanges, users, and permissions are

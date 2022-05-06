@@ -21,15 +21,15 @@ limitations under the License.
 
 Operators need to be able to reason about node's memory use,
 both absolute and relative ("what uses most memory"). This is an
-important aspect of [system monitoring](/monitoring.html).
+important aspect of [system monitoring](./monitoring.html).
 
 RabbitMQ provides tools that report and help analyse node memory use:
 
- * [`rabbitmq-diagnostics memory_breakdown`](/cli.html)
- * [`rabbitmq-diagnostics status`](/cli.html) includes the above breakdown as a section
- * [Prometheus and Grafana](/prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
- * [Management UI](/management.html) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
- * [HTTP API](/management.html#http-api) provides the same information as the management UI, useful [for monitoring](/monitoring.html)
+ * [`rabbitmq-diagnostics memory_breakdown`](./cli.html)
+ * [`rabbitmq-diagnostics status`](./cli.html) includes the above breakdown as a section
+ * [Prometheus and Grafana](./prometheus.html)-based monitoring makes it possible to observe memory breakdown over time
+ * [Management UI](./management.html) provides the same breakdown on the node page as `rabbitmq-diagnostics status`
+ * [HTTP API](./management.html#http-api) provides the same information as the management UI, useful [for monitoring](./monitoring.html)
  * [rabbitmq-top](https://github.com/rabbitmq/rabbitmq-top) and `rabbitmq-diagnostics observer` provide a more fine-grained [top](https://en.wikipedia.org/wiki/Top_(software))-like per Erlang process view
 
 Obtaining a node memory breakdown should be the first step when reasoning about node memory use.
@@ -92,7 +92,7 @@ and so on.
 Memory use breakdown reports allocated memory distribution on the target node, by category:
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
- * [Quorum queue](/quorum-queues.html) replicas
+ * [Quorum queue](./quorum-queues.html) replicas
  * Classic mirrored queue [leader replicas](ha.html)
  * Classic mirrored queue mirror (follower) replicas
  * Message Store and Indices
@@ -322,7 +322,7 @@ things in the system (e.g. connections, queues):
 
 ## <a id="breakdown-http-api-curl" class="anchor" href="#breakdown-http-api-curl">Producing Memory Use Breakdown Using HTTP API and curl</a>
 
-It is possible to produce memory use breakdown over [HTTP API](/management.html)
+It is possible to produce memory use breakdown over [HTTP API](./management.html)
 by issuing a `GET` request to the `/api/nodes/{node}/memory` endpoint.
 
 <pre class="lang-json">
@@ -414,9 +414,9 @@ a certain number of channels. Finding an optimal value is usually a matter of tr
 Memory used by queues, queue indices, queue state. Messages enqueued will
 in part contribute to this category.
 
-Queues will [swap their contents out to disc when under memory pressure](/memory.html).
+Queues will [swap their contents out to disc when under memory pressure](./memory.html).
 The exact behavior of this depends on [queue properties](queues.html),
-whether clients publish messages as persistent or transient, and [persistence configuration](/persistence-conf.html) of the node.
+whether clients publish messages as persistent or transient, and [persistence configuration](./persistence-conf.html) of the node.
 
 Message bodies do not show up here but in Binaries.
 
@@ -506,7 +506,7 @@ The plugin ships with RabbitMQ. Enable it with
 [sudo] rabbitmq-plugins enable rabbitmq_top
 </pre>
 
-The plugin adds new administrative tabs to the [management UI](/management.html). One
+The plugin adds new administrative tabs to the [management UI](./management.html). One
 tab displays top processes by one of the metrics:
 
  * Memory used
@@ -553,7 +553,7 @@ documentation.
 ## <a id="memory-breakdown-and-monitoring" class="anchor" href="#memory-breakdown-and-monitoring">Memory Use Monitoring</a>
 
 It is recommended that production systems monitor memory usage of all cluster nodes,
-ideally with a breakdown, together with [infrastructure-level metrics](/monitoring.html).
+ideally with a breakdown, together with [infrastructure-level metrics](./monitoring.html).
 By correlating breakdown categories with other metrics, e.g. the number of concurrent
 connections or enqueued messages, it becomes possible to detect problems that
 stem from an application-specific behavior (e.g. connection leaks or ever growing queues without consumers).

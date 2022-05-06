@@ -17,7 +17,7 @@ limitations under the License.
 
 # Installing on Solaris
 
-The [Generic binary build](/install-generic-unix.html) installation instructions may be used to install
+The [Generic binary build](./install-generic-unix.html) installation instructions may be used to install
 RabbitMQ on Solaris, with two modifications.
 
 

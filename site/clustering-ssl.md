@@ -19,25 +19,25 @@ limitations under the License.
 
 ## Overview
 
-RabbitMQ nodes accept [connections from clients](connections.html) as well as [peer cluster nodes](/clustering.html)
-and [CLI tools](/cli.html).
+RabbitMQ nodes accept [connections from clients](connections.html) as well as [peer cluster nodes](./clustering.html)
+and [CLI tools](./cli.html).
 
-The main [TLS](/ssl.html) and [Troubleshooting TLS](/troubleshooting-ssl.html) guides explain
+The main [TLS](./ssl.html) and [Troubleshooting TLS](./troubleshooting-ssl.html) guides explain
 how to secure client connections with TLS. It may be desired to add a layer of encryption and an extra
 layer of authentication to the other two kinds of connections. This guide explains how to do that.
 
-Switching inter-node and CLI tool communication requires configuring a few [runtime](/runtime.html) flags.
-They provide the node with a [CA certificate bundle and a certificate/key pair](/ssl.html#certificates-and-keys).
+Switching inter-node and CLI tool communication requires configuring a few [runtime](./runtime.html) flags.
+They provide the node with a [CA certificate bundle and a certificate/key pair](./ssl.html#certificates-and-keys).
 CLI tools also have to be configured to use a certificate/key pair as TLS-enabled nodes
 won't accept unencrypted connections from CLI tools and peers.
 
-This guide assumes the reader is familiar with the [basics of TLS](/ssl.html#certificates-and-keys)
-and [peer verification](/ssl.html#peer-verification) (authentication) covered in the main TLS guide.
+This guide assumes the reader is familiar with the [basics of TLS](./ssl.html#certificates-and-keys)
+and [peer verification](./ssl.html#peer-verification) (authentication) covered in the main TLS guide.
 
 It also assumes that you already have a CA certificate bundle and a certificate/key pair generated for every
 cluster node and every host CLI tools will be use on. In production environments those certificates
 will often be produced by operators or deployment tools. For development and experimentation,
-there is a [quick way to generate them](/ssl.html#automated-certificate-generation) using OpenSSL
+there is a [quick way to generate them](./ssl.html#automated-certificate-generation) using OpenSSL
 and Python.
 
 This guide will reference three files:
@@ -52,7 +52,7 @@ Make sure you have them ready before we start.
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 Configuring a node to communicate over TLS-enabled connections involves a few
-steps. With [supported Erlang versions](/which-erlang.html) there are two ways of doing it.
+steps. With [supported Erlang versions](./which-erlang.html) there are two ways of doing it.
 
 The steps are very similar on all operating systems supported but minor details will be
 [different on Windows](#windows) due to a different shell language.
@@ -65,7 +65,7 @@ The steps are very similar on all operating systems supported but minor details 
  * Tell the node about any additional TLS settings desired, using other `-ssl_dist_opt` options, for example: `-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true` to enable [secure renegotiation](https://devcentral.f5.com/s/articles/ssl-profiles-part-6-ssl-renegotiation)
 
 [Strategy two](#linux-strategy-two) is very similar but instead of specifying a set of runtime flags, those options can be specified
-in a file similar to RabbitMQ's [advanced.config file](/configure.html#advanced-config-file) and the runtime
+in a file similar to RabbitMQ's [advanced.config file](./configure.html#advanced-config-file) and the runtime
 will be pointed at that file. Therefore the steps are:
 
  * Tell the node to use encrypted inter-node connections using a runtime flag, `-proto_dist inet_tls`
@@ -76,7 +76,7 @@ will be pointed at that file. Therefore the steps are:
 We encourage operators to choose the strategy that works best for their deployment tools of choice.
 
 With both options environment variables are used to pass those options to the runtime. This is best
-done using `rabbitmq-env.conf` as explained in the [Configuration guide](/configure.html#customise-environment).
+done using `rabbitmq-env.conf` as explained in the [Configuration guide](./configure.html#customise-environment).
 
 Once a node has inter-node connection configured with TLS, CLI tools such as `rabbitmqctl` and `rabbitmq-diagnostics`
 also must use TLS to talk to the node. Plain TCP connections will be fail.
@@ -89,12 +89,12 @@ This is because CLI tools configured to use TLS won't be able to connect to a no
 not expect TLS-enabled CLI tool connections.
 
 For nodes and CLI tools to perform TLS handshake and peer verification successfully,
-the same [peer verification](/ssl.html#peer-verification)
+the same [peer verification](./ssl.html#peer-verification)
 example, certificate/key pairs used by other nodes and CLI
 tools must be signed by the same certificate authority as the initial node or a
 different CA that is trusted on all cluster nodes.
 
-This is no different from how [peer verification works for client and plugin TLS connections](/ssl.html#peer-verification).
+This is no different from how [peer verification works for client and plugin TLS connections](./ssl.html#peer-verification).
 
 It is possible to reuse a single certificate/key pair for all nodes and CLI tools.
 The certificate can also use a wildcard Subject Alternative Name (SAN) or Common Name (CN) such as `*.rabbitmq.example.local`
@@ -239,7 +239,7 @@ RABBITMQ_CTL_ERL_ARGS="-pa $ERL_SSL_PATH
 </pre>
 
 Here is an example `/etc/rabbitmq/inter_node_tls.config` file that uses
-separate server certificate and private key files, enables [peer verification](/ssl.html#peer-verification)
+separate server certificate and private key files, enables [peer verification](./ssl.html#peer-verification)
 and requires peers to present a certificate:
 
 <pre class="lang-bash">
@@ -281,7 +281,7 @@ different due to Windows shell parsing rules. it looks like this
 erl -noinput -eval "io:format(""ERL_SSL_PATH=~s~n"", [filename:dirname(code:which(inet_tls_dist))])" -s init stop
 </pre>
 
-Next, the file containing the [custom environment variables](/configure.html#customise-environment)
+Next, the file containing the [custom environment variables](./configure.html#customise-environment)
 is named `rabbitmq-env-conf.bat` on Windows. This file **must** be saved to the `%AppData%\RabbitMQ` directory of the administrative
 user that installed RabbitMQ.
 
@@ -311,7 +311,7 @@ set CTL_ERL_ARGS=-pa %SSL_PATH% ^
 </pre>
 
 Below is an example `inter_node_tls.config` file.
-As with other operating systems, more [TLS options](/ssl.html) are available
+As with other operating systems, more [TLS options](./ssl.html) are available
 to be set if necessary.
 
 <pre class="lang-bash">

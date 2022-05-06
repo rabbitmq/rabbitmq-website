@@ -131,7 +131,7 @@ gracefully, and the RPC should ideally be idempotent.
 ### Summary
 
 <div class="diagram">
-  <img src="/img/tutorials/python-six.png" height="200" />
+  <img src="../img/tutorials/python-six.png" height="200" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -369,7 +369,7 @@ complex (but important) problems, like:
    (eg checking bounds) before processing.
 
 >
->If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
 >
 
 (Full source code for [rpc_client.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_client.exs) and [rpc_server.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_server.exs))
