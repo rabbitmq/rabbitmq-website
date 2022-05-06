@@ -18,7 +18,7 @@ limitations under the License.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="https://www.rabbitmq.com/2011/extensions">
   <head>
     <title>AMQP 0-9-1 Quick Reference</title>
-    <link rel="stylesheet" rev="stylesheet" href="./css/amqp-0-9-1-quickref.css" type="text/css"/>
+    <link rel="stylesheet" rev="stylesheet" href="/css/amqp-0-9-1-quickref.css" type="text/css"/>
   </head>
   <body>
     <x:insert-spec-here />
