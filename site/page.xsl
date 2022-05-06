@@ -55,11 +55,11 @@ limitations under the License.
       <meta content='width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no' id='viewport' name='viewport'/>
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet"/>
 
-      <link rel="stylesheet" href="./css/rabbit.css" type="text/css"/>
-      <link rel="stylesheet" href="./css/highlightjs_style.css" type="text/css" />
+      <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
+      <link rel="stylesheet" href="/css/highlightjs_style.css" type="text/css" />
 
       <xsl:if test="$site-mode = 'next'">
-        <link rel="stylesheet" href="./css/rabbit-next.css" type="text/css"/>
+        <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
       </xsl:if>
       <xsl:if test="$site-mode = 'previous'">
         <doc:style>
@@ -71,10 +71,10 @@ limitations under the License.
         </doc:style>
       </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
-      <link rel="stylesheet" href="./css/rabbit-ie6.css" type="text/css" />
+      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
       <![endif]]]></xsl:comment>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="./favicon.ico"/>
-      <link rel="stylesheet" href="./css/tutorial.css" type="text/css"/>
+      <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script async="true" type="text/javascript" src="/js/site.js"></script>
 
       <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
