@@ -21,7 +21,7 @@ This page summarises the available RabbitMQ documentation for the [latest patch 
 
 ## Installation
 
-See the [Downloads and Installation](/download.html) page
+See the [Downloads and Installation](./download.html) page
 for information on the most recent release and how to install it.
 
 
@@ -33,7 +33,7 @@ for our tutorials for various programming languages.
 The tutorials offer a gentle introduction to messaging, one of the protocols RabbitMQ supports,
 key messaging features, and some common usage scenarios.
 
-[AMQP 0-9-1 Overview](/tutorials/amqp-concepts.html) provides a brief overview
+[AMQP 0-9-1 Overview](./tutorials/amqp-concepts.html) provides a brief overview
 for the original RabbitMQ protocol.
 
 
@@ -43,47 +43,47 @@ for the original RabbitMQ protocol.
 
 ### [Installation and Provisioning](download.html):
 
- * [Packages and repositories](/download.html)
- * [Kubernetes Operator](/kubernetes/operator/operator-overview.html)
- * [Provisioning Tools](/download.html) (Docker image, Chef cookbook, Puppet module, etc)
- * [Package Signatures](/signatures.html)
- * [Supported Erlang/OTP Versions](/which-erlang.html)
- * [Supported RabbitMQ Versions](/versions.html)
- * [Changelog](/changelog.html)
+ * [Packages and repositories](./download.html)
+ * [Kubernetes Operator](./kubernetes/operator/operator-overview.html)
+ * [Provisioning Tools](./download.html) (Docker image, Chef cookbook, Puppet module, etc)
+ * [Package Signatures](./signatures.html)
+ * [Supported Erlang/OTP Versions](./which-erlang.html)
+ * [Supported RabbitMQ Versions](./versions.html)
+ * [Changelog](./changelog.html)
 
 #### Operating Systems and Platforms
 
- * [Kubernetes](/kubernetes/operator/operator-overview.html)
- * [Debian and Ubuntu](/install-debian.html)
- * [Red Hat Enterprise Linux, CentOS, Fedora](/install-rpm.html)
- * [Windows Installer](/install-windows.html), [Windows-specific Issues](/windows-quirks.html)
- * [Generic UNIX Binary Build](/install-generic-unix.html)
- * [MacOS via Standalone Binary Build](/install-standalone-mac.html)
- * [MacOS via Homebrew](/install-homebrew.html)
- * [Amazon EC2](/ec2.html)
- * [Solaris](/install-solaris.html)
+ * [Kubernetes](./kubernetes/operator/operator-overview.html)
+ * [Debian and Ubuntu](./install-debian.html)
+ * [Red Hat Enterprise Linux, CentOS, Fedora](./install-rpm.html)
+ * [Windows Installer](./install-windows.html), [Windows-specific Issues](./windows-quirks.html)
+ * [Generic UNIX Binary Build](./install-generic-unix.html)
+ * [MacOS via Standalone Binary Build](./install-standalone-mac.html)
+ * [MacOS via Homebrew](./install-homebrew.html)
+ * [Amazon EC2](./ec2.html)
+ * [Solaris](./install-solaris.html)
 
 #### Snapshots
 
- * [Snapshot (Nightly) Builds](/snapshots.html)
+ * [Snapshot (Nightly) Builds](./snapshots.html)
 
 
 ### Upgrading
 
- * Main [Upgrading guide](/upgrade.html)
- * [Schema Definitions](/definitions.html)
- * [Blue-green deployment-based upgrade](/blue-green-upgrade.html)
+ * Main [Upgrading guide](./upgrade.html)
+ * [Schema Definitions](./definitions.html)
+ * [Blue-green deployment-based upgrade](./blue-green-upgrade.html)
 
 
 ### CLI tools
 
- * [RabbitMQ CLI Tools](/cli.html): general installation and usage topics
- * [rabbitmqctl](/rabbitmqctl.8.html): primary RabbitMQ CLI tool
- * [rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html): [monitoring](/monitoring.html), [health checking](/monitoring.html#health-checks), observability tooling
- * [rabbitmq-plugins](/rabbitmq-plugins.8.html): plugin management
- * [rabbitmq-queues](/rabbitmq-queues.8.html): operations on quorum queues
- * [rabbitmqadmin](/management-cli.html) ([HTTP API](/management.html)-based zero dependency management tool)
- * [man pages](/manpages.html)
+ * [RabbitMQ CLI Tools](./cli.html): general installation and usage topics
+ * [rabbitmqctl](./rabbitmqctl.8.html): primary RabbitMQ CLI tool
+ * [rabbitmq-diagnostics](./rabbitmq-diagnostics.8.html): [monitoring](./monitoring.html), [health checking](./monitoring.html#health-checks), observability tooling
+ * [rabbitmq-plugins](./rabbitmq-plugins.8.html): plugin management
+ * [rabbitmq-queues](./rabbitmq-queues.8.html): operations on quorum queues
+ * [rabbitmqadmin](./management-cli.html) ([HTTP API](./management.html)-based zero dependency management tool)
+ * [man pages](./manpages.html)
 
 
 ### Configuration
@@ -108,8 +108,8 @@ for the original RabbitMQ protocol.
  * [Credentials and Passwords](passwords.html)
  * x509 (TLS) [Certificate-based client authentication](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/tree/v3.8.x)
  * [LDAP](ldap.html)
- * [Validated User ID](/validated-user-id.html)
- * [Authentication Failure Notifications](/auth-notification.html)
+ * [Validated User ID](./validated-user-id.html)
+ * [Authentication Failure Notifications](./auth-notification.html)
 
 
 ### Networking and TLS
@@ -118,7 +118,7 @@ for the original RabbitMQ protocol.
  * [Networking](networking.html)
  * [Troubleshooting Network Connectivity](troubleshooting-networking.html)
  * [Using TLS for Client Connections](ssl.html)
- * [Using TLS for Inter-node Traffic](/clustering-ssl.html)
+ * [Using TLS for Inter-node Traffic](./clustering-ssl.html)
  * [Troubleshooting TLS](troubleshooting-ssl.html)
 
 
@@ -133,7 +133,7 @@ for the original RabbitMQ protocol.
  * [Internal Event Exchange](event-exchange.html)
  * [Per Virtual Host Limits](vhosts.html)
  * [Message Tracing](firehose.html)
- * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
+ * [Capturing Traffic with Wireshark](./amqp-wireshark.html)
 
 
 ### Clustering
@@ -167,60 +167,60 @@ for the original RabbitMQ protocol.
 
 ### Message Store and Resource Management
 
- * [Memory Usage Analysis](/memory-use.html)
- * [Memory Management](/memory.html)
- * [Resource Alarms](/alarms.html)
- * [Free Disk Space Alarms](/disk-alarms.html)
+ * [Memory Usage Analysis](./memory-use.html)
+ * [Memory Management](./memory.html)
+ * [Resource Alarms](./alarms.html)
+ * [Free Disk Space Alarms](./disk-alarms.html)
  * [Runtime Tuning](runtime.html)
- * [Flow Control](/flow-control.html)
- * [Message Store Configuration](/persistence-conf.html)
- * [Queue and Message TTL](/ttl.html)
- * [Queue Length Limits](/maxlength.html)
- * [Lazy Queues](/lazy-queues.html)
+ * [Flow Control](./flow-control.html)
+ * [Message Store Configuration](./persistence-conf.html)
+ * [Queue and Message TTL](./ttl.html)
+ * [Queue Length Limits](./maxlength.html)
+ * [Lazy Queues](./lazy-queues.html)
 
 
 ### Queue and Consumer Features
 
  * [Queues guide](queues.html)
- * [Consumers guide](/consumers.html)
- * [Queue and Message TTL](/ttl.html)
- * [Queue Length Limits](/maxlength.html)
- * [Lazy Queues](/lazy-queues.html)
- * [Dead Lettering](/dlx.html)
- * [Priority Queues](/priority.html)
- * [Consumer Cancellation Notifications](/consumer-cancel.html)
- * [Consumer Prefetch](/consumer-prefetch.html)
- * [Consumer Priorities](/consumer-priority.html)
- * [Streams](/streams.html)
+ * [Consumers guide](./consumers.html)
+ * [Queue and Message TTL](./ttl.html)
+ * [Queue Length Limits](./maxlength.html)
+ * [Lazy Queues](./lazy-queues.html)
+ * [Dead Lettering](./dlx.html)
+ * [Priority Queues](./priority.html)
+ * [Consumer Cancellation Notifications](./consumer-cancel.html)
+ * [Consumer Prefetch](./consumer-prefetch.html)
+ * [Consumer Priorities](./consumer-priority.html)
+ * [Streams](./streams.html)
 
 
 ### Publisher Features
 
- * [Publishers guide](/publishers.html)
- * [Exchange-to-Exchange Bindings](/e2e.html)
- * [Alternate Exchanges](/ae.html)
- * [Sender-Selected Distribution](/sender-selected.html)
+ * [Publishers guide](./publishers.html)
+ * [Exchange-to-Exchange Bindings](./e2e.html)
+ * [Alternate Exchanges](./ae.html)
+ * [Sender-Selected Distribution](./sender-selected.html)
 
 
 ### STOMP, MQTT, WebSockets
 
  * [Client Connections](connections.html)
- * [STOMP](/stomp.html)
- * [MQTT](/mqtt.html)
+ * [STOMP](./stomp.html)
+ * [MQTT](./mqtt.html)
  * [STOMP over WebSockets](web-stomp.html)
  * [MQTT over WebSockets](web-mqtt.html)
 
 
 ## Man Pages
 
- * [man Pages](/manpages.html)
+ * [man Pages](./manpages.html)
 
 
 ## Client Libraries and Features
 
 [RabbitMQ clients documentation](clients.html) is organised in a number
-of guides and API references. A separate set of [tutorials](/getstarted.html) for
-many popular programming languages are also available, as is an [AMQP 0-9-1 Overview](/tutorials/amqp-concepts.html).
+of guides and API references. A separate set of [tutorials](./getstarted.html) for
+many popular programming languages are also available, as is an [AMQP 0-9-1 Overview](./tutorials/amqp-concepts.html).
 
 ### Client Documentation Guides
 
@@ -229,36 +229,36 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
  * [Ruby Client](http://rubybunny.info)
  * [JMS Client](jms-client.html)
  * [Erlang Client](erlang-client-user-guide.html)
- * [RabbitMQ extensions to AMQP 0-9-1](/extensions.html)
+ * [RabbitMQ extensions to AMQP 0-9-1](./extensions.html)
 
 ### Client-Driven Features
 
  * [Client Connections](connections.html)
- * [Consumers](/consumers.html)
- * [Publishers](/publishers.html)
+ * [Consumers](./consumers.html)
+ * [Publishers](./publishers.html)
  * [Channels](channels.html)
  * [Publisher Confirms and Consumer Acknowledgements](confirms.html)
  * [Queue and Message TTL](ttl.html)
  * [Queue Length Limits](maxlength.html)
  * [Lazy Queues](lazy-queues.html)
- * [Exchange-to-Exchange Bindings](/e2e.html)
- * [Sender-Selected Distribution](/sender-selected.html)
- * [Priority Queues](/priority.html)
- * [Consumer Cancellation Notifications](/consumer-cancel.html)
- * [Consumer Prefetch](/consumer-prefetch.html)
- * [Consumer Priorities](/consumer-priority.html)
- * [Dead Lettering](/dlx.html)
- * [Alternate Exchanges](/ae.html)
+ * [Exchange-to-Exchange Bindings](./e2e.html)
+ * [Sender-Selected Distribution](./sender-selected.html)
+ * [Priority Queues](./priority.html)
+ * [Consumer Cancellation Notifications](./consumer-cancel.html)
+ * [Consumer Prefetch](./consumer-prefetch.html)
+ * [Consumer Priorities](./consumer-priority.html)
+ * [Dead Lettering](./dlx.html)
+ * [Alternate Exchanges](./ae.html)
  * [Message Tracing](firehose.html)
- * [Capturing Traffic with Wireshark](/amqp-wireshark.html)
+ * [Capturing Traffic with Wireshark](./amqp-wireshark.html)
 
 
 ## References
 
  * [Java](https://rabbitmq.github.io/rabbitmq-java-client/api/current/)
  * [.NET](https://rabbitmq.github.io/rabbitmq-dotnet-client/index.html)
- * [AMQP 0-9-1 URI Specification](/uri-spec.html)
- * [URI Query Parameters](/uri-query-parameters.html)
+ * [AMQP 0-9-1 URI Specification](./uri-spec.html)
+ * [URI Query Parameters](./uri-query-parameters.html)
 
 See [Clients and Developer Tools](devtools.html)
 for community client libraries.
@@ -277,7 +277,7 @@ Popular tier 1 (built-in) plugins:
  * [Shovel](shovel.html)
  * [Internal Event Exchange](event-exchange.html)
 
-See [Community Plugins](/community-plugins.html),
+See [Community Plugins](./community-plugins.html),
 [RabbitMQ GitHub repositories](https://github.com/rabbitmq/)
 and the [Plugins Guide](plugins.html) for more information about plugins.
 

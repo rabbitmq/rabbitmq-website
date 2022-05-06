@@ -35,9 +35,9 @@ The guide also covers a few post-installation topics in the context of Windows:
  * [Log file location](#server-logs)
  * [Default user limitations](#default-user-access)
 
- and more. These topics are covered in more details in the [rest of documentation guides](/documentation.html).
+ and more. These topics are covered in more details in the [rest of documentation guides](./documentation.html).
 
-A separate companion guide covers known [Windows-specific issues](/windows-quirks.html)
+A separate companion guide covers known [Windows-specific issues](./windows-quirks.html)
 and ways to mitigate them.
 
 
@@ -61,7 +61,7 @@ The Chocolatey RabbitMQ package is open source and can be [found on GitHub](http
 
 ## <a id="installer" class="anchor" href="#installer">Using the Installer</a>
 
-The official RabbitMQ installer is produced for [every RabbitMQ release](/changelog.html).
+The official RabbitMQ installer is produced for [every RabbitMQ release](./changelog.html).
 
 Compared to [installation via Chocolatey](#chocolatey), this option gives Windows users
 the most flexibility but also requires them to be
@@ -77,11 +77,11 @@ aware of certain assumptions and requirements in the installer:
 When these conditions are not met, Windows service and CLI tools may require
 reinstallation or other manual steps to get them to function as expected.
 
-This is covered in more detail in the [Windows-specific Issues](/windows-quirks.html) guide.
+This is covered in more detail in the [Windows-specific Issues](./windows-quirks.html) guide.
 
 ### Dependencies
 
-RabbitMQ requires a 64-bit [supported version of Erlang](/which-erlang.html) for Windows to be installed.
+RabbitMQ requires a 64-bit [supported version of Erlang](./which-erlang.html) for Windows to be installed.
 Latest binary builds for Windows can be obtained from the [Erlang/OTP Version Tree](https://erlang.org/download/otp_versions_tree.html) page.
 
 Note that Erlang must be installed **using an administrative account** or it won't be
@@ -122,16 +122,16 @@ can be managed from the Start menu.
 
 ## <a id="cli" class="anchor" href="#cli">CLI Tools</a>
 
-RabbitMQ nodes are often managed, inspected and operated using [CLI Tools](/cli.html)
+RabbitMQ nodes are often managed, inspected and operated using [CLI Tools](./cli.html)
 in [PowerShell](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/powershell).
 
 On Windows, CLI tools have a `.bat` suffix compared to other platforms. For example,
 `rabbitmqctl` on Windows is invoked as `rabbitmqctl.bat`.
 
-In order for these tools to work they must be able to [authenticate with RabbitMQ nodes](/cli.html#erlang-cookie)
+In order for these tools to work they must be able to [authenticate with RabbitMQ nodes](./cli.html#erlang-cookie)
 using a shared secret file called the Erlang cookie.
 
-The main [CLI tools guide](/cli.html) covers most topics related to command line tool usage.
+The main [CLI tools guide](./cli.html) covers most topics related to command line tool usage.
 
 In order to explore what commands various RabbitMQ CLI tools provide, use the `help` command:
 
@@ -155,12 +155,12 @@ rabbitmqctl.bat help add_user
 
 ## <a id="cli-cookie-file-location" class="anchor" href="#cli-cookie-file-location">Cookie File Location</a>
 
-On Windows, the [cookie file location](/cli.html#cookie-file-locations) depends on
+On Windows, the [cookie file location](./cli.html#cookie-file-locations) depends on
 whether the `HOMEDRIVE` and `HOMEPATH` environment variables are set.
 
-If RabbitMQ is installed using a non-administrative account, a [shared secret](/cli.html#erlang-cookie) file
+If RabbitMQ is installed using a non-administrative account, a [shared secret](./cli.html#erlang-cookie) file
 used by nodes and CLI tools will not be placed into a correct location,
-leading to [authentication failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
+leading to [authentication failures](./cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
 and other CLI tools are used.
 
 One of these options can be used to mitigate:
@@ -173,17 +173,17 @@ One of these options can be used to mitigate:
 ## <a id="configure" class="anchor" href="#configure">Node Configuration</a>
 
 The service starts using its default [settings](configure.html), listening
-for connections on [default interfaces](/networking.html#interfaces) and [ports](#ports).
+for connections on [default interfaces](./networking.html#interfaces) and [ports](#ports).
 
-Node configuration is primarily done using a [configuration file](/configure.html#configuration-files).
-A number of available [environment variables](/configure.html#customise-windows-environment) can be used
-to control node's [data location](/relocate.html), configuration file path and so on.
+Node configuration is primarily done using a [configuration file](./configure.html#configuration-files).
+A number of available [environment variables](./configure.html#customise-windows-environment) can be used
+to control node's [data location](./relocate.html), configuration file path and so on.
 
 This is covered in more detail in the [Configuration guide](configure.html)
 
 ### Environment Variable Changes on Windows
 
-**Important**: after setting environment variables, it is necessary to [**re-install** the Windows service](/configure.html#rabbitmq-env-file-windows). Restarting the service will not be sufficient.
+**Important**: after setting environment variables, it is necessary to [**re-install** the Windows service](./configure.html#rabbitmq-env-file-windows). Restarting the service will not be sufficient.
 
 
 ## <a id="managing" class="anchor" href="#managing">Managing a RabbitMQ Node</a>
@@ -209,7 +209,7 @@ rabbitmqctl.bat stop
 
 ### <a id="status" class="anchor" href="#status">Checking Node Status</a>
 
-The following [CLI command](#cli) runs a basic [health check](/monitoring.html#health-checks)
+The following [CLI command](#cli) runs a basic [health check](./monitoring.html#health-checks)
 and displays some information about the node if it is running.
 
 <pre class="lang-powershell">
@@ -223,13 +223,13 @@ two conditions must be true:
  * The node must be running
  * `rabbitmqctl.bat` must be able to authenticate with the node
 
-See the [CLI tools section](#cli) and the [Monitoring and Health Checks guide](/monitoring.html)
+See the [CLI tools section](#cli) and the [Monitoring and Health Checks guide](./monitoring.html)
 to learn more.
 
 ### <a id="server-logs" class="anchor" href="#server-logs">Log Files and Management</a>
 
 Server logs are critically important in troubleshooting and root cause analysis.
-See [Logging](/logging.html) and [File and Directory Location](/relocate.html) guides
+See [Logging](./logging.html) and [File and Directory Location](./relocate.html) guides
 to learn about log file location, log rotation and more.
 
 
@@ -274,12 +274,12 @@ Make sure the following ports are accessible:
  * 35672-35682: used by CLI tools (Erlang distribution client ports) for communication with nodes
    and is allocated from a dynamic range (computed as server distribution port + 10000 through
    server distribution port + 10010). See [networking guide](networking.html) for details.
- * 15672: [HTTP API](/management.html) clients, [management UI](/management.html) and [rabbitmqadmin](/management-cli.html)
-   (only if the [management plugin](/management.html) is enabled)
- * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](/stomp.html) is enabled)
- * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](/mqtt.html) is enabled
- * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](/web-stomp.html) is enabled)
- * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](/web-mqtt.html) is enabled)
+ * 15672: [HTTP API](./management.html) clients, [management UI](./management.html) and [rabbitmqadmin](./management-cli.html)
+   (only if the [management plugin](./management.html) is enabled)
+ * 61613, 61614: [STOMP clients](https://stomp.github.io/stomp-specification-1.2.html) without and with TLS (only if the [STOMP plugin](./stomp.html) is enabled)
+ * 1883, 8883: [MQTT clients](http://mqtt.org/) without and with TLS, if the [MQTT plugin](./mqtt.html) is enabled
+ * 15674: STOMP-over-WebSockets clients (only if the [Web STOMP plugin](./web-stomp.html) is enabled)
+ * 15675: MQTT-over-WebSockets clients (only if the [Web MQTT plugin](./web-mqtt.html) is enabled)
 
 It is possible to [configure RabbitMQ](configure.html)
 to use [different ports and specific network interfaces](networking.html).
@@ -298,5 +298,5 @@ architecture.
 In the event that the Erlang VM terminates when RabbitMQ is running
 as a service, rather than writing the crash dump to the current
 directory (which doesn't make sense for a service) it is written
-to an `erl_crash.dump` file in the [base directory](/relocate.html) of
+to an `erl_crash.dump` file in the [base directory](./relocate.html) of
 the RabbitMQ server, defaulting to `%APPDATA%\%RABBITMQ_SERVICENAME%` - typically `%APPDATA%\RabbitMQ` otherwise.

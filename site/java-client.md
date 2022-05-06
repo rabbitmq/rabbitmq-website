@@ -22,12 +22,12 @@ limitations under the License.
 The RabbitMQ Java client library allows Java and JVM-based applications
 to connect to and interact with RabbitMQ nodes.
 
-5.x release series of this library [require JDK 8](/java-versions.html), both for compilation and at runtime. On Android,
+5.x release series of this library [require JDK 8](./java-versions.html), both for compilation and at runtime. On Android,
 this means only [Android 7.0 or later](https://developer.android.com/guide/platform/j8-jack.html) versions are supported.
 
-4.x release series [support JDK 6](/java-versions.html) and Android versions prior to 7.0.
+4.x release series [support JDK 6](./java-versions.html) and Android versions prior to 7.0.
 
-See the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline.
+See the [RabbitMQ Java libraries support page](./java-versions.html) for the support timeline.
 
 ### <a id="licensing" class="anchor" href="#licensing">Licensing</a>
 
@@ -45,7 +45,7 @@ a commercial product. Codebases that are licensed under the GPLv2 may choose GPL
 
 RabbitMQ Java client connects to RabbitMQ server nodes.
 
-You will need a running [RabbitMQ node](/download.html) to use with the client
+You will need a running [RabbitMQ node](./download.html) to use with the client
 library.
 
 ### Latest Version
@@ -118,8 +118,8 @@ source.
 </table>
 
 
-See the [Signatures guide](/signatures.html) for details on how to verify package signatures, and the
-[Java client build guide](/build-java-client.html) for instructions on compiling from source-code.
+See the [Signatures guide](./signatures.html) for details on how to verify package signatures, and the
+[Java client build guide](./build-java-client.html) for instructions on compiling from source-code.
 
 ### The Documentation
 
@@ -167,7 +167,7 @@ This means it is no longer necessary to <i>bundleise</i> or
 ## GitHub Repositories
 
 The RabbitMQ Java client depends on the code generation library module.
-Please see the <a href="/build-java-client.html">build page</a> for instructions on
+Please see the <a href="./build-java-client.html">build page</a> for instructions on
 compiling from source code.
 
 <table>

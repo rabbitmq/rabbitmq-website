@@ -46,7 +46,7 @@ categories:
 and also mentioned in this guide.
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
-can be used to monitor RabbitMQ. [Prometheus and Grafana](/prometheus.html) are one highly
+can be used to monitor RabbitMQ. [Prometheus and Grafana](./prometheus.html) are one highly
 recommended option.
 
 
@@ -82,7 +82,7 @@ parameters are "the process must be running". Finally, there is an evaluation st
 
 Of course, there are more varieties of health checks. Which ones are most appropriate depends on the
 definition of a "healthy node" used. So, it is a system- and team-specific decision. [RabbitMQ CLI
-tools](/cli.html) provide commands that can serve as useful health checks. They will be covered
+tools](./cli.html) provide commands that can serve as useful health checks. They will be covered
 [later in this guide](#health-checks).
 
 While health checks are a useful tool, they only provide so much insight into the state of the
@@ -115,8 +115,8 @@ Collect the following metrics on all hosts that run RabbitMQ nodes or applicatio
  * Memory usage (used, buffered, cached &amp; free percentages)
  * [Virtual Memory](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) statistics (dirty page flushes, writeback volume)
  * Disk I/O (operations &amp; amount of data transferred per unit time, time to service operations)
- * Free disk space on the mount used for the [node data directory](/relocate.html)
- * File descriptors used by `beam.smp` vs. [max system limit](/networking.html#open-file-handle-limit)
+ * Free disk space on the mount used for the [node data directory](./relocate.html)
+ * File descriptors used by `beam.smp` vs. [max system limit](./networking.html#open-file-handle-limit)
  * TCP connections by state (`ESTABLISHED`, `CLOSE_WAIT`, `TIME_WAIT`)
  * Network throughput (bytes received, bytes sent) & maximum network throughput
  * Network latency (between all RabbitMQ nodes in a cluster as well as to/from clients)
@@ -130,7 +130,7 @@ Many monitoring systems poll their monitored services periodically. How often th
 done varies from tool to tool but usually can be configured by the operator.
 
 Very frequent polling can have negative consequences on the system under monitoring. For example,
-excessive load balancer checks that open a test TCP connection to a node can lead to a [high connection churn](/networking.html#dealing-with-high-connection-churn).
+excessive load balancer checks that open a test TCP connection to a node can lead to a [high connection churn](./networking.html#dealing-with-high-connection-churn).
 Excessive checks of channels and queues in RabbitMQ will increase its CPU consumption. When there
 are many (say, 10s of thousands) of them on a node, the difference can be significant.
 
@@ -138,13 +138,13 @@ The recommended metric collection interval is 15 second. To collect at an interv
 For rate metrics, use a time range that spans 4 metric collection intervals so that it can tolerate race-conditions and is resilient to scrape failures.
 
 For production systems a collection interval of 30 or even 60 seconds is recommended.
-[Prometheus](/prometheus.html) exporter API is designed to be scraped every 15 seconds,
+[Prometheus](./prometheus.html) exporter API is designed to be scraped every 15 seconds,
 including production systems.
 
 
 ## <a id="external-monitoring" class="anchor" href="#external-monitoring">Management UI and External Monitoring Systems</a>
 
-RabbitMQ comes with a [management UI and HTTP API](/management.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
+RabbitMQ comes with a [management UI and HTTP API](./management.html) which exposes a number of [RabbitMQ metrics](#rabbitmq-metrics)
 for nodes, connections, queues, message rates and so on. This is a convenient option for development
 and in environments where external monitoring is difficult or impossible to introduce.
 
@@ -154,22 +154,22 @@ However, the management UI has a number of limitations:
  * A certain amount of overhead
  * It only stores recent data (think hours, not days or months)
  * It has a basic user interface
- * Its design [emphasizes ease of use over best possible availability](/management.html#clustering).
- * Management UI access is controlled via the [RabbitMQ permission tags system](/access-control.html)
+ * Its design [emphasizes ease of use over best possible availability](./management.html#clustering).
+ * Management UI access is controlled via the [RabbitMQ permission tags system](./access-control.html)
    (or a convention on JWT token scopes)
 
-Long term metric storage and visualisation services such as [Prometheus and Grafana](/prometheus.html) or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
+Long term metric storage and visualisation services such as [Prometheus and Grafana](./prometheus.html) or the [ELK stack](https://www.elastic.co/what-is/elk-stack) are more suitable options for production systems. They offer:
 
  * Decoupling of the monitoring system from the system being monitored
  * Lower overhead
  * Long term metric storage
- * Access to additional related metrics such as [Erlang runtime](/runtime.html) ones
+ * Access to additional related metrics such as [Erlang runtime](./runtime.html) ones
  * More powerful and customizable user interface
  * Ease of metric data sharing: both metric state and dashboards
  * Metric access permissions are not specific to RabbitMQ
  * Collection and aggregation of node-specific metrics which is more resilient to individual node failures
 
-RabbitMQ provides first class support for [Prometheus and Grafana](/prometheus.html) as of 3.8.
+RabbitMQ provides first class support for [Prometheus and Grafana](./prometheus.html) as of 3.8.
 It is recommended for production environments.
 
 
@@ -185,7 +185,7 @@ This section will cover multiple RabbitMQ-specific aspects of monitoring.
 
 When monitoring clusters it is important to understand the guarantees provided by the
 HTTP API. In a clustered environment every node can serve metric endpoint requests.
-Cluster-wide metrics can be fetched from any node that [can contact its peers](/management.html#clustering). That node
+Cluster-wide metrics can be fetched from any node that [can contact its peers](./management.html#clustering). That node
 will collect and combine data from its peers as needed before producing a response.
 
 Every node also can serve requests to endpoints that provide [node-specific metrics](#node-metrics)
@@ -193,7 +193,7 @@ for itself as well as other cluster nodes. Like with [infrastructure and OS metr
 node-specific metrics must be collected for each node. Monitoring tools can execute HTTP API requests against any node.
 
 As mentioned earlier, inter-node connectivity issues
-will [affect HTTP API behaviour](/management.html#clustering). Choose a random online node for monitoring requests.
+will [affect HTTP API behaviour](./management.html#clustering). Choose a random online node for monitoring requests.
 For example, using a load balancer or [round-robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
 Some endpoints perform operations on the target node. Node-local health checks is the most common
@@ -246,7 +246,7 @@ be one example. Both types are complimentary to infrastructure and node metrics.
       <td><code>queue_totals.messages_ready</code></td>
     </tr>
     <tr>
-      <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+      <td>Number of <a href="./confirms.html">unacknowledged</a> messages</td>
       <td><code>queue_totals.messages_unacknowledged</code></td>
     </tr>
     <tr>
@@ -296,7 +296,7 @@ compared to their previous values and historical mean/percentile values.
   </thead>
   <tbody>
     <tr>
-      <td>Total amount of <a href="/memory-use.html">memory used</a></td>
+      <td>Total amount of <a href="./memory-use.html">memory used</a></td>
       <td><code>mem_used</code></td>
     </tr>
     <tr>
@@ -304,7 +304,7 @@ compared to their previous values and historical mean/percentile values.
       <td><code>mem_limit</code></td>
     </tr>
     <tr>
-      <td>Is a <a href="/memory.html">memory alarm</a> in effect?</td>
+      <td>Is a <a href="./memory.html">memory alarm</a> in effect?</td>
       <td><code>mem_alarm</code></td>
     </tr>
     <tr>
@@ -312,11 +312,11 @@ compared to their previous values and historical mean/percentile values.
       <td><code>disk_free_limit</code></td>
     </tr>
     <tr>
-      <td>Is a <a href="/disk-alarms.html">disk alarm</a> in effect?</td>
+      <td>Is a <a href="./disk-alarms.html">disk alarm</a> in effect?</td>
       <td><code>disk_free_alarm</code></td>
     </tr>
     <tr>
-      <td><a href="/networking.html#open-file-handle-limit">File descriptors available</a></td>
+      <td><a href="./networking.html#open-file-handle-limit">File descriptors available</a></td>
       <td><code>fd_total</code></td>
     </tr>
     <tr>
@@ -393,7 +393,7 @@ via the `GET /api/queues/{vhost}/{qname}` endpoint.
       <td><code>messages_ready</code></td>
     </tr>
     <tr>
-      <td>Number of <a href="/confirms.html">unacknowledged</a> messages</td>
+      <td>Number of <a href="./confirms.html">unacknowledged</a> messages</td>
       <td><code>messages_unacknowledged</code></td>
     </tr>
     <tr>
@@ -437,7 +437,7 @@ keep up with the rate, even a downstream service that's experiencing a slowdown
 
 Some client libraries and frameworks
 provide means of registering metrics collectors or collect metrics out of the box.
-[RabbitMQ Java client](/api-guide.html) and [Spring AMQP](http://spring.io/projects/spring-amqp) are two examples.
+[RabbitMQ Java client](./api-guide.html) and [Spring AMQP](http://spring.io/projects/spring-amqp) are two examples.
 With others developers have to track metrics in their application code.
 
 What metrics applications track can be system-specific but some are relevant
@@ -488,14 +488,14 @@ and should be avoided. Use one of the checks covered in this section (or their c
 
 #### Stage 1
 
-The most basic check ensures that the [runtime](/runtime.html) is running
-and (indirectly) that CLI tools can [authenticate](/cli.html#erlang-cookie) with it.
+The most basic check ensures that the [runtime](./runtime.html) is running
+and (indirectly) that CLI tools can [authenticate](./cli.html#erlang-cookie) with it.
 
 Except for the CLI tool authentication
 part, the probability of false positives can be considered approaching `0`
 except for upgrades and maintenance windows.
 
-[`rabbitmq-diagnostics ping`](/rabbitmq-diagnostics.8.html) performs this check:
+[`rabbitmq-diagnostics ping`](./rabbitmq-diagnostics.8.html) performs this check:
 
 <pre class="lang-bash">
 rabbitmq-diagnostics -q ping
@@ -504,7 +504,7 @@ rabbitmq-diagnostics -q ping
 
 #### Stage 2
 
-A slightly more comprehensive check is executing [`rabbitmq-diagnostics status`](/rabbitmq-diagnostics.8.html) status:
+A slightly more comprehensive check is executing [`rabbitmq-diagnostics status`](./rabbitmq-diagnostics.8.html) status:
 
 This includes the stage 1 check plus retrieves some essential
 system information which is useful for other checks and should always be
@@ -522,8 +522,8 @@ except for upgrades and maintenance windows.
 #### Stage 3
 
 Includes previous checks and also verifies that the RabbitMQ application is running
-(not stopped with [`rabbitmqctl stop_app`](/rabbitmqctl.8.html#stop_app)
-or the [Pause Minority partition handling strategy](/partitions.html))
+(not stopped with [`rabbitmqctl stop_app`](./rabbitmqctl.8.html#stop_app)
+or the [Pause Minority partition handling strategy](./partitions.html))
 and there are no resource alarms.
 
 <pre class="lang-bash">
@@ -531,10 +531,10 @@ and there are no resource alarms.
 rabbitmq-diagnostics -q alarms
 </pre>
 
-[`rabbitmq-diagnostics check_running`](/rabbitmq-diagnostics.8.html) is a check that makes sure that the runtime is running
+[`rabbitmq-diagnostics check_running`](./rabbitmq-diagnostics.8.html) is a check that makes sure that the runtime is running
 and the RabbitMQ application on it is not stopped or paused.
 
-[`rabbitmq-diagnostics check_local_alarms`](/rabbitmq-diagnostics.8.html) checks that there are no local alarms in effect
+[`rabbitmq-diagnostics check_local_alarms`](./rabbitmq-diagnostics.8.html) checks that there are no local alarms in effect
 on the node. If there are any, it will exit with a non-zero status.
 
 The two commands in combination deliver the stage 3 check:
@@ -545,7 +545,7 @@ rabbitmq-diagnostics -q check_running &amp;&amp; rabbitmq-diagnostics -q check_l
 </pre>
 
 The probability of false positives is low. Systems hovering around their
-[high runtime memory watermark](/alarms.html) will have a high probability of false positives.
+[high runtime memory watermark](./alarms.html) will have a high probability of false positives.
 During upgrades and maintenance windows can raise significantly.
 
 Specifically for memory alarms, the `GET /api/nodes/{node}/memory` HTTP API endpoint can be used for additional checks.
@@ -584,7 +584,7 @@ curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@host
 # =&gt; }
 </pre>
 
-The [breakdown information](/memory-use.html) it produces can be reduced down to a single value using [jq](https://stedolan.github.io/jq/manual/)
+The [breakdown information](./memory-use.html) it produces can be reduced down to a single value using [jq](https://stedolan.github.io/jq/manual/)
 or similar tools:
 
 <pre class="lang-bash">
@@ -592,7 +592,7 @@ curl --silent -u guest:guest -X GET http://127.0.0.1:15672/api/nodes/rabbit@host
 # =&gt; 397365248
 </pre>
 
-[`rabbitmq-diagnostics -q memory_breakdown`](/rabbitmq-diagnostics.8.html) provides access to the same per category data
+[`rabbitmq-diagnostics -q memory_breakdown`](./rabbitmq-diagnostics.8.html) provides access to the same per category data
 and supports various units:
 
 <pre class="lang-bash">
@@ -623,7 +623,7 @@ rabbitmq-diagnostics -q memory_breakdown --unit "MB"
 Includes all checks in stage 3 plus a check on all enabled listeners
 (using a temporary TCP connection).
 
-To inspect all listeners enabled on a node, use [`rabbitmq-diagnostics listeners`](/rabbitmq-diagnostics.8.html):
+To inspect all listeners enabled on a node, use [`rabbitmq-diagnostics listeners`](./rabbitmq-diagnostics.8.html):
 
 <pre class="lang-bash">
 rabbitmq-diagnostics -q listeners
@@ -634,7 +634,7 @@ rabbitmq-diagnostics -q listeners
 # =&gt; Interface: [::], port: 15671, protocol: https, purpose: HTTP API over TLS (HTTPS)
 </pre>
 
-[`rabbitmq-diagnostics check_port_connectivity`](/rabbitmq-diagnostics.8.html) is a command that
+[`rabbitmq-diagnostics check_port_connectivity`](./rabbitmq-diagnostics.8.html) is a command that
 performs the basic TCP connectivity check mentioned above:
 
 <pre class="lang-bash">
@@ -647,9 +647,9 @@ maintenance windows can raise significantly.
 
 #### Stage 5
 
-Includes all checks in stage 4 plus checks that there are no failed [virtual hosts](/vhosts.html).
+Includes all checks in stage 4 plus checks that there are no failed [virtual hosts](./vhosts.html).
 
-[`rabbitmq-diagnostics check_virtual_hosts`](/rabbitmq-diagnostics.8.html) is a command
+[`rabbitmq-diagnostics check_virtual_hosts`](./rabbitmq-diagnostics.8.html) is a command
 checks whether any virtual host dependencies may have failed. This is done for all
 virtual hosts.
 
@@ -664,19 +664,19 @@ high CPU load.
 
 ### <a id="readiness-probes" class="anchor" href="#readiness-probes">Health Checks as Readiness Probes</a>
 
-In some environments, node restarts are controlled with a designated [health check](/monitoring.html#health-checks).
+In some environments, node restarts are controlled with a designated [health check](./monitoring.html#health-checks).
 The checks verify that one node has started and the deployment process can proceed to the next one.
 If the check does not pass, the deployment of the node is considered to be incomplete and the deployment process
 will typically wait and retry for a period of time. One popular example of such environment is Kubernetes
 where an operator-defined [readiness probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
 can prevent a deployment from proceeding when the [`OrderedReady` pod management policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) is used.
 
-Given the [peer syncing behavior during node restarts](/clustering.html#restarting-schema-sync), such a health check can prevent a cluster-wide restart
+Given the [peer syncing behavior during node restarts](./clustering.html#restarting-schema-sync), such a health check can prevent a cluster-wide restart
 from completing in time. Checks that explicitly or implicitly assume a fully booted node that's rejoined
 its cluster peers will fail and block further node deployments.
 
 Most health check, even relatively basic ones, implicitly assume that the node has
-finished booting. They are not suitable for nodes that are [awaiting schema table sync](/clustering.html#restarting-schema-sync) from a peer.
+finished booting. They are not suitable for nodes that are [awaiting schema table sync](./clustering.html#restarting-schema-sync) from a peer.
 
 One very common example of such check is
 
@@ -695,7 +695,7 @@ rabbitmq-diagnostics ping
 </pre>
 
 This basic check would allow the deployment to proceed and the nodes to eventually rejoin each other,
-assuming they are [compatible](/upgrade.html).
+assuming they are [compatible](./upgrade.html).
 
 
 #### Optional Check 1
@@ -703,7 +703,7 @@ assuming they are [compatible](/upgrade.html).
 This check verifies that an expected set of plugins is enabled. It is orthogonal to
 the primary checks.
 
-[`rabbitmq-plugins list --enabled`](/rabbitmq-plugins.8.html#list) is the command that lists enabled plugins
+[`rabbitmq-plugins list --enabled`](./rabbitmq-plugins.8.html#list) is the command that lists enabled plugins
 on a node:
 
 <pre class="lang-bash">
@@ -730,7 +730,7 @@ rabbitmq-plugins -q is_enabled rabbitmq_shovel
 </pre>
 
 The probability of false positives is generally low but raises
-in environments where environment variables that can affect [rabbitmq-plugins](/cli.html)
+in environments where environment variables that can affect [rabbitmq-plugins](./cli.html)
 are overridden.
 
 ## <a id="deprecations" class="anchor" href="#deprecations">Deprecated Health Checks and Monitoring Features</a>
@@ -758,7 +758,7 @@ assumes a fully booted node.
 
 `rabbitmq-diagnostics observer` is a command-line tool similar to `top`, `htop`, `vmstat`. It is a command line
 alternative to [Erlang's Observer application](http://erlang.org/doc/man/observer.html). It provides
-access to many metrics, including detailed state of individual [runtime](/runtime.html) processes:
+access to many metrics, including detailed state of individual [runtime](./runtime.html) processes:
 
  * Runtime version information
  * CPU and schedule stats
@@ -867,7 +867,7 @@ Note that this list is by no means complete.
     <tr>
       <td>Prometheus</td>
       <td>
-        <a href="/prometheus.html">Prometheus guide</a>,
+        <a href="./prometheus.html">Prometheus guide</a>,
         <a href="https://github.com/rabbitmq/rabbitmq-prometheus">GitHub</a>
       </td>
     </tr>
@@ -897,6 +897,6 @@ Note that this list is by no means complete.
 
 ## <a id="log-aggregation" class="anchor" href="#log-aggregation">Log Aggregation</a>
 
-[Logs](/logging.html) are also very important in troubleshooting a distributed system. Like metrics, logs can provide
+[Logs](./logging.html) are also very important in troubleshooting a distributed system. Like metrics, logs can provide
 important clues that will help identify the root cause. Collect logs from all RabbitMQ nodes as well
 as all applications (if possible).

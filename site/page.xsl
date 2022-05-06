@@ -55,11 +55,11 @@ limitations under the License.
       <meta content='width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no' id='viewport' name='viewport'/>
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet"/>
 
-      <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
-      <link rel="stylesheet" href="/css/highlightjs_style.css" type="text/css" />
+      <link rel="stylesheet" href="./css/rabbit.css" type="text/css"/>
+      <link rel="stylesheet" href="./css/highlightjs_style.css" type="text/css" />
 
       <xsl:if test="$site-mode = 'next'">
-        <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
+        <link rel="stylesheet" href="./css/rabbit-next.css" type="text/css"/>
       </xsl:if>
       <xsl:if test="$site-mode = 'previous'">
         <doc:style>
@@ -71,10 +71,10 @@ limitations under the License.
         </doc:style>
       </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
-      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
+      <link rel="stylesheet" href="./css/rabbit-ie6.css" type="text/css" />
       <![endif]]]></xsl:comment>
-      <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
-      <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
+      <link rel="icon" type="/image/vnd.microsoft.icon" href="./favicon.ico"/>
+      <link rel="stylesheet" href="./css/tutorial.css" type="text/css"/>
       <script async="true" type="text/javascript" src="/js/site.js"></script>
 
       <title><xsl:value-of select="//html:title"/> — RabbitMQ</title>
@@ -166,17 +166,17 @@ limitations under the License.
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div class="rabbit-logo">
-      <a href="/"><img src="/img/logo-rabbitmq.svg" alt="RabbitMQ"/></a>
+      <a href="./"><img src="./img/logo-rabbitmq.svg" alt="RabbitMQ"/></a>
     </div>
-    <a class='btn menubtn' onclick='showHide()'>Menu <img src="/img/carrot-down-white.svg"/></a>
-    <div class='mobilemenuicon' onclick='showHide()'><img src="/img/mobile-menu-icon.svg"/></div>
+    <a class='btn menubtn' onclick='showHide()'>Menu <img src="./img/carrot-down-white.svg"/></a>
+    <div class='mobilemenuicon' onclick='showHide()'><img src="./img/mobile-menu-icon.svg"/></div>
     <div id="nav">
       <ul id="mainNav">
-        <li><a href="/#features">Features</a></li>
-        <li><a href="/#getstarted">Get Started</a></li>
-        <li><a href="/#support">Support</a></li>
-        <li><a href="/#community">Community</a></li>
-        <li><a href="/documentation.html">Docs</a></li>
+        <li><a href="./#features">Features</a></li>
+        <li><a href="./#getstarted">Get Started</a></li>
+        <li><a href="./#support">Support</a></li>
+        <li><a href="./#community">Community</a></li>
+        <li><a href="./documentation.html">Docs</a></li>
         <xsl:if test="$site-mode = 'www'">
           <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
         </xsl:if>
@@ -195,14 +195,14 @@ limitations under the License.
     </div>
       <div class='container'>
         <div class="rabbit-logo">
-          <a href="/"><img src="/img/logo-rabbitmq-white.svg" alt="RabbitMQ"/></a>
+          <a href="./"><img src="./img/logo-rabbitmq-white.svg" alt="RabbitMQ"/></a>
         </div>
         <ul class='footerNav'>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#getstarted">Get Started</a></li>
-          <li><a href="/#support">Support</a></li>
-          <li><a href="/#community">Community</a></li>
-          <li><a href="/documentation.html">Docs</a></li>
+          <li><a href="./#features">Features</a></li>
+          <li><a href="./#getstarted">Get Started</a></li>
+          <li><a href="./#support">Support</a></li>
+          <li><a href="./#community">Community</a></li>
+          <li><a href="./documentation.html">Docs</a></li>
           <xsl:if test="$site-mode = 'www'">
             <li><a href="https://blog.rabbitmq.com/">Blog</a></li>
           </xsl:if>
@@ -211,7 +211,7 @@ limitations under the License.
           Copyright &#169; 2007-2022 <a href="https://tanzu.vmware.com/">VMware</a>, Inc. or its affiliates. All rights reserved.
           <a href="https://www.vmware.com/help/legal.html">Terms of Use</a> &#8226;
           <a href="https://www.vmware.com/help/privacy.html">Privacy</a> &#8226;
-          <a href="/trademark-guidelines.html">Trademark Guidelines</a> &#8226;
+          <a href="./trademark-guidelines.html">Trademark Guidelines</a> &#8226;
           <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> &#8226;
           <a class="ot-sdk-show-settings">Cookie Settings</a>
           <br/>
@@ -369,7 +369,7 @@ limitations under the License.
           <a class="adownload" href="{@url}"><xsl:value-of select="@downloadfile"/></a>
         </xsl:when>
         <xsl:otherwise>
-          <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+          <a class="adownload" href="./releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
         </xsl:otherwise>
       </xsl:choose>
 
@@ -377,7 +377,7 @@ limitations under the License.
       <xsl:choose>
         <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and @downloadpath">
           <td class="signature">
-            <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+            <a href="./releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
           </td>
         </xsl:when>
         <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and not(@downloadpath)">
@@ -402,7 +402,7 @@ limitations under the License.
       <xsl:when test="@type = 'plugin'">
         <p>
           For more information about the installation of plugins, refer to the
-          <a href="/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+          <a href="./plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
         </p>
       </xsl:when>
     </xsl:choose>

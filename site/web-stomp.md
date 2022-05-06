@@ -19,25 +19,25 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The Web STOMP plugin makes it possible to use
-[STOMP](/stomp.html) over a WebSocket connection.
+[STOMP](./stomp.html) over a WebSocket connection.
 
 The goal of this plugin is to enable STOMP messaging in Web applications.
 
-A similar plugin, [Web MQTT plugin](/web-mqtt.html), makes it possible to use [MQTT](/mqtt.html) over
+A similar plugin, [Web MQTT plugin](./web-mqtt.html), makes it possible to use [MQTT](./mqtt.html) over
 WebSockets.
 
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How It Works</a>
 
 RabbitMQ Web STOMP plugin is a minimalistic "bridge" between the STOMP protocol implementation
-provided by [RabbitMQ STOMP plugin](/stomp.html), and WebSocket clients.
+provided by [RabbitMQ STOMP plugin](./stomp.html), and WebSocket clients.
 
-RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](/stomp.html) plugin.
+RabbitMQ Web STOMP is fully compatible with the [RabbitMQ STOMP](./stomp.html) plugin.
 
 ## <a id="enabling" class="anchor" href="#enabling">Enabling the Plugin</a>
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
-To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.8.html):
+To enable the plugin run [rabbitmq-plugins](./man/rabbitmq-plugins.8.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_web_stomp
@@ -121,7 +121,7 @@ all interfaces on port 15674 and have a default user login/passcode of
 We highly recommend creating a separate user for production systems.
 
 To change the listener port, edit your
-[Advanced configuration file](/configure.html#configuration-files),
+[Advanced configuration file](./configure.html#configuration-files),
 to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_stomp` application.
 
 For example, a complete configuration file which changes the listener
@@ -138,7 +138,7 @@ for details about accepted parameters.
 
 ### <a id="tls" class="anchor" href="#tls">TLS (WSS)</a>
 
-The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](/ssl.html)
+The plugin supports WebSockets with TLS (WSS) connections. See [TLS guide](./ssl.html)
 to learn more about TLS support in RabbitMQ.
 
 TLS configuration parameters are provided in the `web_stomp.ssl` section:
@@ -154,7 +154,7 @@ web_stomp.ssl.password   = changeme
 
 The TLS listener port, server certificate file, private key and CA certificate bundle are mandatory options.
 Password is also mandatory if the private key uses one.
-An extended list of TLS settings is largely identical to those [for the core server](/ssl.html).
+An extended list of TLS settings is largely identical to those [for the core server](./ssl.html).
 Full list of options accepted by this plugin can be found in [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.7/manual/ranch_ssl/).
 
 #### <a id="tls-versions" class="anchor" href="#tls-versions">Enabled TLS Versions and Cipher Suites</a>
@@ -162,10 +162,10 @@ Full list of options accepted by this plugin can be found in [Ranch documentatio
 It is possible to configure what TLS versions and cipher suites will be used by RabbitMQ. Note that not all
 suites will be available on all systems.
 
-RabbitMQ TLS guide has [a section on TLS versions](/ssl.html#disabling-tls-versions) and another one
-[on cipher suites](/ssl.html#cipher-suites). Below is an example
-in the [advanced config format](/configure.html#advanced-config-file) that configures cipher suites
-and a number of other [TLS options](/ssl.html) for the plugin:
+RabbitMQ TLS guide has [a section on TLS versions](./ssl.html#disabling-tls-versions) and another one
+[on cipher suites](./ssl.html#cipher-suites). Below is an example
+in the [advanced config format](./configure.html#advanced-config-file) that configures cipher suites
+and a number of other [TLS options](./ssl.html) for the plugin:
 
 <pre class="lang-ini">
 web_stomp.ssl.port       = 15673
@@ -196,7 +196,7 @@ web_stomp.ssl.ciphers.9 = DHE-RSA-AES256-GCM-SHA384
 
 #### Troubleshooting TLS (WSS)
 
-See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for additional
+See [RabbitMQ TLS](./ssl.html) and [TLS Troubleshooting](./troubleshooting-ssl.html) for additional
 information.
 
 
@@ -209,8 +209,8 @@ present, these credentials will be used. Otherwise, the
 default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.
 
-This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-files)
-or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+This is an advanced feature that is only exposed via the [advanced configuration file](./configure.html#configuration-files)
+or the <a href="./configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="lang-erlang">
 [
@@ -228,7 +228,7 @@ This feature is disabled by default, to enable it for clients:
 web_stomp.proxy_protocol = true
 </pre>
 
-See the [Networking Guide](/networking.html#proxy-protocol) for more information
+See the [Networking Guide](./networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 

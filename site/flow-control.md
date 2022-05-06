@@ -19,7 +19,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers a back pressure mechanism applied by RabbitMQ nodes
-to publishing connections in order to avoid runaway [memory usage](/memory-use.html) growth.
+to publishing connections in order to avoid runaway [memory usage](./memory-use.html) growth.
 It is necessary because some components in a node can fall behind particularly fast publishers
 as they have to do significantly more work than publishing clients (e.g. replicate data to N
 peer nodes or store it on disk).
@@ -47,6 +47,6 @@ Other components than connections can be in the
 `flow` state. Channels, queues and other parts of the system
 can apply flow control that eventually propagates back to publishing connections.
 
-To find out if consumers and [prefetch settings](/confirms.html)
+To find out if consumers and [prefetch settings](./confirms.html)
 can be key limiting factors, [take a look at relevant metrics](https://blog.rabbitmq.com/posts/2014/04/finding-bottlenecks-with-rabbitmq-3-3/).
-See [Monitoring and Health Checks](/monitoring.html) guide to learn more.
+See [Monitoring and Health Checks](./monitoring.html) guide to learn more.

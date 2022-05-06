@@ -22,7 +22,7 @@ limitations under the License.
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 <div class="diagram">
-  <img src="/img/tutorials/python-two.png" height="110" />
+  <img src="../img/tutorials/python-two.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -314,7 +314,7 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 <div class="diagram">
-  <img src="/img/tutorials/prefetch-count.png" height="110" />
+  <img src="../img/tutorials/prefetch-count.png" height="110" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
