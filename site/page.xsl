@@ -73,7 +73,7 @@ limitations under the License.
       <xsl:comment><![CDATA[[if IE 6]>
       <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
       <![endif]]]></xsl:comment>
-      <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
+      <link rel="icon" type="/image/vnd.microsoft.icon" href="./favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script async="true" type="text/javascript" src="/js/site.js"></script>
 

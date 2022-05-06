@@ -20,7 +20,7 @@ limitations under the License.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:gcse="custard">
   <head>
     <title>Search This Site</title>
-    <link rel="stylesheet" href="./css/search.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
   </head>
   <body>
 <p>Use the form below to search using our RabbitMQ customised search engine.</p>

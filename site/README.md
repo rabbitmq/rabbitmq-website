@@ -7,6 +7,6 @@ guides).
 
 If you are looking for the code that renders the site, see [./code](../code/) instead.
 
-Stylesheets can be found under [./site/css](./css/) and JavaScript code under
+Stylesheets can be found under [./site/css](/css/) and JavaScript code under
 [./site/js](./js/).
 
