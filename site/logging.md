@@ -391,23 +391,29 @@ log.upgrade.level = none
 
 ### <a id="log-levels" class="anchor" href="#log-levels">Log Levels</a>
 
-Log levels is another way to filter and tune logging. Each log level has a severity associated with it.
-More critical messages have lower severity number, while `debug` has the highest number.
+Log levels is another way to filter and tune logging. Log levels have
+a strict ordering. Each log message has a severity from `debug` being
+the lowest severity to `critical` being the highest.
+
+Logging verbosity can be controlled on multiple layers by setting log
+levels for categories and outputs. More verbose log levels will
+include more log messages from `debug` being the most verbose to
+`none` being the least.
 
 The following log levels are used by RabbitMQ:
 
-| Log level  | Severity |
-|------------|----------|
-| `debug`    | 128      |
-| `info`     | 64       |
-| `warning`  | 16       |
-| `error`    | 8        |
-| `critical` | 4        |
-| `none`     | 0        |
+| Log level  | Verbosity     | Severity         |
+|------------|---------------|------------------|
+| `debug`    | most verbose  | lowest severity  |
+| `info`     |               |                  |
+| `warning`  |               |                  |
+| `error`    |               |                  |
+| `critical` |               | highest severity |
+| `none`     | least verbose | not applicable   |
 
 Default log level is `info`.
 
-If the level of a log message is higher than the category level,
+If a log message has lower severity than the category level,
 the message will be dropped and not sent to any output.
 
 If a category level is not configured, its messages will always be sent
@@ -422,14 +428,15 @@ log.default.level = error
 The `none` level means no logging.
 
 Each output can use its own log level. If a message
-level number is higher than the output level, the message will not be logged.
+has lower severity than the output level, the message will not be logged.
 
 For example, if no outputs are configured to log
 `debug` messages, even if the category level is set to `debug`, the
 debug messages will not be logged.
 
-Although, if an output is configured to log `debug` messages,
-it will get them from all categories, unless a category level is configured.
+On the other hand, if an output is configured to log `debug` messages,
+it will get them from all categories, unless a category is configured
+with a less verbose level.
 
 #### <a id="changing-log-level" class="anchor" href="#changing-log-level">Changing Log Level</a>
 
