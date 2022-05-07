@@ -22,7 +22,7 @@ limitations under the License.
 This guide accompanies the one [on networking](networking.html) and focuses on troubleshooting of
 network connections.
 
-For connections that use TLS there is an additional [guide on troubleshooting TLS](/troubleshooting-ssl.html).
+For connections that use TLS there is an additional [guide on troubleshooting TLS](./troubleshooting-ssl.html).
 
 ## <a id="methodology" class="anchor" href="#methodology">Troubleshooting Methodology</a>
 
@@ -45,7 +45,7 @@ are often effective and sufficient:
  * Verify what TCP [port are used and their accessibility](#ports)
  * Verify [IP routing](#ip-routing)
  * If needed, [take and analyze a traffic dump](#traffic-capture) (traffic capture)
- * Verify that clients can [successfully authenticate](/access-control.html#troubleshooting-authn)
+ * Verify that clients can [successfully authenticate](./access-control.html#troubleshooting-authn)
 
 These steps, when performed in sequence, usually help identify the root cause of
 the vast majority of networking issues. Troubleshooting tools and techniques for
@@ -53,7 +53,7 @@ levels lower than the [Internet (networking) layer](https://en.wikipedia.org/wik
 are outside of the scope of this guide.
 
 Certain problems only happen in environments with a [high degree of connection churn](#detecting-high-connection-churn).
-Client connections can be inspected using the [management UI](/management.html).
+Client connections can be inspected using the [management UI](./management.html).
 It is also possible to [inspect all TCP connections of a node and their state](#inspecting-connections).
 That information collected over time, combined with server logs, will help detect connection churn,
 file descriptor exhaustion and related issues.
@@ -73,7 +73,7 @@ with the expected set of settings related to networking. It also verifies
 that the node is actually running. Here are the recommended steps:
 
  * Make sure the node is running using <code>[rabbitmq-diagnostics][2] status</code>
- * Verify [config file is correctly placed and has correct syntax/structure](/configure.html#configuration-files)
+ * Verify [config file is correctly placed and has correct syntax/structure](./configure.html#configuration-files)
  * Inspect listeners using <code>[rabbitmq-diagnostics][2] listeners</code>
    or the `listeners` section in <code>[rabbitmq-diagnostics][2] status</code>
  * Inspect effective configuration using <code>[rabbitmq-diagnostics][2] environment</code>
@@ -98,30 +98,30 @@ Interface: [::], port: 1883, protocol: mqtt, purpose: MQTT
 
 In the above example, there are 6 TCP listeners on the node:
 
- * [Inter-node](/clustering.html) and [CLI tool](/cli.html) communication on port `25672`
+ * [Inter-node](./clustering.html) and [CLI tool](./cli.html) communication on port `25672`
  * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections on port `5672`
  * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port `5671`
- * [HTTP API](/management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
- * [MQTT](/mqtt.html) listener for non-TLS connections 1883
+ * [HTTP API](./management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
+ * [MQTT](./mqtt.html) listener for non-TLS connections 1883
 
 In second example, there are 4 TCP listeners on the node:
 
- * [Inter-node](/clustering.html) and [CLI tool](/cli.html) communication on port `25672`
+ * [Inter-node](./clustering.html) and [CLI tool](./cli.html) communication on port `25672`
  * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections, `5672`
  * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections, `5671`
- * [HTTP API](/management.html) listener on ports 15672 (HTTP only)
+ * [HTTP API](./management.html) listener on ports 15672 (HTTP only)
 
 All listeners are bound to all available interfaces.
 
 Inspecting TCP listeners used by a node helps spot non-standard port configuration,
-protocol plugins (e.g. [MQTT](/mqtt.html)) that are supposed to be configured but aren't,
+protocol plugins (e.g. [MQTT](./mqtt.html)) that are supposed to be configured but aren't,
 cases when the node is limited to only a few network interfaces, and so on. If a port is not on the
 listener list it means the node cannot accept any connections on it.
 
 ## <a id="server-logs" class="anchor" href="#server-logs">Inspect Server Logs</a>
 
-RabbitMQ nodes will [log](/logging.html) key
-client [connection lifecycle events](/logging.html#connection-lifecycle-events).
+RabbitMQ nodes will [log](./logging.html) key
+client [connection lifecycle events](./logging.html#connection-lifecycle-events).
 A TCP connection must be successfully established and at least 1 byte of data must be
 sent by the peer for a connection to be considered (and logged as) accepted.
 
@@ -255,11 +255,11 @@ All network activity can be inspected, filtered and analyzed using a traffic cap
 
 [tcpdump](https://en.wikipedia.org/wiki/Tcpdump) and its GUI sibling [Wireshark](https://www.wireshark.org)
 are the industry standards for capturing traffic, filtering and analysis. Both support all protocols supported by RabbitMQ.
-See the [Using Wireshark with RabbitMQ](/amqp-wireshark.html) guide for an overview.
+See the [Using Wireshark with RabbitMQ](./amqp-wireshark.html) guide for an overview.
 
 ## <a id="tls" class="anchor" href="#tls">TLS Connections</a>
 
-For connections that use TLS there is a separate [guide on troubleshooting TLS](/troubleshooting-ssl.html).
+For connections that use TLS there is a separate [guide on troubleshooting TLS](./troubleshooting-ssl.html).
 
 When adopting TLS it is important to make sure that clients
 use correct port to connect (see the list of ports above)
@@ -289,7 +289,7 @@ sudo netstat --all --numeric --tcp --programs
 Both inbound (client, peer nodes, CLI tools) and outgoing (peer nodes,
 Federation links and Shovels) connections can be inspected this way.
 
-<code>[rabbitmqctl][1] list_connections</code>, [management UI](/management.html)
+<code>[rabbitmqctl][1] list_connections</code>, [management UI](./management.html)
 can be used to inspect more connection properties, some of which are RabbitMQ- or
 messaging protocol-specific:
 
@@ -306,14 +306,14 @@ messaging protocol-specific:
 Combining connection information from management UI or CLI tools with those of `netstat` or `ss`
 can help troubleshoot misbehaving applications, application instances and client libraries.
 
-Most relevant connection metrics can be collected, aggregated and [monitored](/monitoring.html)
-using [Prometheus and Grafana](/prometheus.html).
+Most relevant connection metrics can be collected, aggregated and [monitored](./monitoring.html)
+using [Prometheus and Grafana](./prometheus.html).
 
 
 ## <a id="detecting-high-connection-churn" class="anchor" href="#detecting-high-connection-churn">Detecting High Connection Churn</a>
 
 High connection churn (lots of connections opened and closed after a brief
-period of time) [can lead to resource exhaustion](/networking.html#dealing-with-high-connection-churn).
+period of time) [can lead to resource exhaustion](./networking.html#dealing-with-high-connection-churn).
 It is therefore important to be able to identify such scenarios. `netstat` and `ss`
 are most popular options for [inspecting TCP connections](#inspecting-connections).
 A lot of connections in the `TIME_WAIT` state is a likely symptom of high connection churn.

@@ -18,21 +18,21 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide assumes familiarity with the general [clustering guide](/clustering.html) as well
-the guide on [cluster peer discovery](/cluster-formation.html).
+This guide assumes familiarity with the general [clustering guide](./clustering.html) as well
+the guide on [cluster peer discovery](./cluster-formation.html).
 
 Using RabbitMQ on EC2 is quite similar to running it on other
 platforms. However, there are certain minor aspects to EC2 that need
 to be accounted for. They primarily have to do with hostnames and their resolution.
 
-This guide demonstrates manual ([CLI](/cli.html)-driven) RabbitMQ clustering.
-[Peer discovery plugin for AWS](/cluster-formation.html) (RabbitMQ 3.7.0 or later)
+This guide demonstrates manual ([CLI](./cli.html)-driven) RabbitMQ clustering.
+[Peer discovery plugin for AWS](./cluster-formation.html) (RabbitMQ 3.7.0 or later)
 is an option more suitable for automation.
 
 ## <a id="amis" class="anchor" href="#amis">AMIs</a>
 
 RabbitMQ works well on up-to-date Ubuntu, Debian and CentOS AMIs as long as
-a [compatible version of Erlang/OTP](/which-erlang.html) is installed.
+a [compatible version of Erlang/OTP](./which-erlang.html) is installed.
 
 ## <a id="instance-types" class="anchor" href="#instance-types">Choosing an Instance Type</a>
 
@@ -41,13 +41,13 @@ worth bearing in mind:
 
  * Use 64-bit instances.
  * Depending on the workload and settings, RabbitMQ can require substantial amounts of memory.
-	 Make sure that your host does have an [appropriate amount of RAM](/memory.html) and always have
-	 at least a few gigabytes of swap space enabled. Workloads can be simulated using [PerfTest](/java-tools.html).
-   A separate guide on [reasoning about node memory usage](/memory-use.html) is available.
+	 Make sure that your host does have an [appropriate amount of RAM](./memory.html) and always have
+	 at least a few gigabytes of swap space enabled. Workloads can be simulated using [PerfTest](./java-tools.html).
+   A separate guide on [reasoning about node memory usage](./memory-use.html) is available.
  * RabbitMQ generally will take advantage of all the CPU cores
 	in the system provided the workload uses [multiple queues](queues.html).
   Other factors should be taken into account (e.g. disk and network I/O throughput).
- * [Monitoring](/monitoring.html) RabbitMQ nodes as well as applications that use it
+ * [Monitoring](./monitoring.html) RabbitMQ nodes as well as applications that use it
    on real or simulated workloads will help assess how suitable a particular instance type is.
 
 
@@ -85,7 +85,7 @@ On Linux, RabbitMQ will use the following directories for its node data director
  * <code>/var/lib/rabbitmq/</code> to store persistent data like the messages or queues
  * <code>/var/log/rabbitmq/</code> to store logs
 
-See the [File and Directory Locations](/relocate.html) for details.
+See the [File and Directory Locations](./relocate.html) for details.
 
 Those directories can be symlinks to a dedicated storage volume. The node must be stopped
 before symlinking is performed:
@@ -101,16 +101,16 @@ If an EBS volume hits the limit, disk writes will worsen. It is also possible th
 compaction (garbage collection of on-disk data) can fall behind
 disk writes, which means the disk will be filled up quicker than
 disk space can be reclaimed after messages were consumed and
-acknowledged. This will eventually lead to [resource alarms](/alarms.html) and publisher throttling. Please make sure the limit
+acknowledged. This will eventually lead to [resource alarms](./alarms.html) and publisher throttling. Please make sure the limit
 is high and set up I/O operation rate monitoring.
 
 ## <a id="related" class="anchor" href="#related">Further Reading</a>
 
 Several other guides cover topics highly relevant for running RabbitMQ clusters in public clouds:
 
- * [Clustering Fundamentals](/clustering.html)
- * [Peer Discovery](/cluster-formation.html)
+ * [Clustering Fundamentals](./clustering.html)
+ * [Peer Discovery](./cluster-formation.html)
  * [Configuration](configure.html)
- * [Monitoring](/monitoring.html)
- * [Production Checklist](/production-checklist.html)
- * [File and Directory Locations](/relocate.html)
+ * [Monitoring](./monitoring.html)
+ * [Production Checklist](./production-checklist.html)
+ * [File and Directory Locations](./relocate.html)

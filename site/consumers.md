@@ -91,15 +91,15 @@ runs.
 
 Consumers can be more dynamic and register in reaction to a system event, unsubscribing
 when they are no longer necessary. This is common with WebSocket clients
-used via [Web STOMP](/web-stomp.html) and [Web MQTT](web-mqtt.html) plugins, mobile clients and so on.
+used via [Web STOMP](./web-stomp.html) and [Web MQTT](web-mqtt.html) plugins, mobile clients and so on.
 
 ### <a id="connection-recovery" class="anchor" href="#connection-recovery">Connection Recovery</a>
 
-Client can lose their connection to RabbitMQ. When connection loss is [detected](/heartbeats.html),
+Client can lose their connection to RabbitMQ. When connection loss is [detected](./heartbeats.html),
 message delivery stops.
 
 Some client libraries offer automatic connection recovery features that involves consumer recovery.
-[Java](/api-guide.html#recovery), [.NET](/dotnet-api-guide.html#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
+[Java](./api-guide.html#recovery), [.NET](./dotnet-api-guide.html#recovery) and [Bunny](http://rubybunny.info/articles/error_handling.html)
 are examples of such libraries.
 While connection recovery cannot cover 100% of scenarios and workloads, it generally works very well for consuming
 applications and is recommended.
@@ -130,11 +130,11 @@ It can later be used to cancel the consumer.
 
 ### Java Client
 
-See [Java client guide](/api-guide.html#consuming) for examples.
+See [Java client guide](./api-guide.html#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](/dotnet-api-guide.html#consuming) for examples.
+See [.NET client guide](./dotnet-api-guide.html#consuming) for examples.
 
 ### <a id="message-properties" class="anchor" href="#message-properties">Message Properties and Delivery Metadata</a>
 
@@ -158,13 +158,13 @@ and set by RabbitMQ at routing and delivery time:
       <td>Delivery tag</td>
       <td>Positive integer</td>
       <td>
-        Delivery identifier, see <a href="/confirms.html">Confirms</a>.
+        Delivery identifier, see <a href="./confirms.html">Confirms</a>.
       </td>
     </tr>
     <tr>
       <td>Redelivered</td>
       <td>Boolean</td>
-      <td>Set to `true` if this message was previously <a href="/confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
+      <td>Set to `true` if this message was previously <a href="./confirms.html#consumer-nacks-requeue">delivered and requeued</a></td>
     </tr>
     <tr>
       <td>Exchange</td>
@@ -239,19 +239,19 @@ at the time of publishing:
     <tr>
       <td>Correlation ID</td>
       <td>String</td>
-      <td>Helps correlate requests with responses, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>Helps correlate requests with responses, see <a href="./getstarted.html">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Reply To</td>
       <td>String</td>
-      <td>Carries response queue name, see <a href="/getstarted.html">tutorial 6</a></td>
+      <td>Carries response queue name, see <a href="./getstarted.html">tutorial 6</a></td>
       <td>No</td>
     </tr>
     <tr>
       <td>Expiration</td>
       <td>String</td>
-      <td><a href="/ttl.html">Per-message TTL</a></td>
+      <td><a href="./ttl.html">Per-message TTL</a></td>
       <td>No</td>
     </tr>
     <tr>
@@ -263,7 +263,7 @@ at the time of publishing:
     <tr>
       <td>User ID</td>
       <td>String</td>
-      <td>User ID, <a href="/validated-user-id.html">validated</a> if set</td>
+      <td>User ID, <a href="./validated-user-id.html">validated</a> if set</td>
       <td>No</td>
     </tr>
     <tr>
@@ -312,7 +312,7 @@ When registering a consumer applications can choose one of two delivery modes:
  * Automatic (deliveries require no acknowledgement, a.k.a. "fire and forget")
  * Manual (deliveries require client acknowledgement)
 
-Consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html), together with
+Consumer acknowledgements are a subject of a [separate documentation guide](./confirms.html), together with
 publisher confirms, a closely related concept for publishers.
 
 ## <a id="prefetch" class="anchor" href="#prefetch">Limiting Simultaneous Deliveries with Prefetch</a>
@@ -320,12 +320,12 @@ publisher confirms, a closely related concept for publishers.
 With manual acknowledgement mode consumers have a way of limiting how many deliveries can be "in flight" (in transit
 over the network or delivered but unacknowledged). This can avoid consumer overload.
 
-This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](/confirms.html).
+This feature, together with consumer acknowledgements are a subject of a [separate documentation guide](./confirms.html).
 
 
 ## <a id="metrics-capacity" class="anchor" href="#metrics-capacity">The Consumer Capacity Metric</a>
 
-RabbitMQ [management UI](/management.html) as well as [monitoring data](/monitoring.html) endpoints such as that for [Prometheus scraping](/prometheus.html)
+RabbitMQ [management UI](./management.html) as well as [monitoring data](./monitoring.html) endpoints such as that for [Prometheus scraping](./prometheus.html)
 display a metric called consumer capacity (previously consumer utilisation) for individual queues.
 
 The metric is computed as a fraction of the time that the queue is able to immediately deliver messages to consumers.
@@ -355,11 +355,11 @@ Cancelling a consumer will not discard them.
 
 ### Java Client
 
-See [Java client guide](/api-guide.html#consuming) for examples.
+See [Java client guide](./api-guide.html#consuming) for examples.
 
 ### .NET Client
 
-See [.NET client guide](/dotnet-api-guide.html#consuming) for examples.
+See [.NET client guide](./dotnet-api-guide.html#consuming) for examples.
 
 ## <a id="fetching" class="anchor" href="#fetching">Fetching Individual Messages ("Pull API")</a>
 
@@ -376,11 +376,11 @@ When in doubt, prefer using a regular long-lived consumer.
 
 ### Java Client
 
-See [Java client guide](/api-guide.html#getting) for examples.
+See [Java client guide](./api-guide.html#getting) for examples.
 
 ### .NET Client
 
-See [.NET client guide](/dotnet-api-guide.html#basic-get) for examples.
+See [.NET client guide](./dotnet-api-guide.html#basic-get) for examples.
 
 
 ## <a id="acknowledgement-timeout" class="anchor" href="#acknowledgement-timeout">Delivery Acknowledgement Timeout</a>
@@ -474,8 +474,8 @@ Consumers just need to be registered and failover is handled automatically,
 there's no need to detect the active consumer failure and to register
 a new consumer.
 
-The [management UI](/management.html) and the
-[CLI](/rabbitmqctl.8.html) can [report](#active-consumer) which consumer is the current
+The [management UI](./management.html) and the
+[CLI](./rabbitmqctl.8.html) can [report](#active-consumer) which consumer is the current
 active one on a queue where the feature is enabled.
 
 Please note the following about single active consumer:
@@ -504,8 +504,8 @@ Please note the following about single active consumer:
 
 ## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
 
-The [management UI](/management.html) and the `list_consumers`
-[CLI](/rabbitmqctl.8.html#list_consumers) command report an `active`
+The [management UI](./management.html) and the `list_consumers`
+[CLI](./rabbitmqctl.8.html#list_consumers) command report an `active`
 flag for consumers. The value of this flag depends on several parameters.
 
  * for classic queues, the flag is always `true`
@@ -529,7 +529,7 @@ by effective [prefetch](#prefetch) setting.
 When consumer priorities are in use, messages are delivered round-robin if multiple active consumers
 exist with the same high priority.
 
-Consumer priorities are covered in a [separate guide](/consumer-priority.html).
+Consumer priorities are covered in a [separate guide](./consumer-priority.html).
 
 
 ## <a id="exceptions" class="anchor" href="#exceptions">Exception Handling</a>
@@ -539,7 +539,7 @@ or any other consumer operations. Such exceptions should be logged, collected an
 
 If a consumer cannot process deliveries due to a dependency not being available or similar reasons
 it should clearly log so and cancel itself until it is capable of processing deliveries again.
-This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](/monitoring.html).
+This will make the consumer's unavailability visible to RabbitMQ and [monitoring systems](./monitoring.html).
 
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Concurrency Considerations</a>
@@ -560,7 +560,7 @@ the number of cores available to them.
 
 ### Queue Parallelism Considerations
 
-A single RabbitMQ queue is [bounded to a single core](/queues.html#runtime-characteristics). Use more than
+A single RabbitMQ queue is [bounded to a single core](./queues.html#runtime-characteristics). Use more than
 one queue to improve CPU utilisation on the nodes. Plugins such as [sharding](https://github.com/rabbitmq/rabbitmq-sharding)
 and [consistent hash exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange) can be helpful
 in increasing parallelism.

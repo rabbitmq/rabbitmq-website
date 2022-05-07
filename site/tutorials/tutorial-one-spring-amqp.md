@@ -35,7 +35,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The Spring AMQP Framework
@@ -58,7 +58,7 @@ the artifact id (e.g. `rabbitmq-amqp-tutorials`)
 Search for the RabbitMQ dependency and select the RabbitMQ dependency.
 
 <div class="diagram">
-    <img src="/img/tutorials/spring-initializr.png" alt="(P) ->  [|||]"
+    <img src="../img/tutorials/spring-initializr.png" alt="(P) ->  [|||]"
         height="100" />
 </div>
 
@@ -203,7 +203,7 @@ public class RabbitAmqpTutorialsRunner implements CommandLineRunner {
 ### Sending
 
 <div class="diagram">
-  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
 Now there is very little code that needs to go into the

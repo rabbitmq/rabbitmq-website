@@ -30,7 +30,7 @@ Some covered topics include:
 * [Example topologies](#topology-diagrams)
 * [Implementation details](#details)
 
-A separate [Federation plugin reference](/federation-reference.html) guide is available.
+A separate [Federation plugin reference](./federation-reference.html) guide is available.
 
 Exchange federation is a mechanism that allows a flow of messages through an exchange
 in one location (called the _upstream_ or the source) be replicated to exchanges in other
@@ -45,18 +45,18 @@ The upstream exchanges do not need to be reconfigured. They are assumed
 to be located on a separate node or in a separate cluster.
 
 An upstream definition is a URI with certain recognised query parameters that
-control link connection parameters. Upstreams can be managed using [CLI tools](/cli.html)
+control link connection parameters. Upstreams can be managed using [CLI tools](./cli.html)
 or the HTTP API with [an additional plugin](https://github.com/rabbitmq/rabbitmq-federation-management).
 
 Here is a diagram showing a single upstream exchange (the source exchange) in one
 node linking to a set of two downstream exchanges in two other nodes:
 
-<img src="img/federation/federated-exchange.svg" alt="Basic federated exchange" title="Basic federated exchange"/>
+<img src="./img/federation/federated-exchange.svg" alt="Basic federated exchange" title="Basic federated exchange"/>
 
 When exchange federation is used, usually only a subset of exchanges in a cluster is federated.
 Some exchanges can be inherently local to the "site" (cluster) and its uses.
 
-Exchange federation will propagate [bindings](/tutorials/amqp-concepts.html)
+Exchange federation will propagate [bindings](./tutorials/amqp-concepts.html)
 from the downstream to the upstreams when possible. It will also apply optimizations and propagate messages selectively if needed.
 This is covered in [future sections](#details).
 
@@ -64,8 +64,8 @@ This is covered in [future sections](#details).
 ## <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
 Federated exchanges can be used to replicate a flow of certain message types to remote locations.
-Combined with continuous [schema synchronisation](/backup.html#definitions-backup) and
-[queue and message TTL](/ttl.html), this can be used to maintain a hot standby
+Combined with continuous [schema synchronisation](./backup.html#definitions-backup) and
+[queue and message TTL](./ttl.html), this can be used to maintain a hot standby
 with reasonably up-to-date data within a controlled time window.
 
 Another use would be to implement massive fanout with a single "source"
@@ -91,7 +91,7 @@ by RabbitMQ and cannot be federated.
 
 ## <a id="usage" class="anchor" href="#usage">Usage and Configuration</a>
 
-Federation configuration uses [runtime parameters and policies](/parameters.html), which means it can be configured
+Federation configuration uses [runtime parameters and policies](./parameters.html), which means it can be configured
 and reconfigured on the fly as system topology changes. There are two key pieces of configuration involved:
 
 * Upstreams: these are remote endpoints in a federated system
@@ -119,10 +119,10 @@ On Windows, use `rabbitmqctl.bat` and suitable PowerShell quoting:
 rabbitmqctl.bat set_parameter federation-upstream origin "{""uri"":""amqp://localhost:5672""}"
 </pre>
 
-More upstream definition parameters are covered in the [Federation Reference guide](/federation-reference.html).
+More upstream definition parameters are covered in the [Federation Reference guide](./federation-reference.html).
 
 Once an upstream has been specified, a policy that controls federation can be added. It is added just like
-any other [policy](/parameters.html#policies), using <code></code>:
+any other [policy](./parameters.html#policies), using <code></code>:
 
 <pre class="lang-bash">
 # Adds a policy named "exchange-federation"
@@ -151,7 +151,7 @@ the one with the highest priority will be used. Multiple policy definitions will
 priorities are equal.
 
 Once configured, a federation link (connection) will be opened for every matching exchange and upstream pair.
-By "matching exchange" here we mean an exchange that is matched by the [federation policy pattern](/parameters.html#policies).
+By "matching exchange" here we mean an exchange that is matched by the [federation policy pattern](./parameters.html#policies).
 If no exchanges matched, no links will be started.
 
 To disable federation for the matching exchanges, delete the policy using its name:
@@ -179,7 +179,7 @@ same type. Mixing types can and likely will lead to confusing routing behaviours
 ## <a id="details" class="anchor" href="#details">Implementation</a>
 
 Inter-broker communication is implemented using AMQP 0-9-1 (optionally
-[secured with TLS](/ssl.html)). Bindings are grouped together and binding operations such as
+[secured with TLS](./ssl.html)). Bindings are grouped together and binding operations such as
 `queue.bind` and `queue.unbind` commands are sent to the upstream side of
 the link when bindings change in the downstream.
 
@@ -191,7 +191,7 @@ The messages are buffered in an internally declared queue created in the upstrea
 exchange's cluster. This is called the _upstream queue_.
 It is the upstream queue which is bound to the upstream
 exchange with the grouped bindings. It is possible to tailor
-some of the properties of this queue in the [upstream configuration](/federation-reference.html#upstreams).
+some of the properties of this queue in the [upstream configuration](./federation-reference.html#upstreams).
 
 
 Here is a detailed diagram showing a single federated
@@ -202,7 +202,7 @@ messages republished by the federated exchange. Some
 potential publisher clients are shown publishing to both
 exchanges.
 
-<img src="img/federation/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
+<img src="./img/federation/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
 
 Publications to either exchange may be received by queues bound to
 the federated exchange, but publications directly to the federated
@@ -215,7 +215,7 @@ exchange.
 We illustrate some example federation topologies. Where RabbitMQ
 brokers are shown in these diagrams indicated by
 
-(indicated by a <img src="img/rabbitmq_logo_30x30.png" height="15"/>)
+(indicated by a <img src="./img/rabbitmq_logo_30x30.png" height="15"/>)
 
 it can be a cluster of nodes or a standalone node.
 
@@ -237,7 +237,7 @@ it can be a cluster of nodes or a standalone node.
           Both consumers can receive messages published by either publisher.
         </p>
 
-        <img src="img/federation/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
+        <img src="./img/federation/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
 
         <p>
           Both links are declared with `max-hops=1` so that
@@ -255,7 +255,7 @@ it can be a cluster of nodes or a standalone node.
           but for three exchanges. Each exchange links to both the others.
         </p>
 
-        <img src="img/federation/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
+        <img src="./img/federation/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
 
         <p>
           Again `max-hops=1` because the "hop distance" to any
@@ -275,7 +275,7 @@ it can be a cluster of nodes or a standalone node.
           received by any consumer connected to any broker in the tree.
         </p>
 
-        <img src="img/federation/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
+        <img src="./img/federation/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
 
         <p>
           Because there are no loops it is not as crucial to get the
@@ -296,7 +296,7 @@ it can be a cluster of nodes or a standalone node.
           once.
         </p>
 
-        <img src="img/federation/federation05.png" height="300" alt="Ring" title="Ring" />
+        <img src="./img/federation/federation05.png" height="300" alt="Ring" title="Ring" />
 
         <p>
           This topology, though relatively cheap in queues and connections, is

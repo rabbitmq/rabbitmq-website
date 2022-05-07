@@ -22,10 +22,10 @@ limitations under the License.
 Messages from a queue can be "dead-lettered"; that is, republished to
 an exchange when any of the following events occur:
 
- * The message is [negatively acknowledged](/confirms.html) by a consumer using `basic.reject` or
+ * The message is [negatively acknowledged](./confirms.html) by a consumer using `basic.reject` or
    `basic.nack` with `requeue` parameter set to `false`.
- * The message expires due to [per-message TTL](/ttl.html); or
- * The message is dropped because its queue exceeded a [length limit](/maxlength.html)
+ * The message expires due to [per-message TTL](./ttl.html); or
+ * The message is dropped because its queue exceeded a [length limit](./maxlength.html)
 
 Note that expiration of a queue will not dead letter the messages in it.
 
@@ -33,8 +33,8 @@ Dead letter exchanges (DLXs) are normal exchanges. They can be
 any of the usual types and are declared as usual.
 
 For any given queue, a DLX can be defined by clients using the
-[queue's arguments](/queues.html#optional-arguments), or in the server
-using [policies](/parameters.html#policies). In the
+[queue's arguments](./queues.html#optional-arguments), or in the server
+using [policies](./parameters.html#policies). In the
 case where both policy and arguments specify a DLX, the one
 specified in arguments overrules the one specified in policy.
 
@@ -154,7 +154,7 @@ original queue immediately after publishing to the DLX target queue. This ensure
 that there is no chance of excessive message buildup that could exhaust broker
 resources, but messages can be lost if the target queue isn't available to accept messages.
 
-Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](/quorum-queues.html#dead-lettering)
+Since RabbitMQ 3.10 quorum queues support [at-least-once dead-lettering](./quorum-queues.html#dead-lettering)
 where messages are re-published with publisher confirms turned on internally.
 
 ## <a id="effects" class="anchor" href="#effects">Dead-Lettered Effects on Messages</a>
@@ -194,9 +194,9 @@ The `reason` is a name describing why the
 message was dead-lettered and is one of the following:
 
  * `rejected`: the message was rejected with `requeue` parameter set to `false`
- * `expired`: the [message TTL](/ttl.html) has expired
- * `maxlen`: the [maximum allowed queue length](/maxlength.html) was exceeded
- * `delivery_limit`: the message has been returned more times than the limit (set by policy argument [delivery-limit](/quorum-queues.html#poison-message-handling) of quorum queues).
+ * `expired`: the [message TTL](./ttl.html) has expired
+ * `maxlen`: the [maximum allowed queue length](./maxlength.html) was exceeded
+ * `delivery_limit`: the message has been returned more times than the limit (set by policy argument [delivery-limit](./quorum-queues.html#poison-message-handling) of quorum queues).
 
 Three top-level headers are added for the very first dead-lettering
 event. They are
