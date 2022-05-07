@@ -17,7 +17,7 @@ limitations under the License.
 
 # Manual Pages
 
-This page lists the available manual pages taken from the [latest stable release](/changelog.html).
+This page lists the available manual pages taken from the [latest stable release](./changelog.html).
 
 ## <a id="section5" class="anchor" href="#section5">Section 5: File formats</a>
 
@@ -26,10 +26,10 @@ This page lists the available manual pages taken from the [latest stable release
 
 ## <a id="section8" class="anchor" href="#section8">Section 8: System Management Commands</a>
 
- * [rabbitmqctl](rabbitmqctl.8.html): service management and [general operator commands](/cli.html)
- * [rabbitmq-diagnostics](rabbitmq-diagnostics.8.html): commands useful for diagnostics, [health checking](/monitoring.html),
+ * [rabbitmqctl](rabbitmqctl.8.html): service management and [general operator commands](./cli.html)
+ * [rabbitmq-diagnostics](rabbitmq-diagnostics.8.html): commands useful for diagnostics, [health checking](./monitoring.html),
    and observing system state
- * [rabbitmq-plugins](rabbitmq-plugins.8.html): [plugin management](/plugins.html)
+ * [rabbitmq-plugins](rabbitmq-plugins.8.html): [plugin management](./plugins.html)
  * [rabbitmq-upgrade](rabbitmq-upgrade.8.html): operational tasks related to upgrades
  * [rabbitmq-queues](rabbitmq-queues.8.html): operational tasks for queues
  * [rabbitmq-server](rabbitmq-server.8.html): starts a RabbitMQ server node

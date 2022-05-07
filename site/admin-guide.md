@@ -23,7 +23,7 @@ start the server, [enable]() the necessary plugins and it's ready to go.
 
 This guide provides a table of contents of documentation oriented at RabbitMQ operators.
 For a complete documentation ToC that includes developer-oriented guides,
-see <a href="/documentation.html">All Documentation Guides</a>.
+see <a href="./documentation.html">All Documentation Guides</a>.
 
 ## [Installation and Provisioning](download.html):
 

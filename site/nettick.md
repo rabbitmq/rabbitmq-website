@@ -28,7 +28,7 @@ Periodic tick messages are exchanged between all pairs of nodes to
 maintain the connections and to detect disconnections.
 Network interruptions could otherwise go undetected for a fairly long
 period of time (depending on the transport and OS kernel settings e.g. for TCP).
-Fundamentally this is the same problem that [heartbeats](/heartbeats.html)
+Fundamentally this is the same problem that [heartbeats](./heartbeats.html)
 seek to address in messaging protocols, just between different peers:
 RabbitMQ cluster nodes and CLI tools.
 
@@ -71,7 +71,7 @@ latency, but increases the risk of detecting spurious
 
 The impact of changing the default `net_ticktime` should be
 carefully considered. All nodes in a cluster must use the same
-`net_ticktime`. The following sample [advanced.config](/configure.html#advanced-config-file)
+`net_ticktime`. The following sample [advanced.config](./configure.html#advanced-config-file)
 configuration demonstrates doubling the default `net_ticktime` from
 60 to 120 seconds:
 

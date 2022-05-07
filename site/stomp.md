@@ -24,14 +24,14 @@ in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](h
 with some [extensions and restrictions](#extensions-and-restrictions).
 
 STOMP clients can interoperate with other protocols. All the functionality in
-the [management UI](/management.html) and several other plugins can be
+the [management UI](./management.html) and several other plugins can be
 used with STOMP, although there may be some limitations or the need to
 tweak the defaults.
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
 The STOMP plugin is included in the RabbitMQ distribution. Before clients can successfully
-connect, it must be enabled using [rabbitmq-plugins](/cli.html):
+connect, it must be enabled using [rabbitmq-plugins](./cli.html):
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_stomp
@@ -46,7 +46,7 @@ all interfaces on port 61613 and have a default user login/passcode
 of `guest`/`guest`.
 
 To change the listener port, edit your
-[Configuration file](/configure.html#configuration-files),
+[Configuration file](./configure.html#configuration-files),
 to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 
 For example, a minimalistic configuration file which changes the listener
@@ -69,7 +69,7 @@ stomp.listeners.tcp.2 = ::1:61613
 The plugin supports TCP listener option configuration.
 
 The settings use a common prefix, `stomp.tcp_listen_options`, and control
-things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](/heartbeats.html#tcp-keepalives)
+things such as TCP buffer sizes, inbound TCP connection queue length, whether [TCP keepalives](./heartbeats.html#tcp-keepalives)
 are enabled and so on. See the [Networking guide](networking.html) for details.
 
 <pre class="lang-ini">
@@ -89,7 +89,7 @@ stomp.tcp_listen_options.send_timeout  = 120
 
 ## <a id="tls" class="anchor" href="#tls">TLS Support</a>
 
-To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
+To use TLS for STOMP connections, [TLS must be configured](./ssl.html) in the broker. To enable
 TLS-enabled STOMP connections, add a TLS listener for STOMP using the `stomp.listeners.ssl.*` configuration keys.
 
 The plugin will use core RabbitMQ server
@@ -199,7 +199,7 @@ This feature is disabled by default. To enable it for STOMP clients:
 stomp.proxy_protocol = true
 </pre>
 
-See the [Networking Guide](/networking.html#proxy-protocol) for more information
+See the [Networking Guide](./networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 
@@ -310,7 +310,7 @@ Perhaps the most common destination type used by STOMP clients is `/topic/<name>
 They perform topic matching on publishing messages against subscriber patterns
 and can route a message to multiple subscribers (each gets its own copy).
 Topic destinations support all the routing patterns of [AMQP 0-9-1
-topic exchanges](/tutorials/amqp-concepts.html).
+topic exchanges](./tutorials/amqp-concepts.html).
 
 Messages sent to a topic destination that has no active subscribers
 are simply discarded.
@@ -471,7 +471,7 @@ queue and message TTL, queue limits, etc:
  * `x-max-length-bytes`
  * `x-overflow`
  * `x-max-priority`
- * `x-queue-type` (to be able to [declare](/quorum-queues.html#declaring) [quorum queues](/quorum-queues.html))
+ * `x-queue-type` (to be able to [declare](./quorum-queues.html#declaring) [quorum queues](./quorum-queues.html))
 
 The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
 Please consult the rest of the documentation for details.
@@ -569,7 +569,7 @@ on `SUBSCRIBE` frames to the desired integer count.
 ### <a id="stream-support" class="anchor" href="#stream-support">Stream Support</a>
 
 The `SUBSCRIBE` frame supports a `x-stream-offset` header to specify the offset
-to start consuming from in a [stream](/streams.html). A typical subscription frame
+to start consuming from in a [stream](./streams.html). A typical subscription frame
 for a stream will look like the following:
 
     SUBSCRIBE
@@ -579,7 +579,7 @@ for a stream will look like the following:
     x-stream-offset:next
 
 Note the `ack` and `prefetch-count` headers are also necessary. The `x-stream-offset` header
-has the same semantics as in [AMQP 0.9.1](/streams.html#consuming), the possible values are:
+has the same semantics as in [AMQP 0.9.1](./streams.html#consuming), the possible values are:
 
  * `first` to start consuming from the first available message in the stream
  * `last` to start consuming from the last written chunk of messages
@@ -623,17 +623,17 @@ rules apply:
 ### Optional Queue Properties
 
 With RabbitMQ, `SEND` and `SUBSCRIBE` frames can include a set of headers to configure the queue behaviour,
-for example, use [TTL](/ttl.html) or similar extensions.
+for example, use [TTL](./ttl.html) or similar extensions.
 
 The list of supported headers is
 
- * [x-message-ttl](/ttl.html#per-message-ttl)
- * [x-expires](/ttl.html#queue-ttl)
- * [x-max-length](/maxlength.html)
- * [x-max-length-bytes](/maxlength.html)
- * [x-dead-letter-exchange](/dlx.html)
- * [x-dead-letter-routing-key](/dlx.html)
- * [x-max-priority](/priority.html)
+ * [x-message-ttl](./ttl.html#per-message-ttl)
+ * [x-expires](./ttl.html#queue-ttl)
+ * [x-max-length](./maxlength.html)
+ * [x-max-length-bytes](./maxlength.html)
+ * [x-dead-letter-exchange](./dlx.html)
+ * [x-dead-letter-routing-key](./dlx.html)
+ * [x-max-priority](./priority.html)
 
 For example, if you want to use priority queues with STOMP, you
 can SUBSCRIBE (or SEND) with the following header:
@@ -645,5 +645,5 @@ can SUBSCRIBE (or SEND) with the following header:
 ### Queue Immutability
 
 Once a queue is declared, its properties cannot be changed. Optional arguments
-can be modified with [policies](/parameters.html). Otherwise the queue has to be deleted
+can be modified with [policies](./parameters.html). Otherwise the queue has to be deleted
 and re-declared. This is true for STOMP clients as well as AMQP 0-9-1.

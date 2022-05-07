@@ -30,7 +30,7 @@ Wireshark is based on the same foundation as [tcpdump](https://www.tcpdump.org/)
 
 Together, tcpdump and Wireshark provide a lot of information explaining what clients (applications) and RabbitMQ nodes
 do. This information can and should be used to derive insights into system behavior that is difficult
-to observe otherwise. These tools complement [monitoring systems](/monitoring.html) and allow operators and developers
+to observe otherwise. These tools complement [monitoring systems](./monitoring.html) and allow operators and developers
 troubleshoot a distributed system more efficiently.
 
 
@@ -55,7 +55,7 @@ Packet Details then indicate all arguments of the frame. It
 also includes dynamically calculated values enclosed in square
 brackets. This is explained in next section.
 
-<img src="img/wireshark-main-window.png" alt="Main window" title="Main window" />
+<img src="./img/wireshark-main-window.png" alt="Main window" title="Main window" />
 
 
 ## <a id="linking" class="anchor" href="#linking">Links Between Related Frames</a>
@@ -76,13 +76,13 @@ Wireshark automatically highlights AMQP 0-9-1 packets with:
 
  * [Connection errors](connections.html) (server-sent `connection.close` frames) and [channel errors](channels.html)
    (server-sent `channel.close` frames)
- * [Returned unroutable](/publishers.html) messages (`basic.return` frames)
+ * [Returned unroutable](./publishers.html) messages (`basic.return` frames)
 
 You may display summary of significant frames in a dedicated
 dialog. Go to Analyze > Expert Information and possibly apply
 the display filter:
 
-<img src="img/wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
+<img src="./img/wireshark-expert-info.png" alt="More Metrics" title="Metrics" />
 
 ## <a id="inspecting-tls-connections" class="anchor" href="#inspecting-tls-connections">Inspecting Traffic on TLS-enabled Connections</a>
 

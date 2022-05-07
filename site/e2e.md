@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-In [AMQP 0-9-1](/tutorials/amqp-concepts.html) the `queue.bind` method binds a queue to an
+In [AMQP 0-9-1](./tutorials/amqp-concepts.html) the `queue.bind` method binds a queue to an
 exchange so that messages flow (subject to various criteria)
 from the exchange (the <em>source</em>) to the queue (the
 <em>destination</em>). We have introduced an

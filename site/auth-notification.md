@@ -36,5 +36,5 @@ If this capability is absent then authentication failures are reported
 in the legacy fashion: by abruptly closing the network connection. If this
 capability is present then the broker will send a <code>connection.close</code>
 command to the client indicating <code>ACCESS_REFUSED</code> as the reason. The broker
-will [create a log entry](/logging.html#connection-lifecycle-events)
+will [create a log entry](./logging.html#connection-lifecycle-events)
 for the authentication failure in either case.

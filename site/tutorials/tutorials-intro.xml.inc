@@ -25,7 +25,7 @@
         A program that sends messages is a <em>producer</em> :
 
         <div class="diagram">
-          <img src="/img/tutorials/producer.png" height="50" />
+          <img src="../img/tutorials/producer.png" height="50" />
           <div class="diagram_source">
             digraph {
               bgcolor=transparent;
@@ -50,7 +50,7 @@
         This is how we represent a queue:
 
         <div class="diagram">
-         <img src="/img/tutorials/queue.png" height="90" />
+         <img src="../img/tutorials/queue.png" height="90" />
          <div class="diagram_source">
            digraph {
              bgcolor=transparent;
@@ -75,7 +75,7 @@
         A <em>consumer</em> is a program that mostly waits to receive messages:
 
         <div class="diagram">
-          <img src="/img/tutorials/consumer.png" height="50" />
+          <img src="../img/tutorials/consumer.png" height="50" />
           <div class="diagram_source">
           digraph {
             bgcolor=transparent;

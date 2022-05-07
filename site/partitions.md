@@ -21,8 +21,8 @@ limitations under the License.
 
 This guide covers one specific aspect of clustering: network
 failures between nodes, their effects and recovery options.
-For a general overview of clustering, see [Clustering](/clustering.html)
-and [Peer Discovery and Cluster Formation](/cluster-formation.html) guides.
+For a general overview of clustering, see [Clustering](./clustering.html)
+and [Peer Discovery and Cluster Formation](./cluster-formation.html) guides.
 
 Clustering can be used to achieve different goals: increased
 data safety through replication, increased availability for
@@ -47,9 +47,9 @@ the RabbitMQ log in a form like:
 2020-05-18 06:55:37.324 [error] &lt;0.341.0&gt; Mnesia(rabbit@warp10): ** ERROR ** mnesia_event got {inconsistent_database, running_partitioned_network, rabbit@hostname2}
 </pre>
 
-Partition presence can be identified via server [logs](/logging.html),
-[HTTP API](/management.html) (for [monitoring](/monitoring.html))
-and a [CLI command](/cli.html):
+Partition presence can be identified via server [logs](./logging.html),
+[HTTP API](./management.html) (for [monitoring](./monitoring.html))
+and a [CLI command](./cli.html):
 
 <pre class="lang-bash">
 rabbitmq-diagnostics cluster_status
@@ -110,7 +110,7 @@ be created or deleted separately.
 
 [Classic mirrored queues](ha.html) which are split across the partition will end up with
 one leader on each side of the partition, again with both sides
-acting independently. [Quorum queues](/quorum-queues.html) will elect a new leader on the
+acting independently. [Quorum queues](./quorum-queues.html) will elect a new leader on the
 majority side. Quorum queue replicas on the minority side will no longer
 make progress (i.e. accept new messages, deliver to consumers, etc), all this work will be
 done by the new leader.
@@ -160,7 +160,7 @@ authority for the state of the system (schema, messages)
 to use; any changes which have occurred on other partitions will be lost.
 
 Stop all nodes in the other partitions, then start them all up
-again. When they [rejoin the cluster](/clustering.html#restarting) they
+again. When they [rejoin the cluster](./clustering.html#restarting) they
 will restore state from the trusted partition.
 
 Finally, you should also restart all the nodes in the trusted
@@ -233,7 +233,7 @@ If using the <code>pause_if_all_down</code> mode, additional parameters are requ
   <li><code>recover</code>: recover action, can be <code>ignore</code> or <code>autoheal</code></li>
 </ul>
 
-Example [config snippet](/configure.html#config-file) that uses <code>pause_if_all_down</code>:
+Example [config snippet](./configure.html#config-file) that uses <code>pause_if_all_down</code>:
 
 <pre class="lang-plaintext">
 cluster_partition_handling = pause_if_all_down

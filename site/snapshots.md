@@ -62,7 +62,7 @@ intentionally so.
 
 As with our published live releases, we continue to digitally
 sign the snapshot artefacts using [GnuPG](http://www.gnupg.org/) and
-[our release public signing key](/signatures.html).
+[our release public signing key](./signatures.html).
 
 ### <a id="direct-downloads" class="anchor" href="#direct-downloads">Direct Downloads</a>
 
@@ -75,7 +75,7 @@ Team RabbitMQ appreciates community feedback on snapshot builds.
 Please post it to the [RabbitMQ mailing list](https://groups.google.com/forum/#!forum/rabbitmq-users)
 and specify what build was used plus as much context as possible:
 
- * Server [log file(s)](/logging.html)
+ * Server [log file(s)](./logging.html)
  * A code snippet or terminal (shell) transcript that demonstrates steps to reproduce the observations
  * `rabbitmqctl environment` output
  * `rabbitmq-diagnostics status` output
