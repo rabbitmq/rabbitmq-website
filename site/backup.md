@@ -69,15 +69,15 @@ Definitions are stored in an internal database located in the node's data
 directory. To get the directory path, run the following
 command against a running RabbitMQ node:
 
-<pre class="lang-sh">
-rabbitmqctl eval 'rabbit_mnesia:dir().'
+<pre class="lang-bash">
+rabbitmq-diagnostics status | grep -A 2 -B 2 "Node data directory"
 </pre>
 
 If the node isn't running, it is possible to inspect [default data directories](./relocate.html).
 
 * For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
 * For Windows: `%APP_DATA%\RabbitMQ\db`
-* For standalone MacOS and generic UNIX packages: `{installation_root}/var/lib/rabbitmq/mnesia`
+* For generic binary builds: `{installation_root}/var/lib/rabbitmq/mnesia`
 
 The above data directory will also contain message store data in a subdirectory. If you don't want to
 copy the messages, skip copying the [message directories](#manual-messages-backup).
