@@ -66,7 +66,7 @@ special cases for binding keys:
 It's easiest to explain this in an example:
 
 <div class="diagram">
-  <img src="/img/tutorials/python-five.png" height="170" />
+  <img src="../img/tutorials/python-five.png" height="170" />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;

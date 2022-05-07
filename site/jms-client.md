@@ -22,12 +22,12 @@ limitations under the License.
 RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_jms_topic_exchange)
 needed to support the JMS Queue and Topic messaging models. JMS Client
 for RabbitMQ implements the JMS 1.1 specification on top of the
-[RabbitMQ Java client](/api-guide.html), thus allowing new and
+[RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
 
 The plugin and the JMS client are meant to work and be used together.
 
-See the [RabbitMQ Java libraries support page](/java-versions.html) for the support timeline
+See the [RabbitMQ Java libraries support page](./java-versions.html) for the support timeline
 of the RabbitMQ JMS Client library.
 
 ## <a id="components" class="anchor" href="#components">Components</a>
@@ -190,11 +190,11 @@ The following table lists all of the attributes/properties that are available.
 | `factory`                           |    Yes     | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                                                                                                                             |
 | `username`                          |    No      | Name to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                              |
 | `password`                          |    No      | Password to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                          |
-| `virtualHost`                       |    No      | RabbitMQ [virtual host](/vhosts.html) within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
+| `virtualHost`                       |    No      | RabbitMQ [virtual host](./vhosts.html) within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
 | `host`                              |    No      | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
-| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is a [TLS connection](/ssl.html), in which case the default is "5671".                                                                                                                                                                                                                        |
+| `port`                              |    No      | RabbitMQ port used for connections. The default is "5672" unless this is a [TLS connection](./ssl.html), in which case the default is "5671".                                                                                                                                                                                                                        |
 | `ssl`                               |    No      | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
-| `uri`                               |    No      | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `username`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
+| `uri`                               |    No      | The [AMQP 0-9-1 URI](./uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `username`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
 | `onMessageTimeoutMs`                |    No      | How long to wait for `MessageListener#onMessage()` to return, in milliseconds. Default is 2000 ms. |
 | `preferProducerMessageProperty`     |    No      | Whether `MessageProducer` properties (delivery mode, priority, TTL) take precedence over respective `Message` properties or not. Default is true (which is compliant to the JMS specification). |
 | `requeueOnMessageListenerException` |    No      | Whether requeuing messages on a `RuntimeException` in the `MessageListener` or not. Default is false. |
@@ -381,7 +381,7 @@ for configuration details.
 
 ## <a id="publisher-confirms" class="anchor" href="#publisher-confirms">Publisher Confirms</a>
 
-[Publisher confirms](/confirms.html#publisher-confirms) are a RabbitMQ extension to implement reliable
+[Publisher confirms](./confirms.html#publisher-confirms) are a RabbitMQ extension to implement reliable
 publishing. This feature builds on top of the AMQP protocol, but the JMS client
 provides an API to use it. This allows to benefit from a reliability feature without
 diverging too much from the JMS API.
@@ -401,7 +401,7 @@ Note the `ConfirmListener` is not a good place to execute long-running
 tasks. Those should be executed in a dedicated thread, using e.g. an `ExecutorService`.
 
 Typical operations in a `ConfirmListener` are logging or message re-publishing (in case
-of nacks). The [publish confirms tutorial](/tutorials/tutorial-seven-java.html) provides more guidance. It aims for the
+of nacks). The [publish confirms tutorial](./tutorials/tutorial-seven-java.html) provides more guidance. It aims for the
 AMQP Java client, but principles remain the same for the JMS client.
 
 ## <a id="rpc-support" class="anchor" href="#rpc-support">Support for Request/Reply (a.k.a. RPC)</a>
@@ -580,7 +580,7 @@ acknowledgement behaviours.
 
 ## <a id="jms_topic_support"></a>JMS Topic Support
 
-JMS topics are implemented using an AMQP [topic exchange](/tutorials/amqp-concepts.html#exchange-topic)
+JMS topics are implemented using an AMQP [topic exchange](./tutorials/amqp-concepts.html#exchange-topic)
 and a dedicated AMQP queue for each JMS topic subscriber. The AMQP
 topic exchange is `jms.temp.topic` or `jms.durable.topic`, depending
 on whether the JMS topic is temporary or not, respectively. Let's
@@ -767,6 +767,6 @@ normal case, when the message is an instance of
 
 To gain better understanding of AMQP 0-9-1 concepts and interoperability of
 the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
-[Introduction to RabbitMQ Concepts](/tutorials/amqp-concepts.html)
+[Introduction to RabbitMQ Concepts](./tutorials/amqp-concepts.html)
 and browse our
 [AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).

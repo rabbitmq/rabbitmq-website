@@ -18,7 +18,7 @@ message store data.
 Nodes and clusters store information that can be thought of schema, metadata or topology.
 Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category.
 
-Definitions can be [exported and imported](/definitions.html) as JSON files.
+Definitions can be [exported and imported](./definitions.html) as JSON files.
 
 Definitions are stored in an internal database and replicated across all cluster nodes.
 Every node in a cluster has its own replica of all definitions. When a part of definitions changes,
@@ -53,11 +53,11 @@ Definitions can be exported to a JSON file. This is the recommended way of backi
 
 ### <a id="definitions-export" class="anchor" href="#definitions-export">Exporting Definitions</a>
 
-Definition export is covered in the dedicated [Definitions guide](/definitions.html#export).
+Definition export is covered in the dedicated [Definitions guide](./definitions.html#export).
 
 ### <a id="definitions-import" class="anchor" href="#definitions-import">Importing Definitions</a>
 
-Definition import is covered in the dedicated [Definitions guide](/definitions.html#import).
+Definition import is covered in the dedicated [Definitions guide](./definitions.html#import).
 
 Importing a definitions file is sufficient for creating a broker with
 an identical set of definitions (e.g. users, vhosts, permissions,
@@ -69,15 +69,15 @@ Definitions are stored in an internal database located in the node's data
 directory. To get the directory path, run the following
 command against a running RabbitMQ node:
 
-<pre class="lang-sh">
-rabbitmqctl eval 'rabbit_mnesia:dir().'
+<pre class="lang-bash">
+rabbitmq-diagnostics status | grep -A 2 -B 2 "Node data directory"
 </pre>
 
-If the node isn't running, it is possible to inspect [default data directories](/relocate.html).
+If the node isn't running, it is possible to inspect [default data directories](./relocate.html).
 
 * For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
 * For Windows: `%APP_DATA%\RabbitMQ\db`
-* For standalone MacOS and generic UNIX packages: `{installation_root}/var/lib/rabbitmq/mnesia`
+* For generic binary builds: `{installation_root}/var/lib/rabbitmq/mnesia`
 
 The above data directory will also contain message store data in a subdirectory. If you don't want to
 copy the messages, skip copying the [message directories](#manual-messages-backup).
@@ -85,7 +85,7 @@ copy the messages, skip copying the [message directories](#manual-messages-backu
 ### <a id="manual-definitions-restore" class="anchor" href="#manual-definitions-restore">Restoring from a Manual Definitions Backup</a>
 
 Internal node database stores node's name in certain records. Should node name change, the database must first
-be updated to reflect the change using the following [rabbitmqctl](/cli.html) command:
+be updated to reflect the change using the following [rabbitmqctl](./cli.html) command:
 
 <pre class="lang-sh">
 rabbitmqctl rename_cluster_node &lt;oldnode&gt; &lt;newnode&gt;
@@ -102,7 +102,7 @@ the upgrade steps as needed and proceed booting.
 
 To back up messages on a node it **must be first stopped**.
 
-In the case of a cluster with [mirrored queues](/ha.html), you need to
+In the case of a cluster with [mirrored queues](./ha.html), you need to
 stop the entire cluster to take a backup. If you stop one node at a
 time, you may lose messages or have duplicates, exactly like when you
 back up a single running node.
@@ -111,7 +111,7 @@ back up a single running node.
 
 Presently this is the only way of backing up messages.
 
-Message data is stored in the [node's data directory](/relocate.html) mentioned above.
+Message data is stored in the [node's data directory](./relocate.html) mentioned above.
 
 In RabbitMQ versions starting with 3.7.0 all messages data is combined in the
 `msg_stores/vhosts` directory and stored in a subdirectory per vhost.

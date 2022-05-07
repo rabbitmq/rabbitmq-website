@@ -35,7 +35,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
 > #### The amqp.node client library
@@ -57,7 +57,7 @@ code.
 ### Sending
 
 <div class="diagram">
-  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
 We'll call our message publisher (sender) `send.js` and our message consumer (receiver)
@@ -151,7 +151,7 @@ RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep the consumer running to listen for messages and print them out.
 
 <div class="diagram">
-  <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
 The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js)) has the same require as `send`:

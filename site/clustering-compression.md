@@ -1,10 +1,10 @@
 # Inter-node and CLI Traffic Compression
 
-[VMware Tanzu RabbitMQ](/tanzu/) supports compression for [inter-node](/clustering.html)
-and [CLI tool](/cli.html) traffic.
+[VMware Tanzu RabbitMQ](./tanzu/) supports compression for [inter-node](./clustering.html)
+and [CLI tool](./cli.html) traffic.
 
 RabbitMQ nodes communicate with their peers and CLI tools using dedicated TCP connections,
-optionally [protected with TLS](/clustering-ssl.html).
+optionally [protected with TLS](./clustering-ssl.html).
 
 In heavily loaded system, inter-node traffic flows can be substantial, approaching
 or even saturating the bandwidth provided by network links. Compression of this traffic
@@ -14,13 +14,13 @@ the workload.
 <p class="box-info">
 Inter-node traffic compression is <strong>available in VMware Tanzu RabbitMQ
 only</strong>, not in the standard FOSS RabbitMQ.
-<a href="/tanzu/">Learn more about VMware Tanzu RabbitMQ</a>
+<a href="./tanzu/">Learn more about VMware Tanzu RabbitMQ</a>
 </p>
 
 ## <a id="how-to-use-it" class="anchor" href="#how-to-use-it">How to use it</a>
 
 Inter-node traffic compression is enabled out-of-the-box in VMware Tanzu RabbitMQ:
-if two RabbitMQ nodes [form a cluster](/cluster-formation.html), they will try to use compression.
+if two RabbitMQ nodes [form a cluster](./cluster-formation.html), they will try to use compression.
 
 For the data to be compressed, the following conditions MUST be met:
 
@@ -37,7 +37,7 @@ to the other without stopping the entire cluster.
 ## <a id="how-it-works" class="anchor" href="#how-it-works">How it works</a>
 
 <div style="float: right;">
-<img src="/img/erlang-distribution-compression/negotiation.svg"
+<img src="./img/erlang-distribution-compression/negotiation.svg"
 style="width: 100%; max-width: 500px; margin: 10px;"/>
 </div>
 
