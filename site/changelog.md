@@ -46,6 +46,7 @@ published separately.
         <li>Improved efficiency, significantly reduced memory footprint of quorum queues</li>
         <li><a href="https://rabbitmq.com/ttl.html">Message TTL</a> support in quorum queues</li>
         <li>New classic queue message store and index, "CQv2"</li>
+        <li>Initial support for <a href="https://www.erlang.org/news/156">Erlang 25</a></li>
         <li>Much faster (or idempotent) definition import on boot</li>
         <li>Scope aliases in OAuth 2 plugin</li>
       </ul>
