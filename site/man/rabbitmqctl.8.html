@@ -428,8 +428,9 @@
       <li>Rename the local database directories (note, you do not need to do
           this if you have set the RABBITMQ_MNESIA_DIR environment variable):
         <p class="Pp"></p>
-        <div class="Bd Bd-indent Li">
-        <pre>mv \
+        <div class="Bd Bd-indent lang-bash">
+        <pre>
+mv \
   /var/lib/rabbitmq/mnesia/rabbit\@misshelpful \
   /var/lib/rabbitmq/mnesia/rabbit\@cordelia
 mv \
@@ -437,7 +438,8 @@ mv \
   /var/lib/rabbitmq/mnesia/rabbit\@cordelia-rename
 mv \
   /var/lib/rabbitmq/mnesia/rabbit\@misshelpful-plugins-expand \
-  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand</pre>
+  /var/lib/rabbitmq/mnesia/rabbit\@cordelia-plugins-expand
+        </pre>
         </div>
         <p class="Pp"></p>
       </li>
@@ -1843,12 +1845,13 @@ mv \
     [<var class="Ar">log_level</var>]</dt>
   <dd>
     <p class="Pp">Sets log level in the running node</p>
-    <p class="Pp">Supported <var class="Ar">type</var> values are:</p>
+    <p class="Pp">Supported <var class="Ar">log_level</var> values are:</p>
     <ul class="Bl-bullet Bl-compact">
       <li>debug</li>
       <li>info</li>
       <li>warning</li>
       <li>error</li>
+      <li>critical</li>
       <li>none</li>
     </ul>
     <p class="Pp">Example:</p>
