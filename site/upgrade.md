@@ -47,7 +47,7 @@ the process for those cases.
 
 ### Blue-Green Deployment Upgrades
 
-The Blue/Green deployment strategy offers the benefit of making the upgrade process safer at the cost of
+[The Blue/Green deployment](blue-green-upgrade.html) strategy offers the benefit of making the upgrade process safer at the cost of
 temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
 can abort an upgrade by switching applications back to the existing cluster.
 
