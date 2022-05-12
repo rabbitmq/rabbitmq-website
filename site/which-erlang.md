@@ -45,6 +45,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.10.1</li>
         <li>3.10.0</li>
       </ul>
     </td>
@@ -55,11 +56,14 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.3</li>
+        <li>25.0</li>
       </ul>
     </td>
     <td>
       <ul class="notes">
+        <li>
+          Erlang 25 support is in preview.
+        </li>
         <li>
           Erlang 24.3 introduces LDAP client changes that are breaking for
           projects compiled on earlier releases (including RabbitMQ).
@@ -72,6 +76,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.9.17</li>
         <li>3.9.16</li>
         <li>3.9.15</li>
       </ul>
@@ -140,6 +145,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.8.31</li>
         <li>3.8.30</li>
         <li>3.8.29</li>
       </ul>
