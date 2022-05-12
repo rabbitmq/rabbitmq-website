@@ -17,11 +17,11 @@ limitations under the License.
 -->
 
 <!ENTITY version-java-client "5.14.2">
-<!ENTITY version-dotnet-client "6.2.2">
-<!ENTITY version-server "3.10.0">
+<!ENTITY version-dotnet-client "6.3.0">
+<!ENTITY version-server "3.10.1">
 <!ENTITY version-server-series "v3.10.x">
-<!ENTITY version-erlang-client "3.10.0">
-<!ENTITY version-server-tag "v3.10.0">
+<!ENTITY version-erlang-client "3.10.1">
+<!ENTITY version-server-tag "v3.10.1">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -46,5 +46,5 @@ limitations under the License.
 <!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
 <!ENTITY dir-current-edoc "https://hexdocs.pm/amqp_client/&version-server;/">
 
-<!ENTITY minimum-jdk-version "8">
-<!ENTITY minimum-dotnet-version "4.6.1">
+<!ENTITY minimum-jdk-version "11">
+<!ENTITY minimum-dotnet-version "4.6.2">

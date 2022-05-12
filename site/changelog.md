@@ -39,6 +39,45 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.1</td>
+    <td class="centre">11 May 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.1">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.17</td>
+    <td class="centre">May 11 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.17">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.31</td>
+    <td class="centre">May 11 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.31">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.0</td>
     <td class="centre">3 May 2022</td>
     <td>
@@ -46,11 +85,17 @@ published separately.
         <li>Improved efficiency, significantly reduced memory footprint of quorum queues</li>
         <li><a href="https://rabbitmq.com/ttl.html">Message TTL</a> support in quorum queues</li>
         <li>New classic queue message store and index, "CQv2"</li>
+        <li>Initial support for <a href="https://www.erlang.org/news/156">Erlang 25</a></li>
         <li>Much faster (or idempotent) definition import on boot</li>
         <li>Scope aliases in OAuth 2 plugin</li>
+        <li>
+          Learn more in <a href="https://blog.rabbitmq.com/tags/v3.10.x/">blog posts on 3.10.x</a>
+        </li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">Release notes</a></td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">Release notes</a>
+    </td>
   </tr>
 
   <tr>
