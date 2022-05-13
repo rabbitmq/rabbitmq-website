@@ -45,7 +45,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- Understanding how an AMQP application access RabbitMQ using Oauth 2
 	- Client access via Spring and Spring Cloud Services using OAuth Client Credentials grant type
 	- Understanding Access tokens and how RabbitMQ uses it
-	- [Useful uaac commands](#useful-uaac-commands)
+	- [Useful uaac commands](#deep-dive-useful-uaac-commands)
 
 <!-- /TOC -->
 
