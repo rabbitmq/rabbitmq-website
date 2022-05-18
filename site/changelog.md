@@ -82,10 +82,10 @@ published separately.
     <td class="centre">3 May 2022</td>
     <td>
       <ul>
-        <li>Improved efficiency, significantly reduced memory footprint of quorum queues</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/">Improved efficiency</a>, significantly reduced memory footprint of quorum queues</li>
         <li><a href="https://rabbitmq.com/ttl.html">Message TTL</a> support in quorum queues</li>
         <li>New classic queue message store and index, "CQv2"</li>
-        <li>Initial support for <a href="https://www.erlang.org/news/156">Erlang 25</a></li>
+        <li>Initial support for <a href="https://www.erlang.org/blog/my-otp-25-highlights/">Erlang 25</a></li>
         <li>Much faster (or idempotent) definition import on boot</li>
         <li>Scope aliases in OAuth 2 plugin</li>
         <li>
