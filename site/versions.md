@@ -49,7 +49,7 @@ Deployment Upgrade](./blue-green-upgrade.html) guides.
 
   <tr>
     <td>3.9</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.16" target="_blank">3.9.17</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.18" target="_blank">3.9.18</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">26 July 2021</a></td>
     <td></td>
     <td></td>
