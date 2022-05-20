@@ -133,7 +133,7 @@ Firewalls can prevent nodes and CLI tools from communicating with each other.
 The following ports are most relevant to inter-node communication in a cluster:
 
  * 4369: [epmd](networking.html#epmd), a helper discovery daemon used by RabbitMQ nodes and CLI tools
- * 6000 through 6500 (usually 6000, 6001, 6002, and so on through 6005): used by [RabbitMQ Stream](stream.html) replication
+ * 6000 through 6500: used by [RabbitMQ Stream](stream.html) replication
  * 25672: used for inter-node and CLI tools communication (Erlang distribution server port)
    and is allocated from a dynamic range (limited to a single port by default,
    computed as AMQP port + 20000). Unless external connections on these ports are really necessary (e.g.

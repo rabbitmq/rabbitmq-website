@@ -51,7 +51,7 @@ limitations under the License.
           Release notes can be found <a href="./changelog.html">in the change log</a>.
         </p>
         <p>
-          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and supports Erlang 24 and 25.
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and supports Erlang 24 and <a href="https://www.erlang.org/blog/my-otp-25-highlights/">Erlang 25</a>.
         </p>
         <p>
           Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
