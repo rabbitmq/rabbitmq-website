@@ -43,7 +43,7 @@ published separately.
     <td class="centre">20 May 2022</td>
     <td>
       <ul>
-        <li>Erlang 25 compatibility for CLI tools</li>
+        <li>Erlang 25 compatibility fixes</li>
         <li>Bug fixes</li>
       </ul>
     </td>
