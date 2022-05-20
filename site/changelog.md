@@ -39,6 +39,46 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.2</td>
+    <td class="centre">20 May 2022</td>
+    <td>
+      <ul>
+        <li>Erlang 25 compatibility for CLI tools</li>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.2">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.18</td>
+    <td class="centre">May 20 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.18">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.32</td>
+    <td class="centre">May 20 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.32">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.1</td>
     <td class="centre">11 May 2022</td>
     <td>

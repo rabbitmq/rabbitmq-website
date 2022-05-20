@@ -35,6 +35,108 @@ limitations under the License.
      will give you a suitable RFC 3339 value.
     -->
 
+    <doc:item>
+      <doc:date iso="2022-05-20T14:00:00+00:00">20 May 2022</doc:date>
+      <doc:title>RabbitMQ 3.10.2 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.2</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.2,
+          a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.10.x/">RabbitMQ 3.10.x</a> series.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and supports Erlang 24 and <a href="https://www.erlang.org/blog/my-otp-25-highlights/">Erlang 25</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2022-05-20T14:00:00+00:00">20 May 2022</doc:date>
+      <doc:title>RabbitMQ 3.9.18 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.18</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.9.18.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes and usability improvements.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and
+          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">supports Erlang 24</a>,
+          including recently released Erlang 24.3.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2022-05-20T14:00:00+00:00">20 May 2022</doc:date>
+      <doc:title>RabbitMQ 3.8.32 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.32</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.8.32.
+        </p>
+        <p>
+          This is a maintenance release that contains bug fixes.
+          Release notes can be found <a href="./changelog.html">in the change log</a>.
+        </p>
+        <p>
+          This release <a href="which-erlang.html">requires Erlang/OTP 23.2</a> and
+          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">supports Erlang 24</a>.
+        </p>
+        <p>
+          Binary builds and packages of the new release can be found on <a href="https://github.com/rabbitmq/rabbitmq-server/releases/">GitHub</a>,
+          <a href="https://cloudsmith.io/~rabbitmq/repos/rabbitmq-server/packages/">Cloudsmith</a>, or <a href="https://packagecloud.io/rabbitmq">Package Cloud</a>.
+          See <a href="https://rabbitmq.com/download.html">RabbitMQ installation guides</a> to learn more.
+        </p>
+        <p>
+          We encourage all users of earlier 3.8.x versions of RabbitMQ to upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
 
 
     <doc:item>
@@ -77,7 +179,7 @@ limitations under the License.
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.17</doc:link>
       <doc:text>
         <p>
-          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.9.16.
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.9.17.
         </p>
         <p>
           This is a maintenance release that contains bug fixes and usability improvements.
