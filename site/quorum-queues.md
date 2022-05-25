@@ -119,7 +119,7 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [Message TTL (Time-To-Live)](./ttl.html) | yes | yes (since 3.10) |
+| [Message TTL (Time-To-Live)](./ttl.html) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
 | [Queue TTL](./ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](./maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](./lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature (before 3.10); always (since 3.10) |
@@ -129,6 +129,9 @@ Some features are not currently supported by quorum queues.
 | Adheres to [policies](./parameters.html#policies) | yes | yes (see policy support below) |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
+
+Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+for many workloads.
 
 #### Non-durable Queues
 
@@ -640,9 +643,11 @@ will therefore remain consistent.
 ## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
 
 Quorum queues are designed to trade latency for throughput and have been tested
-and compared against durable [classic mirrored queues](./ha.html) in 3, 5 and 7 node configurations at several
-message sizes. In scenarios using both consumer acks and publisher confirms
- quorum queues have been observed to have equal or greater throughput to
+and compared against durable [classic mirrored queues](.ha.html) in 3, 5 and 7 node configurations at several
+message sizes.
+
+In scenarios using both consumer acks and publisher confirms
+quorum queues have been observed to have [superior throughput](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) to
 classic mirrored queues.
 
 As quorum queues persist all data to disks before doing anything it is recommended
