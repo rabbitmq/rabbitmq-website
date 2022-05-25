@@ -122,11 +122,11 @@ Some features are not currently supported by quorum queues.
 | [Message TTL (Time-To-Live)](./ttl.html) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
 | [Queue TTL](./ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](./maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](./lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature (before 3.10); always (since 3.10) |
+| [Lazy behaviour](./lazy-queues.html) | yes | always (since 3.10) or through the [Memory Limit](#memory-limit) feature (before 3.10) |
 | [Message priority](./priority.html) | yes | no |
 | [Consumer priority](./consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](./dlx.html) | yes | yes |
-| Adheres to [policies](./parameters.html#policies) | yes | yes (see policy support below) |
+| Adheres to [policies](./parameters.html#policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
 
@@ -313,7 +313,7 @@ one for each priority.
 Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
 This feature is currently unique to quorum queues.
 
-#### Policy Support
+#### <a id="policy-support" class="anchor" href="#policy-support">Policy Support</a>
 
 Quorum queues can be configured via RabbitMQ policies. The below table summarises the
 policy keys they adhere to.
