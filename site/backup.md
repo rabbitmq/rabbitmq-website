@@ -76,7 +76,7 @@ rabbitmq-diagnostics status | grep -A 2 -B 2 "Node data directory"
 If the node isn't running, it is possible to inspect [default data directories](./relocate.html).
 
 * For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
-* For Windows: `%APP_DATA%\RabbitMQ\db`
+* For Windows: `%APPDATA%\RabbitMQ\db`
 * For generic binary builds: `{installation_root}/var/lib/rabbitmq/mnesia`
 
 The above data directory will also contain message store data in a subdirectory. If you don't want to
