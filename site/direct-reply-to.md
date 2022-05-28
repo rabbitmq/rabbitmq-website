@@ -35,11 +35,11 @@ header.
 
 Where does the client's queue come from? The client can
 declare a single-use queue for each request-response pair. But
-this is inefficient; even a transient unmirrored queue can be
+this is inefficient; even a transient unreplicated queue can be
 expensive to create and then delete (compared with the cost of
 sending a message). This is especially true in a cluster as all
 cluster nodes need to agree that the queue has been created,
-even if it is unmirrored.
+agree on its type, replication parameters, and other metadata.
 
 So alternatively the client can create a long-lived queue for
 its replies. But this can be fiddly to manage, especially if the

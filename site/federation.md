@@ -283,7 +283,7 @@ can. To summarise how clustering and federation interact:
    downstream cluster. They will fail over to other nodes if
    the node they are running on crashes or stops.
  * Queue federation links will start on the same node as the
-   downstream queue. If the downstream queue is mirrored, they
+   downstream queue. If the downstream queue is a [replicated one](quorum-queues.html), they
    will start on the same node as the leader, and will be
    recreated on the same node as the new leader after any future leader elections.
  * To connect to an upstream cluster, you can specify multiple URIs in

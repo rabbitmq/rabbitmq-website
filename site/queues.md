@@ -139,7 +139,6 @@ The map is used by various features and plugins such as
  * Queue type (e.g. [quorum](quorum-queues.html) or classic)
  * [Message and queue TTL](ttl.html)
  * [Queue length limit](maxlength.html)
- * Legacy [classic queue mirroring](ha.html) settings
  * Max number of [priorities](priority.html)
  * [Consumer priorities](consumer-priority.html)
 
