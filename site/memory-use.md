@@ -93,7 +93,7 @@ Memory use breakdown reports allocated memory distribution on the target node, b
 
  * [Connections](#breakdown-connections) (further split into four categories: readers, writers, channels, other)
  * [Quorum queue](./quorum-queues.html) replicas
- * Classic mirrored queue [leader replicas](ha.html)
+ * Classic mirrored queue leader replicas
  * Classic mirrored queue mirror (follower) replicas
  * Message Store and Indices
  * [Binary heap references](#breakdown-binaries)
@@ -577,7 +577,7 @@ Some messages can be stored on disk, but still have their metadata kept in memor
 ### <a id="queue-memory-usage" class="anchor" href="#queue-memory-usage">How much memory does a queue use?</a>
 
 A message has multiple parts that use up memory. Every queue is backed by an Erlang process.
-If a queue is mirrored, each mirror is a separate Erlang process.
+If a queue is replicated, each replica is a separate Erlang process running on separate cluster nodes.
 
 Since every replica of a queue, whether leader or follower, is a single Erlang process, message ordering can be guaranteed.
 Multiple queues means multiple Erlang processes which get an even amount of CPU time.

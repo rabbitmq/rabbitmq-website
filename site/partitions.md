@@ -108,12 +108,14 @@ thinking the other has crashed. This scenario is known as split-brain.
 Queues, bindings, exchanges can
 be created or deleted separately.
 
-[Classic mirrored queues](ha.html) which are split across the partition will end up with
-one leader on each side of the partition, again with both sides
-acting independently. [Quorum queues](./quorum-queues.html) will elect a new leader on the
+[Quorum queues](./quorum-queues.html) will elect a new leader on the
 majority side. Quorum queue replicas on the minority side will no longer
 make progress (i.e. accept new messages, deliver to consumers, etc), all this work will be
 done by the new leader.
+
+[Classic mirrored queues](ha.html) which are split across the partition will end up with
+one leader on each side of the partition, again with both sides
+acting independently.
 
 Unless a [partition handling strategy](#automatic-handling),
 such as <code>pause_minority</code>, is configured to be used,

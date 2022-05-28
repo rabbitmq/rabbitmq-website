@@ -83,9 +83,10 @@ limitations under the License.
 
         <h3>Highly Available Queues</h3>
         <p>
-          Queues can be <a href="ha.html">mirrored</a> across several
-          machines in a cluster, ensuring that even in the event of
-          hardware failure your messages are safe.
+          RabbitMQ supports <a href="quorum-queues.html">replicated queues</a>
+          and <a href="stream.html">streams</a>. machines in a cluster, ensuring that even in the event of
+          hardware failure, messages are safe as long as there is a majority
+          of cluster nodes onlnie.
         </p>
 
         <h3>Multi-protocol</h3>

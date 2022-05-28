@@ -281,15 +281,15 @@ to what priorities various policies use.
 ### <a id="combining-policy-definitions" class="anchor" href="#combining-policy-definitions">Combining Policy Definitions</a>
 
 In some cases we might want to apply more than one policy
-definition to a resource.  For example we might need a queue to
-be federated and mirrored. At most one policy will apply to a
+definition to a resource. For example we might need a queue to
+be federated and has message TTL. At most one policy will apply to a
 resource at any given time, but we can apply multiple
 definitions in that policy.
 
 A federation policy definition would require an <em>upstream set</em>
 to be specified, so we would need the `federation-upstream-set`
-key in our definition. On the other hand to define some queues as mirrored,
-we would need the `ha-mode` key to be defined as well for the
+key in our definition. On the other hand to define some queues as TTL-enabled,
+we would need the TTL-relatd keys key to be defined as well for the
 policy. The policy definition is just a JSON object and can have multiple
 keys combined in the same policy definition.
 
@@ -300,8 +300,8 @@ Here's an example:
     <th>rabbitmqctl</th>
     <td>
 <pre class="lang-bash">
-rabbitmqctl set_policy ha-fed \
-    "^hf\." '{"federation-upstream-set":"all", "ha-mode":"exactly", "ha-params":2}' \
+rabbitmqctl set_policy ttl-fed \
+    "^tf\." '{"federation-upstream-set":"all", "message-ttl":60000}' \
     --priority 1 \
     --apply-to queues
 </pre>
@@ -311,8 +311,8 @@ rabbitmqctl set_policy ha-fed \
     <th>rabbitmqctl (Windows)</th>
     <td>
 <pre class="lang-powershell">
-rabbitmqctl set_policy ha-fed ^
-    "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""exactly"", ""ha-params"":2}" ^
+rabbitmqctl set_policy ttl-fed ^
+    "^tf\." "{""federation-upstream-set"":""all"", ""message-ttl"":60000}" ^
     --priority 1 ^
     --apply-to queues
 </pre>
@@ -322,9 +322,9 @@ rabbitmqctl set_policy ha-fed ^
     <th>HTTP API</th>
     <td>
 <pre class="lang-powershell">
-PUT /api/policies/%2f/ha-fed
-    {"pattern": "^hf\.",
-    "definition": {"federation-upstream-set":"all", "ha-mode":"exactly", "ha-params":2},
+PUT /api/policies/%2f/ttl-fed
+    {"pattern": "^tf\.",
+    "definition": {"federation-upstream-set":"all", "message-ttl":60000},
     "priority": 1,
     "apply-to": "queues"}
 </pre>
@@ -339,7 +339,7 @@ PUT /api/policies/%2f/ha-fed
           policy.
         </li>
         <li>
-          Enter "ha-fed" next to Name, "^hf\." next to
+          Enter "ttl-fed" next to Name, "^tf\." next to
           Pattern, and select "Queues" next to Apply to.
         </li>
         <li>
@@ -357,7 +357,7 @@ PUT /api/policies/%2f/ha-fed
   </tr>
 </table>
 
-By doing that all the queues matched by the pattern "^hf\\." will have the `"federation-upstream-set"`
+By doing that all the queues matched by the pattern "^tf\\." will have the `"federation-upstream-set"`
 and the policy definitions applied to them.
 
 ## <a id="operator-policies" class="anchor" href="#operator-policies">Operator Policies</a>
