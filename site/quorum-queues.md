@@ -269,15 +269,6 @@ However, messages that are dead lettered by the source quorum queue will keep th
 This means if dead lettered messages in the target queue should survive a broker restart, the target queue must be durable and
 the message delivery mode must be set to persistent when publishing messages to the source quorum queue.
 
-#### Lazy Mode (before RabbitMQ 3.10)
-
-Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
-
-The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
-
-It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
-can achieve a behaviour similar to lazy queues.
-
 #### Lazy Mode (since RabbitMQ 3.10)
 
 Quorum queues store their message content on disk (per Raft requirements) and
@@ -290,6 +281,15 @@ The [memory limit](#memory-limit) configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
 The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
+
+#### Lazy Mode (before RabbitMQ 3.10)
+
+Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
+
+The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
+
+It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
+can achieve a behaviour similar to lazy queues.
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
