@@ -39,8 +39,8 @@ published separately.
   </tr>
 
   <tr>
-    <td class="centre">3.10.3</td>
-    <td class="centre">31 May 2022</td>
+    <td class="centre">3.10.4</td>
+    <td class="centre">1 June 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>

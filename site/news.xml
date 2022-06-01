@@ -36,12 +36,12 @@ limitations under the License.
     -->
 
     <doc:item>
-      <doc:date iso="2022-05-31T14:00:00+00:00">31 May 2022</doc:date>
-      <doc:title>RabbitMQ 3.10.3 release</doc:title>
-      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.3</doc:link>
+      <doc:date iso="2022-06-01T14:00:00+00:00">1 June 2022</doc:date>
+      <doc:title>RabbitMQ 3.10.4 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.4</doc:link>
       <doc:text>
         <p>
-          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.3,
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 3.10.4,
           a maintenance release in the <a href="https://blog.rabbitmq.com/tags/v3.10.x/">RabbitMQ 3.10.x</a> series.
         </p>
         <p>
