@@ -39,6 +39,45 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.4</td>
+    <td class="centre">1 June 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.3">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.19</td>
+    <td class="centre">31 May 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.19">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.33</td>
+    <td class="centre">31 May 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.33">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.2</td>
     <td class="centre">20 May 2022</td>
     <td>
@@ -54,7 +93,7 @@ published separately.
 
   <tr>
     <td class="centre">3.9.18</td>
-    <td class="centre">May 20 2022</td>
+    <td class="centre">20 May 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>
@@ -67,7 +106,7 @@ published separately.
 
   <tr>
     <td class="centre">3.8.32</td>
-    <td class="centre">May 20 2022</td>
+    <td class="centre">20 May 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>
@@ -93,7 +132,7 @@ published separately.
 
   <tr>
     <td class="centre">3.9.17</td>
-    <td class="centre">May 11 2022</td>
+    <td class="centre">11 May 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>
@@ -106,7 +145,7 @@ published separately.
 
   <tr>
     <td class="centre">3.8.31</td>
-    <td class="centre">May 11 2022</td>
+    <td class="centre">11 May 2022</td>
     <td>
       <ul>
         <li>Bug fixes</li>
