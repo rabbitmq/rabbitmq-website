@@ -47,7 +47,7 @@ published separately.
       </ul>
     </td>
     <td class="centre">
-      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.3">Release notes</a>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.4">Release notes</a>
     </td>
   </tr>
 
