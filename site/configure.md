@@ -1072,10 +1072,10 @@ auth_mechanisms.2 = AMQPLAIN
   <tr>
     <td><code>tcp_listen_options</code></td>
     <td>
-      Default socket options. You may want to change these 
+      Default socket options. You may want to change these
       when you troubleshoot network issues.
       <p>
-        Default: 
+        Default:
 <pre class="lang-ini">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
@@ -1089,19 +1089,20 @@ tcp_listen_options.linger.timeout = 0
 tcp_listen_options.exit_on_close = false
 </pre>
 
-  Set `tcp_listen_options.exit_on_close` to `true` to have RabbitMQ immediately close sockets when
-  the client disconnects. This does not interfere with AMQP clients. <br/>
+Set `tcp_listen_options.exit_on_close` to `true` to have RabbitMQ try to immediately close TCP socket
+when client disconnects. Note that this cannot guarantee immediate TCP socket resource
+release by the kernel.
 
 <br/>
 <pre class="lang-ini">
 tcp_listen_options.keepalive = false</pre>
 <p>
-  Set `tcp_listen_options.keepalive` to `true` to enable TCP keepalives. These can potentially replace AMQP heartbeats. For more information, visit the <a href="networking.html">Networking</a> page. 
+  Set `tcp_listen_options.keepalive` to `true` to enable <a href="networking.html#tcp-keepalives">TCP keepalives</a>.
   <br/>
   </p>
     </td>
   </tr>
-  
+
   <tr>
     <td><code>hipe_compile</code></td>
     <td>
