@@ -876,7 +876,7 @@ Tools such as [netstat](https://en.wikipedia.org/wiki/Netstat),
 [ss](https://linux.die.net/man/8/ss), [lsof](https://en.wikipedia.org/wiki/Lsof) can be used
 to inspect TCP connections of a node. See [Troubleshooting Networking](./troubleshooting-networking.html) for examples.
 
-### <a id="dealing-with-high-connection-churn-tcp-keepalives" class="anchor" href="#dealing-with-high-connection-churn-tcp-keepalives"></a>
+### <a id="dealing-with-high-connection-churn-tcp-keepalives" class="anchor" href="#dealing-with-high-connection-churn-tcp-keepalives">The Role of TCP Keepalives</a>
 
 While [heartbeats](./heartbeats.html) are sufficient for detecting defunct connections,
 they are not going to be sufficient in high connection churn scenarios. In those cases
