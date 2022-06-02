@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ runs on the [Erlang virtual machine](https://erlang.org) and runtime.
-A [compatible version of Erlang](/which-erlang.html) must be installed in order to run RabbitMQ.
+A [compatible version of Erlang](./which-erlang.html) must be installed in order to run RabbitMQ.
 
 The Erlang runtime includes a number of components used by RabbitMQ. The most important ones
 as far as this guide is concerned are
@@ -29,7 +29,7 @@ as far as this guide is concerned are
  * `epmd` resolves node names on a host to an [inter-node communication port](networking.html)
 
 This guide will focus on the virtual machine. For an overview of epmd, please refer to the
-[Networking guide](/networking.html#epmd-inet-dist-port-range).
+[Networking guide](./networking.html#epmd-inet-dist-port-range).
 
 Topics covered include:
 
@@ -51,7 +51,7 @@ Tuning of those flags can significantly change runtime behavior of a node.
 
 ### <a id="configure" class="anchor" href="#configure">Configuring Flags</a>
 
-Most of the settings can be configured using [environment variables](/configure.html#supported-environment-variables).
+Most of the settings can be configured using [environment variables](./configure.html#supported-environment-variables).
 A few settings have dedicated variables, others can only be changed using the following generic
 variables that control what flags are passed by RabbitMQ startup scripts to the Erlang virtual machine.
 
@@ -59,14 +59,14 @@ The generic variables are
 
  * `RABBITMQ_SERVER_ERL_ARGS` allows all VM flags to be overridden, including the defaults set by RabbitMQ scripts
  * `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` allows a set of flags to be appended to the defaults set by RabbitMQ scripts
- * `RABBITMQ_CTL_ERL_ARGS` controls [CLI tool](/cli.html) VM flags
+ * `RABBITMQ_CTL_ERL_ARGS` controls [CLI tool](./cli.html) VM flags
 
 In most cases `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` is the recommended option. It can be used to override defaults
 in a safe manner. For example, if an important flag is omitted from `RABBITMQ_SERVER_ERL_ARGS`, runtime performance
 characteristics or system limits can be unintentionally affected.
 
 As with other environment variables used by RabbitMQ, `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`
-and friends can be [set using a separate environment variable file](/configure.html#customise-environment).
+and friends can be [set using a separate environment variable file](./configure.html#customise-environment).
 
 
 ## <a id="cpu" class="anchor" href="#cpu">CPU Utilisation</a>
@@ -193,15 +193,15 @@ Speculative busy waiting usually not productive on moderately loaded systems.
 
 #### Reduce Statistics Emission Frequency (Increase the Statistics Emission Interval)
 
-Increase [statistics emission interval](/management.html#statistics-interval) from default 5 seconds to 15 or 30 seconds. This will reduce
+Increase [statistics emission interval](./management.html#statistics-interval) from default 5 seconds to 15 or 30 seconds. This will reduce
 periodic activity that all connections, channels and queues carry out, even if they would otherwise be
-idle as far as client operations go. With most monitoring tools such [monitoring frequency](/monitoring.html#monitoring-frequency)
+idle as far as client operations go. With most monitoring tools such [monitoring frequency](./monitoring.html#monitoring-frequency)
 would be sufficient or even optimal.
 
 
 ## <a id="thread-stats" class="anchor" href="#thread-stats">Thread Statistics</a>: How is Scheduler and CPU Time Spent?
 
-RabbitMQ CLI tools provide a number of [metrics](/monitoring.html) that make it easier to reason
+RabbitMQ CLI tools provide a number of [metrics](./monitoring.html) that make it easier to reason
 about runtime thread activity.
 
 <pre class="lang-bash">
@@ -220,7 +220,7 @@ The command's output will produce a table with percentages by thread activity:
  * `sleep`: sleeping (idle state)
 
 Significant percentage of activity in the external I/O state may indicate that the node
-and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](/monitoring.html).
+and/or clients have maxed out network link capacity. This can be confirmed by [infrastructure metrics](./monitoring.html).
 
 Significant percentage of activity in the sleeping state might indicate a lightly loaded node or suboptimal
 runtime scheduler configuration for the available hardware and workload.
@@ -282,7 +282,7 @@ can be opened at the same time. When an OS process (such as RabbitMQ's Erlang VM
 the limit, it won't be able to open any new files or accept any more
 TCP connections.
 
-This limit is covered in detail in the [Networking guide](/networking.html#open-file-handle-limit).
+This limit is covered in detail in the [Networking guide](./networking.html#open-file-handle-limit).
 Note that it cannot be configured using Erlang VM flags.
 
 ## <a id="distribution-buffer" class="anchor" href="#distribution-buffer">Inter-node Communication Buffer Size</a>
@@ -305,7 +305,7 @@ RABBITMQ_DISTRIBUTION_BUFFER_SIZE=192000
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+zdbbl 192000"
 </pre>
 
-When the buffer is hovering around full capacity, nodes will [log](/logging.html) a warning
+When the buffer is hovering around full capacity, nodes will [log](./logging.html) a warning
 mentioning a busy distribution port (`busy_dist_port`):
 
 <pre class="lang-ini">
@@ -319,7 +319,7 @@ Increasing buffer size may help increase throughput and/or reduce latency.
 The runtime has a limit on the number of Erlang processes ("lightweight threads") that can exist on a node.
 The default is about 1 million. In most environments this is sufficient with a wide safety margin.
 
-Environments that have a particularly [high number of concurrent connections](/networking.html#tuning-for-large-number-of-connections) or a very large number
+Environments that have a particularly [high number of concurrent connections](./networking.html#tuning-for-large-number-of-connections) or a very large number
 of queues (say, hundreds of thousands) this limit might need adjusting. This is done using the
 `RABBITMQ_MAX_NUMBER_OF_PROCESSES` environment variable, which is a convenient way of
 setting the `+P` Erlang VM flag:

@@ -1,7 +1,7 @@
 # RabbitMQ Cluster Operator Plugin for kubectl
 
 This guide covers the RabbitMQ Cluster Operator plugin for kubectl.
-This plugin makes it easy to install the [RabbitMQ Cluster Kubernetes Operator](/kubernetes/operator/operator-overview.html).
+This plugin makes it easy to install the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html).
 into any Kubernetes instance and offers several commands for common workflows with RabbitMQ clusters.
 
 The only prerequisites to using the plugin are a working installation of kubectl and krew.
@@ -11,7 +11,7 @@ The only prerequisites to using the plugin are a working installation of kubectl
 
 Each plugin command automates many interactions with the kubernetes API and the RabbitMQ cluster operator.
 For a more detailed guide on using the operator and how to deploy Custom Resource objects it manages, see the
-[Using RabbitMQ Cluster Operator](/kubernetes/operator/using-operator.html) page.
+[Using RabbitMQ Cluster Operator](./using-operator.html) page.
 ---
 ## <a id='install' class='anchor' href='#install'>Install the plugin</a>
 
@@ -118,7 +118,7 @@ Displays the default user secrets for the named RabbitMQ cluster
 kubectl rabbitmq manage INSTANCE
 </pre>
 
-Opens the RabbitMQ [Management UI](/management.html) in a browser.
+Opens the RabbitMQ [Management UI](../../management.html) in a browser.
 
 ### <a id='debug' class='anchor' href='#debug'>Set Log Level to debug</a>
 
@@ -127,7 +127,7 @@ kubectl rabbitmq debug INSTANCE
 </pre>
 
 Sets the log level on all nodes to debug. For a detailed breakdown on RabbitMQ logging
-see the [Logging guide](/logging.html).
+see the [Logging guide](../../logging.html).
 
 ### <a id='tail' class='anchor' href='#tail'>Tail Logs</a>
 
@@ -148,7 +148,7 @@ kubectl krew install tail
 kubectl rabbitmq observe INSTANCE INDEX
 </pre>
 
-Opens the [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) observer interface for a given node.
+Opens the [`rabbitmq-diagnostics`](../../rabbitmq-diagnostics.8.html) observer interface for a given node.
 
 ### <a id='feature-flags' class='anchor' href='#feature-flags'>Enable All Feature Flags</a>
 
@@ -156,7 +156,7 @@ Opens the [`rabbitmq-diagnostics`](/rabbitmq-diagnostics.8.html) observer interf
 kubectl rabbitmq enable-all-feature-flags INSTANCE 
 </pre>
 
-This command uses [`rabbitmqctl`](/cli.html) to enable all possible [feature flags](/feature-flags.html).
+This command uses [`rabbitmqctl`](../../cli.html) to enable all possible [feature flags](../../feature-flags.html).
 
 ### <a id='pause-reconciliation' class='anchor' href='#pause-reconciliation'>Pause Reconciliation</a>
 

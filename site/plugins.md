@@ -22,7 +22,7 @@ limitations under the License.
 This guide covers
 
  * [Plugin support](#overview) in RabbitMQ
- * How to [enable a plugin](#ways-to-enable-plugins) using [CLI tools](/cli.html)
+ * How to [enable a plugin](#ways-to-enable-plugins) using [CLI tools](./cli.html)
  * [Plugin directories](#plugin-directories)
  * How to [preconfigure plugins](#enabled-plugins-file) on a node at deployment time
  * [Troubleshooting](#troubleshooting) of a number of common issues
@@ -30,17 +30,17 @@ This guide covers
 
 and more.
 
-[Plugin development](/plugin-development.html) is covered in a separate guide.
+[Plugin development](./plugin-development.html) is covered in a separate guide.
 
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
 
 RabbitMQ supports plugins. Plugins extend core broker functionality in a variety of ways: with support
-for more protocols, system state [monitoring](/monitoring.html), additional AMQP 0-9-1 exchange types,
+for more protocols, system state [monitoring](./monitoring.html), additional AMQP 0-9-1 exchange types,
 node [federation](federation.html), and more. A number of features are implemented as plugins
 that ship in the core distribution.
 
-This guide covers the plugin mechanism and plugins that ship in the [latest release](/changelog.html) of the RabbitMQ distribution.
+This guide covers the plugin mechanism and plugins that ship in the [latest release](./changelog.html) of the RabbitMQ distribution.
 3rd party plugins can be installed separately. A set of [curated plugins](#plugin-tiers) is also available.
 
 Plugins are activated when a node is started or at runtime when a [CLI tool](cli.html)
@@ -49,7 +49,7 @@ the [rabbitmq-plugins](cli.html):
 
 <pre class="lang-bash">rabbitmq-plugins enable &lt;plugin-name&gt;</pre>
 
-For example, to enable the Kubernetes [peer discovery](/cluster-formation.html) plugin:
+For example, to enable the Kubernetes [peer discovery](./cluster-formation.html) plugin:
 
 <pre class="lang-bash">rabbitmq-plugins enable rabbitmq_peer_discovery_k8s</pre>
 
@@ -57,11 +57,11 @@ And to disable a plugin, use:
 
 <pre class="lang-bash">rabbitmq-plugins disable &lt;plugin-name&gt;</pre>
 
-For example, to disable the [`rabbitmq-top`](/memory-use.html#breakdown-top) plugin:
+For example, to disable the [`rabbitmq-top`](./memory-use.html#breakdown-top) plugin:
 
 <pre class="lang-bash">rabbitmq-plugins disable rabbitmq_top</pre>
 
-A list of plugins available locally (in the node's [plugins directory](/relocate.html)) as well
+A list of plugins available locally (in the node's [plugins directory](./relocate.html)) as well
 as their status (enabled or disabled) can be obtained using `rabbitmq-plugins list`:
 
 <pre class="lang-bash">rabbitmq-plugins list</pre>
@@ -81,9 +81,9 @@ the tool will not contact any nodes and instead will modify the file containing
 the list of enabled plugins (appropriately named `enabled_plugins`) directly.
 This option is often optimal for node provisioning automation.
 
-The `enabled_plugins` file is usually [located](/relocate.html) in the node
+The `enabled_plugins` file is usually [located](./relocate.html) in the node
 data directory or under `/etc`, together with configuration files. The file contains
-a list of plugin names ending with a dot. For example, when [rabbitmq_management](/management.html) and
+a list of plugin names ending with a dot. For example, when [rabbitmq_management](./management.html) and
 [rabbitmq_shovel](shovel.html) plugins are enabled,
 the file contents will look like this:
 
@@ -110,9 +110,9 @@ RabbitMQ loads plugins from the local filesystem. Plugins are distributed as
 archives (`.ez` files) with compiled code modules and metadata.
 Since some plugins [ship with RabbitMQ](#plugin-tiers), every
 node has at least one default plugin directory. The path varies between
-package types and can be [overridden](/relocate.html) using the
-`RABBITMQ_PLUGINS_DIR` [environment variable](/configure.html#customise-environment).
-Please see [File and Directory Locations guide](/relocate.html) to learn about the default
+package types and can be [overridden](./relocate.html) using the
+`RABBITMQ_PLUGINS_DIR` [environment variable](./configure.html#customise-environment).
+Please see [File and Directory Locations guide](./relocate.html) to learn about the default
 value on various platforms.
 
 The built-in plugin directory is by definition version-independent: its contents will change
@@ -141,7 +141,7 @@ by them.
 
 3rd party plugin directories will differ from platform to platform and installation method
 to installation method. For example, `/usr/lib/rabbitmq/plugins` is a 3rd party plugin directory
-path used by RabbitMQ [Debian packages](/install-debian.html).
+path used by RabbitMQ [Debian packages](./install-debian.html).
 
 Plugin directory can be located by executing the `rabbitmq-plugins directories` command on the host
 with a running RabbitMQ node:
@@ -187,7 +187,7 @@ directory that is then added to its code path. This directory is known
 as the expanded plugins directory. It is usually managed entirely by RabbitMQ
 but if node directories are changed to non-standard ones, that directory will likely
 need to be overridden, too. It can be done using the `RABBITMQ_PLUGINS_EXPAND_DIR`
-[environment variable](/configure.html#customise-environment). The directory
+[environment variable](./configure.html#customise-environment). The directory
 must be readable and writable by the effective operating system user of the RabbitMQ node.
 
 
@@ -244,7 +244,7 @@ which rabbitmq-plugins
 
 In some environments, in particular development ones, `rabbitmq-plugins`
 comes from a different installation than the running server node. This can be the case
-when a node is installed using a [binary build package](/install-generic-unix.html)
+when a node is installed using a [binary build package](./install-generic-unix.html)
 but CLI tools come from the local package manager such as `apt` or Homebrew.
 
 In that case CLI tools will have a different [enabled plugins file](#enabled-plugins-file)
@@ -295,7 +295,7 @@ a dependency, it won't be listed in the enabled plugins file and thus its CLI co
 
 Plugins that ship with the RabbitMQ distributions are often referred
 to as tier 1 plugins. Provided that a standard distribution package is
-used they do not need to be [installed](/installing-plugins.html) but do need to be
+used they do not need to be [installed](./installing-plugins.html) but do need to be
 enabled before they can be used.
 
 In addition to the plugins bundled with the server, team RabbitMQ
@@ -471,7 +471,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="/shovel.html">Documentation for the Shovel plugin</a>
+            <a href="./shovel.html">Documentation for the Shovel plugin</a>
           </li>
         </ul>
       </td>
@@ -480,7 +480,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_shovel_management</th>
       <td>
-        Shows <a href="/shovel.html">Shovel</a> status in the management API and UI.
+        Shows <a href="./shovel.html">Shovel</a> status in the management API and UI.
         Only of use when using <code>rabbitmq_shovel</code> in
         conjunction with <code>rabbitmq_management</code>. In a
         heterogeneous cluster this should be installed on the same
@@ -534,7 +534,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     <tr>
       <th>rabbitmq_web_mqtt</th>
       <td>
-        MQTT-over-WebSockets: a bridge exposing <a href="/mqtt.html">rabbitmq_mqtt</a> to Web
+        MQTT-over-WebSockets: a bridge exposing <a href="./mqtt.html">rabbitmq_mqtt</a> to Web
         browsers using WebSockets.
         <ul>
           <li><a href="web-mqtt.html">Documentation for the

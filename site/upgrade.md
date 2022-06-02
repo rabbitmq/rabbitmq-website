@@ -47,7 +47,7 @@ the process for those cases.
 
 ### Blue-Green Deployment Upgrades
 
-The Blue/Green deployment strategy offers the benefit of making the upgrade process safer at the cost of
+[The Blue/Green deployment](blue-green-upgrade.html) strategy offers the benefit of making the upgrade process safer at the cost of
 temporary increasing infrastructure footprint. The safety aspect comes from the fact that the operator
 can abort an upgrade by switching applications back to the existing cluster.
 
@@ -73,13 +73,13 @@ Current release series upgrade compatibility with full stop upgrade:
 | 3.5.x    | 3.7.x  |
 | =< 3.4.x | 3.6.16 |
 
-`3.7.18` and later `3.7.x` versions support [rolling upgrades](#rolling-upgrades) to `3.8.x` using [feature flags](/feature-flags.html).
+`3.7.18` and later `3.7.x` versions support [rolling upgrades](#rolling-upgrades) to `3.8.x` using [feature flags](./feature-flags.html).
 
 
 ## <a id="rabbitmq-erlang-version-requirement" class="anchor" href="#rabbitmq-erlang-version-requirement">Erlang Version Requirements</a>
 
 We recommend that you upgrade Erlang together with RabbitMQ.
-Please refer to the [Erlang Version Requirements](/which-erlang.html) guide.
+Please refer to the [Erlang Version Requirements](./which-erlang.html) guide.
 
 
 ## <a id="unsupported-inplace-upgrade" class="anchor" href="#unsupported-inplace-upgrade">Features that Do Not Support In-place Upgrades</a>
@@ -424,7 +424,7 @@ during shutdown, which blocks subsequent upgrade steps:
 * [OTP-14441](https://bugs.erlang.org/browse/ERL-430): fixed in Erlang/OTP `19.3.6` and `20.0`
 * [OTP-14509](https://bugs.erlang.org/browse/ERL-448): fixed in Erlang/OTP `19.3.6.2` and `20.0.2`
 
-Please note that both issues affect old and [no longer supported version of Erlang](/which-erlang.html).
+Please note that both issues affect old and [no longer supported version of Erlang](./which-erlang.html).
 
 A node that suffered from the above bugs will fail to shut down and stop responding to inbound
 connections, including those of CLI tools. Such node's OS process has to be terminated
@@ -659,7 +659,7 @@ See the [Upgrading Multiple Nodes](#multiple-nodes-upgrade) section above.
 
 ### Assess Cluster Health
 
-Make sure nodes are healthy and there are no [network partition](/partitions.html) or [disk or memory alarms](/alarms.html) in effect.
+Make sure nodes are healthy and there are no [network partition](./partitions.html) or [disk or memory alarms](./alarms.html) in effect.
 
 RabbitMQ management UI, CLI tools or HTTP API can be used for
 assessing the health of the system.

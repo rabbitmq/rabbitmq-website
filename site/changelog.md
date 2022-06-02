@@ -20,9 +20,9 @@ limitations under the License.
 ## Overview
 
 RabbitMQ release notes are [available on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases).
-See <a href="/versions.html">RabbitMQ support timeline</a> to find out what release series
+See <a href="./versions.html">RabbitMQ support timeline</a> to find out what release series
 are supported.
-For guidance on upgrades, see the [Upgrade](/upgrade.html) and [Blue/Green Deployment Upgrade](/blue-green-upgrade.html) guides.
+For guidance on upgrades, see the [Upgrade](./upgrade.html) and [Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
 
 [Java client release notes](https://github.com/rabbitmq/rabbitmq-java-client/releases)
 and [.NET client release notes](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases) are
@@ -39,18 +39,63 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.1</td>
+    <td class="centre">11 May 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.1">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.17</td>
+    <td class="centre">May 11 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.17">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.31</td>
+    <td class="centre">May 11 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.31">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.0</td>
     <td class="centre">3 May 2022</td>
     <td>
       <ul>
-        <li>Improved efficiency, significantly reduced memory footprint of quorum queues</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/">Improved efficiency</a>, significantly reduced memory footprint of quorum queues</li>
         <li><a href="https://rabbitmq.com/ttl.html">Message TTL</a> support in quorum queues</li>
         <li>New classic queue message store and index, "CQv2"</li>
+        <li>Initial support for <a href="https://www.erlang.org/blog/my-otp-25-highlights/">Erlang 25</a></li>
         <li>Much faster (or idempotent) definition import on boot</li>
         <li>Scope aliases in OAuth 2 plugin</li>
+        <li>
+          Learn more in <a href="https://blog.rabbitmq.com/tags/v3.10.x/">blog posts on 3.10.x</a>
+        </li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">Release notes</a></td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0">Release notes</a>
+    </td>
   </tr>
 
   <tr>
@@ -429,7 +474,7 @@ published separately.
     <td class="centre">2 March 2021</td>
     <td>
       <ul>
-        <li>Restores Erlang 22.3 compatibility for <a href="/direct-reply-to.html">direct reply-to</a></li>
+        <li>Restores Erlang 22.3 compatibility for <a href="./direct-reply-to.html">direct reply-to</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.14">Release notes</a></td>
@@ -526,7 +571,7 @@ published separately.
     <td>
       <ul>
         <li>Security vulnerability patch (<a href="https://tanzu.vmware.com/security/cve-2020-5419">CVE-2020-5419</a>)</li>
-        <li>3.7.x release series <a href="/versions.html">has reached end of life</a></li>
+        <li>3.7.x release series <a href="./versions.html">has reached end of life</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -553,7 +598,7 @@ published separately.
       <ul>
         <li>Bug Fixes</li>
         <li>Backports from 3.8.x series</li>
-        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+        <li>3.7.x is out of general support and only <a href="./versions.html">covered under the extended support policy</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -593,7 +638,7 @@ published separately.
     <td>
       <ul>
         <li>Bug Fixes</li>
-        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+        <li>3.7.x is out of general support and only <a href="./versions.html">covered under the extended support policy</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -607,7 +652,7 @@ published separately.
     <td>
       <ul>
         <li>Bug Fixes</li>
-        <li>3.7.x is out of general support and only <a href="/versions.html">covered under the extended support policy</a></li>
+        <li>3.7.x is out of general support and only <a href="./versions.html">covered under the extended support policy</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.25">Release notes</a></td>
@@ -644,7 +689,7 @@ published separately.
     <td>
       <ul>
         <li>Optimizations</li>
-        <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
+        <li>This release <a href="./which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.23">Release notes</a></td>
@@ -669,7 +714,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
+        <li>This release <a href="./which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">Release notes</a></td>
@@ -693,7 +738,7 @@ published separately.
       <ul>
         <li>Security vulnerability (<a href="https://pivotal.io/security/cve-2019-11287">CVE-2019-11287</a>) fix</li>
         <li>Bug fixes</li>
-        <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
+        <li>This release <a href="./which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">Release notes</a></td>
@@ -705,7 +750,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>This release <a href="/which-erlang.html">requires Erlang/OTP 21.3</a></li>
+        <li>This release <a href="./which-erlang.html">requires Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.20">Release notes</a></td>
@@ -717,7 +762,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>First <code>3.7.x</code> release to <a href="/which-erlang.html">require Erlang/OTP 21.3</a></li>
+        <li>First <code>3.7.x</code> release to <a href="./which-erlang.html">require Erlang/OTP 21.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.19">Release notes</a></td>
@@ -729,11 +774,11 @@ published separately.
     <td>
       <ul>
         <li><a href="which-erlang.html">Minimum required Erlang version</a> is now 21.3</li>
-        <li><a href="/quorum-queues.html">Quorum Queues</a></li>
-        <li><a href="/monitoring.html">Monitoring</a> improvements: built-in <a href="/prometheus.html">Prometheus support</a> with a set of Grafana dashboards</li>
-        <li><a href="/feature-flags.html">Feature flags</a> and support for mixed version clusters <a href="/upgrade.html">during upgrades</a></li>
-        <li>New diagnostics CLI tools, new <a href="/monitoring.html#health-checks">health checks</a></li>
-        <li><a href="/consumers.html#single-active-consumer">Single Active Consumer</a></li>
+        <li><a href="./quorum-queues.html">Quorum Queues</a></li>
+        <li><a href="./monitoring.html">Monitoring</a> improvements: built-in <a href="./prometheus.html">Prometheus support</a> with a set of Grafana dashboards</li>
+        <li><a href="./feature-flags.html">Feature flags</a> and support for mixed version clusters <a href="./upgrade.html">during upgrades</a></li>
+        <li>New diagnostics CLI tools, new <a href="./monitoring.html#health-checks">health checks</a></li>
+        <li><a href="./consumers.html#single-active-consumer">Single Active Consumer</a></li>
         <li>New <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2">authentication and authorisation backend</a> that uses OAuth 2.0 (JWT) tokens and scopes</li>
       </ul>
     </td>
@@ -747,7 +792,7 @@ published separately.
       <ul>
         <li>Security vulnerability (<a href="https://pivotal.io/security/cve-2019-11281">CVE-2019-11281</a>) fix</li>
         <li>Bug fixes</li>
-        <li>Last release to <a href="/which-erlang.html">support Erlang/OTP 20.3</a></li>
+        <li>Last release to <a href="./which-erlang.html">support Erlang/OTP 20.3</a></li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">Release notes</a></td>
@@ -833,7 +878,7 @@ published separately.
       <ul>
         <li>Bug fixes</li>
         <li>Usability improvements</li>
-        <li><a href="/which-erlang.html">Minimum required Erlang version</a> is now 20.3</li>
+        <li><a href="./which-erlang.html">Minimum required Erlang version</a> is now 20.3</li>
       </ul>
     </td>
     <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.11">Release notes</a></td>
@@ -1205,13 +1250,13 @@ published separately.
     <td class="centre">22 December 2015</td>
     <td>
       <ul>
-        <li><a href="/lazy-queues.html">Lazy Queues</a></li>
+        <li><a href="./lazy-queues.html">Lazy Queues</a></li>
         <li>Batch (mirror) synchronisation</li>
         <li>Pagination in management UI</li>
         <li><a href="https://www.rabbitmq.com/passwords.html">Password hashing</a> now uses SHA-256 by default:
         please <a href="https://www.rabbitmq.com/passwords.html">read the docs</a> before importing definitions from 3.5.x!</li>
-        <li><a href="/web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
-        <li><a href="/plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk</a></li>
+        <li><a href="./web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
+        <li><a href="./plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk</a></li>
         <li>Development <a href="https://github.com/rabbitmq/">moved entirely to GitHub</a></li>
       </ul>
     </td>
@@ -2098,6 +2143,6 @@ published separately.
         <li>Initial release</li>
       </ul>
     </td>
-    <td class="centre"><a href="/resources/RabbitMQ_PressRelease_080207.pdf">Release notes</a><br/>(pdf)</td>
+    <td class="centre"><a href="./resources/RabbitMQ_PressRelease_080207.pdf">Release notes</a><br/>(pdf)</td>
   </tr>
 </table>

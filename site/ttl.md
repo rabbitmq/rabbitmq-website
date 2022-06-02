@@ -20,17 +20,17 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ allows you to set TTL (time to live) for both messages and queues.
-This is controlled by [optional queue arguments](queues.html) and best done using a [policy](/parameters.html).
+This is controlled by [optional queue arguments](queues.html) and best done using a [policy](./parameters.html).
 
 Message TTL can be applied to a single queue, a group of
 queues or applied on the message-by-message basis.
 
-TTL settings also can be enforced by [operator policies](/parameters.html#operator-policies).
+TTL settings also can be enforced by [operator policies](./parameters.html#operator-policies).
 
 ## <a id="per-queue-message-ttl" class="anchor" href="#per-queue-message-ttl">Per-Queue Message TTL in Queues</a>
 
 Message TTL can be set for a given queue by setting the
-`message-ttl` argument with a [policy](/parameters.html#policies)
+`message-ttl` argument with a [policy](./parameters.html#policies)
 or by specifying the same argument at the time of queue declaration.
 
 A message that has been in the queue for longer than the configured TTL is said to
@@ -126,7 +126,7 @@ will (only) accept the string representation of the number.
 When both a per-queue and a per-message TTL are specified, the
 lower value between the two will be chosen.
 
-This example uses [RabbitMQ Java client](/api-guide.html)
+This example uses [RabbitMQ Java client](./api-guide.html)
 to publish a message which can reside in the queue for at most 60 seconds:
 
 <pre class="lang-java">

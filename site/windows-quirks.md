@@ -17,7 +17,7 @@ limitations under the License.
 
 # Windows-specific Issues
 
-This guide is a companion to the main [Windows installation guide](/install-windows.html).
+This guide is a companion to the main [Windows installation guide](./install-windows.html).
 
 It documents known conditions and scenarios which can cause RabbitMQ Windows service
 or CLI tools to malfunction.
@@ -61,7 +61,7 @@ the version you wish RabbitMQ to use. If you must upgrade Erlang, use this proce
 .\rabbitmq-service.bat start
 </pre>
 
-If any environment variables have changed in the mean time, [Windows service reinstallation](/configure.html#rabbitmq-env-file-windows) would
+If any environment variables have changed in the mean time, [Windows service reinstallation](./configure.html#rabbitmq-env-file-windows) would
 also be necessary.
 
 
@@ -82,7 +82,7 @@ It expects input in UTF-8, but the console will typically use some other encodin
 One of these options can be used to mitigate:
 
  * Override `RABBITMQ_BASE` to point to a directory
-   that only has ASCII characters and [**re-install** the Windows service](/configure.html#rabbitmq-env-file-windows).
+   that only has ASCII characters and [**re-install** the Windows service](./configure.html#rabbitmq-env-file-windows).
  * Edit the file `rabbitmq-server.bat` and change the
    line `set TDP0=%~dp0` to `set TDP0=%~dps0`.
    This will use short paths (the infamous `C:\PROGRA~1`) everywhere.
@@ -90,7 +90,7 @@ One of these options can be used to mitigate:
 
 ## <a id="non-ascii-cli" class="anchor" href="#non-ascii-cli">CLI Tools Display or Parse non-ASCII Characters Incorrectly</a>
 
-Similarly, [RabbitMQ CLI tools](/cli.html) will expect command line
+Similarly, [RabbitMQ CLI tools](./cli.html) will expect command line
 parameters to be encoded in UTF-8, and display strings as
 UTF-8. The console will instead provide and expect some country-specific encoding.
 
@@ -98,18 +98,18 @@ UTF-8. The console will instead provide and expect some country-specific encodin
 
 One of these options can be used to mitigate:
 
- * Avoid using non-ASCII characters in RabbitMQ installation and [node directory](/relocate.html) paths
+ * Avoid using non-ASCII characters in RabbitMQ installation and [node directory](./relocate.html) paths
  * On recent versions of Windows, issue the command
    <pre class="lang-powershell">chcp 65001</pre> before using CLI tools to force
    the console to use UTF-8
- * Where possible, use the [management plugin](/management.html) instead of CLI tools.
+ * Where possible, use the [management plugin](./management.html) instead of CLI tools.
 
 
 ## <a id="cookie-location" class="anchor" href="#cookie-location">Installing as a non-administrator User Leaves `.erlang.cookie` in the Wrong Place</a>
 
-If RabbitMQ is installed using a non-administrative account, a [shared secret](/cli.html#erlang-cookie) file
+If RabbitMQ is installed using a non-administrative account, a [shared secret](./cli.html#erlang-cookie) file
 used by nodes and CLI tools will not be placed into a correct location,
-leading to [authentication failures](/cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
+leading to [authentication failures](./cli.html#cli-authentication-failures) when `rabbitmqctl.bat`
 and other CLI tools are used.
 
 ### Mitigation
@@ -121,7 +121,7 @@ One of these options can be used to mitigate:
    from `%SystemRoot%` or `%SystemRoot%\system32\config\systemprofile`
    to `%HOMEDRIVE%%HOMEPATH%`.
 
-See [How CLI Tools Authenticate to Nodes (and Nodes to Each Other](/cli.html#erlang-cookie) in the CLI guide.
+See [How CLI Tools Authenticate to Nodes (and Nodes to Each Other](./cli.html#erlang-cookie) in the CLI guide.
 
 
 ## <a id="computername-vs-hostname" class="anchor" href="#computername-vs-hostname">COMPUTERNAME is different from HOSTNAME</a>

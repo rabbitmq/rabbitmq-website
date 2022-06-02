@@ -22,10 +22,11 @@ This guide has the following sections:
 * [TLS](#tls)
 * [Use HashiCorp Vault](#vault)
 * [Configure Log Level for the Operator](#operator-log)
+* [Time based Reconciliation](#sync-period)
 
 <p class="note">
   <strong>Note:</strong> Additional information about using the operator on Openshift can be found at
-  [Using the RabbitMQ Kubernetes Operators on Openshift](using-on-openshift.html).
+  [Using the RabbitMQ Kubernetes Operators on Openshift](./using-on-openshift.html).
 </p>
 
 ## <a id='requirements' class='anchor' href='#requirements'> Cluster Operator Requirements</a>
@@ -383,12 +384,12 @@ user credentials set in the definitions.
 ## <a id='tls' class='anchor' href='#tls'>TLS</a>
 
 If the RabbitmqClusters managed by the Messaging Topology Operator are configured to serve the Management over HTTPS, there are some additional
-steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](/kubernetes/operator/tls-topology-operator.html) to configure
+steps required to configure Messaging Topology Operator. Follow this [TLS dedicated guide](./tls-topology-operator.html) to configure
 the Operator.
 
 ## <a id='vault' class='anchor' href='#vault'>(Optional) Use HashiCorp Vault</a>
 
-If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](/kubernetes/operator/vault-topology-operator.html) to configure the operator.
+If the RabbitmqClusters managed by the Messaging Topology Operator are configured to store their default user credentials in Vault, there are some additional steps requires to configure Messaging Topology Operator. Follow this [Vault dedicated guide](./vault-topology-operator.html) to configure the operator.
 
 ## <a id='operator-log' class='anchor' href='#operator-log'>Configure Log Level for the Operator</a>
 
@@ -414,3 +415,34 @@ spec:
 </pre>
 
 Other available command line flags for the zap logger can be found documented in [controller runtime](https://github.com/kubernetes-sigs/controller-runtime/blob/v0.10.2/pkg/log/zap/zap.go#L240-L246).
+
+### <a id='sync-period' class='anchor' href='#sync-period'>Time based reconciliation</a>
+
+By default, Messaging Topology Operator reconciles topology objects when there are create/update/delete events for that particular custom resource.
+From version `1.6.0`, you can configure the Operator to perform reconciliation for all topology objects in a specific frequency by setting an environment variable in the Operator deployment:
+
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  [...]
+  name: messaging-topology-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    spec:
+      containers:
+      - command:
+        - /manager
+        env:
+        - name: SYNC_PERIOD
+          value: 5m # needs to be in a format that's readable by golang time.ParseDuration(), e.g. “1000s”, “5.3h” or “20h35m”
+...
+</pre>
+
+Recreating a deleted queue will *not recovery any messages*.
+
+Note that this frequency applies to all topology objects managed by the Operator.
+Depending on how many objects you've created with Topology Operator, reconciling all objects in a frequency
+could cause unnecessary load on both the Operator and the RabbitMQ server.
+Only use this feature if time based reconciliation is required for your use case.

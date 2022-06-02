@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers a methodology and some tooling that can help diagnose TLS connectivity issues and errors (TLS alerts).
-It accompanies the main guide on [TLS in RabbitMQ](/ssl.html).
+It accompanies the main guide on [TLS in RabbitMQ](./ssl.html).
 The strategy is to test the required components with an alternative TLS
 implementation in the process of elimination to identify the problematic end (client or server).
 
@@ -39,7 +39,7 @@ The steps recommended in this guide are:
  * And finally, test a real client connection against a real server connection again
 
 When testing with a RabbitMQ node and/or a real RabbitMQ client it is important to inspect
-[logs](/logging.html) for both server and client.
+[logs](./logging.html) for both server and client.
 
 ## <a id="verify-config" class="anchor" href="#verify-config">Check Effective Node Configuration</a>
 
@@ -55,8 +55,8 @@ for details.
 This step checks that the broker is listening on the [expected port(s)](networking.html), such as
 5671 for AMQP 0-9-1 and 1.0, 8883 for MQTT, and so on.
 
-To verify that TLS has been enabled on the node, use <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) listeners</code>
-or the <code>listeners</code> section in <code>[rabbitmq-diagnostics](/rabbitmq-diagnostics.8.html) status</code>.
+To verify that TLS has been enabled on the node, use <code>[rabbitmq-diagnostics](./rabbitmq-diagnostics.8.html) listeners</code>
+or the <code>listeners</code> section in <code>[rabbitmq-diagnostics](./rabbitmq-diagnostics.8.html) status</code>.
 
 The listeners section will look something like this:
 
@@ -74,10 +74,10 @@ In the above example, there are 6 TCP listeners on the node. Two of them accept 
  * Inter-node and CLI tool communication on port <code>25672</code>
  * AMQP 0-9-1 (and 1.0, if enabled) listener for non-TLS connections on port <code>5672</code>
  * AMQP 0-9-1 (and 1.0, if enabled) listener for TLS-enabled connections on port <code>5671</code>
- * [HTTP API](/management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
- * [MQTT](/mqtt.html) listener for non-TLS connections 1883
+ * [HTTP API](./management.html) listeners on ports 15672 (HTTP) and 15671 (HTTPS)
+ * [MQTT](./mqtt.html) listener for non-TLS connections 1883
 
-If the above steps are not an option, inspecting node's [log file](/logging.html) can be a viable alternative.
+If the above steps are not an option, inspecting node's [log file](./logging.html) can be a viable alternative.
 It should contain an entry about a TLS listener being enabled, looking like this:
 
 <pre class="lang-plaintext">
@@ -88,11 +88,11 @@ It should contain an entry about a TLS listener being enabled, looking like this
 If the node is configured to use TLS but a message similar to the above is not logged,
 it is possible that the configuration file was placed at an incorrect location and was not read by
 the broker or the node was not restarted after config file changes.
-See the [configuration page](/configure.html#introduction) for details
+See the [configuration page](./configure.html#introduction) for details
 on config file verification.
 
 Tools such as <code>lsof</code> and <code>netstat</code> can be used to verify what ports
-a node is listening on, as covered in the [Troubleshooting Networking](/troubleshooting-networking.html) guide.
+a node is listening on, as covered in the [Troubleshooting Networking](./troubleshooting-networking.html) guide.
 
 ## <a id="verify-file-permissions" class="anchor" href="#verify-file-permissions">Check Certificate, Private Key and CA Bundle File Permissions</a>
 
@@ -107,7 +107,7 @@ When certificate or private key files are not readable or do not exist,
 the node will fail to accept TLS-enabled connections or TLS connections will just hang (the behavior
 differs between Erlang/OTP versions).
 
-When [new style configuration format](/configure.html#config-file-formats) is used to configure certificate and private
+When [new style configuration format](./configure.html#config-file-formats) is used to configure certificate and private
 key paths, the node will check if the files exist on boot and refuse to start if that's not the case.
 
 ## <a id="verify-tls-support-in-erlang" class="anchor" href="#verify-tls-support-in-erlang">Check TLS Support in Erlang</a>
@@ -157,7 +157,7 @@ The output in this case will look like so:
  {available_dtls,['dtlsv1.2',dtlsv1]}]
 </pre>
 
-If an error is reported instead, confirm that the Erlang/OTP installation [includes TLS support](/ssl.html#erlang-otp-requirements).
+If an error is reported instead, confirm that the Erlang/OTP installation [includes TLS support](./ssl.html#erlang-otp-requirements).
 
 It is also possible to list cipher suites available on a node:
 
@@ -199,7 +199,7 @@ The example below seeks to confirm that the certificates and keys can be used to
 establish a TLS connection by connecting an <code>s_client</code> client to an <code>s_server</code> server
 in two separate shells (terminal windows).
 
-The example will assume you have the following [certificate and key files](/ssl.html#certificates-and-keys)
+The example will assume you have the following [certificate and key files](./ssl.html#certificates-and-keys)
 (these filenames are used by [tls-gen](https://github.com/rabbitmq/tls-gen)):
 
 <table>
@@ -257,7 +257,7 @@ If the certificates and keys have been correctly created, a TLS connection outpu
 will appear in both tabs. There is now a connection between the example client and the example
 server, similar to <code>telnet</code>.
 
-If the [trust chain](/ssl.html#peer-verification) could be established, the second terminal will display
+If the [trust chain](./ssl.html#peer-verification) could be established, the second terminal will display
 a verification confirmation with the code of <code>0</code>:
 
 <pre class="lang-ini">
@@ -277,13 +277,13 @@ we recommend using [tls-gen](https://github.com/rabbitmq/tls-gen) for generation
 
 ## <a id="verify-cipher-suites" class="anchor" href="#verify-cipher-suites">Validate Available Cipher Suites</a>
 
-RabbitMQ nodes and clients can be limited in what [cipher suites](/ssl.html#cipher-suite) they are allowed
+RabbitMQ nodes and clients can be limited in what [cipher suites](./ssl.html#cipher-suite) they are allowed
 to use during TLS handshake. It is important to make sure that the two sides have
 some cipher suites in common or otherwise the handshake will fail.
 
 Certificate's key usage properties can also limit what cipher suites can be used.
 
-See [Configuring Cipher Suites](/ssl.html#cipher-suites) and [Public Key Usage Extensions](/ssl.html#key-usage) in the main TLS guide
+See [Configuring Cipher Suites](./ssl.html#cipher-suites) and [Public Key Usage Extensions](./ssl.html#key-usage) in the main TLS guide
 to learn more.
 
 <pre class="lang-bash">
@@ -306,7 +306,7 @@ openssl s_client -connect localhost:5671 -cert client_certificate.pem -key clien
 </pre>
 
 The output should appear similar to the case where port 8443 was used. The node log file
-should [contain a new entry when the connection is established](/logging.html#logged-events):
+should [contain a new entry when the connection is established](./logging.html#logged-events):
 
 <pre class="lang-ini">
 2018-09-27 15:46:20 [info] &lt;0.1082.0&gt; accepting AMQP connection &lt;0.1082.0&gt; (127.0.0.1:50915 -> 127.0.0.1:5671)
@@ -364,8 +364,8 @@ or `stunnel` instances first.
 
 ## <a id="verify-verification-depth" class="anchor" href="#verify-verification-depth">Certificate Chains and Verification Depth</a>
 
-When using a client certificate [signed by an intermediate CA](/ssl.html#peer-verification), it may be necessary
-to configure RabbitMQ server to use a higher [verification depth](/ssl.html#peer-verification-depth).
+When using a client certificate [signed by an intermediate CA](./ssl.html#peer-verification), it may be necessary
+to configure RabbitMQ server to use a higher [verification depth](./ssl.html#peer-verification-depth).
 
 Insufficient verification depth will result in TLS peer verification failures.
 
