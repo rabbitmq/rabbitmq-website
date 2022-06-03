@@ -230,7 +230,7 @@ Streams are not really queues in the traditional sense and thus do not
 align very closely with AMQP 0.9.1 queue semantics. Many features that other queue types
 support are not supported and will never be due to the nature of the queue type.
 
-An AMQP 0.9.1 client library that can use regular mirrored queues will be able to use streams
+An AMQP 0.9.1 client library that can use [regular queues](./queues.html) will be able to use streams
 as long as it uses consumer acknowledgements.
 
 Many features will never be supported by streams due to their non-destructive
@@ -393,14 +393,14 @@ stream's *replica* will be elected leader and resume
 operations.
 
 Failed and rejoining replicas will re-synchronise ("catch up") with the leader.
-In contrast to classic mirrored queues, a temporary replica failure
+Similarly to quorum queues queues, a temporary replica failure
 does not require a full re-synchronization from the currently elected leader. Only the delta
 will be transferred if a re-joining replica is behind the leader. This "catching up" process
 does not affect leader availability.
 
 Replicas must be explicitly added.
 When a new replica is [added](#replica-management), it will synchronise the entire stream state
-from the leader, similarly to classic mirrored queues.
+from the leader, similarly to newly added quorum queue replicas.
 
 ### <a id="quorum-requirements" class="anchor" href="#quorum-requirements">Fault Tolerance and Minimum Number of Replicas Online</a>
 
@@ -473,7 +473,7 @@ For stream protocol port, TLS and other configuration, see the [Stream plugin gu
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
-Streams are typically more light-weight than mirrored and quorum queues.
+Streams usually will have lower CPU and memory footprint than quorum queues.
 
 All data is stored on disk with only unwritten data stored in memory.
 

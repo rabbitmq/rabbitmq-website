@@ -1102,17 +1102,6 @@ tcp_listen_options.keepalive = false</pre>
   </p>
     </td>
   </tr>
-
-  <tr>
-    <td><code>hipe_compile</code></td>
-    <td>
-      <p>
-        Do not use. This option is no longer supported. HiPE supported has been
-        dropped starting with Erlang 22.
-      </p>
-      <p>Default: <pre class="lang-ini">hipe_compile = false</pre></p>
-    </td>
-  </tr>
   <tr>
     <td><code>cluster_partition_handling</code></td>
     <td>

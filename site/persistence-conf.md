@@ -45,7 +45,7 @@ kept in memory when possible and only evicted from memory under
 memory pressure. The "persistence layer" refers to the mechanism
 used to store messages of both types to disk.
 
-On this page we say "queue" to refer to an unmirrored queue or a
+On this page we say "queue" to refer to a non-replicated queue or a
 queue leader or a queue mirror. Queue mirroring is a "layer above"
 persistence.
 

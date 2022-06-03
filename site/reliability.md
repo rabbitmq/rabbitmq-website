@@ -152,8 +152,8 @@ of what node their leader replica is located.
 Historically [classic queue mirroring](ha.html) was the only queue replication option.
 It is now [**deprecated** in favor of quorum queues](ha.html#interstitial) and [streams](streams.html).
 
-[Exclusive queues](queues.html#exclusive-queues) are tied to the lifecycle of their connection and thus are never mirrored
-and by definition will not survive a node restart.
+[Exclusive queues](queues.html#exclusive-queues) are tied to the lifecycle of their connection and thus are never
+replicated and by definition will not survive a node restart.
 
 Consumers connected to the failed node will have to recover as usual. Consumers that were
 connected to a different node will be automatically re-registered by RabbitMQ when a new leader replica

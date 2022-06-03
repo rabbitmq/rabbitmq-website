@@ -76,7 +76,7 @@ rabbitmq-diagnostics status | grep -A 2 -B 2 "Node data directory"
 If the node isn't running, it is possible to inspect [default data directories](./relocate.html).
 
 * For Debian and RPM packages: `/var/lib/rabbitmq/mnesia`
-* For Windows: `%APP_DATA%\RabbitMQ\db`
+* For Windows: `%APPDATA%\RabbitMQ\db`
 * For generic binary builds: `{installation_root}/var/lib/rabbitmq/mnesia`
 
 The above data directory will also contain message store data in a subdirectory. If you don't want to
@@ -102,10 +102,13 @@ the upgrade steps as needed and proceed booting.
 
 To back up messages on a node it **must be first stopped**.
 
-In the case of a cluster with [mirrored queues](./ha.html), you need to
-stop the entire cluster to take a backup. If you stop one node at a
-time, you may lose messages or have duplicates, exactly like when you
+In the case of a cluster with [replicated queues](./quorum-queues.html), it is highly recommended
+to stop the entire cluster over a period of time to take a backup. If instead one node is topped at a
+time, queues may accumulate duplicates, exactly like when you
 back up a single running node.
+
+If the majority of cluster nodes is stopped rapidly quorum queues may lose their availability, and
+as a result miss a small percentage of recent publishes to them.
 
 ### <a id="manual-messages-backup" class="anchor" href="#manual-messages-backup">Manually Backing Up Messages</a>
 

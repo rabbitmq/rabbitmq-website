@@ -119,16 +119,19 @@ Some features are not currently supported by quorum queues.
 | [Exclusivity](queues.html) | yes | no |
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
-| [Message TTL (Time-To-Live)](./ttl.html) | yes | yes (since 3.10) |
+| [Message TTL (Time-To-Live)](./ttl.html) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
 | [Queue TTL](./ttl.html#queue-ttl) | yes | yes |
 | [Queue length limits](./maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](./lazy-queues.html) | yes | yes through the [Memory Limit](#memory-limit) feature (before 3.10); always (since 3.10) |
+| [Lazy behaviour](./lazy-queues.html) | yes | always (since 3.10) or through the [Memory Limit](#memory-limit) feature (before 3.10) |
 | [Message priority](./priority.html) | yes | no |
 | [Consumer priority](./consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](./dlx.html) | yes | yes |
-| Adheres to [policies](./parameters.html#policies) | yes | yes (see policy support below) |
+| Adheres to [policies](./parameters.html#policies) | yes | yes (see [Policy support](#policy-support)) |
 | Poison message handling | no | yes |
 | Global [QoS Prefetch](#global-qos) | yes | no |
+
+Modern quorum queues also offer [higher throughput and less latency variability](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/)
+for many workloads.
 
 #### Non-durable Queues
 
@@ -266,15 +269,6 @@ However, messages that are dead lettered by the source quorum queue will keep th
 This means if dead lettered messages in the target queue should survive a broker restart, the target queue must be durable and
 the message delivery mode must be set to persistent when publishing messages to the source quorum queue.
 
-#### Lazy Mode (before RabbitMQ 3.10)
-
-Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
-
-The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
-
-It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
-can achieve a behaviour similar to lazy queues.
-
 #### Lazy Mode (since RabbitMQ 3.10)
 
 Quorum queues store their message content on disk (per Raft requirements) and
@@ -287,6 +281,15 @@ The [memory limit](#memory-limit) configuration is still permitted but has no
 effect. The only option now is effectively the same as configuring: `x-max-in-memory-length=0`
 
 The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
+
+#### Lazy Mode (before RabbitMQ 3.10)
+
+Quorum queues store their content on disk (per Raft requirements) as well as in memory (up to the [in memory limit configured](#memory-limit)).
+
+The [`lazy` mode configuration](./lazy-queues.html#configuration) does not apply.
+
+It is possible to [limit how many messages a quorum queue keeps in memory](#memory-limit) using a policy which
+can achieve a behaviour similar to lazy queues.
 
 #### <a id="global-qos" class="anchor" href="#global-qos">Global QoS</a>
 
@@ -310,7 +313,7 @@ one for each priority.
 Quorum queues [support poison message handling](#poison-message-handling) via a redelivery limit.
 This feature is currently unique to quorum queues.
 
-#### Policy Support
+#### <a id="policy-support" class="anchor" href="#policy-support">Policy Support</a>
 
 Quorum queues can be configured via RabbitMQ policies. The below table summarises the
 policy keys they adhere to.
@@ -360,7 +363,7 @@ In some cases quorum queues should not be used. They typically involve:
  * Temporary nature of queues: transient or exclusive queues, high queue churn (declaration and deletion rates)
  * Lowest possible latency: the underlying consensus algorithm has an inherently higher latency due to its data safety features
  * When data safety is not a priority (e.g. applications do not use [manual acknowledgements and publisher confirms](./confirms.html) are not used)
- * Very long queue backlogs (quorum queues currently keep all messages in memory at all times, up to a [limit](#memory-limit))
+ * Very long queue backlogs ([streams](./stream.html) are likely to be a better fit)
 
 
 
@@ -640,9 +643,11 @@ will therefore remain consistent.
 ## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
 
 Quorum queues are designed to trade latency for throughput and have been tested
-and compared against durable [classic mirrored queues](./ha.html) in 3, 5 and 7 node configurations at several
-message sizes. In scenarios using both consumer acks and publisher confirms
- quorum queues have been observed to have equal or greater throughput to
+and compared against durable [classic mirrored queues](.ha.html) in 3, 5 and 7 node configurations at several
+message sizes.
+
+In scenarios using both consumer acks and publisher confirms
+quorum queues have been observed to have [superior throughput](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) to
 classic mirrored queues.
 
 As quorum queues persist all data to disks before doing anything it is recommended
