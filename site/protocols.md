@@ -87,3 +87,8 @@ RabbitMQ can transmit messages over HTTP in three ways:
    simple HTTP API to send and receive messages. This is primarily
    intended for diagnostic purposes but can be used for low volume
    messaging without [reliable delivery](reliability.html).
+
+## <a id="rabbitmq-streams" class="anchor" href="#rabbitmq-streams">RabbitMQ Streams</a>
+
+The [RabbitMQ Streams protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc) allows communicating with [streams](./streams.html).
+RabbitMQ supports the streams protocol via a [plugin](./stream.html).
