@@ -83,6 +83,7 @@ Miscellaneous projects:
  * [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
  * [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
+ * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
  * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
