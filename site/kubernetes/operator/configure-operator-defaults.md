@@ -84,6 +84,17 @@ Comma-separated list of imagePullSecrets to set by default on all RabbitmqCluste
 New RabbitmqCluster Pods have no imagePullSecrets by default
 </td>
 </tr>
+<tr>
+<td>
+ENABLE_DEBUG_PPROF
+</td>
+<td>
+When set to true, exposes a set of debug endpoints on the Operator Pod's metrics port for CPU & [memory profiling of the Operator with pprof](./debug-operator.md#operator-resource-usage-profiling). Should NOT be used in production
+</td>
+<td>
+The pprof debug endpoint will not be exposed on the Operator Pod
+</td>
+</tr>
 </table>
 
 -----
