@@ -199,11 +199,12 @@ The following table lists all of the attributes/properties that are available.
 | `onMessageTimeoutMs`                |    No      | How long to wait for `MessageListener#onMessage()` to return, in milliseconds. Default is 2000 ms. |
 | `preferProducerMessageProperty`     |    No      | Whether `MessageProducer` properties (delivery mode, priority, TTL) take precedence over respective `Message` properties or not. Default is true (which is compliant to the JMS specification). |
 | `requeueOnMessageListenerException` |    No      | Whether requeuing messages on a `RuntimeException` in the `MessageListener` or not. Default is false. |
-| `queueBrowserReadMax` |    No      | The maximum number of messages to read on a queue browser. Default is 0 (no limit). |
-| `onMessageTimeoutMs` |    No      |  The time in milliseconds `MessageListener#onMessage(Message)` can take to process a message. Default is 2000 ms. |
-| `channelsQos` |    No      | [QoS setting](https://www.rabbitmq.com/consumer-prefetch.html) for channels created by the connection factory. Default is -1 (no QoS). |
-| `terminationTimeout` |    No      | The time in milliseconds a `Connection#close()` should wait for threads/tasks/listeners to complete. Default is 15,000 ms. |
-| `declareReplyToDestination` |    No      | Whether `replyTo` destination for consumed messages should be declared. Default is true. |
+| `queueBrowserReadMax`               |    No      | The maximum number of messages to read on a queue browser. Default is 0 (no limit). |
+| `onMessageTimeoutMs`                |    No      |  The time in milliseconds `MessageListener#onMessage(Message)` can take to process a message. Default is 2000 ms. |
+| `channelsQos`                       |    No      | [QoS setting](https://www.rabbitmq.com/consumer-prefetch.html) for channels created by the connection factory. Default is -1 (no QoS). |
+| `terminationTimeout`                |    No      | The time in milliseconds a `Connection#close()` should wait for threads/tasks/listeners to complete. Default is 15,000 ms. |
+| `declareReplyToDestination`         |    No      | Whether `replyTo` destination for consumed messages should be declared. Default is true. |
+| `autoJmsTypeHeaderForTextMessages`  |    No      | When set to `true`, the AMQP `JMSType` header will be set automatically to `"TextMessage"` for `TextMessage`s published to AMQP-backed `Destination`s. Default is false. |
 
 ## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
@@ -351,7 +352,7 @@ available:
 | `amqpRoutingKey`          |    No      | The routing key to use when publishing messages when an 'amqp' destination.                                                                                                                                                                   |
 | `amqpQueueName`           |    No      | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
 | `destinationName`         |    No      | Name of the JMS destination.                                                                                                                                                                                                                  |
-<!-- | `queueDeclareArguments`         |    No      | Arguments to use when declaring the AMQP queue. Use `key=value` pairs separated by commas for JNDI, e.g. `x-queue-type=quorum`.| -->
+| `queueDeclareArguments`   |    No      | Arguments to use when declaring the AMQP queue. Use `key=value` pairs separated by commas for JNDI, e.g. `x-queue-type=quorum`.|
 
 ## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
