@@ -37,7 +37,7 @@ deployment.apps/rabbitmq-cluster-operator env updated
 </pre>
 
 Port-forward to the Operator Pod using kubectl. You will want to forward to the metrics port on the Operator Pod, which
-by default is <code>9782</code>.
+by default is <code>9782</code> for the RabbitMQ Cluster Operator, and <code>8080</code> for the other operators.
 <pre class="lang-bash">
 $ kubectl -n rabbitmq-system port-forward deployment/rabbitmq-cluster-operator 9782
 Forwarding from 127.0.0.1:9782 -> 9782
