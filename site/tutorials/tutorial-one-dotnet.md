@@ -85,10 +85,8 @@ Then we add the client dependency.
 <pre class="lang-powershell">
 cd Send
 dotnet add package RabbitMQ.Client
-dotnet restore
 cd ../Receive
 dotnet add package RabbitMQ.Client
-dotnet restore
 </pre>
 
 Now we have the .NET project set up we can write some code.
