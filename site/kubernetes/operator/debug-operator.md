@@ -25,11 +25,11 @@ This information describes how to debug a running instance of the RabbitMQ Kuber
 <b>Important:</b> Do not complete the following steps on a production system.
 </p>
 
-By using the [pprof tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. Profiling is a debugging technique used to generate data about how a piece of software is running by exposing information about the software's consumption of memory and CPU, and asynchronicity. 
+By using the [pprof tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. Profiling is a debugging technique used to generate data about how a piece of software is running by exposing information about the software's consumption of memory, CPU, and asynchronicity. 
 
 You might want to do this if you are seeing high resource consumption on one of your Operator Pods for example. To use the `pprof` tool, enable it by completing the following steps:
 
-1. Enable the `ENABLE_DEBUG_PPROF` variable on the operator that you want to retrieve debugging information from by running the following command.For example, for the Cluster Operator, run:
+1. Enable the `ENABLE_DEBUG_PPROF` variable on the operator that you want to retrieve debugging information from by running the following command. For example, for the Cluster Operator, run:
 <pre class="lang-bash">
 $ kubectl -n rabbitmq-system set env deployment/rabbitmq-cluster-operator ENABLE_DEBUG_PPROF=True
 deployment.apps/rabbitmq-cluster-operator env updated
