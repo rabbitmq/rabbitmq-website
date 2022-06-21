@@ -321,7 +321,7 @@ dotnet run
 </pre>
 
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the publisher from another terminal.
+RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
+the publisher several times.
 
 Time to move on to [part 2](tutorial-two-dotnet.html) and build a simple _work queue_.
