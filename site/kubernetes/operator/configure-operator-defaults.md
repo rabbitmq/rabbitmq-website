@@ -87,12 +87,9 @@ Use this overlay when upgrading the operator to ensure your custom configuration
 ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml -f values.yaml | kubectl apply -f -
 </pre>
 
-
-The following table listes the Cluster Operator environment variables that are available to set in the deployment manifest.
-
 ## <a id='parameters' class='anchor' href='#variables'>Cluster Operator Environment Variables</a>
 
-The following configuration options are available to be set:
+The following table listes the Cluster Operator environment variables that are available to set in the deployment manifest.
 
 <table>
 <tr>
