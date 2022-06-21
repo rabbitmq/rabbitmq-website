@@ -25,15 +25,17 @@ This information describes how to debug a running instance of the RabbitMQ Kuber
 <b>Important:</b> Do not complete the following steps on a production system.
 </p>
 
-By using the [pprof tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. You might want to do this if you are seeing high resource consumption on one of your Operator Pods for example. To use the `pprof` tool, enable it by completing the following steps:
+By using the [pprof tool](https://github.com/google/pprof/blob/main/doc/README.md), you can expose CPU and memory profiling data for the Kubernetes Operator Pods. Profiling is a debugging technique used to generate data about how a piece of software is running by exposing information about the software's consumption of memory and CPU, and asynchronicity. 
 
-1. Patch the Operator Pod that you want to profile with the `ENABLE_DEBUG_PPROF` environment variable set to `True`. For example, for the Cluster Operator, run:
+You might want to do this if you are seeing high resource consumption on one of your Operator Pods for example. To use the `pprof` tool, enable it by completing the following steps:
+
+1. Enable the `ENABLE_DEBUG_PPROF` variable on the operator that you want to retrieve debugging information from by running the following command.For example, for the Cluster Operator, run:
 <pre class="lang-bash">
 $ kubectl -n rabbitmq-system set env deployment/rabbitmq-cluster-operator ENABLE_DEBUG_PPROF=True
 deployment.apps/rabbitmq-cluster-operator env updated
 </pre>
 
-2. Complete a `port-forward` operation to the Operator Pod using kubectl. Forward to the metrics port on the Operator Pod. For the RabbitMQ Cluster Operator, the default port is <code>9782</code> and for all other operators, the port is <code>8080</code>. For example, to `port-forward` to the RabbitMQ Cluster Operator Pod, run:   
+2. Using kubectl, complete a `port-forward` operation on the Operator Pod to produce metrics on the correct port. For the RabbitMQ Cluster Operator, the default port is <code>9782</code> and for all other operators, the port is <code>8080</code>. For example, to complete the `port-forward` operation on the RabbitMQ Cluster Operator Pod, run:   
 <pre class="lang-bash">
 $ kubectl -n rabbitmq-system port-forward deployment/rabbitmq-cluster-operator 9782
 Forwarding from 127.0.0.1:9782 -> 9782
