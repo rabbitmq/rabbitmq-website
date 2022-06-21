@@ -39,6 +39,46 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.5</td>
+    <td class="centre">6 June 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Debian package metadata update</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.5">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.20</td>
+    <td class="centre">6 June 2022</td>
+    <td>
+      <ul>
+        <li>Debian package metadata update</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.20">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.8.34</td>
+    <td class="centre">6 June 2022</td>
+    <td>
+      <ul>
+        <li>Debian package metadata update</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.34">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.4</td>
     <td class="centre">1 June 2022</td>
     <td>

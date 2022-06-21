@@ -22,7 +22,7 @@ limitations under the License.
 Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ which models
 an append-only log with non-destructive consumer semantics.
 They can be used via a RabbitMQ client library as if  it was a queue or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s). The latter option is recommended as it
 provides access to all stream-specific features and offers best possible throughput (performance).
 

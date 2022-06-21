@@ -16,12 +16,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<!ENTITY version-java-client "5.14.2">
+<!ENTITY version-java-client "5.15.0">
 <!ENTITY version-dotnet-client "6.3.0">
-<!ENTITY version-server "3.10.4">
+<!ENTITY version-server "3.10.5">
 <!ENTITY version-server-series "v3.10.x">
-<!ENTITY version-erlang-client "3.10.4">
-<!ENTITY version-server-tag "v3.10.4">
+<!ENTITY version-erlang-client "3.10.5">
+<!ENTITY version-server-tag "v3.10.5">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">

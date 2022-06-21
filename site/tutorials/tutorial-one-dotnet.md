@@ -85,10 +85,8 @@ Then we add the client dependency.
 <pre class="lang-powershell">
 cd Send
 dotnet add package RabbitMQ.Client
-dotnet restore
 cd ../Receive
 dotnet add package RabbitMQ.Client
-dotnet restore
 </pre>
 
 Now we have the .NET project set up we can write some code.
@@ -308,7 +306,7 @@ class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive
 
 Open two terminals.
 
-Run the consumer first so that the topology (primarily the queue) is in place:
+You can run the clients in any order, as both declares the queue. We will run the consumer first so you can see it waiting for and then receiving the message:
 
 <pre class="lang-powershell">
 cd Receive
@@ -322,9 +320,8 @@ cd Send
 dotnet run
 </pre>
 
-
 The consumer will print the message it gets from the publisher via
-RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the publisher from another terminal.
+RabbitMQ. The consumer will keep running, waiting for messages, so try restarting
+the publisher several times.
 
 Time to move on to [part 2](tutorial-two-dotnet.html) and build a simple _work queue_.

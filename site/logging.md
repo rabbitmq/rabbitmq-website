@@ -659,7 +659,7 @@ rabbitmq-diagnostics consume_event_stream | jq
 </pre>
 
 The events can also be exposed to applications for [consumption](./consumers.html)
-with a plugin, [rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange/).
+with [a plugin](event-exchange.html).
 
 Events are published as messages with blank bodies. All event metadata is stored in
 message metadata (properties, headers).

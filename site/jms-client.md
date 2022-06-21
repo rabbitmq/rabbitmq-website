@@ -350,7 +350,7 @@ available:
 | `amqpRoutingKey`          |    No      | The routing key to use when publishing messages when an 'amqp' destination.                                                                                                                                                                   |
 | `amqpQueueName`           |    No      | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
 | `destinationName`         |    No      | Name of the JMS destination.                                                                                                                                                                                                                  |
-| `queueDeclareArguments`         |    No      | Arguments to use when declaring the AMQP queue. Use `key=value` pairs separated by commas for JNDI, e.g. `x-queue-type=quorum`.|
+<!-- | `queueDeclareArguments`         |    No      | Arguments to use when declaring the AMQP queue. Use `key=value` pairs separated by commas for JNDI, e.g. `x-queue-type=quorum`.| -->
 
 ## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 

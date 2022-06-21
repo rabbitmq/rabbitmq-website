@@ -22,17 +22,15 @@ limitations under the License.
 Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ which models
 an append-only log with non-destructive consumer semantics.
 They can be used as a regular AMQP 0.9.1 queue or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
 
 This page covers the Stream plugin, which allows to interact with streams using this
-[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.9.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
+[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
-The current known client libraries for the stream protocol are the
-[RabbitMQ Stream Java Client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
-and the [RabbitMQ Stream Go Client](https://github.com/rabbitmq/rabbitmq-stream-go-client).
+Client libraries for the stream protocol are available on several platforms: [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client), [.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client), Python ([rbly](https://gitlab.com/wrobell/rbfly), [rstream](https://pypi.org/project/rstream/)), [Erlang](https://gitlab.com/evnu/lake), [Elixir](https://github.com/VictorGaiva/rabbitmq-stream), [Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client).
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
