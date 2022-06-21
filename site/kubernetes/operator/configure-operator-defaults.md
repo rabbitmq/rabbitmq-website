@@ -19,7 +19,7 @@ limitations under the License.
 
 This information describes how to modify the configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster which you might want to do to control how the Cluster Operator configures `RabbitmqClusters`. For example, this can be useful when you are configuring the operator to automatically use the RabbitMQ container images that are stored in a private registry.
 
-To change the default configuration to suit your needs, you must set the configuration environment variables by editing the deployment manifest of the Cluster Operator. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub.
+To change the configuration to suit your needs, you must add the configuration environment variables and set them to the values you want by editing the deployment manifest of the Cluster Operator. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub. The environment variables are listed in the table in [Cluster Operator Environment Variables](##variables). 
 
 ## Adding Cluster Operator Environment Variables to the Deployment Manifest 
 
@@ -30,7 +30,7 @@ When the Cluster Operator is deployed, update the manifest by completing the fol
 kubectl -n rabbitmq-system edit deployment rabbitmq-cluster-operator
 </pre>
 
-2.  Add the environment variables you wish to change. In the following example, the `OPERATOR_SCOPE_NAMESPACE` environment variable is added and setto `custom-namespace` for the cluster operator.
+2.  Add the environment variables you want to change. In the following example, the `OPERATOR_SCOPE_NAMESPACE` environment variable is added and set to `custom-namespace` for the Cluster Operator.
 <pre class="lang-yaml">
 apiVersion: apps/v1
 kind: Deployment
@@ -61,7 +61,7 @@ spec:
 
 **Important**: It is important to be know that future GitHub releases for the RabbitMQ Cluster Operator will not have the changes that you are making now so you must make these updates everytime you update the Cluster Operator. You can consider using templating to add these variables automatically. For example, you can use a `ytt overlay`
  
-**Example of Using '`ytt overlay` to add Cluster Operator Environment Variables Automatically 
+## Example of Using '`ytt overlay` to add Cluster Operator Environment Variables Automatically 
 
 <code>values.yaml</code>
 
@@ -88,22 +88,22 @@ ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/clu
 </pre>
 
 
-The following table listes the Cluster Operator environment variables that are va
+The following table listes the Cluster Operator environment variables that are available to set in the deployment manifest.
 
-## <a id='parameters' class='anchor' href='#parameters'>Cluster Operator Environment Variables</a>
+## <a id='parameters' class='anchor' href='#variables'>Cluster Operator Environment Variables</a>
 
 The following configuration options are available to be set:
 
 <table>
 <tr>
 <td>
-Env. variable
+Variable Name
 </td>
 <td>
-Description
+Effect when Set
 </td>
 <td>
-Effect when unset
+Effect when not Set
 </td>
 </tr>
 <tr>
