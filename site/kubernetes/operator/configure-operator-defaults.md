@@ -61,7 +61,7 @@ spec:
 
 **Important**: It is important to be know that future GitHub releases for the RabbitMQ Cluster Operator will not have the changes that you are making now so you must make these updates everytime you update the Cluster Operator. You can consider using templating to add these variables automatically. For example, you can use a `ytt overlay`.
  
-## Example of Using '`ytt overlay` to add Cluster Operator Environment Variables Automatically 
+## Example of Using `ytt overlay` to add Cluster Operator Environment Variables Automatically 
 
 <code>values.yaml</code>
 
