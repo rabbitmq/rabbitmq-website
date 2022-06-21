@@ -35,7 +35,7 @@ $ kubectl -n rabbitmq-system set env deployment/rabbitmq-cluster-operator ENABLE
 deployment.apps/rabbitmq-cluster-operator env updated
 </pre>
 
-2. Using kubectl, complete a `port-forward` operation on the Operator Pod to produce metrics on the correct port. For the RabbitMQ Cluster Operator, the default port is <code>9782</code> and for all other operators, the port is <code>8080</code>. For example, to complete the `port-forward` operation on the RabbitMQ Cluster Operator Pod, run:   
+2. Using kubectl, complete a `port-forward` operation so that metrics can be collected on your machine from the correct port on the Operator Pod. For the RabbitMQ Cluster Operator, the default port is <code>9782</code> and for all other operators, the port is <code>8080</code>. For example, to complete the `port-forward` operation on the RabbitMQ Cluster Operator Pod, run:   
 <pre class="lang-bash">
 $ kubectl -n rabbitmq-system port-forward deployment/rabbitmq-cluster-operator 9782
 Forwarding from 127.0.0.1:9782 -> 9782
