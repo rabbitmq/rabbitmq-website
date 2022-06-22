@@ -115,32 +115,26 @@ private static string GetMessage(string[] args)
 }
 </pre>
 
-Our old _Receive.cs_ script also requires some changes: it needs to
+Our old _Receive.cs_ script also requires some changes to
 fake a second of work for every dot in the message body. It will
 handle messages delivered by RabbitMQ and perform the task, so let's copy it to
-the `Worker` project and modify:
+_Worker.cs_ and modify it as follows.
 
+Add a _using_ statement and update the _class_ name:
 <pre class="lang-csharp">
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine(" [x] Received {0}", message);
+using System.Threading;
 
-    int dots = message.Split('.').Length - 1;
-    Thread.Sleep(dots * 1000);
-
-    Console.WriteLine(" [x] Done");
-};
-channel.BasicConsume(queue: "task_queue", autoAck: true, consumer: consumer);
+class Worker
 </pre>
 
-Our fake task to simulate execution time:
-
+After our existing _WriteLine_ for receiving the message, add the fake task to simulate execution time:
 <pre class="lang-csharp">
+Console.WriteLine(" [x] Received {0}", message);
+
 int dots = message.Split('.').Length - 1;
 Thread.Sleep(dots * 1000);
+
+Console.WriteLine(" [x] Done")
 </pre>
 
 Round-robin dispatching
