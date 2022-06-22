@@ -87,10 +87,8 @@ dotnet new console --name Worker
 mv Worker/Program.cs Worker/Worker.cs
 cd NewTask
 dotnet add package RabbitMQ.Client
-dotnet restore
 cd ../Worker
 dotnet add package RabbitMQ.Client
-dotnet restore
 </pre>
 
 <pre class="lang-csharp">
