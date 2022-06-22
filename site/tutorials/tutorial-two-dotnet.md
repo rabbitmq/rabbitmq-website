@@ -91,21 +91,21 @@ cd ../Worker
 dotnet add package RabbitMQ.Client
 </pre>
 
+Copy the code from our old _Send.cs_ to _NewTask.cs_ and make the following modifications.
+
+Change the class name and add command line arguments to the _Main_ method:
 <pre class="lang-csharp">
-var message = GetMessage(args);
-var body = Encoding.UTF8.GetBytes(message);
-
-var properties = channel.CreateBasicProperties();
-properties.Persistent = true;
-
-channel.BasicPublish(exchange: "",
-                     routingKey: "task_queue",
-                     basicProperties: properties,
-                     body: body);
+class NewTask
+{
+    public static void Main(string[] args)
 </pre>
 
-Some help to get the message from the command line argument:
+Update the initialization of the _message_ variable:
+<pre class="lang-csharp">
+var message = GetMessage(args);
+</pre>
 
+Add the _GetMessage_ method to the end of the _NewTask_ class:
 <pre class="lang-csharp">
 private static string GetMessage(string[] args)
 {
