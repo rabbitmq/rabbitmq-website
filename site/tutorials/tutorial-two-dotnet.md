@@ -187,17 +187,22 @@ Let's see what is delivered to our workers:
 
 <pre class="lang-bash">
 # shell 1
-# => [*] Waiting for messages. To exit press CTRL+C
-# => [x] Received 'First message.'
-# => [x] Received 'Third message...'
-# => [x] Received 'Fifth message.....'
+# => Press [enter] to exit.
+# => [x] Received First message.
+# => [x] Done
+# => [x] Received Third message...
+# => [x] Done
+# => [x] Received Fifth message.....
+# => [x] Done
 </pre>
 
 <pre class="lang-bash">
 # shell 2
-# => [*] Waiting for messages. To exit press CTRL+C
-# => [x] Received 'Second message..'
-# => [x] Received 'Fourth message....'
+# => Press [enter] to exit.
+# => [x] Received Second message..
+# => [x] Done
+# => [x] Received Fourth message....
+# => [x] Done
 </pre>
 
 By default, RabbitMQ will send each message to the next consumer,
