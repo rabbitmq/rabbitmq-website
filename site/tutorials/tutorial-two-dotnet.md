@@ -321,13 +321,15 @@ channel.QueueDeclare(queue: "task_queue",
 </pre>
 
 This `QueueDeclare` change needs to be applied to both the producer
-and consumer code.
+and consumer code. You also need to change the name of the queue for `BasicConsume` and `BasicPublish`.
 
 At this point we're sure that the `task_queue` queue won't be lost
-even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `IBasicProperties.Persistent` to `true`.
+even if RabbitMQ restarts. Now we need to mark our messages as persistent.
 
+After the existing _GetBytes_, set `IBasicProperties.Persistent` to `true`: 
 <pre class="lang-csharp">
+var body = Encoding.UTF8.GetBytes(message);
+
 var properties = channel.CreateBasicProperties();
 properties.Persistent = true;
 </pre>
@@ -389,8 +391,15 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
+After the existing _QueueDeclare_ in _Worker.cs_ add the call to `BasicQos`:
 <pre class="lang-csharp">
-channel.BasicQos(0, 1, false);
+channel.QueueDeclare(queue: "task_queue",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 </pre>
 
 > #### Note about queue size
