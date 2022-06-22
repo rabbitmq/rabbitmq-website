@@ -152,14 +152,14 @@ These consoles will be our two consumers - C1 and C2.
 # shell 1
 cd Worker
 dotnet run
-# => [*] Waiting for messages. To exit press CTRL+C
+# => Press [enter] to exit.
 </pre>
 
 <pre class="lang-bash">
 # shell 2
 cd Worker
 dotnet run
-# => [*] Waiting for messages. To exit press CTRL+C
+# => Press [enter] to exit.
 </pre>
 
 In the third one we'll publish new tasks. Once you've started
