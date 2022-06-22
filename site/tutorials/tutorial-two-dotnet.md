@@ -240,24 +240,17 @@ examples we explicitly turned them off by setting the autoAck
 remove this flag and manually send a proper acknowledgment from the
 worker, once we're done with a task.
 
+After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsume_ with _autoAck:false_:
 <pre class="lang-csharp">
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (sender, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine(" [x] Received {0}", message);
-
-    int dots = message.Split('.').Length - 1;
-    Thread.Sleep(dots * 1000);
-
     Console.WriteLine(" [x] Done");
 
     // Note: it is possible to access the channel via
     //       ((EventingBasicConsumer)sender).Model here
     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
-channel.BasicConsume(queue: "task_queue", autoAck: false, consumer: consumer);
+channel.BasicConsume(queue: "hello",
+                     autoAck: false,
+                     consumer: consumer);
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
