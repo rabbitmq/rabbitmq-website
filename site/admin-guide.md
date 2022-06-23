@@ -19,7 +19,7 @@ limitations under the License.
 
 RabbitMQ ships in a state where it can be used straight away in
 simple cases such as development and QA environments - just
-start the server, [enable]() the necessary plugins and it's ready to go.
+start the server, [enable](./plugins.html#ways-to-enable-plugins) the necessary plugins and it's ready to go.
 
 This guide provides a table of contents of documentation oriented at RabbitMQ operators.
 For a complete documentation ToC that includes developer-oriented guides,
