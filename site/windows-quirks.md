@@ -136,3 +136,34 @@ value: `rabbit@ALL_CAPS_HOSTNAME`.
 
 Then, RabbitMQ will continue to use the all-caps hostname and the upgrade will
 succeed.
+
+
+## <a id="net-ticktime" class="anchor" href="#net-ticktime">Setting `net_ticktime`</a>
+
+Due to how RabbitMQ starts as a Windows service, you can't use a configuration
+file to set `net_ticktime` and instead must use an environment variable.
+
+### Mitigation
+
+First, log in using the administrative account you used, or will use, to
+install RabbitMQ and create the `%AppData%\RabbitMQ\rabbitmq-env-conf.bat` file
+with the following contents:
+
+<pre class="lang-powershell">
+@echo off
+set SERVER_ADDITIONAL_ERL_ARGS=-kernel net_ticktime 120
+</pre>
+
+The above will set `net_ticktime` to `120` seconds.
+
+If you have not yet installed RabbitMQ, the setting will be picked up during installation.
+
+If you have already installed RabbitMQ, open the "RabbitMQ Command Prompt (sbin dir)"
+start menu item and run these commands:
+
+<pre class="lang-powershell">
+.\rabbitmq-service.bat stop
+.\rabbitmq-service.bat remove
+.\rabbitmq-service.bat install
+.\rabbitmq-service.bat start
+</pre>
