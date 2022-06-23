@@ -245,7 +245,7 @@ reserved_unallocated: 0.0 gb (0.0%)
     <td>plugins</td>
     <td>Plugins</td>
     <td>
-      Plugins such as <a href="./shovel.html">Shovel</a>, <a href="./federation.html">Federation</a>, or protocol implementations such as <a href="">STOMP</a>
+      Plugins such as <a href="./shovel.html">Shovel</a>, <a href="./federation.html">Federation</a>, or protocol implementations such as <a href="./stomp.html">STOMP</a>
       can accumulate messages in memory.
     </td>
   </tr>

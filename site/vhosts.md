@@ -62,7 +62,7 @@ A virtual host can be created using CLI tools or an [HTTP API](./management.html
 
 A newly created vhost will have a default set of [exchanges](./tutorials/amqp-concepts.html)
 but no other entities and no [user permissions](./access-control.html). For a user to be able to connect
-and use the virtual host, permissions to it must be [granted]() to every user that will use the vhost,
+and use the virtual host, permissions to it must be [granted](./access-control.html) to every user that will use the vhost,
 e.g. using [rabbitmqctl set_permissions](./rabbitmqctl.8.html#set_permissions).
 
 ### Using CLI Tools

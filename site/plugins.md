@@ -484,7 +484,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
         Only of use when using <code>rabbitmq_shovel</code> in
         conjunction with <code>rabbitmq_management</code>. In a
         heterogeneous cluster this should be installed on the same
-        nodes as <a href="">RabbitMQ management plugin</a>.
+        nodes as <a href="./plugins.html">RabbitMQ management plugin</a>.
       </td>
     </tr>
 
