@@ -89,3 +89,9 @@ partition is detected and handled. Lowering `net_ticktime`
 can help to improve the responsiveness during such events but any
 decision to change `net_ticktime` should be done carefully
 as emphasised above.
+
+## <a id="windows-quirks" class="anchor" href="#windows-quirks">Windows Quirks</a>
+
+Due to how RabbitMQ starts as a Windows service, you can't use a configuration
+file to set `net_ticktime`. Please see [this section](./windows-quirks.html#net-ticktime) in the [Windows Quirks](./windows-quirks.html)
+document to set `net_ticktime` when running RabbitMQ as a Windows service.

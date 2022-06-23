@@ -59,7 +59,7 @@ deps: $(LIBXSLT) $(PIPENV)
 	$(PIPENV) --python $(PYTHON_VERSION) install
 
 preview: deps ## Preview docs
-	@$(PIPENV) run ./driver.py
+	@$(PIPENV) run preview
 
 browse: ## Open docs in browser
 	@$(OPEN) http://localhost:$(TCP_PORT)
