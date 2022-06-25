@@ -103,7 +103,8 @@ The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
 we connect to a RabbitMQ node on the local machine - hence the
 _localhost_. If we wanted to connect to a node on a different
-machine we'd simply specify its hostname or IP address here.
+machine or to a host hosting a [proxy recommended for PHP clients](https://github.com/cloudamqp/amqproxy),
+we'd simply specify its hostname or IP address here.
 
 Next we create a channel, which is where most of the API for getting
 things done resides.
