@@ -244,6 +244,6 @@ In many cases PHP application will not be able to use [long-lived connections](.
 that RabbitMQ assumes, creating a condition known as [high connection churn](./connections.html#high-connection-churn).
 
 To avoid this, PHP users are recommended to use [a special proxy](https://github.com/cloudamqp/amqproxy)
-that avoids connection churn or at least significantly reduces it.
+in production when possible. The proxy avoids connection churn or at least significantly reduces it.
 
 Now it is time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
