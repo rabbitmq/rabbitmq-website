@@ -218,7 +218,6 @@ then, run the publisher (sender):
 php send.php
 </pre>
 
-
 The consumer will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use
 Ctrl-C to stop it), so try running the sender from another terminal.
@@ -237,4 +236,14 @@ Ctrl-C to stop it), so try running the sender from another terminal.
 > rabbitmqctl.bat list_queues
 > </pre>
 
-Time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
+#### PHP Connection Proxy
+
+While this tutorial strives to keep things simple and focus on explaining RabbitMQ
+concepts, it is important to call out something that is specific to PHP applications.
+In many cases PHP application will not be able to use [long-lived connections](./connections.html#basics)
+that RabbitMQ assumes, creating a condition known as [high connection churn](./connections.html#high-connection-churn).
+
+To avoid this, PHP users are recommended to use [a special proxy](https://github.com/cloudamqp/amqproxy)
+that avoids connection churn or at least significantly reduces it.
+
+Now it is time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
