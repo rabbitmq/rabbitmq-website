@@ -119,9 +119,10 @@ queue and a mirrored queue which does not have any mirrors -
 the former lacks the extra mirroring infrastructure and will
 likely provide higher throughput.
 
-You should be aware of the behaviour of [adding mirrors to a queue](#unsynchronised-mirrors).
+Adding mirrors to a queue increases cluster load but
+helps lower the probability of [losing all up-to-date replicas](#unsynchronised-mirrors).
 
-To cause queues to become mirrored, you need to create a
+To make the classic queues mirrored, create a
 policy which matches them and sets policy keys `ha-mode` and (optionally) `ha-params`.
 The following table explains the options for these keys:
 

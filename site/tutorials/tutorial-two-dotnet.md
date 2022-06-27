@@ -87,27 +87,25 @@ dotnet new console --name Worker
 mv Worker/Program.cs Worker/Worker.cs
 cd NewTask
 dotnet add package RabbitMQ.Client
-dotnet restore
 cd ../Worker
 dotnet add package RabbitMQ.Client
-dotnet restore
 </pre>
 
+Copy the code from our old _Send.cs_ to _NewTask.cs_ and make the following modifications.
+
+Change the class name and add command line arguments to the _Main_ method:
+<pre class="lang-csharp">
+class NewTask
+{
+    public static void Main(string[] args)
+</pre>
+
+Update the initialization of the _message_ variable:
 <pre class="lang-csharp">
 var message = GetMessage(args);
-var body = Encoding.UTF8.GetBytes(message);
-
-var properties = channel.CreateBasicProperties();
-properties.Persistent = true;
-
-channel.BasicPublish(exchange: "",
-                     routingKey: "task_queue",
-                     basicProperties: properties,
-                     body: body);
 </pre>
 
-Some help to get the message from the command line argument:
-
+Add the _GetMessage_ method to the end of the _NewTask_ class:
 <pre class="lang-csharp">
 private static string GetMessage(string[] args)
 {
@@ -115,32 +113,26 @@ private static string GetMessage(string[] args)
 }
 </pre>
 
-Our old _Receive.cs_ script also requires some changes: it needs to
+Our old _Receive.cs_ script also requires some changes to
 fake a second of work for every dot in the message body. It will
 handle messages delivered by RabbitMQ and perform the task, so let's copy it to
-the `Worker` project and modify:
+_Worker.cs_ and modify it as follows.
 
+Add a _using_ statement and update the _class_ name:
 <pre class="lang-csharp">
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine(" [x] Received {0}", message);
+using System.Threading;
 
-    int dots = message.Split('.').Length - 1;
-    Thread.Sleep(dots * 1000);
-
-    Console.WriteLine(" [x] Done");
-};
-channel.BasicConsume(queue: "task_queue", autoAck: true, consumer: consumer);
+class Worker
 </pre>
 
-Our fake task to simulate execution time:
-
+After our existing _WriteLine_ for receiving the message, add the fake task to simulate execution time:
 <pre class="lang-csharp">
+Console.WriteLine(" [x] Received {0}", message);
+
 int dots = message.Split('.').Length - 1;
 Thread.Sleep(dots * 1000);
+
+Console.WriteLine(" [x] Done")
 </pre>
 
 Round-robin dispatching
@@ -160,14 +152,14 @@ These consoles will be our two consumers - C1 and C2.
 # shell 1
 cd Worker
 dotnet run
-# => [*] Waiting for messages. To exit press CTRL+C
+# => Press [enter] to exit.
 </pre>
 
 <pre class="lang-bash">
 # shell 2
 cd Worker
 dotnet run
-# => [*] Waiting for messages. To exit press CTRL+C
+# => Press [enter] to exit.
 </pre>
 
 In the third one we'll publish new tasks. Once you've started
@@ -187,17 +179,22 @@ Let's see what is delivered to our workers:
 
 <pre class="lang-bash">
 # shell 1
-# => [*] Waiting for messages. To exit press CTRL+C
-# => [x] Received 'First message.'
-# => [x] Received 'Third message...'
-# => [x] Received 'Fifth message.....'
+# => Press [enter] to exit.
+# => [x] Received First message.
+# => [x] Done
+# => [x] Received Third message...
+# => [x] Done
+# => [x] Received Fifth message.....
+# => [x] Done
 </pre>
 
 <pre class="lang-bash">
 # shell 2
-# => [*] Waiting for messages. To exit press CTRL+C
-# => [x] Received 'Second message..'
-# => [x] Received 'Fourth message....'
+# => Press [enter] to exit.
+# => [x] Received Second message..
+# => [x] Done
+# => [x] Received Fourth message....
+# => [x] Done
 </pre>
 
 By default, RabbitMQ will send each message to the next consumer,
@@ -243,24 +240,17 @@ examples we explicitly turned them off by setting the autoAck
 remove this flag and manually send a proper acknowledgment from the
 worker, once we're done with a task.
 
+After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsume_ with _autoAck:false_:
 <pre class="lang-csharp">
-var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (sender, ea) =>
-{
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine(" [x] Received {0}", message);
-
-    int dots = message.Split('.').Length - 1;
-    Thread.Sleep(dots * 1000);
-
     Console.WriteLine(" [x] Done");
 
     // Note: it is possible to access the channel via
     //       ((EventingBasicConsumer)sender).Model here
     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
-channel.BasicConsume(queue: "task_queue", autoAck: false, consumer: consumer);
+channel.BasicConsume(queue: "hello",
+                     autoAck: false,
+                     consumer: consumer);
 </pre>
 
 Using this code we can be sure that even if you kill a worker using
@@ -331,13 +321,15 @@ channel.QueueDeclare(queue: "task_queue",
 </pre>
 
 This `QueueDeclare` change needs to be applied to both the producer
-and consumer code.
+and consumer code. You also need to change the name of the queue for `BasicConsume` and `BasicPublish`.
 
 At this point we're sure that the `task_queue` queue won't be lost
-even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `IBasicProperties.Persistent` to `true`.
+even if RabbitMQ restarts. Now we need to mark our messages as persistent.
 
+After the existing _GetBytes_, set `IBasicProperties.Persistent` to `true`: 
 <pre class="lang-csharp">
+var body = Encoding.UTF8.GetBytes(message);
+
 var properties = channel.CreateBasicProperties();
 properties.Persistent = true;
 </pre>
@@ -399,8 +391,15 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
+After the existing _QueueDeclare_ in _Worker.cs_ add the call to `BasicQos`:
 <pre class="lang-csharp">
-channel.BasicQos(0, 1, false);
+channel.QueueDeclare(queue: "task_queue",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 </pre>
 
 > #### Note about queue size

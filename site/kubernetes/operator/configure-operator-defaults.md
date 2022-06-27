@@ -15,29 +15,92 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Configuring Defaults for RabbitMQ Cluster Operator
+# Modifying the RabbitMQ Cluster Operator Default Configuration
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+This information describes how to modify the configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster. You might want to do this to control how the Cluster Operator configures `RabbitmqClusters`. For example, it can be useful when you are configuring the operator to automatically use the RabbitMQ container images that are stored in a private registry.
 
-This guide covers how to modify the default configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster.
+To change the configuration to suit your needs, you must add the configuration environment variables and set them to the values you want by editing the Cluster Operator deployment manifest. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub. The environment variables that can be set are listed in the table in [Cluster Operator Environment Variables](#parameters). 
 
-Environment variables used by the operator can be overridden in order to influence how the operator configures created RabbitmqClusters.
-This can be useful when configuring the operator to automatically use RabbitMQ container images stored in a private registry.
+## Adding Cluster Operator Environment Variables to the Deployment Manifest 
 
-## <a id='parameters' class='anchor' href='#parameters'>Configurable Parameters</a>
+When the Cluster Operator is deployed, update the manifest by completing the following steps: 
 
-The following configuration options are available to be set:
+1. Run: 
+<pre class="lang-bash">
+kubectl -n rabbitmq-system edit deployment rabbitmq-cluster-operator
+</pre>
+
+2.  Add the environment variables you want to change. In the following example, the `OPERATOR_SCOPE_NAMESPACE` environment variable is added and set to `custom-namespace` for the Cluster Operator.
+<pre class="lang-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: rabbitmq-operator
+    app.kubernetes.io/name: rabbitmq-cluster-operator
+    app.kubernetes.io/part-of: rabbitmq
+  name: rabbitmq-cluster-operator
+  namespace: rabbitmq-system
+spec:
+  template:
+    spec:
+      containers:
+      - command:
+        - /manager
+        env:
+        - name: OPERATOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - <b>name: OPERATOR_SCOPE_NAMESPACE</b>
+          <b>value: custom-namespace</b>
+...
+</pre>
+
+3. Save the manifest. The Cluster Operator Pod is updated to use this configuration.
+
+**Important**: Future GitHub releases for the RabbitMQ Cluster Operator will not have the changes that you are making now so you must make these updates everytime you update the Cluster Operator. You can consider using templating to add these variables automatically. For example, you can use a `ytt overlay`.
+ 
+## Example of Using `ytt overlay` to add Cluster Operator Environment Variables Automatically 
+
+<code>values.yaml</code>
+
+<pre class="lang-yaml">
+#@ load("@ytt:overlay", "overlay")
+#@ deployment = overlay.subset({"kind": "Deployment"})
+#@ cluster_operator = overlay.subset({"metadata": {"name": "rabbitmq-cluster-operator"}})
+#@overlay/match by=overlay.and_op(deployment, cluster_operator),expects="1+"
+---
+spec:
+  template:
+    spec:
+      containers:
+      #@overlay/match by=overlay.subset({"name": "operator"}),expects="1+"
+      -
+        #@overlay/match missing_ok=True
+        env:
+        - name: OPERATOR_SCOPE_NAMESPACE
+          value: custom-namespace
+</pre>
+Use this overlay when upgrading the operator to ensure your custom configuration is applied for the new version:
+<pre class="lang-bash">
+ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml -f values.yaml | kubectl apply -f -
+</pre>
+
+## <a id='parameters' class='anchor' href='#parameters'>Cluster Operator Environment Variables</a>
+
+The following table listes the Cluster Operator environment variables that are available to set in the deployment manifest.
 
 <table>
 <tr>
 <td>
-Env. variable
+Variable Name
 </td>
 <td>
-Description
+Effect when Set
 </td>
 <td>
-Effect when unset
+Effect when not Set
 </td>
 </tr>
 <tr>
@@ -99,69 +162,3 @@ The pprof debug endpoint will not be exposed on the Operator Pod.
 
 -----
 
-## <a id='configuration' class='anchor' href='#configuration'>Configuration</a>
-
-In order to set these configuration parameters, you will need to edit the Deployment manifest of the operator.
-This is the YAML manifest artefact released with every new version of the RabbitMQ Cluster Operator on GitHub.
-
-If you already have the operator deployed, you can edit the manifest of the operator directly:
-<pre class="lang-bash">
-kubectl -n rabbitmq-system edit deployment rabbitmq-cluster-operator
-</pre>
-
-In the manifest, add the environment variables you wish to change. For example, to set the namespace scope of the operator:
-<pre class="lang-yaml">
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app.kubernetes.io/component: rabbitmq-operator
-    app.kubernetes.io/name: rabbitmq-cluster-operator
-    app.kubernetes.io/part-of: rabbitmq
-  name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
-spec:
-  template:
-    spec:
-      containers:
-      - command:
-        - /manager
-        env:
-        - name: OPERATOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - <b>name: OPERATOR_SCOPE_NAMESPACE</b>
-          <b>value: custom-namespace</b>
-...
-</pre>
-Upon saving, the operator Pod will be updated to use this configuration.
-Note that future GitHub release artefacts will not have these changes that you make, and so you must remember
-to add these changes every time you update the cluster operator.
-
-You may consider using templating to add these variables in automatically; for example you can use a ytt overlay
-such as:
-
-<code>values.yaml</code>
-
-<pre class="lang-yaml">
-#@ load("@ytt:overlay", "overlay")
-#@ deployment = overlay.subset({"kind": "Deployment"})
-#@ cluster_operator = overlay.subset({"metadata": {"name": "rabbitmq-cluster-operator"}})
-#@overlay/match by=overlay.and_op(deployment, cluster_operator),expects="1+"
----
-spec:
-  template:
-    spec:
-      containers:
-      #@overlay/match by=overlay.subset({"name": "operator"}),expects="1+"
-      -
-        #@overlay/match missing_ok=True
-        env:
-        - name: OPERATOR_SCOPE_NAMESPACE
-          value: custom-namespace
-</pre>
-Use this overlay when upgrading the operator to ensure your custom configuration is applied for the new version:
-<pre class="lang-bash">
-ytt -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml -f values.yaml | kubectl apply -f -
-</pre>

@@ -9,5 +9,5 @@ markdown = "*"
 
 [dev-packages]
 
-[requires]
-python_version = "3.9"
+[scripts]
+preview = 'python driver.py'

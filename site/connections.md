@@ -74,7 +74,8 @@ publish and consume messages, define topology and perform other operations that 
 and supported both by the client library and the target RabbitMQ node.
 
 Since connections are meant to be long-lived, clients usually [consume messages](./consumers.html) by registering
-a subscription and having messages delivered (pushed) to them instead of polling.
+a subscription and having messages delivered (pushed) to them instead of polling. Clients
+that cannot keep a long-lived connection can use [a special proxy](https://github.com/cloudamqp/amqproxy) to help reduce [connection churn](#high-connection-churn).
 
 When a connection is no longer necessary, applications must close them to conserve resources.
 Apps that fail to do it run the risk of eventually exhausting its target node of resources.
@@ -115,6 +116,7 @@ involves a number of steps:
  * After the server has accepted the TCP connection, protocol-specific negotiation procedure is performed
  * The server then [authenticates](./access-control.html) the client
  * The client now can perform operations, each of which involves an [authorisation check](./access-control.html) by the server.
+ * The client retains the connections for as long as it needs to communicate with RabbitMQ
 
 This flow doesn't change significantly from protocol to protocol but there are minor differences.
 

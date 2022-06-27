@@ -261,7 +261,7 @@ set to an `#amqp_params_direct` record:
 </pre>
 
 Credentials are optional for direct connections, since Erlang
-distribution relies on [a shared secret](), the Erlang cookie, for authentication.
+distribution relies on [a shared secret](./clustering.html#erlang-cookie), the Erlang cookie, for authentication.
 
 If a username and password are provided then they will be used for authentication and
 made available to authentication backends.
