@@ -57,7 +57,7 @@ The following tables lists the profiles that are exposed by the Operators.
 <table>
 <thead>
   <tr>
-    <th>Path<br></th>
+    <th>Path</th>
     <th>Profile Description</th>
   </tr>
 </thead>
