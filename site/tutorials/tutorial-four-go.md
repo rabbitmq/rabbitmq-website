@@ -322,12 +322,12 @@ import (
         "os"
         "strings"
 
-        "github.com/streadway/amqp"
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -396,12 +396,12 @@ import (
         "log"
         "os"
 
-        "github.com/streadway/amqp"
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -462,7 +462,7 @@ func main() {
         )
         failOnError(err, "Failed to register a consumer")
 
-        forever := make(chan bool)
+        var forever chan struct{}
 
         go func() {
                 for d := range msgs {

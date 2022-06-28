@@ -557,7 +557,7 @@ to help with this:
 In most client libraries there is a way to react to a connection closure, for example:
 
 * [Pika](https://pika.readthedocs.io/en/0.10.0/modules/connection.html#pika.connection.Connection.add_on_close_callback) (Python)
-* [Go](https://godoc.org/github.com/streadway/amqp#Connection.NotifyClose)
+* [Go](https://pkg.go.dev/github.com/rabbitmq/amqp091-go#Connection.NotifyClose)
 
 The recovery procedure for many applications follows the same steps:
 
