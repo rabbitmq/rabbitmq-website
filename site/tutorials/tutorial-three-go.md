@@ -189,7 +189,7 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the [amqp](http://godoc.org/github.com/streadway/amqp) client, when we supply queue name
+In the [amqp](https://pkg.go.dev/github.com/rabbitmq/amqp091-go) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
 <pre class="lang-go">
@@ -313,12 +313,12 @@ import (
         "os"
         "strings"
 
-        "github.com/streadway/amqp"
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -385,12 +385,12 @@ package main
 import (
         "log"
 
-        "github.com/streadway/amqp"
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -444,7 +444,7 @@ func main() {
         )
         failOnError(err, "Failed to register a consumer")
 
-        forever := make(chan bool)
+        var forever chan struct{}
 
         go func() {
                 for d := range msgs {

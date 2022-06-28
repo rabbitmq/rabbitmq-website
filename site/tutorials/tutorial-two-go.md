@@ -121,7 +121,7 @@ msgs, err := ch.Consume(
 )
 failOnError(err, "Failed to register a consumer")
 
-forever := make(chan bool)
+var forever chan struct{}
 
 go func() {
   for d := range msgs {
@@ -260,7 +260,7 @@ msgs, err := ch.Consume(
 )
 failOnError(err, "Failed to register a consumer")
 
-forever := make(chan bool)
+var forever chan struct{}
 
 go func() {
   for d := range msgs {
@@ -457,12 +457,12 @@ import (
         "os"
         "strings"
 
-        "github.com/streadway/amqp"
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -520,14 +520,15 @@ package main
 
 import (
         "bytes"
-        "github.com/streadway/amqp"
         "log"
         "time"
+
+        amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
         if err != nil {
-                log.Fatalf("%s: %s", msg, err)
+                log.Panicf("%s: %s", msg, err)
         }
 }
 
@@ -568,7 +569,7 @@ func main() {
         )
         failOnError(err, "Failed to register a consumer")
 
-        forever := make(chan bool)
+        var forever chan struct{}
 
         go func() {
                 for d := range msgs {
@@ -593,7 +594,7 @@ work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
 For more information on `amqp.Channel` methods and message properties, you can browse the
-[amqp API reference](http://godoc.org/github.com/streadway/amqp).
+[amqp API reference](https://pkg.go.dev/github.com/rabbitmq/amqp091-go).
 
 Now we can move on to [tutorial 3](tutorial-three-go.html) and learn how
 to deliver the same message to many consumers.

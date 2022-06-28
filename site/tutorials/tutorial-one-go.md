@@ -27,7 +27,7 @@ limitations under the License.
 In this part of the tutorial we'll write two small programs in Go; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [Go RabbitMQ](http://godoc.org/github.com/streadway/amqp) API, concentrating on this very simple thing just to get
+the [Go RabbitMQ](https://pkg.go.dev/github.com/rabbitmq/amqp091-go) API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -49,7 +49,7 @@ on behalf of the consumer.
 > First, install amqp using `go get`:
 >
 > <pre class="lang-go">
-> go get github.com/streadway/amqp
+> go get github.com/rabbitmq/amqp091-go
 > </pre>
 
 Now we have amqp installed, we can write some
@@ -75,7 +75,7 @@ package main
 import (
   "log"
 
-  "github.com/streadway/amqp"
+  amqp "github.com/rabbitmq/amqp091-go"
 )
 </pre>
 
@@ -85,7 +85,7 @@ amqp call:
 <pre class="lang-go">
 func failOnError(err error, msg string) {
   if err != nil {
-    log.Fatalf("%s: %s", msg, err)
+    log.Panicf("%s: %s", msg, err)
   }
 }
 </pre>
@@ -134,6 +134,7 @@ err = ch.Publish(
     Body:        []byte(body),
   })
 failOnError(err, "Failed to publish a message")
+log.Printf(" [x] Sent %s\n", body)
 </pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
@@ -172,12 +173,12 @@ package main
 import (
   "log"
 
-  "github.com/streadway/amqp"
+  amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
   if err != nil {
-    log.Fatalf("%s: %s", msg, err)
+    log.Panicf("%s: %s", msg, err)
   }
 }
 </pre>
@@ -226,7 +227,7 @@ msgs, err := ch.Consume(
 )
 failOnError(err, "Failed to register a consumer")
 
-forever := make(chan bool)
+var forever chan struct{}
 
 go func() {
   for d := range msgs {
