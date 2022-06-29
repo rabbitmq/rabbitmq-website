@@ -96,7 +96,7 @@ model.QueueDeclare("myqueue", false, false, false, args);
 </pre>
 
 It is possible to apply a message TTL policy to a queue which already
-has messages in it but this involves [some caveats](ttl.html#per-message-ttl-caveats).
+has messages in it but this involves [some caveats](#per-message-ttl-caveats).
 
 The original expiry time of a message is preserved if it
 is requeued (for example due to the use of an AMQP method
@@ -114,8 +114,7 @@ exchange is set then messages will be dead-lettered.
 ## <a id="per-message-ttl-in-publishers" class="anchor" href="#per-message-ttl-in-publishers">Per-Message TTL in Publishers</a>
 
 A TTL can be specified on a per-message basis, by setting the
-`expiration` field in the [`basic`](amqp-0-9-1-reference.html#class.basic) AMQP 0-9-1 class when sending a
-[`basic.publish`](amqp-0-9-1-reference.html#basic.publish).
+[`expiration` property](./publishers.md#message-properties) when publishing a message.
 
 The value of the `expiration` field describes the
 TTL period in milliseconds. The same constraints as for

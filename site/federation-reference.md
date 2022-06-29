@@ -85,8 +85,8 @@ The upstream definition object can contain the following keys:
     <tr>
       <td><code>uri</code></td>
       <td>
-        The  <a href="uri-spec.html">AMQP URI(s)</a> for the upstream.
-        See the <a href="uri-query-parameters.html">query parameter reference</a> for the underlying client library extensions
+        The  <a href="./uri-spec.html">AMQP URI(s)</a> for the upstream.
+        See the <a href="./uri-query-parameters.html">query parameter reference</a> for the underlying client library extensions
         (including those for <a href="./ssl.html">TLS</a>) which are available to federation.
 
         The value can either be a string, or a list of

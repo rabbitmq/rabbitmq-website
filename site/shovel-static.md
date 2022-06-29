@@ -107,7 +107,7 @@ for AMQP 0-9-1 and AMQP 1.0, respectively:
 
 The URI syntax is extended to include a query part to
 permit the configuration of additional connection parameters.
-See the [query parameter reference](uri-query-parameters.html) which
+See the [query parameter reference](./uri-query-parameters.html) which
 are available to static shovels, such as TLS certificate and private key.
 
 ### General Source Keys
