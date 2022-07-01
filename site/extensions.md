@@ -20,7 +20,7 @@ limitations under the License.
 ## Overview
 
 The RabbitMQ implements a number of extensions of the
-[AMQP 0-9-1 specification](specification.html), which we
+[AMQP 0-9-1 specification](./specification.html), which we
 document here.
 
 Some extensions introduce new protocol methods (operations); others rely on existing

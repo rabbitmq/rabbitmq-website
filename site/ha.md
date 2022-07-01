@@ -581,8 +581,7 @@ than throughput, the automatic acknowledgement mode is the way to go.
 ### <a id="confirms-transactions" class="anchor" href="#confirms-transactions">Publisher Confirms and Transactions</a>
 
 Mirrored queues support both [publisher confirms](confirms.html) and
-[transactions](specification.html#tx). The
-semantics chosen are that in the case of both confirms and
+transactions. The semantics chosen are that in the case of both confirms and
 transactions, the action spans all mirrors of the
 queue. So in the case of a transaction, a
 `tx.commit-ok` will only be returned to a

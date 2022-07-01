@@ -25,8 +25,8 @@ are covered by the [Networking](networking.html) and [Troubleshooting Networking
 
 RabbitMQ supports several protocols:
 
- * [AMQP 0-9-1](specification.html) with [extensions](extensions.html)
- * AMQP 1.0
+ * [AMQP 0-9-1](./specification.html) with [extensions](extensions.html)
+ * [AMQP 1.0](https://www.amqp.org/resources/download)
  * [RabbitMQ Stream Protocol](stream.html)
  * [MQTT](mqtt.html) 3.1.1
  * [STOMP](stomp.html) 1.0 through 1.2

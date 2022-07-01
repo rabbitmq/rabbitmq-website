@@ -45,7 +45,7 @@ This guide covers:
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
  * [HTTP API request logging](#http-logging)
- * How to set a [management UI login session timeout](login-session-timeout)
+ * How to set a [management UI login session timeout](#login-session-timeout)
  * How to [reset statistics database](#reset-stats) used by this plugin
 
 as well as other related topics.

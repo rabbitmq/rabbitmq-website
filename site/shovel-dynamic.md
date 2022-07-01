@@ -94,9 +94,9 @@ The body in this example includes a few keys:
       <td>
         <p>
           Source connection URI. Mandatory. See
-          the <a href="uri-spec.html">AMQP URI reference</a> for
+          the <a href="./uri-spec.html">AMQP URI reference</a> for
           information on how RabbitMQ treats AMQP URIs in general,
-          and the <a href="uri-query-parameters.html">query parameter reference</a> for additional
+          and the <a href="./uri-query-parameters.html">query parameter reference</a> for additional
           query parameters that are recognised by the Shovel and Federation plugins
           (such as TLS settings).
         </p>

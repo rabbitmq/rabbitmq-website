@@ -643,7 +643,7 @@ will therefore remain consistent.
 ## <a id="performance" class="anchor" href="#performance">Performance Characteristics</a>
 
 Quorum queues are designed to trade latency for throughput and have been tested
-and compared against durable [classic mirrored queues](.ha.html) in 3, 5 and 7 node configurations at several
+and compared against durable [classic mirrored queues](./ha.html) in 3, 5 and 7 node configurations at several
 message sizes.
 
 In scenarios using both consumer acks and publisher confirms
