@@ -312,14 +312,20 @@ a consumer, which will run continuously waiting for deliveries:
 <pre class="lang-bash">
 python receive.py
 # => [*] Waiting for messages. To exit press CTRL+C
-# => [x] Received 'Hello World!'
 </pre>
 
-Now start the producer. The producer program will stop after every run:
+Now start the producer in a new terminal. The producer program will stop after every run:
 
 <pre class="lang-bash">
 python send.py
 # => [x] Sent 'Hello World!'
+</pre>
+
+The consumer will print the message:
+
+<pre class="lang-bash">
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Hello World!'
 </pre>
 
 Hurray! We were able to send our first message through RabbitMQ. As you might
