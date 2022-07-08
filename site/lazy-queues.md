@@ -37,36 +37,15 @@ This comes at a cost of increased disk I/O.
 Queues can be made to run in `default` mode or `lazy` mode by:
 
 <ul class="plain">
+  <li>applying a queue <a href="parameters.html#policies">policy</a> (recommended)</li>
   <li>setting the mode via <code>queue.declare</code> arguments</li>
-  <li>applying a queue <a href="parameters.html#policies">policy</a></li>
 </ul>
 
-When both a [policy](parameters.html) and queue arguments specify a queue mode, the queue argument has priority over the policy value.
+When both a [policy](parameters.html) and queue arguments specify a queue mode,
+the queue argument has priority over the policy value if both are specified.
 
 If a queue mode is set via an optional argument at the time of declaration,
 it can only be changed by deleting the queue, and re-declaring it later with a different argument.
-
-### Using Arguments at the Time of Declaration
-
-The queue mode can be set by supplying the `x-queue-mode` queue declaration argument with a string specifying the desired mode.
-Valid modes are:
-
-<ul class="plain">
-  <li><code>"default"</code></li>
-  <li><code>"lazy"</code></li>
-</ul>
-
-If no mode is specified during declare, then `"default"` is assumed.
-The `default` mode is the behaviour already present in pre 3.6.0 versions of the broker,
-so there are no breaking changes in this regard.
-
-This example in Java declares a queue with the queue mode set to `"lazy"`:
-
-<pre class="lang-java">
-  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-  args.put("x-queue-mode", "lazy");
-  channel.queueDeclare("myqueue", false, false, false, args);
-</pre>
 
 ### Using a policy
 
@@ -112,6 +91,28 @@ to specify a different `queue-mode`:
     </td>
   </tr>
 </table>
+
+### Using Arguments at the Time of Declaration
+
+The queue mode can be set by supplying the `x-queue-mode` queue declaration argument with a string specifying the desired mode.
+Valid modes are:
+
+<ul class="plain">
+  <li><code>"default"</code></li>
+  <li><code>"lazy"</code></li>
+</ul>
+
+If no mode is specified during declare, then `"default"` is assumed.
+The `default` mode is the behaviour already present in pre 3.6.0 versions of the broker,
+so there are no breaking changes in this regard.
+
+This example in Java declares a queue with the queue mode set to `"lazy"`:
+
+<pre class="lang-java">
+  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+  args.put("x-queue-mode", "lazy");
+  channel.queueDeclare("myqueue", false, false, false, args);
+</pre>
 
 ## <a id="performance" class="anchor" href="#performance">Performance Considerations for Lazy Queues</a>
 
