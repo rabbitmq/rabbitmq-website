@@ -204,7 +204,7 @@ The following table lists all of the attributes/properties that are available.
 | `channelsQos`                       |    No      | [QoS setting](https://www.rabbitmq.com/consumer-prefetch.html) for channels created by the connection factory. Default is -1 (no QoS). |
 | `terminationTimeout`                |    No      | The time in milliseconds a `Connection#close()` should wait for threads/tasks/listeners to complete. Default is 15,000 ms. |
 | `declareReplyToDestination`         |    No      | Whether `replyTo` destination for consumed messages should be declared. Default is true. |
-| `autoJmsTypeHeaderForTextMessages`  |    No      | When set to `true`, the AMQP `JMSType` header will be set automatically to `"TextMessage"` for `TextMessage`s published to AMQP-backed `Destination`s. Default is false. |
+| `keepTextMessageType`               |    No      | When set to `true`, the AMQP `JMSType` header will be set automatically to `"TextMessage"` for `TextMessage`s published to AMQP-backed `Destination`s. Default is false. |
 
 ## <a id="destination-interoperability" class="anchor" href="#destination-interoperability">JMS and AMQP 0-9-1 Destination Interoperability</a>
 
