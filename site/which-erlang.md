@@ -28,7 +28,8 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 RabbitMQ supports [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-At the moment they are [Erlang `24.x` and `23.x`](https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/).
+At the moment they are Erlang `25.x` and `24.3.x`, with transitional `23.3.x` series support
+until July 31st, 2022.
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
