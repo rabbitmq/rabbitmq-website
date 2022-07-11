@@ -819,7 +819,7 @@ Note that this list is by no means complete.
     </tr>
     <tr>
       <td>collectd</td>
-      <td><a href="https://github.com/signalfx/integrations/tree/master/collectd-rabbitmq">GitHub</a></td>
+      <td><a href="https://github.com/signalfx/collectd-rabbitmq">GitHub</a></td>
     </tr>
     <tr>
       <td>DataDog</td>
