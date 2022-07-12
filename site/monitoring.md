@@ -44,11 +44,7 @@ Monitoring is a broad topic. This guide covers several :
  * How to approach [node health checking](#health-checks) and why it's more involved than a single
    CLI command
  * Health checks use as [node readiness probes](#readiness-probes) during deployment or upgrades
- * [Log aggregation](#log-aggregation)
- * [Command-line based observer](#with-cli-observer) tool
-
-[Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
-and also mentioned in this guide.
+ * [Log aggregation](#log-aggregation) across all nodes and applications is closely related to monitoring
 
 A number of [popular tools](#monitoring-tools), both open source and commercial,
 can be used to monitor RabbitMQ. As mentioned above, the combination of [Prometheus and Grafana](./prometheus.html)
