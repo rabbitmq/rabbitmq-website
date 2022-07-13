@@ -1,7 +1,7 @@
-# Hot Standby via Continuous Definition Replication
+# Warm Standby via Continuous Definition Replication
 
 [VMware Tanzu RabbitMQ](./tanzu/) supports continuous schema definition replication
-to a remote cluster, which makes it easy to run a hot standby cluster for disaster recovery.
+to a remote cluster, which makes it easy to run a warm standby cluster for disaster recovery.
 
 This feature is not available in the open source RabbitMQ distribution.
 
@@ -19,22 +19,22 @@ and not in the open source RabbitMQ distribution.
 
 The plugin's replication model has a number of features and limitations:
 
- * It transfers definitions (schema) but **not enqueued messages**
- * Syncing happens periodically, so with volatile topologies followers will always
-   be trailing behind the leader. With a sync interval of thirty seconds the lag will usually be
-   within one minute.
- * The schema (virtual hosts, users, queues, and so on) on the follower side is replaced with
-   that on the leader side
- * All communication between the sides is completely asynchronous and avoids introducing cluster co-dependencies
- * Except for the initial import, definitions are transferred and imported incrementally
- * Definitions are transferred in a compressed binary format to reduce bandwidth usage
- * Links to other clusters are easily to configure and reason about, in particular during a disaster recovery event
+* It transfers definitions (schema) but **not enqueued messages**
+* Syncing happens periodically, so with volatile topologies followers will always
+  be trailing behind the leader. With a sync interval of thirty seconds the lag will usually be
+  within one minute.
+* The schema (virtual hosts, users, queues, and so on) on the follower side is replaced with
+  that on the leader side
+* All communication between the sides is completely asynchronous and avoids introducing cluster co-dependencies
+* Except for the initial import, definitions are transferred and imported incrementally
+* Definitions are transferred in a compressed binary format to reduce bandwidth usage
+* Links to other clusters are easily to configure and reason about, in particular during a disaster recovery event
 
 In case of a disaster event the recovery process involves several steps:
 
- * A standby cluster will be promoted to the operator
- * Applications will be redeployed or reconfigured to connect to the newly promoted cluster
- * Other standby clusters have to be reconfigured to follow the newly promoted cluster
+* A standby cluster will be promoted to the operator
+* Applications will be redeployed or reconfigured to connect to the newly promoted cluster
+* Other standby clusters have to be reconfigured to follow the newly promoted cluster
 
 As explained later in this guide, promotion and reconfiguration happen on the fly,
 and **do not involve RabbitMQ node restarts** or redeployment.
@@ -55,30 +55,30 @@ rabbitmq-plugins enable rabbitmq_schema_definition_sync --offline
 
 The plugin has two sides on a schema replication link (connection):
 
- * A source cluster, a.k.a. "origin", a.k.a. **upstream** (borrowing a term from the Federation plugin)
- * A destination cluster, a.k.a. follower, a.k.a. **downstream**
+* A source cluster, a.k.a. "origin", a.k.a. **upstream** (borrowing a term from the Federation plugin)
+* A destination cluster, a.k.a. follower, a.k.a. **downstream**
 
- There can be multiple downstreams for an upstream; this document primarily discusses
- a single upstream, single downstream scenario for the sake of simplicity.
+There can be multiple downstreams for an upstream; this document primarily discusses
+a single upstream, single downstream scenario for the sake of simplicity.
 
 Downstreams connect to their upstream and periodically initiate sync operations. These
 operations synchronise the schema on the downstream side with that of the upstream,
 with some safety mechanisms (covered later in this guide).
 
- A node running in the downstream mode (a follower) can be **converted to an upstream** (leader)
- on the fly. This will make it disconnect from its original source, therefore stopping all
- syncing. The node will then continue operating as a member of an independent cluster,
- no longer associated with its original upstream.
+A node running in the downstream mode (a follower) can be **converted to an upstream** (leader)
+on the fly. This will make it disconnect from its original source, therefore stopping all
+syncing. The node will then continue operating as a member of an independent cluster,
+no longer associated with its original upstream.
 
- Such conversion is called a **promotion** and should be performed in case of a disaster
- recovery event.
+Such conversion is called a **promotion** and should be performed in case of a disaster
+recovery event.
 
 ### <a id="sync-ops" class="anchor" href="#sync-ops">Sync Operations</a>
 
- A sync operation is a request/response sequence that involves:
+A sync operation is a request/response sequence that involves:
 
-  * A sync request sent by the downstream
-  * A sync response sent back by the upstream
+* A sync request sent by the downstream
+* A sync response sent back by the upstream
 
 A sync request carries a payload that allows the upstream to compute the delta between
 the schemas. A sync response carries the delta plus all the definitions that are only
@@ -87,12 +87,12 @@ apply the definitions. Any **entities only present on the downstream will be del
 This is to make sure that downstreams follow their upstream's schema as closely as
 possible, with some practical limits (discussed further in this guide).
 
- Downstreams connect to their upstream using AMQP 1.0. This has a few benefits:
+Downstreams connect to their upstream using AMQP 1.0. This has a few benefits:
 
-  * All communication is asynchronous, there is no coupling, a standby can run
-    a different (e.g. newer) version of RabbitMQ
-  * Authentication is identical to that of applications
-  * No additional ports need to be open
+* All communication is asynchronous, there is no coupling, a standby can run
+  a different (e.g. newer) version of RabbitMQ
+* Authentication is identical to that of applications
+* No additional ports need to be open
 
 ### <a id="loose-coupling" class="anchor" href="#loose-coupling">Loose Coupling</a>
 
@@ -120,8 +120,8 @@ successfully, so the delta does not accumulate.
 
 A node participating in schema definition syncing must be provided with two pieces of configuration:
 
- * What mode it operates in, `upstream` (leader) or `downstream` (passive follower)
- * Upstream connection endpoints
+* What mode it operates in, `upstream` (leader) or `downstream` (passive follower)
+* Upstream connection endpoints
 
 This is true for both upstreams and downstreams.
 
@@ -245,7 +245,7 @@ This is identical to disabling and immediately re-enabling replication using
 the aforementioned commands.
 
 
-## <a id="promotion" class="anchor" href="#promotion">Secondary Cluster (Hot Standby) Promotion</a>
+## <a id="promotion" class="anchor" href="#promotion">Secondary Cluster (warm standby) Promotion</a>
 
 Having a standby cluster with synchronised virtual hosts, users, permissions, topologies
 and so on is only useful if it can be turned into a new primary cluster
@@ -258,10 +258,10 @@ operation requests.
 
 A downstream promotion involves a few steps on the downstream side:
 
- * Replication is stopped
- * An upstream setup is performed
- * Node mode is switched to upstream
- * Replication is resumed
+* Replication is stopped
+* An upstream setup is performed
+* Node mode is switched to upstream
+* Replication is resumed
 
 All these steps are performed using CLI tools and do not require a node
 restart:

@@ -65,7 +65,7 @@ This is covered in [future sections](#details).
 
 Federated exchanges can be used to replicate a flow of certain message types to remote locations.
 Combined with continuous [schema synchronisation](./backup.html#definitions-backup) and
-[queue and message TTL](./ttl.html), this can be used to maintain a hot standby
+[queue and message TTL](./ttl.html), this can be used to maintain a warm standby
 with reasonably up-to-date data within a controlled time window.
 
 Another use would be to implement massive fanout with a single "source"

@@ -111,7 +111,7 @@ limitations under the License.
          <x:related url="/heartbeats.html" text="Heartbeats"/>
        </x:page>
        <x:page url="/definitions.html" text="Schema Definition Export and Import">
-          <x:page url="/definitions-standby.html" text="Hot standby Using Definition Replication"/>
+          <x:page url="/definitions-standby.html" text="warm standby Using Definition Replication"/>
        </x:page>
        <x:page url="/backup.html" text="Backup and restore"/>
        <x:page url="/alarms.html" text="Alarms">

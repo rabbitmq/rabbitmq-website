@@ -32,7 +32,7 @@ the update is performed on all nodes in a single transaction. This means that
 in practice, definitions can be exported from any cluster node with the same result.
 
 [VMware Tanzu RabbitMQ](./tanzu/) supports [continuous schema definition replication](definitions-standby.html) to a remote cluster,
-which makes it easy to run a hot standby cluster for disaster recovery.
+which makes it easy to run a warm standby cluster for disaster recovery.
 
 Definition import on node boot is the recommended way of [pre-configuring nodes at deployment time](#import-on-boot).
 
@@ -142,7 +142,7 @@ Set the `definitions.import_backend` and `definitions.https.url` config keys to 
 # Does not require management plugin to be enabled.
 definitions.import_backend = https
 definitions.https.url = https://raw.githubusercontent.com/rabbitmq/sample-configs/main/lot-of-queues/5k-queues.json
-# client-side TLS options for definition import   
+# client-side TLS options for definition import
 definitions.tls.versions.1 = tlsv1.2
 </pre>
 
