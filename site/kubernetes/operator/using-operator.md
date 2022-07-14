@@ -467,21 +467,22 @@ spec:
 
 ### <a name='additional-config' class='anchor' href='#additional-config'>RabbitMQ Additional Configuration</a>
 
-**Description:** Additional configuration options that will be appended to `rabbitmq.conf` file. The RabbitMQ Cluster Kubernetes Operator
-generates a configuration with the following properties:
+**Description:** Additional RabbitMQ configuration options that will be written to `/etc/rabbitmq/conf.d/90-userDefinedConfiguration.conf`. The RabbitMQ Cluster Kubernetes Operator
+generates a configuration file `/etc/rabbitmq/conf.d/10-operatorDefaults.conf` with the following properties:
 
 <pre class="lang-ini">
-cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
-cluster_formation.k8s.host = kubernetes.default
-cluster_formation.k8s.address_type = hostname
-cluster_formation.node_cleanup.interval = 30
-cluster_formation.node_cleanup.only_log_warning = true
-cluster_partition_handling = pause_minority
-queue_master_locator = min-masters
+cluster_formation.peer_discovery_backend             = rabbit_peer_discovery_k8s
+cluster_formation.k8s.host                           = kubernetes.default
+cluster_formation.k8s.address_type                   = hostname
+cluster_partition_handling                           = pause_minority
+queue_master_locator                                 = min-masters
+disk_free_limit.absolute                             = 2GB
+cluster_formation.randomized_startup_delay_range.min = 0
+cluster_formation.randomized_startup_delay_range.max = 60
 </pre>
 
-All the values in additional config will be appended to this list. If any property is specified twice, the latest
-will take effect.
+All the values in additional config will be applied after this list. If any property is specified twice, the latest
+will take effect. To learn more about RabbitMQ configuration options and formart, check out the dedicated [Configuration Documentation](../../configure.html).
 
 **Default Value:** N/A
 
