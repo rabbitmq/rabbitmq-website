@@ -385,7 +385,7 @@ See [.NET client guide](./dotnet-api-guide.html#basic-get) for examples.
 
 ## <a id="acknowledgement-timeout" class="anchor" href="#acknowledgement-timeout">Delivery Acknowledgement Timeout</a>
 
-In modern RabbitMQ versions, a timeout is enforced on consumer delivery acknowledgement.
+In all [currently supported](./versions.html) RabbitMQ versions, a timeout is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 Such consumers can affect node's on disk data compaction and potentially drive
 nodes out of disk space.
