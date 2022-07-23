@@ -31,6 +31,8 @@ and more.
 ## <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
 [Logging to a file](#logging-to-a-file) is one of the most common options for RabbitMQ installations.
+This is the output nodes use by default, if no outputs are explicitly configured.
+
 [Logging to standard output and error streams](#logging-to-console) is another popular option. [Syslog](#logging-to-syslog)
 is another option supported out of the box.
 
