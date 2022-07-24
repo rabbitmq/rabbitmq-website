@@ -30,15 +30,25 @@ and more.
 
 ## <a id="log-outputs" class="anchor" href="#log-outputs">Log Outputs</a>
 
-[Logging to a file](#logging-to-a-file) is one of the most common options for RabbitMQ installations.
-This is the output nodes use by default, if no outputs are explicitly configured.
+RabbitMQ nodes can log to multiple outputs. [Logging to a file](#logging-to-a-file) is
+one of the most common options for RabbitMQ installations.
 
-[Logging to standard output and error streams](#logging-to-console) is another popular option. [Syslog](#logging-to-syslog)
-is another option supported out of the box.
+[Logging to standard output and error streams](#logging-to-console) is another popular option.
+[Syslog](#logging-to-syslog)
+is a yet another one supported out of the box.
 
 Different outputs can have different log levels. For example, the console output can log all
 messages including debug information  while the file output can only log error and higher severity
 messages.
+
+## <a id="default-output" class="anchor" href="#default-output">Default Log Output and Behavior</a>
+
+Nodes [log to a file](#logging-to-a-file) by default, if no outputs are explicitly configured.
+If some are configured, they will be used.
+
+RabbitMQ versions prior to 3.9.0 would always log to a file unless explicitly configured
+not to do so. With later versions, the same behavior can be achieved by explicitly
+listing a file output next to other desired log outputs, such as the standard stream one.
 
 ## <a id="log-file-location" class="anchor" href="#log-file-location">Log File Location</a>
 
