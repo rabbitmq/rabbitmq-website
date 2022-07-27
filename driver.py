@@ -69,7 +69,7 @@ if __name__ == '__main__':
     addr = ("localhost", 8191)
     with socketserver.TCPServer(addr, ReqHandler) as httpd:
         vi = sys.version_info
-        print(f"Serving on http://localhost:{addr[1]}, running on Python {vi.major}.{vi.minor}.{vi.micro}")
+        print(f"Serving on http://{addr[0]}:{addr[1]}, running on Python {vi.major}.{vi.minor}.{vi.micro}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

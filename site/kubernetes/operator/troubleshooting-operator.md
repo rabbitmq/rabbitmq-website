@@ -12,6 +12,7 @@ Certain errors have dedicated sections:
 
 + [RabbitMQ cluster fails to deploy](#cluster-fails-to-deploy)
 + [Pods are not being created](#pods-are-not-created)
++ [Pods restart on startup](#pods-restart-on-startup)
 + [Pods are stuck in the terminating state](#pods-stuck-in-terminating-state)
 + [Cluster Operator fails on startup](#operator-failure-on-startup)
 
@@ -56,6 +57,23 @@ corresponding role-based access control (RBAC) resources.
 
 Potential solution is to create the PodSecurityPolicy and RBAC resources by following the procedure in
 [Pod Security Policies](./using-operator.html#psp).
+
+### <a id="pods-restart-on-startup" class="anchor" href="#pods-restart-on-startup">Pods Restart on Startup</a>
+The RabbitMQ container might fail at Pod startup and log a message such as
+
+<pre class="lang-plaintext">
+epmd error for host rabbitmq-server-1.rabbitmq-nodes.mynamespace: nxdomain (non-existing domain)
+</pre>
+or
+<pre class="lang-plaintext">
+Error during startup: {error,no_epmd_port}
+</pre>
+
+The Pod restarts and becomes `Ready` eventually.
+
+Since RabbitMQ nodes [resolve their own and peer hostnames during boot](../../clustering.html#hostname-resolution-requirement),
+CoreDNS [caching timeout may need to be decreased](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id) from default 30 seconds
+to a value in the 5-10 seconds range.
 
 ### <a id="pods-stuck-in-terminating-state" class="anchor" href="#pods-stuck-in-terminating-state">Pods Are Stuck in the Terminating State</a>
 
