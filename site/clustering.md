@@ -95,12 +95,19 @@ must be specified.
 ## <a id="cluster-formation-requirements" class="anchor" href="#cluster-formation-requirements">Cluster Formation Requirements</a>
 ### <a id="hostname-resolution-requirement" class="anchor" href="#hostname-resolution-requirement">Hostname Resolution</a>
 
-RabbitMQ nodes address each other using domain names,
-either short or fully-qualified (FQDNs). Therefore
-hostnames of all cluster members
-must be resolvable from all cluster nodes, as well
+RabbitMQ nodes address each other using a **node name**, a combination
+of a prefix and domain name, either short or fully-qualified (FQDNs).
+
+Therefore every cluster member **must be able to resolve hostnames
+of every other cluster member**, its own hostname, as well
 as machines on which command line tools such as `rabbitmqctl`
 might be used.
+
+Nodes will perform hostname resolution early on node boot.
+In container-based environments it is important that hostname
+resolution is ready before the container is started.
+For Kubernetes users, this means the [DNS cache interval for CoreDNS](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id)
+to a value in the 5-10 second range.
 
 Hostname resolution can use any of the standard OS-provided
 methods:
