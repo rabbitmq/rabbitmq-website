@@ -141,7 +141,7 @@ Set the `definitions.import_backend` and `definitions.https.url` config keys to 
 <pre class="lang-ini">
 # Does not require management plugin to be enabled.
 definitions.import_backend = https
-definitions.https.url = https://raw.githubusercontent.com/rabbitmq/sample-configs/main/lot-of-queues/5k-queues.json
+definitions.https.url = https://raw.githubusercontent.com/rabbitmq/sample-configs/main/queues/5k-queues.json
 # client-side TLS options for definition import
 definitions.tls.versions.1 = tlsv1.2
 </pre>
