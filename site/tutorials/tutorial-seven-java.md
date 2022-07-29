@@ -109,12 +109,12 @@ while (thereAreMessagesToPublish()) {
     channel.basicPublish(exchange, queue, properties, body);
     outstandingMessageCount++;
     if (outstandingMessageCount == batchSize) {
-        ch.waitForConfirmsOrDie(5_000);
+        channel.waitForConfirmsOrDie(5_000);
         outstandingMessageCount = 0;
     }
 }
 if (outstandingMessageCount > 0) {
-    ch.waitForConfirmsOrDie(5_000);
+    channel.waitForConfirmsOrDie(5_000);
 }
 </pre>
 
