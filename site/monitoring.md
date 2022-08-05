@@ -30,6 +30,7 @@ Monitoring is a broad topic. This guide covers several :
 
  * [What is monitoring](#fundamentals), why it is important, what common approaches to it exist
  * Available monitoring options:
+     * [New Relic-monitoring RabbitMQ](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/rabbitmq-monitoring-integration/) New Relic monitoring with RabbitMQ 
      * [Prometheus-compatible](#with-prometheus) external scrapers for production clusters
      * [Kubernetes Operator monitoring](#on-kubernetes) features for Kubernetes users
      * [interactive command line tool](#with-cli-observer) for focused troubleshooting
