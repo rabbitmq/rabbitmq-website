@@ -30,7 +30,7 @@ Monitoring is a broad topic. This guide covers several :
 
  * [What is monitoring](#fundamentals), why it is important, what common approaches to it exist
  * Available monitoring options:
-     * [New Relic-RabbitMQ](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/rabbitmq-monitoring-integration/) New Relic RabbitMQ offers multiple dashboards for monitoring nodes
+     * [New Relic RabbitMQ](#with-newrelic) offers multiple dashboards for monitoring nodes
      * [Prometheus-compatible](#with-prometheus) external scrapers for production clusters
      * [Kubernetes Operator monitoring](#on-kubernetes) features for Kubernetes users
      * [interactive command line tool](#with-cli-observer) for focused troubleshooting
@@ -126,6 +126,12 @@ Collect the following metrics on all hosts that run RabbitMQ nodes or applicatio
 
 There is no shortage of existing tools (such as Prometheus or Datadog) that collect infrastructure
 and kernel metrics, store and visualise them over periods of time.
+
+## <a id="with-newrelic" class="anchor" href="#with-newrelic">Monitor RabbitMQ with New Relic</a>
+
+The New Relic RabbitMQ on-host integration reports metrics and configuration data from your RabbitMQ service, including important metrics relating to the cluster, vhosts, queues, exchanges, and consumers.
+
+Please refer to the [New Relic documentation](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/rabbitmq-monitoring-integration/) to start monitoring RabbitMQ.
 
 ## <a id="with-prometheus" class="anchor" href="#with-prometheus">Monitoring with Prometheus-compatible Tools</a>: the Recommended Option
 
