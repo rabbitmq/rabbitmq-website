@@ -43,7 +43,7 @@ and more.
 ## <a id="terminology" class="anchor" href="#terminology">Terminology</a>
 
 The term "consumer" means different things in different contexts. In general, in the context of messaging
-and streaming, a consumer is an application (or application instance) that consumes and [acknowledges](./confirmations.html)
+and streaming, a consumer is an application (or application instance) that consumes and [acknowledges](./confirms.html)
 messages. The same application can also publish messages and thus be a publisher at the same time.
 
 Messaging protocols also have the concept of a lasting subscription for message delivery.
