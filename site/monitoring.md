@@ -182,7 +182,7 @@ It has, however, has a number of significant limitations compared to [monitoring
 
 ### How to Enable It
 
-To enable the Prometheus plugin, use
+To enable the management plugin, use
 
 <pre class="lang-bash">
 rabbitmq-plugins enable rabbitmq_management
@@ -279,11 +279,11 @@ of the following processes:
 
 ### <a id="monitoring-frequency" class="anchor" href="#monitoring-frequency">Frequency of Monitoring</a>
 
-The recommended metric collection interval for production is **30 second**, or another suitable
+The recommended metric collection interval for production is **30 seconds**, or another suitable
 value in the 30 to 60 second range. [Prometheus](./prometheus.html) exporter API is designed to be
 scraped every 15 to 30 seconds, including production systems.
 
-In a development environment, to collect at an interval which is closer to real-time, use 5 second —- but not lower!
+In a development environment, to collect at an interval which is closer to real-time, use 5 seconds —- but not lower!
 
 For rate metrics, use a time range that spans four or more metric collection intervals so that it
 can tolerate race-conditions and is resilient to scrape failures.
@@ -528,7 +528,7 @@ pinpoint the root cause. For example, it is easy to tell that a
 node is running out of disk space but not always easy to tell why.
 This is where application metrics come in: they can help identify
 a run-away publisher, a repeatedly failing consumer, a consumer that cannot
-keep up with the rate, even a downstream service that's experiencing a slowdown
+keep up with the rate, or even a downstream service that's experiencing a slowdown
 (e.g. a missing index in a database used by the consumers).
 
 Some client libraries and frameworks
@@ -558,7 +558,7 @@ Health checks are [executed periodically by machines](#monitoring-frequency) or 
 Health checks can be used to both assess the state and liveness of a node but also as [readiness probes](#readiness-probes)
 by deployment automation and orchestration tools, including during upgrades.
 
-There is a series of health checks that can be performed, starting
+There are a series of health checks that can be performed, starting
 with the most basic and very rarely producing [false positives](https://en.wikipedia.org/wiki/False_positives_and_false_negatives),
 to increasingly more comprehensive, intrusive, and opinionated that have a
 higher probability of false positives. In other words, the more comprehensive a
@@ -824,7 +824,7 @@ rabbitmq-plugins -q is_enabled rabbitmq_shovel
 # if the check succeeded, exit code will be 0
 </pre>
 
-The probability of false positives is generally low but raises
+The probability of false positives is generally low but rises
 in environments where environment variables that can affect [rabbitmq-plugins](./cli.html)
 are overridden.
 
