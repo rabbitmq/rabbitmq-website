@@ -49,7 +49,7 @@ limitations under the License.
           Release notes can be found <a href="./changelog.html">in the change log</a>.
         </p>
         <p>
-          This release <a href="which-erlang.html">requires Erlang/OTP 24.0</a> and
+          This release <a href="which-erlang.html">requires Erlang/OTP 24.2</a> and
           supports Erlang versions through <a href="https://www.erlang.org/blog/my-otp-25-highlights/">the latest Erlang 25</a>.
         </p>
         <p>

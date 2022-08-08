@@ -57,7 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.0</li>
+        <li>24.2</li>
       </ul>
     </td>
     <td>
@@ -85,7 +85,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.0</li>
+        <li>24.2</li>
       </ul>
     </td>
     <td>
@@ -216,7 +216,7 @@ See [CentOS, RHEL and Fedora installation guide](./install-rpm.html) for more in
 
 It is **highly recommended** that the same major version of
 Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
-(e.g. `22.x`).
+(e.g. `25.x`).
 
 RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
