@@ -1222,7 +1222,7 @@ the recommended monitoring options for Kubernetes-deployed clusters.
 ## <a id='network-policies' class='anchor' href='#network-policies'>Restrict traffic using Network Policies</a>
 
 [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/), akin to firewalls, allow you to restrict traffic to/from Pods in your RabbitmqCluster at the IP address or port level.
-This may be worth doing on a production cluster, for example, to ensure only Pods in the RabbitmqCluster can access the [inter-node communication ports](clustering.html#ports) (epmd and clustering), or to restrict messaging traffic to only be permitted from known
+This may be worth doing on a production cluster, for example, to ensure only Pods in the RabbitmqCluster can access the [inter-node communication ports](../../clustering.html#ports) (epmd and clustering), or to restrict messaging traffic to only be permitted from known
 trusted client Pods.
 
 The cluster-operator repo has [a documented example](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples/network-policies) with several sample NetworkPolicies that you can use as guides for
