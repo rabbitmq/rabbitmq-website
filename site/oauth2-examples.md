@@ -9,7 +9,7 @@ This tutorial-style guide has two primary goals:
 2. Explore what it takes to set up RabbitMQ Server with OAuth 2.0 authentication mechanism.
    Additionally it explains how to stand up ([UAA](https://github.com/cloudfoundry/uaa)) as an OAuth 2.0 Authorization Server and all the operations to create OAuth clients, users and obtain their tokens.
 
-The guide coers several OAuth 2 usage scenarios in the context of RabbitMQ and is
+The guide covers several OAuth 2 usage scenarios in the context of RabbitMQ and is
 accompanied by [a public GitHub repository](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial).
 The GitHub repository includes RabbitMQ and UAA configuration files, as well as Make targets
 that make it easier to
