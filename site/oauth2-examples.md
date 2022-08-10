@@ -32,11 +32,12 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [Use custom scope field](#use-custom-scope-field)
 	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
 	- [Use Scope Aliases](#use-scope-aliases)
+    - [Use Rich Authorization Requests tokens](#use-rar-tokens)
 * [OAuth 2.0 providers](#oauth-providers)
-   - [UAA](#management-user-accessing-the-management-ui)
-   - [Keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
-   - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
-   - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
+    - [UAA](#management-user-accessing-the-management-ui)
+    - [Keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
+    - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
+    - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -583,6 +584,71 @@ make stop-perftest-producer PRODUCER=producer_with_roles
 make stop-perftest-consumer CONSUMER=consumer_with_roles
 </pre>
 
+
+
+### <a id="use-rar-tokens" class="anchor" href="#use-rar-tokens">Use Rich Authorization Request Tokens</a>
+
+The [Rich Authorization Request](https://oauth.net/2/rich-authorization-requests/) extension provides a way for OAuth clients to request fine-grained permissions during an authorization request. It moves away from the concept of Scopes and instead
+define a rich permission model.
+
+RabbitMQ supports JWT tokens compliant with this specification. Here is a sample JWT token where we have stripped out
+all the other attributes and left only the relevant ones for this specification:
+
+<pre class="lang-javascript">
+{
+  "authorization_details": [
+    { "type" : "rabbitmq",  
+      "locations": ["cluster:finance/vhost:primary-*"],
+      "actions": [ "read", "write", "configure"  ]
+    },
+    { "type" : "rabbitmq",
+      "locations": ["cluster:finance", "cluster:inventory", ],
+      "actions": ["tag:administrator" ]
+    }
+  ]
+}
+</pre>
+
+*Get the environment ready*
+
+To demonstrate this new capability we have to deploy RabbitMQ with the appropriate configuration file
+under [conf/uaa/rabbitmq-for-rar-tokens.config](conf/uaa/rabbitmq-for-rar-tokens.config).
+
+<pre class="lang-bash">
+export CONFIG=rabbitmq-for-rar-tokens.config
+make start-rabbitmq
+</pre>
+
+**NOTE**: We do not need to run any OAuth2 server like UAA. This is because we are creating a token and signing it using the same
+private-public key pair RabbitMQ is configured with.
+
+*Use a Rich Authorization Token to access the management rest api*
+
+We are going use this token [jwts/rar-token.json](jwts/rar-token.json) to access an endpoint of the management rest api.
+
+<pre class="lang-bash">
+make curl-with-token URL=http://localhost:15672/api/overview TOKEN=$(bin/jwt_token rar-token.json legacy-token-key private.pem public.pem)
+</pre>
+
+Note: We are using curl to go to the URL using a TOKEN which we have built using the command bin/jwt_token which takes the JWT payload, the name of the signing key and the private and public certificates to sign the token
+
+*Use a Rich Authorization Token to access AMQP protocol*
+
+This time, we are going to use the same token we used in the previous section to access the AMQP protocol via the PerfTest tool which acts as a AMQP producer application:
+
+<pre class="lang-bash">
+make start-perftest-producer-with-token PRODUCER=producer_with_roles TOKEN=$(bin/jwt_token rar-token.json legacy-token-key private.pem public.pem)
+</pre>
+
+The command above launches the application in the background, we can check the logs by running this command:
+<pre class="lang-bash">
+docker logs producer_with_roles -f
+</pre>
+
+
+For more information on this new capability check out the [plugin's documentation](https://github.com/rabbitmq/rabbitmq-server/tree/rich_auth_request/deps/rabbitmq_auth_backend_oauth2#rich-authorization-request).
+
+
 ## <a id="oauth-providers" class="anchor" href="#oauth-providers">OAuth 2.0 providers</a>
 
 RabbitMQ does not really need to communicate with an OAuth 2.0 provider to validate a token presented via one of its supported messaging protocols such as AMQP. So, it does not really matter which OAuth provider issued the token.
@@ -599,7 +665,6 @@ RabbitMQ 3.11 has been tested against the following OAuth 2.0 providers:
  - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
 
 However, RabbitMQ 3.11 has not been released and the configuration and scripts provided here uses a docker image built from a development CI pipeline.
-
 
 
 ## <a id="understanding-environment" class="anchor" href="#understanding-environment">Understand the Environment</a>
