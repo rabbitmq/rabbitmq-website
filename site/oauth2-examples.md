@@ -33,7 +33,10 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
 	- [Use Scope Aliases](#use-scope-aliases)
 * [OAuth 2.0 providers](#oauth-providers)
-	- [OAuth0](#oauth0)
+   - [UAA](#management-user-accessing-the-management-ui)
+   - [Keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
+   - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
+   - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -590,47 +593,12 @@ However, when the user accesses the management ui via a browser, RabbitMQ requir
 
 RabbitMQ 3.11 has been tested against the following OAuth 2.0 providers:
 
- - UAA
- - keycloak
- - OAuth0
- - Microsoft Azure AD
+ - [UAA](#management-user-accessing-the-management-ui) - We have already demonstrated this
+ - [keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
+ - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
+ - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
 
 However, RabbitMQ 3.11 has not been released and the configuration and scripts provided here uses a docker image built from a development CI pipeline.
-
-### <a id="oauth0" class="anchor" href="#oauth0">Auth0</a>
-
-In order to follow this use case, [sign up for an Auth0 account](https://auth0.com/).
-
-This example demonstrates two OAuth flows:
-
-1. An Oauth client/application access the management rest api or one of the messaging protocols like AMQP
-2. An Oauth user, via a browser, comes to the management ui
-
-To test the first flow, follow these steps:
-
-1. [Log into your Auth0 account](https://auth0.com/), go to dashboard > Applications > APIs > Create an API
-2. Give it the name `rabbitmq`. The important thing here is the `identifier` which must have the name of the *resource_server_id*
-   we configured in RabbitMQ. This `identifier` goes into the `audience` JWT field. In our case, it is called `rabbitmq`.
-   And we choose `RS256` as the signing algorithm.
-3. Edit the API we just created with the name `rabbitmq`. Go into Permissions and add the permissions (scope) this api can grant
-4. For every API we create, an *Application* gets created using the API's `identifier` as its name.
-5. Go to dashboard > Applications, and you should see your application listed.
-6. An application gives us a *client_id*, a *client_secret* and a http endpoint called *Domain* where to claim a token. An Application represents an *OAuth Client**
-5. Go into dashboard > `Applications` > `rabbitmq` > `APIs`, find a list of all the APIs including the one that's been just created.
-   Along with each API there is a toggle to authorize the Application to use the API. Once you "authorize" the Application to use an API,
-   you can pick which scopes you want to grant to the Application from the list of scopes allowed by the API.
-
-We are done setting things up in Oauth0, now we can claim a token like this:
-
-<pre class="lang-bash">
-curl --request POST \
- --url 'https://{domain from the Application settings}/oauth/token' \
- --header 'content-type: application/x-www-form-urlencoded' \
- --data grant_type=client_credentials \
- --data client_id='{client ID field from the Application settings}' \
- --data client_secret='{client secret field from the Application settings}' \
- --data audience='{identifier field from the API settings}'
-</pre>
 
 
 
