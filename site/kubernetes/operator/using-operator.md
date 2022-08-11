@@ -254,7 +254,7 @@ kind: RabbitmqCluster
 metadata:
   name: rabbitmqcluster-sample
 spec:
-  image: my-private-registry/rabbitmq:3.8
+  image: my-private-registry/rabbitmq:3.10
   imagePullSecrets:
   - name: some-secret
 </pre>
