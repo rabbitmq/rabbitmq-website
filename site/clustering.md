@@ -417,7 +417,7 @@ as a connection option. The list of hosts will be used during initial connection
 as well as connection recovery, if the client supports it. See documentation guides
 for individual clients to learn more.
 
-With [quorum queues](./quorum-queues.html), clients will only be able to perform
+With [quorum queues](./quorum-queues.html) and [streams](./streams.html), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
 
 With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
