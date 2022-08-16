@@ -2335,7 +2335,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="release-notes/README-1.1.0-alpha.txt">Release notes</a></td>
+    <td class="centre"></td>
   </tr>
 
   <tr>
@@ -2346,6 +2346,6 @@ published separately.
         <li>Initial release</li>
       </ul>
     </td>
-    <td class="centre"><a href="./resources/RabbitMQ_PressRelease_080207.pdf">Release notes</a><br/>(pdf)</td>
+    <td class="centre"></td>
   </tr>
 </table>
