@@ -184,7 +184,7 @@ certain nodes to be "special" for a period of time. For example, [federation lin
 are colocated on a particular cluster node. Should that node fail, the links will
 be restarted on a different node.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long maintained) versions, [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 ### <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
@@ -485,7 +485,7 @@ other nodes to access it. Some stats are cluster-wide, others are specific to in
 Node that responds to an [HTTP API](./management.html) request contacts its peers
 to retrieve their data and then produces an aggregated result.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long unmaintained) versions [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 

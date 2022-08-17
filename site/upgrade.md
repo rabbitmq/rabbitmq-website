@@ -99,7 +99,7 @@ introduces no breaking changes within a release series (e.g. between
 (e.g. `3.7.0`), plugin must be upgraded to their versions that support
 the new RabbitMQ version series.
 
-In rare cases patch versions of RabbitMQ (e.g. 3.6.7) can break some plugin APIs.
+In rare cases patch versions of RabbitMQ can break some plugin APIs.
 Such cases will be documented in the breaking changes section of the release notes document.
 
 [Community plugins page](community-plugins.html) contains information on RabbitMQ
@@ -239,7 +239,7 @@ It is strongly recommended to consult release notes before upgrading.
 Some patch releases known to require a cluster-wide restart:
 
 * 3.6.7 and later cannot be mixed with earlier versions from the 3.6.x series
-* 3.6.6 and later cannot be mixed with earlier versions from the 3.6.x series
+* 3.6.6 and later cannot be mixed with later versions from the 3.6.x series
 * 3.0.0 cannot be mixed with later versions from the 3.0.x series
 
 **A RabbitMQ node will fail to [re-]join a peer running an incompatible version**.
