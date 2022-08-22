@@ -1,9 +1,26 @@
 # Lazy Queues
 
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Classic Queue Storage</a>
+
+This guide covers lazy mode of classic queues.
+
+
+[Quorum queues](quorum-queues.html) is an alternative, more modern queue type
+that offers high availability via replication and focuses on data safety.
+As of RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
+provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
+
+[Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
+and is also replicated.
+
+Quorum queues should be the **default choice** for a replicated queue type.
+Classic queue mirroring will be **removed in a future version** of RabbitMQ:
+classic queues will remain a supported non-replicated queue type.
+
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Since **RabbitMQ 3.6.0**, the broker has the concept of **Lazy Queues** -
-queues that move their contents to disk as early as practically possible,
+Classic queues can operate in **lazy mode**: that is,
+move their contents to disk as early as practically possible,
 and only load them in RAM when requested by consumers,
 therefore the lazy denomination.
 

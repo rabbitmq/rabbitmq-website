@@ -396,7 +396,7 @@ The error will be [logged](logging.html) by the node that the consumer was
 connected to. All outstanding deliveries on that channel, from all consumers,
 will be [requeued](confirms.html#automatic-requeueing).
 
-The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
+The timeout value is configurable in [rabbitmq.conf](./configure.html#config-file) (in milliseconds):
 
 <pre class="lang-ini">
 # 30 minutes in milliseconds
