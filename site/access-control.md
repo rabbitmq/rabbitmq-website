@@ -33,6 +33,7 @@ This guide covers a variety of authentication, authorisation and user management
  * [Access control essentials](#basics)
  * [Default virtual host and user](#default-state)
  * [Connectivity limitations](#loopback-users) imposed on the default user
+ * [Authorisation and resource permissions](#authorisation)
  * How to [manage users and permissions](#user-management) using CLI tools
  * How to change an authentication or authorization [backend used](#backends), or use a combination of backends
  * How to [authenticate clients using their TLS certificate information](#certificate-authentication)
