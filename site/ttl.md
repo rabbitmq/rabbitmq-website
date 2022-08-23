@@ -114,7 +114,7 @@ exchange is set then messages will be dead-lettered.
 ## <a id="per-message-ttl-in-publishers" class="anchor" href="#per-message-ttl-in-publishers">Per-Message TTL in Publishers</a>
 
 A TTL can be specified on a per-message basis, by setting the
-[`expiration` property](./publishers.md#message-properties) when publishing a message.
+[`expiration` property](./publishers.html#message-properties) when publishing a message.
 
 The value of the `expiration` field describes the
 TTL period in milliseconds. The same constraints as for

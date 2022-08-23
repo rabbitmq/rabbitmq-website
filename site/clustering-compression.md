@@ -1,6 +1,6 @@
 # Inter-node and CLI Traffic Compression
 
-[VMware Tanzu RabbitMQ](./tanzu/) supports compression for [inter-node](./clustering.html)
+[VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) supports compression for [inter-node](./clustering.html)
 and [CLI tool](./cli.html) traffic.
 
 RabbitMQ nodes communicate with their peers and CLI tools using dedicated TCP connections,
@@ -14,7 +14,7 @@ the workload.
 <p class="box-info">
 Inter-node traffic compression is <strong>available in VMware Tanzu RabbitMQ
 only</strong>, not in the standard FOSS RabbitMQ.
-<a href="./tanzu/">Learn more about VMware Tanzu RabbitMQ</a>
+<a href="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html">Learn more about VMware Tanzu RabbitMQ</a>
 </p>
 
 ## <a id="how-to-use-it" class="anchor" href="#how-to-use-it">How to use it</a>

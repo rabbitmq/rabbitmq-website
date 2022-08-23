@@ -37,7 +37,7 @@ and more. [Cluster Formation and Peer Discovery](./cluster-formation.html) is a 
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
 (message) replication, see the [Quorum Queues](./quorum-queues.html) guide.
 
-[Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
+[Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
@@ -184,7 +184,7 @@ certain nodes to be "special" for a period of time. For example, [federation lin
 are colocated on a particular cluster node. Should that node fail, the links will
 be restarted on a different node.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long maintained) versions, [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 ### <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
@@ -417,7 +417,7 @@ as a connection option. The list of hosts will be used during initial connection
 as well as connection recovery, if the client supports it. See documentation guides
 for individual clients to learn more.
 
-With [quorum queues](./quorum-queues.html), clients will only be able to perform
+With [quorum queues](./quorum-queues.html) and [streams](./streams.html), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
 
 With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
@@ -485,7 +485,7 @@ other nodes to access it. Some stats are cluster-wide, others are specific to in
 Node that responds to an [HTTP API](./management.html) request contacts its peers
 to retrieve their data and then produces an aggregated result.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long unmaintained) versions [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 

@@ -57,7 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.0</li>
+        <li>24.2</li>
       </ul>
     </td>
     <td>
@@ -85,7 +85,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.0</li>
+        <li>24.2</li>
       </ul>
     </td>
     <td>
@@ -216,7 +216,7 @@ See [CentOS, RHEL and Fedora installation guide](./install-rpm.html) for more in
 
 It is **highly recommended** that the same major version of
 Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
-(e.g. `22.x`).
+(e.g. `25.x`).
 
 RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
@@ -277,7 +277,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>RabbitMQ 3.8 was released on in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
         <li>
           Erlang 24.3 introduces LDAP client changes that are breaking for
           projects compiled on earlier releases (including RabbitMQ).
@@ -316,7 +316,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>RabbitMQ 3.8 was released on in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -345,7 +345,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>RabbitMQ 3.8 was released on in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -372,7 +372,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>RabbitMQ 3.8 was released on in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>
@@ -398,7 +398,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul class="notes">
-        <li>RabbitMQ 3.8 was released on in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
       </ul>
     </td>
   </tr>

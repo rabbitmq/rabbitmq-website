@@ -39,6 +39,20 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre"></td>
+    <td class="centre">2 August 2022</td>
+    <td>
+      <ul>
+        <li>Erlang 23 support has reached end of life</li>
+        <li>Future 3.9.x and 3.10.x releases will require Erlang 24.2 or 25.x</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="./versions.html">Supported Erlang series</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.7</td>
     <td class="centre">2 August 2022</td>
     <td>
@@ -2321,7 +2335,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="release-notes/README-1.1.0-alpha.txt">Release notes</a></td>
+    <td class="centre"></td>
   </tr>
 
   <tr>
@@ -2332,6 +2346,6 @@ published separately.
         <li>Initial release</li>
       </ul>
     </td>
-    <td class="centre"><a href="./resources/RabbitMQ_PressRelease_080207.pdf">Release notes</a><br/>(pdf)</td>
+    <td class="centre"></td>
   </tr>
 </table>

@@ -455,16 +455,15 @@
       listeners</code></div>
   </dd>
   <dt id="log_tail"><a class="permalink" href="#log_tail"><code class="Cm">log_tail</code></a>
-    <code class="Fl">--number</code> <var class="Ar">number</var> |
-    <a class="permalink" href="#N"><code class="Fl" id="N">-N</code></a>
-    <var class="Ar">number</var> [<code class="Fl">--timeout</code>
-    <var class="Ar">milliseconds</var>]</dt>
-  <dd>
-    <p class="Pp">Prints the last N lines of the log on the node</p>
-    <p class="Pp">Example:</p>
-    <div class=00><code class="Li">rabbitmq-diagnostics log_tail
-      -number 100</code></div>
-  </dd>
+    [<code class="Fl">--number</code> <var class="Ar">number</var> |
+    <code class="Fl">-N</code> <var class="Ar">number</var>
+    [<code class="Fl">--timeout</code> <var class="Ar">milliseconds</var>]
+  <p class="Pp">Prints the last N lines of the log on the node</p>
+  <p class="Pp">Example:</p>
+  <div class=00><code class="Li">rabbitmq-diagnostics log_tail
+    --number 100</code></div>
+  ]</dt>
+  <dd style="width: auto;">&#x00A0;</dd>
   <dt id="log_tail_stream"><a class="permalink" href="#log_tail_stream"><code class="Cm">log_tail_stream</code></a>
     [<code class="Fl">--duration</code> <var class="Ar">seconds</var> |
     <code class="Fl">-d</code> <var class="Ar">seconds</var>]

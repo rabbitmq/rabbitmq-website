@@ -41,7 +41,7 @@ This guide covers:
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
  * [OAuth 2](#oauth2-authentication) support
- * [Strict transport security](#hsts), [Content security policy](#csp) and [cross-origin resource sharing](#cors) settings
+ * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
  * [HTTP API request logging](#http-logging)
