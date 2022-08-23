@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Securing Cluster (Inter-node) and CLI Tool Communication with TLS (SSL)
+# Securing Cluster (Inter-node) and CLI Tool Communication with TLS
 
 ## Overview
 

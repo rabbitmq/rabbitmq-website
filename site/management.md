@@ -41,7 +41,7 @@ This guide covers:
  * How this plugin [operates in multi-node clusters](#clustering)
  * How to [disable metric collection](#disable-stats) to use [Prometheus](prometheus.html) exclusively for monitoring
  * [OAuth 2](#oauth2-authentication) support
- * [Strict transport security](#hsts), [Content security policy](#csp) and [cross-origin resource sharing](#cors) settings
+ * [Strict transport security](#hsts), [Content security policy](#csp), [cross-origin resource sharing](#cors), and [other security-related header](#other-security-headers) control
  * [Statistics collection interval](#statistics-interval)
  * [Message rate mode](#rates-mode) (rate fidelity) and [data retention intervals](#sample-retention)
  * [HTTP API request logging](#http-logging)
@@ -770,6 +770,35 @@ by default. The value can be changed. It is configured in seconds:
 management.cors.allow_origins.1 = https://origin1.org
 management.cors.allow_origins.2 = https://origin2.org
 management.cors.max_age         = 3600
+</pre>
+
+### <a id="other-security-headers" class="anchor" href="#other-security-headers">Other Security-related Headers</a>
+
+It is possible to set a few more security-related headers for management UI and HTTP API responses.
+Note that some of them have been superseded by CORS and other newer development in the
+browser security space.
+
+The supported headers are:
+
+ * [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
+ * [`X-Xss-Protection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
+ * [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+
+<pre class="lang-ini">
+management.headers.content_type_options = nosniff
+management.headers.xss_protection = 1; mode=block
+management.headers.frame_options = DENY
+</pre>
+
+They can be combined with the aforementioned CORS, HSTS, CSP headers:
+
+<pre class="lang-ini">
+management.hsts.policy = max-age=31536000; includeSubDomains
+management.csp.policy = default-src 'self'; script-src 'self' 'unsafe-eval'
+
+management.headers.content_type_options = nosniff
+management.headers.xss_protection = 1; mode=block
+management.headers.frame_options = DENY
 </pre>
 
 ### <a id="login-session-timeout" class="anchor" href="#login-session-timeout">Login Session Timeout</a>

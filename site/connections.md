@@ -44,6 +44,7 @@ This guide covers:
 
  * [The basics](#basics) of how clients use RabbitMQ
  * [Connection lifecycle](#lifecycle)
+ * How to [encrypt traffic on client connections](#tls)
  * Connection [event logging](#logging)
  * [Monitoring](#monitoring) of connections and how to detect [high connection churn](#high-connection-churn) scenarios
  * Sustaining a [large number of concurrent connections](#large-number-of-connections)
@@ -153,6 +154,21 @@ When it is used, RabbitMQ uses a pre-configured set of credentials.
 #### STOMP
 
 STOMP connections follow the flow described above.
+
+
+## <a id="tls" class="anchor" href="#tls">Connection Traffic Encryption with TLS</a>
+
+All protocols supported by RabbitMQ allow for "clear text" (unencrypted) traffic, in other words,
+TLS is not a requirement. However, using TLS is highly recommended for production systems
+to prevent both traffic snopping and man-in-the-middle attacks.
+
+Applications that use unencrypted connections will also send credentials as "clear text".
+Certain security scanners will report this as "AMQP Cleartext Authentication".
+The solution is to use TLS for those client connections.
+
+To learn more, please refer to the guides dedicated to TLS: [TLS for client connections](./ssl.html),
+[securing intra-cluster communication with TLS](./clustering-ssl.html) and [troubleshooting TLS](./troubleshooting-ssl.html).
+
 
 ## <a id="logging" class="anchor" href="#logging">Logging</a>
 

@@ -49,20 +49,11 @@ Deployment Upgrade](./blue-green-upgrade.html) guides.
 
   <tr>
     <td>3.9</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.20" target="_blank">3.9.20</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.22" target="_blank">3.9.22</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank">26 July 2021</a></td>
     <td></td>
     <td></td>
     <td></td>
-  </tr>
-
-  <tr>
-    <td>3.8</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.34" target="_blank">3.8.34</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0" target="_blank">1 October 2019</a></td>
-    <td>31 January 2022</td>
-    <td>31 July 2022</td>
-    <td>34 months</td>
   </tr>
 </table>
 
@@ -73,7 +64,7 @@ Deployment Upgrade](./blue-green-upgrade.html) guides.
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-As of 6 January 2022, the next release series has not been announced yet.
+RabbitMQ 3.11, the next release series, is expected in the fall of 2022.
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
@@ -84,6 +75,14 @@ As of 6 January 2022, the next release series has not been announced yet.
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
+  </tr>
+
+  <tr>
+    <td>3.8</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.35" target="_blank">3.8.35</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0" target="_blank">1 October 2019</a></td>
+    <td>31 July 2022</td>
+    <td>34 months</td>
   </tr>
 
   <tr>

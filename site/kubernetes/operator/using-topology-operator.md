@@ -233,8 +233,12 @@ To get the name of the kubernetes secret object that contains the generated user
 kubectl get users.rabbitmq.com user-example -o jsonpath='{.status.credentials.name}'
 </pre>
 
+Note that the Operator does not monitor the generated secret object and updating the secret object won't update the credentials.
+As a workaround, add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
+
 The Operator also supports creating RabbitMQ users with provided credentials. When creating a user with provided username and password, create a kubernetes
-secret object contains keys `username` and `password` in its Data field.
+secret object contains keys `username` and `password` in its Data field. The Operator does not monitor the provided secret object and updating the secret
+object won't update the credentials. As a workaround, add a label or annotation to `users.rabbitmq.com` object to trigger the Operator to reconcile.
 
 The following manifest will create a user with username and password provided from secret 'my-rabbit-user' :
 

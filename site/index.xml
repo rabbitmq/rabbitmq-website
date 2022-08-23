@@ -187,15 +187,15 @@ limitations under the License.
               <h2>Commercial Distribution</h2>
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
-                This includes a distribution called <a href="https://tanzu.vmware.com/services-marketplace/messaging-and-integration/rabbitmq">Tanzu RabbitMQ</a>,
-                a version that deploys in <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu platform</a>,
-                and a forthcoming <a href="https://tanzu.vmware.com/content/blog/introducing-rabbitmq-for-kubernetes">version for Kubernetes</a>.
-                These distributions include all of the features of the open source version, with some additional management features. Support agreements are part of the commercial licensing.
+                This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">Tanzu RabbitMQ</a> that deploys on Kubernetes or
+                your container Runtime, as well as a version that deploys in
+                <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
+                These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
               </p>
               <img src="./img/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                VMware provides <a href="https://pivotal.io/rabbitmq">support for open source RabbitMQ</a>,
+                VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,

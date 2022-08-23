@@ -28,7 +28,8 @@ version-specific notes and [ways of provisioning](#erlang-repositories) recent E
 
 RabbitMQ supports [two most recent Erlang release series](https://groups.google.com/d/msg/rabbitmq-users/G4UJ9zbIYHs/qCeyjkjyCQAJ).
 
-At the moment they are [Erlang `24.x` and `23.x`](https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/).
+At the moment they are Erlang `25.x` and `24.3.x`. Transitional `23.3.x` series support
+was discontinued on July 31st, 2022.
 
 
 ## <a id="compatibility-matrix" class="anchor" href="#compatibility-matrix">RabbitMQ and Erlang/OTP Compatibility Matrix</a>
@@ -45,6 +46,8 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.10.7</li>
+        <li>3.10.6</li>
         <li>3.10.5</li>
         <li>3.10.4</li>
         <li>3.10.2</li>
@@ -54,7 +57,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>23.2</li>
+        <li>24.2</li>
       </ul>
     </td>
     <td>
@@ -65,12 +68,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     <td>
       <ul class="notes">
         <li>
-          Erlang 25 support is in preview.
+          Erlang 25 is the recommended series.
         </li>
         <li>
-          Erlang 24.3 introduces LDAP client changes that are breaking for
-          projects compiled on earlier releases (including RabbitMQ).
-          RabbitMQ 3.9.15 is the first release to support Erlang 24.3.
+          Erlang 23 support was discontinued on July 31st, 2022.
         </li>
       </ul>
     </td>
@@ -79,6 +80,32 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.9.22</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          Erlang 23 support was discontinued on July 31st, 2022.
+        </li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.9.21</li>
         <li>3.9.20</li>
         <li>3.9.19</li>
         <li>3.9.18</li>
@@ -89,7 +116,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>23.2</li>
+        <li>23.3</li>
       </ul>
     </td>
     <td>
@@ -103,6 +130,9 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           Erlang 24.3 introduces LDAP client changes that are breaking for
           projects compiled on earlier releases (including RabbitMQ).
           RabbitMQ 3.9.15 is the first release to support Erlang 24.3.
+        </li>
+        <li>
+          Erlang 23 support was discontinued on July 31st, 2022.
         </li>
       </ul>
     </td>
@@ -148,166 +178,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </ul>
     </td>
   </tr>
-  <tr>
-    <td>
-      <ul>
-        <li>3.8.34</li>
-        <li>3.8.33</li>
-        <li>3.8.32</li>
-        <li>3.8.31</li>
-        <li>3.8.30</li>
-        <li>3.8.29</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>23.2</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>24.3</li>
-      </ul>
-    </td>
-    <td>
-      <ul class="notes">
-        <li>
-          Erlang 24.3 introduces LDAP client changes that are breaking for
-          projects compiled on earlier releases (including RabbitMQ).
-          RabbitMQ 3.8.29 is the first release in the 3.8.x-series to support Erlang 24.3.
-        </li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <ul>
-        <li>3.8.28</li>
-        <li>3.8.27</li>
-        <li>3.8.26</li>
-        <li>3.8.25</li>
-        <li>3.8.24</li>
-        <li>3.8.23</li>
-        <li>3.8.22</li>
-        <li>3.8.21</li>
-        <li>3.8.20</li>
-        <li>3.8.19</li>
-        <li>3.8.18</li>
-        <li>3.8.17</li>
-        <li>3.8.16</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>23.2</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>24.2</li>
-      </ul>
-    </td>
-    <td>
-      <ul class="notes">
-        <li>
-          <a href="https://blog.rabbitmq.com/posts/2021/03/erlang-24-support-roadmap/">Erlang/OTP <code>24</code> support announcement</a>
-        </li>
-        <li>Erlang 24 was released on May 12, 2021</li>
-        <li>Some community plugins and tools may be incompatible with Erlang 24</li>
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <ul>
-        <li>3.8.15</li>
-        <li>3.8.14</li>
-        <li>3.8.13</li>
-        <li>3.8.12</li>
-        <li>3.8.11</li>
-        <li>3.8.10</li>
-        <li>3.8.9</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>22.3</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>23.x</li>
-      </ul>
-    </td>
-    <td>
-      <ul class="notes">
-        <li>
-          <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">Erlang/OTP <code>23</code> compatibility notes</a>
-        </li>
-        <li>Erlang 23.x is recommended</li>
-        <li>Erlang 22.x dropped support for HiPE</li>
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <ul>
-        <li>3.8.8</li>
-        <li>3.8.7</li>
-        <li>3.8.6</li>
-        <li>3.8.5</li>
-        <li>3.8.4</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>21.3</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>23.x</li>
-      </ul>
-    </td>
-    <td>
-      <ul class="notes">
-        <li>
-          <a href="https://groups.google.com/forum/#!topic/rabbitmq-users/wlPIWz3UYHQ">Erlang/OTP <code>23</code> compatibility notes</a>
-        </li>
-        <li>Erlang 22.x or 23.x is recommended</li>
-        <li>Erlang 22.x dropped support for HiPE</li>
-      </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <ul>
-        <li>3.8.3</li>
-        <li>3.8.2</li>
-        <li>3.8.1</li>
-        <li>3.8.0</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>21.3</li>
-      </ul>
-    </td>
-    <td>
-      <ul>
-        <li>22.x</li>
-      </ul>
-    </td>
-    <td>
-      <ul class="notes">
-        <li>Erlang 22.x is recommended.</li>
-        <li>Erlang 22.x dropped support for HiPE</li>
-      </ul>
-    </td>
-  </tr>
 
 </table>
 
@@ -346,7 +216,7 @@ See [CentOS, RHEL and Fedora installation guide](./install-rpm.html) for more in
 
 It is **highly recommended** that the same major version of
 Erlang is used across all [cluster nodes](upgrade.html#rolling-upgrades-version-limitations)
-(e.g. `22.x`).
+(e.g. `25.x`).
 
 RabbitMQ will check for internal protocol versions of
 Erlang and its distributed libraries when a node joins a
@@ -382,6 +252,157 @@ source, including specific tags from GitHub, a much more pleasant experience.
   <th>Minimum required Erlang/OTP</th>
   <th>Maximum supported Erlang/OTP</th>
   <th>Notes</th>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.35</li>
+        <li>3.8.34</li>
+        <li>3.8.33</li>
+        <li>3.8.32</li>
+        <li>3.8.31</li>
+        <li>3.8.30</li>
+        <li>3.8.29</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+        <li>
+          Erlang 24.3 introduces LDAP client changes that are breaking for
+          projects compiled on earlier releases (including RabbitMQ).
+          RabbitMQ 3.8.29 is the first release in the 3.8.x-series to support Erlang 24.3.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.28</li>
+        <li>3.8.27</li>
+        <li>3.8.26</li>
+        <li>3.8.25</li>
+        <li>3.8.24</li>
+        <li>3.8.23</li>
+        <li>3.8.22</li>
+        <li>3.8.21</li>
+        <li>3.8.20</li>
+        <li>3.8.19</li>
+        <li>3.8.18</li>
+        <li>3.8.17</li>
+        <li>3.8.16</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.15</li>
+        <li>3.8.14</li>
+        <li>3.8.13</li>
+        <li>3.8.12</li>
+        <li>3.8.11</li>
+        <li>3.8.10</li>
+        <li>3.8.9</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>22.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.8</li>
+        <li>3.8.7</li>
+        <li>3.8.6</li>
+        <li>3.8.5</li>
+        <li>3.8.4</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>21.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>3.8.3</li>
+        <li>3.8.2</li>
+        <li>3.8.1</li>
+        <li>3.8.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>21.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>22.x</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>RabbitMQ 3.8 was released in October 2019, and reached end of life on July 31st, 2022, we strongly discourage its use</li>
+      </ul>
+    </td>
+  </tr>
+
   <tr>
     <td>
       <ul>

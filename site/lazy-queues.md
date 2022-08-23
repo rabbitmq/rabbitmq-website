@@ -1,9 +1,26 @@
 # Lazy Queues
 
+## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Classic Queue Storage</a>
+
+This guide covers lazy mode of classic queues.
+
+
+[Quorum queues](quorum-queues.html) is an alternative, more modern queue type
+that offers high availability via replication and focuses on data safety.
+As of RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
+provide [higher throughput and more stable latency](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-performance-improvements/) compared to mirrored classic queues.
+
+[Streams](streams.html) is a messaging data structure available as of [RabbitMQ 3.9](changelog.html),
+and is also replicated.
+
+Quorum queues should be the **default choice** for a replicated queue type.
+Classic queue mirroring will be **removed in a future version** of RabbitMQ:
+classic queues will remain a supported non-replicated queue type.
+
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Since **RabbitMQ 3.6.0**, the broker has the concept of **Lazy Queues** -
-queues that move their contents to disk as early as practically possible,
+Classic queues can operate in **lazy mode**: that is,
+move their contents to disk as early as practically possible,
 and only load them in RAM when requested by consumers,
 therefore the lazy denomination.
 
@@ -37,36 +54,15 @@ This comes at a cost of increased disk I/O.
 Queues can be made to run in `default` mode or `lazy` mode by:
 
 <ul class="plain">
+  <li>applying a queue <a href="parameters.html#policies">policy</a> (recommended)</li>
   <li>setting the mode via <code>queue.declare</code> arguments</li>
-  <li>applying a queue <a href="parameters.html#policies">policy</a></li>
 </ul>
 
-When both a [policy](parameters.html) and queue arguments specify a queue mode, the queue argument has priority over the policy value.
+When both a [policy](parameters.html) and queue arguments specify a queue mode,
+the queue argument has priority over the policy value if both are specified.
 
 If a queue mode is set via an optional argument at the time of declaration,
 it can only be changed by deleting the queue, and re-declaring it later with a different argument.
-
-### Using Arguments at the Time of Declaration
-
-The queue mode can be set by supplying the `x-queue-mode` queue declaration argument with a string specifying the desired mode.
-Valid modes are:
-
-<ul class="plain">
-  <li><code>"default"</code></li>
-  <li><code>"lazy"</code></li>
-</ul>
-
-If no mode is specified during declare, then `"default"` is assumed.
-The `default` mode is the behaviour already present in pre 3.6.0 versions of the broker,
-so there are no breaking changes in this regard.
-
-This example in Java declares a queue with the queue mode set to `"lazy"`:
-
-<pre class="lang-java">
-  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-  args.put("x-queue-mode", "lazy");
-  channel.queueDeclare("myqueue", false, false, false, args);
-</pre>
 
 ### Using a policy
 
@@ -112,6 +108,28 @@ to specify a different `queue-mode`:
     </td>
   </tr>
 </table>
+
+### Using Arguments at the Time of Declaration
+
+The queue mode can be set by supplying the `x-queue-mode` queue declaration argument with a string specifying the desired mode.
+Valid modes are:
+
+<ul class="plain">
+  <li><code>"default"</code></li>
+  <li><code>"lazy"</code></li>
+</ul>
+
+If no mode is specified during declare, then `"default"` is assumed.
+The `default` mode is the behaviour already present in pre 3.6.0 versions of the broker,
+so there are no breaking changes in this regard.
+
+This example in Java declares a queue with the queue mode set to `"lazy"`:
+
+<pre class="lang-java">
+  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+  args.put("x-queue-mode", "lazy");
+  channel.queueDeclare("myqueue", false, false, false, args);
+</pre>
 
 ## <a id="performance" class="anchor" href="#performance">Performance Considerations for Lazy Queues</a>
 

@@ -42,9 +42,9 @@ and more.
 
 ## <a id="terminology" class="anchor" href="#terminology">Terminology</a>
 
-The term "consumer" means different things in different contexts. In general in messaging
-a consumer is an application (or application instance) that consumes messages. The same
-application can also publish messages and thus be a publisher at the same time.
+The term "consumer" means different things in different contexts. In general, in the context of messaging
+and streaming, a consumer is an application (or application instance) that consumes and [acknowledges](./confirms.html)
+messages. The same application can also publish messages and thus be a publisher at the same time.
 
 Messaging protocols also have the concept of a lasting subscription for message delivery.
 Subscription is one term commonly used to describe such entity. Consumer is another.
@@ -385,7 +385,7 @@ See [.NET client guide](./dotnet-api-guide.html#basic-get) for examples.
 
 ## <a id="acknowledgement-timeout" class="anchor" href="#acknowledgement-timeout">Delivery Acknowledgement Timeout</a>
 
-In modern RabbitMQ versions, a timeout is enforced on consumer delivery acknowledgement.
+In all [currently supported](./versions.html) RabbitMQ versions, a timeout is enforced on consumer delivery acknowledgement.
 This helps detect buggy (stuck) consumers that never acknowledge deliveries.
 Such consumers can affect node's on disk data compaction and potentially drive
 nodes out of disk space.
@@ -396,7 +396,7 @@ The error will be [logged](logging.html) by the node that the consumer was
 connected to. All outstanding deliveries on that channel, from all consumers,
 will be [requeued](confirms.html#automatic-requeueing).
 
-The timeout value is configurable in [`rabbitmq.conf`] (in milliseconds):
+The timeout value is configurable in [rabbitmq.conf](./configure.html#config-file) (in milliseconds):
 
 <pre class="lang-ini">
 # 30 minutes in milliseconds

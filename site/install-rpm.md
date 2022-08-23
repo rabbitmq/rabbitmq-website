@@ -76,7 +76,7 @@ CentOS 7 and Fedora releases older than 26 are examples of such distributions.
 Currently the list of supported RPM-based distributions includes
 
  * [CentOS Stream](https://centos.org/centos-stream/) 9.x
- * CentOS Linux 8.x
+ * [CentOS Stream](https://www.centos.org/centos-stream/) 8.x
  * RedHat Enterprise Linux 8.x
  * Fedora 32 through 35 (use the CentOS 8.x package)
 

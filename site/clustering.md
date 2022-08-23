@@ -37,7 +37,7 @@ and more. [Cluster Formation and Peer Discovery](./cluster-formation.html) is a 
 that focuses on peer discovery and cluster formation automation-related topics. For queue contents
 (message) replication, see the [Quorum Queues](./quorum-queues.html) guide.
 
-[Tanzu RabbitMQ](tanzu) provides an [inter-node traffic compression](clustering-compression.html) feature.
+[Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) provides an [inter-node traffic compression](clustering-compression.html) feature.
 
 A RabbitMQ cluster is a logical grouping of one or
 several nodes, each  sharing users, virtual hosts,
@@ -95,12 +95,19 @@ must be specified.
 ## <a id="cluster-formation-requirements" class="anchor" href="#cluster-formation-requirements">Cluster Formation Requirements</a>
 ### <a id="hostname-resolution-requirement" class="anchor" href="#hostname-resolution-requirement">Hostname Resolution</a>
 
-RabbitMQ nodes address each other using domain names,
-either short or fully-qualified (FQDNs). Therefore
-hostnames of all cluster members
-must be resolvable from all cluster nodes, as well
+RabbitMQ nodes address each other using a **node name**, a combination
+of a prefix and domain name, either short or fully-qualified (FQDNs).
+
+Therefore every cluster member **must be able to resolve hostnames
+of every other cluster member**, its own hostname, as well
 as machines on which command line tools such as `rabbitmqctl`
 might be used.
+
+Nodes will perform hostname resolution early on node boot.
+In container-based environments it is important that hostname
+resolution is ready before the container is started.
+For Kubernetes users, this means the [DNS cache interval for CoreDNS](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id)
+to a value in the 5-10 second range.
 
 Hostname resolution can use any of the standard OS-provided
 methods:
@@ -177,7 +184,7 @@ certain nodes to be "special" for a period of time. For example, [federation lin
 are colocated on a particular cluster node. Should that node fail, the links will
 be restarted on a different node.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long maintained) versions, [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 ### <a id="erlang-cookie" class="anchor" href="#erlang-cookie">How CLI Tools Authenticate to Nodes (and Nodes to Each Other): the Erlang Cookie</a>
@@ -410,7 +417,7 @@ as a connection option. The list of hosts will be used during initial connection
 as well as connection recovery, if the client supports it. See documentation guides
 for individual clients to learn more.
 
-With [quorum queues](./quorum-queues.html), clients will only be able to perform
+With [quorum queues](./quorum-queues.html) and [streams](./streams.html), clients will only be able to perform
 operations on queues that have a quorum of replicas online.
 
 With classic mirrored queues, there are scenarios where it may not be possible for a client to transparently continue
@@ -478,7 +485,7 @@ other nodes to access it. Some stats are cluster-wide, others are specific to in
 Node that responds to an [HTTP API](./management.html) request contacts its peers
 to retrieve their data and then produces an aggregated result.
 
-In versions older than 3.6.7, [RabbitMQ management plugin](./management.html) used
+In older (long unmaintained) versions [RabbitMQ management plugin](./management.html) used
 a dedicated node for stats collection and aggregation.
 
 
