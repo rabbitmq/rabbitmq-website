@@ -32,12 +32,7 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [Use custom scope field](#use-custom-scope-field)
 	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
 	- [Use Scope Aliases](#use-scope-aliases)
-    - [Use Rich Authorization Requests tokens](#use-rar-tokens)
-* [OAuth 2.0 providers](#oauth-providers)
-    - [UAA](#management-user-accessing-the-management-ui)
-    - [Keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
-    - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
-    - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
+	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)
@@ -588,11 +583,12 @@ make stop-perftest-consumer CONSUMER=consumer_with_roles
 
 ### <a id="use-rar-tokens" class="anchor" href="#use-rar-tokens">Use Rich Authorization Request Tokens</a>
 
-The [Rich Authorization Request](https://oauth.net/2/rich-authorization-requests/) extension provides a way for OAuth clients to request fine-grained permissions during an authorization request. It moves away from the concept of Scopes and instead
-define a rich permission model.
+The [Rich Authorization Request](https://oauth.net/2/rich-authorization-requests/) extension provides a way for
+OAuth clients to request fine-grained permissions during an authorization request.
+It moves away from the concept of scopes that are text labels and instead
+defines a more sophisticated permission model.
 
-RabbitMQ supports JWT tokens compliant with this specification. Here is a sample JWT token where we have stripped out
-all the other attributes and left only the relevant ones for this specification:
+RabbitMQ supports JWT tokens compliant with the extension. Below is a sample example section of JWT token:
 
 <pre class="lang-javascript">
 {
@@ -647,24 +643,6 @@ docker logs producer_with_roles -f
 
 
 For more information on this new capability check out the [plugin's documentation](https://github.com/rabbitmq/rabbitmq-server/tree/rich_auth_request/deps/rabbitmq_auth_backend_oauth2#rich-authorization-request).
-
-
-## <a id="oauth-providers" class="anchor" href="#oauth-providers">OAuth 2.0 providers</a>
-
-RabbitMQ does not really need to communicate with an OAuth 2.0 provider to validate a token presented via one of its supported messaging protocols such as AMQP. So, it does not really matter which OAuth provider issued the token.
-
-However, when the user accesses the management ui via a browser, RabbitMQ requires the following:
-- that the OAuth 2.0 provider be OpenID Connect compliant
-- and supports Authorization Code grant type
-
-RabbitMQ 3.11 has been tested against the following OAuth 2.0 providers:
-
- - [UAA](#management-user-accessing-the-management-ui) - We have already demonstrated this
- - [keycloak](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/keycloak.md)
- - [OAuth0](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/oauth0.md)
- - [Azure Active Directory](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/oidc-integration/use-cases/azure.md)
-
-However, RabbitMQ 3.11 has not been released and the configuration and scripts provided here uses a docker image built from a development CI pipeline.
 
 
 ## <a id="understanding-environment" class="anchor" href="#understanding-environment">Understand the Environment</a>

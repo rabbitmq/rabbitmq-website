@@ -323,20 +323,23 @@ If the latest token expires on an existing connection, after a limited time the 
 
 ### <a id="rich-authorization-request" class="anchor" href="#rich-authorization-request">Rich Authorization Request</a>
 
-The [Rich Authorization Request](https://oauth.net/2/rich-authorization-requests/) extension provides a way for OAuth clients to request fine-grained permissions during an authorization request. It moves away from the concept of Scopes and instead
-define a rich permission model.
+The [Rich Authorization Request](https://oauth.net/2/rich-authorization-requests/) extension provides a way for
+OAuth clients to request fine-grained permissions during an authorization request.
+It moves away from the concept of scopes that are text labels and instead
+defines a more sophisticated permission model.
 
-RabbitMQ supports JWT tokens compliant with this specification. Here is a sample JWT token where we have stripped out
-all the other attributes and left only the relevant ones for this specification:
+RabbitMQ supports JWT tokens compliant with the extension. Below is a sample example section of JWT token:
 
-<pre class="lang-ini">
+<pre class="lang-javascript">
 {
   "authorization_details": [
-    { "type" : "rabbitmq",  
-      "locations": ["cluster:finance/vhost:primary-*"],
+    {
+      "type" : "rabbitmq",  
+      "locations": ["cluster:finance/vhost:production-*"],
       "actions": [ "read", "write", "configure"  ]
     },
-    { "type" : "rabbitmq",
+    {
+      "type" : "rabbitmq",
       "locations": ["cluster:finance", "cluster:inventory" ],
       "actions": ["administrator" ]
     }
@@ -345,22 +348,24 @@ all the other attributes and left only the relevant ones for this specification:
 </pre>
 
 The token above contains two permissions under the attribute `authorization_details`.
-Both permissions are meant for a RabbitMQ server whose `resource_server_type` is equal to `rabbitmq`.
-This field is essentially a permission discriminator.
+Both permissions are meant for RabbitMQ servers with `resource_server_type` set to `rabbitmq`.
+This field identifies RabbitMQ-specific permissions.
 
-The first permission grants `read`, `write` and `configure` permissions to any vhost which matches
-the pattern `primary-*` that belongs to a cluster whose `resource_server_id` contains the string `finance`.
-The `cluster` attribute is a regular expression like the `vhost`. If we wanted to match exactly the `finance` cluster
-we would use instead `^finance$`.
+The first permission grants `read`, `write` and `configure` permissions to any
+queue and/or exchange on any virtual host whose name matches the pattern `production-*`,
+and that reside in clusters whose `resource_server_id` contains the string `finance`.
+The `cluster` attribute's value is also a regular expression. To match exactly the
+string `finance`, use `^finance$`.
 
-The second permission grants the `administrator` user-tag to both clusters, `finance` and `inventory`. The other
-supported user-tags as `management`, `policymaker` and `monitoring`.
+The second permission grants the `administrator` user tag in two clusters, `finance`
+and `inventory`. Other supported user tags as `management`, `policymaker` and `monitoring`.
 
 
 #### Type field
 
-In order for RabbitMQ to accept a permission, its value must match with RabbitMQ's `resource_server_type`.
-A JWT token may have permissions for resources' types.
+In order for a RabbitMQ node to accept a permission, its value must match that
+node's `resource_server_type` setting value. A JWT token may have permissions
+for multiple resource types.
 
 #### Locations field
 
@@ -368,7 +373,7 @@ The `locations` field can be either a string containing a single location or a J
 zero or many locations.
 
 A location consists of a list of key-value pairs separated by forward slash `/` character. Here is the format:
-<pre class="lang-ini">
+<pre class="lang-bash">
 cluster:&lt;resource_server_id_pattern>[/vhost:&lt;vhost_pattern>][/queue:&lt;queue_name_pattern>|/exchange:&lt;exchange_name_pattern][/routing-key:&lt;routing_key_pattern>]
 </pre>
 
@@ -376,23 +381,25 @@ Any string separated by `/` which does not conform to `&lt;key>:&lt;value>` is i
 
 The supported location's attributed are:
 
-- `cluster` This is the only mandatory attribute. It is a wildcard pattern which must match RabbitMQ's `resource_server_id` otherwise the location is ignored.
-- `vhost` This is the virtual host we are granting access to. It also a wildcard pattern. RabbitMQ defaults to `*`.
-- `queue`|`exchange` This is the queue or exchange we are granting access to. A location can only specify one or the
-other but not both.
-- `routing-key` this is the routing key we are granted access to. RabbitMQ defaults to `*`.
+- `cluster`: This is the only mandatory attribute. It is a wildcard pattern which must match RabbitMQ's `resource_server_id` otherwise the location is ignored.
+- `vhost`: This is the virtual host we are granting access to. It also a wildcard pattern. If not specified, `*` will be used.
+- `queue`|`exchange`: queue or exchange name pattern. The location grants the permission to a set of queues (or exchanges) that match it. One location can only specify either `queue` or `exchange` but not both. If not specified, `*` will be used
+- `routing-key`: this is the routing key pattern the location grants the permission to. If not specified, `*` will be used
 
-For more information about wildcard patterns, check the section [Scope-to-Permission Translation](#scope-transalation).
+For more information about wildcard patterns, check the section [Scope-to-Permission Translation](#scope-to-permission-translation).
 
 #### Actions field  
 
 The `actions` field can be either a string containing a single action or a Json array containing zero or many actions.
 
-The supported actions are:
+The supported actions map to either [RabbitMQ permissions](https://www.rabbitmq.com/access-control.html#authorisation):
 
 - `configure`
 - `read`
 - `write`
+
+Or RabbitMQ user tags:
+
 - `administrator`
 - `monitoring`
 - `management`
@@ -400,32 +407,31 @@ The supported actions are:
 
 #### Rich-Permission to Scope translation
 
-Rich Authorization Request's Permissions are translated into RabbitMQ scopes following this mechanism:
+Rich Authorization Request permissions are translated into JWT token scopes that use the
+aforementioned convention using the following algorithm:
 
 For each location found in the `locations` where the `cluster` attribute matches the current RabbitMQ server's `resource_server_id`:
 
-  - it extracts the `vhost`, `queue` or `exchange` and `routing-key` attributes from the location. If the location did not  have any of those attributes, the default value is `*`. RabbitMQ builds the following scope's suffix:
-    <pre class="lang-ini">
-       scope_suffix = &lt;vhost>/&lt;queue>|&lt;exchange>/&lt;routing-key>
-    </pre>
+  - For each location found in the `locations` field where the `cluster` attribute matches the current RabbitMQ node's `resource_server_id`, the plugin extracts the `vhost`, `queue` or `exchange` and `routing_key` attributes from the location. If the location does not  have any of those attributes, the default value of `*` is assumed. Out of those values, the following scope suffix will be produced:
+    <pre class="lang-ini">scope_suffix = &lt;vhost>/&lt;queue>|&lt;exchange>/&lt;routing-key></pre>
 
-  - For each action found in the `actions`:
+  - For each action found in the `actions` field:
 
-    if the action is not a user-tag, it produces a scope as follows:
+    if the action is not a known user tag, the following scope is produced out of it:
     <pre class="lang-ini">
       scope = &lt;resource_server_id>.&lt;action>:&lt;scope_suffix>
     </pre>
 
-    otherwise, for user-tag's actions, it produces this scope:
+    For known user tag actions, the following scope is produced:
     <pre class="lang-ini">
       scope = &lt;resource_server_id>.&lt;action>
     </pre>
 
 
-In a nutshell, RabbitMQ multiplies the `actions` by the `locations` that matches the current RabbitMQ server's `resource_server_id`.
+The plugin produces permutations of all `actions` by  all `locations` that match the node's configured `resource_server_id`.
 
-Given the example above:
-<pre class="lang-ini">
+In the following RAR example
+<pre class="lang-javascript">
 {
   "authorization_details": [
     { "type" : "rabbitmq",  
@@ -440,7 +446,7 @@ Given the example above:
 }
 </pre>
 
-A RabbitMQ server with a `resource_server_id` equal to `finance` would translates these permissions into these scopes:
+if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will compute the following sets of scopes:
 - `finance.read:primary-*/*/*`
 - `finance.write:primary-*/*/*`
 - `finance.configure:primary-*/*/*`
