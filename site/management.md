@@ -285,8 +285,7 @@ rabbitmqctl set_user_tags full_access administrator
 
 ## <a id="oauth2-authentication" class="anchor" href="#oauth2-authentication">Authenticating with OAuth 2</a>
 
-RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
-to authenticate client applications and management UI users. When doing so, the management UI does
+RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) to authenticate client applications and management UI users. When doing so, the management UI does
 not automatically redirect users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
 RabbitMQ has been tested against the following Authorization servers:
@@ -309,7 +308,7 @@ management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 > IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow has been
 deprecated.
 
-### Allow Basic and OAuth2 authentication
+### Allow Basic and OAuth 2 authentication
 
 When using `management.enable_uaa = true`, it is still possible to authenticate
 with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
@@ -378,6 +377,14 @@ By default, RabbitMQ assumes the OpenID Connect Discovery endpoint is at `<manag
 
 RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoint, **logout** endpoint, and others.
 
+### Logout workflow
+
+RabbitMQ uses [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
+this means that logout workflow is triggered from the Management ui when we click on the **logout** button. Logging out
+from RabbitMQ Management UI logs the user out from the Identity Provider.
+
+There are other two scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token on the background before it expires, should the token expired, the user is logged out.
+The second scenario is when the management ui session stays opened beyond the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
