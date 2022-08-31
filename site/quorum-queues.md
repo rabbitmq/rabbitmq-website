@@ -120,7 +120,7 @@ Some features are not currently supported by quorum queues.
 | Per message persistence | per message | always |
 | Membership changes | automatic | manual  |
 | [Message TTL (Time-To-Live)](./ttl.html) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
-| [Queue TTL](./ttl.html#queue-ttl) | yes | yes |
+| [Queue TTL](./ttl.html#queue-ttl) | yes | yes ([since 3.8.10](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.10)) |
 | [Queue length limits](./maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
 | [Lazy behaviour](./lazy-queues.html) | yes | always (since 3.10) or through the [Memory Limit](#memory-limit) feature (before 3.10) |
 | [Message priority](./priority.html) | yes | no |
