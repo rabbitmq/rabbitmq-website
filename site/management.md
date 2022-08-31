@@ -379,12 +379,18 @@ RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoi
 
 ### Logout workflow
 
-RabbitMQ uses [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
-this means that logout workflow is triggered from the Management ui when we click on the **logout** button. Logging out
-from RabbitMQ Management UI logs the user out from the Identity Provider.
+RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
+specification to implement the logout workflow. This means that the logout workflow is triggered from the Management UI when we click on the **Logout** button. Logging out from RabbitMQ management UI effectively logs the user out from
+the management UI itself but also from the Identity Provider.
 
-There are other two scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token on the background before it expires, should the token expired, the user is logged out.
-The second scenario is when the management ui session stays opened beyond the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).
+There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token on the background before it expires, should the token expired, the user is logged out.
+The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).
+
+### Special attention to CSP header `connect-src`
+
+In other to support OAuth 2.0 protocol, RabbitMQ has to make asynchronous REST calls to the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint). If we override the default [CSP headers](#csp), we have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint).
+
+For instance, if we configured the CSP header with the value `default-src 'self'` we are, by default, setting `connect-src 'self'` which means we are denying RabbitMQ access to any external endpoint; hence disabling OAuth 2.0.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
