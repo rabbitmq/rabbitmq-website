@@ -371,11 +371,20 @@ management.oauth_scopes = "openid profile"
 This configuration implies that your authorization server must able to
 grant additional scopes otherwise having only these 2 scopes will not grant the user access to the management ui.
 
+### Minimum scope required and how the UI determines the username from the token
+
+RabbitMQ requires, at minimum, the `openid` scope. This is because RabbitMQ reads
+the `user_name` claim from the *id_token* which is only provided by the Idp when RabbitMQ requests the `openid` token
+during the login workflow. If the `user_name` claim is not found in the *id_token*, RabbitMQ uses the `sub` claim
+instead.
+
 ### Configure OpenID Connect Discovery endpoint
 
 By default, RabbitMQ assumes the OpenID Connect Discovery endpoint is at `<management.oauth_provider_url>/.well-known/openid-configuration`. If your endpoint differs, you can set yours via `management.oauth_metadata_url` setting.
 
 RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoint, **logout** endpoint, and others.
+
+###
 
 ### Logout workflow
 
