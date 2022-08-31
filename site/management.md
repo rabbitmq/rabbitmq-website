@@ -384,8 +384,6 @@ By default, RabbitMQ assumes the OpenID Connect Discovery endpoint is at `<manag
 
 RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoint, **logout** endpoint, and others.
 
-###
-
 ### Logout workflow
 
 RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
