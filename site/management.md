@@ -373,9 +373,11 @@ grant additional scopes otherwise having only these 2 scopes will not grant the 
 
 ### Minimum scope required and how the UI determines the username from the token
 
-RabbitMQ requires, at minimum, the `openid` scope. This is because RabbitMQ reads
-the `user_name` claim from the *id_token* which is only provided by the Idp when RabbitMQ requests the `openid` token
-during the login workflow. If the `user_name` claim is not found in the *id_token*, RabbitMQ uses the `sub` claim
+RabbitMQ requires, at minimum, the `openid` scope. This is because RabbitMQ uses some claims in the *id token* to
+determine the username and display it on the top right corner of the management UI. The *id token* is sent by the
+Authorization server if we include the `openid` scope in the authorization request.
+
+RabbitMQ reads the `user_name` claim from the *id_token*. If it does not have it, RabbitMQ uses the `sub` claim
 instead.
 
 ### Configure OpenID Connect Discovery endpoint
@@ -398,6 +400,9 @@ The second scenario is when the management UI session exceeds the maximum allowe
 In other to support OAuth 2.0 protocol, RabbitMQ has to make asynchronous REST calls to the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint). If we override the default [CSP headers](#csp), we have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint).
 
 For instance, if we configured the CSP header with the value `default-src 'self'` we are, by default, setting `connect-src 'self'` which means we are denying RabbitMQ access to any external endpoint; hence disabling OAuth 2.0.
+
+In addition to the `connect-src` CSP header, RabbitMQ also needs these two CSP directives otherwise the OAuth 2.0 functionality may not work: `unsafe-eval` `unsafe-inline`.
+
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
