@@ -73,7 +73,9 @@ we need to import the library first:
 package main
 
 import (
+  "context"
   "log"
+  "time"
 
   amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -123,8 +125,11 @@ q, err := ch.QueueDeclare(
 )
 failOnError(err, "Failed to declare a queue")
 
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
 body := "Hello World!"
-err = ch.Publish(
+err = ch.PublishWithContext(ctx,
   "",     // exchange
   q.Name, // routing key
   false,  // mandatory

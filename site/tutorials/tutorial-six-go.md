@@ -73,7 +73,10 @@ q, err := ch.QueueDeclare(
   nil,   // arguments
 )
 
-err = ch.Publish(
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+err = ch.PublishWithContext(ctx,
   "",          // exchange
   "rpc_queue", // routing key
   false,       // mandatory
@@ -229,8 +232,10 @@ The code for our RPC server [rpc_server.go](https://github.com/rabbitmq/rabbitmq
 package main
 
 import (
+        "context"
         "log"
         "strconv"
+        "time"
 
         amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -291,6 +296,8 @@ func main() {
         var forever chan struct{}
 
         go func() {
+                ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+                defer cancel()
                 for d := range msgs {
                         n, err := strconv.Atoi(string(d.Body))
                         failOnError(err, "Failed to convert body to integer")
@@ -298,7 +305,7 @@ func main() {
                         log.Printf(" [.] fib(%d)", n)
                         response := fib(n)
 
-                        err = ch.Publish(
+                        err = ch.PublishWithContext(ctx,
                                 "",        // exchange
                                 d.ReplyTo, // routing key
                                 false,     // mandatory
@@ -336,6 +343,7 @@ The code for our RPC client [rpc_client.go](https://github.com/rabbitmq/rabbitmq
 package main
 
 import (
+        "context"
         "log"
         "math/rand"
         "os"
@@ -396,7 +404,10 @@ func fibonacciRPC(n int) (res int, err error) {
 
         corrId := randomString(32)
 
-        err = ch.Publish(
+        ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+        defer cancel()
+
+        err = ch.PublishWithContext(ctx,
                 "",          // exchange
                 "rpc_queue", // routing key
                 false,       // mandatory
