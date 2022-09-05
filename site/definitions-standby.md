@@ -1,4 +1,4 @@
-# Warm Standby via Continuous Definition Replication
+# Warm Standby Replication
 
 [VMware Tanzu RabbitMQ](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/index.html) supports continuous schema definition replication
 to a remote cluster, which makes it easy to run a warm standby cluster for disaster recovery.

@@ -61,9 +61,9 @@ A shovel is declared using the `rabbitmqctl set_parameter` command with componen
 name and a definition body which is a JSON document:
 
 <pre class="lang-bash">
-# my-shovel is here is the name of the shovel
+# my-shovel here is the name of the shovel
 rabbitmqctl set_parameter shovel my-shovel \
-  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "my-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue"}'
+  '{"src-protocol": "amqp091", "src-uri": "amqp://", "src-queue": "source-queue", "dest-protocol": "amqp091", "dest-uri": "amqp://remote-server", "dest-queue": "target-queue"}'
 </pre>
 
 On Windows `rabbitmqctl` is named `rabbitmqctl.bat` and command line value escaping will be

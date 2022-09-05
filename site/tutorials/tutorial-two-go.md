@@ -1,3 +1,4 @@
+
 <!--
 Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
 
@@ -76,8 +77,11 @@ program will schedule tasks to our work queue, so let's name it
 `new_task.go`:
 
 <pre class="lang-go">
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
 body := bodyFrom(os.Args)
-err = ch.Publish(
+err = ch.PublishWithContext(ctx,
   "",           // exchange
   q.Name,       // routing key
   false,        // mandatory
@@ -360,7 +364,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `amqp.Persistent` option `amqp.Publishing` takes.
 
 <pre class="lang-go">
-err = ch.Publish(
+err = ch.PublishWithContext(ctx,
   "",           // exchange
   q.Name,       // routing key
   false,        // mandatory
@@ -453,9 +457,11 @@ Final code of our `new_task.go` class:
 package main
 
 import (
+        "context"
         "log"
         "os"
         "strings"
+        "time"
 
         amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -485,8 +491,11 @@ func main() {
         )
         failOnError(err, "Failed to declare a queue")
 
+        ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+        defer cancel()
+
         body := bodyFrom(os.Args)
-        err = ch.Publish(
+        err = ch.PublishWithContext(ctx,
                 "",           // exchange
                 q.Name,       // routing key
                 false,        // mandatory
