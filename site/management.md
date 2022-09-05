@@ -299,7 +299,7 @@ To redirect users to the UAA server to authenticate, use the following configura
 
 <pre class="lang-ini">
 management.enable_uaa = true
-management.oauth_enable = true
+management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
 management.oauth_client_secret = rabbit_user_client_secret
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
@@ -331,7 +331,7 @@ To switch to authenticate using OAuth 2 exclusively for management UI access, se
 <pre class="lang-ini">
 management.disable_basic_auth = true
 management.enable_uaa = true
-management.oauth_enable = true
+management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
 management.oauth_client_secret = rabbit_user_client_secret
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
