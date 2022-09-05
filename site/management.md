@@ -285,19 +285,30 @@ rabbitmqctl set_user_tags full_access administrator
 
 ## <a id="oauth2-authentication" class="anchor" href="#oauth2-authentication">Authenticating with OAuth 2</a>
 
-RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2)
-to authenticate client applications and management UI users. When doing so, the management UI does
+RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) to authenticate client applications and management UI users. When doing so, the management UI does
 not automatically redirect users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
-only [UAA](https://github.com/cloudfoundry/uaa) is supported authorization server.
+RabbitMQ has been tested against the following Authorization servers:
+
+* [UAA](https://github.com/cloudfoundry/uaa)
+* [Keycloak](https://www.keycloak.org/)
+* [Oauth0](https://auth0.com/)
+* [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
 
 To redirect users to the UAA server to authenticate, use the following configuration:
 
 <pre class="lang-ini">
 management.enable_uaa = true
-management.uaa_client_id = rabbit_user_client
-management.uaa_location = https://my-uaa-server-host:8443/uaa
+management.oauth_enable = true
+management.oauth_client_id = rabbit_user_client
+management.oauth_client_secret = rabbit_user_client_secret
+management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
+
+> IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow has been
+deprecated.
+
+### Allow Basic and OAuth 2 authentication
 
 When using `management.enable_uaa = true`, it is still possible to authenticate
 with [HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
@@ -320,8 +331,10 @@ To switch to authenticate using OAuth 2 exclusively for management UI access, se
 <pre class="lang-ini">
 management.disable_basic_auth = true
 management.enable_uaa = true
-management.uaa_client_id = rabbit_user_client
-management.uaa_location = https://my-uaa-server-host:8443/uaa
+management.oauth_enable = true
+management.oauth_client_id = rabbit_user_client
+management.oauth_client_secret = rabbit_user_client_secret
+management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
 When setting `management.disable_basic_auth` to `true`, only the `Bearer` (token-based) authorization method will
@@ -334,6 +347,61 @@ curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/ap
 
 This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those
 endpoints require the token to be passed in the `token` query string parameter.
+
+### Configure Scopes to request during authentication
+
+We can configure which OAuth2 **scopes** RabbitMQ should claim when redirecting the user to the authorization server by
+setting `management.oauth_scopes`.
+
+If we do not specify any scopes, when `management.enable_uaa = true`, RabbitMQ defaults to
+<pre class="lang-ini">
+management.oauth_scopes = "openid profile rabbitmq.*".
+</pre>
+
+Where `rabbitmq` is the *resource_server_id* we declared in the oauth2 plugin configuration:
+<pre class="lang-ini">
+ {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
+</pre>
+
+In the contrary, when `management.enable_uaa = false` or when it is not set, RabbitMQ defaults to
+<pre class="lang-ini">
+management.oauth_scopes = "openid profile"
+</pre>
+This configuration implies that your authorization server must able to
+grant additional scopes otherwise having only these 2 scopes will not grant the user access to the management ui.
+
+### Minimum scope required and how the UI determines the username from the token
+
+RabbitMQ requires, at minimum, the `openid` scope. This is because RabbitMQ uses some claims in the *id token* to
+determine the username and display it on the top right corner of the management UI. The *id token* is sent by the
+Authorization server if we include the `openid` scope in the authorization request.
+
+RabbitMQ reads the `user_name` claim from the *id_token*. If it does not have it, RabbitMQ uses the `sub` claim
+instead.
+
+### Configure OpenID Connect Discovery endpoint
+
+By default, RabbitMQ assumes the OpenID Connect Discovery endpoint is at `<management.oauth_provider_url>/.well-known/openid-configuration`. If your endpoint differs, you can set yours via `management.oauth_metadata_url` setting.
+
+RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoint, **logout** endpoint, and others.
+
+### Logout workflow
+
+RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
+specification to implement the logout workflow. This means that the logout workflow is triggered from the Management UI when we click on the **Logout** button. Logging out from RabbitMQ management UI effectively logs the user out from
+the management UI itself but also from the Identity Provider.
+
+There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token on the background before it expires, should the token expired, the user is logged out.
+The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).
+
+### Special attention to CSP header `connect-src`
+
+In other to support OAuth 2.0 protocol, RabbitMQ has to make asynchronous REST calls to the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint). If we override the default [CSP headers](#csp), we have to make sure that the `connect-src` CSP directive whitelists the [OpenId Connect Discovery endpoint](#Configure-OpenID-Connect-Discovery-endpoint).
+
+For instance, if we configured the CSP header with the value `default-src 'self'` we are, by default, setting `connect-src 'self'` which means we are denying RabbitMQ access to any external endpoint; hence disabling OAuth 2.0.
+
+In addition to the `connect-src` CSP header, RabbitMQ also needs these two CSP directives otherwise the OAuth 2.0 functionality may not work: `unsafe-eval` `unsafe-inline`.
 
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
