@@ -107,29 +107,33 @@ One of these options can be used to mitigate:
 
 ## <a id="ansi-sequences" class="anchor" href="#ansi-sequences">CLI Tools Show ANSI Character Sequences</a>
 
-If this is occurring, output from rabbitmqctl will look like:
+In case the output from `rabbitmqctl` and other CLI tools looks like this:
 
-    ←[1mUsage←[0m
-    
-    rabbitmqctl [--node <node>] [--timeout <timeout>] [--longnames] [--quiet] <command> [<command options>]
-    
-    Available commands:
-    
-    ←[1mHelp←[0m:
-    
-       autocomplete                  Provides command name autocomplete variants
-       help                          Displays usage information for a command
-       version                       Displays CLI tools version
+<pre class="lang-plaintext">
+←[1mUsage←[0m
+
+rabbitmqctl [--node &lt;node&gt;] [--timeout &lt;timeout&gt;] [--longnames] [--quiet] &lt;command&gt; [&lt;command options&gt;]
+
+Available commands:
+
+←[1mHelp←[0m:
+
+    autocomplete                  Provides command name autocomplete variants
+    help                          Displays usage information for a command
+    version                       Displays CLI tools version
+</pre>
 
 ### Mitigation
 
 Two possible mitigations are:
+
 1. Pipe `rabbitmqctl.bat` output through `Out-Host`, with each command, like so:  `rabbitmqctl.bat | Out-Host`
 2. Globally enable VT/ANSI escape sequences in Command and PowerShell windows:
 	a.  in PowerShell: `Set-ItemProperty HKCU:\Console VirtualTerminalLevel -Type DWORD 1`
 	b. open a new console window for changes to take effect
 
-For further information, including caveats, read the Stack Overflow article: [Colored text output in PowerShell console using ANSI / VT100 codes](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)
+For further information, including caveats, see [Colored text output in PowerShell console using ANSI / VT100 codes](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)
+
 
 ## <a id="cookie-location" class="anchor" href="#cookie-location">Installing as a non-administrator User Leaves `.erlang.cookie` in the Wrong Place</a>
 
