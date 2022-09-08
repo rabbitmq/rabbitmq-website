@@ -66,7 +66,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         site_mode = sys.argv[1]
 
-    addr = ("localhost", 8191)
+    addr = ("0.0.0.0", 8191)
     with socketserver.TCPServer(addr, ReqHandler) as httpd:
         vi = sys.version_info
         print(f"Serving on http://{addr[0]}:{addr[1]}, running on Python {vi.major}.{vi.minor}.{vi.micro}")
