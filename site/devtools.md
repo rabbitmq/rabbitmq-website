@@ -82,6 +82,8 @@ Miscellaneous projects:
 
  * [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
+ * [PikaBus](https://pypi.org/project/PikaBus/), a messaging library to implement the messages, events and command pattern ([source code](https://github.com/hansehe/PikaBus),
+   [API reference](https://pikabus.readthedocs.io/))
  * [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
  * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
