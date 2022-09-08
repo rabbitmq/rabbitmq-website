@@ -27,17 +27,15 @@ your convenience.
 Please [contact us](contact.html) with suggestions for things you
 would like to see added to this list.
 
+
 ## <a id="java-dev" class="anchor" href="#java-dev">Java and Spring</a>
 
 ### Java
-
  * [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
  * [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
  * [RabbitMQ JMS client](jms-client.html)
- * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on [Reactor](https://projectreactor.io/)
- and [RabbitMQ Java Client](java-client.html)
- * [camel-rabbitmq](https://github.com/lshift/camel-rabbitmq), an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
- * [Banyan](https://github.com/yanghua/banyan), a RabbitMQ-backed message bus with a tree topology.
+ * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
+   [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](java-client.html)
 
 ### Spring Framework
 
@@ -52,14 +50,12 @@ Client libraries:
 
  * [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.5.1+)
  * [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
- * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
 
 Higher level frameworks:
 
  * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [NServiceBus](http://particular.net/nservicebus), the most popular open-source service bus for .NET.
  * [Brighter](https://www.goparamore.io/), a Command Processor & Dispatcher implementation with support for task queues
- * [Restbus](http://restbus.org), a service-oriented framework for .NET
 
 Miscellaneous projects:
 
@@ -86,10 +82,12 @@ Miscellaneous projects:
  * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
- * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
- * [aio-amqp](https://pypi.org/project/aio-amqp/), another asynchronous Python client built around asyncio ([source code](https://github.com/NotJustAToy/aio-amqp))
+
+Miscellaneous projects:
+
+ * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
 
 
 ## <a id="php-dev" class="anchor" href="#php-dev">PHP</a>
@@ -97,7 +95,6 @@ Miscellaneous projects:
  * [php-amqplib](https://github.com/php-amqplib/php-amqplib) a pure PHP, fully featured RabbitMQ client
  * [RabbitMqBundle](https://github.com/php-amqplib/rabbitmqbundle) incorporates RabbitMQ messaging with the Symfony2 web framework
  * [PECL AMQP library](http://pecl.php.net/package/amqp) built on top of the [RabbitMQ C client](https://github.com/alanxz/rabbitmq-c)
- * [VorpalBunny](https://github.com/myYearbook/VorpalBunny) a PHP client library using [rabbitmq_jsonrpc_channel](plugins.html#rabbitmq_jsonrpc_channel)
  * [Thumper](https://github.com/php-amqplib/Thumper) a library of messaging patterns
  * [CAMQP](http://www.yiiframework.com/extension/amqp/) an extension for the Yii framework providing a gateway for RabbitMQ messaging
  * [AMQP Interop](https://github.com/queue-interop/queue-interop#amqp-interop) is a set of unified AMQP 0-9-1 interfaces in PHP and their implementations
