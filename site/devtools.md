@@ -27,39 +27,37 @@ your convenience.
 Please [contact us](contact.html) with suggestions for things you
 would like to see added to this list.
 
+*Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
+
+
 ## <a id="java-dev" class="anchor" href="#java-dev">Java and Spring</a>
 
 ### Java
-
- * [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
- * [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
- * [RabbitMQ JMS client](jms-client.html)
- * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on [Reactor](https://projectreactor.io/)
- and [RabbitMQ Java Client](java-client.html)
- * [camel-rabbitmq](https://github.com/lshift/camel-rabbitmq), an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
- * [Banyan](https://github.com/yanghua/banyan), a RabbitMQ-backed message bus with a tree topology.
+ * &#x2713; [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
+ * &#x2713; [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
+ * &#x2713; [RabbitMQ JMS client](jms-client.html)
+ * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
+   [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](java-client.html)
 
 ### Spring Framework
 
- * [Spring AMQP project for Java](https://spring.io/projects/spring-amqp)
- * [Spring Cloud Data Flow](https://dataflow.spring.io/)
- * [Spring Integration](http://docs.spring.io/spring-integration/reference/html/amqp.html)
+ * &#x2713; [Spring AMQP project for Java](https://spring.io/projects/spring-amqp)
+ * &#x2713; [Spring Cloud Data Flow](https://dataflow.spring.io/)
+ * &#x2713; [Spring Integration](http://docs.spring.io/spring-integration/reference/html/amqp.html)
 
 
 ## <a id="dotnet-dev" class="anchor" href="#dotnet-dev">.NET</a>
 
 Client libraries:
 
- * [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.5.1+)
- * [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
- * [RawRabbit](https://github.com/pardahlman/RawRabbit), a higher-level client that targets ASP.NET vNext and supports .NET Core.
+ * &#x2713; [RabbitMQ .NET Client](dotnet.html) (supports .NET Core and .NET 4.6.1+)
+ * &#x2713; [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
 
 Higher level frameworks:
 
  * [EasyNetQ](http://easynetq.com), an easy to use, opinionated .NET API for RabbitMQ
  * [NServiceBus](http://particular.net/nservicebus), the most popular open-source service bus for .NET.
  * [Brighter](https://www.goparamore.io/), a Command Processor & Dispatcher implementation with support for task queues
- * [Restbus](http://restbus.org), a service-oriented framework for .NET
 
 Miscellaneous projects:
 
@@ -68,7 +66,7 @@ Miscellaneous projects:
 
 ## <a id="ruby-dev" class="anchor" href="#ruby-dev">Ruby</a>
 
- * [Bunny](http://rubybunny.info), a dead easy to use RabbitMQ Ruby client
+ * &#x2713; [Bunny](http://rubybunny.info), a dead easy to use RabbitMQ Ruby client
  * [AMQP::Client](https://github.com/cloudamqp/amqp-client.rb), a lightweight and high performance AMQP Ruby client
  * [March Hare](http://rubymarchhare.info), a JRuby RabbitMQ client
  * [Sneakers](http://jondot.github.io/sneakers/), a fast background processing framework for Ruby and RabbitMQ
@@ -80,24 +78,25 @@ Miscellaneous projects:
 
 ## <a id="python-dev" class="anchor" href="#python-dev">Python</a>
 
- * [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
+ * &#x2713; [pika](http://pypi.python.org/pypi/pika), a pure-Python AMQP 0-9-1 client ([source code](https://github.com/pika/pika),
    [API reference](http://readthedocs.org/docs/pika/en/latest/index.html))
  * [rstream](https://github.com/qweeze/rstream): RabbitMQ Stream Python client
  * [rbfly](https://gitlab.com/wrobell/rbfly): RabbitMQ Stream Python client
  * [aio-pika](https://github.com/mosquito/aio-pika), a pure-Python AMQP 0-9-1 client built for Python 3 and asyncio ([source code](https://github.com/mosquito/aio-pika),
    [API reference](https://aio-pika.readthedocs.org/))
- * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
  * [aioamqp](https://pypi.org/project/aioamqp/), a pure-Python AMQP 0-9-1 library using asyncio ([source code](https://github.com/Polyconseil/aioamqp),
    [docs](https://aioamqp.readthedocs.io/en/latest/))
- * [aio-amqp](https://pypi.org/project/aio-amqp/), another asynchronous Python client built around asyncio ([source code](https://github.com/NotJustAToy/aio-amqp))
+
+Miscellaneous projects:
+
+ * [Celery](http://docs.celeryproject.org/en/latest/), a distributed task queue for Django and pure Python
 
 
 ## <a id="php-dev" class="anchor" href="#php-dev">PHP</a>
 
- * [php-amqplib](https://github.com/php-amqplib/php-amqplib) a pure PHP, fully featured RabbitMQ client
+ * &#x2713; [php-amqplib](https://github.com/php-amqplib/php-amqplib) a pure PHP, fully featured RabbitMQ client
  * [RabbitMqBundle](https://github.com/php-amqplib/rabbitmqbundle) incorporates RabbitMQ messaging with the Symfony2 web framework
  * [PECL AMQP library](http://pecl.php.net/package/amqp) built on top of the [RabbitMQ C client](https://github.com/alanxz/rabbitmq-c)
- * [VorpalBunny](https://github.com/myYearbook/VorpalBunny) a PHP client library using [rabbitmq_jsonrpc_channel](plugins.html#rabbitmq_jsonrpc_channel)
  * [Thumper](https://github.com/php-amqplib/Thumper) a library of messaging patterns
  * [CAMQP](http://www.yiiframework.com/extension/amqp/) an extension for the Yii framework providing a gateway for RabbitMQ messaging
  * [AMQP Interop](https://github.com/queue-interop/queue-interop#amqp-interop) is a set of unified AMQP 0-9-1 interfaces in PHP and their implementations
@@ -116,26 +115,26 @@ Miscellaneous projects:
 
 ## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
 
- * [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
- * [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
+ * &#x2713; [RabbitMQ Go client](https://github.com/rabbitmq/amqp091-go)
+ * &#x2713; [RabbitMQ Stream Go client](https://github.com/rabbitmq/rabbitmq-stream-go-client)
  * Rabbit Hole, [RabbitMQ HTTP API client for Go](https://github.com/michaelklishin/rabbit-hole)
  * [amqpc](https://github.com/gocardless/amqpc), a load testing tool for RabbitMQ clusters
 
 
 ## <a id="ios-android" class="anchor" href="#ios-android">iOS and Android</a>
 
- * [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
+ * &#x2713; [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
  * [Get Started with RabbitMQ on Android](https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html)
 
 ## <a id="objc-swift-dev" class="anchor" href="#objc-swift-dev">Objective-C and Swift</a>
 
- * [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
+ * &#x2713; [RabbitMQ Objective-C and Swift client](https://github.com/rabbitmq/rabbitmq-objc-client/) from the RabbitMQ team
 
 
 ## <a id="rust-dev" class="anchor" href="#rust-dev">Rust</a>
 
  * [Lapin](https://github.com/sozu-proxy/lapin), a Rust client
- * [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
+ * &#x2713; [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
 
 ## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
@@ -194,8 +193,8 @@ Miscellaneous projects:
 
 ## <a id="erlang-dev" class="anchor" href="#erlang-dev">Erlang</a>
 
- * [RabbitMQ Erlang client guide](erlang-client-user-guide.html)
- * [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
+ * &#x2713; [RabbitMQ Erlang client](erlang-client-user-guide.html)
+ * &#x2713; [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
  * [bunny_farm](https://github.com/muxspace/bunny_farm), a simplifying wrapper for the Erlang client
  * [RabbitMQ Messaging Patterns](https://github.com/videlalvaro/rmq_patterns), a library of messaging patterns implemented in Erlang
 
@@ -208,6 +207,7 @@ Miscellaneous projects:
 ## <a id="ocaml-dev" class="anchor" href="#ocaml-dev">OCaml</a>
 
  * A [RabbitMQ client for OCaml](https://github.com/andersfugmann/amqp-client)
+
 
 ## <a id="operations" class="anchor" href="#operations">Provisioning (Chef, Puppet, Docker, etc)</a>
 
@@ -227,8 +227,8 @@ Miscellaneous projects:
 
 ## <a id="rabbitmq-cli" class="anchor" href="#rabbitmq-cli">CLI Tools</a>
 
- * [RabbitMQ CLI tools](./cli.html)
- * [rabbitmqadmin](./management-cli.html), a command line tool that targets RabbitMQ HTTP API
+ * &#x2713; [RabbitMQ CLI tools](./cli.html)
+ * &#x2713; [rabbitmqadmin](./management-cli.html), a command line tool that targets RabbitMQ HTTP API
  * [amqp-utils](https://github.com/dougbarth/amqp-utils), command line utils for interacting with an AMQP based queue (in Ruby)
  * [amqptools](https://github.com/rmt/amqptools), command line AMQP clients (in C)
  * [rabtap](https://github.com/jandelgado/rabtap), RabbitMQ wire tap and swiss army knife command line tool (in go)
