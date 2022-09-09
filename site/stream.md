@@ -30,7 +30,7 @@ This page covers the Stream plugin, which allows to interact with streams using 
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
-Client libraries for the stream protocol are available on several platforms: [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client), [.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client), Python ([rbly](https://gitlab.com/wrobell/rbfly), [rstream](https://pypi.org/project/rstream/)), [Erlang](https://gitlab.com/evnu/lake), [Elixir](https://github.com/VictorGaiva/rabbitmq-stream), [Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client).
+Client libraries for the stream protocol are available on several platforms: [Java](https://github.com/rabbitmq/rabbitmq-stream-java-client), [Go](https://github.com/rabbitmq/rabbitmq-stream-go-client), [.NET](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client), Python ([rbly](https://gitlab.com/wrobell/rbfly), [rstream](https://pypi.org/project/rstream/)), [Erlang](https://gitlab.com/evnu/lake), [Elixir](https://github.com/VictorGaiva/rabbitmq-stream), [Rust](https://github.com/rabbitmq/rabbitmq-stream-rust-client), [NodeJS](https://github.com/coders51/rabbitmq-stream-js-client).
 
 ## <a id="enabling-plugin" class="anchor" href="#enabling-plugin">Enabling the Plugin</a>
 
