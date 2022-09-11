@@ -157,7 +157,7 @@ limitations under the License.
           <div class='features'>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="./img/commercial/traffic-compression.svg" height="62" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression" />
+                <img src="./img/commercial/traffic-compression.svg" height="71" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression" />
                 <h2>Inter-node Compression</h2>
                 <p>
                   All network traffic exchanged by nodes in a deployment can use efficient compression. For some message payloads,
@@ -167,7 +167,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="./img/commercial/warm-standby.svg" height="62" width="71" alt="Warm Standby" title="Warm Standby" />
+                <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby" />
                 <h2>Warm Standby</h2>
                 <p>
                   VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster, which makes
@@ -177,7 +177,7 @@ limitations under the License.
             </div>
             <div class='feature column onethird'>
               <div class='inner'>
-                <img src="./img/commercial/support.svg" height="62" width="71" alt="24/7 Expert Support" title="24/7 Expert Support" />
+                <img src="./img/commercial/support.svg" height="71" width="71" alt="24/7 Expert Support" title="24/7 Expert Support" />
                 <h2>24/7 Expert Support</h2>
                 <p>
                   A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle.
