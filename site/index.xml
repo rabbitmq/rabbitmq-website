@@ -227,7 +227,7 @@ limitations under the License.
                 <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
                 These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
               </p>
-              <img src="./img/support-and-hosting-phone.svg" height="94" width="109" />
+              <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
                 VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
@@ -240,7 +240,7 @@ limitations under the License.
                 <a href="https://northflank.com/changelog/introducing-managed-rabbit-mq-build-and-scale-with-queues-and-message-brokers">Northflank</a>.
                 RabbitMQ can also be deployed in AWS and Microsoft Azure.
               </p>
-              <img src="./img/testing-phone.svg" height="109" width="94" />
+              <img src="./img/commercial/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
                 <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank">VMware</a>,
