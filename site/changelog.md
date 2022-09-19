@@ -44,6 +44,7 @@ published separately.
     <td>
       <ul>
         <li>Erlang 23 support has reached end of life</li>
+        <li>Future 3.11.x releases will require Erlang 25.x</li>
         <li>Future 3.9.x and 3.10.x releases will require Erlang 24.2 or 25.x</li>
       </ul>
     </td>

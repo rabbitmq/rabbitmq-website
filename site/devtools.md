@@ -108,6 +108,7 @@ Miscellaneous projects:
  * [amqp-client](https://github.com/cloudamqp/amqp-client.js): High performance client for both NodeJS and browsers (WebSocket), written in TypeScript
  * [amqp.node](https://github.com/squaremo/amqp.node): RabbitMQ (AMQP 0-9-1) client for Node.js
  * [rabbit.js](https://github.com/squaremo/rabbit.js): message patterns in node.js using RabbitMQ.
+ * [rabbitmq-stream-js-client](https://github.com/coders51/rabbitmq-stream-js-client): RabbitMQ Stream NodeJS client.
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.

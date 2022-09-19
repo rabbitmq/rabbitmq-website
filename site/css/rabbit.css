@@ -1335,7 +1335,7 @@ body#index #getstarted .fifty .container {
 }
 
 #support #commercialservicesillustration {
-  background: url(../img/commercial-services.svg) no-repeat center center;
+  background: url(../img/commercial/services.svg) no-repeat center center;
   height: 430px;
   width: 217px;
   margin: 24px 0 0;
@@ -1453,7 +1453,7 @@ img.screenshot {
     margin: 40px 0 0;
   }
   #support #commercialservicesillustration {
-    background: url(../img/commercial-services-tablet.svg) no-repeat center center;
+    background: url(../img/commercial/services-tablet.svg) no-repeat center center;
     height: 560px;
     width: 179px;
   }
