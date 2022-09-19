@@ -1173,6 +1173,14 @@ TLS version by default, as demonstrated in the below table.
 
   <tbody>
     <tr>
+      <td>25.x</td>
+      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
+    </tr>
+    <tr>
+      <td>24.x</td>
+      <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
+    </tr>
+    <tr>
       <td>23.x</td>
       <td>TLSv1.3 (has a <a href="#tls1.3">dedicated section</a>) and TLSv1.2</td>
     </tr>
@@ -1335,8 +1343,8 @@ explains what TLS versions are supported by what JDK and .NET releases.
   </tr>
 </table>
 
-JDK has a [public roadmap on crypt](https://java.com/en/jre-jdk-cryptoroadmap.html) that outlines when certain cipher suites or TLS versions
-will be deprecated or removed.
+Oracle JDK has a [public roadmap on cryptography](https://java.com/en/jre-jdk-cryptoroadmap.html) and related standards
+that outlines when certain cipher suites or TLS versions will be deprecated or removed.
 
 ## <a id="key-usage" class="anchor" href="#key-usage">Public Key Usage Options</a>
 

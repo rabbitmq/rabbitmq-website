@@ -33,7 +33,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-java-client" target="_blank">AMQP 0.9.1 Java Client</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
   <tr>
@@ -47,14 +47,14 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-stream-java-client" target="_blank">Stream Java Client</a> 0.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank">JMS Client</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
   <tr>
@@ -68,28 +68,28 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/rabbitmq/rabbitmq-perf-test" target="_blank">PerfTest</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 4.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>11-19</td>
+    <td>11-20</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank">Hop</a> 3.x</td>
     <td>31 March 2022</td>
     <td>31 July 2022</td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
   <tr>
     <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank">Reactor RabbitMQ</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8-19</td>
+    <td>8-20</td>
   </tr>
 
 </table>

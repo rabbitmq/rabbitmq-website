@@ -93,7 +93,7 @@ limitations under the License.
       </div>
       <div id='features'>
         <div class='container'>
-          <h1 class='center'>RabbitMQ Features</h1>
+          <h1 class='center'>OSS RabbitMQ Features</h1>
           <div class='features'>
             <div class='feature column onethird'>
               <div class='inner'>
@@ -151,6 +151,41 @@ limitations under the License.
             </div>
           </div>
         </div>
+
+        <div class='container'>
+          <h1 class='center'>Commercial RabbitMQ Features</h1>
+          <div class='features'>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="./img/commercial/traffic-compression.svg" height="71" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression" />
+                <h2>Inter-node Compression</h2>
+                <p>
+                  All network traffic exchanged by nodes in a deployment can use efficient compression. For some message payloads,
+                  this reduces bandwidth usage by 16x.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby" />
+                <h2>Warm Standby</h2>
+                <p>
+                  VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster, which makes
+                  it easy to run a standby cluster for disaster recovery.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="./img/commercial/support.svg" height="71" width="71" alt="24/7 Expert Support" title="24/7 Expert Support" />
+                <h2>24/7 Expert Support</h2>
+                <p>
+                  A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div><!--end features-->
       <div id='getstarted' class='center'>
         <div class='container'>
@@ -183,7 +218,7 @@ limitations under the License.
               <div id='commercialservicesillustration'></div>
             </div>
             <div class='column threequarters'>
-              <img src="./img/commercial-distribution-phone.svg" height="111" width="88" />
+              <img src="./img/commercial/distribution-phone.svg" height="111" width="88" />
               <h2>Commercial Distribution</h2>
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
@@ -192,7 +227,7 @@ limitations under the License.
                 <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
                 These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
               </p>
-              <img src="./img/support-and-hosting-phone.svg" height="94" width="109" />
+              <img src="./img/commercial/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
                 VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
@@ -205,7 +240,7 @@ limitations under the License.
                 <a href="https://northflank.com/changelog/introducing-managed-rabbit-mq-build-and-scale-with-queues-and-message-brokers">Northflank</a>.
                 RabbitMQ can also be deployed in AWS and Microsoft Azure.
               </p>
-              <img src="./img/testing-phone.svg" height="109" width="94" />
+              <img src="./img/commercial/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
                 <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank">VMware</a>,
