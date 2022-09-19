@@ -250,7 +250,7 @@ It is a way to scale out publishing and consuming with RabbitMQ Streams: a large
 A super stream remains a logical entity: applications see it as one “big” stream, thanks to the smartness of client libraries.
 The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts.html), that is exchange, queues, and bindings between them.
 
-Even though it is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), the `rabbitmq-streams add_super_stream` command is a handy shortcut.
+Even though it is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), but the `rabbitmq-streams add_super_stream` command is a handy shortcut.
 Here is how to create an `invoices` super stream with 3 partitions:
 
 <pre class="lang-bash">
