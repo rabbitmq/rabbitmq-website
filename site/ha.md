@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="interstitial" class="anchor" href="#interstitial">Wait, There's a Better Way: Next Generation Highly Available Queues and Streams</a>
 
-This guide covers a **deprecated feature**: mirroring (queue contents replication) of classic queues.
+This guide covers a [**deprecated and scheduled for removal feature**](https://blog.rabbitmq.com/posts/2021/08/4.0-deprecation-announcements/): mirroring (queue contents replication) of classic queues.
 [Quorum queues](quorum-queues.html) is an alternative, more modern queue type
 that offers high availability via replication and focuses on data safety.
 As of RabbitMQ 3.10, quorum queues [support message TTL](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/) and
