@@ -255,13 +255,12 @@ The client code is slightly more involved:
     response arrives.
   * Since our consumer delivery handling is happening in a separate thread,
     we're going to need something to suspend the `main` thread before the response arrives.
-    Usage of `BlockingQueue` is one possible solutions to do so. Here we are creating `ArrayBlockingQueue`
-    with capacity set to 1 as we need to wait for only one response.
+    Usage of `CompletableFuture` is one possible solution to do so.
   * The consumer is doing a very simple job,
     for every consumed response message it checks if the `correlationId`
-    is the one we're looking for. If so, it puts the response to `BlockingQueue`.
-  * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
-  * Finally we return the response back to the user.
+    is the one we're looking for. If so, it completes the `CompletableFuture`.
+  * At the same time `main` thread is waiting for the `CompletableFuture` to complete.
+  * Finally, we return the response back to the user.
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
