@@ -1236,15 +1236,17 @@ at the `ConnectionFactory` level, using the `setMetricsCollector(metricsCollecto
 This method expects a `MetricsCollector` instance, which is
 called in several places of the client code.
 
-The client supports [Micrometer](http://micrometer.io) (as of version 4.3) and
-[Dropwizard Metrics](http://metrics.dropwizard.io)
-out of the box.
+The client supports [Micrometer](http://micrometer.io), [Dropwizard Metrics](http://metrics.dropwizard.io) and [OpenTelemetry](https://opentelemetry.io/) out of the box.
 
 Here are the collected metrics:
 
  * Number of open connections
  * Number of open channels
  * Number of published messages
+ * Number of confirmed messages
+ * Number of negatively acknowledged (nack-ed) outbound messages
+ * Number of unroutable outbound messages that got returned
+ * Number of failures of outbound messages
  * Number of consumed messages
  * Number of acknowledged messages
  * Number of rejected messages
