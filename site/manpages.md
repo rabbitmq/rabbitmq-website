@@ -32,6 +32,7 @@ This page lists the available manual pages taken from the [latest stable release
  * [rabbitmq-plugins](rabbitmq-plugins.8.html): [plugin management](./plugins.html)
  * [rabbitmq-upgrade](rabbitmq-upgrade.8.html): operational tasks related to upgrades
  * [rabbitmq-queues](rabbitmq-queues.8.html): operational tasks for queues
+ * [rabbitmq-streams](rabbitmq-streams.8.html): operational tasks for streams
  * [rabbitmq-server](rabbitmq-server.8.html): starts a RabbitMQ server node
  * [rabbitmq-service](rabbitmq-service.8.html): Windows service management
  * [rabbitmq-echopid](rabbitmq-echopid.8.html): a Windows-specific utility tool

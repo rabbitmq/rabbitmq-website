@@ -25,6 +25,7 @@ RabbitMQ ships with multiple command line tools, each with a set of related comm
  * [`rabbitmq-diagnostics`](./rabbitmq-diagnostics.8.html) for diagnostics and [health checking](./monitoring.html)
  * [`rabbitmq-plugins`](./rabbitmq-plugins.8.html) for [plugin management](./plugins.html)
  * [`rabbitmq-queues`](./rabbitmq-queues.8.html) for maintenance tasks on [queues](queues.html), in particular [quorum queues](./quorum-queues.html)
+ * [`rabbitmq-streams`](./rabbitmq-streams.8.html) for maintenance tasks on [streams](streams.html)
  * [`rabbitmq-upgrade`](./rabbitmq-upgrade.8.html) for maintenance tasks related to [upgrades](./upgrade.html)
 
 they can be found under the `sbin` directory in installation root.

@@ -65,6 +65,7 @@ see <a href="./documentation.html">All Documentation Guides</a>.
  * [rabbitmq-diagnostics](rabbitmq-diagnostics.8.html): [monitoring](monitoring.html), [health checking](monitoring.html#health-checks), observability tooling
  * [rabbitmq-plugins](rabbitmq-plugins.8.html): plugin management
  * [rabbitmq-queues](rabbitmq-queues.8.html): operations on quorum queues
+ * [rabbitmq-streams](rabbitmq-streams.8.html): operations on streams
  * [rabbitmqadmin](management-cli.html) ([HTTP API](management.html)-based zero dependency management tool)
  * [man pages](manpages.html)
 
