@@ -139,6 +139,7 @@ limitations under the License.
          <x:page url="/rabbitmq-plugins.8.html" text="rabbitmq-plugins"/>
          <x:page url="/rabbitmq-upgrade.8.html" text="rabbitmq-upgrade"/>
          <x:page url="/rabbitmq-queues.8.html" text="rabbitmq-queues"/>
+         <x:page url="/rabbitmq-streams.8.html" text="rabbitmq-streams"/>
          <x:page url="/rabbitmq-server.8.html" text="rabbitmq-server"/>
          <x:page url="/rabbitmq-service.8.html" text="rabbitmq-service"/>
          <x:page url="/rabbitmq-echopid.8.html" text="rabbitmq-echopid"/>

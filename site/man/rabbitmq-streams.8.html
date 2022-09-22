@@ -1,0 +1,142 @@
+<div class="manual-text">
+<h2 class="Sh" title="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
+<code class="Nm" title="Nm">rabbitmq-streams</code> &#x2014;
+<div class="Nd" title="Nd">RabbitMQ stream management tools</div>
+<h2 class="Sh" title="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h2>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm" title="Nm">rabbitmq-streams</code></td>
+    <td>[<div class="Op"><code class="Fl" title="Fl">-q</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-s</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-l</code></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-n</code>
+      <var class="Ar" title="Ar">node</var></div>]
+      [<div class="Op"><code class="Fl" title="Fl">-t</code>
+      <var class="Ar" title="Ar">timeout</var></div>]
+      <var class="Ar" title="Ar">command</var>
+      [<div class="Op"><var class="Ar" title="Ar">command_options</var></div>]</td>
+  </tr>
+</table>
+<h2 class="Sh" title="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+<code class="Nm" title="Nm">rabbitmq-streams</code> is a command line tool that
+  provides commands used to manage streams, for example, add or delete stream
+  replicas. See the
+  <a class="Lk" title="Lk" href="https://www.rabbitmq.com/streams.html">RabbitMQ
+  streams overview</a>.
+<h2 class="Sh" title="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#n"><code class="Fl" title="Fl" id="n">-n</code></a>
+    <var class="Ar" title="Ar">node</var></dt>
+  <dd>Default node is
+      &quot;rabbit@<var class="Ar" title="Ar">target-hostname</var>&quot;,
+      where <var class="Ar" title="Ar">target-hostname</var> is the local host.
+      On a host named &quot;myserver.example.com&quot;, the node name will
+      usually be &quot;rabbit@myserver&quot; (unless
+      <code class="Ev" title="Ev">RABBITMQ_NODENAME</code> has been overridden).
+      The output of &quot;hostname -s&quot; is usually the correct suffix to
+      use after the &quot;@&quot; sign. See
+      <a class="Xr" title="Xr" href="rabbitmq-server.8.html">rabbitmq-server(8)</a>
+      for details of configuring a RabbitMQ node.</dd>
+  <dt><a class="permalink" href="#q"><code class="Fl" title="Fl" id="q">-q</code></a>,
+    <code class="Fl" title="Fl">--quiet</code></dt>
+  <dd>Quiet output mode is selected. Informational messages are reduced when
+      quiet mode is in effect.</dd>
+  <dt><a class="permalink" href="#s"><code class="Fl" title="Fl" id="s">-s</code></a>,
+    <code class="Fl" title="Fl">--silent</code></dt>
+  <dd>Silent output mode is selected. Informational messages are reduced and
+      table headers are suppressed when silent mode is in effect.</dd>
+  <dt><a class="permalink" href="#t"><code class="Fl" title="Fl" id="t">-t</code></a>
+    <var class="Ar" title="Ar">timeout</var>,
+    <code class="Fl" title="Fl">--timeout</code>
+    <var class="Ar" title="Ar">timeout</var></dt>
+  <dd>Operation timeout in seconds. Not all commands support timeouts. Default
+      is <code class="Cm" title="Cm">infinity</code>.</dd>
+  <dt><a class="permalink" href="#l"><code class="Fl" title="Fl" id="l">-l</code></a>,
+    <code class="Fl" title="Fl">--longnames</code></dt>
+  <dd>Must be specified when the cluster is configured to use long (FQDN) node
+      names. To learn more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/clustering.html">RabbitMQ
+      Clustering guide</a></dd>
+  <dt><a class="permalink" href="#-erlang-cookie"><code class="Fl" title="Fl" id="-erlang-cookie">--erlang-cookie</code></a>
+    <var class="Ar" title="Ar">cookie</var></dt>
+  <dd>Shared secret to use to authenticate to the target node. Prefer using a
+      local file or the
+      <code class="Ev" title="Ev">RABBITMQ_ERLANG_COOKIE</code> environment
+      variable instead of specifying this option on the command line. To learn
+      more, see the
+      <a class="Lk" title="Lk" href="https://www.rabbitmq.com/cli.html">RabbitMQ
+      CLI Tools guide</a></dd>
+</dl>
+<h2 class="Sh" title="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#help"><code class="Cm" title="Cm" id="help">help</code></a></dt>
+  <dd>
+    <div class="Pp"></div>
+    Displays general help and commands supported by
+      <code class="Nm" title="Nm">rabbitmq-streams</code>.</dd>
+</dl>
+<h3 class="Ss" title="Ss" id="Replication"><a class="permalink" href="#Replication">Replication</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#add_replica"><code class="Cm" title="Cm" id="add_replica">add_replica</code></a>
+    <var class="Ar" title="Ar">queue</var> <var class="Ar" title="Ar">node</var>
+    <code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">virtual-host</var></dt>
+  <dd>
+    <div class="Pp"></div>
+    Adds a stream replica on the given node.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams add_replica
+      --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
+      &quot;rabbit@new-node&quot;</code></div>
+  </dd>
+  <dt><a class="permalink" href="#delete_replica"><code class="Cm" title="Cm" id="delete_replica">delete_replica</code></a>
+    <var class="Ar" title="Ar">queue</var> <var class="Ar" title="Ar">node</var>
+    <code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">virtual-host</var></dt>
+  <dd>
+    <div class="Pp"></div>
+    Removes a stream replica on the given node.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams delete_replica
+      --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
+      &quot;rabbit@decomissioned-node&quot;</code></div>
+  </dd>
+</dl>
+<h3 class="Ss" title="Ss" id="Monitoring,_observability_and_health_checks"><a class="permalink" href="#Monitoring,_observability_and_health_checks">Monitoring,
+  observability and health checks</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#stream_status"><code class="Cm" title="Cm" id="stream_status">stream_status</code></a>
+    <var class="Ar" title="Ar">stream</var>
+    <code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">virtual-host</var></dt>
+  <dd>
+    <div class="Pp"></div>
+    Displays the status of a stream.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams stream_status
+      --vhost &quot;a-vhost&quot; &quot;a-stream&quot;</code></div>
+  </dd>
+</dl>
+<h3 class="Ss" title="Ss" id="Policies"><a class="permalink" href="#Policies">Policies</a></h3>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#set_stream_retention_policy"><code class="Cm" title="Cm" id="set_stream_retention_policy">set_stream_retention_policy</code></a>
+    <var class="Ar" title="Ar">stream</var>
+    <var class="Ar" title="Ar">policy</var>
+    <code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">virtual-host</var></dt>
+  <dd>
+    <div class="Pp"></div>
+    Set the retention policy of a stream.
+    <div class="Pp"></div>
+    Example:
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams
+      set_stream_retention_policy --vhost &quot;a-vhost&quot;
+      &quot;a-stream&quot; &quot;a-policy&quot;</code></div>
+    <div class="Pp"></div>
+    <div class="Pp"></div>
+  </dd>
+</dl>
+</div>
