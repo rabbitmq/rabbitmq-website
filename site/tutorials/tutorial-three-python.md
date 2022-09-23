@@ -66,7 +66,7 @@ queue at all.
 
 Instead, the producer can only send messages to an _exchange_. An
 exchange is a very simple thing. On one side it receives messages from
-producers and the other side it pushes them to queues. The exchange
+producers and on the other side it pushes them to queues. The exchange
 must know exactly what to do with a message it receives. Should it be
 appended to a particular queue? Should it be appended to many queues?
 Or should it get discarded. The rules for that are defined by the
