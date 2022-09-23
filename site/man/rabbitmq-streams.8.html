@@ -232,6 +232,16 @@
       <var class="Ar" title="Ar">consumerinfoitem</var> can take any value from
       the list that follows:
     <dl class="Bl-tag">
+      <dt><var class="Ar" title="Ar">active</var></dt>
+      <dd>Boolean indicating whether the consumer is active or not.</dd>
+      <dt><var class="Ar" title="Ar">activity_status</var></dt>
+      <dd>Consumer activity status; one of:
+        <ul class="Bl-bullet Bl-compact">
+          <li>up</li>
+          <li>single_active</li>
+          <li>waiting</li>
+        </ul>
+      </dd>
       <dt><var class="Ar" title="Ar">connection_pid</var></dt>
       <dd>Id of the Erlang process associated with the consumer connection.</dd>
       <dt><var class="Ar" title="Ar">credits</var></dt>
@@ -253,7 +263,8 @@
     <div class="Pp"></div>
     If no <var class="Ar" title="Ar">consumerinfoitem</var> are specified then
       connection_pid, subscription_id, stream, messages_consumed, offset,
-      offset_lag, credits, properties are displayed.
+      offset_lag, credits, active, activity_status, and properties are
+      displayed.
     <div class="Pp"></div>
     For example, this command displays the connection PID, subscription ID and
       stream for each consumer:
@@ -303,7 +314,155 @@
     <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams
       list_stream_publishers connection_pid publisher_id stream</code></div>
   </dd>
+  <dt><a class="permalink" href="#add_super_stream"><code class="Cm" title="Cm" id="add_super_stream">add_super_stream</code></a>
+    <var class="Ar" title="Ar">super-stream</var>
+    [<div class="Op"><code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--partitions</code>
+    <var class="Ar" title="Ar">partitions</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--routing-keys</code>
+    <var class="Ar" title="Ar">routing-keys</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--max-length-bytes</code>
+    <var class="Ar" title="Ar">max-length-bytes</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--max-age</code>
+    <var class="Ar" title="Ar">max-age</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--stream-max-segment-size-bytes</code>
+    <var class="Ar" title="Ar">stream-max-segment-size-bytes</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--leader-locator</code>
+    <var class="Ar" title="Ar">leader-locator</var></div>]
+    [<div class="Op"><code class="Fl" title="Fl">--initial-cluster-size</code>
+    <var class="Ar" title="Ar">initial-cluster-size</var></div>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar" title="Ar">super-stream</var></dt>
+      <dd>The name of the super stream to create.</dd>
+      <dt><var class="Ar" title="Ar">vhost</var></dt>
+      <dd>The name of the virtual host to create the super stream into.</dd>
+      <dt><var class="Ar" title="Ar">partitions</var></dt>
+      <dd>The number of partitions the super stream will have.</dd>
+      <dt><var class="Ar" title="Ar">routing-keys</var></dt>
+      <dd>Comma-separated list of routing keys.</dd>
+      <dt><var class="Ar" title="Ar">max-length-bytes</var></dt>
+      <dd>The maximum size of partition streams, example values: 20gb,
+        500mb.</dd>
+      <dt><var class="Ar" title="Ar">max-age</var></dt>
+      <dd>The maximum age of partition stream segments, using the ISO 8601
+          duration format, e.g. PT10M30S for 10 minutes 30 seconds, P5DT8H for 5
+          days 8 hours.</dd>
+      <dt><var class="Ar" title="Ar">stream-max-segment-size-bytes</var></dt>
+      <dd>The maximum size of partition stream segments, example values: 500mb,
+          1gb.</dd>
+      <dt><var class="Ar" title="Ar">leader-locator</var></dt>
+      <dd>Leader locator strategy for partition streams. Possible values are:
+        <ul class="Bl-bullet Bl-compact">
+          <li>client-local</li>
+          <li>balanced</li>
+        </ul>
+        The default is <code class="Cm" title="Cm">balanced</code></dd>
+      <dt><var class="Ar" title="Ar">initial-cluster-size</var></dt>
+      <dd>The initial cluster size of partition streams.</dd>
+    </dl>
+    <div class="Pp"></div>
+    Create a super stream.</dd>
+  <dt><a class="permalink" href="#delete_super_stream"><code class="Cm" title="Cm" id="delete_super_stream">delete_super_stream</code></a>
+    <var class="Ar" title="Ar">super-stream</var>
+    [<div class="Op"><code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">vhost</var></div>]</dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar" title="Ar">super-stream</var></dt>
+      <dd>The name of the super stream to delete.</dd>
+      <dt><var class="Ar" title="Ar">vhost</var></dt>
+      <dd>The virtual host of the super stream.
+        <div class="Pp"></div>
+        Delete a super stream.</dd>
+    </dl>
+    <div class="Pp"></div>
+  </dd>
+  <dt><a class="permalink" href="#list_stream_consumer_groups"><code class="Cm" title="Cm" id="list_stream_consumer_groups">list_stream_consumer_groups</code></a>
+    [<div class="Op"><code class="Fl" title="Fl">-p</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><var class="Ar" title="Ar">groupinfoitem
+    ...</var></div>]</dt>
+  <dd>
+    <div class="Pp"></div>
+    Lists groups of stream single active consumers for a vhost.
+    <div class="Pp"></div>
+    The <var class="Ar" title="Ar">groupinfoitem</var> parameter is used to
+      indicate which group information items to include in the results. The
+      column order in the results will match the order of the parameters.
+      <var class="Ar" title="Ar">groupinfoitem</var> can take any value from the
+      list that follows:
+    <dl class="Bl-tag">
+      <dt><var class="Ar" title="Ar">consumers</var></dt>
+      <dd>Number of consumers in the group.</dd>
+      <dt><var class="Ar" title="Ar">partition_index</var></dt>
+      <dd>The stream partition index if the stream is part of a super stream, -1
+          if it is not.</dd>
+      <dt><var class="Ar" title="Ar">reference</var></dt>
+      <dd>The group reference (name).</dd>
+      <dt><var class="Ar" title="Ar">stream</var></dt>
+      <dd>The stream the consumers are attached to.</dd>
+    </dl>
+    <div class="Pp"></div>
+    If no <var class="Ar" title="Ar">groupinfoitem</var> are specified then
+      stream, reference, partition_index, and consumers are displayed.
+    <div class="Pp"></div>
+    For example, this command displays the stream, reference, and number of
+      consumers for each group:
+    <div class="Pp"></div>
+    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams
+      list_stream_consumer_groups stream reference consumers</code></div>
+    <div class="Pp"></div>
+  </dd>
+  <dt><a class="permalink" href="#list_stream_group_consumers"><code class="Cm" title="Cm" id="list_stream_group_consumers">list_stream_group_consumers</code></a>
+    <code class="Fl" title="Fl">--stream</code>
+    <var class="Ar" title="Ar">stream</var>
+    <code class="Fl" title="Fl">--reference</code>
+    <var class="Ar" title="Ar">reference</var>
+    [<div class="Op"><code class="Fl" title="Fl">--vhost</code>
+    <var class="Ar" title="Ar">vhost</var></div>]
+    [<div class="Op"><var class="Ar" title="Ar">consumerinfoitem
+    ...</var></div>]</dt>
+  <dd>
+    <div class="Pp"></div>
+    Lists consumers of a stream consumer group in a vhost.</dd>
+  <dt><var class="Ar" title="Ar">stream</var></dt>
+  <dd>The stream the consumers are attached to.</dd>
+  <dt><var class="Ar" title="Ar">reference</var></dt>
+  <dd>The group reference (name).</dd>
+  <dt><var class="Ar" title="Ar">vhost</var></dt>
+  <dd>The virtual host of the stream.</dd>
 </dl>
+<div class="Pp"></div>
+The <var class="Ar" title="Ar">consumerinfoitem</var> parameter is used to
+  indicate which consumer information items to include in the results. The
+  column order in the results will match the order of the parameters.
+  <var class="Ar" title="Ar">consumerinfoitem</var> can take any value from the
+  list that follows:
+<dl class="Bl-tag">
+  <dt><var class="Ar" title="Ar">connection_name</var></dt>
+  <dd>Readable name of the consumer connection.</dd>
+  <dt><var class="Ar" title="Ar">state</var></dt>
+  <dd>Consumer state; one of:
+    <ul class="Bl-bullet Bl-compact">
+      <li>active</li>
+      <li>inactive</li>
+    </ul>
+  </dd>
+  <dt><var class="Ar" title="Ar">subscription_id</var></dt>
+  <dd>The connection-scoped ID of the consumer.</dd>
+</dl>
+<div class="Pp"></div>
+If no <var class="Ar" title="Ar">consumerinfoitem</var> are specified then
+  subscription_id, connection_name, and state are displayed.
+<div class="Pp"></div>
+For example, this command displays the connection name and state for each
+  consumer attached to the stream-1 stream and belonging to the stream-1 group:
+<div class="Pp"></div>
+<div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-streams
+  list_stream_group_consumers --stream stream-1 --reference stream-1
+  connection_name state</code></div>
 <h2 class="Sh" title="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
 <a class="Xr" title="Xr" href="rabbitmqctl.8.html">rabbitmqctl(8)</a>,
