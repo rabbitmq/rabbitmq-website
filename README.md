@@ -82,6 +82,18 @@ To run a local copy manually on [localhost:8191](http://localhost:8191), use:
 ./driver.py [www|next|previous]
 ```
 
+#### Run in a python virtual environment
+
+Use [Python virtual environment](https://docs.python.org/3/library/venv.html) to avoid global libraries.
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install lxml markdown
+/driver.py [www|next|previous]
+```
+
+
 #### Limitations of Local Copy
 
 Note that when running a local copy the site will not feature:
