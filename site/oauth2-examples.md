@@ -60,11 +60,11 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 Before proceed other more sophisiticated examples, let's start RabbitMQ fully configured with OAuth 2 plugin and
 UAA as an OAuth 2 Authorization Server.
 
-RabbitMQ has to be configured with facts about the Authorization server, so RabbitMQ is aware of UAA
+In the next section, we
+will see how to set up UAA and RabbitMQ. If you are new to OAuth2, it is a good starting point. If you already know OAuth2
+and you want to learn how to configure RabbitMQ to talk to one of Oauth2 server tested on this tutorial, you can jump
+straight to them. They are [KeyCloak](use-cases/keycloak.md), [https://auth0.com/](use-cases/oauth0.md) and [Azure Active Directory](use-cases/azure.md) in addition to UAA which we will use it in the next sections.
 
-<pre class="lang-plain">
-[ UAA ]    &lt;-------------    [ RabbitMQ ]
-</pre>
 
 #### <a id="uaa-asymmetrical-signing-keys" class="anchor" href="#uaa-asymmetrical-signing-keys">Use Asymmetrical Digital Singing Keys</a>
 
@@ -151,7 +151,7 @@ make curl url=http://localhost:15672/api/overview client_id=mgt_api_client secre
 
 ### <a id="amqp-protocol" class="anchor" href="#amqp-protocol">AMQP protocol</a>
 
-In this scenario, an application connects to RabbitMQ presenting a JWT Token as a credential.
+An application connects to RabbitMQ using AMQP protocol and presents a JWT Token as a credential.
 The application we are going to use is [PerfTest](https://github.com/rabbitmq/rabbitmq-perf-test) which is not an OAuth 2.0 aware application.
 OAuth 2.0-aware application is covered in [scenario four](#scenario-4).
 
@@ -488,8 +488,8 @@ uaac client add consumer_with_roles --name consumer_with_roles \
 
 In the OAuth 2 tutorial repository, there are two RabbitMQ configuration files ready to be used:
 
-- [conf/asymmetric_key/rabbitmq-scope-aliases.config](conf/asymmetric_key/rabbitmq-scope-aliases.config): configures a set of scope aliases.
-- [conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config](conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config): configures a `extra_scopes_source` and a set of scope aliases.
+- [conf/asymmetric_key/rabbitmq-scope-aliases.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/asymmetric_key/rabbitmq-scope-aliases.config): configures a set of scope aliases.
+- [conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config): configures a `extra_scopes_source` and a set of scope aliases.
 
 
 #### Demo 1: Launch RabbitMQ with custom scopes in scope field
@@ -954,60 +954,3 @@ These are the fields relevant for RabbitMQ:
    or after which the JWT MUST NOT be accepted for processing. RabbitMQ uses this field to validate the token if it is present.
    > Implementers MAY provide for some small leeway, usually no more than
    a few minutes, to account for clock skew. However, RabbitMQ does not add any leeway.
-
-
-### <a id="deeper-dive-useful-uaac-commands" class="anchor" href="#deeper-dive-useful-uaac-commands">Useful uaac Commands</a>
-
- `uaac` allows us to generate or obtain many tokens for different users and/or clients. However, only one of them is treated as the **current** token.
- This **current** token is only relevant when we interact with `uaac`, say to create/delete users, and/or obtain further tokens.
-
- To know all the tokens we have generated so far we run:
-
- <pre class="lang-bash">
- uaac contexts
- </pre>
-
- To know what the current context is, we run:
-
- <pre class="lang-bash">
- uaac context
- </pre>
-
- which outputs
-
- <pre class="lang-plaintext">
- 0]*[http://localhost:8080/uaa]
-
-   [0]*[admin]
-       client_id: admin
-       access_token: eyJhbGciOiJIUzI1NiIsImprdSI6Imh0dHBzOi8vbG9jYWxob3N0OjgwODAvdWFhL3Rva2VuX2tleXMiLCJraWQiOiJsZWdhY3ktdG9rZW4ta2V5IiwidHlwIjoiSldUIn0.eyJqdGkiOiIxODkyY2ZmMmRmNjc0ZmRiYmYwMWIyM2I2ZWU4MjlkZCIsInN1YiI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiY2xpZW50cy5yZWFkIiwiY2xpZW50cy5zZWNyZXQiLCJjbGllbnRzLndyaXRlIiwidWFhLmFkbWluIiwiY2xpZW50cy5hZG1pbiIsInNjaW0ud3JpdGUiLCJzY2ltLnJlYWQiXSwic2NvcGUiOlsiY2xpZW50cy5yZWFkIiwiY2xpZW50cy5zZWNyZXQiLCJjbGllbnRzLndyaXRlIiwidWFhLmFkbWluIiwiY2xpZW50cy5hZG1pbiIsInNjaW0ud3JpdGUiLCJzY2ltLnJlYWQiXSwiY2xpZW50X2lkIjoiYWRtaW4iLCJjaWQiOiJhZG1pbiIsImF6cCI6ImFkbWluIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsInJldl9zaWciOiI4Yzg2YjcyOCIsImlhdCI6MTU1MDc1OTI0OCwiZXhwIjoxNTUwODAyNDQ4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvdWFhL29hdXRoL3Rva2VuIiwiemlkIjoidWFhIiwiYXVkIjpbInNjaW0iLCJjbGllbnRzIiwidWFhIiwiYWRtaW4iXX0._d9UPkdDNTYsCjf1NemWIBfv0v8S4u0wzjrBmP4S11U
-       token_type: bearer
-       expires_in: 43199
-       scope: clients.read clients.secret clients.write uaa.admin clients.admin scim.write scim.read
-       jti: 1892cff2df674fdbbf01b23b6ee829dd
-</pre>
-
- We can decode the jwt token above:
-
- <pre class="lang-bash">
- uaac token decode eyJhbGciOiJIUzI1NiIsImprdSI6Imh0dHBzOi8vbG9jYWxob3N0OjgwODAvdWFhL3Rva2VuX2tleXMiLCJraWQiOiJsZWdhY3ktdG9rZW4ta2V5IiwidHlwIjoiSldUIn0.eyJqdGkiOiIxODkyY2ZmMmRmNjc0ZmRiYmYwMWIyM2I2ZWU4MjlkZCIsInN1YiI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiY2xpZW50cy5yZWFkIiwiY2xpZW50cy5zZWNyZXQiLCJjbGllbnRzLndyaXRlIiwidWFhLmFkbWluIiwiY2xpZW50cy5hZG1pbiIsInNjaW0ud3JpdGUiLCJzY2ltLnJlYWQiXSwic2NvcGUiOlsiY2xpZW50cy5yZWFkIiwiY2xpZW50cy5zZWNyZXQiLCJjbGllbnRzLndyaXRlIiwidWFhLmFkbWluIiwiY2xpZW50cy5hZG1pbiIsInNjaW0ud3JpdGUiLCJzY2ltLnJlYWQiXSwiY2xpZW50X2lkIjoiYWRtaW4iLCJjaWQiOiJhZG1pbiIsImF6cCI6ImFkbWluIiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsInJldl9zaWciOiI4Yzg2YjcyOCIsImlhdCI6MTU1MDc1OTI0OCwiZXhwIjoxNTUwODAyNDQ4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvdWFhL29hdXRoL3Rva2VuIiwiemlkIjoidWFhIiwiYXVkIjpbInNjaW0iLCJjbGllbnRzIiwidWFhIiwiYWRtaW4iXX0._d9UPkdDNTYsCjf1NemWIBfv0v8S4u0wzjrBmP4S11U
- </pre>
-
- which outputs:
-
- <pre class="lang-plaintext">
- jti: 1892cff2df674fdbbf01b23b6ee829dd
- sub: admin
- authorities: clients.read clients.secret clients.write uaa.admin clients.admin scim.write scim.read
- scope: clients.read clients.secret clients.write uaa.admin clients.admin scim.write scim.read
- client_id: admin
- cid: admin
- azp: admin
- grant_type: client_credentials
- rev_sig: 8c86b728
- iat: 1550759248
- exp: 1550802448
- iss: http://localhost:8080/uaa/oauth/token
- zid: uaa
- aud: scim clients uaa admin
- </pre>
