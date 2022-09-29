@@ -13,7 +13,7 @@ Let's test the following 3 OAuth flows:
 
 ## Create RabbitMQ API
 
-In OAuth0, resources are mapped to Application APIs.
+In Auth0, resources are mapped to Application APIs.
 
 1. Once you have logged onto your account in https://auth0.com/, go to **dashboard > Applications > APIs > Create an API**.
 2. Give it the name `rabbitmq`. The important thing here is the `identifier` which must have the name of the *resource_server_id* we configured in RabbitMQ. This `identifier` goes into the `audience` JWT field. In our case, it is called `rabbitmq`.
@@ -54,7 +54,7 @@ In the settings, choose:
 
 ## Create a new user
 
-You can use your current OAuth0 user to login to RabbitMQ or create a dedicated user for that. Up to you.
+You can use your current Auth0 user to login to RabbitMQ or create a dedicated user for that. Up to you.
 
 ### Authorize rabbitmq-management application
 
@@ -70,16 +70,16 @@ You can use your current OAuth0 user to login to RabbitMQ or create a dedicated 
 list of users which have this role.
 
 
-## Configure RabbitMQ with OAuth0 signing key
+## Configure RabbitMQ with Auth0 signing key
 
-1. From Oauth0 dashboard, go to **Settings > List of Valid Keys**, and **Copy Signing Certificate** from the **CURRENTLY USED** signing key.
+1. From Auth0 dashboard, go to **Settings > List of Valid Keys**, and **Copy Signing Certificate** from the **CURRENTLY USED** signing key.
 
 2. Create `/tmp/certiicate.pem` and paste the certificate.
 
 3. Run `openssl x509 -in /tmp/certificate.pem -pubkey -noout > /tmp/public.pem` to extract the public key from the certificate and paste the public key into `rabbitmq.config`.
 
 Below we have a sample RabbitMQ configuration where we have set the `default_key` identifier that we copied from
-Oauth0 and also the public key we extracted from `/tmp/public.pem`.
+Auth0 and also the public key we extracted from `/tmp/public.pem`.
 
 <pre class="lang-erlang">
 {key_config, [
@@ -105,16 +105,16 @@ CwIDAQAB
 Run the following commands to run RabbitMQ:
 
 <pre class="lang-bash">
-export MODE=oauth0
+export MODE=auth0
 make start-rabbitmq
 </pre>
 
 ## Verify Management UI flows
 
 1. Go to management UI `http://localhost:15672`.
-2. Click on the single button, authenticate with your secondary OAuth0 user. You should be redirected back to the management UI.
+2. Click on the single button, authenticate with your secondary Auth0 user. You should be redirected back to the management UI.
 
-OAuth0 issues an access token like this one below. Where we receive in the `scope` claim
+Auth0 issues an access token like this one below. Where we receive in the `scope` claim
 the requested scopes, and in the `permissions` claim the permissions. We have configured
 RabbitMQ with `{extra_scopes_source, <<"permissions">>},` which means RabbitMQ uses
 the scopes in the `permissions` claim too.
