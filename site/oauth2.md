@@ -49,14 +49,14 @@ The token can be any [JWT token](https://jwt.io/introduction/) which contains th
 
 To use this plugin, all RabbitMQ nodes must be
 
-1. [configured to use the rabbit_auth_backend_oauth2 backend](https://www.rabbitmq.com/access-control.html)
-2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`)
-3. configured with a signing key used by RabbitMQ to validate the JWT token signatures
+1. [configured to use the rabbit_auth_backend_oauth2 backend](https://www.rabbitmq.com/access-control.html).
+2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`).
+3. configured with a signing key used by RabbitMQ to validate the JWT token signatures.
 
 JWT Tokens presented to RabbitMQ for authentication must
 
-1. be digitally signed with either a symmetric or asymmetric key
-2. have a value in the `aud` field that matches `resource_server_id` value
+1. be digitally signed with either a symmetric or asymmetric key.
+2. have a value in the `aud` field that matches `resource_server_id` value.
 
 
 ### <a id="authorization-flow-with-scopes" class="anchor" href="#authorization-flow-with-scopes">Authorization Flow</a>
@@ -454,7 +454,7 @@ if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will c
 
 ## <a id="examples" class="anchor" href="#examples">Examples</a>
 
-The [RabbitMQ OAuth2 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers such as UAA and issue tokens, which can be used to access RabbitMQ resources.
+The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers such as UAA and issue tokens, which can be used to access RabbitMQ resources.
 
 
 ## License and Copyright

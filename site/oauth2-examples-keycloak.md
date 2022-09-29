@@ -1,6 +1,6 @@
 # Use KeyCloak as OAuth 2.0 server
 
-Let's test the following 3 OAuth flows::
+Let's test the following 3 OAuth flows:
 1. Access management UI via a browser
 2. Access management rest api
 3. Access AMQP protocol
@@ -30,7 +30,7 @@ management api and `producer` to access via AMQP protocol.
 
 ## Start RabbitMQ
 
-Supporting new types of OAuth 2 servers is currently under development.
+Supporting new types of OAuth 2.0 servers is currently under development.
 There are two alternatives. You can run directly from source:
 1. git clone rabbitmq/rabbitmq-server
 2. git checkout oidc-integration
@@ -54,7 +54,7 @@ make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_cli
 
 ## Access AMQP protocol with PerfTest
 
-To test OAuth2 authentication with AMQP protocol you are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
+To test OAuth 2.0 authentication with AMQP protocol you are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
 First you obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
 
 <pre class="lang-bash">
@@ -65,7 +65,7 @@ make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/t
 
 ## Access AMQP protocol with Pika
 
-In the following information, Oauth2 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
+In the following information, OAuth 2.0 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
 
 You can see the Python sample application [here](../pika_keycloak).
 

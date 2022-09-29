@@ -35,7 +35,7 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
 
 5. Click on **Register**.
 
-    ![Azure AD OAuth2 App](./img/oauth2/azure-ad-oauth-registered-app.png)
+    ![Azure AD OAuth 2.0 App](./img/oauth2/azure-ad-oauth-registered-app.png)
 
     Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
@@ -76,7 +76,7 @@ App roles are defined by using the [Azure portal](https://portal.azure.com) duri
 
 2. Then, click on **Create App Role** to create an OAuth 2.0 role that will be used to give access to the RabbitMQ Management UI.
 
-    <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about how permissions are managed on RabbitMQ when using OAuth2 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
+    <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about how permissions are managed on RabbitMQ when using OAuth 2.0 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
 
 3. On the right menu that has just opened, provide the requested information:
 
@@ -165,7 +165,7 @@ $ vi rabbitmq.config
 > **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
 
 ### Generate SSL certificate and key
-> **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth2 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+> **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth 2.0 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
 
 For the purpose of this tutorial, you can generate a self-signed certificate/key pair.
 
@@ -190,7 +190,7 @@ export MODE=azure
 make start-rabbitmq
 </pre>
 
-<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> This starts a docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Azure AD as OAuth2 Authentication Backend, based on the information you provided in `rabbitmq.config` in the previsous steps of this tutorial.
+<g-emoji class="g-emoji" alias="arrow_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/27a1.png">➡️</g-emoji> This starts a docker container named `rabbitmq`, with RabbitMQ Management UI/API with HTTPS enabled, and configured to use your Azure AD as OAuth 2.0 Authentication Backend, based on the information you provided in `rabbitmq.config` in the previsous steps of this tutorial.
 
 ## Verify RabbitMQ Management UI access
 
