@@ -304,10 +304,9 @@ Use [per-consumer QoS prefetch](./consumer-prefetch.html), which is the default 
 
 #### Priorities
 
-Quorum queues do not currently support [priorities](./priority.html), including [consumer priorities](./consumer-priority.html).
+Quorum queues support [consumer priorities](./consumer-priority.html), but not [message priorities](./priority.html).
 
-To achieve priority processing with Quorum Queues multiple queues should be used instead;
-one for each priority.
+To prioritize messages with Quorum Queues, use multiple queues; one for each priority.
 
 
 #### Poison Message Handling
