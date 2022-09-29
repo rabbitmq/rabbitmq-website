@@ -373,9 +373,7 @@ grant additional scopes otherwise having only these 2 scopes will not grant the 
 
 ### Minimum scope required and how the UI determines the username from the token
 
-RabbitMQ requires, at minimum, the `openid` scope. This is because RabbitMQ uses some claims in the *id token* to
-determine the username and display it on the top right corner of the management UI. The *id token* is sent by the
-Authorization server if we include the `openid` scope in the authorization request.
+At a minimum, RabbitMQ requires the the `openid` scope because it uses some claims in the *id token* to determine the username and to display this username on the top right corner of the management UI. The *id token* is returned by the Authorization server when `openid` scope is included in the authorization request.
 
 RabbitMQ reads the `user_name` claim from the *id_token*. If it does not have it, RabbitMQ uses the `sub` claim
 instead.
