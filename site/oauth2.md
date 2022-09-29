@@ -224,7 +224,7 @@ It contains the expiration time after which the JWT MUST NOT be accepted for pro
 
 #### Audience must have/match the resource_server_id
 
-The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although we can disable it by setting `verify_aud` to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` setting or in case of a list, it must contain the `resource_server_id`.
+The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although you can disable it by setting `verify_aud` to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` setting or in case of a list, it must contain the `resource_server_id`.
 
 
 ### <a id="scope-translation" class="anchor" href="#scope-translation">Scope-to-Permission Translation</a>
@@ -382,7 +382,7 @@ Any string separated by `/` which does not conform to `&lt;key>:&lt;value>` is i
 The supported location's attributed are:
 
 - `cluster`: This is the only mandatory attribute. It is a wildcard pattern which must match RabbitMQ's `resource_server_id` otherwise the location is ignored.
-- `vhost`: This is the virtual host we are granting access to. It also a wildcard pattern. If not specified, `*` will be used.
+- `vhost`: This is the virtual host you are granting access to. It also a wildcard pattern. If not specified, `*` will be used.
 - `queue`|`exchange`: queue or exchange name pattern. The location grants the permission to a set of queues (or exchanges) that match it. One location can only specify either `queue` or `exchange` but not both. If not specified, `*` will be used
 - `routing-key`: this is the routing key pattern the location grants the permission to. If not specified, `*` will be used
 
