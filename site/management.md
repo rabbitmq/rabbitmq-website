@@ -292,7 +292,7 @@ RabbitMQ has been tested against the following Authorization servers:
 
 * [UAA](https://github.com/cloudfoundry/uaa)
 * [Keycloak](https://www.keycloak.org/)
-* [Oauth0](https://auth0.com/)
+* [Auth0](https://auth0.com/)
 * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
 
 To redirect users to the UAA server to authenticate, use the following configuration:
@@ -350,14 +350,15 @@ endpoints require the token to be passed in the `token` query string parameter.
 
 ### Minimum scope required and how the UI determines the username from the token
 
-At a minimum, RabbitMQ requires the the `openid` scope because it uses some claims in the *id token* to determine the username and to display this username on the top right corner of the management UI. The *id token* is returned by the Authorization server when `openid` scope is included in the authorization request.
+At a minimum, RabbitMQ requires the the `openid` scope because it uses some claims in the *id token* to determine the username and to display this username on the top right corner of the management UI. The *id token* is returned by the Authorization server if the `openid` scope is included in the authorization request.
 
-RabbitMQ reads the `user_name` claim from the *id_token*. If it is not there, RabbitMQ RabbitMQ uses the `sub` claim
-instead.
+RabbitMQ reads the `user_name` claim from the *id_token*. If the token does not contain the `user_name`, RabbitMQ uses the `sub` claim. 
 
 ### Configure which scopes RabbitMQ requests to the authorization server
 
-If `management.enable_uaa = true`, RabbitMQ requests the following scopes to UAA:
+It is possible to configure which OAuth 2.0 scopes RabbitMQ should claim when redirecting the user to the authorization server.
+
+If `management.enable_uaa = true`, by default, RabbitMQ requests the following scopes to UAA:
   * `openid`
   * `profile`
   * <*resource_server_id*>`.*` , e.g. `rabbitmq.*` if `resource_server_id` had the value `rabbitmq`
@@ -366,7 +367,7 @@ However, if `management.enable_uaa = false`, RabbitMQ only requests these scopes
   * `openid`
   * `profile`
 
-Which means that you have to configure to configure the RabbitMQ scopes you want RabbitMQ to request to your
+Which means that you have to configure which scopes you want RabbitMQ requests to the
 authorization server. It may be <*resource_server_id*>`.*` if you want to request all scopes or specific ones
 such as:
   * <*resource_server_id*>`.tag:administrator`
@@ -381,8 +382,7 @@ RabbitMQ uses this endpoint to discover other endpoints such as **token** endpoi
 ### Logout workflow
 
 RabbitMQ follows the [OpenID Connect RP-Initiated Logout 1.0 ](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
-specification to implement the logout workflow. This means that the logout workflow is triggered from the Management UI when you click on the **Logout** button. Logging out from the RabbitMQ management UI logs the user out from
-the management UI and also from the Identity Provider.
+specification to implement the logout workflow. This means that the logout workflow is triggered from the Management UI when the user clicks on the **Logout** button. Logging out from RabbitMQ management UI not only logs the user out from the management UI itself but also from the Identity Provider.
 
 There are other two additional scenarios which can trigger a logout. One scenario occurs when the OAuth Token expires. Although RabbitMQ renews the token in the background before it expires, if the token expires, the user is logged out.
 The second scenario is when the management UI session exceeds the maximum allowed time configured on the [Login Session Timeout](https://www.rabbitmq.com/management.html#login-session-timeout).

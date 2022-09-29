@@ -300,10 +300,10 @@ Token sample:
 
 ### <a id="use-tokens-with-clients" class="anchor" href="#use-tokens-with-clients">Using Tokens with Clients</a>
 
-A client must present a valid `access_token` acquired from an OAuth 2.0 provider (UAA) as the **password**
+A client must present a valid `access_token` acquired from an OAuth 2.0 provider (such as UAA) as the **password**
 in order to authenticate with RabbitMQ.
 
-To learn more about UAA/OAuth 2.0 clients see [UAA docs](https://github.com/cloudfoundry/uaa/blob/master/docs/UAA-APIs.rst#id73).
+To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](https://www.rfc-editor.org/rfc/rfc6749#section-4.4).
 
 ### <a id="scope-and-tags" class="anchor" href="#scope-and-tags">Scope and Tags</a>
 
@@ -447,6 +447,7 @@ In the following RAR example
 </pre>
 
 if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will compute the following sets of scopes:
+
 - `finance.read:primary-*/*/*`
 - `finance.write:primary-*/*/*`
 - `finance.configure:primary-*/*/*`
@@ -454,11 +455,11 @@ if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will c
 
 ## <a id="examples" class="anchor" href="#examples">Examples</a>
 
-The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers such as UAA and issue tokens, which can be used to access RabbitMQ resources.
+The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
 
 
 ## License and Copyright
 
-(c) 2016-2020 VMware, Inc. or its affiliates.
+(c) 2016-2022 VMware, Inc. or its affiliates.
 
 Released under the Mozilla Public License 2.0, same as RabbitMQ.
