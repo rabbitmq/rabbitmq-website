@@ -33,6 +33,10 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
 	- [Use Scope Aliases](#use-scope-aliases)
 	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
+* Use different OAuth 2.0 servers
+	- [KeyCloak](oauth2-examples-keycloak.html)
+	- [https://auth0.com/](oauth2-examples-oauth0.html)
+	- [Azure Active Directory](oauth2-examples-azure.html)  
 * [Understanding the environment](#understand-the-environment)
 	- [RabbitMQ server](#rabbitmq-server)
 	- [UAA server](#uaa-server)

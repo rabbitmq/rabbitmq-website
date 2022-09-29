@@ -1,7 +1,7 @@
 # Use KeyCloak as OAuth 2.0 server
 
-We are going to test 3 OAuth flows:
-1. Access management ui via a browser
+Let's test the following 3 OAuth flows::
+1. Access management UI via a browser
 2. Access management rest api
 3. Access AMQP protocol
 
@@ -22,9 +22,9 @@ used by `make start-keycloak` is also configured with the same signing key.
 To access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
 
 There is a dedicated **KeyCloak realm** called `Test` configured as follows:
-* We configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
+* You configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
 * And a [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
-* And three clients: `rabbitmq-client-code` for the rabbitmq managament ui, `mgt_api_client` to access via the
+* And three clients: `rabbitmq-client-code` for the rabbitmq managament UI, `mgt_api_client` to access via the
 management api and `producer` to access via AMQP protocol.
 
 
@@ -54,19 +54,18 @@ make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_cli
 
 ## Access AMQP protocol with PerfTest
 
-To test OAuth2 authentication with AMQP protocol we are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
-First we obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
+To test OAuth2 authentication with AMQP protocol you are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
+First you obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
 
 <pre class="lang-bash">
 make start-perftest-producer-with-token PRODUCER=producer TOKEN=$(bin/keycloak/token producer kbOFBXI9tANgKUq8vXHLhT6YhbivgXxn)
 </pre>
 
-**NOTE**: Initializing an application with a token has one drawback: the application cannot use the connection beyond the lifespan of the token. See the next section where we demonstrate how to refresh the token.
+**NOTE**: Initializing an application with a token has one drawback: the application cannot use the connection beyond the lifespan of the token. See the next section where you demonstrate how to refresh the token.
 
 ## Access AMQP protocol with Pika
 
-This section is about testing Oauth2 authentication with AMQP protocol and with Pika library. And more specifically, we
-are demonstrating how to refresh a token on a live AMQP connections.
+In the following information, Oauth2 authentication is tested with the AMQP protocol and the Pika library. These tests specifically demonstrate how to refresh a token on a live AMQP connection.
 
 You can see the Python sample application [here](../pika_keycloak).
 
@@ -96,25 +95,25 @@ make stop-keycloak
 
 ### Configure JWT signing Keys
 
-At the realm level, we go to `Keys > Providers` tab and create one of type `rsa` and we enter the
-private key and certificate of the public key. In this repository we do not have yet the certificate
+At the realm level, you go to `Keys > Providers` tab and create one of type `rsa` and you enter the
+private key and certificate of the public key. In this repository you do not have yet the certificate
 for the public key but it is easy to generate. Give it priority `101` or greater than the rest of
-available keys so that it is picked up when we request a token.
+available keys so that it is picked up when you request a token.
 
-IMPORTANT: We cannot hard code the **kid** hence we have to add the key to rabbitmq via the command
+IMPORTANT: You cannot hard code the **kid** hence you have to add the key to rabbitmq via the command
 <pre class="lang-bash">
 docker exec -it rabbitmq rabbitmqctl add_uaa_key Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk --pem-file=conf/public.pem
 </pre>
-or we have to modify the RabbitMQ configuration so that it says `Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk`
+or you have to modify the RabbitMQ configuration so that it says `Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk`
 rather than `legacy-token-key`.
 
 ### Configure Client
 
-For backend applications which uses **Client Credentials flow** we create a **Client** with:
+For backend applications which uses **Client Credentials flow** you create a **Client** with:
 * **Access Type** : `confidential`
 * With all the other flows disabled: Standard Flow, Implicit Flow, Direct Access Grants
-* With **Service Accounts Enabled** on. If it is not enabled we do not have the tab `Credentials`
-* In tab `Credentials` we have the client id secret
+* With **Service Accounts Enabled** on. If it is not enabled you do not have the tab `Credentials`
+* In tab `Credentials` you have the client id secret
 
 
 ### Configure Client scopes
@@ -125,5 +124,5 @@ scopes which are only granted if they are explicitly requested during the author
 
 ### Include appropriate aud claim
 
-We must configure a **Token Mapper** of type **Hardcoded claim** with the value of rabbitmq's *resource_server_id**.
-We can configure **Token Mapper** either to a **Client scope** or to a **Client**.
+You must configure a **Token Mapper** of type **Hardcoded claim** with the value of rabbitmq's *resource_server_id**.
+You can configure **Token Mapper** either to a **Client scope** or to a **Client**.

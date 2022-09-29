@@ -1,7 +1,7 @@
 # Use Azure Active Directory (Azure AD) as OAuth 2.0 server
 
-We are going to test 3 OAuth flows:
-1. Access management ui via a browser :ballot_box_with_check:
+Let's test the following 3 OAuth flows:
+1. Access management UI via a browser :ballot_box_with_check:
 2. Access management rest api :construction:
 3. Access AMQP protocol :construction:
 
@@ -13,113 +13,120 @@ We are going to test 3 OAuth flows:
 
 ## Register your app
 
-When using **Azure AD as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Microsoft identity platform**. The first step in establishing that trust is by **registering your app** with the identity platform in Azure AD.
+When using **Azure AD as OAuth 2.0 server**, your client app (in our case RabbitMQ) needs a way to trust the security tokens issued to it by the **Microsoft identity platform**.
 
-<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about App registration in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
+1. The first step in establishing that trust is by **registering your app** with the identity platform in Azure AD.
 
-Once you have logged onto your account in [Azure Portal](https://portal.azure.com), go to **Azure Active Directory** (use the search bar if you are not able to easily find it).
+  <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about App registration in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app).
 
-In the left-hand navigation menu, click on **App Registrations**. Then, select **New registration**.
+2. Once you have logged onto your account in [Azure Portal](https://portal.azure.com), go to **Azure Active Directory** (use the search bar if you are not able to easily find it).
 
-In the **Register an application** pane, provide the following informations:
+3. In the left-hand navigation menu, click on **App Registrations**. Then, select **New registration**.
 
-* **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
-* **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (you can choose other options if you want to enlarge the audience of your app)
-* **Redirect URI**:
-  - On the **Select a platform** drop-down list, select **Single-page application (SPA)**
-  - Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
+4. In the **Register an application** pane, provide the following informations:
 
-<g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Azure AD only allows `https` links as **Redirect URI**. To fit this need, we will enable HTTPS for RabbitMQ Management UI, on port `15671`.
+    * **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
+    * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (you can choose other options if you want to enlarge the audience of your app)
+    * **Redirect URI**:
+      - On the **Select a platform** drop-down list, select **Single-page application (SPA)**
+      - Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 
-Click on **Register**.
+    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Azure AD only allows `https` links as **Redirect URI**. To fit this need, you will enable HTTPS for RabbitMQ Management UI, on port `15671`.
 
-![Azure AD OAuth2 App](./img/oauth2/azure-ad-oauth-registered-app.png)
+5. Click on **Register**.
 
-Note the following values, as we will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
-* Directory (tenant ID)
-* Application (client) ID
+    ![Azure AD OAuth2 App](./img/oauth2/azure-ad-oauth-registered-app.png)
 
-Click on the **Endpoints** tab and, on the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
+    Note the following values, as you will need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side:
 
-Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side
+    * Directory (tenant ID)
+    * Application (client) ID
 
-![Azure AD JWKS URI](./img/oauth2/azure-ad-jwks-uri.png)
+6. Click on the **Endpoints** tab and, on the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
+
+    Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
+
+    ![Azure AD JWKS URI](./img/oauth2/azure-ad-jwks-uri.png)
 
 ## Create a secret for your app
 
 Your application needs a **client secret** to prove its identity when requesting a token.
 
-Still on the **App registrations** page, in the left-hand menu, click on **Certificates & Secrets**, then select the **Client secrets** tab.
+1. Still on the **App registrations** page, in the left-hand menu, click on **Certificates & Secrets**, then select the **Client secrets** tab.
 
-In the **Certificates & Secrets** pane, click on **New Client Secret** and, on the right pane that has just opened, enter a description for the secret and choose an expiration time.
+2. In the **Certificates & Secrets** pane, click on **New Client Secret** and, on the right pane that has just opened, enter a description for the secret and choose an expiration time.
 
-Click on **Add**.
+3. Click on **Add**.
 
-<g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: Immediately note the value of the secret (as you won't be able to get it later and we will need it to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side)
+    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: Immediately note the value of the secret (as you won't be able to get it later and you will need it to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side).
 
 ## Create OAuth 2.0 roles for your app
 
-App roles are defined by using the [Azure portal](https://portal.azure.com) during the app registration process. When a user signs in to your application, Azure AD emits a `roles` claim for each role that the user or service principal has been granted (we will have a look at it at the end of this tutorial).
+App roles are defined by using the [Azure portal](https://portal.azure.com) during the app registration process. When a user signs in to your application, Azure AD emits a `roles` claim for each role that the user or service principal has been granted (you will have a look at it at the end of this tutorial).
 
-<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about roles in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
+<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about roles in Azure AD are available [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps).
 
-Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page. In the left-hand menu, click on **App Registrations** and then click on your **application name** to open your application **Overview** pane.
+1. Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page.
+
+2. In the left-hand menu, click on **App Registrations** and then click on your **application name** to open your application **Overview** pane.
 
 ### Create a role to allow access to Management UI
 
-In the left-hand menu, click on **App Roles**. Then, click on **Create App Role** to create an OAuth 2.0 role that will be used to give access to the RabbitMQ Management UI.
+1. In the left-hand menu, click on **App Roles**.
 
-<g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about how permissions are managed on RabbitMQ when using OAuth2 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
+2. Then, click on **Create App Role** to create an OAuth 2.0 role that will be used to give access to the RabbitMQ Management UI.
 
-On the right menu that has just opened, provide the requested information:
+    <g-emoji class="g-emoji" alias="blue_book" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d8.png">📘</g-emoji> More details about how permissions are managed on RabbitMQ when using OAuth2 are available [here](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial#about-permissions).
 
-* **Display Name**: the name you want to give to the role (ex: *Management UI Admin*)
-* **Allowed member types**: Both (Users/Groups + Applications)
-* **Value**: `Application_ID.tag:administrator` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
-* **Description**: briefly describe what this role aims to (here just to give admin access to the RabbitMQ Management UI)
-* **Do you want to enable this app role**: `yes` (check the box)
+3. On the right menu that has just opened, provide the requested information:
 
-Click on **Apply**.
+    * **Display Name**: the name you want to give to the role (ex: *Management UI Admin*)
+    * **Allowed member types**: Both (Users/Groups + Applications)
+    * **Value**: `Application_ID.tag:administrator` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
+    * **Description**: briefly describe what this role aims to (here just to give admin access to the RabbitMQ Management UI)
+    * **Do you want to enable this app role**: `yes` (check the box)
+
+4. Click on **Apply**.
 
 ### Create a role to grant configure permission on all resources
 
-Click again on **Create App Role**. We are now going to create an OAuth 2.0 role that will be used to give configure access to all the resources on all the RabbitMQ vhosts.
+1. Click on **Create App Role** again. You are now going to create an OAuth 2.0 role that will be used to give configure access to all the resources on all the RabbitMQ vhosts.
 
-On the right menu that has just opened, fill the form as below:
+2. On the right menu that has just opened, fill the form as below:
 
-* **Display Name**: the name you want to give to the role (ex: *Configure All Vhosts*)
-* **Allowed member types**: Both (Users/Groups + Applications)
-* **Value**: `Application_ID.configure:*/*` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
-* **Description**: briefly describe what this role aims to (here to give permissions to configure all resources on all the vhosts available on the RabbitMQ instance)
-* **Do you want to enable this app role**: `yes` (check the box)
+    * **Display Name**: the name you want to give to the role (ex: *Configure All Vhosts*)
+    * **Allowed member types**: Both (Users/Groups + Applications)
+    * **Value**: `Application_ID.configure:*/*` (where *Application_ID* is the value of the *Application (client) ID* noted earlier in this tutorial)
+    * **Description**: briefly describe what this role aims to (here to give permissions to configure all resources on all the vhosts available on the RabbitMQ instance)
+    * **Do you want to enable this app role**: `yes` (check the box)
 
-Click on **Apply**.
+3. Click on **Apply**.
 
 ## Assign App Roles to users
 
 Now that some roles have been created for your application, you still need to assign these to some users.
 
-Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page and, in the left-hand menu, click on **Enterprise Applications**.
+1. Still in [Azure Portal](https://portal.azure.com), go back to **Azure Active Directory** home page and, in the left-hand menu, click on **Enterprise Applications**.
 
-In the new left-hand menu, select **Manage -> All applications**. Use the **Search Bar** and/or the available filters to find your application.
+2. In the new left-hand menu, select **Manage -> All applications**. Use the **Search Bar** and/or the available filters to find your application.
 
-![Azure AD Enterprise Applications](./img/oauth2/azure-ad-enterprise-application.png)
+    ![Azure AD Enterprise Applications](./img/oauth2/azure-ad-enterprise-application.png)
 
-Click on the application you just created, for which you want to assign roles to users/groups, then, in the left-hand navigation menu, Select **Manage -> Users and groups**.
+3. Click on the application you just created, for which you want to assign roles to users/groups, then, in the left-hand navigation menu, Select **Manage -> Users and groups**.
 
-Click on **Add user/group** to open the **Add Assignment** pane.
+4. Click on **Add user/group** to open the **Add Assignment** pane.
 
-Below **Users**, click on *None Selected* and, on the **Users** pane that has just opened on the right, search and select the users/groups you want to assign roles to.
+5. Below **Users**, click on *None Selected* and, on the **Users** pane that has just opened on the right, search and select the users/groups you want to assign roles to.
 
-Once you've selected users and groups, click on the **Select** button.
+6. Once you've selected users and groups, click on the **Select** button.
 
-Back to the **Add assignment** pane, below **Select a Role**, click on *None Selected* and, on the **Select a role** pane that has just opened on the right, search and select the role you want to assign to the selected users.
+7. Back to the **Add assignment** pane, below **Select a Role**, click on *None Selected* and, on the **Select a role** pane that has just opened on the right, search and select the role you want to assign to the selected users.
 
-<g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji> If only one role is available for your application, it would be automatically selected and greyed by default
+    <g-emoji class="g-emoji" alias="bulb" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji> If only one role is available for your application, it would be automatically selected and greyed by default.
 
-Choose a role (only a single role can be selected at a time), click on the **Select** button, and click on the **Assign** button to finalize the assignment of users and groups to the app.
+8. Choose a role (only a single role can be selected at a time), click on the **Select** button, and click on the **Assign** button to finalize the assignment of users and groups to the app.
 
-Repeat the operations for all the roles you want to assign.
+9. Repeat the operations for all the roles you want to assign.
 
 ## Configure RabbitMQ to use Azure AD as OAuth 2.0 authentication backend
 
@@ -128,9 +135,9 @@ The configuration on Azure side is done. You now have to configure RabbitMQ to u
 [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/master/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
 
 Update it with the following values (you should have noted these in the previous steps):
-* **Tenant ID** associated to the app that we registered in Azure AD
-* **Application ID** associated to the app that we registered in Azure AD
-* Value of the **secret** we created for our app in Azure AD
+* **Tenant ID** associated to the app that you registered in Azure AD
+* **Application ID** associated to the app that you registered in Azure AD
+* Value of the **secret** you created for your app in Azure AD
 * Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
 
 <pre class="lang-bash">
@@ -155,12 +162,12 @@ $ vi rabbitmq.config
 ].
 </pre>
 
-> :warning: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that we are going to deploy later in this tutorial
+> **IMPORTANT**: Please update the file available in this tutorial ([here](../conf/azure/rabbitmq.config)), as it will be automatically loaded in the RabbitMQ instance that you are going to deploy later in this tutorial
 
 ### Generate SSL certificate and key
-> :warning: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth2 **Redirect URI**? We will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
+> **IMPORTANT**: Remember when you have registered your app on Azure AD that it only allows **https** protocol for OAuth2 **Redirect URI**? You will thus need to enable HTTPS for RabbitMQ Management UI amd its underlying API.
 
-For the purpose of this tutorial, we can generate a self-signed certificate/key pair.
+For the purpose of this tutorial, you can generate a self-signed certificate/key pair.
 
 Run the following command (depending on your config, you may have to be root):
 <pre class="lang-bash">
@@ -187,19 +194,19 @@ make start-rabbitmq
 
 ## Verify RabbitMQ Management UI access
 
-Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that we are using a self-signed certificate) to proceed.
+Go to RabbitMQ Management UI `https://localhost:15671`. Depending on your browser, ignore the security warnings (raised by the fact that you are using a self-signed certificate) to proceed.
 
 Once on the RabbitMQ Management UI page, click on the **Click here to log in** button,
 authenticate with your **Azure AD user**. The first time, you are likely going to have to give your
 consent (it depends on the policies applied to Azure AD on your side).
 
 <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji>s At first login, you may face the `AADSTS90008` error: just click on **Click here to log in** button
-again and it will disappear (this issue seems to be known, as illustrated [here](https://docs.microsoft.com/en-us/answers/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848))
+again and it will disappear (this issue seems to be known, as illustrated [here](https://docs.microsoft.com/en-us/ansrs/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848))
 
 At the end, you should be redirected back to the RabbitMQ Management UI.
 
 Azure AD issues an access token like this one below. The permissions are managed in the `roles` claim.
-We have configured RabbitMQ with `{extra_scopes_source, <<"roles">>},` which means RabbitMQ uses
+You have configured RabbitMQ with `{extra_scopes_source, <<"roles">>},` which means RabbitMQ uses
 the scopes in the `roles` claim to define permissions for a logged-in user.
 
 <pre class="lang-javascript">
