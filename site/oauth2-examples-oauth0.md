@@ -1,9 +1,10 @@
 # Use https://auth0.com/ as OAuth 2.0 server
 
 Let's test the following 3 OAuth flows:
-1. Access management UI via a browser
-2. Access management rest api
-3. Access AMQP protocol
+
+* Access management UI via a browser
+* Access management rest api
+* Access AMQP protocol
 
 ## Prerequisites to follow this guide
 
@@ -12,21 +13,23 @@ Let's test the following 3 OAuth flows:
 
 ## Create RabbitMQ API
 
-In OAuth0, resources are mapped to Application APIs. Once you have logged onto your account in https://auth0.com/, go to **dashboard > Applications > APIs > Create an API**.
+In OAuth0, resources are mapped to Application APIs.
 
-1. Give it the name `rabbitmq`. The important thing here is the `identifier` which must have the name of the *resource_server_id* we configured in RabbitMQ. This `identifier` goes into the `audience` JWT field. In our case, it is called `rabbitmq`.
-2. Choose `RS256` as the signing algorithm.
-3. Enable **RBAC**.
-4. Enable **Add Permissions in the Access Token**.
+1. Once you have logged onto your account in https://auth0.com/, go to **dashboard > Applications > APIs > Create an API**.
+2. Give it the name `rabbitmq`. The important thing here is the `identifier` which must have the name of the *resource_server_id* we configured in RabbitMQ. This `identifier` goes into the `audience` JWT field. In our case, it is called `rabbitmq`.
+3. Choose `RS256` as the signing algorithm.
+4. Enable **RBAC**.
+5. Enable **Add Permissions in the Access Token**.
 
 ### Configure permissions in RabbitMQ API
 
-Edit the API we just created with the name `rabbitmq`. Go into Permissions and add the permissions (scope) this api can grant.
-We are going to add the following scopes:
-* `rabbitmq.read:*/*`
-* `rabbitmq.write:*/*`
-* `rabbitmq.configure:*/*`
-* `rabbitmq.tag:administrator`
+1. Edit the API we just created with the name `rabbitmq`.
+2. Go into Permissions and add the permissions (scope) this api can grant. We are going to add the following scopes:
+
+	* `rabbitmq.read:*/*`
+	* `rabbitmq.write:*/*`
+	* `rabbitmq.configure:*/*`
+	* `rabbitmq.tag:administrator`
 
 ### Create an OAuth client for the Management UI
 
@@ -41,6 +44,7 @@ An application gives us the client-id and client-secret for the management UI to
 of the end user.
 
 In the settings, choose:
+
 * Application type : `Single Page applications`
 * Token Endpoint Authentication Method:  `None`
 * Allowed Callback URLs: `http://localhost:15672/js/oidc-oauth/login-callback.html`
@@ -54,22 +58,25 @@ You can use your current OAuth0 user to login to RabbitMQ or create a dedicated 
 
 ### Authorize rabbitmq-management application
 
-Go to **Authorized Applications**, click on **Authorize** and select all the scopes.
+1. Go to **Authorized Applications**.
+2. click on **Authorize** and select all the scopes.
 
 ### Create permissions and grant them
 
-Go to "Roles", create the role called `rabbitmq.tag:administrator`. Go to "Permissions" and
-select all the permissions. Go to "Users" and make sure our user is listed else add our user to the
+1. Go to "Roles".
+2. Create the role called `rabbitmq.tag:administrator`.
+3. Go to "Permissions" and select all the permissions.
+4. Go to "Users" and make sure our user is listed else add our user to the
 list of users which have this role.
 
 
 ## Configure RabbitMQ with OAuth0 signing key
 
-From Oauth0 dashboard, go to Settings > List of Valid Keys, and "Copy Signing Certificate" from the **CURRENTLY USED** signing key.
+1. From Oauth0 dashboard, go to **Settings > List of Valid Keys**, and **Copy Signing Certificate** from the **CURRENTLY USED** signing key.
 
-Create `/tmp/certiicate.pem` and paste the certificate.
+2. Create `/tmp/certiicate.pem` and paste the certificate.
 
-Run `openssl x509 -in /tmp/certificate.pem -pubkey -noout > /tmp/public.pem` to extract the public key from the certificate and paste the public key into `rabbitmq.config`.
+3. Run `openssl x509 -in /tmp/certificate.pem -pubkey -noout > /tmp/public.pem` to extract the public key from the certificate and paste the public key into `rabbitmq.config`.
 
 Below we have a sample RabbitMQ configuration where we have set the `default_key` identifier that we copied from
 Oauth0 and also the public key we extracted from `/tmp/public.pem`.
@@ -104,8 +111,8 @@ make start-rabbitmq
 
 ## Verify Management UI flows
 
-Go to management UI `http://localhost:15672`, click on the single button, authenticate
-with your secondary OAuth0 user. You should be redirected back to the management UI.
+1. Go to management UI `http://localhost:15672`.
+2. Click on the single button, authenticate with your secondary OAuth0 user. You should be redirected back to the management UI.
 
 OAuth0 issues an access token like this one below. Where we receive in the `scope` claim
 the requested scopes, and in the `permissions` claim the permissions. We have configured

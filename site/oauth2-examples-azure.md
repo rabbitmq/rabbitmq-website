@@ -1,9 +1,10 @@
 # Use Azure Active Directory (Azure AD) as OAuth 2.0 server
 
 Let's test the following 3 OAuth flows:
-1. Access management UI via a browser :ballot_box_with_check:
-2. Access management rest api :construction:
-3. Access AMQP protocol :construction:
+
+* Access management UI via a browser :ballot_box_with_check:
+* Access management rest api :construction:
+* Access AMQP protocol :construction:
 
 ## Prerequisites to follow this guide
 
@@ -27,9 +28,8 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
 
     * **Name**: the name you would like to give to your application (ex: *rabbitmq-oauth2*)
     * **Supported Account Types**: select **Accounts in this organizational directory only (Default Directory only - Single tenant)** (you can choose other options if you want to enlarge the audience of your app)
-    * **Redirect URI**:
-      - On the **Select a platform** drop-down list, select **Single-page application (SPA)**
-      - Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
+    * On the **Select a platform** drop-down list, select **Single-page application (SPA)**
+    * Configure the **Redirect URI** to: `https://localhost:15671/js/oidc-oauth/login-callback.html`
 
     <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: As you may have noticed, Azure AD only allows `https` links as **Redirect URI**. To fit this need, you will enable HTTPS for RabbitMQ Management UI, on port `15671`.
 
@@ -42,7 +42,8 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
     * Directory (tenant ID)
     * Application (client) ID
 
-6. Click on the **Endpoints** tab and, on the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
+6. Click on the **Endpoints** tab.
+7. On the right pane that has just opened, copy the value of **OpenID Connect metadata document** (ex: `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`) and open it in your browser.
 
     Note the value of the `jwks_uri` key (ex: `https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys`), as you will also need it later to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side.
 
@@ -200,7 +201,7 @@ Once on the RabbitMQ Management UI page, click on the **Click here to log in** b
 authenticate with your **Azure AD user**. The first time, you are likely going to have to give your
 consent (it depends on the policies applied to Azure AD on your side).
 
-<g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji>s At first login, you may face the `AADSTS90008` error: just click on **Click here to log in** button
+<g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> At first login, you may face the `AADSTS90008` error: just click on **Click here to log in** button
 again and it will disappear (this issue seems to be known, as illustrated [here](https://docs.microsoft.com/en-us/ansrs/questions/671457/after-34accept34-on-consent-prompt-on-azure-sso-lo.html#answer-893848))
 
 At the end, you should be redirected back to the RabbitMQ Management UI.

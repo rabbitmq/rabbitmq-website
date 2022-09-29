@@ -1,9 +1,10 @@
 # Use KeyCloak as OAuth 2.0 server
 
 Let's test the following 3 OAuth flows:
-1. Access management UI via a browser
-2. Access management rest api
-3. Access AMQP protocol
+
+* Access management UI via a browser
+* Access management rest api
+* Access AMQP protocol
 
 ## Prerequisites to follow this guide
 
@@ -12,16 +13,20 @@ Let's test the following 3 OAuth flows:
 
 ## Deploy Key Cloak
 
-First, deploy **Key Cloak**. It comes preconfigured with all the required scopes, users and clients.
-```
-make start-keycloak
-```
-**Key Cloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config)
-used by `make start-keycloak` is also configured with the same signing key.
+1. First, deploy **Key Cloak**. It comes preconfigured with all the required scopes, users and clients.
 
-To access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
+2. Run the following command to start **Key Cloak** server:
+
+    <pre class="lang-bash">
+    make start-keycloak
+    </pre>
+
+    **Key Cloak** comes configured with its own signing key. And the [rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/keycloak/rabbitmq.config) used by `make start-keycloak` is also configured with the same signing key.
+
+3. Access KeyCloak management interface go to http://0.0.0.0:8080/ and enter `admin` as username and password.
 
 There is a dedicated **KeyCloak realm** called `Test` configured as follows:
+
 * You configured an [rsa](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys) signing key
 * And a [rsa provider](http://0.0.0.0:8080/admin/master/console/#/realms/test/keys/providers)
 * And three clients: `rabbitmq-client-code` for the rabbitmq managament UI, `mgt_api_client` to access via the
@@ -30,23 +35,15 @@ management api and `producer` to access via AMQP protocol.
 
 ## Start RabbitMQ
 
-Supporting new types of OAuth 2.0 servers is currently under development.
-There are two alternatives. You can run directly from source:
-1. git clone rabbitmq/rabbitmq-server
-2. git checkout oidc-integration
-3. `gmake run-broker PLUGINS="rabbitmq_management rabbitmq_auth_backend_oauth2" RABBITMQ_CONFIG_FILE=<root folder of the tutorial>/conf/keycloak/rabbitmq.config`
-
-Or from docker:
-
+Run the command below to start RabbitMQ configured with the **KeyCloak** server we started in the previous section:
 <pre class="lang-bash">
 export MODE=keycloak
 make start-rabbitmq
 </pre>
 
-
 ## Access Management api
 
-Access the management api using the client [mgt_api_client](http://0.0.0.0:8080/admin/master/console/#/realms/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d) which has the scope [rabbitmq.tag:administrator](http://0.0.0.0:8080/admin/master/console/#/realms/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c)
+Access the management api using the client [mgt_api_client](http://0.0.0.0:8080/admin/master/console/#/realms/test/clients/c5be3c24-0c88-4672-a77a-79002fcc9a9d) which has the scope [rabbitmq.tag:administrator](http://0.0.0.0:8080/admin/master/console/#/realms/test/client-scopes/f6e6dd62-22bf-4421-910e-e6070908764c).
 
 <pre class="lang-bash">
 make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_client secret=LWOuYqJ8gjKg3D2U8CJZDuID3KiRZVDa
@@ -55,6 +52,7 @@ make curl-keycloak url=http://localhost:15672/api/overview client_id=mgt_api_cli
 ## Access AMQP protocol with PerfTest
 
 To test OAuth 2.0 authentication with AMQP protocol you are going to use RabbitMQ PerfTest tool which uses RabbitMQ Java Client.
+
 First you obtain the token and pass it as a parameter to the make target `start-perftest-producer-with-token`.
 
 <pre class="lang-bash">
@@ -81,8 +79,9 @@ Note: Ensure you install pika 1.3
 
 ## Access Management UI
 
-Go to http://localhost:15672, click on the single button on the page which redirects to **Key Cloak** to authenticate.
-Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management fully logged in.
+1. Go to http://localhost:15672.
+2. Click on the single button on the page which redirects to **Key Cloak** to authenticate.
+3. Enter `rabbit_admin` and `rabbit_admin` and you should be redirected back to RabbitMQ Management fully logged in.
 
 
 ## Stop keycloak
@@ -95,12 +94,11 @@ make stop-keycloak
 
 ### Configure JWT signing Keys
 
-At the realm level, you go to `Keys > Providers` tab and create one of type `rsa` and you enter the
-private key and certificate of the public key. In this repository you do not have yet the certificate
-for the public key but it is easy to generate. Give it priority `101` or greater than the rest of
-available keys so that it is picked up when you request a token.
+1. At the realm level, you go to `Keys > Providers` tab.
+2. Create one of type `rsa` and you enter the private key and certificate of the public key.
+3. In this repository you do not have yet the certificate for the public key but it is easy to generate. Give it priority `101` or greater than the rest of available keys so that it is picked up when you request a token.
 
-IMPORTANT: You cannot hard code the **kid** hence you have to add the key to rabbitmq via the command
+IMPORTANT: You cannot hard code the **kid** hence you have to add the key to RabbitMQ via the command
 <pre class="lang-bash">
 docker exec -it rabbitmq rabbitmqctl add_uaa_key Gnl2ZlbRh3rAr6Wymc988_5cY7T5GuePd5dpJlXDJUk --pem-file=conf/public.pem
 </pre>
@@ -110,6 +108,7 @@ rather than `legacy-token-key`.
 ### Configure Client
 
 For backend applications which uses **Client Credentials flow** you create a **Client** with:
+
 * **Access Type** : `confidential`
 * With all the other flows disabled: Standard Flow, Implicit Flow, Direct Access Grants
 * With **Service Accounts Enabled** on. If it is not enabled you do not have the tab `Credentials`
@@ -118,7 +117,7 @@ For backend applications which uses **Client Credentials flow** you create a **C
 
 ### Configure Client scopes
 
-> *Default Client Scope* are scopes automatically granted to every token. Whereas *Optional Client Scope* are
+*Default Client Scope* are scopes automatically granted to every token. Whereas *Optional Client Scope* are
 scopes which are only granted if they are explicitly requested during the authorization/token request flow.
 
 
