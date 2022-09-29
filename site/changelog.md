@@ -39,6 +39,25 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.11.0</td>
+    <td class="centre">28 September 2022</td>
+    <td>
+      <ul>
+        <li>Partitioned streams (<a href="https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams/">super streams</a>)</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/">Single Active Consumer support</a> for streams</li>
+        <li><a href="https://www.erlang.org/blog/my-otp-25-highlights/#improvements-of-the-jit">Erlang 25</a> is now required</li>
+        <li>Support for more OAuth 2 providers</li>
+        <li><a href="https://blog.rabbitmq.com/posts/2022/07/oidc-integration/">OIDC integration</a></li>
+        <li>3.8 era feature flags have <a href="https://blog.rabbitmq.com/posts/2022/07/required-feature-flags-in-rabbitmq-3.11/">graduated to always enabled features</a></li>
+        <li><a href="https://blog.rabbitmq.com/posts/2022/05/flame-graphs/">Flame graph</a> tooling support</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.10.8</td>
     <td class="centre">25 September 2022</td>
     <td>
