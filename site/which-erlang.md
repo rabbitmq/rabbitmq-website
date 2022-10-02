@@ -101,10 +101,6 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <li>3.10.7</li>
         <li>3.10.6</li>
         <li>3.10.5</li>
-        <li>3.10.4</li>
-        <li>3.10.2</li>
-        <li>3.10.1</li>
-        <li>3.10.0</li>
       </ul>
     </td>
     <td>
@@ -128,6 +124,34 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       </ul>
     </td>
   </tr>
+  
+  <tr>
+    <td>
+      <ul>
+        <li>3.10.4</li>
+        <li>3.10.2</li>
+        <li>3.10.1</li>
+        <li>3.10.0</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>23.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.3</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          Erlang 23 support was discontinued on July 31st, 2022.
+        </li>
+      </ul>
+    </td>
+  </tr>
 
   <tr>
     <td>
@@ -138,7 +162,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>24.2</li>
+        <li>25.1</li>
       </ul>
     </td>
     <td>
