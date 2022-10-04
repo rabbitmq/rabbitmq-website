@@ -291,7 +291,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 });
 </pre>
 
-[(emit_log.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log.js)
+[(emit_log.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/emit_log.js)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -342,7 +342,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 });
 </pre>
 
-[(receive_logs.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs.js)
+[(receive_logs.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive_logs.js)
 
 
 If you want to save logs to a file, just open a console and type:

@@ -258,7 +258,7 @@ if __name__ == '__main__':
 
 ### Putting it all together
 
-`send.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py))
+`send.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/send.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -275,7 +275,7 @@ print(" [x] Sent 'Hello World!'")
 connection.close()
 </pre>
 
-`receive.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py))
+`receive.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/receive.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python

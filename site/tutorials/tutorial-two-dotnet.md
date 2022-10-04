@@ -511,7 +511,7 @@ class NewTask
 }
 </pre>
 
-[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask/NewTask.cs)
+[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/NewTask/NewTask.cs)
 
 
 Using message acknowledgments and `BasicQos` you can set up a

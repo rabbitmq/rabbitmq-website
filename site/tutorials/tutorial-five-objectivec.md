@@ -216,4 +216,4 @@ with more than two routing key parameters.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-four-objectivec.html
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial5/tutorial5/ViewController.m
+[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/objective-c/tutorial5/tutorial5/ViewController.m

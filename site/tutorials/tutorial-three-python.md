@@ -268,7 +268,7 @@ we now want to publish messages to our `logs` exchange instead of the
 nameless one. We need to supply a `routing_key` when sending, but its
 value is ignored for `fanout` exchanges.
 
-`emit_log.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py))
+`emit_log.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/emit_log.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -294,7 +294,7 @@ exchange is forbidden.
 The messages will be lost if no queue is bound to the exchange yet,
 but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
-`receive_logs.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py))
+`receive_logs.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/receive_logs.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python

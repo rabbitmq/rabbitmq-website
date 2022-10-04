@@ -209,7 +209,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 and it's probably the slowest recursive implementation possible).
 
 
-The code for our RPC server [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_server.js) looks like this:
+The code for our RPC server [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/rpc_server.js) looks like this:
 
 <pre class="lang-javascript">
 #!/usr/bin/env node
@@ -267,7 +267,7 @@ The server code is rather straightforward:
     callback function where we do the work and send the response back.
 
 
-The code for our RPC client [rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_client.js):
+The code for our RPC client [rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/rpc_client.js):
 
 <pre class="lang-javascript">
 #!/usr/bin/env node
@@ -328,7 +328,7 @@ function generateUuid() {
 </pre>
 
 Now is a good time to take a look at our full example source code for
-[rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_client.js) and [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/rpc_server.js).
+[rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/rpc_client.js) and [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/rpc_server.js).
 
 
 Our RPC service is now ready. We can start the server:

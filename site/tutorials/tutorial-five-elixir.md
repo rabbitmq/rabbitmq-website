@@ -246,7 +246,7 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-(Full source code for [emit_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log_topic.exs)
-and [receive_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs_topic.exs))
+(Full source code for [emit_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/emit_log_topic.exs)
+and [receive_logs_topic.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive_logs_topic.exs))
 
 Move on to [tutorial 6](tutorial-six-elixir.html) to learn about *RPC*.

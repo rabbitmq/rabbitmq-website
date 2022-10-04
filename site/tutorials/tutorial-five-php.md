@@ -258,7 +258,7 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-(Full source code for [emit_log_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log_topic.php)
-and [receive_logs_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs_topic.php))
+(Full source code for [emit_log_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/emit_log_topic.php)
+and [receive_logs_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive_logs_topic.php))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-php.html)

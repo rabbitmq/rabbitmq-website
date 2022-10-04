@@ -272,8 +272,8 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-(Full source code for [emit_log_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log_topic.js)
-and [receive_logs_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs_topic.js))
+(Full source code for [emit_log_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/emit_log_topic.js)
+and [receive_logs_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive_logs_topic.js))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-javascript.html)
 

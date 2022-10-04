@@ -102,7 +102,7 @@ We'll call our message publisher (sender) `Send.cs` and our message consumer (re
 then exit.
 
 In
-[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs),
+[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs),
 we need to use some namespaces:
 
 <pre class="lang-csharp">
@@ -195,7 +195,7 @@ When the code above finishes running, the channel and the connection
 will be disposed. That's it for our publisher.
 
 [Here's the whole Send.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Send/Send.cs).
 
 > #### Sending doesn't work!
 >
@@ -219,7 +219,7 @@ keep the consumer running continuously to listen for messages and print them out
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
+The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
 <pre class="lang-csharp">
 using RabbitMQ.Client;
@@ -300,7 +300,7 @@ class Receive
 </pre>
 
 [Here's the whole Receive.cs
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive/Receive.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs).
 
 ### Putting It All Together
 

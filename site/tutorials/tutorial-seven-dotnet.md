@@ -272,7 +272,7 @@ to the constraints in the application and in the overall system. Typical techniq
 
 ## Putting It All Together
 
-The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/PublisherConfirms/PublisherConfirms.cs)
+The [`PublisherConfirms.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/PublisherConfirms/PublisherConfirms.cs)
 class contains code for the techniques we covered. We can compile it, execute it as-is and
 see how they each perform:
 

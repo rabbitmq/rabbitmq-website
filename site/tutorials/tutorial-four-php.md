@@ -348,8 +348,8 @@ php emit_log_direct.php error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [(emit_log_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log_direct.php)
-and [(receive_logs_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs_direct.php))
+(Full source code for [(emit_log_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/emit_log_direct.php)
+and [(receive_logs_direct.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive_logs_direct.php))
 
 
 Move on to [tutorial 5](tutorial-five-php.html) to find out how to listen

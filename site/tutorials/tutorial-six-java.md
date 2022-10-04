@@ -226,7 +226,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our RPC server can be found here: [`RPCServer.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
+The code for our RPC server can be found here: [`RPCServer.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCServer.java).
 
 The server code is rather straightforward:
 
@@ -239,7 +239,7 @@ The server code is rather straightforward:
     form of an object (`DeliverCallback`) that will do the work and send the response back.
 
 
-The code for our RPC client can be found here: [`RPCClient.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java).
+The code for our RPC client can be found here: [`RPCClient.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCClient.java).
 
 The client code is slightly more involved:
 
@@ -264,7 +264,7 @@ The client code is slightly more involved:
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
-[RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
+[RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/RPCServer.java).
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 

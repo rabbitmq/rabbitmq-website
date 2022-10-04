@@ -269,7 +269,7 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-(Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
-and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
+(Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/EmitLogTopic.java)
+and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/ReceiveLogsTopic.java))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)

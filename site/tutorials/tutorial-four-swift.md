@@ -288,4 +288,4 @@ for messages based on a pattern.
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-three-swift.html
 [next]:tutorial-five-swift.html
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial4/tutorial4/ViewController.swift
+[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial4/tutorial4/ViewController.swift

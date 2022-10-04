@@ -360,7 +360,7 @@ channel.basic_qos(prefetch_count=1)
 Putting it all together
 -----------------------
 
-`new_task.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py))
+`new_task.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/new_task.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -385,7 +385,7 @@ print(" [x] Sent %r" % message)
 connection.close()
 </pre>
 
-`worker.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py))
+`worker.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/worker.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
