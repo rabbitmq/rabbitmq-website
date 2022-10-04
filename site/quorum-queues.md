@@ -48,7 +48,7 @@ Topics covered in this guide include
  * [How are they different](#feature-comparison) from classic queues
  * Primary [use cases](#use-cases) of quorum queues and when not to use them
  * How to [declare a quorum queue](#usage)
- * [Replication](#replication)-related topics: replica management, [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
+ * [Replication](#replication)-related topics: [replica management](#replica-management), [replica leader rebalancing](#replica-rebalancing), optimal number of replicas, etc
  * What guarantees quorum queues offer in terms of [leader failure handling](#leader-election), [data safety](#data-safety) and [availability](#availability)
  * [Performance](#performance) characteristics
  * [Poison message handling](#poison-message-handling) provided by quorum queues
@@ -304,10 +304,9 @@ Use [per-consumer QoS prefetch](./consumer-prefetch.html), which is the default 
 
 #### Priorities
 
-Quorum queues do not currently support [priorities](./priority.html), including [consumer priorities](./consumer-priority.html).
+Quorum queues support [consumer priorities](./consumer-priority.html), but not [message priorities](./priority.html).
 
-To achieve priority processing with Quorum Queues multiple queues should be used instead;
-one for each priority.
+To prioritize messages with Quorum Queues, use multiple queues; one for each priority.
 
 
 #### Poison Message Handling
@@ -516,10 +515,9 @@ it replaces.
 
 ### <a id="replica-rebalancing" class="anchor" href="#replica-rebalancing">Rebalancing Replicas</a>
 
-Once declared, the RabbitMQ nodes a quorum queue resides on won't change even if the
-members of the RabbitMQ cluster change (e.g. a node is decommissioned or added).
-To re-balance after a RabbitMQ cluster change quorum queues will have to be manually adjusted using the `rabbitmq-queues`
-[command line tool](./cli.html):
+Once declared, the RabbitMQ quorum queue leaders may be unevenly distributed across the RabbitMQ cluster.
+To re-balance use the `rabbitmq-queues rebalance`
+command. NB: this does not change the nodes which the quorum queues span. To modify the membership instead see [managing replicas](#replica-management).
 
 <pre class="lang-bash">
 # rebalances all quorum queues
