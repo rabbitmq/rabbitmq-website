@@ -351,8 +351,8 @@ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
-and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
+(Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/EmitLogDirect.java)
+and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/ReceiveLogsDirect.java))
 
 Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
 for messages based on a pattern.

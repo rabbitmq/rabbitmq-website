@@ -65,7 +65,7 @@ We'll call our message publisher (sender) `send.js` and our message consumer (re
 then exit.
 
 In
-[`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js),
+[`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/send.js),
 we need to require the library first:
 
 <pre class="lang-javascript">
@@ -130,7 +130,7 @@ setTimeout(function() {
   }, 500);
 </pre>
 
-[Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js).
+[Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/send.js).
 
 > #### Sending doesn't work!
 >
@@ -154,7 +154,7 @@ keep the consumer running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js)) has the same require as `send`:
+The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive.js)) has the same require as `send`:
 
 <pre class="lang-javascript">
 #!/usr/bin/env node
@@ -202,7 +202,7 @@ channel.consume(queue, function(msg) {
   });
 </pre>
 
-[Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js).
+[Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/receive.js).
 
 ### Putting it all together
 

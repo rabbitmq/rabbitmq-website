@@ -413,7 +413,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 });
 </pre>
 
-[(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/new_task.js)
+[(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/new_task.js)
 
 And our `worker.js`:
 
@@ -454,7 +454,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 });
 </pre>
 
-[(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/worker.js)
+[(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/javascript-nodejs/src/worker.js)
 
 Using message acknowledgments and `prefetch` you can set up a
 work queue. The durability options let the tasks survive even if

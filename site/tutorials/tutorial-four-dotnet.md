@@ -392,8 +392,8 @@ dotnet run error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [(EmitLogDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogDirect/EmitLogDirect.cs)
-and [(ReceiveLogsDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs))
+(Full source code for [(EmitLogDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLogDirect/EmitLogDirect.cs)
+and [(ReceiveLogsDirect.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogsDirect/ReceiveLogsDirect.cs))
 
 Move on to [tutorial 5](tutorial-five-dotnet.html) to find out how to listen
 for messages based on a pattern.

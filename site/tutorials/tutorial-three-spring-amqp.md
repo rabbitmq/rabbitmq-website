@@ -366,7 +366,7 @@ public class Tut3Sender {
 }
 </pre>
 
-[Tut3Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Sender.java)
+[Tut3Sender.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Sender.java)
 
 As you see, we leverage the beans from the `Tut3Config` file and
 autowire in the `RabbitTemplate` along with our configured
@@ -415,7 +415,7 @@ public class Tut3Receiver {
 }
 </pre>
 
-[Tut3Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Receiver.java)
+[Tut3Receiver.java source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut3/Tut3Receiver.java)
 
 Compile as before and we're ready to execute the fanout sender and receiver.
 

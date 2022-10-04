@@ -71,7 +71,7 @@ We'll call our message publisher (sender) `Send` and our message consumer (recei
 then exit.
 
 In
-[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
+[`Send.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Send.java),
 we need some classes imported:
 
 <pre class="lang-java">
@@ -128,7 +128,7 @@ exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 [Here's the whole Send.java
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Send.java).
 
 > #### Sending doesn't work!
 >
@@ -152,7 +152,7 @@ keep the consumer running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`Recv.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
+The code (in [`Recv.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Recv.java)) has almost the same imports as `Send`:
 
 <pre class="lang-java">
 import com.rabbitmq.client.Channel;
@@ -210,7 +210,7 @@ channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
 </pre>
 
 [Here's the whole Recv.java
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/Recv.java).
 
 ### Putting it all together
 

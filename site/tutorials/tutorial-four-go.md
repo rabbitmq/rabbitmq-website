@@ -505,8 +505,8 @@ go run emit_log_direct.go error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [(emit_log_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log_direct.go)
-and [(receive_logs_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs_direct.go))
+(Full source code for [(emit_log_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/emit_log_direct.go)
+and [(receive_logs_direct.go source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive_logs_direct.go))
 
 Move on to [tutorial 5](tutorial-five-go.html) to find out how to listen
 for messages based on a pattern.

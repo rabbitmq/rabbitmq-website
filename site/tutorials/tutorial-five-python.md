@@ -161,7 +161,7 @@ have two words: "`<facility>.<severity>`".
 The code is almost the same as in the
 [previous tutorial](tutorial-four-python.html).
 
-`emit_log_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py))
+`emit_log_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/emit_log_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -182,7 +182,7 @@ print(" [x] Sent %r:%r" % (routing_key, message))
 connection.close()
 </pre>
 
-`receive_logs_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
+`receive_logs_topic.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/receive_logs_topic.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python

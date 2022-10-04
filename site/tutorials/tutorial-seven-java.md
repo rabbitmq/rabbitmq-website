@@ -260,7 +260,7 @@ to the constraints in the application and in the overall system. Typical techniq
 
 ## Putting It All Together
 
-The [`PublisherConfirms.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/PublisherConfirms.java)
+The [`PublisherConfirms.java`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/java/PublisherConfirms.java)
 class contains code for the techniques we covered. We can compile it, execute it as-is and
 see how they each perform:
 

@@ -225,7 +225,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_server.php) looks like this:
+The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_server.php) looks like this:
 
 <pre class="lang-php">
 &lt;?php
@@ -291,7 +291,7 @@ The server code is rather straightforward:
   * We use `basic_consume` to access the queue. Then we enter the while loop in which
     we wait for request messages, do the work and send the response back.
 
-The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_client.php):
+The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_client.php):
 
 <pre class="lang-php">
 &lt;?php
@@ -371,7 +371,7 @@ echo ' [.] Got ', $response, "\n";
 </pre>
 
 Now is a good time to take a look at our full example source code for
-[rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_client.php) and [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_server.php).
+[rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_client.php) and [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/rpc_server.php).
 
 
 Our RPC service is now ready. We can start the server:

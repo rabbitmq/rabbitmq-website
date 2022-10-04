@@ -350,7 +350,7 @@ mix run emit_log_direct.exs --error "Run. Run. Or it will explode."
 # => [x] Sent '[error] Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [emit_log_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log_direct.exs) and [receive_logs_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs_direct.exs))
+(Full source code for [emit_log_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/emit_log_direct.exs) and [receive_logs_direct.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive_logs_direct.exs))
 
 Move on to [tutorial 5](tutorial-five-elixir.html) to find out how to listen
 for messages based on a pattern.

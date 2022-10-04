@@ -269,7 +269,7 @@ Putting it all together
   </div>
 </div>
 
-`emit_log_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py))
+`emit_log_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/emit_log_direct.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -290,7 +290,7 @@ print(" [x] Sent %r:%r" % (severity, message))
 connection.close()
 </pre>
 
-`receive_logs_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+`receive_logs_direct.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/receive_logs_direct.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python

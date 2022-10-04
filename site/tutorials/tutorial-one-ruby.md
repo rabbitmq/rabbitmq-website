@@ -66,7 +66,7 @@ We'll call our message producer `send.rb` and our message consumer
 then exit.
 
 In
-[`send.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb),
+[`send.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/send.rb),
 we need to require the library first:
 
 <pre class="lang-ruby">
@@ -121,7 +121,7 @@ Lastly, we close the connection:
 connection.close
 </pre>
 
-[Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/send.rb).
+[Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/send.rb).
 
 > #### Sending doesn't work!
 >
@@ -145,7 +145,7 @@ keep the consumer running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb)) has the same require as `send`:
+The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/receive.rb)) has the same require as `send`:
 
 <pre class="lang-ruby">
 #!/usr/bin/env ruby
@@ -189,7 +189,7 @@ end
 `Bunny::Queue#subscribe` is used with the `:block` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
 
-[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb).
+[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/receive.rb).
 
 ### Putting it all together
 
