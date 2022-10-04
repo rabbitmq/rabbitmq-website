@@ -164,7 +164,8 @@ therefore, focuses on them.
 ### <a id="config-file-intro" class="anchor" href="#config-file-intro">Introduction</a>
 
 While some settings in RabbitMQ can be tuned using environment variables,
-most are configured using a [main configuration file](#config-file), usually named `rabbitmq.conf`.
+most are configured using a [main configuration file](#config-file) named `rabbitmq.conf`.
+
 This includes configuration for the core server as well as plugins. An additional configuration
 file can be used to configure settings that cannot be expressed in the main file's configuration
 format. This is covered in more details below.
@@ -263,7 +264,7 @@ cannot express. This is covered in more detail in the following sections.
       <td><code>rabbitmq.conf</code></td>
       <td>New style format (sysctl or ini-like)</td>
       <td>
-        <a href="#config-file">Primary configuration file</a>. Should be used for most settings.
+        <a href="#config-file">Primary configuration file</a> with a `.conf` extension. Should be used for most settings.
         It is easier for humans to read and machines (deployment tools) to generate.
         Not every setting can be expressed in this format.
       </td>
@@ -315,7 +316,8 @@ to
 
 The configuration file `rabbitmq.conf`
 allows the RabbitMQ server and plugins to be configured.
-Starting with RabbitMQ 3.7.0, the format is in the [sysctl format](https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Application-Users).
+The file uses the [sysctl format](https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Application-Users),
+unlike `advanced.config` and the original `rabbitmq.config` (both use the Erlang terms format).
 
 The syntax can be briefly explained in 3 lines:
 
