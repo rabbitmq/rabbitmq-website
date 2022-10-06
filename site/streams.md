@@ -224,6 +224,46 @@ but some have some queue specific behaviour.
  * [Consumer acknowledgements](./confirms.html) (keep [QoS Prefetch Limitations](#global-qos) in mind)
  * Cancellation of consumers
 
+### <a id="single-active-consumer" class="anchor" href="#single-active-consumer">Single Active Consumer</a>
+
+Single active consumer for streams is a feature available in RabbitMQ 3.11 and more.
+It provides _exclusive consumption_ and _consumption continuity_ on a stream.
+When several consumer instances sharing the same stream and name enable single active consumer, only one of these instances will be active at a time and so will receive messages.
+The other instances will be idle.
+
+The single active consumer feature provides 2 benefits:
+
+* Messages are processed in order: there is only one consumer at a time.
+* Consumption continuity is maintained: a consumer from the group will take over if the active one stops or crashes.
+
+A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-single-active-consumer-for-streams/) provides more details on single active consumer for streams.
+
+### <a id="super-streams" class="anchor" href="#super-streams">Super Streams</a>
+
+Super streams are a way to scale out by partitioning a large stream into smaller streams.
+They integrate with [single active consumer](#single-active-consumer) to preserve message order within a partition.
+Super streams are available in RabbitMQ 3.11 and more.
+
+A super stream is a logical stream made of individual, regular streams.
+It is a way to scale out publishing and consuming with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
+
+A super stream remains a logical entity: applications see it as one “big” stream, thanks to the smartness of client libraries.
+The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts.html), that is exchange, queues, and bindings between them.
+
+Even though it is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), but the `rabbitmq-streams add_super_stream` command is a handy shortcut.
+Here is how to create an `invoices` super stream with 3 partitions:
+
+<pre class="lang-bash">
+rabbitmq-streams add_super_stream invoices --partitions 3
+</pre>
+
+Use `rabbitmq-streams add_super_stream --help` to learn more about the command.
+
+Super streams add complexity compare to individual streams, so they should not be considered the default solution for all use cases involving streams.
+Consider using super streams only if you are sure you reached the limits of individual streams.
+
+A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
+
 ## <a id="feature-comparison" class="anchor" href="#feature-comparison">Feature Comparison with Regular Queues</a>
 
 Streams are not really queues in the traditional sense and thus do not

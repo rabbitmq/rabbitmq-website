@@ -1104,7 +1104,6 @@ tcp_listen_options.keepalive = false</pre>
   </p>
     </td>
   </tr>
-
   <tr>
     <td><code>cluster_partition_handling</code></td>
     <td>

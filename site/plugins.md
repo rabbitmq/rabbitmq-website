@@ -350,6 +350,16 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
     </tr>
 
     <tr>
+      <th>rabbitmq_auth_backend_oauth2</th>
+      <td>
+        Authentication and authorisation plugin using OAuth 2.0 protocol.
+        <ul>
+          <li><a href="oauth2.html">Documentation for the OAuth 2.0 plugin</a></li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
       <th>rabbitmq_auth_backend_http</th>
       <td>
         Authentication and authorisation plugin that uses an external HTTP API.
