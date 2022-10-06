@@ -331,7 +331,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-amqp1.0/blob/v3.9.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_amqp1_0/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -366,7 +366,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http/blob/v3.9.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_http/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -380,7 +380,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl/blob/v3.9.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_mechanism_ssl/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
@@ -393,7 +393,7 @@ The table below lists tier 1 (core) plugins that ship with RabbitMQ.
 
         <ul>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/v3.9.x/README.md">README for this plugin</a>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_consistent_hash_exchange/README.md">README for this plugin</a>
           </li>
         </ul>
       </td>
