@@ -160,8 +160,9 @@ limitations under the License.
                 <img src="./img/commercial/traffic-compression.svg" height="71" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression" />
                 <h2>Inter-node Compression</h2>
                 <p>
-                  All network traffic exchanged by nodes in a deployment can use efficient compression. For some message payloads,
-                  this reduces bandwidth usage by 16x.
+                  All network traffic exchanged by nodes in a deployment is compressed by default.
+                  For some JSON message payloads, bandwidth usage is reduced by 16x.
+                  <a href="https://tanzu.vmware.com/rabbitmq">Learn more</a>
                 </p>
               </div>
             </div>
@@ -170,8 +171,9 @@ limitations under the License.
                 <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby" />
                 <h2>Warm Standby</h2>
                 <p>
-                  VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster, which makes
-                  it easy to run a standby cluster for disaster recovery.
+                  VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster,
+                  which makes it easy to run a standby cluster for disaster recovery.
+                  <a href="https://tanzu.vmware.com/rabbitmq">Learn more</a>
                 </p>
               </div>
             </div>
@@ -181,6 +183,7 @@ limitations under the License.
                 <h2>24/7 Expert Support</h2>
                 <p>
                   A license comes with phone and online global coverage support, gold star standards SLAs and extends the support lifecycle.
+                  <a href="https://tanzu.vmware.com/rabbitmq">Learn more</a>
                 </p>
               </div>
             </div>
