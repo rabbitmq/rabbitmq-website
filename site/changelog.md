@@ -39,6 +39,24 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre"></td>
+    <td class="centre">8 October 2022</td>
+    <td>
+      <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+      a CVE with critical severity (CVSS 3.x Base Store: 9.8), affets the following Erlang versions:
+
+      <ul>
+        <li>Erlang 25 before 25.0.2</li>
+        <li>Erlang 24 before 24.3.4.2</li>
+        <li>Erlang 23 before 23.3.4.15</li>
+      </ul>
+    </td>
+    <td>
+      <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.11.0</td>
     <td class="centre">28 September 2022</td>
     <td>

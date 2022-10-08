@@ -744,6 +744,12 @@ ul.feed {
   margin-bottom: 2em;
 }
 
+.feed li ul li {
+  line-height: 0px;
+  padding: 0px;
+  list-style-type: disc;
+}
+
 .feed li hr {
   visibility: visible;
   border: none;
