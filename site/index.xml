@@ -158,7 +158,7 @@ limitations under the License.
             <div class='feature column onethird'>
               <div class='inner'>
                 <img src="./img/commercial/traffic-compression.svg" height="71" width="71" alt="Inter-node Traffic Compression" title="Inter-node Traffic Compression" />
-                <h2>Inter-node Compression</h2>
+                <h2>Intra-cluster Compression</h2>
                 <p>
                   All network traffic exchanged by nodes in a deployment is compressed by default.
                   For some JSON message payloads, bandwidth usage is reduced by 16x.
@@ -169,7 +169,7 @@ limitations under the License.
             <div class='feature column onethird'>
               <div class='inner'>
                 <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby" />
-                <h2>Warm Standby</h2>
+                <h2>Warm Standby Replication</h2>
                 <p>
                   VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster,
                   which makes it easy to run a standby cluster for disaster recovery.
