@@ -247,11 +247,12 @@ Super streams are available in RabbitMQ 3.11 and more.
 A super stream is a logical stream made of individual, regular streams.
 It is a way to scale out publishing and consuming with RabbitMQ Streams: a large logical stream is divided into partition streams, splitting up the storage and the traffic on several cluster nodes.
 
-A super stream remains a logical entity: applications see it as one “big” stream, thanks to the smartness of client libraries.
+A super stream remains a logical entity: applications see it as one “large” stream, thanks to the smartness of client libraries.
 The topology of a super stream is based on the [AMQP 0.9.1 model](./tutorials/amqp-concepts.html), that is exchange, queues, and bindings between them.
 
-Even though it is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), but the `rabbitmq-streams add_super_stream` command is a handy shortcut.
-Here is how to create an `invoices` super stream with 3 partitions:
+It is possible to create the topology of a super stream with any AMQP 0.9.1 library or with the [management plugin](./management.html), it requires to create a direct exchange, the "partition" streams, and bind them together.
+It may be easier to use the `rabbitmq-streams add_super_stream` command though.
+Here is how to use it to create an `invoices` super stream with 3 partitions:
 
 <pre class="lang-bash">
 rabbitmq-streams add_super_stream invoices --partitions 3
@@ -259,7 +260,7 @@ rabbitmq-streams add_super_stream invoices --partitions 3
 
 Use `rabbitmq-streams add_super_stream --help` to learn more about the command.
 
-Super streams add complexity compare to individual streams, so they should not be considered the default solution for all use cases involving streams.
+Super streams add complexity compared to individual streams, so they should not be considered the default solution for all use cases involving streams.
 Consider using super streams only if you are sure you reached the limits of individual streams.
 
 A [blog post](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams) provides an overview of super streams.
