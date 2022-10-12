@@ -210,4 +210,4 @@ with more than two routing key parameters.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-four-swift.html
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial5/tutorial5/ViewController.swift
+[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial5/tutorial5/ViewController.swift

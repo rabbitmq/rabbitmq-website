@@ -83,7 +83,7 @@ We'll call our message publisher (sender) `send.php` and our message receiver
 then exit.
 
 In
-[`send.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php),
+[`send.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/send.php),
 we need to include the library and `use` the necessary classes:
 
 <pre class="lang-php">
@@ -133,7 +133,7 @@ $connection->close();
 </pre>
 
 [Here's the whole send.php
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/send.php).
 
 > #### Sending doesn't work!
 >
@@ -157,7 +157,7 @@ keep the receiver running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)) has almost the same
+The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive.php)) has almost the same
 `include` and `use`s as `send`:
 
 <pre class="lang-php">
@@ -202,7 +202,7 @@ while ($channel->is_open()) {
 Our code will block while our `$channel` has callbacks. Whenever we receive a
 message our `$callback` function will be passed the received message.
 
-[Here's the whole receive.php class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)
+[Here's the whole receive.php class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive.php)
 
 ### Putting it all together
 

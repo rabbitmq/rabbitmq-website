@@ -372,4 +372,4 @@ complex (but important) problems, like:
 >If you want to experiment, you may find the [management UI](../management.html) useful for viewing the queues.
 >
 
-(Full source code for [rpc_client.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_client.exs) and [rpc_server.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/rpc_server.exs))
+(Full source code for [rpc_client.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/rpc_client.exs) and [rpc_server.exs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/rpc_server.exs))

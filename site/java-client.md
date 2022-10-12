@@ -179,7 +179,7 @@ compiling from source code.
 
   <tr>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-java-client/archives/master.zip">Java client</a>
+      <a href="https://github.com/rabbitmq/rabbitmq-java-client/tarball/main">Java client</a>
     </td>
     <td>
 <pre class="lang-bash">
@@ -193,15 +193,16 @@ git clone https://github.com/rabbitmq/rabbitmq-java-client.git
 
   <tr>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-codegen/archives/master.zip">RabbitMQ Code Generator</a>
+      RabbitMQ Code Generator
     </td>
     <td>
 <pre class="lang-bash">
-git clone https://github.com/rabbitmq/rabbitmq-codegen.git
+git clone https://github.com/rabbitmq/rabbitmq-server
+cd rabbitmq-server/deps/rabbitmq_codegen
 </pre>
     </td>
     <td>
-      <a href="https://github.com/rabbitmq/rabbitmq-codegen">Repository on GitHub</a>
+      <a href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_codegen">Repository on GitHub</a>
     </td>
   </tr>
 </table>

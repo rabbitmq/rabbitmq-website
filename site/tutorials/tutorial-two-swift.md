@@ -382,7 +382,7 @@ func workerNamed(_ name: String) {
 }
 </pre>
 
-[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial2/tutorial2/ViewController.swift)
+[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial2/tutorial2/ViewController.swift)
 
 Using message acknowledgments and prefetch you can set up a
 work queue. The durability options let the tasks survive even if
@@ -393,4 +393,4 @@ to deliver the same message to many consumers.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-one-swift.html
-[previous-code]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/swift/tutorial1/tutorial1/ViewController.swift
+[previous-code]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/swift/tutorial1/tutorial1/ViewController.swift

@@ -141,7 +141,7 @@ for the original RabbitMQ protocol.
 
  * [Clustering](clustering.html)
  * [Cluster Formation and Peer Discovery](cluster-formation.html)
- * [Inter-node traffic compression](clustering-compression.html)
+ * [Intra-cluster Compression](https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/1.3/tanzu-rmq/GUID-clustering-compression-rabbitmq.html)
 
 ### Replicated Queue Types, Streams, High Availability
 

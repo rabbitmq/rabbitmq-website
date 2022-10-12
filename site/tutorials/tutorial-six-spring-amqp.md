@@ -208,7 +208,7 @@ We declare our Fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-The code for our [`Tut6Config`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
+The code for our [`Tut6Config`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Config.java)
 class looks like this:
 
 <pre class="lang-java">
@@ -282,7 +282,7 @@ The server code is rather straightforward:
   * Our Fibonacci method calls fib() with the payload parameter and returns
     the result
 
-The code for our RPC server [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
+The code for our RPC server [Tut6Server.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Server.java):
 
 <pre class="lang-java">
 package org.springframework.amqp.tutorials.tut6;
@@ -310,7 +310,7 @@ public class Tut6Server {
 
 
 
-The client code [Tut6Client](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Client.java)
+The client code [Tut6Client](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/spring-amqp/src/main/java/org/springframework/amqp/tutorials/tut6/Tut6Client.java)
 is as easy as the server:
 
   * We autowire the `RabbitTemplate` and the `DirectExchange` bean

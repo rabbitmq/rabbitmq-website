@@ -49,14 +49,14 @@ The token can be any [JWT token](https://jwt.io/introduction/) which contains th
 
 To use this plugin, all RabbitMQ nodes must be
 
-1. [configured to use the rabbit_auth_backend_oauth2 backend](https://www.rabbitmq.com/access-control.html)
-2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`)
-3. configured with a signing key used by RabbitMQ to validate the JWT token signatures
+1. [configured to use the rabbit_auth_backend_oauth2 backend](https://www.rabbitmq.com/access-control.html).
+2. configured with a resource service ID (`resource_server_id`) that matches the scope prefix (e.g. `rabbitmq` in `rabbitmq.read:*/*`).
+3. configured with a signing key used by RabbitMQ to validate the JWT token signatures.
 
 JWT Tokens presented to RabbitMQ for authentication must
 
-1. be digitally signed with either a symmetric or asymmetric key
-2. have a value in the `aud` field that matches `resource_server_id` value
+1. be digitally signed with either a symmetric or asymmetric key.
+2. have a value in the `aud` field that matches `resource_server_id` value.
 
 
 ### <a id="authorization-flow-with-scopes" class="anchor" href="#authorization-flow-with-scopes">Authorization Flow</a>
@@ -224,7 +224,7 @@ It contains the expiration time after which the JWT MUST NOT be accepted for pro
 
 #### Audience must have/match the resource_server_id
 
-The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although we can disable it by setting `verify_aud` to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` setting or in case of a list, it must contain the `resource_server_id`.
+The `aud` ([Audience](https://tools.ietf.org/html/rfc7519#page-9)) identifies the recipients and/or resource_server of the JWT. By default, **RabbitMQ uses this field to validate the token** although you can disable it by setting `verify_aud` to `false`.  When it set to `true`, this attribute must either match the `resource_server_id` setting or in case of a list, it must contain the `resource_server_id`.
 
 
 ### <a id="scope-translation" class="anchor" href="#scope-translation">Scope-to-Permission Translation</a>
@@ -300,10 +300,10 @@ Token sample:
 
 ### <a id="use-tokens-with-clients" class="anchor" href="#use-tokens-with-clients">Using Tokens with Clients</a>
 
-A client must present a valid `access_token` acquired from an OAuth 2.0 provider (UAA) as the **password**
+A client must present a valid `access_token` acquired from an OAuth 2.0 provider (such as UAA) as the **password**
 in order to authenticate with RabbitMQ.
 
-To learn more about UAA/OAuth 2.0 clients see [UAA docs](https://github.com/cloudfoundry/uaa/blob/master/docs/UAA-APIs.rst#id73).
+To learn more about OAuth 2.0 clients, see the [OAuth 2.0 client specification](https://www.rfc-editor.org/rfc/rfc6749#section-4.4).
 
 ### <a id="scope-and-tags" class="anchor" href="#scope-and-tags">Scope and Tags</a>
 
@@ -382,7 +382,7 @@ Any string separated by `/` which does not conform to `&lt;key>:&lt;value>` is i
 The supported location's attributed are:
 
 - `cluster`: This is the only mandatory attribute. It is a wildcard pattern which must match RabbitMQ's `resource_server_id` otherwise the location is ignored.
-- `vhost`: This is the virtual host we are granting access to. It also a wildcard pattern. If not specified, `*` will be used.
+- `vhost`: This is the virtual host you are granting access to. It also a wildcard pattern. If not specified, `*` will be used.
 - `queue`|`exchange`: queue or exchange name pattern. The location grants the permission to a set of queues (or exchanges) that match it. One location can only specify either `queue` or `exchange` but not both. If not specified, `*` will be used
 - `routing-key`: this is the routing key pattern the location grants the permission to. If not specified, `*` will be used
 
@@ -447,6 +447,7 @@ In the following RAR example
 </pre>
 
 if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will compute the following sets of scopes:
+
 - `finance.read:primary-*/*/*`
 - `finance.write:primary-*/*/*`
 - `finance.configure:primary-*/*/*`
@@ -454,11 +455,11 @@ if RabbitMQ node's `resource_server_id` is equal to `finance`, the plugin will c
 
 ## <a id="examples" class="anchor" href="#examples">Examples</a>
 
-The [RabbitMQ OAuth2 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers such as UAA and issue tokens, which can be used to access RabbitMQ resources.
+The [RabbitMQ OAuth 2.0 Auth Backend Examples](oauth2-examples.html) contains many example configuration files which can be used to set up several OAuth 2.0 providers, including UAA, Auth0, and Azure, and issue tokens, which can be used to access RabbitMQ resources.
 
 
 ## License and Copyright
 
-(c) 2016-2020 VMware, Inc. or its affiliates.
+(c) 2016-2022 VMware, Inc. or its affiliates.
 
 Released under the Mozilla Public License 2.0, same as RabbitMQ.

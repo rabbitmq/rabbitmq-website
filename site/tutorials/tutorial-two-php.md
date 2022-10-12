@@ -401,7 +401,7 @@ $connection->close();
 </pre>
 
 
-[(new_task.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/new_task.php)
+[(new_task.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/new_task.php)
 
 And our `worker.php`:
 

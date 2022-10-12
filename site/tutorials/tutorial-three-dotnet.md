@@ -307,7 +307,7 @@ class EmitLog
 </pre>
 
 
-[(EmitLog.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLog/EmitLog.cs)
+[(EmitLog.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/EmitLog/EmitLog.cs)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -359,7 +359,7 @@ class ReceiveLogs
 }
 </pre>
 
-[(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogs/ReceiveLogs.cs)
+[(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs)
 
 Follow the setup instructions from [tutorial one](tutorial-one-dotnet.html) to
 generate the `EmitLogs` and `ReceiveLogs` projects.

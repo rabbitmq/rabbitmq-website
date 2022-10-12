@@ -221,7 +221,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 and it's probably the slowest recursive implementation possible).
 
 
-The code for our RPC server [rpc_server.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_server.rb) looks like this:
+The code for our RPC server [rpc_server.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/rpc_server.rb) looks like this:
 
 <pre class="lang-ruby">
 #!/usr/bin/env ruby
@@ -298,7 +298,7 @@ The server code is rather straightforward:
     The consumer will wait for deliveries to be pushed to it, do the work and send the response back.
 
 
-The code for our RPC client [rpc_client.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_client.rb):
+The code for our RPC client [rpc_client.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/rpc_client.rb):
 
 <pre class="lang-ruby">
 #!/usr/bin/env ruby
@@ -375,7 +375,7 @@ client.stop
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
-[rpc_client.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_client.rb) and [rpc_server.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/rpc_server.rb).
+[rpc_client.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/rpc_client.rb) and [rpc_server.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/rpc_server.rb).
 
 
 Our RPC service is now ready. We can start the server:

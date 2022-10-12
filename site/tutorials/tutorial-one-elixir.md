@@ -150,7 +150,7 @@ can do it by gently closing the connection.
 AMQP.Connection.close(connection)
 </pre>
 
-[Here's the whole send.exs script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs).
+[Here's the whole send.exs script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/send.exs).
 
 > #### Sending doesn't work!
 >

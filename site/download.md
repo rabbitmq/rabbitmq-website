@@ -38,13 +38,6 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-ma
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](./which-erlang.html)
 
-### Preview Releases (Betas, Release Candidates)
-
-You can contribute to RabbitMQ by helping the community test preview releases.
-
-Preview releases are [distributed via GitHub](https://github.com/rabbitmq/rabbitmq-server/releases) and marked
-as pre-release.
-
 ## VMware Tanzu™ RabbitMQ® (Commercial Edition)
 
  * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)

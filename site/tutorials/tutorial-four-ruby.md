@@ -333,8 +333,8 @@ ruby emit_log_direct.rb error "Run. Run. Or it will explode."
 # => [x] Sent 'error':'Run. Run. Or it will explode.'
 </pre>
 
-(Full source code for [(emit_log_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log_direct.rb)
-and [(receive_logs_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive_logs_direct.rb))
+(Full source code for [(emit_log_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/emit_log_direct.rb)
+and [(receive_logs_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/ruby/receive_logs_direct.rb))
 
 Move on to [tutorial 5](tutorial-five-ruby.html) to find out how to listen
 for messages based on a pattern.

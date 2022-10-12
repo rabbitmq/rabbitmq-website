@@ -66,7 +66,7 @@ We'll call our message publisher (sender) `send.go` and our message consumer (re
 then exit.
 
 In
-[`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go),
+[`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/send.go),
 we need to import the library first:
 
 <pre class="lang-go">
@@ -146,7 +146,7 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-[Here's the whole send.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go).
+[Here's the whole send.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/send.go).
 
 > #### Sending doesn't work!
 >
@@ -170,7 +170,7 @@ keep the consumer running to listen for messages and print them out.
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go)) has the same import and helper function as `send`:
+The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go)) has the same import and helper function as `send`:
 
 <pre class="lang-go">
 package main
@@ -244,7 +244,7 @@ log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 &lt;-forever
 </pre>
 
-[Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go).
+[Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive.go).
 
 ### Putting it all together
 

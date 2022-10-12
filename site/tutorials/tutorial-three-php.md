@@ -280,7 +280,7 @@ $channel->close();
 $connection->close();
 </pre>
 
-[(emit_log.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log.php)
+[(emit_log.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/emit_log.php)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -322,7 +322,7 @@ $channel->close();
 $connection->close();
 </pre>
 
-[(receive_logs.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs.php)
+[(receive_logs.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/php/receive_logs.php)
 
 
 If you want to save logs to a file, just open a console and type:

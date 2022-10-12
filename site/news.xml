@@ -36,6 +36,31 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2022-10-08T12:00:00+00:00">8 October 2022</doc:date>
+      <doc:title>CVE-2022-37026: a critical vulnerability in Erlang's TLS implementation</doc:title>
+      <doc:link>https://nvd.nist.gov/vuln/detail/CVE-2022-37026</doc:link>
+      <doc:text>
+        <p>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Store: 9.8), affets the following Erlang versions:
+
+          <ul>
+            <li>Erlang 25 before 25.0.2</li>
+            <li>Erlang 24 before 24.3.4.2</li>
+            <li>Erlang 23 before 23.3.4.15</li>
+          </ul>
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2022-09-28T12:00:00+00:00">28 September 2022</doc:date>
       <doc:title>RabbitMQ 3.11.0 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.0</doc:link>

@@ -65,6 +65,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
           As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
           be mature enough to consider for production.
         </li>
+        <li>
+          Erlang 25 before 25.0.2 is affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Store: 9.8)
+        </li>
       </ul>
     </td>
   </tr>
@@ -90,6 +94,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
         <li>
           As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
           be mature enough to consider for production.
+        </li>
+        <li>
+          Erlang 25 before 25.0.2 and 24 before 24.3.4.2 are affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Store: 9.8)
         </li>
       </ul>
     </td>
@@ -117,6 +125,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <ul class="notes">
         <li>
           Erlang 25 is the recommended series.
+        </li>
+        <li>
+          Erlang 25 before 25.0.2 and 24 before 24.3.4.2 are affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Store: 9.8)
         </li>
         <li>
           Erlang 23 support was discontinued on July 31st, 2022.
@@ -175,6 +187,10 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul class="notes">
+        <li>
+          Erlang 24 before 24.3.4.2 is affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Store: 9.8)
+        </li>
         <li>
           Erlang 23 support was discontinued on July 31st, 2022.
         </li>

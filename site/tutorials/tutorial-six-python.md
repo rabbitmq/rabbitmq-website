@@ -214,7 +214,7 @@ Our RPC will work like this:
 Putting it all together
 -----------------------
 
-`rpc_server.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
+`rpc_server.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/rpc_server.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
@@ -270,7 +270,7 @@ The server code is rather straightforward:
     `prefetch_count` setting.
 
 
-`rpc_client.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py))
+`rpc_client.py` ([source](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/python/rpc_client.py))
 
 <pre class="lang-python">
 #!/usr/bin/env python
