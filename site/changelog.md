@@ -39,6 +39,34 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.11.1</td>
+    <td class="centre">13 October 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Addressed an issue with mixed version cluster compatibility with 3.10.x</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.1">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.9</td>
+    <td class="centre">13 October 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Addressed an issue with mixed version cluster compatibility with 3.9.x</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.9">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre"></td>
     <td class="centre">8 October 2022</td>
     <td>
