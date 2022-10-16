@@ -533,7 +533,7 @@ keep up with the rate, or even a downstream service that's experiencing a slowdo
 
 Some client libraries and frameworks
 provide means of registering metrics collectors or collect metrics out of the box.
-[RabbitMQ Java client](./api-guide.html) and [Spring AMQP](http://spring.io/projects/spring-amqp) are two examples.
+[RabbitMQ Java client](./api-guide.html), [Spring AMQP](http://spring.io/projects/spring-amqp), and [NServiceBus](https://docs.particular.net/transports/rabbitmq/) are some examples.
 With others developers have to track metrics in their application code.
 
 What metrics applications track can be system-specific but some are relevant
