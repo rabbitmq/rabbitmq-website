@@ -46,6 +46,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.2</li>
         <li>3.11.1</li>
         <li>3.11.0</li>
       </ul>
@@ -77,6 +78,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.10.10</li>
         <li>3.10.9</li>
         <li>3.10.8</li>
       </ul>
@@ -173,6 +175,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.9.24</li>
         <li>3.9.23</li>
         <li>3.9.22</li>
       </ul>
