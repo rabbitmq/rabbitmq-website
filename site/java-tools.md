@@ -25,9 +25,9 @@ RabbitMQ has a throughput testing tool, PerfTest, that is based on the Java clie
 configured to simulate basic and advanced workloads as well.
 PerfTest documentation is hosted on GitHub Pages:
 
- * For [the latest stable release](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
+ * For [the latest stable release](https://perftest.rabbitmq.com/)
  * For [the latest milestone release](https://rabbitmq.github.io/rabbitmq-perf-test/milestone/htmlsingle/)
- * For [the latest development build](https://rabbitmq.github.io/rabbitmq-perf-test/snapshot/htmlsingle/)
+ * For [the latest development build](https://perftest-dev.rabbitmq.com/)
 
 
 ## <a id="tracer" class="anchor" href="#tracer">Tracer</a>
