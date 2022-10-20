@@ -373,6 +373,8 @@ such as:
   * <*resource_server_id*>`.tag:administrator`
   * <*resource_server_id*>`.read:*/*/*`
 
+We use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field. 
+
 ### Configure OpenID Connect Discovery endpoint
 
 By default, RabbitMQ assumes the OpenID Connect Discovery endpoint is at `<management.oauth_provider_url>/.well-known/openid-configuration`. If your endpoint differs, you can set yours via the `management.oauth_metadata_url` setting.
@@ -395,6 +397,7 @@ For instance, if you configured the CSP header with the value `default-src 'self
 
 In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directives `unsafe-eval` `unsafe-inline`, otherwise the OAuth 2.0 functionality may not work.
 
+### Identity-Provider initiated logon
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
