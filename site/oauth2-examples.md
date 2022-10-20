@@ -345,7 +345,7 @@ a message to a mqtt topic ([scopes-for-mqtt.json](jwts/scopes-for-mqtt.json))
 it is any "routing-key" because that is translated to a topic/queue.
 
 You are going to publish a mqtt message by running the following command. If you have not run any of the
-previous use cases, you need to launch rabbitmq first like this `make start-uaa`.
+previous use cases, you need to launch rabbitmq first like this `make start-rabbitmq`.
 
 <pre class="lang-bash">
 make start-mqtt-publish TOKEN=$(bin/jwt_token scopes-for-mqtt.json legacy-token-key private.pem public.pem)
