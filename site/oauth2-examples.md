@@ -171,8 +171,7 @@ the Management plugin by adding just one entry to the configuration as shown bel
 
 **NOTE**: When the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
 Management landing page which presents the user with a button labeled **Click here to login**. The user is
-never redirected back to the url configured in `oauth_provider_url`.
-
+never automatically redirected back to the url configured in `oauth_provider_url`. Only when the user clicks on the button, it is redirected to the configured in `oauth_provider_url`.
 
 ## <a id="access-other-protocols" class="anchor" href="#access-other-protocols">Access other protocols using OAuth 2.0 tokens</a>
 
