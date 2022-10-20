@@ -373,7 +373,7 @@ such as:
   * <*resource_server_id*>`.tag:administrator`
   * <*resource_server_id*>`.read:*/*/*`
 
-We use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field. 
+We use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field.
 
 ### Configure OpenID Connect Discovery endpoint
 
@@ -398,6 +398,20 @@ For instance, if you configured the CSP header with the value `default-src 'self
 In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directives `unsafe-eval` `unsafe-inline`, otherwise the OAuth 2.0 functionality may not work.
 
 ### Identity-Provider initiated logon
+
+By default, the Management UI uses OAuth 2.0 authorization code flow to authenticate and authorize users.
+However, there are scenarios where users preferred to be automatically redirected to RabbitMQ without getting
+involved in additional logon flows. This is common in Web Portals where with a single click, users navigate
+straight to a RabbitMQ cluster's Management UI with a token obtained under the covers. This is known as
+**Identity-Provider initiated logon** where the **Identity Provider** role is played by the web portal.
+
+RabbitMQ exposes a new setting called `management.oauth_initiated_logon_type` whose default value `sp_initiated`.
+To enable an **Identity-Provider initiated logon** we set it to `idp_initiated`.
+
+When we set `management.oauth_initiated_logon_type` to `idp_initiated` the minimum required configuration is
+`oauth_enabled: true` and `oauth_provider_url`. The other settings related to OAuth are not required.
+
+The **Identity-Provider initiated logon** must
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
