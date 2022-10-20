@@ -410,8 +410,12 @@ To enable an **Identity-Provider initiated logon** we set it to `idp_initiated`.
 
 When we set `management.oauth_initiated_logon_type` to `idp_initiated` the minimum required configuration is
 `oauth_enabled: true` and `oauth_provider_url`. The other settings related to OAuth are not required.
+The `oauth_provider_url` should be the web portal address.
 
-The **Identity-Provider initiated logon** must
+Once we set `management.oauth_initiated_logon_type` to `idp_initiated`, the Management UI exposes the endpoint `/#/login` which expects a JWT token in the request parameter `access_token`.
+**Identity-Provider initiated logon** should redirect users to this endpoint with the access token. If
+the token is valid, the user is redirected to the overview page. Else, the user is redirected to a page with an
+error message and a button to take them back to the web portal address configured in `management.oauth_provider_url`.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
