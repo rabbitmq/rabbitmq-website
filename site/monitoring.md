@@ -950,8 +950,7 @@ Note that this list is by no means complete.
     <tr>
       <td>New Relic</td>
       <td>
-        <a href="https://newrelic.com/plugins/vmware-29/95">NewRelic Plugins</a>,
-        <a href="https://github.com/pivotalsoftware/newrelic_pivotal_agent">GitHub</a>
+       <a href="https://newrelic.com/instant-observability/rabbitmq">NewRelic RabbitMQ monitoring</a>
         </td>
     </tr>
     <tr>
