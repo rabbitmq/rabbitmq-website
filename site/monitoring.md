@@ -950,7 +950,7 @@ Note that this list is by no means complete.
     <tr>
       <td>New Relic</td>
       <td>
-       <a href="https://newrelic.com/instant-observability/rabbitmq">NewRelic RabbitMQ monitoring</a>
+       <a href="https://newrelic.com/instant-observability/rabbitmq">New Relic RabbitMQ monitoring</a>
         </td>
     </tr>
     <tr>
