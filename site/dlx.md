@@ -215,4 +215,4 @@ entry.
 
 ## <a id="use-cases" class="anchor" href="#use-cases">Use cases</a>
 
-By publishing a message to a queue with no consumers and, when the [messageTTL](./ttl.html) expires, republishing the message to another queue with consumers, is it possible to simulate delayed messages. This is the approach used by [NServiceBus](https://docs.particular.net/transports/rabbitmq/delayed-delivery).
+By publishing a message to a queue with no consumers and, when the [message TTL](./ttl.html) expires, republishing the message to another queue with consumers, is it possible to simulate delayed messages. This is the approach used by [NServiceBus](https://docs.particular.net/transports/rabbitmq/delayed-delivery).
