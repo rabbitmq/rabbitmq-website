@@ -52,7 +52,7 @@ Monitoring will begin on node start. It will leave a [log entry](./logging.html)
 2019-04-01 12:02:11.564 [info] &lt;0.329.0&gt; Disk free limit set to 950MB
 </pre>
 
-Free disk space monitoring will be disabled on unrecognised platforms, causing an
+Free disk space monitoring will be deactivatedon unrecognised platforms, causing an
 entry such as the one below:
 
 <pre class="lang-ini">
