@@ -4966,7 +4966,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
 
         <p>
           No workaround is available, but RabbitMQ clusters with the
-          management plugin disabled on all nodes are not affected.
+          management plugin deactivated on all nodes are not affected.
         </p>
         <p>
           We strongly encourage you to upgrade to RabbitMQ 3.4.3.
@@ -7131,7 +7131,7 @@ j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
     Canonical. The goal of the partnership is to promote open standards in
     the emerging cloud computing space.</p>
 
-    <p>"We want to be sure our users can navigate safely into the cloud", said
+    <p>"We want to ensure our users can navigate safely into the cloud", said
     Simon Wardley, software services manager for Canonical, "and we see this
     working according to three rules. Rule one is to build on their own
     infrastructure. Rule two is moving between their infrastructure and an external
@@ -7524,7 +7524,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
         <li>implementation of 'queue.unbind'</li>
         <li>producer throttling when running low on memory</li>
         <li>improved scalability of queue and binding creation and deletion</li>
-        <li>disabled Nagle for more consistent latency</li>
+        <li>deactivated Nagle for more consistent latency</li>
         <li>added several management/info commands to rabbitmqctl</li>
         <li>bug fixes in the area of connection and channel closure</li>
         <li>support the latest Erlang/OTP release (R12B-5)</li>
