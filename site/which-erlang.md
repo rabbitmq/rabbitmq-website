@@ -65,7 +65,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
       <ul class="notes">
         <li>
           As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
-          be mature enough to consider for production.
+          be mature enough for production.
         </li>
         <li>
           Erlang 25 before 25.0.2 is affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
