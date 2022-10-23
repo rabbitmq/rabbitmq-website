@@ -23,8 +23,8 @@ This guide explains what release series of RabbitMQ are currently covered by
 general or extended support policies, which release series is coming next, and
 what series are no longer supported.
 
-For guidance on upgrades, see the [Upgrade](./upgrade.html) and [Blue/Green
-Deployment Upgrade](./blue-green-upgrade.html) guides.
+For guidance on upgrades, see the [Upgrade](./upgrade.html) and
+[Blue/Green Deployment Upgrade](./blue-green-upgrade.html) guides.
 
 ## <a id="currently-supported" class="anchor" href="#currently-supported">Currently Supported Release Series</a>
 
