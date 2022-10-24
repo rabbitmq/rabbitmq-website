@@ -22,23 +22,23 @@ limitations under the License.
 Sometimes, during development or debugging, it's useful to
 be able to see every message that is published, and every
 message that is delivered. RabbitMQ has a "firehose"
-feature, where the administrator can enable (on a per-node,
+feature, where the administrator can turn on (on a per-node,
 per-vhost basis) an exchange to which publish- and
 delivery-notifications should be CCed.
 
 These notifications are close to what's happening on the
 wire - for example you will see unacked messages.
 
-When the feature is switched off, it has no effect on
-performance; when it is switched on, performance will drop
+When the feature is turned off, it has no effect on
+performance; when it is turned on, performance will drop
 somewhat due to additional messages being generated and
 routed.
 
-## <a id="enabling" class="anchor" href="#enabling">Enabling the firehose</a>
+## <a id="enabling" class="anchor" href="#enabling">Turning on firehose</a>
 
 
-Before enabling the feature, decide which node, and which vhost, should have it enabled.
-The examples below assume the default vhost, "<code>/</code>", and the default node
+Before turning on the feature, decide which node, and which vhost, should have it turned on.
+The following examples assume the default vhost, "<code>/</code>", and the default node
 "<code>rabbit@(hostname)</code>". Use the
 <code>-n</code> argument to specify a node other than,
 and the <code>-p</code> argument to specify another
@@ -48,16 +48,16 @@ Next, within the chosen vhost declare queues, bind them to the
 topic exchange <code>amq.rabbitmq.trace</code>, and
 begin consuming.
 
-Finally, enable firehose tracing with
+Finally, to turn on firehose tracing with
 
 <pre class="lang-bash">
 rabbitmqctl trace_on -p [virtual host]
 </pre>.
 
 
-## <a id="disabling" class="anchor" href="#disabling">Disabling the firehose</a>
+## <a id="disabling" class="anchor" href="#disabling">Turn off firehose</a>
 
-To disable Firehose, run
+To turn off Firehose, run
 
 <pre class="lang-bash">
 rabbitmqctl trace_off -p [virtual host]
