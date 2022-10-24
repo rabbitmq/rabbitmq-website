@@ -222,7 +222,7 @@ log.console.formatter = json
 </pre>
 
 When console output is activated, the file output will also be activated by default.
-To disable the file output, set `log.file` to `false`:
+To deactivate the file output, set `log.file` to `false`:
 
 <pre class="lang-ini">
 log.console = true
