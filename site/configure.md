@@ -841,7 +841,7 @@ channel_operation_timeout = 15000
     <td>
       Value representing the heartbeat timeout suggested by the server during
       connection parameter negotiation.
-      If set to 0 on both ends, heartbeats are disabled (this is not recommended).
+      If set to 0 on both ends, heartbeats are deactivated (this is not recommended).
       See the <a href="./heartbeats.html">Heartbeats guide</a> for details.
 
       <p>
