@@ -239,7 +239,7 @@ When a node is running and under normal operation, lazy queues will keep all mes
 the only exception being in-flight messages.
 
 When a RabbitMQ node starts, all queues, including the lazy ones, will load up to **16,384** messages into RAM.
-If [queue index embedding](persistence-conf.html) is enabled (the `queue_index_embed_msgs_below` configuration parameter is greater than 0),
+If [queue index embedding](persistence-conf.html) is turned on (the `queue_index_embed_msgs_below` configuration parameter is greater than 0),
 the payloads of those messages will be loaded into RAM as well.
 
 For example, a lazy queue with **20,000** messages of **4,000** bytes each, will load **16,384** messages into memory.
@@ -252,7 +252,7 @@ hosted on the node.
 
 **It is important to remember that an under-provisioned RabbitMQ node in terms of memory or disk space will fail to start.**
 
-Setting `queue_index_embed_msgs_below` to `0` will disable payload embedding in the queue index.
+Setting `queue_index_embed_msgs_below` to `0` will turn off payload embedding in the queue index.
 As a result, lazy queues will not load message payloads into memory on node startup.
 See the [Persistence Configuration guide](persistence-conf.html) for details.
 
