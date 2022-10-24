@@ -512,7 +512,7 @@ proxy_protocol = true
 
 When proxy protocol is turned on, clients won't be able to connect to RabbitMQ directly unless
 they themselves support the protocol.
-Therefore, when this option is turned , all client connections must go through
+Therefore, when this option is turned on, all client connections must go through
 a proxy that also supports the protocol and is configured to send a Proxy protocol header. [HAproxy](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
 and [AWS ELB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol) documentation
 explains how to do it.
