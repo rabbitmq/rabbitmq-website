@@ -154,7 +154,7 @@ Once configured, a federation link (connection) will be opened for every matchin
 By "matching exchange" here we mean an exchange that is matched by the [federation policy pattern](./parameters.html#policies).
 If no exchanges matched, no links will be started.
 
-To disable federation for the matching exchanges, delete the policy using its name:
+To deactivate federation for the matching exchanges, delete the policy using its name:
 
 <pre class="lang-bash">
 rabbitmqctl clear_policy exchange-federation
