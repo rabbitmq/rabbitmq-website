@@ -1314,7 +1314,7 @@ reported. Please see documentation for those backends to learn more.
 Automatic cleanup of absent nodes makes most sense in environments where failed/discontinued nodes
 will be replaced with brand new ones (including cases when persistent storage won't be re-attached).
 
-When automatic node cleanup is disabled (switched to the warning mode), operators have to
+When automatic node cleanup is deactivated (switched to the warning mode), operators have to
 explicitly remove absent cluster nodes using [`rabbitmqctl forget_cluster_node`](cli.html).
 
 ### Negative Side Effects of Automatic Removal
