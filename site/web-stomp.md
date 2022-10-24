@@ -222,7 +222,7 @@ or the <a href="./configure.html#erlang-term-config-file">classic config format<
 ### <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The Web STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
-This feature is disabled by default, to enable it for clients:
+This feature is deactivated by default, to activate it for clients:
 
 <pre class="lang-ini">
 web_stomp.proxy_protocol = true
