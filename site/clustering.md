@@ -909,7 +909,7 @@ cluster. The operator has to do this explicitly using a
 Some [peer discovery mechanisms](./cluster-formation.html)
 support node health checks and forced
 removal of nodes not known to the discovery backend. That feature is
-opt-in (disabled by default).
+opt-in (deactivated by default).
 
 We first remove `rabbit@rabbit3` from the cluster, returning it to
 independent operation. To do that, on `rabbit@rabbit3` we
