@@ -42,7 +42,7 @@ see [the archive](https://dl.bintray.com/rabbitmq/community-plugins/). See also
 
 When RabbitMQ is upgraded, all community plugins must be re-installed.
 This may mean installing newer versions of them. Alternatively,
-they can be disabled before or during the upgrade.
+they can be deactivated before or during the upgrade.
 
 If you are the author of a plugin and would like it listed
 here, please [get in touch](contact.html)!
