@@ -162,7 +162,7 @@ Once configured, a federation link (connection) will be opened for every matchin
 By "matching queue" here we mean a queue that is matched by the [federation policy pattern](parameters.html#policies).
 If no queues matched, no links will be started.
 
-To disable federation for the matching queues, delete the policy using its name:
+To deactivate federation for the matching queues, delete the policy using its name:
 
 <pre class="lang-bash">
 rabbitmqctl clear_policy queue-federation
