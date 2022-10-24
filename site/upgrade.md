@@ -62,10 +62,21 @@ first upgrade to 3.6.x and then upgrade to 3.7.0.
 
 A [full cluster stop](#full-stop-upgrades) may be required for feature version upgrades.
 
-Current release series upgrade compatibility with full stop upgrade:
+Current release series upgrade compatibility with **rolling** upgrade:
 
 | From     | To     |
 |----------|--------|
+| 3.10.x   | 3.11.x |
+| 3.9.x    | 3.10.x |
+| 3.8.x    | 3.9.x  |
+| 3.7.18   | 3.8.x  |
+
+Current release series upgrade compatibility with **full stop** upgrade:
+
+| From     | To     |
+|----------|--------|
+| 3.10.x   | 3.11.x |
+| 3.9.x    | 3.10.x |
 | 3.8.x    | 3.9.x  |
 | 3.7.27   | 3.9.x  |
 | 3.6.x    | 3.8.x  |
