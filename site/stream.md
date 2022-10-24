@@ -159,7 +159,7 @@ stream.listeners.ssl.1 = 5551
 This configuration creates a standard TCP listener on port 5552 and
 a TLS listener on port 5551.
 
-When a TLS listener is set up it may be desired to disable all non-TLS ones.
+When a TLS listener is set up, you may want to deactivate all non-TLS ones.
 This can be configured like so:
 
 <pre class="lang-ini">
