@@ -105,7 +105,7 @@ listeners.tcp.2 = ::1:5672
 
 With modern Linux kernels and Windows releases,
 when a port is specified and RabbitMQ is configured to
-listen on all IPv6 addresses but IPv4 is not disabled
+listen on all IPv6 addresses but IPv4 is not deactivated
 explicitly, IPv4 address will be included, so
 
 <pre class="lang-ini">
@@ -138,11 +138,11 @@ In this example RabbitMQ will listen on an IPv4 interface only:
 listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
-It is possible to disable non-TLS connections by disabling all regular TCP listeners.
+It is possible to deactivate non-TLS connections by deactivating all regular TCP listeners.
 Only [TLS-enabled](./ssl.html) clients will be able to connect:
 
 <pre class="lang-ini">
-# disables non-TLS listeners, only TLS-enabled clients will be able to connect
+# deactivates non-TLS listeners, only TLS-enabled (activated) clients will be able to connect
 listeners.tcp = none
 
 listeners.ssl.default = 5671
@@ -503,21 +503,21 @@ This makes it easier for the operator to inspect connection origins in the manag
 or CLI tools.
 
 The protocol spec dictates that either it must be applied to all connections or none of them for
-security reasons, this feature is disabled by default and needs to be enabled
-for individual protocols supported by RabbitMQ. To enable it for AMQP 0-9-1 and AMQP 1.0 clients:
+security reasons, this feature is turned off by default and needs to be turned on
+for individual protocols supported by RabbitMQ. To turn it on for AMQP 0-9-1 and AMQP 1.0 clients:
 
 <pre class="lang-ini">
 proxy_protocol = true
 </pre>
 
-When proxy protocol is enabled, clients won't be able to connect to RabbitMQ directly unless
+When proxy protocol is turned on, clients won't be able to connect to RabbitMQ directly unless
 they themselves support the protocol.
-Therefore, when this option is enabled, all client connections must go through
+Therefore, when this option is turned , all client connections must go through
 a proxy that also supports the protocol and is configured to send a Proxy protocol header. [HAproxy](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
 and [AWS ELB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol) documentation
 explains how to do it.
 
-When proxy protocol is enabled and connections go through a compatible proxy, no action
+When proxy protocol is turned on and connections go through a compatible proxy, no action
 or modifications are required from client libraries. The communication is entirely
 transparent to them.
 
@@ -541,8 +541,8 @@ for more information.
 Tuning for throughput is a common goal. Improvements can be achieved by
 
 * Increasing TCP buffer sizes
-* Ensuring Nagle's algorithm is disabled
-* Enabling optional TCP features and extensions
+* Ensuring Nagle's algorithm is turned off
+* Turning on optional TCP features and extensions
 
 For the latter two, see the OS-level tuning section below.
 
@@ -748,13 +748,13 @@ Finding an optimal value is usually a matter of trial and error.
 
 ### <a id="tuning-for-large-number-of-connections-nodelay" class="anchor" href="#tuning-for-large-number-of-connections-nodelay">Nagle's Algorithm ("nodelay")</a>
 
-Disabling <a
+Deactivating or turning off <a
 href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
 algorithm</a> is primarily useful for reducing latency but
 can also improve throughput.
 
 `kernel.inet_default_connect_options` and `kernel.inet_default_listen_options` must
-include `{nodelay, true}` to disable Nagle's algorithm for inter-node connections.
+include `{nodelay, true}` to deactivate Nagle's algorithm for inter-node connections.
 
 When configuring sockets that serve client connections,
 `tcp_listen_options` must include the same option. This is the default.
@@ -999,7 +999,7 @@ are effective for both IPv4 and IPv6 connections):
 
         AMQP 0-9-1 and STOMP have <a href="./heartbeats.html">Heartbeats</a> which partially
         undo its effect, namely that it can take minutes to detect an unresponsive peer,
-        e.g. in case of a hardware or power failure. MQTT also has its own keepalives
+        for example, in case of a hardware or power failure. MQTT also has its own keepalives
         mechanism which is the same idea under a different name.
 
         When enabling TCP keepalive with default settings, we
@@ -1010,8 +1010,8 @@ are effective for both IPv4 and IPv6 connections):
     <tr>
       <td><code>net.ipv4.conf.default.rp_filter</code></td>
       <td>
-        Enabled reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
-        is not a concern for your system, disable it.
+        Activating or turning on reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
+        is not a concern for your system, deactivate it.
       </td>
     </tr>
   </tbody>
@@ -1060,7 +1060,7 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
     <tr>
       <td><code>tcp_listen_options.nodelay</code></td>
       <td>
-        When set to <code>true</code>, disables
+        When set to <code>true</code>, deactivates
         <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
         Default is true. Highly recommended for most users.
       </td>
@@ -1109,7 +1109,7 @@ TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 Below is the default TCP socket option configuration used by RabbitMQ:
 
  * TCP connection backlog is limited to 128 connections
- * Nagle's algorithm is disabled
+ * Nagle's algorithm is deactivated
  * Server socket lingering is enabled with the timeout of 0
 
 
@@ -1215,19 +1215,19 @@ e.g. `rmq1.dev.megacorp.local`.
 ### <a id="dns-reverse-dns-lookups" class="anchor" href="#dns-reverse-dns-lookups">Reverse DNS Lookups</a>
 
 If the `reverse_dns_lookups` configuration option is set to `true`,
-RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
+RabbitMQ will complete reverse DNS lookups for client IP addresses and list hostnames
 in connection information (e.g. in the [Management UI](./management.html)).
 
 Reverse DNS lookups can potentially take a long time if node's hostname resolution is not
 optimally configured. This can increase latency when accepting client connections.
 
-To explicitly enable reverse DNS lookups:
+To explicitly activate or turn on reverse DNS lookups:
 
 <pre class="lang-ini">
 reverse_dns_lookups = true
 </pre>
 
-To disable reverse DNS lookups:
+To deactivate reverse DNS lookups:
 
 <pre class="lang-ini">
 reverse_dns_lookups = false
