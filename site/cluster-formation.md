@@ -136,8 +136,8 @@ will be performed. This is true for all backends.
 
 ## <a id="formation-and-availability" class="anchor" href="#formation-and-availability">Cluster Formation and Feature Availability</a>
 
-As a rule of thumb, a cluster that has only been partially formed — that is, only a subset of
-nodes has joined it — **must be considered fully available** by clients.
+As a general rule, a cluster that is only been partly formed, that is, only a subset of
+nodes has joined it **must be considered fully available** by clients.
 
 Individual nodes will accept [client connections](connections.html) before the cluster is formed. In such cases,
 clients should be prepared to certain features not being available. For instance, [quorum queues](quorum-queues.html)

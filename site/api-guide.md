@@ -457,9 +457,9 @@ Invocations of `Channel#basicPublish` will eventually block if a
 
 ## <a id="concurrency" class="anchor" href="#concurrency">Channels and Concurrency Considerations (Thread Safety)</a>
 
-As a rule of thumb, sharing `Channel` instances between
-threads is something to be avoided. Applications
-should prefer using a `Channel` per thread
+Sharing `Channel` instances between
+threads should be avoided. Applications
+should be using a `Channel` per thread
 instead of sharing the same `Channel` across
 multiple threads.
 
@@ -1152,7 +1152,7 @@ a new connection is successfully opened.
 Recovery delay can be made dynamic by providing a `RecoveryDelayHandler`
 implementation instance to `ConnectionFactory#setRecoveryDelayHandler`.
 Implementations that use dynamically computed delay intervals should avoid
-values that are too low (as a rule of thumb, lower than 2 seconds).
+values that are too low (such as values that are lower than 2 seconds).
 
 When a connection is in the recovering state, any
 publishes attempted on its channels will be rejected

@@ -608,7 +608,7 @@ There is a number of concurrency-related topics for a library user to consider.
 
 ### <a id="concurrency-channel-sharing" class="anchor" href="#concurrency-channel-sharing">Sharing Channels Between Threads</a>
 
-As a rule of thumb, `IModel` instance usage by more than
+`IModel` instance usage by more than
 one thread simultaneously should be avoided. Application code
 should maintain a clear notion of thread ownership for `IModel` instances.
 
