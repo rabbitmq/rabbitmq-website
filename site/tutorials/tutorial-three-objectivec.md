@@ -278,7 +278,7 @@ NSLog(@"Waiting for logs.");
 }];
 </pre>
 
-[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/objective-c/tutorial3/tutorial3/ViewController.m)
+[(source)](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/objective-c/tutorial3/tutorial3/ViewController.m)
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.rb`

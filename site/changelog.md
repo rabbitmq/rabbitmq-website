@@ -1691,7 +1691,7 @@ published separately.
         <li><a href="dotnet-api-guide.html">.NET client API</a> changes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.5.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.5.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1702,7 +1702,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.4.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.4.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1714,7 +1714,7 @@ published separately.
         <li>Security fixes to the management plugin (CVE-2015-0862)</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.4.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.4.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1725,7 +1725,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.4.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.4.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1737,7 +1737,7 @@ published separately.
         <li>Security fixes to the management plugin</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.4.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.4.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1750,7 +1750,7 @@ published separately.
         <li>Reconnecting .net client</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.4.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.4.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1761,7 +1761,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.5.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.5.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1772,7 +1772,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1783,7 +1783,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1794,7 +1794,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1806,7 +1806,7 @@ published separately.
         <li>Security fixes to MQTT and shovel</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1819,7 +1819,7 @@ published separately.
         <li><a href="consumer-prefetch.html">Consumer Prefetch</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.3.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.3.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1830,7 +1830,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.2.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.2.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1841,7 +1841,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.2.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.2.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1852,7 +1852,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.2.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.2.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1863,7 +1863,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.2.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.2.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1878,7 +1878,7 @@ published separately.
         <li><a href="auth-notification.html">Authentication failure notifications</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.2.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.2.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1889,7 +1889,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.5.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.5.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1900,7 +1900,7 @@ published separately.
         <li>Security / bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1911,7 +1911,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1922,7 +1922,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1933,7 +1933,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1947,7 +1947,7 @@ published separately.
         <li><a href="maxlength.html">Queue length limits</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.1.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.1.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1958,7 +1958,7 @@ published separately.
         <li>Fixes a security bug in federation</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.0.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.0.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1969,7 +1969,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.0.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.0.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1980,7 +1980,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.0.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.0.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -1991,7 +1991,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.0.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.0.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2005,7 +2005,7 @@ published separately.
         <li><a href="ttl.html#per-message-ttl">Per-message TTL</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-3.0.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-3.0.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2016,7 +2016,7 @@ published separately.
         <li>Miscellaneous bugfixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.7.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.7.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2027,7 +2027,7 @@ published separately.
         <li>Sundry bugfixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.6.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.6.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2038,7 +2038,7 @@ published separately.
         <li>Assorted bugfixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.5.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.5.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2050,7 +2050,7 @@ published separately.
         files to grow in size infinitely when being rotated</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2061,7 +2061,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.3.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2073,7 +2073,7 @@ published separately.
         <li><a href="memory.html#diskfreesup">Disc space monitoring</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2085,7 +2085,7 @@ published separately.
         being upgraded</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2098,7 +2098,7 @@ published separately.
         control</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.8.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.8.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2111,7 +2111,7 @@ published separately.
         <li>Bug fixes and performance improvements</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.7.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.7.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2126,7 +2126,7 @@ published separately.
         <li>Performance improvements</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.7.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.7.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2138,7 +2138,7 @@ published separately.
         restart on reboot on some operating systems</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.6.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.6.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2152,7 +2152,7 @@ published separately.
         <li><a href="federation.html">Federation plugin</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.6.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.6.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2163,7 +2163,7 @@ published separately.
         <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.5.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.5.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2176,7 +2176,7 @@ published separately.
         <li>New rabbitmqctl commands</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.5.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.5.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2188,7 +2188,7 @@ published separately.
         <li><a href="clustering.html#upgrading">Cluster upgrades</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.4.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.4.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2201,7 +2201,7 @@ published separately.
         <li>Fast topic routing</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.4.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.4.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2213,7 +2213,7 @@ published separately.
         to crash</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.3.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.3.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2226,7 +2226,7 @@ published separately.
         <li>IPv6 support</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.3.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.3.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2238,7 +2238,7 @@ published separately.
         <li>Automatic upgrades</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.2.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.2.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2249,7 +2249,7 @@ published separately.
         <li><a href="e2e.html">Exchange to exchange bindings</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.1.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.1.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2260,7 +2260,7 @@ published separately.
         <li><a href="management.html">Management plugin</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.1.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.1.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2274,7 +2274,7 @@ published separately.
         <li>Binary Plugin releases</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-2.0.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-2.0.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2285,7 +2285,7 @@ published separately.
         <li>Synchronous basic.recover</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.8.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.8.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2298,7 +2298,7 @@ published separately.
         <li>Backing store plugins</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.8.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.8.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2313,7 +2313,7 @@ published separately.
         <li>Enhanced rabbitmqctl</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.7.2.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.7.2.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2324,7 +2324,7 @@ published separately.
         <li>Improved <a href="memory.html">producer throttling</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.7.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.7.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2337,7 +2337,7 @@ published separately.
         <li>Configuration file</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.7.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.7.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2351,7 +2351,7 @@ published separately.
         <li><a href="ae.html">Alternate exchanges</a></li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.6.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.6.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2362,7 +2362,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.5.5.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.5.5.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2373,7 +2373,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.5.4.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.5.4.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2384,7 +2384,7 @@ published separately.
         <li>Bug fixes</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.5.3.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.5.3.txt">Release notes</a></td>
   </tr>
 
   <!-- There was no 1.5.2. -->
@@ -2398,7 +2398,7 @@ published separately.
         <li>First release with "final" status</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.5.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.5.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2411,7 +2411,7 @@ published separately.
         <li>Producer throttling</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.5.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.5.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2422,7 +2422,7 @@ published separately.
         <li>Performance enhancements</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.4.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.4.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2433,7 +2433,7 @@ published separately.
         <li>Performance enhancements</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.3.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.3.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2445,7 +2445,7 @@ published separately.
         <li>Internal flow control</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.2.0.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.2.0.txt">Release notes</a></td>
   </tr>
 
   <tr>
@@ -2457,7 +2457,7 @@ published separately.
         <li>First release with "beta" status</li>
       </ul>
     </td>
-    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/release-notes/README-1.1.1.txt">Release notes</a></td>
+    <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/README-1.1.1.txt">Release notes</a></td>
   </tr>
 
   <tr>
