@@ -215,7 +215,7 @@ workload and use this test as a starting point.
 ### Switching Queue Mode at Runtime
 
 When converting a `default` queue into a `lazy` one,
-the operation will suffer the same performance impact as when a queue needs to page messages to disk.
+the performance impact on the operation is the same impact as when a queue needs to page messages to disk.
 
 During a conversion from the regular mode to the lazy one,
 the queue will first page all messages kept in RAM to disk. It won't accept any more

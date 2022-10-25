@@ -256,7 +256,6 @@ is the way to detect many types of failures. Longer-term metric data collected u
 can help spot irregularities and problematic patterns in system behaviour.
 
 In addition to monitoring, [health checks](monitoring.html#health-checks) is another tool that can be used to detect
-__point-in-time__ problems, that is, problems observable at the moment. Extensive health check coverage can suffer
-from false positives, so more checks isn't necessarily better.
+__point-in-time__ problems, that is, problems observable at the moment. Extensive health check coverage can result in false positives so more checks is not always better.
 
 Both monitoring and health checks are covered in a [dedicated guide](monitoring.html).
