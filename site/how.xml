@@ -265,7 +265,7 @@ limitations under the License.
       <li>
         <a href="http://videlalvaro.github.com/2011/04/an-army-of-minions-for-rabbitmq.html">An Army of Zombie Minions for RabbitMQ</a>
         <br />
-        Alvaro Videla showcases his <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ messaging patterns</a> library by
+        Alvaro Videla showcases <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ messaging patterns</a> library by
         creating "control enabled messaging endpoints". These are message consumers that dynamically alter their behaviour
         in response to out-of-band control messages.
       </li>
