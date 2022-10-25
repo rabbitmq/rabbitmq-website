@@ -282,8 +282,8 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
 
 </table>
 
-As a rule of thumb, most recent minor & patch versions of each supported Erlang/OTP series
-is recommended.
+As a guideline, most recent minor and patch versions of each supported Erlang/OTP series
+are recommended.
 
 ## <a id="erlang-repositories" class="anchor" href="#erlang-repositories">Provisioning Latest Erlang Releases</a>
 

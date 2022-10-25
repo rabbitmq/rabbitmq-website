@@ -175,7 +175,7 @@ of excessive channel usage or channel leaks will primarily be reflected in Rabbi
 and not those of clients.
 
 Given both of these factors, limiting the number of channels used per connection is highly recommended.
-As a rule of thumb, most applications can use a single digit number of channels per connection.
+As a guideline, most applications can use a single digit number of channels per connection.
 Those with particularly high concurrency rates (usually such applications are [consumers](./consumers.html))
 can start with one channel per thread/process/coroutine and switch to channel pooling
 when metrics suggest that the original model is no longer sustainable, e.g. because it consumes

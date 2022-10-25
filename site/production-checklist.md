@@ -188,10 +188,10 @@ for expected number of concurrent connections and queues.
 Make sure your environment allows for at least 50K open file descriptors for effective RabbitMQ
 user, including in development environments.
 
-As a rule of thumb, multiply the 95th percentile number of concurrent connections
-by 2 and add total number of queues to calculate recommended open file handle limit.
+As a guideline, multiply the 95th percentile number of concurrent connections
+by 2 and add the total number of queues to calculate the recommended open file handle limit.
 Values as high as 500K are not inadequate and
-won't consume a lot of hardware resources, and therefore are recommended for production
+will not consume a lot of hardware resources, therefore, they are recommended for production
 setups.
 
 See [Networking guide](networking.html) for more information.
