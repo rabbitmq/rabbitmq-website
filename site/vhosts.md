@@ -170,7 +170,7 @@ To limit the total number of concurrent client connections in vhost
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 256}'
 </pre>
 
-To disable client connections to a vhost, set the limit to a zero:
+To deactivate client connections to a vhost, set the limit to a zero:
 
 <pre class="lang-bash">
 rabbitmqctl set_vhost_limits -p vhost_name '{"max-connections": 0}'
