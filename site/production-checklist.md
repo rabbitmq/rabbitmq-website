@@ -253,7 +253,7 @@ RabbitMQ and all applications run on a trusted network or isolated using technol
 such as VMware NSX.
 
 While RabbitMQ tries to offer a secure TLS configuration by
-default (e.g. SSLv3 is disabled), we recommend evaluating
+default (for example, SSLv3 is deactivated), we recommend evaluating
 TLS configuration (versions cipher suites and so on) using tools such as [testssl.sh](https://testssl.sh/).
 Please refer to the [TLS guide](ssl.html) to learn more.
 
