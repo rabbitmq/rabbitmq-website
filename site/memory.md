@@ -145,11 +145,11 @@ The memory limit may change on systems with hot-swappable RAM when this command 
 the threshold, due to the fact that the total amount of system
 RAM is queried.
 
-### <a id="disable-publishing" class="anchor" href="#disable-publishing">Disabling All Publishing</a>
+### <a id="disable-publishing" class="anchor" href="#disable-publishing">Deactivating All Publishing</a>
 
 When the threshold or absolute limit is set to `0`, it makes the memory alarm go off
 immediately and thus eventually blocks all publishing connections. This may be
-useful if you wish to disable publishing globally:
+useful if you wish to deactivate publishing globally:
 
 <pre class="lang-bash">
 rabbitmqctl set_vm_memory_high_watermark 0
