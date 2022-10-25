@@ -863,7 +863,7 @@ management.headers.frame_options = DENY
 
 ### <a id="login-session-timeout" class="anchor" href="#login-session-timeout">Login Session Timeout</a>
 
-After the user logs in, her web UI login session will expire after 8 hours by default.
+After the user logs in, the user's web UI login session will expire after 8 hours by default.
 It is possible to configure a different timeout using the
 `login_session_timeout` setting.
 
