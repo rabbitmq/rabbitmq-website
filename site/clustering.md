@@ -1129,11 +1129,10 @@ Whenever the hostname changes RabbitMQ node must be restarted.
 
 A similar effect can be achieved by using `rabbit@localhost`
 as the broker nodename.
-The impact of this solution is that clustering will not work, because
-the chosen hostname will not resolve to a routable address from remote
-hosts. The `rabbitmqctl` command will similarly fail when
-invoked from a remote host. A more sophisticated solution that does not
-suffer from this weakness is to use DNS, e.g.
+The impact of this solution is that clustering will not work because
+the chosen hostname does not resolve to a routable address from the remote
+hosts. The `rabbitmqctl` command fails when
+invoked from a remote host. A better solution is to use DNS, for example, 
 [Amazon Route 53](http://aws.amazon.com/route53/) if running
 on EC2. If you want to use the full hostname for your nodename (RabbitMQ
 defaults to the short name), and that full hostname is resolvable using DNS,
