@@ -468,7 +468,7 @@ nearly every widely adopted security policy.
 It can, however, be very useful for troubleshooting in development
 and QA environments.
 
-Lastly, the value of `false` (the default) disables LDAP traffic logging.
+Lastly, the value of `false` (the default) deactivates LDAP traffic logging.
 
 The following examples sets LDAP logging level to `network`:
 
