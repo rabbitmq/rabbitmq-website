@@ -145,7 +145,7 @@ The memory limit may change on systems with hot-swappable RAM when this command 
 the threshold, due to the fact that the total amount of system
 RAM is queried.
 
-### <a id="disable-publishing" class="anchor" href="#disable-publishing">Deactivating All Publishing</a>
+### <a id="stop-publishing" class="anchor" href="#stop-publishing">Stop All Publishing</a>
 
 When the threshold or absolute limit is set to `0`, it makes the memory alarm go off
 immediately and thus eventually blocks all publishing connections. This may be
