@@ -41,7 +41,7 @@ Nodes will temporarily _block_ publishing connections
 by suspending reading from [client connection](connections.html).
 Connections that are only used to *consume* messages will not be blocked.
 
-Connection [heartbeat monitoring](heartbeats.html) will be disabled, too.
+Connection [heartbeat monitoring](heartbeats.html) will be deactivated, too.
 All network connections will show in `rabbitmqctl` and the
 management UI as either `blocking`, meaning they
 have not attempted to publish and can thus continue, or
