@@ -174,13 +174,12 @@ this out with three or more workers.
 Message acknowledgment
 ----------------------
 
-Doing a task can take a few seconds. You may wonder what happens if
-one of the consumers starts a long task and dies with it only partly done.
-With our current code, once RabbitMQ delivers a message to the consumer it
-immediately marks it for deletion. In this case, if you kill a worker
-we will lose the message it was just processing. We'll also lose all
-the messages that were dispatched to this particular worker but were not
-yet handled.
+Doing a task can take a few seconds, you may wonder what happens if
+a consumer starts a long task and it terminates before it completes.
+With our current code, once RabbitMQ delivers a message to the consumer, it
+immediately marks it for deletion. In this case, if you terminate a worker,
+the message it was just processing is lost. The messages that were dispatched
+to this particular worker but were not yet handled are also lost.
 
 But we don't want to lose any tasks. If a worker dies, we'd like the
 task to be delivered to another worker.
@@ -216,9 +215,9 @@ queue.subscribe(manual_ack: true, block: true) do |delivery_info, _properties, b
 end
 </pre>
 
-Using this code we can be sure that even if you kill a worker using
-CTRL+C while it was processing a message, nothing will be lost. Soon
-after the worker dies all unacknowledged messages will be redelivered.
+Using this code, you can ensure that even if you terminate a worker using
+CTRL+C while it was processing a message, nothing is lost. Soon
+after the worker terminates, all unacknowledged messages are redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
