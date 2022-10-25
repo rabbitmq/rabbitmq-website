@@ -494,7 +494,7 @@ topic exchange or consuming from a topic is always authorised
 if no topic permissions
 are defined (which is the case on a fresh RabbitMQ
 installation). With this authorisation backend, topic
-authorisation is optional: you don't need to whitelist any
+authorisation is optional: you don't need to approve any
 exchanges. To use topic authorisation therefore you need to opt in
 and define topic permissions for one or more exchanges. For details please see
 the [rabbitmqctl man page](man/rabbitmqctl.8.html).
