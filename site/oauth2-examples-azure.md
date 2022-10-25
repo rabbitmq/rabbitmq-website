@@ -133,7 +133,7 @@ Now that some roles have been created for your application, you still need to as
 
 The configuration on Azure side is done. You now have to configure RabbitMQ to use the resources you just created.
 
-[rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/master/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
+[rabbitmq.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/azure/rabbitmq.config) is a sample RabbitMQ advanced configuration to **enable Azure AD as OAuth 2.0 authentication backend** for the RabbitMQ Management UI.
 
 Update it with the following values (you should have noted these in the previous steps):
 * **Tenant ID** associated to the app that you registered in Azure AD

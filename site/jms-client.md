@@ -481,7 +481,7 @@ If this flag is not set to `false` on the RPC server side, the JMS
 client will try to re-create the temporary reply-to destination, which will
 interfere with the client-side declaration.
 
-See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcIT.java)
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/src/test/java/com/rabbitmq/integration/tests/RpcIT.java)
 for a full RPC example.
 
 The JMS client also supports [direct reply-to](direct-reply-to.html), which is faster as it doesn't imply
@@ -515,7 +515,7 @@ Using direct reply-to for JMS-based RPC has the following implications:
  on the response message in the RPC server if you want to receive a `TextMessage`
  on the client side.
 
-See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcWithAmqpDirectReplyIT.java) for a full RPC example using direct reply-to.
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/src/test/java/com/rabbitmq/integration/tests/RpcWithAmqpDirectReplyIT.java) for a full RPC example using direct reply-to.
 
 ### With Spring JMS
 
@@ -574,7 +574,7 @@ Message response = tpl.execute(session -> {
 });
 </pre>
 
-See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/master/src/test/java/com/rabbitmq/integration/tests/RpcSpringJmsIT.java)
+See [this test](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/src/test/java/com/rabbitmq/integration/tests/RpcSpringJmsIT.java)
 for a full example of RPC with Spring JMS, including using a `@JmsListener` bean
 for the server part.
 

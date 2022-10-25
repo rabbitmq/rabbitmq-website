@@ -452,7 +452,7 @@ versions of RabbitMQ.
 #### When to Use a Feature Flag
 
 It is developer's responsibility to look at the list of existing and
-future (i.e. those added to the `master` branch) feature flags and see
+future (i.e. those added to the `main` branch) feature flags and see
 if the new code can be adapted to take advantage of them.
 
 Here is an example. When developing a plugin which used to use the
@@ -521,7 +521,7 @@ quorum_queue_migration(_FeatureName, _FeatureProps, is_enabled) ->
 
 More implementation docs can be found in
 the [`rabbit_feature_flags` module source
-code](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_feature_flags.erl).
+code](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/src/rabbit_feature_flags.erl).
 
 Erlang's `edoc` reference can be generated locally from a RabbitMQ
 repository clone or source archive:
