@@ -566,7 +566,7 @@ use a thread pool.
 
 ## <a id="disable-publishing" class="anchor" href="#disable-publishing">Temporarily Blocking Publishing</a>
 
-It is possible to effectively disable all publishing in a cluster by setting the [memory high watermark](memory.html)
+It is possible to effectively deactivate all publishing in a cluster by setting the [memory high watermark](memory.html)
 to `0`, thus making [a resource alarm](alarms.html) to go off immediately:
 
 <pre class="lang-bash">
