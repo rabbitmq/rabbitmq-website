@@ -286,7 +286,7 @@ and the [Plugins Guide](plugins.html) for more information about plugins.
 ## Development
 
  * [RabbitMQ GitHub repositories](https://github.com/rabbitmq/)
- * [Contributor Code of Conduct](https://github.com/rabbitmq/rabbitmq-server/blob/master/CODE_OF_CONDUCT.md)
+ * [Contributor Code of Conduct](https://github.com/rabbitmq/rabbitmq-server/blob/main/CODE_OF_CONDUCT.md)
  * How to [build RabbitMQ](build.html) from source, or
  * from [GitHub](github.html).
 

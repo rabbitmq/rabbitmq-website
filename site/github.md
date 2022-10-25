@@ -43,7 +43,7 @@ developed on a branch of its own using
 
 <code>git checkout -b</code>
 
-and merged into the <code>master</code> or
+and merged into the <code>main</code> or
 <code>stable</code> branches only when it passes QA. Branches
 follow the pattern <code><i>repository-name</i>-<i>NN</i></code>,
 where <i>repository-name</i> is the name of the GitHub project
@@ -67,7 +67,7 @@ attempt to implement it).
 The pull request must be made against the <code>stable</code>
 branch if it is a bugfix involving no incompatible changes
 with the latest stable release (ie. no changes to the Mnesia
-schema or the inter-node communication), or the <code>master</code>
+schema or the inter-node communication), or the <code>main</code>
 branch for everything else.
 
 ## <a id="default-branch" class="anchor" href="#default-branch">The main branch</a>
@@ -84,7 +84,7 @@ of interest.
 
 There's a separate branch for maintenance work,
 named after the current stable release series. Currently it is <code>v3.7.x</code>.
-It plays the same role as the <code>master</code> branch except that it carries merged,
+It plays the same role as the <code>main</code> branch except that it carries merged,
 QA'd code intended for the next bug-fix release rather than
 the next general release.
 

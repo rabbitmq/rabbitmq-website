@@ -69,7 +69,7 @@ To receive Slack notifications, deploy the Kubernetes `Secret` in directory [ale
 
 ### <a id='config-perm' class='anchor' href='#config-perm'>(Optional) Configure Permissions for the Prometheus Operator</a>
 
-If no RabbitMQ clusters appear in Prometheus, it might be necessary to [adjust permissions for the Prometheus Operator](https://github.com/coreos/prometheus-operator/blob/master/Documentation/rbac.md).
+If no RabbitMQ clusters appear in Prometheus, it might be necessary to [adjust permissions for the Prometheus Operator](https://github.com/coreos/prometheus-operator/blob/main/Documentation/rbac.md).
 
 The following steps have been tested with a `kube-prometheus` deployment.
 

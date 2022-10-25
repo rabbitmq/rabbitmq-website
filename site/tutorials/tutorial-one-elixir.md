@@ -283,7 +283,7 @@ IO.puts " [x] Sent 'Hello World!'"
 AMQP.Connection.close(connection)
 </pre>
 
-[(send.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/send.exs)
+[(send.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/send.exs)
 
 
 Full `receive.exs` code:
@@ -308,7 +308,7 @@ IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 Receive.wait_for_messages()
 </pre>
 
-[(receive.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive.exs)
+[(receive.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive.exs)
 
 Now we can try out our programs in a terminal. First, let's start
 a consumer, which will run continuously waiting for deliveries:

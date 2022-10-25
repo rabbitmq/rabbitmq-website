@@ -72,7 +72,7 @@ root is added to `PATH` for simpler interactive use. Non-interactive use cases c
 modifications to the `PATH` environment variable.
 
 [`rabbitmqadmin`](./management-cli.html) is a standalone tool (no dependencies other than Python 3)
-that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_management/bin/rabbitmqadmin).
+that can be downloaded from a running node or [directly from GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 If interaction from a remote node is required, download and extract the [generic UNIX package](./install-generic-unix.html)
 or use the [Windows installer](./install-windows.html).
@@ -537,7 +537,7 @@ performed operations provided by the [management UI](./management.html).
 The tool requires Python 2.7.9 or a more recent version.
 
 `rabbitmqadmin` uses HTTP API authentication mechanism (basic HTTP authentication). It has to be
-downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_management/bin/rabbitmqadmin).
+downloaded separately from a running node or [GitHub](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_management/bin/rabbitmqadmin).
 
 
 ## <a id="cli-and-clustering" class="anchor" href="#cli-and-clustering">"Node-local" and "Clusterwide" Commands</a>

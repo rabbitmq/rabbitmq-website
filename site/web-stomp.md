@@ -50,7 +50,7 @@ library is required. We've tested a
 [stomp-websocket](https://github.com/jmesnil/stomp-websocket/) library
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
-[This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
+[This library](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_stomp_examples/priv/stomp.js)
 is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples).
 
 The WebSocket endpoint is available on the `/ws` path:
@@ -111,7 +111,7 @@ The examples will be available under
  * "echo" - shows how to use STOMP to do simple message broadcasting
  * "bunny" - example of a simple collaboration canvas painting app
 
-We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_web_stomp_examples/priv).
+We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples/priv).
 
 ## <a id="configuration" class="anchor" href="#configuration">Configuration</a>
 

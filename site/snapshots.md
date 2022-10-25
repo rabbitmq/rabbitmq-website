@@ -28,9 +28,9 @@ become available.
 ## <a id="stability-and-safety" class="anchor" href="#stability-and-safety">Stability and Suitability of Snapshot Builds</a>
 
 Snapshot builds are produced from all supported release series branches and from
-the 'master' branch which will become the next feature release.
+the 'main' branch which will become the next feature release.
 
-In the case of the 'master' branch, this represents the
+In the case of the 'main' branch, this represents the
 <i>bleeding edge</i> and therefore should not be considered
 complete (finished) or stable. It is quite possible that
 existing features, APIs and/or configuration data formats have
@@ -50,7 +50,7 @@ Snapshot releases therefore are suitable for development and some QA
 environments but not intended to be used in production.
 
 
-## <a id="documentation" class="anchor" href="#documentation">Documentation of the 'master' branch</a>
+## <a id="documentation" class="anchor" href="#documentation">Documentation of the 'main' branch</a>
 
 Documentation for default branch of the RabbitMQ distribution is continuously published to
 [next.rabbitmq.com](http://next.rabbitmq.com/documentation.html).

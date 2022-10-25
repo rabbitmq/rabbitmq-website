@@ -376,7 +376,7 @@ func bodyFrom(args []string) string {
 }
 </pre>
 
-[(emit_log.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log.go)
+[(emit_log.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/emit_log.go)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -465,7 +465,7 @@ func main() {
 }
 </pre>
 
-[(receive_logs.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs.go)
+[(receive_logs.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/go/receive_logs.go)
 
 
 If you want to save logs to a file, just open a console and type:

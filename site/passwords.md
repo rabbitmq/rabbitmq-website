@@ -115,7 +115,7 @@ shell escaping of certain characters [must be taken into account](./access-contr
 ### <a id="custom-credential-validation" class="anchor" href="#custom-credential-validation">Custom Credential Validators</a>
 
 Every credential validator is a module that implements a single function
-behaviour, [rabbit_credential_validator](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_credential_validator.erl).
+behaviour, [rabbit_credential_validator](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/src/rabbit_credential_validator.erl).
 Plugins therefore can provide more implementations.
 
 Credential validators can also validate usernames or apply any other logic

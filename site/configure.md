@@ -556,8 +556,8 @@ that cannot be configured using the [ini-style config file](#config-file).
 The RabbitMQ server source repository contains
 examples for the configuration files:
 
- * [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/docs/rabbitmq.conf.example)
- * [advanced.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/docs/advanced.config.example)
+ * [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/rabbitmq.conf.example)
+ * [advanced.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/advanced.config.example)
 
 These files contain examples of most of the configuration keys along with a brief explanation
 for those settings. All configuration items are commented out in the

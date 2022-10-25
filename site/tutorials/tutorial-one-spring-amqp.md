@@ -49,7 +49,7 @@ We'll be using Spring Boot to bootstrap and configure our Spring AMQP
 project. We chose Maven to build the project, but we could have used
 Gradle as well.
 
-The [source code of the project](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/spring-amqp)
+The [source code of the project](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/spring-amqp)
 is available online, but you can also do the tutorials from scratch.
 
 If you choose the later, open the [Spring Initializr](http://start.spring.io) and provide:

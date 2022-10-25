@@ -540,7 +540,7 @@ rabbitmqctl set_policy --apply-to queues --priority 100 move-my-queue '^&lt;queu
 rabbitmqctl clear_policy move-my-queue
 </pre>
 
-A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/master/scripts/rebalance-queue-masters)
+A [queue leader rebalancing script](https://github.com/rabbitmq/support-tools/blob/main/scripts/rebalance-queue-masters)
 is available. It rebalances queue leaders for all queues.
 
 The script has certain assumptions (e.g. the default node name) and can fail to run on
@@ -595,7 +595,7 @@ or by specifying multiple server hosts if client library supports this feature.
 Many client libraries libraries support host lists, for example:
 
 * [Java client](https://rabbitmq.github.io/rabbitmq-java-client/api/current/com/rabbitmq/client/ConnectionFactory.html#newConnection%28com.rabbitmq.client.Address%5B%5D%29)
-* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/master/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
+* [.NET client](https://github.com/rabbitmq/rabbitmq-dotnet-client/blob/main/projects/RabbitMQ.Client/client/api/ConnectionFactory.cs#L392)
 * [Bunny](http://api.rubybunny.info/Bunny/Session.html#constructor_details)
 
 

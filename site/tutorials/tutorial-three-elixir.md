@@ -273,7 +273,7 @@ IO.puts " [x] Sent '#{message}'"
 AMQP.Connection.close(connection)
 </pre>
 
-[(emit_log.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log.exs)
+[(emit_log.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/emit_log.exs)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -308,7 +308,7 @@ IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 ReceiveLogs.wait_for_messages(channel)
 </pre>
 
-[(receive_logs.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/receive_logs.exs)
+[(receive_logs.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/main/elixir/receive_logs.exs)
 
 
 We're done. If you want to save logs to a file, just open a console and type:

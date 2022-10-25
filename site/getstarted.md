@@ -198,12 +198,12 @@ The tutorials here use a number of popular technologies,
 however, there are [ports available](https://github.com/rabbitmq/rabbitmq-tutorials) for
 many more languages and client libraries, for example:
 
- * [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure) (using [Langohr](http://clojurerabbitmq.info))
- * [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
- * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
- * [Perl](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl) (using [Net::RabbitFoot](https://github.com/cooldaemon/RabbitFoot))
+ * [Clojure](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/clojure) (using [Langohr](http://clojurerabbitmq.info))
+ * [Erlang](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/erlang) (using [RabbitMQ Erlang client](https://github.com/rabbitmq/rabbitmq-erlang-client))
+ * [Haskell](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/haskell) (using [Network.AMQP](http://hackage.haskell.org/package/amqp))
+ * [Perl](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/perl) (using [Net::RabbitFoot](https://github.com/cooldaemon/RabbitFoot))
  * [Perl](https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl) (using [Net::AMQP::RabbitMQ](http://p3rl.org/Net::AMQP::RabbitMQ))
- * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
+ * [Scala](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/scala) (using [RabbitMQ Java client](https://www.rabbitmq.com/api-guide.html))
 
 We also maintain a list of community-developed [clients and developer tools](./devtools.html)
 for a range of platforms.
