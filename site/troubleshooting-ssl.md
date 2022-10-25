@@ -238,7 +238,7 @@ openssl s_server -accept 8443 \
 
 It will start an OpenSSL <code>s_server</code> that uses the provided
 CA certificate bundler, server certificate and private key. It will be used
-to sanity check the certificates with test TLS connections against this example server.
+to confidence check the certificates with test TLS connections against this example server.
 
 In another terminal window, run the following command, substituting <code>CN_NAME</code>
 with the expected hostname or <code>CN</code> name from the certificate:

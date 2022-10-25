@@ -611,7 +611,7 @@ rabbitmq-diagnostics -q status
 # =&gt; [output elided for brevity]
 </pre>
 
-This is a common way of sanity checking a node.
+This is a common way of confidence checking a node.
 The probability of false positives can be considered approaching `0`
 except for upgrades and maintenance windows.
 
