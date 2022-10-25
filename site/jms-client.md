@@ -394,7 +394,7 @@ publishing. This feature builds on top of the AMQP protocol, but the JMS client
 provides an API to use it. This allows to benefit from a reliability feature without
 diverging too much from the JMS API.
 
-Publisher confirms are disabled by default. They can be enabled by setting
+Publisher confirms are deactivated by default. They can be activated by setting
 a `ConfirmListener` on the `RMQConnectionFactory`:
 
 <pre class="lang-java">
