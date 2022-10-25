@@ -218,7 +218,7 @@ information.
 ## <a id="proxy-protocol" class="anchor" href="#proxy-protocol">Proxy Protocol</a>
 
 The Web MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
-This feature is disabled by default, to enable it for MQTT clients:
+This feature is deactivated by default, to enable it for MQTT clients:
 
 <pre class="lang-ini">
 web_mqtt.proxy_protocol = true
