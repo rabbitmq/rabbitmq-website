@@ -748,13 +748,13 @@ Finding an optimal value is usually a matter of trial and error.
 
 ### <a id="tuning-for-large-number-of-connections-nodelay" class="anchor" href="#tuning-for-large-number-of-connections-nodelay">Nagle's Algorithm ("nodelay")</a>
 
-Deactivating or turning off <a
+Turning off <a
 href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
 algorithm</a> is primarily useful for reducing latency but
 can also improve throughput.
 
 `kernel.inet_default_connect_options` and `kernel.inet_default_listen_options` must
-include `{nodelay, true}` to deactivate Nagle's algorithm for inter-node connections.
+include `{nodelay, true}` to turn off Nagle's algorithm for inter-node connections.
 
 When configuring sockets that serve client connections,
 `tcp_listen_options` must include the same option. This is the default.
