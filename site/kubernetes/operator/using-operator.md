@@ -314,7 +314,7 @@ The available settings are:
       <strong>Note:</strong> If your cluster does not have a default StorageClass, this property
       must be set, otherwise RabbitMQ Pods will not be scheduled because they require a Persistent Volume.
     </p>
-* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to disable persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
+* `storage`: The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to deactivate persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
 
 **Default Values:**
 
@@ -782,7 +782,7 @@ The configurations are listed in the table below.
         <code>spec.persistence.storage</code>
       </td>
       <td>
-      The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to disable persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
+      The capacity of the persistent volume, expressed as a Kubernetes resource quantity. Set to `0` to deactivate persistence altogether (this may be convenient in CI/CD and test deloyments that should always start fresh).
       </td>
     </tr>
     <tr>
