@@ -289,7 +289,7 @@ definitions in that policy.
 A federation policy definition would require an <em>upstream set</em>
 to be specified, so we would need the `federation-upstream-set`
 key in our definition. On the other hand to define some queues as TTL-enabled,
-we would need the TTL-relatd keys key to be defined as well for the
+we would need the TTL-related keys key to be defined as well for the
 policy. The policy definition is just a JSON object and can have multiple
 keys combined in the same policy definition.
 
