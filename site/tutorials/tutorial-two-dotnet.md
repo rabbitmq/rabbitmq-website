@@ -209,7 +209,7 @@ Message acknowledgment
 Doing a task can take a few seconds. You may wonder what happens if
 one of the consumers starts a long task and dies with it only partly done.
 With our current code, once RabbitMQ delivers a message to the consumer it
-immediately marks it for deletion. In this case, if you kill a worker
+immediately marks it for deletion. In this case, if you terminate a worker
 we will lose the message it was just processing. We'll also lose all
 the messages that were dispatched to this particular worker but were not
 yet handled.
@@ -253,9 +253,9 @@ channel.BasicConsume(queue: "hello",
                      consumer: consumer);
 </pre>
 
-Using this code we can be sure that even if you kill a worker using
-CTRL+C while it was processing a message, nothing will be lost. Soon
-after the worker dies all unacknowledged messages will be redelivered.
+Using this code, you can  ensure that even if you terminate a worker node using
+CTRL+C while it was processing a message, nothing is lost. Soon
+after the worker node is terminated, all unacknowledged messages will be redelivered.
 
 Acknowledgement must be sent on the same channel that received the
 delivery. Attempts to acknowledge using a different channel will result
