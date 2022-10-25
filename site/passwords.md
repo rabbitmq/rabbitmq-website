@@ -27,7 +27,7 @@ material in this guide will not be applicable.
 RabbitMQ supports multiple [authentication mechanisms](./access-control.html#mechanisms). Some of them use
 username/password pairs. These credential pairs are then handed over to [authentication backends](./access-control.html#backends)
 that perform authentication. One of the backends, known as internal or built-in, uses internal RabbitMQ data store
-to store user credentials. When a new user is added using `rabbitmqctl`, her password is combined with a salt value
+to store user credentials. When a new user is added using `rabbitmqctl`, the user's password is combined with a salt value
 and hashed.
 
 RabbitMQ can be configured to use different password hashing functions:

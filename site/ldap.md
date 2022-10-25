@@ -314,7 +314,7 @@ refer to [this overview](https://www.digitalocean.com/community/tutorials/unders
     <td>
       A short identifier of an object in the tree. This identifier will vary between
       object classes (types) in the LDAP database. For example, a person's common name
-      will be her full name. A group's common name would be the name of that group.
+      will be the full name. A group's common name would be the name of that group.
       One way to think of a CN is a file name in a filesystem.
     </td>
   </tr>
