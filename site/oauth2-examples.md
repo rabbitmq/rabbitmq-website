@@ -355,7 +355,7 @@ This scenario explores the use case where JWT tokens may be signed by different 
 
 There are two ways to configure RabbitMQ with multiple signing keys:
 
- * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_auth_backend_oauth2#variables-configurable-in-rabbitmqconf).
+ * **Statically** configure them via `rabbitmq.conf` as shown in the [plugin documentation page](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_auth_backend_oauth2#variables-configurable-in-rabbitmqconf).
  * **Dynamically** add the keys to a running RabbitMQ node without having to restart it.
    This alternative is explained in more detail in the section [About rotating UAA signing key](#about-rotating-uaa-signing-key).
    This section will also use this option.
