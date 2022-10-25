@@ -104,7 +104,7 @@ Remarks:
  C: I cannot find any discussion about the addition of this. Is my
     archive missing a few messages?
 
- D: John [O'Hara]objected to this when he proposed his list. I believe it to
+ D: John [O'Hara]objected to this when John proposed a list himself. I believe it to
     be vital: byte arrays are not strings. Furthermore, Qpid and
     Rabbit already have code deployed that uses this type specifier.</pre>
          <p>RabbitMQ continues to use the tags in the third column.</p>

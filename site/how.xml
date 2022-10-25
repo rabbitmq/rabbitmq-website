@@ -38,7 +38,7 @@ limitations under the License.
     <li>
       <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
       Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
-      he introduces RabbitMQ “An open source message broker that just works”.
+      where RabbitMQ is introduced as “An open source message broker that just works”.
     </li>
     <li>
       <a href="resources/RabbitMQ_MessagingInTheCloud_VMworld_2010_MS.pdf">RabbitMQ: Messaging in the Cloud</a><br/>
@@ -89,7 +89,7 @@ limitations under the License.
     </li>
     <li>
     <a href="resources/RabbitMQ_FITEclub_2009.pdf">A Technical Look at RabbitMQ and Erlang</a><br/>
-    Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
+    Matthias' slides from a talk at FITEclub in 2009 where a technical overview of RabbitMQ is presented.
     </li>
     <li>
       <a href="http://www.infoq.com/articles/AMQP-RabbitMQ">Getting Started with AMQP and RabbitMQ</a><br />
@@ -100,7 +100,7 @@ limitations under the License.
     <li>
       <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: Python and Ruby Staring at the Looking Glass</a><br />
       A slide show from Paolo Negri that offers an excellent introduction to the AMQP
-      model and RabbitMQ with code samples in python and ruby. He explores the
+      model and RabbitMQ with code samples in python and ruby. This information explores the
       different routing models available and goes on to explain a number of use cases
       and some common messaging patterns, including pubsub.
     </li>
@@ -292,7 +292,7 @@ limitations under the License.
       </li>
       <li>
         <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
-        Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
+        Shane Witbeck describes a proof of concept, which demonstrates how these open source technologies combined
         with proven enterprise integration patterns results in code that is easier to maintain, easier to test
         and is faster than the legacy system it replaces.
       </li>
@@ -303,7 +303,7 @@ limitations under the License.
       </li>
       <li>
       <a href="http://docs.google.com/present/view?id=dck5j8mb_0rqn4psdg">Patterns for Messaging with RabbitMQ</a><br/>
-      Scott Brooks presents an overview of the AMQ model and goes on to describe some advanced topics. He highlights a set of common
+      Scott Brooks presents an overview of the AMQ model and goes on to describe some advanced topics. Scott highlights a set of common
       messaging use cases with RabbitMQ including delayed job queues, event logging, back-end decoupling and cross platform interoperability.
       </li>
       <li>
@@ -407,7 +407,7 @@ limitations under the License.
     </li>
     <li>
       <a href="http://skillsmatter.com/podcast/erlang/mike-bridgen-application-of-rabbitmq">Application of RabbitMQ at the BBC</a><br />
-      Video of a talk by Mike Bridgen at Google London, May 2009, where he
+      Video of a talk by Mike Bridgen at Google London, May 2009, where Mike
       illustrates how RabbitMQ can be used within a real world application
       integrating the news feeds at the BBC.
     </li>
@@ -498,7 +498,7 @@ limitations under the License.
     </li>
     <li>
       <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
-      Daniel is the author of Qusion - "an AMQP made-easy" library for Ruby. He
+      Daniel is the author of Qusion - "an AMQP made-easy" library for Ruby. Daniel
       regularly blogs on a variety of subjects including AMQP, RabbitMQ and Ruby.
     </li>
     <li>
