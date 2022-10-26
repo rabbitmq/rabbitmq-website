@@ -22,7 +22,7 @@ limitations under the License.
     <p>
       The simplest thing that does <em>something</em>
     </p>
-    <p><img src="../img/tutorials/python-one.png" width="180"  /></p>
+    <p><img src="../img/tutorials/python-one.png" width="180" alt="(P) -> [|||] -> (C)" /></p>
     <ul>
       <li><a href="./tutorial-one-python.html">Python</a></li>
       <li><a href="./tutorial-one-java.html">Java</a></li>
@@ -43,7 +43,7 @@ limitations under the License.
     <p>
       Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
-    <p><img src="../img/tutorials/python-two.png" width="180" /></p>
+    <p><img src="../img/tutorials/python-two.png" width="180" alt="Producer -> Queue -> Consuming: Work Queue used to distribute time-consuming tasks among multiple workers." /></p>
     <ul>
         <li><a href="./tutorial-two-python.html">Python</a></li>
         <li><a href="./tutorial-two-java.html">Java</a></li>
@@ -64,7 +64,7 @@ limitations under the License.
     <p>
       Sending messages to many consumers at once
     </p>
-    <p><img src="../img/tutorials/python-three.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-three.png" height="50" width="180" alt="Producer -> Queue -> Consuming: deliver a message to multiple consumers." /></p>
     <ul>
       <li><a href="./tutorial-three-python.html">Python</a></li>
       <li><a href="./tutorial-three-java.html">Java</a></li>
@@ -87,7 +87,7 @@ limitations under the License.
     <p>
       Receiving messages selectively
     </p>
-    <p><img src="../img/tutorials/python-four.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-four.png" height="50" width="180" alt="Producer -> Queue -> Consuming: subscribe to a subset of the messages only. /></p>
     <ul>
       <li><a href="./tutorial-four-python.html">Python</a></li>
       <li><a href="./tutorial-four-java.html">Java</a></li>
@@ -108,7 +108,7 @@ limitations under the License.
     <p>
       Receiving messages based on a pattern (topics)
     </p>
-    <p><img src="../img/tutorials/python-five.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-five.png" height="50" width="180" alt="Producer -> Queue -> Consuming: receiving messages based on a pattern (topics)." /></p>
     <ul>
       <li><a href="./tutorial-five-python.html">Python</a></li>
       <li><a href="./tutorial-five-java.html">Java</a></li>
@@ -129,7 +129,7 @@ limitations under the License.
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
-    <p><img src="../img/tutorials/python-six.png" height="50" width="180" /></p>
+    <p><img src="../img/tutorials/python-six.png" height="50" width="180" alt="Producer -> Queue -> Consuming: RPC (Remote Procedure Call), the request/reply pattern."/ /></p>
     <ul>
       <li><a href="./tutorial-six-python.html">Python</a></li>
       <li><a href="./tutorial-six-java.html">Java</a></li>
