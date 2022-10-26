@@ -489,10 +489,10 @@ uaac client add consumer_with_roles --name consumer_with_roles \
 
 #### RabbitMQ Configuration
 
-In the OAuth 2.0 tutorial repository, there are two RabbitMQ configuration files ready to be used:
+In the OAuth 2.0 tutorial repository, there are two RabbitMQ configuration files ready to be used, for UAA:
 
-- [conf/asymmetric_key/rabbitmq-scope-aliases.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/asymmetric_key/rabbitmq-scope-aliases.config): configures a set of scope aliases.
-- [conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/tree/main/conf/asymmetric_key/rabbitmq-scope-aliases-and-extra-scope.config): configures a `extra_scopes_source` and a set of scope aliases.
+- [conf/uaa/rabbitmq-scope-aliases.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-scope-aliases.config): configures a set of scope aliases.
+- [conf/uaa/rabbitmq-scope-aliases-and-extra-scope.config](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq-scope-aliases-and-extra-scope.config): configures a `extra_scopes_source` and a set of scope aliases.
 
 
 #### Demo 1: Launch RabbitMQ with custom scopes in scope field
