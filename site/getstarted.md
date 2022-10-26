@@ -37,7 +37,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       The simplest thing that does <em>something</em>
     </p>
-    <p><img src="./img/tutorials/python-one.png" width="180"  /></p>
+    <p><img src="./img/tutorials/python-one.png" width="180" alt="Producer -> Queue -> Consuming: send and receive messages from a named queue."/></p>
     <ul>
       <li><a href="./tutorials/tutorial-one-python.html">Python</a></li>
       <li><a href="./tutorials/tutorial-one-java.html">Java</a></li>
@@ -54,11 +54,11 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
   </td>
 
   <td id="tutorial-two">
-    <h2><span class="tute-num">2</span> <a href="./tutorials/tutorial-two-python.html">Work queues</a></h2>
+    <h2><span class="tute-num">2</span> <a href="./tutorials/tutorial-two-python.html">Work Queues</a></h2>
     <p>
       Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
-    <p><img src="./img/tutorials/python-two.png" width="180" /></p>
+    <p><img src="./img/tutorials/python-two.png" width="180" alt="Producer -> Queue -> Consuming: Work Queue used to distribute time-consuming tasks among multiple workers."/></p>
     <ul>
         <li><a href="./tutorials/tutorial-two-python.html">Python</a></li>
         <li><a href="./tutorials/tutorial-two-java.html">Java</a></li>
@@ -79,7 +79,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Sending messages to many consumers at once
     </p>
-    <p><img src="./img/tutorials/python-three.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-three.png" height="50" width="180" alt="Producer -> Queue -> Consuming: deliver a message to multiple consumers. This pattern is known as publish/subscribe"/></p>
     <ul>
       <li><a href="./tutorials/tutorial-three-python.html">Python</a></li>
       <li><a href="./tutorials/tutorial-three-java.html">Java</a></li>
@@ -102,7 +102,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Receiving messages selectively
     </p>
-    <p><img src="./img/tutorials/python-four.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-four.png" height="50" width="180" alt="Producer -> Queue -> Consuming: subscribe to a subset of the messages only." /></p>
     <ul>
       <li><a href="./tutorials/tutorial-four-python.html">Python</a></li>
       <li><a href="./tutorials/tutorial-four-java.html">Java</a></li>
@@ -123,7 +123,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       Receiving messages based on a pattern (topics)
     </p>
-    <p><img src="./img/tutorials/python-five.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-five.png" height="50" width="180" alt="Producer -> Queue -> Consuming: receiving messages based on a pattern (topics)."/></p>
     <ul>
       <li><a href="./tutorials/tutorial-five-python.html">Python</a></li>
       <li><a href="./tutorials/tutorial-five-java.html">Java</a></li>
@@ -144,7 +144,7 @@ Examples for [RabbitMQ streams](streams.html) on the [RabbitMQ blog](https://blo
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
-    <p><img src="./img/tutorials/python-six.png" height="50" width="180" /></p>
+    <p><img src="./img/tutorials/python-six.png" height="50" width="180" alt="Producer -> Queue -> Consuming: RPC (Remote Procedure Call), the request/reply pattern."/></p>
     <ul>
       <li><a href="./tutorials/tutorial-six-python.html">Python</a></li>
       <li><a href="./tutorials/tutorial-six-java.html">Java</a></li>

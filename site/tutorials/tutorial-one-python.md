@@ -21,7 +21,7 @@ on behalf of the consumer.
 Our overall design will look like:
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one-overall.png" height="100" />
+  <img src="../img/tutorials/python-one-overall.png" height="100" alt="Producer -> Queue -> Consuming: send and receive messages from a named queue." />
   <div class="diagram_source">
 digraph G {
       bgcolor=transparent;
@@ -65,7 +65,7 @@ code.
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" height="100" />
+  <img src="../img/tutorials/sending.png" height="100" alt="(P) -> [|||]" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;
@@ -153,7 +153,7 @@ connection.close()
 ### Receiving
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" height="100" />
+  <img src="../img/tutorials/receiving.png" height="100" alt="[|||] -> (C)" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;

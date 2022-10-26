@@ -58,7 +58,7 @@ It is also possible to list and enable feature flags from the
 #### Example 1: Compatible Nodes
 
 <div style="text-align: center;">
-<img src="./img/feature-flags/compatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
+<img src="./img/feature-flags/compatible-nodes.svg" style="width: 100%; max-width: 400px;" alt="Example 1: 2 compatible nodes, the first node A has feature flags enabled and includes Toaster (set to ON), Coffee Maker (set to OFF), and Juicer Machine (set to OFF and deactivated). The second node, node B has feature flags enabled and includes Toaster (set to ON) and Coffee Maker (set to OFF)." title="Example 1: Compatible Nodes"/>
 </div>
 
  * If nodes A and B are not clustered, they can be clustered.
@@ -69,7 +69,7 @@ It is also possible to list and enable feature flags from the
 #### Example 2: Incompatible Nodes
 
 <div style="text-align: center;">
-<img src="./img/feature-flags/incompatible-nodes.svg" style="width: 100%; max-width: 400px;"/>
+<img src="./img/feature-flags/incompatible-nodes.svg" style="width: 100%; max-width: 400px;" alt="Example 2: 2 incompatible nodes, the first node A has feature flags enabled and includes Toaster (set to ON), Coffee Maker (set to OFF), and Juicer Machine (set to ON). The second node, node B has feature flags enabled and includes Toaster (set to ON) and Coffee Maker (set to OFF)." title="Example 2: Incompatible Nodes"/>
 </div>
 
  * If nodes A and B are not clustered, they cannot be clustered because
@@ -88,7 +88,7 @@ in the release notes. Indeed, there are some changes which cannot be
 implemented as feature flags.
 
 <div style="text-align: center;">
-<img src="./img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;"/>
+<img src="./img/feature-flags/feature-flags-and-rabbitmq-versions.svg" style="width: 100%; max-width: 647px;" alt="Feature flags compatibility with different RabbitMQ versions." title="Feature flags compatibility with different RabbitMQ versions."/>
 </div>
 
 It is also possible to upgrade from RabbitMQ 3.7.x to 3.8.x. Indeed,
@@ -207,10 +207,10 @@ rabbitmqctl -q --formatter pretty_table list_feature_flags
 </pre>
 
 It is also possible to list and enable feature flags from the
-[Management plugin UI](./management.html), in "*Admin > Feature flags*":
+[Management Plugin UI](./management.html), in "*Admin > Feature flags*":
 
 <div style="text-align: center;">
-<img src="./img/feature-flags/management-ui-ff-panel.png" style="width: 100%; border: solid 1px #75757f;"/>
+<img src="./img/feature-flags/management-ui-ff-panel.png" style="width: 100%; border: solid 1px #75757f;" alt="Feature flags page on the Management Plugin User Interface, access this page by selecting Admin (which is a tab) and then Feature Flags (which is a menu option) ." title="Feature flags Page on the Management Plugin User Interface."/>
 </div>
 
 ## <a id="how-to-disable-feature-flags" class="anchor" href="#how-to-disable-feature-flags">How to Disable Feature Flags</a>

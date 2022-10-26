@@ -35,7 +35,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60"/>
 </div>
 
 > #### The .NET client library
@@ -94,7 +94,7 @@ Now we have the .NET project set up we can write some code.
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+  <img src="../img/tutorials/sending.png" alt="(P) -> [|||]" height="100"/>
 </div>
 
 We'll call our message publisher (sender) `Send.cs` and our message consumer (receiver)
@@ -216,7 +216,9 @@ RabbitMQ. So unlike the publisher which publishes a single message, we'll
 keep the consumer running continuously to listen for messages and print them out.
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+  <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100"/>
+
+"/>
 </div>
 
 The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
