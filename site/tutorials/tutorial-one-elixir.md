@@ -20,7 +20,7 @@ on behalf of the consumer.
 Our overall design will look like:
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one-overall.png" height="100" />
+  <img src="../img/tutorials/python-one-overall.png" height="100" alt="Producer -> Queue -> Consuming: send and receive messages from a named queue."/>
   <div class="diagram_source">
 digraph G {
       bgcolor=transparent;
@@ -85,7 +85,7 @@ digraph G {
 ### Sending
 
 <div class="diagram">
-  <img src="../img/tutorials/sending.png" height="100" />
+  <img src="../img/tutorials/sending.png" height="100" alt="(P) -> [|||]" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;
@@ -171,7 +171,7 @@ RabbitMQ, so unlike the producer which publishes a single message,
 we'll keep the consumer running to listen for messages and print them out.
 
 <div class="diagram">
-  <img src="../img/tutorials/receiving.png" height="100" />
+  <img src="../img/tutorials/receiving.png" height="100" alt="[|||] -> (C)" />
   <div class="diagram_source">
   digraph {
       bgcolor=transparent;

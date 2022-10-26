@@ -122,7 +122,7 @@ and the RPC should ideally be idempotent.
 ### Summary
 
 <div class="diagram">
-  <img src="../img/tutorials/python-six.png" height="200" />
+  <img src="../img/tutorials/python-six.png" height="200" alt="Summary illustration, which is described in the following bullet points." />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;

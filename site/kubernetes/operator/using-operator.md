@@ -1025,7 +1025,7 @@ spec:
 
 Mutual TLS (mTLS) enhances TLS by requiring that the server verify the identity of the client, in addition to the client verifying the server, which already occurs in TLS encryption. In order for this mutual verification to occur, both the client and server must be configured with certificate and key pairs, with the client pair signed by a CA trusted by the server and the server pair signed by a CA trusted by the client. The mutual verification process is shown in the following diagram:
 
-<img src="../../img/mTLS.png"/>
+<img src="../../img/mTLS.png" alt="Mutual verification process"/>
 
 In addition to the [configuration required to support TLS](#one-way-tls), configuring mutual TLS requires the RabbitMQ cluster to be configured with the CA certificate
 used to sign the client certificate and key pair, `ca.pem`. Create a Kubernetes secret with key `ca.crt` containing this secret

@@ -35,7 +35,7 @@ box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+  <img src="../img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60"/>
 </div>
 
 > #### The Java client library

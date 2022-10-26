@@ -66,7 +66,7 @@ Or should it get discarded. The rules for that are defined by the
 _exchange type_.
 
 <div class="diagram">
-  <img src="../img/tutorials/exchanges.png" height="110" />
+  <img src="../img/tutorials/exchanges.png" height="110" alt="An exchange: The producer can only send messages to an exchange. One side of the exchange receives messages from producers and the other side pushes them to queues." />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -184,7 +184,7 @@ Bindings
 --------
 
 <div class="diagram">
-  <img src="../img/tutorials/bindings.png" height="90" />
+  <img src="../img/tutorials/bindings.png" height="90" alt="The exchange sends messages to a queue. The relationship between the exchange and a queue is called a binding."/>
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
