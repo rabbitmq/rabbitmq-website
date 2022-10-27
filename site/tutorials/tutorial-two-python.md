@@ -27,7 +27,7 @@ As with other Python tutorials, we will use the [Pika](https://pypi.python.org/p
 [version 1.0.0](https://pika.readthedocs.io/en/stable/).
 
 <div class="diagram">
-  <img src="../img/tutorials/python-two.png" height="110" />
+  <img src="../img/tutorials/python-two.png" height="110" alt="Producer -> Queue -> Consuming: Work Queue used to distribute time-consuming tasks among multiple workers." />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
@@ -317,7 +317,7 @@ messages for a consumer. It just blindly dispatches every n-th message
 to the n-th consumer.
 
 <div class="diagram">
-  <img src="../img/tutorials/prefetch-count.png" height="110" />
+  <img src="../img/tutorials/prefetch-count.png" height="110" alt="Producer -> Queue -> Consuming: RabbitMQ dispatching messages." />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;

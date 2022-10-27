@@ -230,7 +230,7 @@ Putting it all together
 -----------------------
 
 <div class="diagram">
-  <img src="../img/tutorials/python-three-overall.png" height="160" />
+  <img src="../img/tutorials/python-three-overall.png" height="160" alt="Producer -> Queue -> Consuming: deliver a message to multiple consumers." />
   <div class="diagram_source">
     digraph {
       bgcolor=transparent;
