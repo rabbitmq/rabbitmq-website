@@ -185,7 +185,8 @@ located in default `/var/log/rabbitmq` directory. Rotation configuration can be 
 
 ### <a id="logging-to-console" class="anchor" href="#logging-to-console">Logging to Console (Standard Output)</a>
 
-Logging to standard streams (console) is another popular option for RabbitMQ installations.
+Logging to standard streams (console) is another popular option for RabbitMQ installations,
+in particular when RabbitMQ nodes are deployed in containers.
 RabbitMQ nodes only log to standard streams if explicitly configured to do so.
 
 Here are the main settings that control console (standard output) logging:
