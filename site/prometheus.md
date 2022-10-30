@@ -3,8 +3,8 @@
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide covers RabbitMQ monitoring with two popular tools:
-<a href="https://prometheus.io/docs/introduction/overview/" target="_blank">Prometheus</a>, a monitoring toolkit;
-and <a href="https://grafana.com/grafana" target="_blank">Grafana</a>, a metrics visualisation system.
+<a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener noreferrer">Prometheus</a>, a monitoring toolkit;
+and <a href="https://grafana.com/grafana" target="_blank" rel="noopener noreferrer">Grafana</a>, a metrics visualisation system.
 
 These tools together form a powerful toolkit for long-term metric collection and monitoring of RabbitMQ clusters.
 While [RabbitMQ management UI](./management.html) also provides access to a subset of metrics, it by
@@ -94,8 +94,8 @@ The instructions below assume a host machine that has a certain set of tools
 installed:
 
  * A terminal to run the commands
- * <a href="https://git-scm.com/" target="_blank">Git</a> to clone the repository
- * <a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> to use Docker Compose locally
+ * <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">Git</a> to clone the repository
+ * <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreferrer">Docker Desktop</a> to use Docker Compose locally
  * A Web browser to browse the dashboards
 
 Their installation is out of scope of this guide. Use
@@ -113,7 +113,7 @@ on the command line to verify that the necessary tools are available.
 ### Clone a Repository with Manifests
 
 First step is to clone a Git repository, <a href="https://github.com/rabbitmq/rabbitmq-server"
-target="_blank">rabbitmq-server</a>, with the manifests and other components required to run
+target="_blank" rel="noopener noreferrer">rabbitmq-server</a>, with the manifests and other components required to run
 a RabbitMQ cluster, Prometheus and a set of applications:
 
 <pre class="lang-bash">
@@ -142,7 +142,7 @@ instance collecting metrics from it running in a set of containers.
 
 ### Access RabbitMQ Overview Grafana Dashboard
 
-Now navigate to <a href="http://localhost:3000/dashboards" target="_blank">http://localhost:3000/dashboards</a> in a Web browser.
+Now navigate to <a href="http://localhost:3000/dashboards" target="_blank" rel="noopener noreferrer">http://localhost:3000/dashboards</a> in a Web browser.
 It will bring up a login page. Use `admin` for both the username and the password. On the very first login
 Grafana will suggest changing your password. For the sake of this example, we suggest that this step is skipped.
 
@@ -399,8 +399,8 @@ default.
 Once RabbitMQ is configured to expose metrics to Prometheus, Prometheus should be made
 aware of where it should scrape RabbitMQ metrics from. There are a number of ways of doing this.
 Please refer to the official <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/"
-target="_blank">Prometheus configuration documentation</a>.
-There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank">first steps with Prometheus</a> guide
+target="_blank" rel="noopener noreferrer">Prometheus configuration documentation</a>.
+There's also a <a href="https://prometheus.io/docs/introduction/first_steps/" target="_blank" rel="noopener noreferrer">first steps with Prometheus</a> guide
 for beginners.
 
 #### Metric Collection and Scraping Intervals
@@ -425,7 +425,7 @@ RabbitMQ too frequently, and RabbitMQ doesn't update metrics unnecessarily. If
 you configure a different value for Prometheus scrape interval, remember to set an
 appropriate interval when visualising metrics in Grafana with `rate()` - <a
 href="https://www.robustperception.io/what-range-should-i-use-with-rate"
-target="_blank">4x the scrape interval is considered safe</a>.
+target="_blank" rel="noopener noreferrer">4x the scrape interval is considered safe</a>.
 
 When using RabbitMQ's Management UI default 5 second auto-refresh, keeping
 the default `collect_statistics_interval` setting is optimal. Both intervals are `5000` ms
@@ -535,16 +535,16 @@ prometheus.tcp.request_timeout = 120000
 ### <a id="grafana-configuration" class="anchor" href="#grafana-configuration">Grafana Configuration</a>
 
 The last component in this setup is Grafana. If this is your first time integrating Grafana with
-Prometheus, please follow the <a href="https://prometheus.io/docs/visualization/grafana/" target="_blank">official integration guide</a>.
+Prometheus, please follow the <a href="https://prometheus.io/docs/visualization/grafana/" target="_blank" rel="noopener noreferrer">official integration guide</a>.
 
 After Grafana is integrated with the Prometheus instance that reads and stores
 RabbitMQ metrics, it is time to import the Grafana dashboards that Team RabbitMQ
-maintains. Please refer to the <a href="https://grafana.com/docs/reference/export_import/#importing-a-dashboard" target="_blank">the official Grafana tutorial</a>
+maintains. Please refer to the <a href="https://grafana.com/docs/reference/export_import/#importing-a-dashboard" target="_blank" rel="noopener noreferrer">the official Grafana tutorial</a>
 on importing dashboards in Grafana.
 
 Grafana dashboards for RabbitMQ and Erlang are open source and publicly from the <a
 href="https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_prometheus/docker/grafana/dashboards"
-target="_blank">rabbitmq-server</a> GitHub repository.
+target="_blank" rel="noopener noreferrer">rabbitmq-server</a> GitHub repository.
 
 To import **RabbitMQ-Overview** dashboard to Grafana:
 

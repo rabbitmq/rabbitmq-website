@@ -106,7 +106,7 @@ In this specific example, the slogan (uncaught exception message) says that a st
 timed out [syncing schema metadata from its peers](./clustering.html#restarting), likely because they did not come online
 in the configured window of time.
 
-To better understand the state of the Erlang runtime from a <a href="http://erlang.org/doc/apps/erts/crash_dump.html" target="_blank">crash dump file</a>, it
+To better understand the state of the Erlang runtime from a <a href="http://erlang.org/doc/apps/erts/crash_dump.html" target="_blank" rel="noopener noreferrer">crash dump file</a>, it
 helps to visualise it. The Crash Dump Viewer tool, `cdv`, is part of the Erlang installation.
 The `cdv` binary path is dependent on the Erlang version and the location where it was installed.
 

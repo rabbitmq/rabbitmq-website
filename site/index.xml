@@ -33,7 +33,7 @@ limitations under the License.
               <div class='text'>
                 <h1>Quorum queues</h1>
                 <h2>A webinar on high availability and data safety in messaging</h2>
-                <h2><a href="https://tanzu.vmware.com/content/webinars/jun-11-ha-and-data-safety-in-messaging-quorum-queues-in-rabbitmq?utm_campaign=Global_BT_Q221_RabbitMQ-Data-Safety-in-Messaging&amp;utm_source=rabbitmq&amp;utm_medium=website" target="_blank">Learn more</a></h2>
+                <h2><a href="https://tanzu.vmware.com/content/webinars/jun-11-ha-and-data-safety-in-messaging-quorum-queues-in-rabbitmq?utm_campaign=Global_BT_Q221_RabbitMQ-Data-Safety-in-Messaging&amp;utm_source=rabbitmq&amp;utm_medium=website" target="_blank" rel="noopener noreferrer">Learn more</a></h2>
               </div>
             </div>
           </div>
@@ -246,10 +246,10 @@ limitations under the License.
               <img src="./img/commercial/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
               <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ:
-                <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank">VMware</a>,
+                <a href="https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&amp;a=one&amp;id_subject=94112" target="_blank" rel="noopener noreferrer">VMware</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
-                <a href="http://www.visualintegrator.com/rmq/" target="_blank">Visual Integrator, Inc</a> and
-                <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a>.
+                <a href="http://www.visualintegrator.com/rmq/" target="_blank" rel="noopener noreferrer">Visual Integrator, Inc</a> and
+                <a href="https://www.learnquest.com/course-detail-v3.aspx?cnum=rabbitmq-e1xc" target="_blank" rel="noopener noreferrer">LearnQuest</a>.
               </p>
             </div>
           </div>
@@ -261,12 +261,12 @@ limitations under the License.
             <div class='inner'>
               <h1>Community</h1>
               <br/>
-              <a class='btn orangebtn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank">Mailing List</a>
-              <a class='btn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank">Slack Channel</a>
+              <a class='btn orangebtn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank" rel="noopener noreferrer">Mailing List</a>
+              <a class='btn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank" rel="noopener noreferrer">Slack Channel</a>
               <br/><br/>
               <p>Meet your fellow Rabbits to share stories, advice, and get help.</p>
               <h2>Issues &amp; Bug Reports</h2>
-              <p>Start by searching the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_blank">Mailing List</a> archive and known issues on <a href="https://github.com/rabbitmq?q=rabbitmq" target="_blank">GitHub</a>. It’s very likely fellow users have raised the same issue. </p>
+              <p>Start by searching the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_blank" rel="noopener noreferrer">Mailing List</a> archive and known issues on <a href="https://github.com/rabbitmq?q=rabbitmq" target="_blank" rel="noopener noreferrer">GitHub</a>. It’s very likely fellow users have raised the same issue. </p>
               <h2>Contributions</h2>
               <p>RabbitMQ welcomes contributions from the community. Please see our <a href='/github.html'>Contributors Page</a> to learn more.</p>
             </div>
@@ -276,13 +276,13 @@ limitations under the License.
               <div class='container'>
                 <h1>Contact Us</h1>
                 <h2>Commercial inquiries</h2>
-                <p><a href='mailto:rabbitmq-sales@pivotal.io'>VMware Sales</a> | <a href='https://support.pivotal.io' target="_blank">VMware Support</a></p>
+                <p><a href='mailto:rabbitmq-sales@pivotal.io'>VMware Sales</a> | <a href='https://support.pivotal.io' target="_blank" rel="noopener noreferrer">VMware Support</a></p>
                 <h2>Other inquiries</h2>
                 <p><a href="./contact.html">Contact us</a></p>
                 <h2>Report a security vulnerability</h2>
                 <p><a href="mailto:security@rabbitmq.com">security@rabbitmq.com</a></p>
                 <h2>Social media</h2>
-                <p><a href='https://twitter.com/RabbitMQ' target="_blank">Twitter</a></p>
+                <p><a href='https://twitter.com/RabbitMQ' target="_blank" rel="noopener noreferrer">Twitter</a></p>
               </div>
             </div>
           </div>

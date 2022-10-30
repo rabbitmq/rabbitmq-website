@@ -37,7 +37,7 @@ limitations under the License.
 
  * [Downloads and Installation](erlang-client.html)
  * [API Guide](erlang-client-user-guide.html)
- * <a href="https://hexdocs.pm/amqp_client/" target="_blank">API Reference</a>
+ * <a href="https://hexdocs.pm/amqp_client/" target="_blank" rel="noopener noreferrer">API Reference</a>
 
 ## Other Resources
 
