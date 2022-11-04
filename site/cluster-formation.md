@@ -936,7 +936,7 @@ cluster_formation.consul.lock_prefix = environments-qa
 
 ### Etcd Peer Discovery Overview
 
-An [etcd](http://etcd.io/)-based discovery mechanism
+An [etcd](https://etcd.io/)-based discovery mechanism
 is available via [a plugin](https://github.com/rabbitmq/rabbitmq-peer-discovery-etcd).
 
 As of RabbitMQ `3.8.4`, the plugin uses a v3 API, gRPC-based etcd client and
