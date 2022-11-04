@@ -195,7 +195,7 @@ Miscellaneous projects:
 ## <a id="erlang-dev" class="anchor" href="#erlang-dev">Erlang</a>
 
  * &#x2713; [RabbitMQ Erlang client](erlang-client-user-guide.html)
- * &#x2713; [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
+ * [RabbitMQ Stream Erlang client](https://gitlab.com/evnu/lake)
  * [bunny_farm](https://github.com/muxspace/bunny_farm), a simplifying wrapper for the Erlang client
  * [RabbitMQ Messaging Patterns](https://github.com/videlalvaro/rmq_patterns), a library of messaging patterns implemented in Erlang
 
