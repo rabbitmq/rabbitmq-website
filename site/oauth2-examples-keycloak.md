@@ -109,10 +109,10 @@ rather than `legacy-token-key`.
 
 For backend applications which uses **Client Credentials flow** you create a **Client** with:
 
-* **Access Type** : `confidential`
+* **Access Type** : `public`
 * With all the other flows disabled: Standard Flow, Implicit Flow, Direct Access Grants
 * With **Service Accounts Enabled** on. If it is not enabled you do not have the tab `Credentials`
-* In tab `Credentials` you have the client id secret
+* In tab `Credentials` you have the client id 
 
 
 ### Configure Client scopes

@@ -49,17 +49,6 @@ When using **Azure AD as OAuth 2.0 server**, your client app (in our case Rabbit
 
     ![Azure AD JWKS URI](./img/oauth2/azure-ad-jwks-uri.png)
 
-## Create a secret for your app
-
-Your application needs a **client secret** to prove its identity when requesting a token.
-
-1. Still on the **App registrations** page, in the left-hand menu, click on **Certificates & Secrets**, then select the **Client secrets** tab.
-
-2. In the **Certificates & Secrets** pane, click on **New Client Secret** and, on the right pane that has just opened, enter a description for the secret and choose an expiration time.
-
-3. Click on **Add**.
-
-    <g-emoji class="g-emoji" alias="warning" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png">⚠️</g-emoji> **IMPORTANT**: Immediately note the value of the secret (as you won't be able to get it later and you will need it to configure the `rabbitmq_auth_backend_oauth2` on RabbitMQ side).
 
 ## Create OAuth 2.0 roles for your app
 

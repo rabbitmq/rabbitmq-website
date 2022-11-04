@@ -288,25 +288,31 @@ rabbitmqctl set_user_tags full_access administrator
 RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) to authenticate client applications and management UI users. When doing so, the management UI does
 not automatically redirect users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
-RabbitMQ has been tested against the following Authorization servers:
+**Authorization code flow with PKCE** has been tested against the following Authorization servers:
 
 * [UAA](https://github.com/cloudfoundry/uaa)
 * [Keycloak](https://www.keycloak.org/)
 * [Auth0](https://auth0.com/)
 * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
 
+**IMPORTANT**: In OAuth 2.0 terms, RabbitMQ management UI is a **public app** which
+means it cannot securely store credentials such as `client_secret`. Your authorization server must allow you
+to configure the oauth client as **public app**. This means that RabbitMQ does not need to present a client_secret
+when authenticating/authorizing users. If your authorization server only supports **confidential app**, or
+simply it always requires `client_secret`, only then you have to configure one via the `oauth_client_secret` setting.
+
 To redirect users to the UAA server to authenticate, use the following configuration:
 
 <pre class="lang-ini">
-management.enable_uaa = true
+management.enable_uaa = true  
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
-management.oauth_client_secret = rabbit_user_client_secret
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
 > IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow has been
 deprecated.
+> IMPORTANT: management.oauth_client_secret is an optional setting. It is only required when your authorization server requires it
 
 ### Allow Basic and OAuth 2 authentication
 
@@ -333,7 +339,6 @@ management.disable_basic_auth = true
 management.enable_uaa = true
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
-management.oauth_client_secret = rabbit_user_client_secret
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
@@ -402,8 +407,8 @@ In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directi
 By default, the Management UI uses OAuth 2.0 authorization code flow to authenticate and authorize users.
 However, there are scenarios where users preferred to be automatically redirected to RabbitMQ without getting
 involved in additional logon flows. This is common in Web Portals where with a single click, users navigate
-straight to a RabbitMQ cluster's Management UI with a token obtained under the covers. This is known as
-**Identity-Provider initiated logon** where the **Identity Provider** role is played by the web portal.
+straight to a RabbitMQ cluster's management UI with a token obtained under the covers. This is known as
+**Identity-Provider initiated logon**.
 
 RabbitMQ exposes a new setting called `management.oauth_initiated_logon_type` whose default value `sp_initiated`.
 To enable an **Identity-Provider initiated logon** we set it to `idp_initiated`.
@@ -412,10 +417,7 @@ When we set `management.oauth_initiated_logon_type` to `idp_initiated` the minim
 `oauth_enabled: true` and `oauth_provider_url`. The other settings related to OAuth are not required.
 The `oauth_provider_url` should be the web portal address.
 
-Once we set `management.oauth_initiated_logon_type` to `idp_initiated`, the Management UI exposes the endpoint `/#/login` which expects a JWT token in the request parameter `access_token`.
-**Identity-Provider initiated logon** should redirect users to this endpoint with the access token. If
-the token is valid, the user is redirected to the overview page. Else, the user is redirected to a page with an
-error message and a button to take them back to the web portal address configured in `management.oauth_provider_url`.
+Once we set `management.oauth_initiated_logon_type` to `idp_initiated`, the management UI exposes the endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field.
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 
