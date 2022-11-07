@@ -110,7 +110,7 @@ machine we'd simply specify its hostname or IP address here.
 
 Next we create a channel, which is where most of the API for getting
 things done resides. Note we can use a try-with-resources statement
-because both `Connection` and `Channel` implement `java.io.Closeable`.
+because both `Connection` and `Channel` implement `java.lang.AutoCloseable`.
 This way we don't need to close them explicitly in our code.
 
 To send, we must declare a queue for us to send to; then we can publish a message
