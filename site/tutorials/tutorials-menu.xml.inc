@@ -87,7 +87,7 @@ limitations under the License.
     <p>
       Receiving messages selectively
     </p>
-    <p><img src="../img/tutorials/python-four.png" height="50" width="180" alt="Producer -> Queue -> Consuming: subscribe to a subset of the messages only. /></p>
+    <p><img src="../img/tutorials/python-four.png" height="50" width="180" alt="Producer -> Queue -> Consuming: subscribe to a subset of the messages only." /></p>
     <ul>
       <li><a href="./tutorial-four-python.html">Python</a></li>
       <li><a href="./tutorial-four-java.html">Java</a></li>
@@ -129,7 +129,7 @@ limitations under the License.
     <p>
       <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply pattern</a> example
     </p>
-    <p><img src="../img/tutorials/python-six.png" height="50" width="180" alt="Producer -> Queue -> Consuming: RPC (Remote Procedure Call), the request/reply pattern."/ /></p>
+    <p><img src="../img/tutorials/python-six.png" height="50" width="180" alt="Producer -> Queue -> Consuming: RPC (Remote Procedure Call), the request/reply pattern." /></p>
     <ul>
       <li><a href="./tutorial-six-python.html">Python</a></li>
       <li><a href="./tutorial-six-java.html">Java</a></li>
