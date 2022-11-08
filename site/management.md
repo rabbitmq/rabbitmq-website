@@ -378,7 +378,7 @@ such as:
   * <*resource_server_id*>`.tag:administrator`
   * <*resource_server_id*>`.read:*/*/*`
 
-We use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field.
+You use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field.
 
 ### Configure OpenID Connect Discovery endpoint
 
