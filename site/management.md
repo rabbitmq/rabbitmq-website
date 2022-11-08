@@ -295,11 +295,8 @@ against the OAuth 2 server, this must be configured separately. Currently,
 * [Auth0](https://auth0.com/)
 * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
 
-**IMPORTANT**: In OAuth 2.0 terms, RabbitMQ management UI is a **public app** which
-means it cannot securely store credentials such as `client_secret`. Your authorization server must allow you
-to configure the oauth client as **public app**. This means that RabbitMQ does not need to present a client_secret
-when authenticating/authorizing users. If your authorization server only supports **confidential app**, or
-simply it always requires `client_secret`, only then you have to configure one via the `oauth_client_secret` setting.
+**IMPORTANT**: : In OAuth 2.0, the RabbitMQ Management UI is a **public app** which
+means it cannot securely store credentials such as the *client_secret*. This means that RabbitMQ does not need to present a client_secret when authenticating users. You must be able to configure the OAuth client as a **public app** with the authorization server that you are using. If your authorization server only supports a **confidential app** or it requires a *client_secret*, then you must configure a *client_secret* using the `oauth_client_secret` setting.
 
 To redirect users to the UAA server to authenticate, use the following configuration:
 
