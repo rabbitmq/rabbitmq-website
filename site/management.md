@@ -288,7 +288,7 @@ rabbitmqctl set_user_tags full_access administrator
 RabbitMQ can be configured to use [JWT-encoded OAuth 2.0 access tokens](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) to authenticate client applications and management UI users. When doing so, the management UI does
 not automatically redirect users to authenticate
 against the OAuth 2 server, this must be configured separately. Currently,
-**Authorization code flow with PKCE** has been tested against the following Authorization servers:
+**Authorization code flow with PKCE** is tested with the following Authorization servers:
 
 * [UAA](https://github.com/cloudfoundry/uaa)
 * [Keycloak](https://www.keycloak.org/)
