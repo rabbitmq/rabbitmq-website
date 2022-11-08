@@ -112,7 +112,7 @@ stream.initial_credits = 100000
 stream.credits_required_for_unblocking = 25000
 </pre>
 
-High values for these settings can improve publishing throughput at the cost of higher memory consumption (which can finally make the broker crash).
+High values for these settings can improve publishing throughput at the cost of higher memory consumption (which can lead to a broker crash).
 Low values can help to cope with a lot of moderately fast-publishing connections.  
 
 This setting applies only to **publishers**, it does not apply to consumers.
