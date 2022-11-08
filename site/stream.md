@@ -22,11 +22,11 @@ limitations under the License.
 Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ which models
 an append-only log with non-destructive consumer semantics.
 They can be used as a regular AMQP 0.9.1 queue or through a
-[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
+[dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
 plugin and associated client(s).
 
 This page covers the Stream plugin, which allows to interact with streams using this
-[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.10.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
+[new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).
 For an overview of the concepts and the ways to operate streams, please see the
 [guide on RabbitMQ streams](streams.html).
 
@@ -103,19 +103,45 @@ stream.heartbeat = 120 # in seconds
 ### <a id="flow-control" class="anchor" href="#flow-control">Flow Control</a>
 
 Fast publishers can overwhelm the broker if it cannot keep up writing and replicating inbound messages.
-So each connection has a maximum number of outstanding unconfirmed messages allowed before being blocked
-(`initial_credits`, defaults to 50,000). The connection is unblocked when a given number of messages
-is confirmed (`credits_required_for_unblocking`, defaults to 12,500). You can change those values
-according to your workload:
+So each connection has a maximum number of outstanding unconfirmed messages allowed before being blocked (`initial_credits`, defaults to 50,000).
+The connection is unblocked when a given number of messages is confirmed (`credits_required_for_unblocking`, defaults to 12,500).
+You can change those values according to your workload:
 
 <pre class="lang-ini">
 stream.initial_credits = 100000
 stream.credits_required_for_unblocking = 25000
 </pre>
 
-High values for these settings can improve publishing throughput at the cost of higher memory consumption
-(which can finally make the broker crash). Low values can help to cope with a lot of moderately fast-publishing
-connections.
+High values for these settings can improve publishing throughput at the cost of higher memory consumption (which can lead to a broker crash).
+Low values can help to cope with a lot of moderately fast-publishing connections.  
+
+This setting applies only to **publishers**, it does not apply to consumers.
+
+### <a id="consumer-credit-flow" class="anchor" href="#consumer-credit-flow">Consumer Credit Flow</a>
+
+This section covers the stream protocol credit flow mechanism that allows consumers to control how the broker dispatches messages.
+
+A consumer provides an initial number of credits when it creates its [subscription](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#subscribe).
+A credit represents a *chunk* of messages that the broker is allowed to send to the consumer. 
+
+A *chunk* is a batch of messages.
+This is the storage and transportation unit used in RabbitMQ Stream, that is messages are stored contiguously in a chunk and they are [delivered](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#deliver) as part of a chunk.
+A chunk can be made of one to several thousands of messages, depending on the ingress.
+
+So if a consumer creates a subscription with 5 initial credits, the broker will send 5 chunks of messages.
+The broker substracts a credit every time it delivers a chunk.
+When there is no credit left for a subscription, the broker stops sending messages.
+So in our example the broker will stop sending messages for this subscription after it delivers 5 chunks.
+This is not what we usually want, so the consumer can provide [credits](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#credit) to its subscription to get more messages.
+
+
+This is up to the consumer (i.e. client library and/or application) to provide credits, depending on how fast it processes messages.
+We want messages to flow continuously, so a good rule of thumb is to create the subscription with at least 2 credits and provide a credit on each new chunk of messages.
+By doing so there should always be some messages flowing on the network and the consumer should be busy all the time, not idle.
+
+Consumers get to choose how the broker delivers messages to them with this credit flow mechanism.
+This helps avoiding overwhelmed or idle consumers.
+How consumer credit flow is exposed to applications depends on the client library, there is no server-side setting to change its behavior. 
 
 ### <a id="advertised-host-port" class="anchor" href="#advertised-host-port">Advertised Host and Port</a>
 
