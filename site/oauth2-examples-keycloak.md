@@ -107,12 +107,12 @@ rather than `legacy-token-key`.
 
 ### Configure Client
 
-For backend applications which uses **Client Credentials flow** you create a **Client** with:
+For backend applications which uses **Client Credentials flow**, you can create a **Client** with:
 
 * **Access Type** : `public`
-* With all the other flows disabled: Standard Flow, Implicit Flow, Direct Access Grants
+* Turn off `Standard Flow`, `Implicit Flow`, and `Direct Access Grants`
 * With **Service Accounts Enabled** on. If it is not enabled you do not have the tab `Credentials`
-* In tab `Credentials` you have the client id 
+* In the `Credentials` tab, you have the `client id`
 
 
 ### Configure Client scopes

@@ -301,15 +301,14 @@ means it cannot securely store credentials such as the *client_secret*. This mea
 To redirect users to the UAA server to authenticate, use the following configuration:
 
 <pre class="lang-ini">
-management.enable_uaa = true  
+management.enable_uaa = true
 management.oauth_enabled = true
 management.oauth_client_id = rabbit_user_client
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
-> IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow has been
-deprecated.
-> IMPORTANT: management.oauth_client_secret is an optional setting. It is only required when your authorization server requires it
+> IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
+> IMPORTANT: `management.oauth_client_secret` is an optional setting. It is only required when your authorization server requires it
 
 ### Allow Basic and OAuth 2 authentication
 
@@ -401,20 +400,26 @@ In addition to the `connect-src` CSP header, RabbitMQ also needs the CSP directi
 
 ### Identity-Provider initiated logon
 
-By default, the Management UI uses OAuth 2.0 authorization code flow to authenticate and authorize users.
+By default, the RabbitMQ Management UI uses the OAuth 2.0 **authorization code flow** to authenticate and authorize users.
 However, there are scenarios where users preferred to be automatically redirected to RabbitMQ without getting
 involved in additional logon flows. This is common in Web Portals where with a single click, users navigate
 straight to a RabbitMQ cluster's management UI with a token obtained under the covers. This is known as
 **Identity-Provider initiated logon**.
 
 RabbitMQ exposes a new setting called `management.oauth_initiated_logon_type` whose default value `sp_initiated`.
-To enable an **Identity-Provider initiated logon** we set it to `idp_initiated`.
+To enable an **Identity-Provider initiated logon** you set it to `idp_initiated`.
 
-When we set `management.oauth_initiated_logon_type` to `idp_initiated` the minimum required configuration is
-`oauth_enabled: true` and `oauth_provider_url`. The other settings related to OAuth are not required.
-The `oauth_provider_url` should be the web portal address.
+After you set `management.oauth_initiated_logon_type` to `idp_initiated` and
+`oauth_enabled: true` and `oauth_provider_url` are configured, the management UI exposes the HTTP endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field. This is the endpoint where the web portal would redirect users to access the RabbitMQ Management ui.
 
-Once we set `management.oauth_initiated_logon_type` to `idp_initiated`, the management UI exposes the endpoint `/login` which accepts `content-type: application/x-www-form-urlencoded` and it expects the JWT token in the `access_token` form field.
+This is the minimum required configuration for a RabbitMQ cluster configured with `idp_initiated` logon type:
+
+<pre class="lang-ini">
+management.oauth_enabled = true
+management.oauth_initiated_logon_type = idp_initiated
+management.oauth_provider_url = https://my-web-portal
+</pre>
+
 
 ## <a id="http-api" class="anchor" href="#http-api">HTTP API</a>
 

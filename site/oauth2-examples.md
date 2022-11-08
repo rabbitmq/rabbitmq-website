@@ -90,10 +90,10 @@ The last command starts a RabbitMQ server with [this](https://github.com/rabbitm
 
 ## <a id="access-management-ui" class="anchor" href="#access-management-ui">Access Management UI using OAuth 2.0 tokens</a>
 
-The Management UI can be configured with one of these two login modes:
+The RabbitMQ Management UI can be configured with one of these two login modes:
 
-* [Service-Provider initiated logon](#service-provider-initiated-logon) - This is the default and traditional OAuth 2.0 logon mode. The user comes to the Management UI and clicks on the button "Click here to logon" which initiates the logon. The logon process starts in RabbitMQ, the *Service Provider*.
-* [Identity-Provider initiated logon](#identity-provider-initiated-logon) - This is a logon mode meant for web portals. Users navigate to RabbitMQ with a token already obtained by the web portal on behalf of the user.
+* [Service-Provider initiated logon](#service-provider-initiated-logon) - This is the default and traditional OAuth 2.0 logon mode. In the RabbitMQ Management UI, click `Click here to logon` to initiate the logon.  The logon process starts in RabbitMQ, the *Service Provider*.
+* [Identity-Provider initiated logon](#identity-provider-initiated-logon) - You can use this logon mode for web portals. Users can navigate to RabbitMQ with an existing token which is retrieved from the web portal on behalf of the user.
 
 ### <a id="service-provider-initiated-logon" class="anchor" href="#service-provider-initiated-logon">Service-Provider initiated logon</a>
 
