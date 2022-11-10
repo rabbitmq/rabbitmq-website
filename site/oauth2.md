@@ -317,12 +317,12 @@ the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
 ### <a id="preferred-username-claims" class="anchor" href="#preferred-username-claims">Preferred username claims</a>
 
-RabbitMQ needs to figure out the username associated to the token so that it can display it in the management ui.
-By default, RabbitMQ will first look for the `sub` claim and if it is not found it uses the `client_id`.
+RabbitMQ The username associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
+By default, RabbitMQ searches for the `sub` claim first, and if it is not found, RabbitMQ uses the `client_id`.
 
-Most authorization servers return the user's GUID in the `sub` claim rather than the actual user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
+Most authorization servers return the user's GUID in the `sub` claim instead of the user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
 
-Given this configuration;
+Example configuration:
 <pre class="lang-erlang">
   ...
   {rabbitmq_auth_backend_oauth2, [
@@ -330,7 +330,7 @@ Given this configuration;
     {preferred_username_claims, [&lt;&lt;"user_name"&gt;&gt;,&lt;&lt;"email"&gt;&gt;]},
   ...
 </pre>
-RabbitMQ would first look for the `user_name` claim and if it is not found it looks for `email`. Else it uses its default lookup mechanism which first looks for `sub` and then `client_id`.
+In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.
 
 ### <a id="token-expiration" class="anchor" href="#token-expiration">Token Expiration and Refresh</a>
 
