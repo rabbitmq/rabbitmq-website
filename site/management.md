@@ -349,12 +349,6 @@ curl -i --header "authorization: Bearer &lt;token&gt;" http://localhost:15672/ap
 This is true for all endpoints except `GET /definitions` and `POST /definitions`. Those
 endpoints require the token to be passed in the `token` query string parameter.
 
-### Minimum scope required and how the UI determines the username from the token
-
-At a minimum, RabbitMQ requires the the `openid` scope because it uses some claims in the *id token* to determine the username and to display this username on the top right corner of the management UI. The *id token* is returned by the Authorization server if the `openid` scope is included in the authorization request.
-
-RabbitMQ reads the `user_name` claim from the *id_token*. If the token does not contain the `user_name`, RabbitMQ uses the `sub` claim.
-
 ### Configure which scopes RabbitMQ requests to the authorization server
 
 It is possible to configure which OAuth 2.0 scopes RabbitMQ should claim when redirecting the user to the authorization server.
