@@ -126,7 +126,7 @@ It was signed with the symmetric key.
 
 ![JWT token](./img/oauth2/admin-token-signed-sym-key.png)
 
-To configure RabbitMQ Management UI with OAuth 2.0 we need the following configuration entries:
+To configure the RabbitMQ Management UI with OAuth 2.0, the following configuration entries are required:
 <pre class="lang-erlang">
  ...
  {rabbitmq_management, [
@@ -140,8 +140,8 @@ To configure RabbitMQ Management UI with OAuth 2.0 we need the following configu
 
 ### <a id="identity-provider-initiated-logon" class="anchor" href="#identity-provider-initiated-logon">Identity-Provider initiated logon</a>
 
-When RabbitMQ is offered as a service from a web portal, it is more convenient to navigate to RabbitMQ Management UI
-with a single click. The web portal is responsible for getting a token before taking the user to the RabbitMQ Management UI web page.
+When RabbitMQ is provided as a service from a web portal, it is easy to navigate to the RabbitMQ Management UI
+with a single click. The web portal retrieves a token before taking the user to the RabbitMQ Management UI web page.
 
 <pre class="lang-plain">
     [ Idp | WebPortal ] ----&gt; 2. /#/login?access_token=&lt;TOKEN&gt;----   [ RabbitMQ Cluster ]            
@@ -150,12 +150,11 @@ with a single click. The web portal is responsible for getting a token before ta
       1. rabbit_admin from a browser                                   3. validate token        
 </pre>
 
-At step 1, `rabbit_admin` user navigates to the web portal and clicks on the hyperlink associated to a RabbitMQ
-cluster. At step2, the web portal obtains a token and redirects the user to RabbitMQ. And at step 3,
+How it works, firstly, the `rabbit_admin` user navigates to the web portal and clicks on the hyperlink associated with a RabbitMQ
+cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ. Finally,
 RabbitMQ validates the token in the http request and if it is valid, it redirects the user to the overview page.
 
-By default, RabbitMQ Management UI is configured with **service-provider initiated logon**. We have to configure
-the Management plugin by adding just one entry to the configuration as shown below:
+By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, add one entry to the configuration. An example is provided here:
 
 <pre class="lang-erlang">
  ...
@@ -170,8 +169,8 @@ the Management plugin by adding just one entry to the configuration as shown bel
 </pre>
 
 **NOTE**: When the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
-Management landing page which presents the user with a button labeled **Click here to login**. The user is
-never automatically redirected back to the url configured in `oauth_provider_url`. Only when the user clicks on the button, it is redirected to the configured in `oauth_provider_url`.
+RabbitMQ Management landing page which has a **Click here to login** button. The user is
+never automatically redirected back to the url configured in the `oauth_provider_url`. It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `oauth_provider_url`.
 
 ## <a id="access-other-protocols" class="anchor" href="#access-other-protocols">Access other protocols using OAuth 2.0 tokens</a>
 
