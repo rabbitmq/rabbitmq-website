@@ -80,11 +80,10 @@ has to be configured to validate any of the two types of digital signatures.
 Given that asymmetrical keys is the most widely used option, you are going to focus on how to
 configure RabbitMQ with them.
 
-Run the following 3 commands to get the environment ready to see Oauth 2.0 plugin in action:
+Run the following 2 commands to get the environment ready to see Oauth 2.0 plugin in action:
 
   1. `make start-uaa` to get UAA server running
-  2. `make setup-uaa-users-and-clients` to install uaac client; connect to UAA server and set ups users, group, clients and permissions
-  3. `make start-rabbitmq` to start RabbitMQ server
+  2. `make start-rabbitmq` to start RabbitMQ server
 
 The last command starts a RabbitMQ server with [this](https://github.com/rabbitmq/rabbitmq-oauth2-tutorial/blob/main/conf/uaa/rabbitmq.config) configuration file.
 
@@ -132,7 +131,6 @@ To configure the RabbitMQ Management UI with OAuth 2.0, the following configurat
  {rabbitmq_management, [
     {oauth_enabled, true},
     {oauth_client_id, "rabbit_client_code"},
-    {oauth_client_secret, "rabbit_client_code"},
     {oauth_provider_url, "http://localhost:8080"},      
     ...
   ]},
@@ -144,14 +142,14 @@ When RabbitMQ is provided as a service from a web portal, it is easy to navigate
 with a single click. The web portal retrieves a token before taking the user to the RabbitMQ Management UI web page.
 
 <pre class="lang-plain">
-    [ Idp | WebPortal ] ----&gt; 2. /#/login?access_token=&lt;TOKEN&gt;----   [ RabbitMQ Cluster ]            
+    [ Idp | WebPortal ] ----&gt; 2. /login [access_token: TOKEN]----   [ RabbitMQ Cluster ]            
               /|\                                                        |       /|\
                |                                                         +--------+
       1. rabbit_admin from a browser                                   3. validate token        
 </pre>
 
 How it works, firstly, the `rabbit_admin` user navigates to the web portal and clicks on the hyperlink associated with a RabbitMQ
-cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ. Finally,
+cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ `/login` endpoint with the token within the HTTP form field `access_token`. Finally,
 RabbitMQ validates the token in the http request and if it is valid, it redirects the user to the overview page.
 
 By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, add one entry to the configuration. An example is provided here:
@@ -161,7 +159,6 @@ By default, the RabbitMQ Management UI is configured with **service-provider ini
  {rabbitmq_management, [
     {oauth_enabled, true},
     {oauth_client_id, "rabbit_client_code"},
-    {oauth_client_secret, "rabbit_client_code"},
     {oauth_provider_url, "http://localhost:8080"},      
     {oauth_initiated_logon_type, idp_initiated},
     ...
@@ -199,7 +196,7 @@ to the RabbitMQ management endpoint passing the JWT token within the `Authorizat
 The following command launches the browser with `mgt_api_client` client with a JWT token previously obtained from UAA:
 
 <pre class="lang-bash">
-make curl url=http://localhost:15672/api/overview client_id=mgt_api_client secret=mgt_api_client
+make curl-uaa url=http://localhost:15672/api/overview client_id=mgt_api_client secret=mgt_api_client
 </pre>
 
 
@@ -739,12 +736,14 @@ The following configuration snippets demonstrate these steps:
 <pre class="lang-erlang">
 [
   {rabbitmq_management, [
+    %% eanble Oauth
+    {oauth_enabled,    true},
     %% use UAA
     {enable_uaa,    true},
     %% OAuth 2 identity server client ID
-    {uaa_client_id, "rabbit_client"},
+    {oauth_client_id, "rabbit_client"},
     %% UAA endpoint location
-    {uaa_location, "http://localhost:8080/uaa"}
+    {oauth_provider_url, "http://localhost:8080"}
   ]},
 ].
 </pre>

@@ -127,7 +127,6 @@ The configuration on Azure side is done. You now have to configure RabbitMQ to u
 Update it with the following values (you should have noted these in the previous steps):
 * **Tenant ID** associated to the app that you registered in Azure AD
 * **Application ID** associated to the app that you registered in Azure AD
-* Value of the **secret** you created for your app in Azure AD
 * Value of the **jwks_uri** key from `https://login.microsoftonline.com/{TENANT_ID}/v2.0/.well-known/openid-configuration`
 
 <pre class="lang-bash">
@@ -139,7 +138,6 @@ $ vi rabbitmq.config
   {rabbitmq_management, [
      {oauth_enabled, true},
      {oauth_client_id, "PUT YOUR AZURE AD APPLICATION ID"},
-     {oauth_client_secret, "PUT YOUR AZURE AD APPLICATION SECRET"},
      {oauth_provider_url, "https://login.microsoftonline.com/AZURE_AD_TENANT_ID"}
  ]},
  {rabbitmq_auth_backend_oauth2, [
