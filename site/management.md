@@ -307,8 +307,9 @@ management.oauth_client_id = rabbit_user_client
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
-> IMPORTANT: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
-> IMPORTANT: `management.oauth_client_secret` is an optional setting. It is only required when your authorization server requires it
+> **IMPORTANT**: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
+
+> **IMPORTANT**: `management.oauth_client_secret` is an optional setting. It is only required when your authorization server requires it
 
 ### Allow Basic and OAuth 2 authentication
 

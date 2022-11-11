@@ -165,6 +165,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | Key                                      | Documentation
 |------------------------------------------|-----------
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
+| `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
@@ -317,7 +318,7 @@ the `monitoring` tag will be `my_rabbit.tag:monitoring`.
 
 ### <a id="preferred-username-claims" class="anchor" href="#preferred-username-claims">Preferred username claims</a>
 
-RabbitMQ The username associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
+The username associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
 By default, RabbitMQ searches for the `sub` claim first, and if it is not found, RabbitMQ uses the `client_id`.
 
 Most authorization servers return the user's GUID in the `sub` claim instead of the user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
