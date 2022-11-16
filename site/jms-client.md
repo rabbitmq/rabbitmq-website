@@ -21,9 +21,11 @@ limitations under the License.
 
 RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_jms_topic_exchange)
 needed to support the JMS Queue and Topic messaging models. JMS Client
-for RabbitMQ implements the JMS 1.1 specification on top of the
+for RabbitMQ implements the JMS specification on top of the
 [RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
+
+The library supports JMS 2.0 as of 2.7.0.
 
 The plugin and the JMS client are meant to work and be used together.
 
@@ -69,12 +71,12 @@ incompatible vendor implementations.
 Because JMS Client for RabbitMQ is implemented using the RabbitMQ Java
 client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 
-You can download the JMS 1.1 specification and API documentation from
-the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
+You can download the JMS 2.0 specification and API documentation from
+the [Oracle Technology Network Web site](https://download.oracle.com/otndocs/jcp/jms-2_0_rev_a-mrel-eval-spec/index.html).
 
 ## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
 
-Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
+Some JMS 1.1 and 2.0 features are unsupported in the RabbitMQ JMS Client:
 
  * The JMS Client does not support server sessions.
  * XA transaction support interfaces are not implemented.
@@ -86,9 +88,11 @@ Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
  messages published from a subscriber’s own connection, is not supported
  with RabbitMQ. You can call a method that includes the `NoLocal`
  argument, but it is ignored.
+ * [Delivery delay](https://jakarta.ee/specifications/messaging/3.1/jakarta-messaging-spec-3.1.html#delivery-delay-jms_spec-44) (JMS 2.0), see the [corresponding GitHub issue](https://github.com/rabbitmq/rabbitmq-jms-client/issues/180) for the evolution of this feature.
 
 See [the JMS API compliance documentation](jms-client-compliance.html) for a
 detailed list of supported JMS APIs.
+
 
 ## <a id="installing-configuring" class="anchor" href="#installing-configuring">Installing and Configuring</a>
 
@@ -734,7 +738,7 @@ modified so that, when calling `msg.acknowledge()`, only the message
 `msg` *and all* previously received *unacknowledged messages on that
 session* are acknowledged. Messages received *after* `msg` was received
 are not affected. This is a form of *group acknowledgement*,
-which differs slightly from the JMS 1.1 specification but is likely to
+which differs slightly from the JMS specification but is likely to
 be more useful, and is compatible with the vast majority of uses of
 the existing acknowledge function.
 
@@ -769,7 +773,6 @@ the right (`RMQMessage`) type (`BytesMessage`, `MapMessage`, `ObjectMessage`,
 that there is some performance loss due to the copying; but in the
 normal case, when the message is an instance of
 `com.rabbitmq.jms.client.RMQMessage`, no copying is done.
-
 
 ## <a id="further-reading" class="anchor" href="#further-reading">Further Reading</a>
 
