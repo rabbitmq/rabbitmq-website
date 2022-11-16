@@ -512,9 +512,9 @@ there would be at least one replica suitable for promotion.
 Classic mirrored queue replica state can be verified by listing queues in the management UI or using `rabbitmqctl`:
 
 <pre class="lang-bash">
-# For queues with non-empty `slave_pids`, you must have at least one
-# `synchronised_slave_pids`.
-rabbitmqctl -n rabbit@to-be-stopped list_queues --local name slave_pids synchronised_slave_pids
+# For queues with non-empty `mirror_pids`, you must have at least one
+# `synchronised_mirror_pids`.
+rabbitmqctl -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
 </pre>
 
 If there are unsynchronised queues, either enable
