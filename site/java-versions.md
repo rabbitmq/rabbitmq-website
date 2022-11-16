@@ -26,7 +26,7 @@ maintained by the RabbitMQ team.
     <th>Library and Branch</th>
     <th>General Support Until <sup>1</sup></th>
     <th>Extended Support <sup>2</sup></th>
-    <th>JDK Version Range  <sup>3</sup></th>
+    <th>JDK Version Range <sup>3</sup></th>
   </tr>
 
   <tr>
@@ -72,9 +72,16 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
-    <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 4.x</td>
+    <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 5.x</td>
     <td>Currently supported</td>
     <td></td>
+    <td>11-20</td>
+  </tr>
+
+  <tr>
+    <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 4.x</td>
+    <td>31 March 2022</td>
+    <td>31 March 2022</td>
     <td>11-20</td>
   </tr>
 
