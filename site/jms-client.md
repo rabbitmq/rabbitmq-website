@@ -361,35 +361,14 @@ available:
 ## <a id="logging" class="anchor" href="#logging">Configuring Logging for the JMS Client</a>
 
 The JMS Client logs messages using SLF4J (Simple Logging Façade for Java).
-SLF4J delegates to a logging framework, such as Apache Logback.
+SLF4J delegates to a logging framework, such as [Logback](https://logback.qos.ch/).
 If no other logging framework is
 enabled, SLF4J defaults to a built-in, no-op, logger.
 See the [SLF4J](http://www.slf4j.org/docs.html) documentation for a
 list of the logging frameworks SLF4J supports.
 
-The target logging framework is configured at deployment time by adding
-an SLF4J binding for the framework to the classpath.
-For example, the Logback SLF4J binding is in the
-`logback-classic-{version}.jar` file.
-To direct JMS client log messages to Logback, for example,
-add the following JARs to the classpath:
-
- * [slf4j-api-1.7.25.jar](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar)
- * [logback-core-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar)
- * [logback-classic-1.2.3.jar](http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar)
-
 We highly recommend to use a dependency management tool like [Maven](http://maven.apache.org/)
 or [Gradle](https://gradle.org/) to manage dependencies.
-
-The SLF4J API is backwards compatible, so you can use any version of
-SLF4J. Version 1.7.5 or higher is recommended. The SLF4J API and
-bindings, however, must be from the same SLF4J version.
-
-No additional SLF4J configuration is required, once the API and
-binding JAR files are in the classpath. However, the target framework
-may have configuration files or command-line options.
-Refer to the documentation for the target logging framework
-for configuration details.
 
 ## <a id="publisher-confirms" class="anchor" href="#publisher-confirms">Publisher Confirms</a>
 
