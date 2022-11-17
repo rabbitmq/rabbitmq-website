@@ -36,6 +36,27 @@ limitations under the License.
     -->
 
     <doc:item>
+      <doc:date iso="2022-11-17T14:00:00+00:00">17 November 2022</doc:date>
+      <doc:title>Announcing RabbitMQ 3.9 release series end of life</doc:title>
+      <doc:link>https://rabbitmq.com/versions.html</doc:link>
+      <doc:text>
+        <p>
+          RabbitMQ 3.9 release series will reach its end of maintenance on January 31st, 2023.
+          After that date, no new RabbitMQ 3.9 patch releases will be produced.
+        </p>
+        <p>
+          If you use RabbitMQ 3.9, please <a href="/upgrade.html">upgrade to a more recent release series</a>
+          before that date.
+        </p>
+        <p>
+          In case you have questions, feel free to contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group or <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ community Slack</a>.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2022-11-10T14:00:00+00:00">10 November 2022</doc:date>
       <doc:title>RabbitMQ 3.11.3 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.3</doc:link>
