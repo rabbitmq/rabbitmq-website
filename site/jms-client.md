@@ -25,7 +25,7 @@ for RabbitMQ implements the JMS specification on top of the
 [RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
 
-The library supports JMS 2.0 as of 2.7.0.
+The library supports JMS 2.0 as of 2.7.0 and JMS 3.0 as of 3.0.0.
 
 The plugin and the JMS client are meant to work and be used together.
 
@@ -371,6 +371,8 @@ We highly recommend to use a dependency management tool like [Maven](http://mave
 or [Gradle](https://gradle.org/) to manage dependencies.
 
 ## <a id="publisher-confirms" class="anchor" href="#publisher-confirms">Publisher Confirms</a>
+
+Note: Publisher Confirms support is deprecated in favor of [asynchronous sending](https://jakarta.ee/specifications/messaging/3.1/jakarta-messaging-spec-3.1.html#sending-messages-asynchronously-jms_spec-43) (JMS 2.0).
 
 [Publisher confirms](./confirms.html#publisher-confirms) are a RabbitMQ extension to implement reliable
 publishing. This feature builds on top of the AMQP protocol, but the JMS client
