@@ -80,8 +80,8 @@ maintained by the RabbitMQ team.
 
   <tr>
     <td><a href="https://github.com/rabbitmq/hop" target="_blank" rel="noopener noreferrer">Hop</a> 4.x</td>
-    <td>31 March 2022</td>
-    <td>31 March 2022</td>
+    <td>31 March 2023</td>
+    <td>31 March 2023</td>
     <td>11-20</td>
   </tr>
 
