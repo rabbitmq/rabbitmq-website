@@ -51,6 +51,13 @@ maintained by the RabbitMQ team.
   </tr>
 
   <tr>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank" rel="noopener noreferrer">JMS Client</a> 3.x</td>
+    <td>Currently supported</td>
+    <td></td>
+    <td>11-20</td>
+  </tr>
+
+  <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-jms-client" target="_blank" rel="noopener noreferrer">JMS Client</a> 2.x</td>
     <td>Currently supported</td>
     <td></td>
