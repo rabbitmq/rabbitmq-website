@@ -469,6 +469,7 @@ queue and message TTL, queue limits, etc:
  * `x-message-ttl`
  * `x-max-length`
  * `x-max-length-bytes`
+ * `x-max-age` (available only for [streams](./streams.html))
  * `x-overflow`
  * `x-max-priority`
  * `x-queue-type` (to be able to [declare](./quorum-queues.html#declaring) [quorum queues](./quorum-queues.html))
