@@ -38,10 +38,10 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-ma
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](./which-erlang.html)
 
-## VMware Tanzu™ RabbitMQ® (Commercial Edition)
+## VMware RabbitMQ® (Commercial Edition)
 
- * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
- * [Tanzu™ RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
+ * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [VMware RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
 
 ## Kubernetes
 
@@ -74,9 +74,9 @@ Other guides related to Kubernetes:
 
 ## Cloud
 
- * [Tanzu™ RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
+ * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
  * [RabbitMQ Cluster Kubernetes Operator](./kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
- * [Tanzu™ RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
+ * [VMware RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
  * [Amazon EC2](ec2.html)
 
