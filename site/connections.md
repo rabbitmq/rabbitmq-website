@@ -315,8 +315,12 @@ or the primary way of authenticating clients. Learn more in the [TLS guide](./ss
 
 Connections that publish messages can outpace other parts of the system, most likely busy queues and queues
 that perform replication. When that happens, [flow control](./flow-control.html) is applied to
-publishing connections. Connections that only consume messages are not affected by the flow control
+publishing connections. Connections that only consume messages **are not affected** by the flow control
 applied to publishers.
+
+It is therefore recommended that, when possible, publishers and consumers use separate connections
+so that consumers are isolated from potential flow control that may be applied to publishing connections,
+affecting [manual consumer acknowledgements](./confirms.html).
 
 With slower consumers that use [automatic acknowledgement mode](./confirms.html#acknowledgement-modes)
 it is very likely that connections and channels will experience flow control when writing to
