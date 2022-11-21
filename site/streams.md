@@ -28,7 +28,8 @@ provides access to all stream-specific features and offers best possible through
 
 This page covers the concepts of streams, their usage, and
 their administration and maintenance operations. Please visit the [Stream plugin](./stream.html)
-page to learn more about the usage of streams with the binary RabbitMQ Stream protocol.
+page to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the page [Stream core vs Stream plugin](./stream_core_vs_plugin.html) for the feature matrix.
+
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
