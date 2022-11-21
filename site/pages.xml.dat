@@ -93,7 +93,7 @@ limitations under the License.
          <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/streams.html" text="Streams"/>
-       <x:page url="/stream_core_vs_plugin.html" text="Stream Core vs Stream Plugin"/>
+       <x:page url="/stream-core-plugin-comparison.html" text="Stream Core vs Stream Plugin"/>
        <x:page url="/feature-flags.html" text="Feature Flags"/>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/clustering.html" text="Clustering">

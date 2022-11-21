@@ -23,7 +23,8 @@ Streams are a new persistent and replicated data structure _in RabbitMQ 3.9_ whi
 an append-only log with non-destructive consumer semantics.
 They can be used as a regular AMQP 0.9.1 queue or through a
 [dedicated binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)
-plugin and associated client(s). Please see the page [Stream core vs Stream plugin](./stream_core_vs_plugin.html) for the feature matrix.
+plugin and associated client(s).
+Please see the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
 
 This page covers the Stream plugin, which allows to interact with streams using this
 [new binary protocol](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc).

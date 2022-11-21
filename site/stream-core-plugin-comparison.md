@@ -20,23 +20,23 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This section covers the differences between [stream core](/streams.html) and the [stream plugin](/stream.html).
-Stream core designates stream features in the broker with only default plugins activated.
+Stream core designates stream features in the broker with only default plugins activated and through protocols like AMQP 0.9.1, MQTT, and STOMP.
 
 
 ### Feature Matrix
 
 |Feature | Stream Core              | Stream Plugin    |
 |-| ------------------------ | -------------    |
-|Activation| Built-in                 | [Must be enabled](http://localhost:8191/stream.html#enabling-plugin)  |
+|Activation| Built-in                 | [Must be activated](http://localhost:8191/stream.html#enabling-plugin)  |
 |Protocol| AMQP 0.9.1               | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |
-|Clients| AMQP 0.9.1 clients.[ Usage documentation](/streams.html#usage)  |[ RabbitMQ stream clients](/stream.html#overview)   |
+|Clients| AMQP 0.9.1 clients ([documentation](/streams.html#usage)) |[RabbitMQ stream clients](/stream.html#overview)   |
 |Port| 5672                     | 5552             |
-|Format| consume AMQP 0.9.1/1.0 messages  | consume AMQP 0.9.1/1.0 messages |
-|Sub-Entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
-|Offset tracking| Use external store      |  Built-in server side ([Java Example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking))      |
+|Format| Server-side AMQP 1.0 message format encoding and decoding  | Client-side AMQP 1.0 message format encoding and decoding |
+|Sub-entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
+|Offset tracking| Use external store      |  Built-in server-side support ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking)) or external store      |
 |Publishing deduplication|Not supported       |  Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#outbound-message-deduplication))        |
 |Throughput| Hundreds of thousands per second | Millions messages per second    |
-|TLS|Supported (5671-Port)                     | Supported (5551-Port)
+|TLS|Supported (default port: 5671)                     | Supported (default port: 5551)
 
 
 ### Interoperabilty
