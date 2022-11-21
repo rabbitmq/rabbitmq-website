@@ -26,9 +26,9 @@ They can be used via a RabbitMQ client library as if  it was a queue or through 
 plugin and associated client(s). The latter option is recommended as it
 provides access to all stream-specific features and offers best possible throughput (performance).
 
-This page covers the concepts of streams, their usage, and
-their administration and maintenance operations. Please visit the [Stream plugin](./stream.html)
-page to learn more about the usage of streams with the binary RabbitMQ Stream protocol.
+This page covers the concepts of streams, their usage, and their administration and maintenance operations.
+Please visit the [stream plugin](./stream.html) page to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
+
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
