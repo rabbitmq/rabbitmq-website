@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2020-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2020-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,13 +19,13 @@ limitations under the License.
 
 This information describes how to modify the configuration of the [RabbitMQ Cluster Kubernetes Operator](./operator-overview.html) in a Kubernetes cluster. You might want to do this to control how the Cluster Operator configures `RabbitmqClusters`. For example, it can be useful when you are configuring the operator to automatically use the RabbitMQ container images that are stored in a private registry.
 
-To change the configuration to suit your needs, you must add the configuration environment variables and set them to the values you want by editing the Cluster Operator deployment manifest. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub. The environment variables that can be set are listed in the table in [Cluster Operator Environment Variables](#parameters). 
+To change the configuration to suit your needs, you must add the configuration environment variables and set them to the values you want by editing the Cluster Operator deployment manifest. This is the YAML manifest artefact that is released with every new version of the RabbitMQ Cluster Operator on GitHub. The environment variables that can be set are listed in the table in [Cluster Operator Environment Variables](#parameters).
 
-## Adding Cluster Operator Environment Variables to the Deployment Manifest 
+## Adding Cluster Operator Environment Variables to the Deployment Manifest
 
-When the Cluster Operator is deployed, update the manifest by completing the following steps: 
+When the Cluster Operator is deployed, update the manifest by completing the following steps:
 
-1. Run: 
+1. Run:
 <pre class="lang-bash">
 kubectl -n rabbitmq-system edit deployment rabbitmq-cluster-operator
 </pre>
@@ -60,8 +60,8 @@ spec:
 3. Save the manifest. The Cluster Operator Pod is updated to use this configuration.
 
 **Important**: Future GitHub releases for the RabbitMQ Cluster Operator will not have the changes that you are making now so you must make these updates everytime you update the Cluster Operator. You can consider using templating to add these variables automatically. For example, you can use a `ytt overlay`.
- 
-## Example of Using `ytt overlay` to add Cluster Operator Environment Variables Automatically 
+
+## Example of Using `ytt overlay` to add Cluster Operator Environment Variables Automatically
 
 <code>values.yaml</code>
 
