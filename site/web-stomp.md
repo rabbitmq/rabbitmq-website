@@ -51,7 +51,7 @@ library is required. We've tested a
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
 [This library](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_web_stomp_examples/priv/stomp.js)
-is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples).
+is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_web_stomp_examples).
 
 The WebSocket endpoint is available on the `/ws` path:
 
