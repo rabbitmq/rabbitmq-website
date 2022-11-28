@@ -370,6 +370,10 @@ as that may produce false positives when network congestion or system load goes 
 Very short lived connections should be avoided when possible. The following section
 will cover this in more detail.
 
+It is recommended that, when possible, publishers and consumers use separate connections
+so that consumers are isolated from potential [flow control](./connections.html#flow-control)
+that may be applied to publishing connections, affecting [manual consumer acknowledgements](./confirms.html).
+
 ### <a id="apps-connection-churn" class="anchor" href="#apps-connection-churn">Connection Churn</a>
 
 As mentioned above, messaging protocols generally assume long-lived connections. Some applications

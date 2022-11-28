@@ -26,9 +26,9 @@ They can be used via a RabbitMQ client library as if  it was a queue or through 
 plugin and associated client(s). The latter option is recommended as it
 provides access to all stream-specific features and offers best possible throughput (performance).
 
-This page covers the concepts of streams, their usage, and
-their administration and maintenance operations. Please visit the [Stream plugin](./stream.html)
-page to learn more about the usage of streams with the binary RabbitMQ Stream protocol.
+This page covers the concepts of streams, their usage, and their administration and maintenance operations.
+Please visit the [stream plugin](./stream.html) page to learn more about the usage of streams with the binary RabbitMQ Stream protocol and the [stream core and stream plugin comparison page](./stream-core-plugin-comparison.html) for the feature matrix.
+
 
 ### <a id="use-cases" class="anchor" href="#use-cases">Use Cases</a>
 
@@ -152,10 +152,12 @@ to the log after the consumer starts. The following values are supported:
  is the storage and transportation unit used in streams, put simply it is a batch
  of messages made of several to a few thousands of messages, depending on the ingress)_
  * `next` - same as not specifying any offset
- * Offset - a numerical value specifying an exact offset to attach to the log at. If
-this offset does not exist it will clamp to either the start or end of the log respectively.
- * Timestamp - a timestamp value specifying the point in time to attach to the log at. It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively. With AMQP 0.9.1, the timestamp used is POSIX
- time with an accuracy of one second, that is the number of seconds since 00:00:00 UTC, 1970-01-01.
+ * Offset - a numerical value specifying an exact offset to attach to the log at.
+ If this offset does not exist it will clamp to either the start or end of the log respectively.
+ * Timestamp - a timestamp value specifying the point in time to attach to the log at.
+ It will clamp to the closest offset, if the timestamp is out of range for the stream it will clamp either the start or end of the log respectively.
+ With AMQP 0.9.1, the timestamp used is POSIX time with an accuracy of one second, that is the number of seconds since 00:00:00 UTC, 1970-01-01.
+ Be aware consumers can receive messages published a bit before the specified timestamp.
  * Interval - a string value specifying the time interval relative to current time to attach the log at. Uses the same specification as `x-max-age` (see [Retention](#retention))
 
 The following snippet shows how to use the `first` offset specification:

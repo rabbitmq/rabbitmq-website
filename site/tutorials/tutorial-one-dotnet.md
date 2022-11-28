@@ -217,8 +217,6 @@ keep the consumer running continuously to listen for messages and print them out
 
 <div class="diagram">
   <img src="../img/tutorials/receiving.png" alt="[|||] -> (C)" height="100"/>
-
-"/>
 </div>
 
 The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:

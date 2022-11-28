@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2020-2021 VMware, Inc. or its affiliates.
+Copyright (c) 2020-2022 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Installing VMware Tanzu RabbitMQ for Kubernetes
+# Installing VMware RabbitMQ for Kubernetes
 
 ## Overview
 
-This guide covers installation of [VMware Tanzu RabbitMQ](https://tanzu.vmware.com/rabbitmq) to Kubernetes
+This guide covers installation of [VMware RabbitMQ](https://tanzu.vmware.com/rabbitmq) to Kubernetes
 using the [Carvel toolchain](https://carvel.dev/#install), e.g. from TanzuNet:
 
 * [imgpkg](https://network.pivotal.io/products/imgpkg/)
@@ -40,7 +40,7 @@ This guide assumes you have the following:
 
 ### Installing to a Local Registry
 
-First download the Tanzu RabbitMQ release tarball (`.tar` file) from [VMware Tanzu Network](https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/).
+First download the VMware RabbitMQ release tarball (`.tar` file) from [VMware Tanzu Network](https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/).
 
 The file then must be placed on the filesystem of a machine within the network hosting the target registry.
 On that machine, load the tarball into the registry by running:
@@ -96,7 +96,7 @@ kubectl create secret generic tanzu-registry-creds \
 
 ## Installing the Bundle
 
-VMware Tanzu RabbitMQ uses TLS certificates for admission Webhooks in the cluster.
+VMware RabbitMQ uses TLS certificates for admission Webhooks in the cluster.
 
 There are two ways of installing the components of :
 
@@ -172,7 +172,7 @@ everything that can be managed via [definitions](../../definitions.html))
 using the [RabbitMQ Topology Operator](../operator/using-topology-operator.html).
 
 To do so, render `overlays/rabbitmqcluster.yml` with a manifest of the `RabbitmqCluster` object,
-the resultant cluster will use the bundled Tanzu RabbitMQ container image.
+the resultant cluster will use the bundled VMware RabbitMQ container image.
 
 This example creates a very minimalistic RabbitmqCluster:
 

@@ -171,7 +171,7 @@ limitations under the License.
                 <img src="./img/commercial/warm-standby.svg" height="71" width="71" alt="Warm Standby" title="Warm Standby" />
                 <h2>Warm Standby Replication</h2>
                 <p>
-                  VMware Tanzu RabbitMQ supports continuous schema definition and message replication to a remote cluster,
+                  VMware RabbitMQ supports continuous schema definition and message replication to a remote cluster,
                   which makes it easy to run a standby cluster for disaster recovery.
                   <a href="https://docs.vmware.com/en/VMware-Tanzu-RabbitMQ-for-Kubernetes/1.3/tanzu-rmq/GUID-standby-replication.html">Learn more</a>
                 </p>
@@ -225,7 +225,7 @@ limitations under the License.
               <h2>Commercial Distribution</h2>
               <p>
                 VMware offers a <a href="https://tanzu.vmware.com/rabbitmq">range of commercial offerings for RabbitMQ</a>.
-                This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">Tanzu RabbitMQ</a> that deploys on Kubernetes or
+                This includes a distribution called <a href="https://network.pivotal.io/products/p-rabbitmq-for-kubernetes/info">VMware RabbitMQ</a> that deploys on Kubernetes or
                 your container Runtime, as well as a version that deploys in
                 <a href="https://tanzu.vmware.com/tanzu">VMware Tanzu Application Service</a>.
                 These distributions include all of the features of the open source version, with some additional management and business continuity features. Support agreements are part of the commercial licensing.
