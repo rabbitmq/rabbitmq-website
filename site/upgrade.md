@@ -514,6 +514,8 @@ Classic mirrored queue replica state can be verified by listing queues in the ma
 <pre class="lang-bash">
 # For queues with non-empty `mirror_pids`, you must have at least one
 # `synchronised_mirror_pids`.
+#
+# Note that mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl -n rabbit@to-be-stopped list_queues --local name mirror_pids synchronised_mirror_pids
 </pre>
 

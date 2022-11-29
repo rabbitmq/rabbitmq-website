@@ -240,6 +240,7 @@ It is possible to list queue leader and mirrors using `rabbitmqctl list_queues`.
 example we also display queue policy since it's highly relevant:
 
 <pre class="lang-bash">
+# mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl list_queues name policy pid mirror_pids
 
 # =&gt; Timeout: 60.0 seconds ...
@@ -679,6 +680,7 @@ a common scenario with lazy queues, for example.
 To see mirror status (whether they are synchronised), use:
 
 <pre class="lang-bash">
+# mirror_pids is a new field alias introduced in RabbitMQ 3.11.4
 rabbitmqctl list_queues name mirror_pids synchronised_mirror_pids
 </pre>
 
