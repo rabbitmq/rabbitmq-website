@@ -7,8 +7,8 @@ They are converted to HTML using `mandoc`:
 
 ``` shell
 # from rabbitmq/rabbitmq-server
-gmake docs
-ls docs/*.html
+bazel build //deps/rabbit:web-manpages
+tar xf bazel-bin/deps/rabbit/web-manpages.tar
 ```
 
 ## Contributions
