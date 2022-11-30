@@ -21,14 +21,12 @@ upgrades](./upgrade.html#rolling-upgrades) of cluster members without
 shutting down the entire cluster**.
 
 <p class="box-warning">
-This subsystem does not guarantee that all future changes in
-RabbitMQ can be implemented as feature flags and entirely backwards
-compatible with older release series. Therefore, <strong>a future
-version of RabbitMQ might still require a cluster-wide shutdown for
-upgrading</strong>.
+Feature flags are not meant to be used as a form of cluster configuration.
+After a successful rolling upgrade, users should enable all feature flags.
 
-Please always read <a href="./changelog.html">release notes</a> to see if a rolling
-upgrade to the next minor or major RabbitMQ version is possible.
+Each feature flag will become mandatory at some point. For example,
+<a href="https://github.com/rabbitmq/rabbitmq-server/blob/main/release-notes/3.11.0.md#compatibility-notes">
+RabbitMQ 3.11 requires feature flags introduced in 3.8 to be enabled prior to the upgrade</a>.
 </p>
 
 ## <a id="tldr" class="anchor" href="#tldr">Quick summary (TL;DR)</a>
@@ -42,6 +40,17 @@ upgrade to the next minor or major RabbitMQ version is possible.
 
 RabbitMQ 3.7.x and 3.8.x nodes are compatible as long as no 3.8.x
 feature flags are enabled.
+
+<p class="box-warning">
+This subsystem does not guarantee that all future changes in
+RabbitMQ can be implemented as feature flags and entirely backwards
+compatible with older release series. Therefore, <strong>a future
+version of RabbitMQ might still require a cluster-wide shutdown for
+upgrading</strong>.
+
+Please always read <a href="./changelog.html">release notes</a> to see if a rolling
+upgrade to the next minor or major RabbitMQ version is possible.
+</p>
 
 ### The Two Main Commands
 
