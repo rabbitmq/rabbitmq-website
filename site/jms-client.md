@@ -88,7 +88,9 @@ Some JMS 1.1 and 2.0 features are unsupported in the RabbitMQ JMS Client:
  messages published from a subscriber’s own connection, is not supported
  with RabbitMQ. You can call a method that includes the `NoLocal`
  argument, but it is ignored.
- * [Delivery delay](https://jakarta.ee/specifications/messaging/3.1/jakarta-messaging-spec-3.1.html#delivery-delay-jms_spec-44) (JMS 2.0), see the [corresponding GitHub issue](https://github.com/rabbitmq/rabbitmq-jms-client/issues/180) for the evolution of this feature.
+ * [Delivery delay](https://jakarta.ee/specifications/messaging/3.1/jakarta-messaging-spec-3.1.html#delivery-delay-jms_spec-44) (JMS 2.0) feature sends the message to all active subscriptions regardless whether those subscriptions did not exist
+ when the message was sent.
+
 
 See [the JMS API compliance documentation](jms-client-compliance.html) for a
 detailed list of supported JMS APIs.
