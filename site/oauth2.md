@@ -28,7 +28,7 @@ This guide covers
     * [Variables Configurable in rabbitmq.conf](#variables-configurable)
     * [Resource Server ID and Scope Prefixes](#resource-server-id)
     * [Token validation](#token-validation)
-    * [Scope-to-Permission Translation](#scope-transalation)
+    * [Scope-to-Permission Translation](#scope-translation)
     * [Using a different token field for the Scope](#use-different-token-field)
     * [Using Tokens with Clients](#use-tokens-with-clients)
     * [Scope and Tags](#scope-and-tags)
