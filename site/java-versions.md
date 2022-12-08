@@ -103,7 +103,7 @@ maintained by the RabbitMQ team.
     <td><a href="https://github.com/reactor/reactor-rabbitmq" target="_blank" rel="noopener noreferrer">Reactor RabbitMQ</a> 1.x</td>
     <td>Currently supported</td>
     <td></td>
-    <td>8, 11, 17, 19, 20</td>
+    <td>8, 11, 17</td>
   </tr>
 
 </table>
