@@ -51,9 +51,9 @@ There is no guarantee of response or specific turnaround time.
 Most of RabbitMQ development happens in the open under the [rabbitmq GitHub organization](https://github.com/rabbitmq).
 See [our GitHub guide](./github.html) for an overview of our development process.
 
-There is a dedicated GitHub repository, [rabbitmq/discussions](https://github.com/rabbitmq/discussions),
+Please use [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions),
 for questions, discussions, investigations, root cause analysis, and so on. Questions or discussions
-started in repositories used for development will be transferred there.
+filed as issues will be closed and converted to discussions.
 
 ### Twitter
 
@@ -63,17 +63,17 @@ If you're tweeting about RabbitMQ please don't forget to use the <code>#rabbitmq
 
 ### IRC
 
-RabbitMQ IRC channel is [\#rabbitmq on irc.freenode.net](irc://irc.freenode.net/rabbitmq).
+RabbitMQ IRC channel is `#rabbitmq` on [Libera Chat](https://libera.chat/).
 
-There's a [Web interface to Freenode](http://webchat.freenode.net/) if you don't have an IRC client installed.
+There's a [Web interface to Libera](https://web.libera.chat/) if you don't have an IRC client installed.
 
 
 ## Private Enquiries
 
-### <a id="security" class="anchor" href="#security">Security</a>
+### <a id="security" class="anchor" href="#security">Responsible Disclosure of Vulnerabilities</a>
 
 Please use [security@rabbitmq.com](mailto:security@rabbitmq.com) for responsible disclosure
-of security-related issues.
+of vulnerabilities. All emails not related to vulnerability disclosure will be ignored.
 
 ### Contacting the Core Team in Private
 
