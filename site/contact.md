@@ -49,9 +49,12 @@ There is no guarantee of response or specific turnaround time.
 ### GitHub
 
 Most of RabbitMQ development happens in the open under the [rabbitmq GitHub organization](https://github.com/rabbitmq).
-See [our GitHub guide](./github.html) for an overview of our development process.
+See [our GitHub guide](./github.html) for an overview of our development process
+and our [Contributor repository](https://github.com/rabbitmq/contribute/) for practical guides,
+for instance, on how to use Bazel for RabbitMQ development.
 
-Please use [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions),
+
+Please use [GitHub Discussions](https://github.com/rabbitmq/rabbitmq-server/discussions)
 for questions, discussions, investigations, root cause analysis, and so on. Questions or discussions
 filed as issues will be closed and converted to discussions.
 
