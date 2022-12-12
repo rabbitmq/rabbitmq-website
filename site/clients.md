@@ -22,8 +22,9 @@ limitations under the License.
  * [Downloads and Installation](java-client.html)
  * [API Guide](api-guide.html)
  * [API Reference](&dir-current-javadoc;)
- * [JMS Guide](jms-client.html)
- * [JMS Reference](jms-client-compliance.html)
+ * [JMS 2.x Guide](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/)
+ * [JMS 3.x Guide](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/)
+ * [JMS Reference](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/jms-client-compliance.md)
  * [Command line tools](java-tools.html)
 
 

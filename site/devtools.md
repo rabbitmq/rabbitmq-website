@@ -35,7 +35,8 @@ would like to see added to this list.
 ### Java
  * &#x2713; [RabbitMQ Java client](java-client.html) and its [developer guide](api-guide.html)
  * &#x2713; [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
- * &#x2713; [RabbitMQ JMS client](jms-client.html)
+ * &#x2713; [RabbitMQ JMS 2.x client](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/)
+ * &#x2713; [RabbitMQ JMS 3.x client](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/)
  * [Reactor RabbitMQ](https://github.com/reactor/reactor-rabbitmq), a reactive API for RabbitMQ based on
    [Reactor](https://projectreactor.io/) and [RabbitMQ Java Client](java-client.html)
 

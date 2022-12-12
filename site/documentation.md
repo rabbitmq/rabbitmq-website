@@ -228,7 +228,8 @@ many popular programming languages are also available, as is an [AMQP 0-9-1 Over
  * [Java Client](api-guide.html)
  * [.NET Client](dotnet-api-guide.html)
  * [Ruby Client](http://rubybunny.info)
- * [JMS Client](jms-client.html)
+ * [JMS 3.x Client](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/)
+ * [JMS 2.x Client](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/)
  * [Erlang Client](erlang-client-user-guide.html)
  * [RabbitMQ extensions to AMQP 0-9-1](./extensions.html)
 
