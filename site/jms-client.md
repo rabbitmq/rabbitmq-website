@@ -25,8 +25,6 @@ for RabbitMQ implements the JMS specification on top of the
 [RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
 
-The library supports JMS 2.0 as of 2.7.0 and JMS 3.0 as of 3.0.0. 
-
 The plugin and the JMS client are meant to work and be used together.
 
 See the [RabbitMQ Java libraries support page](./java-versions.html) for the support timeline
