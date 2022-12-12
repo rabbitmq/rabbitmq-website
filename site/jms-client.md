@@ -25,7 +25,7 @@ for RabbitMQ implements the JMS specification on top of the
 [RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
 
-The library supports JMS 2.0 as of 2.7.0 and JMS 3.0 as of 3.0.0.
+The library supports JMS 2.0 as of 2.7.0 and JMS 3.0 as of 3.0.0. 
 
 The plugin and the JMS client are meant to work and be used together.
 
@@ -36,5 +36,15 @@ of the RabbitMQ JMS Client library.
 
 JMS Client Library documentation is hosted in Github Pages:
 
-- For [JMS 2.x Client library](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/snapshot/htmlsingle/index.html#introduction)
-- For [JMS 3.x Client library](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/snapshot/htmlsingle/index.html#introduction)
+For JMS 2.x Client library:
+
+  - [latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/stable/htmlsingle/index.html#introduction)
+  - [latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/index.html#introduction)
+  - [latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/snapshot/htmlsingle/index.html#introduction)
+
+
+For JMS 3.x Client library:
+
+  - [latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/stable/htmlsingle/index.html#introduction)
+  - [latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/index.html#introduction)
+  - [latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/snapshot/htmlsingle/index.html#introduction)
