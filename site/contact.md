@@ -75,7 +75,7 @@ There's a [Web interface to Libera](https://web.libera.chat/) if you don't have 
 
 ### <a id="security" class="anchor" href="#security">Responsible Disclosure of Vulnerabilities</a>
 
-Please use [security@rabbitmq.com](mailto:security@rabbitmq.com) for responsible disclosure
+Please use [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability) or email [security@rabbitmq.com](mailto:security@rabbitmq.com) for responsible disclosure
 of vulnerabilities. All emails not related to vulnerability disclosure will be ignored.
 
 ### Contacting the Core Team in Private
