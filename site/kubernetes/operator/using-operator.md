@@ -353,7 +353,7 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>Kubernetes Resource Quantity</td>
-		<td>The <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/resources.md#resource-quantities">Kubernetes Resource Model documentation</a> in GitHub</td>
+		<td>The <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Kubernetes Resource Model documentation</a> in GitHub</td>
 	</tr>
     </col>
  </table>
