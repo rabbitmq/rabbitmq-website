@@ -39,6 +39,46 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.11.5</td>
+    <td class="centre">14 December 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.5">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.13</td>
+    <td class="centre">14 December 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.13">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.9.27</td>
+    <td class="centre">14 December 2022</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.27">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.11.4</td>
     <td class="centre">29 November 2022</td>
     <td>
