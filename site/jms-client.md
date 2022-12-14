@@ -19,9 +19,9 @@ limitations under the License.
 
 ## <a id="introduction" class="anchor" href="#introduction">Introduction</a>
 
-RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/v3.9.x/deps/rabbitmq_jms_topic_exchange)
-needed to support the JMS Queue and Topic messaging models. JMS Client
-for RabbitMQ implements the JMS specification on top of the
+RabbitMQ is not a JMS provider but includes [a plugin](https://github.com/rabbitmq/rabbitmq-server/tree/v3.11.x/deps/rabbitmq_jms_topic_exchange)
+needed to support the JMS Queue and Topic messaging models. [JMS Client
+for RabbitMQ](https://github.com/rabbitmq/rabbitmq-jms-client) implements the JMS specification on top of the
 [RabbitMQ Java client](./api-guide.html), thus allowing new and
 existing JMS applications to connect to RabbitMQ.
 
@@ -34,15 +34,15 @@ of the RabbitMQ JMS Client library.
 
 JMS Client Library documentation is hosted in Github Pages:
 
-For JMS 2.x Client library:
+For JMS 2.x Client library (JMS 2.0):
 
-  - [latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/stable/htmlsingle/index.html#introduction)
-  - [latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/index.html#introduction)
-  - [latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/snapshot/htmlsingle/index.html#introduction)
+  - [Latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/stable/htmlsingle/index.html)
+  - [Latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/milestone/htmlsingle/index.html)
+  - [Latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/2.x/snapshot/htmlsingle/index.html)
 
 
-For JMS 3.x Client library:
+For JMS 3.x Client library (JMS 3.0):
 
-  - [latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/stable/htmlsingle/index.html#introduction)
-  - [latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/index.html#introduction)
-  - [latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/snapshot/htmlsingle/index.html#introduction)
+  - [Latest stable release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/stable/htmlsingle/index.html)
+  - [Latest milestone release](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/milestone/htmlsingle/index.html)
+  - [Latest development build](https://rabbitmq.github.io/rabbitmq-jms-client/3.x/snapshot/htmlsingle/index.html)
