@@ -23,7 +23,7 @@ limitations under the License.
  * [API Guide](api-guide.html)
  * [API Reference](&dir-current-javadoc;)
  * [JMS Guide](jms-client.html)
- * [JMS Reference](jms-client-compliance.html)
+ * [JMS Reference](https://github.com/rabbitmq/rabbitmq-jms-client/blob/main/jms-client-compliance.md)
  * [Command line tools](java-tools.html)
 
 
