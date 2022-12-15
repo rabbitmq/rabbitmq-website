@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ supports [STOMP](http://stomp.github.io) via a plugin that ships
-in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](http://stomp.github.com/stomp-specification-1.2.html)
+in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](https://stomp.github.io/stomp-specification-1.2.html)
 with some [extensions and restrictions](#extensions-and-restrictions).
 
 STOMP clients can interoperate with other protocols. All the functionality in
