@@ -73,7 +73,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
 
-RabbitMQ 3.11, the next release series, is expected in the fall of 2022.
+RabbitMQ 3.12, the next release series, is expected in the first quarter of 2023.
 
 ## <a id="out-of-support" class="anchor" href="#out-of-support">Release Series That are Out of Support</a>
 
