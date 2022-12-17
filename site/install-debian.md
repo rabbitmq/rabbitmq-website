@@ -35,6 +35,8 @@ Key sections of this guide are
  * [Privilege requirements](#sudo-requirements)
  * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
+ * [Manage the service](#managing-service) (start it, stop it, and get its status)
+ * How to [inspect node and service logs](#server-logs)
 
 [Supported Erlang versions](which-erlang.html) will be provisioned from one of the [modern Erlang apt repositories](#erlang-repositories)
 on [Ubuntu Launchpad](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) or [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/rabbitmq-erlang/packages/).
@@ -44,11 +46,6 @@ should refer to
 
 * Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
 * Manual installation using [apt the PackageCloud](#apt-packagecloud) and Launchpad repositories
-
-Service management is covered in
-
- * [Manage the service](#managing-service)
- * How to [inspect node and service logs](#server-logs)
 
 More advanced topics include
 

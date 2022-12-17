@@ -528,6 +528,62 @@ and so on.
 [RabbitMQ Networking guide](networking.html) contains a section on troubleshooting of networking-related issues.
 
 
+## <a id="managing-nodes" class="anchor" href="#managing-nodes">Managing Nodes</a>
+
+### Getting node status
+
+To retrieve node status, use `rabbitmq-diagnostics status` or `rabbitmq-diagnostics.bat status`
+with an optional `--node` target:
+
+<pre class="lang-bash">
+rabbitmqctl shutdown
+</pre>
+
+<pre class="lang-bash">
+rabbitmqctl shutdown --node rabbit@target-hostname.local
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
+</pre>
+
+### Starting a node
+
+How RabbitMQ nodes are started depends on the package type used:
+
+ * When using Debian and RPM packages on modern Linux distributions, nodes are [managed using `systemd`](./install-debian.html#managing-service)
+ * When using Windows installer, nodes are usually [managed by the Windows service manager](./install-windows.html#managing)
+ * When using Homebrew formula, nodes are managed using `brew services`
+ * When using generic UNIX build or binary Windows build, nodes are started using `sbin/rabbitmq-server` and `sbin/rabbitmq-server.bat`, respectively, in the installation root
+
+### Stopping a node
+
+To stop a node, consider using the same service management tooling used when starting
+the node, which depends on the package typed used when RabbitMQ was installed.
+
+To stop a node using RabbitMQ CLI tools, use
+`rabbitmqctl shutdown` or `rabbitmqctl.bat shutdown` with an optional `--node` target:
+
+<pre class="lang-bash">
+rabbitmqctl shutdown
+</pre>
+
+<pre class="lang-bash">
+rabbitmqctl shutdown --node rabbit@target-hostname.local
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
+</pre>
+
 ## <a id="http-api-cli" class="anchor" href="#http-api-cli">rabbitmqadmin</a>
 
 [rabbitmqadmin](./management-cli.html) is a command line tool that's built on top of [RabbitMQ HTTP API](./management.html).

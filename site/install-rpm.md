@@ -41,7 +41,7 @@ such as Fedora, RHEL and CentOS. It covers a number of topics:
  * [Package dependencies](#package-dependencies)
  * [Supported distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * How to [manage the service](#managing-service)
+ * How to [manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
  * Installation on [older distributions](#yum-legacy)
  * [Package downloads](#downloads)

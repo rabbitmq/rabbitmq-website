@@ -24,9 +24,13 @@ It is minimalistic and not opinionated in how it is installed, configured and ma
 This package is recommended in environments where more opinionated installation options
 (the [Debian](./install-debian.html) or [RPM packages](./install-rpm.html), [Homebrew](./install-homebrew.html), BSD ports) cannot be used.
 It is also the most convenient option for running multiple versions on the same machine
-in development environments, e.g. [preview release](./snapshots.html) testing.
+in development environments.
+
 There's a separate [binary package for Windows](./install-windows-manual.html).
 
+Unlike with the cases of [Debian](./install-debian.html), [RPM](./install-rpm.html) and [Windows installer](./install-windows.html) packages,
+[node management](#running-generic-unix) with this package type is performed solely using
+[RabbitMQ CLI tools](./cli.html) or by the operator setting up e.g. a `systemd` service manually.
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
 
