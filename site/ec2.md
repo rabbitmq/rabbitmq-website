@@ -57,8 +57,8 @@ Although RabbitMQ is tested with most major Linux distributions,
 Ubuntu support for Amazon EC2 seems to be strongest, so that's the distribution this guide
 will use.
 
-See [Ubuntu Cloud Images](http://uec-images.ubuntu.com/releases/)
-and [Ubuntu EC2 Starters Guide](https://help.ubuntu.com/community/EC2StartersGuide).
+[Ubuntu Cloud Images](https://cloud-images.ubuntu.com/) provides access to Ubuntu
+images (builds) specifically designed to be used in public clouds.
 
 
 ## <a id="installation" class="anchor" href="#installation">Installation</a>
