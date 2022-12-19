@@ -519,7 +519,7 @@ are reserved for server use. The details are given below.
 ### <a id="pear.c" class="anchor" href="#pear.c">Connection and Virtual Hosts</a>
 
 The `CONNECT` (or `STOMP`) frame in
-[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
+[STOMP 1.1](http://stomp.github.io/stomp-specification-1.1.html) has a
 mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 
