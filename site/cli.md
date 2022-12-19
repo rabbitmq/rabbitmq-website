@@ -536,19 +536,19 @@ To retrieve node status, use `rabbitmq-diagnostics status` or `rabbitmq-diagnost
 with an optional `--node` target:
 
 <pre class="lang-bash">
-rabbitmqctl status
+rabbitmq-diagnostics  status
 </pre>
 
 <pre class="lang-bash">
-rabbitmqctl status --node rabbit@target-hostname.local
+rabbitmq-diagnostics  status --node rabbit@target-hostname.local
 </pre>
 
 <pre class="lang-powershell">
-rabbitmqctl.bat status
+rabbitmq-diagnostics .bat status
 </pre>
 
 <pre class="lang-powershell">
-rabbitmqctl.bat status --node rabbit@target-hostname.local
+rabbitmq-diagnostics .bat status --node rabbit@target-hostname.local
 </pre>
 
 ### Starting a node
