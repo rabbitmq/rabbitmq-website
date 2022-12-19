@@ -173,16 +173,6 @@ The following table should explain the purpose of the various files in the repos
     </td>
   </tr>
   <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/build.config"><code>build.config</code></a></td>
-    <td>
-      This file configures which features of erlang.mk should be
-      enabled. In most of RabbitMQ's plugins, EUnit is disabled,
-      because they depend on a running broker. Our erlang.mk
-      extensions take care of starting a node and run the EUnit
-      tests when you type <tt>make tests</tt>.
-    </td>
-  </tr>
-  <tr>
     <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/rabbitmq-components.mk"><code>rabbitmq-components.mk</code></a></td>
     <td>
       A local copy of <tt>rabbitmq-components.mk</tt>. The

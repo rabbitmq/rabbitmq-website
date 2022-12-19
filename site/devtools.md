@@ -156,9 +156,9 @@ Miscellaneous projects:
 
 ### Groovy and Grails
 
- * [Grails RabbitMQ plugin](https://plugins.grails.org/plugin/budjb/rabbitmq-native)
- * [Grails with RabbitMQ for messaging](resources/grails-amqp.pdf) (PDF)
-[Green Bunny, Groovy RabbitMQ client](https://github.com/michaelklishin/green_bunny) inspired by Bunny
+ * [Grails RabbitMQ plugin](https://github.com/budjb/grails-rabbitmq-native)
+ * [Grails with RabbitMQ for messaging](https://guides.grails.org/grails-rabbitmq/guide/index.html)
+ * [Green Bunny, Groovy RabbitMQ client](https://github.com/michaelklishin/green_bunny) inspired by Bunny
 
 ### Clojure
 
