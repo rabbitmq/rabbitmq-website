@@ -98,7 +98,7 @@
       <dd>Selects quorum queues with an even number of replicas</dd>
     </dl>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues grow
+    <div class="00"><code class="Li">rabbitmq-queues grow
       &quot;rabbit@newhost&quot; &quot;all&quot; --vhost-pattern
       &quot;a-vhost&quot; --queue-pattern &quot;.*&quot;</code></div>
   </dd>
@@ -116,9 +116,11 @@
       <dd>Only quorum queues</dd>
       <dt id="classic"><a class="permalink" href="#classic"><b class="Sy">classic</b></a></dt>
       <dd>Only classic queues</dd>
+      <dt id="stream"><a class="permalink" href="#stream"><b class="Sy">stream</b></a></dt>
+      <dd>Only streams</dd>
     </dl>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues rebalance
+    <div class="00"><code class="Li">rabbitmq-queues rebalance
       &quot;all&quot; --vhost-pattern &quot;a-vhost&quot; --queue-pattern
       &quot;.*&quot;</code></div>
   </dd>
@@ -128,7 +130,7 @@
     <p class="Pp">Shrinks quorum queue clusters by removing any members
         (replicas) on the given node.</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues shrink
+    <div class="00"><code class="Li">rabbitmq-queues shrink
       &quot;rabbit@decomissioned-node&quot;</code></div>
   </dd>
 </dl>
@@ -142,7 +144,7 @@
   <dd>
     <p class="Pp">Adds a quorum queue member (replica) on the given node.</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues add_member
+    <div class="00"><code class="Li">rabbitmq-queues add_member
       --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
       &quot;rabbit@new-node&quot;</code></div>
   </dd>
@@ -152,7 +154,7 @@
   <dd>
     <p class="Pp">Removes a quorum queue member (replica) on the given node.</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues delete_member
+    <div class="00"><code class="Li">rabbitmq-queues delete_member
       --vhost &quot;a-vhost&quot; &quot;a-queue&quot;
       &quot;rabbit@decomissioned-node&quot;</code></div>
   </dd>
@@ -167,7 +169,7 @@
   <dd>
     <p class="Pp">Displays quorum status of a quorum queue.</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues quorum_status
+    <div class="00"><code class="Li">rabbitmq-queues quorum_status
       --vhost &quot;a-vhost&quot; &quot;a-queue&quot;</code></div>
   </dd>
   <dt id="check_if_node_is_mirror_sync_critical"><a class="permalink" href="#check_if_node_is_mirror_sync_critical"><code class="Cm">check_if_node_is_mirror_sync_critical</code></a></dt>
@@ -176,7 +178,7 @@
         classic mirrored queues without online synchronised mirrors (queues that
         would potentially lose data if the target node is shut down).</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues
+    <div class="00"><code class="Li">rabbitmq-queues
       check_if_node_is_mirror_sync_critical</code></div>
   </dd>
   <dt id="check_if_node_is_quorum_critical"><a class="permalink" href="#check_if_node_is_quorum_critical"><code class="Cm">check_if_node_is_quorum_critical</code></a></dt>
@@ -185,7 +187,7 @@
         queues with minimum online quorum (queues that would lose their quorum
         if the target node is shut down).</p>
     <p class="Pp">Example:</p>
-    <div class="Bd Bd-indent lang-bash"><code class="Li">rabbitmq-queues
+    <div class="00"><code class="Li">rabbitmq-queues
       check_if_node_is_quorum_critical</code></div>
   </dd>
 </dl>
