@@ -279,7 +279,7 @@ the queue is connected to), regardless of the `queue_master_locator` value.
 Classic queues historically supported replication but it is **deprecated** and should be avoided.
 
 
-Queues can beso be [federated](federated-queues.html)
+Queues can also be [federated](federated-queues.html)
 across loosely coupled nodes or clusters.
 
 Note that intra-cluster replication and federation
