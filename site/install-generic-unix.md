@@ -29,7 +29,7 @@ in development environments.
 There's a separate [binary package for Windows](./install-windows-manual.html).
 
 Unlike with the cases of [Debian](./install-debian.html), [RPM](./install-rpm.html) and [Windows installer](./install-windows.html) packages,
-[node management](#running-generic-unix) with this package type is performed solely using
+[node management](#managing-node) with this package type is performed solely using
 [RabbitMQ CLI tools](./cli.html) or by the operator setting up e.g. a `systemd` service manually.
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
@@ -74,7 +74,7 @@ It is a good candidate for including into `PATH`.
 
 ## <a id="operations" class="anchor" href="#operations">Operations</a>
 
-### <a id="running-generic-unix" class="anchor" href="#running-generic-unix">Running and Managing the Node</a>
+### <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
 
 Unlike some other installation methods, namely the [Debian](./install-debian.html) and [RPM packages](./install-rpm.html), RabbitMQ
 generic UNIX binary build does not require `sudo`. It can be uncompressed
