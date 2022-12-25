@@ -46,7 +46,7 @@ Installing the RabbitMQ formula will install key dependencies such as a [support
 ## <a id="locations" class="anchor" href="#locations">Locations</a>
 
 The RabbitMQ server scripts and [CLI tools](./cli.html) are installed into the `sbin` directory under `/usr/local/Cellar/rabbitmq/{version}/` for Intel Macs
-or `/opt/homebrew/Cellar/rabbitmq/<version>/` for Apple Silicon Macs.
+or `/opt/homebrew/Cellar/rabbitmq/{version}/` for Apple Silicon Macs.
 
 They should be accessible from `/usr/local/opt/rabbitmq/sbin` for for Intel Macs or `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs.
 Links to binaries have been created under `/usr/local/sbin` for Intel Macs or `/opt/homebrew/sbin` for Apple Silicon ones.
