@@ -86,7 +86,7 @@ Other guides related to Kubernetes:
  * [Debian, Ubuntu](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server_&version-server;-1_all.deb)
  * [RHEL, CentOS Stream 9.x, CentOS 8.x](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.el8.noarch.rpm) |
     [OpenSUSE](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-&version-server;-1.suse.noarch.rpm) |
-    zero dependency [Erlang 23 RPM](https://github.com/rabbitmq/erlang-rpm)
+    zero dependency [Erlang RPM](https://github.com/rabbitmq/erlang-rpm)
  * [Generic UNIX binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz)
  * [Windows binary](https://github.com/rabbitmq/rabbitmq-server/releases/download/v&version-server;/rabbitmq-server-windows-&version-server;.zip)
 
@@ -114,12 +114,15 @@ Other guides related to Kubernetes:
 ### Java Client
 
  * On Maven Central: [RabbitMQ Java client](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22)
- * Quick download: [Maven.org](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar) |
-   [Source](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;-sources.jar)
+ * Quick download: [Maven.org](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&version-java-client;/amqp-client-&version-java-client;.jar)
  * [API guide](./api-guide.html)
  * [API reference](https://rabbitmq.github.io/rabbitmq-java-client/api/current/) (JavaDoc)
  * [License and other information](./java-client.html)
  * [Older versions](http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/)
+
+### Java [Stream Protocol](./streams.html) Client
+
+ * [RabbitMQ Stream Java client](https://github.com/rabbitmq/rabbitmq-stream-java-client)
 
 ### JMS Client
 
@@ -132,6 +135,10 @@ Other guides related to Kubernetes:
  * [API reference](https://rabbitmq.github.io/rabbitmq-dotnet-client/)
  * [License and other information](./dotnet.html)
  * [Older versions](https://github.com/rabbitmq/rabbitmq-dotnet-client/releases)
+
+### .NET/C# [Stream Protocol](./streams.html) Client
+
+ * &#x2713; [RabbitMQ Stream .NET client](https://github.com/rabbitmq/rabbitmq-stream-dotnet-client)
 
 ### Erlang Client
 
