@@ -135,7 +135,7 @@ set the `load_definitions` config key to a path of a previously exported JSON fi
 load_definitions = /path/to/definitions/file.json
 </pre>
 
-From RabbitMQ `3.9.4` you can import definitions from a URL accessible over HTTPS on node boot.
+Definitions can be imported from a URL accessible over HTTPS on node boot.
 Set the `definitions.import_backend` and `definitions.https.url` config keys to https and a valid URL where a JSON definition is located.
 
 <pre class="lang-ini">
@@ -147,9 +147,8 @@ definitions.tls.versions.1 = tlsv1.2
 </pre>
 
 
-As of RabbitMQ `3.8.6`, definition import happens after plugin activation.
-This means that definitions related to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on)
-can be imported at boot time.
+Definition import happens after plugin activation. This means that definitions related
+to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on) can be imported at boot time.
 
 The definitions in the file will not overwrite anything already in the broker.
 However, if a blank (uninitialised) node imports a definition file, it will
@@ -160,7 +159,8 @@ not create the default virtual host and user.
 By default definitions are imported by every cluster node, unconditionally.
 In many environments definition file rarely changes. In that case it makes
 sense to only perform an import when definition file contents actually change.
-Starting with RabbitMQ 3.10, this can be done by setting the `definitions.skip_if_unchanged` configuration key
+
+This can be done by setting the `definitions.skip_if_unchanged` configuration key
 to `true`:
 
 <pre class="lang-ini">
