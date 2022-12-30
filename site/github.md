@@ -80,48 +80,41 @@ Generally, you can track QA'd development work by tracking the
 main (default) branches of the RabbitMQ repositories
 of interest.
 
+Pull requests that are meant to ship in currently maintained release series,
+for example, 3.11.x, are backported to `v3.11.x`, `v3.10.x` and othe release series
+branches after being merged into the `main` branch.
+
 ## <a id="maintenance-branches" class="anchor" href="#maintenance-branches">Maintenance branch</a>
 
 There's a separate branch for maintenance work,
-named after the current stable release series. Currently it is <code>v3.7.x</code>.
+named after the current stable release series. Currently it is <code>v3.11.x</code>.
+
 It plays the same role as the <code>main</code> branch except that it carries merged,
 QA'd code intended for the next bug-fix release rather than
 the next general release.
 
 ## <a id="tags" class="anchor" href="#tags">Tags</a>
 
-We also use tags to give names to snapshots of the state of
-the code. Generally, both the core repositories and the
+Team RabbitMQ uses tags in the git repository to give names to snapshots of the state of
+the code: mostly importantly, releases. Generally, both the core repositories and the
 repositories of plugins intended to work with the named
 snapshot are tagged.
 
-For example, if you are using RabbitMQ server version 3.8.9,
+For example, if you are using RabbitMQ server version 3.11.5,
 then examining the output of <code>git tag</code> yields:
 
 <pre class="lang-bash">
 git tag
 # omitted for brevity
-# => v3.8.5
-# => v3.8.5-rc.1
-# => v3.8.5-rc.2
-# => v3.8.6
-# => v3.8.6-beta.1
-# => v3.8.6-rc.1
-# => v3.8.6-rc.2
-# => v3.8.7
-# => v3.8.8
-# => v3.8.9
+# => v3.11.3
+# => v3.11.4
+# => v3.11.5
 </pre>
 
-It's important to make sure that all the repositories you
-are using are on the same tag as each other. Continuing with
-our example of server version 3.8.9, make sure
-your checkout of <code>rabbitmq-stomp</code> was at the
-<code>v3.8.9</code> tag using
-<code>git checkout</code>:
+
 
 <pre class="lang-bash">
-git checkout v3.8.9
+git checkout v3.11.5
 </pre>
 
 At this point, you could proceed with compiling the plugin
