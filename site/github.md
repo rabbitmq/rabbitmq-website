@@ -81,17 +81,27 @@ main (default) branches of the RabbitMQ repositories
 of interest.
 
 Pull requests that are meant to ship in currently maintained release series,
-for example, 3.11.x, are backported to `v3.11.x`, `v3.10.x` and othe release series
-branches after being merged into the `main` branch.
+for example, 3.11.x, are backported to release series-specific
+branches.
 
-## <a id="maintenance-branches" class="anchor" href="#maintenance-branches">Maintenance branch</a>
+## <a id="release-branches" class="anchor" href="#release-branches">Release series branches</a>
 
-There's a separate branch for maintenance work,
-named after the current stable release series. Currently it is <code>v3.11.x</code>.
+There is also a separate branch for every release series that is currently
+maintained. These branches are named after the series: <code>v3.11.x</code>, <code>v3.10.x</code>,
+and so on.
 
 It plays the same role as the <code>main</code> branch except that it carries merged,
 QA'd code intended for the next bug-fix release rather than
 the next general release.
+
+Pull requests that are meant to ship in currently maintained release series are backported
+to these branches after being merged into the `main` branch. In the process they are
+labelled with `backport-v3.11.x`, `backport-v3.10.x`, and similar labels
+on GitHub.
+
+For example, if a pull request is labelled with `backport-v3.10.x`, it means that it was
+backported, or at least considered for backporting, to the `v3.10.x` branch to ship
+in a 3.10.x release.
 
 ## <a id="tags" class="anchor" href="#tags">Tags</a>
 
@@ -110,8 +120,6 @@ git tag
 # => v3.11.4
 # => v3.11.5
 </pre>
-
-
 
 <pre class="lang-bash">
 git checkout v3.11.5
