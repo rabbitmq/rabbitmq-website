@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -352,7 +352,7 @@ endpoints require the token to be passed in the `token` query string parameter.
 
 At a minimum, RabbitMQ requires the the `openid` scope because it uses some claims in the *id token* to determine the username and to display this username on the top right corner of the management UI. The *id token* is returned by the Authorization server if the `openid` scope is included in the authorization request.
 
-RabbitMQ reads the `user_name` claim from the *id_token*. If the token does not contain the `user_name`, RabbitMQ uses the `sub` claim. 
+RabbitMQ reads the `user_name` claim from the *id_token*. If the token does not contain the `user_name`, RabbitMQ uses the `sub` claim.
 
 ### Configure which scopes RabbitMQ requests to the authorization server
 

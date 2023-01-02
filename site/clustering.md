@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -1132,7 +1132,7 @@ as the broker nodename.
 The impact of this solution is that clustering will not work because
 the chosen hostname does not resolve to a routable address from the remote
 hosts. The `rabbitmqctl` command fails when
-invoked from a remote host. A better solution is to use DNS, for example, 
+invoked from a remote host. A better solution is to use DNS, for example,
 [Amazon Route 53](http://aws.amazon.com/route53/) if running
 on EC2. If you want to use the full hostname for your nodename (RabbitMQ
 defaults to the short name), and that full hostname is resolvable using DNS,

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -114,7 +114,7 @@ stream.credits_required_for_unblocking = 25000
 </pre>
 
 High values for these settings can improve publishing throughput at the cost of higher memory consumption (which can lead to a broker crash).
-Low values can help to cope with a lot of moderately fast-publishing connections.  
+Low values can help to cope with a lot of moderately fast-publishing connections.
 
 This setting applies only to **publishers**, it does not apply to consumers.
 
@@ -123,7 +123,7 @@ This setting applies only to **publishers**, it does not apply to consumers.
 This section covers the stream protocol credit flow mechanism that allows consumers to control how the broker dispatches messages.
 
 A consumer provides an initial number of credits when it creates its [subscription](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#subscribe).
-A credit represents a *chunk* of messages that the broker is allowed to send to the consumer. 
+A credit represents a *chunk* of messages that the broker is allowed to send to the consumer.
 
 A *chunk* is a batch of messages.
 This is the storage and transportation unit used in RabbitMQ Stream, that is messages are stored contiguously in a chunk and they are [delivered](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc#deliver) as part of a chunk.
@@ -142,7 +142,7 @@ By doing so there should always be some messages flowing on the network and the 
 
 Consumers get to choose how the broker delivers messages to them with this credit flow mechanism.
 This helps avoiding overwhelmed or idle consumers.
-How consumer credit flow is exposed to applications depends on the client library, there is no server-side setting to change its behavior. 
+How consumer credit flow is exposed to applications depends on the client library, there is no server-side setting to change its behavior.
 
 ### <a id="advertised-host-port" class="anchor" href="#advertised-host-port">Advertised Host and Port</a>
 

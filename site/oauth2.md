@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -161,7 +161,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 
 ### <a id="variables-configurable" class="anchor" href="#variables-configurable">Variables Configurable in rabbitmq.conf</a>
 
-| Key                                      | Documentation     
+| Key                                      | Documentation
 |------------------------------------------|-----------
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
@@ -334,7 +334,7 @@ RabbitMQ supports JWT tokens compliant with the extension. Below is a sample exa
 {
   "authorization_details": [
     {
-      "type" : "rabbitmq",  
+      "type" : "rabbitmq",
       "locations": ["cluster:finance/vhost:production-*"],
       "actions": [ "read", "write", "configure"  ]
     },
@@ -388,7 +388,7 @@ The supported location's attributed are:
 
 For more information about wildcard patterns, check the section [Scope-to-Permission Translation](#scope-to-permission-translation).
 
-#### Actions field  
+#### Actions field
 
 The `actions` field can be either a string containing a single action or a Json array containing zero or many actions.
 
@@ -434,7 +434,7 @@ In the following RAR example
 <pre class="lang-javascript">
 {
   "authorization_details": [
-    { "type" : "rabbitmq",  
+    { "type" : "rabbitmq",
       "locations": ["cluster:finance/vhost:primary-*"],
       "actions": [ "read", "write", "configure"  ]
     },
