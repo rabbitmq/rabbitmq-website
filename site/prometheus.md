@@ -499,12 +499,16 @@ prometheus.return_per_object_metrics = true
 
 ### <a id="per-object-endpoint" class="anchor" href="#per-object-endpoint">Prometheus endpoints: `/metrics/per-object`</a>
 
-RabbitMQ offers a dedicated endpoint, `/metrics/per-object`, which always returns per-object metrics, regardless of the value of `prometheus.return_per_object_metrics`.
-You can therefore keep the default value of `prometheus.return_per_object_metrics`, which is `false`, and still scrape per-object metrics when necessary, by setting `metrics_path = /metrics/per-object` in the Prometheus target configuration (check [Prometheus Documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for additional information).
+RabbitMQ offers a dedicated endpoint, `/metrics/per-object`, which always returns per-object metrics,
+regardless of the value of `prometheus.return_per_object_metrics`.
+You can therefore keep the default value of `prometheus.return_per_object_metrics`,
+which is `false`, and still scrape per-object metrics when necessary, by setting `metrics_path = /metrics/per-object` in the Prometheus target configuration (check [Prometheus Documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for additional information).
 
 ### <a id="detailed-endpoint" class="anchor" href="#detailed-endpoint">Prometheus endpoints: `/metrics/detailed`</a>
 
-Those are metrics than can be explicitly requested via `/metrics/detailed` endpoint.
+Because [enabling per-object metics can be very expensive](#metric-aggregation) but at times necessary,
+a separate endpoint, `GET /metrics/detailed`, provides access to them even if per-object
+metrics are disabled for the node.
 
 #### Generic metrics
 
@@ -513,7 +517,7 @@ queue/connection/etc.
 
 ##### Connection/channel/queue churn
 
-Group `connection_churn_metrics`:
+Grouped under `connection_churn_metrics`:
 
 | Metric                                     | Description                                      |
 |--------------------------------------------|--------------------------------------------------|
@@ -528,7 +532,7 @@ Group `connection_churn_metrics`:
 
 ##### Erlang VM/Disk IO via RabbitMQ
 
-Group `node_coarse_metrics`:
+Grouped under `node_coarse_metrics`:
 
 | Metric                                                    | Description                                                           |
 |-----------------------------------------------------------|-----------------------------------------------------------------------|
@@ -541,7 +545,7 @@ Group `node_coarse_metrics`:
 | rabbitmq_detailed_erlang_gc_reclaimed_bytes_total         | Total number of bytes of memory reclaimed by Erlang garbage collector |
 | rabbitmq_detailed_erlang_scheduler_context_switches_total | Total number of Erlang scheduler context switches                     |
 
-Group `node_metrics`:
+Grouped under `node_metrics`:
 
 | Metric                                             | Description                            |
 |----------------------------------------------------|----------------------------------------|
@@ -555,7 +559,7 @@ Group `node_metrics`:
 | rabbitmq_detailed_erlang_uptime_seconds            | Node uptime                            |
 
 
-Group `node_persister_metrics`:
+Grouped under `node_persister_metrics`:
 
 | Metric                                                | Description                                          |
 |-------------------------------------------------------|------------------------------------------------------|
@@ -578,9 +582,9 @@ Group `node_persister_metrics`:
 | rabbitmq_detailed_io_seek_time_seconds_total          | Total I/O seek time                                  |
 
 
-##### Raft metrics
+##### Raft-related (Quorum queues, streams) metrics
 
-Group `ra_metrics`:
+Grouped under `ra_metrics`:
 
 | Metric                                              | Description                                |
 |-----------------------------------------------------|--------------------------------------------|
@@ -593,7 +597,7 @@ Group `ra_metrics`:
 
 ##### Auth metrics
 
-Group `auth_attempt_metrics`:
+Grouped under `auth_attempt_metrics`:
 
 | Metric                                          | Description                                        |
 |-------------------------------------------------|----------------------------------------------------|
@@ -602,7 +606,7 @@ Group `auth_attempt_metrics`:
 | rabbitmq_detailed_auth_attempts_failed_total    | Total number of failed authentication attempts     |
 
 
-Group `auth_attempt_detailed_metrics` (when aggregated, it produces the same numbers as `auth_attempt_metrics` - so it's mutually exclusive with it in the aggregation mode):
+Grouped under `auth_attempt_detailed_metrics`. When aggregated, these add up to the same numbers as `auth_attempt_metrics`.
 
 | Metric                                                   | Description                                                        |
 |----------------------------------------------------------|--------------------------------------------------------------------|
@@ -613,13 +617,15 @@ Group `auth_attempt_detailed_metrics` (when aggregated, it produces the same num
 
 #### Queue metrics
 
-Each of metrics in this group refers to a single queue in its label. Amount of data and performance totally depends on the number of queues.
+Each metric in this group points to a single queue via its label.
+So the size of the response here is directly proportional to the number of queues hosted
+on the node.
 
-They are listed from least expensive to collect to the most expensive.
+The metrics below are listed from the least expensive to collect to the most expensive.
 
 ##### Queue coarse metrics
 
-Group `queue_coarse_metrics`:
+Grouped under `queue_coarse_metrics`:
 
 | Metric                                           | Description                                                  |
 |--------------------------------------------------|--------------------------------------------------------------|
@@ -630,17 +636,18 @@ Group `queue_coarse_metrics`:
 
 ##### Per-queue consumer count
 
-Group `queue_consumer_count`. This is a strict subset of `queue_metrics` which contains only a single metric (if both `queue_consumer_count` and `queue_metrics` are requested, the former will be automatically skipped):
+Grouped under `queue_consumer_count`. This is a subset of `queue_metrics` which is skipped if `queue_metrics` are requested:
 
 | Metric                            | Description          |
 |-----------------------------------|----------------------|
 | rabbitmq_detailed_queue_consumers | Consumers on a queue |
 
-This is one of the more telling metrics, and having it separately allows to skip some expensive operations for extracting/exposing the other metrics from the same datasource.
+This metric is useful for quickly detecting issues with consumers (e.g. when there are no consumers online).
+This is why it is exposed separately.
 
 ##### Detailed queue metrics
 
-Group `queue_metrics` contains all the metrics for every queue, and can be relatively expensive to produce:
+Grouped under `queue_metrics`. This group contains all the metrics for every queue, and can be relatively expensive to produce:
 
 | Metric                                            | Description                                                |
 |---------------------------------------------------|------------------------------------------------------------|
@@ -663,15 +670,16 @@ Group `queue_metrics` contains all the metrics for every queue, and can be relat
 | rabbitmq_detailed_queue_disk_reads_total          | Total number of times queue read messages from disk        |
 | rabbitmq_detailed_queue_disk_writes_total         | Total number of times queue wrote messages to disk         |
 
-Tests show that performance difference between it and `queue_consumer_count` is approximately 8 times. E.g. on a test broker with 10k queues/producers/consumers, scrape time was ~8 second and ~1 respectively. So while it's expensive, it's not prohibitively so - especially compared to other metrics from per-connection/channel groups.
-
 #### Connection/channel metrics
 
-All of those include Erlang PID in their label, which is rarely useful when ingested into Prometheus. And they are most expensive to produce, the most resources are spent by `/metrics/per-object` on these.
+All of those include the Erlang process ID of the channel in their label. This data is not particularly useful
+and is only present to distinguish metrics of separate channels.
+
+These metrics are the most expensive to produce.
 
 ##### Connection metrics
 
-Group `connection_coarse_metrics`:
+Grouped under `connection_coarse_metrics`:
 
 | Metric                                                | Description                                    |
 |-------------------------------------------------------|------------------------------------------------|
@@ -679,7 +687,7 @@ Group `connection_coarse_metrics`:
 | rabbitmq_detailed_connection_outgoing_bytes_total     | Total number of bytes sent on a connection     |
 | rabbitmq_detailed_connection_process_reductions_total | Total number of connection process reductions  |
 
-Group `connection_metrics`:
+Grouped under `connection_metrics`:
 
 | Metric                                              | Description                                          |
 |-----------------------------------------------------|------------------------------------------------------|
@@ -690,7 +698,7 @@ Group `connection_metrics`:
 
 ##### General channel metrics
 
-Group `channel_metrics`:
+Grouped under `channel_metrics`:
 
 | Metric                                         | Description                                                           |
 |------------------------------------------------|-----------------------------------------------------------------------|
@@ -703,7 +711,7 @@ Group `channel_metrics`:
 | rabbitmq_detailed_channel_prefetch             | Total limit of unacknowledged messages for all consumers on a channel |
 
 
-Group `channel_process_metrics`:
+Grouped under `channel_process_metrics`:
 
 | Metric                                             | Description                                |
 |----------------------------------------------------|--------------------------------------------|
@@ -712,7 +720,7 @@ Group `channel_process_metrics`:
 
 ##### Channel metrics with queue/exchange breakdowns
 
-Group `channel_exchange_metrics`:
+Grouped under `channel_exchange_metrics`:
 
 | Metric                                                       | Description                                                                                                  |
 |--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
@@ -721,7 +729,7 @@ Group `channel_exchange_metrics`:
 | rabbitmq_detailed_channel_messages_unroutable_returned_total | Total number of messages published as mandatory into an exchange and returned to the publisher as unroutable |
 | rabbitmq_detailed_channel_messages_unroutable_dropped_total  | Total number of messages published as non-mandatory into an exchange and dropped as unroutable               |
 
-Group `channel_queue_metrics`:
+Grouped under `channel_queue_metrics`:
 
 | Metric                                                 | Description                                                                       |
 |--------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -733,7 +741,7 @@ Group `channel_queue_metrics`:
 | rabbitmq_detailed_channel_messages_acked_total         | Total number of messages acknowledged by consumers                                |
 | rabbitmq_detailed_channel_get_empty_total              | Total number of times basic.get operations fetched no message                     |
 
-Group `channel_queue_exchange_metrics`:
+Grouped under `channel_queue_exchange_metrics`:
 
 | Metric                                           | Description                                  |
 |--------------------------------------------------|----------------------------------------------|
@@ -742,23 +750,22 @@ Group `channel_queue_exchange_metrics`:
 #### Virtual hosts and exchange metrics
 
 These additional metrics can be useful when virtual hosts or exchanges are
-created on a shared cluster in a self-service way. They are different
-from the rest of the metrics: they are cluster-wide and not node-local.
-These metrics **must not** be aggregated across cluster nodes.
+created in a shared cluster. **These metrics are cluster-wide and not node-local**.
+Therefore these metrics **must not be aggregated** across cluster nodes.
 
-Group `vhost_status`:
+Grouped under `vhost_status`:
 
 | Metric                        | Description                      |
 |-------------------------------|----------------------------------|
 | rabbitmq_cluster_vhost_status | Whether a given vhost is running |
 
-Group `exchange_names`:
+Grouped under `exchange_names`:
 
 | Metric                         | Description                                                                                                                |
 |--------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | rabbitmq_cluster_exchange_name | Enumerates exchanges without any additional info. This value is cluster-wide. A cheaper alternative to `exchange_bindings` |
 
-Group `exchange_bindings`:
+Grouped under `exchange_bindings`:
 
 | Metric                             | Description                                                     |
 |------------------------------------|-----------------------------------------------------------------|
