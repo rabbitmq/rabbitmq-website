@@ -39,6 +39,20 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.11.6</td>
+    <td class="centre">5 January 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.6">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.11.5</td>
     <td class="centre">14 December 2022</td>
     <td>
