@@ -114,8 +114,7 @@ cf.setRequestedHeartbeat(60);
 </pre>
 
 Note that in case RabbitMQ server has a non-zero heartbeat timeout
-configured (which is the default in versions starting with 3.6.x),
-the client can only lower the value but not increase it.
+configured (which is the default), the client can only lower the value but not increase it.
 
 
 ## <a id="using-heartbeats-in-dotnet" class="anchor" href="#using-heartbeats-in-dotnet">Enabling Heartbeats with .NET Client</a>
