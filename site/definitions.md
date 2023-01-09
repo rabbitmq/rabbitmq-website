@@ -113,7 +113,7 @@ It is also possible to use the `POST /api/definitions` API endpoint directly:
 # Requires management plugin to be enabled,
 # placeholders are used for credentials and hostname.
 # Use HTTPS when possible.
-curl -u {username}:{password} -X POST -T /path/to/definitions.file.json http://{hostname}:15672/api/definitions
+curl -u {username}:{password} -H "Content-Type: application/json" -X POST -T /path/to/definitions.file.json http://{hostname}:15672/api/definitions
 </pre>
 
 
