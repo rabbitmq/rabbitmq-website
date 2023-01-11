@@ -734,6 +734,8 @@ rabbitmq-diagnostics -q listeners
 performs the basic TCP connectivity check mentioned above:
 
 <pre class="lang-bash">
+# This check will try to open a TCP connections to the discovered listener ports.
+# Target node hostname resolution is used to determine the IP address.
 rabbitmq-diagnostics -q check_port_connectivity
 # If the check succeeds, the exit code will be 0
 </pre>
