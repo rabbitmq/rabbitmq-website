@@ -155,7 +155,7 @@ presented by the peer. When both sides perform this verification process, this i
 as _mutual TLS authentication_ or _mTLS_.
 More on this in the [Peer Verification](#peer-verification) section.
 
-This guides assumes the user has access to a Certificate Authority and two certificate/key pairs
+This guide assumes the user has access to a Certificate Authority and two certificate/key pairs
 in a number of formats for different client libraries to use.
 This is best done using [existing tools](#automated-certificate-generation)
 but those looking to get more familiar with the topic and OpenSSL command line
@@ -171,7 +171,7 @@ configured the same way. The section on [peer verification](#peer-verification) 
 
 ## <a id="automated-certificate-generation" class="anchor" href="#automated-certificate-generation">The Short Route to Generating a CA, Certificates, and Keys</a>
 
-This guides assumes the user has access to a CA certificate bundle file and two [certificate/key pairs](#certificates-and-keys).
+This guide assumes the user has access to a CA certificate bundle file and two [certificate/key pairs](#certificates-and-keys).
 The certificate/key pairs are used by RabbitMQ and clients that connect to the server on a
 TLS-enabled port. The process of generating a Certificate Authority and two key pairs is fairly labourious
 and can be error-prone. An easier way of generating all that
