@@ -1921,6 +1921,8 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       (<code>:</code> for Unix, <code>;</code> for Windows).
       Plugins can be <a href="plugins.html">installed</a> to any of the directories listed here.
       Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
+      See <a href="cli.html#rabbitmq-plugins">CLI tools guide</a> to learn about the effects of changing
+      this variable on <code>rabbitmq-plugins</code>.
 
       <p>
         <strong>Default</strong>:
