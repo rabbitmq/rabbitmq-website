@@ -334,3 +334,13 @@ variable:
 <pre class="lang-bash">
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+P 2000000"
 </pre>
+
+## <a id="crash-dumps" class="anchor" href="#crash-dumps">Erlang Crash Dumps</a>
+
+When the runtime terminates abnormally, or is sent a `SIGUSER1` signal, it will produce a local file
+known as the [crash dump](https://erlef.github.io/security-wg/secure_coding_and_deployment_hardening/crash_dumps).
+
+The file contains certain runtime information at the time of termination. This file can be useful for debugging
+of certain types of problems. It can also get really large on nodes with a large memory footprint.
+
+To disable crash dump files, set the `ERL_CRASH_DUMP_BYTES` [environment variable](./configure.html#customise-environment) to 0.
