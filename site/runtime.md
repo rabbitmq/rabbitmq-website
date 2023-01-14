@@ -42,6 +42,7 @@ Topics covered include:
  * [Open file handle limit](#open-file-handle-limit)
  * [Inter-node communication buffer](#distribution-buffer) size
  * [Erlang process limit](#erlang-process-limit)
+ * [Erlang crash dumps](#crash-dumps)
 
 ## <a id="vm-settings" class="anchor" href="#vm-settings">VM Settings</a>
 
