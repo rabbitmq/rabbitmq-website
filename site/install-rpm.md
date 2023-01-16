@@ -180,6 +180,14 @@ rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
 rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 </pre>
 
+Note that if any of the above import commands finishes with an error due to the SHA1 hash algorithm, you must execute the following first:
+
+<pre class="lang-bash">
+sudo update-crypto-policies --set LEGACY
+</pre>
+
+And then retry the failed import command(s).
+
 ### Add Yum Repositories for RabbitMQ and Modern Erlang
 
 In order to use the Yum repository, a `.repo` file (e.g. `rabbitmq.repo`) has to be
