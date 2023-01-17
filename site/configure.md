@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -1921,6 +1921,8 @@ More variables are covered in the [File and Directory Locations guide](./relocat
       (<code>:</code> for Unix, <code>;</code> for Windows).
       Plugins can be <a href="plugins.html">installed</a> to any of the directories listed here.
       Must not contain any characters mentioned in the <a href="#directory-and-path-restrictions">path restriction section</a>.
+      See <a href="cli.html#rabbitmq-plugins">CLI tools guide</a> to learn about the effects of changing
+      this variable on <code>rabbitmq-plugins</code>.
 
       <p>
         <strong>Default</strong>:

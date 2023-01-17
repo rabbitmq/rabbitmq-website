@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -132,7 +132,7 @@ web_stomp.tcp.port = 12345
 </pre>
 
 You can use the `tcp_config` section to specify any TCP option you need.
-See the [RabbitMQ Networking guide](networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
+See the [RabbitMQ Networking guide](networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/2.1/guide/)
 for details about accepted parameters.
 
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 RabbitMQ supports [STOMP](http://stomp.github.io) via a plugin that ships
-in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](http://stomp.github.com/stomp-specification-1.2.html)
+in the core distribution. The plugin supports STOMP versions 1.0 through [1.2](https://stomp.github.io/stomp-specification-1.2.html)
 with some [extensions and restrictions](#extensions-and-restrictions).
 
 STOMP clients can interoperate with other protocols. All the functionality in
@@ -519,7 +519,7 @@ are reserved for server use. The details are given below.
 ### <a id="pear.c" class="anchor" href="#pear.c">Connection and Virtual Hosts</a>
 
 The `CONNECT` (or `STOMP`) frame in
-[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
+[STOMP 1.1](http://stomp.github.io/stomp-specification-1.1.html) has a
 mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 

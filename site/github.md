@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -80,48 +80,49 @@ Generally, you can track QA'd development work by tracking the
 main (default) branches of the RabbitMQ repositories
 of interest.
 
-## <a id="maintenance-branches" class="anchor" href="#maintenance-branches">Maintenance branch</a>
+Pull requests that are meant to ship in currently maintained release series,
+for example, 3.11.x, are backported to release series-specific
+branches.
 
-There's a separate branch for maintenance work,
-named after the current stable release series. Currently it is <code>v3.7.x</code>.
+## <a id="release-branches" class="anchor" href="#release-branches">Release series branches</a>
+
+There is also a separate branch for every release series that is currently
+maintained. These branches are named after the series: <code>v3.11.x</code>, <code>v3.10.x</code>,
+and so on.
+
 It plays the same role as the <code>main</code> branch except that it carries merged,
 QA'd code intended for the next bug-fix release rather than
 the next general release.
 
+Pull requests that are meant to ship in currently maintained release series are backported
+to these branches after being merged into the `main` branch. In the process they are
+labelled with `backport-v3.11.x`, `backport-v3.10.x`, and similar labels
+on GitHub.
+
+For example, if a pull request is labelled with `backport-v3.10.x`, it means that it was
+backported, or at least considered for backporting, to the `v3.10.x` branch to ship
+in a 3.10.x release.
+
 ## <a id="tags" class="anchor" href="#tags">Tags</a>
 
-We also use tags to give names to snapshots of the state of
-the code. Generally, both the core repositories and the
+Team RabbitMQ uses tags in the git repository to give names to snapshots of the state of
+the code: mostly importantly, releases. Generally, both the core repositories and the
 repositories of plugins intended to work with the named
 snapshot are tagged.
 
-For example, if you are using RabbitMQ server version 3.8.9,
+For example, if you are using RabbitMQ server version 3.11.5,
 then examining the output of <code>git tag</code> yields:
 
 <pre class="lang-bash">
 git tag
 # omitted for brevity
-# => v3.8.5
-# => v3.8.5-rc.1
-# => v3.8.5-rc.2
-# => v3.8.6
-# => v3.8.6-beta.1
-# => v3.8.6-rc.1
-# => v3.8.6-rc.2
-# => v3.8.7
-# => v3.8.8
-# => v3.8.9
+# => v3.11.3
+# => v3.11.4
+# => v3.11.5
 </pre>
 
-It's important to make sure that all the repositories you
-are using are on the same tag as each other. Continuing with
-our example of server version 3.8.9, make sure
-your checkout of <code>rabbitmq-stomp</code> was at the
-<code>v3.8.9</code> tag using
-<code>git checkout</code>:
-
 <pre class="lang-bash">
-git checkout v3.8.9
+git checkout v3.11.5
 </pre>
 
 At this point, you could proceed with compiling the plugin

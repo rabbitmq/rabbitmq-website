@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -41,7 +41,7 @@ Stream core designates stream features in the broker with only default plugins a
 
 ### Interoperabilty
 
-Streams store messages using the AMQP 1.0 message format. 
+Streams store messages using the AMQP 1.0 message format.
 
 * RabbitMQ Stream client libraries are expected to support the AMQP 1.0 message format
 * The broker handles the conversion between AMQP 1.0 and AMQP 0.9.1 for AMQP 0.9.1 clients

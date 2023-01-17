@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -24,9 +24,13 @@ It is minimalistic and not opinionated in how it is installed, configured and ma
 This package is recommended in environments where more opinionated installation options
 (the [Debian](./install-debian.html) or [RPM packages](./install-rpm.html), [Homebrew](./install-homebrew.html), BSD ports) cannot be used.
 It is also the most convenient option for running multiple versions on the same machine
-in development environments, e.g. [preview release](./snapshots.html) testing.
+in development environments.
+
 There's a separate [binary package for Windows](./install-windows-manual.html).
 
+Unlike with the cases of [Debian](./install-debian.html), [RPM](./install-rpm.html) and [Windows installer](./install-windows.html) packages,
+[node management](#managing-node) with this package type is performed solely using
+[RabbitMQ CLI tools](./cli.html) or by the operator setting up e.g. a `systemd` service manually.
 
 ## <a id="downloads" class="anchor" href="#downloads">Downloads</a>
 
@@ -70,7 +74,7 @@ It is a good candidate for including into `PATH`.
 
 ## <a id="operations" class="anchor" href="#operations">Operations</a>
 
-### <a id="running-generic-unix" class="anchor" href="#running-generic-unix">Running and Managing the Node</a>
+### <a id="managing-node" class="anchor" href="#managing-node">Running and Managing the Node</a>
 
 Unlike some other installation methods, namely the [Debian](./install-debian.html) and [RPM packages](./install-rpm.html), RabbitMQ
 generic UNIX binary build does not require `sudo`. It can be uncompressed

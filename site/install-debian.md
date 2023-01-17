@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -35,6 +35,8 @@ Key sections of this guide are
  * [Privilege requirements](#sudo-requirements)
  * Quick start installation snippet that [uses Cloudsmith](#apt-quick-start-cloudsmith) repositories
  * Quick start installation snippets that [uses PackageCloud](#apt-quick-start-packagecloud) and Launchpad repositories
+ * [Manage the service](#managing-service) (start it, stop it, and get its status)
+ * How to [inspect node and service logs](#server-logs)
 
 [Supported Erlang versions](which-erlang.html) will be provisioned from one of the [modern Erlang apt repositories](#erlang-repositories)
 on [Ubuntu Launchpad](https://launchpad.net/~rabbitmq/+archive/ubuntu/rabbitmq-erlang) or [Cloudsmith.io](https://cloudsmith.io/~rabbitmq/repos/rabbitmq-erlang/packages/).
@@ -44,11 +46,6 @@ should refer to
 
 * Manual installation using [apt and the Cloudsmith](#apt-cloudsmith) repository
 * Manual installation using [apt the PackageCloud](#apt-packagecloud) and Launchpad repositories
-
-Service management is covered in
-
- * [Manage the service](#managing-service)
- * How to [inspect node and service logs](#server-logs)
 
 More advanced topics include
 
@@ -82,7 +79,7 @@ i.e. inline with [distribution EOL policy](https://wiki.debian.org/DebianRelease
 
 Currently the list of supported Debian-based distributions includes
 
- * Ubuntu 18.04 through 21.04
+ * Ubuntu 18.04 through 22.10
  * Debian Buster (10), Bullseye (11), and Sid ("unstable")
 
 The package may work on other Debian-based distributions
@@ -884,7 +881,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -942,7 +939,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

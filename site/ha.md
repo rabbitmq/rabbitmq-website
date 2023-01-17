@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -825,7 +825,7 @@ starting mirrors again.
 
 Classic queue leaders perform synchronisation in
 batches. Batch can be configured via the
-`ha-sync-batch-size` queue argument. If no value is set `mirroring_sync_batch_size` 
+`ha-sync-batch-size` queue argument. If no value is set `mirroring_sync_batch_size`
 is used as the default value. Earlier
 versions (prior to 3.6.0) will synchronise `1` message at a
 time by default. By synchronising messages in batches,

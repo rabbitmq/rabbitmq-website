@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -68,11 +68,12 @@ file and directories have sufficient permissions
   <tr>
     <td>RABBITMQ_BASE</td>
     <td>
-      <b>Note:</b> Windows only. This base directory contains
+      <b>Note:</b> Windows-specific. This base directory contains
       sub-directories for the RabbitMQ server's database and
-      log files. Alternatively, set
+      log files. Instead of overriding
       <b>RABBITMQ_MNESIA_BASE</b> and
-      <b>RABBITMQ_LOG_BASE</b> individually.
+      <b>RABBITMQ_LOG_BASE</b> individually,
+      it may be easier to override the base directory instead.
     </td>
   </tr>
   <tr>

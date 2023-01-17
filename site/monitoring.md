@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -734,6 +734,8 @@ rabbitmq-diagnostics -q listeners
 performs the basic TCP connectivity check mentioned above:
 
 <pre class="lang-bash">
+# This check will try to open a TCP connections to the discovered listener ports.
+# Target node hostname resolution is used to determine the IP address.
 rabbitmq-diagnostics -q check_port_connectivity
 # If the check succeeds, the exit code will be 0
 </pre>

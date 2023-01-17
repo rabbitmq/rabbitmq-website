@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -35,7 +35,7 @@ together with its key dependency, [`rabbit-common`](https://hex.pm/packages/rabb
 ### Mix
 
 <pre class="lang-elixir">
-{:rabbit_common, "~> 3.8"}
+{:rabbit_common, "~> 3.11"}
 </pre>
 
 ### Rebar 3
@@ -68,7 +68,7 @@ The library is distributed [via hex.pm](https://hex.pm/packages/amqp_client).
 
 Please refer to the [Erlang RabbitMQ user guide](./erlang-client-user-guide.html).
 
-<a href="https://hexdocs.pm/amqp_client/3.8.6/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
+<a href="https://hexdocs.pm/amqp_client/">RabbitMQ Erlang client edoc</a> is available on hexdocs.pm.
 
 ### Other Versions
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -170,16 +170,6 @@ The following table should explain the purpose of the various files in the repos
       which have not been merged upstream at the time of
       this writing. That's why <tt>ERLANG_MK_REPO</tt> and
       <tt>ERLANG_MK_COMMIT</tt> are overridden for now.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-metronome/blob/master/build.config"><code>build.config</code></a></td>
-    <td>
-      This file configures which features of erlang.mk should be
-      enabled. In most of RabbitMQ's plugins, EUnit is disabled,
-      because they depend on a running broker. Our erlang.mk
-      extensions take care of starting a node and run the EUnit
-      tests when you type <tt>make tests</tt>.
     </td>
   </tr>
   <tr>

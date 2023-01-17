@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -93,7 +93,7 @@ or fail.
     client disconnects or rejects the reply message.
   </li>
   <li>
-    The RPC client must use the same connection and channel for 
+    The RPC client must use the same connection and channel for
     both consuming from <code>amq.rabbitmq.reply-to</code> and
     for publishing the request message.
   </li>

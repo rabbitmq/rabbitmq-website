@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -279,7 +279,7 @@ the queue is connected to), regardless of the `queue_master_locator` value.
 Classic queues historically supported replication but it is **deprecated** and should be avoided.
 
 
-Queues can beso be [federated](federated-queues.html)
+Queues can also be [federated](federated-queues.html)
 across loosely coupled nodes or clusters.
 
 Note that intra-cluster replication and federation

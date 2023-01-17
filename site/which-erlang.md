@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -46,6 +46,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.6</li>
         <li>3.11.5</li>
         <li>3.11.4</li>
         <li>3.11.3</li>
@@ -61,7 +62,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>25.1</li>
+        <li>25.2</li>
       </ul>
     </td>
     <td>
@@ -96,7 +97,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>25.1</li>
+        <li>25.2</li>
       </ul>
     </td>
     <td>
@@ -128,7 +129,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
     </td>
     <td>
       <ul>
-        <li>25.1</li>
+        <li>25.2</li>
       </ul>
     </td>
     <td>

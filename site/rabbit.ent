@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -18,10 +18,10 @@ limitations under the License.
 
 <!ENTITY version-java-client "5.16.0">
 <!ENTITY version-dotnet-client "6.3.0">
-<!ENTITY version-server "3.11.5">
+<!ENTITY version-server "3.11.6">
 <!ENTITY version-server-series "v3.11.x">
-<!ENTITY version-erlang-client "3.11.5">
-<!ENTITY version-server-tag "v3.11.5">
+<!ENTITY version-erlang-client "3.11.6">
+<!ENTITY version-server-tag "v3.11.6">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">

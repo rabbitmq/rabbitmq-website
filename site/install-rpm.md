@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,7 +19,7 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-This guide covers RabbitMQ installation on RPM-based Linux (RedHat Enterprise Linux, CentOS, Fedora, openSUSE).
+This guide covers RabbitMQ installation on RPM-based Linux (Red Hat Enterprise Linux, CentOS Stream, Fedora, openSUSE).
 
 RabbitMQ is included in standard Fedora and RHEL repositories.
 However, the versions included are
@@ -41,7 +41,7 @@ such as Fedora, RHEL and CentOS. It covers a number of topics:
  * [Package dependencies](#package-dependencies)
  * [Supported distributions](#supported-distributions)
  * [Privilege requirements](#sudo-requirements)
- * How to [manage the service](#managing-service)
+ * How to [manage the service](#managing-service) (start it, stop it, and get its status)
  * How to [inspect node and service logs](#server-logs)
  * Installation on [older distributions](#yum-legacy)
  * [Package downloads](#downloads)
@@ -179,6 +179,14 @@ rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
 ## RabbitMQ server repository
 rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 </pre>
+
+Note that if any of the above import commands finishes with an error due to the SHA1 hash algorithm, you must execute the following first:
+
+<pre class="lang-bash">
+sudo update-crypto-policies --set LEGACY
+</pre>
+
+And then retry the failed import command(s).
 
 ### Add Yum Repositories for RabbitMQ and Modern Erlang
 
@@ -867,7 +875,7 @@ Redirecting to /bin/systemctl status rabbitmq-server.service
            └─2861 inet_gethost 4
 
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##
-Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ######  ##
 Dec 26 10:21:30 localhost.localdomain rabbitmq-server[957]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log
@@ -925,7 +933,7 @@ The output will look similar to this:
 
 <pre class="lang-ini">
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##
-Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.8.17. Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Dec 26 11:03:04 localhost rabbitmq-server[968]: ##  ##      RabbitMQ 3.11.5. Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Licensed under the MPL 2.0. Website: https://www.rabbitmq.com/
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ######  ##
 Dec 26 11:03:04 localhost rabbitmq-server[968]: ##########  Logs: /var/log/rabbitmq/rabbit@localhost.log

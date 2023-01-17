@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -36,6 +36,20 @@ published separately.
     <th class="centre">Release Date</th>
     <th>Highlights</th>
     <th class="centre">Release Notes</th>
+  </tr>
+
+  <tr>
+    <td class="centre">3.11.6</td>
+    <td class="centre">5 January 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.6">Release notes</a>
+    </td>
   </tr>
 
   <tr>

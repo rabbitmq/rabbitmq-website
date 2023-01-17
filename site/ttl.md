@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -19,8 +19,11 @@ limitations under the License.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-RabbitMQ allows you to set TTL (time to live) for both messages and queues.
-This is controlled by [optional queue arguments](queues.html) and best done using a [policy](./parameters.html).
+RabbitMQ allows you to set TTL (time to live) for both messages and queues. Expired
+messages and queues will be deleted: the specifics will be covered in more detail
+later in this guide.
+
+TTL behavior is controlled by [optional queue arguments](queues.html) and best done using a [policy](./parameters.html).
 
 Message TTL can be applied to a single queue, a group of
 queues or applied on the message-by-message basis.
@@ -181,9 +184,14 @@ purging, or queue deletion).
 ## <a id="queue-ttl" class="anchor" href="#queue-ttl">Queue TTL</a>
 
 TTL can also be set on queues, not just queue contents.
+This feature can be used together with the [auto-delete queue property](queues.html).
+
+Setting TTL (expiration) on queues generally only makes sense
+for transient (non-durable) classic queues. Quorum queues and streams
+do not support expiration.
+
 Queues will expire after a period of time only when they
-are not used (e.g. do not have consumers). This feature
-can be used together with the [auto-delete queue property](queues.html).
+are not used (a queue is used if it has online consumers).
 
 Expiry time can be set for a given queue by setting the
 `x-expires` argument to `queue.declare`,
@@ -199,8 +207,7 @@ drained.
 The server guarantees that the queue will be deleted, if
 unused for at least the expiration period. No guarantee is
 given as to how promptly the queue will be removed after the
-expiration period has elapsed. Leases of durable queues
-restart when the server restarts.
+expiration period has elapsed.
 
 The value of the `x-expires` argument or
 `expires` policy describes the expiration period in

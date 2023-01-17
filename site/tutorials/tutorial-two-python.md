@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -173,7 +173,7 @@ Message acknowledgment
 Doing a task can take a few seconds, you may wonder what happens if
 a consumer starts a long task and it terminates before it completes.
 With our current code once RabbitMQ delivers message to the consumer, it
-immediately marks it for deletion. In this case, if you terminate a worker, 
+immediately marks it for deletion. In this case, if you terminate a worker,
 the message it was just processing is lost. The messages that were dispatched
 to this particular worker but were not yet handled are also lost.
 

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
@@ -142,6 +142,18 @@ It supports both online (when target node is running) and offline mode (changes
 take effect on node restart).
 
 `rabbitmq-plugins` uses shared secret authentication (described below) with server nodes.
+
+### <a id="offline-mode" class="anchor" href="#offline-mode">Offline Mode</a>
+
+`--offline` is a flag supported by `rabbitmq-plugins` commands. When provided, the tool will avoid
+contacting the target node and instead operate on plugin files directly.
+
+When the `--offline` flag is used, the command will rely on [environment variables](configure.html#customise-environment)
+to determine where to find the plugins directory of the local node.
+
+For example, it will respect and use the `RABBITMQ_PLUGINS_DIR` environment variable value
+just like a RabbitMQ node would. When `RABBITMQ_PLUGINS_DIR` is overriden for server nodes,
+it must also be set identically for the local OS user that invokes CLI tools.
 
 
 ## <a id="authentication" class="anchor" href="#authentication">Authentication</a>
@@ -527,6 +539,62 @@ and so on.
 
 [RabbitMQ Networking guide](networking.html) contains a section on troubleshooting of networking-related issues.
 
+
+## <a id="managing-nodes" class="anchor" href="#managing-nodes">Managing Nodes</a>
+
+### Getting node status
+
+To retrieve node status, use `rabbitmq-diagnostics status` or `rabbitmq-diagnostics.bat status`
+with an optional `--node` target:
+
+<pre class="lang-bash">
+rabbitmq-diagnostics  status
+</pre>
+
+<pre class="lang-bash">
+rabbitmq-diagnostics  status --node rabbit@target-hostname.local
+</pre>
+
+<pre class="lang-powershell">
+rabbitmq-diagnostics .bat status
+</pre>
+
+<pre class="lang-powershell">
+rabbitmq-diagnostics .bat status --node rabbit@target-hostname.local
+</pre>
+
+### Starting a node
+
+How RabbitMQ nodes are started depends on the package type used:
+
+ * When using Debian and RPM packages on modern Linux distributions, nodes are [managed using `systemd`](./install-debian.html#managing-service)
+ * When using Windows installer, nodes are usually [managed by the Windows service manager](./install-windows.html#managing)
+ * When using Homebrew formula, nodes are managed using `brew services`
+ * When using generic UNIX build or binary Windows build, nodes are started using `sbin/rabbitmq-server` and `sbin/rabbitmq-server.bat`, respectively, in the installation root
+
+### Stopping a node
+
+To stop a node, consider using the same service management tooling used when starting
+the node, which depends on the package typed used when RabbitMQ was installed.
+
+To stop a node using RabbitMQ CLI tools, use
+`rabbitmqctl shutdown` or `rabbitmqctl.bat shutdown` with an optional `--node` target:
+
+<pre class="lang-bash">
+rabbitmqctl shutdown
+</pre>
+
+<pre class="lang-bash">
+rabbitmqctl shutdown --node rabbit@target-hostname.local
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown
+</pre>
+
+<pre class="lang-powershell">
+rabbitmqctl.bat shutdown --node rabbit@target-hostname.local
+</pre>
 
 ## <a id="http-api-cli" class="anchor" href="#http-api-cli">rabbitmqadmin</a>
 
