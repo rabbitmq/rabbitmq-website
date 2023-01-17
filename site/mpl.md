@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Mozilla Public License
+# Mozilla Public License Version 2.0
 
 This page contains the complete license text as used in the
 RabbitMQ [distributions](./download.html).
