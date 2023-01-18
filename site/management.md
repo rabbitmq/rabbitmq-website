@@ -295,8 +295,12 @@ against the OAuth 2 server, this must be configured separately. Currently,
 * [Auth0](https://auth0.com/)
 * [Azure](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/auth-oauth2)
 
-**IMPORTANT**: : In OAuth 2.0, the RabbitMQ Management UI is a **public app** which
-means it cannot securely store credentials such as the *client_secret*. This means that RabbitMQ does not need to present a client_secret when authenticating users. You must be able to configure the OAuth client as a **public app** with the authorization server that you are using. If your authorization server only supports a **confidential app** or it requires a *client_secret*, then you must configure a *client_secret* using the `oauth_client_secret` setting.
+**Important**: from the OAuth 2.0 point of view, the RabbitMQ Management UI is a **public app** which
+means it cannot securely store credentials such as the *client_secret*. This means that RabbitMQ does not need to present a client_secret when authenticating users.
+
+It is usually possible to configure the OAuth client as a **public app** with the authorization server that you are using.
+If target authorization server only supports a **confidential app** or it requires a *client_secret*,
+then a *client_secret* **must** be configured using the `oauth_client_secret` setting.
 
 To redirect users to the UAA server to authenticate, use the following configuration:
 
@@ -307,9 +311,9 @@ management.oauth_client_id = rabbit_user_client
 management.oauth_provider_url = https://my-uaa-server-host:8443/uaa
 </pre>
 
-> **IMPORTANT**: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
+> **Important**: Since RabbitMQ 3.10, RabbitMQ uses `authorization_code` grant type. `implicit` flow is deprecated.
 
-> **IMPORTANT**: `management.oauth_client_secret` is an optional setting. It is only required when your authorization server requires it
+> **Important**: `management.oauth_client_secret` is an optional setting. It is only required when the authorization server used requires it
 
 ### Allow Basic and OAuth 2 authentication
 
@@ -369,7 +373,7 @@ such as:
   * <*resource_server_id*>`.tag:administrator`
   * <*resource_server_id*>`.read:*/*/*`
 
-You use the setting `management.oauth_scopes` to configure the scopes. It is a space-separated field.
+The scopes are configured using the `management.oauth_scopes` setting. The value must be a space-separated list of scopes.
 
 ### Configure OpenID Connect Discovery endpoint
 
