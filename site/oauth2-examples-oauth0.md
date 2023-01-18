@@ -74,7 +74,7 @@ list of users which have this role.
 
 1. From Auth0 dashboard, go to **Settings > List of Valid Keys**, and **Copy Signing Certificate** from the **CURRENTLY USED** signing key.
 
-2. Create `/tmp/certiicate.pem` and paste the certificate.
+2. Create `/tmp/certificate.pem` and paste the certificate.
 
 3. Run `openssl x509 -in /tmp/certificate.pem -pubkey -noout > /tmp/public.pem` to extract the public key from the certificate and paste the public key into `rabbitmq.config`.
 

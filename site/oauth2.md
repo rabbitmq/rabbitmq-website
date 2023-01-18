@@ -33,6 +33,7 @@ This guide covers
     * [Using Tokens with Clients](#use-tokens-with-clients)
     * [Scope and Tags](#scope-and-tags)
     * [Token Expiration and Refresh](#token-expiration)
+    * [Preferred username claims](#preferred-username-claims)
     * [Rich Authorization Request](#rich-authorization-request)
  * [Examples](#examples)
 
@@ -164,6 +165,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | Key                                      | Documentation
 |------------------------------------------|-----------
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
+| `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
@@ -313,6 +315,24 @@ Tags are used to [control access to the management plugin](https://www.rabbitmq.
 In the OAuth context, tags can be added as part of the scope, using a format like `&lt;resource_server_id>.tag:&lt;tag>`. For
 example, if `resource_server_id` is "my_rabbit", a scope to grant access to the management plugin with
 the `monitoring` tag will be `my_rabbit.tag:monitoring`.
+
+### <a id="preferred-username-claims" class="anchor" href="#preferred-username-claims">Preferred username claims</a>
+
+The username associated with the token must be available to RabbitMQ so that this username is displayed in the RabbitMQ Management UI.
+By default, RabbitMQ searches for the `sub` claim first, and if it is not found, RabbitMQ uses the `client_id`.
+
+Most authorization servers return the user's GUID in the `sub` claim instead of the user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
+
+Example `advanced.config` configuration:
+
+<pre class="lang-erlang">
+  ...
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, &lt;&lt;"rabbitmq"&gt;&gt;},
+    {preferred_username_claims, [&lt;&lt;"user_name"&gt;&gt;,&lt;&lt;"email"&gt;&gt;]},
+  ...
+</pre>
+In the example configuration, RabbitMQ searches for the `user_name` claim first and if it is not found, RabbitMQ searches for the `email`. If these are not found, RabbitMQ uses its default lookup mechanism which first looks for `sub` and then `client_id`.
 
 ### <a id="token-expiration" class="anchor" href="#token-expiration">Token Expiration and Refresh</a>
 
