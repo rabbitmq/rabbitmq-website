@@ -91,8 +91,13 @@ The last command starts a RabbitMQ server with [this](https://github.com/rabbitm
 
 The RabbitMQ Management UI can be configured with one of these two login modes:
 
-* [Service-Provider initiated logon](#service-provider-initiated-logon) - This is the default and traditional OAuth 2.0 logon mode. When you visit the RabbitMQ Management UI, it shows a button with the label `Click here to logon`. When you click, the logon process starts by redirecting you to the configured **Authorization Server**.
-* [Identity-Provider initiated logon](#identity-provider-initiated-logon) - This mode is opposite to the previous mode, you must first access the RabbitMQ Management's `/login` endpoint with a token. If the token is valid, you can then access the RabbitMQ Management UI. This mode is very useful for web portals which allow users to access the RabbitMQ Management UI with a single click. The web portals get a token on your behalf and redirect you to the RabbitMQ Management's `/login` endpoint.
+* [Service-Provider initiated logon](#service-provider-initiated-logon): this is the default and traditional OAuth 2.0 logon mode.
+  When the user visits the RabbitMQ Management UI, it shows a button with the label `Click here to logon`. When the user clicks it,
+  the logon process starts by redirecting to the configured **Authorization Server**.
+* [Identity-Provider initiated logon](#identity-provider-initiated-logon): this mode is opposite to the previous mode.
+  The user must first access the RabbitMQ Management's `/login` endpoint with a token. If the token is valid, the user is allowed to access the RabbitMQ Management UI.
+  This mode is very useful for Web sites which allow users to access the RabbitMQ Management UI with a single click.
+  The original Web site get a token on user's behalf and redirects the user to the RabbitMQ Management's `/login` endpoint.
 
 ### <a id="service-provider-initiated-logon" class="anchor" href="#service-provider-initiated-logon">Service-Provider initiated logon</a>
 
@@ -125,7 +130,9 @@ It was signed with the symmetric key.
 
 ![JWT token](./img/oauth2/admin-token-signed-sym-key.png)
 
-To configure the RabbitMQ Management UI with OAuth 2.0, the following configuration entries are required:
+To configure the RabbitMQ Management UI with OAuth 2.0, the following configuration entries are required
+in `advanced.config`:
+
 <pre class="lang-erlang">
  ...
  {rabbitmq_management, [
@@ -152,7 +159,8 @@ How it works, firstly, the `rabbit_admin` user navigates to the web portal and c
 cluster. Next, the web portal obtains a token and redirects the user to RabbitMQ `/login` endpoint with the token within the HTTP form field `access_token`. Finally,
 RabbitMQ validates the token in the http request and if it is valid, it redirects the user to the overview page.
 
-By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**, add one entry to the configuration. An example is provided here:
+By default, the RabbitMQ Management UI is configured with **service-provider initiated logon**, to configure **Identity-Provider initiated logon**,
+add one entry to `advanced.config`. For example:
 
 <pre class="lang-erlang">
  ...
@@ -165,9 +173,10 @@ By default, the RabbitMQ Management UI is configured with **service-provider ini
   ]},
 </pre>
 
-**NOTE**: When the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
-RabbitMQ Management landing page which has a **Click here to login** button. The user is
-never automatically redirected back to the url configured in the `oauth_provider_url`. It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `oauth_provider_url`.
+**Important**: when the user logs out, or its RabbitMQ session expired, or the token expired, the user is directed to the
+RabbitMQ Management landing page which has a **Click here to login** button.
+The user is never automatically redirected back to the url configured in the `oauth_provider_url`.
+It is only when the user clicks **Click here to login** , the user is redirected to the configured url in `oauth_provider_url`.
 
 ## <a id="access-other-protocols" class="anchor" href="#access-other-protocols">Access other protocols using OAuth 2.0 tokens</a>
 

@@ -323,7 +323,8 @@ By default, RabbitMQ searches for the `sub` claim first, and if it is not found,
 
 Most authorization servers return the user's GUID in the `sub` claim instead of the user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
 
-Example configuration:
+Example `advanced.config` configuration:
+
 <pre class="lang-erlang">
   ...
   {rabbitmq_auth_backend_oauth2, [
