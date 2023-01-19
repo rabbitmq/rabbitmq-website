@@ -546,7 +546,7 @@ This will make the consumer's unavailability visible to RabbitMQ and [monitoring
 
 Consumer concurrency is primarily a matter of client library implementation details and application
 configuration. With most client libraries (e.g. Java, .NET, Go, Erlang) deliveries are dispatched to a thread pool (or similar) that handles
-all asynchronous consumer operations. The pool usually has controllable degree of concurrency.
+all asynchronous consumer operations. The pool usually has controllable degree of concurrency. Some frameworks, such as NServiceBus, allow [tuning of concurrency for specific scenarios](https://docs.particular.net/nservicebus/operations/tuning). 
 
 Java and .NET clients guarantee that deliveries on a single channel will be dispatched in the same order there
 were received regardless of the degree of concurrency. Note that once dispatched, concurrent
