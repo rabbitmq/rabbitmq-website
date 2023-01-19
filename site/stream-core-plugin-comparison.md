@@ -27,7 +27,7 @@ Stream core designates stream features in the broker with only default plugins a
 
 |Feature | Stream Core              | Stream Plugin    |
 |-| ------------------------ | -------------    |
-|Activation| Built-in                 | [Must be activated](http://localhost:8191/stream.html#enabling-plugin)  |
+|Activation| Built-in                 | [Must be activated](/stream.html#enabling-plugin)  |
 |Protocol| AMQP 0.9.1               | [RabbitMQ Stream](https://github.com/rabbitmq/rabbitmq-server/blob/v3.11.x/deps/rabbitmq_stream/docs/PROTOCOL.adoc)  |
 |Clients| AMQP 0.9.1 clients ([documentation](/streams.html#usage)) |[RabbitMQ stream clients](/stream.html#overview)   |
 |Port| 5672                     | 5552             |
@@ -35,6 +35,7 @@ Stream core designates stream features in the broker with only default plugins a
 |Sub-entry batching|  Not supported    | Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#sub-entry-batching-and-compression))      |
 |Offset tracking| Use external store      |  Built-in server-side support ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#consumer-offset-tracking)) or external store      |
 |Publishing deduplication|Not supported       |  Supported ([Java example](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#outbound-message-deduplication))        |
+|[Super Stream](https://blog.rabbitmq.com/posts/2022/07/rabbitmq-3-11-feature-preview-super-streams) |Not supported       |  Supported         |
 |Throughput| Hundreds of thousands per second | Millions messages per second    |
 |TLS|Supported (default port: 5671)                     | Supported (default port: 5551)
 
