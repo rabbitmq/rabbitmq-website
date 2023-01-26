@@ -458,6 +458,15 @@ A typical sequence of events would be the following:
 Note that without the single active consumer feature enabled, messages
 would be dispatched to all consumers using round-robin.
 
+Please note: this section covers the single active consumer that's available to AMQP 0-9-1 and AMQP 1.0 clients
+on classic and quorum queues. It is not related to [Single Active Consumer on streams](https://rabbitmq.com/streams.html#single-active-consumer).
+
+An attempt to enable SAC using an AMQP 0-9-1 client on a stream **will not work**.
+To use SAC on a stream, a [native RabbitMQ stream protocol client](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer)
+must be used.
+
+### Enabling Single Active Consumer on Quorum and Classic Queues
+
 Single active consumer can be enabled when declaring a queue, with the
 `x-single-active-consumer` argument set to `true`, e.g. with the Java client:
 
@@ -468,15 +477,21 @@ arguments.put("x-single-active-consumer", true);
 ch.queueDeclare("my-queue", false, false, false, arguments);
 </pre>
 
-Compared to [AMQP exclusive consumer](#exclusivity), single active consumer puts
+### Difference from Exclusive Consumers
+
+Compared to [AMQP 0-9-1 exclusive consumer](#exclusivity), single active consumer puts
 less pressure on the application side to maintain consumption continuity.
 Consumers just need to be registered and failover is handled automatically,
 there's no need to detect the active consumer failure and to register
 a new consumer.
 
+### Determining Which Consumer is Currently Active
+
 The [management UI](./management.html) and the
 [CLI](./rabbitmqctl.8.html) can [report](#active-consumer) which consumer is the current
 active one on a queue where the feature is enabled.
+
+### SAC Behavior
 
 Please note the following about single active consumer:
 
@@ -500,7 +515,6 @@ Please note the following about single active consumer:
  the opposite of what single active consumer is trying to achieve. As the semantics
  of single active consumer do not play well with the dynamic nature of policies,
  this feature can be enabled only when declaring a queue, with queue arguments.
-
 
 ## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
 
