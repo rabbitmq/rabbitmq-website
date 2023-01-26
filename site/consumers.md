@@ -501,6 +501,11 @@ Please note the following about single active consumer:
  of single active consumer do not play well with the dynamic nature of policies,
  this feature can be enabled only when declaring a queue, with queue arguments.
 
+Please note: this guide is for AMQP single active consumer. It is not related to
+[RabbitMQ Streams Single Active Consumer](https://rabbitmq.com/streams.html#single-active-consumer).
+Setting a single active consumer, using an AMQP client, on a queue type 'stream' will
+not enable SAC. To use SAC on Streams, you have to use a native Stream Client,
+like the [RabbitMQ Java Stream client](https://rabbitmq.github.io/rabbitmq-stream-java-client/snapshot/htmlsingle/#single-active-consumer).
 
 ## <a id="active-consumer" class="anchor" href="#active-consumer">Consumer Activity</a>
 
