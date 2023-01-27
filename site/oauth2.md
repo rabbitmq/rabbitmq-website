@@ -264,7 +264,7 @@ These are the typical permissions examples:
 - `write:*/*`(`write:*/*/*`) - write permissions to any resource on any vhost
 - `read:vhost1/*`(`read:vhost1/*/*`) - read permissions to any resource on the `vhost1` vhost
 - `read:vhost1/some*` - read permissions to all the resources, starting with `some` on the `vhost1` vhost
-- `write:vhsot1/some*/routing*` - topic write permissions to publish to an exchange starting with `some` with a routing key starting with `routing`
+- `write:vhost1/some*/routing*` - topic write permissions to publish to an exchange starting with `some` with a routing key starting with `routing`
 
 See the [wildcard matching test suite](./test/wildcard_match_SUITE.erl) and [scopes test suite](./test/scope_SUITE.erl) for more examples.
 
