@@ -106,38 +106,17 @@ In
 we need to use some namespaces:
 
 <pre class="lang-csharp">
-using System;
-using RabbitMQ.Client;
 using System.Text;
-</pre>
-
-Set up the class:
-
-<pre class="lang-csharp">
-class Send
-{
-    public static void Main()
-    {
-        ...
-    }
-}
+using RabbitMQ.Client;
 </pre>
 
 then we can create a connection to the server:
 
 <pre class="lang-csharp">
-class Send
-{
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            ...
-        }
-    }
-}
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+...
 </pre>
 
 The connection abstracts the socket connection, and takes care of
@@ -153,38 +132,30 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
 <pre class="lang-csharp">
-using System;
-using RabbitMQ.Client;
 using System.Text;
+using RabbitMQ.Client;
 
-class Send
-{
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "hello",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
 
-            string message = "Hello World!";
-            var body = Encoding.UTF8.GetBytes(message);
+channel.QueueDeclare(queue: "hello",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
 
-            channel.BasicPublish(exchange: "",
-                                 routingKey: "hello",
-                                 basicProperties: null,
-                                 body: body);
-            Console.WriteLine(" [x] Sent {0}", message);
-        }
+const string message = "Hello World!";
+var body = Encoding.UTF8.GetBytes(message);
 
-        Console.WriteLine(" Press [enter] to exit.");
-        Console.ReadLine();
-    }
-}
+channel.BasicPublish(exchange: string.Empty,
+                     routingKey: "hello",
+                     basicProperties: null,
+                     body: body);
+Console.WriteLine($" [x] Sent {message}");
+
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 </pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
@@ -222,10 +193,9 @@ keep the consumer running continuously to listen for messages and print them out
 The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
 <pre class="lang-csharp">
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Text;
 </pre>
 
 Setting up is the same as the publisher; we open a connection and a
@@ -233,23 +203,16 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `Send` publishes to.
 
 <pre class="lang-csharp">
-class Receive
-{
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "hello",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-            ...
-        }
-    }
-}
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(queue: "hello",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+...
 </pre>
 
 Note that we declare the queue here as well. Because we might start
@@ -262,41 +225,35 @@ callback. That is what `EventingBasicConsumer.Received` event handler
 does.
 
 <pre class="lang-csharp">
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Text;
 
-class Receive
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(queue: "hello",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+Console.WriteLine(" [*] Waiting for messages.");
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
 {
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "hello",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+    var body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine($" [x] Received {message}");
+};
+channel.BasicConsume(queue: "hello",
+                     autoAck: true,
+                     consumer: consumer);
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] Received {0}", message);
-            };
-            channel.BasicConsume(queue: "hello",
-                                 autoAck: true,
-                                 consumer: consumer);
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
-    }
-}
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 </pre>
 
 [Here's the whole Receive.cs
