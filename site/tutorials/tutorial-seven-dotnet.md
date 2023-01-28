@@ -64,7 +64,7 @@ while (ThereAreMessagesToPublish())
     IBasicProperties properties = ...;
     channel.BasicPublish(exchange, queue, properties, body);
     // uses a 5 second timeout
-    channel.WaitForConfirmsOrDie(new TimeSpan(0, 0, 5));
+    channel.WaitForConfirmsOrDie(TimeSpan.FromSeconds(5));
 }
 </pre>
 
@@ -112,13 +112,13 @@ while (ThereAreMessagesToPublish())
     outstandingMessageCount++;
     if (outstandingMessageCount == batchSize)
     {
-        channel.WaitForConfirmsOrDie(new TimeSpan(0, 0, 5));
+        channel.WaitForConfirmsOrDie(TimeSpan.FromSeconds(5));
         outstandingMessageCount = 0;
     }
 }
 if (outstandingMessageCount > 0)
 {
-    channel.WaitForConfirmsOrDie(new TimeSpan(0, 0, 5));
+    channel.WaitForConfirmsOrDie(TimeSpan.FromSeconds(5));
 }
 </pre>
 
@@ -185,7 +185,7 @@ when messages are nack-ed:
 <pre class="lang-csharp">
 var outstandingConfirms = new ConcurrentDictionary&lt;ulong, string&gt;();
 
-void cleanOutstandingConfirms(ulong sequenceNumber, bool multiple)
+void CleanOutstandingConfirms(ulong sequenceNumber, bool multiple)
 {
     if (multiple)
     {
@@ -201,12 +201,12 @@ void cleanOutstandingConfirms(ulong sequenceNumber, bool multiple)
     }
 }
 
-channel.BasicAcks += (sender, ea) => cleanOutstandingConfirms(ea.DeliveryTag, ea.Multiple);
+channel.BasicAcks += (sender, ea) => CleanOutstandingConfirms(ea.DeliveryTag, ea.Multiple);
 channel.BasicNacks += (sender, ea) =>
 {
     outstandingConfirms.TryGetValue(ea.DeliveryTag, out string body);
     Console.WriteLine($"Message with body {body} has been nack-ed. Sequence number: {ea.DeliveryTag}, multiple: {ea.Multiple}");
-    cleanOutstandingConfirms(ea.DeliveryTag, ea.Multiple);
+    CleanOutstandingConfirms(ea.DeliveryTag, ea.Multiple);
 };
 
 // ... publishing code
