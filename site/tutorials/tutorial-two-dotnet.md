@@ -93,13 +93,6 @@ dotnet add package RabbitMQ.Client
 
 Copy the code from our old _Send.cs_ to _NewTask.cs_ and make the following modifications.
 
-Change the class name and add command line arguments to the _Main_ method:
-<pre class="lang-csharp">
-class NewTask
-{
-    public static void Main(string[] args)
-</pre>
-
 Update the initialization of the _message_ variable:
 <pre class="lang-csharp">
 var message = GetMessage(args);
@@ -107,7 +100,7 @@ var message = GetMessage(args);
 
 Add the _GetMessage_ method to the end of the _NewTask_ class:
 <pre class="lang-csharp">
-private static string GetMessage(string[] args)
+static string GetMessage(string[] args)
 {
     return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
 }
@@ -118,21 +111,14 @@ fake a second of work for every dot in the message body. It will
 handle messages delivered by RabbitMQ and perform the task, so let's copy it to
 _Worker.cs_ and modify it as follows.
 
-Add a _using_ statement and update the _class_ name:
-<pre class="lang-csharp">
-using System.Threading;
-
-class Worker
-</pre>
-
 After our existing _WriteLine_ for receiving the message, add the fake task to simulate execution time:
 <pre class="lang-csharp">
-Console.WriteLine(" [x] Received {0}", message);
+Console.WriteLine($" [x] Received {message}");
 
 int dots = message.Split('.').Length - 1;
 Thread.Sleep(dots * 1000);
 
-Console.WriteLine(" [x] Done")
+Console.WriteLine(" [x] Done");
 </pre>
 
 Round-robin dispatching
@@ -244,8 +230,8 @@ After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsum
 <pre class="lang-csharp">
     Console.WriteLine(" [x] Done");
 
-    // Note: it is possible to access the channel via
-    //       ((EventingBasicConsumer)sender).Model here
+    // here channel could also be accessed 
+    // as ((EventingBasicConsumer)sender).Model
     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
 channel.BasicConsume(queue: "hello",
@@ -415,99 +401,81 @@ Run the consumer (worker) first so that the topology (primarily the queue) is in
 Here is its complete code:
 
 <pre class="lang-csharp">
-using System;
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
-using System.Threading;
 
-class Worker
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(queue: "task_queue",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+Console.WriteLine(" [*] Waiting for messages.");
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
 {
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "task_queue",
-                                 durable: true,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+    byte[] body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine($" [x] Received {message}");
 
-            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+    int dots = message.Split('.').Length - 1;
+    Thread.Sleep(dots * 1000);
 
-            Console.WriteLine(" [*] Waiting for messages.");
+    Console.WriteLine(" [x] Done");
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (sender, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] Received {0}", message);
+    // here channel could also be accessed as ((EventingBasicConsumer)sender).Model
+    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+};
+channel.BasicConsume(queue: "task_queue",
+                     autoAck: false,
+                     consumer: consumer);
 
-                int dots = message.Split('.').Length - 1;
-                Thread.Sleep(dots * 1000);
-
-                Console.WriteLine(" [x] Done");
-
-                // Note: it is possible to access the channel via
-                //       ((EventingBasicConsumer)sender).Model here
-                channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-            };
-            channel.BasicConsume(queue: "task_queue",
-                                 autoAck: false,
-                                 consumer: consumer);
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
-    }
-}
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 </pre>
 
-Now run the task publisher. Its final code is:
+Now run the task publisher (NewTask). Its final code is:
 
 <pre class="lang-csharp">
-using System;
-using RabbitMQ.Client;
 using System.Text;
+using RabbitMQ.Client;
 
-class NewTask
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(queue: "task_queue",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+var message = GetMessage(args);
+var body = Encoding.UTF8.GetBytes(message);
+
+var properties = channel.CreateBasicProperties();
+properties.Persistent = true;
+
+channel.BasicPublish(exchange: string.Empty,
+                     routingKey: "task_queue",
+                     basicProperties: properties,
+                     body: body);
+Console.WriteLine($" [x] Sent {message}");
+
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
+
+static string GetMessage(string[] args)
 {
-    public static void Main(string[] args)
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "task_queue",
-                                 durable: true,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
-            var message = GetMessage(args);
-            var body = Encoding.UTF8.GetBytes(message);
-
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = true;
-
-            channel.BasicPublish(exchange: "",
-                                 routingKey: "task_queue",
-                                 basicProperties: properties,
-                                 body: body);
-            Console.WriteLine(" [x] Sent {0}", message);
-        }
-
-        Console.WriteLine(" Press [enter] to exit.");
-        Console.ReadLine();
-    }
-
-    private static string GetMessage(string[] args)
-    {
-        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-    }
+    return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
 }
 </pre>
 
