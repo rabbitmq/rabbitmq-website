@@ -230,8 +230,7 @@ After the existing _WriteLine_, add a call to _BasicAck_ and update _BasicConsum
 <pre class="lang-csharp">
     Console.WriteLine(" [x] Done");
 
-    // here channel could also be accessed 
-    // as ((EventingBasicConsumer)sender).Model
+    // here channel could also be accessed as ((EventingBasicConsumer)sender).Model
     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 };
 channel.BasicConsume(queue: "hello",
