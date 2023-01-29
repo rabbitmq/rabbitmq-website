@@ -38,17 +38,15 @@ service that returns Fibonacci numbers.
 ### Client interface
 
 To illustrate how an RPC service could be used we're going to
-create a simple client class. It's going to expose a method named `Call`
+create a simple client class. It's going to expose a method named `CallAsync`
 which sends an RPC request and blocks until the answer is received:
 
 <pre class="lang-csharp">
-var rpcClient = new RPCClient();
+using var rpcClient = new RpcClient();
 
-Console.WriteLine(" [x] Requesting fib(30)");
-var response = rpcClient.Call("30");
+Console.WriteLine(" [x] Requesting fib({0})", n);
+var response = await rpcClient.CallAsync(n);
 Console.WriteLine(" [.] Got '{0}'", response);
-
-rpcClient.Close();
 </pre>
 
 > #### A note on RPC
@@ -84,7 +82,7 @@ var props = channel.CreateBasicProperties();
 props.ReplyTo = replyQueueName;
 
 var messageBytes = Encoding.UTF8.GetBytes(message);
-channel.BasicPublish(exchange: "",
+channel.BasicPublish(exchange: string.Empty,
                      routingKey: "rpc_queue",
                      basicProperties: props,
                      body: messageBytes);
@@ -215,10 +213,14 @@ Putting it all together
 The Fibonacci task:
 
 <pre class="lang-csharp">
-private static int fib(int n)
+static int Fib(int n)
 {
-    if (n == 0 || n == 1) return n;
-    return fib(n - 1) + fib(n - 2);
+    if (n is 0 or 1)
+    {
+        return n;
+    }
+
+    return Fib(n - 1) + Fib(n - 2);
 }
 </pre>
 
@@ -230,77 +232,71 @@ and it's probably the slowest recursive implementation possible).
 The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCServer/RPCServer.cs) looks like this:
 
 <pre class="lang-csharp">
-using System;
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
-class RPCServer
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.QueueDeclare(queue: "rpc_queue",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+var consumer = new EventingBasicConsumer(channel);
+channel.BasicConsume(queue: "rpc_queue",
+                     autoAck: false,
+                     consumer: consumer);
+Console.WriteLine(" [x] Awaiting RPC requests");
+
+consumer.Received += (model, ea) =>
 {
-    public static void Main()
+    string response = string.Empty;
+
+    var body = ea.Body.ToArray();
+    var props = ea.BasicProperties;
+    var replyProps = channel.CreateBasicProperties();
+    replyProps.CorrelationId = props.CorrelationId;
+
+    try
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: "rpc_queue", durable: false,
-              exclusive: false, autoDelete: false, arguments: null);
-            channel.BasicQos(0, 1, false);
-            var consumer = new EventingBasicConsumer(channel);
-            channel.BasicConsume(queue: "rpc_queue",
-              autoAck: false, consumer: consumer);
-            Console.WriteLine(" [x] Awaiting RPC requests");
+        var message = Encoding.UTF8.GetString(body);
+        int n = int.Parse(message);
+        Console.WriteLine($" [.] Fib({message})");
+        response = Fib(n).ToString();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($" [.] {e.Message}");
+        response = string.Empty;
+    }
+    finally
+    {
+        var responseBytes = Encoding.UTF8.GetBytes(response);
+        channel.BasicPublish(exchange: string.Empty,
+                             routingKey: props.ReplyTo,
+                             basicProperties: replyProps,
+                             body: responseBytes);
+        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    }
+};
 
-            consumer.Received += (model, ea) =>
-            {
-                string response = null;
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 
-                var body = ea.Body.ToArray();
-                var props = ea.BasicProperties;
-                var replyProps = channel.CreateBasicProperties();
-                replyProps.CorrelationId = props.CorrelationId;
-
-                try
-                {
-                    var message = Encoding.UTF8.GetString(body);
-                    int n = int.Parse(message);
-                    Console.WriteLine(" [.] fib({0})", message);
-                    response = fib(n).ToString();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(" [.] " + e.Message);
-                    response = "";
-                }
-                finally
-                {
-                    var responseBytes = Encoding.UTF8.GetBytes(response);
-                    channel.BasicPublish(exchange: "", routingKey: props.ReplyTo,
-                      basicProperties: replyProps, body: responseBytes);
-                    channel.BasicAck(deliveryTag: ea.DeliveryTag,
-                      multiple: false);
-                }
-            };
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
+// Assumes only valid positive integer input.
+// Don't expect this one to work for big numbers, and it's probably the slowest recursive implementation possible.
+static int Fib(int n)
+{
+    if (n is 0 or 1)
+    {
+        return n;
     }
 
-    /// <summary>
-    /// Assumes only valid positive integer input.
-    /// Don't expect this one to work for big numbers, and it's
-    /// probably the slowest recursive implementation possible.
-    /// </summary>
-    private static int fib(int n)
-    {
-        if (n == 0 || n == 1)
-        {
-            return n;
-        }
-
-        return fib(n - 1) + fib(n - 2);
-    }
+    return Fib(n - 1) + Fib(n - 2);
 }
 </pre>
 
@@ -318,64 +314,63 @@ The server code is rather straightforward:
 The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/RPCClient/RPCClient.cs):
 
 <pre class="lang-csharp">
-using System;
 using System.Collections.Concurrent;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-public class RpcClient
+public class RpcClient : IDisposable
 {
+    private const string QUEUE_NAME = "rpc_queue";
+
     private readonly IConnection connection;
     private readonly IModel channel;
     private readonly string replyQueueName;
-    private readonly EventingBasicConsumer consumer;
-    private readonly BlockingCollection&lt;string&gt; respQueue = new BlockingCollection&lt;string&gt;();
-    private readonly IBasicProperties props;
+    private readonly ConcurrentDictionary&lt;string, TaskCompletionSource&lt;string&gt;&gt; callbackMapper = new();
 
     public RpcClient()
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
+        var factory = new ConnectionFactory { HostName = "localhost" };
 
         connection = factory.CreateConnection();
         channel = connection.CreateModel();
+        // declare a server-named queue
         replyQueueName = channel.QueueDeclare().QueueName;
-        consumer = new EventingBasicConsumer(channel);
+        var consumer = new EventingBasicConsumer(channel);
+        consumer.Received += (model, ea) =>
+        {
+            if (!callbackMapper.TryRemove(ea.BasicProperties.CorrelationId, out var tcs))
+                return;
+            var body = ea.Body.ToArray();
+            var response = Encoding.UTF8.GetString(body);
+            tcs.TrySetResult(response);
+        };
 
-        props = channel.CreateBasicProperties();
+        channel.BasicConsume(consumer: consumer,
+                             queue: replyQueueName,
+                             autoAck: true);
+    }
+
+    public Task&lt;string&gt; CallAsync(string message, CancellationToken cancellationToken = default)
+    {
+        IBasicProperties props = channel.CreateBasicProperties();
         var correlationId = Guid.NewGuid().ToString();
         props.CorrelationId = correlationId;
         props.ReplyTo = replyQueueName;
-
-        consumer.Received += (model, ea) =&gt;
-        {
-            var body = ea.Body.ToArray();
-            var response = Encoding.UTF8.GetString(body);
-            if (ea.BasicProperties.CorrelationId == correlationId)
-            {
-                respQueue.Add(response);
-            }
-        };
-
-        channel.BasicConsume(
-            consumer: consumer,
-            queue: replyQueueName,
-            autoAck: true);
-    }
-
-    public string Call(string message)
-    {
         var messageBytes = Encoding.UTF8.GetBytes(message);
-        channel.BasicPublish(
-            exchange: "",
-            routingKey: "rpc_queue",
-            basicProperties: props,
-            body: messageBytes);
+        var tcs = new TaskCompletionSource&lt;string&gt;();
+        callbackMapper.TryAdd(correlationId, tcs);
 
-        return respQueue.Take();
+        channel.BasicPublish(exchange: string.Empty,
+                             routingKey: QUEUE_NAME,
+                             basicProperties: props,
+                             body: messageBytes);
+
+        cancellationToken.Register(() => callbackMapper.TryRemove(correlationId, out _));
+        return tcs.Task;
     }
 
-    public void Close()
+    public void Dispose()
     {
         connection.Close();
     }
@@ -383,18 +378,25 @@ public class RpcClient
 
 public class Rpc
 {
-    public static void Main()
+    public static async Task Main(string[] args)
     {
-        var rpcClient = new RpcClient();
+        Console.WriteLine("RPC Client");
+        string n = args.Length &gt; 0 ? args[0] : "30";
+        await InvokeAsync(n);
 
-        Console.WriteLine(" [x] Requesting fib(30)");
-        var response = rpcClient.Call("30");
+        Console.WriteLine(" Press [enter] to exit.");
+        Console.ReadLine();
+    }
 
+    private static async Task InvokeAsync(string n)
+    {
+        using var rpcClient = new RpcClient();
+
+        Console.WriteLine(" [x] Requesting fib({0})", n);
+        var response = await rpcClient.CallAsync(n);
         Console.WriteLine(" [.] Got '{0}'", response);
-        rpcClient.Close();
     }
 }
-
 </pre>
 
 The client code is slightly more involved:
@@ -417,13 +419,11 @@ The client code is slightly more involved:
 Making the Client request:
 
 <pre class="lang-csharp">
-var rpcClient = new RPCClient();
+using var rpcClient = new RpcClient();
 
-Console.WriteLine(" [x] Requesting fib(30)");
-var response = rpcClient.Call("30");
+Console.WriteLine(" [x] Requesting fib({0})", n);
+var response = await rpcClient.CallAsync(n);
 Console.WriteLine(" [.] Got '{0}'", response);
-
-rpcClient.Close();
 </pre>
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
