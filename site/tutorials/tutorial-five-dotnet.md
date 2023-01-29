@@ -157,94 +157,77 @@ The code is almost the same as in the
 The code for `EmitLogTopic.cs`:
 
 <pre class="lang-csharp">
-using System;
-using System.Linq;
-using RabbitMQ.Client;
 using System.Text;
+using RabbitMQ.Client;
 
-class EmitLogTopic
-{
-    public static void Main(string[] args)
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.ExchangeDeclare(exchange: "topic_logs",
-                                    type: "topic");
+var factory = new ConnectionFactory { HostName = "localhost" };
 
-            var routingKey = (args.Length > 0) ? args[0] : "anonymous.info";
-            var message = (args.Length > 1)
-                          ? string.Join(" ", args.Skip( 1 ).ToArray())
-                          : "Hello World!";
-            var body = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish(exchange: "topic_logs",
-                                 routingKey: routingKey,
-                                 basicProperties: null,
-                                 body: body);
-            Console.WriteLine(" [x] Sent '{0}':'{1}'", routingKey, message);
-        }
-    }
-}
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.ExchangeDeclare(exchange: "topic_logs", type: ExchangeType.Topic);
+
+var routingKey = (args.Length > 0) ? args[0] : "anonymous.info";
+var message = (args.Length > 1)
+              ? string.Join(" ", args.Skip(1).ToArray())
+              : "Hello World!";
+var body = Encoding.UTF8.GetBytes(message);
+channel.BasicPublish(exchange: "topic_logs",
+                     routingKey: routingKey,
+                     basicProperties: null,
+                     body: body);
+Console.WriteLine($" [x] Sent '{routingKey}':'{message}'");
 </pre>
 
 The code for `ReceiveLogsTopic.cs`:
 
 <pre class="lang-csharp">
-using System;
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
-class ReceiveLogsTopic
+var factory = new ConnectionFactory { HostName = "localhost" };
+
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.ExchangeDeclare(exchange: "topic_logs", type: ExchangeType.Topic);
+// declare a server-named queue
+var queueName = channel.QueueDeclare().QueueName;
+
+if (args.Length &lt; 1)
 {
-    public static void Main(string[] args)
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.ExchangeDeclare(exchange: "topic_logs", type: "topic");
-            var queueName = channel.QueueDeclare().QueueName;
-
-            if(args.Length &lt; 1)
-            {
-                Console.Error.WriteLine("Usage: {0} [binding_key...]",
-                                        Environment.GetCommandLineArgs()[0]);
-                Console.WriteLine(" Press [enter] to exit.");
-                Console.ReadLine();
-                Environment.ExitCode = 1;
-                return;
-            }
-
-            foreach(var bindingKey in args)
-            {
-                channel.QueueBind(queue: queueName,
-                                  exchange: "topic_logs",
-                                  routingKey: bindingKey);
-            }
-
-            Console.WriteLine(" [*] Waiting for messages. To exit press CTRL+C");
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                var routingKey = ea.RoutingKey;
-                Console.WriteLine(" [x] Received '{0}':'{1}'",
-                                  routingKey,
-                                  message);
-            };
-            channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
-                                 consumer: consumer);
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
-    }
+    Console.Error.WriteLine("Usage: {0} [binding_key...]",
+                            Environment.GetCommandLineArgs()[0]);
+    Console.WriteLine(" Press [enter] to exit.");
+    Console.ReadLine();
+    Environment.ExitCode = 1;
+    return;
 }
+
+foreach (var bindingKey in args)
+{
+    channel.QueueBind(queue: queueName,
+                      exchange: "topic_logs",
+                      routingKey: bindingKey);
+}
+
+Console.WriteLine(" [*] Waiting for messages. To exit press CTRL+C");
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
+{
+    var body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    var routingKey = ea.RoutingKey;
+    Console.WriteLine($" [x] Received '{routingKey}':'{message}'");
+};
+channel.BasicConsume(queue: queueName,
+                     autoAck: true,
+                     consumer: consumer);
+
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 </pre>
 
 Run the following examples:
