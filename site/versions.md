@@ -57,6 +57,28 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 </table>
 
+## <a id="extended-support" class="anchor" href="#extended-support">Release Series That are Only Covered by Extended Support</a>
+
+<table class="release-series">
+  <tr>
+    <th>Version</th>
+    <th>Latest Patch</th>
+    <th>First Release</th>
+    <th>End of General Support<sup>1</sup></th>
+    <th>End of Extended Support<sup>2</sup></th>
+    <th>In service for</th>
+  </tr>
+
+  <tr>
+    <td>3.9</td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.28" target="_blank" rel="noopener noreferrer">3.9.28</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank" rel="noopener noreferrer">26 July 2021</a></td>
+    <td>31 January, 2023</td>
+    <td>31 July, 2023</td>
+    <td>24 months</td>
+  </tr>
+</table>
+
 <sup>1</sup> **General Support** means patch releases that are [produced regularly](./changelog.html) based on feedback from all users.
 
 <sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](./contact.html#paid-support).
@@ -75,15 +97,6 @@ RabbitMQ 3.12, the next release series, is expected in the first quarter of 2023
     <th>First Release</th>
     <th>End of Life</th>
     <th>In service for</th>
-  </tr>
-
-  <tr>
-    <td>3.9</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.28" target="_blank" rel="noopener noreferrer">3.9.28</a></td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank" rel="noopener noreferrer">26 July 2021</a></td>
-    <td>31 January, 2023</td>
-    <td>31 July, 2023</td>
-    <td>24 months</td>
   </tr>
 
   <tr>
