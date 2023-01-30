@@ -499,25 +499,57 @@ prometheus.return_per_object_metrics = true
 
 ### <a id="per-object-endpoint" class="anchor" href="#per-object-endpoint">Prometheus endpoints: `/metrics/per-object`</a>
 
-RabbitMQ offers a dedicated endpoint, `/metrics/per-object`, which always returns per-object metrics,
+RabbitMQ offers a dedicated endpoint
+
+<pre class="lang-plaintext">
+GET /metrics/per-object
+</pre>
+
+which always returns per-object metrics,
 regardless of the value of `prometheus.return_per_object_metrics`.
 You can therefore keep the default value of `prometheus.return_per_object_metrics`,
 which is `false`, and still scrape per-object metrics when necessary, by setting `metrics_path = /metrics/per-object` in the Prometheus target configuration (check [Prometheus Documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for additional information).
 
 ### <a id="detailed-endpoint" class="anchor" href="#detailed-endpoint">Prometheus endpoints: `/metrics/detailed`</a>
 
-As mentioned in the previous sections, returning a lot of per-object metrics is quite computationally expensive. One of the reasons is that `/metrics/per-object` returns every possible metric for every possible object - even if having them makes no sense in the day-to-day monitoring activity.
+As mentioned earlier, using per-object metrics in environments with a lot of entitites is very computationally expensive.
+For example, `/metrics/per-object` returns all metrics for all entities in the system, even if many of them are not used
+by most clients (such as monitoring tools).
 
-That's why there is an additional endpoint that always returns per-object metrics and allows one to explicitly query only the things that are relevant - `/metrics/detailed`. By default it doesn't return anything at all, but it's possible to specify required metric groups and virtual host filters in the GET-parameters. Scraping `/metrics/detailed?vhost=vhost-1&vhost=vhost-2&family=queue_coarse_metrics&family=queue_consumer_count`. will only return requested metrics (and not, for example, channel metrics that include erlang PID in labels).
+This is why there is a separate endpoint for per-object metrics that allows the caller to query only the metrics they need:
+
+<pre class="lang-plaintext">
+GET /metrics/detailed
+</pre>
+
+By default it does not return any metrics. All required metric groups and virtual host filters must be be provided as query
+parameters. For example,
+
+<pre class="lang-plaintext">
+GET /metrics/detailed?vhost=vhost-1&amp;vhost=vhost-2&amp;family=queue_coarse_metrics&amp;family=queue_consumer_count
+</pre>
+
+will only return requested metrics and leave out, for example, all channel metrics that this client is not
+interested in.
 
 This endpoint supports the following parameters:
 
-* Zero or more `family` - only the requested metric families will be returned. The full list is documented in [metrics-detailed](metrics-detailed.md).
-* Zero or more `vhost` - if it's given, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count` and `queue_metrics`) will be returned only for given vhost(s).
+* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented in [metrics-detailed](metrics-detailed.md)
+* Zero or more `vhost`s: if provided, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count` and `queue_metrics`) will be returned only for the queues in the provided virtual hosts
 
-The returned metrics use different prefix `rabbitmq_detailed_` (instead of plain `rabbitmq_` used by other  endpoints), so that endpoint can be used simultaneously with `/metrics`, and existing dashboards won't be affected.
+The returned metrics use a different prefix: `rabbitmq_detailed_` (instead of `rabbitmq_` used by other  endpoints).
+This means the endpoint can be used together with `GET /metrics` and tools that rely on other endpoints won't be affected.
 
-Here are the performance gains you can expect from using this endpoint. On a test system with 10k queues/10k consumer/10k producers, `/metrics/per-object` took a bit over 2 minutes. Querying `/metrics/detailed?family=queue_coarse_metrics&family=queue_consumer_count` provides just enough metrics to see how many messages sit in every queue and how much consumers each of these queues have. And it takes only 2 seconds, a significant improvement over indiscriminate `/metrics/per-object`.
+Since it queries and serves less data in almost all cases, this endpoint puts less load on the system.
+For example,
+
+<pre class="lang-plaintext">
+GET /metrics/detailed?family=queue_coarse_metrics&amp;family=queue_consumer_count
+</pre>
+
+provides just enough metrics to determine how many messages are enqueued and how many consumers those queues have.
+In some environments this query is **up to 60 times more efficient** than querying `GET /metrics/per-object` to get
+only a couple of metrics from the response.
 
 #### Generic metrics
 
