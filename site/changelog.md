@@ -39,12 +39,26 @@ published separately.
   </tr>
 
   <tr>
-    <td class="centre">3.10.16</td>
+    <td class="centre">3.11.8</td>
     <td class="centre">30 January 2023</td>
     <td>
       <ul>
         <li>Bug fixes</li>
         <li>Optimizations</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.8">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.16</td>
+    <td class="centre">30 January 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>End of general support for 3.10.x release series <a href="./versions.html">has been announced</a></li>
       </ul>
     </td>
     <td class="centre">
