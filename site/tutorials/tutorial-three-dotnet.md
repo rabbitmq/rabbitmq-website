@@ -124,7 +124,7 @@ queues it knows. And that's exactly what we need for our logger.
 > <pre class="lang-csharp">
 >     var message = GetMessage(args);
 >     var body = Encoding.UTF8.GetBytes(message);
->     channel.BasicPublish(exchange: "",
+>     channel.BasicPublish(exchange: string.Empty,
 >                          routingKey: "hello",
 >                          basicProperties: null,
 >                          body: body);
@@ -140,7 +140,7 @@ Now, we can publish to our named exchange instead:
 var message = GetMessage(args);
 var body = Encoding.UTF8.GetBytes(message);
 channel.BasicPublish(exchange: "logs",
-                     routingKey: "",
+                     routingKey: string.Empty,
                      basicProperties: null,
                      body: body);
 </pre>
@@ -212,7 +212,7 @@ between exchange and a queue is called a _binding_.
 <pre class="lang-csharp">
 channel.QueueBind(queue: queueName,
                   exchange: "logs",
-                  routingKey: "");
+                  routingKey: string.Empty);
 </pre>
 
 From now on the `logs` exchange will append messages to our queue.
@@ -270,39 +270,29 @@ value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.cs` file:
 
 <pre class="lang-csharp">
-using System;
-using RabbitMQ.Client;
 using System.Text;
+using RabbitMQ.Client;
 
-class EmitLog
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+
+var message = GetMessage(args);
+var body = Encoding.UTF8.GetBytes(message);
+channel.BasicPublish(exchange: "logs",
+                     routingKey: string.Empty,
+                     basicProperties: null,
+                     body: body);
+Console.WriteLine($" [x] Sent {message}");
+
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
+
+static string GetMessage(string[] args)
 {
-    public static void Main(string[] args)
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-
-            var message = GetMessage(args);
-            var body = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish(exchange: "logs",
-                                 routingKey: "",
-                                 basicProperties: null,
-                                 body: body);
-            Console.WriteLine(" [x] Sent {0}", message);
-        }
-
-        Console.WriteLine(" Press [enter] to exit.");
-        Console.ReadLine();
-    }
-
-    private static string GetMessage(string[] args)
-    {
-        return ((args.Length > 0)
-               ? string.Join(" ", args)
-               : "info: Hello World!");
-    }
+    return ((args.Length > 0) ? string.Join(" ", args) : "info: Hello World!");
 }
 </pre>
 
@@ -319,44 +309,37 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 The code for `ReceiveLogs.cs`:
 
 <pre class="lang-csharp">
-using System;
+using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
-class ReceiveLogs
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+
+// declare a server-named queue
+var queueName = channel.QueueDeclare().QueueName;
+channel.QueueBind(queue: queueName,
+                  exchange: "logs",
+                  routingKey: string.Empty);
+
+Console.WriteLine(" [*] Waiting for logs.");
+
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
 {
-    public static void Main()
-    {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+    byte[] body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine($" [x] {message}");
+};
+channel.BasicConsume(queue: queueName,
+                     autoAck: true,
+                     consumer: consumer);
 
-            var queueName = channel.QueueDeclare().QueueName;
-            channel.QueueBind(queue: queueName,
-                              exchange: "logs",
-                              routingKey: "");
-
-            Console.WriteLine(" [*] Waiting for logs.");
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] {0}", message);
-            };
-            channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
-                                 consumer: consumer);
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
-    }
-}
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();
 </pre>
 
 [(ReceiveLogs.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/main/dotnet/ReceiveLogs/ReceiveLogs.cs)
