@@ -33,8 +33,8 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <th>Version</th>
     <th>Latest Patch</th>
     <th>First Release</th>
-    <th>End of General Support<sup>1</sup></th>
-    <th>End of Extended Support<sup>2</sup></th>
+    <th>End of Community Support<sup>1</sup></th>
+    <th>End of Extended Commercial Support<sup>2</sup></th>
     <th>In service for</th>
   </tr>
 
@@ -64,8 +64,8 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <th>Version</th>
     <th>Latest Patch</th>
     <th>First Release</th>
-    <th>End of General Support<sup>1</sup></th>
-    <th>End of Extended Support<sup>2</sup></th>
+    <th>End of Community Support<sup>1</sup></th>
+    <th>End of Extended Commercial Support<sup>2</sup></th>
     <th>In service for</th>
   </tr>
 
@@ -79,9 +79,15 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 </table>
 
-<sup>1</sup> **General Support** means patch releases that are [produced regularly](./changelog.html) based on feedback from all users.
+## <a id="terminology" class="anchor" href="#terminology">Definition of Community and Extended Commercial Support</a>
 
-<sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](./contact.html#paid-support).
+In January 2023, the term **general support** was replaced with **community support** to avoid confusion with
+VMware [terminology related to support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
+
+<sup>1</sup> **Community Support** means patch releases are [produced regularly](./changelog.html) based on feedback from all users,
+both community and those with a commercial license.
+
+<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact.html#paid-support).
 
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>

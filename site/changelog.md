@@ -58,7 +58,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>End of general support for 3.10.x release series <a href="./versions.html">has been announced</a></li>
+        <li>End of community (general) support for 3.10.x release series <a href="./versions.html">has been announced</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -84,7 +84,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>3.9.x release series <a href="./versions.html">has reached end of general support</a></li>
+        <li>3.9.x release series <a href="./versions.html">has reached end of community (general) support</a></li>
       </ul>
     </td>
     <td class="centre">
