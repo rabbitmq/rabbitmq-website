@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide explains what release series of RabbitMQ are currently covered by
-general or extended support policies, which release series is coming next, and
+community or extended commercial support policies, which release series is coming next, and
 what series are no longer supported.
 
 For guidance on upgrades, see the [Upgrade](./upgrade.html) and
