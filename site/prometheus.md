@@ -35,7 +35,7 @@ and anti-patterns easier to spot. Its design decisions are explained in a number
 
 ### <a id="overview-prometheus" class="anchor" href="#overview-prometheus">Built-in Prometheus Support</a>
 
-As of 3.8.0, RabbitMQ ships with built-in Prometheus & Grafana support.
+RabbitMQ ships with built-in Prometheus & Grafana support.
 
 Support for Prometheus metric collector ships in the `rabbitmq_prometheus` plugin.
 The plugin exposes all RabbitMQ metrics on a dedicated TCP port, in Prometheus text format.
@@ -327,7 +327,7 @@ Unlike the [Quick Start](#quick-start) above, this section covers monitoring set
 
 We will assume that the following tools are provisioned and running:
 
- * A [3-node RabbitMQ 3.8 cluster](./cluster-formation.html)
+ * A [3-node RabbitMQ 3.11 cluster](./cluster-formation.html)
  * Prometheus, including network connectivity with all RabbitMQ cluster nodes
  * Grafana, including configuration that lists the above Prometheus instance as one of the data sources
 
@@ -906,7 +906,6 @@ prometheus.ssl.fail_if_no_peer_cert = true
 
 ## <a id="3rd-party-plugin" class="anchor" href="#3rd-party-plugin">Using Prometheus with RabbitMQ 3.7</a>
 
-RabbitMQ versions prior to 3.8 can use a separate plugin,
+RabbitMQ versions prior to 3.8 used a separate plugin,
 [prometheus_rabbitmq_exporter](https://github.com/deadtrickster/prometheus_rabbitmq_exporter),
-to expose metrics to Prometheus. The plugin uses [RabbitMQ HTTP API](./monitoring.html) internally
-and requires visualisation to be set up separately.
+to expose metrics to Prometheus.
