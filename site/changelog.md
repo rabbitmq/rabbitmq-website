@@ -39,6 +39,19 @@ published separately.
   </tr>
 
   <tr>
+    <td class="centre">3.10.17</td>
+    <td class="centre">31 January 2023</td>
+    <td>
+      <ul>
+        <li>Important bug fix in the management plugin</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.17">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.11.8</td>
     <td class="centre">30 January 2023</td>
     <td>
