@@ -534,7 +534,7 @@ interested in.
 
 This endpoint supports the following parameters:
 
-* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented in [metrics-detailed](metrics-detailed.md)
+* Zero or more `family` values. Only the requested metric families will be returned. The full list is documented below;
 * Zero or more `vhost`s: if provided, queue related metrics (`queue_coarse_metrics`, `queue_consumer_count` and `queue_metrics`) will be returned only for the queues in the provided virtual hosts
 
 The returned metrics use a different prefix: `rabbitmq_detailed_` (instead of `rabbitmq_` used by other  endpoints).
