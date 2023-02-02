@@ -46,9 +46,9 @@ on behalf of the consumer.
 > languages](https://rabbitmq.com/devtools.html). We'll
 > use the Java client provided by RabbitMQ.
 >
-> Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.7.1/amqp-client-5.7.1.jar)
-> and its dependencies ([SLF4J API](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar) and
-> [SLF4J Simple](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.26/slf4j-simple-1.7.26.jar)).
+> Download the [client library](https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.16.0/amqp-client-5.16.0.jar)
+> and its dependencies ([SLF4J API](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar) and
+> [SLF4J Simple](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.36/slf4j-simple-1.7.36.jar)).
 > Copy those files in your working directory, along the tutorials Java files.
 >
 > Please note SLF4J Simple is enough for tutorials but you should use a full-blown
@@ -218,20 +218,20 @@ You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
 <pre class="lang-bash">
-javac -cp amqp-client-5.7.1.jar Send.java Recv.java
+javac -cp amqp-client-5.16.0.jar Send.java Recv.java
 </pre>
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the consumer (receiver):
 
 <pre class="lang-bash">
-java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Recv
+java -cp .:amqp-client-5.16.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar Recv
 </pre>
 
 then, run the publisher (sender):
 
 <pre class="lang-bash">
-java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Send
+java -cp .:amqp-client-5.16.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar Send
 </pre>
 
 On Windows, use a semicolon instead of a colon to separate items in the classpath.
@@ -261,13 +261,13 @@ Time to move on to [part 2](tutorial-two-java.html) and build a simple _work que
 > To save typing, you can set an environment variable for the classpath e.g.
 >
 > <pre class="lang-bash">
-> export CP=.:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar
+> export CP=.:amqp-client-5.16.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar
 > java -cp $CP Send
 > </pre>
 >
 > or on Windows:
 > <pre class="lang-powershell">
-> set CP=.;amqp-client-5.7.1.jar;slf4j-api-1.7.26.jar;slf4j-simple-1.7.26.jar
+> set CP=.;amqp-client-5.16.0.jar;slf4j-api-1.7.36.jar;slf4j-simple-1.7.36.jar
 > java -cp %CP% Send
 > </pre>
 
