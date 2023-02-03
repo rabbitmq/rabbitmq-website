@@ -375,7 +375,7 @@ Properties that cannot be updated is documented in the [Messaging Topology Opera
 Deleting custom resources will delete the corresponding resources in the RabbitMQ cluster. Messaging Topology Operator sets kubernetes
 [finalizers](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#finalizers) on all custom
 resources. If the object has already been deleted in the RabbitMQ cluster, or the RabbitMQ cluster has been deleted, Messaging Topology
-Operator will delete the custom without trying to delete the RabbitMQ object.
+Operator will delete the custom resource without trying to delete the RabbitMQ object.
 
 ## <a id='limitations' class='anchor' href='#limitations'>Limitations</a>
 
