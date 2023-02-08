@@ -742,12 +742,15 @@ When a message has been returned more times than the limit the message will be d
 
 ## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
 
-Quorum queues typically require more resources (disk and RAM)
-than classic mirrored queues. To enable fast election of a new leader and recovery, data safety as well as
-good throughput characteristics all members in a quorum queue
-"cluster" keep all messages in the queue in memory _and_ on disk.
+Quorum queues are optimised for data safety and performance and typically require more resources (disk and RAM)
+than classic mirrored queues under a steady workload. Each quorum queue process maintains an in-memory index of
+the messages in the queue, which requires at least 32 bytes of metadata for each message (more, if the message was returned or has a TTL set).
+A quorum queue process will therefore use at least 1MB for every 30000 messages in the queue (message size is irrelevant).
+You can perform back-of-the-envelope calculations based on the number of queues and expected or maximum number of messages in them).
+Keeping the queues short is the best way to maintain low memory usage. [Setting the maximum queue length](./maxlength.html)
+for all queues is a good way to limit the total memory usage if the queues become long for any reason.
 
-Quorum queues use a write-ahead-log (WAL) for all operations.
+Additionally, quorum queues on a given node share a write-ahead-log (WAL) for all operations.
 WAL operations are stored both in memory and written to disk.
 When the current WAL file reaches a predefined limit, it is flushed to a WAL segment file on disk
 and the system will begin to release the memory used by that batch of log entries.
@@ -762,7 +765,8 @@ raft.wal_max_size_bytes = 64000000
 </pre>
 
 The value defaults to 512 MiB. This means that during steady load, the WAL table memory
-footprint can reach 512 MiB.
+footprint can reach 512 MiB. You can expect your memory usage to look like this:
+<img class="screenshot" src="img/memory/quorum-queue-memory-usage-pattern.png" alt="Quorum Queues WAL memory usage pattern" title="Quorum Queues WAL memory usage pattern" />
 
 Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
@@ -770,9 +774,9 @@ More will be required in high-throughput systems. 4 times is a good starting poi
 
 ### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
 
-Before RabbitMQ 3.10 it was possible to limit the amount of memory each quorum queue will use for the part of its log that
-is kept in memory. Note that these limits are different from those of the [in-memory Raft WAL table](#resource-use)
-and [queue length limits](./maxlength.html).
+Before RabbitMQ 3.10 it was possible to limit the amount of memory each quorum queue will use for storing message bodies.
+Note that these limits are different from those of the [in-memory Raft WAL table](#resource-use) and [queue length limits](./maxlength.html).
+Starting from 3.10, quorum queues do not keep message bodies in memory.
 
 The limit is controlled using [optional queue arguments](./queues.html#optional-arguments)
 that are best configured using a [policy](./parameters.html#policies).
