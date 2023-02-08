@@ -22,7 +22,7 @@ export PATH := $(LIBXSLT)/bin:$(PATH)
 export LDFLAGS := "-L$(LIBXSLT)/lib"
 export CPPFLAGS := "-I$(LIBXSLT)/include"
 
-PIPENV := /usr/local/bin/pipenv
+PIPENV := pipenv
 endif
 
 ifeq ($(PLATFORM),Linux)
