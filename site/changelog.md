@@ -31,6 +31,17 @@ published separately.
 ## Releases
 
 <table id="changelog">
+  <!-- headers -->
+
+  <tr>
+    <th class="centre">Version</th>
+    <th class="centre">Release Date</th>
+    <th>Highlights</th>
+    <th class="centre">Release Notes</th>
+  </tr>
+
+  <!-- headers -->
+
   <tr>
     <td class="centre">3.11.9</td>
     <td class="centre">13 February 2023</td>
@@ -55,13 +66,6 @@ published separately.
     <td class="centre">
       <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.18">Release notes</a>
     </td>
-  </tr>
-
-  <tr>
-    <th class="centre">Version</th>
-    <th class="centre">Release Date</th>
-    <th>Highlights</th>
-    <th class="centre">Release Notes</th>
   </tr>
 
   <tr>
