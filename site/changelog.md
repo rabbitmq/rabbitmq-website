@@ -31,11 +31,68 @@ published separately.
 ## Releases
 
 <table id="changelog">
+  <!-- headers -->
+
   <tr>
     <th class="centre">Version</th>
     <th class="centre">Release Date</th>
     <th>Highlights</th>
     <th class="centre">Release Notes</th>
+  </tr>
+
+  <!-- headers -->
+
+  <tr>
+    <td class="centre">3.11.9</td>
+    <td class="centre">13 February 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.9">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.18</td>
+    <td class="centre">13 February 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.18">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.10.17</td>
+    <td class="centre">31 January 2023</td>
+    <td>
+      <ul>
+        <li>Important bug fix in the management plugin</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.17">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="centre">3.11.8</td>
+    <td class="centre">30 January 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Optimizations</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.11.8">Release notes</a>
+    </td>
   </tr>
 
   <tr>
@@ -44,7 +101,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>Optimizations</li>
+        <li>End of community (general) support for 3.10.x release series <a href="./versions.html">has been announced</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -70,7 +127,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>3.9.x release series <a href="./versions.html">has reached end of general support</a></li>
+        <li>3.9.x release series <a href="./versions.html">has reached end of community (general) support</a></li>
       </ul>
     </td>
     <td class="centre">

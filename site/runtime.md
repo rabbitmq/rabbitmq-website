@@ -28,7 +28,7 @@ as far as this guide is concerned are
  * The Erlang virtual machine executes the code
  * `epmd` resolves node names on a host to an [inter-node communication port](networking.html)
 
-This guide will focus on the virtual machine. For an overview of epmd, please refer to the
+This guide will focus on the virtual machine. For an overview of `epmd`, please refer to the
 [Networking guide](./networking.html#epmd-inet-dist-port-range).
 
 Topics covered include:

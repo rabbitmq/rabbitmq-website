@@ -268,6 +268,7 @@ In order to set up an apt repository that provides the correct package, a few
 decisions have to be made. One is determining the distribution name. It often
 matches the Debian or Ubuntu release used:
 
+ * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
  * `buster` for Debian Buster
@@ -285,6 +286,7 @@ with the RabbitMQ apt repository on PackageCloud.
 
 | Release         | Distribution |
 |-----------------|--------------|
+| Ubuntu 22.04    | `jammy`      |
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
@@ -488,6 +490,7 @@ In order to set up an apt repository that provides the correct package, a few
 decisions have to be made. One is determining the distribution name. It often
 matches the Debian or Ubuntu release used:
 
+ * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
  * `buster` for Debian Buster
@@ -504,6 +507,7 @@ with the RabbitMQ apt repository on PackageCloud.
 
 | Release         | Distribution |
 |-----------------|--------------|
+| Ubuntu 22.04    | `jammy`      |
 | Ubuntu 20.04    | `focal`      |
 | Ubuntu 18.04    | `bionic`     |
 | Debian Buster   | `buster`     |
@@ -978,6 +982,7 @@ RabbitMQ core team focus around package is on the current and prior release of D
 
 The repository currently supports the following Ubuntu distributions:
 
+ * Ubuntu 22.04 (Jammy)
  * Ubuntu 20.04 (Focal)
  * Ubuntu 18.04 (Bionic)
 
@@ -1056,6 +1061,7 @@ decisions have to be made. One is determining the distribution name. It typicall
 the Debian or Ubuntu release used but only a handful of distributions are
 supported (indexed) by the Erlang Debian packages maintained by Team RabbitMQ:
 
+ * `jammy` for Ubuntu 22.04
  * `focal` for Ubuntu 20.04
  * `bionic` for Ubuntu 18.04
  * `bionic` for Debian Buster and later versions
@@ -1071,6 +1077,7 @@ with the Launchpad repository.
 
 | Release         | Distribution Name |
 |-----------------|-----------|
+| Ubuntu 22.04    | `jammy`   |
 | Ubuntu 20.04    | `focal`   |
 | Ubuntu 18.04    | `bionic`  |
 | Debian Buster   | `bionic`  |

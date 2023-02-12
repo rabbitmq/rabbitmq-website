@@ -56,7 +56,7 @@ along with whether it has been delivered and acknowledged. There
 is therefore one queue index per queue.
 
 The message store is a key-value store for messages, shared
-among all queues in the server. Messages (the body, and any
+among all queues in each vhost. Messages (the body, and any
 metadata fields: properties and/or headers) can either be stored
 directly in the queue index, or written to the message store. There are
 technically two message stores (one for transient and one for

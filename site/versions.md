@@ -20,7 +20,7 @@ limitations under the License.
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 This guide explains what release series of RabbitMQ are currently covered by
-general or extended support policies, which release series is coming next, and
+community or extended commercial support policies, which release series is coming next, and
 what series are no longer supported.
 
 For guidance on upgrades, see the [Upgrade](./upgrade.html) and
@@ -33,8 +33,8 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
     <th>Version</th>
     <th>Latest Patch</th>
     <th>First Release</th>
-    <th>End of General Support<sup>1</sup></th>
-    <th>End of Extended Support<sup>2</sup></th>
+    <th>End of Community Support<sup>1</sup></th>
+    <th>End of Extended Commercial Support<sup>2</sup></th>
     <th>In service for</th>
   </tr>
 
@@ -49,11 +49,24 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 
   <tr>
     <td>3.10</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.16" target="_blank" rel="noopener noreferrer">3.10.16</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.18" target="_blank" rel="noopener noreferrer">3.10.18</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.0" target="_blank" rel="noopener noreferrer">3 May 2022</a></td>
     <td>31 July, 2023</td>
-    <td>30 April, 2024</td>
-    <td>18 months</td>
+    <td>30 December, 2023</td>
+    <td>19 months</td>
+  </tr>
+</table>
+
+## <a id="extended-support" class="anchor" href="#extended-support">Release Series That are Only Covered by Extended Support</a>
+
+<table class="release-series">
+  <tr>
+    <th>Version</th>
+    <th>Latest Patch</th>
+    <th>First Release</th>
+    <th>End of Community Support<sup>1</sup></th>
+    <th>End of Extended Commercial Support<sup>2</sup></th>
+    <th>In service for</th>
   </tr>
 
   <tr>
@@ -66,9 +79,15 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
   </tr>
 </table>
 
-<sup>1</sup> **General Support** means patch releases that are [produced regularly](./changelog.html) based on feedback from all users.
+## <a id="terminology" class="anchor" href="#terminology">Definition of Community and Extended Commercial Support</a>
 
-<sup>2</sup> **Extended Support** means *security patches* and *high-severity issues* reported by users with a [commercial license](./contact.html#paid-support).
+In January 2023, the term **general support** was replaced with **community support** to avoid confusion with
+VMware [terminology related to support lifecycle policy](https://tanzu.vmware.com/support/lifecycle_policy).
+
+<sup>1</sup> **Community Support** means patch releases are [produced regularly](./changelog.html) based on feedback from all users,
+both community and those with a commercial license.
+
+<sup>2</sup> **Extended Commercial Support** means patches are produced for security and high severity issues reported by users with a [commercial license](./contact.html#paid-support).
 
 
 ## <a id="" class="anchor" href="#next-release-series">Next Release Series</a>
