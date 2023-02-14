@@ -187,7 +187,7 @@ TTL can also be set on queues, not just queue contents.
 This feature can be used together with the [auto-delete queue property](queues.html).
 
 Setting TTL (expiration) on queues generally only makes sense
-for transient (non-durable) classic queues. Quorum queues and streams
+for transient (non-durable) classic queues. Streams
 do not support expiration.
 
 Queues will expire after a period of time only when they
