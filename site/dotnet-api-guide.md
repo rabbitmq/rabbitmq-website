@@ -27,6 +27,7 @@ Key sections of the guide are:
 
 * [Dependencies](#dependencies)
 * [Important interfaces and classes](#major-api-elements) in the public API
+* [Limitations](#limitations)
 * [Connecting to RabbitMQ](#connecting)
 * [Connection and Channel Lifespan](#connection-and-channel-lifespan)
 * [Client-provided connection name](#client-provided-names)
@@ -110,6 +111,14 @@ discover in the library implementation. Applications cannot rely on
 any classes, interfaces, member variables etc. that appear within
 private namespaces remaining stable across releases of the library.
 
+## <a id="limitations" class="anchor" href="#limitations">Limitations</a>
+
+This client does not support unsigned 64-bit integers, represented in
+type `ulong`. Attempting to encode `ulong` values will throw an exception.
+Read [this thread](https://github.com/rabbitmq/rabbitmq-dotnet-client/pull/1299#issuecomment-1433342924)
+for more details. In a few words: the spec [has an errata](https://www.rabbitmq.com/amqp-0-9-1-errata.html#section_3)
+since the final spec did not consider the implementations in-place by RabbitMQ/QPid
+(which were ambiguous in 0.9).
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
