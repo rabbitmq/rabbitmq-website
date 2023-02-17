@@ -115,10 +115,11 @@ private namespaces remaining stable across releases of the library.
 
 This client does not support unsigned 64-bit integers, represented in
 type `ulong`. Attempting to encode `ulong` values will throw an exception.
-Read [this thread](https://github.com/rabbitmq/rabbitmq-dotnet-client/pull/1299#issuecomment-1433342924)
-for more details. In a few words: the spec [has an errata](https://www.rabbitmq.com/amqp-0-9-1-errata.html#section_3)
-since the final spec did not consider the implementations in-place by RabbitMQ/QPid
-(which were ambiguous in 0.9).
+Note that signed 64-bit integers are supported.
+
+This is in part due to type marker [ambiguity in the AMQP 0-9-1 spec](https://www.rabbitmq.com/amqp-0-9-1-errata.html#section_3),
+and in part due to [the list of types supported by other popular clients](https://github.com/rabbitmq/rabbitmq-dotnet-client/pull/1299#issuecomment-1433342924).
+
 
 ## <a id="connecting" class="anchor" href="#connecting">Connecting to RabbitMQ</a>
 
