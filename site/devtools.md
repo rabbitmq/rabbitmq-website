@@ -148,6 +148,7 @@ Miscellaneous projects:
 
 ### Scala
 
+ * [Lepus (purely functional, non-blocking RabbitMQ client for scala, scala js and scala native)](https://github.com/hnaderi/lepus)
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
  * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
@@ -164,7 +165,7 @@ Miscellaneous projects:
 ### Clojure
 
  * [Langohr, a Clojure RabbitMQ client built on top of the official Java one](http://clojurerabbitmq.info)
-* [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
+ * [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
 
 ### JRuby
 
