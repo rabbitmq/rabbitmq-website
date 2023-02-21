@@ -148,7 +148,7 @@ Miscellaneous projects:
 
 ### Scala
 
- * [Lepus (purely functional, non-blocking RabbitMQ client for scala, scala js and scala native)](https://github.com/hnaderi/lepus)
+ * [Lepus](https://github.com/hnaderi/lepus): a purely functional, non-blocking RabbitMQ client for Scala, Scala.js and Scala Native
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
  * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
