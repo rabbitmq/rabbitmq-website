@@ -87,6 +87,24 @@ It is advisable to [pre-configure a new user with a generated username and passw
 the `guest` user or at least [change its password](rabbitmqctl.8.html#change_password)
 to reasonably secure generated value that won't be known to the public.
 
+Also note that if a blank (uninitialised) node [imports a definition file](https://www.rabbitmq.com/definitions.html#import-on-boot), it will not create the default virtual host and user. An equivalent default user can be created by including these defintions in the imported definitions file:
+```
+    "users": [
+        {
+            "name": "guest",
+            "password": "guest",
+            "tags": "administrator"
+        }
+    ],
+    "permissions":[
+        {
+            "user":"guest",
+            "vhost":"/",
+            "configure":".*",
+            "read":".*",
+            "write":".*"}
+    ],
+
 
 ## <a id="authentication" class="anchor" href="#authentication">Authentication: Who Do You Say You Are?</a>
 
