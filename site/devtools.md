@@ -112,6 +112,7 @@ Miscellaneous projects:
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
+ * [node-rabbitmq-client](https://github.com/cody-greene/node-rabbitmq-client): RabbitMQ (AMQP 0-9-1) client library with auto-reconnect, zero dependencies, TypeScript support, and Promise-based API.
 
 
 ## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
@@ -147,6 +148,7 @@ Miscellaneous projects:
 
 ### Scala
 
+ * [Lepus](https://github.com/hnaderi/lepus): a purely functional, non-blocking RabbitMQ client for Scala, Scala.js and Scala Native
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
  * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
@@ -163,7 +165,7 @@ Miscellaneous projects:
 ### Clojure
 
  * [Langohr, a Clojure RabbitMQ client built on top of the official Java one](http://clojurerabbitmq.info)
-* [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
+ * [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
 
 ### JRuby
 

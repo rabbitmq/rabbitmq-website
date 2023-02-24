@@ -237,7 +237,8 @@ failed to negotiate connection parameters: negotiated channel_max = 2047 is high
 
 ## <a id="monitoring" class="anchor" href="#monitoring">Monitoring, Metrics and Diagnostics</a>
 
-Number of currently open channels and channel opening/closure rates are important metrics
+Because they affect node resource use,
+the number of currently open channels and channel opening/closure rates are important metrics
 of the system that should be [monitored](./monitoring.html). Monitoring them will help detect a number of
 common problems:
 
