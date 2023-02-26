@@ -2297,6 +2297,13 @@ mv \
       <dd>Virtual host name with non-ASCII characters escaped as in C.</dd>
     </dl>
   </dd>
+  <dt id="decommission_mqtt_node"><a class="permalink" href="#decommission_mqtt_node"><code class="Cm">decommission_mqtt_node</code></a></dt>
+  <dd>Before the plugin is disabled on a node, or a node removed from the cluster, it must be decommissioned.
+    <p class="Pp">For example, this command will remove the node
+        &quot;rabbit@stringer&quot;:</p>
+    <p class="Pp"></p>
+    <div class="00"><code class="Li">rabbitmqctl decommission_mqtt_node rabbit@stringer</code></div>
+  </dd>
 </dl>
 </section>
 <section class="Ss">
