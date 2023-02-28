@@ -238,7 +238,7 @@ The current scope format is `&lt;permission>:&lt;vhost_pattern>/&lt;name_pattern
  * `<permission>` is an access permission (`configure`, `read`, or `write`)
  * `<vhost_pattern>` is a wildcard pattern for vhosts token has access to.
  * `<name_pattern>` is a wildcard pattern for resource name
- * `&lt;routing_key_pattern>` is an optional wildcard pattern for routing key in topic authorization
+ * `&lt;routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
 
 Wildcard patterns are strings with optional wildcard symbols `*` that match
 any sequence of characters.
