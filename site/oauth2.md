@@ -167,6 +167,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
 | `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
+| `auth_oauth2.preferred_username_claims`  | List of JWT claims to look for username associated to the token
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
 | `auth_oauth2.jwks_url`                   | The URL of key server. According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2) key server URL must be https.
@@ -184,6 +185,8 @@ Configure with key files
 <pre class="lang-ini">
 auth_oauth2.resource_server_id = new_resource_server_id
 auth_oauth2.additional_scopes_key = my_custom_scope_key
+auth_oauth2.preferred_username_claims.1 = username
+auth_oauth2.preferred_username_claims.2 = user_name
 auth_oauth2.default_key = id1
 auth_oauth2.signing_keys.id1 = test/config_schema_SUITE_data/certs/key.pem
 auth_oauth2.signing_keys.id2 = test/config_schema_SUITE_data/certs/cert.pem
@@ -265,6 +268,7 @@ These are the typical permissions examples:
 - `read:vhost1/*`(`read:vhost1/*/*`) - read permissions to any resource on the `vhost1` vhost
 - `read:vhost1/some*` - read permissions to all the resources, starting with `some` on the `vhost1` vhost
 - `write:vhost1/some*/routing*` - topic write permissions to publish to an exchange starting with `some` with a routing key starting with `routing`
+- `read:*/*/*` and `write:*/*/*` - queue binding permissions required to bind a queue on a topic exchange with any routing key
 
 See the [wildcard matching test suite](./test/wildcard_match_SUITE.erl) and [scopes test suite](./test/scope_SUITE.erl) for more examples.
 
