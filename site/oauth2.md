@@ -238,7 +238,7 @@ The current scope format is `&lt;permission>:&lt;vhost_pattern>/&lt;name_pattern
  * `<permission>` is an access permission (`configure`, `read`, or `write`)
  * `<vhost_pattern>` is a wildcard pattern for vhosts token has access to.
  * `<name_pattern>` is a wildcard pattern for resource name
- * `&lt;routing_key_pattern>` is an optional wildcard pattern for routing key in topic authorization
+ * `&lt;routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
 
 Wildcard patterns are strings with optional wildcard symbols `*` that match
 any sequence of characters.
@@ -266,7 +266,7 @@ These are the typical permissions examples:
 - `read:vhost1/some*` - read permissions to all the resources, starting with `some` on the `vhost1` vhost
 - `write:vhost1/some*/routing*` - topic write permissions to publish to an exchange starting with `some` with a routing key starting with `routing`
 
-See the [wildcard matching test suite](./test/wildcard_match_SUITE.erl) and [scopes test suite](./test/scope_SUITE.erl) for more examples.
+See the [wildcard matching test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/wildcard_match_SUITE.erl) and [scopes test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/scope_SUITE.erl) for more examples.
 
 Scopes should be prefixed with `resource_server_id`. For example,
 if `resource_server_id` is "my_rabbit", a scope to enable read from any vhost will
