@@ -29,6 +29,7 @@ This guide covers
     * [Resource Server ID and Scope Prefixes](#resource-server-id)
     * [Token validation](#token-validation)
     * [Scope-to-Permission Translation](#scope-translation)
+    * [Topic Exchange scopes](#topic-exchange-scopes)
     * [Using a different token field for the Scope](#use-different-token-field)
     * [Using Tokens with Clients](#use-tokens-with-clients)
     * [Scope and Tags](#scope-and-tags)
@@ -271,6 +272,24 @@ See the [wildcard matching test suite](https://github.com/rabbitmq/rabbitmq-serv
 Scopes should be prefixed with `resource_server_id`. For example,
 if `resource_server_id` is "my_rabbit", a scope to enable read from any vhost will
 be `my_rabbit.read:*/*`.
+
+### <a id="topic-exchange-scopes" class="anchor" href="#topic-exchange-scopes">Topic Exchange scopes</a>
+
+The [previous](#scope-translation) section explained, in detail, how permissions are mapped to scopes. This section explains more specifically what scopes you need in order to operate on **Topic Exchanges**.
+
+To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the following scopes:
+
+- **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
+> e.g. `rabbitmq.write:*/*/*`
+
+- **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
+> e.g. `rabbitmq.read:*/*/*`
+
+To publish to a **Topic Exchange**, you need to have the following scope:
+
+- **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
+> e.g. `rabbitmq.write:*/*/*`
+
 
 ### <a id="use-different-token-field" class="anchor" href="#use-different-token-field">Using a different token field for the Scope</a>
 
