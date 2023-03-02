@@ -161,10 +161,29 @@ To do so:
 
 ## <a id="computing-password-hash" class="anchor" href="#computing-password-hash">Computing Password Hashes</a>
 
-Sometimes it is necessary to compute a user's password hash, to updated via the [HTTP API](management.html)
-or generate a [definitions file](definitions.html) to import.
+Sometimes it is necessary to compute a user's password hash for updating via the [HTTP API](management.html)
+or to generate a [definitions file](definitions.html) to import.
 
-This is the algorithm:
+### Hash via `rabbitmqctl`
+
+<pre class="lang-bash">
+rabbitmqctl hash_password foobarbaz
+
+# Output:
+# Will hash password foobarbaz
+# 27cx5+wEi8R8uwTeTr3hk5azuV3yYxxAtwPPhCyrbdsxVhqq
+</pre>
+
+### Hash via HTTP API
+
+<pre class="lang-bash">
+curl -4su guest:guest -X GET localhost:15672/api/auth/hash_password/foobarbaz
+
+# Output:
+# {"ok":"TBybOvomyVw6BqBU/fHCEpVhDO7fLdQ4kxZDUpt6hagCxV8I"}
+</pre>
+
+### This is the algorithm:
 
  * Generate a random 32 bit salt. In this example, we will use `908D C60A`. When RabbitMQ creates or updates a user, a random salt is generated.
  * Concatenate the generated salt with the UTF-8 representation of the desired password.
