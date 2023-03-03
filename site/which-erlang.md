@@ -333,7 +333,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
     </td>
     <td>
       <ul>
-        <li>24.3</li>
+        <li>24.3.4.2</li>
       </ul>
     </td>
     <td>
