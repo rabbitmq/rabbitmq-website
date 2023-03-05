@@ -135,10 +135,10 @@ Miscellaneous projects:
 
 ## <a id="rust-dev" class="anchor" href="#rust-dev">Rust</a>
 
- * [Lapin](https://github.com/sozu-proxy/lapin), a Rust client
+ * [amqprs](https://github.com/gftea/amqprs), async Rust client, easy-to-use APIs, lock-free, tokio-based
  * &#x2713; [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
+ * [Lapin](https://github.com/sozu-proxy/lapin), a mature Rust client
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
- * [amqprs](https://github.com/gftea/amqprs), async Rust client, easy-to-use APIs, lock-free, tokio-based.
 
 ## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
 
