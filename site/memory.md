@@ -179,9 +179,14 @@ OS and a 64-bit [Erlang runtime](./which-erlang.html).
 
 ## <a id="paging" class="anchor" href="#paging">Configuring the Paging Threshold</a>
 
+This section **is obsolete** or not applicable for [quorum queues](./quorum-queues.html), [streams](./streams.html)
+and classic queues storage version 2 (CQv2). All of them
+actively move data to disk and do not generally accumulate a significant
+backlog of messages in memory.
+
 Before the broker hits the high watermark and blocks
 publishers, it will attempt to free up memory by instructing
-queues to page their contents out to disc. Both persistent
+CQv1 queues to page their contents out to disc. Both persistent
 and transient messages will be paged out (the persistent
 messages will already be on disc but will be evicted from
 memory).
@@ -201,12 +206,6 @@ vm_memory_high_watermark.relative = 0.4
 
 The above configuration starts paging at 30% of memory used, and
 blocks publishers at 40%.
-
-It is possible to
-set `vm_memory_high_watermark_paging_ratio` to a
-greater value than `1.0`. In this case queues
-will not page their contents to disc. If this causes the memory alarm
-to go off, then producers will be blocked as explained above.
 
 
 ## <a id="unrecognised-platforms" class="anchor" href="#unrecognised-platforms">Unrecognised Platforms</a>
