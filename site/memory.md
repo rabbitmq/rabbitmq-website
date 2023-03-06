@@ -32,6 +32,11 @@ A separate guide, [Reasoning About Memory Use](./memory-use.html), covers how to
 determine what consumes memory on a running RabbitMQ node for the purpose of
 [monitoring](./monitoring.html) or troubleshooting.
 
+Most of this guide **is obsolete** or not applicable for [quorum queues](./quorum-queues.html), [streams](./streams.html)
+and classic queues storage version 2 (CQv2). All of them
+actively move data to disk and do not generally accumulate a significant
+backlog of messages in memory.
+
 ## <a id="threshold" class="anchor" href="#threshold">Memory Threshold: What it is and How it Works</a>
 
 The RabbitMQ server detects the total amount of
