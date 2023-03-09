@@ -821,6 +821,36 @@ mv \
       my-vhost janeway &quot;^janeway-.*&quot; &quot;.*&quot;
       &quot;.*&quot;</code></div>
   </dd>
+  <dt id="set_permissions_globally"><a class="permalink" href="#set_permissions_globally"><code class="Cm">set_permissions_globally</code></a>
+    <var class="Ar">username</var>
+    <var class="Ar">conf</var>
+    <var class="Ar">write</var>
+    <var class="Ar">read</var></dt>
+  <dd>
+    <dl class="Bl-tag">
+      <dt><var class="Ar">username</var></dt>
+      <dd>The name of the user to grant access to the all virtual
+        hosts.</dd>
+      <dt><var class="Ar">conf</var></dt>
+      <dd>A regular expression matching resource names for which the user is
+          granted configure permissions.</dd>
+      <dt><var class="Ar">write</var></dt>
+      <dd>A regular expression matching resource names for which the user is
+          granted write permissions.</dd>
+      <dt><var class="Ar">read</var></dt>
+      <dd>A regular expression matching resource names for which the user is
+          granted read permissions.</dd>
+    </dl>
+    <p class="Pp">Sets user permissions for all virtual hosts. Introduced in 3.11.9.</p>
+    <p class="Pp">For example, this command instructs the RabbitMQ broker to
+        grant the user named &quot;janeway&quot; access to all virtual hosts,
+        with configure permissions on all resources
+        whose names starts with &quot;janeway-&quot;, and write and read
+        permissions on all resources:</p>
+    <p class="Pp"></p>
+    <div class="00"><code class="Li">rabbitmqctl set_permissions_globally janeway &quot;^janeway-.*&quot; &quot;.*&quot;
+      &quot;.*&quot;</code></div>
+  </dd>
   <dt id="set_topic_permissions"><a class="permalink" href="#set_topic_permissions"><code class="Cm">set_topic_permissions</code></a>
     [<code class="Fl">-p</code> <var class="Ar">vhost</var>]
     <var class="Ar">user</var> <var class="Ar">exchange</var>
