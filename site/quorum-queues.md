@@ -68,6 +68,11 @@ that users should find easier to reason about when designing and operating their
 These design choices come with constraints. To reach this goal, quorum queues adopt a different replication
 and consensus protocol and give up support for certain "transient" in nature features.
 These constraints and limitations are covered later in this guide.
+
+Quorum queues pass a [refactored and more demanding version](https://github.com/rabbitmq/jepsen#jepsen-tests-for-rabbitmq) of the [original Jepsen test](https://aphyr.com/posts/315-jepsen-rabbitmq#rabbit-as-a-queue).
+This ensures they behave as expected under network partitions and failure scenarios.
+The new test runs continuously to spot possible regressions and is enhanced regularly to test new features (e.g. [dead lettering](#dead-lettering)).
+
 ### <a id="what-is-quorum" class="anchor" href="#what-is-quorum">What is a Quorum?</a>
 
 If intentionally simplified, [quorum](https://en.wikipedia.org/wiki/Quorum_(distributed_computing)) in a distributed system can
