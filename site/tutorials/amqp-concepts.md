@@ -164,18 +164,17 @@ though that is not technically what is happening.
 
 A direct exchange delivers messages to queues based on the
 message routing key. A direct exchange is ideal for the unicast
-routing of messages (although they can be used for multicast
-routing as well). Here is how it works:
+routing of messages. They can be used for multicast
+routing as well.
+
+Here is how it works:
 
  * A queue binds to the exchange with a routing key K
  * When a new message with routing key R arrives at the
    direct exchange, the exchange routes it to the queue if K = R
-
-Direct exchanges are often used to distribute tasks between
-multiple workers (instances of the same application) in
-a round robin manner. When doing so, it is important to
-understand that, in AMQP 0-9-1, messages are load balanced
-between consumers and not between queues.
+ * If multiple queues are bound to a direct exchange with the same
+   routing key K, the exchange will route the message to all queues
+   for which K = R
 
 A direct exchange can be represented graphically as follows:
 
@@ -365,11 +364,13 @@ Each consumer (subscription) has an identifier called a
 _consumer tag_. It can be used to unsubscribe from
 messages. Consumer tags are just strings.
 
-### <a id="message-acknowledge" class="anchor" href="#message-acknowledge">Message Acknowledgements</a>
+### <a id="consumer-acknowledgements" class="anchor" href="#consumer-acknowledgements">Message Acknowledgements</a>
 
 [Consumer applications](../consumers.html) – that is, applications that receive and process
 messages – may occasionally fail to process individual
-messages or will sometimes just crash. There is also the possibility
+messages, lose connection to the server or fail in many other ways.
+
+There is also the possibility
 of network issues causing problems. This raises a question:
 when should the broker remove messages from queues? The
 AMQP 0-9-1 specification gives consumers control over this. There are
@@ -472,29 +473,6 @@ performance (just like with data stores, durability comes at a
 certain cost in performance).
 
 Learn more in the [Publishers guide](../publishers.html).
-
-
-## <a id="acknowledgements" class="anchor" href="#acknowledgements">Message Acknowledgements</a>
-
-Since networks are unreliable and applications fail,
-it is often necessary to have some kind of processing
-acknowledgement. Sometimes it is only necessary to
-acknowledge the fact that a message has been received. Sometimes
-acknowledgements mean that a message was validated and processed
-by a consumer, for example, verified as having mandatory data
-and persisted to a data store or indexed.
-
-This situation is very common, so AMQP 0-9-1 has a built-in
-feature called _message acknowledgements_ (sometimes
-referred to as _acks_) that consumers use to confirm
-message delivery and/or processing. If an application crashes
-(the AMQP broker notices this when the connection is closed), if
-an acknowledgement for a message was expected but not received
-by the AMQP broker, the message is re-queued (and possibly
-immediately delivered to another consumer, if any exists).
-
-Having acknowledgements built into the protocol helps
-developers to build more robust software.
 
 
 ## <a id="amqp-methods" class="anchor" href="#amqp-methods">AMQP 0-9-1 Methods</a>
