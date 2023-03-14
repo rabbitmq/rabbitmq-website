@@ -29,6 +29,10 @@ would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
 
+## <a id="workload-simulation" class="anchor" href="#workload-simulation">Load Testing and Workload Simulation</a>
+
+ * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](./quorum-queues.html) and classic queues
+ * &#x2713; [Stream PerfTest](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool) for [streams](./streams.html)
 
 ## <a id="java-dev" class="anchor" href="#java-dev">Java and Spring</a>
 
