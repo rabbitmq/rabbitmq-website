@@ -40,7 +40,7 @@ to quorum queues.
 For cases that would benefit from replication and repeatable reads, [streams](streams.html) may
 be a better option than quorum queues.
 
-## <a id="overview" class="anchor" href="#overview">Overview</a>
+## <a id="toc" class="anchor" href="#toc">Topics Covered</a>
 
 Topics covered in this guide include
 
