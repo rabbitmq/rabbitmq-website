@@ -129,7 +129,7 @@ Some features are not currently supported by quorum queues.
 | [Message TTL (Time-To-Live)](./ttl.html) | yes | yes ([since 3.10](https://blog.rabbitmq.com/posts/2022/05/rabbitmq-3.10-release-overview/)) |
 | [Queue TTL](./ttl.html#queue-ttl) | yes | partially (lease is not renewed on queue re-declaration) |
 | [Queue length limits](./maxlength.html) | yes | yes (except `x-overflow`: `reject-publish-dlx`) |
-| [Lazy behaviour](./lazy-queues.html) | yes | always (since 3.10) or through the [Memory Limit](#memory-limit) feature (before 3.10) |
+| [Lazy behaviour](./lazy-queues.html) | yes | always (since 3.10) |
 | [Message priority](./priority.html) | yes | no |
 | [Consumer priority](./consumer-priority.html) | yes | yes |
 | [Dead letter exchanges](./dlx.html) | yes | yes |
@@ -777,22 +777,6 @@ Because memory deallocation may take some time,
 we recommend that the RabbitMQ node is allocated at least 3 times the memory of the default WAL file size limit.
 More will be required in high-throughput systems. 4 times is a good starting point for those.
 
-### <a id="memory-limit" class="anchor" href="#memory-limit">Configuring Per Queue Memory Limit</a>
-
-Before RabbitMQ 3.10 it was possible to limit the amount of memory each quorum queue will use for storing message bodies.
-Note that these limits are different from those of the [in-memory Raft WAL table](#resource-use) and [queue length limits](./maxlength.html).
-Starting from 3.10, quorum queues do not keep message bodies in memory.
-
-The limit is controlled using [optional queue arguments](./queues.html#optional-arguments)
-that are best configured using a [policy](./parameters.html#policies).
-
- * `x-max-in-memory-length` sets a limit as a number of messages. Must be a non-negative integer.
- * `x-max-in-memory-bytes` sets a limit as the total size of message bodies (payloads), in bytes. Must be a non-negative integer.
-
-Since RabbitMQ 3.10 these settings are deprecated.
-They can still be set but have no effect.
-The new behaviour is effectively the same as setting `x-max-in-memory-length=0` keeping no message bodies in memory.
-
 ### <a id="repeated-requeues" class="anchor" href="#repeated-requeues">Repeated Requeues</a>
 
 Internally quorum queues are implemented using a log where all operations including
@@ -803,7 +787,7 @@ in that section needs to be acknowledged. Usage patterns that continuously
 could cause the log to grow in an unbounded fashion and eventually fill
 up the disks.
 
-Since RabbitMQ 3.10 messages that are rejected or nacked back to a quorum queue will be
+Messages that are rejected or nacked back to a quorum queue will be
 returned to the _back_ of the queue _if_ no [delivery-limit](#poison-message-handling) is set. This avoids
 the above scenario where repeated re-queues causes the Raft log to grow in an
 unbounded manner. If a `delivery-limit` is set it will use the original behaviour
