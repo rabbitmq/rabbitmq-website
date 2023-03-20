@@ -45,6 +45,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.11</li>
         <li>3.11.10</li>
         <li>3.11.9</li>
         <li>3.11.8</li>
@@ -328,6 +329,7 @@ source, including specific tags from GitHub, a much more pleasant experience.
   <tr>
     <td>
       <ul>
+        <li>3.9.29</li>
         <li>3.9.28</li>
       </ul>
     </td>
