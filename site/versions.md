@@ -71,7 +71,7 @@ For guidance on upgrades, see the [Upgrade](./upgrade.html) and
 
   <tr>
     <td>3.9</td>
-    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.28" target="_blank" rel="noopener noreferrer">3.9.28</a></td>
+    <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.29" target="_blank" rel="noopener noreferrer">3.9.29</a></td>
     <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.9.0" target="_blank" rel="noopener noreferrer">26 July 2021</a></td>
     <td>31 January, 2023</td>
     <td>31 July, 2023</td>

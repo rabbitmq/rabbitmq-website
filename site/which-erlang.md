@@ -45,6 +45,7 @@ For RabbitMQ releases that have reached end of life, see [Unsupported Series Com
   <tr>
     <td>
       <ul>
+        <li>3.11.11</li>
         <li>3.11.10</li>
         <li>3.11.9</li>
         <li>3.11.8</li>
@@ -328,7 +329,40 @@ source, including specific tags from GitHub, a much more pleasant experience.
   <tr>
     <td>
       <ul>
+        <li>3.9.29</li>
         <li>3.9.28</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>24.3.4.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>25.2</li>
+      </ul>
+    </td>
+    <td>
+      <ul class="notes">
+        <li>
+          24.3 is the only maintained (updated) series of Erlang 24.
+        </li>
+        <li>
+          As of Erlang 25.1, OpenSSL 3.0 support in Erlang is considered to
+          be mature enough to consider for production.
+        </li>
+        <li>
+          Erlang 25 before 25.0.2 and 24 before 24.3.4.2 are affected by <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-37026">CVE-2022-37026</a>,
+          a CVE with critical severity (CVSS 3.x Base Score: 9.8)
+        </li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <ul>
         <li>3.9.27</li>
         <li>3.9.26</li>
         <li>3.9.25</li>

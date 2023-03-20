@@ -31,10 +31,13 @@ Alternate Exchange ("AE") is a feature that addresses these use cases.
 
 ## <a id="define" class="anchor" href="#define">How to Define an Alternate Exchange</a>
 
-For any given exchange, an AE can be defined by clients using
+For any given exchange except for the default one, an AE can be defined by clients using
 [policies](parameters.html#policies). This is the recommended option
 as policies are significantly simplify changes to such options (e.g. during
 upgrades).
+
+In modern RabbitMQ versions, the default exchange is a special-cased convention in the code
+and not a "real" exchange. Therefore it does not support the alternate exchange feature.
 
 Alternatively, optional exchange arguments can be provided by client
 at exchange declaration time.
