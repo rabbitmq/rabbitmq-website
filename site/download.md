@@ -38,6 +38,11 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-ma
  * MacOS: [Homebrew](install-homebrew.html) | [Generic binary build](install-generic-unix.html)
  * [Erlang/OTP for RabbitMQ](./which-erlang.html)
 
+### RabbitMQ 3.12 Preview Releases
+
+ * RabbitMQ 3.12 is the next feature release, currently [available for community testing](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.12.0-beta.1),
+ including via the [community Docker image](https://hub.docker.com/_/rabbitmq/).
+
 ## VMware RabbitMQ® (Commercial Edition)
 
  * [VMware RabbitMQ®](https://tanzu.vmware.com/rabbitmq)
@@ -78,6 +83,7 @@ Other guides related to Kubernetes:
  * [RabbitMQ Cluster Kubernetes Operator](./kubernetes/operator/install-operator.html) by VMware (developed [on GitHub](https://github.com/rabbitmq/cluster-operator))
  * [VMware RabbitMQ® on Kubernetes](kubernetes/tanzu/installation.html)
  * [CloudAMQP](https://www.cloudamqp.com): RabbitMQ-as-a-Service available in multiple clouds
+ * [Amazon MQ for RabbitMQ](https://aws.amazon.com/amazon-mq/)
  * [Amazon EC2](ec2.html)
 
 ## Downloads [on GitHub](https://github.com/rabbitmq/rabbitmq-server/releases)

@@ -33,7 +33,8 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 * [Use advanced OAuth 2.0 configuration](#advanced-configuration)
 	- [Use custom scope field](#use-custom-scope-field)
 	- [Use multiple asymmetrical signing keys](#use-multiple-asymmetrical-signing-keys)
-	- [Use Scope Aliases](#use-scope-aliases)
+    - [Use Scope Aliases](#use-scope-aliases)
+    - [Preferred username claims](#preferred-username-claims)
 	- [Use Rich Authorization Requests tokens](#use-rar-tokens)
 * Use different OAuth 2.0 servers
 	- [KeyCloak](oauth2-examples-keycloak.html)
@@ -62,13 +63,18 @@ To understand the details of how to configure RabbitMQ with Oauth2, go to the [U
 
 ## <a id="getting-started-with-uaa-and-rabbitmq" class="anchor" href="#getting-started-with-uaa-and-rabbitmq">Getting started with UAA and RabbitMQ</a>
 
-Before proceed other more sophisiticated examples, let's start RabbitMQ fully configured with OAuth 2.0 plugin and
-UAA as an OAuth 2.0 Authorization Server.
+Before proceeding with other more sophisticated examples, let's start RabbitMQ configured with OAuth 2.0 plugin and
+[UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) as the OAuth 2.0 Authorization Server.
 
 In the next section, you
 will see how to set up UAA and RabbitMQ. If you are new to OAuth 2.0, it is a good starting point. If you already know OAuth 2.0
-and you want to learn how to configure RabbitMQ to talk to one of Oauth 2.0 server tested on this tutorial, you can jump
-straight to them. They are [KeyCloak](use-cases/keycloak.md), [https://auth0.com/](use-cases/oauth0.md) and [Azure Active Directory](use-cases/azure.md) in addition to UAA which you will use it in the next sections.
+and you want to learn how to configure RabbitMQ to talk to one of OAuth 2.0 server tested on this tutorial, you can jump
+straight to them. They are:
+
+- [KeyCloak](use-cases/keycloak.md)
+- [https://auth0.com/](use-cases/oauth0.md)
+- [Azure Active Directory](use-cases/azure.md)
+- [UAA](#uaa-asymmetrical-signing-keys)
 
 
 #### <a id="uaa-asymmetrical-signing-keys" class="anchor" href="#uaa-asymmetrical-signing-keys">Use Asymmetrical Digital Singing Keys</a>
@@ -639,6 +645,24 @@ make stop-perftest-producer PRODUCER=producer_with_roles
 make stop-perftest-consumer CONSUMER=consumer_with_roles
 </pre>
 
+### <a id="preferred-username-claims" class="anchor" href="#preferred-username-claims">Preferred username claims</a>
+
+RabbitMQ needs to figure out the username associated to the token so that it can display it in the management ui.
+By default, RabbitMQ will first look for the `sub` claim and if it is not found it uses the `client_id`.
+
+Most authorization servers return the user's GUID in the `sub` claim rather than the actual user's username or email address, anything the user can relate to. When the `sub` claim does not carry a *user-friendly username*, you can configure one or several claims to extract the username from the token.
+
+Given this configuration:
+
+```
+  ...
+  {rabbitmq_auth_backend_oauth2, [
+    {resource_server_id, <<"rabbitmq">>},
+    {preferred_username_claims, [<<"user_name">>,<<"email">>]},
+  ...
+```
+
+RabbitMQ would first look for the `user_name` claim and if it is not found it looks for `email`. Else it uses its default lookup mechanism which first looks for `sub` and then `client_id`.
 
 
 ### <a id="use-rar-tokens" class="anchor" href="#use-rar-tokens">Use Rich Authorization Request Tokens</a>

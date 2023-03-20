@@ -29,6 +29,10 @@ would like to see added to this list.
 
 *Note:* items with a check mark (&#x2713;) are officially supported by Team RabbitMQ and VMware.
 
+## <a id="workload-simulation" class="anchor" href="#workload-simulation">Load Testing and Workload Simulation</a>
+
+ * &#x2713; [PerfTest](https://perftest.rabbitmq.com/) for [quorum](./quorum-queues.html) and classic queues
+ * &#x2713; [Stream PerfTest](https://rabbitmq.github.io/rabbitmq-stream-java-client/stable/htmlsingle/#the-performance-tool) for [streams](./streams.html)
 
 ## <a id="java-dev" class="anchor" href="#java-dev">Java and Spring</a>
 
@@ -112,6 +116,7 @@ Miscellaneous projects:
  * [amqp-stats](https://github.com/timisbusy/node-amqp-stats): a node.js interface for RabbitMQ management statistics
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
+ * [node-rabbitmq-client](https://github.com/cody-greene/node-rabbitmq-client): RabbitMQ (AMQP 0-9-1) client library with auto-reconnect, zero dependencies, TypeScript support, and Promise-based API.
 
 
 ## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
@@ -134,10 +139,10 @@ Miscellaneous projects:
 
 ## <a id="rust-dev" class="anchor" href="#rust-dev">Rust</a>
 
- * [Lapin](https://github.com/sozu-proxy/lapin), a Rust client
+ * [amqprs](https://github.com/gftea/amqprs), async Rust client, easy-to-use APIs, lock-free, tokio-based
  * &#x2713; [RabbitMQ Stream Rust client](https://github.com/rabbitmq/rabbitmq-stream-rust-client)
+ * [Lapin](https://github.com/sozu-proxy/lapin), a mature Rust client
  * [amiquip](https://crates.io/crates/amiquip), a RabbitMQ client written in pure Rust
- * [amqprs](https://github.com/gftea/amqprs), async Rust client, easy-to-use APIs, lock-free, tokio-based.
 
 ## <a id="crystal-dev" class="anchor" href="#crystal-dev">Crystal</a>
 
@@ -147,6 +152,7 @@ Miscellaneous projects:
 
 ### Scala
 
+ * [Lepus](https://github.com/hnaderi/lepus): a purely functional, non-blocking RabbitMQ client for Scala, Scala.js and Scala Native
  * [RabbitMQ client for Scala](https://github.com/sstone/amqp-client)
  * [Akka-based RabbitMQ client for Scala](https://github.com/thenewmotion/akka-rabbitmq)
  * [Op-Rabbit](https://github.com/SpinGo/op-rabbit), an opinionated Akka-based RabbitMQ client for Scala
@@ -163,7 +169,7 @@ Miscellaneous projects:
 ### Clojure
 
  * [Langohr, a Clojure RabbitMQ client built on top of the official Java one](http://clojurerabbitmq.info)
-* [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
+ * [Bunnicula, Component based framework for Clojure built on top of the official Java one](https://github.com/nomnom-insights/nomnom.bunnicula)
 
 ### JRuby
 

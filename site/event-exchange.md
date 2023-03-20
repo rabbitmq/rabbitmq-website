@@ -62,7 +62,7 @@ translated into AMQP 0-9-1 data encoding and inserted in the message headers. Th
 
 ## Events
 
-RabbitMQ and related plugins emit events with the following routing keys:
+RabbitMQ and related plugins produce events with the following routing keys:
 
 ### RabbitMQ Broker
 

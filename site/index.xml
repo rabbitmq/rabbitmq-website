@@ -236,6 +236,7 @@ limitations under the License.
                 VMware provides <a href="https://tanzu.vmware.com/rabbitmq#contact-form">support for open source RabbitMQ</a>,
                 available for a subscription fee. The following companies provide technical support and/or cloud hosting of open source RabbitMQ:
                 <a href="https://www.cloudamqp.com/">CloudAMQP</a>,
+                <a href="https://aws.amazon.com/amazon-mq/">Amazon MQ for RabbitMQ</a>,
                 <a href="https://www.erlang-solutions.com/products/rabbitmq.html">Erlang Solutions</a>,
                 <a href="https://acemq.com/rabbitmq/">AceMQ</a>,
                 <a href="http://www.visualintegrator.com/rmq/">Visual Integrator, Inc</a>,

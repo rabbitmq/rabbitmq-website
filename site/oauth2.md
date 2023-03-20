@@ -29,6 +29,7 @@ This guide covers
     * [Resource Server ID and Scope Prefixes](#resource-server-id)
     * [Token validation](#token-validation)
     * [Scope-to-Permission Translation](#scope-translation)
+    * [Topic Exchange scopes](#topic-exchange-scopes)
     * [Using a different token field for the Scope](#use-different-token-field)
     * [Using Tokens with Clients](#use-tokens-with-clients)
     * [Scope and Tags](#scope-and-tags)
@@ -167,6 +168,7 @@ NOTE: `jwks_url` takes precedence over `signing_keys` if both are provided.
 | `auth_oauth2.resource_server_id`         | [The Resource Server ID](#resource-server-id-and-scope-prefixes)
 | `auth_oauth2.resource_server_type`       | [The Resource Server Type](#rich-authorization-request)
 | `auth_oauth2.additional_scopes_key`      | Configure the plugin to also look in other fields (maps to `additional_rabbitmq_scopes` in the old format).
+| `auth_oauth2.preferred_username_claims`  | List of JWT claims to look for username associated to the token
 | `auth_oauth2.default_key`                | ID of the default signing key.
 | `auth_oauth2.signing_keys`               | Paths to signing key files.
 | `auth_oauth2.jwks_url`                   | The URL of key server. According to the [JWT Specification](https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.2) key server URL must be https.
@@ -184,6 +186,8 @@ Configure with key files
 <pre class="lang-ini">
 auth_oauth2.resource_server_id = new_resource_server_id
 auth_oauth2.additional_scopes_key = my_custom_scope_key
+auth_oauth2.preferred_username_claims.1 = username
+auth_oauth2.preferred_username_claims.2 = user_name
 auth_oauth2.default_key = id1
 auth_oauth2.signing_keys.id1 = test/config_schema_SUITE_data/certs/key.pem
 auth_oauth2.signing_keys.id2 = test/config_schema_SUITE_data/certs/cert.pem
@@ -238,7 +242,7 @@ The current scope format is `&lt;permission>:&lt;vhost_pattern>/&lt;name_pattern
  * `<permission>` is an access permission (`configure`, `read`, or `write`)
  * `<vhost_pattern>` is a wildcard pattern for vhosts token has access to.
  * `<name_pattern>` is a wildcard pattern for resource name
- * `&lt;routing_key_pattern>` is an optional wildcard pattern for routing key in topic authorization
+ * `&lt;routing_key_pattern>` is a wildcard pattern for routing key in topic authorization
 
 Wildcard patterns are strings with optional wildcard symbols `*` that match
 any sequence of characters.
@@ -265,12 +269,31 @@ These are the typical permissions examples:
 - `read:vhost1/*`(`read:vhost1/*/*`) - read permissions to any resource on the `vhost1` vhost
 - `read:vhost1/some*` - read permissions to all the resources, starting with `some` on the `vhost1` vhost
 - `write:vhost1/some*/routing*` - topic write permissions to publish to an exchange starting with `some` with a routing key starting with `routing`
+- `read:*/*/*` and `write:*/*/*` - queue binding permissions required to bind a queue on a topic exchange with any routing key
 
 See the [wildcard matching test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/wildcard_match_SUITE.erl) and [scopes test suite](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbitmq_auth_backend_oauth2/test/scope_SUITE.erl) for more examples.
 
 Scopes should be prefixed with `resource_server_id`. For example,
 if `resource_server_id` is "my_rabbit", a scope to enable read from any vhost will
 be `my_rabbit.read:*/*`.
+
+### <a id="topic-exchange-scopes" class="anchor" href="#topic-exchange-scopes">Topic Exchange scopes</a>
+
+The [previous](#scope-translation) section explained, in detail, how permissions are mapped to scopes. This section explains more specifically what scopes you need in order to operate on **Topic Exchanges**.
+
+To bind and/or unbind a queue to/from a **Topic Exchange**, you need to have the following scopes:
+
+- **write** permission on the queue and routing key -> `rabbitmq.write:<vhost>/<queue>/<routingkey>`
+> e.g. `rabbitmq.write:*/*/*`
+
+- **read** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
+> e.g. `rabbitmq.read:*/*/*`
+
+To publish to a **Topic Exchange**, you need to have the following scope:
+
+- **write** permission on the exchange and routing key -> `rabbitmq.write:<vhost>/<exchange>/<routingkey>`
+> e.g. `rabbitmq.write:*/*/*`
+
 
 ### <a id="use-different-token-field" class="anchor" href="#use-different-token-field">Using a different token field for the Scope</a>
 

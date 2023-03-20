@@ -77,13 +77,16 @@ new user accounts with generated credentials instead.
 ## <a id="default-state" class="anchor" href="#default-state">Default Virtual Host and User</a>
 
 When the server first starts running, and detects that its
-database is uninitialised or has been deleted, it
+database is uninitialised or has been reset or deleted (the node is a "blank node"), it
 initialises a fresh database with the following resources:
 
  * a [virtual host](./vhosts.html) named <code>/</code> (a slash)
  * a user named <code>guest</code> with a default password of <code>guest</code>, granted full access to the <code>/</code> virtual host
 
-It is advisable to [pre-configure a new user with a generated username and password](#seeding) or [delete](rabbitmqctl.8.html#delete_user)
+If a blank node [imports definitions on boot](/definitions.html#import-on-boot-nuances),
+this default user will not be created.
+
+It is **highly recommended** to [pre-configure a new user with a generated username and password](#seeding) or [delete](rabbitmqctl.8.html#delete_user)
 the `guest` user or at least [change its password](rabbitmqctl.8.html#change_password)
 to reasonably secure generated value that won't be known to the public.
 

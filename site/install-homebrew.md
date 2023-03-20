@@ -51,7 +51,7 @@ or `/opt/homebrew/Cellar/rabbitmq/{version}/` for Apple Silicon Macs.
 They should be accessible from `/usr/local/opt/rabbitmq/sbin` for for Intel Macs or `/opt/homebrew/opt/rabbitmq/sbin` for Apple Silicon Macs.
 Links to binaries have been created under `/usr/local/sbin` for Intel Macs or `/opt/homebrew/sbin` for Apple Silicon ones.
 
-To find out locations for your installation, use
+To find out locations for your installation, use:
 
 <pre class="lang-bash">
 brew info rabbitmq
@@ -67,13 +67,13 @@ Homebrew formula uses [generic UNIX binary builds](./install-generic-unix.html) 
 
 #### Starting the Server
 
-To start a node in the foreground, run
+To start a node in the foreground, run:
 
 <pre class="lang-bash">
 CONF_ENV_FILE="/opt/homebrew/etc/rabbitmq/rabbitmq-env.conf" /opt/homebrew/opt/rabbitmq/sbin/rabbitmq-server
 </pre>
 
-To start a node in the background, use `brew service start`:
+To start a node in the background, use `brew services start`:
 
 <pre class="lang-bash">
 brew services start rabbitmq
@@ -81,7 +81,7 @@ brew services start rabbitmq
 
 #### Stopping the Server
 
-To stop a running node, use
+To stop a running node, use:
 
 <pre class="lang-bash">
 brew services stop rabbitmq
@@ -94,12 +94,12 @@ or CLI tools directly:
 </pre>
 
 The command will wait for the node process to stop. If the target node is not running,
-it will exit with an error.
+it will exit with a warning.
 
 #### Configuring the Server
 
 File and directory locations used by Homebrew differ from Intel Macs to Apple Silicon ones.
-To find out locations for your installation, use
+To find out locations for your installation, use:
 
 <pre class="lang-bash">
 brew info rabbitmq
@@ -117,7 +117,7 @@ See RabbitMQ [configuration guide](configure.html) to learn more.
 
 The formula sets up links to CLI tools under `/usr/local/sbin` for Intel Macs or `/opt/homebrew/sbin` for Apple Silicon Macs.
 
-In case that directory is not in `PATH` it's recommended to append it:
+In case that directory is not in `PATH`, it is recommended to append it:
 
 <pre class="lang-bash">
 # for macOS Intel

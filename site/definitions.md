@@ -146,13 +146,39 @@ definitions.https.url = https://raw.githubusercontent.com/rabbitmq/sample-config
 definitions.tls.versions.1 = tlsv1.2
 </pre>
 
+### <a id="import-on-boot-nuances" class="anchor" href="#import-on-boot-nuances">Nuances of Boot-time Definition Import</a>
 
 Definition import happens after plugin activation. This means that definitions related
 to plugins (e.g. dynamic Shovels, exchanges of a custom type, and so on) can be imported at boot time.
 
 The definitions in the file will not overwrite anything already in the broker.
-However, if a blank (uninitialised) node imports a definition file, it will
-not create the default virtual host and user.
+
+If a blank (uninitialised) node imports a definition file, it will
+not create the default virtual host and user. In **test or QA**  environments,
+an equivalent default user can be created via the same definitions file.
+
+For **production** systems a new user with unique credentials must be created and used instead.
+
+The below snippet demonstrates how the definitions file can be modified to
+"re-create" the default user that would only be able to connect from `localhost` by default:
+
+<pre class="lang-javascript">
+    "users": [
+        {
+            "name": "guest",
+            "password": "guest",
+            "tags": ["administrator"]
+        }
+    ],
+    "permissions":[
+        {
+            "user":"guest",
+            "vhost":"/",
+            "configure":".*",
+            "read":".*",
+            "write":".*"}
+    ],
+</pre>
 
 ### <a id="import-on-boot-skip-if-unchanged" class="anchor" href="#import-on-boot-skip-if-unchanged">Avoid Boot Time Import if Definition Contents Have Not Changed</a>
 
