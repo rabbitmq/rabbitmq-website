@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<!ENTITY version-java-client "5.16.0">
+<!ENTITY version-java-client "5.17.0">
 <!ENTITY version-dotnet-client "6.4.0">
 <!ENTITY version-server "3.11.11">
 <!ENTITY version-server-series "v3.11.x">
