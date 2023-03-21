@@ -22,7 +22,7 @@ limitations under the License.
 This guide covers RabbitMQ installation on Debian, Ubuntu and distributions based on one of them.
 
 RabbitMQ is included in standard Debian and Ubuntu repositories.
-However, the versions included are
+However, the [versions included](https://packages.ubuntu.com/search?keywords=rabbitmq-server&searchon=names&suite=all&section=all) are
 many releases behind [latest RabbitMQ releases](changelog.html)
 and may provide RabbitMQ versions that are already [out of support](versions.html).
 
