@@ -117,6 +117,7 @@ Miscellaneous projects:
  * [Rascal](https://github.com/guidesmiths/rascal): a config driven wrapper for [amqp.node](https://github.com/squaremo/amqp.node) supporting multi-host connections,
    automatic error recovery, redelivery flood protection, transparent encryption and channel pooling.
  * [node-rabbitmq-client](https://github.com/cody-greene/node-rabbitmq-client): RabbitMQ (AMQP 0-9-1) client library with auto-reconnect, zero dependencies, TypeScript support, and Promise-based API.
+ * [ComQ](https://github.com/toa-io/comq): Production grade RPC and pub/sub.
 
 
 ## <a id="go-dev" class="anchor" href="#go-dev">Go</a>
