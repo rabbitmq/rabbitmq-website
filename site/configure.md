@@ -1434,6 +1434,7 @@ dedicated documentation guides that cover plugin configuration:
  * [rabbitmq_shovel](shovel.html)
  * [rabbitmq_federation](federation.html)
  * [rabbitmq_auth_backend_ldap](./ldap.html)
+ * [rabbitmq_auth_backend_oauth](./oauth2.html#variables-configurable)
 
 ### <a id="configuration-encryption" class="anchor" href="#configuration-encryption">Configuration Value Encryption</a>
 
