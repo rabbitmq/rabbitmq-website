@@ -43,6 +43,20 @@ published separately.
   <!-- headers -->
 
   <tr>
+    <td class="centre">3.10.20</td>
+    <td class="centre">22 March 2023</td>
+    <td>
+      <ul>
+        <li>Bug fixes</li>
+        <li>Usability improvements</li>
+      </ul>
+    </td>
+    <td class="centre">
+      <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.10.20">Release notes</a>
+    </td>
+  </tr>
+
+  <tr>
     <td class="centre">3.11.11</td>
     <td class="centre">20 March 2023</td>
     <td>
