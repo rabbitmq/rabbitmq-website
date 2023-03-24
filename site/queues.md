@@ -49,7 +49,8 @@ Some key topics covered in this guide are
  * [TTL](#ttl-and-limits) and length limits
  * [Priority queues](#priorities)
 
-For topics related to consumers, see the [Consumers guide](consumers.html). [Quorum queues](quorum-queues.html)
+For topics related to consumers, see the [Consumers guide](consumers.html).
+[Classic queues](classic-queues.html), [quorum queues](quorum-queues.html)
 and [streams](streams.html) also have dedicated guides.
 
 ## <a id="basics" class="anchor" href="#basics">The Basics</a>
@@ -136,7 +137,7 @@ pairs that can be provided by clients when a queue is declared.
 
 The map is used by various features and plugins such as
 
- * Queue type (e.g. [quorum](quorum-queues.html) or classic)
+ * Queue type (e.g. [quorum](quorum-queues.html) or [classic](classic-queues.html))
  * [Message and queue TTL](ttl.html)
  * [Queue length limit](maxlength.html)
  * Max number of [priorities](priority.html)

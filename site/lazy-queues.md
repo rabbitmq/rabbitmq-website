@@ -19,7 +19,13 @@ classic queues will remain a supported non-replicated queue type.
 
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
-Classic queues can operate in **lazy mode**: that is,
+Until **RabbitMQ 3.12**, classic queues could operate in **lazy mode**.
+As of RabbitMQ 3.12 the queue mode is ignored and classic queues
+behave in a similar manner to lazy queues. They may however
+keep a small number of messages in memory (up to 2048 at the
+time of writing) based on the consumption rate.
+
+Classic queues operating in **lazy mode**
 move their contents to disk as early as practically possible,
 and only load them in RAM when requested by consumers,
 therefore the lazy denomination.

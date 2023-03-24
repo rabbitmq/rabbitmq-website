@@ -1,0 +1,253 @@
+<!--
+Copyright (c) 2007-2023 VMware, Inc. or its affiliates.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+# Classic Queues
+
+## <a id="overview" class="anchor" href="#overview">Overview</a>
+
+The classic queue is the basic queue type for RabbitMQ implementing a
+non-replicated FIFO queue.
+
+Classic queues are a versatile queue type suitable for many use cases
+where data safety is not a top priority, because the data stored in
+classic queues is not replicated. If data safety is important,
+we recommend using quorum queues or streams.
+
+## <a id="features" class="anchor" href="#features">Features</a>
+
+Classic queues fully support [queue exclusivity](queues.html),
+[queue and message TTL (Time-To-Live)](./ttl.html),
+[queue length limits](./maxlength.html),
+[message priority](./priority.html),
+[consumer priority](./consumer-priority.html)
+and adhere to [policies](./parameters.html#policies).
+
+Classic queues support [dead letter exchanges](./dlx.html) with
+the exception of [at-least-once dead-lettering](./quorum-queues.html#dead-lettering).
+
+Messages stored in classic queues are always persisted to disk
+except in the following case: the queue is declared as transient,
+messages are transient and publisher confirms are not used.
+
+Classic queues do not currently support [poison message](https://en.wikipedia.org/wiki/Poison_message)
+handling, unlike Quorum Queues. Similarly, classic queues do not currently
+support at-least-once dead-lettering, unlike Quorum Queues.
+
+[Per-consumer QoS prefetch](./consumer-prefetch.html) should be
+preferred over global QoS prefetch, even though classic queues support
+the latter feature. This functionality is deprecated and will be
+removed in **RabbitMQ 4.0**.
+
+While classic queues can be declared as transient, this makes queue
+removal difficult to reason about and should not be used. This
+functionality is deprecated and will be removed in **RabbitMQ 4.0**.
+
+Classic queues can be mirrored across multiple nodes in the
+cluster. This functionality is deprecated and will be removed
+in **RabbitMQ 4.0**. [Quorum queues](./quorum-queues.html)
+provide a better alternative when high availability and
+data safety is required.
+
+Until **RabbitMQ 3.12**, classic queues could operate in **lazy mode**.
+As of RabbitMQ 3.12 the queue mode is ignored and classic queues
+behave in a similar manner to lazy queues. They only keep a small
+number of messages in memory based on the consumption rate;
+all other messages are written to disk directly.
+
+## <a id="how-it-works" class="anchor" href="#how-it-works">How Class Works</a>
+
+Classic queues use a layered design. At their core the queue
+backend uses an index for storing message locations on disk
+as well as a message store for persisting messages.
+
+Both persistent and transient messages can be written to disk.
+Persistent messages and transient messages sent with publisher
+confirms enabled will be written to disk as soon as they reach
+the queue. Other transient messages will likely be written to
+disk as well unless there is a chance that they will be
+consumed fairly quickly.
+
+In general messages are not kept in memory unless the rate of
+consumption of messages is high enough that the messages that
+are in memory are expected to be consumed within the next
+second. Classic queues keep up to 2048 messages in memory,
+depending on the consume rate. Larger messages are not read
+into memory until they have to be sent to consumers.
+
+Persisted messages may be _embedded_ in the queue or sent
+to a _shared message store_. The decision to store messages
+in the queue or in the shared message store is based on the
+size of the message, including headers. The shared message
+store is more efficient at handling larger messages,
+particularly when those messages are sent to multiple
+queues.
+
+The message location is written in the queue's index.
+Each queue has one index. The queue is responsible for
+tracking messages location as well as their position
+in the queue, and it persists this information in the
+index.
+
+Embedded messages are written in its queue index when
+using classic queues version 1; and in its
+_per-queue message store_ when using classic
+queues version 2.
+
+Larger messages are written in a shared message store.
+Each vhost has two such stores: one for persistent
+messages and one for transient messages, but they
+are usually considered together as the shared message
+store. All queues in the vhost use the same message
+store.
+
+### <a id="versions" class="anchor" href="#versions">Versions</a>
+
+There are currently two classic queue versions. The classic queue will
+use a different index for messages depending on the version, as well
+as operate differently regarding the embedding of small messages in
+the index.
+
+Version 1 is the default and the historical implementation of classic
+queues. The index in version 1 uses a combination of a journal and
+segment files. When reading messages from segment files it loads
+an entire segment file in memory, which can lead to memory issues
+but does reduce the amount of I/O performed. Version 1 embeds
+small messages in the index, further worsening memory issues.
+
+Version 2 takes advantage of the improved performance of modern
+storage devices and is the recommended version. The index in
+version 2 only uses segment files and only loads messages from
+disk when necessary. It will load more messages based on the
+current consumption rate. Version 2 does not embed messages
+in its index, instead a per-queue message store is used.
+
+Version 2 was added in **RabbitMQ 3.10.0**. It is possible to
+switch back and forth between version 1 and version 2.
+
+The version can be changed using the `queue-version` policy.
+When setting a new version via policy the queue will immediately
+convert its data on disk. It is possible to upgrade to version 2
+or downgrade to version 1. Note that for large queues the conversion
+may take some time and results in the queue being unavailable while
+the conversion is running.
+
+The default version can be set through configuration by setting
+`classic_queue.default_version` in rabbitmq.conf.
+
+## <a id="resource-use" class="anchor" href="#resource-use">Resource Use</a>
+
+Classic queues aim to provide reasonably good throughput in the majority
+of situations without configuration. However, some configuration is
+soemtimes useful. This section covers a few configurable values that
+affect stability, throughput, latency and I/O characteristics of a node.
+Consider getting accustomed to [benchmarking with PerfTest](https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/)
+in addition to get the most out of your queues.
+
+Some related guides include:
+
+ * [Main configuration guide](configure.html)
+ * [File and Directory Locations](./relocate.html)
+ * [Runtime Tuning](./runtime.html)
+ * [Queues](./queues.html#runtime-characteristics) and their runtime characteristics
+
+### <a id="file-handles" class="anchor" href="#file-handles">File Handles</a>
+
+The RabbitMQ server is limited in the [number of file handles](./networking.html#open-file-handle-limit)
+it can open. Every running network connection requires one file handle,
+and the rest are available for queues to use.
+
+Classic queues behave differently with regard to file handle
+usage depending on the version used.
+
+Version 1 tries to avoid running out of file descriptors.
+If there are more disk-accessing queues than
+file handles after network connections have been taken into
+account, then the disk-accessing queues will share the file
+handles among themselves; each gets to use a file handle for a
+while before it is taken back and given to another queue.
+
+This prevents the server from crashing due to there being too
+many disk-accessing queues, but it can become expensive. The
+management plugin can show I/O statistics for each node in the
+cluster; as well as showing rates of reads, writes, seeks and so
+on it will also show a rate of file handle churn — the rate at
+which file handles are recycled in this way. A busy server with
+too few file handles might be doing hundreds of reopens per
+second - in which case its performance is likely to increase
+notably if given more file handles.
+
+Version 2 does not try to accomodate for low numbers of file
+descriptors anymore. It expects servers to have a large file
+descriptor limit configured and to always be able to open a
+new file handle when necessary. The index keeps up to 4 file
+handles open at any time, and the per-queue store keeps 1
+file handle open but may open another one when flushing data
+to disk. This means that each queue needs up to 6 file
+descriptors available to properly function, in theory. In
+practice only busy queues will need that many; other queues
+will function just fine with 3 or 4 file handles.
+
+As a result from not using the file handle management subsystem,
+version 2 does not track as many I/O statistics; only the numbers
+of reads and writes. Other metrics can be obtained at the OS level.
+
+### <a id="memory-costs" class="anchor" href="#memory-costs">Memory Costs</a>
+
+Classic queues may keep up to 2048 messages in memory, depending
+on the consume rate. Classic queues will however avoid reading
+larger messages from disk too early. In **RabbitMQ 3.12** this
+means messages larger than the embed size.
+
+The index in version 1 has to read entire segment files in order
+to access the messages inside. This can lead to memory usage spikes,
+especially when many messages are embedded. This also leads to
+spikes in CPU usage due to increased garbage collection. In addition,
+the index will buffer writes and keep data up to 1MB in memory
+before flushing to disk.
+
+The index and per-queue store in version 2 will buffer entries.
+This is typically not a concern as far as the index is concerned
+since it only tracks metadata. The per-queue store will however
+use up to 1MB of memory by default (512KB in the write buffer
+and 512KB in a cache). When flushing to disk the store will
+first clear the cache then move the messages in the write buffer
+to the cache, effectively replacing the data in the cache with
+the data in the write buffer. The size of the write buffer and
+the cache are therefore linked. It can be configured using the
+advanced config via rabbit's `classic_queue_store_v2_max_cache_size`
+parameter.
+
+Idle queues will reduce their memory usage. This can sometimes
+result in surprising spikes when performing operations that
+affect many queues, such as defining new policies. In that case
+the queues will need to allocate more memory again. The more
+queues, the bigger the spike should be expected.
+
+The shared message store needs an index. The default message store
+index uses a small amount of memory for every message in the store.
+
+#### <a id="msg-store-index-implementations" class="anchor" href="#msg-store-index-implementations">Alternate Message Store Index Implementations</a>
+
+As mentioned above, each message which is written to the message
+store uses a small amount of memory for its index entry. The
+message store index is pluggable in RabbitMQ, and other
+implementations are available as plugins which can remove this
+limitation.
+
+The reason they are not shipped with the RabbitMQ distribution is
+that they all use native code. Note that such plugins typically
+make the message store run more slowly.

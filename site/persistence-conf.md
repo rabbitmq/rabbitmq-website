@@ -17,6 +17,8 @@ limitations under the License.
 
 # Persistence Configuration
 
+TODO remove/redirect
+
 ## <a id="overview" class="anchor" href="#overview">Overview</a>
 
 The RabbitMQ persistence layer is intended to provide reasonably good throughput
