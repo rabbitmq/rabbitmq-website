@@ -76,7 +76,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>3.9.x release series <a href="./versions.html">has reached end of community (general) support</a></li>
+        <li>3.9.x release series <a href="./versions.html">is out of community (general) support</a></li>
       </ul>
     </td>
     <td class="centre">
@@ -195,7 +195,7 @@ published separately.
     <td>
       <ul>
         <li>Bug fixes</li>
-        <li>3.9.x release series <a href="./versions.html">has reached end of community (general) support</a></li>
+        <li>3.9.x release series <a href="./versions.html">is now out of community (general) support</a></li>
       </ul>
     </td>
     <td class="centre">
